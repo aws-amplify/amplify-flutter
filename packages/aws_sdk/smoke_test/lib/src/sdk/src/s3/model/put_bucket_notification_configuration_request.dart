@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.put_bucket_notification_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -193,13 +194,10 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.NotificationConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutBucketNotificationConfigurationRequest
-        ? object.getPayload()
-        : (object as _i2.NotificationConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'NotificationConfiguration',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -210,9 +208,9 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
       :queueConfigurations,
       :lambdaFunctionConfigurations,
       :eventBridgeConfiguration
-    ) = payload;
+    ) = object;
     if (topicConfigurations != null) {
-      result.addAll(
+      result$.addAll(
           const _i1.XmlBuiltListSerializer(memberName: 'TopicConfiguration')
               .serialize(
         serializers,
@@ -224,7 +222,7 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
       ));
     }
     if (queueConfigurations != null) {
-      result.addAll(
+      result$.addAll(
           const _i1.XmlBuiltListSerializer(memberName: 'QueueConfiguration')
               .serialize(
         serializers,
@@ -236,7 +234,7 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
       ));
     }
     if (lambdaFunctionConfigurations != null) {
-      result.addAll(const _i1.XmlBuiltListSerializer(
+      result$.addAll(const _i1.XmlBuiltListSerializer(
               memberName: 'CloudFunctionConfiguration')
           .serialize(
         serializers,
@@ -248,13 +246,13 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
       ));
     }
     if (eventBridgeConfiguration != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('EventBridgeConfiguration'))
         ..add(serializers.serialize(
           eventBridgeConfiguration,
           specifiedType: const FullType(_i7.EventBridgeConfiguration),
         ));
     }
-    return result;
+    return result$;
   }
 }

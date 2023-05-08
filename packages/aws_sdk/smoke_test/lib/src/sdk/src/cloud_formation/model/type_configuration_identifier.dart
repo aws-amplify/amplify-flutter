@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.type_configuration_identifier; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -165,11 +166,10 @@ class TypeConfigurationIdentifierAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TypeConfigurationIdentifier object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TypeConfigurationIdentifier);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'TypeConfigurationIdentifierResponse',
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -181,9 +181,9 @@ class TypeConfigurationIdentifierAwsQuerySerializer
       :typeConfigurationArn,
       :type,
       :typeName
-    ) = payload;
+    ) = object;
     if (typeArn != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('TypeArn'))
         ..add(serializers.serialize(
           typeArn,
@@ -191,7 +191,7 @@ class TypeConfigurationIdentifierAwsQuerySerializer
         ));
     }
     if (typeConfigurationAlias != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('TypeConfigurationAlias'))
         ..add(serializers.serialize(
           typeConfigurationAlias,
@@ -199,7 +199,7 @@ class TypeConfigurationIdentifierAwsQuerySerializer
         ));
     }
     if (typeConfigurationArn != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('TypeConfigurationArn'))
         ..add(serializers.serialize(
           typeConfigurationArn,
@@ -207,7 +207,7 @@ class TypeConfigurationIdentifierAwsQuerySerializer
         ));
     }
     if (type != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
@@ -215,13 +215,13 @@ class TypeConfigurationIdentifierAwsQuerySerializer
         ));
     }
     if (typeName != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

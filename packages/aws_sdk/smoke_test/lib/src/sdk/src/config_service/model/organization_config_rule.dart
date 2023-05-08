@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.organization_config_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -208,31 +209,33 @@ class OrganizationConfigRuleAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OrganizationConfigRule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OrganizationConfigRule);
-    final result = <Object?>[
-      'OrganizationConfigRuleName',
-      serializers.serialize(
-        payload.organizationConfigRuleName,
-        specifiedType: const FullType(String),
-      ),
-      'OrganizationConfigRuleArn',
-      serializers.serialize(
-        payload.organizationConfigRuleArn,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final OrganizationConfigRule(
+      :organizationConfigRuleName,
+      :organizationConfigRuleArn,
       :organizationManagedRuleMetadata,
       :organizationCustomRuleMetadata,
       :excludedAccounts,
       :lastUpdateTime,
       :organizationCustomPolicyRuleMetadata
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'OrganizationConfigRuleName',
+      serializers.serialize(
+        organizationConfigRuleName,
+        specifiedType: const FullType(String),
+      ),
+      'OrganizationConfigRuleArn',
+      serializers.serialize(
+        organizationConfigRuleArn,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (organizationManagedRuleMetadata != null) {
-      result
+      result$
         ..add('OrganizationManagedRuleMetadata')
         ..add(serializers.serialize(
           organizationManagedRuleMetadata,
@@ -240,7 +243,7 @@ class OrganizationConfigRuleAwsJson11Serializer
         ));
     }
     if (organizationCustomRuleMetadata != null) {
-      result
+      result$
         ..add('OrganizationCustomRuleMetadata')
         ..add(serializers.serialize(
           organizationCustomRuleMetadata,
@@ -248,7 +251,7 @@ class OrganizationConfigRuleAwsJson11Serializer
         ));
     }
     if (excludedAccounts != null) {
-      result
+      result$
         ..add('ExcludedAccounts')
         ..add(serializers.serialize(
           excludedAccounts,
@@ -259,7 +262,7 @@ class OrganizationConfigRuleAwsJson11Serializer
         ));
     }
     if (lastUpdateTime != null) {
-      result
+      result$
         ..add('LastUpdateTime')
         ..add(serializers.serialize(
           lastUpdateTime,
@@ -267,7 +270,7 @@ class OrganizationConfigRuleAwsJson11Serializer
         ));
     }
     if (organizationCustomPolicyRuleMetadata != null) {
-      result
+      result$
         ..add('OrganizationCustomPolicyRuleMetadata')
         ..add(serializers.serialize(
           organizationCustomPolicyRuleMetadata,
@@ -275,6 +278,6 @@ class OrganizationConfigRuleAwsJson11Serializer
               const FullType(_i4.OrganizationCustomPolicyRuleMetadataNoPolicy),
         ));
     }
-    return result;
+    return result$;
   }
 }

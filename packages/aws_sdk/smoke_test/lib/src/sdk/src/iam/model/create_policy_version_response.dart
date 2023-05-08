@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.create_policy_version_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -103,25 +104,24 @@ class CreatePolicyVersionResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreatePolicyVersionResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreatePolicyVersionResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'CreatePolicyVersionResponseResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final CreatePolicyVersionResponse(:policyVersion) = payload;
+    final CreatePolicyVersionResponse(:policyVersion) = object;
     if (policyVersion != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('PolicyVersion'))
         ..add(serializers.serialize(
           policyVersion,
           specifiedType: const FullType(_i2.PolicyVersion),
         ));
     }
-    return result;
+    return result$;
   }
 }

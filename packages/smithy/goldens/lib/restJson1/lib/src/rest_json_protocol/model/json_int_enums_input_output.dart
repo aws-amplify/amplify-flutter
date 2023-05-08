@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.json_int_enums_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -194,11 +195,10 @@ class JsonIntEnumsInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    JsonIntEnumsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as JsonIntEnumsInputOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final JsonIntEnumsInputOutput(
       :integerEnum1,
       :integerEnum2,
@@ -206,9 +206,9 @@ class JsonIntEnumsInputOutputRestJson1Serializer
       :integerEnumList,
       :integerEnumMap,
       :integerEnumSet
-    ) = payload;
+    ) = object;
     if (integerEnum1 != null) {
-      result
+      result$
         ..add('integerEnum1')
         ..add(serializers.serialize(
           integerEnum1,
@@ -216,7 +216,7 @@ class JsonIntEnumsInputOutputRestJson1Serializer
         ));
     }
     if (integerEnum2 != null) {
-      result
+      result$
         ..add('integerEnum2')
         ..add(serializers.serialize(
           integerEnum2,
@@ -224,7 +224,7 @@ class JsonIntEnumsInputOutputRestJson1Serializer
         ));
     }
     if (integerEnum3 != null) {
-      result
+      result$
         ..add('integerEnum3')
         ..add(serializers.serialize(
           integerEnum3,
@@ -232,7 +232,7 @@ class JsonIntEnumsInputOutputRestJson1Serializer
         ));
     }
     if (integerEnumList != null) {
-      result
+      result$
         ..add('integerEnumList')
         ..add(serializers.serialize(
           integerEnumList,
@@ -243,7 +243,7 @@ class JsonIntEnumsInputOutputRestJson1Serializer
         ));
     }
     if (integerEnumMap != null) {
-      result
+      result$
         ..add('integerEnumMap')
         ..add(serializers.serialize(
           integerEnumMap,
@@ -257,7 +257,7 @@ class JsonIntEnumsInputOutputRestJson1Serializer
         ));
     }
     if (integerEnumSet != null) {
-      result
+      result$
         ..add('integerEnumSet')
         ..add(serializers.serialize(
           integerEnumSet,
@@ -267,6 +267,6 @@ class JsonIntEnumsInputOutputRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

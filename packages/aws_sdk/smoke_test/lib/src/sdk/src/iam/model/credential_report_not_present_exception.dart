@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.credential_report_not_present_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -122,25 +123,24 @@ class CredentialReportNotPresentExceptionAwsQuerySerializer extends _i2
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CredentialReportNotPresentException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CredentialReportNotPresentException);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'CredentialReportNotPresentExceptionResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final CredentialReportNotPresentException(:message) = payload;
+    final CredentialReportNotPresentException(:message) = object;
     if (message != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('message'))
         ..add(serializers.serialize(
           message,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

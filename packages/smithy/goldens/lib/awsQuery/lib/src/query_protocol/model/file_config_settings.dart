@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v1.query_protocol.model.file_config_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -181,11 +182,10 @@ class FileConfigSettingsAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    FileConfigSettings object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as FileConfigSettings);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'FileConfigSettingsResponse',
         _i4.XmlNamespace('https://example.com/'),
@@ -199,9 +199,9 @@ class FileConfigSettingsAwsQuerySerializer
       :s3,
       :retryMode,
       :maxAttempts
-    ) = payload;
+    ) = object;
     if (awsAccessKeyId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('aws_access_key_id'))
         ..add(serializers.serialize(
           awsAccessKeyId,
@@ -209,7 +209,7 @@ class FileConfigSettingsAwsQuerySerializer
         ));
     }
     if (awsSecretAccessKey != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('aws_secret_access_key'))
         ..add(serializers.serialize(
           awsSecretAccessKey,
@@ -217,7 +217,7 @@ class FileConfigSettingsAwsQuerySerializer
         ));
     }
     if (awsSessionToken != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('aws_session_token'))
         ..add(serializers.serialize(
           awsSessionToken,
@@ -225,7 +225,7 @@ class FileConfigSettingsAwsQuerySerializer
         ));
     }
     if (region != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('region'))
         ..add(serializers.serialize(
           region,
@@ -233,7 +233,7 @@ class FileConfigSettingsAwsQuerySerializer
         ));
     }
     if (s3 != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('s3'))
         ..add(serializers.serialize(
           s3,
@@ -241,7 +241,7 @@ class FileConfigSettingsAwsQuerySerializer
         ));
     }
     if (retryMode != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('retry_mode'))
         ..add(serializers.serialize(
           retryMode,
@@ -249,13 +249,13 @@ class FileConfigSettingsAwsQuerySerializer
         ));
     }
     if (maxAttempts != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('max_attempts'))
         ..add(serializers.serialize(
           maxAttempts,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

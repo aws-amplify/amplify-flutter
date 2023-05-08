@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.custom_policy_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -129,31 +130,35 @@ class CustomPolicyDetailsAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CustomPolicyDetails object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CustomPolicyDetails);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final CustomPolicyDetails(
+      :policyRuntime,
+      :policyText,
+      :enableDebugLogDelivery
+    ) = object;
+    result$.addAll([
       'PolicyRuntime',
       serializers.serialize(
-        payload.policyRuntime,
+        policyRuntime,
         specifiedType: const FullType(String),
       ),
       'PolicyText',
       serializers.serialize(
-        payload.policyText,
+        policyText,
         specifiedType: const FullType(String),
       ),
-    ];
-    final CustomPolicyDetails(:enableDebugLogDelivery) = payload;
+    ]);
     if (enableDebugLogDelivery != null) {
-      result
+      result$
         ..add('EnableDebugLogDelivery')
         ..add(serializers.serialize(
           enableDebugLogDelivery,
           specifiedType: const FullType(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

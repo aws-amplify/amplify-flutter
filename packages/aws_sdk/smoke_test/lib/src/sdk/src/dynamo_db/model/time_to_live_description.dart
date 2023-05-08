@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.time_to_live_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -117,14 +118,13 @@ class TimeToLiveDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TimeToLiveDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TimeToLiveDescription);
-    final result = <Object?>[];
-    final TimeToLiveDescription(:timeToLiveStatus, :attributeName) = payload;
+    final result$ = <Object?>[];
+    final TimeToLiveDescription(:timeToLiveStatus, :attributeName) = object;
     if (timeToLiveStatus != null) {
-      result
+      result$
         ..add('TimeToLiveStatus')
         ..add(serializers.serialize(
           timeToLiveStatus,
@@ -132,13 +132,13 @@ class TimeToLiveDescriptionAwsJson10Serializer
         ));
     }
     if (attributeName != null) {
-      result
+      result$
         ..add('AttributeName')
         ..add(serializers.serialize(
           attributeName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

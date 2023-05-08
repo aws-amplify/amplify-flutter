@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.create_domain_name_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -304,23 +305,17 @@ class CreateDomainNameRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateDomainNameRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateDomainNameRequest);
-    final result = <Object?>[
-      'domainName',
-      serializers.serialize(
-        payload.domainName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final CreateDomainNameRequest(
       :certificateArn,
       :certificateBody,
       :certificateChain,
       :certificateName,
       :certificatePrivateKey,
+      :domainName,
       :endpointConfiguration,
       :mutualTlsAuthentication,
       :ownershipVerificationCertificateArn,
@@ -328,9 +323,16 @@ class CreateDomainNameRequestRestJson1Serializer
       :regionalCertificateName,
       :securityPolicy,
       :tags
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'domainName',
+      serializers.serialize(
+        domainName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (certificateArn != null) {
-      result
+      result$
         ..add('certificateArn')
         ..add(serializers.serialize(
           certificateArn,
@@ -338,7 +340,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ));
     }
     if (certificateBody != null) {
-      result
+      result$
         ..add('certificateBody')
         ..add(serializers.serialize(
           certificateBody,
@@ -346,7 +348,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ));
     }
     if (certificateChain != null) {
-      result
+      result$
         ..add('certificateChain')
         ..add(serializers.serialize(
           certificateChain,
@@ -354,7 +356,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ));
     }
     if (certificateName != null) {
-      result
+      result$
         ..add('certificateName')
         ..add(serializers.serialize(
           certificateName,
@@ -362,7 +364,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ));
     }
     if (certificatePrivateKey != null) {
-      result
+      result$
         ..add('certificatePrivateKey')
         ..add(serializers.serialize(
           certificatePrivateKey,
@@ -370,7 +372,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ));
     }
     if (endpointConfiguration != null) {
-      result
+      result$
         ..add('endpointConfiguration')
         ..add(serializers.serialize(
           endpointConfiguration,
@@ -378,7 +380,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ));
     }
     if (mutualTlsAuthentication != null) {
-      result
+      result$
         ..add('mutualTlsAuthentication')
         ..add(serializers.serialize(
           mutualTlsAuthentication,
@@ -386,7 +388,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ));
     }
     if (ownershipVerificationCertificateArn != null) {
-      result
+      result$
         ..add('ownershipVerificationCertificateArn')
         ..add(serializers.serialize(
           ownershipVerificationCertificateArn,
@@ -394,7 +396,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ));
     }
     if (regionalCertificateArn != null) {
-      result
+      result$
         ..add('regionalCertificateArn')
         ..add(serializers.serialize(
           regionalCertificateArn,
@@ -402,7 +404,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ));
     }
     if (regionalCertificateName != null) {
-      result
+      result$
         ..add('regionalCertificateName')
         ..add(serializers.serialize(
           regionalCertificateName,
@@ -410,7 +412,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ));
     }
     if (securityPolicy != null) {
-      result
+      result$
         ..add('securityPolicy')
         ..add(serializers.serialize(
           securityPolicy,
@@ -418,7 +420,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('tags')
         ..add(serializers.serialize(
           tags,
@@ -431,6 +433,6 @@ class CreateDomainNameRequestRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

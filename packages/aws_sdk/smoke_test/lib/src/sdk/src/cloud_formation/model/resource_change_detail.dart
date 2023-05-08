@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.resource_change_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -167,11 +168,10 @@ class ResourceChangeDetailAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ResourceChangeDetail object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ResourceChangeDetail);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'ResourceChangeDetailResponse',
         _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -182,9 +182,9 @@ class ResourceChangeDetailAwsQuerySerializer
       :evaluation,
       :changeSource,
       :causingEntity
-    ) = payload;
+    ) = object;
     if (target != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Target'))
         ..add(serializers.serialize(
           target,
@@ -192,7 +192,7 @@ class ResourceChangeDetailAwsQuerySerializer
         ));
     }
     if (evaluation != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Evaluation'))
         ..add(serializers.serialize(
           evaluation,
@@ -200,7 +200,7 @@ class ResourceChangeDetailAwsQuerySerializer
         ));
     }
     if (changeSource != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('ChangeSource'))
         ..add(serializers.serialize(
           changeSource,
@@ -208,13 +208,13 @@ class ResourceChangeDetailAwsQuerySerializer
         ));
     }
     if (causingEntity != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('CausingEntity'))
         ..add(serializers.serialize(
           causingEntity,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

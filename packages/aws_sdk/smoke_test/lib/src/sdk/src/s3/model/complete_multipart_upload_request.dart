@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.complete_multipart_upload_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -305,24 +306,18 @@ class CompleteMultipartUploadRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.CompletedMultipartUpload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is CompleteMultipartUploadRequest
-        ? object.getPayload()
-        : (object as _i2.CompletedMultipartUpload?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'CompleteMultipartUpload',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
-    final _i2.CompletedMultipartUpload(:parts) = payload;
+    final _i2.CompletedMultipartUpload(:parts) = object;
     if (parts != null) {
-      result.addAll(
+      result$.addAll(
           const _i1.XmlBuiltListSerializer(memberName: 'Part').serialize(
         serializers,
         parts,
@@ -332,6 +327,6 @@ class CompleteMultipartUploadRequestRestXmlSerializer
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

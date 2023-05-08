@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.create_instance_profile_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -156,26 +157,25 @@ class CreateInstanceProfileRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateInstanceProfileRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateInstanceProfileRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'CreateInstanceProfileRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreateInstanceProfileRequest(:instanceProfileName, :path, :tags) =
-        payload;
-    result
+        object;
+    result$
       ..add(const _i1.XmlElementName('InstanceProfileName'))
       ..add(serializers.serialize(
         instanceProfileName,
         specifiedType: const FullType(String),
       ));
     if (path != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
@@ -183,7 +183,7 @@ class CreateInstanceProfileRequestAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -196,6 +196,6 @@ class CreateInstanceProfileRequestAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

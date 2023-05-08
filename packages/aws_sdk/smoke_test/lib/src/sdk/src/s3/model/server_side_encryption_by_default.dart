@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.server_side_encryption_by_default; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -131,32 +132,31 @@ class ServerSideEncryptionByDefaultRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ServerSideEncryptionByDefault object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ServerSideEncryptionByDefault);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ServerSideEncryptionByDefault',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ServerSideEncryptionByDefault(:kmsMasterKeyId, :sseAlgorithm) =
-        payload;
+        object;
     if (kmsMasterKeyId != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('KMSMasterKeyID'))
         ..add(serializers.serialize(
           kmsMasterKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i3.XmlElementName('SSEAlgorithm'))
       ..add(serializers.serialize(
         sseAlgorithm,
         specifiedType: const FullType.nullable(_i2.ServerSideEncryption),
       ));
-    return result;
+    return result$;
   }
 }

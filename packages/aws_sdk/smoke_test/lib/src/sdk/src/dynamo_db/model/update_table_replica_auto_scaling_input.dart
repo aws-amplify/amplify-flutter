@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.update_table_replica_auto_scaling_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -176,24 +177,25 @@ class UpdateTableReplicaAutoScalingInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateTableReplicaAutoScalingInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateTableReplicaAutoScalingInput);
-    final result = <Object?>[
-      'TableName',
-      serializers.serialize(
-        payload.tableName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final UpdateTableReplicaAutoScalingInput(
       :globalSecondaryIndexUpdates,
+      :tableName,
       :provisionedWriteCapacityAutoScalingUpdate,
       :replicaUpdates
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'TableName',
+      serializers.serialize(
+        tableName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (globalSecondaryIndexUpdates != null) {
-      result
+      result$
         ..add('GlobalSecondaryIndexUpdates')
         ..add(serializers.serialize(
           globalSecondaryIndexUpdates,
@@ -204,7 +206,7 @@ class UpdateTableReplicaAutoScalingInputAwsJson10Serializer
         ));
     }
     if (provisionedWriteCapacityAutoScalingUpdate != null) {
-      result
+      result$
         ..add('ProvisionedWriteCapacityAutoScalingUpdate')
         ..add(serializers.serialize(
           provisionedWriteCapacityAutoScalingUpdate,
@@ -212,7 +214,7 @@ class UpdateTableReplicaAutoScalingInputAwsJson10Serializer
         ));
     }
     if (replicaUpdates != null) {
-      result
+      result$
         ..add('ReplicaUpdates')
         ..add(serializers.serialize(
           replicaUpdates,
@@ -222,6 +224,6 @@ class UpdateTableReplicaAutoScalingInputAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

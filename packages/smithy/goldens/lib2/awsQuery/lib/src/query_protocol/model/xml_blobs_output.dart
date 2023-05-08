@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v2.query_protocol.model.xml_blobs_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -96,25 +97,24 @@ class XmlBlobsOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlBlobsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlBlobsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'XmlBlobsOutputResponse',
         _i3.XmlNamespace('https://example.com/'),
       )
     ];
-    final XmlBlobsOutput(:data) = payload;
+    final XmlBlobsOutput(:data) = object;
     if (data != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('data'))
         ..add(serializers.serialize(
           data,
           specifiedType: const FullType.nullable(_i2.Uint8List),
         ));
     }
-    return result;
+    return result$;
   }
 }

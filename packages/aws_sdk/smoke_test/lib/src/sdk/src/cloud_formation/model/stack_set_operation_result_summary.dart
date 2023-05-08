@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.stack_set_operation_result_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -195,11 +196,10 @@ class StackSetOperationResultSummaryAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StackSetOperationResultSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StackSetOperationResultSummary);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'StackSetOperationResultSummaryResponse',
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -212,9 +212,9 @@ class StackSetOperationResultSummaryAwsQuerySerializer
       :statusReason,
       :accountGateResult,
       :organizationalUnitId
-    ) = payload;
+    ) = object;
     if (account != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Account'))
         ..add(serializers.serialize(
           account,
@@ -222,7 +222,7 @@ class StackSetOperationResultSummaryAwsQuerySerializer
         ));
     }
     if (region != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Region'))
         ..add(serializers.serialize(
           region,
@@ -230,7 +230,7 @@ class StackSetOperationResultSummaryAwsQuerySerializer
         ));
     }
     if (status != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
@@ -239,7 +239,7 @@ class StackSetOperationResultSummaryAwsQuerySerializer
         ));
     }
     if (statusReason != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
           statusReason,
@@ -247,7 +247,7 @@ class StackSetOperationResultSummaryAwsQuerySerializer
         ));
     }
     if (accountGateResult != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('AccountGateResult'))
         ..add(serializers.serialize(
           accountGateResult,
@@ -255,13 +255,13 @@ class StackSetOperationResultSummaryAwsQuerySerializer
         ));
     }
     if (organizationalUnitId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('OrganizationalUnitId'))
         ..add(serializers.serialize(
           organizationalUnitId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

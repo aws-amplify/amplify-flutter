@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_validation_protocol.model.malformed_unique_items_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -353,11 +354,10 @@ class MalformedUniqueItemsInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedUniqueItemsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MalformedUniqueItemsInput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final MalformedUniqueItemsInput(
       :blobList,
       :booleanList,
@@ -374,9 +374,9 @@ class MalformedUniqueItemsInputRestJson1Serializer
       :structureList,
       :timestampList,
       :unionList
-    ) = payload;
+    ) = object;
     if (blobList != null) {
-      result
+      result$
         ..add('blobList')
         ..add(serializers.serialize(
           blobList,
@@ -387,7 +387,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (booleanList != null) {
-      result
+      result$
         ..add('booleanList')
         ..add(serializers.serialize(
           booleanList,
@@ -398,7 +398,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (byteList != null) {
-      result
+      result$
         ..add('byteList')
         ..add(serializers.serialize(
           byteList,
@@ -409,7 +409,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (dateTimeList != null) {
-      result
+      result$
         ..add('dateTimeList')
         ..add(serializers.serialize(
           dateTimeList,
@@ -420,7 +420,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (enumList != null) {
-      result
+      result$
         ..add('enumList')
         ..add(serializers.serialize(
           enumList,
@@ -431,7 +431,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (httpDateList != null) {
-      result
+      result$
         ..add('httpDateList')
         ..add(serializers.serialize(
           httpDateList,
@@ -442,7 +442,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (intEnumList != null) {
-      result
+      result$
         ..add('intEnumList')
         ..add(serializers.serialize(
           intEnumList,
@@ -453,7 +453,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (integerList != null) {
-      result
+      result$
         ..add('integerList')
         ..add(serializers.serialize(
           integerList,
@@ -464,7 +464,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (listList != null) {
-      result
+      result$
         ..add('listList')
         ..add(serializers.serialize(
           listList,
@@ -480,7 +480,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (longList != null) {
-      result
+      result$
         ..add('longList')
         ..add(serializers.serialize(
           longList,
@@ -491,7 +491,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (shortList != null) {
-      result
+      result$
         ..add('shortList')
         ..add(serializers.serialize(
           shortList,
@@ -502,7 +502,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (stringList != null) {
-      result
+      result$
         ..add('stringList')
         ..add(serializers.serialize(
           stringList,
@@ -513,7 +513,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (structureList != null) {
-      result
+      result$
         ..add('structureList')
         ..add(serializers.serialize(
           structureList,
@@ -524,7 +524,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (timestampList != null) {
-      result
+      result$
         ..add('timestampList')
         ..add(serializers.serialize(
           timestampList,
@@ -535,7 +535,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         ));
     }
     if (unionList != null) {
-      result
+      result$
         ..add('unionList')
         ..add(serializers.serialize(
           unionList,
@@ -545,6 +545,6 @@ class MalformedUniqueItemsInputRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

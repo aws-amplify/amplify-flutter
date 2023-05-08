@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.create_policy_version_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -157,11 +158,10 @@ class CreatePolicyVersionRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreatePolicyVersionRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreatePolicyVersionRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'CreatePolicyVersionRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -171,27 +171,27 @@ class CreatePolicyVersionRequestAwsQuerySerializer
       :policyArn,
       :policyDocument,
       :setAsDefault
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('PolicyArn'))
       ..add(serializers.serialize(
         policyArn,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('PolicyDocument'))
       ..add(serializers.serialize(
         policyDocument,
         specifiedType: const FullType(String),
       ));
     if (setAsDefault != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('SetAsDefault'))
         ..add(serializers.serialize(
           setAsDefault,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

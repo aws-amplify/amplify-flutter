@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.create_bucket_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -99,25 +100,24 @@ class CreateBucketConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateBucketConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateBucketConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'CreateBucketConfiguration',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final CreateBucketConfiguration(:locationConstraint) = payload;
+    final CreateBucketConfiguration(:locationConstraint) = object;
     if (locationConstraint != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('LocationConstraint'))
         ..add(serializers.serialize(
           locationConstraint,
           specifiedType: const FullType.nullable(_i2.BucketLocationConstraint),
         ));
     }
-    return result;
+    return result$;
   }
 }

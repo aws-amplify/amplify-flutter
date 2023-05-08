@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.destination; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -197,11 +198,10 @@ class DestinationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Destination object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Destination);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'Destination',
         _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -215,9 +215,9 @@ class DestinationRestXmlSerializer
       :metrics,
       :replicationTime,
       :storageClass
-    ) = payload;
+    ) = object;
     if (accessControlTranslation != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('AccessControlTranslation'))
         ..add(serializers.serialize(
           accessControlTranslation,
@@ -225,21 +225,21 @@ class DestinationRestXmlSerializer
         ));
     }
     if (account != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Account'))
         ..add(serializers.serialize(
           account,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i7.XmlElementName('Bucket'))
       ..add(serializers.serialize(
         bucket,
         specifiedType: const FullType(String),
       ));
     if (encryptionConfiguration != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('EncryptionConfiguration'))
         ..add(serializers.serialize(
           encryptionConfiguration,
@@ -247,7 +247,7 @@ class DestinationRestXmlSerializer
         ));
     }
     if (metrics != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Metrics'))
         ..add(serializers.serialize(
           metrics,
@@ -255,7 +255,7 @@ class DestinationRestXmlSerializer
         ));
     }
     if (replicationTime != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('ReplicationTime'))
         ..add(serializers.serialize(
           replicationTime,
@@ -263,13 +263,13 @@ class DestinationRestXmlSerializer
         ));
     }
     if (storageClass != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
           specifiedType: const FullType.nullable(_i2.StorageClass),
         ));
     }
-    return result;
+    return result$;
   }
 }

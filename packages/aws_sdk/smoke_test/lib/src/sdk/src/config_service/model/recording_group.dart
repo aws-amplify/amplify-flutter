@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.recording_group; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -193,18 +194,17 @@ class RecordingGroupAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RecordingGroup object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RecordingGroup);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final RecordingGroup(
       :allSupported,
       :includeGlobalResourceTypes,
       :resourceTypes
-    ) = payload;
+    ) = object;
     if (allSupported != null) {
-      result
+      result$
         ..add('allSupported')
         ..add(serializers.serialize(
           allSupported,
@@ -212,7 +212,7 @@ class RecordingGroupAwsJson11Serializer
         ));
     }
     if (includeGlobalResourceTypes != null) {
-      result
+      result$
         ..add('includeGlobalResourceTypes')
         ..add(serializers.serialize(
           includeGlobalResourceTypes,
@@ -220,7 +220,7 @@ class RecordingGroupAwsJson11Serializer
         ));
     }
     if (resourceTypes != null) {
-      result
+      result$
         ..add('resourceTypes')
         ..add(serializers.serialize(
           resourceTypes,
@@ -230,6 +230,6 @@ class RecordingGroupAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.execute_change_set_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -158,11 +159,10 @@ class ExecuteChangeSetInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ExecuteChangeSetInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ExecuteChangeSetInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ExecuteChangeSetInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -173,15 +173,15 @@ class ExecuteChangeSetInputAwsQuerySerializer
       :stackName,
       :clientRequestToken,
       :disableRollback
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('ChangeSetName'))
       ..add(serializers.serialize(
         changeSetName,
         specifiedType: const FullType(String),
       ));
     if (stackName != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('StackName'))
         ..add(serializers.serialize(
           stackName,
@@ -189,7 +189,7 @@ class ExecuteChangeSetInputAwsQuerySerializer
         ));
     }
     if (clientRequestToken != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ClientRequestToken'))
         ..add(serializers.serialize(
           clientRequestToken,
@@ -197,13 +197,13 @@ class ExecuteChangeSetInputAwsQuerySerializer
         ));
     }
     if (disableRollback != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('DisableRollback'))
         ..add(serializers.serialize(
           disableRollback,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

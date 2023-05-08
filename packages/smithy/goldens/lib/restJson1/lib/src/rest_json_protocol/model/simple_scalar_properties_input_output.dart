@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.simple_scalar_properties_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -350,13 +351,10 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SimpleScalarPropertiesInputOutputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is SimpleScalarPropertiesInputOutput
-        ? object.getPayload()
-        : (object as SimpleScalarPropertiesInputOutputPayload);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final SimpleScalarPropertiesInputOutputPayload(
       :byteValue,
       :doubleValue,
@@ -367,9 +365,9 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
       :shortValue,
       :stringValue,
       :trueBooleanValue
-    ) = payload;
+    ) = object;
     if (byteValue != null) {
-      result
+      result$
         ..add('byteValue')
         ..add(serializers.serialize(
           byteValue,
@@ -377,7 +375,7 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
         ));
     }
     if (doubleValue != null) {
-      result
+      result$
         ..add('DoubleDribble')
         ..add(serializers.serialize(
           doubleValue,
@@ -385,7 +383,7 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
         ));
     }
     if (falseBooleanValue != null) {
-      result
+      result$
         ..add('falseBooleanValue')
         ..add(serializers.serialize(
           falseBooleanValue,
@@ -393,7 +391,7 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
         ));
     }
     if (floatValue != null) {
-      result
+      result$
         ..add('floatValue')
         ..add(serializers.serialize(
           floatValue,
@@ -401,7 +399,7 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
         ));
     }
     if (integerValue != null) {
-      result
+      result$
         ..add('integerValue')
         ..add(serializers.serialize(
           integerValue,
@@ -409,7 +407,7 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
         ));
     }
     if (longValue != null) {
-      result
+      result$
         ..add('longValue')
         ..add(serializers.serialize(
           longValue,
@@ -417,7 +415,7 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
         ));
     }
     if (shortValue != null) {
-      result
+      result$
         ..add('shortValue')
         ..add(serializers.serialize(
           shortValue,
@@ -425,7 +423,7 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
         ));
     }
     if (stringValue != null) {
-      result
+      result$
         ..add('stringValue')
         ..add(serializers.serialize(
           stringValue,
@@ -433,13 +431,13 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
         ));
     }
     if (trueBooleanValue != null) {
-      result
+      result$
         ..add('trueBooleanValue')
         ..add(serializers.serialize(
           trueBooleanValue,
           specifiedType: const FullType(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v2.query_protocol.model.ignores_wrapping_xml_name_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -99,25 +100,24 @@ class IgnoresWrappingXmlNameOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    IgnoresWrappingXmlNameOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as IgnoresWrappingXmlNameOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'IgnoreMeResponse',
         _i2.XmlNamespace('https://example.com/'),
       )
     ];
-    final IgnoresWrappingXmlNameOutput(:foo) = payload;
+    final IgnoresWrappingXmlNameOutput(:foo) = object;
     if (foo != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('foo'))
         ..add(serializers.serialize(
           foo,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

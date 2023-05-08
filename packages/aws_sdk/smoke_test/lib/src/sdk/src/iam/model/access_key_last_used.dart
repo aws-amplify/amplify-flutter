@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.access_key_last_used; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -155,35 +156,34 @@ class AccessKeyLastUsedAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AccessKeyLastUsed object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AccessKeyLastUsed);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'AccessKeyLastUsedResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final AccessKeyLastUsed(:lastUsedDate, :serviceName, :region) = payload;
-    result
+    final AccessKeyLastUsed(:lastUsedDate, :serviceName, :region) = object;
+    result$
       ..add(const _i2.XmlElementName('LastUsedDate'))
       ..add(serializers.serialize(
         lastUsedDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('ServiceName'))
       ..add(serializers.serialize(
         serviceName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('Region'))
       ..add(serializers.serialize(
         region,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

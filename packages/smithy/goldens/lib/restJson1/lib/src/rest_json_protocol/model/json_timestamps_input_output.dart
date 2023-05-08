@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.json_timestamps_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -196,11 +197,10 @@ class JsonTimestampsInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    JsonTimestampsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as JsonTimestampsInputOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final JsonTimestampsInputOutput(
       :dateTime,
       :dateTimeOnTarget,
@@ -209,9 +209,9 @@ class JsonTimestampsInputOutputRestJson1Serializer
       :httpDate,
       :httpDateOnTarget,
       :normal
-    ) = payload;
+    ) = object;
     if (dateTime != null) {
-      result
+      result$
         ..add('dateTime')
         ..add(_i1.TimestampSerializer.dateTime.serialize(
           serializers,
@@ -219,7 +219,7 @@ class JsonTimestampsInputOutputRestJson1Serializer
         ));
     }
     if (dateTimeOnTarget != null) {
-      result
+      result$
         ..add('dateTimeOnTarget')
         ..add(_i1.TimestampSerializer.dateTime.serialize(
           serializers,
@@ -227,7 +227,7 @@ class JsonTimestampsInputOutputRestJson1Serializer
         ));
     }
     if (epochSeconds != null) {
-      result
+      result$
         ..add('epochSeconds')
         ..add(_i1.TimestampSerializer.epochSeconds.serialize(
           serializers,
@@ -235,7 +235,7 @@ class JsonTimestampsInputOutputRestJson1Serializer
         ));
     }
     if (epochSecondsOnTarget != null) {
-      result
+      result$
         ..add('epochSecondsOnTarget')
         ..add(_i1.TimestampSerializer.epochSeconds.serialize(
           serializers,
@@ -243,7 +243,7 @@ class JsonTimestampsInputOutputRestJson1Serializer
         ));
     }
     if (httpDate != null) {
-      result
+      result$
         ..add('httpDate')
         ..add(_i1.TimestampSerializer.httpDate.serialize(
           serializers,
@@ -251,7 +251,7 @@ class JsonTimestampsInputOutputRestJson1Serializer
         ));
     }
     if (httpDateOnTarget != null) {
-      result
+      result$
         ..add('httpDateOnTarget')
         ..add(_i1.TimestampSerializer.httpDate.serialize(
           serializers,
@@ -259,13 +259,13 @@ class JsonTimestampsInputOutputRestJson1Serializer
         ));
     }
     if (normal != null) {
-      result
+      result$
         ..add('normal')
         ..add(serializers.serialize(
           normal,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

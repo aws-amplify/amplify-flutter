@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_aggregation_authorization_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -146,25 +147,29 @@ class PutAggregationAuthorizationRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutAggregationAuthorizationRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutAggregationAuthorizationRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutAggregationAuthorizationRequest(
+      :authorizedAccountId,
+      :authorizedAwsRegion,
+      :tags
+    ) = object;
+    result$.addAll([
       'AuthorizedAccountId',
       serializers.serialize(
-        payload.authorizedAccountId,
+        authorizedAccountId,
         specifiedType: const FullType(String),
       ),
       'AuthorizedAwsRegion',
       serializers.serialize(
-        payload.authorizedAwsRegion,
+        authorizedAwsRegion,
         specifiedType: const FullType(String),
       ),
-    ];
-    final PutAggregationAuthorizationRequest(:tags) = payload;
+    ]);
     if (tags != null) {
-      result
+      result$
         ..add('Tags')
         ..add(serializers.serialize(
           tags,
@@ -174,6 +179,6 @@ class PutAggregationAuthorizationRequestAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

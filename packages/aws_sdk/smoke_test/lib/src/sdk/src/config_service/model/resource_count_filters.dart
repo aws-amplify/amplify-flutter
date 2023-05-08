@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.resource_count_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -132,14 +133,13 @@ class ResourceCountFiltersAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ResourceCountFilters object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ResourceCountFilters);
-    final result = <Object?>[];
-    final ResourceCountFilters(:resourceType, :accountId, :region) = payload;
+    final result$ = <Object?>[];
+    final ResourceCountFilters(:resourceType, :accountId, :region) = object;
     if (resourceType != null) {
-      result
+      result$
         ..add('ResourceType')
         ..add(serializers.serialize(
           resourceType,
@@ -147,7 +147,7 @@ class ResourceCountFiltersAwsJson11Serializer
         ));
     }
     if (accountId != null) {
-      result
+      result$
         ..add('AccountId')
         ..add(serializers.serialize(
           accountId,
@@ -155,13 +155,13 @@ class ResourceCountFiltersAwsJson11Serializer
         ));
     }
     if (region != null) {
-      result
+      result$
         ..add('Region')
         ..add(serializers.serialize(
           region,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

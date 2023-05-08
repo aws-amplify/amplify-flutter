@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.condition; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -217,20 +218,20 @@ class ConditionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Condition object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Condition);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final Condition(:attributeValueList, :comparisonOperator) = object;
+    result$.addAll([
       'ComparisonOperator',
       serializers.serialize(
-        payload.comparisonOperator,
+        comparisonOperator,
         specifiedType: const FullType(_i3.ComparisonOperator),
       ),
-    ];
-    final Condition(:attributeValueList) = payload;
+    ]);
     if (attributeValueList != null) {
-      result
+      result$
         ..add('AttributeValueList')
         ..add(serializers.serialize(
           attributeValueList,
@@ -240,6 +241,6 @@ class ConditionAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

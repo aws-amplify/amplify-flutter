@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.auto_scaling_settings_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -164,20 +165,19 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AutoScalingSettingsUpdate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AutoScalingSettingsUpdate);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final AutoScalingSettingsUpdate(
       :minimumUnits,
       :maximumUnits,
       :autoScalingDisabled,
       :autoScalingRoleArn,
       :scalingPolicyUpdate
-    ) = payload;
+    ) = object;
     if (minimumUnits != null) {
-      result
+      result$
         ..add('MinimumUnits')
         ..add(serializers.serialize(
           minimumUnits,
@@ -185,7 +185,7 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
         ));
     }
     if (maximumUnits != null) {
-      result
+      result$
         ..add('MaximumUnits')
         ..add(serializers.serialize(
           maximumUnits,
@@ -193,7 +193,7 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
         ));
     }
     if (autoScalingDisabled != null) {
-      result
+      result$
         ..add('AutoScalingDisabled')
         ..add(serializers.serialize(
           autoScalingDisabled,
@@ -201,7 +201,7 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
         ));
     }
     if (autoScalingRoleArn != null) {
-      result
+      result$
         ..add('AutoScalingRoleArn')
         ..add(serializers.serialize(
           autoScalingRoleArn,
@@ -209,13 +209,13 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
         ));
     }
     if (scalingPolicyUpdate != null) {
-      result
+      result$
         ..add('ScalingPolicyUpdate')
         ..add(serializers.serialize(
           scalingPolicyUpdate,
           specifiedType: const FullType(_i3.AutoScalingPolicyUpdate),
         ));
     }
-    return result;
+    return result$;
   }
 }

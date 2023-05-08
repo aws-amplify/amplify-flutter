@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.delete_replication_group_member_action; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -98,17 +99,18 @@ class DeleteReplicationGroupMemberActionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteReplicationGroupMemberAction object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeleteReplicationGroupMemberAction);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DeleteReplicationGroupMemberAction(:regionName) = object;
+    result$.addAll([
       'RegionName',
       serializers.serialize(
-        payload.regionName,
+        regionName,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

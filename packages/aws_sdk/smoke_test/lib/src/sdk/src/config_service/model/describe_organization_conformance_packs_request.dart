@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_organization_conformance_packs_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -148,18 +149,17 @@ class DescribeOrganizationConformancePacksRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeOrganizationConformancePacksRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeOrganizationConformancePacksRequest);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final DescribeOrganizationConformancePacksRequest(
       :organizationConformancePackNames,
       :limit,
       :nextToken
-    ) = payload;
+    ) = object;
     if (organizationConformancePackNames != null) {
-      result
+      result$
         ..add('OrganizationConformancePackNames')
         ..add(serializers.serialize(
           organizationConformancePackNames,
@@ -170,7 +170,7 @@ class DescribeOrganizationConformancePacksRequestAwsJson11Serializer extends _i1
         ));
     }
     if (limit != null) {
-      result
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
           limit,
@@ -178,13 +178,13 @@ class DescribeOrganizationConformancePacksRequestAwsJson11Serializer extends _i1
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

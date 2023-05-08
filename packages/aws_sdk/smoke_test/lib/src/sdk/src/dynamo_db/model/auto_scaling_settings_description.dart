@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.auto_scaling_settings_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -172,20 +173,19 @@ class AutoScalingSettingsDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AutoScalingSettingsDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AutoScalingSettingsDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final AutoScalingSettingsDescription(
       :minimumUnits,
       :maximumUnits,
       :autoScalingDisabled,
       :autoScalingRoleArn,
       :scalingPolicies
-    ) = payload;
+    ) = object;
     if (minimumUnits != null) {
-      result
+      result$
         ..add('MinimumUnits')
         ..add(serializers.serialize(
           minimumUnits,
@@ -193,7 +193,7 @@ class AutoScalingSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (maximumUnits != null) {
-      result
+      result$
         ..add('MaximumUnits')
         ..add(serializers.serialize(
           maximumUnits,
@@ -201,7 +201,7 @@ class AutoScalingSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (autoScalingDisabled != null) {
-      result
+      result$
         ..add('AutoScalingDisabled')
         ..add(serializers.serialize(
           autoScalingDisabled,
@@ -209,7 +209,7 @@ class AutoScalingSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (autoScalingRoleArn != null) {
-      result
+      result$
         ..add('AutoScalingRoleArn')
         ..add(serializers.serialize(
           autoScalingRoleArn,
@@ -217,7 +217,7 @@ class AutoScalingSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (scalingPolicies != null) {
-      result
+      result$
         ..add('ScalingPolicies')
         ..add(serializers.serialize(
           scalingPolicies,
@@ -227,6 +227,6 @@ class AutoScalingSettingsDescriptionAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

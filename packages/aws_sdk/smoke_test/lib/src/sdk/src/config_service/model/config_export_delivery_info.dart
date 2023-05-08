@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.config_export_delivery_info; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -178,11 +179,10 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConfigExportDeliveryInfo object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConfigExportDeliveryInfo);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ConfigExportDeliveryInfo(
       :lastStatus,
       :lastErrorCode,
@@ -190,9 +190,9 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
       :lastAttemptTime,
       :lastSuccessfulTime,
       :nextDeliveryTime
-    ) = payload;
+    ) = object;
     if (lastStatus != null) {
-      result
+      result$
         ..add('lastStatus')
         ..add(serializers.serialize(
           lastStatus,
@@ -200,7 +200,7 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
         ));
     }
     if (lastErrorCode != null) {
-      result
+      result$
         ..add('lastErrorCode')
         ..add(serializers.serialize(
           lastErrorCode,
@@ -208,7 +208,7 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
         ));
     }
     if (lastErrorMessage != null) {
-      result
+      result$
         ..add('lastErrorMessage')
         ..add(serializers.serialize(
           lastErrorMessage,
@@ -216,7 +216,7 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
         ));
     }
     if (lastAttemptTime != null) {
-      result
+      result$
         ..add('lastAttemptTime')
         ..add(serializers.serialize(
           lastAttemptTime,
@@ -224,7 +224,7 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
         ));
     }
     if (lastSuccessfulTime != null) {
-      result
+      result$
         ..add('lastSuccessfulTime')
         ..add(serializers.serialize(
           lastSuccessfulTime,
@@ -232,13 +232,13 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
         ));
     }
     if (nextDeliveryTime != null) {
-      result
+      result$
         ..add('nextDeliveryTime')
         ..add(serializers.serialize(
           nextDeliveryTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

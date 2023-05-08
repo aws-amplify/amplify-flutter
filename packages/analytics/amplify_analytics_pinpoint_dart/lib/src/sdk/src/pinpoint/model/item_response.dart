@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.item_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -125,14 +126,13 @@ class ItemResponseRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ItemResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ItemResponse);
-    final result = <Object?>[];
-    final ItemResponse(:endpointItemResponse, :eventsItemResponse) = payload;
+    final result$ = <Object?>[];
+    final ItemResponse(:endpointItemResponse, :eventsItemResponse) = object;
     if (endpointItemResponse != null) {
-      result
+      result$
         ..add('EndpointItemResponse')
         ..add(serializers.serialize(
           endpointItemResponse,
@@ -140,7 +140,7 @@ class ItemResponseRestJson1Serializer
         ));
     }
     if (eventsItemResponse != null) {
-      result
+      result$
         ..add('EventsItemResponse')
         ..add(serializers.serialize(
           eventsItemResponse,
@@ -153,6 +153,6 @@ class ItemResponseRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

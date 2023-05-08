@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.stack_resource_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -212,11 +213,10 @@ class StackResourceSummaryAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StackResourceSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StackResourceSummary);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'StackResourceSummaryResponse',
         _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -231,41 +231,41 @@ class StackResourceSummaryAwsQuerySerializer
       :resourceStatusReason,
       :driftInformation,
       :moduleInfo
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i5.XmlElementName('LogicalResourceId'))
       ..add(serializers.serialize(
         logicalResourceId,
         specifiedType: const FullType(String),
       ));
     if (physicalResourceId != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('PhysicalResourceId'))
         ..add(serializers.serialize(
           physicalResourceId,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i5.XmlElementName('ResourceType'))
       ..add(serializers.serialize(
         resourceType,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('LastUpdatedTimestamp'))
       ..add(serializers.serialize(
         lastUpdatedTimestamp,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('ResourceStatus'))
       ..add(serializers.serialize(
         resourceStatus,
         specifiedType: const FullType.nullable(_i2.ResourceStatus),
       ));
     if (resourceStatusReason != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('ResourceStatusReason'))
         ..add(serializers.serialize(
           resourceStatusReason,
@@ -273,7 +273,7 @@ class StackResourceSummaryAwsQuerySerializer
         ));
     }
     if (driftInformation != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('DriftInformation'))
         ..add(serializers.serialize(
           driftInformation,
@@ -282,13 +282,13 @@ class StackResourceSummaryAwsQuerySerializer
         ));
     }
     if (moduleInfo != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('ModuleInfo'))
         ..add(serializers.serialize(
           moduleInfo,
           specifiedType: const FullType(_i4.ModuleInfo),
         ));
     }
-    return result;
+    return result$;
   }
 }

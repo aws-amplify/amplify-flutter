@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -142,14 +143,13 @@ class InAppMessageRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InAppMessage object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InAppMessage);
-    final result = <Object?>[];
-    final InAppMessage(:content, :customConfig, :layout) = payload;
+    final result$ = <Object?>[];
+    final InAppMessage(:content, :customConfig, :layout) = object;
     if (content != null) {
-      result
+      result$
         ..add('Content')
         ..add(serializers.serialize(
           content,
@@ -160,7 +160,7 @@ class InAppMessageRestJson1Serializer
         ));
     }
     if (customConfig != null) {
-      result
+      result$
         ..add('CustomConfig')
         ..add(serializers.serialize(
           customConfig,
@@ -174,13 +174,13 @@ class InAppMessageRestJson1Serializer
         ));
     }
     if (layout != null) {
-      result
+      result$
         ..add('Layout')
         ..add(serializers.serialize(
           layout,
           specifiedType: const FullType(_i3.Layout),
         ));
     }
-    return result;
+    return result$;
   }
 }

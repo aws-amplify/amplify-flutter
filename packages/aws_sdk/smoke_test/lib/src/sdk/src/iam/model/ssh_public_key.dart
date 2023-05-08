@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.ssh_public_key; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -180,11 +181,10 @@ class SshPublicKeyAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SshPublicKey object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SshPublicKey);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'SshPublicKeyResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -197,45 +197,45 @@ class SshPublicKeyAwsQuerySerializer
       :sshPublicKeyBody,
       :status,
       :uploadDate
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i3.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('SSHPublicKeyId'))
       ..add(serializers.serialize(
         sshPublicKeyId,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('Fingerprint'))
       ..add(serializers.serialize(
         fingerprint,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('SSHPublicKeyBody'))
       ..add(serializers.serialize(
         sshPublicKeyBody,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
         specifiedType: const FullType.nullable(_i2.StatusType),
       ));
     if (uploadDate != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('UploadDate'))
         ..add(serializers.serialize(
           uploadDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.config_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -274,30 +275,31 @@ class ConfigRuleAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConfigRule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConfigRule);
-    final result = <Object?>[
-      'Source',
-      serializers.serialize(
-        payload.source,
-        specifiedType: const FullType(_i3.Source),
-      ),
-    ];
+    final result$ = <Object?>[];
     final ConfigRule(
       :configRuleName,
       :configRuleArn,
       :configRuleId,
       :description,
       :scope,
+      :source,
       :inputParameters,
       :maximumExecutionFrequency,
       :configRuleState,
       :createdBy
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'Source',
+      serializers.serialize(
+        source,
+        specifiedType: const FullType(_i3.Source),
+      ),
+    ]);
     if (configRuleName != null) {
-      result
+      result$
         ..add('ConfigRuleName')
         ..add(serializers.serialize(
           configRuleName,
@@ -305,7 +307,7 @@ class ConfigRuleAwsJson11Serializer
         ));
     }
     if (configRuleArn != null) {
-      result
+      result$
         ..add('ConfigRuleArn')
         ..add(serializers.serialize(
           configRuleArn,
@@ -313,7 +315,7 @@ class ConfigRuleAwsJson11Serializer
         ));
     }
     if (configRuleId != null) {
-      result
+      result$
         ..add('ConfigRuleId')
         ..add(serializers.serialize(
           configRuleId,
@@ -321,7 +323,7 @@ class ConfigRuleAwsJson11Serializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('Description')
         ..add(serializers.serialize(
           description,
@@ -329,7 +331,7 @@ class ConfigRuleAwsJson11Serializer
         ));
     }
     if (scope != null) {
-      result
+      result$
         ..add('Scope')
         ..add(serializers.serialize(
           scope,
@@ -337,7 +339,7 @@ class ConfigRuleAwsJson11Serializer
         ));
     }
     if (inputParameters != null) {
-      result
+      result$
         ..add('InputParameters')
         ..add(serializers.serialize(
           inputParameters,
@@ -345,7 +347,7 @@ class ConfigRuleAwsJson11Serializer
         ));
     }
     if (maximumExecutionFrequency != null) {
-      result
+      result$
         ..add('MaximumExecutionFrequency')
         ..add(serializers.serialize(
           maximumExecutionFrequency,
@@ -353,7 +355,7 @@ class ConfigRuleAwsJson11Serializer
         ));
     }
     if (configRuleState != null) {
-      result
+      result$
         ..add('ConfigRuleState')
         ..add(serializers.serialize(
           configRuleState,
@@ -361,13 +363,13 @@ class ConfigRuleAwsJson11Serializer
         ));
     }
     if (createdBy != null) {
-      result
+      result$
         ..add('CreatedBy')
         ..add(serializers.serialize(
           createdBy,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

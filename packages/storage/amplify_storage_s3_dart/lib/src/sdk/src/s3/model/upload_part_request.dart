@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.upload_part_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -354,23 +355,18 @@ class UploadPartRequestRestXmlSerializer
   @override
   Object serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.Stream<List<int>> object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UploadPartRequest
-        ? object.getPayload()
-        : (object as _i2.Stream<List<int>>?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'UploadPartRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
-    result.add(serializers.serialize(
-      payload,
+
+    result$.add(serializers.serialize(
+      object,
       specifiedType: const FullType(
         _i2.Stream,
         [
@@ -381,6 +377,6 @@ class UploadPartRequestRestXmlSerializer
         ],
       ),
     ));
-    return result;
+    return result$;
   }
 }

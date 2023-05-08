@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.sdk_configuration_property; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -161,20 +162,19 @@ class SdkConfigurationPropertyRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SdkConfigurationProperty object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SdkConfigurationProperty);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final SdkConfigurationProperty(
       :defaultValue,
       :description,
       :friendlyName,
       :name,
       :required
-    ) = payload;
+    ) = object;
     if (defaultValue != null) {
-      result
+      result$
         ..add('defaultValue')
         ..add(serializers.serialize(
           defaultValue,
@@ -182,7 +182,7 @@ class SdkConfigurationPropertyRestJson1Serializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -190,7 +190,7 @@ class SdkConfigurationPropertyRestJson1Serializer
         ));
     }
     if (friendlyName != null) {
-      result
+      result$
         ..add('friendlyName')
         ..add(serializers.serialize(
           friendlyName,
@@ -198,7 +198,7 @@ class SdkConfigurationPropertyRestJson1Serializer
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add('name')
         ..add(serializers.serialize(
           name,
@@ -206,13 +206,13 @@ class SdkConfigurationPropertyRestJson1Serializer
         ));
     }
     if (required != null) {
-      result
+      result$
         ..add('required')
         ..add(serializers.serialize(
           required,
           specifiedType: const FullType(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

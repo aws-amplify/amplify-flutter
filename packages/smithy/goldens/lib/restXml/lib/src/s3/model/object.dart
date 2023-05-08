@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.s3.model.object; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -158,20 +159,19 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    S3Object object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as S3Object);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'Object',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final S3Object(:eTag, :key, :lastModified, :owner, :size, :storageClass) =
-        payload;
+        object;
     if (eTag != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ETag'))
         ..add(serializers.serialize(
           eTag,
@@ -179,7 +179,7 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
         ));
     }
     if (key != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Key'))
         ..add(serializers.serialize(
           key,
@@ -187,7 +187,7 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
         ));
     }
     if (lastModified != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
@@ -195,7 +195,7 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
         ));
     }
     if (owner != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
@@ -203,7 +203,7 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
         ));
     }
     if (size != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Size'))
         ..add(serializers.serialize(
           size,
@@ -211,13 +211,13 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
         ));
     }
     if (storageClass != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
           specifiedType: const FullType.nullable(_i2.ObjectStorageClass),
         ));
     }
-    return result;
+    return result$;
   }
 }

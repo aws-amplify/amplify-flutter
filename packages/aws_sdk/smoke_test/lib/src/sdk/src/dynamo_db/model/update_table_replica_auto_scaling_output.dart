@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.update_table_replica_auto_scaling_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -106,21 +107,20 @@ class UpdateTableReplicaAutoScalingOutputAwsJson10Serializer extends _i3
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateTableReplicaAutoScalingOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateTableReplicaAutoScalingOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final UpdateTableReplicaAutoScalingOutput(:tableAutoScalingDescription) =
-        payload;
+        object;
     if (tableAutoScalingDescription != null) {
-      result
+      result$
         ..add('TableAutoScalingDescription')
         ..add(serializers.serialize(
           tableAutoScalingDescription,
           specifiedType: const FullType(_i2.TableAutoScalingDescription),
         ));
     }
-    return result;
+    return result$;
   }
 }

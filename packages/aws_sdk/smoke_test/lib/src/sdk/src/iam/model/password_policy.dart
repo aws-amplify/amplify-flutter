@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.password_policy; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -241,11 +242,10 @@ class PasswordPolicyAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PasswordPolicy object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PasswordPolicy);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'PasswordPolicyResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -262,9 +262,9 @@ class PasswordPolicyAwsQuerySerializer
       :maxPasswordAge,
       :passwordReusePrevention,
       :hardExpiry
-    ) = payload;
+    ) = object;
     if (minimumPasswordLength != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('MinimumPasswordLength'))
         ..add(serializers.serialize(
           minimumPasswordLength,
@@ -272,7 +272,7 @@ class PasswordPolicyAwsQuerySerializer
         ));
     }
     if (requireSymbols != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('RequireSymbols'))
         ..add(serializers.serialize(
           requireSymbols,
@@ -280,7 +280,7 @@ class PasswordPolicyAwsQuerySerializer
         ));
     }
     if (requireNumbers != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('RequireNumbers'))
         ..add(serializers.serialize(
           requireNumbers,
@@ -288,7 +288,7 @@ class PasswordPolicyAwsQuerySerializer
         ));
     }
     if (requireUppercaseCharacters != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('RequireUppercaseCharacters'))
         ..add(serializers.serialize(
           requireUppercaseCharacters,
@@ -296,7 +296,7 @@ class PasswordPolicyAwsQuerySerializer
         ));
     }
     if (requireLowercaseCharacters != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('RequireLowercaseCharacters'))
         ..add(serializers.serialize(
           requireLowercaseCharacters,
@@ -304,7 +304,7 @@ class PasswordPolicyAwsQuerySerializer
         ));
     }
     if (allowUsersToChangePassword != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('AllowUsersToChangePassword'))
         ..add(serializers.serialize(
           allowUsersToChangePassword,
@@ -312,7 +312,7 @@ class PasswordPolicyAwsQuerySerializer
         ));
     }
     if (expirePasswords != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ExpirePasswords'))
         ..add(serializers.serialize(
           expirePasswords,
@@ -320,7 +320,7 @@ class PasswordPolicyAwsQuerySerializer
         ));
     }
     if (maxPasswordAge != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('MaxPasswordAge'))
         ..add(serializers.serialize(
           maxPasswordAge,
@@ -328,7 +328,7 @@ class PasswordPolicyAwsQuerySerializer
         ));
     }
     if (passwordReusePrevention != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('PasswordReusePrevention'))
         ..add(serializers.serialize(
           passwordReusePrevention,
@@ -336,13 +336,13 @@ class PasswordPolicyAwsQuerySerializer
         ));
     }
     if (hardExpiry != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('HardExpiry'))
         ..add(serializers.serialize(
           hardExpiry,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

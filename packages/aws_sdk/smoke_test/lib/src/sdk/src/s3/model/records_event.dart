@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.records_event; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -94,25 +95,24 @@ class RecordsEventRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RecordsEvent object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RecordsEvent);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'RecordsEvent',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final RecordsEvent(:payload) = payload;
+    final RecordsEvent(:payload) = object;
     if (payload != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Payload'))
         ..add(serializers.serialize(
           payload,
           specifiedType: const FullType.nullable(_i2.Uint8List),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.list_entities_for_policy_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -192,11 +193,10 @@ class ListEntitiesForPolicyResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListEntitiesForPolicyResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListEntitiesForPolicyResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'ListEntitiesForPolicyResponseResponse',
         _i6.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -208,9 +208,9 @@ class ListEntitiesForPolicyResponseAwsQuerySerializer
       :policyRoles,
       :isTruncated,
       :marker
-    ) = payload;
+    ) = object;
     if (policyGroups != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('PolicyGroups'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -224,7 +224,7 @@ class ListEntitiesForPolicyResponseAwsQuerySerializer
         ));
     }
     if (policyUsers != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('PolicyUsers'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -238,7 +238,7 @@ class ListEntitiesForPolicyResponseAwsQuerySerializer
         ));
     }
     if (policyRoles != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('PolicyRoles'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -252,7 +252,7 @@ class ListEntitiesForPolicyResponseAwsQuerySerializer
         ));
     }
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -260,13 +260,13 @@ class ListEntitiesForPolicyResponseAwsQuerySerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

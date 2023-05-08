@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.invalid_user_type_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -119,25 +120,24 @@ class InvalidUserTypeExceptionAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InvalidUserTypeException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InvalidUserTypeException);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'InvalidUserTypeExceptionResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final InvalidUserTypeException(:message) = payload;
+    final InvalidUserTypeException(:message) = object;
     if (message != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('message'))
         ..add(serializers.serialize(
           message,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

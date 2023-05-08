@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_messages_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -104,14 +105,13 @@ class InAppMessagesResponseRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InAppMessagesResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InAppMessagesResponse);
-    final result = <Object?>[];
-    final InAppMessagesResponse(:inAppMessageCampaigns) = payload;
+    final result$ = <Object?>[];
+    final InAppMessagesResponse(:inAppMessageCampaigns) = object;
     if (inAppMessageCampaigns != null) {
-      result
+      result$
         ..add('InAppMessageCampaigns')
         ..add(serializers.serialize(
           inAppMessageCampaigns,
@@ -121,6 +121,6 @@ class InAppMessagesResponseRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

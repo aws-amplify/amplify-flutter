@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_service_linked_role_deletion_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -127,32 +128,30 @@ class GetServiceLinkedRoleDeletionStatusResponseAwsQuerySerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetServiceLinkedRoleDeletionStatusResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetServiceLinkedRoleDeletionStatusResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'GetServiceLinkedRoleDeletionStatusResponseResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final GetServiceLinkedRoleDeletionStatusResponse(:status, :reason) =
-        payload;
-    result
+    final GetServiceLinkedRoleDeletionStatusResponse(:status, :reason) = object;
+    result$
       ..add(const _i4.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
         specifiedType: const FullType.nullable(_i2.DeletionTaskStatusType),
       ));
     if (reason != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Reason'))
         ..add(serializers.serialize(
           reason,
           specifiedType: const FullType(_i3.DeletionTaskFailureReasonType),
         ));
     }
-    return result;
+    return result$;
   }
 }

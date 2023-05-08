@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.select_object_content_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -411,13 +412,10 @@ class SelectObjectContentRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SelectObjectContentRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is SelectObjectContentRequest
-        ? object.getPayload()
-        : (object as SelectObjectContentRequestPayload);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'SelectObjectContentRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -430,33 +428,33 @@ class SelectObjectContentRequestRestXmlSerializer
       :outputSerialization,
       :requestProgress,
       :scanRange
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('Expression'))
       ..add(serializers.serialize(
         expression,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('ExpressionType'))
       ..add(serializers.serialize(
         expressionType,
         specifiedType: const FullType.nullable(_i3.ExpressionType),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('InputSerialization'))
       ..add(serializers.serialize(
         inputSerialization,
         specifiedType: const FullType(_i5.InputSerialization),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('OutputSerialization'))
       ..add(serializers.serialize(
         outputSerialization,
         specifiedType: const FullType(_i6.OutputSerialization),
       ));
     if (requestProgress != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('RequestProgress'))
         ..add(serializers.serialize(
           requestProgress,
@@ -464,13 +462,13 @@ class SelectObjectContentRequestRestXmlSerializer
         ));
     }
     if (scanRange != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ScanRange'))
         ..add(serializers.serialize(
           scanRange,
           specifiedType: const FullType(_i7.ScanRange),
         ));
     }
-    return result;
+    return result$;
   }
 }

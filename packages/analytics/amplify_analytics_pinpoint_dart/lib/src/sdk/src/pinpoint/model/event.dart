@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.event; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -246,34 +247,36 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Event object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Event);
-    final result = <Object?>[
-      'EventType',
-      serializers.serialize(
-        payload.eventType,
-        specifiedType: const FullType(String),
-      ),
-      'Timestamp',
-      serializers.serialize(
-        payload.timestamp,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final Event(
       :appPackageName,
       :appTitle,
       :appVersionCode,
       :attributes,
       :clientSdkVersion,
+      :eventType,
       :metrics,
       :sdkName,
-      :session
-    ) = payload;
+      :session,
+      :timestamp
+    ) = object;
+    result$.addAll([
+      'EventType',
+      serializers.serialize(
+        eventType,
+        specifiedType: const FullType(String),
+      ),
+      'Timestamp',
+      serializers.serialize(
+        timestamp,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (appPackageName != null) {
-      result
+      result$
         ..add('AppPackageName')
         ..add(serializers.serialize(
           appPackageName,
@@ -281,7 +284,7 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
         ));
     }
     if (appTitle != null) {
-      result
+      result$
         ..add('AppTitle')
         ..add(serializers.serialize(
           appTitle,
@@ -289,7 +292,7 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
         ));
     }
     if (appVersionCode != null) {
-      result
+      result$
         ..add('AppVersionCode')
         ..add(serializers.serialize(
           appVersionCode,
@@ -297,7 +300,7 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
         ));
     }
     if (attributes != null) {
-      result
+      result$
         ..add('Attributes')
         ..add(serializers.serialize(
           attributes,
@@ -311,7 +314,7 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
         ));
     }
     if (clientSdkVersion != null) {
-      result
+      result$
         ..add('ClientSdkVersion')
         ..add(serializers.serialize(
           clientSdkVersion,
@@ -319,7 +322,7 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
         ));
     }
     if (metrics != null) {
-      result
+      result$
         ..add('Metrics')
         ..add(serializers.serialize(
           metrics,
@@ -333,7 +336,7 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
         ));
     }
     if (sdkName != null) {
-      result
+      result$
         ..add('SdkName')
         ..add(serializers.serialize(
           sdkName,
@@ -341,13 +344,13 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
         ));
     }
     if (session != null) {
-      result
+      result$
         ..add('Session')
         ..add(serializers.serialize(
           session,
           specifiedType: const FullType(_i2.Session),
         ));
     }
-    return result;
+    return result$;
   }
 }

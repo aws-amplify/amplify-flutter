@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.backup_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -198,40 +199,48 @@ class BackupDetailsAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BackupDetails object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BackupDetails);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final BackupDetails(
+      :backupArn,
+      :backupName,
+      :backupSizeBytes,
+      :backupStatus,
+      :backupType,
+      :backupCreationDateTime,
+      :backupExpiryDateTime
+    ) = object;
+    result$.addAll([
       'BackupArn',
       serializers.serialize(
-        payload.backupArn,
+        backupArn,
         specifiedType: const FullType(String),
       ),
       'BackupName',
       serializers.serialize(
-        payload.backupName,
+        backupName,
         specifiedType: const FullType(String),
       ),
       'BackupStatus',
       serializers.serialize(
-        payload.backupStatus,
+        backupStatus,
         specifiedType: const FullType(_i3.BackupStatus),
       ),
       'BackupType',
       serializers.serialize(
-        payload.backupType,
+        backupType,
         specifiedType: const FullType(_i4.BackupType),
       ),
       'BackupCreationDateTime',
       serializers.serialize(
-        payload.backupCreationDateTime,
+        backupCreationDateTime,
         specifiedType: const FullType(DateTime),
       ),
-    ];
-    final BackupDetails(:backupSizeBytes, :backupExpiryDateTime) = payload;
+    ]);
     if (backupSizeBytes != null) {
-      result
+      result$
         ..add('BackupSizeBytes')
         ..add(serializers.serialize(
           backupSizeBytes,
@@ -239,13 +248,13 @@ class BackupDetailsAwsJson10Serializer
         ));
     }
     if (backupExpiryDateTime != null) {
-      result
+      result$
         ..add('BackupExpiryDateTime')
         ..add(serializers.serialize(
           backupExpiryDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

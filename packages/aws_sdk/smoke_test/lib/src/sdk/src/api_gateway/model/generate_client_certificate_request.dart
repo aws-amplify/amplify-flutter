@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.generate_client_certificate_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -136,14 +137,13 @@ class GenerateClientCertificateRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GenerateClientCertificateRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GenerateClientCertificateRequest);
-    final result = <Object?>[];
-    final GenerateClientCertificateRequest(:description, :tags) = payload;
+    final result$ = <Object?>[];
+    final GenerateClientCertificateRequest(:description, :tags) = object;
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -151,7 +151,7 @@ class GenerateClientCertificateRequestRestJson1Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('tags')
         ..add(serializers.serialize(
           tags,
@@ -164,6 +164,6 @@ class GenerateClientCertificateRequestRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.policy_granting_service_access; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -176,11 +177,10 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PolicyGrantingServiceAccess object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PolicyGrantingServiceAccess);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'PolicyGrantingServiceAccessResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -192,21 +192,21 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
       :policyArn,
       :entityType,
       :entityName
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i4.XmlElementName('PolicyName'))
       ..add(serializers.serialize(
         policyName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i4.XmlElementName('PolicyType'))
       ..add(serializers.serialize(
         policyType,
         specifiedType: const FullType.nullable(_i2.PolicyType),
       ));
     if (policyArn != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PolicyArn'))
         ..add(serializers.serialize(
           policyArn,
@@ -214,7 +214,7 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
         ));
     }
     if (entityType != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('EntityType'))
         ..add(serializers.serialize(
           entityType,
@@ -222,13 +222,13 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
         ));
     }
     if (entityName != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('EntityName'))
         ..add(serializers.serialize(
           entityName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

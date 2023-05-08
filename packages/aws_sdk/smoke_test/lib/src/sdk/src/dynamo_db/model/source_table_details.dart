@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.source_table_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -234,24 +235,35 @@ class SourceTableDetailsAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SourceTableDetails object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SourceTableDetails);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final SourceTableDetails(
+      :tableName,
+      :tableId,
+      :tableArn,
+      :tableSizeBytes,
+      :keySchema,
+      :tableCreationDateTime,
+      :provisionedThroughput,
+      :itemCount,
+      :billingMode
+    ) = object;
+    result$.addAll([
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
       'TableId',
       serializers.serialize(
-        payload.tableId,
+        tableId,
         specifiedType: const FullType(String),
       ),
       'KeySchema',
       serializers.serialize(
-        payload.keySchema,
+        keySchema,
         specifiedType: const FullType(
           _i6.BuiltList,
           [FullType(_i3.KeySchemaElement)],
@@ -259,23 +271,17 @@ class SourceTableDetailsAwsJson10Serializer
       ),
       'TableCreationDateTime',
       serializers.serialize(
-        payload.tableCreationDateTime,
+        tableCreationDateTime,
         specifiedType: const FullType(DateTime),
       ),
       'ProvisionedThroughput',
       serializers.serialize(
-        payload.provisionedThroughput,
+        provisionedThroughput,
         specifiedType: const FullType(_i4.ProvisionedThroughput),
       ),
-    ];
-    final SourceTableDetails(
-      :tableArn,
-      :tableSizeBytes,
-      :itemCount,
-      :billingMode
-    ) = payload;
+    ]);
     if (tableArn != null) {
-      result
+      result$
         ..add('TableArn')
         ..add(serializers.serialize(
           tableArn,
@@ -283,7 +289,7 @@ class SourceTableDetailsAwsJson10Serializer
         ));
     }
     if (tableSizeBytes != null) {
-      result
+      result$
         ..add('TableSizeBytes')
         ..add(serializers.serialize(
           tableSizeBytes,
@@ -291,7 +297,7 @@ class SourceTableDetailsAwsJson10Serializer
         ));
     }
     if (itemCount != null) {
-      result
+      result$
         ..add('ItemCount')
         ..add(serializers.serialize(
           itemCount,
@@ -299,13 +305,13 @@ class SourceTableDetailsAwsJson10Serializer
         ));
     }
     if (billingMode != null) {
-      result
+      result$
         ..add('BillingMode')
         ..add(serializers.serialize(
           billingMode,
           specifiedType: const FullType(_i5.BillingMode),
         ));
     }
-    return result;
+    return result$;
   }
 }

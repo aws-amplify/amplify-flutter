@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.capacity; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -127,15 +128,14 @@ class CapacityAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Capacity object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Capacity);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final Capacity(:readCapacityUnits, :writeCapacityUnits, :capacityUnits) =
-        payload;
+        object;
     if (readCapacityUnits != null) {
-      result
+      result$
         ..add('ReadCapacityUnits')
         ..add(serializers.serialize(
           readCapacityUnits,
@@ -143,7 +143,7 @@ class CapacityAwsJson10Serializer
         ));
     }
     if (writeCapacityUnits != null) {
-      result
+      result$
         ..add('WriteCapacityUnits')
         ..add(serializers.serialize(
           writeCapacityUnits,
@@ -151,13 +151,13 @@ class CapacityAwsJson10Serializer
         ));
     }
     if (capacityUnits != null) {
-      result
+      result$
         ..add('CapacityUnits')
         ..add(serializers.serialize(
           capacityUnits,
           specifiedType: const FullType(double),
         ));
     }
-    return result;
+    return result$;
   }
 }

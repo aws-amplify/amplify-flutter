@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.xml_attributes_on_payload_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -129,21 +130,15 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.XmlAttributesInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is XmlAttributesOnPayloadInputOutput
-        ? object.getPayload()
-        : (object as _i2.XmlAttributesInputOutput?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName('XmlAttributesInputOutput')
     ];
-    if (payload == null) {
-      return result;
-    }
-    final _i2.XmlAttributesInputOutput(:foo, :attr) = payload;
+    final _i2.XmlAttributesInputOutput(:foo, :attr) = object;
     if (attr != null) {
-      result.add(_i4.XmlAttribute(
+      result$.add(_i4.XmlAttribute(
         _i4.XmlName('test'),
         (serializers.serialize(
           attr,
@@ -152,13 +147,13 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
       ));
     }
     if (foo != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('foo'))
         ..add(serializers.serialize(
           foo,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

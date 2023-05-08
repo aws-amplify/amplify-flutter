@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.backup_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -243,11 +244,10 @@ class BackupSummaryAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BackupSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BackupSummary);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final BackupSummary(
       :tableName,
       :tableId,
@@ -259,9 +259,9 @@ class BackupSummaryAwsJson10Serializer
       :backupStatus,
       :backupType,
       :backupSizeBytes
-    ) = payload;
+    ) = object;
     if (tableName != null) {
-      result
+      result$
         ..add('TableName')
         ..add(serializers.serialize(
           tableName,
@@ -269,7 +269,7 @@ class BackupSummaryAwsJson10Serializer
         ));
     }
     if (tableId != null) {
-      result
+      result$
         ..add('TableId')
         ..add(serializers.serialize(
           tableId,
@@ -277,7 +277,7 @@ class BackupSummaryAwsJson10Serializer
         ));
     }
     if (tableArn != null) {
-      result
+      result$
         ..add('TableArn')
         ..add(serializers.serialize(
           tableArn,
@@ -285,7 +285,7 @@ class BackupSummaryAwsJson10Serializer
         ));
     }
     if (backupArn != null) {
-      result
+      result$
         ..add('BackupArn')
         ..add(serializers.serialize(
           backupArn,
@@ -293,7 +293,7 @@ class BackupSummaryAwsJson10Serializer
         ));
     }
     if (backupName != null) {
-      result
+      result$
         ..add('BackupName')
         ..add(serializers.serialize(
           backupName,
@@ -301,7 +301,7 @@ class BackupSummaryAwsJson10Serializer
         ));
     }
     if (backupCreationDateTime != null) {
-      result
+      result$
         ..add('BackupCreationDateTime')
         ..add(serializers.serialize(
           backupCreationDateTime,
@@ -309,7 +309,7 @@ class BackupSummaryAwsJson10Serializer
         ));
     }
     if (backupExpiryDateTime != null) {
-      result
+      result$
         ..add('BackupExpiryDateTime')
         ..add(serializers.serialize(
           backupExpiryDateTime,
@@ -317,7 +317,7 @@ class BackupSummaryAwsJson10Serializer
         ));
     }
     if (backupStatus != null) {
-      result
+      result$
         ..add('BackupStatus')
         ..add(serializers.serialize(
           backupStatus,
@@ -325,7 +325,7 @@ class BackupSummaryAwsJson10Serializer
         ));
     }
     if (backupType != null) {
-      result
+      result$
         ..add('BackupType')
         ..add(serializers.serialize(
           backupType,
@@ -333,13 +333,13 @@ class BackupSummaryAwsJson10Serializer
         ));
     }
     if (backupSizeBytes != null) {
-      result
+      result$
         ..add('BackupSizeBytes')
         ..add(serializers.serialize(
           backupSizeBytes,
           specifiedType: const FullType(_i4.Int64),
         ));
     }
-    return result;
+    return result$;
   }
 }

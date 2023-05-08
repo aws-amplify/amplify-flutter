@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.remediation_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -286,28 +287,14 @@ class RemediationConfigurationAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RemediationConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RemediationConfiguration);
-    final result = <Object?>[
-      'ConfigRuleName',
-      serializers.serialize(
-        payload.configRuleName,
-        specifiedType: const FullType(String),
-      ),
-      'TargetType',
-      serializers.serialize(
-        payload.targetType,
-        specifiedType: const FullType(_i2.RemediationTargetType),
-      ),
-      'TargetId',
-      serializers.serialize(
-        payload.targetId,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final RemediationConfiguration(
+      :configRuleName,
+      :targetType,
+      :targetId,
       :targetVersion,
       :parameters,
       :resourceType,
@@ -317,9 +304,26 @@ class RemediationConfigurationAwsJson11Serializer
       :retryAttemptSeconds,
       :arn,
       :createdByService
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'ConfigRuleName',
+      serializers.serialize(
+        configRuleName,
+        specifiedType: const FullType(String),
+      ),
+      'TargetType',
+      serializers.serialize(
+        targetType,
+        specifiedType: const FullType(_i2.RemediationTargetType),
+      ),
+      'TargetId',
+      serializers.serialize(
+        targetId,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (targetVersion != null) {
-      result
+      result$
         ..add('TargetVersion')
         ..add(serializers.serialize(
           targetVersion,
@@ -327,7 +331,7 @@ class RemediationConfigurationAwsJson11Serializer
         ));
     }
     if (parameters != null) {
-      result
+      result$
         ..add('Parameters')
         ..add(serializers.serialize(
           parameters,
@@ -341,7 +345,7 @@ class RemediationConfigurationAwsJson11Serializer
         ));
     }
     if (resourceType != null) {
-      result
+      result$
         ..add('ResourceType')
         ..add(serializers.serialize(
           resourceType,
@@ -349,7 +353,7 @@ class RemediationConfigurationAwsJson11Serializer
         ));
     }
     if (automatic != null) {
-      result
+      result$
         ..add('Automatic')
         ..add(serializers.serialize(
           automatic,
@@ -357,7 +361,7 @@ class RemediationConfigurationAwsJson11Serializer
         ));
     }
     if (executionControls != null) {
-      result
+      result$
         ..add('ExecutionControls')
         ..add(serializers.serialize(
           executionControls,
@@ -365,7 +369,7 @@ class RemediationConfigurationAwsJson11Serializer
         ));
     }
     if (maximumAutomaticAttempts != null) {
-      result
+      result$
         ..add('MaximumAutomaticAttempts')
         ..add(serializers.serialize(
           maximumAutomaticAttempts,
@@ -373,7 +377,7 @@ class RemediationConfigurationAwsJson11Serializer
         ));
     }
     if (retryAttemptSeconds != null) {
-      result
+      result$
         ..add('RetryAttemptSeconds')
         ..add(serializers.serialize(
           retryAttemptSeconds,
@@ -381,7 +385,7 @@ class RemediationConfigurationAwsJson11Serializer
         ));
     }
     if (arn != null) {
-      result
+      result$
         ..add('Arn')
         ..add(serializers.serialize(
           arn,
@@ -389,13 +393,13 @@ class RemediationConfigurationAwsJson11Serializer
         ));
     }
     if (createdByService != null) {
-      result
+      result$
         ..add('CreatedByService')
         ..add(serializers.serialize(
           createdByService,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

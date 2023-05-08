@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.list_policies_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -145,19 +146,18 @@ class ListPoliciesResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListPoliciesResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListPoliciesResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ListPoliciesResponseResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final ListPoliciesResponse(:policies, :isTruncated, :marker) = payload;
+    final ListPoliciesResponse(:policies, :isTruncated, :marker) = object;
     if (policies != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Policies'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -171,7 +171,7 @@ class ListPoliciesResponseAwsQuerySerializer
         ));
     }
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -179,13 +179,13 @@ class ListPoliciesResponseAwsQuerySerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

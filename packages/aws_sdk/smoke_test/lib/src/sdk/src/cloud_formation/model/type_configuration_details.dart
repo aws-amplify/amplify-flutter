@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.type_configuration_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -203,11 +204,10 @@ class TypeConfigurationDetailsAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TypeConfigurationDetails object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TypeConfigurationDetails);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'TypeConfigurationDetailsResponse',
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -221,9 +221,9 @@ class TypeConfigurationDetailsAwsQuerySerializer
       :typeArn,
       :typeName,
       :isDefaultConfiguration
-    ) = payload;
+    ) = object;
     if (arn != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
@@ -231,7 +231,7 @@ class TypeConfigurationDetailsAwsQuerySerializer
         ));
     }
     if (alias != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Alias'))
         ..add(serializers.serialize(
           alias,
@@ -239,7 +239,7 @@ class TypeConfigurationDetailsAwsQuerySerializer
         ));
     }
     if (configuration != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Configuration'))
         ..add(serializers.serialize(
           configuration,
@@ -247,7 +247,7 @@ class TypeConfigurationDetailsAwsQuerySerializer
         ));
     }
     if (lastUpdated != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('LastUpdated'))
         ..add(serializers.serialize(
           lastUpdated,
@@ -255,7 +255,7 @@ class TypeConfigurationDetailsAwsQuerySerializer
         ));
     }
     if (typeArn != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('TypeArn'))
         ..add(serializers.serialize(
           typeArn,
@@ -263,7 +263,7 @@ class TypeConfigurationDetailsAwsQuerySerializer
         ));
     }
     if (typeName != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
@@ -271,13 +271,13 @@ class TypeConfigurationDetailsAwsQuerySerializer
         ));
     }
     if (isDefaultConfiguration != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('IsDefaultConfiguration'))
         ..add(serializers.serialize(
           isDefaultConfiguration,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

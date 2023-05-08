@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.encryption; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -130,25 +131,24 @@ class EncryptionRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Encryption object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Encryption);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'Encryption',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final Encryption(:encryptionType, :kmsContext, :kmsKeyId) = payload;
-    result
+    final Encryption(:encryptionType, :kmsContext, :kmsKeyId) = object;
+    result$
       ..add(const _i3.XmlElementName('EncryptionType'))
       ..add(serializers.serialize(
         encryptionType,
         specifiedType: const FullType.nullable(_i2.ServerSideEncryption),
       ));
     if (kmsContext != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('KMSContext'))
         ..add(serializers.serialize(
           kmsContext,
@@ -156,13 +156,13 @@ class EncryptionRestXmlSerializer
         ));
     }
     if (kmsKeyId != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('KMSKeyId'))
         ..add(serializers.serialize(
           kmsKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.json_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -93,25 +94,24 @@ class JsonInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    JsonInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as JsonInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'JsonInput',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final JsonInput(:type) = payload;
+    final JsonInput(:type) = object;
     if (type != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
           specifiedType: const FullType.nullable(_i2.JsonType),
         ));
     }
-    return result;
+    return result$;
   }
 }

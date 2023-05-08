@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.tag_saml_provider_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -133,24 +134,23 @@ class TagSamlProviderRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TagSamlProviderRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TagSamlProviderRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'TagSamlProviderRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final TagSamlProviderRequest(:samlProviderArn, :tags) = payload;
-    result
+    final TagSamlProviderRequest(:samlProviderArn, :tags) = object;
+    result$
       ..add(const _i1.XmlElementName('SAMLProviderArn'))
       ..add(serializers.serialize(
         samlProviderArn,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('Tags'))
       ..add(
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
@@ -162,6 +162,6 @@ class TagSamlProviderRequestAwsQuerySerializer
           [FullType(_i3.Tag)],
         ),
       ));
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.user_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -277,11 +278,10 @@ class UserDetailAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UserDetail object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UserDetail);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'UserDetailResponse',
         _i7.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -298,9 +298,9 @@ class UserDetailAwsQuerySerializer
       :attachedManagedPolicies,
       :permissionsBoundary,
       :tags
-    ) = payload;
+    ) = object;
     if (path != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
@@ -308,7 +308,7 @@ class UserDetailAwsQuerySerializer
         ));
     }
     if (userName != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('UserName'))
         ..add(serializers.serialize(
           userName,
@@ -316,7 +316,7 @@ class UserDetailAwsQuerySerializer
         ));
     }
     if (userId != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('UserId'))
         ..add(serializers.serialize(
           userId,
@@ -324,7 +324,7 @@ class UserDetailAwsQuerySerializer
         ));
     }
     if (arn != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
@@ -332,7 +332,7 @@ class UserDetailAwsQuerySerializer
         ));
     }
     if (createDate != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
@@ -340,7 +340,7 @@ class UserDetailAwsQuerySerializer
         ));
     }
     if (userPolicyList != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('UserPolicyList'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
@@ -354,7 +354,7 @@ class UserDetailAwsQuerySerializer
         ));
     }
     if (groupList != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('GroupList'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
@@ -368,7 +368,7 @@ class UserDetailAwsQuerySerializer
         ));
     }
     if (attachedManagedPolicies != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('AttachedManagedPolicies'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
@@ -382,7 +382,7 @@ class UserDetailAwsQuerySerializer
         ));
     }
     if (permissionsBoundary != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('PermissionsBoundary'))
         ..add(serializers.serialize(
           permissionsBoundary,
@@ -390,7 +390,7 @@ class UserDetailAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Tags'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
@@ -403,6 +403,6 @@ class UserDetailAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

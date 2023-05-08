@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.lifecycle_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -240,11 +241,10 @@ class LifecycleRuleRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    LifecycleRule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as LifecycleRule);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i10.XmlElementName(
         'LifecycleRule',
         _i10.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -260,9 +260,9 @@ class LifecycleRuleRestXmlSerializer
       :prefix,
       :status,
       :transitions
-    ) = payload;
+    ) = object;
     if (abortIncompleteMultipartUpload != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('AbortIncompleteMultipartUpload'))
         ..add(serializers.serialize(
           abortIncompleteMultipartUpload,
@@ -270,7 +270,7 @@ class LifecycleRuleRestXmlSerializer
         ));
     }
     if (expiration != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Expiration'))
         ..add(serializers.serialize(
           expiration,
@@ -278,7 +278,7 @@ class LifecycleRuleRestXmlSerializer
         ));
     }
     if (filter != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Filter'))
         ..add(serializers.serialize(
           filter,
@@ -286,7 +286,7 @@ class LifecycleRuleRestXmlSerializer
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('ID'))
         ..add(serializers.serialize(
           id,
@@ -294,7 +294,7 @@ class LifecycleRuleRestXmlSerializer
         ));
     }
     if (noncurrentVersionExpiration != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('NoncurrentVersionExpiration'))
         ..add(serializers.serialize(
           noncurrentVersionExpiration,
@@ -302,7 +302,7 @@ class LifecycleRuleRestXmlSerializer
         ));
     }
     if (noncurrentVersionTransitions != null) {
-      result.addAll(const _i10.XmlBuiltListSerializer(
+      result$.addAll(const _i10.XmlBuiltListSerializer(
               memberName: 'NoncurrentVersionTransition')
           .serialize(
         serializers,
@@ -314,21 +314,21 @@ class LifecycleRuleRestXmlSerializer
       ));
     }
     if (prefix != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i10.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
         specifiedType: const FullType.nullable(_i4.ExpirationStatus),
       ));
     if (transitions != null) {
-      result.addAll(
+      result$.addAll(
           const _i10.XmlBuiltListSerializer(memberName: 'Transition').serialize(
         serializers,
         transitions,
@@ -338,6 +338,6 @@ class LifecycleRuleRestXmlSerializer
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.aggregation_authorization; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -146,19 +147,18 @@ class AggregationAuthorizationAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AggregationAuthorization object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AggregationAuthorization);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final AggregationAuthorization(
       :aggregationAuthorizationArn,
       :authorizedAccountId,
       :authorizedAwsRegion,
       :creationTime
-    ) = payload;
+    ) = object;
     if (aggregationAuthorizationArn != null) {
-      result
+      result$
         ..add('AggregationAuthorizationArn')
         ..add(serializers.serialize(
           aggregationAuthorizationArn,
@@ -166,7 +166,7 @@ class AggregationAuthorizationAwsJson11Serializer
         ));
     }
     if (authorizedAccountId != null) {
-      result
+      result$
         ..add('AuthorizedAccountId')
         ..add(serializers.serialize(
           authorizedAccountId,
@@ -174,7 +174,7 @@ class AggregationAuthorizationAwsJson11Serializer
         ));
     }
     if (authorizedAwsRegion != null) {
-      result
+      result$
         ..add('AuthorizedAwsRegion')
         ..add(serializers.serialize(
           authorizedAwsRegion,
@@ -182,13 +182,13 @@ class AggregationAuthorizationAwsJson11Serializer
         ));
     }
     if (creationTime != null) {
-      result
+      result$
         ..add('CreationTime')
         ..add(serializers.serialize(
           creationTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

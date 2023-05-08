@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.write_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,14 +117,13 @@ class WriteRequestAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    WriteRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as WriteRequest);
-    final result = <Object?>[];
-    final WriteRequest(:putRequest, :deleteRequest) = payload;
+    final result$ = <Object?>[];
+    final WriteRequest(:putRequest, :deleteRequest) = object;
     if (putRequest != null) {
-      result
+      result$
         ..add('PutRequest')
         ..add(serializers.serialize(
           putRequest,
@@ -131,13 +131,13 @@ class WriteRequestAwsJson10Serializer
         ));
     }
     if (deleteRequest != null) {
-      result
+      result$
         ..add('DeleteRequest')
         ..add(serializers.serialize(
           deleteRequest,
           specifiedType: const FullType(_i3.DeleteRequest),
         ));
     }
-    return result;
+    return result$;
   }
 }

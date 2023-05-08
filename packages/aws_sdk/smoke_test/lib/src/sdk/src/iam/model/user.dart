@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.user; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -246,11 +247,10 @@ class UserAwsQuerySerializer extends _i5.StructuredSmithySerializer<User> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    User object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as User);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'UserResponse',
         _i5.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -265,39 +265,39 @@ class UserAwsQuerySerializer extends _i5.StructuredSmithySerializer<User> {
       :passwordLastUsed,
       :permissionsBoundary,
       :tags
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i5.XmlElementName('Path'))
       ..add(serializers.serialize(
         path,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('UserId'))
       ..add(serializers.serialize(
         userId,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('Arn'))
       ..add(serializers.serialize(
         arn,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
         createDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     if (passwordLastUsed != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('PasswordLastUsed'))
         ..add(serializers.serialize(
           passwordLastUsed,
@@ -305,7 +305,7 @@ class UserAwsQuerySerializer extends _i5.StructuredSmithySerializer<User> {
         ));
     }
     if (permissionsBoundary != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('PermissionsBoundary'))
         ..add(serializers.serialize(
           permissionsBoundary,
@@ -313,7 +313,7 @@ class UserAwsQuerySerializer extends _i5.StructuredSmithySerializer<User> {
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Tags'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
@@ -326,6 +326,6 @@ class UserAwsQuerySerializer extends _i5.StructuredSmithySerializer<User> {
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

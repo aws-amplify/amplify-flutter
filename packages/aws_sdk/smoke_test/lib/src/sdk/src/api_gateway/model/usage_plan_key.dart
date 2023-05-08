@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.usage_plan_key; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -150,14 +151,13 @@ class UsagePlanKeyRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UsagePlanKey object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UsagePlanKey);
-    final result = <Object?>[];
-    final UsagePlanKey(:id, :name, :type, :value) = payload;
+    final result$ = <Object?>[];
+    final UsagePlanKey(:id, :name, :type, :value) = object;
     if (id != null) {
-      result
+      result$
         ..add('id')
         ..add(serializers.serialize(
           id,
@@ -165,7 +165,7 @@ class UsagePlanKeyRestJson1Serializer
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add('name')
         ..add(serializers.serialize(
           name,
@@ -173,7 +173,7 @@ class UsagePlanKeyRestJson1Serializer
         ));
     }
     if (type != null) {
-      result
+      result$
         ..add('type')
         ..add(serializers.serialize(
           type,
@@ -181,13 +181,13 @@ class UsagePlanKeyRestJson1Serializer
         ));
     }
     if (value != null) {
-      result
+      result$
         ..add('value')
         ..add(serializers.serialize(
           value,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

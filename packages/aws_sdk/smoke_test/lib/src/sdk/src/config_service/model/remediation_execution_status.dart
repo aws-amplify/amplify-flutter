@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.remediation_execution_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -171,20 +172,19 @@ class RemediationExecutionStatusAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RemediationExecutionStatus object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RemediationExecutionStatus);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final RemediationExecutionStatus(
       :resourceKey,
       :state,
       :stepDetails,
       :invocationTime,
       :lastUpdatedTime
-    ) = payload;
+    ) = object;
     if (resourceKey != null) {
-      result
+      result$
         ..add('ResourceKey')
         ..add(serializers.serialize(
           resourceKey,
@@ -192,7 +192,7 @@ class RemediationExecutionStatusAwsJson11Serializer
         ));
     }
     if (state != null) {
-      result
+      result$
         ..add('State')
         ..add(serializers.serialize(
           state,
@@ -200,7 +200,7 @@ class RemediationExecutionStatusAwsJson11Serializer
         ));
     }
     if (stepDetails != null) {
-      result
+      result$
         ..add('StepDetails')
         ..add(serializers.serialize(
           stepDetails,
@@ -211,7 +211,7 @@ class RemediationExecutionStatusAwsJson11Serializer
         ));
     }
     if (invocationTime != null) {
-      result
+      result$
         ..add('InvocationTime')
         ..add(serializers.serialize(
           invocationTime,
@@ -219,13 +219,13 @@ class RemediationExecutionStatusAwsJson11Serializer
         ));
     }
     if (lastUpdatedTime != null) {
-      result
+      result$
         ..add('LastUpdatedTime')
         ..add(serializers.serialize(
           lastUpdatedTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

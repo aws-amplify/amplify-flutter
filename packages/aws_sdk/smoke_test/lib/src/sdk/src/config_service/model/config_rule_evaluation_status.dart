@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.config_rule_evaluation_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -321,11 +322,10 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConfigRuleEvaluationStatus object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConfigRuleEvaluationStatus);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ConfigRuleEvaluationStatus(
       :configRuleName,
       :configRuleArn,
@@ -342,9 +342,9 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
       :lastDebugLogDeliveryStatus,
       :lastDebugLogDeliveryStatusReason,
       :lastDebugLogDeliveryTime
-    ) = payload;
+    ) = object;
     if (configRuleName != null) {
-      result
+      result$
         ..add('ConfigRuleName')
         ..add(serializers.serialize(
           configRuleName,
@@ -352,7 +352,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (configRuleArn != null) {
-      result
+      result$
         ..add('ConfigRuleArn')
         ..add(serializers.serialize(
           configRuleArn,
@@ -360,7 +360,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (configRuleId != null) {
-      result
+      result$
         ..add('ConfigRuleId')
         ..add(serializers.serialize(
           configRuleId,
@@ -368,7 +368,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (lastSuccessfulInvocationTime != null) {
-      result
+      result$
         ..add('LastSuccessfulInvocationTime')
         ..add(serializers.serialize(
           lastSuccessfulInvocationTime,
@@ -376,7 +376,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (lastFailedInvocationTime != null) {
-      result
+      result$
         ..add('LastFailedInvocationTime')
         ..add(serializers.serialize(
           lastFailedInvocationTime,
@@ -384,7 +384,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (lastSuccessfulEvaluationTime != null) {
-      result
+      result$
         ..add('LastSuccessfulEvaluationTime')
         ..add(serializers.serialize(
           lastSuccessfulEvaluationTime,
@@ -392,7 +392,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (lastFailedEvaluationTime != null) {
-      result
+      result$
         ..add('LastFailedEvaluationTime')
         ..add(serializers.serialize(
           lastFailedEvaluationTime,
@@ -400,7 +400,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (firstActivatedTime != null) {
-      result
+      result$
         ..add('FirstActivatedTime')
         ..add(serializers.serialize(
           firstActivatedTime,
@@ -408,7 +408,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (lastDeactivatedTime != null) {
-      result
+      result$
         ..add('LastDeactivatedTime')
         ..add(serializers.serialize(
           lastDeactivatedTime,
@@ -416,7 +416,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (lastErrorCode != null) {
-      result
+      result$
         ..add('LastErrorCode')
         ..add(serializers.serialize(
           lastErrorCode,
@@ -424,7 +424,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (lastErrorMessage != null) {
-      result
+      result$
         ..add('LastErrorMessage')
         ..add(serializers.serialize(
           lastErrorMessage,
@@ -432,7 +432,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (firstEvaluationStarted != null) {
-      result
+      result$
         ..add('FirstEvaluationStarted')
         ..add(serializers.serialize(
           firstEvaluationStarted,
@@ -440,7 +440,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (lastDebugLogDeliveryStatus != null) {
-      result
+      result$
         ..add('LastDebugLogDeliveryStatus')
         ..add(serializers.serialize(
           lastDebugLogDeliveryStatus,
@@ -448,7 +448,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (lastDebugLogDeliveryStatusReason != null) {
-      result
+      result$
         ..add('LastDebugLogDeliveryStatusReason')
         ..add(serializers.serialize(
           lastDebugLogDeliveryStatusReason,
@@ -456,13 +456,13 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ));
     }
     if (lastDebugLogDeliveryTime != null) {
-      result
+      result$
         ..add('LastDebugLogDeliveryTime')
         ..add(serializers.serialize(
           lastDebugLogDeliveryTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

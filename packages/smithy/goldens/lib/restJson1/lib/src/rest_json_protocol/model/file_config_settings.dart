@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.file_config_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -183,11 +184,10 @@ class FileConfigSettingsRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    FileConfigSettings object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as FileConfigSettings);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final FileConfigSettings(
       :awsAccessKeyId,
       :awsSecretAccessKey,
@@ -196,9 +196,9 @@ class FileConfigSettingsRestJson1Serializer
       :region,
       :retryMode,
       :s3
-    ) = payload;
+    ) = object;
     if (awsAccessKeyId != null) {
-      result
+      result$
         ..add('aws_access_key_id')
         ..add(serializers.serialize(
           awsAccessKeyId,
@@ -206,7 +206,7 @@ class FileConfigSettingsRestJson1Serializer
         ));
     }
     if (awsSecretAccessKey != null) {
-      result
+      result$
         ..add('aws_secret_access_key')
         ..add(serializers.serialize(
           awsSecretAccessKey,
@@ -214,7 +214,7 @@ class FileConfigSettingsRestJson1Serializer
         ));
     }
     if (awsSessionToken != null) {
-      result
+      result$
         ..add('aws_session_token')
         ..add(serializers.serialize(
           awsSessionToken,
@@ -222,7 +222,7 @@ class FileConfigSettingsRestJson1Serializer
         ));
     }
     if (maxAttempts != null) {
-      result
+      result$
         ..add('max_attempts')
         ..add(serializers.serialize(
           maxAttempts,
@@ -230,7 +230,7 @@ class FileConfigSettingsRestJson1Serializer
         ));
     }
     if (region != null) {
-      result
+      result$
         ..add('region')
         ..add(serializers.serialize(
           region,
@@ -238,7 +238,7 @@ class FileConfigSettingsRestJson1Serializer
         ));
     }
     if (retryMode != null) {
-      result
+      result$
         ..add('retry_mode')
         ..add(serializers.serialize(
           retryMode,
@@ -246,13 +246,13 @@ class FileConfigSettingsRestJson1Serializer
         ));
     }
     if (s3 != null) {
-      result
+      result$
         ..add('s3')
         ..add(serializers.serialize(
           s3,
           specifiedType: const FullType(_i2.S3Config),
         ));
     }
-    return result;
+    return result$;
   }
 }

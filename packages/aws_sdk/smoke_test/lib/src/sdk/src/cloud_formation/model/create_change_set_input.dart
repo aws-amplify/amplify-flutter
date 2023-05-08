@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.create_change_set_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -458,11 +459,10 @@ class CreateChangeSetInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateChangeSetInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateChangeSetInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'CreateChangeSetInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -486,15 +486,15 @@ class CreateChangeSetInputAwsQuerySerializer
       :changeSetType,
       :resourcesToImport,
       :includeNestedStacks
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('StackName'))
       ..add(serializers.serialize(
         stackName,
         specifiedType: const FullType(String),
       ));
     if (templateBody != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TemplateBody'))
         ..add(serializers.serialize(
           templateBody,
@@ -502,7 +502,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ));
     }
     if (templateUrl != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TemplateURL'))
         ..add(serializers.serialize(
           templateUrl,
@@ -510,7 +510,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ));
     }
     if (usePreviousTemplate != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('UsePreviousTemplate'))
         ..add(serializers.serialize(
           usePreviousTemplate,
@@ -518,7 +518,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ));
     }
     if (parameters != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Parameters'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -532,7 +532,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ));
     }
     if (capabilities != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Capabilities'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -546,7 +546,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ));
     }
     if (resourceTypes != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ResourceTypes'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -560,7 +560,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ));
     }
     if (roleArn != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('RoleARN'))
         ..add(serializers.serialize(
           roleArn,
@@ -568,7 +568,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ));
     }
     if (rollbackConfiguration != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('RollbackConfiguration'))
         ..add(serializers.serialize(
           rollbackConfiguration,
@@ -576,7 +576,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ));
     }
     if (notificationArNs != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('NotificationARNs'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -590,7 +590,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -603,14 +603,14 @@ class CreateChangeSetInputAwsQuerySerializer
           ),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('ChangeSetName'))
       ..add(serializers.serialize(
         changeSetName,
         specifiedType: const FullType(String),
       ));
     if (clientToken != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ClientToken'))
         ..add(serializers.serialize(
           clientToken,
@@ -618,7 +618,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -626,7 +626,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ));
     }
     if (changeSetType != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ChangeSetType'))
         ..add(serializers.serialize(
           changeSetType,
@@ -634,7 +634,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ));
     }
     if (resourcesToImport != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ResourcesToImport'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -648,13 +648,13 @@ class CreateChangeSetInputAwsQuerySerializer
         ));
     }
     if (includeNestedStacks != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('IncludeNestedStacks'))
         ..add(serializers.serialize(
           includeNestedStacks,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

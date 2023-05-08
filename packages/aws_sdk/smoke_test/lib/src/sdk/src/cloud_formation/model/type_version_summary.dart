@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.type_version_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -210,11 +211,10 @@ class TypeVersionSummaryAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TypeVersionSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TypeVersionSummary);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'TypeVersionSummaryResponse',
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -229,9 +229,9 @@ class TypeVersionSummaryAwsQuerySerializer
       :timeCreated,
       :description,
       :publicVersionNumber
-    ) = payload;
+    ) = object;
     if (type != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
@@ -239,7 +239,7 @@ class TypeVersionSummaryAwsQuerySerializer
         ));
     }
     if (typeName != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
@@ -247,7 +247,7 @@ class TypeVersionSummaryAwsQuerySerializer
         ));
     }
     if (versionId != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('VersionId'))
         ..add(serializers.serialize(
           versionId,
@@ -255,7 +255,7 @@ class TypeVersionSummaryAwsQuerySerializer
         ));
     }
     if (isDefaultVersion != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('IsDefaultVersion'))
         ..add(serializers.serialize(
           isDefaultVersion,
@@ -263,7 +263,7 @@ class TypeVersionSummaryAwsQuerySerializer
         ));
     }
     if (arn != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
@@ -271,7 +271,7 @@ class TypeVersionSummaryAwsQuerySerializer
         ));
     }
     if (timeCreated != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('TimeCreated'))
         ..add(serializers.serialize(
           timeCreated,
@@ -279,7 +279,7 @@ class TypeVersionSummaryAwsQuerySerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -287,13 +287,13 @@ class TypeVersionSummaryAwsQuerySerializer
         ));
     }
     if (publicVersionNumber != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('PublicVersionNumber'))
         ..add(serializers.serialize(
           publicVersionNumber,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

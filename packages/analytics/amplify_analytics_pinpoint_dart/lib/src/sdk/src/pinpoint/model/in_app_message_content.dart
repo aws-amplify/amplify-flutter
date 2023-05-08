@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message_content; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -180,11 +181,10 @@ class InAppMessageContentRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InAppMessageContent object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InAppMessageContent);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final InAppMessageContent(
       :backgroundColor,
       :bodyConfig,
@@ -192,9 +192,9 @@ class InAppMessageContentRestJson1Serializer
       :imageUrl,
       :primaryBtn,
       :secondaryBtn
-    ) = payload;
+    ) = object;
     if (backgroundColor != null) {
-      result
+      result$
         ..add('BackgroundColor')
         ..add(serializers.serialize(
           backgroundColor,
@@ -202,7 +202,7 @@ class InAppMessageContentRestJson1Serializer
         ));
     }
     if (bodyConfig != null) {
-      result
+      result$
         ..add('BodyConfig')
         ..add(serializers.serialize(
           bodyConfig,
@@ -210,7 +210,7 @@ class InAppMessageContentRestJson1Serializer
         ));
     }
     if (headerConfig != null) {
-      result
+      result$
         ..add('HeaderConfig')
         ..add(serializers.serialize(
           headerConfig,
@@ -218,7 +218,7 @@ class InAppMessageContentRestJson1Serializer
         ));
     }
     if (imageUrl != null) {
-      result
+      result$
         ..add('ImageUrl')
         ..add(serializers.serialize(
           imageUrl,
@@ -226,7 +226,7 @@ class InAppMessageContentRestJson1Serializer
         ));
     }
     if (primaryBtn != null) {
-      result
+      result$
         ..add('PrimaryBtn')
         ..add(serializers.serialize(
           primaryBtn,
@@ -234,13 +234,13 @@ class InAppMessageContentRestJson1Serializer
         ));
     }
     if (secondaryBtn != null) {
-      result
+      result$
         ..add('SecondaryBtn')
         ..add(serializers.serialize(
           secondaryBtn,
           specifiedType: const FullType(_i4.InAppMessageButton),
         ));
     }
-    return result;
+    return result$;
   }
 }

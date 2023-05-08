@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.client_certificate; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -187,11 +188,10 @@ class ClientCertificateRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ClientCertificate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ClientCertificate);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ClientCertificate(
       :clientCertificateId,
       :createdDate,
@@ -199,9 +199,9 @@ class ClientCertificateRestJson1Serializer
       :expirationDate,
       :pemEncodedCertificate,
       :tags
-    ) = payload;
+    ) = object;
     if (clientCertificateId != null) {
-      result
+      result$
         ..add('clientCertificateId')
         ..add(serializers.serialize(
           clientCertificateId,
@@ -209,7 +209,7 @@ class ClientCertificateRestJson1Serializer
         ));
     }
     if (createdDate != null) {
-      result
+      result$
         ..add('createdDate')
         ..add(serializers.serialize(
           createdDate,
@@ -217,7 +217,7 @@ class ClientCertificateRestJson1Serializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -225,7 +225,7 @@ class ClientCertificateRestJson1Serializer
         ));
     }
     if (expirationDate != null) {
-      result
+      result$
         ..add('expirationDate')
         ..add(serializers.serialize(
           expirationDate,
@@ -233,7 +233,7 @@ class ClientCertificateRestJson1Serializer
         ));
     }
     if (pemEncodedCertificate != null) {
-      result
+      result$
         ..add('pemEncodedCertificate')
         ..add(serializers.serialize(
           pemEncodedCertificate,
@@ -241,7 +241,7 @@ class ClientCertificateRestJson1Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('tags')
         ..add(serializers.serialize(
           tags,
@@ -254,6 +254,6 @@ class ClientCertificateRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

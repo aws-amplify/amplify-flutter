@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.policy_version; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -161,20 +162,19 @@ class PolicyVersionAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PolicyVersion object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PolicyVersion);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'PolicyVersionResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final PolicyVersion(:document, :versionId, :isDefaultVersion, :createDate) =
-        payload;
+        object;
     if (document != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Document'))
         ..add(serializers.serialize(
           document,
@@ -182,7 +182,7 @@ class PolicyVersionAwsQuerySerializer
         ));
     }
     if (versionId != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('VersionId'))
         ..add(serializers.serialize(
           versionId,
@@ -190,7 +190,7 @@ class PolicyVersionAwsQuerySerializer
         ));
     }
     if (isDefaultVersion != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('IsDefaultVersion'))
         ..add(serializers.serialize(
           isDefaultVersion,
@@ -198,13 +198,13 @@ class PolicyVersionAwsQuerySerializer
         ));
     }
     if (createDate != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

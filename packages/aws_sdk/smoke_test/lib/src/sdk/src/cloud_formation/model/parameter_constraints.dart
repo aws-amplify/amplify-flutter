@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.parameter_constraints; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -103,19 +104,18 @@ class ParameterConstraintsAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ParameterConstraints object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ParameterConstraints);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ParameterConstraintsResponse',
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final ParameterConstraints(:allowedValues) = payload;
+    final ParameterConstraints(:allowedValues) = object;
     if (allowedValues != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AllowedValues'))
         ..add(const _i3.XmlBuiltListSerializer(
                 indexer: _i3.XmlIndexer.awsQueryList)
@@ -128,6 +128,6 @@ class ParameterConstraintsAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

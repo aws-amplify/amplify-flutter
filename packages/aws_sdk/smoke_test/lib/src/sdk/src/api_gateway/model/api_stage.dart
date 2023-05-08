@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.api_stage; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -136,14 +137,13 @@ class ApiStageRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ApiStage object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ApiStage);
-    final result = <Object?>[];
-    final ApiStage(:apiId, :stage, :throttle) = payload;
+    final result$ = <Object?>[];
+    final ApiStage(:apiId, :stage, :throttle) = object;
     if (apiId != null) {
-      result
+      result$
         ..add('apiId')
         ..add(serializers.serialize(
           apiId,
@@ -151,7 +151,7 @@ class ApiStageRestJson1Serializer
         ));
     }
     if (stage != null) {
-      result
+      result$
         ..add('stage')
         ..add(serializers.serialize(
           stage,
@@ -159,7 +159,7 @@ class ApiStageRestJson1Serializer
         ));
     }
     if (throttle != null) {
-      result
+      result$
         ..add('throttle')
         ..add(serializers.serialize(
           throttle,
@@ -172,6 +172,6 @@ class ApiStageRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

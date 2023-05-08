@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.start_remediation_execution_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -132,25 +133,27 @@ class StartRemediationExecutionRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StartRemediationExecutionRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StartRemediationExecutionRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final StartRemediationExecutionRequest(:configRuleName, :resourceKeys) =
+        object;
+    result$.addAll([
       'ConfigRuleName',
       serializers.serialize(
-        payload.configRuleName,
+        configRuleName,
         specifiedType: const FullType(String),
       ),
       'ResourceKeys',
       serializers.serialize(
-        payload.resourceKeys,
+        resourceKeys,
         specifiedType: const FullType(
           _i4.BuiltList,
           [FullType(_i3.ResourceKey)],
         ),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

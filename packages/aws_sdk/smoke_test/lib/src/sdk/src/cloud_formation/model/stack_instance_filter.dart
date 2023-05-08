@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.stack_instance_filter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,19 +117,18 @@ class StackInstanceFilterAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StackInstanceFilter object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StackInstanceFilter);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'StackInstanceFilterResponse',
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final StackInstanceFilter(:name, :values) = payload;
+    final StackInstanceFilter(:name, :values) = object;
     if (name != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
@@ -136,13 +136,13 @@ class StackInstanceFilterAwsQuerySerializer
         ));
     }
     if (values != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Values'))
         ..add(serializers.serialize(
           values,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

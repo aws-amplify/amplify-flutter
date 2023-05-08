@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.resource_specific_result; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -216,11 +217,10 @@ class ResourceSpecificResultAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ResourceSpecificResult object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ResourceSpecificResult);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'ResourceSpecificResultResponse',
         _i6.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -233,14 +233,14 @@ class ResourceSpecificResultAwsQuerySerializer
       :missingContextValues,
       :evalDecisionDetails,
       :permissionsBoundaryDecisionDetail
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i6.XmlElementName('EvalResourceName'))
       ..add(serializers.serialize(
         evalResourceName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i6.XmlElementName('EvalResourceDecision'))
       ..add(serializers.serialize(
         evalResourceDecision,
@@ -248,7 +248,7 @@ class ResourceSpecificResultAwsQuerySerializer
             const FullType.nullable(_i2.PolicyEvaluationDecisionType),
       ));
     if (matchedStatements != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('MatchedStatements'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -262,7 +262,7 @@ class ResourceSpecificResultAwsQuerySerializer
         ));
     }
     if (missingContextValues != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('MissingContextValues'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -276,7 +276,7 @@ class ResourceSpecificResultAwsQuerySerializer
         ));
     }
     if (evalDecisionDetails != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('EvalDecisionDetails'))
         ..add(
             const _i6.XmlBuiltMapSerializer(indexer: _i6.XmlIndexer.awsQueryMap)
@@ -293,13 +293,13 @@ class ResourceSpecificResultAwsQuerySerializer
         ));
     }
     if (permissionsBoundaryDecisionDetail != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('PermissionsBoundaryDecisionDetail'))
         ..add(serializers.serialize(
           permissionsBoundaryDecisionDetail,
           specifiedType: const FullType(_i4.PermissionsBoundaryDecisionDetail),
         ));
     }
-    return result;
+    return result$;
   }
 }

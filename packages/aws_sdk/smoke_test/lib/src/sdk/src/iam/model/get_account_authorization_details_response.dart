@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_account_authorization_details_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -219,11 +220,10 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i7
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetAccountAuthorizationDetailsResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetAccountAuthorizationDetailsResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'GetAccountAuthorizationDetailsResponseResponse',
         _i7.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -236,9 +236,9 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i7
       :policies,
       :isTruncated,
       :marker
-    ) = payload;
+    ) = object;
     if (userDetailList != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('UserDetailList'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
@@ -252,7 +252,7 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i7
         ));
     }
     if (groupDetailList != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('GroupDetailList'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
@@ -266,7 +266,7 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i7
         ));
     }
     if (roleDetailList != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('RoleDetailList'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
@@ -280,7 +280,7 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i7
         ));
     }
     if (policies != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Policies'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
@@ -294,7 +294,7 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i7
         ));
     }
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -302,13 +302,13 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i7
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

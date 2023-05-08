@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_0_v2.json_rpc_10.model.scoped_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -179,20 +180,19 @@ class ScopedConfigAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ScopedConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ScopedConfig);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ScopedConfig(
       :environment,
       :configFile,
       :credentialsFile,
       :client,
       :operation
-    ) = payload;
+    ) = object;
     if (environment != null) {
-      result
+      result$
         ..add('environment')
         ..add(serializers.serialize(
           environment,
@@ -200,7 +200,7 @@ class ScopedConfigAwsJson10Serializer
         ));
     }
     if (configFile != null) {
-      result
+      result$
         ..add('configFile')
         ..add(serializers.serialize(
           configFile,
@@ -214,7 +214,7 @@ class ScopedConfigAwsJson10Serializer
         ));
     }
     if (credentialsFile != null) {
-      result
+      result$
         ..add('credentialsFile')
         ..add(serializers.serialize(
           credentialsFile,
@@ -228,7 +228,7 @@ class ScopedConfigAwsJson10Serializer
         ));
     }
     if (client != null) {
-      result
+      result$
         ..add('client')
         ..add(serializers.serialize(
           client,
@@ -236,13 +236,13 @@ class ScopedConfigAwsJson10Serializer
         ));
     }
     if (operation != null) {
-      result
+      result$
         ..add('operation')
         ..add(serializers.serialize(
           operation,
           specifiedType: const FullType(_i5.OperationConfig),
         ));
     }
-    return result;
+    return result$;
   }
 }

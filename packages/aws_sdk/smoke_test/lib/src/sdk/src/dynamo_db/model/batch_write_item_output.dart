@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.batch_write_item_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -194,18 +195,17 @@ class BatchWriteItemOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BatchWriteItemOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BatchWriteItemOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final BatchWriteItemOutput(
       :unprocessedItems,
       :itemCollectionMetrics,
       :consumedCapacity
-    ) = payload;
+    ) = object;
     if (unprocessedItems != null) {
-      result
+      result$
         ..add('UnprocessedItems')
         ..add(serializers.serialize(
           unprocessedItems,
@@ -219,7 +219,7 @@ class BatchWriteItemOutputAwsJson10Serializer
         ));
     }
     if (itemCollectionMetrics != null) {
-      result
+      result$
         ..add('ItemCollectionMetrics')
         ..add(serializers.serialize(
           itemCollectionMetrics,
@@ -233,7 +233,7 @@ class BatchWriteItemOutputAwsJson10Serializer
         ));
     }
     if (consumedCapacity != null) {
-      result
+      result$
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
           consumedCapacity,
@@ -243,6 +243,6 @@ class BatchWriteItemOutputAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

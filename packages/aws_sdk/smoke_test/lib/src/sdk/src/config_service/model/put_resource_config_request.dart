@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_resource_config_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -197,35 +198,42 @@ class PutResourceConfigRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutResourceConfigRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutResourceConfigRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutResourceConfigRequest(
+      :resourceType,
+      :schemaVersionId,
+      :resourceId,
+      :resourceName,
+      :configuration,
+      :tags
+    ) = object;
+    result$.addAll([
       'ResourceType',
       serializers.serialize(
-        payload.resourceType,
+        resourceType,
         specifiedType: const FullType(String),
       ),
       'SchemaVersionId',
       serializers.serialize(
-        payload.schemaVersionId,
+        schemaVersionId,
         specifiedType: const FullType(String),
       ),
       'ResourceId',
       serializers.serialize(
-        payload.resourceId,
+        resourceId,
         specifiedType: const FullType(String),
       ),
       'Configuration',
       serializers.serialize(
-        payload.configuration,
+        configuration,
         specifiedType: const FullType(String),
       ),
-    ];
-    final PutResourceConfigRequest(:resourceName, :tags) = payload;
+    ]);
     if (resourceName != null) {
-      result
+      result$
         ..add('ResourceName')
         ..add(serializers.serialize(
           resourceName,
@@ -233,7 +241,7 @@ class PutResourceConfigRequestAwsJson11Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('Tags')
         ..add(serializers.serialize(
           tags,
@@ -246,6 +254,6 @@ class PutResourceConfigRequestAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

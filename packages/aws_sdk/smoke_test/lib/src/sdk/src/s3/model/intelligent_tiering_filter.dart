@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.intelligent_tiering_filter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -136,19 +137,18 @@ class IntelligentTieringFilterRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    IntelligentTieringFilter object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as IntelligentTieringFilter);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'IntelligentTieringFilter',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final IntelligentTieringFilter(:and, :prefix, :tag) = payload;
+    final IntelligentTieringFilter(:and, :prefix, :tag) = object;
     if (and != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('And'))
         ..add(serializers.serialize(
           and,
@@ -156,7 +156,7 @@ class IntelligentTieringFilterRestXmlSerializer
         ));
     }
     if (prefix != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
@@ -164,13 +164,13 @@ class IntelligentTieringFilterRestXmlSerializer
         ));
     }
     if (tag != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Tag'))
         ..add(serializers.serialize(
           tag,
           specifiedType: const FullType(_i2.Tag),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v1.query_protocol.model.empty_input_and_empty_output_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -80,15 +81,16 @@ class EmptyInputAndEmptyOutputInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EmptyInputAndEmptyOutputInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'EmptyInputAndEmptyOutputInputResponse',
         _i1.XmlNamespace('https://example.com/'),
       )
     ];
-    return result;
+
+    return result$;
   }
 }

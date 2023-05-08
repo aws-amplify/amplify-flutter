@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.metrics_and_operator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -131,19 +132,18 @@ class MetricsAndOperatorRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MetricsAndOperator object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MetricsAndOperator);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'MetricsAndOperator',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final MetricsAndOperator(:accessPointArn, :prefix, :tags) = payload;
+    final MetricsAndOperator(:accessPointArn, :prefix, :tags) = object;
     if (accessPointArn != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('AccessPointArn'))
         ..add(serializers.serialize(
           accessPointArn,
@@ -151,7 +151,7 @@ class MetricsAndOperatorRestXmlSerializer
         ));
     }
     if (prefix != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
@@ -159,7 +159,7 @@ class MetricsAndOperatorRestXmlSerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
           .addAll(const _i4.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tags,
@@ -169,6 +169,6 @@ class MetricsAndOperatorRestXmlSerializer
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

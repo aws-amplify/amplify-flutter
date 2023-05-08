@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_aggregation_authorization_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -106,21 +107,20 @@ class PutAggregationAuthorizationResponseAwsJson11Serializer extends _i3
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutAggregationAuthorizationResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutAggregationAuthorizationResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final PutAggregationAuthorizationResponse(:aggregationAuthorization) =
-        payload;
+        object;
     if (aggregationAuthorization != null) {
-      result
+      result$
         ..add('AggregationAuthorization')
         ..add(serializers.serialize(
           aggregationAuthorization,
           specifiedType: const FullType(_i2.AggregationAuthorization),
         ));
     }
-    return result;
+    return result$;
   }
 }

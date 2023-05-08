@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.xml_nested_union_struct; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -186,11 +187,10 @@ class XmlNestedUnionStructRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlNestedUnionStruct object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlNestedUnionStruct);
-    final result = <Object?>[const _i3.XmlElementName('XmlNestedUnionStruct')];
+    final result$ = <Object?>[const _i3.XmlElementName('XmlNestedUnionStruct')];
     final XmlNestedUnionStruct(
       :booleanValue,
       :byteValue,
@@ -200,9 +200,9 @@ class XmlNestedUnionStructRestXmlSerializer
       :longValue,
       :shortValue,
       :stringValue
-    ) = payload;
+    ) = object;
     if (booleanValue != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('booleanValue'))
         ..add(serializers.serialize(
           booleanValue,
@@ -210,7 +210,7 @@ class XmlNestedUnionStructRestXmlSerializer
         ));
     }
     if (byteValue != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('byteValue'))
         ..add(serializers.serialize(
           byteValue,
@@ -218,7 +218,7 @@ class XmlNestedUnionStructRestXmlSerializer
         ));
     }
     if (doubleValue != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('doubleValue'))
         ..add(serializers.serialize(
           doubleValue,
@@ -226,7 +226,7 @@ class XmlNestedUnionStructRestXmlSerializer
         ));
     }
     if (floatValue != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('floatValue'))
         ..add(serializers.serialize(
           floatValue,
@@ -234,7 +234,7 @@ class XmlNestedUnionStructRestXmlSerializer
         ));
     }
     if (integerValue != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('integerValue'))
         ..add(serializers.serialize(
           integerValue,
@@ -242,7 +242,7 @@ class XmlNestedUnionStructRestXmlSerializer
         ));
     }
     if (longValue != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('longValue'))
         ..add(serializers.serialize(
           longValue,
@@ -250,7 +250,7 @@ class XmlNestedUnionStructRestXmlSerializer
         ));
     }
     if (shortValue != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('shortValue'))
         ..add(serializers.serialize(
           shortValue,
@@ -258,13 +258,13 @@ class XmlNestedUnionStructRestXmlSerializer
         ));
     }
     if (stringValue != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('stringValue'))
         ..add(serializers.serialize(
           stringValue,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

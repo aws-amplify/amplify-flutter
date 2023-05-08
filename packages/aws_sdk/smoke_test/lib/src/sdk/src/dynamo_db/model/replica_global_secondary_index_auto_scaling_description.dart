@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_global_secondary_index_auto_scaling_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -171,20 +172,18 @@ class ReplicaGlobalSecondaryIndexAutoScalingDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaGlobalSecondaryIndexAutoScalingDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload =
-        (object as ReplicaGlobalSecondaryIndexAutoScalingDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ReplicaGlobalSecondaryIndexAutoScalingDescription(
       :indexName,
       :indexStatus,
       :provisionedReadCapacityAutoScalingSettings,
       :provisionedWriteCapacityAutoScalingSettings
-    ) = payload;
+    ) = object;
     if (indexName != null) {
-      result
+      result$
         ..add('IndexName')
         ..add(serializers.serialize(
           indexName,
@@ -192,7 +191,7 @@ class ReplicaGlobalSecondaryIndexAutoScalingDescriptionAwsJson10Serializer
         ));
     }
     if (indexStatus != null) {
-      result
+      result$
         ..add('IndexStatus')
         ..add(serializers.serialize(
           indexStatus,
@@ -200,7 +199,7 @@ class ReplicaGlobalSecondaryIndexAutoScalingDescriptionAwsJson10Serializer
         ));
     }
     if (provisionedReadCapacityAutoScalingSettings != null) {
-      result
+      result$
         ..add('ProvisionedReadCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           provisionedReadCapacityAutoScalingSettings,
@@ -208,13 +207,13 @@ class ReplicaGlobalSecondaryIndexAutoScalingDescriptionAwsJson10Serializer
         ));
     }
     if (provisionedWriteCapacityAutoScalingSettings != null) {
-      result
+      result$
         ..add('ProvisionedWriteCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           provisionedWriteCapacityAutoScalingSettings,
           specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
         ));
     }
-    return result;
+    return result$;
   }
 }

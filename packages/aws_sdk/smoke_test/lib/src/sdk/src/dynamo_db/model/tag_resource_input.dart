@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.tag_resource_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -124,25 +125,26 @@ class TagResourceInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TagResourceInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TagResourceInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final TagResourceInput(:resourceArn, :tags) = object;
+    result$.addAll([
       'ResourceArn',
       serializers.serialize(
-        payload.resourceArn,
+        resourceArn,
         specifiedType: const FullType(String),
       ),
       'Tags',
       serializers.serialize(
-        payload.tags,
+        tags,
         specifiedType: const FullType(
           _i4.BuiltList,
           [FullType(_i3.Tag)],
         ),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

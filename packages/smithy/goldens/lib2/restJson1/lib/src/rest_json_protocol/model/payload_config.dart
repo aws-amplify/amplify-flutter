@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.payload_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -87,20 +88,19 @@ class PayloadConfigRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PayloadConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PayloadConfig);
-    final result = <Object?>[];
-    final PayloadConfig(:data) = payload;
+    final result$ = <Object?>[];
+    final PayloadConfig(:data) = object;
     if (data != null) {
-      result
+      result$
         ..add('data')
         ..add(serializers.serialize(
           data,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

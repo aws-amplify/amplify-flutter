@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v1.query_protocol.model.retry_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -112,19 +113,18 @@ class RetryConfigAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RetryConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RetryConfig);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'RetryConfigResponse',
         _i3.XmlNamespace('https://example.com/'),
       )
     ];
-    final RetryConfig(:mode, :maxAttempts) = payload;
+    final RetryConfig(:mode, :maxAttempts) = object;
     if (mode != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('mode'))
         ..add(serializers.serialize(
           mode,
@@ -132,13 +132,13 @@ class RetryConfigAwsQuerySerializer
         ));
     }
     if (maxAttempts != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('max_attempts'))
         ..add(serializers.serialize(
           maxAttempts,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.config_rule_compliance_summary_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -119,14 +120,13 @@ class ConfigRuleComplianceSummaryFiltersAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConfigRuleComplianceSummaryFilters object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConfigRuleComplianceSummaryFilters);
-    final result = <Object?>[];
-    final ConfigRuleComplianceSummaryFilters(:accountId, :awsRegion) = payload;
+    final result$ = <Object?>[];
+    final ConfigRuleComplianceSummaryFilters(:accountId, :awsRegion) = object;
     if (accountId != null) {
-      result
+      result$
         ..add('AccountId')
         ..add(serializers.serialize(
           accountId,
@@ -134,13 +134,13 @@ class ConfigRuleComplianceSummaryFiltersAwsJson11Serializer
         ));
     }
     if (awsRegion != null) {
-      result
+      result$
         ..add('AwsRegion')
         ..add(serializers.serialize(
           awsRegion,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

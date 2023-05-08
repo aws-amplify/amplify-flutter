@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library custom_v2.custom.model.s3_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -124,18 +125,17 @@ class S3ConfigRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    S3Config object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as S3Config);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final S3Config(
       :addressingStyle,
       :useAccelerateEndpoint,
       :useDualstackEndpoint
-    ) = payload;
+    ) = object;
     if (addressingStyle != null) {
-      result
+      result$
         ..add('addressing_style')
         ..add(serializers.serialize(
           addressingStyle,
@@ -143,7 +143,7 @@ class S3ConfigRestJson1Serializer
         ));
     }
     if (useAccelerateEndpoint != null) {
-      result
+      result$
         ..add('use_accelerate_endpoint')
         ..add(serializers.serialize(
           useAccelerateEndpoint,
@@ -151,13 +151,13 @@ class S3ConfigRestJson1Serializer
         ));
     }
     if (useDualstackEndpoint != null) {
-      result
+      result$
         ..add('use_dualstack_endpoint')
         ..add(serializers.serialize(
           useDualstackEndpoint,
           specifiedType: const FullType(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

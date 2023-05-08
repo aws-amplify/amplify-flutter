@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.website_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -158,11 +159,10 @@ class WebsiteConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    WebsiteConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as WebsiteConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'WebsiteConfiguration',
         _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -173,9 +173,9 @@ class WebsiteConfigurationRestXmlSerializer
       :indexDocument,
       :redirectAllRequestsTo,
       :routingRules
-    ) = payload;
+    ) = object;
     if (errorDocument != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('ErrorDocument'))
         ..add(serializers.serialize(
           errorDocument,
@@ -183,7 +183,7 @@ class WebsiteConfigurationRestXmlSerializer
         ));
     }
     if (indexDocument != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('IndexDocument'))
         ..add(serializers.serialize(
           indexDocument,
@@ -191,7 +191,7 @@ class WebsiteConfigurationRestXmlSerializer
         ));
     }
     if (redirectAllRequestsTo != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('RedirectAllRequestsTo'))
         ..add(serializers.serialize(
           redirectAllRequestsTo,
@@ -199,7 +199,7 @@ class WebsiteConfigurationRestXmlSerializer
         ));
     }
     if (routingRules != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('RoutingRules'))
         ..add(const _i7.XmlBuiltListSerializer(memberName: 'RoutingRule')
             .serialize(
@@ -211,6 +211,6 @@ class WebsiteConfigurationRestXmlSerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

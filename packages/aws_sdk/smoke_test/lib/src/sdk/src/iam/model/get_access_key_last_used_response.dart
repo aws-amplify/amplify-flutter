@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_access_key_last_used_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -127,19 +128,18 @@ class GetAccessKeyLastUsedResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetAccessKeyLastUsedResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetAccessKeyLastUsedResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'GetAccessKeyLastUsedResponseResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final GetAccessKeyLastUsedResponse(:userName, :accessKeyLastUsed) = payload;
+    final GetAccessKeyLastUsedResponse(:userName, :accessKeyLastUsed) = object;
     if (userName != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('UserName'))
         ..add(serializers.serialize(
           userName,
@@ -147,13 +147,13 @@ class GetAccessKeyLastUsedResponseAwsQuerySerializer
         ));
     }
     if (accessKeyLastUsed != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AccessKeyLastUsed'))
         ..add(serializers.serialize(
           accessKeyLastUsed,
           specifiedType: const FullType(_i2.AccessKeyLastUsed),
         ));
     }
-    return result;
+    return result$;
   }
 }

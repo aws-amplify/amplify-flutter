@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.create_role_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -225,11 +226,10 @@ class CreateRoleRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateRoleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateRoleRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'CreateRoleRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -243,29 +243,29 @@ class CreateRoleRequestAwsQuerySerializer
       :maxSessionDuration,
       :permissionsBoundary,
       :tags
-    ) = payload;
+    ) = object;
     if (path != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('RoleName'))
       ..add(serializers.serialize(
         roleName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('AssumeRolePolicyDocument'))
       ..add(serializers.serialize(
         assumeRolePolicyDocument,
         specifiedType: const FullType(String),
       ));
     if (description != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -273,7 +273,7 @@ class CreateRoleRequestAwsQuerySerializer
         ));
     }
     if (maxSessionDuration != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MaxSessionDuration'))
         ..add(serializers.serialize(
           maxSessionDuration,
@@ -281,7 +281,7 @@ class CreateRoleRequestAwsQuerySerializer
         ));
     }
     if (permissionsBoundary != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PermissionsBoundary'))
         ..add(serializers.serialize(
           permissionsBoundary,
@@ -289,7 +289,7 @@ class CreateRoleRequestAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -302,6 +302,6 @@ class CreateRoleRequestAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

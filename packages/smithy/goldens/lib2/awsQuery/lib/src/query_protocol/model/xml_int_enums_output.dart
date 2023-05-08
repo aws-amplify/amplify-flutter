@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v2.query_protocol.model.xml_int_enums_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -188,11 +189,10 @@ class XmlIntEnumsOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlIntEnumsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlIntEnumsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'XmlIntEnumsOutputResponse',
         _i4.XmlNamespace('https://example.com/'),
@@ -205,9 +205,9 @@ class XmlIntEnumsOutputAwsQuerySerializer
       :intEnumList,
       :intEnumSet,
       :intEnumMap
-    ) = payload;
+    ) = object;
     if (intEnum1 != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('intEnum1'))
         ..add(serializers.serialize(
           intEnum1,
@@ -215,7 +215,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
         ));
     }
     if (intEnum2 != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('intEnum2'))
         ..add(serializers.serialize(
           intEnum2,
@@ -223,7 +223,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
         ));
     }
     if (intEnum3 != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('intEnum3'))
         ..add(serializers.serialize(
           intEnum3,
@@ -231,7 +231,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
         ));
     }
     if (intEnumList != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('intEnumList'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -245,7 +245,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
         ));
     }
     if (intEnumSet != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('intEnumSet'))
         ..add(const _i4.XmlBuiltSetSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -259,7 +259,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
         ));
     }
     if (intEnumMap != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('intEnumMap'))
         ..add(
             const _i4.XmlBuiltMapSerializer(indexer: _i4.XmlIndexer.awsQueryMap)
@@ -275,6 +275,6 @@ class XmlIntEnumsOutputAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

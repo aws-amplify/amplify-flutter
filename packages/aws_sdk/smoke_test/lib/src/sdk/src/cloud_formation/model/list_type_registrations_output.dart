@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.list_type_registrations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -132,20 +133,19 @@ class ListTypeRegistrationsOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListTypeRegistrationsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListTypeRegistrationsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ListTypeRegistrationsOutputResponse',
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ListTypeRegistrationsOutput(:registrationTokenList, :nextToken) =
-        payload;
+        object;
     if (registrationTokenList != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('RegistrationTokenList'))
         ..add(const _i3.XmlBuiltListSerializer(
                 indexer: _i3.XmlIndexer.awsQueryList)
@@ -159,13 +159,13 @@ class ListTypeRegistrationsOutputAwsQuerySerializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

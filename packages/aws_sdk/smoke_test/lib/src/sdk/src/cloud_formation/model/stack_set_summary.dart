@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.stack_set_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -240,11 +241,10 @@ class StackSetSummaryAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StackSetSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StackSetSummary);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'StackSetSummaryResponse',
         _i7.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -260,9 +260,9 @@ class StackSetSummaryAwsQuerySerializer
       :driftStatus,
       :lastDriftCheckTimestamp,
       :managedExecution
-    ) = payload;
+    ) = object;
     if (stackSetName != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('StackSetName'))
         ..add(serializers.serialize(
           stackSetName,
@@ -270,7 +270,7 @@ class StackSetSummaryAwsQuerySerializer
         ));
     }
     if (stackSetId != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('StackSetId'))
         ..add(serializers.serialize(
           stackSetId,
@@ -278,7 +278,7 @@ class StackSetSummaryAwsQuerySerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -286,7 +286,7 @@ class StackSetSummaryAwsQuerySerializer
         ));
     }
     if (status != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
@@ -294,7 +294,7 @@ class StackSetSummaryAwsQuerySerializer
         ));
     }
     if (autoDeployment != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('AutoDeployment'))
         ..add(serializers.serialize(
           autoDeployment,
@@ -302,7 +302,7 @@ class StackSetSummaryAwsQuerySerializer
         ));
     }
     if (permissionModel != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('PermissionModel'))
         ..add(serializers.serialize(
           permissionModel,
@@ -310,7 +310,7 @@ class StackSetSummaryAwsQuerySerializer
         ));
     }
     if (driftStatus != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('DriftStatus'))
         ..add(serializers.serialize(
           driftStatus,
@@ -318,7 +318,7 @@ class StackSetSummaryAwsQuerySerializer
         ));
     }
     if (lastDriftCheckTimestamp != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('LastDriftCheckTimestamp'))
         ..add(serializers.serialize(
           lastDriftCheckTimestamp,
@@ -326,13 +326,13 @@ class StackSetSummaryAwsQuerySerializer
         ));
     }
     if (managedExecution != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('ManagedExecution'))
         ..add(serializers.serialize(
           managedExecution,
           specifiedType: const FullType(_i6.ManagedExecution),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.type_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -305,11 +306,10 @@ class TypeSummaryAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TypeSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TypeSummary);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'TypeSummaryResponse',
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -329,9 +329,9 @@ class TypeSummaryAwsQuerySerializer
       :publisherIdentity,
       :publisherName,
       :isActivated
-    ) = payload;
+    ) = object;
     if (type != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
@@ -339,7 +339,7 @@ class TypeSummaryAwsQuerySerializer
         ));
     }
     if (typeName != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
@@ -347,7 +347,7 @@ class TypeSummaryAwsQuerySerializer
         ));
     }
     if (defaultVersionId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('DefaultVersionId'))
         ..add(serializers.serialize(
           defaultVersionId,
@@ -355,7 +355,7 @@ class TypeSummaryAwsQuerySerializer
         ));
     }
     if (typeArn != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('TypeArn'))
         ..add(serializers.serialize(
           typeArn,
@@ -363,7 +363,7 @@ class TypeSummaryAwsQuerySerializer
         ));
     }
     if (lastUpdated != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('LastUpdated'))
         ..add(serializers.serialize(
           lastUpdated,
@@ -371,7 +371,7 @@ class TypeSummaryAwsQuerySerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -379,7 +379,7 @@ class TypeSummaryAwsQuerySerializer
         ));
     }
     if (publisherId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
           publisherId,
@@ -387,7 +387,7 @@ class TypeSummaryAwsQuerySerializer
         ));
     }
     if (originalTypeName != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('OriginalTypeName'))
         ..add(serializers.serialize(
           originalTypeName,
@@ -395,7 +395,7 @@ class TypeSummaryAwsQuerySerializer
         ));
     }
     if (publicVersionNumber != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PublicVersionNumber'))
         ..add(serializers.serialize(
           publicVersionNumber,
@@ -403,7 +403,7 @@ class TypeSummaryAwsQuerySerializer
         ));
     }
     if (latestPublicVersion != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('LatestPublicVersion'))
         ..add(serializers.serialize(
           latestPublicVersion,
@@ -411,7 +411,7 @@ class TypeSummaryAwsQuerySerializer
         ));
     }
     if (publisherIdentity != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PublisherIdentity'))
         ..add(serializers.serialize(
           publisherIdentity,
@@ -419,7 +419,7 @@ class TypeSummaryAwsQuerySerializer
         ));
     }
     if (publisherName != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PublisherName'))
         ..add(serializers.serialize(
           publisherName,
@@ -427,13 +427,13 @@ class TypeSummaryAwsQuerySerializer
         ));
     }
     if (isActivated != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('IsActivated'))
         ..add(serializers.serialize(
           isActivated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

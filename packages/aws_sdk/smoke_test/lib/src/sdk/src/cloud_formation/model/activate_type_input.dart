@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.activate_type_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -264,11 +265,10 @@ class ActivateTypeInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ActivateTypeInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ActivateTypeInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ActivateTypeInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -285,9 +285,9 @@ class ActivateTypeInputAwsQuerySerializer
       :executionRoleArn,
       :versionBump,
       :majorVersion
-    ) = payload;
+    ) = object;
     if (type != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
@@ -295,7 +295,7 @@ class ActivateTypeInputAwsQuerySerializer
         ));
     }
     if (publicTypeArn != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PublicTypeArn'))
         ..add(serializers.serialize(
           publicTypeArn,
@@ -303,7 +303,7 @@ class ActivateTypeInputAwsQuerySerializer
         ));
     }
     if (publisherId != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
           publisherId,
@@ -311,7 +311,7 @@ class ActivateTypeInputAwsQuerySerializer
         ));
     }
     if (typeName != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
@@ -319,7 +319,7 @@ class ActivateTypeInputAwsQuerySerializer
         ));
     }
     if (typeNameAlias != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TypeNameAlias'))
         ..add(serializers.serialize(
           typeNameAlias,
@@ -327,7 +327,7 @@ class ActivateTypeInputAwsQuerySerializer
         ));
     }
     if (autoUpdate != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('AutoUpdate'))
         ..add(serializers.serialize(
           autoUpdate,
@@ -335,7 +335,7 @@ class ActivateTypeInputAwsQuerySerializer
         ));
     }
     if (loggingConfig != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('LoggingConfig'))
         ..add(serializers.serialize(
           loggingConfig,
@@ -343,7 +343,7 @@ class ActivateTypeInputAwsQuerySerializer
         ));
     }
     if (executionRoleArn != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ExecutionRoleArn'))
         ..add(serializers.serialize(
           executionRoleArn,
@@ -351,7 +351,7 @@ class ActivateTypeInputAwsQuerySerializer
         ));
     }
     if (versionBump != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('VersionBump'))
         ..add(serializers.serialize(
           versionBump,
@@ -359,13 +359,13 @@ class ActivateTypeInputAwsQuerySerializer
         ));
     }
     if (majorVersion != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MajorVersion'))
         ..add(serializers.serialize(
           majorVersion,
           specifiedType: const FullType.nullable(_i6.Int64),
         ));
     }
-    return result;
+    return result$;
   }
 }

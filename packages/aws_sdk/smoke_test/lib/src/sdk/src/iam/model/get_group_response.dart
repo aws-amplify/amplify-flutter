@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_group_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -159,24 +160,23 @@ class GetGroupResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetGroupResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetGroupResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'GetGroupResponseResponse',
         _i5.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final GetGroupResponse(:group, :users, :isTruncated, :marker) = payload;
-    result
+    final GetGroupResponse(:group, :users, :isTruncated, :marker) = object;
+    result$
       ..add(const _i5.XmlElementName('Group'))
       ..add(serializers.serialize(
         group,
         specifiedType: const FullType(_i2.Group),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('Users'))
       ..add(
           const _i5.XmlBuiltListSerializer(indexer: _i5.XmlIndexer.awsQueryList)
@@ -189,7 +189,7 @@ class GetGroupResponseAwsQuerySerializer
         ),
       ));
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -197,13 +197,13 @@ class GetGroupResponseAwsQuerySerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

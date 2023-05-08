@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.flattened_xml_map_with_xml_name_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -126,16 +127,15 @@ class FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    FlattenedXmlMapWithXmlNameInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as FlattenedXmlMapWithXmlNameInputOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName('FlattenedXmlMapWithXmlNameInputOutput')
     ];
-    final FlattenedXmlMapWithXmlNameInputOutput(:myMap) = payload;
+    final FlattenedXmlMapWithXmlNameInputOutput(:myMap) = object;
     if (myMap != null) {
-      result.addAll(const _i1.XmlBuiltMapSerializer(
+      result$.addAll(const _i1.XmlBuiltMapSerializer(
         keyName: 'K',
         valueName: 'V',
         flattenedKey: 'KVP',
@@ -151,6 +151,6 @@ class FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer extends _i1
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

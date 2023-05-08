@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.json_enums_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -193,11 +194,10 @@ class JsonEnumsInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    JsonEnumsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as JsonEnumsInputOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final JsonEnumsInputOutput(
       :fooEnum1,
       :fooEnum2,
@@ -205,9 +205,9 @@ class JsonEnumsInputOutputRestJson1Serializer
       :fooEnumList,
       :fooEnumMap,
       :fooEnumSet
-    ) = payload;
+    ) = object;
     if (fooEnum1 != null) {
-      result
+      result$
         ..add('fooEnum1')
         ..add(serializers.serialize(
           fooEnum1,
@@ -215,7 +215,7 @@ class JsonEnumsInputOutputRestJson1Serializer
         ));
     }
     if (fooEnum2 != null) {
-      result
+      result$
         ..add('fooEnum2')
         ..add(serializers.serialize(
           fooEnum2,
@@ -223,7 +223,7 @@ class JsonEnumsInputOutputRestJson1Serializer
         ));
     }
     if (fooEnum3 != null) {
-      result
+      result$
         ..add('fooEnum3')
         ..add(serializers.serialize(
           fooEnum3,
@@ -231,7 +231,7 @@ class JsonEnumsInputOutputRestJson1Serializer
         ));
     }
     if (fooEnumList != null) {
-      result
+      result$
         ..add('fooEnumList')
         ..add(serializers.serialize(
           fooEnumList,
@@ -242,7 +242,7 @@ class JsonEnumsInputOutputRestJson1Serializer
         ));
     }
     if (fooEnumMap != null) {
-      result
+      result$
         ..add('fooEnumMap')
         ..add(serializers.serialize(
           fooEnumMap,
@@ -256,7 +256,7 @@ class JsonEnumsInputOutputRestJson1Serializer
         ));
     }
     if (fooEnumSet != null) {
-      result
+      result$
         ..add('fooEnumSet')
         ..add(serializers.serialize(
           fooEnumSet,
@@ -266,6 +266,6 @@ class JsonEnumsInputOutputRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

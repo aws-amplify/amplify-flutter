@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.method_snapshot; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -113,14 +114,13 @@ class MethodSnapshotRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MethodSnapshot object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MethodSnapshot);
-    final result = <Object?>[];
-    final MethodSnapshot(:apiKeyRequired, :authorizationType) = payload;
+    final result$ = <Object?>[];
+    final MethodSnapshot(:apiKeyRequired, :authorizationType) = object;
     if (apiKeyRequired != null) {
-      result
+      result$
         ..add('apiKeyRequired')
         ..add(serializers.serialize(
           apiKeyRequired,
@@ -128,13 +128,13 @@ class MethodSnapshotRestJson1Serializer
         ));
     }
     if (authorizationType != null) {
-      result
+      result$
         ..add('authorizationType')
         ..add(serializers.serialize(
           authorizationType,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

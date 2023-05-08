@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.create_authorizer_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -390,24 +391,10 @@ class CreateAuthorizerRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateAuthorizerRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is CreateAuthorizerRequest
-        ? object.getPayload()
-        : (object as CreateAuthorizerRequestPayload);
-    final result = <Object?>[
-      'name',
-      serializers.serialize(
-        payload.name,
-        specifiedType: const FullType(String),
-      ),
-      'type',
-      serializers.serialize(
-        payload.type,
-        specifiedType: const FullType(_i3.AuthorizerType),
-      ),
-    ];
+    final result$ = <Object?>[];
     final CreateAuthorizerRequestPayload(
       :authType,
       :authorizerCredentials,
@@ -415,10 +402,24 @@ class CreateAuthorizerRequestRestJson1Serializer
       :authorizerUri,
       :identitySource,
       :identityValidationExpression,
-      :providerArNs
-    ) = payload;
+      :name,
+      :providerArNs,
+      :type
+    ) = object;
+    result$.addAll([
+      'name',
+      serializers.serialize(
+        name,
+        specifiedType: const FullType(String),
+      ),
+      'type',
+      serializers.serialize(
+        type,
+        specifiedType: const FullType(_i3.AuthorizerType),
+      ),
+    ]);
     if (authType != null) {
-      result
+      result$
         ..add('authType')
         ..add(serializers.serialize(
           authType,
@@ -426,7 +427,7 @@ class CreateAuthorizerRequestRestJson1Serializer
         ));
     }
     if (authorizerCredentials != null) {
-      result
+      result$
         ..add('authorizerCredentials')
         ..add(serializers.serialize(
           authorizerCredentials,
@@ -434,7 +435,7 @@ class CreateAuthorizerRequestRestJson1Serializer
         ));
     }
     if (authorizerResultTtlInSeconds != null) {
-      result
+      result$
         ..add('authorizerResultTtlInSeconds')
         ..add(serializers.serialize(
           authorizerResultTtlInSeconds,
@@ -442,7 +443,7 @@ class CreateAuthorizerRequestRestJson1Serializer
         ));
     }
     if (authorizerUri != null) {
-      result
+      result$
         ..add('authorizerUri')
         ..add(serializers.serialize(
           authorizerUri,
@@ -450,7 +451,7 @@ class CreateAuthorizerRequestRestJson1Serializer
         ));
     }
     if (identitySource != null) {
-      result
+      result$
         ..add('identitySource')
         ..add(serializers.serialize(
           identitySource,
@@ -458,7 +459,7 @@ class CreateAuthorizerRequestRestJson1Serializer
         ));
     }
     if (identityValidationExpression != null) {
-      result
+      result$
         ..add('identityValidationExpression')
         ..add(serializers.serialize(
           identityValidationExpression,
@@ -466,7 +467,7 @@ class CreateAuthorizerRequestRestJson1Serializer
         ));
     }
     if (providerArNs != null) {
-      result
+      result$
         ..add('providerARNs')
         ..add(serializers.serialize(
           providerArNs,
@@ -476,6 +477,6 @@ class CreateAuthorizerRequestRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

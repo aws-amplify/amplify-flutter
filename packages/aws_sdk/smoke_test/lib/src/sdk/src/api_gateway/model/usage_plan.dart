@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.usage_plan; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -225,11 +226,10 @@ class UsagePlanRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UsagePlan object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UsagePlan);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final UsagePlan(
       :apiStages,
       :description,
@@ -239,9 +239,9 @@ class UsagePlanRestJson1Serializer
       :quota,
       :tags,
       :throttle
-    ) = payload;
+    ) = object;
     if (apiStages != null) {
-      result
+      result$
         ..add('apiStages')
         ..add(serializers.serialize(
           apiStages,
@@ -252,7 +252,7 @@ class UsagePlanRestJson1Serializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -260,7 +260,7 @@ class UsagePlanRestJson1Serializer
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add('id')
         ..add(serializers.serialize(
           id,
@@ -268,7 +268,7 @@ class UsagePlanRestJson1Serializer
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add('name')
         ..add(serializers.serialize(
           name,
@@ -276,7 +276,7 @@ class UsagePlanRestJson1Serializer
         ));
     }
     if (productCode != null) {
-      result
+      result$
         ..add('productCode')
         ..add(serializers.serialize(
           productCode,
@@ -284,7 +284,7 @@ class UsagePlanRestJson1Serializer
         ));
     }
     if (quota != null) {
-      result
+      result$
         ..add('quota')
         ..add(serializers.serialize(
           quota,
@@ -292,7 +292,7 @@ class UsagePlanRestJson1Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('tags')
         ..add(serializers.serialize(
           tags,
@@ -306,13 +306,13 @@ class UsagePlanRestJson1Serializer
         ));
     }
     if (throttle != null) {
-      result
+      result$
         ..add('throttle')
         ..add(serializers.serialize(
           throttle,
           specifiedType: const FullType(_i3.ThrottleSettings),
         ));
     }
-    return result;
+    return result$;
   }
 }

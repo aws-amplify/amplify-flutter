@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.no_input_and_output_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -75,12 +76,13 @@ class NoInputAndOutputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    NoInputAndOutputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName('NoInputAndOutputOutput')
     ];
-    return result;
+
+    return result$;
   }
 }

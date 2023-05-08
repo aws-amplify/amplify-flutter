@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.put_object_legal_hold_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -235,30 +236,24 @@ class PutObjectLegalHoldRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.ObjectLockLegalHold object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutObjectLegalHoldRequest
-        ? object.getPayload()
-        : (object as _i2.ObjectLockLegalHold?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'LegalHold',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
-    final _i2.ObjectLockLegalHold(:status) = payload;
+    final _i2.ObjectLockLegalHold(:status) = object;
     if (status != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
           specifiedType: const FullType.nullable(_i6.ObjectLockLegalHoldStatus),
         ));
     }
-    return result;
+    return result$;
   }
 }

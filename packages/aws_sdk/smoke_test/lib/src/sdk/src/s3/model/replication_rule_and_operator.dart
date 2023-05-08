@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.replication_rule_and_operator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -136,19 +137,18 @@ class ReplicationRuleAndOperatorRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicationRuleAndOperator object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicationRuleAndOperator);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ReplicationRuleAndOperator',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final ReplicationRuleAndOperator(:prefix, :tags) = payload;
+    final ReplicationRuleAndOperator(:prefix, :tags) = object;
     if (prefix != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
@@ -156,7 +156,7 @@ class ReplicationRuleAndOperatorRestXmlSerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
           .addAll(const _i4.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tags,
@@ -166,6 +166,6 @@ class ReplicationRuleAndOperatorRestXmlSerializer
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

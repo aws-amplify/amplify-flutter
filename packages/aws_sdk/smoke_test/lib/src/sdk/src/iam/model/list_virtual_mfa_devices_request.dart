@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.list_virtual_mfa_devices_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -144,20 +145,19 @@ class ListVirtualMfaDevicesRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListVirtualMfaDevicesRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListVirtualMfaDevicesRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ListVirtualMfaDevicesRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ListVirtualMfaDevicesRequest(:assignmentStatus, :marker, :maxItems) =
-        payload;
+        object;
     if (assignmentStatus != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('AssignmentStatus'))
         ..add(serializers.serialize(
           assignmentStatus,
@@ -165,7 +165,7 @@ class ListVirtualMfaDevicesRequestAwsQuerySerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
@@ -173,13 +173,13 @@ class ListVirtualMfaDevicesRequestAwsQuerySerializer
         ));
     }
     if (maxItems != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
           maxItems,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

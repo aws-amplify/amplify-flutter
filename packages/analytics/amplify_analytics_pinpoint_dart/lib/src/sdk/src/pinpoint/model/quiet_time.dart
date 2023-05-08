@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.quiet_time; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -113,14 +114,13 @@ class QuietTimeRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    QuietTime object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as QuietTime);
-    final result = <Object?>[];
-    final QuietTime(:end, :start) = payload;
+    final result$ = <Object?>[];
+    final QuietTime(:end, :start) = object;
     if (end != null) {
-      result
+      result$
         ..add('End')
         ..add(serializers.serialize(
           end,
@@ -128,13 +128,13 @@ class QuietTimeRestJson1Serializer
         ));
     }
     if (start != null) {
-      result
+      result$
         ..add('Start')
         ..add(serializers.serialize(
           start,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

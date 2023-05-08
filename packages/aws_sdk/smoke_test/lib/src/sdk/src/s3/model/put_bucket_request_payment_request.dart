@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.put_bucket_request_payment_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -188,25 +189,22 @@ class PutBucketRequestPaymentRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.RequestPaymentConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutBucketRequestPaymentRequest
-        ? object.getPayload()
-        : (object as _i2.RequestPaymentConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'RequestPaymentConfiguration',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.RequestPaymentConfiguration(:payer) = payload;
-    result
+    final _i2.RequestPaymentConfiguration(:payer) = object;
+    result$
       ..add(const _i1.XmlElementName('Payer'))
       ..add(serializers.serialize(
         payer,
         specifiedType: const FullType.nullable(_i5.Payer),
       ));
-    return result;
+    return result$;
   }
 }

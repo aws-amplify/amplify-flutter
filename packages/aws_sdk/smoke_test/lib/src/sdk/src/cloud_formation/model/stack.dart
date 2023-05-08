@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.stack; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -466,11 +467,10 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Stack object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Stack);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i10.XmlElementName(
         'StackResponse',
         _i10.XmlNamespace(
@@ -500,23 +500,23 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
       :parentId,
       :rootId,
       :driftInformation
-    ) = payload;
+    ) = object;
     if (stackId != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('StackId'))
         ..add(serializers.serialize(
           stackId,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i10.XmlElementName('StackName'))
       ..add(serializers.serialize(
         stackName,
         specifiedType: const FullType(String),
       ));
     if (changeSetId != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('ChangeSetId'))
         ..add(serializers.serialize(
           changeSetId,
@@ -524,7 +524,7 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -532,7 +532,7 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (parameters != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Parameters'))
         ..add(const _i10.XmlBuiltListSerializer(
                 indexer: _i10.XmlIndexer.awsQueryList)
@@ -545,14 +545,14 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
           ),
         ));
     }
-    result
+    result$
       ..add(const _i10.XmlElementName('CreationTime'))
       ..add(serializers.serialize(
         creationTime,
         specifiedType: const FullType.nullable(DateTime),
       ));
     if (deletionTime != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('DeletionTime'))
         ..add(serializers.serialize(
           deletionTime,
@@ -560,7 +560,7 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (lastUpdatedTime != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('LastUpdatedTime'))
         ..add(serializers.serialize(
           lastUpdatedTime,
@@ -568,21 +568,21 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (rollbackConfiguration != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('RollbackConfiguration'))
         ..add(serializers.serialize(
           rollbackConfiguration,
           specifiedType: const FullType(_i3.RollbackConfiguration),
         ));
     }
-    result
+    result$
       ..add(const _i10.XmlElementName('StackStatus'))
       ..add(serializers.serialize(
         stackStatus,
         specifiedType: const FullType.nullable(_i4.StackStatus),
       ));
     if (stackStatusReason != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('StackStatusReason'))
         ..add(serializers.serialize(
           stackStatusReason,
@@ -590,7 +590,7 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (disableRollback != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('DisableRollback'))
         ..add(serializers.serialize(
           disableRollback,
@@ -598,7 +598,7 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (notificationArNs != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('NotificationARNs'))
         ..add(const _i10.XmlBuiltListSerializer(
                 indexer: _i10.XmlIndexer.awsQueryList)
@@ -612,7 +612,7 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (timeoutInMinutes != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('TimeoutInMinutes'))
         ..add(serializers.serialize(
           timeoutInMinutes,
@@ -620,7 +620,7 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (capabilities != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Capabilities'))
         ..add(const _i10.XmlBuiltListSerializer(
                 indexer: _i10.XmlIndexer.awsQueryList)
@@ -634,7 +634,7 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (outputs != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Outputs'))
         ..add(const _i10.XmlBuiltListSerializer(
                 indexer: _i10.XmlIndexer.awsQueryList)
@@ -648,7 +648,7 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (roleArn != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('RoleARN'))
         ..add(serializers.serialize(
           roleArn,
@@ -656,7 +656,7 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Tags'))
         ..add(const _i10.XmlBuiltListSerializer(
                 indexer: _i10.XmlIndexer.awsQueryList)
@@ -670,7 +670,7 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (enableTerminationProtection != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('EnableTerminationProtection'))
         ..add(serializers.serialize(
           enableTerminationProtection,
@@ -678,7 +678,7 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (parentId != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('ParentId'))
         ..add(serializers.serialize(
           parentId,
@@ -686,7 +686,7 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (rootId != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('RootId'))
         ..add(serializers.serialize(
           rootId,
@@ -694,13 +694,13 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ));
     }
     if (driftInformation != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('DriftInformation'))
         ..add(serializers.serialize(
           driftInformation,
           specifiedType: const FullType(_i8.StackDriftInformation),
         ));
     }
-    return result;
+    return result$;
   }
 }

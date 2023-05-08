@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message_body_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -132,27 +133,28 @@ class InAppMessageBodyConfigRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InAppMessageBodyConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InAppMessageBodyConfig);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final InAppMessageBodyConfig(:alignment, :body, :textColor) = object;
+    result$.addAll([
       'Alignment',
       serializers.serialize(
-        payload.alignment,
+        alignment,
         specifiedType: const FullType(_i2.Alignment),
       ),
       'Body',
       serializers.serialize(
-        payload.body,
+        body,
         specifiedType: const FullType(String),
       ),
       'TextColor',
       serializers.serialize(
-        payload.textColor,
+        textColor,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

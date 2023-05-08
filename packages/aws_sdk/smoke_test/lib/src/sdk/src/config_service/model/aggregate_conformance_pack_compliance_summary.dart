@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.aggregate_conformance_pack_compliance_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -122,17 +123,16 @@ class AggregateConformancePackComplianceSummaryAwsJson11Serializer extends _i3
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AggregateConformancePackComplianceSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AggregateConformancePackComplianceSummary);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final AggregateConformancePackComplianceSummary(
       :complianceSummary,
       :groupName
-    ) = payload;
+    ) = object;
     if (complianceSummary != null) {
-      result
+      result$
         ..add('ComplianceSummary')
         ..add(serializers.serialize(
           complianceSummary,
@@ -141,13 +141,13 @@ class AggregateConformancePackComplianceSummaryAwsJson11Serializer extends _i3
         ));
     }
     if (groupName != null) {
-      result
+      result$
         ..add('GroupName')
         ..add(serializers.serialize(
           groupName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

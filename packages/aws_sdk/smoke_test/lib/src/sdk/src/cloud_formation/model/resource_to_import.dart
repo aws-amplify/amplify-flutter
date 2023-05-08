@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.resource_to_import; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -138,11 +139,10 @@ class ResourceToImportAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ResourceToImport object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ResourceToImport);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ResourceToImportResponse',
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -152,20 +152,20 @@ class ResourceToImportAwsQuerySerializer
       :resourceType,
       :logicalResourceId,
       :resourceIdentifier
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i3.XmlElementName('ResourceType'))
       ..add(serializers.serialize(
         resourceType,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('LogicalResourceId'))
       ..add(serializers.serialize(
         logicalResourceId,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('ResourceIdentifier'))
       ..add(const _i3.XmlBuiltMapSerializer(indexer: _i3.XmlIndexer.awsQueryMap)
           .serialize(
@@ -179,6 +179,6 @@ class ResourceToImportAwsQuerySerializer
           ],
         ),
       ));
-    return result;
+    return result$;
   }
 }

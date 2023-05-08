@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.status_detail_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -136,14 +137,13 @@ class StatusDetailFiltersAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StatusDetailFilters object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StatusDetailFilters);
-    final result = <Object?>[];
-    final StatusDetailFilters(:accountId, :memberAccountRuleStatus) = payload;
+    final result$ = <Object?>[];
+    final StatusDetailFilters(:accountId, :memberAccountRuleStatus) = object;
     if (accountId != null) {
-      result
+      result$
         ..add('AccountId')
         ..add(serializers.serialize(
           accountId,
@@ -151,13 +151,13 @@ class StatusDetailFiltersAwsJson11Serializer
         ));
     }
     if (memberAccountRuleStatus != null) {
-      result
+      result$
         ..add('MemberAccountRuleStatus')
         ..add(serializers.serialize(
           memberAccountRuleStatus,
           specifiedType: const FullType(_i2.MemberAccountRuleStatus),
         ));
     }
-    return result;
+    return result$;
   }
 }

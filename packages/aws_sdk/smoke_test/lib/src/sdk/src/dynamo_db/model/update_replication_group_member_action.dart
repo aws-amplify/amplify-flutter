@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.update_replication_group_member_action; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -175,25 +176,26 @@ class UpdateReplicationGroupMemberActionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateReplicationGroupMemberAction object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateReplicationGroupMemberAction);
-    final result = <Object?>[
-      'RegionName',
-      serializers.serialize(
-        payload.regionName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final UpdateReplicationGroupMemberAction(
+      :regionName,
       :kmsMasterKeyId,
       :provisionedThroughputOverride,
       :globalSecondaryIndexes,
       :tableClassOverride
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'RegionName',
+      serializers.serialize(
+        regionName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (kmsMasterKeyId != null) {
-      result
+      result$
         ..add('KMSMasterKeyId')
         ..add(serializers.serialize(
           kmsMasterKeyId,
@@ -201,7 +203,7 @@ class UpdateReplicationGroupMemberActionAwsJson10Serializer
         ));
     }
     if (provisionedThroughputOverride != null) {
-      result
+      result$
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
           provisionedThroughputOverride,
@@ -209,7 +211,7 @@ class UpdateReplicationGroupMemberActionAwsJson10Serializer
         ));
     }
     if (globalSecondaryIndexes != null) {
-      result
+      result$
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
           globalSecondaryIndexes,
@@ -220,13 +222,13 @@ class UpdateReplicationGroupMemberActionAwsJson10Serializer
         ));
     }
     if (tableClassOverride != null) {
-      result
+      result$
         ..add('TableClassOverride')
         ..add(serializers.serialize(
           tableClassOverride,
           specifiedType: const FullType(_i4.TableClass),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.replication_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -118,24 +119,23 @@ class ReplicationConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicationConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicationConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ReplicationConfiguration',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final ReplicationConfiguration(:role, :rules) = payload;
-    result
+    final ReplicationConfiguration(:role, :rules) = object;
+    result$
       ..add(const _i4.XmlElementName('Role'))
       ..add(serializers.serialize(
         role,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
         .addAll(const _i4.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
       rules,
@@ -144,6 +144,6 @@ class ReplicationConfigurationRestXmlSerializer
         [FullType(_i2.ReplicationRule)],
       ),
     ));
-    return result;
+    return result$;
   }
 }

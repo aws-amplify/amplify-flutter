@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.usage_plans; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -126,14 +127,13 @@ class UsagePlansRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UsagePlans object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UsagePlans);
-    final result = <Object?>[];
-    final UsagePlans(:items, :position) = payload;
+    final result$ = <Object?>[];
+    final UsagePlans(:items, :position) = object;
     if (items != null) {
-      result
+      result$
         ..add('item')
         ..add(serializers.serialize(
           items,
@@ -144,13 +144,13 @@ class UsagePlansRestJson1Serializer
         ));
     }
     if (position != null) {
-      result
+      result$
         ..add('position')
         ..add(serializers.serialize(
           position,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

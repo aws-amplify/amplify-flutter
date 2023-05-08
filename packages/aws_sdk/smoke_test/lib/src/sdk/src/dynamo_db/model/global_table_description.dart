@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.global_table_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -177,20 +178,19 @@ class GlobalTableDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GlobalTableDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GlobalTableDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final GlobalTableDescription(
       :replicationGroup,
       :globalTableArn,
       :creationDateTime,
       :globalTableStatus,
       :globalTableName
-    ) = payload;
+    ) = object;
     if (replicationGroup != null) {
-      result
+      result$
         ..add('ReplicationGroup')
         ..add(serializers.serialize(
           replicationGroup,
@@ -201,7 +201,7 @@ class GlobalTableDescriptionAwsJson10Serializer
         ));
     }
     if (globalTableArn != null) {
-      result
+      result$
         ..add('GlobalTableArn')
         ..add(serializers.serialize(
           globalTableArn,
@@ -209,7 +209,7 @@ class GlobalTableDescriptionAwsJson10Serializer
         ));
     }
     if (creationDateTime != null) {
-      result
+      result$
         ..add('CreationDateTime')
         ..add(serializers.serialize(
           creationDateTime,
@@ -217,7 +217,7 @@ class GlobalTableDescriptionAwsJson10Serializer
         ));
     }
     if (globalTableStatus != null) {
-      result
+      result$
         ..add('GlobalTableStatus')
         ..add(serializers.serialize(
           globalTableStatus,
@@ -225,13 +225,13 @@ class GlobalTableDescriptionAwsJson10Serializer
         ));
     }
     if (globalTableName != null) {
-      result
+      result$
         ..add('GlobalTableName')
         ..add(serializers.serialize(
           globalTableName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

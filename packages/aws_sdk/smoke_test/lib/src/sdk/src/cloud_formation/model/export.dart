@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.export; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -126,19 +127,18 @@ class ExportAwsQuerySerializer extends _i2.StructuredSmithySerializer<Export> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Export object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Export);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'ExportResponse',
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final Export(:exportingStackId, :name, :value) = payload;
+    final Export(:exportingStackId, :name, :value) = object;
     if (exportingStackId != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ExportingStackId'))
         ..add(serializers.serialize(
           exportingStackId,
@@ -146,7 +146,7 @@ class ExportAwsQuerySerializer extends _i2.StructuredSmithySerializer<Export> {
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
@@ -154,13 +154,13 @@ class ExportAwsQuerySerializer extends _i2.StructuredSmithySerializer<Export> {
         ));
     }
     if (value != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Value'))
         ..add(serializers.serialize(
           value,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

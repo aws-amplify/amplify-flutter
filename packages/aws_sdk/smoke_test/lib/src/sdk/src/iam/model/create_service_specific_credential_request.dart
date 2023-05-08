@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.create_service_specific_credential_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -128,30 +129,29 @@ class CreateServiceSpecificCredentialRequestAwsQuerySerializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateServiceSpecificCredentialRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateServiceSpecificCredentialRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'CreateServiceSpecificCredentialRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreateServiceSpecificCredentialRequest(:userName, :serviceName) =
-        payload;
-    result
+        object;
+    result$
       ..add(const _i1.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('ServiceName'))
       ..add(serializers.serialize(
         serviceName,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

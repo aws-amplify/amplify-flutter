@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_delivery_channel_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -115,15 +116,14 @@ class DescribeDeliveryChannelStatusResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeDeliveryChannelStatusResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeDeliveryChannelStatusResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final DescribeDeliveryChannelStatusResponse(:deliveryChannelsStatus) =
-        payload;
+        object;
     if (deliveryChannelsStatus != null) {
-      result
+      result$
         ..add('DeliveryChannelsStatus')
         ..add(serializers.serialize(
           deliveryChannelsStatus,
@@ -133,6 +133,6 @@ class DescribeDeliveryChannelStatusResponseAwsJson11Serializer extends _i4
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

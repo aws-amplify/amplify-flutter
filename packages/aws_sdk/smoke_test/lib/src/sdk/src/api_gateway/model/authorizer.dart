@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.authorizer; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -246,11 +247,10 @@ class AuthorizerRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Authorizer object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Authorizer);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final Authorizer(
       :authType,
       :authorizerCredentials,
@@ -262,9 +262,9 @@ class AuthorizerRestJson1Serializer
       :name,
       :providerArNs,
       :type
-    ) = payload;
+    ) = object;
     if (authType != null) {
-      result
+      result$
         ..add('authType')
         ..add(serializers.serialize(
           authType,
@@ -272,7 +272,7 @@ class AuthorizerRestJson1Serializer
         ));
     }
     if (authorizerCredentials != null) {
-      result
+      result$
         ..add('authorizerCredentials')
         ..add(serializers.serialize(
           authorizerCredentials,
@@ -280,7 +280,7 @@ class AuthorizerRestJson1Serializer
         ));
     }
     if (authorizerResultTtlInSeconds != null) {
-      result
+      result$
         ..add('authorizerResultTtlInSeconds')
         ..add(serializers.serialize(
           authorizerResultTtlInSeconds,
@@ -288,7 +288,7 @@ class AuthorizerRestJson1Serializer
         ));
     }
     if (authorizerUri != null) {
-      result
+      result$
         ..add('authorizerUri')
         ..add(serializers.serialize(
           authorizerUri,
@@ -296,7 +296,7 @@ class AuthorizerRestJson1Serializer
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add('id')
         ..add(serializers.serialize(
           id,
@@ -304,7 +304,7 @@ class AuthorizerRestJson1Serializer
         ));
     }
     if (identitySource != null) {
-      result
+      result$
         ..add('identitySource')
         ..add(serializers.serialize(
           identitySource,
@@ -312,7 +312,7 @@ class AuthorizerRestJson1Serializer
         ));
     }
     if (identityValidationExpression != null) {
-      result
+      result$
         ..add('identityValidationExpression')
         ..add(serializers.serialize(
           identityValidationExpression,
@@ -320,7 +320,7 @@ class AuthorizerRestJson1Serializer
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add('name')
         ..add(serializers.serialize(
           name,
@@ -328,7 +328,7 @@ class AuthorizerRestJson1Serializer
         ));
     }
     if (providerArNs != null) {
-      result
+      result$
         ..add('providerARNs')
         ..add(serializers.serialize(
           providerArNs,
@@ -339,13 +339,13 @@ class AuthorizerRestJson1Serializer
         ));
     }
     if (type != null) {
-      result
+      result$
         ..add('type')
         ..add(serializers.serialize(
           type,
           specifiedType: const FullType(_i2.AuthorizerType),
         ));
     }
-    return result;
+    return result$;
   }
 }

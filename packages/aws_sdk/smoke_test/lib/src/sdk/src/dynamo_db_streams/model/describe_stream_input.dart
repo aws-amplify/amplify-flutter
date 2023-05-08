@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.describe_stream_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -140,20 +141,21 @@ class DescribeStreamInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeStreamInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeStreamInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DescribeStreamInput(:streamArn, :limit, :exclusiveStartShardId) =
+        object;
+    result$.addAll([
       'StreamArn',
       serializers.serialize(
-        payload.streamArn,
+        streamArn,
         specifiedType: const FullType(String),
       ),
-    ];
-    final DescribeStreamInput(:limit, :exclusiveStartShardId) = payload;
+    ]);
     if (limit != null) {
-      result
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
           limit,
@@ -161,13 +163,13 @@ class DescribeStreamInputAwsJson10Serializer
         ));
     }
     if (exclusiveStartShardId != null) {
-      result
+      result$
         ..add('ExclusiveStartShardId')
         ..add(serializers.serialize(
           exclusiveStartShardId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

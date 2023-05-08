@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.untag_resource_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -124,25 +125,26 @@ class UntagResourceInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UntagResourceInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UntagResourceInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final UntagResourceInput(:resourceArn, :tagKeys) = object;
+    result$.addAll([
       'ResourceArn',
       serializers.serialize(
-        payload.resourceArn,
+        resourceArn,
         specifiedType: const FullType(String),
       ),
       'TagKeys',
       serializers.serialize(
-        payload.tagKeys,
+        tagKeys,
         specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

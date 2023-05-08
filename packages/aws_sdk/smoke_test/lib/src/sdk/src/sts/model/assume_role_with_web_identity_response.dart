@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.sts.model.assume_role_with_web_identity_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -209,11 +210,10 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AssumeRoleWithWebIdentityResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AssumeRoleWithWebIdentityResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'AssumeRoleWithWebIdentityResponseResponse',
         _i4.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
@@ -227,9 +227,9 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
       :provider,
       :audience,
       :sourceIdentity
-    ) = payload;
+    ) = object;
     if (credentials != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Credentials'))
         ..add(serializers.serialize(
           credentials,
@@ -237,7 +237,7 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
         ));
     }
     if (subjectFromWebIdentityToken != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('SubjectFromWebIdentityToken'))
         ..add(serializers.serialize(
           subjectFromWebIdentityToken,
@@ -245,7 +245,7 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
         ));
     }
     if (assumedRoleUser != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('AssumedRoleUser'))
         ..add(serializers.serialize(
           assumedRoleUser,
@@ -253,7 +253,7 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
         ));
     }
     if (packedPolicySize != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PackedPolicySize'))
         ..add(serializers.serialize(
           packedPolicySize,
@@ -261,7 +261,7 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
         ));
     }
     if (provider != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Provider'))
         ..add(serializers.serialize(
           provider,
@@ -269,7 +269,7 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
         ));
     }
     if (audience != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Audience'))
         ..add(serializers.serialize(
           audience,
@@ -277,13 +277,13 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
         ));
     }
     if (sourceIdentity != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('SourceIdentity'))
         ..add(serializers.serialize(
           sourceIdentity,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_validation_protocol.model.malformed_range_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -288,11 +289,10 @@ class MalformedRangeInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedRangeInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MalformedRangeInput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final MalformedRangeInput(
       :byte,
       :float,
@@ -309,9 +309,9 @@ class MalformedRangeInputRestJson1Serializer
       :minLong,
       :minShort,
       :short
-    ) = payload;
+    ) = object;
     if (byte != null) {
-      result
+      result$
         ..add('byte')
         ..add(serializers.serialize(
           byte,
@@ -319,7 +319,7 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (float != null) {
-      result
+      result$
         ..add('float')
         ..add(serializers.serialize(
           float,
@@ -327,7 +327,7 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (integer != null) {
-      result
+      result$
         ..add('integer')
         ..add(serializers.serialize(
           integer,
@@ -335,7 +335,7 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (long != null) {
-      result
+      result$
         ..add('long')
         ..add(serializers.serialize(
           long,
@@ -343,7 +343,7 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (maxByte != null) {
-      result
+      result$
         ..add('maxByte')
         ..add(serializers.serialize(
           maxByte,
@@ -351,7 +351,7 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (maxFloat != null) {
-      result
+      result$
         ..add('maxFloat')
         ..add(serializers.serialize(
           maxFloat,
@@ -359,7 +359,7 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (maxInteger != null) {
-      result
+      result$
         ..add('maxInteger')
         ..add(serializers.serialize(
           maxInteger,
@@ -367,7 +367,7 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (maxLong != null) {
-      result
+      result$
         ..add('maxLong')
         ..add(serializers.serialize(
           maxLong,
@@ -375,7 +375,7 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (maxShort != null) {
-      result
+      result$
         ..add('maxShort')
         ..add(serializers.serialize(
           maxShort,
@@ -383,7 +383,7 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (minByte != null) {
-      result
+      result$
         ..add('minByte')
         ..add(serializers.serialize(
           minByte,
@@ -391,7 +391,7 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (minFloat != null) {
-      result
+      result$
         ..add('minFloat')
         ..add(serializers.serialize(
           minFloat,
@@ -399,7 +399,7 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (minInteger != null) {
-      result
+      result$
         ..add('minInteger')
         ..add(serializers.serialize(
           minInteger,
@@ -407,7 +407,7 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (minLong != null) {
-      result
+      result$
         ..add('minLong')
         ..add(serializers.serialize(
           minLong,
@@ -415,7 +415,7 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (minShort != null) {
-      result
+      result$
         ..add('minShort')
         ..add(serializers.serialize(
           minShort,
@@ -423,13 +423,13 @@ class MalformedRangeInputRestJson1Serializer
         ));
     }
     if (short != null) {
-      result
+      result$
         ..add('short')
         ..add(serializers.serialize(
           short,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

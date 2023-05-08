@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.simulate_principal_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -376,11 +377,10 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SimulatePrincipalPolicyRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SimulatePrincipalPolicyRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'SimulatePrincipalPolicyRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -399,15 +399,15 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
       :resourceHandlingOption,
       :maxItems,
       :marker
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('PolicySourceArn'))
       ..add(serializers.serialize(
         policySourceArn,
         specifiedType: const FullType(String),
       ));
     if (policyInputList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PolicyInputList'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -421,7 +421,7 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
         ));
     }
     if (permissionsBoundaryPolicyInputList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PermissionsBoundaryPolicyInputList'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -434,7 +434,7 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
           ),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('ActionNames'))
       ..add(
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
@@ -447,7 +447,7 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
         ),
       ));
     if (resourceArns != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ResourceArns'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -461,7 +461,7 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
         ));
     }
     if (resourcePolicy != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ResourcePolicy'))
         ..add(serializers.serialize(
           resourcePolicy,
@@ -469,7 +469,7 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
         ));
     }
     if (resourceOwner != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ResourceOwner'))
         ..add(serializers.serialize(
           resourceOwner,
@@ -477,7 +477,7 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
         ));
     }
     if (callerArn != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('CallerArn'))
         ..add(serializers.serialize(
           callerArn,
@@ -485,7 +485,7 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
         ));
     }
     if (contextEntries != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ContextEntries'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -499,7 +499,7 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
         ));
     }
     if (resourceHandlingOption != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ResourceHandlingOption'))
         ..add(serializers.serialize(
           resourceHandlingOption,
@@ -507,7 +507,7 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
         ));
     }
     if (maxItems != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
           maxItems,
@@ -515,13 +515,13 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

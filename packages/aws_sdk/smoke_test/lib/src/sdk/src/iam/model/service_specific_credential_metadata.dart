@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.service_specific_credential_metadata; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -180,11 +181,10 @@ class ServiceSpecificCredentialMetadataAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ServiceSpecificCredentialMetadata object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ServiceSpecificCredentialMetadata);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ServiceSpecificCredentialMetadataResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -197,43 +197,43 @@ class ServiceSpecificCredentialMetadataAwsQuerySerializer
       :createDate,
       :serviceSpecificCredentialId,
       :serviceName
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i3.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
         specifiedType: const FullType.nullable(_i2.StatusType),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('ServiceUserName'))
       ..add(serializers.serialize(
         serviceUserName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
         createDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('ServiceSpecificCredentialId'))
       ..add(serializers.serialize(
         serviceSpecificCredentialId,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('ServiceName'))
       ..add(serializers.serialize(
         serviceName,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

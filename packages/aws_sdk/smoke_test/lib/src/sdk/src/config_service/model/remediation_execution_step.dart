@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.remediation_execution_step; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -163,20 +164,19 @@ class RemediationExecutionStepAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RemediationExecutionStep object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RemediationExecutionStep);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final RemediationExecutionStep(
       :name,
       :state,
       :errorMessage,
       :startTime,
       :stopTime
-    ) = payload;
+    ) = object;
     if (name != null) {
-      result
+      result$
         ..add('Name')
         ..add(serializers.serialize(
           name,
@@ -184,7 +184,7 @@ class RemediationExecutionStepAwsJson11Serializer
         ));
     }
     if (state != null) {
-      result
+      result$
         ..add('State')
         ..add(serializers.serialize(
           state,
@@ -192,7 +192,7 @@ class RemediationExecutionStepAwsJson11Serializer
         ));
     }
     if (errorMessage != null) {
-      result
+      result$
         ..add('ErrorMessage')
         ..add(serializers.serialize(
           errorMessage,
@@ -200,7 +200,7 @@ class RemediationExecutionStepAwsJson11Serializer
         ));
     }
     if (startTime != null) {
-      result
+      result$
         ..add('StartTime')
         ..add(serializers.serialize(
           startTime,
@@ -208,13 +208,13 @@ class RemediationExecutionStepAwsJson11Serializer
         ));
     }
     if (stopTime != null) {
-      result
+      result$
         ..add('StopTime')
         ..add(serializers.serialize(
           stopTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

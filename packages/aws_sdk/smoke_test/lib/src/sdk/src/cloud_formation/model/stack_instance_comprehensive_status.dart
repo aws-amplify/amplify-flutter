@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.stack_instance_comprehensive_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -111,19 +112,18 @@ class StackInstanceComprehensiveStatusAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StackInstanceComprehensiveStatus object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StackInstanceComprehensiveStatus);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'StackInstanceComprehensiveStatusResponse',
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final StackInstanceComprehensiveStatus(:detailedStatus) = payload;
+    final StackInstanceComprehensiveStatus(:detailedStatus) = object;
     if (detailedStatus != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('DetailedStatus'))
         ..add(serializers.serialize(
           detailedStatus,
@@ -131,6 +131,6 @@ class StackInstanceComprehensiveStatusAwsQuerySerializer
               const FullType.nullable(_i2.StackInstanceDetailedStatus),
         ));
     }
-    return result;
+    return result$;
   }
 }

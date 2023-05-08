@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v1.query_protocol.model.struct_arg; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -119,19 +120,18 @@ class StructArgAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StructArg object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StructArg);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'StructArgResponse',
         _i2.XmlNamespace('https://example.com/'),
       )
     ];
-    final StructArg(:stringArg, :otherArg, :recursiveArg) = payload;
+    final StructArg(:stringArg, :otherArg, :recursiveArg) = object;
     if (stringArg != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('StringArg'))
         ..add(serializers.serialize(
           stringArg,
@@ -139,7 +139,7 @@ class StructArgAwsQuerySerializer
         ));
     }
     if (otherArg != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('OtherArg'))
         ..add(serializers.serialize(
           otherArg,
@@ -147,13 +147,13 @@ class StructArgAwsQuerySerializer
         ));
     }
     if (recursiveArg != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('RecursiveArg'))
         ..add(serializers.serialize(
           recursiveArg,
           specifiedType: const FullType(StructArg),
         ));
     }
-    return result;
+    return result$;
   }
 }

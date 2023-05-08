@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.configuration_item; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -401,11 +402,10 @@ class ConfigurationItemAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConfigurationItem object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConfigurationItem);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ConfigurationItem(
       :version,
       :accountId,
@@ -425,9 +425,9 @@ class ConfigurationItemAwsJson11Serializer
       :relationships,
       :configuration,
       :supplementaryConfiguration
-    ) = payload;
+    ) = object;
     if (version != null) {
-      result
+      result$
         ..add('version')
         ..add(serializers.serialize(
           version,
@@ -435,7 +435,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (accountId != null) {
-      result
+      result$
         ..add('accountId')
         ..add(serializers.serialize(
           accountId,
@@ -443,7 +443,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (configurationItemCaptureTime != null) {
-      result
+      result$
         ..add('configurationItemCaptureTime')
         ..add(serializers.serialize(
           configurationItemCaptureTime,
@@ -451,7 +451,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (configurationItemStatus != null) {
-      result
+      result$
         ..add('configurationItemStatus')
         ..add(serializers.serialize(
           configurationItemStatus,
@@ -459,7 +459,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (configurationStateId != null) {
-      result
+      result$
         ..add('configurationStateId')
         ..add(serializers.serialize(
           configurationStateId,
@@ -467,7 +467,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (configurationItemMd5Hash != null) {
-      result
+      result$
         ..add('configurationItemMD5Hash')
         ..add(serializers.serialize(
           configurationItemMd5Hash,
@@ -475,7 +475,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (arn != null) {
-      result
+      result$
         ..add('arn')
         ..add(serializers.serialize(
           arn,
@@ -483,7 +483,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (resourceType != null) {
-      result
+      result$
         ..add('resourceType')
         ..add(serializers.serialize(
           resourceType,
@@ -491,7 +491,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (resourceId != null) {
-      result
+      result$
         ..add('resourceId')
         ..add(serializers.serialize(
           resourceId,
@@ -499,7 +499,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (resourceName != null) {
-      result
+      result$
         ..add('resourceName')
         ..add(serializers.serialize(
           resourceName,
@@ -507,7 +507,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (awsRegion != null) {
-      result
+      result$
         ..add('awsRegion')
         ..add(serializers.serialize(
           awsRegion,
@@ -515,7 +515,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (availabilityZone != null) {
-      result
+      result$
         ..add('availabilityZone')
         ..add(serializers.serialize(
           availabilityZone,
@@ -523,7 +523,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (resourceCreationTime != null) {
-      result
+      result$
         ..add('resourceCreationTime')
         ..add(serializers.serialize(
           resourceCreationTime,
@@ -531,7 +531,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('tags')
         ..add(serializers.serialize(
           tags,
@@ -545,7 +545,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (relatedEvents != null) {
-      result
+      result$
         ..add('relatedEvents')
         ..add(serializers.serialize(
           relatedEvents,
@@ -556,7 +556,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (relationships != null) {
-      result
+      result$
         ..add('relationships')
         ..add(serializers.serialize(
           relationships,
@@ -567,7 +567,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (configuration != null) {
-      result
+      result$
         ..add('configuration')
         ..add(serializers.serialize(
           configuration,
@@ -575,7 +575,7 @@ class ConfigurationItemAwsJson11Serializer
         ));
     }
     if (supplementaryConfiguration != null) {
-      result
+      result$
         ..add('supplementaryConfiguration')
         ..add(serializers.serialize(
           supplementaryConfiguration,
@@ -588,6 +588,6 @@ class ConfigurationItemAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

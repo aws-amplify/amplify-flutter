@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.member_account_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -196,31 +197,37 @@ class MemberAccountStatusAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MemberAccountStatus object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MemberAccountStatus);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final MemberAccountStatus(
+      :accountId,
+      :configRuleName,
+      :memberAccountRuleStatus,
+      :errorCode,
+      :errorMessage,
+      :lastUpdateTime
+    ) = object;
+    result$.addAll([
       'AccountId',
       serializers.serialize(
-        payload.accountId,
+        accountId,
         specifiedType: const FullType(String),
       ),
       'ConfigRuleName',
       serializers.serialize(
-        payload.configRuleName,
+        configRuleName,
         specifiedType: const FullType(String),
       ),
       'MemberAccountRuleStatus',
       serializers.serialize(
-        payload.memberAccountRuleStatus,
+        memberAccountRuleStatus,
         specifiedType: const FullType(_i2.MemberAccountRuleStatus),
       ),
-    ];
-    final MemberAccountStatus(:errorCode, :errorMessage, :lastUpdateTime) =
-        payload;
+    ]);
     if (errorCode != null) {
-      result
+      result$
         ..add('ErrorCode')
         ..add(serializers.serialize(
           errorCode,
@@ -228,7 +235,7 @@ class MemberAccountStatusAwsJson11Serializer
         ));
     }
     if (errorMessage != null) {
-      result
+      result$
         ..add('ErrorMessage')
         ..add(serializers.serialize(
           errorMessage,
@@ -236,13 +243,13 @@ class MemberAccountStatusAwsJson11Serializer
         ));
     }
     if (lastUpdateTime != null) {
-      result
+      result$
         ..add('LastUpdateTime')
         ..add(serializers.serialize(
           lastUpdateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

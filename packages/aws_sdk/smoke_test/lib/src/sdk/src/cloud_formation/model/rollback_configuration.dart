@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.rollback_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -148,20 +149,19 @@ class RollbackConfigurationAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RollbackConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RollbackConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'RollbackConfigurationResponse',
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final RollbackConfiguration(:rollbackTriggers, :monitoringTimeInMinutes) =
-        payload;
+        object;
     if (rollbackTriggers != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('RollbackTriggers'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -175,13 +175,13 @@ class RollbackConfigurationAwsQuerySerializer
         ));
     }
     if (monitoringTimeInMinutes != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('MonitoringTimeInMinutes'))
         ..add(serializers.serialize(
           monitoringTimeInMinutes,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

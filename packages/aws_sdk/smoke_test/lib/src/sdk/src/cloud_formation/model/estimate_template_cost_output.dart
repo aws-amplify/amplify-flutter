@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.estimate_template_cost_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,25 +103,24 @@ class EstimateTemplateCostOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EstimateTemplateCostOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EstimateTemplateCostOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'EstimateTemplateCostOutputResponse',
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final EstimateTemplateCostOutput(:url) = payload;
+    final EstimateTemplateCostOutput(:url) = object;
     if (url != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Url'))
         ..add(serializers.serialize(
           url,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

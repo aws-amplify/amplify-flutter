@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v2.json_protocol.model.null_operation_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -152,18 +153,17 @@ class NullOperationInputOutputAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    NullOperationInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as NullOperationInputOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final NullOperationInputOutput(
       :string,
       :sparseStringList,
       :sparseStringMap
-    ) = payload;
+    ) = object;
     if (string != null) {
-      result
+      result$
         ..add('string')
         ..add(serializers.serialize(
           string,
@@ -171,7 +171,7 @@ class NullOperationInputOutputAwsJson11Serializer
         ));
     }
     if (sparseStringList != null) {
-      result
+      result$
         ..add('sparseStringList')
         ..add(serializers.serialize(
           sparseStringList,
@@ -182,7 +182,7 @@ class NullOperationInputOutputAwsJson11Serializer
         ));
     }
     if (sparseStringMap != null) {
-      result
+      result$
         ..add('sparseStringMap')
         ..add(serializers.serialize(
           sparseStringMap,
@@ -195,6 +195,6 @@ class NullOperationInputOutputAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

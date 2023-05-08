@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.resource_identifier; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -146,19 +147,18 @@ class ResourceIdentifierAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ResourceIdentifier object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ResourceIdentifier);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ResourceIdentifier(
       :resourceType,
       :resourceId,
       :resourceName,
       :resourceDeletionTime
-    ) = payload;
+    ) = object;
     if (resourceType != null) {
-      result
+      result$
         ..add('resourceType')
         ..add(serializers.serialize(
           resourceType,
@@ -166,7 +166,7 @@ class ResourceIdentifierAwsJson11Serializer
         ));
     }
     if (resourceId != null) {
-      result
+      result$
         ..add('resourceId')
         ..add(serializers.serialize(
           resourceId,
@@ -174,7 +174,7 @@ class ResourceIdentifierAwsJson11Serializer
         ));
     }
     if (resourceName != null) {
-      result
+      result$
         ..add('resourceName')
         ..add(serializers.serialize(
           resourceName,
@@ -182,13 +182,13 @@ class ResourceIdentifierAwsJson11Serializer
         ));
     }
     if (resourceDeletionTime != null) {
-      result
+      result$
         ..add('resourceDeletionTime')
         ..add(serializers.serialize(
           resourceDeletionTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

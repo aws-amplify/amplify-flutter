@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.organization_conformance_pack_template_validation_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -131,22 +132,20 @@ class OrganizationConformancePackTemplateValidationExceptionAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OrganizationConformancePackTemplateValidationException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload =
-        (object as OrganizationConformancePackTemplateValidationException);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final OrganizationConformancePackTemplateValidationException(:message) =
-        payload;
+        object;
     if (message != null) {
-      result
+      result$
         ..add('message')
         ..add(serializers.serialize(
           message,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

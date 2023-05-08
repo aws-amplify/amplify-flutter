@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.sse_specification; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -131,14 +132,13 @@ class SseSpecificationAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SseSpecification object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SseSpecification);
-    final result = <Object?>[];
-    final SseSpecification(:enabled, :sseType, :kmsMasterKeyId) = payload;
+    final result$ = <Object?>[];
+    final SseSpecification(:enabled, :sseType, :kmsMasterKeyId) = object;
     if (enabled != null) {
-      result
+      result$
         ..add('Enabled')
         ..add(serializers.serialize(
           enabled,
@@ -146,7 +146,7 @@ class SseSpecificationAwsJson10Serializer
         ));
     }
     if (sseType != null) {
-      result
+      result$
         ..add('SSEType')
         ..add(serializers.serialize(
           sseType,
@@ -154,13 +154,13 @@ class SseSpecificationAwsJson10Serializer
         ));
     }
     if (kmsMasterKeyId != null) {
-      result
+      result$
         ..add('KMSMasterKeyId')
         ..add(serializers.serialize(
           kmsMasterKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

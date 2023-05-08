@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.get_template_summary_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -272,11 +273,10 @@ class GetTemplateSummaryOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetTemplateSummaryOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetTemplateSummaryOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'GetTemplateSummaryOutputResponse',
         _i6.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -292,9 +292,9 @@ class GetTemplateSummaryOutputAwsQuerySerializer
       :metadata,
       :declaredTransforms,
       :resourceIdentifierSummaries
-    ) = payload;
+    ) = object;
     if (parameters != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Parameters'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -308,7 +308,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -316,7 +316,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
         ));
     }
     if (capabilities != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Capabilities'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -330,7 +330,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
         ));
     }
     if (capabilitiesReason != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('CapabilitiesReason'))
         ..add(serializers.serialize(
           capabilitiesReason,
@@ -338,7 +338,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
         ));
     }
     if (resourceTypes != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('ResourceTypes'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -352,7 +352,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
         ));
     }
     if (version != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Version'))
         ..add(serializers.serialize(
           version,
@@ -360,7 +360,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
         ));
     }
     if (metadata != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Metadata'))
         ..add(serializers.serialize(
           metadata,
@@ -368,7 +368,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
         ));
     }
     if (declaredTransforms != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('DeclaredTransforms'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -382,7 +382,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
         ));
     }
     if (resourceIdentifierSummaries != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('ResourceIdentifierSummaries'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -395,6 +395,6 @@ class GetTemplateSummaryOutputAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

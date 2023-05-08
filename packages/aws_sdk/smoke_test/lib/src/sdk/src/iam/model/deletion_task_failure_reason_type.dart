@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.deletion_task_failure_reason_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -133,19 +134,18 @@ class DeletionTaskFailureReasonTypeAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeletionTaskFailureReasonType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeletionTaskFailureReasonType);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'DeletionTaskFailureReasonTypeResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final DeletionTaskFailureReasonType(:reason, :roleUsageList) = payload;
+    final DeletionTaskFailureReasonType(:reason, :roleUsageList) = object;
     if (reason != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Reason'))
         ..add(serializers.serialize(
           reason,
@@ -153,7 +153,7 @@ class DeletionTaskFailureReasonTypeAwsQuerySerializer
         ));
     }
     if (roleUsageList != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('RoleUsageList'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -166,6 +166,6 @@ class DeletionTaskFailureReasonTypeAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

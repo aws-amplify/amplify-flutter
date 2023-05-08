@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.organization_custom_rule_metadata; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -248,36 +249,38 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OrganizationCustomRuleMetadata object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OrganizationCustomRuleMetadata);
-    final result = <Object?>[
-      'LambdaFunctionArn',
-      serializers.serialize(
-        payload.lambdaFunctionArn,
-        specifiedType: const FullType(String),
-      ),
-      'OrganizationConfigRuleTriggerTypes',
-      serializers.serialize(
-        payload.organizationConfigRuleTriggerTypes,
-        specifiedType: const FullType(
-          _i4.BuiltList,
-          [FullType(_i2.OrganizationConfigRuleTriggerType)],
-        ),
-      ),
-    ];
+    final result$ = <Object?>[];
     final OrganizationCustomRuleMetadata(
       :description,
+      :lambdaFunctionArn,
+      :organizationConfigRuleTriggerTypes,
       :inputParameters,
       :maximumExecutionFrequency,
       :resourceTypesScope,
       :resourceIdScope,
       :tagKeyScope,
       :tagValueScope
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'LambdaFunctionArn',
+      serializers.serialize(
+        lambdaFunctionArn,
+        specifiedType: const FullType(String),
+      ),
+      'OrganizationConfigRuleTriggerTypes',
+      serializers.serialize(
+        organizationConfigRuleTriggerTypes,
+        specifiedType: const FullType(
+          _i4.BuiltList,
+          [FullType(_i2.OrganizationConfigRuleTriggerType)],
+        ),
+      ),
+    ]);
     if (description != null) {
-      result
+      result$
         ..add('Description')
         ..add(serializers.serialize(
           description,
@@ -285,7 +288,7 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
         ));
     }
     if (inputParameters != null) {
-      result
+      result$
         ..add('InputParameters')
         ..add(serializers.serialize(
           inputParameters,
@@ -293,7 +296,7 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
         ));
     }
     if (maximumExecutionFrequency != null) {
-      result
+      result$
         ..add('MaximumExecutionFrequency')
         ..add(serializers.serialize(
           maximumExecutionFrequency,
@@ -301,7 +304,7 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
         ));
     }
     if (resourceTypesScope != null) {
-      result
+      result$
         ..add('ResourceTypesScope')
         ..add(serializers.serialize(
           resourceTypesScope,
@@ -312,7 +315,7 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
         ));
     }
     if (resourceIdScope != null) {
-      result
+      result$
         ..add('ResourceIdScope')
         ..add(serializers.serialize(
           resourceIdScope,
@@ -320,7 +323,7 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
         ));
     }
     if (tagKeyScope != null) {
-      result
+      result$
         ..add('TagKeyScope')
         ..add(serializers.serialize(
           tagKeyScope,
@@ -328,13 +331,13 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
         ));
     }
     if (tagValueScope != null) {
-      result
+      result$
         ..add('TagValueScope')
         ..add(serializers.serialize(
           tagValueScope,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

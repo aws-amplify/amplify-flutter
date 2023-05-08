@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.machine_learning.model.prediction; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -148,19 +149,18 @@ class PredictionAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Prediction object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Prediction);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final Prediction(
       :predictedLabel,
       :predictedValue,
       :predictedScores,
       :details
-    ) = payload;
+    ) = object;
     if (predictedLabel != null) {
-      result
+      result$
         ..add('predictedLabel')
         ..add(serializers.serialize(
           predictedLabel,
@@ -168,7 +168,7 @@ class PredictionAwsJson11Serializer
         ));
     }
     if (predictedValue != null) {
-      result
+      result$
         ..add('predictedValue')
         ..add(serializers.serialize(
           predictedValue,
@@ -176,7 +176,7 @@ class PredictionAwsJson11Serializer
         ));
     }
     if (predictedScores != null) {
-      result
+      result$
         ..add('predictedScores')
         ..add(serializers.serialize(
           predictedScores,
@@ -190,7 +190,7 @@ class PredictionAwsJson11Serializer
         ));
     }
     if (details != null) {
-      result
+      result$
         ..add('details')
         ..add(serializers.serialize(
           details,
@@ -203,6 +203,6 @@ class PredictionAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

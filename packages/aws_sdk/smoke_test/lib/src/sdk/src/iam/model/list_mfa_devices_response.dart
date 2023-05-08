@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.list_mfa_devices_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -145,18 +146,17 @@ class ListMfaDevicesResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListMfaDevicesResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListMfaDevicesResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ListMfaDevicesResponseResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final ListMfaDevicesResponse(:mfaDevices, :isTruncated, :marker) = payload;
-    result
+    final ListMfaDevicesResponse(:mfaDevices, :isTruncated, :marker) = object;
+    result$
       ..add(const _i4.XmlElementName('MFADevices'))
       ..add(
           const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
@@ -169,7 +169,7 @@ class ListMfaDevicesResponseAwsQuerySerializer
         ),
       ));
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -177,13 +177,13 @@ class ListMfaDevicesResponseAwsQuerySerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.position; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -118,19 +119,18 @@ class PositionAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Position object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Position);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'PositionResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final Position(:line, :column) = payload;
+    final Position(:line, :column) = object;
     if (line != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Line'))
         ..add(serializers.serialize(
           line,
@@ -138,13 +138,13 @@ class PositionAwsQuerySerializer
         ));
     }
     if (column != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Column'))
         ..add(serializers.serialize(
           column,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

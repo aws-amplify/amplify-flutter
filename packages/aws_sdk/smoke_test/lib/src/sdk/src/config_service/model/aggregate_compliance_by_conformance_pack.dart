@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.aggregate_compliance_by_conformance_pack; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -158,19 +159,18 @@ class AggregateComplianceByConformancePackAwsJson11Serializer extends _i3
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AggregateComplianceByConformancePack object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AggregateComplianceByConformancePack);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final AggregateComplianceByConformancePack(
       :conformancePackName,
       :compliance,
       :accountId,
       :awsRegion
-    ) = payload;
+    ) = object;
     if (conformancePackName != null) {
-      result
+      result$
         ..add('ConformancePackName')
         ..add(serializers.serialize(
           conformancePackName,
@@ -178,7 +178,7 @@ class AggregateComplianceByConformancePackAwsJson11Serializer extends _i3
         ));
     }
     if (compliance != null) {
-      result
+      result$
         ..add('Compliance')
         ..add(serializers.serialize(
           compliance,
@@ -186,7 +186,7 @@ class AggregateComplianceByConformancePackAwsJson11Serializer extends _i3
         ));
     }
     if (accountId != null) {
-      result
+      result$
         ..add('AccountId')
         ..add(serializers.serialize(
           accountId,
@@ -194,13 +194,13 @@ class AggregateComplianceByConformancePackAwsJson11Serializer extends _i3
         ));
     }
     if (awsRegion != null) {
-      result
+      result$
         ..add('AwsRegion')
         ..add(serializers.serialize(
           awsRegion,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

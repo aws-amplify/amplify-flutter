@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.stack_set_operation_preferences; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -217,11 +218,10 @@ class StackSetOperationPreferencesAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StackSetOperationPreferences object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StackSetOperationPreferences);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'StackSetOperationPreferencesResponse',
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -234,9 +234,9 @@ class StackSetOperationPreferencesAwsQuerySerializer
       :failureTolerancePercentage,
       :maxConcurrentCount,
       :maxConcurrentPercentage
-    ) = payload;
+    ) = object;
     if (regionConcurrencyType != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('RegionConcurrencyType'))
         ..add(serializers.serialize(
           regionConcurrencyType,
@@ -244,7 +244,7 @@ class StackSetOperationPreferencesAwsQuerySerializer
         ));
     }
     if (regionOrder != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('RegionOrder'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -258,7 +258,7 @@ class StackSetOperationPreferencesAwsQuerySerializer
         ));
     }
     if (failureToleranceCount != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('FailureToleranceCount'))
         ..add(serializers.serialize(
           failureToleranceCount,
@@ -266,7 +266,7 @@ class StackSetOperationPreferencesAwsQuerySerializer
         ));
     }
     if (failureTolerancePercentage != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('FailureTolerancePercentage'))
         ..add(serializers.serialize(
           failureTolerancePercentage,
@@ -274,7 +274,7 @@ class StackSetOperationPreferencesAwsQuerySerializer
         ));
     }
     if (maxConcurrentCount != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('MaxConcurrentCount'))
         ..add(serializers.serialize(
           maxConcurrentCount,
@@ -282,13 +282,13 @@ class StackSetOperationPreferencesAwsQuerySerializer
         ));
     }
     if (maxConcurrentPercentage != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('MaxConcurrentPercentage'))
         ..add(serializers.serialize(
           maxConcurrentPercentage,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_object_attributes_parts; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -178,11 +179,10 @@ class GetObjectAttributesPartsRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetObjectAttributesParts object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetObjectAttributesParts);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'GetObjectAttributesParts',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -195,9 +195,9 @@ class GetObjectAttributesPartsRestXmlSerializer
       :partNumberMarker,
       :parts,
       :totalPartsCount
-    ) = payload;
+    ) = object;
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -205,7 +205,7 @@ class GetObjectAttributesPartsRestXmlSerializer
         ));
     }
     if (maxParts != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('MaxParts'))
         ..add(serializers.serialize(
           maxParts,
@@ -213,7 +213,7 @@ class GetObjectAttributesPartsRestXmlSerializer
         ));
     }
     if (nextPartNumberMarker != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('NextPartNumberMarker'))
         ..add(serializers.serialize(
           nextPartNumberMarker,
@@ -221,7 +221,7 @@ class GetObjectAttributesPartsRestXmlSerializer
         ));
     }
     if (partNumberMarker != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PartNumberMarker'))
         ..add(serializers.serialize(
           partNumberMarker,
@@ -229,7 +229,7 @@ class GetObjectAttributesPartsRestXmlSerializer
         ));
     }
     if (parts != null) {
-      result.addAll(
+      result$.addAll(
           const _i4.XmlBuiltListSerializer(memberName: 'Part').serialize(
         serializers,
         parts,
@@ -240,13 +240,13 @@ class GetObjectAttributesPartsRestXmlSerializer
       ));
     }
     if (totalPartsCount != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PartsCount'))
         ..add(serializers.serialize(
           totalPartsCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

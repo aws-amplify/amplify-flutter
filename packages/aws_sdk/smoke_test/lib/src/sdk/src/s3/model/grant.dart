@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.grant; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -113,19 +114,18 @@ class GrantRestXmlSerializer extends _i4.StructuredSmithySerializer<Grant> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Grant object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Grant);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'Grant',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final Grant(:grantee, :permission) = payload;
+    final Grant(:grantee, :permission) = object;
     if (grantee != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName(
           'Grantee',
           _i4.XmlNamespace(
@@ -139,13 +139,13 @@ class GrantRestXmlSerializer extends _i4.StructuredSmithySerializer<Grant> {
         ));
     }
     if (permission != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Permission'))
         ..add(serializers.serialize(
           permission,
           specifiedType: const FullType.nullable(_i3.Permission),
         ));
     }
-    return result;
+    return result$;
   }
 }

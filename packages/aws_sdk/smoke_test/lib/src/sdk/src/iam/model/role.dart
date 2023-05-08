@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.role; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -259,11 +260,10 @@ class RoleAwsQuerySerializer extends _i6.StructuredSmithySerializer<Role> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Role object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Role);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'RoleResponse',
         _i6.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -281,39 +281,39 @@ class RoleAwsQuerySerializer extends _i6.StructuredSmithySerializer<Role> {
       :permissionsBoundary,
       :tags,
       :roleLastUsed
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i6.XmlElementName('Path'))
       ..add(serializers.serialize(
         path,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i6.XmlElementName('RoleName'))
       ..add(serializers.serialize(
         roleName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i6.XmlElementName('RoleId'))
       ..add(serializers.serialize(
         roleId,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i6.XmlElementName('Arn'))
       ..add(serializers.serialize(
         arn,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i6.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
         createDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     if (assumeRolePolicyDocument != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('AssumeRolePolicyDocument'))
         ..add(serializers.serialize(
           assumeRolePolicyDocument,
@@ -321,7 +321,7 @@ class RoleAwsQuerySerializer extends _i6.StructuredSmithySerializer<Role> {
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -329,7 +329,7 @@ class RoleAwsQuerySerializer extends _i6.StructuredSmithySerializer<Role> {
         ));
     }
     if (maxSessionDuration != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('MaxSessionDuration'))
         ..add(serializers.serialize(
           maxSessionDuration,
@@ -337,7 +337,7 @@ class RoleAwsQuerySerializer extends _i6.StructuredSmithySerializer<Role> {
         ));
     }
     if (permissionsBoundary != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('PermissionsBoundary'))
         ..add(serializers.serialize(
           permissionsBoundary,
@@ -345,7 +345,7 @@ class RoleAwsQuerySerializer extends _i6.StructuredSmithySerializer<Role> {
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Tags'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -359,13 +359,13 @@ class RoleAwsQuerySerializer extends _i6.StructuredSmithySerializer<Role> {
         ));
     }
     if (roleLastUsed != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('RoleLastUsed'))
         ..add(serializers.serialize(
           roleLastUsed,
           specifiedType: const FullType(_i4.RoleLastUsed),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.xml_unions_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -108,20 +109,19 @@ class XmlUnionsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlUnionsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlUnionsInputOutput);
-    final result = <Object?>[const _i1.XmlElementName('XmlUnionsInputOutput')];
-    final XmlUnionsInputOutput(:unionValue) = payload;
+    final result$ = <Object?>[const _i1.XmlElementName('XmlUnionsInputOutput')];
+    final XmlUnionsInputOutput(:unionValue) = object;
     if (unionValue != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('unionValue'))
         ..add(serializers.serialize(
           unionValue,
           specifiedType: const FullType(_i3.XmlUnionShape),
         ));
     }
-    return result;
+    return result$;
   }
 }

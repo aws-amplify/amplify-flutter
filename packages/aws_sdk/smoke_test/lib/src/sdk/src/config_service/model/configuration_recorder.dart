@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.configuration_recorder; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -134,14 +135,13 @@ class ConfigurationRecorderAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConfigurationRecorder object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConfigurationRecorder);
-    final result = <Object?>[];
-    final ConfigurationRecorder(:name, :roleArn, :recordingGroup) = payload;
+    final result$ = <Object?>[];
+    final ConfigurationRecorder(:name, :roleArn, :recordingGroup) = object;
     if (name != null) {
-      result
+      result$
         ..add('name')
         ..add(serializers.serialize(
           name,
@@ -149,7 +149,7 @@ class ConfigurationRecorderAwsJson11Serializer
         ));
     }
     if (roleArn != null) {
-      result
+      result$
         ..add('roleARN')
         ..add(serializers.serialize(
           roleArn,
@@ -157,13 +157,13 @@ class ConfigurationRecorderAwsJson11Serializer
         ));
     }
     if (recordingGroup != null) {
-      result
+      result$
         ..add('recordingGroup')
         ..add(serializers.serialize(
           recordingGroup,
           specifiedType: const FullType(_i2.RecordingGroup),
         ));
     }
-    return result;
+    return result$;
   }
 }

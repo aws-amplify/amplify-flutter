@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.machine_learning.model.client_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -182,11 +183,10 @@ class ClientConfigAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ClientConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ClientConfig);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ClientConfig(
       :awsAccessKeyId,
       :awsSecretAccessKey,
@@ -195,9 +195,9 @@ class ClientConfigAwsJson11Serializer
       :s3,
       :retryConfig,
       :awsProfile
-    ) = payload;
+    ) = object;
     if (awsAccessKeyId != null) {
-      result
+      result$
         ..add('aws_access_key_id')
         ..add(serializers.serialize(
           awsAccessKeyId,
@@ -205,7 +205,7 @@ class ClientConfigAwsJson11Serializer
         ));
     }
     if (awsSecretAccessKey != null) {
-      result
+      result$
         ..add('aws_secret_access_key')
         ..add(serializers.serialize(
           awsSecretAccessKey,
@@ -213,7 +213,7 @@ class ClientConfigAwsJson11Serializer
         ));
     }
     if (awsSessionToken != null) {
-      result
+      result$
         ..add('aws_session_token')
         ..add(serializers.serialize(
           awsSessionToken,
@@ -221,7 +221,7 @@ class ClientConfigAwsJson11Serializer
         ));
     }
     if (region != null) {
-      result
+      result$
         ..add('region')
         ..add(serializers.serialize(
           region,
@@ -229,7 +229,7 @@ class ClientConfigAwsJson11Serializer
         ));
     }
     if (s3 != null) {
-      result
+      result$
         ..add('s3')
         ..add(serializers.serialize(
           s3,
@@ -237,7 +237,7 @@ class ClientConfigAwsJson11Serializer
         ));
     }
     if (retryConfig != null) {
-      result
+      result$
         ..add('retry_config')
         ..add(serializers.serialize(
           retryConfig,
@@ -245,13 +245,13 @@ class ClientConfigAwsJson11Serializer
         ));
     }
     if (awsProfile != null) {
-      result
+      result$
         ..add('aws_profile')
         ..add(serializers.serialize(
           awsProfile,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

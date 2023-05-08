@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.set_stack_policy_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -140,26 +141,25 @@ class SetStackPolicyInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SetStackPolicyInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SetStackPolicyInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'SetStackPolicyInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final SetStackPolicyInput(:stackName, :stackPolicyBody, :stackPolicyUrl) =
-        payload;
-    result
+        object;
+    result$
       ..add(const _i1.XmlElementName('StackName'))
       ..add(serializers.serialize(
         stackName,
         specifiedType: const FullType(String),
       ));
     if (stackPolicyBody != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('StackPolicyBody'))
         ..add(serializers.serialize(
           stackPolicyBody,
@@ -167,13 +167,13 @@ class SetStackPolicyInputAwsQuerySerializer
         ));
     }
     if (stackPolicyUrl != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('StackPolicyURL'))
         ..add(serializers.serialize(
           stackPolicyUrl,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

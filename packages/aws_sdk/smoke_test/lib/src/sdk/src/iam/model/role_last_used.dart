@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.role_last_used; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -121,19 +122,18 @@ class RoleLastUsedAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RoleLastUsed object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RoleLastUsed);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'RoleLastUsedResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final RoleLastUsed(:lastUsedDate, :region) = payload;
+    final RoleLastUsed(:lastUsedDate, :region) = object;
     if (lastUsedDate != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('LastUsedDate'))
         ..add(serializers.serialize(
           lastUsedDate,
@@ -141,13 +141,13 @@ class RoleLastUsedAwsQuerySerializer
         ));
     }
     if (region != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Region'))
         ..add(serializers.serialize(
           region,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

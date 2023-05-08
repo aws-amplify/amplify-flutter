@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_organization_conformance_pack_detailed_status_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -161,25 +162,25 @@ class GetOrganizationConformancePackDetailedStatusRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetOrganizationConformancePackDetailedStatusRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload =
-        (object as GetOrganizationConformancePackDetailedStatusRequest);
-    final result = <Object?>[
-      'OrganizationConformancePackName',
-      serializers.serialize(
-        payload.organizationConformancePackName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final GetOrganizationConformancePackDetailedStatusRequest(
+      :organizationConformancePackName,
       :filters,
       :limit,
       :nextToken
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'OrganizationConformancePackName',
+      serializers.serialize(
+        organizationConformancePackName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (filters != null) {
-      result
+      result$
         ..add('Filters')
         ..add(serializers.serialize(
           filters,
@@ -188,7 +189,7 @@ class GetOrganizationConformancePackDetailedStatusRequestAwsJson11Serializer
         ));
     }
     if (limit != null) {
-      result
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
           limit,
@@ -196,13 +197,13 @@ class GetOrganizationConformancePackDetailedStatusRequestAwsJson11Serializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

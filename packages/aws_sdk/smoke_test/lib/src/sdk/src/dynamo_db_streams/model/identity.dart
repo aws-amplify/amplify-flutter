@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.identity; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -112,14 +113,13 @@ class IdentityAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Identity object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Identity);
-    final result = <Object?>[];
-    final Identity(:principalId, :type) = payload;
+    final result$ = <Object?>[];
+    final Identity(:principalId, :type) = object;
     if (principalId != null) {
-      result
+      result$
         ..add('PrincipalId')
         ..add(serializers.serialize(
           principalId,
@@ -127,13 +127,13 @@ class IdentityAwsJson10Serializer
         ));
     }
     if (type != null) {
-      result
+      result$
         ..add('Type')
         ..add(serializers.serialize(
           type,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

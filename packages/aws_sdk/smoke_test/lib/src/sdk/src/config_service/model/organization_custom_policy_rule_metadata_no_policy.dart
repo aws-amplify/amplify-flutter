@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.organization_custom_policy_rule_metadata_no_policy; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -267,11 +268,10 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OrganizationCustomPolicyRuleMetadataNoPolicy object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OrganizationCustomPolicyRuleMetadataNoPolicy);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final OrganizationCustomPolicyRuleMetadataNoPolicy(
       :description,
       :organizationConfigRuleTriggerTypes,
@@ -283,9 +283,9 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
       :tagValueScope,
       :policyRuntime,
       :debugLogDeliveryAccounts
-    ) = payload;
+    ) = object;
     if (description != null) {
-      result
+      result$
         ..add('Description')
         ..add(serializers.serialize(
           description,
@@ -293,7 +293,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         ));
     }
     if (organizationConfigRuleTriggerTypes != null) {
-      result
+      result$
         ..add('OrganizationConfigRuleTriggerTypes')
         ..add(serializers.serialize(
           organizationConfigRuleTriggerTypes,
@@ -304,7 +304,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         ));
     }
     if (inputParameters != null) {
-      result
+      result$
         ..add('InputParameters')
         ..add(serializers.serialize(
           inputParameters,
@@ -312,7 +312,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         ));
     }
     if (maximumExecutionFrequency != null) {
-      result
+      result$
         ..add('MaximumExecutionFrequency')
         ..add(serializers.serialize(
           maximumExecutionFrequency,
@@ -320,7 +320,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         ));
     }
     if (resourceTypesScope != null) {
-      result
+      result$
         ..add('ResourceTypesScope')
         ..add(serializers.serialize(
           resourceTypesScope,
@@ -331,7 +331,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         ));
     }
     if (resourceIdScope != null) {
-      result
+      result$
         ..add('ResourceIdScope')
         ..add(serializers.serialize(
           resourceIdScope,
@@ -339,7 +339,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         ));
     }
     if (tagKeyScope != null) {
-      result
+      result$
         ..add('TagKeyScope')
         ..add(serializers.serialize(
           tagKeyScope,
@@ -347,7 +347,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         ));
     }
     if (tagValueScope != null) {
-      result
+      result$
         ..add('TagValueScope')
         ..add(serializers.serialize(
           tagValueScope,
@@ -355,7 +355,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         ));
     }
     if (policyRuntime != null) {
-      result
+      result$
         ..add('PolicyRuntime')
         ..add(serializers.serialize(
           policyRuntime,
@@ -363,7 +363,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         ));
     }
     if (debugLogDeliveryAccounts != null) {
-      result
+      result$
         ..add('DebugLogDeliveryAccounts')
         ..add(serializers.serialize(
           debugLogDeliveryAccounts,
@@ -373,6 +373,6 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.template; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -98,20 +99,19 @@ class TemplateRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Template object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Template);
-    final result = <Object?>[];
-    final Template(:value) = payload;
+    final result$ = <Object?>[];
+    final Template(:value) = object;
     if (value != null) {
-      result
+      result$
         ..add('value')
         ..add(serializers.serialize(
           value,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

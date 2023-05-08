@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.account; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -155,19 +156,18 @@ class AccountRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Account object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Account);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final Account(
       :apiKeyVersion,
       :cloudwatchRoleArn,
       :features,
       :throttleSettings
-    ) = payload;
+    ) = object;
     if (apiKeyVersion != null) {
-      result
+      result$
         ..add('apiKeyVersion')
         ..add(serializers.serialize(
           apiKeyVersion,
@@ -175,7 +175,7 @@ class AccountRestJson1Serializer
         ));
     }
     if (cloudwatchRoleArn != null) {
-      result
+      result$
         ..add('cloudwatchRoleArn')
         ..add(serializers.serialize(
           cloudwatchRoleArn,
@@ -183,7 +183,7 @@ class AccountRestJson1Serializer
         ));
     }
     if (features != null) {
-      result
+      result$
         ..add('features')
         ..add(serializers.serialize(
           features,
@@ -194,13 +194,13 @@ class AccountRestJson1Serializer
         ));
     }
     if (throttleSettings != null) {
-      result
+      result$
         ..add('throttleSettings')
         ..add(serializers.serialize(
           throttleSettings,
           specifiedType: const FullType(_i2.ThrottleSettings),
         ));
     }
-    return result;
+    return result$;
   }
 }

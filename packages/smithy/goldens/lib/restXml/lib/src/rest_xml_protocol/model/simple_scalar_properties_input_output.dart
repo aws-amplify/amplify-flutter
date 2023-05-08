@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.simple_scalar_properties_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -350,13 +351,10 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SimpleScalarPropertiesInputOutputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is SimpleScalarPropertiesInputOutput
-        ? object.getPayload()
-        : (object as SimpleScalarPropertiesInputOutputPayload);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName('SimpleScalarPropertiesInputOutput')
     ];
     final SimpleScalarPropertiesInputOutputPayload(
@@ -369,9 +367,9 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
       :shortValue,
       :stringValue,
       :trueBooleanValue
-    ) = payload;
+    ) = object;
     if (byteValue != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('byteValue'))
         ..add(serializers.serialize(
           byteValue,
@@ -379,7 +377,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
         ));
     }
     if (doubleValue != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('DoubleDribble'))
         ..add(serializers.serialize(
           doubleValue,
@@ -387,7 +385,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
         ));
     }
     if (falseBooleanValue != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('falseBooleanValue'))
         ..add(serializers.serialize(
           falseBooleanValue,
@@ -395,7 +393,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
         ));
     }
     if (floatValue != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('floatValue'))
         ..add(serializers.serialize(
           floatValue,
@@ -403,7 +401,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
         ));
     }
     if (integerValue != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('integerValue'))
         ..add(serializers.serialize(
           integerValue,
@@ -411,7 +409,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
         ));
     }
     if (longValue != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('longValue'))
         ..add(serializers.serialize(
           longValue,
@@ -419,7 +417,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
         ));
     }
     if (shortValue != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('shortValue'))
         ..add(serializers.serialize(
           shortValue,
@@ -427,7 +425,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
         ));
     }
     if (stringValue != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('stringValue'))
         ..add(serializers.serialize(
           stringValue,
@@ -435,13 +433,13 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
         ));
     }
     if (trueBooleanValue != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('trueBooleanValue'))
         ..add(serializers.serialize(
           trueBooleanValue,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

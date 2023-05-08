@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_settings_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -261,18 +262,12 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaSettingsDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaSettingsDescription);
-    final result = <Object?>[
-      'RegionName',
-      serializers.serialize(
-        payload.regionName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final ReplicaSettingsDescription(
+      :regionName,
       :replicaStatus,
       :replicaBillingModeSummary,
       :replicaProvisionedReadCapacityUnits,
@@ -281,9 +276,16 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
       :replicaProvisionedWriteCapacityAutoScalingSettings,
       :replicaGlobalSecondaryIndexSettings,
       :replicaTableClassSummary
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'RegionName',
+      serializers.serialize(
+        regionName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (replicaStatus != null) {
-      result
+      result$
         ..add('ReplicaStatus')
         ..add(serializers.serialize(
           replicaStatus,
@@ -291,7 +293,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (replicaBillingModeSummary != null) {
-      result
+      result$
         ..add('ReplicaBillingModeSummary')
         ..add(serializers.serialize(
           replicaBillingModeSummary,
@@ -299,7 +301,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (replicaProvisionedReadCapacityUnits != null) {
-      result
+      result$
         ..add('ReplicaProvisionedReadCapacityUnits')
         ..add(serializers.serialize(
           replicaProvisionedReadCapacityUnits,
@@ -307,7 +309,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (replicaProvisionedReadCapacityAutoScalingSettings != null) {
-      result
+      result$
         ..add('ReplicaProvisionedReadCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           replicaProvisionedReadCapacityAutoScalingSettings,
@@ -315,7 +317,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (replicaProvisionedWriteCapacityUnits != null) {
-      result
+      result$
         ..add('ReplicaProvisionedWriteCapacityUnits')
         ..add(serializers.serialize(
           replicaProvisionedWriteCapacityUnits,
@@ -323,7 +325,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (replicaProvisionedWriteCapacityAutoScalingSettings != null) {
-      result
+      result$
         ..add('ReplicaProvisionedWriteCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           replicaProvisionedWriteCapacityAutoScalingSettings,
@@ -331,7 +333,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (replicaGlobalSecondaryIndexSettings != null) {
-      result
+      result$
         ..add('ReplicaGlobalSecondaryIndexSettings')
         ..add(serializers.serialize(
           replicaGlobalSecondaryIndexSettings,
@@ -342,13 +344,13 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (replicaTableClassSummary != null) {
-      result
+      result$
         ..add('ReplicaTableClassSummary')
         ..add(serializers.serialize(
           replicaTableClassSummary,
           specifiedType: const FullType(_i7.TableClassSummary),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.virtual_mfa_device; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -184,11 +185,10 @@ class VirtualMfaDeviceAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    VirtualMfaDevice object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as VirtualMfaDevice);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'VirtualMfaDeviceResponse',
         _i6.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -201,15 +201,15 @@ class VirtualMfaDeviceAwsQuerySerializer
       :user,
       :enableDate,
       :tags
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i6.XmlElementName('SerialNumber'))
       ..add(serializers.serialize(
         serialNumber,
         specifiedType: const FullType(String),
       ));
     if (base32StringSeed != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Base32StringSeed'))
         ..add(serializers.serialize(
           base32StringSeed,
@@ -217,7 +217,7 @@ class VirtualMfaDeviceAwsQuerySerializer
         ));
     }
     if (qrCodePng != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('QRCodePNG'))
         ..add(serializers.serialize(
           qrCodePng,
@@ -225,7 +225,7 @@ class VirtualMfaDeviceAwsQuerySerializer
         ));
     }
     if (user != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('User'))
         ..add(serializers.serialize(
           user,
@@ -233,7 +233,7 @@ class VirtualMfaDeviceAwsQuerySerializer
         ));
     }
     if (enableDate != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('EnableDate'))
         ..add(serializers.serialize(
           enableDate,
@@ -241,7 +241,7 @@ class VirtualMfaDeviceAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Tags'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -254,6 +254,6 @@ class VirtualMfaDeviceAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

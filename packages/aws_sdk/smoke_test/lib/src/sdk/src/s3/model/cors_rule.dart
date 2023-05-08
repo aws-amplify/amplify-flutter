@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.cors_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -175,11 +176,10 @@ class CorsRuleRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CorsRule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CorsRule);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'CorsRule',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -192,9 +192,9 @@ class CorsRuleRestXmlSerializer
       :exposeHeaders,
       :id,
       :maxAgeSeconds
-    ) = payload;
+    ) = object;
     if (allowedHeaders != null) {
-      result.addAll(
+      result$.addAll(
           const _i3.XmlBuiltListSerializer(memberName: 'AllowedHeader')
               .serialize(
         serializers,
@@ -205,7 +205,7 @@ class CorsRuleRestXmlSerializer
         ),
       ));
     }
-    result.addAll(
+    result$.addAll(
         const _i3.XmlBuiltListSerializer(memberName: 'AllowedMethod').serialize(
       serializers,
       allowedMethods,
@@ -214,7 +214,7 @@ class CorsRuleRestXmlSerializer
         [FullType(String)],
       ),
     ));
-    result.addAll(
+    result$.addAll(
         const _i3.XmlBuiltListSerializer(memberName: 'AllowedOrigin').serialize(
       serializers,
       allowedOrigins,
@@ -224,8 +224,9 @@ class CorsRuleRestXmlSerializer
       ),
     ));
     if (exposeHeaders != null) {
-      result.addAll(const _i3.XmlBuiltListSerializer(memberName: 'ExposeHeader')
-          .serialize(
+      result$.addAll(
+          const _i3.XmlBuiltListSerializer(memberName: 'ExposeHeader')
+              .serialize(
         serializers,
         exposeHeaders,
         specifiedType: const FullType.nullable(
@@ -235,7 +236,7 @@ class CorsRuleRestXmlSerializer
       ));
     }
     if (id != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ID'))
         ..add(serializers.serialize(
           id,
@@ -243,13 +244,13 @@ class CorsRuleRestXmlSerializer
         ));
     }
     if (maxAgeSeconds != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('MaxAgeSeconds'))
         ..add(serializers.serialize(
           maxAgeSeconds,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

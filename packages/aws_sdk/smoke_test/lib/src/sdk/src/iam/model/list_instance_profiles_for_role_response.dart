@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.list_instance_profiles_for_role_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -149,11 +150,10 @@ class ListInstanceProfilesForRoleResponseAwsQuerySerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListInstanceProfilesForRoleResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListInstanceProfilesForRoleResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ListInstanceProfilesForRoleResponseResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -163,8 +163,8 @@ class ListInstanceProfilesForRoleResponseAwsQuerySerializer extends _i4
       :instanceProfiles,
       :isTruncated,
       :marker
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i4.XmlElementName('InstanceProfiles'))
       ..add(
           const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
@@ -177,7 +177,7 @@ class ListInstanceProfilesForRoleResponseAwsQuerySerializer extends _i4
         ),
       ));
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -185,13 +185,13 @@ class ListInstanceProfilesForRoleResponseAwsQuerySerializer extends _i4
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

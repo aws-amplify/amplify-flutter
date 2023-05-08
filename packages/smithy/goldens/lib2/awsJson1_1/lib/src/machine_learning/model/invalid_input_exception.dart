@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v2.machine_learning.model.invalid_input_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -135,14 +136,13 @@ class InvalidInputExceptionAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InvalidInputException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InvalidInputException);
-    final result = <Object?>[];
-    final InvalidInputException(:message, :code) = payload;
+    final result$ = <Object?>[];
+    final InvalidInputException(:message, :code) = object;
     if (message != null) {
-      result
+      result$
         ..add('message')
         ..add(serializers.serialize(
           message,
@@ -150,13 +150,13 @@ class InvalidInputExceptionAwsJson11Serializer
         ));
     }
     if (code != null) {
-      result
+      result$
         ..add('code')
         ..add(serializers.serialize(
           code,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_config_rules_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -129,14 +130,13 @@ class DescribeConfigRulesRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeConfigRulesRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeConfigRulesRequest);
-    final result = <Object?>[];
-    final DescribeConfigRulesRequest(:configRuleNames, :nextToken) = payload;
+    final result$ = <Object?>[];
+    final DescribeConfigRulesRequest(:configRuleNames, :nextToken) = object;
     if (configRuleNames != null) {
-      result
+      result$
         ..add('ConfigRuleNames')
         ..add(serializers.serialize(
           configRuleNames,
@@ -147,13 +147,13 @@ class DescribeConfigRulesRequestAwsJson11Serializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

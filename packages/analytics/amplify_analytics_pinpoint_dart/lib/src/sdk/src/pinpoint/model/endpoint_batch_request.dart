@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_batch_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -100,20 +101,21 @@ class EndpointBatchRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EndpointBatchRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EndpointBatchRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final EndpointBatchRequest(:item) = object;
+    result$.addAll([
       'Item',
       serializers.serialize(
-        payload.item,
+        item,
         specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(_i2.EndpointBatchItem)],
         ),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

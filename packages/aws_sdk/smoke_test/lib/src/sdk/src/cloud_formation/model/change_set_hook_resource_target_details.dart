@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.change_set_hook_resource_target_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -136,11 +137,10 @@ class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ChangeSetHookResourceTargetDetails object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ChangeSetHookResourceTargetDetails);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ChangeSetHookResourceTargetDetailsResponse',
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -150,9 +150,9 @@ class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
       :logicalResourceId,
       :resourceType,
       :resourceAction
-    ) = payload;
+    ) = object;
     if (logicalResourceId != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('LogicalResourceId'))
         ..add(serializers.serialize(
           logicalResourceId,
@@ -160,7 +160,7 @@ class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
         ));
     }
     if (resourceType != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
@@ -168,13 +168,13 @@ class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
         ));
     }
     if (resourceAction != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ResourceAction'))
         ..add(serializers.serialize(
           resourceAction,
           specifiedType: const FullType.nullable(_i2.ChangeAction),
         ));
     }
-    return result;
+    return result$;
   }
 }

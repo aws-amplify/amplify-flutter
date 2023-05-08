@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_ssh_public_key_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,25 +103,24 @@ class GetSshPublicKeyResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetSshPublicKeyResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetSshPublicKeyResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'GetSshPublicKeyResponseResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final GetSshPublicKeyResponse(:sshPublicKey) = payload;
+    final GetSshPublicKeyResponse(:sshPublicKey) = object;
     if (sshPublicKey != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('SSHPublicKey'))
         ..add(serializers.serialize(
           sshPublicKey,
           specifiedType: const FullType(_i2.SshPublicKey),
         ));
     }
-    return result;
+    return result$;
   }
 }

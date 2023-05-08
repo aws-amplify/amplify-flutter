@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.replication_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -239,11 +240,10 @@ class ReplicationRuleRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicationRule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicationRule);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i8.XmlElementName(
         'ReplicationRule',
         _i8.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -259,23 +259,23 @@ class ReplicationRuleRestXmlSerializer
       :priority,
       :sourceSelectionCriteria,
       :status
-    ) = payload;
+    ) = object;
     if (deleteMarkerReplication != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('DeleteMarkerReplication'))
         ..add(serializers.serialize(
           deleteMarkerReplication,
           specifiedType: const FullType(_i7.DeleteMarkerReplication),
         ));
     }
-    result
+    result$
       ..add(const _i8.XmlElementName('Destination'))
       ..add(serializers.serialize(
         destination,
         specifiedType: const FullType(_i6.Destination),
       ));
     if (existingObjectReplication != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('ExistingObjectReplication'))
         ..add(serializers.serialize(
           existingObjectReplication,
@@ -283,7 +283,7 @@ class ReplicationRuleRestXmlSerializer
         ));
     }
     if (filter != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('Filter'))
         ..add(serializers.serialize(
           filter,
@@ -291,7 +291,7 @@ class ReplicationRuleRestXmlSerializer
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('ID'))
         ..add(serializers.serialize(
           id,
@@ -299,7 +299,7 @@ class ReplicationRuleRestXmlSerializer
         ));
     }
     if (prefix != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
@@ -307,7 +307,7 @@ class ReplicationRuleRestXmlSerializer
         ));
     }
     if (priority != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('Priority'))
         ..add(serializers.serialize(
           priority,
@@ -315,19 +315,19 @@ class ReplicationRuleRestXmlSerializer
         ));
     }
     if (sourceSelectionCriteria != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('SourceSelectionCriteria'))
         ..add(serializers.serialize(
           sourceSelectionCriteria,
           specifiedType: const FullType(_i4.SourceSelectionCriteria),
         ));
     }
-    result
+    result$
       ..add(const _i8.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
         specifiedType: const FullType.nullable(_i3.ReplicationRuleStatus),
       ));
-    return result;
+    return result$;
   }
 }

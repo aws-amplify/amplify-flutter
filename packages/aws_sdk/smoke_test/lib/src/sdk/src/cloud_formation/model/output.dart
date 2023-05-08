@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -141,19 +142,18 @@ class OutputAwsQuerySerializer extends _i2.StructuredSmithySerializer<Output> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Output object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Output);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'OutputResponse',
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final Output(:outputKey, :outputValue, :description, :exportName) = payload;
+    final Output(:outputKey, :outputValue, :description, :exportName) = object;
     if (outputKey != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('OutputKey'))
         ..add(serializers.serialize(
           outputKey,
@@ -161,7 +161,7 @@ class OutputAwsQuerySerializer extends _i2.StructuredSmithySerializer<Output> {
         ));
     }
     if (outputValue != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('OutputValue'))
         ..add(serializers.serialize(
           outputValue,
@@ -169,7 +169,7 @@ class OutputAwsQuerySerializer extends _i2.StructuredSmithySerializer<Output> {
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -177,13 +177,13 @@ class OutputAwsQuerySerializer extends _i2.StructuredSmithySerializer<Output> {
         ));
     }
     if (exportName != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ExportName'))
         ..add(serializers.serialize(
           exportName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

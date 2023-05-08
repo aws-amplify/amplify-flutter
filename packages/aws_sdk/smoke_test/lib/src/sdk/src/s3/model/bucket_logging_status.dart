@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.bucket_logging_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -94,25 +95,24 @@ class BucketLoggingStatusRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BucketLoggingStatus object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BucketLoggingStatus);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'BucketLoggingStatus',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final BucketLoggingStatus(:loggingEnabled) = payload;
+    final BucketLoggingStatus(:loggingEnabled) = object;
     if (loggingEnabled != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('LoggingEnabled'))
         ..add(serializers.serialize(
           loggingEnabled,
           specifiedType: const FullType(_i2.LoggingEnabled),
         ));
     }
-    return result;
+    return result$;
   }
 }

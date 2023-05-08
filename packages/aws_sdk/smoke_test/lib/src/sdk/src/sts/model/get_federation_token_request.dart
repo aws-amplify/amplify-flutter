@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.sts.model.get_federation_token_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -217,11 +218,10 @@ class GetFederationTokenRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetFederationTokenRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetFederationTokenRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'GetFederationTokenRequestResponse',
         _i1.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
@@ -233,15 +233,15 @@ class GetFederationTokenRequestAwsQuerySerializer
       :policyArns,
       :durationSeconds,
       :tags
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('Name'))
       ..add(serializers.serialize(
         name,
         specifiedType: const FullType(String),
       ));
     if (policy != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Policy'))
         ..add(serializers.serialize(
           policy,
@@ -249,7 +249,7 @@ class GetFederationTokenRequestAwsQuerySerializer
         ));
     }
     if (policyArns != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PolicyArns'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -263,7 +263,7 @@ class GetFederationTokenRequestAwsQuerySerializer
         ));
     }
     if (durationSeconds != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('DurationSeconds'))
         ..add(serializers.serialize(
           durationSeconds,
@@ -271,7 +271,7 @@ class GetFederationTokenRequestAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -284,6 +284,6 @@ class GetFederationTokenRequestAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

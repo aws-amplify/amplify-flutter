@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.update_server_certificate_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -147,11 +148,10 @@ class UpdateServerCertificateRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateServerCertificateRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateServerCertificateRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'UpdateServerCertificateRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -161,15 +161,15 @@ class UpdateServerCertificateRequestAwsQuerySerializer
       :serverCertificateName,
       :newPath,
       :newServerCertificateName
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('ServerCertificateName'))
       ..add(serializers.serialize(
         serverCertificateName,
         specifiedType: const FullType(String),
       ));
     if (newPath != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('NewPath'))
         ..add(serializers.serialize(
           newPath,
@@ -177,13 +177,13 @@ class UpdateServerCertificateRequestAwsQuerySerializer
         ));
     }
     if (newServerCertificateName != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('NewServerCertificateName'))
         ..add(serializers.serialize(
           newServerCertificateName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

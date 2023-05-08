@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.list_stack_sets_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -162,20 +163,19 @@ class ListStackSetsInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListStackSetsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListStackSetsInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ListStackSetsInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ListStackSetsInput(:nextToken, :maxResults, :status, :callAs) =
-        payload;
+        object;
     if (nextToken != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
@@ -183,7 +183,7 @@ class ListStackSetsInputAwsQuerySerializer
         ));
     }
     if (maxResults != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
           maxResults,
@@ -191,7 +191,7 @@ class ListStackSetsInputAwsQuerySerializer
         ));
     }
     if (status != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
@@ -199,13 +199,13 @@ class ListStackSetsInputAwsQuerySerializer
         ));
     }
     if (callAs != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
           specifiedType: const FullType.nullable(_i4.CallAs),
         ));
     }
-    return result;
+    return result$;
   }
 }

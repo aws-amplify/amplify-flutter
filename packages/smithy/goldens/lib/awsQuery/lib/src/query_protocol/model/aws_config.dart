@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v1.query_protocol.model.aws_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -112,19 +113,18 @@ class AwsConfigAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AwsConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AwsConfig);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'AwsConfigResponse',
         _i3.XmlNamespace('https://example.com/'),
       )
     ];
-    final AwsConfig(:clockTime, :scopedConfig) = payload;
+    final AwsConfig(:clockTime, :scopedConfig) = object;
     if (clockTime != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('clockTime'))
         ..add(serializers.serialize(
           clockTime,
@@ -132,13 +132,13 @@ class AwsConfigAwsQuerySerializer
         ));
     }
     if (scopedConfig != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('scopedConfig'))
         ..add(serializers.serialize(
           scopedConfig,
           specifiedType: const FullType(_i2.ScopedConfig),
         ));
     }
-    return result;
+    return result$;
   }
 }

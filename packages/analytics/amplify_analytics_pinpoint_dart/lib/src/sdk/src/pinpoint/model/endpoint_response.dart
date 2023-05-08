@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -331,11 +332,10 @@ class EndpointResponseRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EndpointResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EndpointResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final EndpointResponse(
       :address,
       :applicationId,
@@ -352,9 +352,9 @@ class EndpointResponseRestJson1Serializer
       :optOut,
       :requestId,
       :user
-    ) = payload;
+    ) = object;
     if (address != null) {
-      result
+      result$
         ..add('Address')
         ..add(serializers.serialize(
           address,
@@ -362,7 +362,7 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (applicationId != null) {
-      result
+      result$
         ..add('ApplicationId')
         ..add(serializers.serialize(
           applicationId,
@@ -370,7 +370,7 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (attributes != null) {
-      result
+      result$
         ..add('Attributes')
         ..add(serializers.serialize(
           attributes,
@@ -384,7 +384,7 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (channelType != null) {
-      result
+      result$
         ..add('ChannelType')
         ..add(serializers.serialize(
           channelType,
@@ -392,7 +392,7 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (cohortId != null) {
-      result
+      result$
         ..add('CohortId')
         ..add(serializers.serialize(
           cohortId,
@@ -400,7 +400,7 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (creationDate != null) {
-      result
+      result$
         ..add('CreationDate')
         ..add(serializers.serialize(
           creationDate,
@@ -408,7 +408,7 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (demographic != null) {
-      result
+      result$
         ..add('Demographic')
         ..add(serializers.serialize(
           demographic,
@@ -416,7 +416,7 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (effectiveDate != null) {
-      result
+      result$
         ..add('EffectiveDate')
         ..add(serializers.serialize(
           effectiveDate,
@@ -424,7 +424,7 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (endpointStatus != null) {
-      result
+      result$
         ..add('EndpointStatus')
         ..add(serializers.serialize(
           endpointStatus,
@@ -432,7 +432,7 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add('Id')
         ..add(serializers.serialize(
           id,
@@ -440,7 +440,7 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (location != null) {
-      result
+      result$
         ..add('Location')
         ..add(serializers.serialize(
           location,
@@ -448,7 +448,7 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (metrics != null) {
-      result
+      result$
         ..add('Metrics')
         ..add(serializers.serialize(
           metrics,
@@ -462,7 +462,7 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (optOut != null) {
-      result
+      result$
         ..add('OptOut')
         ..add(serializers.serialize(
           optOut,
@@ -470,7 +470,7 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (requestId != null) {
-      result
+      result$
         ..add('RequestId')
         ..add(serializers.serialize(
           requestId,
@@ -478,13 +478,13 @@ class EndpointResponseRestJson1Serializer
         ));
     }
     if (user != null) {
-      result
+      result$
         ..add('User')
         ..add(serializers.serialize(
           user,
           specifiedType: const FullType(_i5.EndpointUser),
         ));
     }
-    return result;
+    return result$;
   }
 }

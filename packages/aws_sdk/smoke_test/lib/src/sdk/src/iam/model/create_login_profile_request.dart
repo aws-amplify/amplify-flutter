@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.create_login_profile_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -143,11 +144,10 @@ class CreateLoginProfileRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateLoginProfileRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateLoginProfileRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'CreateLoginProfileRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -157,27 +157,27 @@ class CreateLoginProfileRequestAwsQuerySerializer
       :userName,
       :password,
       :passwordResetRequired
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('Password'))
       ..add(serializers.serialize(
         password,
         specifiedType: const FullType(String),
       ));
     if (passwordResetRequired != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PasswordResetRequired'))
         ..add(serializers.serialize(
           passwordResetRequired,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

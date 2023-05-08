@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.renamed_greeting; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -87,20 +88,19 @@ class RenamedGreetingRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RenamedGreeting object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RenamedGreeting);
-    final result = <Object?>[];
-    final RenamedGreeting(:salutation) = payload;
+    final result$ = <Object?>[];
+    final RenamedGreeting(:salutation) = object;
     if (salutation != null) {
-      result
+      result$
         ..add('salutation')
         ..add(serializers.serialize(
           salutation,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

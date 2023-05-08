@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.sts.model.get_caller_identity_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -138,19 +139,18 @@ class GetCallerIdentityResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetCallerIdentityResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetCallerIdentityResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'GetCallerIdentityResponseResponse',
         _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
-    final GetCallerIdentityResponse(:userId, :account, :arn) = payload;
+    final GetCallerIdentityResponse(:userId, :account, :arn) = object;
     if (userId != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('UserId'))
         ..add(serializers.serialize(
           userId,
@@ -158,7 +158,7 @@ class GetCallerIdentityResponseAwsQuerySerializer
         ));
     }
     if (account != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Account'))
         ..add(serializers.serialize(
           account,
@@ -166,13 +166,13 @@ class GetCallerIdentityResponseAwsQuerySerializer
         ));
     }
     if (arn != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.resource_count; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,14 +117,13 @@ class ResourceCountAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ResourceCount object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ResourceCount);
-    final result = <Object?>[];
-    final ResourceCount(:resourceType, :count) = payload;
+    final result$ = <Object?>[];
+    final ResourceCount(:resourceType, :count) = object;
     if (resourceType != null) {
-      result
+      result$
         ..add('resourceType')
         ..add(serializers.serialize(
           resourceType,
@@ -131,13 +131,13 @@ class ResourceCountAwsJson11Serializer
         ));
     }
     if (count != null) {
-      result
+      result$
         ..add('count')
         ..add(serializers.serialize(
           count,
           specifiedType: const FullType(_i3.Int64),
         ));
     }
-    return result;
+    return result$;
   }
 }

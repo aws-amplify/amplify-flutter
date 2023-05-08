@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message_button; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -148,14 +149,13 @@ class InAppMessageButtonRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InAppMessageButton object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InAppMessageButton);
-    final result = <Object?>[];
-    final InAppMessageButton(:android, :defaultConfig, :ios, :web) = payload;
+    final result$ = <Object?>[];
+    final InAppMessageButton(:android, :defaultConfig, :ios, :web) = object;
     if (android != null) {
-      result
+      result$
         ..add('Android')
         ..add(serializers.serialize(
           android,
@@ -163,7 +163,7 @@ class InAppMessageButtonRestJson1Serializer
         ));
     }
     if (defaultConfig != null) {
-      result
+      result$
         ..add('DefaultConfig')
         ..add(serializers.serialize(
           defaultConfig,
@@ -171,7 +171,7 @@ class InAppMessageButtonRestJson1Serializer
         ));
     }
     if (ios != null) {
-      result
+      result$
         ..add('IOS')
         ..add(serializers.serialize(
           ios,
@@ -179,13 +179,13 @@ class InAppMessageButtonRestJson1Serializer
         ));
     }
     if (web != null) {
-      result
+      result$
         ..add('Web')
         ..add(serializers.serialize(
           web,
           specifiedType: const FullType(_i2.OverrideButtonConfiguration),
         ));
     }
-    return result;
+    return result$;
   }
 }

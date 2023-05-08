@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.delete_objects_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -221,20 +222,17 @@ class DeleteObjectsRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.Delete object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is DeleteObjectsRequest
-        ? object.getPayload()
-        : (object as _i2.Delete);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'Delete',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.Delete(:objects, :quiet) = payload;
-    result.addAll(
+    final _i2.Delete(:objects, :quiet) = object;
+    result$.addAll(
         const _i1.XmlBuiltListSerializer(memberName: 'Object').serialize(
       serializers,
       objects,
@@ -244,13 +242,13 @@ class DeleteObjectsRequestRestXmlSerializer
       ),
     ));
     if (quiet != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Quiet'))
         ..add(serializers.serialize(
           quiet,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

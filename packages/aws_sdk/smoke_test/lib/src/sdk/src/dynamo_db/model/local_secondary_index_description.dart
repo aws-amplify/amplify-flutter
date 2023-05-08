@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.local_secondary_index_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -196,11 +197,10 @@ class LocalSecondaryIndexDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    LocalSecondaryIndexDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as LocalSecondaryIndexDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final LocalSecondaryIndexDescription(
       :indexName,
       :keySchema,
@@ -208,9 +208,9 @@ class LocalSecondaryIndexDescriptionAwsJson10Serializer
       :indexSizeBytes,
       :itemCount,
       :indexArn
-    ) = payload;
+    ) = object;
     if (indexName != null) {
-      result
+      result$
         ..add('IndexName')
         ..add(serializers.serialize(
           indexName,
@@ -218,7 +218,7 @@ class LocalSecondaryIndexDescriptionAwsJson10Serializer
         ));
     }
     if (keySchema != null) {
-      result
+      result$
         ..add('KeySchema')
         ..add(serializers.serialize(
           keySchema,
@@ -229,7 +229,7 @@ class LocalSecondaryIndexDescriptionAwsJson10Serializer
         ));
     }
     if (projection != null) {
-      result
+      result$
         ..add('Projection')
         ..add(serializers.serialize(
           projection,
@@ -237,7 +237,7 @@ class LocalSecondaryIndexDescriptionAwsJson10Serializer
         ));
     }
     if (indexSizeBytes != null) {
-      result
+      result$
         ..add('IndexSizeBytes')
         ..add(serializers.serialize(
           indexSizeBytes,
@@ -245,7 +245,7 @@ class LocalSecondaryIndexDescriptionAwsJson10Serializer
         ));
     }
     if (itemCount != null) {
-      result
+      result$
         ..add('ItemCount')
         ..add(serializers.serialize(
           itemCount,
@@ -253,13 +253,13 @@ class LocalSecondaryIndexDescriptionAwsJson10Serializer
         ));
     }
     if (indexArn != null) {
-      result
+      result$
         ..add('IndexArn')
         ..add(serializers.serialize(
           indexArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

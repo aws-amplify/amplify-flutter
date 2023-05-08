@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.glacier.model.retry_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -112,14 +113,13 @@ class RetryConfigRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RetryConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RetryConfig);
-    final result = <Object?>[];
-    final RetryConfig(:maxAttempts, :mode) = payload;
+    final result$ = <Object?>[];
+    final RetryConfig(:maxAttempts, :mode) = object;
     if (maxAttempts != null) {
-      result
+      result$
         ..add('max_attempts')
         ..add(serializers.serialize(
           maxAttempts,
@@ -127,13 +127,13 @@ class RetryConfigRestJson1Serializer
         ));
     }
     if (mode != null) {
-      result
+      result$
         ..add('mode')
         ..add(serializers.serialize(
           mode,
           specifiedType: const FullType(_i2.RetryMode),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.upload_signing_certificate_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -108,23 +109,22 @@ class UploadSigningCertificateResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UploadSigningCertificateResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UploadSigningCertificateResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'UploadSigningCertificateResponseResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final UploadSigningCertificateResponse(:certificate) = payload;
-    result
+    final UploadSigningCertificateResponse(:certificate) = object;
+    result$
       ..add(const _i3.XmlElementName('Certificate'))
       ..add(serializers.serialize(
         certificate,
         specifiedType: const FullType(_i2.SigningCertificate),
       ));
-    return result;
+    return result$;
   }
 }

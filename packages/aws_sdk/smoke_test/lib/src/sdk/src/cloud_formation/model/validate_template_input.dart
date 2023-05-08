@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.validate_template_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -130,19 +131,18 @@ class ValidateTemplateInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ValidateTemplateInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ValidateTemplateInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ValidateTemplateInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final ValidateTemplateInput(:templateBody, :templateUrl) = payload;
+    final ValidateTemplateInput(:templateBody, :templateUrl) = object;
     if (templateBody != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TemplateBody'))
         ..add(serializers.serialize(
           templateBody,
@@ -150,13 +150,13 @@ class ValidateTemplateInputAwsQuerySerializer
         ));
     }
     if (templateUrl != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TemplateURL'))
         ..add(serializers.serialize(
           templateUrl,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

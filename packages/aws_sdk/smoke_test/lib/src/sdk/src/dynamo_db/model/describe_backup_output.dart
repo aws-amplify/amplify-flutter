@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.describe_backup_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -100,20 +101,19 @@ class DescribeBackupOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeBackupOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeBackupOutput);
-    final result = <Object?>[];
-    final DescribeBackupOutput(:backupDescription) = payload;
+    final result$ = <Object?>[];
+    final DescribeBackupOutput(:backupDescription) = object;
     if (backupDescription != null) {
-      result
+      result$
         ..add('BackupDescription')
         ..add(serializers.serialize(
           backupDescription,
           specifiedType: const FullType(_i2.BackupDescription),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.organization_custom_policy_rule_metadata; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -281,22 +282,10 @@ class OrganizationCustomPolicyRuleMetadataAwsJson11Serializer extends _i5
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OrganizationCustomPolicyRuleMetadata object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OrganizationCustomPolicyRuleMetadata);
-    final result = <Object?>[
-      'PolicyRuntime',
-      serializers.serialize(
-        payload.policyRuntime,
-        specifiedType: const FullType(String),
-      ),
-      'PolicyText',
-      serializers.serialize(
-        payload.policyText,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final OrganizationCustomPolicyRuleMetadata(
       :description,
       :organizationConfigRuleTriggerTypes,
@@ -306,10 +295,24 @@ class OrganizationCustomPolicyRuleMetadataAwsJson11Serializer extends _i5
       :resourceIdScope,
       :tagKeyScope,
       :tagValueScope,
+      :policyRuntime,
+      :policyText,
       :debugLogDeliveryAccounts
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'PolicyRuntime',
+      serializers.serialize(
+        policyRuntime,
+        specifiedType: const FullType(String),
+      ),
+      'PolicyText',
+      serializers.serialize(
+        policyText,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (description != null) {
-      result
+      result$
         ..add('Description')
         ..add(serializers.serialize(
           description,
@@ -317,7 +320,7 @@ class OrganizationCustomPolicyRuleMetadataAwsJson11Serializer extends _i5
         ));
     }
     if (organizationConfigRuleTriggerTypes != null) {
-      result
+      result$
         ..add('OrganizationConfigRuleTriggerTypes')
         ..add(serializers.serialize(
           organizationConfigRuleTriggerTypes,
@@ -328,7 +331,7 @@ class OrganizationCustomPolicyRuleMetadataAwsJson11Serializer extends _i5
         ));
     }
     if (inputParameters != null) {
-      result
+      result$
         ..add('InputParameters')
         ..add(serializers.serialize(
           inputParameters,
@@ -336,7 +339,7 @@ class OrganizationCustomPolicyRuleMetadataAwsJson11Serializer extends _i5
         ));
     }
     if (maximumExecutionFrequency != null) {
-      result
+      result$
         ..add('MaximumExecutionFrequency')
         ..add(serializers.serialize(
           maximumExecutionFrequency,
@@ -344,7 +347,7 @@ class OrganizationCustomPolicyRuleMetadataAwsJson11Serializer extends _i5
         ));
     }
     if (resourceTypesScope != null) {
-      result
+      result$
         ..add('ResourceTypesScope')
         ..add(serializers.serialize(
           resourceTypesScope,
@@ -355,7 +358,7 @@ class OrganizationCustomPolicyRuleMetadataAwsJson11Serializer extends _i5
         ));
     }
     if (resourceIdScope != null) {
-      result
+      result$
         ..add('ResourceIdScope')
         ..add(serializers.serialize(
           resourceIdScope,
@@ -363,7 +366,7 @@ class OrganizationCustomPolicyRuleMetadataAwsJson11Serializer extends _i5
         ));
     }
     if (tagKeyScope != null) {
-      result
+      result$
         ..add('TagKeyScope')
         ..add(serializers.serialize(
           tagKeyScope,
@@ -371,7 +374,7 @@ class OrganizationCustomPolicyRuleMetadataAwsJson11Serializer extends _i5
         ));
     }
     if (tagValueScope != null) {
-      result
+      result$
         ..add('TagValueScope')
         ..add(serializers.serialize(
           tagValueScope,
@@ -379,7 +382,7 @@ class OrganizationCustomPolicyRuleMetadataAwsJson11Serializer extends _i5
         ));
     }
     if (debugLogDeliveryAccounts != null) {
-      result
+      result$
         ..add('DebugLogDeliveryAccounts')
         ..add(serializers.serialize(
           debugLogDeliveryAccounts,
@@ -389,6 +392,6 @@ class OrganizationCustomPolicyRuleMetadataAwsJson11Serializer extends _i5
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

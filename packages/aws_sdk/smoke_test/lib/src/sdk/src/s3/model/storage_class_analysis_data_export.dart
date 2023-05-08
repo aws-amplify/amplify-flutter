@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.storage_class_analysis_data_export; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -124,31 +125,30 @@ class StorageClassAnalysisDataExportRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StorageClassAnalysisDataExport object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StorageClassAnalysisDataExport);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'StorageClassAnalysisDataExport',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final StorageClassAnalysisDataExport(:destination, :outputSchemaVersion) =
-        payload;
-    result
+        object;
+    result$
       ..add(const _i4.XmlElementName('Destination'))
       ..add(serializers.serialize(
         destination,
         specifiedType: const FullType(_i3.AnalyticsExportDestination),
       ));
-    result
+    result$
       ..add(const _i4.XmlElementName('OutputSchemaVersion'))
       ..add(serializers.serialize(
         outputSchemaVersion,
         specifiedType:
             const FullType.nullable(_i2.StorageClassAnalysisSchemaVersion),
       ));
-    return result;
+    return result$;
   }
 }

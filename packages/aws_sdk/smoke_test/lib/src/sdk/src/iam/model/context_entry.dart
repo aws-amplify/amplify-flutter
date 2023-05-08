@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.context_entry; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -144,20 +145,19 @@ class ContextEntryAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ContextEntry object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ContextEntry);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ContextEntryResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ContextEntry(:contextKeyName, :contextKeyValues, :contextKeyType) =
-        payload;
+        object;
     if (contextKeyName != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ContextKeyName'))
         ..add(serializers.serialize(
           contextKeyName,
@@ -165,7 +165,7 @@ class ContextEntryAwsQuerySerializer
         ));
     }
     if (contextKeyValues != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ContextKeyValues'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -179,13 +179,13 @@ class ContextEntryAwsQuerySerializer
         ));
     }
     if (contextKeyType != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ContextKeyType'))
         ..add(serializers.serialize(
           contextKeyType,
           specifiedType: const FullType.nullable(_i2.ContextKeyTypeEnum),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v2.query_protocol.model.query_maps_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -277,11 +278,10 @@ class QueryMapsInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    QueryMapsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as QueryMapsInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'QueryMapsInputResponse',
         _i1.XmlNamespace('https://example.com/'),
@@ -296,9 +296,9 @@ class QueryMapsInputAwsQuerySerializer
       :flattenedMapWithXmlName,
       :mapOfLists,
       :nestedStructWithMap
-    ) = payload;
+    ) = object;
     if (mapArg != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MapArg'))
         ..add(
             const _i1.XmlBuiltMapSerializer(indexer: _i1.XmlIndexer.awsQueryMap)
@@ -315,7 +315,7 @@ class QueryMapsInputAwsQuerySerializer
         ));
     }
     if (renamedMapArg != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Foo'))
         ..add(
             const _i1.XmlBuiltMapSerializer(indexer: _i1.XmlIndexer.awsQueryMap)
@@ -332,7 +332,7 @@ class QueryMapsInputAwsQuerySerializer
         ));
     }
     if (complexMapArg != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ComplexMapArg'))
         ..add(
             const _i1.XmlBuiltMapSerializer(indexer: _i1.XmlIndexer.awsQueryMap)
@@ -349,7 +349,7 @@ class QueryMapsInputAwsQuerySerializer
         ));
     }
     if (mapWithXmlMemberName != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MapWithXmlMemberName'))
         ..add(const _i1.XmlBuiltMapSerializer(
           keyName: 'K',
@@ -368,7 +368,7 @@ class QueryMapsInputAwsQuerySerializer
         ));
     }
     if (flattenedMap != null) {
-      result.addAll(const _i1.XmlBuiltMapSerializer(
+      result$.addAll(const _i1.XmlBuiltMapSerializer(
         flattenedKey: 'FlattenedMap',
         indexer: _i1.XmlIndexer.awsQueryMap,
       ).serialize(
@@ -384,7 +384,7 @@ class QueryMapsInputAwsQuerySerializer
       ));
     }
     if (flattenedMapWithXmlName != null) {
-      result.addAll(const _i1.XmlBuiltMapSerializer(
+      result$.addAll(const _i1.XmlBuiltMapSerializer(
         keyName: 'K',
         valueName: 'V',
         flattenedKey: 'Hi',
@@ -402,7 +402,7 @@ class QueryMapsInputAwsQuerySerializer
       ));
     }
     if (mapOfLists != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MapOfLists'))
         ..add(const _i1.XmlBuiltMultimapSerializer(
                 indexer: _i1.XmlIndexer.awsQueryMap)
@@ -419,13 +419,13 @@ class QueryMapsInputAwsQuerySerializer
         ));
     }
     if (nestedStructWithMap != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('NestedStructWithMap'))
         ..add(serializers.serialize(
           nestedStructWithMap,
           specifiedType: const FullType(_i4.NestedStructWithMap),
         ));
     }
-    return result;
+    return result$;
   }
 }

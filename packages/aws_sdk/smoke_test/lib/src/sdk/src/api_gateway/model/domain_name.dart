@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.domain_name; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -360,11 +361,10 @@ class DomainNameRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DomainName object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DomainName);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final DomainName(
       :certificateArn,
       :certificateName,
@@ -383,9 +383,9 @@ class DomainNameRestJson1Serializer
       :regionalHostedZoneId,
       :securityPolicy,
       :tags
-    ) = payload;
+    ) = object;
     if (certificateArn != null) {
-      result
+      result$
         ..add('certificateArn')
         ..add(serializers.serialize(
           certificateArn,
@@ -393,7 +393,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (certificateName != null) {
-      result
+      result$
         ..add('certificateName')
         ..add(serializers.serialize(
           certificateName,
@@ -401,7 +401,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (certificateUploadDate != null) {
-      result
+      result$
         ..add('certificateUploadDate')
         ..add(serializers.serialize(
           certificateUploadDate,
@@ -409,7 +409,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (distributionDomainName != null) {
-      result
+      result$
         ..add('distributionDomainName')
         ..add(serializers.serialize(
           distributionDomainName,
@@ -417,7 +417,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (distributionHostedZoneId != null) {
-      result
+      result$
         ..add('distributionHostedZoneId')
         ..add(serializers.serialize(
           distributionHostedZoneId,
@@ -425,7 +425,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (domainName != null) {
-      result
+      result$
         ..add('domainName')
         ..add(serializers.serialize(
           domainName,
@@ -433,7 +433,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (domainNameStatus != null) {
-      result
+      result$
         ..add('domainNameStatus')
         ..add(serializers.serialize(
           domainNameStatus,
@@ -441,7 +441,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (domainNameStatusMessage != null) {
-      result
+      result$
         ..add('domainNameStatusMessage')
         ..add(serializers.serialize(
           domainNameStatusMessage,
@@ -449,7 +449,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (endpointConfiguration != null) {
-      result
+      result$
         ..add('endpointConfiguration')
         ..add(serializers.serialize(
           endpointConfiguration,
@@ -457,7 +457,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (mutualTlsAuthentication != null) {
-      result
+      result$
         ..add('mutualTlsAuthentication')
         ..add(serializers.serialize(
           mutualTlsAuthentication,
@@ -465,7 +465,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (ownershipVerificationCertificateArn != null) {
-      result
+      result$
         ..add('ownershipVerificationCertificateArn')
         ..add(serializers.serialize(
           ownershipVerificationCertificateArn,
@@ -473,7 +473,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (regionalCertificateArn != null) {
-      result
+      result$
         ..add('regionalCertificateArn')
         ..add(serializers.serialize(
           regionalCertificateArn,
@@ -481,7 +481,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (regionalCertificateName != null) {
-      result
+      result$
         ..add('regionalCertificateName')
         ..add(serializers.serialize(
           regionalCertificateName,
@@ -489,7 +489,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (regionalDomainName != null) {
-      result
+      result$
         ..add('regionalDomainName')
         ..add(serializers.serialize(
           regionalDomainName,
@@ -497,7 +497,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (regionalHostedZoneId != null) {
-      result
+      result$
         ..add('regionalHostedZoneId')
         ..add(serializers.serialize(
           regionalHostedZoneId,
@@ -505,7 +505,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (securityPolicy != null) {
-      result
+      result$
         ..add('securityPolicy')
         ..add(serializers.serialize(
           securityPolicy,
@@ -513,7 +513,7 @@ class DomainNameRestJson1Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('tags')
         ..add(serializers.serialize(
           tags,
@@ -526,6 +526,6 @@ class DomainNameRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

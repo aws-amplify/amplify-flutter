@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.list_global_tables_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -140,18 +141,17 @@ class ListGlobalTablesInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListGlobalTablesInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListGlobalTablesInput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ListGlobalTablesInput(
       :exclusiveStartGlobalTableName,
       :limit,
       :regionName
-    ) = payload;
+    ) = object;
     if (exclusiveStartGlobalTableName != null) {
-      result
+      result$
         ..add('ExclusiveStartGlobalTableName')
         ..add(serializers.serialize(
           exclusiveStartGlobalTableName,
@@ -159,7 +159,7 @@ class ListGlobalTablesInputAwsJson10Serializer
         ));
     }
     if (limit != null) {
-      result
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
           limit,
@@ -167,13 +167,13 @@ class ListGlobalTablesInputAwsJson10Serializer
         ));
     }
     if (regionName != null) {
-      result
+      result$
         ..add('RegionName')
         ..add(serializers.serialize(
           regionName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

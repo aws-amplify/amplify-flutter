@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -250,11 +251,10 @@ class ReplicaDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ReplicaDescription(
       :regionName,
       :replicaStatus,
@@ -265,9 +265,9 @@ class ReplicaDescriptionAwsJson10Serializer
       :globalSecondaryIndexes,
       :replicaInaccessibleDateTime,
       :replicaTableClassSummary
-    ) = payload;
+    ) = object;
     if (regionName != null) {
-      result
+      result$
         ..add('RegionName')
         ..add(serializers.serialize(
           regionName,
@@ -275,7 +275,7 @@ class ReplicaDescriptionAwsJson10Serializer
         ));
     }
     if (replicaStatus != null) {
-      result
+      result$
         ..add('ReplicaStatus')
         ..add(serializers.serialize(
           replicaStatus,
@@ -283,7 +283,7 @@ class ReplicaDescriptionAwsJson10Serializer
         ));
     }
     if (replicaStatusDescription != null) {
-      result
+      result$
         ..add('ReplicaStatusDescription')
         ..add(serializers.serialize(
           replicaStatusDescription,
@@ -291,7 +291,7 @@ class ReplicaDescriptionAwsJson10Serializer
         ));
     }
     if (replicaStatusPercentProgress != null) {
-      result
+      result$
         ..add('ReplicaStatusPercentProgress')
         ..add(serializers.serialize(
           replicaStatusPercentProgress,
@@ -299,7 +299,7 @@ class ReplicaDescriptionAwsJson10Serializer
         ));
     }
     if (kmsMasterKeyId != null) {
-      result
+      result$
         ..add('KMSMasterKeyId')
         ..add(serializers.serialize(
           kmsMasterKeyId,
@@ -307,7 +307,7 @@ class ReplicaDescriptionAwsJson10Serializer
         ));
     }
     if (provisionedThroughputOverride != null) {
-      result
+      result$
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
           provisionedThroughputOverride,
@@ -315,7 +315,7 @@ class ReplicaDescriptionAwsJson10Serializer
         ));
     }
     if (globalSecondaryIndexes != null) {
-      result
+      result$
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
           globalSecondaryIndexes,
@@ -326,7 +326,7 @@ class ReplicaDescriptionAwsJson10Serializer
         ));
     }
     if (replicaInaccessibleDateTime != null) {
-      result
+      result$
         ..add('ReplicaInaccessibleDateTime')
         ..add(serializers.serialize(
           replicaInaccessibleDateTime,
@@ -334,13 +334,13 @@ class ReplicaDescriptionAwsJson10Serializer
         ));
     }
     if (replicaTableClassSummary != null) {
-      result
+      result$
         ..add('ReplicaTableClassSummary')
         ..add(serializers.serialize(
           replicaTableClassSummary,
           specifiedType: const FullType(_i5.TableClassSummary),
         ));
     }
-    return result;
+    return result$;
   }
 }

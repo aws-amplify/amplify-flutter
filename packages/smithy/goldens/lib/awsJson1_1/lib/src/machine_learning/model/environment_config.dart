@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.machine_learning.model.environment_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -165,11 +166,10 @@ class EnvironmentConfigAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EnvironmentConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EnvironmentConfig);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final EnvironmentConfig(
       :awsAccessKeyId,
       :awsSecretAccessKey,
@@ -177,9 +177,9 @@ class EnvironmentConfigAwsJson11Serializer
       :awsRetryMode,
       :awsSessionToken,
       :awsProfile
-    ) = payload;
+    ) = object;
     if (awsAccessKeyId != null) {
-      result
+      result$
         ..add('AWS_ACCESS_KEY_ID')
         ..add(serializers.serialize(
           awsAccessKeyId,
@@ -187,7 +187,7 @@ class EnvironmentConfigAwsJson11Serializer
         ));
     }
     if (awsSecretAccessKey != null) {
-      result
+      result$
         ..add('AWS_SECRET_ACCESS_KEY')
         ..add(serializers.serialize(
           awsSecretAccessKey,
@@ -195,7 +195,7 @@ class EnvironmentConfigAwsJson11Serializer
         ));
     }
     if (awsDefaultRegion != null) {
-      result
+      result$
         ..add('AWS_DEFAULT_REGION')
         ..add(serializers.serialize(
           awsDefaultRegion,
@@ -203,7 +203,7 @@ class EnvironmentConfigAwsJson11Serializer
         ));
     }
     if (awsRetryMode != null) {
-      result
+      result$
         ..add('AWS_RETRY_MODE')
         ..add(serializers.serialize(
           awsRetryMode,
@@ -211,7 +211,7 @@ class EnvironmentConfigAwsJson11Serializer
         ));
     }
     if (awsSessionToken != null) {
-      result
+      result$
         ..add('AWS_SESSION_TOKEN')
         ..add(serializers.serialize(
           awsSessionToken,
@@ -219,13 +219,13 @@ class EnvironmentConfigAwsJson11Serializer
         ));
     }
     if (awsProfile != null) {
-      result
+      result$
         ..add('AWS_PROFILE')
         ..add(serializers.serialize(
           awsProfile,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

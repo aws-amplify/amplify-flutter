@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.aggregate_evaluation_result; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -197,11 +198,10 @@ class AggregateEvaluationResultAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AggregateEvaluationResult object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AggregateEvaluationResult);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final AggregateEvaluationResult(
       :evaluationResultIdentifier,
       :complianceType,
@@ -210,9 +210,9 @@ class AggregateEvaluationResultAwsJson11Serializer
       :annotation,
       :accountId,
       :awsRegion
-    ) = payload;
+    ) = object;
     if (evaluationResultIdentifier != null) {
-      result
+      result$
         ..add('EvaluationResultIdentifier')
         ..add(serializers.serialize(
           evaluationResultIdentifier,
@@ -220,7 +220,7 @@ class AggregateEvaluationResultAwsJson11Serializer
         ));
     }
     if (complianceType != null) {
-      result
+      result$
         ..add('ComplianceType')
         ..add(serializers.serialize(
           complianceType,
@@ -228,7 +228,7 @@ class AggregateEvaluationResultAwsJson11Serializer
         ));
     }
     if (resultRecordedTime != null) {
-      result
+      result$
         ..add('ResultRecordedTime')
         ..add(serializers.serialize(
           resultRecordedTime,
@@ -236,7 +236,7 @@ class AggregateEvaluationResultAwsJson11Serializer
         ));
     }
     if (configRuleInvokedTime != null) {
-      result
+      result$
         ..add('ConfigRuleInvokedTime')
         ..add(serializers.serialize(
           configRuleInvokedTime,
@@ -244,7 +244,7 @@ class AggregateEvaluationResultAwsJson11Serializer
         ));
     }
     if (annotation != null) {
-      result
+      result$
         ..add('Annotation')
         ..add(serializers.serialize(
           annotation,
@@ -252,7 +252,7 @@ class AggregateEvaluationResultAwsJson11Serializer
         ));
     }
     if (accountId != null) {
-      result
+      result$
         ..add('AccountId')
         ..add(serializers.serialize(
           accountId,
@@ -260,13 +260,13 @@ class AggregateEvaluationResultAwsJson11Serializer
         ));
     }
     if (awsRegion != null) {
-      result
+      result$
         ..add('AwsRegion')
         ..add(serializers.serialize(
           awsRegion,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

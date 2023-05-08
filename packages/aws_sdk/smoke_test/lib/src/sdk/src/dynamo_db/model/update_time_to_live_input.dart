@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.update_time_to_live_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -128,22 +129,23 @@ class UpdateTimeToLiveInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateTimeToLiveInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateTimeToLiveInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final UpdateTimeToLiveInput(:tableName, :timeToLiveSpecification) = object;
+    result$.addAll([
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
       'TimeToLiveSpecification',
       serializers.serialize(
-        payload.timeToLiveSpecification,
+        timeToLiveSpecification,
         specifiedType: const FullType(_i3.TimeToLiveSpecification),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.stage; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -373,11 +374,10 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Stage object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Stage);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final Stage(
       :accessLogSettings,
       :cacheClusterEnabled,
@@ -396,9 +396,9 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
       :tracingEnabled,
       :variables,
       :webAclArn
-    ) = payload;
+    ) = object;
     if (accessLogSettings != null) {
-      result
+      result$
         ..add('accessLogSettings')
         ..add(serializers.serialize(
           accessLogSettings,
@@ -406,7 +406,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (cacheClusterEnabled != null) {
-      result
+      result$
         ..add('cacheClusterEnabled')
         ..add(serializers.serialize(
           cacheClusterEnabled,
@@ -414,7 +414,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (cacheClusterSize != null) {
-      result
+      result$
         ..add('cacheClusterSize')
         ..add(serializers.serialize(
           cacheClusterSize,
@@ -422,7 +422,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (cacheClusterStatus != null) {
-      result
+      result$
         ..add('cacheClusterStatus')
         ..add(serializers.serialize(
           cacheClusterStatus,
@@ -430,7 +430,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (canarySettings != null) {
-      result
+      result$
         ..add('canarySettings')
         ..add(serializers.serialize(
           canarySettings,
@@ -438,7 +438,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (clientCertificateId != null) {
-      result
+      result$
         ..add('clientCertificateId')
         ..add(serializers.serialize(
           clientCertificateId,
@@ -446,7 +446,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (createdDate != null) {
-      result
+      result$
         ..add('createdDate')
         ..add(serializers.serialize(
           createdDate,
@@ -454,7 +454,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (deploymentId != null) {
-      result
+      result$
         ..add('deploymentId')
         ..add(serializers.serialize(
           deploymentId,
@@ -462,7 +462,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -470,7 +470,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (documentationVersion != null) {
-      result
+      result$
         ..add('documentationVersion')
         ..add(serializers.serialize(
           documentationVersion,
@@ -478,7 +478,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (lastUpdatedDate != null) {
-      result
+      result$
         ..add('lastUpdatedDate')
         ..add(serializers.serialize(
           lastUpdatedDate,
@@ -486,7 +486,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (methodSettings != null) {
-      result
+      result$
         ..add('methodSettings')
         ..add(serializers.serialize(
           methodSettings,
@@ -500,7 +500,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (stageName != null) {
-      result
+      result$
         ..add('stageName')
         ..add(serializers.serialize(
           stageName,
@@ -508,7 +508,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('tags')
         ..add(serializers.serialize(
           tags,
@@ -522,7 +522,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (tracingEnabled != null) {
-      result
+      result$
         ..add('tracingEnabled')
         ..add(serializers.serialize(
           tracingEnabled,
@@ -530,7 +530,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (variables != null) {
-      result
+      result$
         ..add('variables')
         ..add(serializers.serialize(
           variables,
@@ -544,13 +544,13 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ));
     }
     if (webAclArn != null) {
-      result
+      result$
         ..add('webAclArn')
         ..add(serializers.serialize(
           webAclArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

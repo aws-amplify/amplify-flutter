@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.object; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -200,11 +201,10 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    S3Object object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as S3Object);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'Object',
         _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -218,9 +218,9 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
       :owner,
       :size,
       :storageClass
-    ) = payload;
+    ) = object;
     if (checksumAlgorithm != null) {
-      result.addAll(
+      result$.addAll(
           const _i7.XmlBuiltListSerializer(memberName: 'ChecksumAlgorithm')
               .serialize(
         serializers,
@@ -232,7 +232,7 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
       ));
     }
     if (eTag != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('ETag'))
         ..add(serializers.serialize(
           eTag,
@@ -240,7 +240,7 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
         ));
     }
     if (key != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Key'))
         ..add(serializers.serialize(
           key,
@@ -248,7 +248,7 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
         ));
     }
     if (lastModified != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
@@ -256,7 +256,7 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
         ));
     }
     if (owner != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
@@ -264,7 +264,7 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
         ));
     }
     if (size != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Size'))
         ..add(serializers.serialize(
           size,
@@ -272,13 +272,13 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
         ));
     }
     if (storageClass != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
           specifiedType: const FullType.nullable(_i4.ObjectStorageClass),
         ));
     }
-    return result;
+    return result$;
   }
 }

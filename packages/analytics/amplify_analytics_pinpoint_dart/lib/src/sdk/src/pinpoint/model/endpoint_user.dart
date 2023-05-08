@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_user; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -123,14 +124,13 @@ class EndpointUserRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EndpointUser object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EndpointUser);
-    final result = <Object?>[];
-    final EndpointUser(:userAttributes, :userId) = payload;
+    final result$ = <Object?>[];
+    final EndpointUser(:userAttributes, :userId) = object;
     if (userAttributes != null) {
-      result
+      result$
         ..add('UserAttributes')
         ..add(serializers.serialize(
           userAttributes,
@@ -144,13 +144,13 @@ class EndpointUserRestJson1Serializer
         ));
     }
     if (userId != null) {
-      result
+      result$
         ..add('UserId')
         ..add(serializers.serialize(
           userId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.server_side_encryption_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -121,11 +122,10 @@ class ServerSideEncryptionRuleRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ServerSideEncryptionRule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ServerSideEncryptionRule);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ServerSideEncryptionRule',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -134,9 +134,9 @@ class ServerSideEncryptionRuleRestXmlSerializer
     final ServerSideEncryptionRule(
       :applyServerSideEncryptionByDefault,
       :bucketKeyEnabled
-    ) = payload;
+    ) = object;
     if (applyServerSideEncryptionByDefault != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ApplyServerSideEncryptionByDefault'))
         ..add(serializers.serialize(
           applyServerSideEncryptionByDefault,
@@ -144,13 +144,13 @@ class ServerSideEncryptionRuleRestXmlSerializer
         ));
     }
     if (bucketKeyEnabled != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('BucketKeyEnabled'))
         ..add(serializers.serialize(
           bucketKeyEnabled,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

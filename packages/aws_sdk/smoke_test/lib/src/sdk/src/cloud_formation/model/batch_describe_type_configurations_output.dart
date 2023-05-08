@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.batch_describe_type_configurations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -168,11 +169,10 @@ class BatchDescribeTypeConfigurationsOutputAwsQuerySerializer extends _i6
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BatchDescribeTypeConfigurationsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BatchDescribeTypeConfigurationsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'BatchDescribeTypeConfigurationsOutputResponse',
         _i6.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -182,9 +182,9 @@ class BatchDescribeTypeConfigurationsOutputAwsQuerySerializer extends _i6
       :errors,
       :unprocessedTypeConfigurations,
       :typeConfigurations
-    ) = payload;
+    ) = object;
     if (errors != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Errors'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -198,7 +198,7 @@ class BatchDescribeTypeConfigurationsOutputAwsQuerySerializer extends _i6
         ));
     }
     if (unprocessedTypeConfigurations != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('UnprocessedTypeConfigurations'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -212,7 +212,7 @@ class BatchDescribeTypeConfigurationsOutputAwsQuerySerializer extends _i6
         ));
     }
     if (typeConfigurations != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('TypeConfigurations'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -225,6 +225,6 @@ class BatchDescribeTypeConfigurationsOutputAwsQuerySerializer extends _i6
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

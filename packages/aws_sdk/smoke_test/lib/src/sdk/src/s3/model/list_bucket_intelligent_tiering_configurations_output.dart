@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.list_bucket_intelligent_tiering_configurations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -164,12 +165,10 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListBucketIntelligentTieringConfigurationsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload =
-        (object as ListBucketIntelligentTieringConfigurationsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ListBucketIntelligentTieringConfigurationsOutput',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -180,9 +179,9 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
       :intelligentTieringConfigurationList,
       :isTruncated,
       :nextContinuationToken
-    ) = payload;
+    ) = object;
     if (continuationToken != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ContinuationToken'))
         ..add(serializers.serialize(
           continuationToken,
@@ -190,7 +189,7 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
         ));
     }
     if (intelligentTieringConfigurationList != null) {
-      result.addAll(const _i4.XmlBuiltListSerializer(
+      result$.addAll(const _i4.XmlBuiltListSerializer(
               memberName: 'IntelligentTieringConfiguration')
           .serialize(
         serializers,
@@ -202,7 +201,7 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
       ));
     }
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -210,13 +209,13 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
         ));
     }
     if (nextContinuationToken != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('NextContinuationToken'))
         ..add(serializers.serialize(
           nextContinuationToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

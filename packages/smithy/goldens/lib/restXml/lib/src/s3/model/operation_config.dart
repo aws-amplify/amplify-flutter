@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.s3.model.operation_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -93,25 +94,24 @@ class OperationConfigRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OperationConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OperationConfig);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'OperationConfig',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final OperationConfig(:s3) = payload;
+    final OperationConfig(:s3) = object;
     if (s3 != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('s3'))
         ..add(serializers.serialize(
           s3,
           specifiedType: const FullType(_i2.S3Config),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.object_version; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -225,11 +226,10 @@ class ObjectVersionRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ObjectVersion object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ObjectVersion);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'ObjectVersion',
         _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -245,9 +245,9 @@ class ObjectVersionRestXmlSerializer
       :size,
       :storageClass,
       :versionId
-    ) = payload;
+    ) = object;
     if (checksumAlgorithm != null) {
-      result.addAll(
+      result$.addAll(
           const _i7.XmlBuiltListSerializer(memberName: 'ChecksumAlgorithm')
               .serialize(
         serializers,
@@ -259,7 +259,7 @@ class ObjectVersionRestXmlSerializer
       ));
     }
     if (eTag != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('ETag'))
         ..add(serializers.serialize(
           eTag,
@@ -267,7 +267,7 @@ class ObjectVersionRestXmlSerializer
         ));
     }
     if (isLatest != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('IsLatest'))
         ..add(serializers.serialize(
           isLatest,
@@ -275,7 +275,7 @@ class ObjectVersionRestXmlSerializer
         ));
     }
     if (key != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Key'))
         ..add(serializers.serialize(
           key,
@@ -283,7 +283,7 @@ class ObjectVersionRestXmlSerializer
         ));
     }
     if (lastModified != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
@@ -291,7 +291,7 @@ class ObjectVersionRestXmlSerializer
         ));
     }
     if (owner != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
@@ -299,7 +299,7 @@ class ObjectVersionRestXmlSerializer
         ));
     }
     if (size != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Size'))
         ..add(serializers.serialize(
           size,
@@ -307,7 +307,7 @@ class ObjectVersionRestXmlSerializer
         ));
     }
     if (storageClass != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
@@ -315,13 +315,13 @@ class ObjectVersionRestXmlSerializer
         ));
     }
     if (versionId != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('VersionId'))
         ..add(serializers.serialize(
           versionId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v1.query_protocol.model.flattened_xml_map_with_xml_name_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -117,19 +118,18 @@ class FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    FlattenedXmlMapWithXmlNameOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as FlattenedXmlMapWithXmlNameOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'FlattenedXmlMapWithXmlNameOutputResponse',
         _i3.XmlNamespace('https://example.com/'),
       )
     ];
-    final FlattenedXmlMapWithXmlNameOutput(:myMap) = payload;
+    final FlattenedXmlMapWithXmlNameOutput(:myMap) = object;
     if (myMap != null) {
-      result.addAll(const _i3.XmlBuiltMapSerializer(
+      result$.addAll(const _i3.XmlBuiltMapSerializer(
         keyName: 'K',
         valueName: 'V',
         flattenedKey: 'KVP',
@@ -146,6 +146,6 @@ class FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

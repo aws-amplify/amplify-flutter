@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.local_secondary_index_info; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -146,15 +147,13 @@ class LocalSecondaryIndexInfoAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    LocalSecondaryIndexInfo object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as LocalSecondaryIndexInfo);
-    final result = <Object?>[];
-    final LocalSecondaryIndexInfo(:indexName, :keySchema, :projection) =
-        payload;
+    final result$ = <Object?>[];
+    final LocalSecondaryIndexInfo(:indexName, :keySchema, :projection) = object;
     if (indexName != null) {
-      result
+      result$
         ..add('IndexName')
         ..add(serializers.serialize(
           indexName,
@@ -162,7 +161,7 @@ class LocalSecondaryIndexInfoAwsJson10Serializer
         ));
     }
     if (keySchema != null) {
-      result
+      result$
         ..add('KeySchema')
         ..add(serializers.serialize(
           keySchema,
@@ -173,13 +172,13 @@ class LocalSecondaryIndexInfoAwsJson10Serializer
         ));
     }
     if (projection != null) {
-      result
+      result$
         ..add('Projection')
         ..add(serializers.serialize(
           projection,
           specifiedType: const FullType(_i3.Projection),
         ));
     }
-    return result;
+    return result$;
   }
 }

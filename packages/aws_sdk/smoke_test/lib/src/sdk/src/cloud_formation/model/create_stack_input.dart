@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.create_stack_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -453,11 +454,10 @@ class CreateStackInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateStackInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateStackInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'CreateStackInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -481,15 +481,15 @@ class CreateStackInputAwsQuerySerializer
       :tags,
       :clientRequestToken,
       :enableTerminationProtection
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('StackName'))
       ..add(serializers.serialize(
         stackName,
         specifiedType: const FullType(String),
       ));
     if (templateBody != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TemplateBody'))
         ..add(serializers.serialize(
           templateBody,
@@ -497,7 +497,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (templateUrl != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TemplateURL'))
         ..add(serializers.serialize(
           templateUrl,
@@ -505,7 +505,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (parameters != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Parameters'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -519,7 +519,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (disableRollback != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('DisableRollback'))
         ..add(serializers.serialize(
           disableRollback,
@@ -527,7 +527,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (rollbackConfiguration != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('RollbackConfiguration'))
         ..add(serializers.serialize(
           rollbackConfiguration,
@@ -535,7 +535,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (timeoutInMinutes != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TimeoutInMinutes'))
         ..add(serializers.serialize(
           timeoutInMinutes,
@@ -543,7 +543,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (notificationArNs != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('NotificationARNs'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -557,7 +557,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (capabilities != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Capabilities'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -571,7 +571,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (resourceTypes != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ResourceTypes'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -585,7 +585,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (roleArn != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('RoleARN'))
         ..add(serializers.serialize(
           roleArn,
@@ -593,7 +593,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (onFailure != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('OnFailure'))
         ..add(serializers.serialize(
           onFailure,
@@ -601,7 +601,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (stackPolicyBody != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('StackPolicyBody'))
         ..add(serializers.serialize(
           stackPolicyBody,
@@ -609,7 +609,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (stackPolicyUrl != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('StackPolicyURL'))
         ..add(serializers.serialize(
           stackPolicyUrl,
@@ -617,7 +617,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -631,7 +631,7 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (clientRequestToken != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ClientRequestToken'))
         ..add(serializers.serialize(
           clientRequestToken,
@@ -639,13 +639,13 @@ class CreateStackInputAwsQuerySerializer
         ));
     }
     if (enableTerminationProtection != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('EnableTerminationProtection'))
         ..add(serializers.serialize(
           enableTerminationProtection,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

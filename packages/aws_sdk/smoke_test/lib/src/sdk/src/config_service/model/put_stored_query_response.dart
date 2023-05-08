@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_stored_query_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -98,20 +99,19 @@ class PutStoredQueryResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutStoredQueryResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutStoredQueryResponse);
-    final result = <Object?>[];
-    final PutStoredQueryResponse(:queryArn) = payload;
+    final result$ = <Object?>[];
+    final PutStoredQueryResponse(:queryArn) = object;
     if (queryArn != null) {
-      result
+      result$
         ..add('QueryArn')
         ..add(serializers.serialize(
           queryArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.remediation_parameter_value; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -120,14 +121,13 @@ class RemediationParameterValueAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RemediationParameterValue object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RemediationParameterValue);
-    final result = <Object?>[];
-    final RemediationParameterValue(:resourceValue, :staticValue) = payload;
+    final result$ = <Object?>[];
+    final RemediationParameterValue(:resourceValue, :staticValue) = object;
     if (resourceValue != null) {
-      result
+      result$
         ..add('ResourceValue')
         ..add(serializers.serialize(
           resourceValue,
@@ -135,13 +135,13 @@ class RemediationParameterValueAwsJson11Serializer
         ));
     }
     if (staticValue != null) {
-      result
+      result$
         ..add('StaticValue')
         ..add(serializers.serialize(
           staticValue,
           specifiedType: const FullType(_i3.StaticValue),
         ));
     }
-    return result;
+    return result$;
   }
 }

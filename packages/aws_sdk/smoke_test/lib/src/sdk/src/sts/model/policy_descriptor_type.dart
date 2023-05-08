@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.sts.model.policy_descriptor_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -94,25 +95,24 @@ class PolicyDescriptorTypeAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PolicyDescriptorType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PolicyDescriptorType);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'PolicyDescriptorTypeResponse',
         _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
-    final PolicyDescriptorType(:arn) = payload;
+    final PolicyDescriptorType(:arn) = object;
     if (arn != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('arn'))
         ..add(serializers.serialize(
           arn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

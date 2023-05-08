@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.post_player_action_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,20 +103,19 @@ class PostPlayerActionInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PostPlayerActionInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PostPlayerActionInput);
-    final result = <Object?>[];
-    final PostPlayerActionInput(:action) = payload;
+    final result$ = <Object?>[];
+    final PostPlayerActionInput(:action) = object;
     if (action != null) {
-      result
+      result$
         ..add('action')
         ..add(serializers.serialize(
           action,
           specifiedType: const FullType(_i3.PlayerAction),
         ));
     }
-    return result;
+    return result$;
   }
 }

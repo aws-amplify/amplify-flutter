@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.physical_resource_id_context_key_value_pair; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -119,29 +120,28 @@ class PhysicalResourceIdContextKeyValuePairAwsQuerySerializer extends _i2
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PhysicalResourceIdContextKeyValuePair object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PhysicalResourceIdContextKeyValuePair);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'PhysicalResourceIdContextKeyValuePairResponse',
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final PhysicalResourceIdContextKeyValuePair(:key, :value) = payload;
-    result
+    final PhysicalResourceIdContextKeyValuePair(:key, :value) = object;
+    result$
       ..add(const _i2.XmlElementName('Key'))
       ..add(serializers.serialize(
         key,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('Value'))
       ..add(serializers.serialize(
         value,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

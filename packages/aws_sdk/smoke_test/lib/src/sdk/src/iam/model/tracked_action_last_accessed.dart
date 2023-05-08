@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.tracked_action_last_accessed; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -158,11 +159,10 @@ class TrackedActionLastAccessedAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TrackedActionLastAccessed object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TrackedActionLastAccessed);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'TrackedActionLastAccessedResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -173,9 +173,9 @@ class TrackedActionLastAccessedAwsQuerySerializer
       :lastAccessedEntity,
       :lastAccessedTime,
       :lastAccessedRegion
-    ) = payload;
+    ) = object;
     if (actionName != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ActionName'))
         ..add(serializers.serialize(
           actionName,
@@ -183,7 +183,7 @@ class TrackedActionLastAccessedAwsQuerySerializer
         ));
     }
     if (lastAccessedEntity != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('LastAccessedEntity'))
         ..add(serializers.serialize(
           lastAccessedEntity,
@@ -191,7 +191,7 @@ class TrackedActionLastAccessedAwsQuerySerializer
         ));
     }
     if (lastAccessedTime != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('LastAccessedTime'))
         ..add(serializers.serialize(
           lastAccessedTime,
@@ -199,13 +199,13 @@ class TrackedActionLastAccessedAwsQuerySerializer
         ));
     }
     if (lastAccessedRegion != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('LastAccessedRegion'))
         ..add(serializers.serialize(
           lastAccessedRegion,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

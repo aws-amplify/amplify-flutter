@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.change_set_hook; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -199,11 +200,10 @@ class ChangeSetHookAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ChangeSetHook object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ChangeSetHook);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'ChangeSetHookResponse',
         _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -216,9 +216,9 @@ class ChangeSetHookAwsQuerySerializer
       :typeVersionId,
       :typeConfigurationVersionId,
       :targetDetails
-    ) = payload;
+    ) = object;
     if (invocationPoint != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('InvocationPoint'))
         ..add(serializers.serialize(
           invocationPoint,
@@ -226,7 +226,7 @@ class ChangeSetHookAwsQuerySerializer
         ));
     }
     if (failureMode != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('FailureMode'))
         ..add(serializers.serialize(
           failureMode,
@@ -234,7 +234,7 @@ class ChangeSetHookAwsQuerySerializer
         ));
     }
     if (typeName != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
@@ -242,7 +242,7 @@ class ChangeSetHookAwsQuerySerializer
         ));
     }
     if (typeVersionId != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('TypeVersionId'))
         ..add(serializers.serialize(
           typeVersionId,
@@ -250,7 +250,7 @@ class ChangeSetHookAwsQuerySerializer
         ));
     }
     if (typeConfigurationVersionId != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('TypeConfigurationVersionId'))
         ..add(serializers.serialize(
           typeConfigurationVersionId,
@@ -258,13 +258,13 @@ class ChangeSetHookAwsQuerySerializer
         ));
     }
     if (targetDetails != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('TargetDetails'))
         ..add(serializers.serialize(
           targetDetails,
           specifiedType: const FullType(_i4.ChangeSetHookTargetDetails),
         ));
     }
-    return result;
+    return result$;
   }
 }

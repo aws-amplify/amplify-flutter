@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.update_stack_set_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -531,11 +532,10 @@ class UpdateStackSetInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateStackSetInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateStackSetInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'UpdateStackSetInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -561,15 +561,15 @@ class UpdateStackSetInputAwsQuerySerializer
       :regions,
       :callAs,
       :managedExecution
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('StackSetName'))
       ..add(serializers.serialize(
         stackSetName,
         specifiedType: const FullType(String),
       ));
     if (description != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -577,7 +577,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (templateBody != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TemplateBody'))
         ..add(serializers.serialize(
           templateBody,
@@ -585,7 +585,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (templateUrl != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TemplateURL'))
         ..add(serializers.serialize(
           templateUrl,
@@ -593,7 +593,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (usePreviousTemplate != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('UsePreviousTemplate'))
         ..add(serializers.serialize(
           usePreviousTemplate,
@@ -601,7 +601,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (parameters != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Parameters'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -615,7 +615,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (capabilities != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Capabilities'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -629,7 +629,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -643,7 +643,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (operationPreferences != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('OperationPreferences'))
         ..add(serializers.serialize(
           operationPreferences,
@@ -651,7 +651,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (administrationRoleArn != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('AdministrationRoleARN'))
         ..add(serializers.serialize(
           administrationRoleArn,
@@ -659,7 +659,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (executionRoleName != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ExecutionRoleName'))
         ..add(serializers.serialize(
           executionRoleName,
@@ -667,7 +667,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (deploymentTargets != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('DeploymentTargets'))
         ..add(serializers.serialize(
           deploymentTargets,
@@ -675,7 +675,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (permissionModel != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PermissionModel'))
         ..add(serializers.serialize(
           permissionModel,
@@ -683,7 +683,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (autoDeployment != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('AutoDeployment'))
         ..add(serializers.serialize(
           autoDeployment,
@@ -691,7 +691,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (operationId != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('OperationId'))
         ..add(serializers.serialize(
           operationId,
@@ -699,7 +699,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (accounts != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Accounts'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -713,7 +713,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (regions != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Regions'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -727,7 +727,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (callAs != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
@@ -735,13 +735,13 @@ class UpdateStackSetInputAwsQuerySerializer
         ));
     }
     if (managedExecution != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ManagedExecution'))
         ..add(serializers.serialize(
           managedExecution,
           specifiedType: const FullType(_i11.ManagedExecution),
         ));
     }
-    return result;
+    return result$;
   }
 }

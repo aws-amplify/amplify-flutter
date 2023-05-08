@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_aggregate_config_rule_compliance_summary_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -147,18 +148,17 @@ class GetAggregateConfigRuleComplianceSummaryResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetAggregateConfigRuleComplianceSummaryResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetAggregateConfigRuleComplianceSummaryResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final GetAggregateConfigRuleComplianceSummaryResponse(
       :groupByKey,
       :aggregateComplianceCounts,
       :nextToken
-    ) = payload;
+    ) = object;
     if (groupByKey != null) {
-      result
+      result$
         ..add('GroupByKey')
         ..add(serializers.serialize(
           groupByKey,
@@ -166,7 +166,7 @@ class GetAggregateConfigRuleComplianceSummaryResponseAwsJson11Serializer
         ));
     }
     if (aggregateComplianceCounts != null) {
-      result
+      result$
         ..add('AggregateComplianceCounts')
         ..add(serializers.serialize(
           aggregateComplianceCounts,
@@ -177,13 +177,13 @@ class GetAggregateConfigRuleComplianceSummaryResponseAwsJson11Serializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

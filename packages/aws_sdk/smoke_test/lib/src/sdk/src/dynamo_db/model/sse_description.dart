@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.sse_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -151,19 +152,18 @@ class SseDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SseDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SseDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final SseDescription(
       :status,
       :sseType,
       :kmsMasterKeyArn,
       :inaccessibleEncryptionDateTime
-    ) = payload;
+    ) = object;
     if (status != null) {
-      result
+      result$
         ..add('Status')
         ..add(serializers.serialize(
           status,
@@ -171,7 +171,7 @@ class SseDescriptionAwsJson10Serializer
         ));
     }
     if (sseType != null) {
-      result
+      result$
         ..add('SSEType')
         ..add(serializers.serialize(
           sseType,
@@ -179,7 +179,7 @@ class SseDescriptionAwsJson10Serializer
         ));
     }
     if (kmsMasterKeyArn != null) {
-      result
+      result$
         ..add('KMSMasterKeyArn')
         ..add(serializers.serialize(
           kmsMasterKeyArn,
@@ -187,13 +187,13 @@ class SseDescriptionAwsJson10Serializer
         ));
     }
     if (inaccessibleEncryptionDateTime != null) {
-      result
+      result$
         ..add('InaccessibleEncryptionDateTime')
         ..add(serializers.serialize(
           inaccessibleEncryptionDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

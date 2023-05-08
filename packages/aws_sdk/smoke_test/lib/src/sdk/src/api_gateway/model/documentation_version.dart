@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.documentation_version; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -137,14 +138,13 @@ class DocumentationVersionRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DocumentationVersion object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DocumentationVersion);
-    final result = <Object?>[];
-    final DocumentationVersion(:createdDate, :description, :version) = payload;
+    final result$ = <Object?>[];
+    final DocumentationVersion(:createdDate, :description, :version) = object;
     if (createdDate != null) {
-      result
+      result$
         ..add('createdDate')
         ..add(serializers.serialize(
           createdDate,
@@ -152,7 +152,7 @@ class DocumentationVersionRestJson1Serializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -160,13 +160,13 @@ class DocumentationVersionRestJson1Serializer
         ));
     }
     if (version != null) {
-      result
+      result$
         ..add('version')
         ..add(serializers.serialize(
           version,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

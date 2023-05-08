@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.json_protocol.model.json_int_enums_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -191,11 +192,10 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    JsonIntEnumsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as JsonIntEnumsInputOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final JsonIntEnumsInputOutput(
       :intEnum1,
       :intEnum2,
@@ -203,9 +203,9 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
       :intEnumList,
       :intEnumSet,
       :intEnumMap
-    ) = payload;
+    ) = object;
     if (intEnum1 != null) {
-      result
+      result$
         ..add('intEnum1')
         ..add(serializers.serialize(
           intEnum1,
@@ -213,7 +213,7 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
         ));
     }
     if (intEnum2 != null) {
-      result
+      result$
         ..add('intEnum2')
         ..add(serializers.serialize(
           intEnum2,
@@ -221,7 +221,7 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
         ));
     }
     if (intEnum3 != null) {
-      result
+      result$
         ..add('intEnum3')
         ..add(serializers.serialize(
           intEnum3,
@@ -229,7 +229,7 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
         ));
     }
     if (intEnumList != null) {
-      result
+      result$
         ..add('intEnumList')
         ..add(serializers.serialize(
           intEnumList,
@@ -240,7 +240,7 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
         ));
     }
     if (intEnumSet != null) {
-      result
+      result$
         ..add('intEnumSet')
         ..add(serializers.serialize(
           intEnumSet,
@@ -251,7 +251,7 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
         ));
     }
     if (intEnumMap != null) {
-      result
+      result$
         ..add('intEnumMap')
         ..add(serializers.serialize(
           intEnumMap,
@@ -264,6 +264,6 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_organization_conformance_pack_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -221,27 +222,28 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutOrganizationConformancePackRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutOrganizationConformancePackRequest);
-    final result = <Object?>[
-      'OrganizationConformancePackName',
-      serializers.serialize(
-        payload.organizationConformancePackName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final PutOrganizationConformancePackRequest(
+      :organizationConformancePackName,
       :templateS3Uri,
       :templateBody,
       :deliveryS3Bucket,
       :deliveryS3KeyPrefix,
       :conformancePackInputParameters,
       :excludedAccounts
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'OrganizationConformancePackName',
+      serializers.serialize(
+        organizationConformancePackName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (templateS3Uri != null) {
-      result
+      result$
         ..add('TemplateS3Uri')
         ..add(serializers.serialize(
           templateS3Uri,
@@ -249,7 +251,7 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
         ));
     }
     if (templateBody != null) {
-      result
+      result$
         ..add('TemplateBody')
         ..add(serializers.serialize(
           templateBody,
@@ -257,7 +259,7 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
         ));
     }
     if (deliveryS3Bucket != null) {
-      result
+      result$
         ..add('DeliveryS3Bucket')
         ..add(serializers.serialize(
           deliveryS3Bucket,
@@ -265,7 +267,7 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
         ));
     }
     if (deliveryS3KeyPrefix != null) {
-      result
+      result$
         ..add('DeliveryS3KeyPrefix')
         ..add(serializers.serialize(
           deliveryS3KeyPrefix,
@@ -273,7 +275,7 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
         ));
     }
     if (conformancePackInputParameters != null) {
-      result
+      result$
         ..add('ConformancePackInputParameters')
         ..add(serializers.serialize(
           conformancePackInputParameters,
@@ -284,7 +286,7 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
         ));
     }
     if (excludedAccounts != null) {
-      result
+      result$
         ..add('ExcludedAccounts')
         ..add(serializers.serialize(
           excludedAccounts,
@@ -294,6 +296,6 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

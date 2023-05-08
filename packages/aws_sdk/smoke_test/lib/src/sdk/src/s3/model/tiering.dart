@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.tiering; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,30 +117,29 @@ class TieringRestXmlSerializer extends _i3.StructuredSmithySerializer<Tiering> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Tiering object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Tiering);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'Tiering',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final Tiering(:accessTier, :days) = payload;
-    result
+    final Tiering(:accessTier, :days) = object;
+    result$
       ..add(const _i3.XmlElementName('AccessTier'))
       ..add(serializers.serialize(
         accessTier,
         specifiedType:
             const FullType.nullable(_i2.IntelligentTieringAccessTier),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('Days'))
       ..add(serializers.serialize(
         days,
         specifiedType: const FullType.nullable(int),
       ));
-    return result;
+    return result$;
   }
 }

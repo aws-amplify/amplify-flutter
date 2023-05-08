@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.signing_certificate; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -166,11 +167,10 @@ class SigningCertificateAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SigningCertificate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SigningCertificate);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'SigningCertificateResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -182,39 +182,39 @@ class SigningCertificateAwsQuerySerializer
       :certificateBody,
       :status,
       :uploadDate
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i3.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('CertificateId'))
       ..add(serializers.serialize(
         certificateId,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('CertificateBody'))
       ..add(serializers.serialize(
         certificateBody,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
         specifiedType: const FullType.nullable(_i2.StatusType),
       ));
     if (uploadDate != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('UploadDate'))
         ..add(serializers.serialize(
           uploadDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

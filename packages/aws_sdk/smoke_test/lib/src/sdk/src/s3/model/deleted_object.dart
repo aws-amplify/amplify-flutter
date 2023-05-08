@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.deleted_object; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -143,11 +144,10 @@ class DeletedObjectRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeletedObject object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeletedObject);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'DeletedObject',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -158,9 +158,9 @@ class DeletedObjectRestXmlSerializer
       :deleteMarkerVersionId,
       :key,
       :versionId
-    ) = payload;
+    ) = object;
     if (deleteMarker != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('DeleteMarker'))
         ..add(serializers.serialize(
           deleteMarker,
@@ -168,7 +168,7 @@ class DeletedObjectRestXmlSerializer
         ));
     }
     if (deleteMarkerVersionId != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('DeleteMarkerVersionId'))
         ..add(serializers.serialize(
           deleteMarkerVersionId,
@@ -176,7 +176,7 @@ class DeletedObjectRestXmlSerializer
         ));
     }
     if (key != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Key'))
         ..add(serializers.serialize(
           key,
@@ -184,13 +184,13 @@ class DeletedObjectRestXmlSerializer
         ));
     }
     if (versionId != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('VersionId'))
         ..add(serializers.serialize(
           versionId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

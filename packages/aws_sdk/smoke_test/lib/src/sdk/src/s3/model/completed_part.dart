@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.completed_part; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -173,11 +174,10 @@ class CompletedPartRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CompletedPart object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CompletedPart);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'CompletedPart',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -190,9 +190,9 @@ class CompletedPartRestXmlSerializer
       :checksumSha256,
       :eTag,
       :partNumber
-    ) = payload;
+    ) = object;
     if (checksumCrc32 != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ChecksumCRC32'))
         ..add(serializers.serialize(
           checksumCrc32,
@@ -200,7 +200,7 @@ class CompletedPartRestXmlSerializer
         ));
     }
     if (checksumCrc32C != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ChecksumCRC32C'))
         ..add(serializers.serialize(
           checksumCrc32C,
@@ -208,7 +208,7 @@ class CompletedPartRestXmlSerializer
         ));
     }
     if (checksumSha1 != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ChecksumSHA1'))
         ..add(serializers.serialize(
           checksumSha1,
@@ -216,7 +216,7 @@ class CompletedPartRestXmlSerializer
         ));
     }
     if (checksumSha256 != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ChecksumSHA256'))
         ..add(serializers.serialize(
           checksumSha256,
@@ -224,7 +224,7 @@ class CompletedPartRestXmlSerializer
         ));
     }
     if (eTag != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ETag'))
         ..add(serializers.serialize(
           eTag,
@@ -232,13 +232,13 @@ class CompletedPartRestXmlSerializer
         ));
     }
     if (partNumber != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('PartNumber'))
         ..add(serializers.serialize(
           partNumber,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

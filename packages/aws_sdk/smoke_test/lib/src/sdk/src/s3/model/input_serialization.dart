@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.input_serialization; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -148,19 +149,18 @@ class InputSerializationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InputSerialization object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InputSerialization);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'InputSerialization',
         _i6.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final InputSerialization(:compressionType, :csv, :json, :parquet) = payload;
+    final InputSerialization(:compressionType, :csv, :json, :parquet) = object;
     if (compressionType != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('CompressionType'))
         ..add(serializers.serialize(
           compressionType,
@@ -168,7 +168,7 @@ class InputSerializationRestXmlSerializer
         ));
     }
     if (csv != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('CSV'))
         ..add(serializers.serialize(
           csv,
@@ -176,7 +176,7 @@ class InputSerializationRestXmlSerializer
         ));
     }
     if (json != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('JSON'))
         ..add(serializers.serialize(
           json,
@@ -184,13 +184,13 @@ class InputSerializationRestXmlSerializer
         ));
     }
     if (parquet != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Parquet'))
         ..add(serializers.serialize(
           parquet,
           specifiedType: const FullType(_i5.ParquetInput),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.describe_contributor_insights_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -203,11 +204,10 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeContributorInsightsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeContributorInsightsOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final DescribeContributorInsightsOutput(
       :tableName,
       :indexName,
@@ -215,9 +215,9 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
       :contributorInsightsStatus,
       :lastUpdateDateTime,
       :failureException
-    ) = payload;
+    ) = object;
     if (tableName != null) {
-      result
+      result$
         ..add('TableName')
         ..add(serializers.serialize(
           tableName,
@@ -225,7 +225,7 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
         ));
     }
     if (indexName != null) {
-      result
+      result$
         ..add('IndexName')
         ..add(serializers.serialize(
           indexName,
@@ -233,7 +233,7 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
         ));
     }
     if (contributorInsightsRuleList != null) {
-      result
+      result$
         ..add('ContributorInsightsRuleList')
         ..add(serializers.serialize(
           contributorInsightsRuleList,
@@ -244,7 +244,7 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
         ));
     }
     if (contributorInsightsStatus != null) {
-      result
+      result$
         ..add('ContributorInsightsStatus')
         ..add(serializers.serialize(
           contributorInsightsStatus,
@@ -252,7 +252,7 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
         ));
     }
     if (lastUpdateDateTime != null) {
-      result
+      result$
         ..add('LastUpdateDateTime')
         ..add(serializers.serialize(
           lastUpdateDateTime,
@@ -260,13 +260,13 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
         ));
     }
     if (failureException != null) {
-      result
+      result$
         ..add('FailureException')
         ..add(serializers.serialize(
           failureException,
           specifiedType: const FullType(_i3.FailureException),
         ));
     }
-    return result;
+    return result$;
   }
 }

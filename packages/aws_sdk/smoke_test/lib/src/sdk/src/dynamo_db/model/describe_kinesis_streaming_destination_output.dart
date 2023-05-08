@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.describe_kinesis_streaming_destination_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -132,17 +133,16 @@ class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeKinesisStreamingDestinationOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeKinesisStreamingDestinationOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final DescribeKinesisStreamingDestinationOutput(
       :tableName,
       :kinesisDataStreamDestinations
-    ) = payload;
+    ) = object;
     if (tableName != null) {
-      result
+      result$
         ..add('TableName')
         ..add(serializers.serialize(
           tableName,
@@ -150,7 +150,7 @@ class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i4
         ));
     }
     if (kinesisDataStreamDestinations != null) {
-      result
+      result$
         ..add('KinesisDataStreamDestinations')
         ..add(serializers.serialize(
           kinesisDataStreamDestinations,
@@ -160,6 +160,6 @@ class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i4
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

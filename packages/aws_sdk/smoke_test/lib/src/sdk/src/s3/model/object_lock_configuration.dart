@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.object_lock_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -118,19 +119,18 @@ class ObjectLockConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ObjectLockConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ObjectLockConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ObjectLockConfiguration',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final ObjectLockConfiguration(:objectLockEnabled, :rule) = payload;
+    final ObjectLockConfiguration(:objectLockEnabled, :rule) = object;
     if (objectLockEnabled != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ObjectLockEnabled'))
         ..add(serializers.serialize(
           objectLockEnabled,
@@ -138,13 +138,13 @@ class ObjectLockConfigurationRestXmlSerializer
         ));
     }
     if (rule != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Rule'))
         ..add(serializers.serialize(
           rule,
           specifiedType: const FullType(_i3.ObjectLockRule),
         ));
     }
-    return result;
+    return result$;
   }
 }

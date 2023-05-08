@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.replication_time_value; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -95,25 +96,24 @@ class ReplicationTimeValueRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicationTimeValue object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicationTimeValue);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'ReplicationTimeValue',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final ReplicationTimeValue(:minutes) = payload;
+    final ReplicationTimeValue(:minutes) = object;
     if (minutes != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Minutes'))
         ..add(serializers.serialize(
           minutes,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

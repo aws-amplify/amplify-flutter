@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.template_parameter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -143,11 +144,10 @@ class TemplateParameterAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TemplateParameter object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TemplateParameter);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'TemplateParameterResponse',
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -158,9 +158,9 @@ class TemplateParameterAwsQuerySerializer
       :defaultValue,
       :noEcho,
       :description
-    ) = payload;
+    ) = object;
     if (parameterKey != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ParameterKey'))
         ..add(serializers.serialize(
           parameterKey,
@@ -168,7 +168,7 @@ class TemplateParameterAwsQuerySerializer
         ));
     }
     if (defaultValue != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('DefaultValue'))
         ..add(serializers.serialize(
           defaultValue,
@@ -176,7 +176,7 @@ class TemplateParameterAwsQuerySerializer
         ));
     }
     if (noEcho != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('NoEcho'))
         ..add(serializers.serialize(
           noEcho,
@@ -184,13 +184,13 @@ class TemplateParameterAwsQuerySerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

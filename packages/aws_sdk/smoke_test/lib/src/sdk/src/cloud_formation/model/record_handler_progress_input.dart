@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.record_handler_progress_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -203,11 +204,10 @@ class RecordHandlerProgressInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RecordHandlerProgressInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RecordHandlerProgressInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'RecordHandlerProgressInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -221,21 +221,21 @@ class RecordHandlerProgressInputAwsQuerySerializer
       :errorCode,
       :resourceModel,
       :clientRequestToken
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('BearerToken'))
       ..add(serializers.serialize(
         bearerToken,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('OperationStatus'))
       ..add(serializers.serialize(
         operationStatus,
         specifiedType: const FullType.nullable(_i3.OperationStatus),
       ));
     if (currentOperationStatus != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('CurrentOperationStatus'))
         ..add(serializers.serialize(
           currentOperationStatus,
@@ -243,7 +243,7 @@ class RecordHandlerProgressInputAwsQuerySerializer
         ));
     }
     if (statusMessage != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('StatusMessage'))
         ..add(serializers.serialize(
           statusMessage,
@@ -251,7 +251,7 @@ class RecordHandlerProgressInputAwsQuerySerializer
         ));
     }
     if (errorCode != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ErrorCode'))
         ..add(serializers.serialize(
           errorCode,
@@ -259,7 +259,7 @@ class RecordHandlerProgressInputAwsQuerySerializer
         ));
     }
     if (resourceModel != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ResourceModel'))
         ..add(serializers.serialize(
           resourceModel,
@@ -267,13 +267,13 @@ class RecordHandlerProgressInputAwsQuerySerializer
         ));
     }
     if (clientRequestToken != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ClientRequestToken'))
         ..add(serializers.serialize(
           clientRequestToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

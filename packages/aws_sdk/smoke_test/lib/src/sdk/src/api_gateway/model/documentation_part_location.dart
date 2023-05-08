@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.documentation_part_location; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -163,21 +164,21 @@ class DocumentationPartLocationRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DocumentationPartLocation object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DocumentationPartLocation);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DocumentationPartLocation(:method, :name, :path, :statusCode, :type) =
+        object;
+    result$.addAll([
       'type',
       serializers.serialize(
-        payload.type,
+        type,
         specifiedType: const FullType(_i2.DocumentationPartType),
       ),
-    ];
-    final DocumentationPartLocation(:method, :name, :path, :statusCode) =
-        payload;
+    ]);
     if (method != null) {
-      result
+      result$
         ..add('method')
         ..add(serializers.serialize(
           method,
@@ -185,7 +186,7 @@ class DocumentationPartLocationRestJson1Serializer
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add('name')
         ..add(serializers.serialize(
           name,
@@ -193,7 +194,7 @@ class DocumentationPartLocationRestJson1Serializer
         ));
     }
     if (path != null) {
-      result
+      result$
         ..add('path')
         ..add(serializers.serialize(
           path,
@@ -201,13 +202,13 @@ class DocumentationPartLocationRestJson1Serializer
         ));
     }
     if (statusCode != null) {
-      result
+      result$
         ..add('statusCode')
         ..add(serializers.serialize(
           statusCode,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.describe_stack_instance_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -164,11 +165,10 @@ class DescribeStackInstanceInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeStackInstanceInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeStackInstanceInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'DescribeStackInstanceInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -179,33 +179,33 @@ class DescribeStackInstanceInputAwsQuerySerializer
       :stackInstanceAccount,
       :stackInstanceRegion,
       :callAs
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('StackSetName'))
       ..add(serializers.serialize(
         stackSetName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('StackInstanceAccount'))
       ..add(serializers.serialize(
         stackInstanceAccount,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('StackInstanceRegion'))
       ..add(serializers.serialize(
         stackInstanceRegion,
         specifiedType: const FullType(String),
       ));
     if (callAs != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
           specifiedType: const FullType.nullable(_i3.CallAs),
         ));
     }
-    return result;
+    return result$;
   }
 }

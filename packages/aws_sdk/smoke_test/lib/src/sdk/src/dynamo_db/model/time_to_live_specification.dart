@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.time_to_live_specification; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -118,22 +119,23 @@ class TimeToLiveSpecificationAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TimeToLiveSpecification object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TimeToLiveSpecification);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final TimeToLiveSpecification(:enabled, :attributeName) = object;
+    result$.addAll([
       'Enabled',
       serializers.serialize(
-        payload.enabled,
+        enabled,
         specifiedType: const FullType(bool),
       ),
       'AttributeName',
       serializers.serialize(
-        payload.attributeName,
+        attributeName,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

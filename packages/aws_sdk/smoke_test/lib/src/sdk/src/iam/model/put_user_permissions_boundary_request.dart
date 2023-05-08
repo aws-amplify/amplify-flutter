@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.put_user_permissions_boundary_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -126,30 +127,29 @@ class PutUserPermissionsBoundaryRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutUserPermissionsBoundaryRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutUserPermissionsBoundaryRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'PutUserPermissionsBoundaryRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final PutUserPermissionsBoundaryRequest(:userName, :permissionsBoundary) =
-        payload;
-    result
+        object;
+    result$
       ..add(const _i1.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('PermissionsBoundary'))
       ..add(serializers.serialize(
         permissionsBoundary,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

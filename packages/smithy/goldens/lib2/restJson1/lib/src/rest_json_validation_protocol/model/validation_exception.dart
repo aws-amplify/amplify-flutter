@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_validation_protocol.model.validation_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -148,20 +149,20 @@ class ValidationExceptionRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ValidationException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ValidationException);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ValidationException(:fieldList, :message) = object;
+    result$.addAll([
       'message',
       serializers.serialize(
-        payload.message,
+        message,
         specifiedType: const FullType(String),
       ),
-    ];
-    final ValidationException(:fieldList) = payload;
+    ]);
     if (fieldList != null) {
-      result
+      result$
         ..add('fieldList')
         ..add(serializers.serialize(
           fieldList,
@@ -171,6 +172,6 @@ class ValidationExceptionRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

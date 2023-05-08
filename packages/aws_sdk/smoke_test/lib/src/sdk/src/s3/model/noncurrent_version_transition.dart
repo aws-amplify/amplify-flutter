@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.noncurrent_version_transition; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -133,11 +134,10 @@ class NoncurrentVersionTransitionRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    NoncurrentVersionTransition object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as NoncurrentVersionTransition);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'NoncurrentVersionTransition',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -147,9 +147,9 @@ class NoncurrentVersionTransitionRestXmlSerializer
       :newerNoncurrentVersions,
       :noncurrentDays,
       :storageClass
-    ) = payload;
+    ) = object;
     if (newerNoncurrentVersions != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('NewerNoncurrentVersions'))
         ..add(serializers.serialize(
           newerNoncurrentVersions,
@@ -157,7 +157,7 @@ class NoncurrentVersionTransitionRestXmlSerializer
         ));
     }
     if (noncurrentDays != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('NoncurrentDays'))
         ..add(serializers.serialize(
           noncurrentDays,
@@ -165,13 +165,13 @@ class NoncurrentVersionTransitionRestXmlSerializer
         ));
     }
     if (storageClass != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
           specifiedType: const FullType.nullable(_i2.TransitionStorageClass),
         ));
     }
-    return result;
+    return result$;
   }
 }

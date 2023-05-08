@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.untag_user_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -128,24 +129,23 @@ class UntagUserRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UntagUserRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UntagUserRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'UntagUserRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final UntagUserRequest(:userName, :tagKeys) = payload;
-    result
+    final UntagUserRequest(:userName, :tagKeys) = object;
+    result$
       ..add(const _i1.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('TagKeys'))
       ..add(
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
@@ -157,6 +157,6 @@ class UntagUserRequestAwsQuerySerializer
           [FullType(String)],
         ),
       ));
-    return result;
+    return result$;
   }
 }

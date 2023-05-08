@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v2.query_protocol.model.nested_struct_with_map; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -99,19 +100,18 @@ class NestedStructWithMapAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    NestedStructWithMap object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as NestedStructWithMap);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'NestedStructWithMapResponse',
         _i3.XmlNamespace('https://example.com/'),
       )
     ];
-    final NestedStructWithMap(:mapArg) = payload;
+    final NestedStructWithMap(:mapArg) = object;
     if (mapArg != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('MapArg'))
         ..add(
             const _i3.XmlBuiltMapSerializer(indexer: _i3.XmlIndexer.awsQueryMap)
@@ -127,6 +127,6 @@ class NestedStructWithMapAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

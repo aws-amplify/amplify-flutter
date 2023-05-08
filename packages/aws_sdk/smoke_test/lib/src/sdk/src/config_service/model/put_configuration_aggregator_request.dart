@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_configuration_aggregator_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -170,24 +171,25 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutConfigurationAggregatorRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutConfigurationAggregatorRequest);
-    final result = <Object?>[
-      'ConfigurationAggregatorName',
-      serializers.serialize(
-        payload.configurationAggregatorName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final PutConfigurationAggregatorRequest(
+      :configurationAggregatorName,
       :accountAggregationSources,
       :organizationAggregationSource,
       :tags
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'ConfigurationAggregatorName',
+      serializers.serialize(
+        configurationAggregatorName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (accountAggregationSources != null) {
-      result
+      result$
         ..add('AccountAggregationSources')
         ..add(serializers.serialize(
           accountAggregationSources,
@@ -198,7 +200,7 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
         ));
     }
     if (organizationAggregationSource != null) {
-      result
+      result$
         ..add('OrganizationAggregationSource')
         ..add(serializers.serialize(
           organizationAggregationSource,
@@ -206,7 +208,7 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('Tags')
         ..add(serializers.serialize(
           tags,
@@ -216,6 +218,6 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

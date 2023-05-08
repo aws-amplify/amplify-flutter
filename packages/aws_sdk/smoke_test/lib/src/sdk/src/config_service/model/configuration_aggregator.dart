@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.configuration_aggregator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -200,11 +201,10 @@ class ConfigurationAggregatorAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConfigurationAggregator object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConfigurationAggregator);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ConfigurationAggregator(
       :configurationAggregatorName,
       :configurationAggregatorArn,
@@ -213,9 +213,9 @@ class ConfigurationAggregatorAwsJson11Serializer
       :creationTime,
       :lastUpdatedTime,
       :createdBy
-    ) = payload;
+    ) = object;
     if (configurationAggregatorName != null) {
-      result
+      result$
         ..add('ConfigurationAggregatorName')
         ..add(serializers.serialize(
           configurationAggregatorName,
@@ -223,7 +223,7 @@ class ConfigurationAggregatorAwsJson11Serializer
         ));
     }
     if (configurationAggregatorArn != null) {
-      result
+      result$
         ..add('ConfigurationAggregatorArn')
         ..add(serializers.serialize(
           configurationAggregatorArn,
@@ -231,7 +231,7 @@ class ConfigurationAggregatorAwsJson11Serializer
         ));
     }
     if (accountAggregationSources != null) {
-      result
+      result$
         ..add('AccountAggregationSources')
         ..add(serializers.serialize(
           accountAggregationSources,
@@ -242,7 +242,7 @@ class ConfigurationAggregatorAwsJson11Serializer
         ));
     }
     if (organizationAggregationSource != null) {
-      result
+      result$
         ..add('OrganizationAggregationSource')
         ..add(serializers.serialize(
           organizationAggregationSource,
@@ -250,7 +250,7 @@ class ConfigurationAggregatorAwsJson11Serializer
         ));
     }
     if (creationTime != null) {
-      result
+      result$
         ..add('CreationTime')
         ..add(serializers.serialize(
           creationTime,
@@ -258,7 +258,7 @@ class ConfigurationAggregatorAwsJson11Serializer
         ));
     }
     if (lastUpdatedTime != null) {
-      result
+      result$
         ..add('LastUpdatedTime')
         ..add(serializers.serialize(
           lastUpdatedTime,
@@ -266,13 +266,13 @@ class ConfigurationAggregatorAwsJson11Serializer
         ));
     }
     if (createdBy != null) {
-      result
+      result$
         ..add('CreatedBy')
         ..add(serializers.serialize(
           createdBy,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

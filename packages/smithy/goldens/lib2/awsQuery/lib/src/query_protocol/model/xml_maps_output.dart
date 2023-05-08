@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v2.query_protocol.model.xml_maps_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -106,19 +107,18 @@ class XmlMapsOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlMapsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlMapsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'XmlMapsOutputResponse',
         _i4.XmlNamespace('https://example.com/'),
       )
     ];
-    final XmlMapsOutput(:myMap) = payload;
+    final XmlMapsOutput(:myMap) = object;
     if (myMap != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('myMap'))
         ..add(
             const _i4.XmlBuiltMapSerializer(indexer: _i4.XmlIndexer.awsQueryMap)
@@ -134,6 +134,6 @@ class XmlMapsOutputAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

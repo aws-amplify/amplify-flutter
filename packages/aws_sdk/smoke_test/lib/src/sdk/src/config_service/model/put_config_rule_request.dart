@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_config_rule_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -130,20 +131,20 @@ class PutConfigRuleRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutConfigRuleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutConfigRuleRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutConfigRuleRequest(:configRule, :tags) = object;
+    result$.addAll([
       'ConfigRule',
       serializers.serialize(
-        payload.configRule,
+        configRule,
         specifiedType: const FullType(_i3.ConfigRule),
       ),
-    ];
-    final PutConfigRuleRequest(:tags) = payload;
+    ]);
     if (tags != null) {
-      result
+      result$
         ..add('Tags')
         ..add(serializers.serialize(
           tags,
@@ -153,6 +154,6 @@ class PutConfigRuleRequestAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

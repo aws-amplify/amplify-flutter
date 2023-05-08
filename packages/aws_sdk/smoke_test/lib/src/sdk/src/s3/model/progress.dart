@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.progress; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -128,19 +129,18 @@ class ProgressRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Progress object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Progress);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'Progress',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final Progress(:bytesProcessed, :bytesReturned, :bytesScanned) = payload;
+    final Progress(:bytesProcessed, :bytesReturned, :bytesScanned) = object;
     if (bytesProcessed != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('BytesProcessed'))
         ..add(serializers.serialize(
           bytesProcessed,
@@ -148,7 +148,7 @@ class ProgressRestXmlSerializer
         ));
     }
     if (bytesReturned != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('BytesReturned'))
         ..add(serializers.serialize(
           bytesReturned,
@@ -156,13 +156,13 @@ class ProgressRestXmlSerializer
         ));
     }
     if (bytesScanned != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('BytesScanned'))
         ..add(serializers.serialize(
           bytesScanned,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.sts.model.get_federation_token_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -142,11 +143,10 @@ class GetFederationTokenResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetFederationTokenResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetFederationTokenResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'GetFederationTokenResponseResponse',
         _i4.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
@@ -156,9 +156,9 @@ class GetFederationTokenResponseAwsQuerySerializer
       :credentials,
       :federatedUser,
       :packedPolicySize
-    ) = payload;
+    ) = object;
     if (credentials != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Credentials'))
         ..add(serializers.serialize(
           credentials,
@@ -166,7 +166,7 @@ class GetFederationTokenResponseAwsQuerySerializer
         ));
     }
     if (federatedUser != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('FederatedUser'))
         ..add(serializers.serialize(
           federatedUser,
@@ -174,13 +174,13 @@ class GetFederationTokenResponseAwsQuerySerializer
         ));
     }
     if (packedPolicySize != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PackedPolicySize'))
         ..add(serializers.serialize(
           packedPolicySize,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.list_aggregate_discovered_resources_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -131,17 +132,16 @@ class ListAggregateDiscoveredResourcesResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListAggregateDiscoveredResourcesResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListAggregateDiscoveredResourcesResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ListAggregateDiscoveredResourcesResponse(
       :resourceIdentifiers,
       :nextToken
-    ) = payload;
+    ) = object;
     if (resourceIdentifiers != null) {
-      result
+      result$
         ..add('ResourceIdentifiers')
         ..add(serializers.serialize(
           resourceIdentifiers,
@@ -152,13 +152,13 @@ class ListAggregateDiscoveredResourcesResponseAwsJson11Serializer extends _i4
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

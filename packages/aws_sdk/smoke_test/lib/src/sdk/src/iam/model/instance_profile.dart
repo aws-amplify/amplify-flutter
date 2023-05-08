@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.instance_profile; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -233,11 +234,10 @@ class InstanceProfileAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InstanceProfile object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InstanceProfile);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'InstanceProfileResponse',
         _i5.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -251,38 +251,38 @@ class InstanceProfileAwsQuerySerializer
       :createDate,
       :roles,
       :tags
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i5.XmlElementName('Path'))
       ..add(serializers.serialize(
         path,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('InstanceProfileName'))
       ..add(serializers.serialize(
         instanceProfileName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('InstanceProfileId'))
       ..add(serializers.serialize(
         instanceProfileId,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('Arn'))
       ..add(serializers.serialize(
         arn,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
         createDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('Roles'))
       ..add(
           const _i5.XmlBuiltListSerializer(indexer: _i5.XmlIndexer.awsQueryList)
@@ -295,7 +295,7 @@ class InstanceProfileAwsQuerySerializer
         ),
       ));
     if (tags != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Tags'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
@@ -308,6 +308,6 @@ class InstanceProfileAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

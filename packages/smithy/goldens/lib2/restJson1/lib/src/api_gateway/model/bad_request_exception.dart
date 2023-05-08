@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.api_gateway.model.bad_request_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -115,20 +116,19 @@ class BadRequestExceptionRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BadRequestException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BadRequestException);
-    final result = <Object?>[];
-    final BadRequestException(:message) = payload;
+    final result$ = <Object?>[];
+    final BadRequestException(:message) = object;
     if (message != null) {
-      result
+      result$
         ..add('message')
         ..add(serializers.serialize(
           message,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.integration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -358,11 +359,10 @@ class IntegrationRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Integration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Integration);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final Integration(
       :cacheKeyParameters,
       :cacheNamespace,
@@ -379,9 +379,9 @@ class IntegrationRestJson1Serializer
       :tlsConfig,
       :type,
       :uri
-    ) = payload;
+    ) = object;
     if (cacheKeyParameters != null) {
-      result
+      result$
         ..add('cacheKeyParameters')
         ..add(serializers.serialize(
           cacheKeyParameters,
@@ -392,7 +392,7 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (cacheNamespace != null) {
-      result
+      result$
         ..add('cacheNamespace')
         ..add(serializers.serialize(
           cacheNamespace,
@@ -400,7 +400,7 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (connectionId != null) {
-      result
+      result$
         ..add('connectionId')
         ..add(serializers.serialize(
           connectionId,
@@ -408,7 +408,7 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (connectionType != null) {
-      result
+      result$
         ..add('connectionType')
         ..add(serializers.serialize(
           connectionType,
@@ -416,7 +416,7 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (contentHandling != null) {
-      result
+      result$
         ..add('contentHandling')
         ..add(serializers.serialize(
           contentHandling,
@@ -424,7 +424,7 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (credentials != null) {
-      result
+      result$
         ..add('credentials')
         ..add(serializers.serialize(
           credentials,
@@ -432,7 +432,7 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (httpMethod != null) {
-      result
+      result$
         ..add('httpMethod')
         ..add(serializers.serialize(
           httpMethod,
@@ -440,7 +440,7 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (integrationResponses != null) {
-      result
+      result$
         ..add('integrationResponses')
         ..add(serializers.serialize(
           integrationResponses,
@@ -454,7 +454,7 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (passthroughBehavior != null) {
-      result
+      result$
         ..add('passthroughBehavior')
         ..add(serializers.serialize(
           passthroughBehavior,
@@ -462,7 +462,7 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (requestParameters != null) {
-      result
+      result$
         ..add('requestParameters')
         ..add(serializers.serialize(
           requestParameters,
@@ -476,7 +476,7 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (requestTemplates != null) {
-      result
+      result$
         ..add('requestTemplates')
         ..add(serializers.serialize(
           requestTemplates,
@@ -490,7 +490,7 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (timeoutInMillis != null) {
-      result
+      result$
         ..add('timeoutInMillis')
         ..add(serializers.serialize(
           timeoutInMillis,
@@ -498,7 +498,7 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (tlsConfig != null) {
-      result
+      result$
         ..add('tlsConfig')
         ..add(serializers.serialize(
           tlsConfig,
@@ -506,7 +506,7 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (type != null) {
-      result
+      result$
         ..add('type')
         ..add(serializers.serialize(
           type,
@@ -514,13 +514,13 @@ class IntegrationRestJson1Serializer
         ));
     }
     if (uri != null) {
-      result
+      result$
         ..add('uri')
         ..add(serializers.serialize(
           uri,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

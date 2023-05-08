@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.create_deployment_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -374,13 +375,10 @@ class CreateDeploymentRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateDeploymentRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is CreateDeploymentRequest
-        ? object.getPayload()
-        : (object as CreateDeploymentRequestPayload);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final CreateDeploymentRequestPayload(
       :cacheClusterEnabled,
       :cacheClusterSize,
@@ -390,9 +388,9 @@ class CreateDeploymentRequestRestJson1Serializer
       :stageName,
       :tracingEnabled,
       :variables
-    ) = payload;
+    ) = object;
     if (cacheClusterEnabled != null) {
-      result
+      result$
         ..add('cacheClusterEnabled')
         ..add(serializers.serialize(
           cacheClusterEnabled,
@@ -400,7 +398,7 @@ class CreateDeploymentRequestRestJson1Serializer
         ));
     }
     if (cacheClusterSize != null) {
-      result
+      result$
         ..add('cacheClusterSize')
         ..add(serializers.serialize(
           cacheClusterSize,
@@ -408,7 +406,7 @@ class CreateDeploymentRequestRestJson1Serializer
         ));
     }
     if (canarySettings != null) {
-      result
+      result$
         ..add('canarySettings')
         ..add(serializers.serialize(
           canarySettings,
@@ -416,7 +414,7 @@ class CreateDeploymentRequestRestJson1Serializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -424,7 +422,7 @@ class CreateDeploymentRequestRestJson1Serializer
         ));
     }
     if (stageDescription != null) {
-      result
+      result$
         ..add('stageDescription')
         ..add(serializers.serialize(
           stageDescription,
@@ -432,7 +430,7 @@ class CreateDeploymentRequestRestJson1Serializer
         ));
     }
     if (stageName != null) {
-      result
+      result$
         ..add('stageName')
         ..add(serializers.serialize(
           stageName,
@@ -440,7 +438,7 @@ class CreateDeploymentRequestRestJson1Serializer
         ));
     }
     if (tracingEnabled != null) {
-      result
+      result$
         ..add('tracingEnabled')
         ..add(serializers.serialize(
           tracingEnabled,
@@ -448,7 +446,7 @@ class CreateDeploymentRequestRestJson1Serializer
         ));
     }
     if (variables != null) {
-      result
+      result$
         ..add('variables')
         ..add(serializers.serialize(
           variables,
@@ -461,6 +459,6 @@ class CreateDeploymentRequestRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

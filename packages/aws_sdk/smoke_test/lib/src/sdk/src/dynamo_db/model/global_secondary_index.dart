@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.global_secondary_index; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -165,19 +166,25 @@ class GlobalSecondaryIndexAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GlobalSecondaryIndex object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GlobalSecondaryIndex);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GlobalSecondaryIndex(
+      :indexName,
+      :keySchema,
+      :projection,
+      :provisionedThroughput
+    ) = object;
+    result$.addAll([
       'IndexName',
       serializers.serialize(
-        payload.indexName,
+        indexName,
         specifiedType: const FullType(String),
       ),
       'KeySchema',
       serializers.serialize(
-        payload.keySchema,
+        keySchema,
         specifiedType: const FullType(
           _i5.BuiltList,
           [FullType(_i2.KeySchemaElement)],
@@ -185,19 +192,18 @@ class GlobalSecondaryIndexAwsJson10Serializer
       ),
       'Projection',
       serializers.serialize(
-        payload.projection,
+        projection,
         specifiedType: const FullType(_i3.Projection),
       ),
-    ];
-    final GlobalSecondaryIndex(:provisionedThroughput) = payload;
+    ]);
     if (provisionedThroughput != null) {
-      result
+      result$
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
           provisionedThroughput,
           specifiedType: const FullType(_i4.ProvisionedThroughput),
         ));
     }
-    return result;
+    return result$;
   }
 }

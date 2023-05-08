@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.lifecycle_expiration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -129,20 +130,19 @@ class LifecycleExpirationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    LifecycleExpiration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as LifecycleExpiration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'LifecycleExpiration',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final LifecycleExpiration(:date, :days, :expiredObjectDeleteMarker) =
-        payload;
+        object;
     if (date != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Date'))
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
@@ -150,7 +150,7 @@ class LifecycleExpirationRestXmlSerializer
         ));
     }
     if (days != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Days'))
         ..add(serializers.serialize(
           days,
@@ -158,13 +158,13 @@ class LifecycleExpirationRestXmlSerializer
         ));
     }
     if (expiredObjectDeleteMarker != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ExpiredObjectDeleteMarker'))
         ..add(serializers.serialize(
           expiredObjectDeleteMarker,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

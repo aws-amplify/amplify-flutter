@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.property_difference; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -152,11 +153,10 @@ class PropertyDifferenceAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PropertyDifference object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PropertyDifference);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'PropertyDifferenceResponse',
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -167,31 +167,31 @@ class PropertyDifferenceAwsQuerySerializer
       :expectedValue,
       :actualValue,
       :differenceType
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i3.XmlElementName('PropertyPath'))
       ..add(serializers.serialize(
         propertyPath,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('ExpectedValue'))
       ..add(serializers.serialize(
         expectedValue,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('ActualValue'))
       ..add(serializers.serialize(
         actualValue,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('DifferenceType'))
       ..add(serializers.serialize(
         differenceType,
         specifiedType: const FullType.nullable(_i2.DifferenceType),
       ));
-    return result;
+    return result$;
   }
 }

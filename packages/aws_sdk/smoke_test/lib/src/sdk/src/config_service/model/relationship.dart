@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.relationship; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -145,19 +146,18 @@ class RelationshipAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Relationship object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Relationship);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final Relationship(
       :resourceType,
       :resourceId,
       :resourceName,
       :relationshipName
-    ) = payload;
+    ) = object;
     if (resourceType != null) {
-      result
+      result$
         ..add('resourceType')
         ..add(serializers.serialize(
           resourceType,
@@ -165,7 +165,7 @@ class RelationshipAwsJson11Serializer
         ));
     }
     if (resourceId != null) {
-      result
+      result$
         ..add('resourceId')
         ..add(serializers.serialize(
           resourceId,
@@ -173,7 +173,7 @@ class RelationshipAwsJson11Serializer
         ));
     }
     if (resourceName != null) {
-      result
+      result$
         ..add('resourceName')
         ..add(serializers.serialize(
           resourceName,
@@ -181,13 +181,13 @@ class RelationshipAwsJson11Serializer
         ));
     }
     if (relationshipName != null) {
-      result
+      result$
         ..add('relationshipName')
         ..add(serializers.serialize(
           relationshipName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.create_instance_profile_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -106,23 +107,22 @@ class CreateInstanceProfileResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateInstanceProfileResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateInstanceProfileResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'CreateInstanceProfileResponseResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final CreateInstanceProfileResponse(:instanceProfile) = payload;
-    result
+    final CreateInstanceProfileResponse(:instanceProfile) = object;
+    result$
       ..add(const _i3.XmlElementName('InstanceProfile'))
       ..add(serializers.serialize(
         instanceProfile,
         specifiedType: const FullType(_i2.InstanceProfile),
       ));
-    return result;
+    return result$;
   }
 }

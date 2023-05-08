@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.upload_part_copy_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -247,21 +248,15 @@ class UploadPartCopyOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i3.CopyPartResult object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UploadPartCopyOutput
-        ? object.getPayload()
-        : (object as _i3.CopyPartResult?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'CopyPartResult',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
     final _i3.CopyPartResult(
       :eTag,
       :lastModified,
@@ -269,9 +264,9 @@ class UploadPartCopyOutputRestXmlSerializer
       :checksumCrc32C,
       :checksumSha1,
       :checksumSha256
-    ) = payload;
+    ) = object;
     if (eTag != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ETag'))
         ..add(serializers.serialize(
           eTag,
@@ -279,7 +274,7 @@ class UploadPartCopyOutputRestXmlSerializer
         ));
     }
     if (lastModified != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
@@ -287,7 +282,7 @@ class UploadPartCopyOutputRestXmlSerializer
         ));
     }
     if (checksumCrc32 != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ChecksumCRC32'))
         ..add(serializers.serialize(
           checksumCrc32,
@@ -295,7 +290,7 @@ class UploadPartCopyOutputRestXmlSerializer
         ));
     }
     if (checksumCrc32C != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ChecksumCRC32C'))
         ..add(serializers.serialize(
           checksumCrc32C,
@@ -303,7 +298,7 @@ class UploadPartCopyOutputRestXmlSerializer
         ));
     }
     if (checksumSha1 != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ChecksumSHA1'))
         ..add(serializers.serialize(
           checksumSha1,
@@ -311,13 +306,13 @@ class UploadPartCopyOutputRestXmlSerializer
         ));
     }
     if (checksumSha256 != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ChecksumSHA256'))
         ..add(serializers.serialize(
           checksumSha256,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

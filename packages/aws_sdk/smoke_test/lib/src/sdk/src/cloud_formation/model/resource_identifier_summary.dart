@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.resource_identifier_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -147,11 +148,10 @@ class ResourceIdentifierSummaryAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ResourceIdentifierSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ResourceIdentifierSummary);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ResourceIdentifierSummaryResponse',
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -161,9 +161,9 @@ class ResourceIdentifierSummaryAwsQuerySerializer
       :resourceType,
       :logicalResourceIds,
       :resourceIdentifiers
-    ) = payload;
+    ) = object;
     if (resourceType != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
@@ -171,7 +171,7 @@ class ResourceIdentifierSummaryAwsQuerySerializer
         ));
     }
     if (logicalResourceIds != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('LogicalResourceIds'))
         ..add(const _i3.XmlBuiltListSerializer(
                 indexer: _i3.XmlIndexer.awsQueryList)
@@ -185,7 +185,7 @@ class ResourceIdentifierSummaryAwsQuerySerializer
         ));
     }
     if (resourceIdentifiers != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ResourceIdentifiers'))
         ..add(const _i3.XmlBuiltListSerializer(
                 indexer: _i3.XmlIndexer.awsQueryList)
@@ -198,6 +198,6 @@ class ResourceIdentifierSummaryAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

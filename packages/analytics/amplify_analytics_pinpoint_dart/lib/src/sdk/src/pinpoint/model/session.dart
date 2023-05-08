@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.session; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -145,36 +146,36 @@ class SessionRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Session object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Session);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final Session(:duration, :id, :startTimestamp, :stopTimestamp) = object;
+    result$.addAll([
       'Duration',
       serializers.serialize(
-        payload.duration,
+        duration,
         specifiedType: const FullType(int),
       ),
       'Id',
       serializers.serialize(
-        payload.id,
+        id,
         specifiedType: const FullType(String),
       ),
       'StartTimestamp',
       serializers.serialize(
-        payload.startTimestamp,
+        startTimestamp,
         specifiedType: const FullType(String),
       ),
-    ];
-    final Session(:stopTimestamp) = payload;
+    ]);
     if (stopTimestamp != null) {
-      result
+      result$
         ..add('StopTimestamp')
         ..add(serializers.serialize(
           stopTimestamp,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

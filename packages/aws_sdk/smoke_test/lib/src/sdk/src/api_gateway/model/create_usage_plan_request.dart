@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.create_usage_plan_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -201,26 +202,27 @@ class CreateUsagePlanRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateUsagePlanRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateUsagePlanRequest);
-    final result = <Object?>[
-      'name',
-      serializers.serialize(
-        payload.name,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final CreateUsagePlanRequest(
       :apiStages,
       :description,
+      :name,
       :quota,
       :tags,
       :throttle
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'name',
+      serializers.serialize(
+        name,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (apiStages != null) {
-      result
+      result$
         ..add('apiStages')
         ..add(serializers.serialize(
           apiStages,
@@ -231,7 +233,7 @@ class CreateUsagePlanRequestRestJson1Serializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -239,7 +241,7 @@ class CreateUsagePlanRequestRestJson1Serializer
         ));
     }
     if (quota != null) {
-      result
+      result$
         ..add('quota')
         ..add(serializers.serialize(
           quota,
@@ -247,7 +249,7 @@ class CreateUsagePlanRequestRestJson1Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('tags')
         ..add(serializers.serialize(
           tags,
@@ -261,13 +263,13 @@ class CreateUsagePlanRequestRestJson1Serializer
         ));
     }
     if (throttle != null) {
-      result
+      result$
         ..add('throttle')
         ..add(serializers.serialize(
           throttle,
           specifiedType: const FullType(_i4.ThrottleSettings),
         ));
     }
-    return result;
+    return result$;
   }
 }

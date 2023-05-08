@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.api_key; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -248,11 +249,10 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ApiKey object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ApiKey);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ApiKey(
       :createdDate,
       :customerId,
@@ -264,9 +264,9 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
       :stageKeys,
       :tags,
       :value
-    ) = payload;
+    ) = object;
     if (createdDate != null) {
-      result
+      result$
         ..add('createdDate')
         ..add(serializers.serialize(
           createdDate,
@@ -274,7 +274,7 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
         ));
     }
     if (customerId != null) {
-      result
+      result$
         ..add('customerId')
         ..add(serializers.serialize(
           customerId,
@@ -282,7 +282,7 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -290,7 +290,7 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
         ));
     }
     if (enabled != null) {
-      result
+      result$
         ..add('enabled')
         ..add(serializers.serialize(
           enabled,
@@ -298,7 +298,7 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add('id')
         ..add(serializers.serialize(
           id,
@@ -306,7 +306,7 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
         ));
     }
     if (lastUpdatedDate != null) {
-      result
+      result$
         ..add('lastUpdatedDate')
         ..add(serializers.serialize(
           lastUpdatedDate,
@@ -314,7 +314,7 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add('name')
         ..add(serializers.serialize(
           name,
@@ -322,7 +322,7 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
         ));
     }
     if (stageKeys != null) {
-      result
+      result$
         ..add('stageKeys')
         ..add(serializers.serialize(
           stageKeys,
@@ -333,7 +333,7 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('tags')
         ..add(serializers.serialize(
           tags,
@@ -347,13 +347,13 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
         ));
     }
     if (value != null) {
-      result
+      result$
         ..add('value')
         ..add(serializers.serialize(
           value,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

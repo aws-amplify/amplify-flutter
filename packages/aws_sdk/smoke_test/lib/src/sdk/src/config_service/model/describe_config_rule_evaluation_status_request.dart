@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_config_rule_evaluation_status_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -150,18 +151,17 @@ class DescribeConfigRuleEvaluationStatusRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeConfigRuleEvaluationStatusRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeConfigRuleEvaluationStatusRequest);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final DescribeConfigRuleEvaluationStatusRequest(
       :configRuleNames,
       :nextToken,
       :limit
-    ) = payload;
+    ) = object;
     if (configRuleNames != null) {
-      result
+      result$
         ..add('ConfigRuleNames')
         ..add(serializers.serialize(
           configRuleNames,
@@ -172,7 +172,7 @@ class DescribeConfigRuleEvaluationStatusRequestAwsJson11Serializer extends _i1
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
@@ -180,13 +180,13 @@ class DescribeConfigRuleEvaluationStatusRequestAwsJson11Serializer extends _i1
         ));
     }
     if (limit != null) {
-      result
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
           limit,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.inventory_encryption; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,19 +117,18 @@ class InventoryEncryptionRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InventoryEncryption object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InventoryEncryption);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'InventoryEncryption',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final InventoryEncryption(:ssekms, :sses3) = payload;
+    final InventoryEncryption(:ssekms, :sses3) = object;
     if (ssekms != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('SSE-KMS'))
         ..add(serializers.serialize(
           ssekms,
@@ -136,13 +136,13 @@ class InventoryEncryptionRestXmlSerializer
         ));
     }
     if (sses3 != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('SSE-S3'))
         ..add(serializers.serialize(
           sses3,
           specifiedType: const FullType(_i2.Sses3),
         ));
     }
-    return result;
+    return result$;
   }
 }

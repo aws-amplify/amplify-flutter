@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.put_object_retention_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -254,24 +255,18 @@ class PutObjectRetentionRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.ObjectLockRetention object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutObjectRetentionRequest
-        ? object.getPayload()
-        : (object as _i2.ObjectLockRetention?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'Retention',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
-    final _i2.ObjectLockRetention(:mode, :retainUntilDate) = payload;
+    final _i2.ObjectLockRetention(:mode, :retainUntilDate) = object;
     if (mode != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Mode'))
         ..add(serializers.serialize(
           mode,
@@ -279,13 +274,13 @@ class PutObjectRetentionRequestRestXmlSerializer
         ));
     }
     if (retainUntilDate != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('RetainUntilDate'))
         ..add(_i1.TimestampSerializer.dateTime.serialize(
           serializers,
           retainUntilDate,
         ));
     }
-    return result;
+    return result$;
   }
 }

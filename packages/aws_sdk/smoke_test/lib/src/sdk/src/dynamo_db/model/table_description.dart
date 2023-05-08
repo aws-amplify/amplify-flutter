@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.table_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -569,11 +570,10 @@ class TableDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TableDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TableDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final TableDescription(
       :attributeDefinitions,
       :tableName,
@@ -597,9 +597,9 @@ class TableDescriptionAwsJson10Serializer
       :sseDescription,
       :archivalSummary,
       :tableClassSummary
-    ) = payload;
+    ) = object;
     if (attributeDefinitions != null) {
-      result
+      result$
         ..add('AttributeDefinitions')
         ..add(serializers.serialize(
           attributeDefinitions,
@@ -610,7 +610,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (tableName != null) {
-      result
+      result$
         ..add('TableName')
         ..add(serializers.serialize(
           tableName,
@@ -618,7 +618,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (keySchema != null) {
-      result
+      result$
         ..add('KeySchema')
         ..add(serializers.serialize(
           keySchema,
@@ -629,7 +629,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (tableStatus != null) {
-      result
+      result$
         ..add('TableStatus')
         ..add(serializers.serialize(
           tableStatus,
@@ -637,7 +637,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (creationDateTime != null) {
-      result
+      result$
         ..add('CreationDateTime')
         ..add(serializers.serialize(
           creationDateTime,
@@ -645,7 +645,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (provisionedThroughput != null) {
-      result
+      result$
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
           provisionedThroughput,
@@ -653,7 +653,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (tableSizeBytes != null) {
-      result
+      result$
         ..add('TableSizeBytes')
         ..add(serializers.serialize(
           tableSizeBytes,
@@ -661,7 +661,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (itemCount != null) {
-      result
+      result$
         ..add('ItemCount')
         ..add(serializers.serialize(
           itemCount,
@@ -669,7 +669,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (tableArn != null) {
-      result
+      result$
         ..add('TableArn')
         ..add(serializers.serialize(
           tableArn,
@@ -677,7 +677,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (tableId != null) {
-      result
+      result$
         ..add('TableId')
         ..add(serializers.serialize(
           tableId,
@@ -685,7 +685,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (billingModeSummary != null) {
-      result
+      result$
         ..add('BillingModeSummary')
         ..add(serializers.serialize(
           billingModeSummary,
@@ -693,7 +693,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (localSecondaryIndexes != null) {
-      result
+      result$
         ..add('LocalSecondaryIndexes')
         ..add(serializers.serialize(
           localSecondaryIndexes,
@@ -704,7 +704,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (globalSecondaryIndexes != null) {
-      result
+      result$
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
           globalSecondaryIndexes,
@@ -715,7 +715,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (streamSpecification != null) {
-      result
+      result$
         ..add('StreamSpecification')
         ..add(serializers.serialize(
           streamSpecification,
@@ -723,7 +723,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (latestStreamLabel != null) {
-      result
+      result$
         ..add('LatestStreamLabel')
         ..add(serializers.serialize(
           latestStreamLabel,
@@ -731,7 +731,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (latestStreamArn != null) {
-      result
+      result$
         ..add('LatestStreamArn')
         ..add(serializers.serialize(
           latestStreamArn,
@@ -739,7 +739,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (globalTableVersion != null) {
-      result
+      result$
         ..add('GlobalTableVersion')
         ..add(serializers.serialize(
           globalTableVersion,
@@ -747,7 +747,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (replicas != null) {
-      result
+      result$
         ..add('Replicas')
         ..add(serializers.serialize(
           replicas,
@@ -758,7 +758,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (restoreSummary != null) {
-      result
+      result$
         ..add('RestoreSummary')
         ..add(serializers.serialize(
           restoreSummary,
@@ -766,7 +766,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (sseDescription != null) {
-      result
+      result$
         ..add('SSEDescription')
         ..add(serializers.serialize(
           sseDescription,
@@ -774,7 +774,7 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (archivalSummary != null) {
-      result
+      result$
         ..add('ArchivalSummary')
         ..add(serializers.serialize(
           archivalSummary,
@@ -782,13 +782,13 @@ class TableDescriptionAwsJson10Serializer
         ));
     }
     if (tableClassSummary != null) {
-      result
+      result$
         ..add('TableClassSummary')
         ..add(serializers.serialize(
           tableClassSummary,
           specifiedType: const FullType(_i15.TableClassSummary),
         ));
     }
-    return result;
+    return result$;
   }
 }

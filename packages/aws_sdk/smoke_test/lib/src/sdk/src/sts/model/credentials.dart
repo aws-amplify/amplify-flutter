@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.sts.model.credentials; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -143,11 +144,10 @@ class CredentialsAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Credentials object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Credentials);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'CredentialsResponse',
         _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
@@ -158,31 +158,31 @@ class CredentialsAwsQuerySerializer
       :secretAccessKey,
       :sessionToken,
       :expiration
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i2.XmlElementName('AccessKeyId'))
       ..add(serializers.serialize(
         accessKeyId,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('SecretAccessKey'))
       ..add(serializers.serialize(
         secretAccessKey,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('SessionToken'))
       ..add(serializers.serialize(
         sessionToken,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('Expiration'))
       ..add(serializers.serialize(
         expiration,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    return result;
+    return result$;
   }
 }

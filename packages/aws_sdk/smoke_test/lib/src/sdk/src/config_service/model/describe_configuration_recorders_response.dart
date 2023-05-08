@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_configuration_recorders_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -115,15 +116,14 @@ class DescribeConfigurationRecordersResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeConfigurationRecordersResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeConfigurationRecordersResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final DescribeConfigurationRecordersResponse(:configurationRecorders) =
-        payload;
+        object;
     if (configurationRecorders != null) {
-      result
+      result$
         ..add('ConfigurationRecorders')
         ..add(serializers.serialize(
           configurationRecorders,
@@ -133,6 +133,6 @@ class DescribeConfigurationRecordersResponseAwsJson11Serializer extends _i4
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

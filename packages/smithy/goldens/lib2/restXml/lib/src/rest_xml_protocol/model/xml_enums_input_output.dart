@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.xml_enums_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -197,11 +198,10 @@ class XmlEnumsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlEnumsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlEnumsInputOutput);
-    final result = <Object?>[const _i1.XmlElementName('XmlEnumsInputOutput')];
+    final result$ = <Object?>[const _i1.XmlElementName('XmlEnumsInputOutput')];
     final XmlEnumsInputOutput(
       :fooEnum1,
       :fooEnum2,
@@ -209,9 +209,9 @@ class XmlEnumsInputOutputRestXmlSerializer
       :fooEnumList,
       :fooEnumMap,
       :fooEnumSet
-    ) = payload;
+    ) = object;
     if (fooEnum1 != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('fooEnum1'))
         ..add(serializers.serialize(
           fooEnum1,
@@ -219,7 +219,7 @@ class XmlEnumsInputOutputRestXmlSerializer
         ));
     }
     if (fooEnum2 != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('fooEnum2'))
         ..add(serializers.serialize(
           fooEnum2,
@@ -227,7 +227,7 @@ class XmlEnumsInputOutputRestXmlSerializer
         ));
     }
     if (fooEnum3 != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('fooEnum3'))
         ..add(serializers.serialize(
           fooEnum3,
@@ -235,7 +235,7 @@ class XmlEnumsInputOutputRestXmlSerializer
         ));
     }
     if (fooEnumList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('fooEnumList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
@@ -247,7 +247,7 @@ class XmlEnumsInputOutputRestXmlSerializer
         ));
     }
     if (fooEnumMap != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('fooEnumMap'))
         ..add(const _i1.XmlBuiltMapSerializer().serialize(
           serializers,
@@ -262,7 +262,7 @@ class XmlEnumsInputOutputRestXmlSerializer
         ));
     }
     if (fooEnumSet != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('fooEnumSet'))
         ..add(const _i1.XmlBuiltSetSerializer().serialize(
           serializers,
@@ -273,6 +273,6 @@ class XmlEnumsInputOutputRestXmlSerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

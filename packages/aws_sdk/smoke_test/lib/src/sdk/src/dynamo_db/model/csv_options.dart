@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.csv_options; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -117,14 +118,13 @@ class CsvOptionsAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CsvOptions object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CsvOptions);
-    final result = <Object?>[];
-    final CsvOptions(:delimiter, :headerList) = payload;
+    final result$ = <Object?>[];
+    final CsvOptions(:delimiter, :headerList) = object;
     if (delimiter != null) {
-      result
+      result$
         ..add('Delimiter')
         ..add(serializers.serialize(
           delimiter,
@@ -132,7 +132,7 @@ class CsvOptionsAwsJson10Serializer
         ));
     }
     if (headerList != null) {
-      result
+      result$
         ..add('HeaderList')
         ..add(serializers.serialize(
           headerList,
@@ -142,6 +142,6 @@ class CsvOptionsAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.list_stacks_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -132,19 +133,18 @@ class ListStacksInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListStacksInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListStacksInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ListStacksInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final ListStacksInput(:nextToken, :stackStatusFilter) = payload;
+    final ListStacksInput(:nextToken, :stackStatusFilter) = object;
     if (nextToken != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
@@ -152,7 +152,7 @@ class ListStacksInputAwsQuerySerializer
         ));
     }
     if (stackStatusFilter != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('StackStatusFilter'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -165,6 +165,6 @@ class ListStacksInputAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

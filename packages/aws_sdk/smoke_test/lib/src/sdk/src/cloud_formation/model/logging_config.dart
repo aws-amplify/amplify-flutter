@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.logging_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -113,29 +114,28 @@ class LoggingConfigAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    LoggingConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as LoggingConfig);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'LoggingConfigResponse',
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final LoggingConfig(:logRoleArn, :logGroupName) = payload;
-    result
+    final LoggingConfig(:logRoleArn, :logGroupName) = object;
+    result$
       ..add(const _i2.XmlElementName('LogRoleArn'))
       ..add(serializers.serialize(
         logRoleArn,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('LogGroupName'))
       ..add(serializers.serialize(
         logGroupName,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

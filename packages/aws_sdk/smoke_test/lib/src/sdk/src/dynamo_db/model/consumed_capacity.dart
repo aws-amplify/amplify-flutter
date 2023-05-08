@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.consumed_capacity; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -206,11 +207,10 @@ class ConsumedCapacityAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConsumedCapacity object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConsumedCapacity);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ConsumedCapacity(
       :tableName,
       :capacityUnits,
@@ -219,9 +219,9 @@ class ConsumedCapacityAwsJson10Serializer
       :table,
       :localSecondaryIndexes,
       :globalSecondaryIndexes
-    ) = payload;
+    ) = object;
     if (tableName != null) {
-      result
+      result$
         ..add('TableName')
         ..add(serializers.serialize(
           tableName,
@@ -229,7 +229,7 @@ class ConsumedCapacityAwsJson10Serializer
         ));
     }
     if (capacityUnits != null) {
-      result
+      result$
         ..add('CapacityUnits')
         ..add(serializers.serialize(
           capacityUnits,
@@ -237,7 +237,7 @@ class ConsumedCapacityAwsJson10Serializer
         ));
     }
     if (readCapacityUnits != null) {
-      result
+      result$
         ..add('ReadCapacityUnits')
         ..add(serializers.serialize(
           readCapacityUnits,
@@ -245,7 +245,7 @@ class ConsumedCapacityAwsJson10Serializer
         ));
     }
     if (writeCapacityUnits != null) {
-      result
+      result$
         ..add('WriteCapacityUnits')
         ..add(serializers.serialize(
           writeCapacityUnits,
@@ -253,7 +253,7 @@ class ConsumedCapacityAwsJson10Serializer
         ));
     }
     if (table != null) {
-      result
+      result$
         ..add('Table')
         ..add(serializers.serialize(
           table,
@@ -261,7 +261,7 @@ class ConsumedCapacityAwsJson10Serializer
         ));
     }
     if (localSecondaryIndexes != null) {
-      result
+      result$
         ..add('LocalSecondaryIndexes')
         ..add(serializers.serialize(
           localSecondaryIndexes,
@@ -275,7 +275,7 @@ class ConsumedCapacityAwsJson10Serializer
         ));
     }
     if (globalSecondaryIndexes != null) {
-      result
+      result$
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
           globalSecondaryIndexes,
@@ -288,6 +288,6 @@ class ConsumedCapacityAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

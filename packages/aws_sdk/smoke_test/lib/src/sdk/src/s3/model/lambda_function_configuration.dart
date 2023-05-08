@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.lambda_function_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -150,11 +151,10 @@ class LambdaFunctionConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    LambdaFunctionConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as LambdaFunctionConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'LambdaFunctionConfiguration',
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -165,8 +165,8 @@ class LambdaFunctionConfigurationRestXmlSerializer
       :filter,
       :id,
       :lambdaFunctionArn
-    ) = payload;
-    result
+    ) = object;
+    result$
         .addAll(const _i5.XmlBuiltListSerializer(memberName: 'Event').serialize(
       serializers,
       events,
@@ -176,7 +176,7 @@ class LambdaFunctionConfigurationRestXmlSerializer
       ),
     ));
     if (filter != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Filter'))
         ..add(serializers.serialize(
           filter,
@@ -184,19 +184,19 @@ class LambdaFunctionConfigurationRestXmlSerializer
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Id'))
         ..add(serializers.serialize(
           id,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i5.XmlElementName('CloudFunction'))
       ..add(serializers.serialize(
         lambdaFunctionArn,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

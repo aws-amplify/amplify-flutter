@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.execute_statement_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -199,26 +200,27 @@ class ExecuteStatementInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ExecuteStatementInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ExecuteStatementInput);
-    final result = <Object?>[
-      'Statement',
-      serializers.serialize(
-        payload.statement,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final ExecuteStatementInput(
+      :statement,
       :parameters,
       :consistentRead,
       :nextToken,
       :returnConsumedCapacity,
       :limit
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'Statement',
+      serializers.serialize(
+        statement,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (parameters != null) {
-      result
+      result$
         ..add('Parameters')
         ..add(serializers.serialize(
           parameters,
@@ -229,7 +231,7 @@ class ExecuteStatementInputAwsJson10Serializer
         ));
     }
     if (consistentRead != null) {
-      result
+      result$
         ..add('ConsistentRead')
         ..add(serializers.serialize(
           consistentRead,
@@ -237,7 +239,7 @@ class ExecuteStatementInputAwsJson10Serializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
@@ -245,7 +247,7 @@ class ExecuteStatementInputAwsJson10Serializer
         ));
     }
     if (returnConsumedCapacity != null) {
-      result
+      result$
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
@@ -253,13 +255,13 @@ class ExecuteStatementInputAwsJson10Serializer
         ));
     }
     if (limit != null) {
-      result
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
           limit,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_global_secondary_index_settings_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -141,23 +142,24 @@ class ReplicaGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaGlobalSecondaryIndexSettingsUpdate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaGlobalSecondaryIndexSettingsUpdate);
-    final result = <Object?>[
-      'IndexName',
-      serializers.serialize(
-        payload.indexName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final ReplicaGlobalSecondaryIndexSettingsUpdate(
+      :indexName,
       :provisionedReadCapacityUnits,
       :provisionedReadCapacityAutoScalingSettingsUpdate
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'IndexName',
+      serializers.serialize(
+        indexName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (provisionedReadCapacityUnits != null) {
-      result
+      result$
         ..add('ProvisionedReadCapacityUnits')
         ..add(serializers.serialize(
           provisionedReadCapacityUnits,
@@ -165,13 +167,13 @@ class ReplicaGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer extends _i4
         ));
     }
     if (provisionedReadCapacityAutoScalingSettingsUpdate != null) {
-      result
+      result$
         ..add('ProvisionedReadCapacityAutoScalingSettingsUpdate')
         ..add(serializers.serialize(
           provisionedReadCapacityAutoScalingSettingsUpdate,
           specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
         ));
     }
-    return result;
+    return result$;
   }
 }

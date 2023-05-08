@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.add_client_id_to_open_id_connect_provider_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -126,11 +127,10 @@ class AddClientIdToOpenIdConnectProviderRequestAwsQuerySerializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AddClientIdToOpenIdConnectProviderRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AddClientIdToOpenIdConnectProviderRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'AddClientIdToOpenIdConnectProviderRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -139,19 +139,19 @@ class AddClientIdToOpenIdConnectProviderRequestAwsQuerySerializer extends _i1
     final AddClientIdToOpenIdConnectProviderRequest(
       :openIdConnectProviderArn,
       :clientId
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('OpenIDConnectProviderArn'))
       ..add(serializers.serialize(
         openIdConnectProviderArn,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('ClientID'))
       ..add(serializers.serialize(
         clientId,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

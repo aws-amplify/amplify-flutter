@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_with_namespace_v1.rest_xml_protocol_namespace.model.nested_with_namespace; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -89,19 +90,18 @@ class NestedWithNamespaceRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    NestedWithNamespace object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as NestedWithNamespace);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'NestedWithNamespace',
         _i2.XmlNamespace('https://example.com'),
       )
     ];
-    final NestedWithNamespace(:attrField) = payload;
+    final NestedWithNamespace(:attrField) = object;
     if (attrField != null) {
-      result.add(_i3.XmlAttribute(
+      result$.add(_i3.XmlAttribute(
         _i3.XmlName('xsi:someName'),
         (serializers.serialize(
           attrField,
@@ -109,6 +109,6 @@ class NestedWithNamespaceRestXmlSerializer
         ) as String),
       ));
     }
-    return result;
+    return result$;
   }
 }

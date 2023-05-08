@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.analytics_s3_bucket_destination; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -152,11 +153,10 @@ class AnalyticsS3BucketDestinationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AnalyticsS3BucketDestination object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AnalyticsS3BucketDestination);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'AnalyticsS3BucketDestination',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -167,35 +167,35 @@ class AnalyticsS3BucketDestinationRestXmlSerializer
       :bucketAccountId,
       :format,
       :prefix
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i3.XmlElementName('Bucket'))
       ..add(serializers.serialize(
         bucket,
         specifiedType: const FullType(String),
       ));
     if (bucketAccountId != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('BucketAccountId'))
         ..add(serializers.serialize(
           bucketAccountId,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i3.XmlElementName('Format'))
       ..add(serializers.serialize(
         format,
         specifiedType: const FullType.nullable(_i2.AnalyticsS3ExportFileFormat),
       ));
     if (prefix != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v2.json_protocol.model.complex_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -140,14 +141,13 @@ class ComplexErrorAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ComplexError object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ComplexError);
-    final result = <Object?>[];
-    final ComplexError(:topLevel, :nested) = payload;
+    final result$ = <Object?>[];
+    final ComplexError(:topLevel, :nested) = object;
     if (topLevel != null) {
-      result
+      result$
         ..add('TopLevel')
         ..add(serializers.serialize(
           topLevel,
@@ -155,13 +155,13 @@ class ComplexErrorAwsJson11Serializer
         ));
     }
     if (nested != null) {
-      result
+      result$
         ..add('Nested')
         ..add(serializers.serialize(
           nested,
           specifiedType: const FullType(_i3.ComplexNestedErrorData),
         ));
     }
-    return result;
+    return result$;
   }
 }

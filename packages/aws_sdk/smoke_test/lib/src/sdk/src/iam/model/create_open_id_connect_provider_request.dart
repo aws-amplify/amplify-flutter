@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.create_open_id_connect_provider_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -190,11 +191,10 @@ class CreateOpenIdConnectProviderRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateOpenIdConnectProviderRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateOpenIdConnectProviderRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'CreateOpenIdConnectProviderRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -205,15 +205,15 @@ class CreateOpenIdConnectProviderRequestAwsQuerySerializer
       :clientIdList,
       :thumbprintList,
       :tags
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('Url'))
       ..add(serializers.serialize(
         url,
         specifiedType: const FullType(String),
       ));
     if (clientIdList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ClientIDList'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -226,7 +226,7 @@ class CreateOpenIdConnectProviderRequestAwsQuerySerializer
           ),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('ThumbprintList'))
       ..add(
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
@@ -239,7 +239,7 @@ class CreateOpenIdConnectProviderRequestAwsQuerySerializer
         ),
       ));
     if (tags != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -252,6 +252,6 @@ class CreateOpenIdConnectProviderRequestAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

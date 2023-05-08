@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_validation_protocol.model.malformed_pattern_override_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -159,14 +160,13 @@ class MalformedPatternOverrideInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedPatternOverrideInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MalformedPatternOverrideInput);
-    final result = <Object?>[];
-    final MalformedPatternOverrideInput(:list, :map, :string, :union) = payload;
+    final result$ = <Object?>[];
+    final MalformedPatternOverrideInput(:list, :map, :string, :union) = object;
     if (list != null) {
-      result
+      result$
         ..add('list')
         ..add(serializers.serialize(
           list,
@@ -177,7 +177,7 @@ class MalformedPatternOverrideInputRestJson1Serializer
         ));
     }
     if (map != null) {
-      result
+      result$
         ..add('map')
         ..add(serializers.serialize(
           map,
@@ -191,7 +191,7 @@ class MalformedPatternOverrideInputRestJson1Serializer
         ));
     }
     if (string != null) {
-      result
+      result$
         ..add('string')
         ..add(serializers.serialize(
           string,
@@ -199,13 +199,13 @@ class MalformedPatternOverrideInputRestJson1Serializer
         ));
     }
     if (union != null) {
-      result
+      result$
         ..add('union')
         ..add(serializers.serialize(
           union,
           specifiedType: const FullType(_i3.PatternUnionOverride),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.list_streams_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -130,14 +131,13 @@ class ListStreamsOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListStreamsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListStreamsOutput);
-    final result = <Object?>[];
-    final ListStreamsOutput(:streams, :lastEvaluatedStreamArn) = payload;
+    final result$ = <Object?>[];
+    final ListStreamsOutput(:streams, :lastEvaluatedStreamArn) = object;
     if (streams != null) {
-      result
+      result$
         ..add('Streams')
         ..add(serializers.serialize(
           streams,
@@ -148,13 +148,13 @@ class ListStreamsOutputAwsJson10Serializer
         ));
     }
     if (lastEvaluatedStreamArn != null) {
-      result
+      result$
         ..add('LastEvaluatedStreamArn')
         ..add(serializers.serialize(
           lastEvaluatedStreamArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_bucket_acl_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -127,19 +128,18 @@ class GetBucketAclOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetBucketAclOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetBucketAclOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'AccessControlPolicy',
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final GetBucketAclOutput(:grants, :owner) = payload;
+    final GetBucketAclOutput(:grants, :owner) = object;
     if (grants != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('AccessControlList'))
         ..add(const _i5.XmlBuiltListSerializer(memberName: 'Grant').serialize(
           serializers,
@@ -151,13 +151,13 @@ class GetBucketAclOutputRestXmlSerializer
         ));
     }
     if (owner != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
           specifiedType: const FullType(_i2.Owner),
         ));
     }
-    return result;
+    return result$;
   }
 }

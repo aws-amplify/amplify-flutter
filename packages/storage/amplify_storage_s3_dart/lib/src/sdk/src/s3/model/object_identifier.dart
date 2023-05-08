@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.object_identifier; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -115,31 +116,30 @@ class ObjectIdentifierRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ObjectIdentifier object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ObjectIdentifier);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'ObjectIdentifier',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final ObjectIdentifier(:key, :versionId) = payload;
-    result
+    final ObjectIdentifier(:key, :versionId) = object;
+    result$
       ..add(const _i2.XmlElementName('Key'))
       ..add(serializers.serialize(
         key,
         specifiedType: const FullType(String),
       ));
     if (versionId != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('VersionId'))
         ..add(serializers.serialize(
           versionId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

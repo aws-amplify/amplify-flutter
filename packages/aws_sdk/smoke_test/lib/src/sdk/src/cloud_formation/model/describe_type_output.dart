@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.describe_type_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -588,11 +589,10 @@ class DescribeTypeOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeTypeOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeTypeOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i10.XmlElementName(
         'DescribeTypeOutputResponse',
         _i10.XmlNamespace(
@@ -627,9 +627,9 @@ class DescribeTypeOutputAwsQuerySerializer
       :latestPublicVersion,
       :isActivated,
       :autoUpdate
-    ) = payload;
+    ) = object;
     if (arn != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
@@ -637,7 +637,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (type != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
@@ -645,7 +645,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (typeName != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
@@ -653,7 +653,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (defaultVersionId != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('DefaultVersionId'))
         ..add(serializers.serialize(
           defaultVersionId,
@@ -661,7 +661,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (isDefaultVersion != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('IsDefaultVersion'))
         ..add(serializers.serialize(
           isDefaultVersion,
@@ -669,7 +669,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (typeTestsStatus != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('TypeTestsStatus'))
         ..add(serializers.serialize(
           typeTestsStatus,
@@ -677,7 +677,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (typeTestsStatusDescription != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('TypeTestsStatusDescription'))
         ..add(serializers.serialize(
           typeTestsStatusDescription,
@@ -685,7 +685,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -693,7 +693,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (schema != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Schema'))
         ..add(serializers.serialize(
           schema,
@@ -701,7 +701,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (provisioningType != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('ProvisioningType'))
         ..add(serializers.serialize(
           provisioningType,
@@ -709,7 +709,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (deprecatedStatus != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('DeprecatedStatus'))
         ..add(serializers.serialize(
           deprecatedStatus,
@@ -717,7 +717,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (loggingConfig != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('LoggingConfig'))
         ..add(serializers.serialize(
           loggingConfig,
@@ -725,7 +725,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (requiredActivatedTypes != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('RequiredActivatedTypes'))
         ..add(const _i10.XmlBuiltListSerializer(
                 indexer: _i10.XmlIndexer.awsQueryList)
@@ -739,7 +739,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (executionRoleArn != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('ExecutionRoleArn'))
         ..add(serializers.serialize(
           executionRoleArn,
@@ -747,7 +747,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (visibility != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Visibility'))
         ..add(serializers.serialize(
           visibility,
@@ -755,7 +755,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (sourceUrl != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('SourceUrl'))
         ..add(serializers.serialize(
           sourceUrl,
@@ -763,7 +763,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (documentationUrl != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('DocumentationUrl'))
         ..add(serializers.serialize(
           documentationUrl,
@@ -771,7 +771,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (lastUpdated != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('LastUpdated'))
         ..add(serializers.serialize(
           lastUpdated,
@@ -779,7 +779,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (timeCreated != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('TimeCreated'))
         ..add(serializers.serialize(
           timeCreated,
@@ -787,7 +787,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (configurationSchema != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('ConfigurationSchema'))
         ..add(serializers.serialize(
           configurationSchema,
@@ -795,7 +795,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (publisherId != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
           publisherId,
@@ -803,7 +803,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (originalTypeName != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('OriginalTypeName'))
         ..add(serializers.serialize(
           originalTypeName,
@@ -811,7 +811,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (originalTypeArn != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('OriginalTypeArn'))
         ..add(serializers.serialize(
           originalTypeArn,
@@ -819,7 +819,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (publicVersionNumber != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('PublicVersionNumber'))
         ..add(serializers.serialize(
           publicVersionNumber,
@@ -827,7 +827,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (latestPublicVersion != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('LatestPublicVersion'))
         ..add(serializers.serialize(
           latestPublicVersion,
@@ -835,7 +835,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (isActivated != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('IsActivated'))
         ..add(serializers.serialize(
           isActivated,
@@ -843,13 +843,13 @@ class DescribeTypeOutputAwsQuerySerializer
         ));
     }
     if (autoUpdate != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('AutoUpdate'))
         ..add(serializers.serialize(
           autoUpdate,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }
