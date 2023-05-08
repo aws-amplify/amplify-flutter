@@ -32,6 +32,10 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
         registrar.addApplicationDelegate(pluginInstance)
     }
 
+    public func requestInitialTokenWithError(_ error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
+        UIApplication.shared.registerForRemoteNotifications()
+    }
+
     public func getPermissionStatus(completion: @escaping (GetPermissionStatusResult?, FlutterError?) -> Void) {
         Task {
             switch await AUNotificationPermissions.status {
