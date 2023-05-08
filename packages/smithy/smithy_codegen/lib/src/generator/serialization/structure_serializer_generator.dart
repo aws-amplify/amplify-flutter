@@ -289,67 +289,55 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
       return literalConstList([], DartTypes.core.object.boxed).code;
     }
     final builder = BlockBuilder();
-    final object = refer('object');
-    final payload = refer('payload');
-
-    // Get the payload, since we handle serializing the input & payload types
-    // in the same serializer.
-    final payloadSymbol = this.payloadSymbol;
-    if (hasPayload && config.usePayload) {
-      builder.addExpression(
-        declareFinal('payload').assign(
-          object.isA(symbol).conditional(
-                object.property('getPayload').call([]),
-                object.asA(payloadSymbol),
-              ),
-        ),
-      );
-    } else {
-      builder.addExpression(declareFinal('payload').assign(object.asA(symbol)));
-    }
+    final payloadVar = refer('object');
+    final resultVar = refer(r'result$');
 
     if (!isStructuredSerializer) {
-      final isNullable = payloadMember!.isNullable(context, shape);
       builder.addExpression(
         serializerFor(
           payloadMember!,
-          isNullable ? payload.nullChecked : payload,
+          payloadVar,
           memberSymbol: payloadSymbol.unboxed,
-        ).asA(DartTypes.core.object).returned,
+        ).nullChecked.returned,
       );
       return builder.build();
     }
 
+    builder.addExpression(
+      declareFinal(resultVar.symbol!).assign(
+        literalList([], DartTypes.core.object.boxed),
+      ),
+    );
+
+    // Destructure `payload` so that members can be null-checked w/ promotion.
+    builder.statements.add(
+      destructure(payloadSymbol, serializedMembers, payloadVar),
+    );
+
     // Create a result object with all the non-null members.
-    final result = <Expression>[];
     final nonNullMembers =
         serializedMembers.where((member) => !member.isNullable(context, shape));
+    final nonNullResult = <Expression>[];
     for (final member in nonNullMembers) {
-      final memberRef = payload.property(member.dartName(ShapeType.structure));
-      result.addAll([
+      final memberRef = refer(member.dartName(ShapeType.structure));
+      nonNullResult.addAll([
         literalString(memberWireName(member)),
         serializerFor(member, memberRef),
       ]);
     }
-    builder.addExpression(
-      declareFinal('result').assign(
-        literalList(result, DartTypes.core.object.boxed),
-      ),
-    );
+    if (nonNullResult.isNotEmpty) {
+      builder.addExpression(
+        resultVar.property('addAll').call([literalList(nonNullResult)]),
+      );
+    }
 
     // Add remaining objects only if they're non-null.
     final nullableMembers =
         serializedMembers.where((member) => member.isNullable(context, shape));
-    if (nullableMembers.isNotEmpty) {
-      // Destructure `payload` so that members can be null-checked w/ promotion.
-      builder.statements.add(
-        destructure(payloadSymbol, nullableMembers, payload),
-      );
-    }
     for (final member in nullableMembers) {
       final memberRef = refer(member.dartName(ShapeType.structure));
       builder.statements.addAll([
-        refer('result')
+        resultVar
             .cascade('add')
             .call([literalString(memberWireName(member))])
             .cascade('add')
@@ -365,7 +353,7 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
       ]);
     }
 
-    builder.addExpression(refer('result').returned);
+    builder.addExpression(resultVar.returned);
 
     return builder.build();
   }

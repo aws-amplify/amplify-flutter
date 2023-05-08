@@ -65,8 +65,7 @@ class RestXmlProtocol<InputPayload, Input, OutputPayload, Output>
       'application/xml';
 
   @override
-  late final FullSerializer<List<int>> wireSerializer =
-      XmlSerializer(serializers);
+  late final XmlSerializer wireSerializer = XmlSerializer(serializers);
 
   static Future<String?> resolveError(AWSBaseHttpResponse response) async {
     try {

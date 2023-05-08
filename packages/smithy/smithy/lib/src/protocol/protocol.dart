@@ -8,8 +8,7 @@ import 'package:smithy/smithy.dart';
 
 /// Metadata related to an operation regarding its serialization format,
 /// authentication schemes, etc.
-abstract class Protocol<Input, Output, WireType>
-    implements FullSerializer<WireType> {
+abstract class Protocol<Input, Output> {
   const Protocol._();
 
   /// The shape ID of the protocol trait this class implements.
@@ -22,5 +21,5 @@ abstract class FullSerializer<WireType>
   FutureOr<WireType> serialize(Object? input, {FullType? specifiedType});
 
   @override
-  FutureOr<Object?> deserialize(WireType input, {FullType? specifiedType});
+  FutureOr<Object?> deserialize(WireType output, {FullType? specifiedType});
 }

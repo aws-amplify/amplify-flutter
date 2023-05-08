@@ -157,7 +157,6 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
       );
     }
     builder.statements.addAll([
-      object.asA(symbol).statement,
       literalList([
         if (hasRenames)
           refer('renames')
