@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.target_grant; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -122,19 +123,18 @@ class TargetGrantRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TargetGrant object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TargetGrant);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'TargetGrant',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final TargetGrant(:grantee, :permission) = payload;
+    final TargetGrant(:grantee, :permission) = object;
     if (grantee != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName(
           'Grantee',
           _i4.XmlNamespace(
@@ -148,13 +148,13 @@ class TargetGrantRestXmlSerializer
         ));
     }
     if (permission != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Permission'))
         ..add(serializers.serialize(
           permission,
           specifiedType: const FullType.nullable(_i3.BucketLogsPermission),
         ));
     }
-    return result;
+    return result$;
   }
 }

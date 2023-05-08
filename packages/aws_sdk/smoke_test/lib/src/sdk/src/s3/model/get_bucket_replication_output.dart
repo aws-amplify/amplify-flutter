@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_bucket_replication_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -117,29 +118,23 @@ class GetBucketReplicationOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i3.ReplicationConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is GetBucketReplicationOutput
-        ? object.getPayload()
-        : (object as _i3.ReplicationConfiguration?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'ReplicationConfiguration',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
-    final _i3.ReplicationConfiguration(:role, :rules) = payload;
-    result
+    final _i3.ReplicationConfiguration(:role, :rules) = object;
+    result$
       ..add(const _i2.XmlElementName('Role'))
       ..add(serializers.serialize(
         role,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
         .addAll(const _i2.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
       rules,
@@ -148,6 +143,6 @@ class GetBucketReplicationOutputRestXmlSerializer
         [FullType(_i4.ReplicationRule)],
       ),
     ));
-    return result;
+    return result$;
   }
 }

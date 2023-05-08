@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.describe_publisher_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -153,11 +154,10 @@ class DescribePublisherOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribePublisherOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribePublisherOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'DescribePublisherOutputResponse',
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -168,9 +168,9 @@ class DescribePublisherOutputAwsQuerySerializer
       :publisherStatus,
       :identityProvider,
       :publisherProfile
-    ) = payload;
+    ) = object;
     if (publisherId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
           publisherId,
@@ -178,7 +178,7 @@ class DescribePublisherOutputAwsQuerySerializer
         ));
     }
     if (publisherStatus != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PublisherStatus'))
         ..add(serializers.serialize(
           publisherStatus,
@@ -186,7 +186,7 @@ class DescribePublisherOutputAwsQuerySerializer
         ));
     }
     if (identityProvider != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('IdentityProvider'))
         ..add(serializers.serialize(
           identityProvider,
@@ -194,13 +194,13 @@ class DescribePublisherOutputAwsQuerySerializer
         ));
     }
     if (publisherProfile != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PublisherProfile'))
         ..add(serializers.serialize(
           publisherProfile,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

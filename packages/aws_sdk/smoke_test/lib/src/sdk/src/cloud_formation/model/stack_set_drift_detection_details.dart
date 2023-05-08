@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.stack_set_drift_detection_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -256,11 +257,10 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StackSetDriftDetectionDetails object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StackSetDriftDetectionDetails);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'StackSetDriftDetectionDetailsResponse',
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -275,9 +275,9 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
       :inSyncStackInstancesCount,
       :inProgressStackInstancesCount,
       :failedStackInstancesCount
-    ) = payload;
+    ) = object;
     if (driftStatus != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('DriftStatus'))
         ..add(serializers.serialize(
           driftStatus,
@@ -285,7 +285,7 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
         ));
     }
     if (driftDetectionStatus != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('DriftDetectionStatus'))
         ..add(serializers.serialize(
           driftDetectionStatus,
@@ -294,7 +294,7 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
         ));
     }
     if (lastDriftCheckTimestamp != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('LastDriftCheckTimestamp'))
         ..add(serializers.serialize(
           lastDriftCheckTimestamp,
@@ -302,7 +302,7 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
         ));
     }
     if (totalStackInstancesCount != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('TotalStackInstancesCount'))
         ..add(serializers.serialize(
           totalStackInstancesCount,
@@ -310,7 +310,7 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
         ));
     }
     if (driftedStackInstancesCount != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('DriftedStackInstancesCount'))
         ..add(serializers.serialize(
           driftedStackInstancesCount,
@@ -318,7 +318,7 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
         ));
     }
     if (inSyncStackInstancesCount != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('InSyncStackInstancesCount'))
         ..add(serializers.serialize(
           inSyncStackInstancesCount,
@@ -326,7 +326,7 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
         ));
     }
     if (inProgressStackInstancesCount != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('InProgressStackInstancesCount'))
         ..add(serializers.serialize(
           inProgressStackInstancesCount,
@@ -334,13 +334,13 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
         ));
     }
     if (failedStackInstancesCount != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('FailedStackInstancesCount'))
         ..add(serializers.serialize(
           failedStackInstancesCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

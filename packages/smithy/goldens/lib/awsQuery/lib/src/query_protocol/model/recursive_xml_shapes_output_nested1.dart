@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v1.query_protocol.model.recursive_xml_shapes_output_nested1; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -114,19 +115,18 @@ class RecursiveXmlShapesOutputNested1AwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RecursiveXmlShapesOutputNested1 object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RecursiveXmlShapesOutputNested1);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'RecursiveXmlShapesOutputNested1Response',
         _i3.XmlNamespace('https://example.com/'),
       )
     ];
-    final RecursiveXmlShapesOutputNested1(:foo, :nested) = payload;
+    final RecursiveXmlShapesOutputNested1(:foo, :nested) = object;
     if (foo != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('foo'))
         ..add(serializers.serialize(
           foo,
@@ -134,13 +134,13 @@ class RecursiveXmlShapesOutputNested1AwsQuerySerializer
         ));
     }
     if (nested != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('nested'))
         ..add(serializers.serialize(
           nested,
           specifiedType: const FullType(_i2.RecursiveXmlShapesOutputNested2),
         ));
     }
-    return result;
+    return result$;
   }
 }

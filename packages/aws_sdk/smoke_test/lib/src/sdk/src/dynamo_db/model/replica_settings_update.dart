@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_settings_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -180,25 +181,26 @@ class ReplicaSettingsUpdateAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaSettingsUpdate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaSettingsUpdate);
-    final result = <Object?>[
-      'RegionName',
-      serializers.serialize(
-        payload.regionName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final ReplicaSettingsUpdate(
+      :regionName,
       :replicaProvisionedReadCapacityUnits,
       :replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
       :replicaGlobalSecondaryIndexSettingsUpdate,
       :replicaTableClass
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'RegionName',
+      serializers.serialize(
+        regionName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (replicaProvisionedReadCapacityUnits != null) {
-      result
+      result$
         ..add('ReplicaProvisionedReadCapacityUnits')
         ..add(serializers.serialize(
           replicaProvisionedReadCapacityUnits,
@@ -206,7 +208,7 @@ class ReplicaSettingsUpdateAwsJson10Serializer
         ));
     }
     if (replicaProvisionedReadCapacityAutoScalingSettingsUpdate != null) {
-      result
+      result$
         ..add('ReplicaProvisionedReadCapacityAutoScalingSettingsUpdate')
         ..add(serializers.serialize(
           replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
@@ -214,7 +216,7 @@ class ReplicaSettingsUpdateAwsJson10Serializer
         ));
     }
     if (replicaGlobalSecondaryIndexSettingsUpdate != null) {
-      result
+      result$
         ..add('ReplicaGlobalSecondaryIndexSettingsUpdate')
         ..add(serializers.serialize(
           replicaGlobalSecondaryIndexSettingsUpdate,
@@ -225,13 +227,13 @@ class ReplicaSettingsUpdateAwsJson10Serializer
         ));
     }
     if (replicaTableClass != null) {
-      result
+      result$
         ..add('ReplicaTableClass')
         ..add(serializers.serialize(
           replicaTableClass,
           specifiedType: const FullType(_i5.TableClass),
         ));
     }
-    return result;
+    return result$;
   }
 }

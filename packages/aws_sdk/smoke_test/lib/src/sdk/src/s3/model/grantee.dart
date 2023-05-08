@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.grantee; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -179,18 +180,17 @@ class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Grantee object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Grantee);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'Grantee',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final Grantee(:displayName, :emailAddress, :id, :type, :uri) = payload;
-    result.add(_i4.XmlAttribute(
+    final Grantee(:displayName, :emailAddress, :id, :type, :uri) = object;
+    result$.add(_i4.XmlAttribute(
       _i4.XmlName('xsi:type'),
       (serializers.serialize(
         type,
@@ -198,7 +198,7 @@ class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
       ) as String),
     ));
     if (displayName != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('DisplayName'))
         ..add(serializers.serialize(
           displayName,
@@ -206,7 +206,7 @@ class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
         ));
     }
     if (emailAddress != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('EmailAddress'))
         ..add(serializers.serialize(
           emailAddress,
@@ -214,7 +214,7 @@ class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ID'))
         ..add(serializers.serialize(
           id,
@@ -222,13 +222,13 @@ class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
         ));
     }
     if (uri != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('URI'))
         ..add(serializers.serialize(
           uri,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

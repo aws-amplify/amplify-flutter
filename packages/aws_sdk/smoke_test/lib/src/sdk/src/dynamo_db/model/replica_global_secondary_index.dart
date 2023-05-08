@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_global_secondary_index; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -118,26 +119,29 @@ class ReplicaGlobalSecondaryIndexAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaGlobalSecondaryIndex object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaGlobalSecondaryIndex);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ReplicaGlobalSecondaryIndex(
+      :indexName,
+      :provisionedThroughputOverride
+    ) = object;
+    result$.addAll([
       'IndexName',
       serializers.serialize(
-        payload.indexName,
+        indexName,
         specifiedType: const FullType(String),
       ),
-    ];
-    final ReplicaGlobalSecondaryIndex(:provisionedThroughputOverride) = payload;
+    ]);
     if (provisionedThroughputOverride != null) {
-      result
+      result$
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
           provisionedThroughputOverride,
           specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
         ));
     }
-    return result;
+    return result$;
   }
 }

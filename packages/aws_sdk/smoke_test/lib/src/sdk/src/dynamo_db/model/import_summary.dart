@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.import_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -209,11 +210,10 @@ class ImportSummaryAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ImportSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ImportSummary);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ImportSummary(
       :importArn,
       :importStatus,
@@ -223,9 +223,9 @@ class ImportSummaryAwsJson10Serializer
       :inputFormat,
       :startTime,
       :endTime
-    ) = payload;
+    ) = object;
     if (importArn != null) {
-      result
+      result$
         ..add('ImportArn')
         ..add(serializers.serialize(
           importArn,
@@ -233,7 +233,7 @@ class ImportSummaryAwsJson10Serializer
         ));
     }
     if (importStatus != null) {
-      result
+      result$
         ..add('ImportStatus')
         ..add(serializers.serialize(
           importStatus,
@@ -241,7 +241,7 @@ class ImportSummaryAwsJson10Serializer
         ));
     }
     if (tableArn != null) {
-      result
+      result$
         ..add('TableArn')
         ..add(serializers.serialize(
           tableArn,
@@ -249,7 +249,7 @@ class ImportSummaryAwsJson10Serializer
         ));
     }
     if (s3BucketSource != null) {
-      result
+      result$
         ..add('S3BucketSource')
         ..add(serializers.serialize(
           s3BucketSource,
@@ -257,7 +257,7 @@ class ImportSummaryAwsJson10Serializer
         ));
     }
     if (cloudWatchLogGroupArn != null) {
-      result
+      result$
         ..add('CloudWatchLogGroupArn')
         ..add(serializers.serialize(
           cloudWatchLogGroupArn,
@@ -265,7 +265,7 @@ class ImportSummaryAwsJson10Serializer
         ));
     }
     if (inputFormat != null) {
-      result
+      result$
         ..add('InputFormat')
         ..add(serializers.serialize(
           inputFormat,
@@ -273,7 +273,7 @@ class ImportSummaryAwsJson10Serializer
         ));
     }
     if (startTime != null) {
-      result
+      result$
         ..add('StartTime')
         ..add(serializers.serialize(
           startTime,
@@ -281,13 +281,13 @@ class ImportSummaryAwsJson10Serializer
         ));
     }
     if (endTime != null) {
-      result
+      result$
         ..add('EndTime')
         ..add(serializers.serialize(
           endTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

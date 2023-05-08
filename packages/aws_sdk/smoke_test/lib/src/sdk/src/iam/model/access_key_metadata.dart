@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.access_key_metadata; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -150,20 +151,19 @@ class AccessKeyMetadataAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AccessKeyMetadata object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AccessKeyMetadata);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'AccessKeyMetadataResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final AccessKeyMetadata(:userName, :accessKeyId, :status, :createDate) =
-        payload;
+        object;
     if (userName != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('UserName'))
         ..add(serializers.serialize(
           userName,
@@ -171,7 +171,7 @@ class AccessKeyMetadataAwsQuerySerializer
         ));
     }
     if (accessKeyId != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AccessKeyId'))
         ..add(serializers.serialize(
           accessKeyId,
@@ -179,7 +179,7 @@ class AccessKeyMetadataAwsQuerySerializer
         ));
     }
     if (status != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
@@ -187,13 +187,13 @@ class AccessKeyMetadataAwsQuerySerializer
         ));
     }
     if (createDate != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

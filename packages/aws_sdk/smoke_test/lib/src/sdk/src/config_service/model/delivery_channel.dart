@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.delivery_channel; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -180,11 +181,10 @@ class DeliveryChannelAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeliveryChannel object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeliveryChannel);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final DeliveryChannel(
       :name,
       :s3BucketName,
@@ -192,9 +192,9 @@ class DeliveryChannelAwsJson11Serializer
       :s3KmsKeyArn,
       :snsTopicArn,
       :configSnapshotDeliveryProperties
-    ) = payload;
+    ) = object;
     if (name != null) {
-      result
+      result$
         ..add('name')
         ..add(serializers.serialize(
           name,
@@ -202,7 +202,7 @@ class DeliveryChannelAwsJson11Serializer
         ));
     }
     if (s3BucketName != null) {
-      result
+      result$
         ..add('s3BucketName')
         ..add(serializers.serialize(
           s3BucketName,
@@ -210,7 +210,7 @@ class DeliveryChannelAwsJson11Serializer
         ));
     }
     if (s3KeyPrefix != null) {
-      result
+      result$
         ..add('s3KeyPrefix')
         ..add(serializers.serialize(
           s3KeyPrefix,
@@ -218,7 +218,7 @@ class DeliveryChannelAwsJson11Serializer
         ));
     }
     if (s3KmsKeyArn != null) {
-      result
+      result$
         ..add('s3KmsKeyArn')
         ..add(serializers.serialize(
           s3KmsKeyArn,
@@ -226,7 +226,7 @@ class DeliveryChannelAwsJson11Serializer
         ));
     }
     if (snsTopicArn != null) {
-      result
+      result$
         ..add('snsTopicARN')
         ..add(serializers.serialize(
           snsTopicArn,
@@ -234,13 +234,13 @@ class DeliveryChannelAwsJson11Serializer
         ));
     }
     if (configSnapshotDeliveryProperties != null) {
-      result
+      result$
         ..add('configSnapshotDeliveryProperties')
         ..add(serializers.serialize(
           configSnapshotDeliveryProperties,
           specifiedType: const FullType(_i2.ConfigSnapshotDeliveryProperties),
         ));
     }
-    return result;
+    return result$;
   }
 }

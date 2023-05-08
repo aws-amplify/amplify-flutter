@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.query_info; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -100,14 +101,13 @@ class QueryInfoAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    QueryInfo object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as QueryInfo);
-    final result = <Object?>[];
-    final QueryInfo(:selectFields) = payload;
+    final result$ = <Object?>[];
+    final QueryInfo(:selectFields) = object;
     if (selectFields != null) {
-      result
+      result$
         ..add('SelectFields')
         ..add(serializers.serialize(
           selectFields,
@@ -117,6 +117,6 @@ class QueryInfoAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

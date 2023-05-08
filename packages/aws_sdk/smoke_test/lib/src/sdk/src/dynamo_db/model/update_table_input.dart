@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.update_table_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -278,19 +279,13 @@ class UpdateTableInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateTableInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateTableInput);
-    final result = <Object?>[
-      'TableName',
-      serializers.serialize(
-        payload.tableName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final UpdateTableInput(
       :attributeDefinitions,
+      :tableName,
       :billingMode,
       :provisionedThroughput,
       :globalSecondaryIndexUpdates,
@@ -298,9 +293,16 @@ class UpdateTableInputAwsJson10Serializer
       :sseSpecification,
       :replicaUpdates,
       :tableClass
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'TableName',
+      serializers.serialize(
+        tableName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (attributeDefinitions != null) {
-      result
+      result$
         ..add('AttributeDefinitions')
         ..add(serializers.serialize(
           attributeDefinitions,
@@ -311,7 +313,7 @@ class UpdateTableInputAwsJson10Serializer
         ));
     }
     if (billingMode != null) {
-      result
+      result$
         ..add('BillingMode')
         ..add(serializers.serialize(
           billingMode,
@@ -319,7 +321,7 @@ class UpdateTableInputAwsJson10Serializer
         ));
     }
     if (provisionedThroughput != null) {
-      result
+      result$
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
           provisionedThroughput,
@@ -327,7 +329,7 @@ class UpdateTableInputAwsJson10Serializer
         ));
     }
     if (globalSecondaryIndexUpdates != null) {
-      result
+      result$
         ..add('GlobalSecondaryIndexUpdates')
         ..add(serializers.serialize(
           globalSecondaryIndexUpdates,
@@ -338,7 +340,7 @@ class UpdateTableInputAwsJson10Serializer
         ));
     }
     if (streamSpecification != null) {
-      result
+      result$
         ..add('StreamSpecification')
         ..add(serializers.serialize(
           streamSpecification,
@@ -346,7 +348,7 @@ class UpdateTableInputAwsJson10Serializer
         ));
     }
     if (sseSpecification != null) {
-      result
+      result$
         ..add('SSESpecification')
         ..add(serializers.serialize(
           sseSpecification,
@@ -354,7 +356,7 @@ class UpdateTableInputAwsJson10Serializer
         ));
     }
     if (replicaUpdates != null) {
-      result
+      result$
         ..add('ReplicaUpdates')
         ..add(serializers.serialize(
           replicaUpdates,
@@ -365,13 +367,13 @@ class UpdateTableInputAwsJson10Serializer
         ));
     }
     if (tableClass != null) {
-      result
+      result$
         ..add('TableClass')
         ..add(serializers.serialize(
           tableClass,
           specifiedType: const FullType(_i10.TableClass),
         ));
     }
-    return result;
+    return result$;
   }
 }

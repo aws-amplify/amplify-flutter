@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.get_shard_iterator_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -166,36 +167,41 @@ class GetShardIteratorInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetShardIteratorInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetShardIteratorInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GetShardIteratorInput(
+      :streamArn,
+      :shardId,
+      :shardIteratorType,
+      :sequenceNumber
+    ) = object;
+    result$.addAll([
       'StreamArn',
       serializers.serialize(
-        payload.streamArn,
+        streamArn,
         specifiedType: const FullType(String),
       ),
       'ShardId',
       serializers.serialize(
-        payload.shardId,
+        shardId,
         specifiedType: const FullType(String),
       ),
       'ShardIteratorType',
       serializers.serialize(
-        payload.shardIteratorType,
+        shardIteratorType,
         specifiedType: const FullType(_i3.ShardIteratorType),
       ),
-    ];
-    final GetShardIteratorInput(:sequenceNumber) = payload;
+    ]);
     if (sequenceNumber != null) {
-      result
+      result$
         ..add('SequenceNumber')
         ..add(serializers.serialize(
           sequenceNumber,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

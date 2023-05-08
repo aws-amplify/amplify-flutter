@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.recursive_shapes_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -112,22 +113,21 @@ class RecursiveShapesInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RecursiveShapesInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RecursiveShapesInputOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName('RecursiveShapesInputOutput')
     ];
-    final RecursiveShapesInputOutput(:nested) = payload;
+    final RecursiveShapesInputOutput(:nested) = object;
     if (nested != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('nested'))
         ..add(serializers.serialize(
           nested,
           specifiedType: const FullType(_i3.RecursiveShapesInputOutputNested1),
         ));
     }
-    return result;
+    return result$;
   }
 }

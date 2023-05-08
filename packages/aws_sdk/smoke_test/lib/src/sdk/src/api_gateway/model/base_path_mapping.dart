@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.base_path_mapping; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -135,14 +136,13 @@ class BasePathMappingRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BasePathMapping object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BasePathMapping);
-    final result = <Object?>[];
-    final BasePathMapping(:basePath, :restApiId, :stage) = payload;
+    final result$ = <Object?>[];
+    final BasePathMapping(:basePath, :restApiId, :stage) = object;
     if (basePath != null) {
-      result
+      result$
         ..add('basePath')
         ..add(serializers.serialize(
           basePath,
@@ -150,7 +150,7 @@ class BasePathMappingRestJson1Serializer
         ));
     }
     if (restApiId != null) {
-      result
+      result$
         ..add('restApiId')
         ..add(serializers.serialize(
           restApiId,
@@ -158,13 +158,13 @@ class BasePathMappingRestJson1Serializer
         ));
     }
     if (stage != null) {
-      result
+      result$
         ..add('stage')
         ..add(serializers.serialize(
           stage,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_bucket_lifecycle_configuration_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -106,19 +107,18 @@ class GetBucketLifecycleConfigurationOutputRestXmlSerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetBucketLifecycleConfigurationOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetBucketLifecycleConfigurationOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'LifecycleConfiguration',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final GetBucketLifecycleConfigurationOutput(:rules) = payload;
+    final GetBucketLifecycleConfigurationOutput(:rules) = object;
     if (rules != null) {
-      result.addAll(
+      result$.addAll(
           const _i4.XmlBuiltListSerializer(memberName: 'Rule').serialize(
         serializers,
         rules,
@@ -128,6 +128,6 @@ class GetBucketLifecycleConfigurationOutputRestXmlSerializer extends _i4
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

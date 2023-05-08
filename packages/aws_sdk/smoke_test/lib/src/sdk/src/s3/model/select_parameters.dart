@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.select_parameters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -148,11 +149,10 @@ class SelectParametersRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SelectParameters object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SelectParameters);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'SelectParameters',
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -163,31 +163,31 @@ class SelectParametersRestXmlSerializer
       :expressionType,
       :inputSerialization,
       :outputSerialization
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i5.XmlElementName('Expression'))
       ..add(serializers.serialize(
         expression,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('ExpressionType'))
       ..add(serializers.serialize(
         expressionType,
         specifiedType: const FullType.nullable(_i3.ExpressionType),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('InputSerialization'))
       ..add(serializers.serialize(
         inputSerialization,
         specifiedType: const FullType(_i2.InputSerialization),
       ));
-    result
+    result$
       ..add(const _i5.XmlElementName('OutputSerialization'))
       ..add(serializers.serialize(
         outputSerialization,
         specifiedType: const FullType(_i4.OutputSerialization),
       ));
-    return result;
+    return result$;
   }
 }

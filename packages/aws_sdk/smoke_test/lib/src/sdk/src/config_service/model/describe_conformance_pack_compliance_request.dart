@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_conformance_pack_compliance_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -158,24 +159,25 @@ class DescribeConformancePackComplianceRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeConformancePackComplianceRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeConformancePackComplianceRequest);
-    final result = <Object?>[
-      'ConformancePackName',
-      serializers.serialize(
-        payload.conformancePackName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final DescribeConformancePackComplianceRequest(
+      :conformancePackName,
       :filters,
       :limit,
       :nextToken
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'ConformancePackName',
+      serializers.serialize(
+        conformancePackName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (filters != null) {
-      result
+      result$
         ..add('Filters')
         ..add(serializers.serialize(
           filters,
@@ -183,7 +185,7 @@ class DescribeConformancePackComplianceRequestAwsJson11Serializer extends _i1
         ));
     }
     if (limit != null) {
-      result
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
           limit,
@@ -191,13 +193,13 @@ class DescribeConformancePackComplianceRequestAwsJson11Serializer extends _i1
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

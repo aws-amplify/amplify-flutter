@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.export_table_to_point_in_time_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -106,20 +107,19 @@ class ExportTableToPointInTimeOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ExportTableToPointInTimeOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ExportTableToPointInTimeOutput);
-    final result = <Object?>[];
-    final ExportTableToPointInTimeOutput(:exportDescription) = payload;
+    final result$ = <Object?>[];
+    final ExportTableToPointInTimeOutput(:exportDescription) = object;
     if (exportDescription != null) {
-      result
+      result$
         ..add('ExportDescription')
         ..add(serializers.serialize(
           exportDescription,
           specifiedType: const FullType(_i2.ExportDescription),
         ));
     }
-    return result;
+    return result$;
   }
 }

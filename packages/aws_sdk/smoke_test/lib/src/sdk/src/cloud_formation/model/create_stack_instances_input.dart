@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.create_stack_instances_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -286,11 +287,10 @@ class CreateStackInstancesInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateStackInstancesInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateStackInstancesInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'CreateStackInstancesInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -305,15 +305,15 @@ class CreateStackInstancesInputAwsQuerySerializer
       :operationPreferences,
       :operationId,
       :callAs
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('StackSetName'))
       ..add(serializers.serialize(
         stackSetName,
         specifiedType: const FullType(String),
       ));
     if (accounts != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Accounts'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -327,14 +327,14 @@ class CreateStackInstancesInputAwsQuerySerializer
         ));
     }
     if (deploymentTargets != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('DeploymentTargets'))
         ..add(serializers.serialize(
           deploymentTargets,
           specifiedType: const FullType(_i3.DeploymentTargets),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('Regions'))
       ..add(
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
@@ -347,7 +347,7 @@ class CreateStackInstancesInputAwsQuerySerializer
         ),
       ));
     if (parameterOverrides != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ParameterOverrides'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -361,7 +361,7 @@ class CreateStackInstancesInputAwsQuerySerializer
         ));
     }
     if (operationPreferences != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('OperationPreferences'))
         ..add(serializers.serialize(
           operationPreferences,
@@ -369,7 +369,7 @@ class CreateStackInstancesInputAwsQuerySerializer
         ));
     }
     if (operationId != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('OperationId'))
         ..add(serializers.serialize(
           operationId,
@@ -377,13 +377,13 @@ class CreateStackInstancesInputAwsQuerySerializer
         ));
     }
     if (callAs != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
           specifiedType: const FullType.nullable(_i6.CallAs),
         ));
     }
-    return result;
+    return result$;
   }
 }

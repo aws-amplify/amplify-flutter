@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v2.query_protocol.model.xml_namespace_nested; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -115,19 +116,18 @@ class XmlNamespaceNestedAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlNamespaceNested object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlNamespaceNested);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'XmlNamespaceNestedResponse',
         _i3.XmlNamespace('http://boo.com'),
       )
     ];
-    final XmlNamespaceNested(:foo, :values) = payload;
+    final XmlNamespaceNested(:foo, :values) = object;
     if (foo != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName(
           'foo',
           _i3.XmlNamespace(
@@ -141,7 +141,7 @@ class XmlNamespaceNestedAwsQuerySerializer
         ));
     }
     if (values != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName(
           'values',
           _i3.XmlNamespace('http://qux.com'),
@@ -158,6 +158,6 @@ class XmlNamespaceNestedAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

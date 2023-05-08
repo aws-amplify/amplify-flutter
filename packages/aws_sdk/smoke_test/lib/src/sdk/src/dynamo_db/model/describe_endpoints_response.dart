@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.describe_endpoints_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -104,20 +105,21 @@ class DescribeEndpointsResponseAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeEndpointsResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeEndpointsResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DescribeEndpointsResponse(:endpoints) = object;
+    result$.addAll([
       'Endpoints',
       serializers.serialize(
-        payload.endpoints,
+        endpoints,
         specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(_i2.Endpoint)],
         ),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

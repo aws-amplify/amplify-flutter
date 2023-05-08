@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_global_secondary_index_auto_scaling_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -124,17 +125,16 @@ class ReplicaGlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaGlobalSecondaryIndexAutoScalingUpdate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaGlobalSecondaryIndexAutoScalingUpdate);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ReplicaGlobalSecondaryIndexAutoScalingUpdate(
       :indexName,
       :provisionedReadCapacityAutoScalingUpdate
-    ) = payload;
+    ) = object;
     if (indexName != null) {
-      result
+      result$
         ..add('IndexName')
         ..add(serializers.serialize(
           indexName,
@@ -142,13 +142,13 @@ class ReplicaGlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer
         ));
     }
     if (provisionedReadCapacityAutoScalingUpdate != null) {
-      result
+      result$
         ..add('ProvisionedReadCapacityAutoScalingUpdate')
         ..add(serializers.serialize(
           provisionedReadCapacityAutoScalingUpdate,
           specifiedType: const FullType(_i2.AutoScalingSettingsUpdate),
         ));
     }
-    return result;
+    return result$;
   }
 }

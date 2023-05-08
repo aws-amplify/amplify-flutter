@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.deployment; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -175,14 +176,13 @@ class DeploymentRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Deployment object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Deployment);
-    final result = <Object?>[];
-    final Deployment(:apiSummary, :createdDate, :description, :id) = payload;
+    final result$ = <Object?>[];
+    final Deployment(:apiSummary, :createdDate, :description, :id) = object;
     if (apiSummary != null) {
-      result
+      result$
         ..add('apiSummary')
         ..add(serializers.serialize(
           apiSummary,
@@ -202,7 +202,7 @@ class DeploymentRestJson1Serializer
         ));
     }
     if (createdDate != null) {
-      result
+      result$
         ..add('createdDate')
         ..add(serializers.serialize(
           createdDate,
@@ -210,7 +210,7 @@ class DeploymentRestJson1Serializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -218,13 +218,13 @@ class DeploymentRestJson1Serializer
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add('id')
         ..add(serializers.serialize(
           id,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

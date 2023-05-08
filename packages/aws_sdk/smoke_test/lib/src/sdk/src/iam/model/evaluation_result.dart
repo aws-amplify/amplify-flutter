@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.evaluation_result; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -278,11 +279,10 @@ class EvaluationResultAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EvaluationResult object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EvaluationResult);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i8.XmlElementName(
         'EvaluationResultResponse',
         _i8.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -298,22 +298,22 @@ class EvaluationResultAwsQuerySerializer
       :permissionsBoundaryDecisionDetail,
       :evalDecisionDetails,
       :resourceSpecificResults
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i8.XmlElementName('EvalActionName'))
       ..add(serializers.serialize(
         evalActionName,
         specifiedType: const FullType(String),
       ));
     if (evalResourceName != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('EvalResourceName'))
         ..add(serializers.serialize(
           evalResourceName,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i8.XmlElementName('EvalDecision'))
       ..add(serializers.serialize(
         evalDecision,
@@ -321,7 +321,7 @@ class EvaluationResultAwsQuerySerializer
             const FullType.nullable(_i2.PolicyEvaluationDecisionType),
       ));
     if (matchedStatements != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('MatchedStatements'))
         ..add(const _i8.XmlBuiltListSerializer(
                 indexer: _i8.XmlIndexer.awsQueryList)
@@ -335,7 +335,7 @@ class EvaluationResultAwsQuerySerializer
         ));
     }
     if (missingContextValues != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('MissingContextValues'))
         ..add(const _i8.XmlBuiltListSerializer(
                 indexer: _i8.XmlIndexer.awsQueryList)
@@ -349,7 +349,7 @@ class EvaluationResultAwsQuerySerializer
         ));
     }
     if (organizationsDecisionDetail != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('OrganizationsDecisionDetail'))
         ..add(serializers.serialize(
           organizationsDecisionDetail,
@@ -357,7 +357,7 @@ class EvaluationResultAwsQuerySerializer
         ));
     }
     if (permissionsBoundaryDecisionDetail != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('PermissionsBoundaryDecisionDetail'))
         ..add(serializers.serialize(
           permissionsBoundaryDecisionDetail,
@@ -365,7 +365,7 @@ class EvaluationResultAwsQuerySerializer
         ));
     }
     if (evalDecisionDetails != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('EvalDecisionDetails'))
         ..add(
             const _i8.XmlBuiltMapSerializer(indexer: _i8.XmlIndexer.awsQueryMap)
@@ -382,7 +382,7 @@ class EvaluationResultAwsQuerySerializer
         ));
     }
     if (resourceSpecificResults != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('ResourceSpecificResults'))
         ..add(const _i8.XmlBuiltListSerializer(
                 indexer: _i8.XmlIndexer.awsQueryList)
@@ -395,6 +395,6 @@ class EvaluationResultAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

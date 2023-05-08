@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.compliance; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -125,14 +126,13 @@ class ComplianceAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Compliance object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Compliance);
-    final result = <Object?>[];
-    final Compliance(:complianceType, :complianceContributorCount) = payload;
+    final result$ = <Object?>[];
+    final Compliance(:complianceType, :complianceContributorCount) = object;
     if (complianceType != null) {
-      result
+      result$
         ..add('ComplianceType')
         ..add(serializers.serialize(
           complianceType,
@@ -140,13 +140,13 @@ class ComplianceAwsJson11Serializer
         ));
     }
     if (complianceContributorCount != null) {
-      result
+      result$
         ..add('ComplianceContributorCount')
         ..add(serializers.serialize(
           complianceContributorCount,
           specifiedType: const FullType(_i3.ComplianceContributorCount),
         ));
     }
-    return result;
+    return result$;
   }
 }

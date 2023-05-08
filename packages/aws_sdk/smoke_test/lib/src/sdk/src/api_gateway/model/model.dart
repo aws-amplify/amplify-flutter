@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.model; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -163,14 +164,13 @@ class ModelRestJson1Serializer extends _i2.StructuredSmithySerializer<Model> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Model object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Model);
-    final result = <Object?>[];
-    final Model(:contentType, :description, :id, :name, :schema) = payload;
+    final result$ = <Object?>[];
+    final Model(:contentType, :description, :id, :name, :schema) = object;
     if (contentType != null) {
-      result
+      result$
         ..add('contentType')
         ..add(serializers.serialize(
           contentType,
@@ -178,7 +178,7 @@ class ModelRestJson1Serializer extends _i2.StructuredSmithySerializer<Model> {
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -186,7 +186,7 @@ class ModelRestJson1Serializer extends _i2.StructuredSmithySerializer<Model> {
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add('id')
         ..add(serializers.serialize(
           id,
@@ -194,7 +194,7 @@ class ModelRestJson1Serializer extends _i2.StructuredSmithySerializer<Model> {
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add('name')
         ..add(serializers.serialize(
           name,
@@ -202,13 +202,13 @@ class ModelRestJson1Serializer extends _i2.StructuredSmithySerializer<Model> {
         ));
     }
     if (schema != null) {
-      result
+      result$
         ..add('schema')
         ..add(serializers.serialize(
           schema,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.scope; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -147,19 +148,18 @@ class ScopeAwsJson11Serializer extends _i3.StructuredSmithySerializer<Scope> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Scope object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Scope);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final Scope(
       :complianceResourceTypes,
       :tagKey,
       :tagValue,
       :complianceResourceId
-    ) = payload;
+    ) = object;
     if (complianceResourceTypes != null) {
-      result
+      result$
         ..add('ComplianceResourceTypes')
         ..add(serializers.serialize(
           complianceResourceTypes,
@@ -170,7 +170,7 @@ class ScopeAwsJson11Serializer extends _i3.StructuredSmithySerializer<Scope> {
         ));
     }
     if (tagKey != null) {
-      result
+      result$
         ..add('TagKey')
         ..add(serializers.serialize(
           tagKey,
@@ -178,7 +178,7 @@ class ScopeAwsJson11Serializer extends _i3.StructuredSmithySerializer<Scope> {
         ));
     }
     if (tagValue != null) {
-      result
+      result$
         ..add('TagValue')
         ..add(serializers.serialize(
           tagValue,
@@ -186,13 +186,13 @@ class ScopeAwsJson11Serializer extends _i3.StructuredSmithySerializer<Scope> {
         ));
     }
     if (complianceResourceId != null) {
-      result
+      result$
         ..add('ComplianceResourceId')
         ..add(serializers.serialize(
           complianceResourceId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

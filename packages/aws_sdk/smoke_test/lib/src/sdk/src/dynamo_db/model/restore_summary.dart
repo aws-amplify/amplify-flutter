@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.restore_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -146,25 +147,30 @@ class RestoreSummaryAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RestoreSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RestoreSummary);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final RestoreSummary(
+      :sourceBackupArn,
+      :sourceTableArn,
+      :restoreDateTime,
+      :restoreInProgress
+    ) = object;
+    result$.addAll([
       'RestoreDateTime',
       serializers.serialize(
-        payload.restoreDateTime,
+        restoreDateTime,
         specifiedType: const FullType(DateTime),
       ),
       'RestoreInProgress',
       serializers.serialize(
-        payload.restoreInProgress,
+        restoreInProgress,
         specifiedType: const FullType(bool),
       ),
-    ];
-    final RestoreSummary(:sourceBackupArn, :sourceTableArn) = payload;
+    ]);
     if (sourceBackupArn != null) {
-      result
+      result$
         ..add('SourceBackupArn')
         ..add(serializers.serialize(
           sourceBackupArn,
@@ -172,13 +178,13 @@ class RestoreSummaryAwsJson10Serializer
         ));
     }
     if (sourceTableArn != null) {
-      result
+      result$
         ..add('SourceTableArn')
         ..add(serializers.serialize(
           sourceTableArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

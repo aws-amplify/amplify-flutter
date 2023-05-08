@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_delivery_channel_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -109,17 +110,18 @@ class PutDeliveryChannelRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutDeliveryChannelRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutDeliveryChannelRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutDeliveryChannelRequest(:deliveryChannel) = object;
+    result$.addAll([
       'DeliveryChannel',
       serializers.serialize(
-        payload.deliveryChannel,
+        deliveryChannel,
         specifiedType: const FullType(_i3.DeliveryChannel),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

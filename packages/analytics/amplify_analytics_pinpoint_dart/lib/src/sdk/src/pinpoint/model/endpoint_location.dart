@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_location; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -178,25 +179,32 @@ class EndpointLocationRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EndpointLocation object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EndpointLocation);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final EndpointLocation(
+      :city,
+      :country,
+      :latitude,
+      :longitude,
+      :postalCode,
+      :region
+    ) = object;
+    result$.addAll([
       'Latitude',
       serializers.serialize(
-        payload.latitude,
+        latitude,
         specifiedType: const FullType(double),
       ),
       'Longitude',
       serializers.serialize(
-        payload.longitude,
+        longitude,
         specifiedType: const FullType(double),
       ),
-    ];
-    final EndpointLocation(:city, :country, :postalCode, :region) = payload;
+    ]);
     if (city != null) {
-      result
+      result$
         ..add('City')
         ..add(serializers.serialize(
           city,
@@ -204,7 +212,7 @@ class EndpointLocationRestJson1Serializer
         ));
     }
     if (country != null) {
-      result
+      result$
         ..add('Country')
         ..add(serializers.serialize(
           country,
@@ -212,7 +220,7 @@ class EndpointLocationRestJson1Serializer
         ));
     }
     if (postalCode != null) {
-      result
+      result$
         ..add('PostalCode')
         ..add(serializers.serialize(
           postalCode,
@@ -220,13 +228,13 @@ class EndpointLocationRestJson1Serializer
         ));
     }
     if (region != null) {
-      result
+      result$
         ..add('Region')
         ..add(serializers.serialize(
           region,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

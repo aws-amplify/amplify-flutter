@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v2.machine_learning.model.predict_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -135,19 +136,20 @@ class PredictInputAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PredictInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PredictInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PredictInput(:mlModelId, :record, :predictEndpoint) = object;
+    result$.addAll([
       'MLModelId',
       serializers.serialize(
-        payload.mlModelId,
+        mlModelId,
         specifiedType: const FullType(String),
       ),
       'Record',
       serializers.serialize(
-        payload.record,
+        record,
         specifiedType: const FullType(
           _i3.BuiltMap,
           [
@@ -158,10 +160,10 @@ class PredictInputAwsJson11Serializer
       ),
       'PredictEndpoint',
       serializers.serialize(
-        payload.predictEndpoint,
+        predictEndpoint,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

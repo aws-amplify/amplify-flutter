@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -847,19 +848,18 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Error object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Error);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'Error',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final Error(:code, :key, :message, :versionId) = payload;
+    final Error(:code, :key, :message, :versionId) = object;
     if (code != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
           code,
@@ -867,7 +867,7 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
         ));
     }
     if (key != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Key'))
         ..add(serializers.serialize(
           key,
@@ -875,7 +875,7 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
         ));
     }
     if (message != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Message'))
         ..add(serializers.serialize(
           message,
@@ -883,13 +883,13 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
         ));
     }
     if (versionId != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('VersionId'))
         ..add(serializers.serialize(
           versionId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

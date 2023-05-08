@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.json_protocol.model.greeting_struct; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -87,20 +88,19 @@ class GreetingStructAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GreetingStruct object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GreetingStruct);
-    final result = <Object?>[];
-    final GreetingStruct(:hi) = payload;
+    final result$ = <Object?>[];
+    final GreetingStruct(:hi) = object;
     if (hi != null) {
-      result
+      result$
         ..add('hi')
         ..add(serializers.serialize(
           hi,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

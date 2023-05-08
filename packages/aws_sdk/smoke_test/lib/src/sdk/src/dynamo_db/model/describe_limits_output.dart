@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.describe_limits_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -153,19 +154,18 @@ class DescribeLimitsOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeLimitsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeLimitsOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final DescribeLimitsOutput(
       :accountMaxReadCapacityUnits,
       :accountMaxWriteCapacityUnits,
       :tableMaxReadCapacityUnits,
       :tableMaxWriteCapacityUnits
-    ) = payload;
+    ) = object;
     if (accountMaxReadCapacityUnits != null) {
-      result
+      result$
         ..add('AccountMaxReadCapacityUnits')
         ..add(serializers.serialize(
           accountMaxReadCapacityUnits,
@@ -173,7 +173,7 @@ class DescribeLimitsOutputAwsJson10Serializer
         ));
     }
     if (accountMaxWriteCapacityUnits != null) {
-      result
+      result$
         ..add('AccountMaxWriteCapacityUnits')
         ..add(serializers.serialize(
           accountMaxWriteCapacityUnits,
@@ -181,7 +181,7 @@ class DescribeLimitsOutputAwsJson10Serializer
         ));
     }
     if (tableMaxReadCapacityUnits != null) {
-      result
+      result$
         ..add('TableMaxReadCapacityUnits')
         ..add(serializers.serialize(
           tableMaxReadCapacityUnits,
@@ -189,13 +189,13 @@ class DescribeLimitsOutputAwsJson10Serializer
         ));
     }
     if (tableMaxWriteCapacityUnits != null) {
-      result
+      result$
         ..add('TableMaxWriteCapacityUnits')
         ..add(serializers.serialize(
           tableMaxWriteCapacityUnits,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    return result;
+    return result$;
   }
 }

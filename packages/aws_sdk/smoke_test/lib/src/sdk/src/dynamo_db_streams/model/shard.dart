@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.shard; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -128,14 +129,13 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Shard object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Shard);
-    final result = <Object?>[];
-    final Shard(:shardId, :sequenceNumberRange, :parentShardId) = payload;
+    final result$ = <Object?>[];
+    final Shard(:shardId, :sequenceNumberRange, :parentShardId) = object;
     if (shardId != null) {
-      result
+      result$
         ..add('ShardId')
         ..add(serializers.serialize(
           shardId,
@@ -143,7 +143,7 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
         ));
     }
     if (sequenceNumberRange != null) {
-      result
+      result$
         ..add('SequenceNumberRange')
         ..add(serializers.serialize(
           sequenceNumberRange,
@@ -151,13 +151,13 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
         ));
     }
     if (parentShardId != null) {
-      result
+      result$
         ..add('ParentShardId')
         ..add(serializers.serialize(
           parentShardId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.group_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -215,11 +216,10 @@ class GroupDetailAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GroupDetail object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GroupDetail);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'GroupDetailResponse',
         _i5.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -233,9 +233,9 @@ class GroupDetailAwsQuerySerializer
       :createDate,
       :groupPolicyList,
       :attachedManagedPolicies
-    ) = payload;
+    ) = object;
     if (path != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
@@ -243,7 +243,7 @@ class GroupDetailAwsQuerySerializer
         ));
     }
     if (groupName != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('GroupName'))
         ..add(serializers.serialize(
           groupName,
@@ -251,7 +251,7 @@ class GroupDetailAwsQuerySerializer
         ));
     }
     if (groupId != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('GroupId'))
         ..add(serializers.serialize(
           groupId,
@@ -259,7 +259,7 @@ class GroupDetailAwsQuerySerializer
         ));
     }
     if (arn != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
@@ -267,7 +267,7 @@ class GroupDetailAwsQuerySerializer
         ));
     }
     if (createDate != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
@@ -275,7 +275,7 @@ class GroupDetailAwsQuerySerializer
         ));
     }
     if (groupPolicyList != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('GroupPolicyList'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
@@ -289,7 +289,7 @@ class GroupDetailAwsQuerySerializer
         ));
     }
     if (attachedManagedPolicies != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('AttachedManagedPolicies'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
@@ -302,6 +302,6 @@ class GroupDetailAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

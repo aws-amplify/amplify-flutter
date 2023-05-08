@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v1.query_protocol.model.xml_timestamps_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -183,11 +184,10 @@ class XmlTimestampsOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlTimestampsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlTimestampsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'XmlTimestampsOutputResponse',
         _i2.XmlNamespace('https://example.com/'),
@@ -201,9 +201,9 @@ class XmlTimestampsOutputAwsQuerySerializer
       :epochSecondsOnTarget,
       :httpDate,
       :httpDateOnTarget
-    ) = payload;
+    ) = object;
     if (normal != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('normal'))
         ..add(serializers.serialize(
           normal,
@@ -211,7 +211,7 @@ class XmlTimestampsOutputAwsQuerySerializer
         ));
     }
     if (dateTime != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('dateTime'))
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
@@ -219,7 +219,7 @@ class XmlTimestampsOutputAwsQuerySerializer
         ));
     }
     if (dateTimeOnTarget != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('dateTimeOnTarget'))
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
@@ -227,7 +227,7 @@ class XmlTimestampsOutputAwsQuerySerializer
         ));
     }
     if (epochSeconds != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('epochSeconds'))
         ..add(_i2.TimestampSerializer.epochSeconds.serialize(
           serializers,
@@ -235,7 +235,7 @@ class XmlTimestampsOutputAwsQuerySerializer
         ));
     }
     if (epochSecondsOnTarget != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('epochSecondsOnTarget'))
         ..add(_i2.TimestampSerializer.epochSeconds.serialize(
           serializers,
@@ -243,7 +243,7 @@ class XmlTimestampsOutputAwsQuerySerializer
         ));
     }
     if (httpDate != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('httpDate'))
         ..add(_i2.TimestampSerializer.httpDate.serialize(
           serializers,
@@ -251,13 +251,13 @@ class XmlTimestampsOutputAwsQuerySerializer
         ));
     }
     if (httpDateOnTarget != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('httpDateOnTarget'))
         ..add(_i2.TimestampSerializer.httpDate.serialize(
           serializers,
           httpDateOnTarget,
         ));
     }
-    return result;
+    return result$;
   }
 }

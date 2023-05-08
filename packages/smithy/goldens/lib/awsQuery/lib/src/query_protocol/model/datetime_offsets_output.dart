@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v1.query_protocol.model.datetime_offsets_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -96,25 +97,24 @@ class DatetimeOffsetsOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DatetimeOffsetsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DatetimeOffsetsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'DatetimeOffsetsOutputResponse',
         _i2.XmlNamespace('https://example.com/'),
       )
     ];
-    final DatetimeOffsetsOutput(:datetime) = payload;
+    final DatetimeOffsetsOutput(:datetime) = object;
     if (datetime != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('datetime'))
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
           datetime,
         ));
     }
-    return result;
+    return result$;
   }
 }

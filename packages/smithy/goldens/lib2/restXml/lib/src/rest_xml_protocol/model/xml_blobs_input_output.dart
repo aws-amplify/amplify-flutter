@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.xml_blobs_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -108,20 +109,19 @@ class XmlBlobsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlBlobsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlBlobsInputOutput);
-    final result = <Object?>[const _i1.XmlElementName('XmlBlobsInputOutput')];
-    final XmlBlobsInputOutput(:data) = payload;
+    final result$ = <Object?>[const _i1.XmlElementName('XmlBlobsInputOutput')];
+    final XmlBlobsInputOutput(:data) = object;
     if (data != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('data'))
         ..add(serializers.serialize(
           data,
           specifiedType: const FullType.nullable(_i3.Uint8List),
         ));
     }
-    return result;
+    return result$;
   }
 }

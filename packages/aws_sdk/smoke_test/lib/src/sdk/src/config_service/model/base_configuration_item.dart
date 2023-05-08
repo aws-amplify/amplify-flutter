@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.base_configuration_item; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -321,11 +322,10 @@ class BaseConfigurationItemAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BaseConfigurationItem object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BaseConfigurationItem);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final BaseConfigurationItem(
       :version,
       :accountId,
@@ -341,9 +341,9 @@ class BaseConfigurationItemAwsJson11Serializer
       :resourceCreationTime,
       :configuration,
       :supplementaryConfiguration
-    ) = payload;
+    ) = object;
     if (version != null) {
-      result
+      result$
         ..add('version')
         ..add(serializers.serialize(
           version,
@@ -351,7 +351,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ));
     }
     if (accountId != null) {
-      result
+      result$
         ..add('accountId')
         ..add(serializers.serialize(
           accountId,
@@ -359,7 +359,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ));
     }
     if (configurationItemCaptureTime != null) {
-      result
+      result$
         ..add('configurationItemCaptureTime')
         ..add(serializers.serialize(
           configurationItemCaptureTime,
@@ -367,7 +367,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ));
     }
     if (configurationItemStatus != null) {
-      result
+      result$
         ..add('configurationItemStatus')
         ..add(serializers.serialize(
           configurationItemStatus,
@@ -375,7 +375,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ));
     }
     if (configurationStateId != null) {
-      result
+      result$
         ..add('configurationStateId')
         ..add(serializers.serialize(
           configurationStateId,
@@ -383,7 +383,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ));
     }
     if (arn != null) {
-      result
+      result$
         ..add('arn')
         ..add(serializers.serialize(
           arn,
@@ -391,7 +391,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ));
     }
     if (resourceType != null) {
-      result
+      result$
         ..add('resourceType')
         ..add(serializers.serialize(
           resourceType,
@@ -399,7 +399,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ));
     }
     if (resourceId != null) {
-      result
+      result$
         ..add('resourceId')
         ..add(serializers.serialize(
           resourceId,
@@ -407,7 +407,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ));
     }
     if (resourceName != null) {
-      result
+      result$
         ..add('resourceName')
         ..add(serializers.serialize(
           resourceName,
@@ -415,7 +415,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ));
     }
     if (awsRegion != null) {
-      result
+      result$
         ..add('awsRegion')
         ..add(serializers.serialize(
           awsRegion,
@@ -423,7 +423,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ));
     }
     if (availabilityZone != null) {
-      result
+      result$
         ..add('availabilityZone')
         ..add(serializers.serialize(
           availabilityZone,
@@ -431,7 +431,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ));
     }
     if (resourceCreationTime != null) {
-      result
+      result$
         ..add('resourceCreationTime')
         ..add(serializers.serialize(
           resourceCreationTime,
@@ -439,7 +439,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ));
     }
     if (configuration != null) {
-      result
+      result$
         ..add('configuration')
         ..add(serializers.serialize(
           configuration,
@@ -447,7 +447,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ));
     }
     if (supplementaryConfiguration != null) {
-      result
+      result$
         ..add('supplementaryConfiguration')
         ..add(serializers.serialize(
           supplementaryConfiguration,
@@ -460,6 +460,6 @@ class BaseConfigurationItemAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

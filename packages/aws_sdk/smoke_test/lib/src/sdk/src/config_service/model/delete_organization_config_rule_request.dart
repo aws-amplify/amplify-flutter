@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.delete_organization_config_rule_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -107,17 +108,19 @@ class DeleteOrganizationConfigRuleRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteOrganizationConfigRuleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeleteOrganizationConfigRuleRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DeleteOrganizationConfigRuleRequest(:organizationConfigRuleName) =
+        object;
+    result$.addAll([
       'OrganizationConfigRuleName',
       serializers.serialize(
-        payload.organizationConfigRuleName,
+        organizationConfigRuleName,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

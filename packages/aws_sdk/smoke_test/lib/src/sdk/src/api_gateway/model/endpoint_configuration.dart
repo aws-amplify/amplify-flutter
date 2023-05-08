@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.endpoint_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -125,14 +126,13 @@ class EndpointConfigurationRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EndpointConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EndpointConfiguration);
-    final result = <Object?>[];
-    final EndpointConfiguration(:types, :vpcEndpointIds) = payload;
+    final result$ = <Object?>[];
+    final EndpointConfiguration(:types, :vpcEndpointIds) = object;
     if (types != null) {
-      result
+      result$
         ..add('types')
         ..add(serializers.serialize(
           types,
@@ -143,7 +143,7 @@ class EndpointConfigurationRestJson1Serializer
         ));
     }
     if (vpcEndpointIds != null) {
-      result
+      result$
         ..add('vpcEndpointIds')
         ..add(serializers.serialize(
           vpcEndpointIds,
@@ -153,6 +153,6 @@ class EndpointConfigurationRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

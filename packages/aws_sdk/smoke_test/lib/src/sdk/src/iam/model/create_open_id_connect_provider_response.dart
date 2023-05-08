@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.create_open_id_connect_provider_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -134,11 +135,10 @@ class CreateOpenIdConnectProviderResponseAwsQuerySerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateOpenIdConnectProviderResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateOpenIdConnectProviderResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'CreateOpenIdConnectProviderResponseResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -147,9 +147,9 @@ class CreateOpenIdConnectProviderResponseAwsQuerySerializer extends _i4
     final CreateOpenIdConnectProviderResponse(
       :openIdConnectProviderArn,
       :tags
-    ) = payload;
+    ) = object;
     if (openIdConnectProviderArn != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('OpenIDConnectProviderArn'))
         ..add(serializers.serialize(
           openIdConnectProviderArn,
@@ -157,7 +157,7 @@ class CreateOpenIdConnectProviderResponseAwsQuerySerializer extends _i4
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Tags'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -170,6 +170,6 @@ class CreateOpenIdConnectProviderResponseAwsQuerySerializer extends _i4
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v2.query_protocol.model.host_label_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -108,23 +109,22 @@ class HostLabelInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    HostLabelInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as HostLabelInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'HostLabelInputResponse',
         _i1.XmlNamespace('https://example.com/'),
       )
     ];
-    final HostLabelInput(:label) = payload;
-    result
+    final HostLabelInput(:label) = object;
+    result$
       ..add(const _i1.XmlElementName('label'))
       ..add(serializers.serialize(
         label,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

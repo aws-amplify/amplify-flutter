@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.list_entities_for_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -199,11 +200,10 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListEntitiesForPolicyRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListEntitiesForPolicyRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ListEntitiesForPolicyRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -216,15 +216,15 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
       :policyUsageFilter,
       :marker,
       :maxItems
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('PolicyArn'))
       ..add(serializers.serialize(
         policyArn,
         specifiedType: const FullType(String),
       ));
     if (entityFilter != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('EntityFilter'))
         ..add(serializers.serialize(
           entityFilter,
@@ -232,7 +232,7 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
         ));
     }
     if (pathPrefix != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PathPrefix'))
         ..add(serializers.serialize(
           pathPrefix,
@@ -240,7 +240,7 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
         ));
     }
     if (policyUsageFilter != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PolicyUsageFilter'))
         ..add(serializers.serialize(
           policyUsageFilter,
@@ -248,7 +248,7 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
@@ -256,13 +256,13 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
         ));
     }
     if (maxItems != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
           maxItems,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

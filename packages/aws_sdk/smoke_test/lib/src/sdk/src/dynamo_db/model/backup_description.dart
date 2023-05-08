@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.backup_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -134,18 +135,17 @@ class BackupDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BackupDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BackupDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final BackupDescription(
       :backupDetails,
       :sourceTableDetails,
       :sourceTableFeatureDetails
-    ) = payload;
+    ) = object;
     if (backupDetails != null) {
-      result
+      result$
         ..add('BackupDetails')
         ..add(serializers.serialize(
           backupDetails,
@@ -153,7 +153,7 @@ class BackupDescriptionAwsJson10Serializer
         ));
     }
     if (sourceTableDetails != null) {
-      result
+      result$
         ..add('SourceTableDetails')
         ..add(serializers.serialize(
           sourceTableDetails,
@@ -161,13 +161,13 @@ class BackupDescriptionAwsJson10Serializer
         ));
     }
     if (sourceTableFeatureDetails != null) {
-      result
+      result$
         ..add('SourceTableFeatureDetails')
         ..add(serializers.serialize(
           sourceTableFeatureDetails,
           specifiedType: const FullType(_i4.SourceTableFeatureDetails),
         ));
     }
-    return result;
+    return result$;
   }
 }

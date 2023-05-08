@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_remediation_execution_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -132,17 +133,16 @@ class DescribeRemediationExecutionStatusResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeRemediationExecutionStatusResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeRemediationExecutionStatusResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final DescribeRemediationExecutionStatusResponse(
       :remediationExecutionStatuses,
       :nextToken
-    ) = payload;
+    ) = object;
     if (remediationExecutionStatuses != null) {
-      result
+      result$
         ..add('RemediationExecutionStatuses')
         ..add(serializers.serialize(
           remediationExecutionStatuses,
@@ -153,13 +153,13 @@ class DescribeRemediationExecutionStatusResponseAwsJson11Serializer extends _i4
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

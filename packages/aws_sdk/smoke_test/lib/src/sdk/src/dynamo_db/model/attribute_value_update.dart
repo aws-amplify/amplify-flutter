@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.attribute_value_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -167,14 +168,13 @@ class AttributeValueUpdateAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AttributeValueUpdate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AttributeValueUpdate);
-    final result = <Object?>[];
-    final AttributeValueUpdate(:value, :action) = payload;
+    final result$ = <Object?>[];
+    final AttributeValueUpdate(:value, :action) = object;
     if (value != null) {
-      result
+      result$
         ..add('Value')
         ..add(serializers.serialize(
           value,
@@ -182,13 +182,13 @@ class AttributeValueUpdateAwsJson10Serializer
         ));
     }
     if (action != null) {
-      result
+      result$
         ..add('Action')
         ..add(serializers.serialize(
           action,
           specifiedType: const FullType(_i3.AttributeAction),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.structure_list_member; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -107,14 +108,13 @@ class StructureListMemberRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StructureListMember object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StructureListMember);
-    final result = <Object?>[];
-    final StructureListMember(:a, :b) = payload;
+    final result$ = <Object?>[];
+    final StructureListMember(:a, :b) = object;
     if (a != null) {
-      result
+      result$
         ..add('value')
         ..add(serializers.serialize(
           a,
@@ -122,13 +122,13 @@ class StructureListMemberRestJson1Serializer
         ));
     }
     if (b != null) {
-      result
+      result$
         ..add('other')
         ..add(serializers.serialize(
           b,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

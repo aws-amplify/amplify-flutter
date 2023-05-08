@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.intelligent_tiering_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -161,39 +162,38 @@ class IntelligentTieringConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    IntelligentTieringConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as IntelligentTieringConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'IntelligentTieringConfiguration',
         _i6.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final IntelligentTieringConfiguration(:filter, :id, :status, :tierings) =
-        payload;
+        object;
     if (filter != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Filter'))
         ..add(serializers.serialize(
           filter,
           specifiedType: const FullType(_i2.IntelligentTieringFilter),
         ));
     }
-    result
+    result$
       ..add(const _i6.XmlElementName('Id'))
       ..add(serializers.serialize(
         id,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i6.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
         specifiedType: const FullType.nullable(_i3.IntelligentTieringStatus),
       ));
-    result.addAll(
+    result$.addAll(
         const _i6.XmlBuiltListSerializer(memberName: 'Tiering').serialize(
       serializers,
       tierings,
@@ -202,6 +202,6 @@ class IntelligentTieringConfigurationRestXmlSerializer
         [FullType(_i4.Tiering)],
       ),
     ));
-    return result;
+    return result$;
   }
 }

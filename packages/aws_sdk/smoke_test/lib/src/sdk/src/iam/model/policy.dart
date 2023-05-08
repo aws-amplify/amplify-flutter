@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.policy; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -293,11 +294,10 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Policy object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Policy);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'PolicyResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -316,9 +316,9 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
       :createDate,
       :updateDate,
       :tags
-    ) = payload;
+    ) = object;
     if (policyName != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PolicyName'))
         ..add(serializers.serialize(
           policyName,
@@ -326,7 +326,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
         ));
     }
     if (policyId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PolicyId'))
         ..add(serializers.serialize(
           policyId,
@@ -334,7 +334,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
         ));
     }
     if (arn != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
@@ -342,7 +342,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
         ));
     }
     if (path != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
@@ -350,7 +350,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
         ));
     }
     if (defaultVersionId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('DefaultVersionId'))
         ..add(serializers.serialize(
           defaultVersionId,
@@ -358,7 +358,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
         ));
     }
     if (attachmentCount != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('AttachmentCount'))
         ..add(serializers.serialize(
           attachmentCount,
@@ -366,7 +366,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
         ));
     }
     if (permissionsBoundaryUsageCount != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PermissionsBoundaryUsageCount'))
         ..add(serializers.serialize(
           permissionsBoundaryUsageCount,
@@ -374,7 +374,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
         ));
     }
     if (isAttachable != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('IsAttachable'))
         ..add(serializers.serialize(
           isAttachable,
@@ -382,7 +382,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -390,7 +390,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
         ));
     }
     if (createDate != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
@@ -398,7 +398,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
         ));
     }
     if (updateDate != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('UpdateDate'))
         ..add(serializers.serialize(
           updateDate,
@@ -406,7 +406,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Tags'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -419,6 +419,6 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.test_invoke_method_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -199,11 +200,10 @@ class TestInvokeMethodResponseRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TestInvokeMethodResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TestInvokeMethodResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final TestInvokeMethodResponse(
       :body,
       :headers,
@@ -211,9 +211,9 @@ class TestInvokeMethodResponseRestJson1Serializer
       :log,
       :multiValueHeaders,
       :status
-    ) = payload;
+    ) = object;
     if (body != null) {
-      result
+      result$
         ..add('body')
         ..add(serializers.serialize(
           body,
@@ -221,7 +221,7 @@ class TestInvokeMethodResponseRestJson1Serializer
         ));
     }
     if (headers != null) {
-      result
+      result$
         ..add('headers')
         ..add(serializers.serialize(
           headers,
@@ -235,7 +235,7 @@ class TestInvokeMethodResponseRestJson1Serializer
         ));
     }
     if (latency != null) {
-      result
+      result$
         ..add('latency')
         ..add(serializers.serialize(
           latency,
@@ -243,7 +243,7 @@ class TestInvokeMethodResponseRestJson1Serializer
         ));
     }
     if (log != null) {
-      result
+      result$
         ..add('log')
         ..add(serializers.serialize(
           log,
@@ -251,7 +251,7 @@ class TestInvokeMethodResponseRestJson1Serializer
         ));
     }
     if (multiValueHeaders != null) {
-      result
+      result$
         ..add('multiValueHeaders')
         ..add(serializers.serialize(
           multiValueHeaders,
@@ -265,13 +265,13 @@ class TestInvokeMethodResponseRestJson1Serializer
         ));
     }
     if (status != null) {
-      result
+      result$
         ..add('status')
         ..add(serializers.serialize(
           status,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

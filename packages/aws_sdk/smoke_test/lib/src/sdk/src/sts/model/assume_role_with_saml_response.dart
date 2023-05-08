@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.sts.model.assume_role_with_saml_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -251,11 +252,10 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AssumeRoleWithSamlResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AssumeRoleWithSamlResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'AssumeRoleWithSamlResponseResponse',
         _i4.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
@@ -271,9 +271,9 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
       :audience,
       :nameQualifier,
       :sourceIdentity
-    ) = payload;
+    ) = object;
     if (credentials != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Credentials'))
         ..add(serializers.serialize(
           credentials,
@@ -281,7 +281,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
         ));
     }
     if (assumedRoleUser != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('AssumedRoleUser'))
         ..add(serializers.serialize(
           assumedRoleUser,
@@ -289,7 +289,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
         ));
     }
     if (packedPolicySize != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PackedPolicySize'))
         ..add(serializers.serialize(
           packedPolicySize,
@@ -297,7 +297,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
         ));
     }
     if (subject != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Subject'))
         ..add(serializers.serialize(
           subject,
@@ -305,7 +305,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
         ));
     }
     if (subjectType != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('SubjectType'))
         ..add(serializers.serialize(
           subjectType,
@@ -313,7 +313,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
         ));
     }
     if (issuer != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Issuer'))
         ..add(serializers.serialize(
           issuer,
@@ -321,7 +321,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
         ));
     }
     if (audience != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Audience'))
         ..add(serializers.serialize(
           audience,
@@ -329,7 +329,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
         ));
     }
     if (nameQualifier != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('NameQualifier'))
         ..add(serializers.serialize(
           nameQualifier,
@@ -337,13 +337,13 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
         ));
     }
     if (sourceIdentity != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('SourceIdentity'))
         ..add(serializers.serialize(
           sourceIdentity,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

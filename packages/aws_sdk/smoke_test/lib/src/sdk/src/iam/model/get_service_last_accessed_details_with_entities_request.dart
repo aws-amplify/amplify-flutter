@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_service_last_accessed_details_with_entities_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -162,12 +163,10 @@ class GetServiceLastAccessedDetailsWithEntitiesRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetServiceLastAccessedDetailsWithEntitiesRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload =
-        (object as GetServiceLastAccessedDetailsWithEntitiesRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'GetServiceLastAccessedDetailsWithEntitiesRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -178,21 +177,21 @@ class GetServiceLastAccessedDetailsWithEntitiesRequestAwsQuerySerializer
       :serviceNamespace,
       :maxItems,
       :marker
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('JobId'))
       ..add(serializers.serialize(
         jobId,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('ServiceNamespace'))
       ..add(serializers.serialize(
         serviceNamespace,
         specifiedType: const FullType(String),
       ));
     if (maxItems != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
           maxItems,
@@ -200,13 +199,13 @@ class GetServiceLastAccessedDetailsWithEntitiesRequestAwsQuerySerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

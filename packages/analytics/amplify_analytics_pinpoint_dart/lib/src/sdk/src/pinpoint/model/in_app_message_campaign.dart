@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message_campaign; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -218,40 +219,44 @@ class InAppMessageCampaignRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InAppMessageCampaign object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InAppMessageCampaign);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final InAppMessageCampaign(
+      :campaignId,
+      :dailyCap,
+      :inAppMessage,
+      :priority,
+      :schedule,
+      :sessionCap,
+      :totalCap,
+      :treatmentId
+    ) = object;
+    result$.addAll([
       'DailyCap',
       serializers.serialize(
-        payload.dailyCap,
+        dailyCap,
         specifiedType: const FullType(int),
       ),
       'Priority',
       serializers.serialize(
-        payload.priority,
+        priority,
         specifiedType: const FullType(int),
       ),
       'SessionCap',
       serializers.serialize(
-        payload.sessionCap,
+        sessionCap,
         specifiedType: const FullType(int),
       ),
       'TotalCap',
       serializers.serialize(
-        payload.totalCap,
+        totalCap,
         specifiedType: const FullType(int),
       ),
-    ];
-    final InAppMessageCampaign(
-      :campaignId,
-      :inAppMessage,
-      :schedule,
-      :treatmentId
-    ) = payload;
+    ]);
     if (campaignId != null) {
-      result
+      result$
         ..add('CampaignId')
         ..add(serializers.serialize(
           campaignId,
@@ -259,7 +264,7 @@ class InAppMessageCampaignRestJson1Serializer
         ));
     }
     if (inAppMessage != null) {
-      result
+      result$
         ..add('InAppMessage')
         ..add(serializers.serialize(
           inAppMessage,
@@ -267,7 +272,7 @@ class InAppMessageCampaignRestJson1Serializer
         ));
     }
     if (schedule != null) {
-      result
+      result$
         ..add('Schedule')
         ..add(serializers.serialize(
           schedule,
@@ -275,13 +280,13 @@ class InAppMessageCampaignRestJson1Serializer
         ));
     }
     if (treatmentId != null) {
-      result
+      result$
         ..add('TreatmentId')
         ..add(serializers.serialize(
           treatmentId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

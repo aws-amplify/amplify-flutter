@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v2.query_protocol.model.simple_input_params_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -214,11 +215,10 @@ class SimpleInputParamsInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SimpleInputParamsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SimpleInputParamsInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'SimpleInputParamsInputResponse',
         _i1.XmlNamespace('https://example.com/'),
@@ -234,9 +234,9 @@ class SimpleInputParamsInputAwsQuerySerializer
       :qux,
       :fooEnum,
       :integerEnum
-    ) = payload;
+    ) = object;
     if (foo != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Foo'))
         ..add(serializers.serialize(
           foo,
@@ -244,7 +244,7 @@ class SimpleInputParamsInputAwsQuerySerializer
         ));
     }
     if (bar != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Bar'))
         ..add(serializers.serialize(
           bar,
@@ -252,7 +252,7 @@ class SimpleInputParamsInputAwsQuerySerializer
         ));
     }
     if (baz != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Baz'))
         ..add(serializers.serialize(
           baz,
@@ -260,7 +260,7 @@ class SimpleInputParamsInputAwsQuerySerializer
         ));
     }
     if (bam != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Bam'))
         ..add(serializers.serialize(
           bam,
@@ -268,7 +268,7 @@ class SimpleInputParamsInputAwsQuerySerializer
         ));
     }
     if (floatValue != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('FloatValue'))
         ..add(serializers.serialize(
           floatValue,
@@ -276,7 +276,7 @@ class SimpleInputParamsInputAwsQuerySerializer
         ));
     }
     if (boo != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Boo'))
         ..add(serializers.serialize(
           boo,
@@ -284,7 +284,7 @@ class SimpleInputParamsInputAwsQuerySerializer
         ));
     }
     if (qux != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Qux'))
         ..add(serializers.serialize(
           qux,
@@ -292,7 +292,7 @@ class SimpleInputParamsInputAwsQuerySerializer
         ));
     }
     if (fooEnum != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('FooEnum'))
         ..add(serializers.serialize(
           fooEnum,
@@ -300,13 +300,13 @@ class SimpleInputParamsInputAwsQuerySerializer
         ));
     }
     if (integerEnum != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('IntegerEnum'))
         ..add(serializers.serialize(
           integerEnum,
           specifiedType: const FullType.nullable(_i5.IntegerEnum),
         ));
     }
-    return result;
+    return result$;
   }
 }

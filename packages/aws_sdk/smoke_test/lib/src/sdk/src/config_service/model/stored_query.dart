@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.stored_query; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -158,20 +159,26 @@ class StoredQueryAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StoredQuery object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StoredQuery);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final StoredQuery(
+      :queryId,
+      :queryArn,
+      :queryName,
+      :description,
+      :expression
+    ) = object;
+    result$.addAll([
       'QueryName',
       serializers.serialize(
-        payload.queryName,
+        queryName,
         specifiedType: const FullType(String),
       ),
-    ];
-    final StoredQuery(:queryId, :queryArn, :description, :expression) = payload;
+    ]);
     if (queryId != null) {
-      result
+      result$
         ..add('QueryId')
         ..add(serializers.serialize(
           queryId,
@@ -179,7 +186,7 @@ class StoredQueryAwsJson11Serializer
         ));
     }
     if (queryArn != null) {
-      result
+      result$
         ..add('QueryArn')
         ..add(serializers.serialize(
           queryArn,
@@ -187,7 +194,7 @@ class StoredQueryAwsJson11Serializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('Description')
         ..add(serializers.serialize(
           description,
@@ -195,13 +202,13 @@ class StoredQueryAwsJson11Serializer
         ));
     }
     if (expression != null) {
-      result
+      result$
         ..add('Expression')
         ..add(serializers.serialize(
           expression,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.table_class_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -114,14 +115,13 @@ class TableClassSummaryAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TableClassSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TableClassSummary);
-    final result = <Object?>[];
-    final TableClassSummary(:tableClass, :lastUpdateDateTime) = payload;
+    final result$ = <Object?>[];
+    final TableClassSummary(:tableClass, :lastUpdateDateTime) = object;
     if (tableClass != null) {
-      result
+      result$
         ..add('TableClass')
         ..add(serializers.serialize(
           tableClass,
@@ -129,13 +129,13 @@ class TableClassSummaryAwsJson10Serializer
         ));
     }
     if (lastUpdateDateTime != null) {
-      result
+      result$
         ..add('LastUpdateDateTime')
         ..add(serializers.serialize(
           lastUpdateDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

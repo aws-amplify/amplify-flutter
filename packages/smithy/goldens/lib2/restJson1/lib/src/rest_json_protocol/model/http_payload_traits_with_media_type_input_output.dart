@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.http_payload_traits_with_media_type_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -122,15 +123,12 @@ class HttpPayloadTraitsWithMediaTypeInputOutputRestJson1Serializer
   @override
   Object serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.Uint8List object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is HttpPayloadTraitsWithMediaTypeInputOutput
-        ? object.getPayload()
-        : (object as _i2.Uint8List?);
-    return (serializers.serialize(
-      payload!,
+    return serializers.serialize(
+      object,
       specifiedType: const FullType(_i2.Uint8List),
-    ) as Object);
+    )!;
   }
 }

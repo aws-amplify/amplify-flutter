@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.global_secondary_index_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -165,14 +166,13 @@ class GlobalSecondaryIndexUpdateAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GlobalSecondaryIndexUpdate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GlobalSecondaryIndexUpdate);
-    final result = <Object?>[];
-    final GlobalSecondaryIndexUpdate(:update_, :create, :delete) = payload;
+    final result$ = <Object?>[];
+    final GlobalSecondaryIndexUpdate(:update_, :create, :delete) = object;
     if (update_ != null) {
-      result
+      result$
         ..add('Update')
         ..add(serializers.serialize(
           update_,
@@ -180,7 +180,7 @@ class GlobalSecondaryIndexUpdateAwsJson10Serializer
         ));
     }
     if (create != null) {
-      result
+      result$
         ..add('Create')
         ..add(serializers.serialize(
           create,
@@ -188,13 +188,13 @@ class GlobalSecondaryIndexUpdateAwsJson10Serializer
         ));
     }
     if (delete != null) {
-      result
+      result$
         ..add('Delete')
         ..add(serializers.serialize(
           delete,
           specifiedType: const FullType(_i4.DeleteGlobalSecondaryIndexAction),
         ));
     }
-    return result;
+    return result$;
   }
 }

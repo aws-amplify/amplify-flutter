@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.batch_execute_statement_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -132,14 +133,13 @@ class BatchExecuteStatementOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BatchExecuteStatementOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BatchExecuteStatementOutput);
-    final result = <Object?>[];
-    final BatchExecuteStatementOutput(:responses, :consumedCapacity) = payload;
+    final result$ = <Object?>[];
+    final BatchExecuteStatementOutput(:responses, :consumedCapacity) = object;
     if (responses != null) {
-      result
+      result$
         ..add('Responses')
         ..add(serializers.serialize(
           responses,
@@ -150,7 +150,7 @@ class BatchExecuteStatementOutputAwsJson10Serializer
         ));
     }
     if (consumedCapacity != null) {
-      result
+      result$
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
           consumedCapacity,
@@ -160,6 +160,6 @@ class BatchExecuteStatementOutputAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.part; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -202,11 +203,10 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Part object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Part);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'Part',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -221,9 +221,9 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
       :lastModified,
       :partNumber,
       :size
-    ) = payload;
+    ) = object;
     if (checksumCrc32 != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ChecksumCRC32'))
         ..add(serializers.serialize(
           checksumCrc32,
@@ -231,7 +231,7 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
         ));
     }
     if (checksumCrc32C != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ChecksumCRC32C'))
         ..add(serializers.serialize(
           checksumCrc32C,
@@ -239,7 +239,7 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
         ));
     }
     if (checksumSha1 != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ChecksumSHA1'))
         ..add(serializers.serialize(
           checksumSha1,
@@ -247,7 +247,7 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
         ));
     }
     if (checksumSha256 != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ChecksumSHA256'))
         ..add(serializers.serialize(
           checksumSha256,
@@ -255,7 +255,7 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
         ));
     }
     if (eTag != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ETag'))
         ..add(serializers.serialize(
           eTag,
@@ -263,7 +263,7 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
         ));
     }
     if (lastModified != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
@@ -271,7 +271,7 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
         ));
     }
     if (partNumber != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('PartNumber'))
         ..add(serializers.serialize(
           partNumber,
@@ -279,13 +279,13 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
         ));
     }
     if (size != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Size'))
         ..add(serializers.serialize(
           size,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.publish_type_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -167,20 +168,19 @@ class PublishTypeInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PublishTypeInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PublishTypeInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'PublishTypeInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final PublishTypeInput(:type, :arn, :typeName, :publicVersionNumber) =
-        payload;
+        object;
     if (type != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
@@ -188,7 +188,7 @@ class PublishTypeInputAwsQuerySerializer
         ));
     }
     if (arn != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
@@ -196,7 +196,7 @@ class PublishTypeInputAwsQuerySerializer
         ));
     }
     if (typeName != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
@@ -204,13 +204,13 @@ class PublishTypeInputAwsQuerySerializer
         ));
     }
     if (publicVersionNumber != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PublicVersionNumber'))
         ..add(serializers.serialize(
           publicVersionNumber,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

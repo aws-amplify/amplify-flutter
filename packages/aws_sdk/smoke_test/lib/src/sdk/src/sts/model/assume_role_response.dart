@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.sts.model.assume_role_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -159,11 +160,10 @@ class AssumeRoleResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AssumeRoleResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AssumeRoleResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'AssumeRoleResponseResponse',
         _i4.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
@@ -174,9 +174,9 @@ class AssumeRoleResponseAwsQuerySerializer
       :assumedRoleUser,
       :packedPolicySize,
       :sourceIdentity
-    ) = payload;
+    ) = object;
     if (credentials != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Credentials'))
         ..add(serializers.serialize(
           credentials,
@@ -184,7 +184,7 @@ class AssumeRoleResponseAwsQuerySerializer
         ));
     }
     if (assumedRoleUser != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('AssumedRoleUser'))
         ..add(serializers.serialize(
           assumedRoleUser,
@@ -192,7 +192,7 @@ class AssumeRoleResponseAwsQuerySerializer
         ));
     }
     if (packedPolicySize != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('PackedPolicySize'))
         ..add(serializers.serialize(
           packedPolicySize,
@@ -200,13 +200,13 @@ class AssumeRoleResponseAwsQuerySerializer
         ));
     }
     if (sourceIdentity != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('SourceIdentity'))
         ..add(serializers.serialize(
           sourceIdentity,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

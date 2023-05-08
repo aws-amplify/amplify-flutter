@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.conformance_pack_compliance_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -121,22 +122,26 @@ class ConformancePackComplianceSummaryAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConformancePackComplianceSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConformancePackComplianceSummary);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ConformancePackComplianceSummary(
+      :conformancePackName,
+      :conformancePackComplianceStatus
+    ) = object;
+    result$.addAll([
       'ConformancePackName',
       serializers.serialize(
-        payload.conformancePackName,
+        conformancePackName,
         specifiedType: const FullType(String),
       ),
       'ConformancePackComplianceStatus',
       serializers.serialize(
-        payload.conformancePackComplianceStatus,
+        conformancePackComplianceStatus,
         specifiedType: const FullType(_i2.ConformancePackComplianceType),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.auto_scaling_target_tracking_scaling_policy_configuration_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -158,25 +159,25 @@ class AutoScalingTargetTrackingScalingPolicyConfigurationDescriptionAwsJson10Ser
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AutoScalingTargetTrackingScalingPolicyConfigurationDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object
-        as AutoScalingTargetTrackingScalingPolicyConfigurationDescription);
-    final result = <Object?>[
-      'TargetValue',
-      serializers.serialize(
-        payload.targetValue,
-        specifiedType: const FullType(double),
-      ),
-    ];
+    final result$ = <Object?>[];
     final AutoScalingTargetTrackingScalingPolicyConfigurationDescription(
       :disableScaleIn,
       :scaleInCooldown,
-      :scaleOutCooldown
-    ) = payload;
+      :scaleOutCooldown,
+      :targetValue
+    ) = object;
+    result$.addAll([
+      'TargetValue',
+      serializers.serialize(
+        targetValue,
+        specifiedType: const FullType(double),
+      ),
+    ]);
     if (disableScaleIn != null) {
-      result
+      result$
         ..add('DisableScaleIn')
         ..add(serializers.serialize(
           disableScaleIn,
@@ -184,7 +185,7 @@ class AutoScalingTargetTrackingScalingPolicyConfigurationDescriptionAwsJson10Ser
         ));
     }
     if (scaleInCooldown != null) {
-      result
+      result$
         ..add('ScaleInCooldown')
         ..add(serializers.serialize(
           scaleInCooldown,
@@ -192,13 +193,13 @@ class AutoScalingTargetTrackingScalingPolicyConfigurationDescriptionAwsJson10Ser
         ));
     }
     if (scaleOutCooldown != null) {
-      result
+      result$
         ..add('ScaleOutCooldown')
         ..add(serializers.serialize(
           scaleOutCooldown,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

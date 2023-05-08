@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_service_last_accessed_details_with_entities_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -212,12 +213,10 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetServiceLastAccessedDetailsWithEntitiesResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload =
-        (object as GetServiceLastAccessedDetailsWithEntitiesResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'GetServiceLastAccessedDetailsWithEntitiesResponseResponse',
         _i6.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -231,26 +230,26 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer
       :isTruncated,
       :marker,
       :error
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i6.XmlElementName('JobStatus'))
       ..add(serializers.serialize(
         jobStatus,
         specifiedType: const FullType.nullable(_i2.JobStatusType),
       ));
-    result
+    result$
       ..add(const _i6.XmlElementName('JobCreationDate'))
       ..add(serializers.serialize(
         jobCreationDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    result
+    result$
       ..add(const _i6.XmlElementName('JobCompletionDate'))
       ..add(serializers.serialize(
         jobCompletionDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    result
+    result$
       ..add(const _i6.XmlElementName('EntityDetailsList'))
       ..add(
           const _i6.XmlBuiltListSerializer(indexer: _i6.XmlIndexer.awsQueryList)
@@ -263,7 +262,7 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer
         ),
       ));
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -271,7 +270,7 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
@@ -279,13 +278,13 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer
         ));
     }
     if (error != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Error'))
         ..add(serializers.serialize(
           error,
           specifiedType: const FullType(_i4.ErrorDetails),
         ));
     }
-    return result;
+    return result$;
   }
 }

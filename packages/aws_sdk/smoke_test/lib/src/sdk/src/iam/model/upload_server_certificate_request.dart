@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.upload_server_certificate_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -226,11 +227,10 @@ class UploadServerCertificateRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UploadServerCertificateRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UploadServerCertificateRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'UploadServerCertificateRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -243,35 +243,35 @@ class UploadServerCertificateRequestAwsQuerySerializer
       :privateKey,
       :certificateChain,
       :tags
-    ) = payload;
+    ) = object;
     if (path != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('ServerCertificateName'))
       ..add(serializers.serialize(
         serverCertificateName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('CertificateBody'))
       ..add(serializers.serialize(
         certificateBody,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('PrivateKey'))
       ..add(serializers.serialize(
         privateKey,
         specifiedType: const FullType(String),
       ));
     if (certificateChain != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('CertificateChain'))
         ..add(serializers.serialize(
           certificateChain,
@@ -279,7 +279,7 @@ class UploadServerCertificateRequestAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -292,6 +292,6 @@ class UploadServerCertificateRequestAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

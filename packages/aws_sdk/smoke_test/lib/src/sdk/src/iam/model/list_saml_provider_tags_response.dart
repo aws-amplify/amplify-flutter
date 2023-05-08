@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.list_saml_provider_tags_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -145,18 +146,17 @@ class ListSamlProviderTagsResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListSamlProviderTagsResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListSamlProviderTagsResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ListSamlProviderTagsResponseResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final ListSamlProviderTagsResponse(:tags, :isTruncated, :marker) = payload;
-    result
+    final ListSamlProviderTagsResponse(:tags, :isTruncated, :marker) = object;
+    result$
       ..add(const _i4.XmlElementName('Tags'))
       ..add(
           const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
@@ -169,7 +169,7 @@ class ListSamlProviderTagsResponseAwsQuerySerializer
         ),
       ));
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -177,13 +177,13 @@ class ListSamlProviderTagsResponseAwsQuerySerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

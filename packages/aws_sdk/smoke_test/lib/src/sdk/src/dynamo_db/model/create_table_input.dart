@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.create_table_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -373,34 +374,14 @@ class CreateTableInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateTableInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateTableInput);
-    final result = <Object?>[
-      'AttributeDefinitions',
-      serializers.serialize(
-        payload.attributeDefinitions,
-        specifiedType: const FullType(
-          _i13.BuiltList,
-          [FullType(_i3.AttributeDefinition)],
-        ),
-      ),
-      'TableName',
-      serializers.serialize(
-        payload.tableName,
-        specifiedType: const FullType(String),
-      ),
-      'KeySchema',
-      serializers.serialize(
-        payload.keySchema,
-        specifiedType: const FullType(
-          _i13.BuiltList,
-          [FullType(_i4.KeySchemaElement)],
-        ),
-      ),
-    ];
+    final result$ = <Object?>[];
     final CreateTableInput(
+      :attributeDefinitions,
+      :tableName,
+      :keySchema,
       :localSecondaryIndexes,
       :globalSecondaryIndexes,
       :billingMode,
@@ -409,9 +390,32 @@ class CreateTableInputAwsJson10Serializer
       :sseSpecification,
       :tags,
       :tableClass
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'AttributeDefinitions',
+      serializers.serialize(
+        attributeDefinitions,
+        specifiedType: const FullType(
+          _i13.BuiltList,
+          [FullType(_i3.AttributeDefinition)],
+        ),
+      ),
+      'TableName',
+      serializers.serialize(
+        tableName,
+        specifiedType: const FullType(String),
+      ),
+      'KeySchema',
+      serializers.serialize(
+        keySchema,
+        specifiedType: const FullType(
+          _i13.BuiltList,
+          [FullType(_i4.KeySchemaElement)],
+        ),
+      ),
+    ]);
     if (localSecondaryIndexes != null) {
-      result
+      result$
         ..add('LocalSecondaryIndexes')
         ..add(serializers.serialize(
           localSecondaryIndexes,
@@ -422,7 +426,7 @@ class CreateTableInputAwsJson10Serializer
         ));
     }
     if (globalSecondaryIndexes != null) {
-      result
+      result$
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
           globalSecondaryIndexes,
@@ -433,7 +437,7 @@ class CreateTableInputAwsJson10Serializer
         ));
     }
     if (billingMode != null) {
-      result
+      result$
         ..add('BillingMode')
         ..add(serializers.serialize(
           billingMode,
@@ -441,7 +445,7 @@ class CreateTableInputAwsJson10Serializer
         ));
     }
     if (provisionedThroughput != null) {
-      result
+      result$
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
           provisionedThroughput,
@@ -449,7 +453,7 @@ class CreateTableInputAwsJson10Serializer
         ));
     }
     if (streamSpecification != null) {
-      result
+      result$
         ..add('StreamSpecification')
         ..add(serializers.serialize(
           streamSpecification,
@@ -457,7 +461,7 @@ class CreateTableInputAwsJson10Serializer
         ));
     }
     if (sseSpecification != null) {
-      result
+      result$
         ..add('SSESpecification')
         ..add(serializers.serialize(
           sseSpecification,
@@ -465,7 +469,7 @@ class CreateTableInputAwsJson10Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('Tags')
         ..add(serializers.serialize(
           tags,
@@ -476,13 +480,13 @@ class CreateTableInputAwsJson10Serializer
         ));
     }
     if (tableClass != null) {
-      result
+      result$
         ..add('TableClass')
         ..add(serializers.serialize(
           tableClass,
           specifiedType: const FullType(_i12.TableClass),
         ));
     }
-    return result;
+    return result$;
   }
 }

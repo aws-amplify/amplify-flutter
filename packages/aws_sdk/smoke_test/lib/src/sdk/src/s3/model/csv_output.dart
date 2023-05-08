@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.csv_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -163,11 +164,10 @@ class CsvOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CsvOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CsvOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'CsvOutput',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -179,9 +179,9 @@ class CsvOutputRestXmlSerializer
       :quoteEscapeCharacter,
       :quoteFields,
       :recordDelimiter
-    ) = payload;
+    ) = object;
     if (fieldDelimiter != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('FieldDelimiter'))
         ..add(serializers.serialize(
           fieldDelimiter,
@@ -189,7 +189,7 @@ class CsvOutputRestXmlSerializer
         ));
     }
     if (quoteCharacter != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('QuoteCharacter'))
         ..add(serializers.serialize(
           quoteCharacter,
@@ -197,7 +197,7 @@ class CsvOutputRestXmlSerializer
         ));
     }
     if (quoteEscapeCharacter != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('QuoteEscapeCharacter'))
         ..add(serializers.serialize(
           quoteEscapeCharacter,
@@ -205,7 +205,7 @@ class CsvOutputRestXmlSerializer
         ));
     }
     if (quoteFields != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('QuoteFields'))
         ..add(serializers.serialize(
           quoteFields,
@@ -213,13 +213,13 @@ class CsvOutputRestXmlSerializer
         ));
     }
     if (recordDelimiter != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('RecordDelimiter'))
         ..add(serializers.serialize(
           recordDelimiter,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

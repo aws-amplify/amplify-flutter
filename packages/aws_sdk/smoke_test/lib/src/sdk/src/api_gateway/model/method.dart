@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.method; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -283,11 +284,10 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Method object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Method);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final Method(
       :apiKeyRequired,
       :authorizationScopes,
@@ -300,9 +300,9 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
       :requestModels,
       :requestParameters,
       :requestValidatorId
-    ) = payload;
+    ) = object;
     if (apiKeyRequired != null) {
-      result
+      result$
         ..add('apiKeyRequired')
         ..add(serializers.serialize(
           apiKeyRequired,
@@ -310,7 +310,7 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ));
     }
     if (authorizationScopes != null) {
-      result
+      result$
         ..add('authorizationScopes')
         ..add(serializers.serialize(
           authorizationScopes,
@@ -321,7 +321,7 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ));
     }
     if (authorizationType != null) {
-      result
+      result$
         ..add('authorizationType')
         ..add(serializers.serialize(
           authorizationType,
@@ -329,7 +329,7 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ));
     }
     if (authorizerId != null) {
-      result
+      result$
         ..add('authorizerId')
         ..add(serializers.serialize(
           authorizerId,
@@ -337,7 +337,7 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ));
     }
     if (httpMethod != null) {
-      result
+      result$
         ..add('httpMethod')
         ..add(serializers.serialize(
           httpMethod,
@@ -345,7 +345,7 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ));
     }
     if (methodIntegration != null) {
-      result
+      result$
         ..add('methodIntegration')
         ..add(serializers.serialize(
           methodIntegration,
@@ -353,7 +353,7 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ));
     }
     if (methodResponses != null) {
-      result
+      result$
         ..add('methodResponses')
         ..add(serializers.serialize(
           methodResponses,
@@ -367,7 +367,7 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ));
     }
     if (operationName != null) {
-      result
+      result$
         ..add('operationName')
         ..add(serializers.serialize(
           operationName,
@@ -375,7 +375,7 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ));
     }
     if (requestModels != null) {
-      result
+      result$
         ..add('requestModels')
         ..add(serializers.serialize(
           requestModels,
@@ -389,7 +389,7 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ));
     }
     if (requestParameters != null) {
-      result
+      result$
         ..add('requestParameters')
         ..add(serializers.serialize(
           requestParameters,
@@ -403,13 +403,13 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ));
     }
     if (requestValidatorId != null) {
-      result
+      result$
         ..add('requestValidatorId')
         ..add(serializers.serialize(
           requestValidatorId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

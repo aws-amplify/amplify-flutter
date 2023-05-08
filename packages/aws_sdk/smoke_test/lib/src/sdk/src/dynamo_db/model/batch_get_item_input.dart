@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.batch_get_item_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -183,14 +184,15 @@ class BatchGetItemInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BatchGetItemInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BatchGetItemInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final BatchGetItemInput(:requestItems, :returnConsumedCapacity) = object;
+    result$.addAll([
       'RequestItems',
       serializers.serialize(
-        payload.requestItems,
+        requestItems,
         specifiedType: const FullType(
           _i5.BuiltMap,
           [
@@ -199,16 +201,15 @@ class BatchGetItemInputAwsJson10Serializer
           ],
         ),
       ),
-    ];
-    final BatchGetItemInput(:returnConsumedCapacity) = payload;
+    ]);
     if (returnConsumedCapacity != null) {
-      result
+      result$
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
           specifiedType: const FullType(_i4.ReturnConsumedCapacity),
         ));
     }
-    return result;
+    return result$;
   }
 }

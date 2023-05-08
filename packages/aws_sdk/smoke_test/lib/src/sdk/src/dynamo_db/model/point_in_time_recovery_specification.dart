@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.point_in_time_recovery_specification; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,17 +103,19 @@ class PointInTimeRecoverySpecificationAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PointInTimeRecoverySpecification object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PointInTimeRecoverySpecification);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PointInTimeRecoverySpecification(:pointInTimeRecoveryEnabled) =
+        object;
+    result$.addAll([
       'PointInTimeRecoveryEnabled',
       serializers.serialize(
-        payload.pointInTimeRecoveryEnabled,
+        pointInTimeRecoveryEnabled,
         specifiedType: const FullType(bool),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

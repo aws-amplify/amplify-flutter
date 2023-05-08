@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.json_maps_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -302,11 +303,10 @@ class JsonMapsInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    JsonMapsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as JsonMapsInputOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final JsonMapsInputOutput(
       :denseBooleanMap,
       :denseNumberMap,
@@ -318,9 +318,9 @@ class JsonMapsInputOutputRestJson1Serializer
       :sparseSetMap,
       :sparseStringMap,
       :sparseStructMap
-    ) = payload;
+    ) = object;
     if (denseBooleanMap != null) {
-      result
+      result$
         ..add('denseBooleanMap')
         ..add(serializers.serialize(
           denseBooleanMap,
@@ -334,7 +334,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ));
     }
     if (denseNumberMap != null) {
-      result
+      result$
         ..add('denseNumberMap')
         ..add(serializers.serialize(
           denseNumberMap,
@@ -348,7 +348,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ));
     }
     if (denseSetMap != null) {
-      result
+      result$
         ..add('denseSetMap')
         ..add(serializers.serialize(
           denseSetMap,
@@ -362,7 +362,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ));
     }
     if (denseStringMap != null) {
-      result
+      result$
         ..add('denseStringMap')
         ..add(serializers.serialize(
           denseStringMap,
@@ -376,7 +376,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ));
     }
     if (denseStructMap != null) {
-      result
+      result$
         ..add('denseStructMap')
         ..add(serializers.serialize(
           denseStructMap,
@@ -390,7 +390,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ));
     }
     if (sparseBooleanMap != null) {
-      result
+      result$
         ..add('sparseBooleanMap')
         ..add(serializers.serialize(
           sparseBooleanMap,
@@ -404,7 +404,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ));
     }
     if (sparseNumberMap != null) {
-      result
+      result$
         ..add('sparseNumberMap')
         ..add(serializers.serialize(
           sparseNumberMap,
@@ -418,7 +418,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ));
     }
     if (sparseSetMap != null) {
-      result
+      result$
         ..add('sparseSetMap')
         ..add(serializers.serialize(
           sparseSetMap,
@@ -432,7 +432,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ));
     }
     if (sparseStringMap != null) {
-      result
+      result$
         ..add('sparseStringMap')
         ..add(serializers.serialize(
           sparseStringMap,
@@ -446,7 +446,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ));
     }
     if (sparseStructMap != null) {
-      result
+      result$
         ..add('sparseStructMap')
         ..add(serializers.serialize(
           sparseStructMap,
@@ -459,6 +459,6 @@ class JsonMapsInputOutputRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

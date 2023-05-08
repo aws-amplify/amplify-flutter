@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.test_invoke_authorizer_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -215,11 +216,10 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TestInvokeAuthorizerResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TestInvokeAuthorizerResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final TestInvokeAuthorizerResponse(
       :authorization,
       :claims,
@@ -228,9 +228,9 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
       :log,
       :policy,
       :principalId
-    ) = payload;
+    ) = object;
     if (authorization != null) {
-      result
+      result$
         ..add('authorization')
         ..add(serializers.serialize(
           authorization,
@@ -244,7 +244,7 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
         ));
     }
     if (claims != null) {
-      result
+      result$
         ..add('claims')
         ..add(serializers.serialize(
           claims,
@@ -258,7 +258,7 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
         ));
     }
     if (clientStatus != null) {
-      result
+      result$
         ..add('clientStatus')
         ..add(serializers.serialize(
           clientStatus,
@@ -266,7 +266,7 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
         ));
     }
     if (latency != null) {
-      result
+      result$
         ..add('latency')
         ..add(serializers.serialize(
           latency,
@@ -274,7 +274,7 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
         ));
     }
     if (log != null) {
-      result
+      result$
         ..add('log')
         ..add(serializers.serialize(
           log,
@@ -282,7 +282,7 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
         ));
     }
     if (policy != null) {
-      result
+      result$
         ..add('policy')
         ..add(serializers.serialize(
           policy,
@@ -290,13 +290,13 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
         ));
     }
     if (principalId != null) {
-      result
+      result$
         ..add('principalId')
         ..add(serializers.serialize(
           principalId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

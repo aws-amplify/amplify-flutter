@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.list_multipart_uploads_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -279,11 +280,10 @@ class ListMultipartUploadsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListMultipartUploadsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListMultipartUploadsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'ListMultipartUploadsResult',
         _i6.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -302,9 +302,9 @@ class ListMultipartUploadsOutputRestXmlSerializer
       :prefix,
       :uploadIdMarker,
       :uploads
-    ) = payload;
+    ) = object;
     if (bucket != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Bucket'))
         ..add(serializers.serialize(
           bucket,
@@ -312,7 +312,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ));
     }
     if (commonPrefixes != null) {
-      result.addAll(
+      result$.addAll(
           const _i6.XmlBuiltListSerializer(memberName: 'CommonPrefixes')
               .serialize(
         serializers,
@@ -324,7 +324,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
       ));
     }
     if (delimiter != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Delimiter'))
         ..add(serializers.serialize(
           delimiter,
@@ -332,7 +332,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ));
     }
     if (encodingType != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('EncodingType'))
         ..add(serializers.serialize(
           encodingType,
@@ -340,7 +340,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ));
     }
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -348,7 +348,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ));
     }
     if (keyMarker != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('KeyMarker'))
         ..add(serializers.serialize(
           keyMarker,
@@ -356,7 +356,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ));
     }
     if (maxUploads != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('MaxUploads'))
         ..add(serializers.serialize(
           maxUploads,
@@ -364,7 +364,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ));
     }
     if (nextKeyMarker != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('NextKeyMarker'))
         ..add(serializers.serialize(
           nextKeyMarker,
@@ -372,7 +372,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ));
     }
     if (nextUploadIdMarker != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('NextUploadIdMarker'))
         ..add(serializers.serialize(
           nextUploadIdMarker,
@@ -380,7 +380,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ));
     }
     if (prefix != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
@@ -388,7 +388,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ));
     }
     if (uploadIdMarker != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('UploadIdMarker'))
         ..add(serializers.serialize(
           uploadIdMarker,
@@ -396,7 +396,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ));
     }
     if (uploads != null) {
-      result.addAll(
+      result$.addAll(
           const _i6.XmlBuiltListSerializer(memberName: 'Upload').serialize(
         serializers,
         uploads,
@@ -406,6 +406,6 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

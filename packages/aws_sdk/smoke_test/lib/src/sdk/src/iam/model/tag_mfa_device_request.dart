@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.tag_mfa_device_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -132,24 +133,23 @@ class TagMfaDeviceRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TagMfaDeviceRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TagMfaDeviceRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'TagMfaDeviceRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final TagMfaDeviceRequest(:serialNumber, :tags) = payload;
-    result
+    final TagMfaDeviceRequest(:serialNumber, :tags) = object;
+    result$
       ..add(const _i1.XmlElementName('SerialNumber'))
       ..add(serializers.serialize(
         serialNumber,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('Tags'))
       ..add(
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
@@ -161,6 +161,6 @@ class TagMfaDeviceRequestAwsQuerySerializer
           [FullType(_i3.Tag)],
         ),
       ));
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_auto_scaling_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -194,20 +195,19 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaAutoScalingDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaAutoScalingDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ReplicaAutoScalingDescription(
       :regionName,
       :globalSecondaryIndexes,
       :replicaProvisionedReadCapacityAutoScalingSettings,
       :replicaProvisionedWriteCapacityAutoScalingSettings,
       :replicaStatus
-    ) = payload;
+    ) = object;
     if (regionName != null) {
-      result
+      result$
         ..add('RegionName')
         ..add(serializers.serialize(
           regionName,
@@ -215,7 +215,7 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
         ));
     }
     if (globalSecondaryIndexes != null) {
-      result
+      result$
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
           globalSecondaryIndexes,
@@ -226,7 +226,7 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
         ));
     }
     if (replicaProvisionedReadCapacityAutoScalingSettings != null) {
-      result
+      result$
         ..add('ReplicaProvisionedReadCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           replicaProvisionedReadCapacityAutoScalingSettings,
@@ -234,7 +234,7 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
         ));
     }
     if (replicaProvisionedWriteCapacityAutoScalingSettings != null) {
-      result
+      result$
         ..add('ReplicaProvisionedWriteCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           replicaProvisionedWriteCapacityAutoScalingSettings,
@@ -242,13 +242,13 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
         ));
     }
     if (replicaStatus != null) {
-      result
+      result$
         ..add('ReplicaStatus')
         ..add(serializers.serialize(
           replicaStatus,
           specifiedType: const FullType(_i4.ReplicaStatus),
         ));
     }
-    return result;
+    return result$;
   }
 }

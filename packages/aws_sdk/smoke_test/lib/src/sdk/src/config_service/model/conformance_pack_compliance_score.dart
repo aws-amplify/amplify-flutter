@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.conformance_pack_compliance_score; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -134,18 +135,17 @@ class ConformancePackComplianceScoreAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConformancePackComplianceScore object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConformancePackComplianceScore);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ConformancePackComplianceScore(
       :score,
       :conformancePackName,
       :lastUpdatedTime
-    ) = payload;
+    ) = object;
     if (score != null) {
-      result
+      result$
         ..add('Score')
         ..add(serializers.serialize(
           score,
@@ -153,7 +153,7 @@ class ConformancePackComplianceScoreAwsJson11Serializer
         ));
     }
     if (conformancePackName != null) {
-      result
+      result$
         ..add('ConformancePackName')
         ..add(serializers.serialize(
           conformancePackName,
@@ -161,13 +161,13 @@ class ConformancePackComplianceScoreAwsJson11Serializer
         ));
     }
     if (lastUpdatedTime != null) {
-      result
+      result$
         ..add('LastUpdatedTime')
         ..add(serializers.serialize(
           lastUpdatedTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

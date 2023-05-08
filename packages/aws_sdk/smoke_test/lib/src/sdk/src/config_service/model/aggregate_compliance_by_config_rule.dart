@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.aggregate_compliance_by_config_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -157,19 +158,18 @@ class AggregateComplianceByConfigRuleAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AggregateComplianceByConfigRule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AggregateComplianceByConfigRule);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final AggregateComplianceByConfigRule(
       :configRuleName,
       :compliance,
       :accountId,
       :awsRegion
-    ) = payload;
+    ) = object;
     if (configRuleName != null) {
-      result
+      result$
         ..add('ConfigRuleName')
         ..add(serializers.serialize(
           configRuleName,
@@ -177,7 +177,7 @@ class AggregateComplianceByConfigRuleAwsJson11Serializer
         ));
     }
     if (compliance != null) {
-      result
+      result$
         ..add('Compliance')
         ..add(serializers.serialize(
           compliance,
@@ -185,7 +185,7 @@ class AggregateComplianceByConfigRuleAwsJson11Serializer
         ));
     }
     if (accountId != null) {
-      result
+      result$
         ..add('AccountId')
         ..add(serializers.serialize(
           accountId,
@@ -193,13 +193,13 @@ class AggregateComplianceByConfigRuleAwsJson11Serializer
         ));
     }
     if (awsRegion != null) {
-      result
+      result$
         ..add('AwsRegion')
         ..add(serializers.serialize(
           awsRegion,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

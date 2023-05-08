@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.evaluation_result_qualifier; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -131,18 +132,17 @@ class EvaluationResultQualifierAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EvaluationResultQualifier object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EvaluationResultQualifier);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final EvaluationResultQualifier(
       :configRuleName,
       :resourceType,
       :resourceId
-    ) = payload;
+    ) = object;
     if (configRuleName != null) {
-      result
+      result$
         ..add('ConfigRuleName')
         ..add(serializers.serialize(
           configRuleName,
@@ -150,7 +150,7 @@ class EvaluationResultQualifierAwsJson11Serializer
         ));
     }
     if (resourceType != null) {
-      result
+      result$
         ..add('ResourceType')
         ..add(serializers.serialize(
           resourceType,
@@ -158,13 +158,13 @@ class EvaluationResultQualifierAwsJson11Serializer
         ));
     }
     if (resourceId != null) {
-      result
+      result$
         ..add('ResourceId')
         ..add(serializers.serialize(
           resourceId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

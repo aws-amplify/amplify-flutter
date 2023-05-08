@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.query_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -200,20 +201,19 @@ class QueryOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    QueryOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as QueryOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final QueryOutput(
       :items,
       :count,
       :scannedCount,
       :lastEvaluatedKey,
       :consumedCapacity
-    ) = payload;
+    ) = object;
     if (items != null) {
-      result
+      result$
         ..add('Items')
         ..add(serializers.serialize(
           items,
@@ -232,7 +232,7 @@ class QueryOutputAwsJson10Serializer
         ));
     }
     if (count != null) {
-      result
+      result$
         ..add('Count')
         ..add(serializers.serialize(
           count,
@@ -240,7 +240,7 @@ class QueryOutputAwsJson10Serializer
         ));
     }
     if (scannedCount != null) {
-      result
+      result$
         ..add('ScannedCount')
         ..add(serializers.serialize(
           scannedCount,
@@ -248,7 +248,7 @@ class QueryOutputAwsJson10Serializer
         ));
     }
     if (lastEvaluatedKey != null) {
-      result
+      result$
         ..add('LastEvaluatedKey')
         ..add(serializers.serialize(
           lastEvaluatedKey,
@@ -262,13 +262,13 @@ class QueryOutputAwsJson10Serializer
         ));
     }
     if (consumedCapacity != null) {
-      result
+      result$
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
           consumedCapacity,
           specifiedType: const FullType(_i3.ConsumedCapacity),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.list_type_versions_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -130,19 +131,18 @@ class ListTypeVersionsOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListTypeVersionsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListTypeVersionsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ListTypeVersionsOutputResponse',
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final ListTypeVersionsOutput(:typeVersionSummaries, :nextToken) = payload;
+    final ListTypeVersionsOutput(:typeVersionSummaries, :nextToken) = object;
     if (typeVersionSummaries != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('TypeVersionSummaries'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -156,13 +156,13 @@ class ListTypeVersionsOutputAwsQuerySerializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

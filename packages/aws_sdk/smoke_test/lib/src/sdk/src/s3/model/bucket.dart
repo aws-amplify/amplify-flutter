@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.bucket; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -111,19 +112,18 @@ class BucketRestXmlSerializer extends _i2.StructuredSmithySerializer<Bucket> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Bucket object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Bucket);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'Bucket',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final Bucket(:creationDate, :name) = payload;
+    final Bucket(:creationDate, :name) = object;
     if (creationDate != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('CreationDate'))
         ..add(serializers.serialize(
           creationDate,
@@ -131,13 +131,13 @@ class BucketRestXmlSerializer extends _i2.StructuredSmithySerializer<Bucket> {
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

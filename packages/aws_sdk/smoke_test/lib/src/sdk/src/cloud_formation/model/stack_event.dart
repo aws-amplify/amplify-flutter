@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.stack_event; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -339,11 +340,10 @@ class StackEventAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StackEvent object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StackEvent);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'StackEventResponse',
         _i6.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -366,27 +366,27 @@ class StackEventAwsQuerySerializer
       :hookStatusReason,
       :hookInvocationPoint,
       :hookFailureMode
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i6.XmlElementName('StackId'))
       ..add(serializers.serialize(
         stackId,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i6.XmlElementName('EventId'))
       ..add(serializers.serialize(
         eventId,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i6.XmlElementName('StackName'))
       ..add(serializers.serialize(
         stackName,
         specifiedType: const FullType(String),
       ));
     if (logicalResourceId != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('LogicalResourceId'))
         ..add(serializers.serialize(
           logicalResourceId,
@@ -394,7 +394,7 @@ class StackEventAwsQuerySerializer
         ));
     }
     if (physicalResourceId != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('PhysicalResourceId'))
         ..add(serializers.serialize(
           physicalResourceId,
@@ -402,21 +402,21 @@ class StackEventAwsQuerySerializer
         ));
     }
     if (resourceType != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i6.XmlElementName('Timestamp'))
       ..add(serializers.serialize(
         timestamp,
         specifiedType: const FullType.nullable(DateTime),
       ));
     if (resourceStatus != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('ResourceStatus'))
         ..add(serializers.serialize(
           resourceStatus,
@@ -424,7 +424,7 @@ class StackEventAwsQuerySerializer
         ));
     }
     if (resourceStatusReason != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('ResourceStatusReason'))
         ..add(serializers.serialize(
           resourceStatusReason,
@@ -432,7 +432,7 @@ class StackEventAwsQuerySerializer
         ));
     }
     if (resourceProperties != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('ResourceProperties'))
         ..add(serializers.serialize(
           resourceProperties,
@@ -440,7 +440,7 @@ class StackEventAwsQuerySerializer
         ));
     }
     if (clientRequestToken != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('ClientRequestToken'))
         ..add(serializers.serialize(
           clientRequestToken,
@@ -448,7 +448,7 @@ class StackEventAwsQuerySerializer
         ));
     }
     if (hookType != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('HookType'))
         ..add(serializers.serialize(
           hookType,
@@ -456,7 +456,7 @@ class StackEventAwsQuerySerializer
         ));
     }
     if (hookStatus != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('HookStatus'))
         ..add(serializers.serialize(
           hookStatus,
@@ -464,7 +464,7 @@ class StackEventAwsQuerySerializer
         ));
     }
     if (hookStatusReason != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('HookStatusReason'))
         ..add(serializers.serialize(
           hookStatusReason,
@@ -472,7 +472,7 @@ class StackEventAwsQuerySerializer
         ));
     }
     if (hookInvocationPoint != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('HookInvocationPoint'))
         ..add(serializers.serialize(
           hookInvocationPoint,
@@ -480,13 +480,13 @@ class StackEventAwsQuerySerializer
         ));
     }
     if (hookFailureMode != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('HookFailureMode'))
         ..add(serializers.serialize(
           hookFailureMode,
           specifiedType: const FullType.nullable(_i5.HookFailureMode),
         ));
     }
-    return result;
+    return result$;
   }
 }

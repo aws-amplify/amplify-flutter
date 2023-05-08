@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_aggregate_resource_config_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -128,22 +129,26 @@ class GetAggregateResourceConfigRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetAggregateResourceConfigRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetAggregateResourceConfigRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GetAggregateResourceConfigRequest(
+      :configurationAggregatorName,
+      :resourceIdentifier
+    ) = object;
+    result$.addAll([
       'ConfigurationAggregatorName',
       serializers.serialize(
-        payload.configurationAggregatorName,
+        configurationAggregatorName,
         specifiedType: const FullType(String),
       ),
       'ResourceIdentifier',
       serializers.serialize(
-        payload.resourceIdentifier,
+        resourceIdentifier,
         specifiedType: const FullType(_i3.AggregateResourceIdentifier),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

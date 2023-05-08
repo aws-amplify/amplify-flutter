@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.http_payload_with_structure_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -126,19 +127,13 @@ class HttpPayloadWithStructureInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.NestedPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is HttpPayloadWithStructureInputOutput
-        ? object.getPayload()
-        : (object as _i2.NestedPayload?);
-    final result = <Object?>[const _i1.XmlElementName('NestedPayload')];
-    if (payload == null) {
-      return result;
-    }
-    final _i2.NestedPayload(:greeting, :name) = payload;
+    final result$ = <Object?>[const _i1.XmlElementName('NestedPayload')];
+    final _i2.NestedPayload(:greeting, :name) = object;
     if (greeting != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('greeting'))
         ..add(serializers.serialize(
           greeting,
@@ -146,13 +141,13 @@ class HttpPayloadWithStructureInputOutputRestXmlSerializer
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('name'))
         ..add(serializers.serialize(
           name,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

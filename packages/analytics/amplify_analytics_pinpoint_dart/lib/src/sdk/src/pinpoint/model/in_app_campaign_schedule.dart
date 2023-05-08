@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_campaign_schedule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -134,14 +135,13 @@ class InAppCampaignScheduleRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InAppCampaignSchedule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InAppCampaignSchedule);
-    final result = <Object?>[];
-    final InAppCampaignSchedule(:endDate, :eventFilter, :quietTime) = payload;
+    final result$ = <Object?>[];
+    final InAppCampaignSchedule(:endDate, :eventFilter, :quietTime) = object;
     if (endDate != null) {
-      result
+      result$
         ..add('EndDate')
         ..add(serializers.serialize(
           endDate,
@@ -149,7 +149,7 @@ class InAppCampaignScheduleRestJson1Serializer
         ));
     }
     if (eventFilter != null) {
-      result
+      result$
         ..add('EventFilter')
         ..add(serializers.serialize(
           eventFilter,
@@ -157,13 +157,13 @@ class InAppCampaignScheduleRestJson1Serializer
         ));
     }
     if (quietTime != null) {
-      result
+      result$
         ..add('QuietTime')
         ..add(serializers.serialize(
           quietTime,
           specifiedType: const FullType(_i3.QuietTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_credential_report_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -142,20 +143,19 @@ class GetCredentialReportResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetCredentialReportResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetCredentialReportResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'GetCredentialReportResponseResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GetCredentialReportResponse(:content, :reportFormat, :generatedTime) =
-        payload;
+        object;
     if (content != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Content'))
         ..add(serializers.serialize(
           content,
@@ -163,7 +163,7 @@ class GetCredentialReportResponseAwsQuerySerializer
         ));
     }
     if (reportFormat != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ReportFormat'))
         ..add(serializers.serialize(
           reportFormat,
@@ -171,13 +171,13 @@ class GetCredentialReportResponseAwsQuerySerializer
         ));
     }
     if (generatedTime != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('GeneratedTime'))
         ..add(serializers.serialize(
           generatedTime,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

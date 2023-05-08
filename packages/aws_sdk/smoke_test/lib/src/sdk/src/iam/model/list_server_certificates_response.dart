@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.list_server_certificates_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -153,11 +154,10 @@ class ListServerCertificatesResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListServerCertificatesResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListServerCertificatesResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ListServerCertificatesResponseResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -167,8 +167,8 @@ class ListServerCertificatesResponseAwsQuerySerializer
       :serverCertificateMetadataList,
       :isTruncated,
       :marker
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i4.XmlElementName('ServerCertificateMetadataList'))
       ..add(
           const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
@@ -181,7 +181,7 @@ class ListServerCertificatesResponseAwsQuerySerializer
         ),
       ));
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -189,13 +189,13 @@ class ListServerCertificatesResponseAwsQuerySerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

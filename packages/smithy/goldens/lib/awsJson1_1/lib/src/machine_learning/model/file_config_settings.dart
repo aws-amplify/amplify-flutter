@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.machine_learning.model.file_config_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -183,11 +184,10 @@ class FileConfigSettingsAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    FileConfigSettings object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as FileConfigSettings);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final FileConfigSettings(
       :awsAccessKeyId,
       :awsSecretAccessKey,
@@ -196,9 +196,9 @@ class FileConfigSettingsAwsJson11Serializer
       :s3,
       :retryMode,
       :maxAttempts
-    ) = payload;
+    ) = object;
     if (awsAccessKeyId != null) {
-      result
+      result$
         ..add('aws_access_key_id')
         ..add(serializers.serialize(
           awsAccessKeyId,
@@ -206,7 +206,7 @@ class FileConfigSettingsAwsJson11Serializer
         ));
     }
     if (awsSecretAccessKey != null) {
-      result
+      result$
         ..add('aws_secret_access_key')
         ..add(serializers.serialize(
           awsSecretAccessKey,
@@ -214,7 +214,7 @@ class FileConfigSettingsAwsJson11Serializer
         ));
     }
     if (awsSessionToken != null) {
-      result
+      result$
         ..add('aws_session_token')
         ..add(serializers.serialize(
           awsSessionToken,
@@ -222,7 +222,7 @@ class FileConfigSettingsAwsJson11Serializer
         ));
     }
     if (region != null) {
-      result
+      result$
         ..add('region')
         ..add(serializers.serialize(
           region,
@@ -230,7 +230,7 @@ class FileConfigSettingsAwsJson11Serializer
         ));
     }
     if (s3 != null) {
-      result
+      result$
         ..add('s3')
         ..add(serializers.serialize(
           s3,
@@ -238,7 +238,7 @@ class FileConfigSettingsAwsJson11Serializer
         ));
     }
     if (retryMode != null) {
-      result
+      result$
         ..add('retry_mode')
         ..add(serializers.serialize(
           retryMode,
@@ -246,13 +246,13 @@ class FileConfigSettingsAwsJson11Serializer
         ));
     }
     if (maxAttempts != null) {
-      result
+      result$
         ..add('max_attempts')
         ..add(serializers.serialize(
           maxAttempts,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

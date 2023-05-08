@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.xml_namespaces_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -110,25 +111,24 @@ class XmlNamespacesInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlNamespacesInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlNamespacesInputOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'XmlNamespacesInputOutput',
         _i1.XmlNamespace('http://foo.com'),
       )
     ];
-    final XmlNamespacesInputOutput(:nested) = payload;
+    final XmlNamespacesInputOutput(:nested) = object;
     if (nested != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('nested'))
         ..add(serializers.serialize(
           nested,
           specifiedType: const FullType(_i3.XmlNamespaceNested),
         ));
     }
-    return result;
+    return result$;
   }
 }

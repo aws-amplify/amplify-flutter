@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.attached_permissions_boundary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -131,11 +132,10 @@ class AttachedPermissionsBoundaryAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AttachedPermissionsBoundary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AttachedPermissionsBoundary);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'AttachedPermissionsBoundaryResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -144,9 +144,9 @@ class AttachedPermissionsBoundaryAwsQuerySerializer
     final AttachedPermissionsBoundary(
       :permissionsBoundaryType,
       :permissionsBoundaryArn
-    ) = payload;
+    ) = object;
     if (permissionsBoundaryType != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('PermissionsBoundaryType'))
         ..add(serializers.serialize(
           permissionsBoundaryType,
@@ -155,13 +155,13 @@ class AttachedPermissionsBoundaryAwsQuerySerializer
         ));
     }
     if (permissionsBoundaryArn != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('PermissionsBoundaryArn'))
         ..add(serializers.serialize(
           permissionsBoundaryArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

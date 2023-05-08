@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.sts.model.get_session_token_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -142,20 +143,19 @@ class GetSessionTokenRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetSessionTokenRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetSessionTokenRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'GetSessionTokenRequestResponse',
         _i1.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
     final GetSessionTokenRequest(:durationSeconds, :serialNumber, :tokenCode) =
-        payload;
+        object;
     if (durationSeconds != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('DurationSeconds'))
         ..add(serializers.serialize(
           durationSeconds,
@@ -163,7 +163,7 @@ class GetSessionTokenRequestAwsQuerySerializer
         ));
     }
     if (serialNumber != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('SerialNumber'))
         ..add(serializers.serialize(
           serialNumber,
@@ -171,13 +171,13 @@ class GetSessionTokenRequestAwsQuerySerializer
         ));
     }
     if (tokenCode != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TokenCode'))
         ..add(serializers.serialize(
           tokenCode,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

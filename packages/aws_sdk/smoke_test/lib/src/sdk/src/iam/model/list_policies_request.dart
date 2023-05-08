@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.list_policies_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -196,11 +197,10 @@ class ListPoliciesRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListPoliciesRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListPoliciesRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ListPoliciesRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -213,9 +213,9 @@ class ListPoliciesRequestAwsQuerySerializer
       :policyUsageFilter,
       :marker,
       :maxItems
-    ) = payload;
+    ) = object;
     if (scope != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Scope'))
         ..add(serializers.serialize(
           scope,
@@ -223,7 +223,7 @@ class ListPoliciesRequestAwsQuerySerializer
         ));
     }
     if (onlyAttached != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('OnlyAttached'))
         ..add(serializers.serialize(
           onlyAttached,
@@ -231,7 +231,7 @@ class ListPoliciesRequestAwsQuerySerializer
         ));
     }
     if (pathPrefix != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PathPrefix'))
         ..add(serializers.serialize(
           pathPrefix,
@@ -239,7 +239,7 @@ class ListPoliciesRequestAwsQuerySerializer
         ));
     }
     if (policyUsageFilter != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PolicyUsageFilter'))
         ..add(serializers.serialize(
           policyUsageFilter,
@@ -247,7 +247,7 @@ class ListPoliciesRequestAwsQuerySerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
@@ -255,13 +255,13 @@ class ListPoliciesRequestAwsQuerySerializer
         ));
     }
     if (maxItems != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
           maxItems,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

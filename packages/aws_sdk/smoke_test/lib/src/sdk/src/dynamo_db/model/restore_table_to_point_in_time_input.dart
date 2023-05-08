@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.restore_table_to_point_in_time_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -267,20 +268,14 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RestoreTableToPointInTimeInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RestoreTableToPointInTimeInput);
-    final result = <Object?>[
-      'TargetTableName',
-      serializers.serialize(
-        payload.targetTableName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final RestoreTableToPointInTimeInput(
       :sourceTableArn,
       :sourceTableName,
+      :targetTableName,
       :useLatestRestorableTime,
       :restoreDateTime,
       :billingModeOverride,
@@ -288,9 +283,16 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
       :localSecondaryIndexOverride,
       :provisionedThroughputOverride,
       :sseSpecificationOverride
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'TargetTableName',
+      serializers.serialize(
+        targetTableName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (sourceTableArn != null) {
-      result
+      result$
         ..add('SourceTableArn')
         ..add(serializers.serialize(
           sourceTableArn,
@@ -298,7 +300,7 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (sourceTableName != null) {
-      result
+      result$
         ..add('SourceTableName')
         ..add(serializers.serialize(
           sourceTableName,
@@ -306,7 +308,7 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (useLatestRestorableTime != null) {
-      result
+      result$
         ..add('UseLatestRestorableTime')
         ..add(serializers.serialize(
           useLatestRestorableTime,
@@ -314,7 +316,7 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (restoreDateTime != null) {
-      result
+      result$
         ..add('RestoreDateTime')
         ..add(serializers.serialize(
           restoreDateTime,
@@ -322,7 +324,7 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (billingModeOverride != null) {
-      result
+      result$
         ..add('BillingModeOverride')
         ..add(serializers.serialize(
           billingModeOverride,
@@ -330,7 +332,7 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (globalSecondaryIndexOverride != null) {
-      result
+      result$
         ..add('GlobalSecondaryIndexOverride')
         ..add(serializers.serialize(
           globalSecondaryIndexOverride,
@@ -341,7 +343,7 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (localSecondaryIndexOverride != null) {
-      result
+      result$
         ..add('LocalSecondaryIndexOverride')
         ..add(serializers.serialize(
           localSecondaryIndexOverride,
@@ -352,7 +354,7 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (provisionedThroughputOverride != null) {
-      result
+      result$
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
           provisionedThroughputOverride,
@@ -360,13 +362,13 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (sseSpecificationOverride != null) {
-      result
+      result$
         ..add('SSESpecificationOverride')
         ..add(serializers.serialize(
           sseSpecificationOverride,
           specifiedType: const FullType(_i7.SseSpecification),
         ));
     }
-    return result;
+    return result$;
   }
 }

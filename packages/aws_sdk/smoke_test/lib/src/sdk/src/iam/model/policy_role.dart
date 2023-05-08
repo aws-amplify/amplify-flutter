@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.policy_role; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -125,19 +126,18 @@ class PolicyRoleAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PolicyRole object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PolicyRole);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'PolicyRoleResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final PolicyRole(:roleName, :roleId) = payload;
+    final PolicyRole(:roleName, :roleId) = object;
     if (roleName != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('RoleName'))
         ..add(serializers.serialize(
           roleName,
@@ -145,13 +145,13 @@ class PolicyRoleAwsQuerySerializer
         ));
     }
     if (roleId != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('RoleId'))
         ..add(serializers.serialize(
           roleId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

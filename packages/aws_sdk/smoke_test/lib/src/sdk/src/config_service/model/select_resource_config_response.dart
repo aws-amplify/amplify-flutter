@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.select_resource_config_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -143,15 +144,14 @@ class SelectResourceConfigResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SelectResourceConfigResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SelectResourceConfigResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final SelectResourceConfigResponse(:results, :queryInfo, :nextToken) =
-        payload;
+        object;
     if (results != null) {
-      result
+      result$
         ..add('Results')
         ..add(serializers.serialize(
           results,
@@ -162,7 +162,7 @@ class SelectResourceConfigResponseAwsJson11Serializer
         ));
     }
     if (queryInfo != null) {
-      result
+      result$
         ..add('QueryInfo')
         ..add(serializers.serialize(
           queryInfo,
@@ -170,13 +170,13 @@ class SelectResourceConfigResponseAwsJson11Serializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

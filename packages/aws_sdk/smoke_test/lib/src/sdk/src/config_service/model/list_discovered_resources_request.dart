@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.list_discovered_resources_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -192,26 +193,27 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListDiscoveredResourcesRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListDiscoveredResourcesRequest);
-    final result = <Object?>[
-      'resourceType',
-      serializers.serialize(
-        payload.resourceType,
-        specifiedType: const FullType(_i3.ResourceType),
-      ),
-    ];
+    final result$ = <Object?>[];
     final ListDiscoveredResourcesRequest(
+      :resourceType,
       :resourceIds,
       :resourceName,
       :limit,
       :includeDeletedResources,
       :nextToken
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'resourceType',
+      serializers.serialize(
+        resourceType,
+        specifiedType: const FullType(_i3.ResourceType),
+      ),
+    ]);
     if (resourceIds != null) {
-      result
+      result$
         ..add('resourceIds')
         ..add(serializers.serialize(
           resourceIds,
@@ -222,7 +224,7 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
         ));
     }
     if (resourceName != null) {
-      result
+      result$
         ..add('resourceName')
         ..add(serializers.serialize(
           resourceName,
@@ -230,7 +232,7 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
         ));
     }
     if (limit != null) {
-      result
+      result$
         ..add('limit')
         ..add(serializers.serialize(
           limit,
@@ -238,7 +240,7 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
         ));
     }
     if (includeDeletedResources != null) {
-      result
+      result$
         ..add('includeDeletedResources')
         ..add(serializers.serialize(
           includeDeletedResources,
@@ -246,13 +248,13 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('nextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

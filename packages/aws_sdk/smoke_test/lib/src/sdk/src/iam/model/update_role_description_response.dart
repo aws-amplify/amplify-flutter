@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.update_role_description_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,25 +103,24 @@ class UpdateRoleDescriptionResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateRoleDescriptionResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateRoleDescriptionResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'UpdateRoleDescriptionResponseResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final UpdateRoleDescriptionResponse(:role) = payload;
+    final UpdateRoleDescriptionResponse(:role) = object;
     if (role != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Role'))
         ..add(serializers.serialize(
           role,
           specifiedType: const FullType(_i2.Role),
         ));
     }
-    return result;
+    return result$;
   }
 }

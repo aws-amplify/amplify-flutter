@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.client_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -181,11 +182,10 @@ class ClientConfigRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ClientConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ClientConfig);
-    final result = <Object?>[const _i4.XmlElementName('ClientConfig')];
+    final result$ = <Object?>[const _i4.XmlElementName('ClientConfig')];
     final ClientConfig(
       :awsAccessKeyId,
       :awsProfile,
@@ -194,9 +194,9 @@ class ClientConfigRestXmlSerializer
       :region,
       :retryConfig,
       :s3
-    ) = payload;
+    ) = object;
     if (awsAccessKeyId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('aws_access_key_id'))
         ..add(serializers.serialize(
           awsAccessKeyId,
@@ -204,7 +204,7 @@ class ClientConfigRestXmlSerializer
         ));
     }
     if (awsProfile != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('aws_profile'))
         ..add(serializers.serialize(
           awsProfile,
@@ -212,7 +212,7 @@ class ClientConfigRestXmlSerializer
         ));
     }
     if (awsSecretAccessKey != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('aws_secret_access_key'))
         ..add(serializers.serialize(
           awsSecretAccessKey,
@@ -220,7 +220,7 @@ class ClientConfigRestXmlSerializer
         ));
     }
     if (awsSessionToken != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('aws_session_token'))
         ..add(serializers.serialize(
           awsSessionToken,
@@ -228,7 +228,7 @@ class ClientConfigRestXmlSerializer
         ));
     }
     if (region != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('region'))
         ..add(serializers.serialize(
           region,
@@ -236,7 +236,7 @@ class ClientConfigRestXmlSerializer
         ));
     }
     if (retryConfig != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('retry_config'))
         ..add(serializers.serialize(
           retryConfig,
@@ -244,13 +244,13 @@ class ClientConfigRestXmlSerializer
         ));
     }
     if (s3 != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('s3'))
         ..add(serializers.serialize(
           s3,
           specifiedType: const FullType(_i2.S3Config),
         ));
     }
-    return result;
+    return result$;
   }
 }

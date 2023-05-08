@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.update_item_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -441,29 +442,13 @@ class UpdateItemInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateItemInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateItemInput);
-    final result = <Object?>[
-      'TableName',
-      serializers.serialize(
-        payload.tableName,
-        specifiedType: const FullType(String),
-      ),
-      'Key',
-      serializers.serialize(
-        payload.key,
-        specifiedType: const FullType(
-          _i10.BuiltMap,
-          [
-            FullType(String),
-            FullType(_i3.AttributeValue),
-          ],
-        ),
-      ),
-    ];
+    final result$ = <Object?>[];
     final UpdateItemInput(
+      :tableName,
+      :key,
       :attributeUpdates,
       :expected,
       :conditionalOperator,
@@ -474,9 +459,27 @@ class UpdateItemInputAwsJson10Serializer
       :conditionExpression,
       :expressionAttributeNames,
       :expressionAttributeValues
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'TableName',
+      serializers.serialize(
+        tableName,
+        specifiedType: const FullType(String),
+      ),
+      'Key',
+      serializers.serialize(
+        key,
+        specifiedType: const FullType(
+          _i10.BuiltMap,
+          [
+            FullType(String),
+            FullType(_i3.AttributeValue),
+          ],
+        ),
+      ),
+    ]);
     if (attributeUpdates != null) {
-      result
+      result$
         ..add('AttributeUpdates')
         ..add(serializers.serialize(
           attributeUpdates,
@@ -490,7 +493,7 @@ class UpdateItemInputAwsJson10Serializer
         ));
     }
     if (expected != null) {
-      result
+      result$
         ..add('Expected')
         ..add(serializers.serialize(
           expected,
@@ -504,7 +507,7 @@ class UpdateItemInputAwsJson10Serializer
         ));
     }
     if (conditionalOperator != null) {
-      result
+      result$
         ..add('ConditionalOperator')
         ..add(serializers.serialize(
           conditionalOperator,
@@ -512,7 +515,7 @@ class UpdateItemInputAwsJson10Serializer
         ));
     }
     if (returnValues != null) {
-      result
+      result$
         ..add('ReturnValues')
         ..add(serializers.serialize(
           returnValues,
@@ -520,7 +523,7 @@ class UpdateItemInputAwsJson10Serializer
         ));
     }
     if (returnConsumedCapacity != null) {
-      result
+      result$
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
@@ -528,7 +531,7 @@ class UpdateItemInputAwsJson10Serializer
         ));
     }
     if (returnItemCollectionMetrics != null) {
-      result
+      result$
         ..add('ReturnItemCollectionMetrics')
         ..add(serializers.serialize(
           returnItemCollectionMetrics,
@@ -536,7 +539,7 @@ class UpdateItemInputAwsJson10Serializer
         ));
     }
     if (updateExpression != null) {
-      result
+      result$
         ..add('UpdateExpression')
         ..add(serializers.serialize(
           updateExpression,
@@ -544,7 +547,7 @@ class UpdateItemInputAwsJson10Serializer
         ));
     }
     if (conditionExpression != null) {
-      result
+      result$
         ..add('ConditionExpression')
         ..add(serializers.serialize(
           conditionExpression,
@@ -552,7 +555,7 @@ class UpdateItemInputAwsJson10Serializer
         ));
     }
     if (expressionAttributeNames != null) {
-      result
+      result$
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
           expressionAttributeNames,
@@ -566,7 +569,7 @@ class UpdateItemInputAwsJson10Serializer
         ));
     }
     if (expressionAttributeValues != null) {
-      result
+      result$
         ..add('ExpressionAttributeValues')
         ..add(serializers.serialize(
           expressionAttributeValues,
@@ -579,6 +582,6 @@ class UpdateItemInputAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

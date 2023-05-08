@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.json_protocol.model.operation_with_optional_input_output_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -100,20 +101,19 @@ class OperationWithOptionalInputOutputOutputAwsJson11Serializer extends _i2
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OperationWithOptionalInputOutputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OperationWithOptionalInputOutputOutput);
-    final result = <Object?>[];
-    final OperationWithOptionalInputOutputOutput(:value) = payload;
+    final result$ = <Object?>[];
+    final OperationWithOptionalInputOutputOutput(:value) = object;
     if (value != null) {
-      result
+      result$
         ..add('Value')
         ..add(serializers.serialize(
           value,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

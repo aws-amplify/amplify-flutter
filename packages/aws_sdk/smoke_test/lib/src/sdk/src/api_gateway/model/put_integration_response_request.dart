@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.put_integration_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -330,21 +331,18 @@ class PutIntegrationResponseRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutIntegrationResponseRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutIntegrationResponseRequest
-        ? object.getPayload()
-        : (object as PutIntegrationResponseRequestPayload);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final PutIntegrationResponseRequestPayload(
       :contentHandling,
       :responseParameters,
       :responseTemplates,
       :selectionPattern
-    ) = payload;
+    ) = object;
     if (contentHandling != null) {
-      result
+      result$
         ..add('contentHandling')
         ..add(serializers.serialize(
           contentHandling,
@@ -352,7 +350,7 @@ class PutIntegrationResponseRequestRestJson1Serializer extends _i1
         ));
     }
     if (responseParameters != null) {
-      result
+      result$
         ..add('responseParameters')
         ..add(serializers.serialize(
           responseParameters,
@@ -366,7 +364,7 @@ class PutIntegrationResponseRequestRestJson1Serializer extends _i1
         ));
     }
     if (responseTemplates != null) {
-      result
+      result$
         ..add('responseTemplates')
         ..add(serializers.serialize(
           responseTemplates,
@@ -380,13 +378,13 @@ class PutIntegrationResponseRequestRestJson1Serializer extends _i1
         ));
     }
     if (selectionPattern != null) {
-      result
+      result$
         ..add('selectionPattern')
         ..add(serializers.serialize(
           selectionPattern,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

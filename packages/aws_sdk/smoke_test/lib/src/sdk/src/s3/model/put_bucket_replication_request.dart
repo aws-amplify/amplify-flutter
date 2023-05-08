@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.put_bucket_replication_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -205,26 +206,23 @@ class PutBucketReplicationRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.ReplicationConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutBucketReplicationRequest
-        ? object.getPayload()
-        : (object as _i2.ReplicationConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ReplicationConfiguration',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.ReplicationConfiguration(:role, :rules) = payload;
-    result
+    final _i2.ReplicationConfiguration(:role, :rules) = object;
+    result$
       ..add(const _i1.XmlElementName('Role'))
       ..add(serializers.serialize(
         role,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
         .addAll(const _i1.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
       rules,
@@ -233,6 +231,6 @@ class PutBucketReplicationRequestRestXmlSerializer
         [FullType(_i5.ReplicationRule)],
       ),
     ));
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_global_secondary_index_settings_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -201,26 +202,27 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaGlobalSecondaryIndexSettingsDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaGlobalSecondaryIndexSettingsDescription);
-    final result = <Object?>[
-      'IndexName',
-      serializers.serialize(
-        payload.indexName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final ReplicaGlobalSecondaryIndexSettingsDescription(
+      :indexName,
       :indexStatus,
       :provisionedReadCapacityUnits,
       :provisionedReadCapacityAutoScalingSettings,
       :provisionedWriteCapacityUnits,
       :provisionedWriteCapacityAutoScalingSettings
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'IndexName',
+      serializers.serialize(
+        indexName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (indexStatus != null) {
-      result
+      result$
         ..add('IndexStatus')
         ..add(serializers.serialize(
           indexStatus,
@@ -228,7 +230,7 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (provisionedReadCapacityUnits != null) {
-      result
+      result$
         ..add('ProvisionedReadCapacityUnits')
         ..add(serializers.serialize(
           provisionedReadCapacityUnits,
@@ -236,7 +238,7 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (provisionedReadCapacityAutoScalingSettings != null) {
-      result
+      result$
         ..add('ProvisionedReadCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           provisionedReadCapacityAutoScalingSettings,
@@ -244,7 +246,7 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (provisionedWriteCapacityUnits != null) {
-      result
+      result$
         ..add('ProvisionedWriteCapacityUnits')
         ..add(serializers.serialize(
           provisionedWriteCapacityUnits,
@@ -252,13 +254,13 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionAwsJson10Serializer
         ));
     }
     if (provisionedWriteCapacityAutoScalingSettings != null) {
-      result
+      result$
         ..add('ProvisionedWriteCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           provisionedWriteCapacityAutoScalingSettings,
           specifiedType: const FullType(_i4.AutoScalingSettingsDescription),
         ));
     }
-    return result;
+    return result$;
   }
 }

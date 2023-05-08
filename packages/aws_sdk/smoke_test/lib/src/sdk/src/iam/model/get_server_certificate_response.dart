@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_server_certificate_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -108,23 +109,22 @@ class GetServerCertificateResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetServerCertificateResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetServerCertificateResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'GetServerCertificateResponseResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final GetServerCertificateResponse(:serverCertificate) = payload;
-    result
+    final GetServerCertificateResponse(:serverCertificate) = object;
+    result$
       ..add(const _i3.XmlElementName('ServerCertificate'))
       ..add(serializers.serialize(
         serverCertificate,
         specifiedType: const FullType(_i2.ServerCertificate),
       ));
-    return result;
+    return result$;
   }
 }

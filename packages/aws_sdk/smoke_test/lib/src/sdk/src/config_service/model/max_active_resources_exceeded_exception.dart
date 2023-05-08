@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.max_active_resources_exceeded_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -125,20 +126,19 @@ class MaxActiveResourcesExceededExceptionAwsJson11Serializer extends _i2
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MaxActiveResourcesExceededException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MaxActiveResourcesExceededException);
-    final result = <Object?>[];
-    final MaxActiveResourcesExceededException(:message) = payload;
+    final result$ = <Object?>[];
+    final MaxActiveResourcesExceededException(:message) = object;
     if (message != null) {
-      result
+      result$
         ..add('message')
         ..add(serializers.serialize(
           message,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.api_key_ids; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -127,14 +128,13 @@ class ApiKeyIdsRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ApiKeyIds object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ApiKeyIds);
-    final result = <Object?>[];
-    final ApiKeyIds(:ids, :warnings) = payload;
+    final result$ = <Object?>[];
+    final ApiKeyIds(:ids, :warnings) = object;
     if (ids != null) {
-      result
+      result$
         ..add('ids')
         ..add(serializers.serialize(
           ids,
@@ -145,7 +145,7 @@ class ApiKeyIdsRestJson1Serializer
         ));
     }
     if (warnings != null) {
-      result
+      result$
         ..add('warnings')
         ..add(serializers.serialize(
           warnings,
@@ -155,6 +155,6 @@ class ApiKeyIdsRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

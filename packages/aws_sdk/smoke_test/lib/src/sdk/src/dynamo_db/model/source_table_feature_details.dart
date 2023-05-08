@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.source_table_feature_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -182,20 +183,19 @@ class SourceTableFeatureDetailsAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SourceTableFeatureDetails object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SourceTableFeatureDetails);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final SourceTableFeatureDetails(
       :localSecondaryIndexes,
       :globalSecondaryIndexes,
       :streamDescription,
       :timeToLiveDescription,
       :sseDescription
-    ) = payload;
+    ) = object;
     if (localSecondaryIndexes != null) {
-      result
+      result$
         ..add('LocalSecondaryIndexes')
         ..add(serializers.serialize(
           localSecondaryIndexes,
@@ -206,7 +206,7 @@ class SourceTableFeatureDetailsAwsJson10Serializer
         ));
     }
     if (globalSecondaryIndexes != null) {
-      result
+      result$
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
           globalSecondaryIndexes,
@@ -217,7 +217,7 @@ class SourceTableFeatureDetailsAwsJson10Serializer
         ));
     }
     if (streamDescription != null) {
-      result
+      result$
         ..add('StreamDescription')
         ..add(serializers.serialize(
           streamDescription,
@@ -225,7 +225,7 @@ class SourceTableFeatureDetailsAwsJson10Serializer
         ));
     }
     if (timeToLiveDescription != null) {
-      result
+      result$
         ..add('TimeToLiveDescription')
         ..add(serializers.serialize(
           timeToLiveDescription,
@@ -233,13 +233,13 @@ class SourceTableFeatureDetailsAwsJson10Serializer
         ));
     }
     if (sseDescription != null) {
-      result
+      result$
         ..add('SSEDescription')
         ..add(serializers.serialize(
           sseDescription,
           specifiedType: const FullType(_i6.SseDescription),
         ));
     }
-    return result;
+    return result$;
   }
 }

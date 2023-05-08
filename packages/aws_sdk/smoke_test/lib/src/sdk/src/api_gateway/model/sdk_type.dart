@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.sdk_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -157,15 +158,14 @@ class SdkTypeRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SdkType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SdkType);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final SdkType(:configurationProperties, :description, :friendlyName, :id) =
-        payload;
+        object;
     if (configurationProperties != null) {
-      result
+      result$
         ..add('configurationProperties')
         ..add(serializers.serialize(
           configurationProperties,
@@ -176,7 +176,7 @@ class SdkTypeRestJson1Serializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -184,7 +184,7 @@ class SdkTypeRestJson1Serializer
         ));
     }
     if (friendlyName != null) {
-      result
+      result$
         ..add('friendlyName')
         ..add(serializers.serialize(
           friendlyName,
@@ -192,13 +192,13 @@ class SdkTypeRestJson1Serializer
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add('id')
         ..add(serializers.serialize(
           id,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

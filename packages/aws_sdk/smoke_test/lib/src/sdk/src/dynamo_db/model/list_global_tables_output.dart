@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.list_global_tables_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -125,15 +126,14 @@ class ListGlobalTablesOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListGlobalTablesOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListGlobalTablesOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ListGlobalTablesOutput(:globalTables, :lastEvaluatedGlobalTableName) =
-        payload;
+        object;
     if (globalTables != null) {
-      result
+      result$
         ..add('GlobalTables')
         ..add(serializers.serialize(
           globalTables,
@@ -144,13 +144,13 @@ class ListGlobalTablesOutputAwsJson10Serializer
         ));
     }
     if (lastEvaluatedGlobalTableName != null) {
-      result
+      result$
         ..add('LastEvaluatedGlobalTableName')
         ..add(serializers.serialize(
           lastEvaluatedGlobalTableName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

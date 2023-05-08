@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.list_buckets_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -126,19 +127,18 @@ class ListBucketsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListBucketsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListBucketsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'ListAllMyBucketsResult',
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final ListBucketsOutput(:buckets, :owner) = payload;
+    final ListBucketsOutput(:buckets, :owner) = object;
     if (buckets != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Buckets'))
         ..add(const _i5.XmlBuiltListSerializer(memberName: 'Bucket').serialize(
           serializers,
@@ -150,13 +150,13 @@ class ListBucketsOutputRestXmlSerializer
         ));
     }
     if (owner != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
           specifiedType: const FullType(_i3.Owner),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_evaluations_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -146,20 +147,20 @@ class PutEvaluationsRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutEvaluationsRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutEvaluationsRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutEvaluationsRequest(:evaluations, :resultToken, :testMode) = object;
+    result$.addAll([
       'ResultToken',
       serializers.serialize(
-        payload.resultToken,
+        resultToken,
         specifiedType: const FullType(String),
       ),
-    ];
-    final PutEvaluationsRequest(:evaluations, :testMode) = payload;
+    ]);
     if (evaluations != null) {
-      result
+      result$
         ..add('Evaluations')
         ..add(serializers.serialize(
           evaluations,
@@ -170,13 +171,13 @@ class PutEvaluationsRequestAwsJson11Serializer
         ));
     }
     if (testMode != null) {
-      result
+      result$
         ..add('TestMode')
         ..add(serializers.serialize(
           testMode,
           specifiedType: const FullType(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

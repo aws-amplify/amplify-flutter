@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_account_summary_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -115,19 +116,18 @@ class GetAccountSummaryResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetAccountSummaryResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetAccountSummaryResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'GetAccountSummaryResponseResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final GetAccountSummaryResponse(:summaryMap) = payload;
+    final GetAccountSummaryResponse(:summaryMap) = object;
     if (summaryMap != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('SummaryMap'))
         ..add(
             const _i4.XmlBuiltMapSerializer(indexer: _i4.XmlIndexer.awsQueryMap)
@@ -143,6 +143,6 @@ class GetAccountSummaryResponseAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

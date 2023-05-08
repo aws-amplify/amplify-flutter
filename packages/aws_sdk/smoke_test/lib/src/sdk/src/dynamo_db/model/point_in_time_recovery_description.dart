@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.point_in_time_recovery_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -140,18 +141,17 @@ class PointInTimeRecoveryDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PointInTimeRecoveryDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PointInTimeRecoveryDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final PointInTimeRecoveryDescription(
       :pointInTimeRecoveryStatus,
       :earliestRestorableDateTime,
       :latestRestorableDateTime
-    ) = payload;
+    ) = object;
     if (pointInTimeRecoveryStatus != null) {
-      result
+      result$
         ..add('PointInTimeRecoveryStatus')
         ..add(serializers.serialize(
           pointInTimeRecoveryStatus,
@@ -159,7 +159,7 @@ class PointInTimeRecoveryDescriptionAwsJson10Serializer
         ));
     }
     if (earliestRestorableDateTime != null) {
-      result
+      result$
         ..add('EarliestRestorableDateTime')
         ..add(serializers.serialize(
           earliestRestorableDateTime,
@@ -167,13 +167,13 @@ class PointInTimeRecoveryDescriptionAwsJson10Serializer
         ));
     }
     if (latestRestorableDateTime != null) {
-      result
+      result$
         ..add('LatestRestorableDateTime')
         ..add(serializers.serialize(
           latestRestorableDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

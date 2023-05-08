@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.aggregate_resource_identifier; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -163,41 +164,47 @@ class AggregateResourceIdentifierAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AggregateResourceIdentifier object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AggregateResourceIdentifier);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final AggregateResourceIdentifier(
+      :sourceAccountId,
+      :sourceRegion,
+      :resourceId,
+      :resourceType,
+      :resourceName
+    ) = object;
+    result$.addAll([
       'SourceAccountId',
       serializers.serialize(
-        payload.sourceAccountId,
+        sourceAccountId,
         specifiedType: const FullType(String),
       ),
       'SourceRegion',
       serializers.serialize(
-        payload.sourceRegion,
+        sourceRegion,
         specifiedType: const FullType(String),
       ),
       'ResourceId',
       serializers.serialize(
-        payload.resourceId,
+        resourceId,
         specifiedType: const FullType(String),
       ),
       'ResourceType',
       serializers.serialize(
-        payload.resourceType,
+        resourceType,
         specifiedType: const FullType(_i2.ResourceType),
       ),
-    ];
-    final AggregateResourceIdentifier(:resourceName) = payload;
+    ]);
     if (resourceName != null) {
-      result
+      result$
         ..add('ResourceName')
         ..add(serializers.serialize(
           resourceName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

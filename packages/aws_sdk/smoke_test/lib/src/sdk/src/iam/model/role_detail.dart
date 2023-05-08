@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.role_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -311,11 +312,10 @@ class RoleDetailAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RoleDetail object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RoleDetail);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i9.XmlElementName(
         'RoleDetailResponse',
         _i9.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -334,9 +334,9 @@ class RoleDetailAwsQuerySerializer
       :permissionsBoundary,
       :tags,
       :roleLastUsed
-    ) = payload;
+    ) = object;
     if (path != null) {
-      result
+      result$
         ..add(const _i9.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
@@ -344,7 +344,7 @@ class RoleDetailAwsQuerySerializer
         ));
     }
     if (roleName != null) {
-      result
+      result$
         ..add(const _i9.XmlElementName('RoleName'))
         ..add(serializers.serialize(
           roleName,
@@ -352,7 +352,7 @@ class RoleDetailAwsQuerySerializer
         ));
     }
     if (roleId != null) {
-      result
+      result$
         ..add(const _i9.XmlElementName('RoleId'))
         ..add(serializers.serialize(
           roleId,
@@ -360,7 +360,7 @@ class RoleDetailAwsQuerySerializer
         ));
     }
     if (arn != null) {
-      result
+      result$
         ..add(const _i9.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
@@ -368,7 +368,7 @@ class RoleDetailAwsQuerySerializer
         ));
     }
     if (createDate != null) {
-      result
+      result$
         ..add(const _i9.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
@@ -376,7 +376,7 @@ class RoleDetailAwsQuerySerializer
         ));
     }
     if (assumeRolePolicyDocument != null) {
-      result
+      result$
         ..add(const _i9.XmlElementName('AssumeRolePolicyDocument'))
         ..add(serializers.serialize(
           assumeRolePolicyDocument,
@@ -384,7 +384,7 @@ class RoleDetailAwsQuerySerializer
         ));
     }
     if (instanceProfileList != null) {
-      result
+      result$
         ..add(const _i9.XmlElementName('InstanceProfileList'))
         ..add(const _i9.XmlBuiltListSerializer(
                 indexer: _i9.XmlIndexer.awsQueryList)
@@ -398,7 +398,7 @@ class RoleDetailAwsQuerySerializer
         ));
     }
     if (rolePolicyList != null) {
-      result
+      result$
         ..add(const _i9.XmlElementName('RolePolicyList'))
         ..add(const _i9.XmlBuiltListSerializer(
                 indexer: _i9.XmlIndexer.awsQueryList)
@@ -412,7 +412,7 @@ class RoleDetailAwsQuerySerializer
         ));
     }
     if (attachedManagedPolicies != null) {
-      result
+      result$
         ..add(const _i9.XmlElementName('AttachedManagedPolicies'))
         ..add(const _i9.XmlBuiltListSerializer(
                 indexer: _i9.XmlIndexer.awsQueryList)
@@ -426,7 +426,7 @@ class RoleDetailAwsQuerySerializer
         ));
     }
     if (permissionsBoundary != null) {
-      result
+      result$
         ..add(const _i9.XmlElementName('PermissionsBoundary'))
         ..add(serializers.serialize(
           permissionsBoundary,
@@ -434,7 +434,7 @@ class RoleDetailAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i9.XmlElementName('Tags'))
         ..add(const _i9.XmlBuiltListSerializer(
                 indexer: _i9.XmlIndexer.awsQueryList)
@@ -448,13 +448,13 @@ class RoleDetailAwsQuerySerializer
         ));
     }
     if (roleLastUsed != null) {
-      result
+      result$
         ..add(const _i9.XmlElementName('RoleLastUsed'))
         ..add(serializers.serialize(
           roleLastUsed,
           specifiedType: const FullType(_i7.RoleLastUsed),
         ));
     }
-    return result;
+    return result$;
   }
 }

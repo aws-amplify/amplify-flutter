@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.list_tables_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -128,14 +129,13 @@ class ListTablesOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListTablesOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListTablesOutput);
-    final result = <Object?>[];
-    final ListTablesOutput(:tableNames, :lastEvaluatedTableName) = payload;
+    final result$ = <Object?>[];
+    final ListTablesOutput(:tableNames, :lastEvaluatedTableName) = object;
     if (tableNames != null) {
-      result
+      result$
         ..add('TableNames')
         ..add(serializers.serialize(
           tableNames,
@@ -146,13 +146,13 @@ class ListTablesOutputAwsJson10Serializer
         ));
     }
     if (lastEvaluatedTableName != null) {
-      result
+      result$
         ..add('LastEvaluatedTableName')
         ..add(serializers.serialize(
           lastEvaluatedTableName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

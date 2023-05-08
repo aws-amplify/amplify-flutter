@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.global_secondary_index_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -259,11 +260,10 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GlobalSecondaryIndexDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GlobalSecondaryIndexDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final GlobalSecondaryIndexDescription(
       :indexName,
       :keySchema,
@@ -274,9 +274,9 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
       :indexSizeBytes,
       :itemCount,
       :indexArn
-    ) = payload;
+    ) = object;
     if (indexName != null) {
-      result
+      result$
         ..add('IndexName')
         ..add(serializers.serialize(
           indexName,
@@ -284,7 +284,7 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ));
     }
     if (keySchema != null) {
-      result
+      result$
         ..add('KeySchema')
         ..add(serializers.serialize(
           keySchema,
@@ -295,7 +295,7 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ));
     }
     if (projection != null) {
-      result
+      result$
         ..add('Projection')
         ..add(serializers.serialize(
           projection,
@@ -303,7 +303,7 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ));
     }
     if (indexStatus != null) {
-      result
+      result$
         ..add('IndexStatus')
         ..add(serializers.serialize(
           indexStatus,
@@ -311,7 +311,7 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ));
     }
     if (backfilling != null) {
-      result
+      result$
         ..add('Backfilling')
         ..add(serializers.serialize(
           backfilling,
@@ -319,7 +319,7 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ));
     }
     if (provisionedThroughput != null) {
-      result
+      result$
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
           provisionedThroughput,
@@ -327,7 +327,7 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ));
     }
     if (indexSizeBytes != null) {
-      result
+      result$
         ..add('IndexSizeBytes')
         ..add(serializers.serialize(
           indexSizeBytes,
@@ -335,7 +335,7 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ));
     }
     if (itemCount != null) {
-      result
+      result$
         ..add('ItemCount')
         ..add(serializers.serialize(
           itemCount,
@@ -343,13 +343,13 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ));
     }
     if (indexArn != null) {
-      result
+      result$
         ..add('IndexArn')
         ..add(serializers.serialize(
           indexArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

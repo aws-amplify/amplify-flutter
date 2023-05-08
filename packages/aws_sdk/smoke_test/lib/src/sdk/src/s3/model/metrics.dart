@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.metrics; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -114,31 +115,30 @@ class MetricsRestXmlSerializer extends _i4.StructuredSmithySerializer<Metrics> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Metrics object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Metrics);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'Metrics',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final Metrics(:eventThreshold, :status) = payload;
+    final Metrics(:eventThreshold, :status) = object;
     if (eventThreshold != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('EventThreshold'))
         ..add(serializers.serialize(
           eventThreshold,
           specifiedType: const FullType(_i3.ReplicationTimeValue),
         ));
     }
-    result
+    result$
       ..add(const _i4.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
         specifiedType: const FullType.nullable(_i2.MetricsStatus),
       ));
-    return result;
+    return result$;
   }
 }

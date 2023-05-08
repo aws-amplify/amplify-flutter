@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.config_stream_delivery_info; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -150,19 +151,18 @@ class ConfigStreamDeliveryInfoAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConfigStreamDeliveryInfo object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConfigStreamDeliveryInfo);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ConfigStreamDeliveryInfo(
       :lastStatus,
       :lastErrorCode,
       :lastErrorMessage,
       :lastStatusChangeTime
-    ) = payload;
+    ) = object;
     if (lastStatus != null) {
-      result
+      result$
         ..add('lastStatus')
         ..add(serializers.serialize(
           lastStatus,
@@ -170,7 +170,7 @@ class ConfigStreamDeliveryInfoAwsJson11Serializer
         ));
     }
     if (lastErrorCode != null) {
-      result
+      result$
         ..add('lastErrorCode')
         ..add(serializers.serialize(
           lastErrorCode,
@@ -178,7 +178,7 @@ class ConfigStreamDeliveryInfoAwsJson11Serializer
         ));
     }
     if (lastErrorMessage != null) {
-      result
+      result$
         ..add('lastErrorMessage')
         ..add(serializers.serialize(
           lastErrorMessage,
@@ -186,13 +186,13 @@ class ConfigStreamDeliveryInfoAwsJson11Serializer
         ));
     }
     if (lastStatusChangeTime != null) {
-      result
+      result$
         ..add('lastStatusChangeTime')
         ..add(serializers.serialize(
           lastStatusChangeTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.deactivate_type_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -145,19 +146,18 @@ class DeactivateTypeInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeactivateTypeInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeactivateTypeInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'DeactivateTypeInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final DeactivateTypeInput(:typeName, :type, :arn) = payload;
+    final DeactivateTypeInput(:typeName, :type, :arn) = object;
     if (typeName != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
@@ -165,7 +165,7 @@ class DeactivateTypeInputAwsQuerySerializer
         ));
     }
     if (type != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
@@ -173,13 +173,13 @@ class DeactivateTypeInputAwsQuerySerializer
         ));
     }
     if (arn != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.json_protocol.model.kitchen_sink; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -530,11 +531,10 @@ class KitchenSinkAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    KitchenSink object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as KitchenSink);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final KitchenSink(
       :blob,
       :boolean,
@@ -562,9 +562,9 @@ class KitchenSinkAwsJson11Serializer
       :structWithJsonName,
       :timestamp,
       :unixTimestamp
-    ) = payload;
+    ) = object;
     if (blob != null) {
-      result
+      result$
         ..add('Blob')
         ..add(serializers.serialize(
           blob,
@@ -572,7 +572,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (boolean != null) {
-      result
+      result$
         ..add('Boolean')
         ..add(serializers.serialize(
           boolean,
@@ -580,7 +580,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (double_ != null) {
-      result
+      result$
         ..add('Double')
         ..add(serializers.serialize(
           double_,
@@ -588,7 +588,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (emptyStruct != null) {
-      result
+      result$
         ..add('EmptyStruct')
         ..add(serializers.serialize(
           emptyStruct,
@@ -596,7 +596,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (float != null) {
-      result
+      result$
         ..add('Float')
         ..add(serializers.serialize(
           float,
@@ -604,7 +604,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (httpdateTimestamp != null) {
-      result
+      result$
         ..add('HttpdateTimestamp')
         ..add(_i1.TimestampSerializer.httpDate.serialize(
           serializers,
@@ -612,7 +612,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (integer != null) {
-      result
+      result$
         ..add('Integer')
         ..add(serializers.serialize(
           integer,
@@ -620,7 +620,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (iso8601Timestamp != null) {
-      result
+      result$
         ..add('Iso8601Timestamp')
         ..add(_i1.TimestampSerializer.dateTime.serialize(
           serializers,
@@ -628,7 +628,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (jsonValue != null) {
-      result
+      result$
         ..add('JsonValue')
         ..add(serializers.serialize(
           jsonValue,
@@ -636,7 +636,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (listOfLists != null) {
-      result
+      result$
         ..add('ListOfLists')
         ..add(serializers.serialize(
           listOfLists,
@@ -652,7 +652,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (listOfMapsOfStrings != null) {
-      result
+      result$
         ..add('ListOfMapsOfStrings')
         ..add(serializers.serialize(
           listOfMapsOfStrings,
@@ -671,7 +671,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (listOfStrings != null) {
-      result
+      result$
         ..add('ListOfStrings')
         ..add(serializers.serialize(
           listOfStrings,
@@ -682,7 +682,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (listOfStructs != null) {
-      result
+      result$
         ..add('ListOfStructs')
         ..add(serializers.serialize(
           listOfStructs,
@@ -693,7 +693,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (long != null) {
-      result
+      result$
         ..add('Long')
         ..add(serializers.serialize(
           long,
@@ -701,7 +701,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (mapOfListsOfStrings != null) {
-      result
+      result$
         ..add('MapOfListsOfStrings')
         ..add(serializers.serialize(
           mapOfListsOfStrings,
@@ -715,7 +715,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (mapOfMaps != null) {
-      result
+      result$
         ..add('MapOfMaps')
         ..add(serializers.serialize(
           mapOfMaps,
@@ -735,7 +735,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (mapOfStrings != null) {
-      result
+      result$
         ..add('MapOfStrings')
         ..add(serializers.serialize(
           mapOfStrings,
@@ -749,7 +749,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (mapOfStructs != null) {
-      result
+      result$
         ..add('MapOfStructs')
         ..add(serializers.serialize(
           mapOfStructs,
@@ -763,7 +763,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (recursiveList != null) {
-      result
+      result$
         ..add('RecursiveList')
         ..add(serializers.serialize(
           recursiveList,
@@ -774,7 +774,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (recursiveMap != null) {
-      result
+      result$
         ..add('RecursiveMap')
         ..add(serializers.serialize(
           recursiveMap,
@@ -788,7 +788,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (recursiveStruct != null) {
-      result
+      result$
         ..add('RecursiveStruct')
         ..add(serializers.serialize(
           recursiveStruct,
@@ -796,7 +796,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (simpleStruct != null) {
-      result
+      result$
         ..add('SimpleStruct')
         ..add(serializers.serialize(
           simpleStruct,
@@ -804,7 +804,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (string != null) {
-      result
+      result$
         ..add('String')
         ..add(serializers.serialize(
           string,
@@ -812,7 +812,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (structWithJsonName != null) {
-      result
+      result$
         ..add('StructWithJsonName')
         ..add(serializers.serialize(
           structWithJsonName,
@@ -820,7 +820,7 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (timestamp != null) {
-      result
+      result$
         ..add('Timestamp')
         ..add(serializers.serialize(
           timestamp,
@@ -828,13 +828,13 @@ class KitchenSinkAwsJson11Serializer
         ));
     }
     if (unixTimestamp != null) {
-      result
+      result$
         ..add('UnixTimestamp')
         ..add(_i1.TimestampSerializer.epochSeconds.serialize(
           serializers,
           unixTimestamp,
         ));
     }
-    return result;
+    return result$;
   }
 }

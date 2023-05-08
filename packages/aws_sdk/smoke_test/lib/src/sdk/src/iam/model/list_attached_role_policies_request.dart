@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.list_attached_role_policies_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -162,11 +163,10 @@ class ListAttachedRolePoliciesRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListAttachedRolePoliciesRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListAttachedRolePoliciesRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ListAttachedRolePoliciesRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -177,15 +177,15 @@ class ListAttachedRolePoliciesRequestAwsQuerySerializer
       :pathPrefix,
       :marker,
       :maxItems
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('RoleName'))
       ..add(serializers.serialize(
         roleName,
         specifiedType: const FullType(String),
       ));
     if (pathPrefix != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PathPrefix'))
         ..add(serializers.serialize(
           pathPrefix,
@@ -193,7 +193,7 @@ class ListAttachedRolePoliciesRequestAwsQuerySerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
@@ -201,13 +201,13 @@ class ListAttachedRolePoliciesRequestAwsQuerySerializer
         ));
     }
     if (maxItems != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
           maxItems,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

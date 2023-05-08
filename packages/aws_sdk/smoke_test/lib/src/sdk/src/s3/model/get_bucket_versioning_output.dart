@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_bucket_versioning_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -123,19 +124,18 @@ class GetBucketVersioningOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetBucketVersioningOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetBucketVersioningOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'VersioningConfiguration',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final GetBucketVersioningOutput(:mfaDelete, :status) = payload;
+    final GetBucketVersioningOutput(:mfaDelete, :status) = object;
     if (mfaDelete != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('MfaDelete'))
         ..add(serializers.serialize(
           mfaDelete,
@@ -143,13 +143,13 @@ class GetBucketVersioningOutputRestXmlSerializer
         ));
     }
     if (status != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
           specifiedType: const FullType.nullable(_i2.BucketVersioningStatus),
         ));
     }
-    return result;
+    return result$;
   }
 }

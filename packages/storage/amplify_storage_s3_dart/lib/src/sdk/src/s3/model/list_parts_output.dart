@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.list_parts_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -486,13 +487,10 @@ class ListPartsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListPartsOutputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is ListPartsOutput
-        ? object.getPayload()
-        : (object as ListPartsOutputPayload);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'ListPartsResult',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -511,9 +509,9 @@ class ListPartsOutputRestXmlSerializer
       :parts,
       :storageClass,
       :uploadId
-    ) = payload;
+    ) = object;
     if (bucket != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Bucket'))
         ..add(serializers.serialize(
           bucket,
@@ -521,7 +519,7 @@ class ListPartsOutputRestXmlSerializer
         ));
     }
     if (checksumAlgorithm != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ChecksumAlgorithm'))
         ..add(serializers.serialize(
           checksumAlgorithm,
@@ -529,7 +527,7 @@ class ListPartsOutputRestXmlSerializer
         ));
     }
     if (initiator != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Initiator'))
         ..add(serializers.serialize(
           initiator,
@@ -537,7 +535,7 @@ class ListPartsOutputRestXmlSerializer
         ));
     }
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -545,7 +543,7 @@ class ListPartsOutputRestXmlSerializer
         ));
     }
     if (key != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Key'))
         ..add(serializers.serialize(
           key,
@@ -553,7 +551,7 @@ class ListPartsOutputRestXmlSerializer
         ));
     }
     if (maxParts != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('MaxParts'))
         ..add(serializers.serialize(
           maxParts,
@@ -561,7 +559,7 @@ class ListPartsOutputRestXmlSerializer
         ));
     }
     if (nextPartNumberMarker != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('NextPartNumberMarker'))
         ..add(serializers.serialize(
           nextPartNumberMarker,
@@ -569,7 +567,7 @@ class ListPartsOutputRestXmlSerializer
         ));
     }
     if (owner != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
@@ -577,7 +575,7 @@ class ListPartsOutputRestXmlSerializer
         ));
     }
     if (partNumberMarker != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('PartNumberMarker'))
         ..add(serializers.serialize(
           partNumberMarker,
@@ -585,7 +583,7 @@ class ListPartsOutputRestXmlSerializer
         ));
     }
     if (parts != null) {
-      result.addAll(
+      result$.addAll(
           const _i2.XmlBuiltListSerializer(memberName: 'Part').serialize(
         serializers,
         parts,
@@ -596,7 +594,7 @@ class ListPartsOutputRestXmlSerializer
       ));
     }
     if (storageClass != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
@@ -604,13 +602,13 @@ class ListPartsOutputRestXmlSerializer
         ));
     }
     if (uploadId != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('UploadId'))
         ..add(serializers.serialize(
           uploadId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

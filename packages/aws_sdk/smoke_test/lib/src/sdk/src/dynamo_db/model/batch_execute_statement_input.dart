@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.batch_execute_statement_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -140,29 +141,30 @@ class BatchExecuteStatementInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BatchExecuteStatementInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BatchExecuteStatementInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final BatchExecuteStatementInput(:statements, :returnConsumedCapacity) =
+        object;
+    result$.addAll([
       'Statements',
       serializers.serialize(
-        payload.statements,
+        statements,
         specifiedType: const FullType(
           _i5.BuiltList,
           [FullType(_i3.BatchStatementRequest)],
         ),
       ),
-    ];
-    final BatchExecuteStatementInput(:returnConsumedCapacity) = payload;
+    ]);
     if (returnConsumedCapacity != null) {
-      result
+      result$
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
           specifiedType: const FullType(_i4.ReturnConsumedCapacity),
         ));
     }
-    return result;
+    return result$;
   }
 }

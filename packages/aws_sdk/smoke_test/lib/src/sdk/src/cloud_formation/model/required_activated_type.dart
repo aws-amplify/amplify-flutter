@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.required_activated_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -163,11 +164,10 @@ class RequiredActivatedTypeAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RequiredActivatedType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RequiredActivatedType);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'RequiredActivatedTypeResponse',
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -178,9 +178,9 @@ class RequiredActivatedTypeAwsQuerySerializer
       :originalTypeName,
       :publisherId,
       :supportedMajorVersions
-    ) = payload;
+    ) = object;
     if (typeNameAlias != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('TypeNameAlias'))
         ..add(serializers.serialize(
           typeNameAlias,
@@ -188,7 +188,7 @@ class RequiredActivatedTypeAwsQuerySerializer
         ));
     }
     if (originalTypeName != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('OriginalTypeName'))
         ..add(serializers.serialize(
           originalTypeName,
@@ -196,7 +196,7 @@ class RequiredActivatedTypeAwsQuerySerializer
         ));
     }
     if (publisherId != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
           publisherId,
@@ -204,7 +204,7 @@ class RequiredActivatedTypeAwsQuerySerializer
         ));
     }
     if (supportedMajorVersions != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('SupportedMajorVersions'))
         ..add(const _i3.XmlBuiltListSerializer(
                 indexer: _i3.XmlIndexer.awsQueryList)
@@ -217,6 +217,6 @@ class RequiredActivatedTypeAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

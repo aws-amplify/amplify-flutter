@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.list_object_versions_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -297,11 +298,10 @@ class ListObjectVersionsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListObjectVersionsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListObjectVersionsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'ListVersionsResult',
         _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -321,9 +321,9 @@ class ListObjectVersionsOutputRestXmlSerializer
       :prefix,
       :versionIdMarker,
       :versions
-    ) = payload;
+    ) = object;
     if (commonPrefixes != null) {
-      result.addAll(
+      result$.addAll(
           const _i7.XmlBuiltListSerializer(memberName: 'CommonPrefixes')
               .serialize(
         serializers,
@@ -335,8 +335,9 @@ class ListObjectVersionsOutputRestXmlSerializer
       ));
     }
     if (deleteMarkers != null) {
-      result.addAll(const _i7.XmlBuiltListSerializer(memberName: 'DeleteMarker')
-          .serialize(
+      result$.addAll(
+          const _i7.XmlBuiltListSerializer(memberName: 'DeleteMarker')
+              .serialize(
         serializers,
         deleteMarkers,
         specifiedType: const FullType.nullable(
@@ -346,7 +347,7 @@ class ListObjectVersionsOutputRestXmlSerializer
       ));
     }
     if (delimiter != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Delimiter'))
         ..add(serializers.serialize(
           delimiter,
@@ -354,7 +355,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ));
     }
     if (encodingType != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('EncodingType'))
         ..add(serializers.serialize(
           encodingType,
@@ -362,7 +363,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ));
     }
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -370,7 +371,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ));
     }
     if (keyMarker != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('KeyMarker'))
         ..add(serializers.serialize(
           keyMarker,
@@ -378,7 +379,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ));
     }
     if (maxKeys != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('MaxKeys'))
         ..add(serializers.serialize(
           maxKeys,
@@ -386,7 +387,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
@@ -394,7 +395,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ));
     }
     if (nextKeyMarker != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('NextKeyMarker'))
         ..add(serializers.serialize(
           nextKeyMarker,
@@ -402,7 +403,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ));
     }
     if (nextVersionIdMarker != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('NextVersionIdMarker'))
         ..add(serializers.serialize(
           nextVersionIdMarker,
@@ -410,7 +411,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ));
     }
     if (prefix != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
@@ -418,7 +419,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ));
     }
     if (versionIdMarker != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('VersionIdMarker'))
         ..add(serializers.serialize(
           versionIdMarker,
@@ -426,7 +427,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ));
     }
     if (versions != null) {
-      result.addAll(
+      result$.addAll(
           const _i7.XmlBuiltListSerializer(memberName: 'Version').serialize(
         serializers,
         versions,
@@ -436,6 +437,6 @@ class ListObjectVersionsOutputRestXmlSerializer
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

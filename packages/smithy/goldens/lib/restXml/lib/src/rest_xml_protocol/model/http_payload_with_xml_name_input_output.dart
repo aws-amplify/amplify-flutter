@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.http_payload_with_xml_name_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -121,25 +122,19 @@ class HttpPayloadWithXmlNameInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.PayloadWithXmlName object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is HttpPayloadWithXmlNameInputOutput
-        ? object.getPayload()
-        : (object as _i2.PayloadWithXmlName?);
-    final result = <Object?>[const _i1.XmlElementName('Hello')];
-    if (payload == null) {
-      return result;
-    }
-    final _i2.PayloadWithXmlName(:name) = payload;
+    final result$ = <Object?>[const _i1.XmlElementName('Hello')];
+    final _i2.PayloadWithXmlName(:name) = object;
     if (name != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('name'))
         ..add(serializers.serialize(
           name,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

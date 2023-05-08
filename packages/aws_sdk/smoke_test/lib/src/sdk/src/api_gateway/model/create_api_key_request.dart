@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.create_api_key_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -226,11 +227,10 @@ class CreateApiKeyRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateApiKeyRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateApiKeyRequest);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final CreateApiKeyRequest(
       :customerId,
       :description,
@@ -240,9 +240,9 @@ class CreateApiKeyRequestRestJson1Serializer
       :stageKeys,
       :tags,
       :value
-    ) = payload;
+    ) = object;
     if (customerId != null) {
-      result
+      result$
         ..add('customerId')
         ..add(serializers.serialize(
           customerId,
@@ -250,7 +250,7 @@ class CreateApiKeyRequestRestJson1Serializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -258,7 +258,7 @@ class CreateApiKeyRequestRestJson1Serializer
         ));
     }
     if (enabled != null) {
-      result
+      result$
         ..add('enabled')
         ..add(serializers.serialize(
           enabled,
@@ -266,7 +266,7 @@ class CreateApiKeyRequestRestJson1Serializer
         ));
     }
     if (generateDistinctId != null) {
-      result
+      result$
         ..add('generateDistinctId')
         ..add(serializers.serialize(
           generateDistinctId,
@@ -274,7 +274,7 @@ class CreateApiKeyRequestRestJson1Serializer
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add('name')
         ..add(serializers.serialize(
           name,
@@ -282,7 +282,7 @@ class CreateApiKeyRequestRestJson1Serializer
         ));
     }
     if (stageKeys != null) {
-      result
+      result$
         ..add('stageKeys')
         ..add(serializers.serialize(
           stageKeys,
@@ -293,7 +293,7 @@ class CreateApiKeyRequestRestJson1Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('tags')
         ..add(serializers.serialize(
           tags,
@@ -307,13 +307,13 @@ class CreateApiKeyRequestRestJson1Serializer
         ));
     }
     if (value != null) {
-      result
+      result$
         ..add('value')
         ..add(serializers.serialize(
           value,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

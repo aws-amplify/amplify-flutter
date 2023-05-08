@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_demographic; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -204,11 +205,10 @@ class EndpointDemographicRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EndpointDemographic object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EndpointDemographic);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final EndpointDemographic(
       :appVersion,
       :locale,
@@ -218,9 +218,9 @@ class EndpointDemographicRestJson1Serializer
       :platform,
       :platformVersion,
       :timezone
-    ) = payload;
+    ) = object;
     if (appVersion != null) {
-      result
+      result$
         ..add('AppVersion')
         ..add(serializers.serialize(
           appVersion,
@@ -228,7 +228,7 @@ class EndpointDemographicRestJson1Serializer
         ));
     }
     if (locale != null) {
-      result
+      result$
         ..add('Locale')
         ..add(serializers.serialize(
           locale,
@@ -236,7 +236,7 @@ class EndpointDemographicRestJson1Serializer
         ));
     }
     if (make != null) {
-      result
+      result$
         ..add('Make')
         ..add(serializers.serialize(
           make,
@@ -244,7 +244,7 @@ class EndpointDemographicRestJson1Serializer
         ));
     }
     if (model != null) {
-      result
+      result$
         ..add('Model')
         ..add(serializers.serialize(
           model,
@@ -252,7 +252,7 @@ class EndpointDemographicRestJson1Serializer
         ));
     }
     if (modelVersion != null) {
-      result
+      result$
         ..add('ModelVersion')
         ..add(serializers.serialize(
           modelVersion,
@@ -260,7 +260,7 @@ class EndpointDemographicRestJson1Serializer
         ));
     }
     if (platform != null) {
-      result
+      result$
         ..add('Platform')
         ..add(serializers.serialize(
           platform,
@@ -268,7 +268,7 @@ class EndpointDemographicRestJson1Serializer
         ));
     }
     if (platformVersion != null) {
-      result
+      result$
         ..add('PlatformVersion')
         ..add(serializers.serialize(
           platformVersion,
@@ -276,13 +276,13 @@ class EndpointDemographicRestJson1Serializer
         ));
     }
     if (timezone != null) {
-      result
+      result$
         ..add('Timezone')
         ..add(serializers.serialize(
           timezone,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

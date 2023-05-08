@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_resource_config_history_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -208,31 +209,33 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetResourceConfigHistoryRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetResourceConfigHistoryRequest);
-    final result = <Object?>[
-      'resourceType',
-      serializers.serialize(
-        payload.resourceType,
-        specifiedType: const FullType(_i3.ResourceType),
-      ),
-      'resourceId',
-      serializers.serialize(
-        payload.resourceId,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final GetResourceConfigHistoryRequest(
+      :resourceType,
+      :resourceId,
       :laterTime,
       :earlierTime,
       :chronologicalOrder,
       :limit,
       :nextToken
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'resourceType',
+      serializers.serialize(
+        resourceType,
+        specifiedType: const FullType(_i3.ResourceType),
+      ),
+      'resourceId',
+      serializers.serialize(
+        resourceId,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (laterTime != null) {
-      result
+      result$
         ..add('laterTime')
         ..add(serializers.serialize(
           laterTime,
@@ -240,7 +243,7 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
         ));
     }
     if (earlierTime != null) {
-      result
+      result$
         ..add('earlierTime')
         ..add(serializers.serialize(
           earlierTime,
@@ -248,7 +251,7 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
         ));
     }
     if (chronologicalOrder != null) {
-      result
+      result$
         ..add('chronologicalOrder')
         ..add(serializers.serialize(
           chronologicalOrder,
@@ -256,7 +259,7 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
         ));
     }
     if (limit != null) {
-      result
+      result$
         ..add('limit')
         ..add(serializers.serialize(
           limit,
@@ -264,13 +267,13 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('nextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

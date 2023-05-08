@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.import_table_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -204,34 +205,37 @@ class ImportTableInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ImportTableInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ImportTableInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ImportTableInput(
+      :clientToken,
+      :s3BucketSource,
+      :inputFormat,
+      :inputFormatOptions,
+      :inputCompressionType,
+      :tableCreationParameters
+    ) = object;
+    result$.addAll([
       'S3BucketSource',
       serializers.serialize(
-        payload.s3BucketSource,
+        s3BucketSource,
         specifiedType: const FullType(_i3.S3BucketSource),
       ),
       'InputFormat',
       serializers.serialize(
-        payload.inputFormat,
+        inputFormat,
         specifiedType: const FullType(_i4.InputFormat),
       ),
       'TableCreationParameters',
       serializers.serialize(
-        payload.tableCreationParameters,
+        tableCreationParameters,
         specifiedType: const FullType(_i7.TableCreationParameters),
       ),
-    ];
-    final ImportTableInput(
-      :clientToken,
-      :inputFormatOptions,
-      :inputCompressionType
-    ) = payload;
+    ]);
     if (clientToken != null) {
-      result
+      result$
         ..add('ClientToken')
         ..add(serializers.serialize(
           clientToken,
@@ -239,7 +243,7 @@ class ImportTableInputAwsJson10Serializer
         ));
     }
     if (inputFormatOptions != null) {
-      result
+      result$
         ..add('InputFormatOptions')
         ..add(serializers.serialize(
           inputFormatOptions,
@@ -247,13 +251,13 @@ class ImportTableInputAwsJson10Serializer
         ));
     }
     if (inputCompressionType != null) {
-      result
+      result$
         ..add('InputCompressionType')
         ..add(serializers.serialize(
           inputCompressionType,
           specifiedType: const FullType(_i6.InputCompressionType),
         ));
     }
-    return result;
+    return result$;
   }
 }

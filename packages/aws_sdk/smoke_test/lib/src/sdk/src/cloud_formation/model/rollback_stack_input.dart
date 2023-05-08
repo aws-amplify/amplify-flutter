@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.rollback_stack_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -135,26 +136,25 @@ class RollbackStackInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RollbackStackInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RollbackStackInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'RollbackStackInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final RollbackStackInput(:stackName, :roleArn, :clientRequestToken) =
-        payload;
-    result
+        object;
+    result$
       ..add(const _i1.XmlElementName('StackName'))
       ..add(serializers.serialize(
         stackName,
         specifiedType: const FullType(String),
       ));
     if (roleArn != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('RoleARN'))
         ..add(serializers.serialize(
           roleArn,
@@ -162,13 +162,13 @@ class RollbackStackInputAwsQuerySerializer
         ));
     }
     if (clientRequestToken != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ClientRequestToken'))
         ..add(serializers.serialize(
           clientRequestToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

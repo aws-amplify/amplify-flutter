@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.stack_set_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -308,11 +309,10 @@ class StackSetOperationAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StackSetOperation object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StackSetOperation);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'StackSetOperationResponse',
         _i7.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -332,9 +332,9 @@ class StackSetOperationAwsQuerySerializer
       :deploymentTargets,
       :stackSetDriftDetectionDetails,
       :statusReason
-    ) = payload;
+    ) = object;
     if (operationId != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('OperationId'))
         ..add(serializers.serialize(
           operationId,
@@ -342,7 +342,7 @@ class StackSetOperationAwsQuerySerializer
         ));
     }
     if (stackSetId != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('StackSetId'))
         ..add(serializers.serialize(
           stackSetId,
@@ -350,7 +350,7 @@ class StackSetOperationAwsQuerySerializer
         ));
     }
     if (action != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Action'))
         ..add(serializers.serialize(
           action,
@@ -358,7 +358,7 @@ class StackSetOperationAwsQuerySerializer
         ));
     }
     if (status != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
@@ -366,7 +366,7 @@ class StackSetOperationAwsQuerySerializer
         ));
     }
     if (operationPreferences != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('OperationPreferences'))
         ..add(serializers.serialize(
           operationPreferences,
@@ -374,7 +374,7 @@ class StackSetOperationAwsQuerySerializer
         ));
     }
     if (retainStacks != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('RetainStacks'))
         ..add(serializers.serialize(
           retainStacks,
@@ -382,7 +382,7 @@ class StackSetOperationAwsQuerySerializer
         ));
     }
     if (administrationRoleArn != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('AdministrationRoleARN'))
         ..add(serializers.serialize(
           administrationRoleArn,
@@ -390,7 +390,7 @@ class StackSetOperationAwsQuerySerializer
         ));
     }
     if (executionRoleName != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('ExecutionRoleName'))
         ..add(serializers.serialize(
           executionRoleName,
@@ -398,7 +398,7 @@ class StackSetOperationAwsQuerySerializer
         ));
     }
     if (creationTimestamp != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('CreationTimestamp'))
         ..add(serializers.serialize(
           creationTimestamp,
@@ -406,7 +406,7 @@ class StackSetOperationAwsQuerySerializer
         ));
     }
     if (endTimestamp != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('EndTimestamp'))
         ..add(serializers.serialize(
           endTimestamp,
@@ -414,7 +414,7 @@ class StackSetOperationAwsQuerySerializer
         ));
     }
     if (deploymentTargets != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('DeploymentTargets'))
         ..add(serializers.serialize(
           deploymentTargets,
@@ -422,7 +422,7 @@ class StackSetOperationAwsQuerySerializer
         ));
     }
     if (stackSetDriftDetectionDetails != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('StackSetDriftDetectionDetails'))
         ..add(serializers.serialize(
           stackSetDriftDetectionDetails,
@@ -430,13 +430,13 @@ class StackSetOperationAwsQuerySerializer
         ));
     }
     if (statusReason != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
           statusReason,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

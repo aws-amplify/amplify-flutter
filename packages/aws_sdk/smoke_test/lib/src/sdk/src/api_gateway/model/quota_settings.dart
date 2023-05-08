@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.quota_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -130,14 +131,13 @@ class QuotaSettingsRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    QuotaSettings object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as QuotaSettings);
-    final result = <Object?>[];
-    final QuotaSettings(:limit, :offset, :period) = payload;
+    final result$ = <Object?>[];
+    final QuotaSettings(:limit, :offset, :period) = object;
     if (limit != null) {
-      result
+      result$
         ..add('limit')
         ..add(serializers.serialize(
           limit,
@@ -145,7 +145,7 @@ class QuotaSettingsRestJson1Serializer
         ));
     }
     if (offset != null) {
-      result
+      result$
         ..add('offset')
         ..add(serializers.serialize(
           offset,
@@ -153,13 +153,13 @@ class QuotaSettingsRestJson1Serializer
         ));
     }
     if (period != null) {
-      result
+      result$
         ..add('period')
         ..add(serializers.serialize(
           period,
           specifiedType: const FullType(_i2.QuotaPeriodType),
         ));
     }
-    return result;
+    return result$;
   }
 }

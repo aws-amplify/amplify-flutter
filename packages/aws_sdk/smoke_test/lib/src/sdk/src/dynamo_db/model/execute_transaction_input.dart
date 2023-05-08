@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.execute_transaction_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -157,26 +158,27 @@ class ExecuteTransactionInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ExecuteTransactionInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ExecuteTransactionInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ExecuteTransactionInput(
+      :transactStatements,
+      :clientRequestToken,
+      :returnConsumedCapacity
+    ) = object;
+    result$.addAll([
       'TransactStatements',
       serializers.serialize(
-        payload.transactStatements,
+        transactStatements,
         specifiedType: const FullType(
           _i5.BuiltList,
           [FullType(_i3.ParameterizedStatement)],
         ),
       ),
-    ];
-    final ExecuteTransactionInput(
-      :clientRequestToken,
-      :returnConsumedCapacity
-    ) = payload;
+    ]);
     if (clientRequestToken != null) {
-      result
+      result$
         ..add('ClientRequestToken')
         ..add(serializers.serialize(
           clientRequestToken,
@@ -184,13 +186,13 @@ class ExecuteTransactionInputAwsJson10Serializer
         ));
     }
     if (returnConsumedCapacity != null) {
-      result
+      result$
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
           specifiedType: const FullType(_i4.ReturnConsumedCapacity),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.update_global_secondary_index_action; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -123,22 +124,24 @@ class UpdateGlobalSecondaryIndexActionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateGlobalSecondaryIndexAction object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateGlobalSecondaryIndexAction);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final UpdateGlobalSecondaryIndexAction(:indexName, :provisionedThroughput) =
+        object;
+    result$.addAll([
       'IndexName',
       serializers.serialize(
-        payload.indexName,
+        indexName,
         specifiedType: const FullType(String),
       ),
       'ProvisionedThroughput',
       serializers.serialize(
-        payload.provisionedThroughput,
+        provisionedThroughput,
         specifiedType: const FullType(_i2.ProvisionedThroughput),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

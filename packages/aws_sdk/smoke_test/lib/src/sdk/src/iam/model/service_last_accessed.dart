@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.service_last_accessed; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -219,11 +220,10 @@ class ServiceLastAccessedAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ServiceLastAccessed object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ServiceLastAccessed);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ServiceLastAccessedResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -237,29 +237,29 @@ class ServiceLastAccessedAwsQuerySerializer
       :lastAuthenticatedRegion,
       :totalAuthenticatedEntities,
       :trackedActionsLastAccessed
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i4.XmlElementName('ServiceName'))
       ..add(serializers.serialize(
         serviceName,
         specifiedType: const FullType(String),
       ));
     if (lastAuthenticated != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('LastAuthenticated'))
         ..add(serializers.serialize(
           lastAuthenticated,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    result
+    result$
       ..add(const _i4.XmlElementName('ServiceNamespace'))
       ..add(serializers.serialize(
         serviceNamespace,
         specifiedType: const FullType(String),
       ));
     if (lastAuthenticatedEntity != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('LastAuthenticatedEntity'))
         ..add(serializers.serialize(
           lastAuthenticatedEntity,
@@ -267,7 +267,7 @@ class ServiceLastAccessedAwsQuerySerializer
         ));
     }
     if (lastAuthenticatedRegion != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('LastAuthenticatedRegion'))
         ..add(serializers.serialize(
           lastAuthenticatedRegion,
@@ -275,7 +275,7 @@ class ServiceLastAccessedAwsQuerySerializer
         ));
     }
     if (totalAuthenticatedEntities != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('TotalAuthenticatedEntities'))
         ..add(serializers.serialize(
           totalAuthenticatedEntities,
@@ -283,7 +283,7 @@ class ServiceLastAccessedAwsQuerySerializer
         ));
     }
     if (trackedActionsLastAccessed != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('TrackedActionsLastAccessed'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -296,6 +296,6 @@ class ServiceLastAccessedAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

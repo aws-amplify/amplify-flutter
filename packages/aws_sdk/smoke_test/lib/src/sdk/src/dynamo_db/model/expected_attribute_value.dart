@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.expected_attribute_value; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -262,19 +263,18 @@ class ExpectedAttributeValueAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ExpectedAttributeValue object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ExpectedAttributeValue);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ExpectedAttributeValue(
       :value,
       :exists,
       :comparisonOperator,
       :attributeValueList
-    ) = payload;
+    ) = object;
     if (value != null) {
-      result
+      result$
         ..add('Value')
         ..add(serializers.serialize(
           value,
@@ -282,7 +282,7 @@ class ExpectedAttributeValueAwsJson10Serializer
         ));
     }
     if (exists != null) {
-      result
+      result$
         ..add('Exists')
         ..add(serializers.serialize(
           exists,
@@ -290,7 +290,7 @@ class ExpectedAttributeValueAwsJson10Serializer
         ));
     }
     if (comparisonOperator != null) {
-      result
+      result$
         ..add('ComparisonOperator')
         ..add(serializers.serialize(
           comparisonOperator,
@@ -298,7 +298,7 @@ class ExpectedAttributeValueAwsJson10Serializer
         ));
     }
     if (attributeValueList != null) {
-      result
+      result$
         ..add('AttributeValueList')
         ..add(serializers.serialize(
           attributeValueList,
@@ -308,6 +308,6 @@ class ExpectedAttributeValueAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

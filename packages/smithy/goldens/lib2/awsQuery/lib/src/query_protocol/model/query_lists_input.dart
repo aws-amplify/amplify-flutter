@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v2.query_protocol.model.query_lists_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -198,11 +199,10 @@ class QueryListsInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    QueryListsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as QueryListsInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'QueryListsInputResponse',
         _i1.XmlNamespace('https://example.com/'),
@@ -215,9 +215,9 @@ class QueryListsInputAwsQuerySerializer
       :listArgWithXmlNameMember,
       :flattenedListArgWithXmlName,
       :nestedWithList
-    ) = payload;
+    ) = object;
     if (listArg != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ListArg'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -231,7 +231,7 @@ class QueryListsInputAwsQuerySerializer
         ));
     }
     if (complexListArg != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ComplexListArg'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -245,7 +245,7 @@ class QueryListsInputAwsQuerySerializer
         ));
     }
     if (flattenedListArg != null) {
-      result.addAll(const _i1.XmlBuiltListSerializer(
+      result$.addAll(const _i1.XmlBuiltListSerializer(
         memberName: 'FlattenedListArg',
         indexer: _i1.XmlIndexer.awsQueryList,
       ).serialize(
@@ -258,7 +258,7 @@ class QueryListsInputAwsQuerySerializer
       ));
     }
     if (listArgWithXmlNameMember != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ListArgWithXmlNameMember'))
         ..add(const _i1.XmlBuiltListSerializer(
           memberName: 'item',
@@ -273,7 +273,7 @@ class QueryListsInputAwsQuerySerializer
         ));
     }
     if (flattenedListArgWithXmlName != null) {
-      result.addAll(const _i1.XmlBuiltListSerializer(
+      result$.addAll(const _i1.XmlBuiltListSerializer(
         memberName: 'Hi',
         indexer: _i1.XmlIndexer.awsQueryList,
       ).serialize(
@@ -286,13 +286,13 @@ class QueryListsInputAwsQuerySerializer
       ));
     }
     if (nestedWithList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('NestedWithList'))
         ..add(serializers.serialize(
           nestedWithList,
           specifiedType: const FullType(_i4.NestedStructWithList),
         ));
     }
-    return result;
+    return result$;
   }
 }

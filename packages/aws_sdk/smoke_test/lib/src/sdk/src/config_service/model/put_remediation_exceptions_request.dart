@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_remediation_exceptions_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -162,28 +163,33 @@ class PutRemediationExceptionsRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutRemediationExceptionsRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutRemediationExceptionsRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutRemediationExceptionsRequest(
+      :configRuleName,
+      :resourceKeys,
+      :message,
+      :expirationTime
+    ) = object;
+    result$.addAll([
       'ConfigRuleName',
       serializers.serialize(
-        payload.configRuleName,
+        configRuleName,
         specifiedType: const FullType(String),
       ),
       'ResourceKeys',
       serializers.serialize(
-        payload.resourceKeys,
+        resourceKeys,
         specifiedType: const FullType(
           _i4.BuiltList,
           [FullType(_i3.RemediationExceptionResourceKey)],
         ),
       ),
-    ];
-    final PutRemediationExceptionsRequest(:message, :expirationTime) = payload;
+    ]);
     if (message != null) {
-      result
+      result$
         ..add('Message')
         ..add(serializers.serialize(
           message,
@@ -191,13 +197,13 @@ class PutRemediationExceptionsRequestAwsJson11Serializer
         ));
     }
     if (expirationTime != null) {
-      result
+      result$
         ..add('ExpirationTime')
         ..add(serializers.serialize(
           expirationTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

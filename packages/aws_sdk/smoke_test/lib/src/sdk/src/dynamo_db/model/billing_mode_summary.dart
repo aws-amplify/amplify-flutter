@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.billing_mode_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -120,15 +121,14 @@ class BillingModeSummaryAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BillingModeSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BillingModeSummary);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final BillingModeSummary(:billingMode, :lastUpdateToPayPerRequestDateTime) =
-        payload;
+        object;
     if (billingMode != null) {
-      result
+      result$
         ..add('BillingMode')
         ..add(serializers.serialize(
           billingMode,
@@ -136,13 +136,13 @@ class BillingModeSummaryAwsJson10Serializer
         ));
     }
     if (lastUpdateToPayPerRequestDateTime != null) {
-      result
+      result$
         ..add('LastUpdateToPayPerRequestDateTime')
         ..add(serializers.serialize(
           lastUpdateToPayPerRequestDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

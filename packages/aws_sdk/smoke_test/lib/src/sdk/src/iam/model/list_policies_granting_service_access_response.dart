@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.list_policies_granting_service_access_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -151,11 +152,10 @@ class ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListPoliciesGrantingServiceAccessResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListPoliciesGrantingServiceAccessResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ListPoliciesGrantingServiceAccessResponseResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -165,8 +165,8 @@ class ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer extends _i4
       :policiesGrantingServiceAccess,
       :isTruncated,
       :marker
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i4.XmlElementName('PoliciesGrantingServiceAccess'))
       ..add(
           const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
@@ -179,7 +179,7 @@ class ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer extends _i4
         ),
       ));
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -187,13 +187,13 @@ class ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer extends _i4
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.get_item_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -260,19 +261,28 @@ class GetItemInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetItemInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetItemInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GetItemInput(
+      :tableName,
+      :key,
+      :attributesToGet,
+      :consistentRead,
+      :returnConsumedCapacity,
+      :projectionExpression,
+      :expressionAttributeNames
+    ) = object;
+    result$.addAll([
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
       'Key',
       serializers.serialize(
-        payload.key,
+        key,
         specifiedType: const FullType(
           _i5.BuiltMap,
           [
@@ -281,16 +291,9 @@ class GetItemInputAwsJson10Serializer
           ],
         ),
       ),
-    ];
-    final GetItemInput(
-      :attributesToGet,
-      :consistentRead,
-      :returnConsumedCapacity,
-      :projectionExpression,
-      :expressionAttributeNames
-    ) = payload;
+    ]);
     if (attributesToGet != null) {
-      result
+      result$
         ..add('AttributesToGet')
         ..add(serializers.serialize(
           attributesToGet,
@@ -301,7 +304,7 @@ class GetItemInputAwsJson10Serializer
         ));
     }
     if (consistentRead != null) {
-      result
+      result$
         ..add('ConsistentRead')
         ..add(serializers.serialize(
           consistentRead,
@@ -309,7 +312,7 @@ class GetItemInputAwsJson10Serializer
         ));
     }
     if (returnConsumedCapacity != null) {
-      result
+      result$
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
@@ -317,7 +320,7 @@ class GetItemInputAwsJson10Serializer
         ));
     }
     if (projectionExpression != null) {
-      result
+      result$
         ..add('ProjectionExpression')
         ..add(serializers.serialize(
           projectionExpression,
@@ -325,7 +328,7 @@ class GetItemInputAwsJson10Serializer
         ));
     }
     if (expressionAttributeNames != null) {
-      result
+      result$
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
           expressionAttributeNames,
@@ -338,6 +341,6 @@ class GetItemInputAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

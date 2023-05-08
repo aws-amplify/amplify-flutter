@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.change_set_hook_target_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -121,20 +122,19 @@ class ChangeSetHookTargetDetailsAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ChangeSetHookTargetDetails object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ChangeSetHookTargetDetails);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ChangeSetHookTargetDetailsResponse',
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ChangeSetHookTargetDetails(:targetType, :resourceTargetDetails) =
-        payload;
+        object;
     if (targetType != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('TargetType'))
         ..add(serializers.serialize(
           targetType,
@@ -142,13 +142,13 @@ class ChangeSetHookTargetDetailsAwsQuerySerializer
         ));
     }
     if (resourceTargetDetails != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ResourceTargetDetails'))
         ..add(serializers.serialize(
           resourceTargetDetails,
           specifiedType: const FullType(_i3.ChangeSetHookResourceTargetDetails),
         ));
     }
-    return result;
+    return result$;
   }
 }

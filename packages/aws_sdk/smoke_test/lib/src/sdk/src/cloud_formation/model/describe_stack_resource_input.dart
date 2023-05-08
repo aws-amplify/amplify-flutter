@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.describe_stack_resource_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -136,29 +137,28 @@ class DescribeStackResourceInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeStackResourceInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeStackResourceInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'DescribeStackResourceInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final DescribeStackResourceInput(:stackName, :logicalResourceId) = payload;
-    result
+    final DescribeStackResourceInput(:stackName, :logicalResourceId) = object;
+    result$
       ..add(const _i1.XmlElementName('StackName'))
       ..add(serializers.serialize(
         stackName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('LogicalResourceId'))
       ..add(serializers.serialize(
         logicalResourceId,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

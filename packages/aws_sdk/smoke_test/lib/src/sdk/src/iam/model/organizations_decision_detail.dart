@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.organizations_decision_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -96,25 +97,24 @@ class OrganizationsDecisionDetailAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OrganizationsDecisionDetail object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OrganizationsDecisionDetail);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'OrganizationsDecisionDetailResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final OrganizationsDecisionDetail(:allowedByOrganizations) = payload;
+    final OrganizationsDecisionDetail(:allowedByOrganizations) = object;
     if (allowedByOrganizations != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('AllowedByOrganizations'))
         ..add(serializers.serialize(
           allowedByOrganizations,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

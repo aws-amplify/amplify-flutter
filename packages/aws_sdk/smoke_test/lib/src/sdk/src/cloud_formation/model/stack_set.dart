@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.stack_set; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -375,11 +376,10 @@ class StackSetAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StackSet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StackSet);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i11.XmlElementName(
         'StackSetResponse',
         _i11.XmlNamespace(
@@ -403,9 +403,9 @@ class StackSetAwsQuerySerializer
       :permissionModel,
       :organizationalUnitIds,
       :managedExecution
-    ) = payload;
+    ) = object;
     if (stackSetName != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('StackSetName'))
         ..add(serializers.serialize(
           stackSetName,
@@ -413,7 +413,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (stackSetId != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('StackSetId'))
         ..add(serializers.serialize(
           stackSetId,
@@ -421,7 +421,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -429,7 +429,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (status != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
@@ -437,7 +437,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (templateBody != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('TemplateBody'))
         ..add(serializers.serialize(
           templateBody,
@@ -445,7 +445,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (parameters != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('Parameters'))
         ..add(const _i11.XmlBuiltListSerializer(
                 indexer: _i11.XmlIndexer.awsQueryList)
@@ -459,7 +459,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (capabilities != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('Capabilities'))
         ..add(const _i11.XmlBuiltListSerializer(
                 indexer: _i11.XmlIndexer.awsQueryList)
@@ -473,7 +473,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('Tags'))
         ..add(const _i11.XmlBuiltListSerializer(
                 indexer: _i11.XmlIndexer.awsQueryList)
@@ -487,7 +487,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (stackSetArn != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('StackSetARN'))
         ..add(serializers.serialize(
           stackSetArn,
@@ -495,7 +495,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (administrationRoleArn != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('AdministrationRoleARN'))
         ..add(serializers.serialize(
           administrationRoleArn,
@@ -503,7 +503,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (executionRoleName != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('ExecutionRoleName'))
         ..add(serializers.serialize(
           executionRoleName,
@@ -511,7 +511,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (stackSetDriftDetectionDetails != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('StackSetDriftDetectionDetails'))
         ..add(serializers.serialize(
           stackSetDriftDetectionDetails,
@@ -519,7 +519,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (autoDeployment != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('AutoDeployment'))
         ..add(serializers.serialize(
           autoDeployment,
@@ -527,7 +527,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (permissionModel != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('PermissionModel'))
         ..add(serializers.serialize(
           permissionModel,
@@ -535,7 +535,7 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (organizationalUnitIds != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('OrganizationalUnitIds'))
         ..add(const _i11.XmlBuiltListSerializer(
                 indexer: _i11.XmlIndexer.awsQueryList)
@@ -549,13 +549,13 @@ class StackSetAwsQuerySerializer
         ));
     }
     if (managedExecution != null) {
-      result
+      result$
         ..add(const _i11.XmlElementName('ManagedExecution'))
         ..add(serializers.serialize(
           managedExecution,
           specifiedType: const FullType(_i9.ManagedExecution),
         ));
     }
-    return result;
+    return result$;
   }
 }

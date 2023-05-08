@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.test_invoke_authorizer_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -365,13 +366,10 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TestInvokeAuthorizerRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is TestInvokeAuthorizerRequest
-        ? object.getPayload()
-        : (object as TestInvokeAuthorizerRequestPayload);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final TestInvokeAuthorizerRequestPayload(
       :additionalContext,
       :body,
@@ -379,9 +377,9 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
       :multiValueHeaders,
       :pathWithQueryString,
       :stageVariables
-    ) = payload;
+    ) = object;
     if (additionalContext != null) {
-      result
+      result$
         ..add('additionalContext')
         ..add(serializers.serialize(
           additionalContext,
@@ -395,7 +393,7 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
         ));
     }
     if (body != null) {
-      result
+      result$
         ..add('body')
         ..add(serializers.serialize(
           body,
@@ -403,7 +401,7 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
         ));
     }
     if (headers != null) {
-      result
+      result$
         ..add('headers')
         ..add(serializers.serialize(
           headers,
@@ -417,7 +415,7 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
         ));
     }
     if (multiValueHeaders != null) {
-      result
+      result$
         ..add('multiValueHeaders')
         ..add(serializers.serialize(
           multiValueHeaders,
@@ -431,7 +429,7 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
         ));
     }
     if (pathWithQueryString != null) {
-      result
+      result$
         ..add('pathWithQueryString')
         ..add(serializers.serialize(
           pathWithQueryString,
@@ -439,7 +437,7 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
         ));
     }
     if (stageVariables != null) {
-      result
+      result$
         ..add('stageVariables')
         ..add(serializers.serialize(
           stageVariables,
@@ -452,6 +450,6 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

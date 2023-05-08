@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.projection; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -128,14 +129,13 @@ class ProjectionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Projection object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Projection);
-    final result = <Object?>[];
-    final Projection(:projectionType, :nonKeyAttributes) = payload;
+    final result$ = <Object?>[];
+    final Projection(:projectionType, :nonKeyAttributes) = object;
     if (projectionType != null) {
-      result
+      result$
         ..add('ProjectionType')
         ..add(serializers.serialize(
           projectionType,
@@ -143,7 +143,7 @@ class ProjectionAwsJson10Serializer
         ));
     }
     if (nonKeyAttributes != null) {
-      result
+      result$
         ..add('NonKeyAttributes')
         ..add(serializers.serialize(
           nonKeyAttributes,
@@ -153,6 +153,6 @@ class ProjectionAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

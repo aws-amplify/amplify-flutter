@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_object_attributes_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -324,13 +325,10 @@ class GetObjectAttributesOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetObjectAttributesOutputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is GetObjectAttributesOutput
-        ? object.getPayload()
-        : (object as GetObjectAttributesOutputPayload);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'GetObjectAttributesOutput',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -342,9 +340,9 @@ class GetObjectAttributesOutputRestXmlSerializer
       :objectParts,
       :objectSize,
       :storageClass
-    ) = payload;
+    ) = object;
     if (checksum != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Checksum'))
         ..add(serializers.serialize(
           checksum,
@@ -352,7 +350,7 @@ class GetObjectAttributesOutputRestXmlSerializer
         ));
     }
     if (eTag != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ETag'))
         ..add(serializers.serialize(
           eTag,
@@ -360,7 +358,7 @@ class GetObjectAttributesOutputRestXmlSerializer
         ));
     }
     if (objectParts != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ObjectParts'))
         ..add(serializers.serialize(
           objectParts,
@@ -368,7 +366,7 @@ class GetObjectAttributesOutputRestXmlSerializer
         ));
     }
     if (objectSize != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ObjectSize'))
         ..add(serializers.serialize(
           objectSize,
@@ -376,13 +374,13 @@ class GetObjectAttributesOutputRestXmlSerializer
         ));
     }
     if (storageClass != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
           specifiedType: const FullType.nullable(_i6.StorageClass),
         ));
     }
-    return result;
+    return result$;
   }
 }

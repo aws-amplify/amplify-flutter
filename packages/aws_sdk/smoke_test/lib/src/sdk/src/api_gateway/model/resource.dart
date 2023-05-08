@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.resource; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -173,15 +174,13 @@ class ResourceRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Resource object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Resource);
-    final result = <Object?>[];
-    final Resource(:id, :parentId, :path, :pathPart, :resourceMethods) =
-        payload;
+    final result$ = <Object?>[];
+    final Resource(:id, :parentId, :path, :pathPart, :resourceMethods) = object;
     if (id != null) {
-      result
+      result$
         ..add('id')
         ..add(serializers.serialize(
           id,
@@ -189,7 +188,7 @@ class ResourceRestJson1Serializer
         ));
     }
     if (parentId != null) {
-      result
+      result$
         ..add('parentId')
         ..add(serializers.serialize(
           parentId,
@@ -197,7 +196,7 @@ class ResourceRestJson1Serializer
         ));
     }
     if (path != null) {
-      result
+      result$
         ..add('path')
         ..add(serializers.serialize(
           path,
@@ -205,7 +204,7 @@ class ResourceRestJson1Serializer
         ));
     }
     if (pathPart != null) {
-      result
+      result$
         ..add('pathPart')
         ..add(serializers.serialize(
           pathPart,
@@ -213,7 +212,7 @@ class ResourceRestJson1Serializer
         ));
     }
     if (resourceMethods != null) {
-      result
+      result$
         ..add('resourceMethods')
         ..add(serializers.serialize(
           resourceMethods,
@@ -226,6 +225,6 @@ class ResourceRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

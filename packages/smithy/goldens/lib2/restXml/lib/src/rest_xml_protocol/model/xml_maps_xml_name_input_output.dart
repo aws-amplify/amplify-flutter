@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.xml_maps_xml_name_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -122,16 +123,15 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlMapsXmlNameInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlMapsXmlNameInputOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName('XmlMapsXmlNameInputOutput')
     ];
-    final XmlMapsXmlNameInputOutput(:myMap) = payload;
+    final XmlMapsXmlNameInputOutput(:myMap) = object;
     if (myMap != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('myMap'))
         ..add(const _i1.XmlBuiltMapSerializer(
           keyName: 'Attribute',
@@ -148,6 +148,6 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

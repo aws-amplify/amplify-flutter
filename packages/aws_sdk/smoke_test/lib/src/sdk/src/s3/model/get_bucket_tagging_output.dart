@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_bucket_tagging_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -105,18 +106,17 @@ class GetBucketTaggingOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetBucketTaggingOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetBucketTaggingOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'Tagging',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final GetBucketTaggingOutput(:tagSet) = payload;
-    result
+    final GetBucketTaggingOutput(:tagSet) = object;
+    result$
       ..add(const _i4.XmlElementName('TagSet'))
       ..add(const _i4.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
@@ -126,6 +126,6 @@ class GetBucketTaggingOutputRestXmlSerializer
           [FullType(_i2.Tag)],
         ),
       ));
-    return result;
+    return result$;
   }
 }

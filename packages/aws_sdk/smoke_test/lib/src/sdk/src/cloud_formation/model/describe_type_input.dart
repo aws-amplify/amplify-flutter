@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.describe_type_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -191,11 +192,10 @@ class DescribeTypeInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeTypeInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeTypeInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'DescribeTypeInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -208,9 +208,9 @@ class DescribeTypeInputAwsQuerySerializer
       :versionId,
       :publisherId,
       :publicVersionNumber
-    ) = payload;
+    ) = object;
     if (type != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
@@ -218,7 +218,7 @@ class DescribeTypeInputAwsQuerySerializer
         ));
     }
     if (typeName != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
@@ -226,7 +226,7 @@ class DescribeTypeInputAwsQuerySerializer
         ));
     }
     if (arn != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
@@ -234,7 +234,7 @@ class DescribeTypeInputAwsQuerySerializer
         ));
     }
     if (versionId != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('VersionId'))
         ..add(serializers.serialize(
           versionId,
@@ -242,7 +242,7 @@ class DescribeTypeInputAwsQuerySerializer
         ));
     }
     if (publisherId != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
           publisherId,
@@ -250,13 +250,13 @@ class DescribeTypeInputAwsQuerySerializer
         ));
     }
     if (publicVersionNumber != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PublicVersionNumber'))
         ..add(serializers.serialize(
           publicVersionNumber,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

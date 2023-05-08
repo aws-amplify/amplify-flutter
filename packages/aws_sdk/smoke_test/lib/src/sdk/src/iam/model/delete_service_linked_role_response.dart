@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.delete_service_linked_role_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,23 +103,22 @@ class DeleteServiceLinkedRoleResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteServiceLinkedRoleResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeleteServiceLinkedRoleResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'DeleteServiceLinkedRoleResponseResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final DeleteServiceLinkedRoleResponse(:deletionTaskId) = payload;
-    result
+    final DeleteServiceLinkedRoleResponse(:deletionTaskId) = object;
+    result$
       ..add(const _i2.XmlElementName('DeletionTaskId'))
       ..add(serializers.serialize(
         deletionTaskId,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

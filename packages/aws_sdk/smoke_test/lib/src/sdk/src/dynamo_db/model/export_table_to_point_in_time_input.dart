@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.export_table_to_point_in_time_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -253,33 +254,35 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ExportTableToPointInTimeInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ExportTableToPointInTimeInput);
-    final result = <Object?>[
-      'TableArn',
-      serializers.serialize(
-        payload.tableArn,
-        specifiedType: const FullType(String),
-      ),
-      'S3Bucket',
-      serializers.serialize(
-        payload.s3Bucket,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final ExportTableToPointInTimeInput(
+      :tableArn,
       :exportTime,
       :clientToken,
+      :s3Bucket,
       :s3BucketOwner,
       :s3Prefix,
       :s3SseAlgorithm,
       :s3SseKmsKeyId,
       :exportFormat
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'TableArn',
+      serializers.serialize(
+        tableArn,
+        specifiedType: const FullType(String),
+      ),
+      'S3Bucket',
+      serializers.serialize(
+        s3Bucket,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (exportTime != null) {
-      result
+      result$
         ..add('ExportTime')
         ..add(serializers.serialize(
           exportTime,
@@ -287,7 +290,7 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (clientToken != null) {
-      result
+      result$
         ..add('ClientToken')
         ..add(serializers.serialize(
           clientToken,
@@ -295,7 +298,7 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (s3BucketOwner != null) {
-      result
+      result$
         ..add('S3BucketOwner')
         ..add(serializers.serialize(
           s3BucketOwner,
@@ -303,7 +306,7 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (s3Prefix != null) {
-      result
+      result$
         ..add('S3Prefix')
         ..add(serializers.serialize(
           s3Prefix,
@@ -311,7 +314,7 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (s3SseAlgorithm != null) {
-      result
+      result$
         ..add('S3SseAlgorithm')
         ..add(serializers.serialize(
           s3SseAlgorithm,
@@ -319,7 +322,7 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (s3SseKmsKeyId != null) {
-      result
+      result$
         ..add('S3SseKmsKeyId')
         ..add(serializers.serialize(
           s3SseKmsKeyId,
@@ -327,13 +330,13 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
         ));
     }
     if (exportFormat != null) {
-      result
+      result$
         ..add('ExportFormat')
         ..add(serializers.serialize(
           exportFormat,
           specifiedType: const FullType(_i4.ExportFormat),
         ));
     }
-    return result;
+    return result$;
   }
 }

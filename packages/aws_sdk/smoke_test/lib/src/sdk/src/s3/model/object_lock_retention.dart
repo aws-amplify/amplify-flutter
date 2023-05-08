@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.object_lock_retention; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,19 +117,18 @@ class ObjectLockRetentionRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ObjectLockRetention object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ObjectLockRetention);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ObjectLockRetention',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final ObjectLockRetention(:mode, :retainUntilDate) = payload;
+    final ObjectLockRetention(:mode, :retainUntilDate) = object;
     if (mode != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Mode'))
         ..add(serializers.serialize(
           mode,
@@ -136,13 +136,13 @@ class ObjectLockRetentionRestXmlSerializer
         ));
     }
     if (retainUntilDate != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('RetainUntilDate'))
         ..add(_i3.TimestampSerializer.dateTime.serialize(
           serializers,
           retainUntilDate,
         ));
     }
-    return result;
+    return result$;
   }
 }

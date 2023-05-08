@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_auto_scaling_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -150,23 +151,24 @@ class ReplicaAutoScalingUpdateAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaAutoScalingUpdate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaAutoScalingUpdate);
-    final result = <Object?>[
-      'RegionName',
-      serializers.serialize(
-        payload.regionName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final ReplicaAutoScalingUpdate(
+      :regionName,
       :replicaGlobalSecondaryIndexUpdates,
       :replicaProvisionedReadCapacityAutoScalingUpdate
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'RegionName',
+      serializers.serialize(
+        regionName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (replicaGlobalSecondaryIndexUpdates != null) {
-      result
+      result$
         ..add('ReplicaGlobalSecondaryIndexUpdates')
         ..add(serializers.serialize(
           replicaGlobalSecondaryIndexUpdates,
@@ -177,13 +179,13 @@ class ReplicaAutoScalingUpdateAwsJson10Serializer
         ));
     }
     if (replicaProvisionedReadCapacityAutoScalingUpdate != null) {
-      result
+      result$
         ..add('ReplicaProvisionedReadCapacityAutoScalingUpdate')
         ..add(serializers.serialize(
           replicaProvisionedReadCapacityAutoScalingUpdate,
           specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_context_keys_for_policy_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -114,19 +115,18 @@ class GetContextKeysForPolicyResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetContextKeysForPolicyResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetContextKeysForPolicyResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'GetContextKeysForPolicyResponseResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final GetContextKeysForPolicyResponse(:contextKeyNames) = payload;
+    final GetContextKeysForPolicyResponse(:contextKeyNames) = object;
     if (contextKeyNames != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ContextKeyNames'))
         ..add(const _i3.XmlBuiltListSerializer(
                 indexer: _i3.XmlIndexer.awsQueryList)
@@ -139,6 +139,6 @@ class GetContextKeysForPolicyResponseAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

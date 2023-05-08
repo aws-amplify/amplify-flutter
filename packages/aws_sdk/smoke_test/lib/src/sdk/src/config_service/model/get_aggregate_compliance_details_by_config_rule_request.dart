@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_aggregate_compliance_details_by_config_rule_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -207,40 +208,43 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetAggregateComplianceDetailsByConfigRuleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload =
-        (object as GetAggregateComplianceDetailsByConfigRuleRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GetAggregateComplianceDetailsByConfigRuleRequest(
+      :configurationAggregatorName,
+      :configRuleName,
+      :accountId,
+      :awsRegion,
+      :complianceType,
+      :limit,
+      :nextToken
+    ) = object;
+    result$.addAll([
       'ConfigurationAggregatorName',
       serializers.serialize(
-        payload.configurationAggregatorName,
+        configurationAggregatorName,
         specifiedType: const FullType(String),
       ),
       'ConfigRuleName',
       serializers.serialize(
-        payload.configRuleName,
+        configRuleName,
         specifiedType: const FullType(String),
       ),
       'AccountId',
       serializers.serialize(
-        payload.accountId,
+        accountId,
         specifiedType: const FullType(String),
       ),
       'AwsRegion',
       serializers.serialize(
-        payload.awsRegion,
+        awsRegion,
         specifiedType: const FullType(String),
       ),
-    ];
-    final GetAggregateComplianceDetailsByConfigRuleRequest(
-      :complianceType,
-      :limit,
-      :nextToken
-    ) = payload;
+    ]);
     if (complianceType != null) {
-      result
+      result$
         ..add('ComplianceType')
         ..add(serializers.serialize(
           complianceType,
@@ -248,7 +252,7 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
         ));
     }
     if (limit != null) {
-      result
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
           limit,
@@ -256,13 +260,13 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

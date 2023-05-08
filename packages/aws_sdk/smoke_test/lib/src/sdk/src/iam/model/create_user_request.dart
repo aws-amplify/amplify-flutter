@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.create_user_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -165,34 +166,33 @@ class CreateUserRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateUserRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateUserRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'CreateUserRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreateUserRequest(:path, :userName, :permissionsBoundary, :tags) =
-        payload;
+        object;
     if (path != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
     if (permissionsBoundary != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PermissionsBoundary'))
         ..add(serializers.serialize(
           permissionsBoundary,
@@ -200,7 +200,7 @@ class CreateUserRequestAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -213,6 +213,6 @@ class CreateUserRequestAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

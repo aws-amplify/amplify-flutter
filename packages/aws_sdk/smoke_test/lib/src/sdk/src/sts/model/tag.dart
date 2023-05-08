@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.sts.model.tag; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -115,29 +116,28 @@ class TagAwsQuerySerializer extends _i2.StructuredSmithySerializer<Tag> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Tag object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Tag);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'TagResponse',
         _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
-    final Tag(:key, :value) = payload;
-    result
+    final Tag(:key, :value) = object;
+    result$
       ..add(const _i2.XmlElementName('Key'))
       ..add(serializers.serialize(
         key,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('Value'))
       ..add(serializers.serialize(
         value,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

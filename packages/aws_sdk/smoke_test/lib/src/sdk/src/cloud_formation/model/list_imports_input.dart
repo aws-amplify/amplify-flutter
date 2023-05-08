@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.list_imports_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -119,31 +120,30 @@ class ListImportsInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListImportsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListImportsInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ListImportsInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final ListImportsInput(:exportName, :nextToken) = payload;
-    result
+    final ListImportsInput(:exportName, :nextToken) = object;
+    result$
       ..add(const _i1.XmlElementName('ExportName'))
       ..add(serializers.serialize(
         exportName,
         specifiedType: const FullType(String),
       ));
     if (nextToken != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

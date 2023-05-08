@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.stack_resource_drift; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -300,11 +301,10 @@ class StackResourceDriftAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StackResourceDrift object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StackResourceDrift);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'StackResourceDriftResponse',
         _i7.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -322,21 +322,21 @@ class StackResourceDriftAwsQuerySerializer
       :stackResourceDriftStatus,
       :timestamp,
       :moduleInfo
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i7.XmlElementName('StackId'))
       ..add(serializers.serialize(
         stackId,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i7.XmlElementName('LogicalResourceId'))
       ..add(serializers.serialize(
         logicalResourceId,
         specifiedType: const FullType(String),
       ));
     if (physicalResourceId != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('PhysicalResourceId'))
         ..add(serializers.serialize(
           physicalResourceId,
@@ -344,7 +344,7 @@ class StackResourceDriftAwsQuerySerializer
         ));
     }
     if (physicalResourceIdContext != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('PhysicalResourceIdContext'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
@@ -357,14 +357,14 @@ class StackResourceDriftAwsQuerySerializer
           ),
         ));
     }
-    result
+    result$
       ..add(const _i7.XmlElementName('ResourceType'))
       ..add(serializers.serialize(
         resourceType,
         specifiedType: const FullType(String),
       ));
     if (expectedProperties != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('ExpectedProperties'))
         ..add(serializers.serialize(
           expectedProperties,
@@ -372,7 +372,7 @@ class StackResourceDriftAwsQuerySerializer
         ));
     }
     if (actualProperties != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('ActualProperties'))
         ..add(serializers.serialize(
           actualProperties,
@@ -380,7 +380,7 @@ class StackResourceDriftAwsQuerySerializer
         ));
     }
     if (propertyDifferences != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('PropertyDifferences'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
@@ -393,26 +393,26 @@ class StackResourceDriftAwsQuerySerializer
           ),
         ));
     }
-    result
+    result$
       ..add(const _i7.XmlElementName('StackResourceDriftStatus'))
       ..add(serializers.serialize(
         stackResourceDriftStatus,
         specifiedType: const FullType.nullable(_i4.StackResourceDriftStatus),
       ));
-    result
+    result$
       ..add(const _i7.XmlElementName('Timestamp'))
       ..add(serializers.serialize(
         timestamp,
         specifiedType: const FullType.nullable(DateTime),
       ));
     if (moduleInfo != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('ModuleInfo'))
         ..add(serializers.serialize(
           moduleInfo,
           specifiedType: const FullType(_i5.ModuleInfo),
         ));
     }
-    return result;
+    return result$;
   }
 }

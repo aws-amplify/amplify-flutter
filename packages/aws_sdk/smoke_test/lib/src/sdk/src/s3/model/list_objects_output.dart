@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.list_objects_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -250,11 +251,10 @@ class ListObjectsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListObjectsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListObjectsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'ListBucketResult',
         _i6.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -271,9 +271,9 @@ class ListObjectsOutputRestXmlSerializer
       :name,
       :nextMarker,
       :prefix
-    ) = payload;
+    ) = object;
     if (commonPrefixes != null) {
-      result.addAll(
+      result$.addAll(
           const _i6.XmlBuiltListSerializer(memberName: 'CommonPrefixes')
               .serialize(
         serializers,
@@ -285,7 +285,7 @@ class ListObjectsOutputRestXmlSerializer
       ));
     }
     if (contents != null) {
-      result.addAll(
+      result$.addAll(
           const _i6.XmlBuiltListSerializer(memberName: 'Contents').serialize(
         serializers,
         contents,
@@ -296,7 +296,7 @@ class ListObjectsOutputRestXmlSerializer
       ));
     }
     if (delimiter != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Delimiter'))
         ..add(serializers.serialize(
           delimiter,
@@ -304,7 +304,7 @@ class ListObjectsOutputRestXmlSerializer
         ));
     }
     if (encodingType != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('EncodingType'))
         ..add(serializers.serialize(
           encodingType,
@@ -312,7 +312,7 @@ class ListObjectsOutputRestXmlSerializer
         ));
     }
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -320,7 +320,7 @@ class ListObjectsOutputRestXmlSerializer
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
@@ -328,7 +328,7 @@ class ListObjectsOutputRestXmlSerializer
         ));
     }
     if (maxKeys != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('MaxKeys'))
         ..add(serializers.serialize(
           maxKeys,
@@ -336,7 +336,7 @@ class ListObjectsOutputRestXmlSerializer
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
@@ -344,7 +344,7 @@ class ListObjectsOutputRestXmlSerializer
         ));
     }
     if (nextMarker != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('NextMarker'))
         ..add(serializers.serialize(
           nextMarker,
@@ -352,13 +352,13 @@ class ListObjectsOutputRestXmlSerializer
         ));
     }
     if (prefix != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.integration_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -185,20 +186,19 @@ class IntegrationResponseRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    IntegrationResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as IntegrationResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final IntegrationResponse(
       :contentHandling,
       :responseParameters,
       :responseTemplates,
       :selectionPattern,
       :statusCode
-    ) = payload;
+    ) = object;
     if (contentHandling != null) {
-      result
+      result$
         ..add('contentHandling')
         ..add(serializers.serialize(
           contentHandling,
@@ -206,7 +206,7 @@ class IntegrationResponseRestJson1Serializer
         ));
     }
     if (responseParameters != null) {
-      result
+      result$
         ..add('responseParameters')
         ..add(serializers.serialize(
           responseParameters,
@@ -220,7 +220,7 @@ class IntegrationResponseRestJson1Serializer
         ));
     }
     if (responseTemplates != null) {
-      result
+      result$
         ..add('responseTemplates')
         ..add(serializers.serialize(
           responseTemplates,
@@ -234,7 +234,7 @@ class IntegrationResponseRestJson1Serializer
         ));
     }
     if (selectionPattern != null) {
-      result
+      result$
         ..add('selectionPattern')
         ..add(serializers.serialize(
           selectionPattern,
@@ -242,13 +242,13 @@ class IntegrationResponseRestJson1Serializer
         ));
     }
     if (statusCode != null) {
-      result
+      result$
         ..add('statusCode')
         ..add(serializers.serialize(
           statusCode,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

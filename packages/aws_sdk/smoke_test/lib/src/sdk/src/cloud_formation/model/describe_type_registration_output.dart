@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.describe_type_registration_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -159,11 +160,10 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeTypeRegistrationOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeTypeRegistrationOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'DescribeTypeRegistrationOutputResponse',
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -174,9 +174,9 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
       :description,
       :typeArn,
       :typeVersionArn
-    ) = payload;
+    ) = object;
     if (progressStatus != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('ProgressStatus'))
         ..add(serializers.serialize(
           progressStatus,
@@ -184,7 +184,7 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -192,7 +192,7 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
         ));
     }
     if (typeArn != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('TypeArn'))
         ..add(serializers.serialize(
           typeArn,
@@ -200,13 +200,13 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
         ));
     }
     if (typeVersionArn != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('TypeVersionArn'))
         ..add(serializers.serialize(
           typeVersionArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

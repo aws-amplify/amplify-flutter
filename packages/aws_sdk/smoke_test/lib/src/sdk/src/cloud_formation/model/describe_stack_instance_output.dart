@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.describe_stack_instance_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -101,25 +102,24 @@ class DescribeStackInstanceOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeStackInstanceOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeStackInstanceOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'DescribeStackInstanceOutputResponse',
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final DescribeStackInstanceOutput(:stackInstance) = payload;
+    final DescribeStackInstanceOutput(:stackInstance) = object;
     if (stackInstance != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('StackInstance'))
         ..add(serializers.serialize(
           stackInstance,
           specifiedType: const FullType(_i2.StackInstance),
         ));
     }
-    return result;
+    return result$;
   }
 }

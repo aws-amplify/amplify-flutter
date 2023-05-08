@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.batch_statement_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -141,14 +142,13 @@ class BatchStatementResponseAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BatchStatementResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BatchStatementResponse);
-    final result = <Object?>[];
-    final BatchStatementResponse(:error, :tableName, :item) = payload;
+    final result$ = <Object?>[];
+    final BatchStatementResponse(:error, :tableName, :item) = object;
     if (error != null) {
-      result
+      result$
         ..add('Error')
         ..add(serializers.serialize(
           error,
@@ -156,7 +156,7 @@ class BatchStatementResponseAwsJson10Serializer
         ));
     }
     if (tableName != null) {
-      result
+      result$
         ..add('TableName')
         ..add(serializers.serialize(
           tableName,
@@ -164,7 +164,7 @@ class BatchStatementResponseAwsJson10Serializer
         ));
     }
     if (item != null) {
-      result
+      result$
         ..add('Item')
         ..add(serializers.serialize(
           item,
@@ -177,6 +177,6 @@ class BatchStatementResponseAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

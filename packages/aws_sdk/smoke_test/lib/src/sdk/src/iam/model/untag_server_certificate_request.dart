@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.untag_server_certificate_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -134,25 +135,24 @@ class UntagServerCertificateRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UntagServerCertificateRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UntagServerCertificateRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'UntagServerCertificateRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final UntagServerCertificateRequest(:serverCertificateName, :tagKeys) =
-        payload;
-    result
+        object;
+    result$
       ..add(const _i1.XmlElementName('ServerCertificateName'))
       ..add(serializers.serialize(
         serverCertificateName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('TagKeys'))
       ..add(
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
@@ -164,6 +164,6 @@ class UntagServerCertificateRequestAwsQuerySerializer
           [FullType(String)],
         ),
       ));
-    return result;
+    return result$;
   }
 }

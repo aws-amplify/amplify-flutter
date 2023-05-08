@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_bucket_intelligent_tiering_configuration_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -136,48 +137,42 @@ class GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i3.IntelligentTieringConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is GetBucketIntelligentTieringConfigurationOutput
-        ? object.getPayload()
-        : (object as _i3.IntelligentTieringConfiguration?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'IntelligentTieringConfiguration',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
     final _i3.IntelligentTieringConfiguration(
       :id,
       :filter,
       :status,
       :tierings
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i2.XmlElementName('Id'))
       ..add(serializers.serialize(
         id,
         specifiedType: const FullType(String),
       ));
     if (filter != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Filter'))
         ..add(serializers.serialize(
           filter,
           specifiedType: const FullType(_i4.IntelligentTieringFilter),
         ));
     }
-    result
+    result$
       ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
         specifiedType: const FullType.nullable(_i5.IntelligentTieringStatus),
       ));
-    result.addAll(
+    result$.addAll(
         const _i2.XmlBuiltListSerializer(memberName: 'Tiering').serialize(
       serializers,
       tierings,
@@ -186,6 +181,6 @@ class GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer
         [FullType(_i6.Tiering)],
       ),
     ));
-    return result;
+    return result$;
   }
 }

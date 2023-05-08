@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.rest_api; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -302,11 +303,10 @@ class RestApiRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RestApi object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RestApi);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final RestApi(
       :apiKeySource,
       :binaryMediaTypes,
@@ -321,9 +321,9 @@ class RestApiRestJson1Serializer
       :tags,
       :version,
       :warnings
-    ) = payload;
+    ) = object;
     if (apiKeySource != null) {
-      result
+      result$
         ..add('apiKeySource')
         ..add(serializers.serialize(
           apiKeySource,
@@ -331,7 +331,7 @@ class RestApiRestJson1Serializer
         ));
     }
     if (binaryMediaTypes != null) {
-      result
+      result$
         ..add('binaryMediaTypes')
         ..add(serializers.serialize(
           binaryMediaTypes,
@@ -342,7 +342,7 @@ class RestApiRestJson1Serializer
         ));
     }
     if (createdDate != null) {
-      result
+      result$
         ..add('createdDate')
         ..add(serializers.serialize(
           createdDate,
@@ -350,7 +350,7 @@ class RestApiRestJson1Serializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -358,7 +358,7 @@ class RestApiRestJson1Serializer
         ));
     }
     if (disableExecuteApiEndpoint != null) {
-      result
+      result$
         ..add('disableExecuteApiEndpoint')
         ..add(serializers.serialize(
           disableExecuteApiEndpoint,
@@ -366,7 +366,7 @@ class RestApiRestJson1Serializer
         ));
     }
     if (endpointConfiguration != null) {
-      result
+      result$
         ..add('endpointConfiguration')
         ..add(serializers.serialize(
           endpointConfiguration,
@@ -374,7 +374,7 @@ class RestApiRestJson1Serializer
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add('id')
         ..add(serializers.serialize(
           id,
@@ -382,7 +382,7 @@ class RestApiRestJson1Serializer
         ));
     }
     if (minimumCompressionSize != null) {
-      result
+      result$
         ..add('minimumCompressionSize')
         ..add(serializers.serialize(
           minimumCompressionSize,
@@ -390,7 +390,7 @@ class RestApiRestJson1Serializer
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add('name')
         ..add(serializers.serialize(
           name,
@@ -398,7 +398,7 @@ class RestApiRestJson1Serializer
         ));
     }
     if (policy != null) {
-      result
+      result$
         ..add('policy')
         ..add(serializers.serialize(
           policy,
@@ -406,7 +406,7 @@ class RestApiRestJson1Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('tags')
         ..add(serializers.serialize(
           tags,
@@ -420,7 +420,7 @@ class RestApiRestJson1Serializer
         ));
     }
     if (version != null) {
-      result
+      result$
         ..add('version')
         ..add(serializers.serialize(
           version,
@@ -428,7 +428,7 @@ class RestApiRestJson1Serializer
         ));
     }
     if (warnings != null) {
-      result
+      result$
         ..add('warnings')
         ..add(serializers.serialize(
           warnings,
@@ -438,6 +438,6 @@ class RestApiRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

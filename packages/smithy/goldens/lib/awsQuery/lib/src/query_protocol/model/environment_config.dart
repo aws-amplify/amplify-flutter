@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v1.query_protocol.model.environment_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -164,11 +165,10 @@ class EnvironmentConfigAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EnvironmentConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EnvironmentConfig);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'EnvironmentConfigResponse',
         _i3.XmlNamespace('https://example.com/'),
@@ -181,9 +181,9 @@ class EnvironmentConfigAwsQuerySerializer
       :awsRetryMode,
       :awsSessionToken,
       :awsProfile
-    ) = payload;
+    ) = object;
     if (awsAccessKeyId != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AWS_ACCESS_KEY_ID'))
         ..add(serializers.serialize(
           awsAccessKeyId,
@@ -191,7 +191,7 @@ class EnvironmentConfigAwsQuerySerializer
         ));
     }
     if (awsSecretAccessKey != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AWS_SECRET_ACCESS_KEY'))
         ..add(serializers.serialize(
           awsSecretAccessKey,
@@ -199,7 +199,7 @@ class EnvironmentConfigAwsQuerySerializer
         ));
     }
     if (awsDefaultRegion != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AWS_DEFAULT_REGION'))
         ..add(serializers.serialize(
           awsDefaultRegion,
@@ -207,7 +207,7 @@ class EnvironmentConfigAwsQuerySerializer
         ));
     }
     if (awsRetryMode != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AWS_RETRY_MODE'))
         ..add(serializers.serialize(
           awsRetryMode,
@@ -215,7 +215,7 @@ class EnvironmentConfigAwsQuerySerializer
         ));
     }
     if (awsSessionToken != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AWS_SESSION_TOKEN'))
         ..add(serializers.serialize(
           awsSessionToken,
@@ -223,13 +223,13 @@ class EnvironmentConfigAwsQuerySerializer
         ));
     }
     if (awsProfile != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AWS_PROFILE'))
         ..add(serializers.serialize(
           awsProfile,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

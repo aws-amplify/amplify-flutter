@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v2.json_protocol.model.retry_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -112,14 +113,13 @@ class RetryConfigAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RetryConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RetryConfig);
-    final result = <Object?>[];
-    final RetryConfig(:mode, :maxAttempts) = payload;
+    final result$ = <Object?>[];
+    final RetryConfig(:mode, :maxAttempts) = object;
     if (mode != null) {
-      result
+      result$
         ..add('mode')
         ..add(serializers.serialize(
           mode,
@@ -127,13 +127,13 @@ class RetryConfigAwsJson11Serializer
         ));
     }
     if (maxAttempts != null) {
-      result
+      result$
         ..add('max_attempts')
         ..add(serializers.serialize(
           maxAttempts,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.delete_global_secondary_index_action; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -98,17 +99,18 @@ class DeleteGlobalSecondaryIndexActionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteGlobalSecondaryIndexAction object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeleteGlobalSecondaryIndexAction);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DeleteGlobalSecondaryIndexAction(:indexName) = object;
+    result$.addAll([
       'IndexName',
       serializers.serialize(
-        payload.indexName,
+        indexName,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

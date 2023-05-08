@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_validation_protocol.model.malformed_length_override_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -185,11 +186,10 @@ class MalformedLengthOverrideInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedLengthOverrideInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MalformedLengthOverrideInput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final MalformedLengthOverrideInput(
       :blob,
       :list,
@@ -197,9 +197,9 @@ class MalformedLengthOverrideInputRestJson1Serializer
       :maxString,
       :minString,
       :string
-    ) = payload;
+    ) = object;
     if (blob != null) {
-      result
+      result$
         ..add('blob')
         ..add(serializers.serialize(
           blob,
@@ -207,7 +207,7 @@ class MalformedLengthOverrideInputRestJson1Serializer
         ));
     }
     if (list != null) {
-      result
+      result$
         ..add('list')
         ..add(serializers.serialize(
           list,
@@ -218,7 +218,7 @@ class MalformedLengthOverrideInputRestJson1Serializer
         ));
     }
     if (map != null) {
-      result
+      result$
         ..add('map')
         ..add(serializers.serialize(
           map,
@@ -232,7 +232,7 @@ class MalformedLengthOverrideInputRestJson1Serializer
         ));
     }
     if (maxString != null) {
-      result
+      result$
         ..add('maxString')
         ..add(serializers.serialize(
           maxString,
@@ -240,7 +240,7 @@ class MalformedLengthOverrideInputRestJson1Serializer
         ));
     }
     if (minString != null) {
-      result
+      result$
         ..add('minString')
         ..add(serializers.serialize(
           minString,
@@ -248,13 +248,13 @@ class MalformedLengthOverrideInputRestJson1Serializer
         ));
     }
     if (string != null) {
-      result
+      result$
         ..add('string')
         ..add(serializers.serialize(
           string,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

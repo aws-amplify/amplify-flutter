@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.machine_learning.model.limit_exceeded_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -135,14 +136,13 @@ class LimitExceededExceptionAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    LimitExceededException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as LimitExceededException);
-    final result = <Object?>[];
-    final LimitExceededException(:message, :code) = payload;
+    final result$ = <Object?>[];
+    final LimitExceededException(:message, :code) = object;
     if (message != null) {
-      result
+      result$
         ..add('message')
         ..add(serializers.serialize(
           message,
@@ -150,13 +150,13 @@ class LimitExceededExceptionAwsJson11Serializer
         ));
     }
     if (code != null) {
-      result
+      result$
         ..add('code')
         ..add(serializers.serialize(
           code,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.organization_resource_detailed_status_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -142,15 +143,14 @@ class OrganizationResourceDetailedStatusFiltersAwsJson11Serializer extends _i3
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OrganizationResourceDetailedStatusFilters object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OrganizationResourceDetailedStatusFilters);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final OrganizationResourceDetailedStatusFilters(:accountId, :status) =
-        payload;
+        object;
     if (accountId != null) {
-      result
+      result$
         ..add('AccountId')
         ..add(serializers.serialize(
           accountId,
@@ -158,13 +158,13 @@ class OrganizationResourceDetailedStatusFiltersAwsJson11Serializer extends _i3
         ));
     }
     if (status != null) {
-      result
+      result$
         ..add('Status')
         ..add(serializers.serialize(
           status,
           specifiedType: const FullType(_i2.OrganizationResourceDetailedStatus),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.delete_signing_certificate_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -130,31 +131,30 @@ class DeleteSigningCertificateRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteSigningCertificateRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeleteSigningCertificateRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'DeleteSigningCertificateRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final DeleteSigningCertificateRequest(:userName, :certificateId) = payload;
+    final DeleteSigningCertificateRequest(:userName, :certificateId) = object;
     if (userName != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('UserName'))
         ..add(serializers.serialize(
           userName,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('CertificateId'))
       ..add(serializers.serialize(
         certificateId,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

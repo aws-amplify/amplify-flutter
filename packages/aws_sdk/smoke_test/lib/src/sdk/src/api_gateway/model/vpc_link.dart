@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.vpc_link; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -206,11 +207,10 @@ class VpcLinkRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    VpcLink object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as VpcLink);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final VpcLink(
       :description,
       :id,
@@ -219,9 +219,9 @@ class VpcLinkRestJson1Serializer
       :statusMessage,
       :tags,
       :targetArns
-    ) = payload;
+    ) = object;
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -229,7 +229,7 @@ class VpcLinkRestJson1Serializer
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add('id')
         ..add(serializers.serialize(
           id,
@@ -237,7 +237,7 @@ class VpcLinkRestJson1Serializer
         ));
     }
     if (name != null) {
-      result
+      result$
         ..add('name')
         ..add(serializers.serialize(
           name,
@@ -245,7 +245,7 @@ class VpcLinkRestJson1Serializer
         ));
     }
     if (status != null) {
-      result
+      result$
         ..add('status')
         ..add(serializers.serialize(
           status,
@@ -253,7 +253,7 @@ class VpcLinkRestJson1Serializer
         ));
     }
     if (statusMessage != null) {
-      result
+      result$
         ..add('statusMessage')
         ..add(serializers.serialize(
           statusMessage,
@@ -261,7 +261,7 @@ class VpcLinkRestJson1Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('tags')
         ..add(serializers.serialize(
           tags,
@@ -275,7 +275,7 @@ class VpcLinkRestJson1Serializer
         ));
     }
     if (targetArns != null) {
-      result
+      result$
         ..add('targetArns')
         ..add(serializers.serialize(
           targetArns,
@@ -285,6 +285,6 @@ class VpcLinkRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

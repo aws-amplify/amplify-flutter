@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.transact_write_item; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -148,14 +149,13 @@ class TransactWriteItemAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TransactWriteItem object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TransactWriteItem);
-    final result = <Object?>[];
-    final TransactWriteItem(:conditionCheck, :put, :delete, :update_) = payload;
+    final result$ = <Object?>[];
+    final TransactWriteItem(:conditionCheck, :put, :delete, :update_) = object;
     if (conditionCheck != null) {
-      result
+      result$
         ..add('ConditionCheck')
         ..add(serializers.serialize(
           conditionCheck,
@@ -163,7 +163,7 @@ class TransactWriteItemAwsJson10Serializer
         ));
     }
     if (put != null) {
-      result
+      result$
         ..add('Put')
         ..add(serializers.serialize(
           put,
@@ -171,7 +171,7 @@ class TransactWriteItemAwsJson10Serializer
         ));
     }
     if (delete != null) {
-      result
+      result$
         ..add('Delete')
         ..add(serializers.serialize(
           delete,
@@ -179,13 +179,13 @@ class TransactWriteItemAwsJson10Serializer
         ));
     }
     if (update_ != null) {
-      result
+      result$
         ..add('Update')
         ..add(serializers.serialize(
           update_,
           specifiedType: const FullType(_i5.Update),
         ));
     }
-    return result;
+    return result$;
   }
 }

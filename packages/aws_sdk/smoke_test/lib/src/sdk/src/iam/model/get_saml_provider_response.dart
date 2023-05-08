@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_saml_provider_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -160,11 +161,10 @@ class GetSamlProviderResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetSamlProviderResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetSamlProviderResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'GetSamlProviderResponseResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -175,9 +175,9 @@ class GetSamlProviderResponseAwsQuerySerializer
       :createDate,
       :validUntil,
       :tags
-    ) = payload;
+    ) = object;
     if (samlMetadataDocument != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('SAMLMetadataDocument'))
         ..add(serializers.serialize(
           samlMetadataDocument,
@@ -185,7 +185,7 @@ class GetSamlProviderResponseAwsQuerySerializer
         ));
     }
     if (createDate != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
@@ -193,7 +193,7 @@ class GetSamlProviderResponseAwsQuerySerializer
         ));
     }
     if (validUntil != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ValidUntil'))
         ..add(serializers.serialize(
           validUntil,
@@ -201,7 +201,7 @@ class GetSamlProviderResponseAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Tags'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -214,6 +214,6 @@ class GetSamlProviderResponseAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

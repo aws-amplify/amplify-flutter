@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_bucket_inventory_configuration_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -158,21 +159,15 @@ class GetBucketInventoryConfigurationOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i3.InventoryConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is GetBucketInventoryConfigurationOutput
-        ? object.getPayload()
-        : (object as _i3.InventoryConfiguration?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'InventoryConfiguration',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
     final _i3.InventoryConfiguration(
       :destination,
       :isEnabled,
@@ -181,34 +176,34 @@ class GetBucketInventoryConfigurationOutputRestXmlSerializer
       :includedObjectVersions,
       :optionalFields,
       :schedule
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i2.XmlElementName('Destination'))
       ..add(serializers.serialize(
         destination,
         specifiedType: const FullType(_i4.InventoryDestination),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('IsEnabled'))
       ..add(serializers.serialize(
         isEnabled,
         specifiedType: const FullType.nullable(bool),
       ));
     if (filter != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Filter'))
         ..add(serializers.serialize(
           filter,
           specifiedType: const FullType(_i5.InventoryFilter),
         ));
     }
-    result
+    result$
       ..add(const _i2.XmlElementName('Id'))
       ..add(serializers.serialize(
         id,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('IncludedObjectVersions'))
       ..add(serializers.serialize(
         includedObjectVersions,
@@ -216,7 +211,7 @@ class GetBucketInventoryConfigurationOutputRestXmlSerializer
             const FullType.nullable(_i6.InventoryIncludedObjectVersions),
       ));
     if (optionalFields != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('OptionalFields'))
         ..add(const _i2.XmlBuiltListSerializer(memberName: 'Field').serialize(
           serializers,
@@ -227,12 +222,12 @@ class GetBucketInventoryConfigurationOutputRestXmlSerializer
           ),
         ));
     }
-    result
+    result$
       ..add(const _i2.XmlElementName('Schedule'))
       ..add(serializers.serialize(
         schedule,
         specifiedType: const FullType(_i9.InventorySchedule),
       ));
-    return result;
+    return result$;
   }
 }

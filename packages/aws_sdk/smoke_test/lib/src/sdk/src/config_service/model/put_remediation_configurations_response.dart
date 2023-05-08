@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_remediation_configurations_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -111,14 +112,13 @@ class PutRemediationConfigurationsResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutRemediationConfigurationsResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutRemediationConfigurationsResponse);
-    final result = <Object?>[];
-    final PutRemediationConfigurationsResponse(:failedBatches) = payload;
+    final result$ = <Object?>[];
+    final PutRemediationConfigurationsResponse(:failedBatches) = object;
     if (failedBatches != null) {
-      result
+      result$
         ..add('FailedBatches')
         ..add(serializers.serialize(
           failedBatches,
@@ -128,6 +128,6 @@ class PutRemediationConfigurationsResponseAwsJson11Serializer extends _i4
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

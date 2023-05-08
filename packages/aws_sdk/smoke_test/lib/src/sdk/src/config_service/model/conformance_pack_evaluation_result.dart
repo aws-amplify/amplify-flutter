@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.conformance_pack_evaluation_result; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -168,41 +169,47 @@ class ConformancePackEvaluationResultAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConformancePackEvaluationResult object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConformancePackEvaluationResult);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ConformancePackEvaluationResult(
+      :complianceType,
+      :evaluationResultIdentifier,
+      :configRuleInvokedTime,
+      :resultRecordedTime,
+      :annotation
+    ) = object;
+    result$.addAll([
       'ComplianceType',
       serializers.serialize(
-        payload.complianceType,
+        complianceType,
         specifiedType: const FullType(_i2.ConformancePackComplianceType),
       ),
       'EvaluationResultIdentifier',
       serializers.serialize(
-        payload.evaluationResultIdentifier,
+        evaluationResultIdentifier,
         specifiedType: const FullType(_i3.EvaluationResultIdentifier),
       ),
       'ConfigRuleInvokedTime',
       serializers.serialize(
-        payload.configRuleInvokedTime,
+        configRuleInvokedTime,
         specifiedType: const FullType(DateTime),
       ),
       'ResultRecordedTime',
       serializers.serialize(
-        payload.resultRecordedTime,
+        resultRecordedTime,
         specifiedType: const FullType(DateTime),
       ),
-    ];
-    final ConformancePackEvaluationResult(:annotation) = payload;
+    ]);
     if (annotation != null) {
-      result
+      result$
         ..add('Annotation')
         ..add(serializers.serialize(
           annotation,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

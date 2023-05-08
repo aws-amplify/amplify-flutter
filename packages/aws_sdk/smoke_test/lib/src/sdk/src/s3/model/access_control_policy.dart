@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.access_control_policy; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -123,19 +124,18 @@ class AccessControlPolicyRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AccessControlPolicy object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AccessControlPolicy);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'AccessControlPolicy',
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final AccessControlPolicy(:grants, :owner) = payload;
+    final AccessControlPolicy(:grants, :owner) = object;
     if (grants != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('AccessControlList'))
         ..add(const _i5.XmlBuiltListSerializer(memberName: 'Grant').serialize(
           serializers,
@@ -147,13 +147,13 @@ class AccessControlPolicyRestXmlSerializer
         ));
     }
     if (owner != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
           specifiedType: const FullType(_i3.Owner),
         ));
     }
-    return result;
+    return result$;
   }
 }

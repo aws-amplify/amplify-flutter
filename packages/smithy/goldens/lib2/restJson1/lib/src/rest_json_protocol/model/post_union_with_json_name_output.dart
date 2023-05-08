@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.post_union_with_json_name_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -99,17 +100,18 @@ class PostUnionWithJsonNameOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PostUnionWithJsonNameOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PostUnionWithJsonNameOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PostUnionWithJsonNameOutput(:value) = object;
+    result$.addAll([
       'value',
       serializers.serialize(
-        payload.value,
+        value,
         specifiedType: const FullType(_i2.UnionWithJsonName),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

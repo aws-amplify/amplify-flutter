@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.retry_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -112,14 +113,13 @@ class RetryConfigRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RetryConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RetryConfig);
-    final result = <Object?>[const _i3.XmlElementName('RetryConfig')];
-    final RetryConfig(:maxAttempts, :mode) = payload;
+    final result$ = <Object?>[const _i3.XmlElementName('RetryConfig')];
+    final RetryConfig(:maxAttempts, :mode) = object;
     if (maxAttempts != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('max_attempts'))
         ..add(serializers.serialize(
           maxAttempts,
@@ -127,13 +127,13 @@ class RetryConfigRestXmlSerializer
         ));
     }
     if (mode != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('mode'))
         ..add(serializers.serialize(
           mode,
           specifiedType: const FullType.nullable(_i2.RetryMode),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.update_role_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -136,26 +137,25 @@ class UpdateRoleRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateRoleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateRoleRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'UpdateRoleRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final UpdateRoleRequest(:roleName, :description, :maxSessionDuration) =
-        payload;
-    result
+        object;
+    result$
       ..add(const _i1.XmlElementName('RoleName'))
       ..add(serializers.serialize(
         roleName,
         specifiedType: const FullType(String),
       ));
     if (description != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -163,13 +163,13 @@ class UpdateRoleRequestAwsQuerySerializer
         ));
     }
     if (maxSessionDuration != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MaxSessionDuration'))
         ..add(serializers.serialize(
           maxSessionDuration,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

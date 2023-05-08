@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.access_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -187,11 +188,10 @@ class AccessDetailAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AccessDetail object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AccessDetail);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'AccessDetailResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -204,21 +204,21 @@ class AccessDetailAwsQuerySerializer
       :entityPath,
       :lastAuthenticatedTime,
       :totalAuthenticatedEntities
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i2.XmlElementName('ServiceName'))
       ..add(serializers.serialize(
         serviceName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('ServiceNamespace'))
       ..add(serializers.serialize(
         serviceNamespace,
         specifiedType: const FullType(String),
       ));
     if (region != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Region'))
         ..add(serializers.serialize(
           region,
@@ -226,7 +226,7 @@ class AccessDetailAwsQuerySerializer
         ));
     }
     if (entityPath != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('EntityPath'))
         ..add(serializers.serialize(
           entityPath,
@@ -234,7 +234,7 @@ class AccessDetailAwsQuerySerializer
         ));
     }
     if (lastAuthenticatedTime != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('LastAuthenticatedTime'))
         ..add(serializers.serialize(
           lastAuthenticatedTime,
@@ -242,13 +242,13 @@ class AccessDetailAwsQuerySerializer
         ));
     }
     if (totalAuthenticatedEntities != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('TotalAuthenticatedEntities'))
         ..add(serializers.serialize(
           totalAuthenticatedEntities,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

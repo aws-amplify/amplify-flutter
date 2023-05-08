@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.transact_write_items_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -138,15 +139,14 @@ class TransactWriteItemsOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TransactWriteItemsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TransactWriteItemsOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final TransactWriteItemsOutput(:consumedCapacity, :itemCollectionMetrics) =
-        payload;
+        object;
     if (consumedCapacity != null) {
-      result
+      result$
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
           consumedCapacity,
@@ -157,7 +157,7 @@ class TransactWriteItemsOutputAwsJson10Serializer
         ));
     }
     if (itemCollectionMetrics != null) {
-      result
+      result$
         ..add('ItemCollectionMetrics')
         ..add(serializers.serialize(
           itemCollectionMetrics,
@@ -170,6 +170,6 @@ class TransactWriteItemsOutputAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

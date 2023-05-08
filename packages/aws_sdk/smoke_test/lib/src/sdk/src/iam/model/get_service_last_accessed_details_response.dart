@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_service_last_accessed_details_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -229,11 +230,10 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetServiceLastAccessedDetailsResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetServiceLastAccessedDetailsResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'GetServiceLastAccessedDetailsResponseResponse',
         _i7.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -248,15 +248,15 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
       :isTruncated,
       :marker,
       :error
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i7.XmlElementName('JobStatus'))
       ..add(serializers.serialize(
         jobStatus,
         specifiedType: const FullType.nullable(_i2.JobStatusType),
       ));
     if (jobType != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('JobType'))
         ..add(serializers.serialize(
           jobType,
@@ -264,13 +264,13 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
               const FullType.nullable(_i3.AccessAdvisorUsageGranularityType),
         ));
     }
-    result
+    result$
       ..add(const _i7.XmlElementName('JobCreationDate'))
       ..add(serializers.serialize(
         jobCreationDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    result
+    result$
       ..add(const _i7.XmlElementName('ServicesLastAccessed'))
       ..add(
           const _i7.XmlBuiltListSerializer(indexer: _i7.XmlIndexer.awsQueryList)
@@ -282,14 +282,14 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
           [FullType(_i4.ServiceLastAccessed)],
         ),
       ));
-    result
+    result$
       ..add(const _i7.XmlElementName('JobCompletionDate'))
       ..add(serializers.serialize(
         jobCompletionDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -297,7 +297,7 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
@@ -305,13 +305,13 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
         ));
     }
     if (error != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Error'))
         ..add(serializers.serialize(
           error,
           specifiedType: const FullType(_i5.ErrorDetails),
         ));
     }
-    return result;
+    return result$;
   }
 }

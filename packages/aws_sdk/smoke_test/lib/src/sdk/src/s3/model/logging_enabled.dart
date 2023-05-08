@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.logging_enabled; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -138,25 +139,24 @@ class LoggingEnabledRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    LoggingEnabled object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as LoggingEnabled);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'LoggingEnabled',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final LoggingEnabled(:targetBucket, :targetGrants, :targetPrefix) = payload;
-    result
+    final LoggingEnabled(:targetBucket, :targetGrants, :targetPrefix) = object;
+    result$
       ..add(const _i4.XmlElementName('TargetBucket'))
       ..add(serializers.serialize(
         targetBucket,
         specifiedType: const FullType(String),
       ));
     if (targetGrants != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('TargetGrants'))
         ..add(const _i4.XmlBuiltListSerializer(memberName: 'Grant').serialize(
           serializers,
@@ -167,12 +167,12 @@ class LoggingEnabledRestXmlSerializer
           ),
         ));
     }
-    result
+    result$
       ..add(const _i4.XmlElementName('TargetPrefix'))
       ..add(serializers.serialize(
         targetPrefix,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

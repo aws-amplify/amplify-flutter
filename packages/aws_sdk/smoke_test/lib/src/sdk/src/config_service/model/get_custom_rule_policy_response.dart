@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_custom_rule_policy_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -99,20 +100,19 @@ class GetCustomRulePolicyResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetCustomRulePolicyResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetCustomRulePolicyResponse);
-    final result = <Object?>[];
-    final GetCustomRulePolicyResponse(:policyText) = payload;
+    final result$ = <Object?>[];
+    final GetCustomRulePolicyResponse(:policyText) = object;
     if (policyText != null) {
-      result
+      result$
         ..add('PolicyText')
         ..add(serializers.serialize(
           policyText,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

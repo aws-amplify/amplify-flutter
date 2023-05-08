@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.restore_object_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -254,21 +255,15 @@ class RestoreObjectRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.RestoreRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is RestoreObjectRequest
-        ? object.getPayload()
-        : (object as _i2.RestoreRequest?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'RestoreRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
     final _i2.RestoreRequest(
       :days,
       :glacierJobParameters,
@@ -277,9 +272,9 @@ class RestoreObjectRequestRestXmlSerializer
       :description,
       :selectParameters,
       :outputLocation
-    ) = payload;
+    ) = object;
     if (days != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Days'))
         ..add(serializers.serialize(
           days,
@@ -287,7 +282,7 @@ class RestoreObjectRequestRestXmlSerializer
         ));
     }
     if (glacierJobParameters != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('GlacierJobParameters'))
         ..add(serializers.serialize(
           glacierJobParameters,
@@ -295,7 +290,7 @@ class RestoreObjectRequestRestXmlSerializer
         ));
     }
     if (type != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
@@ -303,7 +298,7 @@ class RestoreObjectRequestRestXmlSerializer
         ));
     }
     if (tier != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Tier'))
         ..add(serializers.serialize(
           tier,
@@ -311,7 +306,7 @@ class RestoreObjectRequestRestXmlSerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -319,7 +314,7 @@ class RestoreObjectRequestRestXmlSerializer
         ));
     }
     if (selectParameters != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('SelectParameters'))
         ..add(serializers.serialize(
           selectParameters,
@@ -327,13 +322,13 @@ class RestoreObjectRequestRestXmlSerializer
         ));
     }
     if (outputLocation != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('OutputLocation'))
         ..add(serializers.serialize(
           outputLocation,
           specifiedType: const FullType(_i10.OutputLocation),
         ));
     }
-    return result;
+    return result$;
   }
 }

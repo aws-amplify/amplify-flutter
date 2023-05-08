@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.delete_account_alias_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -105,23 +106,22 @@ class DeleteAccountAliasRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteAccountAliasRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeleteAccountAliasRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'DeleteAccountAliasRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final DeleteAccountAliasRequest(:accountAlias) = payload;
-    result
+    final DeleteAccountAliasRequest(:accountAlias) = object;
+    result$
       ..add(const _i1.XmlElementName('AccountAlias'))
       ..add(serializers.serialize(
         accountAlias,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

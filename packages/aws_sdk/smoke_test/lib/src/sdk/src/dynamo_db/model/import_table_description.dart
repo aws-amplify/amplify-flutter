@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.import_table_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -383,11 +384,10 @@ class ImportTableDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ImportTableDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ImportTableDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ImportTableDescription(
       :importArn,
       :importStatus,
@@ -408,9 +408,9 @@ class ImportTableDescriptionAwsJson10Serializer
       :importedItemCount,
       :failureCode,
       :failureMessage
-    ) = payload;
+    ) = object;
     if (importArn != null) {
-      result
+      result$
         ..add('ImportArn')
         ..add(serializers.serialize(
           importArn,
@@ -418,7 +418,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (importStatus != null) {
-      result
+      result$
         ..add('ImportStatus')
         ..add(serializers.serialize(
           importStatus,
@@ -426,7 +426,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (tableArn != null) {
-      result
+      result$
         ..add('TableArn')
         ..add(serializers.serialize(
           tableArn,
@@ -434,7 +434,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (tableId != null) {
-      result
+      result$
         ..add('TableId')
         ..add(serializers.serialize(
           tableId,
@@ -442,7 +442,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (clientToken != null) {
-      result
+      result$
         ..add('ClientToken')
         ..add(serializers.serialize(
           clientToken,
@@ -450,7 +450,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (s3BucketSource != null) {
-      result
+      result$
         ..add('S3BucketSource')
         ..add(serializers.serialize(
           s3BucketSource,
@@ -458,7 +458,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (errorCount != null) {
-      result
+      result$
         ..add('ErrorCount')
         ..add(serializers.serialize(
           errorCount,
@@ -466,7 +466,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (cloudWatchLogGroupArn != null) {
-      result
+      result$
         ..add('CloudWatchLogGroupArn')
         ..add(serializers.serialize(
           cloudWatchLogGroupArn,
@@ -474,7 +474,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (inputFormat != null) {
-      result
+      result$
         ..add('InputFormat')
         ..add(serializers.serialize(
           inputFormat,
@@ -482,7 +482,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (inputFormatOptions != null) {
-      result
+      result$
         ..add('InputFormatOptions')
         ..add(serializers.serialize(
           inputFormatOptions,
@@ -490,7 +490,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (inputCompressionType != null) {
-      result
+      result$
         ..add('InputCompressionType')
         ..add(serializers.serialize(
           inputCompressionType,
@@ -498,7 +498,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (tableCreationParameters != null) {
-      result
+      result$
         ..add('TableCreationParameters')
         ..add(serializers.serialize(
           tableCreationParameters,
@@ -506,7 +506,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (startTime != null) {
-      result
+      result$
         ..add('StartTime')
         ..add(serializers.serialize(
           startTime,
@@ -514,7 +514,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (endTime != null) {
-      result
+      result$
         ..add('EndTime')
         ..add(serializers.serialize(
           endTime,
@@ -522,7 +522,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (processedSizeBytes != null) {
-      result
+      result$
         ..add('ProcessedSizeBytes')
         ..add(serializers.serialize(
           processedSizeBytes,
@@ -530,7 +530,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (processedItemCount != null) {
-      result
+      result$
         ..add('ProcessedItemCount')
         ..add(serializers.serialize(
           processedItemCount,
@@ -538,7 +538,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (importedItemCount != null) {
-      result
+      result$
         ..add('ImportedItemCount')
         ..add(serializers.serialize(
           importedItemCount,
@@ -546,7 +546,7 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (failureCode != null) {
-      result
+      result$
         ..add('FailureCode')
         ..add(serializers.serialize(
           failureCode,
@@ -554,13 +554,13 @@ class ImportTableDescriptionAwsJson10Serializer
         ));
     }
     if (failureMessage != null) {
-      result
+      result$
         ..add('FailureMessage')
         ..add(serializers.serialize(
           failureMessage,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

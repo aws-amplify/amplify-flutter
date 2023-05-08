@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.contributor_insights_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -133,18 +134,17 @@ class ContributorInsightsSummaryAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ContributorInsightsSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ContributorInsightsSummary);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ContributorInsightsSummary(
       :tableName,
       :indexName,
       :contributorInsightsStatus
-    ) = payload;
+    ) = object;
     if (tableName != null) {
-      result
+      result$
         ..add('TableName')
         ..add(serializers.serialize(
           tableName,
@@ -152,7 +152,7 @@ class ContributorInsightsSummaryAwsJson10Serializer
         ));
     }
     if (indexName != null) {
-      result
+      result$
         ..add('IndexName')
         ..add(serializers.serialize(
           indexName,
@@ -160,13 +160,13 @@ class ContributorInsightsSummaryAwsJson10Serializer
         ));
     }
     if (contributorInsightsStatus != null) {
-      result
+      result$
         ..add('ContributorInsightsStatus')
         ..add(serializers.serialize(
           contributorInsightsStatus,
           specifiedType: const FullType(_i2.ContributorInsightsStatus),
         ));
     }
-    return result;
+    return result$;
   }
 }

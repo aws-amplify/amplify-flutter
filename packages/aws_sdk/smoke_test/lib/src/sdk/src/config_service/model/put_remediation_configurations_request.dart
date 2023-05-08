@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_remediation_configurations_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -113,20 +114,22 @@ class PutRemediationConfigurationsRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutRemediationConfigurationsRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutRemediationConfigurationsRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutRemediationConfigurationsRequest(:remediationConfigurations) =
+        object;
+    result$.addAll([
       'RemediationConfigurations',
       serializers.serialize(
-        payload.remediationConfigurations,
+        remediationConfigurations,
         specifiedType: const FullType(
           _i4.BuiltList,
           [FullType(_i3.RemediationConfiguration)],
         ),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.get_item_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -131,14 +132,13 @@ class GetItemOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetItemOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetItemOutput);
-    final result = <Object?>[];
-    final GetItemOutput(:item, :consumedCapacity) = payload;
+    final result$ = <Object?>[];
+    final GetItemOutput(:item, :consumedCapacity) = object;
     if (item != null) {
-      result
+      result$
         ..add('Item')
         ..add(serializers.serialize(
           item,
@@ -152,13 +152,13 @@ class GetItemOutputAwsJson10Serializer
         ));
     }
     if (consumedCapacity != null) {
-      result
+      result$
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
           consumedCapacity,
           specifiedType: const FullType(_i3.ConsumedCapacity),
         ));
     }
-    return result;
+    return result$;
   }
 }

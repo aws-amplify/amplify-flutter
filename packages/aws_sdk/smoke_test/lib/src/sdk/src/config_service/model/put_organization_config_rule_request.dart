@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_organization_config_rule_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -189,25 +190,26 @@ class PutOrganizationConfigRuleRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutOrganizationConfigRuleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutOrganizationConfigRuleRequest);
-    final result = <Object?>[
-      'OrganizationConfigRuleName',
-      serializers.serialize(
-        payload.organizationConfigRuleName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final PutOrganizationConfigRuleRequest(
+      :organizationConfigRuleName,
       :organizationManagedRuleMetadata,
       :organizationCustomRuleMetadata,
       :excludedAccounts,
       :organizationCustomPolicyRuleMetadata
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'OrganizationConfigRuleName',
+      serializers.serialize(
+        organizationConfigRuleName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (organizationManagedRuleMetadata != null) {
-      result
+      result$
         ..add('OrganizationManagedRuleMetadata')
         ..add(serializers.serialize(
           organizationManagedRuleMetadata,
@@ -215,7 +217,7 @@ class PutOrganizationConfigRuleRequestAwsJson11Serializer
         ));
     }
     if (organizationCustomRuleMetadata != null) {
-      result
+      result$
         ..add('OrganizationCustomRuleMetadata')
         ..add(serializers.serialize(
           organizationCustomRuleMetadata,
@@ -223,7 +225,7 @@ class PutOrganizationConfigRuleRequestAwsJson11Serializer
         ));
     }
     if (excludedAccounts != null) {
-      result
+      result$
         ..add('ExcludedAccounts')
         ..add(serializers.serialize(
           excludedAccounts,
@@ -234,7 +236,7 @@ class PutOrganizationConfigRuleRequestAwsJson11Serializer
         ));
     }
     if (organizationCustomPolicyRuleMetadata != null) {
-      result
+      result$
         ..add('OrganizationCustomPolicyRuleMetadata')
         ..add(serializers.serialize(
           organizationCustomPolicyRuleMetadata,
@@ -242,6 +244,6 @@ class PutOrganizationConfigRuleRequestAwsJson11Serializer
               const FullType(_i5.OrganizationCustomPolicyRuleMetadata),
         ));
     }
-    return result;
+    return result$;
   }
 }

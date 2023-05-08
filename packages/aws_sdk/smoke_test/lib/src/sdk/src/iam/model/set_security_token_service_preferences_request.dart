@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.set_security_token_service_preferences_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -111,11 +112,10 @@ class SetSecurityTokenServicePreferencesRequestAwsQuerySerializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SetSecurityTokenServicePreferencesRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SetSecurityTokenServicePreferencesRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'SetSecurityTokenServicePreferencesRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -123,13 +123,13 @@ class SetSecurityTokenServicePreferencesRequestAwsQuerySerializer extends _i1
     ];
     final SetSecurityTokenServicePreferencesRequest(
       :globalEndpointTokenVersion
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('GlobalEndpointTokenVersion'))
       ..add(serializers.serialize(
         globalEndpointTokenVersion,
         specifiedType: const FullType.nullable(_i3.GlobalEndpointTokenVersion),
       ));
-    return result;
+    return result$;
   }
 }

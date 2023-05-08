@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.server_certificate_metadata; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -182,11 +183,10 @@ class ServerCertificateMetadataAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ServerCertificateMetadata object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ServerCertificateMetadata);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'ServerCertificateMetadataResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -199,33 +199,33 @@ class ServerCertificateMetadataAwsQuerySerializer
       :arn,
       :uploadDate,
       :expiration
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i2.XmlElementName('Path'))
       ..add(serializers.serialize(
         path,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('ServerCertificateName'))
       ..add(serializers.serialize(
         serverCertificateName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('ServerCertificateId'))
       ..add(serializers.serialize(
         serverCertificateId,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('Arn'))
       ..add(serializers.serialize(
         arn,
         specifiedType: const FullType(String),
       ));
     if (uploadDate != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('UploadDate'))
         ..add(serializers.serialize(
           uploadDate,
@@ -233,13 +233,13 @@ class ServerCertificateMetadataAwsQuerySerializer
         ));
     }
     if (expiration != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Expiration'))
         ..add(serializers.serialize(
           expiration,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

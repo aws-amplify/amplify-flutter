@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.malformed_float_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -191,22 +192,19 @@ class MalformedFloatInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedFloatInputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is MalformedFloatInput
-        ? object.getPayload()
-        : (object as MalformedFloatInputPayload);
-    final result = <Object?>[];
-    final MalformedFloatInputPayload(:floatInBody) = payload;
+    final result$ = <Object?>[];
+    final MalformedFloatInputPayload(:floatInBody) = object;
     if (floatInBody != null) {
-      result
+      result$
         ..add('floatInBody')
         ..add(serializers.serialize(
           floatInBody,
           specifiedType: const FullType(double),
         ));
     }
-    return result;
+    return result$;
   }
 }

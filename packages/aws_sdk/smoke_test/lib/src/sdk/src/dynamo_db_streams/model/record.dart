@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.record; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -208,11 +209,10 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Record object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Record);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final Record(
       :eventId,
       :eventName,
@@ -221,9 +221,9 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
       :awsRegion,
       :dynamodb,
       :userIdentity
-    ) = payload;
+    ) = object;
     if (eventId != null) {
-      result
+      result$
         ..add('eventID')
         ..add(serializers.serialize(
           eventId,
@@ -231,7 +231,7 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
         ));
     }
     if (eventName != null) {
-      result
+      result$
         ..add('eventName')
         ..add(serializers.serialize(
           eventName,
@@ -239,7 +239,7 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
         ));
     }
     if (eventVersion != null) {
-      result
+      result$
         ..add('eventVersion')
         ..add(serializers.serialize(
           eventVersion,
@@ -247,7 +247,7 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
         ));
     }
     if (eventSource != null) {
-      result
+      result$
         ..add('eventSource')
         ..add(serializers.serialize(
           eventSource,
@@ -255,7 +255,7 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
         ));
     }
     if (awsRegion != null) {
-      result
+      result$
         ..add('awsRegion')
         ..add(serializers.serialize(
           awsRegion,
@@ -263,7 +263,7 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
         ));
     }
     if (dynamodb != null) {
-      result
+      result$
         ..add('dynamodb')
         ..add(serializers.serialize(
           dynamodb,
@@ -271,13 +271,13 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
         ));
     }
     if (userIdentity != null) {
-      result
+      result$
         ..add('userIdentity')
         ..add(serializers.serialize(
           userIdentity,
           specifiedType: const FullType(_i4.Identity),
         ));
     }
-    return result;
+    return result$;
   }
 }

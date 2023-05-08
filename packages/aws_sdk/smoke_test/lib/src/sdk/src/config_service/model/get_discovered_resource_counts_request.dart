@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_discovered_resource_counts_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -150,18 +151,17 @@ class GetDiscoveredResourceCountsRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetDiscoveredResourceCountsRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetDiscoveredResourceCountsRequest);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final GetDiscoveredResourceCountsRequest(
       :resourceTypes,
       :limit,
       :nextToken
-    ) = payload;
+    ) = object;
     if (resourceTypes != null) {
-      result
+      result$
         ..add('resourceTypes')
         ..add(serializers.serialize(
           resourceTypes,
@@ -172,7 +172,7 @@ class GetDiscoveredResourceCountsRequestAwsJson11Serializer
         ));
     }
     if (limit != null) {
-      result
+      result$
         ..add('limit')
         ..add(serializers.serialize(
           limit,
@@ -180,13 +180,13 @@ class GetDiscoveredResourceCountsRequestAwsJson11Serializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('nextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

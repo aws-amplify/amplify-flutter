@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.complex_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -199,16 +200,13 @@ class ComplexErrorRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ComplexErrorPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is ComplexError
-        ? object.getPayload()
-        : (object as ComplexErrorPayload);
-    final result = <Object?>[];
-    final ComplexErrorPayload(:nested, :topLevel) = payload;
+    final result$ = <Object?>[];
+    final ComplexErrorPayload(:nested, :topLevel) = object;
     if (nested != null) {
-      result
+      result$
         ..add('Nested')
         ..add(serializers.serialize(
           nested,
@@ -216,13 +214,13 @@ class ComplexErrorRestJson1Serializer
         ));
     }
     if (topLevel != null) {
-      result
+      result$
         ..add('TopLevel')
         ..add(serializers.serialize(
           topLevel,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

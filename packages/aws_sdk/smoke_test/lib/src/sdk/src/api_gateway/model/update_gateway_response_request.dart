@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.update_gateway_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -208,16 +209,13 @@ class UpdateGatewayResponseRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateGatewayResponseRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UpdateGatewayResponseRequest
-        ? object.getPayload()
-        : (object as UpdateGatewayResponseRequestPayload);
-    final result = <Object?>[];
-    final UpdateGatewayResponseRequestPayload(:patchOperations) = payload;
+    final result$ = <Object?>[];
+    final UpdateGatewayResponseRequestPayload(:patchOperations) = object;
     if (patchOperations != null) {
-      result
+      result$
         ..add('patchOperations')
         ..add(serializers.serialize(
           patchOperations,
@@ -227,6 +225,6 @@ class UpdateGatewayResponseRequestRestJson1Serializer extends _i1
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

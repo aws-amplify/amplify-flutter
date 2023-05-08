@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v2.query_protocol.model.xml_lists_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -354,11 +355,10 @@ class XmlListsOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlListsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlListsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'XmlListsOutputResponse',
         _i6.XmlNamespace('https://example.com/'),
@@ -379,9 +379,9 @@ class XmlListsOutputAwsQuerySerializer
       :flattenedListWithMemberNamespace,
       :flattenedListWithNamespace,
       :structureList
-    ) = payload;
+    ) = object;
     if (stringList != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('stringList'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -395,7 +395,7 @@ class XmlListsOutputAwsQuerySerializer
         ));
     }
     if (stringSet != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('stringSet'))
         ..add(const _i6.XmlBuiltSetSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -409,7 +409,7 @@ class XmlListsOutputAwsQuerySerializer
         ));
     }
     if (integerList != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('integerList'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -423,7 +423,7 @@ class XmlListsOutputAwsQuerySerializer
         ));
     }
     if (booleanList != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('booleanList'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -437,7 +437,7 @@ class XmlListsOutputAwsQuerySerializer
         ));
     }
     if (timestampList != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('timestampList'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -451,7 +451,7 @@ class XmlListsOutputAwsQuerySerializer
         ));
     }
     if (enumList != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('enumList'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -465,7 +465,7 @@ class XmlListsOutputAwsQuerySerializer
         ));
     }
     if (intEnumList != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('intEnumList'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -479,7 +479,7 @@ class XmlListsOutputAwsQuerySerializer
         ));
     }
     if (nestedStringList != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('nestedStringList'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
@@ -498,7 +498,7 @@ class XmlListsOutputAwsQuerySerializer
         ));
     }
     if (renamedListMembers != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('renamed'))
         ..add(const _i6.XmlBuiltListSerializer(
           memberName: 'item',
@@ -513,7 +513,7 @@ class XmlListsOutputAwsQuerySerializer
         ));
     }
     if (flattenedList != null) {
-      result.addAll(const _i6.XmlBuiltListSerializer(
+      result$.addAll(const _i6.XmlBuiltListSerializer(
         memberName: 'flattenedList',
         indexer: _i6.XmlIndexer.awsQueryList,
       ).serialize(
@@ -526,7 +526,7 @@ class XmlListsOutputAwsQuerySerializer
       ));
     }
     if (flattenedList2 != null) {
-      result.addAll(const _i6.XmlBuiltListSerializer(
+      result$.addAll(const _i6.XmlBuiltListSerializer(
         memberName: 'customName',
         indexer: _i6.XmlIndexer.awsQueryList,
       ).serialize(
@@ -539,7 +539,7 @@ class XmlListsOutputAwsQuerySerializer
       ));
     }
     if (flattenedListWithMemberNamespace != null) {
-      result.addAll(const _i6.XmlBuiltListSerializer(
+      result$.addAll(const _i6.XmlBuiltListSerializer(
         memberName: 'flattenedListWithMemberNamespace',
         memberNamespace: _i6.XmlNamespace('https://xml-member.example.com'),
         indexer: _i6.XmlIndexer.awsQueryList,
@@ -553,7 +553,7 @@ class XmlListsOutputAwsQuerySerializer
       ));
     }
     if (flattenedListWithNamespace != null) {
-      result.addAll(const _i6.XmlBuiltListSerializer(
+      result$.addAll(const _i6.XmlBuiltListSerializer(
         memberName: 'flattenedListWithNamespace',
         indexer: _i6.XmlIndexer.awsQueryList,
       ).serialize(
@@ -566,7 +566,7 @@ class XmlListsOutputAwsQuerySerializer
       ));
     }
     if (structureList != null) {
-      result
+      result$
         ..add(const _i6.XmlElementName('myStructureList'))
         ..add(const _i6.XmlBuiltListSerializer(
           memberName: 'item',
@@ -580,6 +580,6 @@ class XmlListsOutputAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

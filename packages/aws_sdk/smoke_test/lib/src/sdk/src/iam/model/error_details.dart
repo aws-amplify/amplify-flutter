@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.error_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -119,29 +120,28 @@ class ErrorDetailsAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ErrorDetails object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ErrorDetails);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'ErrorDetailsResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final ErrorDetails(:message, :code) = payload;
-    result
+    final ErrorDetails(:message, :code) = object;
+    result$
       ..add(const _i2.XmlElementName('Message'))
       ..add(serializers.serialize(
         message,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i2.XmlElementName('Code'))
       ..add(serializers.serialize(
         code,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

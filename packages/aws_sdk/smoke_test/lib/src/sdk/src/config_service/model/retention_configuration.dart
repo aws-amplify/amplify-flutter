@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.retention_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -120,22 +121,23 @@ class RetentionConfigurationAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RetentionConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RetentionConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final RetentionConfiguration(:name, :retentionPeriodInDays) = object;
+    result$.addAll([
       'Name',
       serializers.serialize(
-        payload.name,
+        name,
         specifiedType: const FullType(String),
       ),
       'RetentionPeriodInDays',
       serializers.serialize(
-        payload.retentionPeriodInDays,
+        retentionPeriodInDays,
         specifiedType: const FullType(int),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

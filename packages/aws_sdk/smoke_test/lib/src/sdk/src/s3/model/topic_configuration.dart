@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.topic_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -148,18 +149,17 @@ class TopicConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TopicConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TopicConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'TopicConfiguration',
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final TopicConfiguration(:events, :filter, :id, :topicArn) = payload;
-    result
+    final TopicConfiguration(:events, :filter, :id, :topicArn) = object;
+    result$
         .addAll(const _i5.XmlBuiltListSerializer(memberName: 'Event').serialize(
       serializers,
       events,
@@ -169,7 +169,7 @@ class TopicConfigurationRestXmlSerializer
       ),
     ));
     if (filter != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Filter'))
         ..add(serializers.serialize(
           filter,
@@ -177,19 +177,19 @@ class TopicConfigurationRestXmlSerializer
         ));
     }
     if (id != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Id'))
         ..add(serializers.serialize(
           id,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i5.XmlElementName('Topic'))
       ..add(serializers.serialize(
         topicArn,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.mutual_tls_authentication; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -135,18 +136,17 @@ class MutualTlsAuthenticationRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MutualTlsAuthentication object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MutualTlsAuthentication);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final MutualTlsAuthentication(
       :truststoreUri,
       :truststoreVersion,
       :truststoreWarnings
-    ) = payload;
+    ) = object;
     if (truststoreUri != null) {
-      result
+      result$
         ..add('truststoreUri')
         ..add(serializers.serialize(
           truststoreUri,
@@ -154,7 +154,7 @@ class MutualTlsAuthenticationRestJson1Serializer
         ));
     }
     if (truststoreVersion != null) {
-      result
+      result$
         ..add('truststoreVersion')
         ..add(serializers.serialize(
           truststoreVersion,
@@ -162,7 +162,7 @@ class MutualTlsAuthenticationRestJson1Serializer
         ));
     }
     if (truststoreWarnings != null) {
-      result
+      result$
         ..add('truststoreWarnings')
         ..add(serializers.serialize(
           truststoreWarnings,
@@ -172,6 +172,6 @@ class MutualTlsAuthenticationRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

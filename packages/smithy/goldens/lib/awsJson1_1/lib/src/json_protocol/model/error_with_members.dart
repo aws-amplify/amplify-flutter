@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.json_protocol.model.error_with_members; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -213,11 +214,10 @@ class ErrorWithMembersAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ErrorWithMembers object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ErrorWithMembers);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ErrorWithMembers(
       :code,
       :complexData,
@@ -226,9 +226,9 @@ class ErrorWithMembersAwsJson11Serializer
       :mapField,
       :message,
       :stringField
-    ) = payload;
+    ) = object;
     if (code != null) {
-      result
+      result$
         ..add('Code')
         ..add(serializers.serialize(
           code,
@@ -236,7 +236,7 @@ class ErrorWithMembersAwsJson11Serializer
         ));
     }
     if (complexData != null) {
-      result
+      result$
         ..add('ComplexData')
         ..add(serializers.serialize(
           complexData,
@@ -244,7 +244,7 @@ class ErrorWithMembersAwsJson11Serializer
         ));
     }
     if (integerField != null) {
-      result
+      result$
         ..add('IntegerField')
         ..add(serializers.serialize(
           integerField,
@@ -252,7 +252,7 @@ class ErrorWithMembersAwsJson11Serializer
         ));
     }
     if (listField != null) {
-      result
+      result$
         ..add('ListField')
         ..add(serializers.serialize(
           listField,
@@ -263,7 +263,7 @@ class ErrorWithMembersAwsJson11Serializer
         ));
     }
     if (mapField != null) {
-      result
+      result$
         ..add('MapField')
         ..add(serializers.serialize(
           mapField,
@@ -277,7 +277,7 @@ class ErrorWithMembersAwsJson11Serializer
         ));
     }
     if (message != null) {
-      result
+      result$
         ..add('Message')
         ..add(serializers.serialize(
           message,
@@ -285,13 +285,13 @@ class ErrorWithMembersAwsJson11Serializer
         ));
     }
     if (stringField != null) {
-      result
+      result$
         ..add('StringField')
         ..add(serializers.serialize(
           stringField,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

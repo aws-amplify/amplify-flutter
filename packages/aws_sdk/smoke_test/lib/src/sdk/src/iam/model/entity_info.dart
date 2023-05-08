@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.entity_info; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -168,49 +169,48 @@ class EntityInfoAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EntityInfo object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EntityInfo);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'EntityInfoResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final EntityInfo(:arn, :name, :type, :id, :path) = payload;
-    result
+    final EntityInfo(:arn, :name, :type, :id, :path) = object;
+    result$
       ..add(const _i3.XmlElementName('Arn'))
       ..add(serializers.serialize(
         arn,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('Name'))
       ..add(serializers.serialize(
         name,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('Type'))
       ..add(serializers.serialize(
         type,
         specifiedType: const FullType.nullable(_i2.PolicyOwnerEntityType),
       ));
-    result
+    result$
       ..add(const _i3.XmlElementName('Id'))
       ..add(serializers.serialize(
         id,
         specifiedType: const FullType(String),
       ));
     if (path != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.transaction_canceled_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -475,15 +476,13 @@ class TransactionCanceledExceptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TransactionCanceledException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TransactionCanceledException);
-    final result = <Object?>[];
-    final TransactionCanceledException(:message, :cancellationReasons) =
-        payload;
+    final result$ = <Object?>[];
+    final TransactionCanceledException(:message, :cancellationReasons) = object;
     if (message != null) {
-      result
+      result$
         ..add('Message')
         ..add(serializers.serialize(
           message,
@@ -491,7 +490,7 @@ class TransactionCanceledExceptionAwsJson10Serializer
         ));
     }
     if (cancellationReasons != null) {
-      result
+      result$
         ..add('CancellationReasons')
         ..add(serializers.serialize(
           cancellationReasons,
@@ -501,6 +500,6 @@ class TransactionCanceledExceptionAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

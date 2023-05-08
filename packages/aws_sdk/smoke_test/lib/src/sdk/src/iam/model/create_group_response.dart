@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.create_group_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -101,23 +102,22 @@ class CreateGroupResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateGroupResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateGroupResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'CreateGroupResponseResponse',
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final CreateGroupResponse(:group) = payload;
-    result
+    final CreateGroupResponse(:group) = object;
+    result$
       ..add(const _i3.XmlElementName('Group'))
       ..add(serializers.serialize(
         group,
         specifiedType: const FullType(_i2.Group),
       ));
-    return result;
+    return result$;
   }
 }

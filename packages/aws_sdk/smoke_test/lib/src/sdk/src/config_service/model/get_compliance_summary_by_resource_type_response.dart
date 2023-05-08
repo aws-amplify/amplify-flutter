@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_compliance_summary_by_resource_type_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,16 +117,15 @@ class GetComplianceSummaryByResourceTypeResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetComplianceSummaryByResourceTypeResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetComplianceSummaryByResourceTypeResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final GetComplianceSummaryByResourceTypeResponse(
       :complianceSummariesByResourceType
-    ) = payload;
+    ) = object;
     if (complianceSummariesByResourceType != null) {
-      result
+      result$
         ..add('ComplianceSummariesByResourceType')
         ..add(serializers.serialize(
           complianceSummariesByResourceType,
@@ -135,6 +135,6 @@ class GetComplianceSummaryByResourceTypeResponseAwsJson11Serializer extends _i4
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

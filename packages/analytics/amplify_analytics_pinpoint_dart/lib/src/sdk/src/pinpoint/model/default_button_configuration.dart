@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.default_button_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -181,31 +182,37 @@ class DefaultButtonConfigurationRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DefaultButtonConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DefaultButtonConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DefaultButtonConfiguration(
+      :backgroundColor,
+      :borderRadius,
+      :buttonAction,
+      :link,
+      :text,
+      :textColor
+    ) = object;
+    result$.addAll([
       'BorderRadius',
       serializers.serialize(
-        payload.borderRadius,
+        borderRadius,
         specifiedType: const FullType(int),
       ),
       'ButtonAction',
       serializers.serialize(
-        payload.buttonAction,
+        buttonAction,
         specifiedType: const FullType(_i2.ButtonAction),
       ),
       'Text',
       serializers.serialize(
-        payload.text,
+        text,
         specifiedType: const FullType(String),
       ),
-    ];
-    final DefaultButtonConfiguration(:backgroundColor, :link, :textColor) =
-        payload;
+    ]);
     if (backgroundColor != null) {
-      result
+      result$
         ..add('BackgroundColor')
         ..add(serializers.serialize(
           backgroundColor,
@@ -213,7 +220,7 @@ class DefaultButtonConfigurationRestJson1Serializer
         ));
     }
     if (link != null) {
-      result
+      result$
         ..add('Link')
         ..add(serializers.serialize(
           link,
@@ -221,13 +228,13 @@ class DefaultButtonConfigurationRestJson1Serializer
         ));
     }
     if (textColor != null) {
-      result
+      result$
         ..add('TextColor')
         ..add(serializers.serialize(
           textColor,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

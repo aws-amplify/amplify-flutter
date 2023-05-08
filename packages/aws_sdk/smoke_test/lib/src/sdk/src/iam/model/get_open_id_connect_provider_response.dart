@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_open_id_connect_provider_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -192,11 +193,10 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetOpenIdConnectProviderResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetOpenIdConnectProviderResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'GetOpenIdConnectProviderResponseResponse',
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -208,9 +208,9 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
       :thumbprintList,
       :createDate,
       :tags
-    ) = payload;
+    ) = object;
     if (url != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Url'))
         ..add(serializers.serialize(
           url,
@@ -218,7 +218,7 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
         ));
     }
     if (clientIdList != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ClientIDList'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -232,7 +232,7 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
         ));
     }
     if (thumbprintList != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ThumbprintList'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -246,7 +246,7 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
         ));
     }
     if (createDate != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
@@ -254,7 +254,7 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Tags'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -267,6 +267,6 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

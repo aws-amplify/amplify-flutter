@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.list_type_registrations_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -196,11 +197,10 @@ class ListTypeRegistrationsInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListTypeRegistrationsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListTypeRegistrationsInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ListTypeRegistrationsInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -213,9 +213,9 @@ class ListTypeRegistrationsInputAwsQuerySerializer
       :registrationStatusFilter,
       :maxResults,
       :nextToken
-    ) = payload;
+    ) = object;
     if (type != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
@@ -223,7 +223,7 @@ class ListTypeRegistrationsInputAwsQuerySerializer
         ));
     }
     if (typeName != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
@@ -231,7 +231,7 @@ class ListTypeRegistrationsInputAwsQuerySerializer
         ));
     }
     if (typeArn != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('TypeArn'))
         ..add(serializers.serialize(
           typeArn,
@@ -239,7 +239,7 @@ class ListTypeRegistrationsInputAwsQuerySerializer
         ));
     }
     if (registrationStatusFilter != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('RegistrationStatusFilter'))
         ..add(serializers.serialize(
           registrationStatusFilter,
@@ -247,7 +247,7 @@ class ListTypeRegistrationsInputAwsQuerySerializer
         ));
     }
     if (maxResults != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
           maxResults,
@@ -255,13 +255,13 @@ class ListTypeRegistrationsInputAwsQuerySerializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

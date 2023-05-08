@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.object_lock_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -93,25 +94,24 @@ class ObjectLockRuleRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ObjectLockRule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ObjectLockRule);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ObjectLockRule',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final ObjectLockRule(:defaultRetention) = payload;
+    final ObjectLockRule(:defaultRetention) = object;
     if (defaultRetention != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('DefaultRetention'))
         ..add(serializers.serialize(
           defaultRetention,
           specifiedType: const FullType(_i2.DefaultRetention),
         ));
     }
-    return result;
+    return result$;
   }
 }

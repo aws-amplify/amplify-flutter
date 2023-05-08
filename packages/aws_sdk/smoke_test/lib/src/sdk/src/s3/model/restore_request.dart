@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.restore_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -197,11 +198,10 @@ class RestoreRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RestoreRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RestoreRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'RestoreRequest',
         _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -215,9 +215,9 @@ class RestoreRequestRestXmlSerializer
       :selectParameters,
       :tier,
       :type
-    ) = payload;
+    ) = object;
     if (days != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Days'))
         ..add(serializers.serialize(
           days,
@@ -225,7 +225,7 @@ class RestoreRequestRestXmlSerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -233,7 +233,7 @@ class RestoreRequestRestXmlSerializer
         ));
     }
     if (glacierJobParameters != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('GlacierJobParameters'))
         ..add(serializers.serialize(
           glacierJobParameters,
@@ -241,7 +241,7 @@ class RestoreRequestRestXmlSerializer
         ));
     }
     if (outputLocation != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('OutputLocation'))
         ..add(serializers.serialize(
           outputLocation,
@@ -249,7 +249,7 @@ class RestoreRequestRestXmlSerializer
         ));
     }
     if (selectParameters != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('SelectParameters'))
         ..add(serializers.serialize(
           selectParameters,
@@ -257,7 +257,7 @@ class RestoreRequestRestXmlSerializer
         ));
     }
     if (tier != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Tier'))
         ..add(serializers.serialize(
           tier,
@@ -265,13 +265,13 @@ class RestoreRequestRestXmlSerializer
         ));
     }
     if (type != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
           specifiedType: const FullType.nullable(_i3.RestoreRequestType),
         ));
     }
-    return result;
+    return result$;
   }
 }

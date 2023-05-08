@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.payload_too_large_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -142,14 +143,13 @@ class PayloadTooLargeExceptionRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PayloadTooLargeException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PayloadTooLargeException);
-    final result = <Object?>[];
-    final PayloadTooLargeException(:message, :requestId) = payload;
+    final result$ = <Object?>[];
+    final PayloadTooLargeException(:message, :requestId) = object;
     if (message != null) {
-      result
+      result$
         ..add('Message')
         ..add(serializers.serialize(
           message,
@@ -157,13 +157,13 @@ class PayloadTooLargeExceptionRestJson1Serializer
         ));
     }
     if (requestId != null) {
-      result
+      result$
         ..add('RequestID')
         ..add(serializers.serialize(
           requestId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

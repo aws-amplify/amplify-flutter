@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.list_policies_granting_service_access_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -150,11 +151,10 @@ class ListPoliciesGrantingServiceAccessRequestAwsQuerySerializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListPoliciesGrantingServiceAccessRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListPoliciesGrantingServiceAccessRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ListPoliciesGrantingServiceAccessRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -164,22 +164,22 @@ class ListPoliciesGrantingServiceAccessRequestAwsQuerySerializer extends _i1
       :marker,
       :arn,
       :serviceNamespaces
-    ) = payload;
+    ) = object;
     if (marker != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('Arn'))
       ..add(serializers.serialize(
         arn,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('ServiceNamespaces'))
       ..add(
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
@@ -191,6 +191,6 @@ class ListPoliciesGrantingServiceAccessRequestAwsQuerySerializer extends _i1
           [FullType(String)],
         ),
       ));
-    return result;
+    return result$;
   }
 }

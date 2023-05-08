@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.create_vpc_link_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -166,28 +167,29 @@ class CreateVpcLinkRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateVpcLinkRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateVpcLinkRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final CreateVpcLinkRequest(:description, :name, :tags, :targetArns) =
+        object;
+    result$.addAll([
       'name',
       serializers.serialize(
-        payload.name,
+        name,
         specifiedType: const FullType(String),
       ),
       'targetArns',
       serializers.serialize(
-        payload.targetArns,
+        targetArns,
         specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
       ),
-    ];
-    final CreateVpcLinkRequest(:description, :tags) = payload;
+    ]);
     if (description != null) {
-      result
+      result$
         ..add('description')
         ..add(serializers.serialize(
           description,
@@ -195,7 +197,7 @@ class CreateVpcLinkRequestRestJson1Serializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add('tags')
         ..add(serializers.serialize(
           tags,
@@ -208,6 +210,6 @@ class CreateVpcLinkRequestRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

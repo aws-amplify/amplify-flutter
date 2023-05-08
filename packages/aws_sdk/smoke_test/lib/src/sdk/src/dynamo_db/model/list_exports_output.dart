@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.list_exports_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -124,14 +125,13 @@ class ListExportsOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListExportsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListExportsOutput);
-    final result = <Object?>[];
-    final ListExportsOutput(:exportSummaries, :nextToken) = payload;
+    final result$ = <Object?>[];
+    final ListExportsOutput(:exportSummaries, :nextToken) = object;
     if (exportSummaries != null) {
-      result
+      result$
         ..add('ExportSummaries')
         ..add(serializers.serialize(
           exportSummaries,
@@ -142,13 +142,13 @@ class ListExportsOutputAwsJson10Serializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.xml_int_enums_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -199,11 +200,10 @@ class XmlIntEnumsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlIntEnumsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlIntEnumsInputOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName('XmlIntEnumsInputOutput')
     ];
     final XmlIntEnumsInputOutput(
@@ -213,9 +213,9 @@ class XmlIntEnumsInputOutputRestXmlSerializer
       :intEnumList,
       :intEnumMap,
       :intEnumSet
-    ) = payload;
+    ) = object;
     if (intEnum1 != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('intEnum1'))
         ..add(serializers.serialize(
           intEnum1,
@@ -223,7 +223,7 @@ class XmlIntEnumsInputOutputRestXmlSerializer
         ));
     }
     if (intEnum2 != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('intEnum2'))
         ..add(serializers.serialize(
           intEnum2,
@@ -231,7 +231,7 @@ class XmlIntEnumsInputOutputRestXmlSerializer
         ));
     }
     if (intEnum3 != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('intEnum3'))
         ..add(serializers.serialize(
           intEnum3,
@@ -239,7 +239,7 @@ class XmlIntEnumsInputOutputRestXmlSerializer
         ));
     }
     if (intEnumList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('intEnumList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
@@ -251,7 +251,7 @@ class XmlIntEnumsInputOutputRestXmlSerializer
         ));
     }
     if (intEnumMap != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('intEnumMap'))
         ..add(const _i1.XmlBuiltMapSerializer().serialize(
           serializers,
@@ -266,7 +266,7 @@ class XmlIntEnumsInputOutputRestXmlSerializer
         ));
     }
     if (intEnumSet != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('intEnumSet'))
         ..add(const _i1.XmlBuiltSetSerializer().serialize(
           serializers,
@@ -277,6 +277,6 @@ class XmlIntEnumsInputOutputRestXmlSerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

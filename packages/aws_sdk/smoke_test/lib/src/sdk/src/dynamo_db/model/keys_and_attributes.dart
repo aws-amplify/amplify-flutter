@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.keys_and_attributes; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -220,14 +221,21 @@ class KeysAndAttributesAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    KeysAndAttributes object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as KeysAndAttributes);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final KeysAndAttributes(
+      :keys,
+      :attributesToGet,
+      :consistentRead,
+      :projectionExpression,
+      :expressionAttributeNames
+    ) = object;
+    result$.addAll([
       'Keys',
       serializers.serialize(
-        payload.keys,
+        keys,
         specifiedType: const FullType(
           _i3.BuiltList,
           [
@@ -241,15 +249,9 @@ class KeysAndAttributesAwsJson10Serializer
           ],
         ),
       ),
-    ];
-    final KeysAndAttributes(
-      :attributesToGet,
-      :consistentRead,
-      :projectionExpression,
-      :expressionAttributeNames
-    ) = payload;
+    ]);
     if (attributesToGet != null) {
-      result
+      result$
         ..add('AttributesToGet')
         ..add(serializers.serialize(
           attributesToGet,
@@ -260,7 +262,7 @@ class KeysAndAttributesAwsJson10Serializer
         ));
     }
     if (consistentRead != null) {
-      result
+      result$
         ..add('ConsistentRead')
         ..add(serializers.serialize(
           consistentRead,
@@ -268,7 +270,7 @@ class KeysAndAttributesAwsJson10Serializer
         ));
     }
     if (projectionExpression != null) {
-      result
+      result$
         ..add('ProjectionExpression')
         ..add(serializers.serialize(
           projectionExpression,
@@ -276,7 +278,7 @@ class KeysAndAttributesAwsJson10Serializer
         ));
     }
     if (expressionAttributeNames != null) {
-      result
+      result$
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
           expressionAttributeNames,
@@ -289,6 +291,6 @@ class KeysAndAttributesAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

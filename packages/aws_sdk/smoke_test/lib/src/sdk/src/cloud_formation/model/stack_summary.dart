@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.stack_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -256,11 +257,10 @@ class StackSummaryAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StackSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StackSummary);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'StackSummaryResponse',
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -278,37 +278,37 @@ class StackSummaryAwsQuerySerializer
       :parentId,
       :rootId,
       :driftInformation
-    ) = payload;
+    ) = object;
     if (stackId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('StackId'))
         ..add(serializers.serialize(
           stackId,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i4.XmlElementName('StackName'))
       ..add(serializers.serialize(
         stackName,
         specifiedType: const FullType(String),
       ));
     if (templateDescription != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('TemplateDescription'))
         ..add(serializers.serialize(
           templateDescription,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i4.XmlElementName('CreationTime'))
       ..add(serializers.serialize(
         creationTime,
         specifiedType: const FullType.nullable(DateTime),
       ));
     if (lastUpdatedTime != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('LastUpdatedTime'))
         ..add(serializers.serialize(
           lastUpdatedTime,
@@ -316,21 +316,21 @@ class StackSummaryAwsQuerySerializer
         ));
     }
     if (deletionTime != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('DeletionTime'))
         ..add(serializers.serialize(
           deletionTime,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    result
+    result$
       ..add(const _i4.XmlElementName('StackStatus'))
       ..add(serializers.serialize(
         stackStatus,
         specifiedType: const FullType.nullable(_i2.StackStatus),
       ));
     if (stackStatusReason != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('StackStatusReason'))
         ..add(serializers.serialize(
           stackStatusReason,
@@ -338,7 +338,7 @@ class StackSummaryAwsQuerySerializer
         ));
     }
     if (parentId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ParentId'))
         ..add(serializers.serialize(
           parentId,
@@ -346,7 +346,7 @@ class StackSummaryAwsQuerySerializer
         ));
     }
     if (rootId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('RootId'))
         ..add(serializers.serialize(
           rootId,
@@ -354,13 +354,13 @@ class StackSummaryAwsQuerySerializer
         ));
     }
     if (driftInformation != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('DriftInformation'))
         ..add(serializers.serialize(
           driftInformation,
           specifiedType: const FullType(_i3.StackDriftInformationSummary),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.method_setting; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -240,11 +241,10 @@ class MethodSettingRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MethodSetting object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MethodSetting);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final MethodSetting(
       :cacheDataEncrypted,
       :cacheTtlInSeconds,
@@ -256,9 +256,9 @@ class MethodSettingRestJson1Serializer
       :throttlingBurstLimit,
       :throttlingRateLimit,
       :unauthorizedCacheControlHeaderStrategy
-    ) = payload;
+    ) = object;
     if (cacheDataEncrypted != null) {
-      result
+      result$
         ..add('cacheDataEncrypted')
         ..add(serializers.serialize(
           cacheDataEncrypted,
@@ -266,7 +266,7 @@ class MethodSettingRestJson1Serializer
         ));
     }
     if (cacheTtlInSeconds != null) {
-      result
+      result$
         ..add('cacheTtlInSeconds')
         ..add(serializers.serialize(
           cacheTtlInSeconds,
@@ -274,7 +274,7 @@ class MethodSettingRestJson1Serializer
         ));
     }
     if (cachingEnabled != null) {
-      result
+      result$
         ..add('cachingEnabled')
         ..add(serializers.serialize(
           cachingEnabled,
@@ -282,7 +282,7 @@ class MethodSettingRestJson1Serializer
         ));
     }
     if (dataTraceEnabled != null) {
-      result
+      result$
         ..add('dataTraceEnabled')
         ..add(serializers.serialize(
           dataTraceEnabled,
@@ -290,7 +290,7 @@ class MethodSettingRestJson1Serializer
         ));
     }
     if (loggingLevel != null) {
-      result
+      result$
         ..add('loggingLevel')
         ..add(serializers.serialize(
           loggingLevel,
@@ -298,7 +298,7 @@ class MethodSettingRestJson1Serializer
         ));
     }
     if (metricsEnabled != null) {
-      result
+      result$
         ..add('metricsEnabled')
         ..add(serializers.serialize(
           metricsEnabled,
@@ -306,7 +306,7 @@ class MethodSettingRestJson1Serializer
         ));
     }
     if (requireAuthorizationForCacheControl != null) {
-      result
+      result$
         ..add('requireAuthorizationForCacheControl')
         ..add(serializers.serialize(
           requireAuthorizationForCacheControl,
@@ -314,7 +314,7 @@ class MethodSettingRestJson1Serializer
         ));
     }
     if (throttlingBurstLimit != null) {
-      result
+      result$
         ..add('throttlingBurstLimit')
         ..add(serializers.serialize(
           throttlingBurstLimit,
@@ -322,7 +322,7 @@ class MethodSettingRestJson1Serializer
         ));
     }
     if (throttlingRateLimit != null) {
-      result
+      result$
         ..add('throttlingRateLimit')
         ..add(serializers.serialize(
           throttlingRateLimit,
@@ -330,7 +330,7 @@ class MethodSettingRestJson1Serializer
         ));
     }
     if (unauthorizedCacheControlHeaderStrategy != null) {
-      result
+      result$
         ..add('unauthorizedCacheControlHeaderStrategy')
         ..add(serializers.serialize(
           unauthorizedCacheControlHeaderStrategy,
@@ -338,6 +338,6 @@ class MethodSettingRestJson1Serializer
               const FullType(_i2.UnauthorizedCacheControlHeaderStrategy),
         ));
     }
-    return result;
+    return result$;
   }
 }

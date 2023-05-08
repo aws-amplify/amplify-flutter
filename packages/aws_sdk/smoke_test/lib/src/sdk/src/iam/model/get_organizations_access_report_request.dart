@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.get_organizations_access_report_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -159,11 +160,10 @@ class GetOrganizationsAccessReportRequestAwsQuerySerializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetOrganizationsAccessReportRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetOrganizationsAccessReportRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'GetOrganizationsAccessReportRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -174,15 +174,15 @@ class GetOrganizationsAccessReportRequestAwsQuerySerializer extends _i1
       :maxItems,
       :marker,
       :sortKey
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('JobId'))
       ..add(serializers.serialize(
         jobId,
         specifiedType: const FullType(String),
       ));
     if (maxItems != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
           maxItems,
@@ -190,7 +190,7 @@ class GetOrganizationsAccessReportRequestAwsQuerySerializer extends _i1
         ));
     }
     if (marker != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
@@ -198,13 +198,13 @@ class GetOrganizationsAccessReportRequestAwsQuerySerializer extends _i1
         ));
     }
     if (sortKey != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('SortKey'))
         ..add(serializers.serialize(
           sortKey,
           specifiedType: const FullType.nullable(_i3.SortKeyType),
         ));
     }
-    return result;
+    return result$;
   }
 }

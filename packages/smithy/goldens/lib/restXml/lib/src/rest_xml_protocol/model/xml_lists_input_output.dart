@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.xml_lists_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -368,11 +369,10 @@ class XmlListsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlListsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlListsInputOutput);
-    final result = <Object?>[const _i1.XmlElementName('XmlListsInputOutput')];
+    final result$ = <Object?>[const _i1.XmlElementName('XmlListsInputOutput')];
     final XmlListsInputOutput(
       :booleanList,
       :enumList,
@@ -389,9 +389,9 @@ class XmlListsInputOutputRestXmlSerializer
       :stringSet,
       :structureList,
       :timestampList
-    ) = payload;
+    ) = object;
     if (booleanList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('booleanList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
@@ -403,7 +403,7 @@ class XmlListsInputOutputRestXmlSerializer
         ));
     }
     if (enumList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('enumList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
@@ -415,7 +415,7 @@ class XmlListsInputOutputRestXmlSerializer
         ));
     }
     if (flattenedList != null) {
-      result.addAll(
+      result$.addAll(
           const _i1.XmlBuiltListSerializer(memberName: 'flattenedList')
               .serialize(
         serializers,
@@ -427,7 +427,7 @@ class XmlListsInputOutputRestXmlSerializer
       ));
     }
     if (flattenedList2 != null) {
-      result.addAll(
+      result$.addAll(
           const _i1.XmlBuiltListSerializer(memberName: 'customName').serialize(
         serializers,
         flattenedList2,
@@ -438,7 +438,7 @@ class XmlListsInputOutputRestXmlSerializer
       ));
     }
     if (flattenedListWithMemberNamespace != null) {
-      result.addAll(const _i1.XmlBuiltListSerializer(
+      result$.addAll(const _i1.XmlBuiltListSerializer(
         memberName: 'flattenedListWithMemberNamespace',
         memberNamespace: _i1.XmlNamespace('https://xml-member.example.com'),
       ).serialize(
@@ -451,7 +451,7 @@ class XmlListsInputOutputRestXmlSerializer
       ));
     }
     if (flattenedListWithNamespace != null) {
-      result.addAll(const _i1.XmlBuiltListSerializer(
+      result$.addAll(const _i1.XmlBuiltListSerializer(
               memberName: 'flattenedListWithNamespace')
           .serialize(
         serializers,
@@ -463,7 +463,7 @@ class XmlListsInputOutputRestXmlSerializer
       ));
     }
     if (flattenedStructureList != null) {
-      result.addAll(
+      result$.addAll(
           const _i1.XmlBuiltListSerializer(memberName: 'flattenedStructureList')
               .serialize(
         serializers,
@@ -475,7 +475,7 @@ class XmlListsInputOutputRestXmlSerializer
       ));
     }
     if (intEnumList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('intEnumList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
@@ -487,7 +487,7 @@ class XmlListsInputOutputRestXmlSerializer
         ));
     }
     if (integerList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('integerList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
@@ -499,7 +499,7 @@ class XmlListsInputOutputRestXmlSerializer
         ));
     }
     if (nestedStringList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('nestedStringList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
@@ -516,7 +516,7 @@ class XmlListsInputOutputRestXmlSerializer
         ));
     }
     if (renamedListMembers != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('renamed'))
         ..add(const _i1.XmlBuiltListSerializer(memberName: 'item').serialize(
           serializers,
@@ -528,7 +528,7 @@ class XmlListsInputOutputRestXmlSerializer
         ));
     }
     if (stringList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('stringList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
@@ -540,7 +540,7 @@ class XmlListsInputOutputRestXmlSerializer
         ));
     }
     if (stringSet != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('stringSet'))
         ..add(const _i1.XmlBuiltSetSerializer().serialize(
           serializers,
@@ -552,7 +552,7 @@ class XmlListsInputOutputRestXmlSerializer
         ));
     }
     if (structureList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('myStructureList'))
         ..add(const _i1.XmlBuiltListSerializer(memberName: 'item').serialize(
           serializers,
@@ -564,7 +564,7 @@ class XmlListsInputOutputRestXmlSerializer
         ));
     }
     if (timestampList != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('timestampList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
@@ -575,6 +575,6 @@ class XmlListsInputOutputRestXmlSerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.change_set_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -267,11 +268,10 @@ class ChangeSetSummaryAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ChangeSetSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ChangeSetSummary);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ChangeSetSummaryResponse',
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -290,9 +290,9 @@ class ChangeSetSummaryAwsQuerySerializer
       :includeNestedStacks,
       :parentChangeSetId,
       :rootChangeSetId
-    ) = payload;
+    ) = object;
     if (stackId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('StackId'))
         ..add(serializers.serialize(
           stackId,
@@ -300,7 +300,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ));
     }
     if (stackName != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('StackName'))
         ..add(serializers.serialize(
           stackName,
@@ -308,7 +308,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ));
     }
     if (changeSetId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ChangeSetId'))
         ..add(serializers.serialize(
           changeSetId,
@@ -316,7 +316,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ));
     }
     if (changeSetName != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ChangeSetName'))
         ..add(serializers.serialize(
           changeSetName,
@@ -324,7 +324,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ));
     }
     if (executionStatus != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ExecutionStatus'))
         ..add(serializers.serialize(
           executionStatus,
@@ -332,7 +332,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ));
     }
     if (status != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
@@ -340,7 +340,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ));
     }
     if (statusReason != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
           statusReason,
@@ -348,7 +348,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ));
     }
     if (creationTime != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('CreationTime'))
         ..add(serializers.serialize(
           creationTime,
@@ -356,7 +356,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -364,7 +364,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ));
     }
     if (includeNestedStacks != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('IncludeNestedStacks'))
         ..add(serializers.serialize(
           includeNestedStacks,
@@ -372,7 +372,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ));
     }
     if (parentChangeSetId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ParentChangeSetId'))
         ..add(serializers.serialize(
           parentChangeSetId,
@@ -380,13 +380,13 @@ class ChangeSetSummaryAwsQuerySerializer
         ));
     }
     if (rootChangeSetId != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('RootChangeSetId'))
         ..add(serializers.serialize(
           rootChangeSetId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

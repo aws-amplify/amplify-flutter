@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.batch_get_item_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -194,15 +195,14 @@ class BatchGetItemOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BatchGetItemOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BatchGetItemOutput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final BatchGetItemOutput(:responses, :unprocessedKeys, :consumedCapacity) =
-        payload;
+        object;
     if (responses != null) {
-      result
+      result$
         ..add('Responses')
         ..add(serializers.serialize(
           responses,
@@ -222,7 +222,7 @@ class BatchGetItemOutputAwsJson10Serializer
         ));
     }
     if (unprocessedKeys != null) {
-      result
+      result$
         ..add('UnprocessedKeys')
         ..add(serializers.serialize(
           unprocessedKeys,
@@ -236,7 +236,7 @@ class BatchGetItemOutputAwsJson10Serializer
         ));
     }
     if (consumedCapacity != null) {
-      result
+      result$
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
           consumedCapacity,
@@ -246,6 +246,6 @@ class BatchGetItemOutputAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

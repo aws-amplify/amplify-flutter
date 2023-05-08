@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.list_exports_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -126,19 +127,18 @@ class ListExportsOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListExportsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListExportsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ListExportsOutputResponse',
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final ListExportsOutput(:exports, :nextToken) = payload;
+    final ListExportsOutput(:exports, :nextToken) = object;
     if (exports != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('Exports'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
@@ -152,13 +152,13 @@ class ListExportsOutputAwsQuerySerializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

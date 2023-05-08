@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.events_batch; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -124,19 +125,20 @@ class EventsBatchRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EventsBatch object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EventsBatch);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final EventsBatch(:endpoint, :events) = object;
+    result$.addAll([
       'Endpoint',
       serializers.serialize(
-        payload.endpoint,
+        endpoint,
         specifiedType: const FullType(_i2.PublicEndpoint),
       ),
       'Events',
       serializers.serialize(
-        payload.events,
+        events,
         specifiedType: const FullType(
           _i4.BuiltMap,
           [
@@ -145,7 +147,7 @@ class EventsBatchRestJson1Serializer
           ],
         ),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

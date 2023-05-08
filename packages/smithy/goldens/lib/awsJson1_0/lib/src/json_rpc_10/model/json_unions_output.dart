@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_0_v1.json_rpc_10.model.json_unions_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -97,20 +98,19 @@ class JsonUnionsOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    JsonUnionsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as JsonUnionsOutput);
-    final result = <Object?>[];
-    final JsonUnionsOutput(:contents) = payload;
+    final result$ = <Object?>[];
+    final JsonUnionsOutput(:contents) = object;
     if (contents != null) {
-      result
+      result$
         ..add('contents')
         ..add(serializers.serialize(
           contents,
           specifiedType: const FullType(_i2.MyUnion),
         ));
     }
-    return result;
+    return result$;
   }
 }

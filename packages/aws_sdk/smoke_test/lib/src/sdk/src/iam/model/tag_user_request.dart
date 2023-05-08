@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.tag_user_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -129,24 +130,23 @@ class TagUserRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TagUserRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TagUserRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'TagUserRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final TagUserRequest(:userName, :tags) = payload;
-    result
+    final TagUserRequest(:userName, :tags) = object;
+    result$
       ..add(const _i1.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('Tags'))
       ..add(
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
@@ -158,6 +158,6 @@ class TagUserRequestAwsQuerySerializer
           [FullType(_i3.Tag)],
         ),
       ));
-    return result;
+    return result$;
   }
 }

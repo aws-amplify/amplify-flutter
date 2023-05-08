@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.validate_template_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -193,11 +194,10 @@ class ValidateTemplateOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ValidateTemplateOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ValidateTemplateOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'ValidateTemplateOutputResponse',
         _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -209,9 +209,9 @@ class ValidateTemplateOutputAwsQuerySerializer
       :capabilities,
       :capabilitiesReason,
       :declaredTransforms
-    ) = payload;
+    ) = object;
     if (parameters != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Parameters'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
@@ -225,7 +225,7 @@ class ValidateTemplateOutputAwsQuerySerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -233,7 +233,7 @@ class ValidateTemplateOutputAwsQuerySerializer
         ));
     }
     if (capabilities != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Capabilities'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
@@ -247,7 +247,7 @@ class ValidateTemplateOutputAwsQuerySerializer
         ));
     }
     if (capabilitiesReason != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('CapabilitiesReason'))
         ..add(serializers.serialize(
           capabilitiesReason,
@@ -255,7 +255,7 @@ class ValidateTemplateOutputAwsQuerySerializer
         ));
     }
     if (declaredTransforms != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('DeclaredTransforms'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
@@ -268,6 +268,6 @@ class ValidateTemplateOutputAwsQuerySerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

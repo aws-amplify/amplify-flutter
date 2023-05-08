@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.compliance_contributor_count; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,14 +117,13 @@ class ComplianceContributorCountAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ComplianceContributorCount object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ComplianceContributorCount);
-    final result = <Object?>[];
-    final ComplianceContributorCount(:cappedCount, :capExceeded) = payload;
+    final result$ = <Object?>[];
+    final ComplianceContributorCount(:cappedCount, :capExceeded) = object;
     if (cappedCount != null) {
-      result
+      result$
         ..add('CappedCount')
         ..add(serializers.serialize(
           cappedCount,
@@ -131,13 +131,13 @@ class ComplianceContributorCountAwsJson11Serializer
         ));
     }
     if (capExceeded != null) {
-      result
+      result$
         ..add('CapExceeded')
         ..add(serializers.serialize(
           capExceeded,
           specifiedType: const FullType(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

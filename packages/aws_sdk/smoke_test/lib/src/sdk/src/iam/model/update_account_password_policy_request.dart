@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.update_account_password_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -253,11 +254,10 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateAccountPasswordPolicyRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateAccountPasswordPolicyRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'UpdateAccountPasswordPolicyRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
@@ -273,9 +273,9 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
       :maxPasswordAge,
       :passwordReusePrevention,
       :hardExpiry
-    ) = payload;
+    ) = object;
     if (minimumPasswordLength != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MinimumPasswordLength'))
         ..add(serializers.serialize(
           minimumPasswordLength,
@@ -283,7 +283,7 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
         ));
     }
     if (requireSymbols != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('RequireSymbols'))
         ..add(serializers.serialize(
           requireSymbols,
@@ -291,7 +291,7 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
         ));
     }
     if (requireNumbers != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('RequireNumbers'))
         ..add(serializers.serialize(
           requireNumbers,
@@ -299,7 +299,7 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
         ));
     }
     if (requireUppercaseCharacters != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('RequireUppercaseCharacters'))
         ..add(serializers.serialize(
           requireUppercaseCharacters,
@@ -307,7 +307,7 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
         ));
     }
     if (requireLowercaseCharacters != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('RequireLowercaseCharacters'))
         ..add(serializers.serialize(
           requireLowercaseCharacters,
@@ -315,7 +315,7 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
         ));
     }
     if (allowUsersToChangePassword != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('AllowUsersToChangePassword'))
         ..add(serializers.serialize(
           allowUsersToChangePassword,
@@ -323,7 +323,7 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
         ));
     }
     if (maxPasswordAge != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MaxPasswordAge'))
         ..add(serializers.serialize(
           maxPasswordAge,
@@ -331,7 +331,7 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
         ));
     }
     if (passwordReusePrevention != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('PasswordReusePrevention'))
         ..add(serializers.serialize(
           passwordReusePrevention,
@@ -339,13 +339,13 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
         ));
     }
     if (hardExpiry != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('HardExpiry'))
         ..add(serializers.serialize(
           hardExpiry,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

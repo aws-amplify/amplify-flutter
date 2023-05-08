@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.test_invoke_method_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -369,13 +370,10 @@ class TestInvokeMethodRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TestInvokeMethodRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is TestInvokeMethodRequest
-        ? object.getPayload()
-        : (object as TestInvokeMethodRequestPayload);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final TestInvokeMethodRequestPayload(
       :body,
       :clientCertificateId,
@@ -383,9 +381,9 @@ class TestInvokeMethodRequestRestJson1Serializer
       :multiValueHeaders,
       :pathWithQueryString,
       :stageVariables
-    ) = payload;
+    ) = object;
     if (body != null) {
-      result
+      result$
         ..add('body')
         ..add(serializers.serialize(
           body,
@@ -393,7 +391,7 @@ class TestInvokeMethodRequestRestJson1Serializer
         ));
     }
     if (clientCertificateId != null) {
-      result
+      result$
         ..add('clientCertificateId')
         ..add(serializers.serialize(
           clientCertificateId,
@@ -401,7 +399,7 @@ class TestInvokeMethodRequestRestJson1Serializer
         ));
     }
     if (headers != null) {
-      result
+      result$
         ..add('headers')
         ..add(serializers.serialize(
           headers,
@@ -415,7 +413,7 @@ class TestInvokeMethodRequestRestJson1Serializer
         ));
     }
     if (multiValueHeaders != null) {
-      result
+      result$
         ..add('multiValueHeaders')
         ..add(serializers.serialize(
           multiValueHeaders,
@@ -429,7 +427,7 @@ class TestInvokeMethodRequestRestJson1Serializer
         ));
     }
     if (pathWithQueryString != null) {
-      result
+      result$
         ..add('pathWithQueryString')
         ..add(serializers.serialize(
           pathWithQueryString,
@@ -437,7 +435,7 @@ class TestInvokeMethodRequestRestJson1Serializer
         ));
     }
     if (stageVariables != null) {
-      result
+      result$
         ..add('stageVariables')
         ..add(serializers.serialize(
           stageVariables,
@@ -450,6 +448,6 @@ class TestInvokeMethodRequestRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.continuous_backups_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -123,27 +124,29 @@ class ContinuousBackupsDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ContinuousBackupsDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ContinuousBackupsDescription);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ContinuousBackupsDescription(
+      :continuousBackupsStatus,
+      :pointInTimeRecoveryDescription
+    ) = object;
+    result$.addAll([
       'ContinuousBackupsStatus',
       serializers.serialize(
-        payload.continuousBackupsStatus,
+        continuousBackupsStatus,
         specifiedType: const FullType(_i2.ContinuousBackupsStatus),
       ),
-    ];
-    final ContinuousBackupsDescription(:pointInTimeRecoveryDescription) =
-        payload;
+    ]);
     if (pointInTimeRecoveryDescription != null) {
-      result
+      result$
         ..add('PointInTimeRecoveryDescription')
         ..add(serializers.serialize(
           pointInTimeRecoveryDescription,
           specifiedType: const FullType(_i3.PointInTimeRecoveryDescription),
         ));
     }
-    return result;
+    return result$;
   }
 }

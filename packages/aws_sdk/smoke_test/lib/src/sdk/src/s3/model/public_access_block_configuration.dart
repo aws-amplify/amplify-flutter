@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.public_access_block_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -164,11 +165,10 @@ class PublicAccessBlockConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PublicAccessBlockConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PublicAccessBlockConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'PublicAccessBlockConfiguration',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -179,9 +179,9 @@ class PublicAccessBlockConfigurationRestXmlSerializer
       :blockPublicPolicy,
       :ignorePublicAcls,
       :restrictPublicBuckets
-    ) = payload;
+    ) = object;
     if (blockPublicAcls != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('BlockPublicAcls'))
         ..add(serializers.serialize(
           blockPublicAcls,
@@ -189,7 +189,7 @@ class PublicAccessBlockConfigurationRestXmlSerializer
         ));
     }
     if (blockPublicPolicy != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('BlockPublicPolicy'))
         ..add(serializers.serialize(
           blockPublicPolicy,
@@ -197,7 +197,7 @@ class PublicAccessBlockConfigurationRestXmlSerializer
         ));
     }
     if (ignorePublicAcls != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('IgnorePublicAcls'))
         ..add(serializers.serialize(
           ignorePublicAcls,
@@ -205,13 +205,13 @@ class PublicAccessBlockConfigurationRestXmlSerializer
         ));
     }
     if (restrictPublicBuckets != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('RestrictPublicBuckets'))
         ..add(serializers.serialize(
           restrictPublicBuckets,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

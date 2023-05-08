@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.conformance_pack_status_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -220,48 +221,54 @@ class ConformancePackStatusDetailAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConformancePackStatusDetail object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConformancePackStatusDetail);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ConformancePackStatusDetail(
+      :conformancePackName,
+      :conformancePackId,
+      :conformancePackArn,
+      :conformancePackState,
+      :stackArn,
+      :conformancePackStatusReason,
+      :lastUpdateRequestedTime,
+      :lastUpdateCompletedTime
+    ) = object;
+    result$.addAll([
       'ConformancePackName',
       serializers.serialize(
-        payload.conformancePackName,
+        conformancePackName,
         specifiedType: const FullType(String),
       ),
       'ConformancePackId',
       serializers.serialize(
-        payload.conformancePackId,
+        conformancePackId,
         specifiedType: const FullType(String),
       ),
       'ConformancePackArn',
       serializers.serialize(
-        payload.conformancePackArn,
+        conformancePackArn,
         specifiedType: const FullType(String),
       ),
       'ConformancePackState',
       serializers.serialize(
-        payload.conformancePackState,
+        conformancePackState,
         specifiedType: const FullType(_i2.ConformancePackState),
       ),
       'StackArn',
       serializers.serialize(
-        payload.stackArn,
+        stackArn,
         specifiedType: const FullType(String),
       ),
       'LastUpdateRequestedTime',
       serializers.serialize(
-        payload.lastUpdateRequestedTime,
+        lastUpdateRequestedTime,
         specifiedType: const FullType(DateTime),
       ),
-    ];
-    final ConformancePackStatusDetail(
-      :conformancePackStatusReason,
-      :lastUpdateCompletedTime
-    ) = payload;
+    ]);
     if (conformancePackStatusReason != null) {
-      result
+      result$
         ..add('ConformancePackStatusReason')
         ..add(serializers.serialize(
           conformancePackStatusReason,
@@ -269,13 +276,13 @@ class ConformancePackStatusDetailAwsJson11Serializer
         ));
     }
     if (lastUpdateCompletedTime != null) {
-      result
+      result$
         ..add('LastUpdateCompletedTime')
         ..add(serializers.serialize(
           lastUpdateCompletedTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

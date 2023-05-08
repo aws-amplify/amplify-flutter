@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v2.query_protocol.model.scoped_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -186,11 +187,10 @@ class ScopedConfigAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ScopedConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ScopedConfig);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'ScopedConfigResponse',
         _i7.XmlNamespace('https://example.com/'),
@@ -202,9 +202,9 @@ class ScopedConfigAwsQuerySerializer
       :credentialsFile,
       :client,
       :operation
-    ) = payload;
+    ) = object;
     if (environment != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('environment'))
         ..add(serializers.serialize(
           environment,
@@ -212,7 +212,7 @@ class ScopedConfigAwsQuerySerializer
         ));
     }
     if (configFile != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('configFile'))
         ..add(
             const _i7.XmlBuiltMapSerializer(indexer: _i7.XmlIndexer.awsQueryMap)
@@ -229,7 +229,7 @@ class ScopedConfigAwsQuerySerializer
         ));
     }
     if (credentialsFile != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('credentialsFile'))
         ..add(
             const _i7.XmlBuiltMapSerializer(indexer: _i7.XmlIndexer.awsQueryMap)
@@ -246,7 +246,7 @@ class ScopedConfigAwsQuerySerializer
         ));
     }
     if (client != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('client'))
         ..add(serializers.serialize(
           client,
@@ -254,13 +254,13 @@ class ScopedConfigAwsQuerySerializer
         ));
     }
     if (operation != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('operation'))
         ..add(serializers.serialize(
           operation,
           specifiedType: const FullType(_i5.OperationConfig),
         ));
     }
-    return result;
+    return result$;
   }
 }

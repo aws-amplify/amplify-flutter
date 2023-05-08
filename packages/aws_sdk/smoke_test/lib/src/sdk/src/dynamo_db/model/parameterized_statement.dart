@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.parameterized_statement; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -121,20 +122,20 @@ class ParameterizedStatementAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ParameterizedStatement object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ParameterizedStatement);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ParameterizedStatement(:statement, :parameters) = object;
+    result$.addAll([
       'Statement',
       serializers.serialize(
-        payload.statement,
+        statement,
         specifiedType: const FullType(String),
       ),
-    ];
-    final ParameterizedStatement(:parameters) = payload;
+    ]);
     if (parameters != null) {
-      result
+      result$
         ..add('Parameters')
         ..add(serializers.serialize(
           parameters,
@@ -144,6 +145,6 @@ class ParameterizedStatementAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

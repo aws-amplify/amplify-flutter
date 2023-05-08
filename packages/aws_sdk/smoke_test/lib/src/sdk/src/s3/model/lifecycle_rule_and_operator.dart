@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.lifecycle_rule_and_operator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -149,11 +150,10 @@ class LifecycleRuleAndOperatorRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    LifecycleRuleAndOperator object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as LifecycleRuleAndOperator);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'LifecycleRuleAndOperator',
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -164,9 +164,9 @@ class LifecycleRuleAndOperatorRestXmlSerializer
       :objectSizeLessThan,
       :prefix,
       :tags
-    ) = payload;
+    ) = object;
     if (objectSizeGreaterThan != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('ObjectSizeGreaterThan'))
         ..add(serializers.serialize(
           objectSizeGreaterThan,
@@ -174,7 +174,7 @@ class LifecycleRuleAndOperatorRestXmlSerializer
         ));
     }
     if (objectSizeLessThan != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('ObjectSizeLessThan'))
         ..add(serializers.serialize(
           objectSizeLessThan,
@@ -182,7 +182,7 @@ class LifecycleRuleAndOperatorRestXmlSerializer
         ));
     }
     if (prefix != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
@@ -190,7 +190,7 @@ class LifecycleRuleAndOperatorRestXmlSerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
           .addAll(const _i5.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tags,
@@ -200,6 +200,6 @@ class LifecycleRuleAndOperatorRestXmlSerializer
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

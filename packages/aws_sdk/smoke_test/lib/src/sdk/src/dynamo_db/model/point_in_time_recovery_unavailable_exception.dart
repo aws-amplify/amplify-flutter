@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.point_in_time_recovery_unavailable_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -123,20 +124,19 @@ class PointInTimeRecoveryUnavailableExceptionAwsJson10Serializer extends _i2
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PointInTimeRecoveryUnavailableException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PointInTimeRecoveryUnavailableException);
-    final result = <Object?>[];
-    final PointInTimeRecoveryUnavailableException(:message) = payload;
+    final result$ = <Object?>[];
+    final PointInTimeRecoveryUnavailableException(:message) = object;
     if (message != null) {
-      result
+      result$
         ..add('message')
         ..add(serializers.serialize(
           message,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

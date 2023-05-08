@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.stream_record; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -220,11 +221,10 @@ class StreamRecordAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StreamRecord object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StreamRecord);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final StreamRecord(
       :approximateCreationDateTime,
       :keys,
@@ -233,9 +233,9 @@ class StreamRecordAwsJson10Serializer
       :sequenceNumber,
       :sizeBytes,
       :streamViewType
-    ) = payload;
+    ) = object;
     if (approximateCreationDateTime != null) {
-      result
+      result$
         ..add('ApproximateCreationDateTime')
         ..add(serializers.serialize(
           approximateCreationDateTime,
@@ -243,7 +243,7 @@ class StreamRecordAwsJson10Serializer
         ));
     }
     if (keys != null) {
-      result
+      result$
         ..add('Keys')
         ..add(serializers.serialize(
           keys,
@@ -257,7 +257,7 @@ class StreamRecordAwsJson10Serializer
         ));
     }
     if (newImage != null) {
-      result
+      result$
         ..add('NewImage')
         ..add(serializers.serialize(
           newImage,
@@ -271,7 +271,7 @@ class StreamRecordAwsJson10Serializer
         ));
     }
     if (oldImage != null) {
-      result
+      result$
         ..add('OldImage')
         ..add(serializers.serialize(
           oldImage,
@@ -285,7 +285,7 @@ class StreamRecordAwsJson10Serializer
         ));
     }
     if (sequenceNumber != null) {
-      result
+      result$
         ..add('SequenceNumber')
         ..add(serializers.serialize(
           sequenceNumber,
@@ -293,7 +293,7 @@ class StreamRecordAwsJson10Serializer
         ));
     }
     if (sizeBytes != null) {
-      result
+      result$
         ..add('SizeBytes')
         ..add(serializers.serialize(
           sizeBytes,
@@ -301,13 +301,13 @@ class StreamRecordAwsJson10Serializer
         ));
     }
     if (streamViewType != null) {
-      result
+      result$
         ..add('StreamViewType')
         ..add(serializers.serialize(
           streamViewType,
           specifiedType: const FullType(_i4.StreamViewType),
         ));
     }
-    return result;
+    return result$;
   }
 }

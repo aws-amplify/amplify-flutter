@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.batch_get_resource_config_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -138,17 +139,16 @@ class BatchGetResourceConfigResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BatchGetResourceConfigResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BatchGetResourceConfigResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final BatchGetResourceConfigResponse(
       :baseConfigurationItems,
       :unprocessedResourceKeys
-    ) = payload;
+    ) = object;
     if (baseConfigurationItems != null) {
-      result
+      result$
         ..add('baseConfigurationItems')
         ..add(serializers.serialize(
           baseConfigurationItems,
@@ -159,7 +159,7 @@ class BatchGetResourceConfigResponseAwsJson11Serializer
         ));
     }
     if (unprocessedResourceKeys != null) {
-      result
+      result$
         ..add('unprocessedResourceKeys')
         ..add(serializers.serialize(
           unprocessedResourceKeys,
@@ -169,6 +169,6 @@ class BatchGetResourceConfigResponseAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.get; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -158,14 +159,20 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Get object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Get);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final Get(
+      :key,
+      :tableName,
+      :projectionExpression,
+      :expressionAttributeNames
+    ) = object;
+    result$.addAll([
       'Key',
       serializers.serialize(
-        payload.key,
+        key,
         specifiedType: const FullType(
           _i3.BuiltMap,
           [
@@ -176,13 +183,12 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
       ),
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
-    ];
-    final Get(:projectionExpression, :expressionAttributeNames) = payload;
+    ]);
     if (projectionExpression != null) {
-      result
+      result$
         ..add('ProjectionExpression')
         ..add(serializers.serialize(
           projectionExpression,
@@ -190,7 +196,7 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
         ));
     }
     if (expressionAttributeNames != null) {
-      result
+      result$
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
           expressionAttributeNames,
@@ -203,6 +209,6 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

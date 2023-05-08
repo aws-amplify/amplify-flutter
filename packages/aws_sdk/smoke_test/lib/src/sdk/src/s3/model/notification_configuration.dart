@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.notification_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -169,11 +170,10 @@ class NotificationConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    NotificationConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as NotificationConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'NotificationConfiguration',
         _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -184,9 +184,9 @@ class NotificationConfigurationRestXmlSerializer
       :lambdaFunctionConfigurations,
       :queueConfigurations,
       :topicConfigurations
-    ) = payload;
+    ) = object;
     if (eventBridgeConfiguration != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('EventBridgeConfiguration'))
         ..add(serializers.serialize(
           eventBridgeConfiguration,
@@ -194,7 +194,7 @@ class NotificationConfigurationRestXmlSerializer
         ));
     }
     if (lambdaFunctionConfigurations != null) {
-      result.addAll(const _i7.XmlBuiltListSerializer(
+      result$.addAll(const _i7.XmlBuiltListSerializer(
               memberName: 'CloudFunctionConfiguration')
           .serialize(
         serializers,
@@ -206,7 +206,7 @@ class NotificationConfigurationRestXmlSerializer
       ));
     }
     if (queueConfigurations != null) {
-      result.addAll(
+      result$.addAll(
           const _i7.XmlBuiltListSerializer(memberName: 'QueueConfiguration')
               .serialize(
         serializers,
@@ -218,7 +218,7 @@ class NotificationConfigurationRestXmlSerializer
       ));
     }
     if (topicConfigurations != null) {
-      result.addAll(
+      result$.addAll(
           const _i7.XmlBuiltListSerializer(memberName: 'TopicConfiguration')
               .serialize(
         serializers,
@@ -229,6 +229,6 @@ class NotificationConfigurationRestXmlSerializer
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

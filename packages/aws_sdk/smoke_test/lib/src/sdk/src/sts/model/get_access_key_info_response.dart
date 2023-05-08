@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.sts.model.get_access_key_info_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -99,25 +100,24 @@ class GetAccessKeyInfoResponseAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetAccessKeyInfoResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetAccessKeyInfoResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'GetAccessKeyInfoResponseResponse',
         _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
-    final GetAccessKeyInfoResponse(:account) = payload;
+    final GetAccessKeyInfoResponse(:account) = object;
     if (account != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Account'))
         ..add(serializers.serialize(
           account,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

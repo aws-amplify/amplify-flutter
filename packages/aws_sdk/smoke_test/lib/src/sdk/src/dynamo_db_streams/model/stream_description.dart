@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.stream_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -261,11 +262,10 @@ class StreamDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StreamDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StreamDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final StreamDescription(
       :streamArn,
       :streamLabel,
@@ -276,9 +276,9 @@ class StreamDescriptionAwsJson10Serializer
       :keySchema,
       :shards,
       :lastEvaluatedShardId
-    ) = payload;
+    ) = object;
     if (streamArn != null) {
-      result
+      result$
         ..add('StreamArn')
         ..add(serializers.serialize(
           streamArn,
@@ -286,7 +286,7 @@ class StreamDescriptionAwsJson10Serializer
         ));
     }
     if (streamLabel != null) {
-      result
+      result$
         ..add('StreamLabel')
         ..add(serializers.serialize(
           streamLabel,
@@ -294,7 +294,7 @@ class StreamDescriptionAwsJson10Serializer
         ));
     }
     if (streamStatus != null) {
-      result
+      result$
         ..add('StreamStatus')
         ..add(serializers.serialize(
           streamStatus,
@@ -302,7 +302,7 @@ class StreamDescriptionAwsJson10Serializer
         ));
     }
     if (streamViewType != null) {
-      result
+      result$
         ..add('StreamViewType')
         ..add(serializers.serialize(
           streamViewType,
@@ -310,7 +310,7 @@ class StreamDescriptionAwsJson10Serializer
         ));
     }
     if (creationRequestDateTime != null) {
-      result
+      result$
         ..add('CreationRequestDateTime')
         ..add(serializers.serialize(
           creationRequestDateTime,
@@ -318,7 +318,7 @@ class StreamDescriptionAwsJson10Serializer
         ));
     }
     if (tableName != null) {
-      result
+      result$
         ..add('TableName')
         ..add(serializers.serialize(
           tableName,
@@ -326,7 +326,7 @@ class StreamDescriptionAwsJson10Serializer
         ));
     }
     if (keySchema != null) {
-      result
+      result$
         ..add('KeySchema')
         ..add(serializers.serialize(
           keySchema,
@@ -337,7 +337,7 @@ class StreamDescriptionAwsJson10Serializer
         ));
     }
     if (shards != null) {
-      result
+      result$
         ..add('Shards')
         ..add(serializers.serialize(
           shards,
@@ -348,13 +348,13 @@ class StreamDescriptionAwsJson10Serializer
         ));
     }
     if (lastEvaluatedShardId != null) {
-      result
+      result$
         ..add('LastEvaluatedShardId')
         ..add(serializers.serialize(
           lastEvaluatedShardId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

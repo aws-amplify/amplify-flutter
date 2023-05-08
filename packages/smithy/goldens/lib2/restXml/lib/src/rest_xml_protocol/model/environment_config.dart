@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.environment_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -164,11 +165,10 @@ class EnvironmentConfigRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EnvironmentConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EnvironmentConfig);
-    final result = <Object?>[const _i3.XmlElementName('EnvironmentConfig')];
+    final result$ = <Object?>[const _i3.XmlElementName('EnvironmentConfig')];
     final EnvironmentConfig(
       :awsAccessKeyId,
       :awsDefaultRegion,
@@ -176,9 +176,9 @@ class EnvironmentConfigRestXmlSerializer
       :awsRetryMode,
       :awsSecretAccessKey,
       :awsSessionToken
-    ) = payload;
+    ) = object;
     if (awsAccessKeyId != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AWS_ACCESS_KEY_ID'))
         ..add(serializers.serialize(
           awsAccessKeyId,
@@ -186,7 +186,7 @@ class EnvironmentConfigRestXmlSerializer
         ));
     }
     if (awsDefaultRegion != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AWS_DEFAULT_REGION'))
         ..add(serializers.serialize(
           awsDefaultRegion,
@@ -194,7 +194,7 @@ class EnvironmentConfigRestXmlSerializer
         ));
     }
     if (awsProfile != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AWS_PROFILE'))
         ..add(serializers.serialize(
           awsProfile,
@@ -202,7 +202,7 @@ class EnvironmentConfigRestXmlSerializer
         ));
     }
     if (awsRetryMode != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AWS_RETRY_MODE'))
         ..add(serializers.serialize(
           awsRetryMode,
@@ -210,7 +210,7 @@ class EnvironmentConfigRestXmlSerializer
         ));
     }
     if (awsSecretAccessKey != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AWS_SECRET_ACCESS_KEY'))
         ..add(serializers.serialize(
           awsSecretAccessKey,
@@ -218,13 +218,13 @@ class EnvironmentConfigRestXmlSerializer
         ));
     }
     if (awsSessionToken != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('AWS_SESSION_TOKEN'))
         ..add(serializers.serialize(
           awsSessionToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

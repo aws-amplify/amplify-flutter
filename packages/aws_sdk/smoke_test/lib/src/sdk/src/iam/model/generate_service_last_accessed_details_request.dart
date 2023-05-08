@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.generate_service_last_accessed_details_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -129,26 +130,25 @@ class GenerateServiceLastAccessedDetailsRequestAwsQuerySerializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GenerateServiceLastAccessedDetailsRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GenerateServiceLastAccessedDetailsRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'GenerateServiceLastAccessedDetailsRequestResponse',
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GenerateServiceLastAccessedDetailsRequest(:arn, :granularity) =
-        payload;
-    result
+        object;
+    result$
       ..add(const _i1.XmlElementName('Arn'))
       ..add(serializers.serialize(
         arn,
         specifiedType: const FullType(String),
       ));
     if (granularity != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Granularity'))
         ..add(serializers.serialize(
           granularity,
@@ -156,6 +156,6 @@ class GenerateServiceLastAccessedDetailsRequestAwsQuerySerializer extends _i1
               const FullType.nullable(_i3.AccessAdvisorUsageGranularityType),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_compliance_summary_by_config_rule_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -106,21 +107,19 @@ class GetComplianceSummaryByConfigRuleResponseAwsJson11Serializer extends _i3
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetComplianceSummaryByConfigRuleResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetComplianceSummaryByConfigRuleResponse);
-    final result = <Object?>[];
-    final GetComplianceSummaryByConfigRuleResponse(:complianceSummary) =
-        payload;
+    final result$ = <Object?>[];
+    final GetComplianceSummaryByConfigRuleResponse(:complianceSummary) = object;
     if (complianceSummary != null) {
-      result
+      result$
         ..add('ComplianceSummary')
         ..add(serializers.serialize(
           complianceSummary,
           specifiedType: const FullType(_i2.ComplianceSummary),
         ));
     }
-    return result;
+    return result$;
   }
 }

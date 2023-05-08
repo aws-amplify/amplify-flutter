@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.put_integration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -581,19 +582,10 @@ class PutIntegrationRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutIntegrationRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutIntegrationRequest
-        ? object.getPayload()
-        : (object as PutIntegrationRequestPayload);
-    final result = <Object?>[
-      'type',
-      serializers.serialize(
-        payload.type,
-        specifiedType: const FullType(_i3.IntegrationType),
-      ),
-    ];
+    final result$ = <Object?>[];
     final PutIntegrationRequestPayload(
       :cacheKeyParameters,
       :cacheNamespace,
@@ -607,10 +599,18 @@ class PutIntegrationRequestRestJson1Serializer
       :requestTemplates,
       :timeoutInMillis,
       :tlsConfig,
+      :type,
       :uri
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'type',
+      serializers.serialize(
+        type,
+        specifiedType: const FullType(_i3.IntegrationType),
+      ),
+    ]);
     if (cacheKeyParameters != null) {
-      result
+      result$
         ..add('cacheKeyParameters')
         ..add(serializers.serialize(
           cacheKeyParameters,
@@ -621,7 +621,7 @@ class PutIntegrationRequestRestJson1Serializer
         ));
     }
     if (cacheNamespace != null) {
-      result
+      result$
         ..add('cacheNamespace')
         ..add(serializers.serialize(
           cacheNamespace,
@@ -629,7 +629,7 @@ class PutIntegrationRequestRestJson1Serializer
         ));
     }
     if (connectionId != null) {
-      result
+      result$
         ..add('connectionId')
         ..add(serializers.serialize(
           connectionId,
@@ -637,7 +637,7 @@ class PutIntegrationRequestRestJson1Serializer
         ));
     }
     if (connectionType != null) {
-      result
+      result$
         ..add('connectionType')
         ..add(serializers.serialize(
           connectionType,
@@ -645,7 +645,7 @@ class PutIntegrationRequestRestJson1Serializer
         ));
     }
     if (contentHandling != null) {
-      result
+      result$
         ..add('contentHandling')
         ..add(serializers.serialize(
           contentHandling,
@@ -653,7 +653,7 @@ class PutIntegrationRequestRestJson1Serializer
         ));
     }
     if (credentials != null) {
-      result
+      result$
         ..add('credentials')
         ..add(serializers.serialize(
           credentials,
@@ -661,7 +661,7 @@ class PutIntegrationRequestRestJson1Serializer
         ));
     }
     if (integrationHttpMethod != null) {
-      result
+      result$
         ..add('httpMethod')
         ..add(serializers.serialize(
           integrationHttpMethod,
@@ -669,7 +669,7 @@ class PutIntegrationRequestRestJson1Serializer
         ));
     }
     if (passthroughBehavior != null) {
-      result
+      result$
         ..add('passthroughBehavior')
         ..add(serializers.serialize(
           passthroughBehavior,
@@ -677,7 +677,7 @@ class PutIntegrationRequestRestJson1Serializer
         ));
     }
     if (requestParameters != null) {
-      result
+      result$
         ..add('requestParameters')
         ..add(serializers.serialize(
           requestParameters,
@@ -691,7 +691,7 @@ class PutIntegrationRequestRestJson1Serializer
         ));
     }
     if (requestTemplates != null) {
-      result
+      result$
         ..add('requestTemplates')
         ..add(serializers.serialize(
           requestTemplates,
@@ -705,7 +705,7 @@ class PutIntegrationRequestRestJson1Serializer
         ));
     }
     if (timeoutInMillis != null) {
-      result
+      result$
         ..add('timeoutInMillis')
         ..add(serializers.serialize(
           timeoutInMillis,
@@ -713,7 +713,7 @@ class PutIntegrationRequestRestJson1Serializer
         ));
     }
     if (tlsConfig != null) {
-      result
+      result$
         ..add('tlsConfig')
         ..add(serializers.serialize(
           tlsConfig,
@@ -721,13 +721,13 @@ class PutIntegrationRequestRestJson1Serializer
         ));
     }
     if (uri != null) {
-      result
+      result$
         ..add('uri')
         ..add(serializers.serialize(
           uri,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

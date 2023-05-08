@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.import_stacks_to_stack_set_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -240,11 +241,10 @@ class ImportStacksToStackSetInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ImportStacksToStackSetInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ImportStacksToStackSetInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ImportStacksToStackSetInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -258,15 +258,15 @@ class ImportStacksToStackSetInputAwsQuerySerializer
       :operationPreferences,
       :operationId,
       :callAs
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('StackSetName'))
       ..add(serializers.serialize(
         stackSetName,
         specifiedType: const FullType(String),
       ));
     if (stackIds != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('StackIds'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -280,7 +280,7 @@ class ImportStacksToStackSetInputAwsQuerySerializer
         ));
     }
     if (stackIdsUrl != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('StackIdsUrl'))
         ..add(serializers.serialize(
           stackIdsUrl,
@@ -288,7 +288,7 @@ class ImportStacksToStackSetInputAwsQuerySerializer
         ));
     }
     if (organizationalUnitIds != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('OrganizationalUnitIds'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -302,7 +302,7 @@ class ImportStacksToStackSetInputAwsQuerySerializer
         ));
     }
     if (operationPreferences != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('OperationPreferences'))
         ..add(serializers.serialize(
           operationPreferences,
@@ -310,7 +310,7 @@ class ImportStacksToStackSetInputAwsQuerySerializer
         ));
     }
     if (operationId != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('OperationId'))
         ..add(serializers.serialize(
           operationId,
@@ -318,13 +318,13 @@ class ImportStacksToStackSetInputAwsQuerySerializer
         ));
     }
     if (callAs != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
           specifiedType: const FullType.nullable(_i4.CallAs),
         ));
     }
-    return result;
+    return result$;
   }
 }

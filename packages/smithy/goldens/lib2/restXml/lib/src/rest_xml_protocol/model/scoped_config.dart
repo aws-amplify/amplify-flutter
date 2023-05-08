@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.scoped_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -184,20 +185,19 @@ class ScopedConfigRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ScopedConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ScopedConfig);
-    final result = <Object?>[const _i7.XmlElementName('ScopedConfig')];
+    final result$ = <Object?>[const _i7.XmlElementName('ScopedConfig')];
     final ScopedConfig(
       :client,
       :configFile,
       :credentialsFile,
       :environment,
       :operation
-    ) = payload;
+    ) = object;
     if (client != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('client'))
         ..add(serializers.serialize(
           client,
@@ -205,7 +205,7 @@ class ScopedConfigRestXmlSerializer
         ));
     }
     if (configFile != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('configFile'))
         ..add(const _i7.XmlBuiltMapSerializer().serialize(
           serializers,
@@ -220,7 +220,7 @@ class ScopedConfigRestXmlSerializer
         ));
     }
     if (credentialsFile != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('credentialsFile'))
         ..add(const _i7.XmlBuiltMapSerializer().serialize(
           serializers,
@@ -235,7 +235,7 @@ class ScopedConfigRestXmlSerializer
         ));
     }
     if (environment != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('environment'))
         ..add(serializers.serialize(
           environment,
@@ -243,13 +243,13 @@ class ScopedConfigRestXmlSerializer
         ));
     }
     if (operation != null) {
-      result
+      result$
         ..add(const _i7.XmlElementName('operation'))
         ..add(serializers.serialize(
           operation,
           specifiedType: const FullType(_i5.OperationConfig),
         ));
     }
-    return result;
+    return result$;
   }
 }

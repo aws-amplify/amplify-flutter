@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.put_method_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -409,30 +410,29 @@ class PutMethodRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutMethodRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutMethodRequest
-        ? object.getPayload()
-        : (object as PutMethodRequestPayload);
-    final result = <Object?>[
-      'authorizationType',
-      serializers.serialize(
-        payload.authorizationType,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final PutMethodRequestPayload(
       :apiKeyRequired,
       :authorizationScopes,
+      :authorizationType,
       :authorizerId,
       :operationName,
       :requestModels,
       :requestParameters,
       :requestValidatorId
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'authorizationType',
+      serializers.serialize(
+        authorizationType,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (apiKeyRequired != null) {
-      result
+      result$
         ..add('apiKeyRequired')
         ..add(serializers.serialize(
           apiKeyRequired,
@@ -440,7 +440,7 @@ class PutMethodRequestRestJson1Serializer
         ));
     }
     if (authorizationScopes != null) {
-      result
+      result$
         ..add('authorizationScopes')
         ..add(serializers.serialize(
           authorizationScopes,
@@ -451,7 +451,7 @@ class PutMethodRequestRestJson1Serializer
         ));
     }
     if (authorizerId != null) {
-      result
+      result$
         ..add('authorizerId')
         ..add(serializers.serialize(
           authorizerId,
@@ -459,7 +459,7 @@ class PutMethodRequestRestJson1Serializer
         ));
     }
     if (operationName != null) {
-      result
+      result$
         ..add('operationName')
         ..add(serializers.serialize(
           operationName,
@@ -467,7 +467,7 @@ class PutMethodRequestRestJson1Serializer
         ));
     }
     if (requestModels != null) {
-      result
+      result$
         ..add('requestModels')
         ..add(serializers.serialize(
           requestModels,
@@ -481,7 +481,7 @@ class PutMethodRequestRestJson1Serializer
         ));
     }
     if (requestParameters != null) {
-      result
+      result$
         ..add('requestParameters')
         ..add(serializers.serialize(
           requestParameters,
@@ -495,13 +495,13 @@ class PutMethodRequestRestJson1Serializer
         ));
     }
     if (requestValidatorId != null) {
-      result
+      result$
         ..add('requestValidatorId')
         ..add(serializers.serialize(
           requestValidatorId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

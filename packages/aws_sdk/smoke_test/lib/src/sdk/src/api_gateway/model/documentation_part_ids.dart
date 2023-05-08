@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.documentation_part_ids; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -129,14 +130,13 @@ class DocumentationPartIdsRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DocumentationPartIds object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DocumentationPartIds);
-    final result = <Object?>[];
-    final DocumentationPartIds(:ids, :warnings) = payload;
+    final result$ = <Object?>[];
+    final DocumentationPartIds(:ids, :warnings) = object;
     if (ids != null) {
-      result
+      result$
         ..add('ids')
         ..add(serializers.serialize(
           ids,
@@ -147,7 +147,7 @@ class DocumentationPartIdsRestJson1Serializer
         ));
     }
     if (warnings != null) {
-      result
+      result$
         ..add('warnings')
         ..add(serializers.serialize(
           warnings,
@@ -157,6 +157,6 @@ class DocumentationPartIdsRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

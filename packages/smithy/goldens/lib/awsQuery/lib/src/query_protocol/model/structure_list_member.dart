@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_query_v1.query_protocol.model.structure_list_member; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -107,19 +108,18 @@ class StructureListMemberAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StructureListMember object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StructureListMember);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'StructureListMemberResponse',
         _i2.XmlNamespace('https://example.com/'),
       )
     ];
-    final StructureListMember(:a, :b) = payload;
+    final StructureListMember(:a, :b) = object;
     if (a != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('value'))
         ..add(serializers.serialize(
           a,
@@ -127,13 +127,13 @@ class StructureListMemberAwsQuerySerializer
         ));
     }
     if (b != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('other'))
         ..add(serializers.serialize(
           b,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

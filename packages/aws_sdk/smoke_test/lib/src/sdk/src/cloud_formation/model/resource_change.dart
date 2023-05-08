@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.resource_change; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -243,11 +244,10 @@ class ResourceChangeAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ResourceChange object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ResourceChange);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i8.XmlElementName(
         'ResourceChangeResponse',
         _i8.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -263,9 +263,9 @@ class ResourceChangeAwsQuerySerializer
       :details,
       :changeSetId,
       :moduleInfo
-    ) = payload;
+    ) = object;
     if (action != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('Action'))
         ..add(serializers.serialize(
           action,
@@ -273,7 +273,7 @@ class ResourceChangeAwsQuerySerializer
         ));
     }
     if (logicalResourceId != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('LogicalResourceId'))
         ..add(serializers.serialize(
           logicalResourceId,
@@ -281,7 +281,7 @@ class ResourceChangeAwsQuerySerializer
         ));
     }
     if (physicalResourceId != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('PhysicalResourceId'))
         ..add(serializers.serialize(
           physicalResourceId,
@@ -289,7 +289,7 @@ class ResourceChangeAwsQuerySerializer
         ));
     }
     if (resourceType != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
@@ -297,7 +297,7 @@ class ResourceChangeAwsQuerySerializer
         ));
     }
     if (replacement != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('Replacement'))
         ..add(serializers.serialize(
           replacement,
@@ -305,7 +305,7 @@ class ResourceChangeAwsQuerySerializer
         ));
     }
     if (scope != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('Scope'))
         ..add(const _i8.XmlBuiltListSerializer(
                 indexer: _i8.XmlIndexer.awsQueryList)
@@ -319,7 +319,7 @@ class ResourceChangeAwsQuerySerializer
         ));
     }
     if (details != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('Details'))
         ..add(const _i8.XmlBuiltListSerializer(
                 indexer: _i8.XmlIndexer.awsQueryList)
@@ -333,7 +333,7 @@ class ResourceChangeAwsQuerySerializer
         ));
     }
     if (changeSetId != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('ChangeSetId'))
         ..add(serializers.serialize(
           changeSetId,
@@ -341,13 +341,13 @@ class ResourceChangeAwsQuerySerializer
         ));
     }
     if (moduleInfo != null) {
-      result
+      result$
         ..add(const _i8.XmlElementName('ModuleInfo'))
         ..add(serializers.serialize(
           moduleInfo,
           specifiedType: const FullType(_i6.ModuleInfo),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.condition_check; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -203,14 +204,22 @@ class ConditionCheckAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConditionCheck object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConditionCheck);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ConditionCheck(
+      :key,
+      :tableName,
+      :conditionExpression,
+      :expressionAttributeNames,
+      :expressionAttributeValues,
+      :returnValuesOnConditionCheckFailure
+    ) = object;
+    result$.addAll([
       'Key',
       serializers.serialize(
-        payload.key,
+        key,
         specifiedType: const FullType(
           _i4.BuiltMap,
           [
@@ -221,22 +230,17 @@ class ConditionCheckAwsJson10Serializer
       ),
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
       'ConditionExpression',
       serializers.serialize(
-        payload.conditionExpression,
+        conditionExpression,
         specifiedType: const FullType(String),
       ),
-    ];
-    final ConditionCheck(
-      :expressionAttributeNames,
-      :expressionAttributeValues,
-      :returnValuesOnConditionCheckFailure
-    ) = payload;
+    ]);
     if (expressionAttributeNames != null) {
-      result
+      result$
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
           expressionAttributeNames,
@@ -250,7 +254,7 @@ class ConditionCheckAwsJson10Serializer
         ));
     }
     if (expressionAttributeValues != null) {
-      result
+      result$
         ..add('ExpressionAttributeValues')
         ..add(serializers.serialize(
           expressionAttributeValues,
@@ -264,7 +268,7 @@ class ConditionCheckAwsJson10Serializer
         ));
     }
     if (returnValuesOnConditionCheckFailure != null) {
-      result
+      result$
         ..add('ReturnValuesOnConditionCheckFailure')
         ..add(serializers.serialize(
           returnValuesOnConditionCheckFailure,
@@ -272,6 +276,6 @@ class ConditionCheckAwsJson10Serializer
               const FullType(_i3.ReturnValuesOnConditionCheckFailure),
         ));
     }
-    return result;
+    return result$;
   }
 }

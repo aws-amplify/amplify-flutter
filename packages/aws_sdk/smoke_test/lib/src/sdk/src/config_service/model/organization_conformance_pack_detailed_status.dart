@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.organization_conformance_pack_detailed_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -202,34 +203,37 @@ class OrganizationConformancePackDetailedStatusAwsJson11Serializer extends _i3
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OrganizationConformancePackDetailedStatus object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OrganizationConformancePackDetailedStatus);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final OrganizationConformancePackDetailedStatus(
+      :accountId,
+      :conformancePackName,
+      :status,
+      :errorCode,
+      :errorMessage,
+      :lastUpdateTime
+    ) = object;
+    result$.addAll([
       'AccountId',
       serializers.serialize(
-        payload.accountId,
+        accountId,
         specifiedType: const FullType(String),
       ),
       'ConformancePackName',
       serializers.serialize(
-        payload.conformancePackName,
+        conformancePackName,
         specifiedType: const FullType(String),
       ),
       'Status',
       serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType(_i2.OrganizationResourceDetailedStatus),
       ),
-    ];
-    final OrganizationConformancePackDetailedStatus(
-      :errorCode,
-      :errorMessage,
-      :lastUpdateTime
-    ) = payload;
+    ]);
     if (errorCode != null) {
-      result
+      result$
         ..add('ErrorCode')
         ..add(serializers.serialize(
           errorCode,
@@ -237,7 +241,7 @@ class OrganizationConformancePackDetailedStatusAwsJson11Serializer extends _i3
         ));
     }
     if (errorMessage != null) {
-      result
+      result$
         ..add('ErrorMessage')
         ..add(serializers.serialize(
           errorMessage,
@@ -245,13 +249,13 @@ class OrganizationConformancePackDetailedStatusAwsJson11Serializer extends _i3
         ));
     }
     if (lastUpdateTime != null) {
-      result
+      result$
         ..add('LastUpdateTime')
         ..add(serializers.serialize(
           lastUpdateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.event_dimensions; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -147,14 +148,13 @@ class EventDimensionsRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EventDimensions object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EventDimensions);
-    final result = <Object?>[];
-    final EventDimensions(:attributes, :eventType, :metrics) = payload;
+    final result$ = <Object?>[];
+    final EventDimensions(:attributes, :eventType, :metrics) = object;
     if (attributes != null) {
-      result
+      result$
         ..add('Attributes')
         ..add(serializers.serialize(
           attributes,
@@ -168,7 +168,7 @@ class EventDimensionsRestJson1Serializer
         ));
     }
     if (eventType != null) {
-      result
+      result$
         ..add('EventType')
         ..add(serializers.serialize(
           eventType,
@@ -176,7 +176,7 @@ class EventDimensionsRestJson1Serializer
         ));
     }
     if (metrics != null) {
-      result
+      result$
         ..add('Metrics')
         ..add(serializers.serialize(
           metrics,
@@ -189,6 +189,6 @@ class EventDimensionsRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.list_bucket_metrics_configurations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -158,11 +159,10 @@ class ListBucketMetricsConfigurationsOutputRestXmlSerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListBucketMetricsConfigurationsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListBucketMetricsConfigurationsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ListMetricsConfigurationsResult',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -173,9 +173,9 @@ class ListBucketMetricsConfigurationsOutputRestXmlSerializer extends _i4
       :isTruncated,
       :metricsConfigurationList,
       :nextContinuationToken
-    ) = payload;
+    ) = object;
     if (continuationToken != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ContinuationToken'))
         ..add(serializers.serialize(
           continuationToken,
@@ -183,7 +183,7 @@ class ListBucketMetricsConfigurationsOutputRestXmlSerializer extends _i4
         ));
     }
     if (isTruncated != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
@@ -191,7 +191,7 @@ class ListBucketMetricsConfigurationsOutputRestXmlSerializer extends _i4
         ));
     }
     if (metricsConfigurationList != null) {
-      result.addAll(
+      result$.addAll(
           const _i4.XmlBuiltListSerializer(memberName: 'MetricsConfiguration')
               .serialize(
         serializers,
@@ -203,13 +203,13 @@ class ListBucketMetricsConfigurationsOutputRestXmlSerializer extends _i4
       ));
     }
     if (nextContinuationToken != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('NextContinuationToken'))
         ..add(serializers.serialize(
           nextContinuationToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

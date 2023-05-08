@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.conformance_pack_evaluation_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -163,19 +164,18 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConformancePackEvaluationFilters object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConformancePackEvaluationFilters);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final ConformancePackEvaluationFilters(
       :configRuleNames,
       :complianceType,
       :resourceType,
       :resourceIds
-    ) = payload;
+    ) = object;
     if (configRuleNames != null) {
-      result
+      result$
         ..add('ConfigRuleNames')
         ..add(serializers.serialize(
           configRuleNames,
@@ -186,7 +186,7 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
         ));
     }
     if (complianceType != null) {
-      result
+      result$
         ..add('ComplianceType')
         ..add(serializers.serialize(
           complianceType,
@@ -194,7 +194,7 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
         ));
     }
     if (resourceType != null) {
-      result
+      result$
         ..add('ResourceType')
         ..add(serializers.serialize(
           resourceType,
@@ -202,7 +202,7 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
         ));
     }
     if (resourceIds != null) {
-      result
+      result$
         ..add('ResourceIds')
         ..add(serializers.serialize(
           resourceIds,
@@ -212,6 +212,6 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -273,11 +274,10 @@ class EndpointRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EndpointRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EndpointRequest);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final EndpointRequest(
       :address,
       :attributes,
@@ -290,9 +290,9 @@ class EndpointRequestRestJson1Serializer
       :optOut,
       :requestId,
       :user
-    ) = payload;
+    ) = object;
     if (address != null) {
-      result
+      result$
         ..add('Address')
         ..add(serializers.serialize(
           address,
@@ -300,7 +300,7 @@ class EndpointRequestRestJson1Serializer
         ));
     }
     if (attributes != null) {
-      result
+      result$
         ..add('Attributes')
         ..add(serializers.serialize(
           attributes,
@@ -314,7 +314,7 @@ class EndpointRequestRestJson1Serializer
         ));
     }
     if (channelType != null) {
-      result
+      result$
         ..add('ChannelType')
         ..add(serializers.serialize(
           channelType,
@@ -322,7 +322,7 @@ class EndpointRequestRestJson1Serializer
         ));
     }
     if (demographic != null) {
-      result
+      result$
         ..add('Demographic')
         ..add(serializers.serialize(
           demographic,
@@ -330,7 +330,7 @@ class EndpointRequestRestJson1Serializer
         ));
     }
     if (effectiveDate != null) {
-      result
+      result$
         ..add('EffectiveDate')
         ..add(serializers.serialize(
           effectiveDate,
@@ -338,7 +338,7 @@ class EndpointRequestRestJson1Serializer
         ));
     }
     if (endpointStatus != null) {
-      result
+      result$
         ..add('EndpointStatus')
         ..add(serializers.serialize(
           endpointStatus,
@@ -346,7 +346,7 @@ class EndpointRequestRestJson1Serializer
         ));
     }
     if (location != null) {
-      result
+      result$
         ..add('Location')
         ..add(serializers.serialize(
           location,
@@ -354,7 +354,7 @@ class EndpointRequestRestJson1Serializer
         ));
     }
     if (metrics != null) {
-      result
+      result$
         ..add('Metrics')
         ..add(serializers.serialize(
           metrics,
@@ -368,7 +368,7 @@ class EndpointRequestRestJson1Serializer
         ));
     }
     if (optOut != null) {
-      result
+      result$
         ..add('OptOut')
         ..add(serializers.serialize(
           optOut,
@@ -376,7 +376,7 @@ class EndpointRequestRestJson1Serializer
         ));
     }
     if (requestId != null) {
-      result
+      result$
         ..add('RequestId')
         ..add(serializers.serialize(
           requestId,
@@ -384,13 +384,13 @@ class EndpointRequestRestJson1Serializer
         ));
     }
     if (user != null) {
-      result
+      result$
         ..add('User')
         ..add(serializers.serialize(
           user,
           specifiedType: const FullType(_i5.EndpointUser),
         ));
     }
-    return result;
+    return result$;
   }
 }

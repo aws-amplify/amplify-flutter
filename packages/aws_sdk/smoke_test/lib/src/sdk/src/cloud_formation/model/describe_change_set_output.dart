@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.describe_change_set_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -422,11 +423,10 @@ class DescribeChangeSetOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeChangeSetOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeChangeSetOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i10.XmlElementName(
         'DescribeChangeSetOutputResponse',
         _i10.XmlNamespace(
@@ -453,9 +453,9 @@ class DescribeChangeSetOutputAwsQuerySerializer
       :includeNestedStacks,
       :parentChangeSetId,
       :rootChangeSetId
-    ) = payload;
+    ) = object;
     if (changeSetName != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('ChangeSetName'))
         ..add(serializers.serialize(
           changeSetName,
@@ -463,7 +463,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (changeSetId != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('ChangeSetId'))
         ..add(serializers.serialize(
           changeSetId,
@@ -471,7 +471,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (stackId != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('StackId'))
         ..add(serializers.serialize(
           stackId,
@@ -479,7 +479,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (stackName != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('StackName'))
         ..add(serializers.serialize(
           stackName,
@@ -487,7 +487,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (description != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
@@ -495,7 +495,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (parameters != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Parameters'))
         ..add(const _i10.XmlBuiltListSerializer(
                 indexer: _i10.XmlIndexer.awsQueryList)
@@ -509,7 +509,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (creationTime != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('CreationTime'))
         ..add(serializers.serialize(
           creationTime,
@@ -517,7 +517,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (executionStatus != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('ExecutionStatus'))
         ..add(serializers.serialize(
           executionStatus,
@@ -525,7 +525,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (status != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
@@ -533,7 +533,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (statusReason != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
           statusReason,
@@ -541,7 +541,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (notificationArNs != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('NotificationARNs'))
         ..add(const _i10.XmlBuiltListSerializer(
                 indexer: _i10.XmlIndexer.awsQueryList)
@@ -555,7 +555,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (rollbackConfiguration != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('RollbackConfiguration'))
         ..add(serializers.serialize(
           rollbackConfiguration,
@@ -563,7 +563,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (capabilities != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Capabilities'))
         ..add(const _i10.XmlBuiltListSerializer(
                 indexer: _i10.XmlIndexer.awsQueryList)
@@ -577,7 +577,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (tags != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Tags'))
         ..add(const _i10.XmlBuiltListSerializer(
                 indexer: _i10.XmlIndexer.awsQueryList)
@@ -591,7 +591,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (changes != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('Changes'))
         ..add(const _i10.XmlBuiltListSerializer(
                 indexer: _i10.XmlIndexer.awsQueryList)
@@ -605,7 +605,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
@@ -613,7 +613,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (includeNestedStacks != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('IncludeNestedStacks'))
         ..add(serializers.serialize(
           includeNestedStacks,
@@ -621,7 +621,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (parentChangeSetId != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('ParentChangeSetId'))
         ..add(serializers.serialize(
           parentChangeSetId,
@@ -629,13 +629,13 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ));
     }
     if (rootChangeSetId != null) {
-      result
+      result$
         ..add(const _i10.XmlElementName('RootChangeSetId'))
         ..add(serializers.serialize(
           rootChangeSetId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

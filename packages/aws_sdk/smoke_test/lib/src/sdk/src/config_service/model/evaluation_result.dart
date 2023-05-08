@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.evaluation_result; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -179,11 +180,10 @@ class EvaluationResultAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EvaluationResult object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EvaluationResult);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final EvaluationResult(
       :evaluationResultIdentifier,
       :complianceType,
@@ -191,9 +191,9 @@ class EvaluationResultAwsJson11Serializer
       :configRuleInvokedTime,
       :annotation,
       :resultToken
-    ) = payload;
+    ) = object;
     if (evaluationResultIdentifier != null) {
-      result
+      result$
         ..add('EvaluationResultIdentifier')
         ..add(serializers.serialize(
           evaluationResultIdentifier,
@@ -201,7 +201,7 @@ class EvaluationResultAwsJson11Serializer
         ));
     }
     if (complianceType != null) {
-      result
+      result$
         ..add('ComplianceType')
         ..add(serializers.serialize(
           complianceType,
@@ -209,7 +209,7 @@ class EvaluationResultAwsJson11Serializer
         ));
     }
     if (resultRecordedTime != null) {
-      result
+      result$
         ..add('ResultRecordedTime')
         ..add(serializers.serialize(
           resultRecordedTime,
@@ -217,7 +217,7 @@ class EvaluationResultAwsJson11Serializer
         ));
     }
     if (configRuleInvokedTime != null) {
-      result
+      result$
         ..add('ConfigRuleInvokedTime')
         ..add(serializers.serialize(
           configRuleInvokedTime,
@@ -225,7 +225,7 @@ class EvaluationResultAwsJson11Serializer
         ));
     }
     if (annotation != null) {
-      result
+      result$
         ..add('Annotation')
         ..add(serializers.serialize(
           annotation,
@@ -233,13 +233,13 @@ class EvaluationResultAwsJson11Serializer
         ));
     }
     if (resultToken != null) {
-      result
+      result$
         ..add('ResultToken')
         ..add(serializers.serialize(
           resultToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

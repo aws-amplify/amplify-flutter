@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.json_protocol.model.simple_scalar_properties_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -129,15 +130,13 @@ class SimpleScalarPropertiesInputOutputAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SimpleScalarPropertiesInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SimpleScalarPropertiesInputOutput);
-    final result = <Object?>[];
-    final SimpleScalarPropertiesInputOutput(:floatValue, :doubleValue) =
-        payload;
+    final result$ = <Object?>[];
+    final SimpleScalarPropertiesInputOutput(:floatValue, :doubleValue) = object;
     if (floatValue != null) {
-      result
+      result$
         ..add('floatValue')
         ..add(serializers.serialize(
           floatValue,
@@ -145,13 +144,13 @@ class SimpleScalarPropertiesInputOutputAwsJson11Serializer
         ));
     }
     if (doubleValue != null) {
-      result
+      result$
         ..add('doubleValue')
         ..add(serializers.serialize(
           doubleValue,
           specifiedType: const FullType(double),
         ));
     }
-    return result;
+    return result$;
   }
 }

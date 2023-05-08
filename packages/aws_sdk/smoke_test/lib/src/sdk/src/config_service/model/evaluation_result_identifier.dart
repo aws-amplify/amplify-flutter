@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.evaluation_result_identifier; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -118,17 +119,16 @@ class EvaluationResultIdentifierAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EvaluationResultIdentifier object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EvaluationResultIdentifier);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final EvaluationResultIdentifier(
       :evaluationResultQualifier,
       :orderingTimestamp
-    ) = payload;
+    ) = object;
     if (evaluationResultQualifier != null) {
-      result
+      result$
         ..add('EvaluationResultQualifier')
         ..add(serializers.serialize(
           evaluationResultQualifier,
@@ -136,13 +136,13 @@ class EvaluationResultIdentifierAwsJson11Serializer
         ));
     }
     if (orderingTimestamp != null) {
-      result
+      result$
         ..add('OrderingTimestamp')
         ..add(serializers.serialize(
           orderingTimestamp,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -216,14 +217,23 @@ class UpdateAwsJson10Serializer extends _i5.StructuredSmithySerializer<Update> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Update object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Update);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final Update(
+      :key,
+      :updateExpression,
+      :tableName,
+      :conditionExpression,
+      :expressionAttributeNames,
+      :expressionAttributeValues,
+      :returnValuesOnConditionCheckFailure
+    ) = object;
+    result$.addAll([
       'Key',
       serializers.serialize(
-        payload.key,
+        key,
         specifiedType: const FullType(
           _i4.BuiltMap,
           [
@@ -234,23 +244,17 @@ class UpdateAwsJson10Serializer extends _i5.StructuredSmithySerializer<Update> {
       ),
       'UpdateExpression',
       serializers.serialize(
-        payload.updateExpression,
+        updateExpression,
         specifiedType: const FullType(String),
       ),
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
-    ];
-    final Update(
-      :conditionExpression,
-      :expressionAttributeNames,
-      :expressionAttributeValues,
-      :returnValuesOnConditionCheckFailure
-    ) = payload;
+    ]);
     if (conditionExpression != null) {
-      result
+      result$
         ..add('ConditionExpression')
         ..add(serializers.serialize(
           conditionExpression,
@@ -258,7 +262,7 @@ class UpdateAwsJson10Serializer extends _i5.StructuredSmithySerializer<Update> {
         ));
     }
     if (expressionAttributeNames != null) {
-      result
+      result$
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
           expressionAttributeNames,
@@ -272,7 +276,7 @@ class UpdateAwsJson10Serializer extends _i5.StructuredSmithySerializer<Update> {
         ));
     }
     if (expressionAttributeValues != null) {
-      result
+      result$
         ..add('ExpressionAttributeValues')
         ..add(serializers.serialize(
           expressionAttributeValues,
@@ -286,7 +290,7 @@ class UpdateAwsJson10Serializer extends _i5.StructuredSmithySerializer<Update> {
         ));
     }
     if (returnValuesOnConditionCheckFailure != null) {
-      result
+      result$
         ..add('ReturnValuesOnConditionCheckFailure')
         ..add(serializers.serialize(
           returnValuesOnConditionCheckFailure,
@@ -294,6 +298,6 @@ class UpdateAwsJson10Serializer extends _i5.StructuredSmithySerializer<Update> {
               const FullType(_i3.ReturnValuesOnConditionCheckFailure),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.cancellation_reason; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -138,14 +139,13 @@ class CancellationReasonAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CancellationReason object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CancellationReason);
-    final result = <Object?>[];
-    final CancellationReason(:item, :code, :message) = payload;
+    final result$ = <Object?>[];
+    final CancellationReason(:item, :code, :message) = object;
     if (item != null) {
-      result
+      result$
         ..add('Item')
         ..add(serializers.serialize(
           item,
@@ -159,7 +159,7 @@ class CancellationReasonAwsJson10Serializer
         ));
     }
     if (code != null) {
-      result
+      result$
         ..add('Code')
         ..add(serializers.serialize(
           code,
@@ -167,13 +167,13 @@ class CancellationReasonAwsJson10Serializer
         ));
     }
     if (message != null) {
-      result
+      result$
         ..add('Message')
         ..add(serializers.serialize(
           message,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

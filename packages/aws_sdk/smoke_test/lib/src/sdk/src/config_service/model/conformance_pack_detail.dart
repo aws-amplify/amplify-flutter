@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.conformance_pack_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -236,37 +237,40 @@ class ConformancePackDetailAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConformancePackDetail object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConformancePackDetail);
-    final result = <Object?>[
-      'ConformancePackName',
-      serializers.serialize(
-        payload.conformancePackName,
-        specifiedType: const FullType(String),
-      ),
-      'ConformancePackArn',
-      serializers.serialize(
-        payload.conformancePackArn,
-        specifiedType: const FullType(String),
-      ),
-      'ConformancePackId',
-      serializers.serialize(
-        payload.conformancePackId,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final ConformancePackDetail(
+      :conformancePackName,
+      :conformancePackArn,
+      :conformancePackId,
       :deliveryS3Bucket,
       :deliveryS3KeyPrefix,
       :conformancePackInputParameters,
       :lastUpdateRequestedTime,
       :createdBy,
       :templateSsmDocumentDetails
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'ConformancePackName',
+      serializers.serialize(
+        conformancePackName,
+        specifiedType: const FullType(String),
+      ),
+      'ConformancePackArn',
+      serializers.serialize(
+        conformancePackArn,
+        specifiedType: const FullType(String),
+      ),
+      'ConformancePackId',
+      serializers.serialize(
+        conformancePackId,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (deliveryS3Bucket != null) {
-      result
+      result$
         ..add('DeliveryS3Bucket')
         ..add(serializers.serialize(
           deliveryS3Bucket,
@@ -274,7 +278,7 @@ class ConformancePackDetailAwsJson11Serializer
         ));
     }
     if (deliveryS3KeyPrefix != null) {
-      result
+      result$
         ..add('DeliveryS3KeyPrefix')
         ..add(serializers.serialize(
           deliveryS3KeyPrefix,
@@ -282,7 +286,7 @@ class ConformancePackDetailAwsJson11Serializer
         ));
     }
     if (conformancePackInputParameters != null) {
-      result
+      result$
         ..add('ConformancePackInputParameters')
         ..add(serializers.serialize(
           conformancePackInputParameters,
@@ -293,7 +297,7 @@ class ConformancePackDetailAwsJson11Serializer
         ));
     }
     if (lastUpdateRequestedTime != null) {
-      result
+      result$
         ..add('LastUpdateRequestedTime')
         ..add(serializers.serialize(
           lastUpdateRequestedTime,
@@ -301,7 +305,7 @@ class ConformancePackDetailAwsJson11Serializer
         ));
     }
     if (createdBy != null) {
-      result
+      result$
         ..add('CreatedBy')
         ..add(serializers.serialize(
           createdBy,
@@ -309,13 +313,13 @@ class ConformancePackDetailAwsJson11Serializer
         ));
     }
     if (templateSsmDocumentDetails != null) {
-      result
+      result$
         ..add('TemplateSSMDocumentDetails')
         ..add(serializers.serialize(
           templateSsmDocumentDetails,
           specifiedType: const FullType(_i3.TemplateSsmDocumentDetails),
         ));
     }
-    return result;
+    return result$;
   }
 }

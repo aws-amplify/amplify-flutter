@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.evaluation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -164,41 +165,47 @@ class EvaluationAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Evaluation object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Evaluation);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final Evaluation(
+      :complianceResourceType,
+      :complianceResourceId,
+      :complianceType,
+      :annotation,
+      :orderingTimestamp
+    ) = object;
+    result$.addAll([
       'ComplianceResourceType',
       serializers.serialize(
-        payload.complianceResourceType,
+        complianceResourceType,
         specifiedType: const FullType(String),
       ),
       'ComplianceResourceId',
       serializers.serialize(
-        payload.complianceResourceId,
+        complianceResourceId,
         specifiedType: const FullType(String),
       ),
       'ComplianceType',
       serializers.serialize(
-        payload.complianceType,
+        complianceType,
         specifiedType: const FullType(_i2.ComplianceType),
       ),
       'OrderingTimestamp',
       serializers.serialize(
-        payload.orderingTimestamp,
+        orderingTimestamp,
         specifiedType: const FullType(DateTime),
       ),
-    ];
-    final Evaluation(:annotation) = payload;
+    ]);
     if (annotation != null) {
-      result
+      result$
         ..add('Annotation')
         ..add(serializers.serialize(
           annotation,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

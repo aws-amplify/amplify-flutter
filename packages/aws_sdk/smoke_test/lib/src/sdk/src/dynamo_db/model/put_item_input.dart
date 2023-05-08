@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.put_item_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -365,29 +366,13 @@ class PutItemInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutItemInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutItemInput);
-    final result = <Object?>[
-      'TableName',
-      serializers.serialize(
-        payload.tableName,
-        specifiedType: const FullType(String),
-      ),
-      'Item',
-      serializers.serialize(
-        payload.item,
-        specifiedType: const FullType(
-          _i9.BuiltMap,
-          [
-            FullType(String),
-            FullType(_i3.AttributeValue),
-          ],
-        ),
-      ),
-    ];
+    final result$ = <Object?>[];
     final PutItemInput(
+      :tableName,
+      :item,
       :expected,
       :returnValues,
       :returnConsumedCapacity,
@@ -396,9 +381,27 @@ class PutItemInputAwsJson10Serializer
       :conditionExpression,
       :expressionAttributeNames,
       :expressionAttributeValues
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'TableName',
+      serializers.serialize(
+        tableName,
+        specifiedType: const FullType(String),
+      ),
+      'Item',
+      serializers.serialize(
+        item,
+        specifiedType: const FullType(
+          _i9.BuiltMap,
+          [
+            FullType(String),
+            FullType(_i3.AttributeValue),
+          ],
+        ),
+      ),
+    ]);
     if (expected != null) {
-      result
+      result$
         ..add('Expected')
         ..add(serializers.serialize(
           expected,
@@ -412,7 +415,7 @@ class PutItemInputAwsJson10Serializer
         ));
     }
     if (returnValues != null) {
-      result
+      result$
         ..add('ReturnValues')
         ..add(serializers.serialize(
           returnValues,
@@ -420,7 +423,7 @@ class PutItemInputAwsJson10Serializer
         ));
     }
     if (returnConsumedCapacity != null) {
-      result
+      result$
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
@@ -428,7 +431,7 @@ class PutItemInputAwsJson10Serializer
         ));
     }
     if (returnItemCollectionMetrics != null) {
-      result
+      result$
         ..add('ReturnItemCollectionMetrics')
         ..add(serializers.serialize(
           returnItemCollectionMetrics,
@@ -436,7 +439,7 @@ class PutItemInputAwsJson10Serializer
         ));
     }
     if (conditionalOperator != null) {
-      result
+      result$
         ..add('ConditionalOperator')
         ..add(serializers.serialize(
           conditionalOperator,
@@ -444,7 +447,7 @@ class PutItemInputAwsJson10Serializer
         ));
     }
     if (conditionExpression != null) {
-      result
+      result$
         ..add('ConditionExpression')
         ..add(serializers.serialize(
           conditionExpression,
@@ -452,7 +455,7 @@ class PutItemInputAwsJson10Serializer
         ));
     }
     if (expressionAttributeNames != null) {
-      result
+      result$
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
           expressionAttributeNames,
@@ -466,7 +469,7 @@ class PutItemInputAwsJson10Serializer
         ));
     }
     if (expressionAttributeValues != null) {
-      result
+      result$
         ..add('ExpressionAttributeValues')
         ..add(serializers.serialize(
           expressionAttributeValues,
@@ -479,6 +482,6 @@ class PutItemInputAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

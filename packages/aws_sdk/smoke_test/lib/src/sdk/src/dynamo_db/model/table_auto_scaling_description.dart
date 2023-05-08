@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.table_auto_scaling_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -147,15 +148,14 @@ class TableAutoScalingDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TableAutoScalingDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TableAutoScalingDescription);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final TableAutoScalingDescription(:tableName, :tableStatus, :replicas) =
-        payload;
+        object;
     if (tableName != null) {
-      result
+      result$
         ..add('TableName')
         ..add(serializers.serialize(
           tableName,
@@ -163,7 +163,7 @@ class TableAutoScalingDescriptionAwsJson10Serializer
         ));
     }
     if (tableStatus != null) {
-      result
+      result$
         ..add('TableStatus')
         ..add(serializers.serialize(
           tableStatus,
@@ -171,7 +171,7 @@ class TableAutoScalingDescriptionAwsJson10Serializer
         ));
     }
     if (replicas != null) {
-      result
+      result$
         ..add('Replicas')
         ..add(serializers.serialize(
           replicas,
@@ -181,6 +181,6 @@ class TableAutoScalingDescriptionAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

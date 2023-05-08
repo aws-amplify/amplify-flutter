@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.register_type_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -214,11 +215,10 @@ class RegisterTypeInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RegisterTypeInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RegisterTypeInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'RegisterTypeInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -231,29 +231,29 @@ class RegisterTypeInputAwsQuerySerializer
       :loggingConfig,
       :executionRoleArn,
       :clientRequestToken
-    ) = payload;
+    ) = object;
     if (type != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
           specifiedType: const FullType.nullable(_i3.RegistryType),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('TypeName'))
       ..add(serializers.serialize(
         typeName,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('SchemaHandlerPackage'))
       ..add(serializers.serialize(
         schemaHandlerPackage,
         specifiedType: const FullType(String),
       ));
     if (loggingConfig != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('LoggingConfig'))
         ..add(serializers.serialize(
           loggingConfig,
@@ -261,7 +261,7 @@ class RegisterTypeInputAwsQuerySerializer
         ));
     }
     if (executionRoleArn != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ExecutionRoleArn'))
         ..add(serializers.serialize(
           executionRoleArn,
@@ -269,13 +269,13 @@ class RegisterTypeInputAwsQuerySerializer
         ));
     }
     if (clientRequestToken != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('ClientRequestToken'))
         ..add(serializers.serialize(
           clientRequestToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

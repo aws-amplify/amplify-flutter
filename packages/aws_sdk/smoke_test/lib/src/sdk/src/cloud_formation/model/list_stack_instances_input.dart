@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.list_stack_instances_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -217,11 +218,10 @@ class ListStackInstancesInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListStackInstancesInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListStackInstancesInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'ListStackInstancesInputResponse',
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -235,15 +235,15 @@ class ListStackInstancesInputAwsQuerySerializer
       :stackInstanceAccount,
       :stackInstanceRegion,
       :callAs
-    ) = payload;
-    result
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('StackSetName'))
       ..add(serializers.serialize(
         stackSetName,
         specifiedType: const FullType(String),
       ));
     if (nextToken != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
@@ -251,7 +251,7 @@ class ListStackInstancesInputAwsQuerySerializer
         ));
     }
     if (maxResults != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
           maxResults,
@@ -259,7 +259,7 @@ class ListStackInstancesInputAwsQuerySerializer
         ));
     }
     if (filters != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('Filters'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
@@ -273,7 +273,7 @@ class ListStackInstancesInputAwsQuerySerializer
         ));
     }
     if (stackInstanceAccount != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('StackInstanceAccount'))
         ..add(serializers.serialize(
           stackInstanceAccount,
@@ -281,7 +281,7 @@ class ListStackInstancesInputAwsQuerySerializer
         ));
     }
     if (stackInstanceRegion != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('StackInstanceRegion'))
         ..add(serializers.serialize(
           stackInstanceRegion,
@@ -289,13 +289,13 @@ class ListStackInstancesInputAwsQuerySerializer
         ));
     }
     if (callAs != null) {
-      result
+      result$
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
           specifiedType: const FullType.nullable(_i4.CallAs),
         ));
     }
-    return result;
+    return result$;
   }
 }

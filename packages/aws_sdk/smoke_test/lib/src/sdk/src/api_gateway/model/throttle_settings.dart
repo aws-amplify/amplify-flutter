@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.throttle_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -113,14 +114,13 @@ class ThrottleSettingsRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ThrottleSettings object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ThrottleSettings);
-    final result = <Object?>[];
-    final ThrottleSettings(:burstLimit, :rateLimit) = payload;
+    final result$ = <Object?>[];
+    final ThrottleSettings(:burstLimit, :rateLimit) = object;
     if (burstLimit != null) {
-      result
+      result$
         ..add('burstLimit')
         ..add(serializers.serialize(
           burstLimit,
@@ -128,13 +128,13 @@ class ThrottleSettingsRestJson1Serializer
         ));
     }
     if (rateLimit != null) {
-      result
+      result$
         ..add('rateLimit')
         ..add(serializers.serialize(
           rateLimit,
           specifiedType: const FullType(double),
         ));
     }
-    return result;
+    return result$;
   }
 }

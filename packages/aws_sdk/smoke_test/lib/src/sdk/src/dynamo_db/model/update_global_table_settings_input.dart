@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.update_global_table_settings_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -221,26 +222,27 @@ class UpdateGlobalTableSettingsInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateGlobalTableSettingsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateGlobalTableSettingsInput);
-    final result = <Object?>[
-      'GlobalTableName',
-      serializers.serialize(
-        payload.globalTableName,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final UpdateGlobalTableSettingsInput(
+      :globalTableName,
       :globalTableBillingMode,
       :globalTableProvisionedWriteCapacityUnits,
       :globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
       :globalTableGlobalSecondaryIndexSettingsUpdate,
       :replicaSettingsUpdate
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'GlobalTableName',
+      serializers.serialize(
+        globalTableName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (globalTableBillingMode != null) {
-      result
+      result$
         ..add('GlobalTableBillingMode')
         ..add(serializers.serialize(
           globalTableBillingMode,
@@ -248,7 +250,7 @@ class UpdateGlobalTableSettingsInputAwsJson10Serializer
         ));
     }
     if (globalTableProvisionedWriteCapacityUnits != null) {
-      result
+      result$
         ..add('GlobalTableProvisionedWriteCapacityUnits')
         ..add(serializers.serialize(
           globalTableProvisionedWriteCapacityUnits,
@@ -256,7 +258,7 @@ class UpdateGlobalTableSettingsInputAwsJson10Serializer
         ));
     }
     if (globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate != null) {
-      result
+      result$
         ..add('GlobalTableProvisionedWriteCapacityAutoScalingSettingsUpdate')
         ..add(serializers.serialize(
           globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
@@ -264,7 +266,7 @@ class UpdateGlobalTableSettingsInputAwsJson10Serializer
         ));
     }
     if (globalTableGlobalSecondaryIndexSettingsUpdate != null) {
-      result
+      result$
         ..add('GlobalTableGlobalSecondaryIndexSettingsUpdate')
         ..add(serializers.serialize(
           globalTableGlobalSecondaryIndexSettingsUpdate,
@@ -275,7 +277,7 @@ class UpdateGlobalTableSettingsInputAwsJson10Serializer
         ));
     }
     if (replicaSettingsUpdate != null) {
-      result
+      result$
         ..add('ReplicaSettingsUpdate')
         ..add(serializers.serialize(
           replicaSettingsUpdate,
@@ -285,6 +287,6 @@ class UpdateGlobalTableSettingsInputAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

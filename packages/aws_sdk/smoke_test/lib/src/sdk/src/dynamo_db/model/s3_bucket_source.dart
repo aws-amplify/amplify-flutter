@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.s3_bucket_source; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -128,20 +129,20 @@ class S3BucketSourceAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    S3BucketSource object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as S3BucketSource);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final S3BucketSource(:s3BucketOwner, :s3Bucket, :s3KeyPrefix) = object;
+    result$.addAll([
       'S3Bucket',
       serializers.serialize(
-        payload.s3Bucket,
+        s3Bucket,
         specifiedType: const FullType(String),
       ),
-    ];
-    final S3BucketSource(:s3BucketOwner, :s3KeyPrefix) = payload;
+    ]);
     if (s3BucketOwner != null) {
-      result
+      result$
         ..add('S3BucketOwner')
         ..add(serializers.serialize(
           s3BucketOwner,
@@ -149,13 +150,13 @@ class S3BucketSourceAwsJson10Serializer
         ));
     }
     if (s3KeyPrefix != null) {
-      result
+      result$
         ..add('S3KeyPrefix')
         ..add(serializers.serialize(
           s3KeyPrefix,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

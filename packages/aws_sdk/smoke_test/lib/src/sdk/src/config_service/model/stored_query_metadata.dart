@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.stored_query_metadata; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -144,36 +145,37 @@ class StoredQueryMetadataAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StoredQueryMetadata object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StoredQueryMetadata);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final StoredQueryMetadata(:queryId, :queryArn, :queryName, :description) =
+        object;
+    result$.addAll([
       'QueryId',
       serializers.serialize(
-        payload.queryId,
+        queryId,
         specifiedType: const FullType(String),
       ),
       'QueryArn',
       serializers.serialize(
-        payload.queryArn,
+        queryArn,
         specifiedType: const FullType(String),
       ),
       'QueryName',
       serializers.serialize(
-        payload.queryName,
+        queryName,
         specifiedType: const FullType(String),
       ),
-    ];
-    final StoredQueryMetadata(:description) = payload;
+    ]);
     if (description != null) {
-      result
+      result$
         ..add('Description')
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.progress_event; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -94,25 +95,24 @@ class ProgressEventRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ProgressEvent object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ProgressEvent);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ProgressEvent',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final ProgressEvent(:details) = payload;
+    final ProgressEvent(:details) = object;
     if (details != null) {
-      result
+      result$
         ..add(const _i3.XmlElementName('Details'))
         ..add(serializers.serialize(
           details,
           specifiedType: const FullType(_i2.Progress),
         ));
     }
-    return result;
+    return result$;
   }
 }

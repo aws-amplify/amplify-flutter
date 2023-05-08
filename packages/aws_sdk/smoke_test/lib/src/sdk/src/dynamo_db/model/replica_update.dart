@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -135,14 +136,13 @@ class ReplicaUpdateAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaUpdate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaUpdate);
-    final result = <Object?>[];
-    final ReplicaUpdate(:create, :delete) = payload;
+    final result$ = <Object?>[];
+    final ReplicaUpdate(:create, :delete) = object;
     if (create != null) {
-      result
+      result$
         ..add('Create')
         ..add(serializers.serialize(
           create,
@@ -150,13 +150,13 @@ class ReplicaUpdateAwsJson10Serializer
         ));
     }
     if (delete != null) {
-      result
+      result$
         ..add('Delete')
         ..add(serializers.serialize(
           delete,
           specifiedType: const FullType(_i3.DeleteReplicaAction),
         ));
     }
-    return result;
+    return result$;
   }
 }

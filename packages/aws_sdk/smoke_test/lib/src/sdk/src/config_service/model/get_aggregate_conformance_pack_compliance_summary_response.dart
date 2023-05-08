@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_aggregate_conformance_pack_compliance_summary_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -154,19 +155,17 @@ class GetAggregateConformancePackComplianceSummaryResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetAggregateConformancePackComplianceSummaryResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload =
-        (object as GetAggregateConformancePackComplianceSummaryResponse);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final GetAggregateConformancePackComplianceSummaryResponse(
       :aggregateConformancePackComplianceSummaries,
       :groupByKey,
       :nextToken
-    ) = payload;
+    ) = object;
     if (aggregateConformancePackComplianceSummaries != null) {
-      result
+      result$
         ..add('AggregateConformancePackComplianceSummaries')
         ..add(serializers.serialize(
           aggregateConformancePackComplianceSummaries,
@@ -177,7 +176,7 @@ class GetAggregateConformancePackComplianceSummaryResponseAwsJson11Serializer
         ));
     }
     if (groupByKey != null) {
-      result
+      result$
         ..add('GroupByKey')
         ..add(serializers.serialize(
           groupByKey,
@@ -185,13 +184,13 @@ class GetAggregateConformancePackComplianceSummaryResponseAwsJson11Serializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

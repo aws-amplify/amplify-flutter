@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.iam.model.no_such_entity_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -119,25 +120,24 @@ class NoSuchEntityExceptionAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    NoSuchEntityException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as NoSuchEntityException);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'NoSuchEntityExceptionResponse',
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    final NoSuchEntityException(:message) = payload;
+    final NoSuchEntityException(:message) = object;
     if (message != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('message'))
         ..add(serializers.serialize(
           message,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

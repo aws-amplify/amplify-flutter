@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.source_selection_criteria; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -121,11 +122,10 @@ class SourceSelectionCriteriaRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SourceSelectionCriteria object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SourceSelectionCriteria);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'SourceSelectionCriteria',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -134,9 +134,9 @@ class SourceSelectionCriteriaRestXmlSerializer
     final SourceSelectionCriteria(
       :replicaModifications,
       :sseKmsEncryptedObjects
-    ) = payload;
+    ) = object;
     if (replicaModifications != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('ReplicaModifications'))
         ..add(serializers.serialize(
           replicaModifications,
@@ -144,13 +144,13 @@ class SourceSelectionCriteriaRestXmlSerializer
         ));
     }
     if (sseKmsEncryptedObjects != null) {
-      result
+      result$
         ..add(const _i4.XmlElementName('SseKmsEncryptedObjects'))
         ..add(serializers.serialize(
           sseKmsEncryptedObjects,
           specifiedType: const FullType(_i2.SseKmsEncryptedObjects),
         ));
     }
-    return result;
+    return result$;
   }
 }

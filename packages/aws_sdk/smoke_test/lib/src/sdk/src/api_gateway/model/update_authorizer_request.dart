@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.update_authorizer_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -204,16 +205,13 @@ class UpdateAuthorizerRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateAuthorizerRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UpdateAuthorizerRequest
-        ? object.getPayload()
-        : (object as UpdateAuthorizerRequestPayload);
-    final result = <Object?>[];
-    final UpdateAuthorizerRequestPayload(:patchOperations) = payload;
+    final result$ = <Object?>[];
+    final UpdateAuthorizerRequestPayload(:patchOperations) = object;
     if (patchOperations != null) {
-      result
+      result$
         ..add('patchOperations')
         ..add(serializers.serialize(
           patchOperations,
@@ -223,6 +221,6 @@ class UpdateAuthorizerRequestRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

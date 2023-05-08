@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.complete_multipart_upload_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -425,13 +426,10 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CompleteMultipartUploadOutputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is CompleteMultipartUploadOutput
-        ? object.getPayload()
-        : (object as CompleteMultipartUploadOutputPayload);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'CompleteMultipartUploadResult',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
@@ -446,9 +444,9 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
       :eTag,
       :key,
       :location
-    ) = payload;
+    ) = object;
     if (bucket != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Bucket'))
         ..add(serializers.serialize(
           bucket,
@@ -456,7 +454,7 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
         ));
     }
     if (checksumCrc32 != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ChecksumCRC32'))
         ..add(serializers.serialize(
           checksumCrc32,
@@ -464,7 +462,7 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
         ));
     }
     if (checksumCrc32C != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ChecksumCRC32C'))
         ..add(serializers.serialize(
           checksumCrc32C,
@@ -472,7 +470,7 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
         ));
     }
     if (checksumSha1 != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ChecksumSHA1'))
         ..add(serializers.serialize(
           checksumSha1,
@@ -480,7 +478,7 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
         ));
     }
     if (checksumSha256 != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ChecksumSHA256'))
         ..add(serializers.serialize(
           checksumSha256,
@@ -488,7 +486,7 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
         ));
     }
     if (eTag != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('ETag'))
         ..add(serializers.serialize(
           eTag,
@@ -496,7 +494,7 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
         ));
     }
     if (key != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Key'))
         ..add(serializers.serialize(
           key,
@@ -504,13 +502,13 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
         ));
     }
     if (location != null) {
-      result
+      result$
         ..add(const _i2.XmlElementName('Location'))
         ..add(serializers.serialize(
           location,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

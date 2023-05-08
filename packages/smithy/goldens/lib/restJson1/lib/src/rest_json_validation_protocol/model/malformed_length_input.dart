@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_validation_protocol.model.malformed_length_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -183,11 +184,10 @@ class MalformedLengthInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedLengthInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MalformedLengthInput);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final MalformedLengthInput(
       :blob,
       :list,
@@ -195,9 +195,9 @@ class MalformedLengthInputRestJson1Serializer
       :maxString,
       :minString,
       :string
-    ) = payload;
+    ) = object;
     if (blob != null) {
-      result
+      result$
         ..add('blob')
         ..add(serializers.serialize(
           blob,
@@ -205,7 +205,7 @@ class MalformedLengthInputRestJson1Serializer
         ));
     }
     if (list != null) {
-      result
+      result$
         ..add('list')
         ..add(serializers.serialize(
           list,
@@ -216,7 +216,7 @@ class MalformedLengthInputRestJson1Serializer
         ));
     }
     if (map != null) {
-      result
+      result$
         ..add('map')
         ..add(serializers.serialize(
           map,
@@ -230,7 +230,7 @@ class MalformedLengthInputRestJson1Serializer
         ));
     }
     if (maxString != null) {
-      result
+      result$
         ..add('maxString')
         ..add(serializers.serialize(
           maxString,
@@ -238,7 +238,7 @@ class MalformedLengthInputRestJson1Serializer
         ));
     }
     if (minString != null) {
-      result
+      result$
         ..add('minString')
         ..add(serializers.serialize(
           minString,
@@ -246,13 +246,13 @@ class MalformedLengthInputRestJson1Serializer
         ));
     }
     if (string != null) {
-      result
+      result$
         ..add('string')
         ..add(serializers.serialize(
           string,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

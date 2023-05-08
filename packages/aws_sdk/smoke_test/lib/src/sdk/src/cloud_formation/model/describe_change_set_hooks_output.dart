@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.cloud_formation.model.describe_change_set_hooks_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -208,11 +209,10 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeChangeSetHooksOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeChangeSetHooksOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'DescribeChangeSetHooksOutputResponse',
         _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
@@ -226,9 +226,9 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
       :nextToken,
       :stackId,
       :stackName
-    ) = payload;
+    ) = object;
     if (changeSetId != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('ChangeSetId'))
         ..add(serializers.serialize(
           changeSetId,
@@ -236,7 +236,7 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
         ));
     }
     if (changeSetName != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('ChangeSetName'))
         ..add(serializers.serialize(
           changeSetName,
@@ -244,7 +244,7 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
         ));
     }
     if (hooks != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Hooks'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
@@ -258,7 +258,7 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
         ));
     }
     if (status != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
@@ -266,7 +266,7 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
         ));
     }
     if (nextToken != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
@@ -274,7 +274,7 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
         ));
     }
     if (stackId != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('StackId'))
         ..add(serializers.serialize(
           stackId,
@@ -282,13 +282,13 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
         ));
     }
     if (stackName != null) {
-      result
+      result$
         ..add(const _i5.XmlElementName('StackName'))
         ..add(serializers.serialize(
           stackName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

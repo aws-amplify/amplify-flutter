@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.restore_table_from_backup_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -220,31 +221,33 @@ class RestoreTableFromBackupInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RestoreTableFromBackupInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RestoreTableFromBackupInput);
-    final result = <Object?>[
-      'TargetTableName',
-      serializers.serialize(
-        payload.targetTableName,
-        specifiedType: const FullType(String),
-      ),
-      'BackupArn',
-      serializers.serialize(
-        payload.backupArn,
-        specifiedType: const FullType(String),
-      ),
-    ];
+    final result$ = <Object?>[];
     final RestoreTableFromBackupInput(
+      :targetTableName,
+      :backupArn,
       :billingModeOverride,
       :globalSecondaryIndexOverride,
       :localSecondaryIndexOverride,
       :provisionedThroughputOverride,
       :sseSpecificationOverride
-    ) = payload;
+    ) = object;
+    result$.addAll([
+      'TargetTableName',
+      serializers.serialize(
+        targetTableName,
+        specifiedType: const FullType(String),
+      ),
+      'BackupArn',
+      serializers.serialize(
+        backupArn,
+        specifiedType: const FullType(String),
+      ),
+    ]);
     if (billingModeOverride != null) {
-      result
+      result$
         ..add('BillingModeOverride')
         ..add(serializers.serialize(
           billingModeOverride,
@@ -252,7 +255,7 @@ class RestoreTableFromBackupInputAwsJson10Serializer
         ));
     }
     if (globalSecondaryIndexOverride != null) {
-      result
+      result$
         ..add('GlobalSecondaryIndexOverride')
         ..add(serializers.serialize(
           globalSecondaryIndexOverride,
@@ -263,7 +266,7 @@ class RestoreTableFromBackupInputAwsJson10Serializer
         ));
     }
     if (localSecondaryIndexOverride != null) {
-      result
+      result$
         ..add('LocalSecondaryIndexOverride')
         ..add(serializers.serialize(
           localSecondaryIndexOverride,
@@ -274,7 +277,7 @@ class RestoreTableFromBackupInputAwsJson10Serializer
         ));
     }
     if (provisionedThroughputOverride != null) {
-      result
+      result$
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
           provisionedThroughputOverride,
@@ -282,13 +285,13 @@ class RestoreTableFromBackupInputAwsJson10Serializer
         ));
     }
     if (sseSpecificationOverride != null) {
-      result
+      result$
         ..add('SSESpecificationOverride')
         ..add(serializers.serialize(
           sseSpecificationOverride,
           specifiedType: const FullType(_i7.SseSpecification),
         ));
     }
-    return result;
+    return result$;
   }
 }

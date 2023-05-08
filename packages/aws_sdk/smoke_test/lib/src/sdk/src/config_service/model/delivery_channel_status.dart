@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.delivery_channel_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -155,19 +156,18 @@ class DeliveryChannelStatusAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeliveryChannelStatus object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeliveryChannelStatus);
-    final result = <Object?>[];
+    final result$ = <Object?>[];
     final DeliveryChannelStatus(
       :name,
       :configSnapshotDeliveryInfo,
       :configHistoryDeliveryInfo,
       :configStreamDeliveryInfo
-    ) = payload;
+    ) = object;
     if (name != null) {
-      result
+      result$
         ..add('name')
         ..add(serializers.serialize(
           name,
@@ -175,7 +175,7 @@ class DeliveryChannelStatusAwsJson11Serializer
         ));
     }
     if (configSnapshotDeliveryInfo != null) {
-      result
+      result$
         ..add('configSnapshotDeliveryInfo')
         ..add(serializers.serialize(
           configSnapshotDeliveryInfo,
@@ -183,7 +183,7 @@ class DeliveryChannelStatusAwsJson11Serializer
         ));
     }
     if (configHistoryDeliveryInfo != null) {
-      result
+      result$
         ..add('configHistoryDeliveryInfo')
         ..add(serializers.serialize(
           configHistoryDeliveryInfo,
@@ -191,13 +191,13 @@ class DeliveryChannelStatusAwsJson11Serializer
         ));
     }
     if (configStreamDeliveryInfo != null) {
-      result
+      result$
         ..add('configStreamDeliveryInfo')
         ..add(serializers.serialize(
           configStreamDeliveryInfo,
           specifiedType: const FullType(_i3.ConfigStreamDeliveryInfo),
         ));
     }
-    return result;
+    return result$;
   }
 }
