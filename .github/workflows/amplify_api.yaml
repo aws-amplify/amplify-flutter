@@ -13,8 +13,6 @@ on:
       - 'packages/amplify/amplify_flutter/pubspec.yaml'
       - 'packages/amplify_core/lib/**/*.dart'
       - 'packages/amplify_core/pubspec.yaml'
-      - 'packages/amplify_datastore_plugin_interface/lib/**/*.dart'
-      - 'packages/amplify_datastore_plugin_interface/pubspec.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
       - 'packages/amplify_lints/pubspec.yaml'
       - 'packages/api/amplify_api/**/*.dart'
