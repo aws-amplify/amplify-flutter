@@ -1,20 +1,18 @@
 import Flutter
 import UIKit
 
-public class SwiftAmplifySecureStoragePlugin: NSObject, FlutterPlugin, NSUserDefaultsAPI {
+public class SwiftAmplifySecureStoragePlugin: NSObject, FlutterPlugin, NSUserDefaultsPigeon {
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         let instance = SwiftAmplifySecureStoragePlugin()
-        NSUserDefaultsAPISetup(registrar.messenger(), instance)
+        NSUserDefaultsPigeonSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
     }
     
-    public func setBoolKey(_ key: String, value: NSNumber) async -> FlutterError? {
+    func setBool(key: String, value: Bool) throws {
         UserDefaults.standard.set(value, forKey: key)
-        return nil
     }
     
-    public func bool(forKey key: String) async -> (NSNumber?, FlutterError?) {
-        let containsScope = UserDefaults.standard.bool(forKey: key) as NSNumber
-        return (containsScope, nil)
+    func boolFor(key: String) throws -> Bool {
+        return UserDefaults.standard.bool(forKey: key)
     }
 }

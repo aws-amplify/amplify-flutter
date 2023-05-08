@@ -32,20 +32,10 @@ abstract class NativeAuthPlugin {
   /// was closed and a redirect happened to the custom URI scheme (iOS) or an
   /// intent was launched with the redirect parameters (Android).
   void exchange(Map<String, String> params);
-
-  @async
-  NativeAuthSession fetchAuthSession();
 }
 
 @HostApi()
 abstract class NativeAuthBridge {
-  /// Adds the native platform/plugin.
-  ///
-  /// On iOS/Android, this calls `Amplify.addPlugin` with the [NativeAuthPlugin]
-  /// implementation.
-  @async
-  void addPlugin();
-
   /// Sign in by presenting [url] and waiting for a response to a URL with
   /// [callbackUrlScheme].
   ///
@@ -73,9 +63,6 @@ abstract class NativeAuthBridge {
 
   String getBundleId();
 
-  /// Updates the native cache of the current user.
-  void updateCurrentUser(NativeAuthUser? user);
-
   /// Fetch legacy credentials stored by native SDKs.
   @async
   LegacyCredentialStoreData getLegacyCredentials(
@@ -86,34 +73,6 @@ abstract class NativeAuthBridge {
   /// Clears the legacy credential store data.
   @async
   void clearLegacyCredentials();
-}
-
-class NativeAuthSession {
-  late bool isSignedIn;
-
-  String? userSub;
-  NativeUserPoolTokens? userPoolTokens;
-
-  String? identityId;
-  NativeAWSCredentials? awsCredentials;
-}
-
-class NativeAuthUser {
-  late String userId;
-  late String username;
-}
-
-class NativeUserPoolTokens {
-  late String accessToken;
-  late String refreshToken;
-  late String idToken;
-}
-
-class NativeAWSCredentials {
-  late String accessKeyId;
-  late String secretAccessKey;
-  String? sessionToken;
-  String? expirationIso8601Utc;
 }
 
 class LegacyCredentialStoreData {

@@ -1,20 +1,17 @@
 .PHONY: pigeons
-.PHONY: pigeons_android
-.PHONY: pigeons_ios
-.PHONY: pigeons_macos
+.PHONY: pigeons_secure_storage
+.PHONY: pigeons_ns_user_defaults
 
-pigeons: pigeons_android pigeons_ios pigeons_macos
+pigeons: pigeons_secure_storage pigeons_ns_user_defaults 
 
-pigeons_android:
-	dart run pigeon --input pigeons/messages.android.dart
-	dart format --fix lib/src/messages.android.g.dart
+pigeons_secure_storage:
+	dart run pigeon --input pigeons/amplify_secure_storage.dart
+	dart format --fix lib/src/pigeons/amplify_secure_storage_pigeon.g.dart
 
-pigeons_ios:
-	dart run pigeon --input pigeons/messages.ios.dart
-	dart format --fix lib/src/messages.cupertino.g.dart
-
-pigeons_macos:
-	dart run pigeon --input pigeons/messages.macos.dart
-	dart format --fix lib/src/messages.cupertino.g.dart
-	# See: https://github.com/flutter/flutter/issues/73738#issuecomment-903927725
-	sed -i '' -e 's/\<Flutter\/Flutter\.h\>/\<FlutterMacOS\/FlutterMacOS\.h\>/' macos/Classes/pigeons/Messages.m
+pigeons_ns_user_defaults:
+	dart run pigeon --input pigeons/ns_user_defaults.dart
+	# TODO(Jordan-Nelson): Consider combining iOS and macOS source code when min
+	# flutter version is 3.7.0+
+	# see: https://docs.flutter.dev/packages-and-plugins/developing-packages#shared-ios-and-macos-implementations
+	cp ios/Classes/pigeons/NSUserDefaultsPigeon.swift macos/Classes/pigeons/NSUserDefaultsPigeon.swift
+	dart format --fix lib/src/pigeons/ns_user_defaults_pigeon.g.dart

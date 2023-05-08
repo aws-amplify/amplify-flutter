@@ -16,15 +16,17 @@ flutter pub add amplify_flutter \
   amplify_authenticator \
   amplify_api
 # add test packages
-flutter pub add dev:integration_test:'{"sdk":"flutter"}' dev:flutter_test:'{"sdk":"flutter"}'
-flutter pub upgrade --major-versions
+flutter pub add --dev --sdk=flutter integration_test
 
 # copy template files to newly generated app
 cp -r $ROOT_DIR/canaries/lib .
 cp $ROOT_DIR/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
 
 # Android
-sed -i'' -e "s/minSdkVersion .*/minSdkVersion 24/" ./android/app/build.gradle && cat ./android/app/build.gradle
+sed -i'' -e "s/ext.kotlin_version = .*/ext.kotlin_version = \"1.8.21\"/" ./android/build.gradle
+sed -i'' -e "s/minSdkVersion .*/minSdkVersion 24/" ./android/app/build.gradle
+sed -i'' -e "s/compileSdkVersion .*/compileSdkVersion 33/" ./android/app/build.gradle
+cat ./android/app/build.gradle
 # iOS
 sed -i'' -e "s/# platform .*/platform :ios, '13.0'/" ./ios/Podfile && cat ./ios/Podfile
 

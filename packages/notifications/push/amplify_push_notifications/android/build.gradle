@@ -62,11 +62,7 @@ android {
     namespace 'com.amazonaws.amplify.amplify_push_notifications'
 }
 
-// Logic for finding sibling plugins, from `flutter_tools/gradle/flutter.gradle`
-def amplifyFlutter = project.rootProject.findProject(':amplify_flutter_android')
-
 dependencies {
-    api amplifyFlutter
     api "com.google.firebase:firebase-messaging:23.1.0"
     // Import support library for Amplify push utils
     implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.5.0'

@@ -12,8 +12,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
-import com.amplifyframework.auth.AuthUser
-import com.amplifyframework.core.Amplify
 import io.flutter.Log
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -75,11 +73,6 @@ open class AuthCognito :
      * The plugin used to communicate with Dart.
      */
     private var nativePlugin: NativeAuthPluginBindingsPigeon.NativeAuthPlugin? = null
-
-    /**
-     * The local cache of the current Dart user.
-     */
-    private var currentUser: AuthUser? = null
 
     /**
      * The initial route parameters used to launch the main activity, which can happen when using
@@ -163,19 +156,6 @@ open class AuthCognito :
         mainActivity = null
     }
 
-    override fun addPlugin(result: NativeAuthPluginBindingsPigeon.Result<Void>) {
-        if (initialParameters != null) {
-            nativePlugin!!.exchange(initialParameters!!) {}
-            initialParameters = null
-        }
-        try {
-            Amplify.addPlugin(NativeAuthPlugin { nativePlugin })
-            result.success(null)
-        } catch (e: Exception) {
-            result.error(e)
-        }
-    }
-
     override fun getValidationData(): MutableMap<String, String> {
         // Currently, the Android libraries do not provide any data by default.
         return mutableMapOf()
@@ -183,17 +163,6 @@ open class AuthCognito :
 
     override fun getBundleId(): String {
         return applicationContext!!.packageName
-    }
-
-    /**
-     * Updates the local cache of the Dart user.
-     */
-    override fun updateCurrentUser(user: NativeAuthPluginBindingsPigeon.NativeAuthUser?) {
-        currentUser = if (user != null) {
-            AuthUser(user.userId, user.username)
-        } else {
-            null
-        }
     }
 
     /**
