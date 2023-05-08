@@ -1,5 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
@@ -12,8 +24,9 @@ import 'package:meta/meta.dart';
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
+import 'utils.dart';
 
-/// This is an auto generated class representing the CustomTypeWithAppsyncScalarTypes type in your schema.
+/** This is an auto generated class representing the CustomTypeWithAppsyncScalarTypes type in your schema. */
 @immutable
 class CustomTypeWithAppsyncScalarTypes {
   final String? _stringValue;
@@ -383,7 +396,7 @@ class CustomTypeWithAppsyncScalarTypes {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CustomTypeWithAppsyncScalarTypes {");
     buffer.write("stringValue=" + "$_stringValue" + ", ");
@@ -613,15 +626,15 @@ class CustomTypeWithAppsyncScalarTypes {
                 .map((e) => enumFromString<EnumField>(e, EnumField.values)!)
                 .toList()
             : null,
-        _customTypeValue = json['customTypeValue']?['serializedData'] != null
-            ? SimpleCustomType.fromJson(Map<String, dynamic>.from(
-                json['customTypeValue']['serializedData']))
+        _customTypeValue = json['customTypeValue'] != null
+            ? SimpleCustomType.fromJson(
+                new Map<String, dynamic>.from(json['customTypeValue']))
             : null,
         _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
             ? (json['listOfCustomTypeValue'] as List)
                 .where((e) => e != null)
-                .map((e) => SimpleCustomType.fromJson(
-                    Map<String, dynamic>.from(e['serializedData'])))
+                .map((e) =>
+                    SimpleCustomType.fromJson(new Map<String, dynamic>.from(e)))
                 .toList()
             : null;
 
@@ -665,6 +678,39 @@ class CustomTypeWithAppsyncScalarTypes {
             .toList()
       };
 
+  Map<String, Object?> toMap() => {
+        'stringValue': _stringValue,
+        'listOfStringValue': _listOfStringValue,
+        'intValue': _intValue,
+        'listOfIntValue': _listOfIntValue,
+        'floatValue': _floatValue,
+        'listOfFloatValue': _listOfFloatValue,
+        'booleanValue': _booleanValue,
+        'listOfBooleanValue': _listOfBooleanValue,
+        'awsDateValue': _awsDateValue,
+        'listOfAWSDateValue': _listOfAWSDateValue,
+        'awsDateTimeValue': _awsDateTimeValue,
+        'listOfAWSDateTimeValue': _listOfAWSDateTimeValue,
+        'awsTimeValue': _awsTimeValue,
+        'listOfAWSTimeValue': _listOfAWSTimeValue,
+        'awsTimestampValue': _awsTimestampValue,
+        'listOfAWSTimestampValue': _listOfAWSTimestampValue,
+        'awsEmailValue': _awsEmailValue,
+        'listOfAWSEmailValue': _listOfAWSEmailValue,
+        'awsJsonValue': _awsJsonValue,
+        'listOfAWSJsonValue': _listOfAWSJsonValue,
+        'awsPhoneValue': _awsPhoneValue,
+        'listOfAWSPhoneValue': _listOfAWSPhoneValue,
+        'awsURLValue': _awsURLValue,
+        'listOfAWSURLValue': _listOfAWSURLValue,
+        'awsIPAddressValue': _awsIPAddressValue,
+        'listOfAWSIPAddressValue': _listOfAWSIPAddressValue,
+        'enumValue': _enumValue,
+        'listOfEnumValue': _listOfEnumValue,
+        'customTypeValue': _customTypeValue,
+        'listOfCustomTypeValue': _listOfCustomTypeValue
+      };
+
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "CustomTypeWithAppsyncScalarTypes";
@@ -680,7 +726,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.string.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'intValue',
@@ -692,7 +738,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.int.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.int))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'floatValue',
@@ -704,7 +750,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.double.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.double))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'booleanValue',
@@ -716,7 +762,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.bool.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.bool))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'awsDateValue',
@@ -728,7 +774,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.date.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.date))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'awsDateTimeValue',
@@ -740,7 +786,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.dateTime.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.dateTime))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'awsTimeValue',
@@ -752,7 +798,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.time.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.time))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'awsTimestampValue',
@@ -764,7 +810,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.timestamp.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.timestamp))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'awsEmailValue',
@@ -776,7 +822,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.string.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'awsJsonValue',
@@ -788,7 +834,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.string.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'awsPhoneValue',
@@ -800,7 +846,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.string.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'awsURLValue',
@@ -812,7 +858,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.string.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'awsIPAddressValue',
@@ -824,7 +870,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.string.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
         fieldName: 'enumValue',
@@ -836,7 +882,7 @@ class CustomTypeWithAppsyncScalarTypes {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.enumeration.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.enumeration))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
         fieldName: 'customTypeValue',

@@ -1,5 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
@@ -12,10 +24,11 @@ import 'package:meta/meta.dart';
 
 import 'MtmModelProvider.dart';
 
-/// This is an auto generated class representing the FirstMtmRelation type in your schema.
 
+/** This is an auto generated class representing the FirstMtmRelation type in your schema. */
+@immutable
 class FirstMtmRelation extends Model {
-  static const classType = _FirstMtmRelationModelType();
+  static const classType = const _FirstMtmRelationModelType();
   final String id;
   final ManyToManyPrimary? _manyToManyPrimary;
   final ManyToManySecondary? _manyToManySecondary;
@@ -24,256 +37,220 @@ class FirstMtmRelation extends Model {
 
   @override
   getInstanceType() => classType;
-
-  @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+  
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-
+  
   FirstMtmRelationModelIdentifier get modelIdentifier {
-    return FirstMtmRelationModelIdentifier(id: id);
+      return FirstMtmRelationModelIdentifier(
+        id: id
+      );
   }
-
+  
   ManyToManyPrimary get manyToManyPrimary {
     try {
       return _manyToManyPrimary!;
-    } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   ManyToManySecondary get manyToManySecondary {
     try {
       return _manyToManySecondary!;
-    } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-
+  
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-
-  const FirstMtmRelation._internal(
-      {required this.id,
-      required manyToManyPrimary,
-      required manyToManySecondary,
-      createdAt,
-      updatedAt})
-      : _manyToManyPrimary = manyToManyPrimary,
-        _manyToManySecondary = manyToManySecondary,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
-
-  factory FirstMtmRelation(
-      {String? id,
-      required ManyToManyPrimary manyToManyPrimary,
-      required ManyToManySecondary manyToManySecondary}) {
+  
+  const FirstMtmRelation._internal({required this.id, required manyToManyPrimary, required manyToManySecondary, createdAt, updatedAt}): _manyToManyPrimary = manyToManyPrimary, _manyToManySecondary = manyToManySecondary, _createdAt = createdAt, _updatedAt = updatedAt;
+  
+  factory FirstMtmRelation({String? id, required ManyToManyPrimary manyToManyPrimary, required ManyToManySecondary manyToManySecondary}) {
     return FirstMtmRelation._internal(
-        id: id == null ? UUID.getUUID() : id,
-        manyToManyPrimary: manyToManyPrimary,
-        manyToManySecondary: manyToManySecondary);
+      id: id == null ? UUID.getUUID() : id,
+      manyToManyPrimary: manyToManyPrimary,
+      manyToManySecondary: manyToManySecondary);
   }
-
+  
   bool equals(Object other) {
     return this == other;
   }
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is FirstMtmRelation &&
-        id == other.id &&
-        _manyToManyPrimary == other._manyToManyPrimary &&
-        _manyToManySecondary == other._manyToManySecondary;
+      id == other.id &&
+      _manyToManyPrimary == other._manyToManyPrimary &&
+      _manyToManySecondary == other._manyToManySecondary;
   }
-
+  
   @override
   int get hashCode => toString().hashCode;
-
+  
   @override
   String toString() {
-    var buffer = StringBuffer();
-
+    var buffer = new StringBuffer();
+    
     buffer.write("FirstMtmRelation {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("manyToManyPrimary=" +
-        (_manyToManyPrimary != null ? _manyToManyPrimary!.toString() : "null") +
-        ", ");
-    buffer.write("manyToManySecondary=" +
-        (_manyToManySecondary != null
-            ? _manyToManySecondary!.toString()
-            : "null") +
-        ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("manyToManyPrimary=" + (_manyToManyPrimary != null ? _manyToManyPrimary!.toString() : "null") + ", ");
+    buffer.write("manyToManySecondary=" + (_manyToManySecondary != null ? _manyToManySecondary!.toString() : "null") + ", ");
+    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-
+    
     return buffer.toString();
   }
-
-  FirstMtmRelation copyWith(
-      {ManyToManyPrimary? manyToManyPrimary,
-      ManyToManySecondary? manyToManySecondary}) {
+  
+  FirstMtmRelation copyWith({ManyToManyPrimary? manyToManyPrimary, ManyToManySecondary? manyToManySecondary}) {
     return FirstMtmRelation._internal(
-        id: id,
-        manyToManyPrimary: manyToManyPrimary ?? this.manyToManyPrimary,
-        manyToManySecondary: manyToManySecondary ?? this.manyToManySecondary);
+      id: id,
+      manyToManyPrimary: manyToManyPrimary ?? this.manyToManyPrimary,
+      manyToManySecondary: manyToManySecondary ?? this.manyToManySecondary);
   }
-
-  FirstMtmRelation.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _manyToManyPrimary =
-            json['manyToManyPrimary']?['serializedData'] != null
-                ? ManyToManyPrimary.fromJson(Map<String, dynamic>.from(
-                    json['manyToManyPrimary']['serializedData']))
-                : null,
-        _manyToManySecondary =
-            json['manyToManySecondary']?['serializedData'] != null
-                ? ManyToManySecondary.fromJson(Map<String, dynamic>.from(
-                    json['manyToManySecondary']['serializedData']))
-                : null,
-        _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
-            : null;
-
+  
+  FirstMtmRelation.fromJson(Map<String, dynamic> json)  
+    : id = json['id'],
+      _manyToManyPrimary = json['manyToManyPrimary'] != null
+        ? ManyToManyPrimary.fromJson(new Map<String, dynamic>.from(json['manyToManyPrimary']))
+        : null,
+      _manyToManySecondary = json['manyToManySecondary'] != null
+        ? ManyToManySecondary.fromJson(new Map<String, dynamic>.from(json['manyToManySecondary']))
+        : null,
+      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
+  
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'manyToManyPrimary': _manyToManyPrimary?.toJson(),
-        'manyToManySecondary': _manyToManySecondary?.toJson(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
-
+    'id': id, 'manyToManyPrimary': _manyToManyPrimary?.toJson(), 'manyToManySecondary': _manyToManySecondary?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+  };
+  
   Map<String, Object?> toMap() => {
-        'id': id,
-        'manyToManyPrimary': _manyToManyPrimary,
-        'manyToManySecondary': _manyToManySecondary,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id, 'manyToManyPrimary': _manyToManyPrimary, 'manyToManySecondary': _manyToManySecondary, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+  };
 
-  static final QueryModelIdentifier<FirstMtmRelationModelIdentifier>
-      MODEL_IDENTIFIER =
-      QueryModelIdentifier<FirstMtmRelationModelIdentifier>();
+  static final QueryModelIdentifier<FirstMtmRelationModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<FirstMtmRelationModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField MANYTOMANYPRIMARY = QueryField(
-      fieldName: "manyToManyPrimary",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: 'ManyToManyPrimary'));
+    fieldName: "manyToManyPrimary",
+    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'ManyToManyPrimary'));
   static final QueryField MANYTOMANYSECONDARY = QueryField(
-      fieldName: "manyToManySecondary",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: 'ManyToManySecondary'));
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+    fieldName: "manyToManySecondary",
+    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'ManyToManySecondary'));
+  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "FirstMtmRelation";
     modelSchemaDefinition.pluralName = "FirstMtmRelations";
-
+    
     modelSchemaDefinition.indexes = [
-      ModelIndex(
-          fields: const ["manyToManyPrimaryId"], name: "byManyToManyPrimary"),
-      ModelIndex(
-          fields: const ["manyToManySecondaryId"],
-          name: "byManyToManySecondary")
+      ModelIndex(fields: const ["manyToManyPrimaryId"], name: "byManyToManyPrimary"),
+      ModelIndex(fields: const ["manyToManySecondaryId"], name: "byManyToManySecondary")
     ];
-
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: FirstMtmRelation.MANYTOMANYPRIMARY,
-        isRequired: true,
-        targetNames: ['manyToManyPrimaryId'],
-        ofModelName: 'ManyToManyPrimary'));
-
+      key: FirstMtmRelation.MANYTOMANYPRIMARY,
+      isRequired: true,
+      targetNames: ['manyToManyPrimaryId'],
+      ofModelName: 'ManyToManyPrimary'
+    ));
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: FirstMtmRelation.MANYTOMANYSECONDARY,
-        isRequired: true,
-        targetNames: ['manyToManySecondaryId'],
-        ofModelName: 'ManyToManySecondary'));
-
+      key: FirstMtmRelation.MANYTOMANYSECONDARY,
+      isRequired: true,
+      targetNames: ['manyToManySecondaryId'],
+      ofModelName: 'ManyToManySecondary'
+    ));
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'createdAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
+      fieldName: 'createdAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+    ));
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'updatedAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+      fieldName: 'updatedAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+    ));
   });
 }
 
 class _FirstMtmRelationModelType extends ModelType<FirstMtmRelation> {
   const _FirstMtmRelationModelType();
-
+  
   @override
   FirstMtmRelation fromJson(Map<String, dynamic> jsonData) {
     return FirstMtmRelation.fromJson(jsonData);
   }
-
+  
   @override
   String modelName() {
     return 'FirstMtmRelation';
   }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [FirstMtmRelation] in your schema.
+/**
+ * This is an auto generated class representing the model identifier
+ * of [FirstMtmRelation] in your schema.
+ */
 @immutable
-class FirstMtmRelationModelIdentifier
-    implements ModelIdentifier<FirstMtmRelation> {
+class FirstMtmRelationModelIdentifier implements ModelIdentifier<FirstMtmRelation> {
   final String id;
 
-  /// Create an instance of FirstMtmRelationModelIdentifier using [id] the primary key.
-  const FirstMtmRelationModelIdentifier({required this.id});
-
+  /** Create an instance of FirstMtmRelationModelIdentifier using [id] the primary key. */
+  const FirstMtmRelationModelIdentifier({
+    required this.id});
+  
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
-
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
-
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-
+  
   @override
   String toString() => 'FirstMtmRelationModelIdentifier(id: $id)';
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-
-    return other is FirstMtmRelationModelIdentifier && id == other.id;
+    
+    return other is FirstMtmRelationModelIdentifier &&
+      id == other.id;
   }
-
+  
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode =>
+    id.hashCode;
 }

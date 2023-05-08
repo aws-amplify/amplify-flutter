@@ -22,7 +22,7 @@ class SubscriptionEvent<T extends Model> {
 
     return SubscriptionEvent(
       item: modelType.fromJson(
-        Map<String, dynamic>.from(serializedItem['serializedData'] as Map),
+        Map<String, dynamic>.from(serializedItem),
       ),
       eventType: EventType.values
           .firstWhere((e) => e.name == map['eventType'] as String?),

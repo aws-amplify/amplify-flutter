@@ -1,5 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
@@ -12,10 +24,11 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the CpkOneToOneBidirectionalChildImplicitCD type in your schema.
+/** This is an auto generated class representing the CpkOneToOneBidirectionalChildImplicitCD type in your schema. */
 @immutable
 class CpkOneToOneBidirectionalChildImplicitCD extends Model {
-  static const classType = _CpkOneToOneBidirectionalChildImplicitCDModelType();
+  static const classType =
+      const _CpkOneToOneBidirectionalChildImplicitCDModelType();
   final String id;
   final String? _name;
   final CpkOneToOneBidirectionalParentCD? _belongsToParent;
@@ -35,7 +48,7 @@ class CpkOneToOneBidirectionalChildImplicitCD extends Model {
       return CpkOneToOneBidirectionalChildImplicitCDModelIdentifier(
           id: id, name: _name!);
     } catch (e) {
-      throw AmplifyCodeGenModelException(
+      throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -48,7 +61,7 @@ class CpkOneToOneBidirectionalChildImplicitCD extends Model {
     try {
       return _name!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
+      throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -104,7 +117,7 @@ class CpkOneToOneBidirectionalChildImplicitCD extends Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CpkOneToOneBidirectionalChildImplicitCD {");
     buffer.write("id=" + "$id" + ", ");
@@ -133,10 +146,9 @@ class CpkOneToOneBidirectionalChildImplicitCD extends Model {
   CpkOneToOneBidirectionalChildImplicitCD.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _belongsToParent = json['belongsToParent']?['serializedData'] != null
+        _belongsToParent = json['belongsToParent'] != null
             ? CpkOneToOneBidirectionalParentCD.fromJson(
-                Map<String, dynamic>.from(
-                    json['belongsToParent']['serializedData']))
+                new Map<String, dynamic>.from(json['belongsToParent']))
             : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
@@ -153,6 +165,14 @@ class CpkOneToOneBidirectionalChildImplicitCD extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'belongsToParent': _belongsToParent,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<
           CpkOneToOneBidirectionalChildImplicitCDModelIdentifier>
       MODEL_IDENTIFIER = QueryModelIdentifier<
@@ -162,7 +182,7 @@ class CpkOneToOneBidirectionalChildImplicitCD extends Model {
   static final QueryField BELONGSTOPARENT = QueryField(
       fieldName: "belongsToParent",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (CpkOneToOneBidirectionalParentCD).toString()));
+          ofModelName: 'CpkOneToOneBidirectionalParentCD'));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "CpkOneToOneBidirectionalChildImplicitCD";
@@ -184,10 +204,10 @@ class CpkOneToOneBidirectionalChildImplicitCD extends Model {
         key: CpkOneToOneBidirectionalChildImplicitCD.BELONGSTOPARENT,
         isRequired: false,
         targetNames: [
-          "cpkOneToOneBidirectionalChildImplicitCDBelongsToParentCustomId",
-          "cpkOneToOneBidirectionalChildImplicitCDBelongsToParentName"
+          'cpkOneToOneBidirectionalChildImplicitCDBelongsToParentCustomId',
+          'cpkOneToOneBidirectionalChildImplicitCDBelongsToParentName'
         ],
-        ofModelName: (CpkOneToOneBidirectionalParentCD).toString()));
+        ofModelName: 'CpkOneToOneBidirectionalParentCD'));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -212,18 +232,27 @@ class _CpkOneToOneBidirectionalChildImplicitCDModelType
       Map<String, dynamic> jsonData) {
     return CpkOneToOneBidirectionalChildImplicitCD.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'CpkOneToOneBidirectionalChildImplicitCD';
+  }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [CpkOneToOneBidirectionalChildImplicitCD] in your schema.
+/**
+ * This is an auto generated class representing the model identifier
+ * of [CpkOneToOneBidirectionalChildImplicitCD] in your schema.
+ */
 @immutable
 class CpkOneToOneBidirectionalChildImplicitCDModelIdentifier
     implements ModelIdentifier<CpkOneToOneBidirectionalChildImplicitCD> {
   final String id;
   final String name;
 
-  /// Create an instance of CpkOneToOneBidirectionalChildImplicitCDModelIdentifier using [id] the primary key.
-  /// And [name] the sort key.
+  /**
+   * Create an instance of CpkOneToOneBidirectionalChildImplicitCDModelIdentifier using [id] the primary key.
+   * And [name] the sort key.
+   */
   const CpkOneToOneBidirectionalChildImplicitCDModelIdentifier(
       {required this.id, required this.name});
 

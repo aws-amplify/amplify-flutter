@@ -1,5 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
@@ -13,10 +25,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the Tag type in your schema.
+/** This is an auto generated class representing the Tag type in your schema. */
 @immutable
 class Tag extends Model {
-  static const classType = _TagModelType();
+  static const classType = const _TagModelType();
   final String id;
   final String? _label;
   final List<PostTags>? _posts;
@@ -39,7 +51,7 @@ class Tag extends Model {
     try {
       return _label!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
+      throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -92,7 +104,7 @@ class Tag extends Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("Tag {");
     buffer.write("id=" + "$id" + ", ");
@@ -115,11 +127,10 @@ class Tag extends Model {
   Tag.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _label = json['label'],
-        _posts = json['posts'] is List
-            ? (json['posts'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => PostTags.fromJson(
-                    Map<String, dynamic>.from(e['serializedData'])))
+        _posts = json['posts'] != null
+            ? (json['posts']['items'] as List)
+                .where((e) => e != null)
+                .map((e) => PostTags.fromJson(new Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -137,14 +148,22 @@ class Tag extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'label': _label,
+        'posts': _posts,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<TagModelIdentifier> MODEL_IDENTIFIER =
       QueryModelIdentifier<TagModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField LABEL = QueryField(fieldName: "label");
   static final QueryField POSTS = QueryField(
       fieldName: "posts",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (PostTags).toString()));
+      fieldType:
+          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'PostTags'));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Tag";
@@ -160,7 +179,7 @@ class Tag extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
         key: Tag.POSTS,
         isRequired: false,
-        ofModelName: (PostTags).toString(),
+        ofModelName: 'PostTags',
         associatedKey: PostTags.TAG));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -184,15 +203,22 @@ class _TagModelType extends ModelType<Tag> {
   Tag fromJson(Map<String, dynamic> jsonData) {
     return Tag.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'Tag';
+  }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [Tag] in your schema.
+/**
+ * This is an auto generated class representing the model identifier
+ * of [Tag] in your schema.
+ */
 @immutable
 class TagModelIdentifier implements ModelIdentifier<Tag> {
   final String id;
 
-  /// Create an instance of TagModelIdentifier using [id] the primary key.
+  /** Create an instance of TagModelIdentifier using [id] the primary key. */
   const TagModelIdentifier({required this.id});
 
   @override

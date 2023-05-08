@@ -1,5 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
@@ -13,10 +25,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the ModelWithCustomType type in your schema.
+/** This is an auto generated class representing the ModelWithCustomType type in your schema. */
 @immutable
 class ModelWithCustomType extends Model {
-  static const classType = _ModelWithCustomTypeModelType();
+  static const classType = const _ModelWithCustomTypeModelType();
   final String id;
   final CustomTypeWithAppsyncScalarTypes? _customTypeValue;
   final List<CustomTypeWithAppsyncScalarTypes>? _listOfCustomTypeValue;
@@ -94,7 +106,7 @@ class ModelWithCustomType extends Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("ModelWithCustomType {");
     buffer.write("id=" + "$id" + ", ");
@@ -128,16 +140,15 @@ class ModelWithCustomType extends Model {
 
   ModelWithCustomType.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _customTypeValue = json['customTypeValue']?['serializedData'] != null
+        _customTypeValue = json['customTypeValue'] != null
             ? CustomTypeWithAppsyncScalarTypes.fromJson(
-                Map<String, dynamic>.from(
-                    json['customTypeValue']['serializedData']))
+                new Map<String, dynamic>.from(json['customTypeValue']))
             : null,
         _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
             ? (json['listOfCustomTypeValue'] as List)
                 .where((e) => e != null)
                 .map((e) => CustomTypeWithAppsyncScalarTypes.fromJson(
-                    Map<String, dynamic>.from(e['serializedData'])))
+                    new Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -155,6 +166,14 @@ class ModelWithCustomType extends Model {
             .toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
+      };
+
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'customTypeValue': _customTypeValue,
+        'listOfCustomTypeValue': _listOfCustomTypeValue,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
       };
 
   static final QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>
@@ -206,16 +225,23 @@ class _ModelWithCustomTypeModelType extends ModelType<ModelWithCustomType> {
   ModelWithCustomType fromJson(Map<String, dynamic> jsonData) {
     return ModelWithCustomType.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'ModelWithCustomType';
+  }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [ModelWithCustomType] in your schema.
+/**
+ * This is an auto generated class representing the model identifier
+ * of [ModelWithCustomType] in your schema.
+ */
 @immutable
 class ModelWithCustomTypeModelIdentifier
     implements ModelIdentifier<ModelWithCustomType> {
   final String id;
 
-  /// Create an instance of ModelWithCustomTypeModelIdentifier using [id] the primary key.
+  /** Create an instance of ModelWithCustomTypeModelIdentifier using [id] the primary key. */
   const ModelWithCustomTypeModelIdentifier({required this.id});
 
   @override
