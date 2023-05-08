@@ -1,5 +1,10 @@
-# Only used to avoid conflicts when running tests against Flutter 3.3.
-# For dev work, we should use the latest.
 dependencies:
-  pigeon: ^7.0.0
-  test: <1.22.0
+  async: ^2.9.0
+  build_runner: ^2.0.0
+  build_web_compilers: ^3.2.0
+  dart_style: 2.2.5
+  test: ^1.16.0
+
+environment:
+  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.3.0"

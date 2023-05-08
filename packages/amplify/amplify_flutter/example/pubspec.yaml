@@ -3,8 +3,8 @@ description: Demonstrates how to use the Amplify Flutter client libraries.
 publish_to: none
 
 environment:
-  flutter: ">=3.3.0"
-  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.10.0-0"
+  sdk: ">=3.0.0-0 <4.0.0"
 
 dependencies:
   amplify_analytics_pinpoint: ">=1.0.0-next.8 <1.0.0-next.9"
@@ -29,9 +29,6 @@ dependency_overrides:
     path: ../../../secure_storage/amplify_secure_storage
   amplify_secure_storage_dart:
     path: ../../../secure_storage/amplify_secure_storage_dart
-  # Needed to support both Flutter 3.3 + 3.7 in CI.
-  # TODO(dnys1): Remove when Flutter 3.3 is no longer supported
-  async: ^2.9.0
   aws_common:
     path: ../../../aws_common
   aws_signature_v4:

@@ -18,8 +18,8 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          - "2.18.0"
-          - stable
+          # - '3.0.0'
+          - beta
     steps:
       - name: Cache Pub dependencies
         uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # 3.0.11

@@ -3,8 +3,8 @@ description: Demonstrates how to use the amplify_db_common plugin.
 publish_to: "none"
 
 environment:
-  flutter: ">=3.3.0"
-  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.10.0-0"
+  sdk: ">=3.0.0-0 <4.0.0"
 
 dependencies:
   amplify_db_common: ">=0.1.2+5 <0.2.0"
@@ -12,15 +12,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-# Needed to support both Flutter 3.3 + 3.7 in CI.
-# TODO(dnys1): Remove when Flutter 3.3 is no longer supported
-dependency_overrides:
-  async: ^2.9.0
-
 dev_dependencies:
   amplify_lints: ^2.0.0
   drift_dev: ^2.2.0+1
-  build_runner: ^2.0.0
+  build_runner: ^2.4.0
   flutter_test:
     sdk: flutter
   integration_test:

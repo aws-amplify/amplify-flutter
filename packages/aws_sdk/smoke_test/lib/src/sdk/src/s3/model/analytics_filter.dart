@@ -69,8 +69,7 @@ abstract class AnalyticsFilter extends _i1.SmithyUnion<AnalyticsFilter> {
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is AnalyticsFilterPrefix) {
       return prefix?.call((this as AnalyticsFilterPrefix).prefix);

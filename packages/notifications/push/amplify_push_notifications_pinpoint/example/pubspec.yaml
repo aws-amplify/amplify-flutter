@@ -3,8 +3,8 @@ description: Demonstrates how to use the amplify_push_notifications_pinpoint plu
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
-  flutter: ">=3.3.0"
+  sdk: ">=3.0.0-0 <4.0.0"
+  flutter: ">=3.10.0-0"
 
 dependencies:
   amplify_auth_cognito: ">=1.0.0-next.8 <1.0.0-next.9"

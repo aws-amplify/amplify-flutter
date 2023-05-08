@@ -98,8 +98,7 @@ abstract class LifecycleRuleFilter
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is LifecycleRuleFilterPrefix) {
       return prefix?.call((this as LifecycleRuleFilterPrefix).prefix);

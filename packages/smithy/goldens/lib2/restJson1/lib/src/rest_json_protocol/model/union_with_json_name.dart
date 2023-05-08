@@ -59,8 +59,7 @@ abstract class UnionWithJsonName extends _i1.SmithyUnion<UnionWithJsonName> {
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is UnionWithJsonNameFoo) {
       return foo?.call((this as UnionWithJsonNameFoo).foo);

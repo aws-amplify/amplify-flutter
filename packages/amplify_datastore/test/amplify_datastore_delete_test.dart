@@ -14,19 +14,27 @@ void main() {
   AmplifyDataStore dataStore =
       AmplifyDataStore(modelProvider: ModelProvider.instance);
 
-  TestWidgetsFlutterBinding.ensureInitialized();
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {});
 
   tearDown(() {
-    dataStoreChannel.setMockMethodCallHandler(null);
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      null,
+    );
   });
 
   test('delete with a valid model executes without an exception ', () async {
     var json =
         await getJsonFromFile('delete_api/request/instance_no_predicate.json');
     var model = json['serializedModel'];
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        return null;
+      },
+    );
     Post instance = Post(
         title: model['title'],
         rating: model['rating'],
@@ -39,13 +47,16 @@ void main() {
   test(
       'A PlatformException for a failed API call results in the corresponding DataStoreException',
       () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      throw PlatformException(code: 'DataStoreException', details: {
-        'message': 'Delete failed for whatever known reason',
-        'recoverySuggestion': 'some insightful suggestion',
-        'underlyingException': 'Act of God'
-      });
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        throw PlatformException(code: 'DataStoreException', details: {
+          'message': 'Delete failed for whatever known reason',
+          'recoverySuggestion': 'some insightful suggestion',
+          'underlyingException': 'Act of God'
+        });
+      },
+    );
     expect(
         () => dataStore.delete(Post(
             id: '4281dfba-96c8-4a38-9a8e-35c7e893ea47',

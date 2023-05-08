@@ -80,8 +80,7 @@ abstract class ReplicationRuleFilter
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is ReplicationRuleFilterPrefix) {
       return prefix?.call((this as ReplicationRuleFilterPrefix).prefix);

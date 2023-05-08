@@ -58,6 +58,9 @@ jobs:
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
+      - name: Pub Upgrade
+        run: aft exec --include=${{ matrix.scope }} -- flutter pub upgrade
+
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
         with:
@@ -74,7 +77,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
           arch: ${{ matrix.arch }}
-          script: melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test.sh -d emulator-5554  --retries 1
+          script: aft exec --include=${{ matrix.scope }} -- small=true "<AFT_ROOT>/build-support/integ_test.sh" -d emulator-5554 --retries 1
 
   ios:
     runs-on: macos-latest
@@ -105,6 +108,9 @@ jobs:
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
 
+      - name: Pub Upgrade
+        run: aft exec --include=${{ matrix.scope }} -- flutter pub upgrade
+
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
         with:
@@ -115,8 +121,7 @@ jobs:
 
       - name: Run integration tests
         timeout-minutes: 30
-        run: |
-          melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh -d test
+        run: aft exec --include=${{ matrix.scope }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
 
   web:
     runs-on: ubuntu-latest
@@ -144,6 +149,9 @@ jobs:
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
+      - name: Pub Upgrade
+        run: aft exec --include=${{ matrix.scope }} -- flutter pub upgrade
+
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
         with:
@@ -158,49 +166,51 @@ jobs:
         timeout-minutes: 30
         run: |
           chromedriver --port=4444 &
-          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d web-server
+          aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d web-server
 
-  macos:
-    runs-on: macos-latest
-    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
-    permissions:
-      id-token: write
-      contents: read
-    strategy:
-      fail-fast: false
-      matrix:
-        scope:
-          - "amplify_analytics_pinpoint_example"
-          - "amplify_api_example"
-          # TODO(dnys1): macOS tests are failing for some reason
-          # - "amplify_authenticator_example"
-          - "amplify_auth_cognito_example"
-          - "amplify_storage_s3_example"
-          - "amplify_db_common_example"
-    steps:
-      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
-        with:
-          persist-credentials: false
-          submodules: true
+  # TODO(dnys1): Re-enable with self-hosted runners
+  # macos:
+  #   runs-on: macos-latest
+  #   # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+  #   permissions:
+  #     id-token: write
+  #     contents: read
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       scope:
+  #         - "amplify_analytics_pinpoint_example"
+  #         - "amplify_api_example"
+  #         # TODO(dnys1): macOS tests are failing for some reason
+  #         # - "amplify_authenticator_example"
+  #         - "amplify_auth_cognito_example"
+  #         - "amplify_storage_s3_example"
+  #         - "amplify_db_common_example"
+  #   steps:
+  #     - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+  #       with:
+  #         persist-credentials: false
+  #         submodules: true
 
-      - name: Install dependencies
-        uses: ./.github/composite_actions/install_dependencies
-        with:
-          flutter-version: "3.3.0"
+  #     - name: Install dependencies
+  #       uses: ./.github/composite_actions/install_dependencies
+  #       with:
+  #         flutter-channel: stable
+  #         flutter-version: "3.3.10"
 
-      - name: Fetch Amplify backend configurations
-        uses: ./.github/composite_actions/fetch_backends
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ secrets.AWS_REGION }}
-          scope: ${{ matrix.scope }}
-          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
+  #     - name: Fetch Amplify backend configurations
+  #       uses: ./.github/composite_actions/fetch_backends
+  #       with:
+  #         role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+  #         aws-region: ${{ secrets.AWS_REGION }}
+  #         scope: ${{ matrix.scope }}
+  #         secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      - name: Run integration tests
-        timeout-minutes: 30
-        run: |
-          flutter config --enable-macos-desktop
-          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d macos
+  #     - name: Run integration tests
+  #       timeout-minutes: 30
+  #       run: |
+  #         flutter config --enable-macos-desktop
+  #         aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d macos
 
   linux:
     runs-on: ubuntu-latest
@@ -227,6 +237,9 @@ jobs:
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
+      - name: Pub Upgrade
+        run: aft exec --include=${{ matrix.scope }} -- flutter pub upgrade
+
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
         with:
@@ -239,7 +252,7 @@ jobs:
         timeout-minutes: 30
         run: |
           flutter config --enable-linux-desktop
-          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d linux
+          aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d linux
 
   windows:
     runs-on: windows-latest
@@ -269,6 +282,9 @@ jobs:
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
+      - name: Pub Upgrade
+        run: dart pub global run aft exec --include=${{ matrix.scope }} -- flutter pub upgrade
+
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
         with:
@@ -281,4 +297,4 @@ jobs:
         timeout-minutes: 30
         run: |
           flutter config --enable-windows-desktop
-          melos exec -c 1 --scope ${{ matrix.scope }} -- flutter test integration_test/main_test.dart -d windows
+          dart pub global run aft exec --include=${{ matrix.scope }} -- flutter test integration_test/main_test.dart -d windows

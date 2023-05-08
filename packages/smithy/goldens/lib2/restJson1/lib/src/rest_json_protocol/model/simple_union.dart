@@ -52,8 +52,7 @@ abstract class SimpleUnion extends _i1.SmithyUnion<SimpleUnion> {
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is SimpleUnionInt) {
       return int$?.call((this as SimpleUnionInt).int$);

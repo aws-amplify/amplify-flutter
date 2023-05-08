@@ -97,7 +97,7 @@ mixin HttpInput<Payload extends Object?>
 }
 
 /// A type which maps properties to path labels.
-abstract class HasLabel {
+mixin HasLabel {
   /// Returns the label for requested keys.
   String labelFor(String key);
 }

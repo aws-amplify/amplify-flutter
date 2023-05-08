@@ -55,8 +55,7 @@ abstract class PatternUnionOverride
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is PatternUnionOverrideFirst) {
       return first?.call((this as PatternUnionOverrideFirst).first);

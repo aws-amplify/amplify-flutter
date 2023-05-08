@@ -58,8 +58,7 @@ abstract class RecursiveUnionOne extends _i1.SmithyUnion<RecursiveUnionOne> {
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is RecursiveUnionOneString) {
       return string?.call((this as RecursiveUnionOneString).string);

@@ -126,8 +126,7 @@ abstract class MyUnion extends _i1.SmithyUnion<MyUnion> {
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is MyUnionStringValue) {
       return stringValue?.call((this as MyUnionStringValue).stringValue);

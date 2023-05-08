@@ -4,7 +4,7 @@ homepage: https://github.com/aws-amplify/amplify-flutter
 publish_to: none
 
 environment:
-  sdk: '>=2.18.0 <4.0.0'
+  sdk: ">=3.0.0-0 <4.0.0"
 
 dependencies:
   amplify_auth_cognito_dart: any

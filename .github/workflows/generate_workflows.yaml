@@ -21,7 +21,7 @@ jobs:
       - name: Setup Dart
         uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d # main
         with:
-          sdk: stable
+          sdk: beta
 
       - name: Setup aft
         shell: bash # Run in bash regardless of platform
@@ -32,4 +32,4 @@ jobs:
           ( cd packages/aft/external/libgit2dart; git reset --hard HEAD )
 
       - name: Generate Workflows
-        run: aft generate workflows --set-exit-if-changed 
+        run: aft generate workflows --set-exit-if-changed
