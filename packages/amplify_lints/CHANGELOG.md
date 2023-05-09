@@ -1,3 +1,11 @@
+## 3.0.0
+
+### Breaking Changes
+- chore(amplify_lints)!: Remove `app_core.yaml` and `library_core.yaml`
+
+### Features
+- Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
+
 ## 2.0.3
 
 - Update repository URL

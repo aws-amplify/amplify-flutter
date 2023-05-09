@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_analytics_pinpoint_dart.pinpoint.model.method_not_allowed_exception;
+part of 'method_not_allowed_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
