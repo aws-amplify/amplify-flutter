@@ -9,6 +9,7 @@ import 'package:aft/src/repo.dart';
 import 'package:args/command_runner.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:checked_yaml/checked_yaml.dart';
+import 'package:cli_util/cli_util.dart';
 import 'package:collection/collection.dart';
 import 'package:git/git.dart' as git;
 import 'package:meta/meta.dart';
@@ -211,7 +212,19 @@ abstract class AmplifyCommand extends Command<void>
   late final Map<String, String> environment = {
     ...Platform.environment,
     'AFT_ROOT': rootDir.uri.toFilePath(),
+    // Needed for running `dart doc` for Flutter packages.
+    if (flutterRoot != null) 'FLUTTER_ROOT': flutterRoot!,
   };
+
+  /// The path to the Flutter SDK, if installed.
+  late final String? flutterRoot = () {
+    final dartSdkPath = getSdkPath();
+    final flutterBin = p.dirname(p.dirname(dartSdkPath));
+    if (File(p.join(flutterBin, 'flutter')).existsSync()) {
+      return p.dirname(flutterBin);
+    }
+    return null;
+  }();
 
   late final Repo repo = Repo(
     aftConfig,
