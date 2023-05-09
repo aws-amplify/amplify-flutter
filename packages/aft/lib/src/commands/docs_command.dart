@@ -5,9 +5,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/options/fail_fast_option.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:mason_logger/mason_logger.dart';
 import 'package:mustache_template/mustache_template.dart';
 import 'package:path/path.dart' as p;
 import 'package:shelf/shelf_io.dart' as io;
@@ -27,7 +29,11 @@ class DocsCommand extends AmplifyCommand {
   String get description => 'Build and deploy API documentation';
 }
 
-abstract class _DocsSubcommand extends AmplifyCommand with GlobOptions {
+abstract class _DocsSubcommand extends AmplifyCommand
+    with FailFastOption, GlobOptions {
+  late final Logger mLogger =
+      Logger(level: verbose ? Level.verbose : Level.info);
+
   @override
   PackageSelector get basePackageSelector {
     final currentPackage = workingDirectory.pubspec;
@@ -45,9 +51,15 @@ abstract class _DocsSubcommand extends AmplifyCommand with GlobOptions {
       ['doc', '--output', output.path],
       mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
       workingDirectory: package.path,
+      environment: environment,
+      runInShell: true,
     );
+    final error = StringBuffer();
+    process
+      ..captureStdout(sink: error.write)
+      ..captureStderr(sink: error.write);
     if (await process.exitCode != 0) {
-      throw Exception('Failed to build docs for ${package.name}');
+      throw Exception('`dart doc` failed for ${package.name}:\n$error');
     }
     return output;
   }
@@ -75,7 +87,11 @@ abstract class _DocsSubcommand extends AmplifyCommand with GlobOptions {
 
   /// Runs pre-build commands if a package uses `code_excerpter` to
   /// separate code snippets from docs.
-  Future<void> _prebuildDocs(PackageInfo package) async {
+  Future<void> _prebuildDocs(
+    PackageInfo package, {
+    Progress? progress,
+  }) async {
+    final log = progress?.update ?? mLogger.detail;
     final docsPackageDir = Directory(p.join(package.path, 'doc'));
     final docsPackage = PackageInfo.fromDirectory(docsPackageDir);
     if (docsPackage == null) {
@@ -83,7 +99,7 @@ abstract class _DocsSubcommand extends AmplifyCommand with GlobOptions {
     }
 
     // Re-generate code snippet yaml
-    logger.debug('Re-generating code snippets for ${package.name}...');
+    log('Re-generating code snippets for ${package.name}...');
     await pubAction(package: docsPackage, arguments: ['get']);
     await runBuildRunner(
       docsPackage,
@@ -93,7 +109,7 @@ abstract class _DocsSubcommand extends AmplifyCommand with GlobOptions {
     );
 
     // Update docs with code snippet yaml
-    logger.debug('Injecting updated code snippets for ${package.name}...');
+    log('Injecting updated code snippets for ${package.name}...');
     await pubAction(package: package, arguments: ['get']);
     await pubAction(
       package: package,
@@ -109,14 +125,21 @@ abstract class _DocsSubcommand extends AmplifyCommand with GlobOptions {
   }
 
   /// Compiles docs for [package] into [outputDir].
-  Future<Directory> _buildDocs(PackageInfo package, String outputDir) async {
-    logger.info('Building docs for ${package.name}...');
-    await _prebuildDocs(package);
+  Future<Directory> _buildDocs(
+    PackageInfo package,
+    String outputDir, {
+    Progress? progress,
+  }) async {
+    progress ??= mLogger.progress('Pre-building docs for ${package.name}');
+    await _prebuildDocs(package, progress: progress);
+    progress.update('Running `dart doc` for ${package.name}');
     final buildDir = await _dartDoc(package);
     final packageOutputDir = Directory(
       p.join(outputDir, package.name),
     );
+    progress.update('Copying docs to root dir');
     await _copyDir(buildDir, packageOutputDir);
+    progress.complete('Built docs for ${package.name}!');
     return packageOutputDir;
   }
 
@@ -125,17 +148,35 @@ abstract class _DocsSubcommand extends AmplifyCommand with GlobOptions {
     if (commandPackages.isEmpty) {
       exitError('No packages selected');
     }
-    final packageOutputs = <Map<String, Object?>>[];
+    final buildOutputs =
+        FutureGroup<(PackageInfo, Progress, Result<Directory>)>();
     for (final package in commandPackages.values) {
-      final packageOutputDir = await _buildDocs(package, outputDir);
-      packageOutputs.add({
-        'name': package.name,
-        'path': p.relative(package.path, from: rootDir.path),
-        'link': p.relative(
-          packageOutputDir.path,
-          from: outputDir,
-        ),
-      });
+      final progress = mLogger.progress('Building docs for ${package.name}');
+      final buildFuture = _buildDocs(package, outputDir, progress: progress);
+      buildOutputs.add(
+        failFast
+            ? buildFuture.then((res) => (package, progress, ValueResult(res)))
+            : Result.capture(buildFuture)
+                .then((res) => (package, progress, res)),
+      );
+    }
+    buildOutputs.close();
+
+    final packageOutputs = <Map<String, Object?>>[];
+    for (final (package, progress, buildRes) in await buildOutputs.future) {
+      switch (buildRes) {
+        case ValueResult(value: final buildDir):
+          packageOutputs.add({
+            'name': package.name,
+            'path': p.relative(package.path, from: rootDir.path),
+            'link': p.relative(buildDir.path, from: outputDir),
+          });
+        case ErrorResult(:final error, :final stackTrace):
+          progress.fail('Error building docs for ${package.name}');
+          mLogger
+            ..err(error.toString())
+            ..err(stackTrace.toString());
+      }
     }
     final renderedHtml = Template(_indexTmpl).renderString({
       'packages': packageOutputs,
@@ -143,7 +184,7 @@ abstract class _DocsSubcommand extends AmplifyCommand with GlobOptions {
     final indexFile = File(p.join(outputDir, 'index.html'));
     await indexFile.create();
     await indexFile.writeAsString(renderedHtml);
-    logger.info('Successfully built docs');
+    mLogger.success('Successfully built docs');
   }
 }
 
@@ -249,7 +290,7 @@ class _DocsServeSubcommand extends _DocsSubcommand {
 }
 
 /// Watches a [package] for changes and calls [onChange] whenever a file is changed.
-class _PackageWatcher with Closeable {
+class _PackageWatcher implements Closeable {
   _PackageWatcher(this.package, {required this.onChange}) {
     _listenForEvents();
   }
