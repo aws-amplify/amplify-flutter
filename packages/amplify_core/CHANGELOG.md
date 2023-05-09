@@ -1,3 +1,14 @@
+## 1.1.0
+
+### Features
+- Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
+- feat(core): add granular model read operations ([#2611](https://github.com/aws-amplify/amplify-flutter/pull/2611))
+
+### Fixes
+- fix(auth): Fetch AWS credentials after Hosted UI login ([#2956](https://github.com/aws-amplify/amplify-flutter/pull/2956))
+- fix(auth): Transform network exceptions ([#2967](https://github.com/aws-amplify/amplify-flutter/pull/2967))
+- fix: wait for addPlugin prior to configuration ([#3018](https://github.com/aws-amplify/amplify-flutter/pull/3018))
+
 ## 1.0.0
 
 We are thrilled to release version 1.0 of the Amplify Flutter libraries!

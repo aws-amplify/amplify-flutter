@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_storage_s3_dart.s3.model.completed_multipart_upload;
+part of 'completed_multipart_upload.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
