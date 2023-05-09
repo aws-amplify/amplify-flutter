@@ -22,6 +22,7 @@ extension PubAction on AmplifyCommand {
         package.flavor,
         arguments,
         package,
+        verbose: verbose,
       );
     } on Exception catch (e) {
       final command = this;
@@ -38,13 +39,14 @@ extension PubAction on AmplifyCommand {
 Future<void> runPub(
   PackageFlavor flavor,
   List<String> arguments,
-  PackageInfo package,
-) async {
+  PackageInfo package, {
+  bool verbose = false,
+}) async {
   final proc = await Process.start(
     flavor.entrypoint,
     ['pub', ...arguments],
     runInShell: true,
-    mode: ProcessStartMode.inheritStdio,
+    mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
     workingDirectory: package.path,
   );
   final exitCode = await proc.exitCode;
