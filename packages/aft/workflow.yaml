@@ -36,7 +36,7 @@ jobs:
       - name: Setup Dart
         uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d # main
         with:
-          sdk: beta
+          sdk: stable
 
       - name: Get Packages
         working-directory: packages/aft
