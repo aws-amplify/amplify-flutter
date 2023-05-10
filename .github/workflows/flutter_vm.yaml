@@ -16,8 +16,14 @@ jobs:
       # Allows other matrix items to run if one fails
       fail-fast: false
       matrix:
-        sdk:
-          - beta
+        channel:
+          - "beta"
+          - "stable"
+        flutter-version:
+          - "any" # latest
+        include:
+          - channel: "stable"
+            flutter-version: "3.10.0"
     steps:
       - name: Git Checkout
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
@@ -29,7 +35,8 @@ jobs:
         uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # 2.8.0
         with:
           cache: true
-          channel: ${{ matrix.sdk }}
+          channel: ${{ matrix.channel }}
+          flutter-version: ${{ matrix.flutter-version }}
 
       - name: Setup aft
         run: flutter pub global activate -spath packages/aft
@@ -71,6 +78,6 @@ jobs:
         working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests
-        if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true' && matrix.flutter-version != '3.3.0'"
+        if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
         run: flutter test
         working-directory: ${{ inputs.working-directory }}
