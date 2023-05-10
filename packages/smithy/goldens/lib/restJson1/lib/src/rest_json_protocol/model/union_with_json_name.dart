@@ -160,17 +160,17 @@ class UnionWithJsonNameRestJson1Serializer
       renames[object.name] ?? object.name,
       switch (object) {
         UnionWithJsonNameFoo(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         UnionWithJsonNameBar(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         UnionWithJsonNameBaz(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         UnionWithJsonNameSdkUnknown(:final value) => value,
       },
     ];

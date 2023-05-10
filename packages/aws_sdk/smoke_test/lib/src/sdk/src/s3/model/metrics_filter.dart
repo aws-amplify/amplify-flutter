@@ -193,21 +193,21 @@ class MetricsFilterRestXmlSerializer
       object.name,
       switch (object) {
         MetricsFilterPrefix(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         MetricsFilterTag(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i2.Tag),
-        ),
+            value,
+            specifiedType: const FullType(_i2.Tag),
+          ),
         MetricsFilterAccessPointArn(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         MetricsFilterAnd(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i3.MetricsAndOperator),
-        ),
+            value,
+            specifiedType: const FullType(_i3.MetricsAndOperator),
+          ),
         MetricsFilterSdkUnknown(:final value) => value,
       },
     ];
