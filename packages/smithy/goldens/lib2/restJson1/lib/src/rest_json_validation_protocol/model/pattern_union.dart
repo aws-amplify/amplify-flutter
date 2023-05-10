@@ -131,13 +131,13 @@ class PatternUnionRestJson1Serializer
       object.name,
       switch (object) {
         PatternUnionFirst(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         PatternUnionSecond(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         PatternUnionSdkUnknown(:final value) => value,
       },
     ];

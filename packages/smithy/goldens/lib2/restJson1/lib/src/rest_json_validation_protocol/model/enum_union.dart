@@ -133,13 +133,13 @@ class EnumUnionRestJson1Serializer
       object.name,
       switch (object) {
         EnumUnionFirst(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i2.EnumString),
-        ),
+            value,
+            specifiedType: const FullType(_i2.EnumString),
+          ),
         EnumUnionSecond(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i2.EnumString),
-        ),
+            value,
+            specifiedType: const FullType(_i2.EnumString),
+          ),
         EnumUnionSdkUnknown(:final value) => value,
       },
     ];
