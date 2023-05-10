@@ -8,15 +8,15 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.user_context_d
 
 class _$UserContextDataType extends UserContextDataType {
   @override
-  final String? encodedData;
-  @override
   final String? ipAddress;
+  @override
+  final String? encodedData;
 
   factory _$UserContextDataType(
           [void Function(UserContextDataTypeBuilder)? updates]) =>
       (new UserContextDataTypeBuilder()..update(updates))._build();
 
-  _$UserContextDataType._({this.encodedData, this.ipAddress}) : super._();
+  _$UserContextDataType._({this.ipAddress, this.encodedData}) : super._();
 
   @override
   UserContextDataType rebuild(
@@ -31,15 +31,15 @@ class _$UserContextDataType extends UserContextDataType {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UserContextDataType &&
-        encodedData == other.encodedData &&
-        ipAddress == other.ipAddress;
+        ipAddress == other.ipAddress &&
+        encodedData == other.encodedData;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, encodedData.hashCode);
     _$hash = $jc(_$hash, ipAddress.hashCode);
+    _$hash = $jc(_$hash, encodedData.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -49,13 +49,13 @@ class UserContextDataTypeBuilder
     implements Builder<UserContextDataType, UserContextDataTypeBuilder> {
   _$UserContextDataType? _$v;
 
-  String? _encodedData;
-  String? get encodedData => _$this._encodedData;
-  set encodedData(String? encodedData) => _$this._encodedData = encodedData;
-
   String? _ipAddress;
   String? get ipAddress => _$this._ipAddress;
   set ipAddress(String? ipAddress) => _$this._ipAddress = ipAddress;
+
+  String? _encodedData;
+  String? get encodedData => _$this._encodedData;
+  set encodedData(String? encodedData) => _$this._encodedData = encodedData;
 
   UserContextDataTypeBuilder() {
     UserContextDataType._init(this);
@@ -64,8 +64,8 @@ class UserContextDataTypeBuilder
   UserContextDataTypeBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _encodedData = $v.encodedData;
       _ipAddress = $v.ipAddress;
+      _encodedData = $v.encodedData;
       _$v = null;
     }
     return this;
@@ -88,7 +88,7 @@ class UserContextDataTypeBuilder
   _$UserContextDataType _build() {
     final _$result = _$v ??
         new _$UserContextDataType._(
-            encodedData: encodedData, ipAddress: ipAddress);
+            ipAddress: ipAddress, encodedData: encodedData);
     replace(_$result);
     return _$result;
   }

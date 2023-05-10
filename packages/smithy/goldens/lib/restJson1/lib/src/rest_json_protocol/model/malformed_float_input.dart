@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.malformed_float_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,16 +20,16 @@ abstract class MalformedFloatInput
         _i1.HasPayload<MalformedFloatInputPayload> {
   factory MalformedFloatInput({
     double? floatInBody,
-    double? floatInHeader,
     double? floatInPath,
     double? floatInQuery,
+    double? floatInHeader,
   }) {
     floatInPath ??= 0;
     return _$MalformedFloatInput._(
       floatInBody: floatInBody,
-      floatInHeader: floatInHeader,
       floatInPath: floatInPath,
       floatInQuery: floatInQuery,
+      floatInHeader: floatInHeader,
     );
   }
 
@@ -67,9 +68,9 @@ abstract class MalformedFloatInput
   }
 
   double? get floatInBody;
-  double? get floatInHeader;
   double get floatInPath;
   double? get floatInQuery;
+  double? get floatInHeader;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -89,9 +90,9 @@ abstract class MalformedFloatInput
   @override
   List<Object?> get props => [
         floatInBody,
-        floatInHeader,
         floatInPath,
         floatInQuery,
+        floatInHeader,
       ];
   @override
   String toString() {
@@ -101,16 +102,16 @@ abstract class MalformedFloatInput
       floatInBody,
     );
     helper.add(
-      'floatInHeader',
-      floatInHeader,
-    );
-    helper.add(
       'floatInPath',
       floatInPath,
     );
     helper.add(
       'floatInQuery',
       floatInQuery,
+    );
+    helper.add(
+      'floatInHeader',
+      floatInHeader,
     );
     return helper.toString();
   }
@@ -173,15 +174,15 @@ class MalformedFloatInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'floatInBody':
-          if (value != null) {
-            result.floatInBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.floatInBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
       }
     }
 
@@ -191,21 +192,19 @@ class MalformedFloatInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedFloatInputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is MalformedFloatInput
-        ? object.getPayload()
-        : (object as MalformedFloatInputPayload);
-    final result = <Object?>[];
-    if (payload.floatInBody != null) {
-      result
+    final result$ = <Object?>[];
+    final MalformedFloatInputPayload(:floatInBody) = object;
+    if (floatInBody != null) {
+      result$
         ..add('floatInBody')
         ..add(serializers.serialize(
-          payload.floatInBody!,
+          floatInBody,
           specifiedType: const FullType(double),
         ));
     }
-    return result;
+    return result$;
   }
 }

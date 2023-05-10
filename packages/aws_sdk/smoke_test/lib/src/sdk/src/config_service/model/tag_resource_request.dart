@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.tag_resource_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -99,13 +100,15 @@ class TagResourceRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ResourceArn':
           result.resourceArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Tags':
           result.tags.replace((serializers.deserialize(
             value,
@@ -114,7 +117,6 @@ class TagResourceRequestAwsJson11Serializer
               [FullType(_i3.Tag)],
             ),
           ) as _i4.BuiltList<_i3.Tag>));
-          break;
       }
     }
 
@@ -124,25 +126,26 @@ class TagResourceRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TagResourceRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TagResourceRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final TagResourceRequest(:resourceArn, :tags) = object;
+    result$.addAll([
       'ResourceArn',
       serializers.serialize(
-        payload.resourceArn,
+        resourceArn,
         specifiedType: const FullType(String),
       ),
       'Tags',
       serializers.serialize(
-        payload.tags,
+        tags,
         specifiedType: const FullType(
           _i4.BuiltList,
           [FullType(_i3.Tag)],
         ),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

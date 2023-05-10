@@ -8,16 +8,16 @@ part of smoke_test.s3.model.tiering;
 
 class _$Tiering extends Tiering {
   @override
-  final _i2.IntelligentTieringAccessTier accessTier;
-  @override
   final int days;
+  @override
+  final _i2.IntelligentTieringAccessTier accessTier;
 
   factory _$Tiering([void Function(TieringBuilder)? updates]) =>
       (new TieringBuilder()..update(updates))._build();
 
-  _$Tiering._({required this.accessTier, required this.days}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(accessTier, r'Tiering', 'accessTier');
+  _$Tiering._({required this.days, required this.accessTier}) : super._() {
     BuiltValueNullFieldError.checkNotNull(days, r'Tiering', 'days');
+    BuiltValueNullFieldError.checkNotNull(accessTier, r'Tiering', 'accessTier');
   }
 
   @override
@@ -31,15 +31,15 @@ class _$Tiering extends Tiering {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Tiering &&
-        accessTier == other.accessTier &&
-        days == other.days;
+        days == other.days &&
+        accessTier == other.accessTier;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, accessTier.hashCode);
     _$hash = $jc(_$hash, days.hashCode);
+    _$hash = $jc(_$hash, accessTier.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -48,14 +48,14 @@ class _$Tiering extends Tiering {
 class TieringBuilder implements Builder<Tiering, TieringBuilder> {
   _$Tiering? _$v;
 
+  int? _days;
+  int? get days => _$this._days;
+  set days(int? days) => _$this._days = days;
+
   _i2.IntelligentTieringAccessTier? _accessTier;
   _i2.IntelligentTieringAccessTier? get accessTier => _$this._accessTier;
   set accessTier(_i2.IntelligentTieringAccessTier? accessTier) =>
       _$this._accessTier = accessTier;
-
-  int? _days;
-  int? get days => _$this._days;
-  set days(int? days) => _$this._days = days;
 
   TieringBuilder() {
     Tiering._init(this);
@@ -64,8 +64,8 @@ class TieringBuilder implements Builder<Tiering, TieringBuilder> {
   TieringBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _accessTier = $v.accessTier;
       _days = $v.days;
+      _accessTier = $v.accessTier;
       _$v = null;
     }
     return this;
@@ -88,10 +88,10 @@ class TieringBuilder implements Builder<Tiering, TieringBuilder> {
   _$Tiering _build() {
     final _$result = _$v ??
         new _$Tiering._(
+            days:
+                BuiltValueNullFieldError.checkNotNull(days, r'Tiering', 'days'),
             accessTier: BuiltValueNullFieldError.checkNotNull(
-                accessTier, r'Tiering', 'accessTier'),
-            days: BuiltValueNullFieldError.checkNotNull(
-                days, r'Tiering', 'days'));
+                accessTier, r'Tiering', 'accessTier'));
     replace(_$result);
     return _$result;
   }

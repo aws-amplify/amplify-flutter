@@ -16,8 +16,9 @@ abstract class ResourceShape
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceShapeBuilder b) {
-    b.shapeId = ShapeId.empty;
-    b.traits = TraitMap.empty();
+    b
+      ..shapeId = ShapeId.empty
+      ..traits = TraitMap.empty();
   }
 
   BuiltMap<String, ShapeRef> get identifiers;

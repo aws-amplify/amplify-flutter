@@ -9,33 +9,33 @@ part of smoke_test.api_gateway.model.update_integration_response_request;
 class _$UpdateIntegrationResponseRequest
     extends UpdateIntegrationResponseRequest {
   @override
-  final String httpMethod;
-  @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final String restApiId;
   @override
   final String resourceId;
   @override
-  final String restApiId;
+  final String httpMethod;
   @override
   final String statusCode;
+  @override
+  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
 
   factory _$UpdateIntegrationResponseRequest(
           [void Function(UpdateIntegrationResponseRequestBuilder)? updates]) =>
       (new UpdateIntegrationResponseRequestBuilder()..update(updates))._build();
 
   _$UpdateIntegrationResponseRequest._(
-      {required this.httpMethod,
-      this.patchOperations,
+      {required this.restApiId,
       required this.resourceId,
-      required this.restApiId,
-      required this.statusCode})
+      required this.httpMethod,
+      required this.statusCode,
+      this.patchOperations})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        httpMethod, r'UpdateIntegrationResponseRequest', 'httpMethod');
+        restApiId, r'UpdateIntegrationResponseRequest', 'restApiId');
     BuiltValueNullFieldError.checkNotNull(
         resourceId, r'UpdateIntegrationResponseRequest', 'resourceId');
     BuiltValueNullFieldError.checkNotNull(
-        restApiId, r'UpdateIntegrationResponseRequest', 'restApiId');
+        httpMethod, r'UpdateIntegrationResponseRequest', 'httpMethod');
     BuiltValueNullFieldError.checkNotNull(
         statusCode, r'UpdateIntegrationResponseRequest', 'statusCode');
   }
@@ -53,21 +53,21 @@ class _$UpdateIntegrationResponseRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateIntegrationResponseRequest &&
-        httpMethod == other.httpMethod &&
-        patchOperations == other.patchOperations &&
-        resourceId == other.resourceId &&
         restApiId == other.restApiId &&
-        statusCode == other.statusCode;
+        resourceId == other.resourceId &&
+        httpMethod == other.httpMethod &&
+        statusCode == other.statusCode &&
+        patchOperations == other.patchOperations;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, httpMethod.hashCode);
-    _$hash = $jc(_$hash, patchOperations.hashCode);
-    _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
+    _$hash = $jc(_$hash, httpMethod.hashCode);
     _$hash = $jc(_$hash, statusCode.hashCode);
+    _$hash = $jc(_$hash, patchOperations.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -79,27 +79,27 @@ class UpdateIntegrationResponseRequestBuilder
             UpdateIntegrationResponseRequestBuilder> {
   _$UpdateIntegrationResponseRequest? _$v;
 
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  String? _resourceId;
+  String? get resourceId => _$this._resourceId;
+  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
+
   String? _httpMethod;
   String? get httpMethod => _$this._httpMethod;
   set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
+
+  String? _statusCode;
+  String? get statusCode => _$this._statusCode;
+  set statusCode(String? statusCode) => _$this._statusCode = statusCode;
 
   _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
   _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
       _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
-
-  String? _resourceId;
-  String? get resourceId => _$this._resourceId;
-  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
-
-  String? _statusCode;
-  String? get statusCode => _$this._statusCode;
-  set statusCode(String? statusCode) => _$this._statusCode = statusCode;
 
   UpdateIntegrationResponseRequestBuilder() {
     UpdateIntegrationResponseRequest._init(this);
@@ -108,11 +108,11 @@ class UpdateIntegrationResponseRequestBuilder
   UpdateIntegrationResponseRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _httpMethod = $v.httpMethod;
-      _patchOperations = $v.patchOperations?.toBuilder();
-      _resourceId = $v.resourceId;
       _restApiId = $v.restApiId;
+      _resourceId = $v.resourceId;
+      _httpMethod = $v.httpMethod;
       _statusCode = $v.statusCode;
+      _patchOperations = $v.patchOperations?.toBuilder();
       _$v = null;
     }
     return this;
@@ -137,15 +137,15 @@ class UpdateIntegrationResponseRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateIntegrationResponseRequest._(
-              httpMethod: BuiltValueNullFieldError.checkNotNull(httpMethod,
-                  r'UpdateIntegrationResponseRequest', 'httpMethod'),
-              patchOperations: _patchOperations?.build(),
-              resourceId: BuiltValueNullFieldError.checkNotNull(resourceId,
-                  r'UpdateIntegrationResponseRequest', 'resourceId'),
               restApiId: BuiltValueNullFieldError.checkNotNull(
                   restApiId, r'UpdateIntegrationResponseRequest', 'restApiId'),
+              resourceId: BuiltValueNullFieldError.checkNotNull(resourceId,
+                  r'UpdateIntegrationResponseRequest', 'resourceId'),
+              httpMethod: BuiltValueNullFieldError.checkNotNull(httpMethod,
+                  r'UpdateIntegrationResponseRequest', 'httpMethod'),
               statusCode: BuiltValueNullFieldError.checkNotNull(statusCode,
-                  r'UpdateIntegrationResponseRequest', 'statusCode'));
+                  r'UpdateIntegrationResponseRequest', 'statusCode'),
+              patchOperations: _patchOperations?.build());
     } catch (_) {
       late String _$failedField;
       try {

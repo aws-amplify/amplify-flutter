@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.list_streams_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,14 +16,14 @@ abstract class ListStreamsInput
     implements Built<ListStreamsInput, ListStreamsInputBuilder> {
   /// Represents the input of a `ListStreams` operation.
   factory ListStreamsInput({
-    String? exclusiveStartStreamArn,
-    int? limit,
     String? tableName,
+    int? limit,
+    String? exclusiveStartStreamArn,
   }) {
     return _$ListStreamsInput._(
-      exclusiveStartStreamArn: exclusiveStartStreamArn,
-      limit: limit,
       tableName: tableName,
+      limit: limit,
+      exclusiveStartStreamArn: exclusiveStartStreamArn,
     );
   }
 
@@ -46,36 +47,36 @@ abstract class ListStreamsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListStreamsInputBuilder b) {}
 
-  /// The ARN (Amazon Resource Name) of the first item that this operation will evaluate. Use the value that was returned for `LastEvaluatedStreamArn` in the previous operation.
-  String? get exclusiveStartStreamArn;
+  /// If this parameter is provided, then only the streams associated with this table name are returned.
+  String? get tableName;
 
   /// The maximum number of streams to return. The upper limit is 100.
   int? get limit;
 
-  /// If this parameter is provided, then only the streams associated with this table name are returned.
-  String? get tableName;
+  /// The ARN (Amazon Resource Name) of the first item that this operation will evaluate. Use the value that was returned for `LastEvaluatedStreamArn` in the previous operation.
+  String? get exclusiveStartStreamArn;
   @override
   ListStreamsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        exclusiveStartStreamArn,
-        limit,
         tableName,
+        limit,
+        exclusiveStartStreamArn,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListStreamsInput');
     helper.add(
-      'exclusiveStartStreamArn',
-      exclusiveStartStreamArn,
+      'tableName',
+      tableName,
     );
     helper.add(
       'limit',
       limit,
     );
     helper.add(
-      'tableName',
-      tableName,
+      'exclusiveStartStreamArn',
+      exclusiveStartStreamArn,
     );
     return helper.toString();
   }
@@ -109,31 +110,25 @@ class ListStreamsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ExclusiveStartStreamArn':
-          if (value != null) {
-            result.exclusiveStartStreamArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'Limit':
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'ExclusiveStartStreamArn':
+          result.exclusiveStartStreamArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -143,35 +138,36 @@ class ListStreamsInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListStreamsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListStreamsInput);
-    final result = <Object?>[];
-    if (payload.exclusiveStartStreamArn != null) {
-      result
-        ..add('ExclusiveStartStreamArn')
+    final result$ = <Object?>[];
+    final ListStreamsInput(:tableName, :limit, :exclusiveStartStreamArn) =
+        object;
+    if (tableName != null) {
+      result$
+        ..add('TableName')
         ..add(serializers.serialize(
-          payload.exclusiveStartStreamArn!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.limit != null) {
-      result
+    if (limit != null) {
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.tableName != null) {
-      result
-        ..add('TableName')
+    if (exclusiveStartStreamArn != null) {
+      result$
+        ..add('ExclusiveStartStreamArn')
         ..add(serializers.serialize(
-          payload.tableName!,
+          exclusiveStartStreamArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

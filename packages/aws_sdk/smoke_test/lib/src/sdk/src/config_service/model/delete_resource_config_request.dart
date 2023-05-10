@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.delete_resource_config_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,12 +17,12 @@ abstract class DeleteResourceConfigRequest
     implements
         Built<DeleteResourceConfigRequest, DeleteResourceConfigRequestBuilder> {
   factory DeleteResourceConfigRequest({
-    required String resourceId,
     required String resourceType,
+    required String resourceId,
   }) {
     return _$DeleteResourceConfigRequest._(
-      resourceId: resourceId,
       resourceType: resourceType,
+      resourceId: resourceId,
     );
   }
 
@@ -45,28 +46,28 @@ abstract class DeleteResourceConfigRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteResourceConfigRequestBuilder b) {}
 
-  /// Unique identifier of the resource.
-  String get resourceId;
-
   /// The type of the resource.
   String get resourceType;
+
+  /// Unique identifier of the resource.
+  String get resourceId;
   @override
   DeleteResourceConfigRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        resourceId,
         resourceType,
+        resourceId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteResourceConfigRequest');
     helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
       'resourceType',
       resourceType,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
     );
     return helper.toString();
   }
@@ -101,19 +102,20 @@ class DeleteResourceConfigRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ResourceId':
-          result.resourceId = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'ResourceId':
+          result.resourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -123,22 +125,23 @@ class DeleteResourceConfigRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteResourceConfigRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeleteResourceConfigRequest);
-    final result = <Object?>[
-      'ResourceId',
-      serializers.serialize(
-        payload.resourceId,
-        specifiedType: const FullType(String),
-      ),
+    final result$ = <Object?>[];
+    final DeleteResourceConfigRequest(:resourceType, :resourceId) = object;
+    result$.addAll([
       'ResourceType',
       serializers.serialize(
-        payload.resourceType,
+        resourceType,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+      'ResourceId',
+      serializers.serialize(
+        resourceId,
+        specifiedType: const FullType(String),
+      ),
+    ]);
+    return result$;
   }
 }

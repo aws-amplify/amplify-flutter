@@ -8,54 +8,54 @@ part of smoke_test.config_service.model.remediation_configuration;
 
 class _$RemediationConfiguration extends RemediationConfiguration {
   @override
-  final String? arn;
-  @override
-  final bool? automatic;
-  @override
   final String configRuleName;
   @override
-  final String? createdByService;
+  final _i2.RemediationTargetType targetType;
   @override
-  final _i2.ExecutionControls? executionControls;
+  final String targetId;
   @override
-  final int? maximumAutomaticAttempts;
+  final String? targetVersion;
   @override
   final _i6.BuiltMap<String, _i3.RemediationParameterValue>? parameters;
   @override
   final String? resourceType;
   @override
-  final _i4.Int64? retryAttemptSeconds;
+  final bool? automatic;
   @override
-  final String targetId;
+  final _i4.ExecutionControls? executionControls;
   @override
-  final _i5.RemediationTargetType targetType;
+  final int? maximumAutomaticAttempts;
   @override
-  final String? targetVersion;
+  final _i5.Int64? retryAttemptSeconds;
+  @override
+  final String? arn;
+  @override
+  final String? createdByService;
 
   factory _$RemediationConfiguration(
           [void Function(RemediationConfigurationBuilder)? updates]) =>
       (new RemediationConfigurationBuilder()..update(updates))._build();
 
   _$RemediationConfiguration._(
-      {this.arn,
-      this.automatic,
-      required this.configRuleName,
-      this.createdByService,
-      this.executionControls,
-      this.maximumAutomaticAttempts,
+      {required this.configRuleName,
+      required this.targetType,
+      required this.targetId,
+      this.targetVersion,
       this.parameters,
       this.resourceType,
+      this.automatic,
+      this.executionControls,
+      this.maximumAutomaticAttempts,
       this.retryAttemptSeconds,
-      required this.targetId,
-      required this.targetType,
-      this.targetVersion})
+      this.arn,
+      this.createdByService})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         configRuleName, r'RemediationConfiguration', 'configRuleName');
     BuiltValueNullFieldError.checkNotNull(
-        targetId, r'RemediationConfiguration', 'targetId');
-    BuiltValueNullFieldError.checkNotNull(
         targetType, r'RemediationConfiguration', 'targetType');
+    BuiltValueNullFieldError.checkNotNull(
+        targetId, r'RemediationConfiguration', 'targetId');
   }
 
   @override
@@ -71,35 +71,35 @@ class _$RemediationConfiguration extends RemediationConfiguration {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is RemediationConfiguration &&
-        arn == other.arn &&
-        automatic == other.automatic &&
         configRuleName == other.configRuleName &&
-        createdByService == other.createdByService &&
-        executionControls == other.executionControls &&
-        maximumAutomaticAttempts == other.maximumAutomaticAttempts &&
+        targetType == other.targetType &&
+        targetId == other.targetId &&
+        targetVersion == other.targetVersion &&
         parameters == other.parameters &&
         resourceType == other.resourceType &&
+        automatic == other.automatic &&
+        executionControls == other.executionControls &&
+        maximumAutomaticAttempts == other.maximumAutomaticAttempts &&
         retryAttemptSeconds == other.retryAttemptSeconds &&
-        targetId == other.targetId &&
-        targetType == other.targetType &&
-        targetVersion == other.targetVersion;
+        arn == other.arn &&
+        createdByService == other.createdByService;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, arn.hashCode);
-    _$hash = $jc(_$hash, automatic.hashCode);
     _$hash = $jc(_$hash, configRuleName.hashCode);
-    _$hash = $jc(_$hash, createdByService.hashCode);
-    _$hash = $jc(_$hash, executionControls.hashCode);
-    _$hash = $jc(_$hash, maximumAutomaticAttempts.hashCode);
+    _$hash = $jc(_$hash, targetType.hashCode);
+    _$hash = $jc(_$hash, targetId.hashCode);
+    _$hash = $jc(_$hash, targetVersion.hashCode);
     _$hash = $jc(_$hash, parameters.hashCode);
     _$hash = $jc(_$hash, resourceType.hashCode);
+    _$hash = $jc(_$hash, automatic.hashCode);
+    _$hash = $jc(_$hash, executionControls.hashCode);
+    _$hash = $jc(_$hash, maximumAutomaticAttempts.hashCode);
     _$hash = $jc(_$hash, retryAttemptSeconds.hashCode);
-    _$hash = $jc(_$hash, targetId.hashCode);
-    _$hash = $jc(_$hash, targetType.hashCode);
-    _$hash = $jc(_$hash, targetVersion.hashCode);
+    _$hash = $jc(_$hash, arn.hashCode);
+    _$hash = $jc(_$hash, createdByService.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -110,34 +110,24 @@ class RemediationConfigurationBuilder
         Builder<RemediationConfiguration, RemediationConfigurationBuilder> {
   _$RemediationConfiguration? _$v;
 
-  String? _arn;
-  String? get arn => _$this._arn;
-  set arn(String? arn) => _$this._arn = arn;
-
-  bool? _automatic;
-  bool? get automatic => _$this._automatic;
-  set automatic(bool? automatic) => _$this._automatic = automatic;
-
   String? _configRuleName;
   String? get configRuleName => _$this._configRuleName;
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  String? _createdByService;
-  String? get createdByService => _$this._createdByService;
-  set createdByService(String? createdByService) =>
-      _$this._createdByService = createdByService;
+  _i2.RemediationTargetType? _targetType;
+  _i2.RemediationTargetType? get targetType => _$this._targetType;
+  set targetType(_i2.RemediationTargetType? targetType) =>
+      _$this._targetType = targetType;
 
-  _i2.ExecutionControlsBuilder? _executionControls;
-  _i2.ExecutionControlsBuilder get executionControls =>
-      _$this._executionControls ??= new _i2.ExecutionControlsBuilder();
-  set executionControls(_i2.ExecutionControlsBuilder? executionControls) =>
-      _$this._executionControls = executionControls;
+  String? _targetId;
+  String? get targetId => _$this._targetId;
+  set targetId(String? targetId) => _$this._targetId = targetId;
 
-  int? _maximumAutomaticAttempts;
-  int? get maximumAutomaticAttempts => _$this._maximumAutomaticAttempts;
-  set maximumAutomaticAttempts(int? maximumAutomaticAttempts) =>
-      _$this._maximumAutomaticAttempts = maximumAutomaticAttempts;
+  String? _targetVersion;
+  String? get targetVersion => _$this._targetVersion;
+  set targetVersion(String? targetVersion) =>
+      _$this._targetVersion = targetVersion;
 
   _i6.MapBuilder<String, _i3.RemediationParameterValue>? _parameters;
   _i6.MapBuilder<String, _i3.RemediationParameterValue> get parameters =>
@@ -151,24 +141,34 @@ class RemediationConfigurationBuilder
   String? get resourceType => _$this._resourceType;
   set resourceType(String? resourceType) => _$this._resourceType = resourceType;
 
-  _i4.Int64? _retryAttemptSeconds;
-  _i4.Int64? get retryAttemptSeconds => _$this._retryAttemptSeconds;
-  set retryAttemptSeconds(_i4.Int64? retryAttemptSeconds) =>
+  bool? _automatic;
+  bool? get automatic => _$this._automatic;
+  set automatic(bool? automatic) => _$this._automatic = automatic;
+
+  _i4.ExecutionControlsBuilder? _executionControls;
+  _i4.ExecutionControlsBuilder get executionControls =>
+      _$this._executionControls ??= new _i4.ExecutionControlsBuilder();
+  set executionControls(_i4.ExecutionControlsBuilder? executionControls) =>
+      _$this._executionControls = executionControls;
+
+  int? _maximumAutomaticAttempts;
+  int? get maximumAutomaticAttempts => _$this._maximumAutomaticAttempts;
+  set maximumAutomaticAttempts(int? maximumAutomaticAttempts) =>
+      _$this._maximumAutomaticAttempts = maximumAutomaticAttempts;
+
+  _i5.Int64? _retryAttemptSeconds;
+  _i5.Int64? get retryAttemptSeconds => _$this._retryAttemptSeconds;
+  set retryAttemptSeconds(_i5.Int64? retryAttemptSeconds) =>
       _$this._retryAttemptSeconds = retryAttemptSeconds;
 
-  String? _targetId;
-  String? get targetId => _$this._targetId;
-  set targetId(String? targetId) => _$this._targetId = targetId;
+  String? _arn;
+  String? get arn => _$this._arn;
+  set arn(String? arn) => _$this._arn = arn;
 
-  _i5.RemediationTargetType? _targetType;
-  _i5.RemediationTargetType? get targetType => _$this._targetType;
-  set targetType(_i5.RemediationTargetType? targetType) =>
-      _$this._targetType = targetType;
-
-  String? _targetVersion;
-  String? get targetVersion => _$this._targetVersion;
-  set targetVersion(String? targetVersion) =>
-      _$this._targetVersion = targetVersion;
+  String? _createdByService;
+  String? get createdByService => _$this._createdByService;
+  set createdByService(String? createdByService) =>
+      _$this._createdByService = createdByService;
 
   RemediationConfigurationBuilder() {
     RemediationConfiguration._init(this);
@@ -177,18 +177,18 @@ class RemediationConfigurationBuilder
   RemediationConfigurationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _arn = $v.arn;
-      _automatic = $v.automatic;
       _configRuleName = $v.configRuleName;
-      _createdByService = $v.createdByService;
-      _executionControls = $v.executionControls?.toBuilder();
-      _maximumAutomaticAttempts = $v.maximumAutomaticAttempts;
+      _targetType = $v.targetType;
+      _targetId = $v.targetId;
+      _targetVersion = $v.targetVersion;
       _parameters = $v.parameters?.toBuilder();
       _resourceType = $v.resourceType;
+      _automatic = $v.automatic;
+      _executionControls = $v.executionControls?.toBuilder();
+      _maximumAutomaticAttempts = $v.maximumAutomaticAttempts;
       _retryAttemptSeconds = $v.retryAttemptSeconds;
-      _targetId = $v.targetId;
-      _targetType = $v.targetType;
-      _targetVersion = $v.targetVersion;
+      _arn = $v.arn;
+      _createdByService = $v.createdByService;
       _$v = null;
     }
     return this;
@@ -213,31 +213,31 @@ class RemediationConfigurationBuilder
     try {
       _$result = _$v ??
           new _$RemediationConfiguration._(
-              arn: arn,
-              automatic: automatic,
               configRuleName: BuiltValueNullFieldError.checkNotNull(
                   configRuleName,
                   r'RemediationConfiguration',
                   'configRuleName'),
-              createdByService: createdByService,
-              executionControls: _executionControls?.build(),
-              maximumAutomaticAttempts: maximumAutomaticAttempts,
-              parameters: _parameters?.build(),
-              resourceType: resourceType,
-              retryAttemptSeconds: retryAttemptSeconds,
-              targetId: BuiltValueNullFieldError.checkNotNull(
-                  targetId, r'RemediationConfiguration', 'targetId'),
               targetType: BuiltValueNullFieldError.checkNotNull(
                   targetType, r'RemediationConfiguration', 'targetType'),
-              targetVersion: targetVersion);
+              targetId: BuiltValueNullFieldError.checkNotNull(
+                  targetId, r'RemediationConfiguration', 'targetId'),
+              targetVersion: targetVersion,
+              parameters: _parameters?.build(),
+              resourceType: resourceType,
+              automatic: automatic,
+              executionControls: _executionControls?.build(),
+              maximumAutomaticAttempts: maximumAutomaticAttempts,
+              retryAttemptSeconds: retryAttemptSeconds,
+              arn: arn,
+              createdByService: createdByService);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'executionControls';
-        _executionControls?.build();
-
         _$failedField = 'parameters';
         _parameters?.build();
+
+        _$failedField = 'executionControls';
+        _executionControls?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'RemediationConfiguration', _$failedField, e.toString());

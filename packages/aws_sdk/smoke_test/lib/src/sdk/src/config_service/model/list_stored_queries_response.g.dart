@@ -8,15 +8,15 @@ part of smoke_test.config_service.model.list_stored_queries_response;
 
 class _$ListStoredQueriesResponse extends ListStoredQueriesResponse {
   @override
-  final String? nextToken;
-  @override
   final _i3.BuiltList<_i2.StoredQueryMetadata>? storedQueryMetadata;
+  @override
+  final String? nextToken;
 
   factory _$ListStoredQueriesResponse(
           [void Function(ListStoredQueriesResponseBuilder)? updates]) =>
       (new ListStoredQueriesResponseBuilder()..update(updates))._build();
 
-  _$ListStoredQueriesResponse._({this.nextToken, this.storedQueryMetadata})
+  _$ListStoredQueriesResponse._({this.storedQueryMetadata, this.nextToken})
       : super._();
 
   @override
@@ -32,15 +32,15 @@ class _$ListStoredQueriesResponse extends ListStoredQueriesResponse {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListStoredQueriesResponse &&
-        nextToken == other.nextToken &&
-        storedQueryMetadata == other.storedQueryMetadata;
+        storedQueryMetadata == other.storedQueryMetadata &&
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, storedQueryMetadata.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -51,10 +51,6 @@ class ListStoredQueriesResponseBuilder
         Builder<ListStoredQueriesResponse, ListStoredQueriesResponseBuilder> {
   _$ListStoredQueriesResponse? _$v;
 
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
   _i3.ListBuilder<_i2.StoredQueryMetadata>? _storedQueryMetadata;
   _i3.ListBuilder<_i2.StoredQueryMetadata> get storedQueryMetadata =>
       _$this._storedQueryMetadata ??=
@@ -63,6 +59,10 @@ class ListStoredQueriesResponseBuilder
           _i3.ListBuilder<_i2.StoredQueryMetadata>? storedQueryMetadata) =>
       _$this._storedQueryMetadata = storedQueryMetadata;
 
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+
   ListStoredQueriesResponseBuilder() {
     ListStoredQueriesResponse._init(this);
   }
@@ -70,8 +70,8 @@ class ListStoredQueriesResponseBuilder
   ListStoredQueriesResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
       _storedQueryMetadata = $v.storedQueryMetadata?.toBuilder();
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -96,8 +96,8 @@ class ListStoredQueriesResponseBuilder
     try {
       _$result = _$v ??
           new _$ListStoredQueriesResponse._(
-              nextToken: nextToken,
-              storedQueryMetadata: _storedQueryMetadata?.build());
+              storedQueryMetadata: _storedQueryMetadata?.build(),
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

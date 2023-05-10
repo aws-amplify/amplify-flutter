@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -1056,12 +1057,12 @@ final Map<FullType, Function> builderFactories = {
   ): _i337.ListBuilder<_i73.ComplianceByConfigRule>.new,
   const FullType(
     _i337.BuiltList,
-    [FullType(_i54.ComplianceType)],
-  ): _i337.ListBuilder<_i54.ComplianceType>.new,
-  const FullType(
-    _i337.BuiltList,
     [FullType(String)],
   ): _i337.ListBuilder<String>.new,
+  const FullType(
+    _i337.BuiltList,
+    [FullType(_i54.ComplianceType)],
+  ): _i337.ListBuilder<_i54.ComplianceType>.new,
   const FullType(
     _i337.BuiltList,
     [FullType(_i76.ComplianceByResource)],

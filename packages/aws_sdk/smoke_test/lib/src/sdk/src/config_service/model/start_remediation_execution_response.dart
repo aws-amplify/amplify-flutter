@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.start_remediation_execution_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,12 +20,12 @@ abstract class StartRemediationExecutionResponse
         Built<StartRemediationExecutionResponse,
             StartRemediationExecutionResponseBuilder> {
   factory StartRemediationExecutionResponse({
-    List<_i2.ResourceKey>? failedItems,
     String? failureMessage,
+    List<_i2.ResourceKey>? failedItems,
   }) {
     return _$StartRemediationExecutionResponse._(
-      failedItems: failedItems == null ? null : _i3.BuiltList(failedItems),
       failureMessage: failureMessage,
+      failedItems: failedItems == null ? null : _i3.BuiltList(failedItems),
     );
   }
 
@@ -48,27 +49,27 @@ abstract class StartRemediationExecutionResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StartRemediationExecutionResponseBuilder b) {}
 
-  /// For resources that have failed to start execution, the API returns a resource key object.
-  _i3.BuiltList<_i2.ResourceKey>? get failedItems;
-
   /// Returns a failure message. For example, the resource is already compliant.
   String? get failureMessage;
+
+  /// For resources that have failed to start execution, the API returns a resource key object.
+  _i3.BuiltList<_i2.ResourceKey>? get failedItems;
   @override
   List<Object?> get props => [
-        failedItems,
         failureMessage,
+        failedItems,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('StartRemediationExecutionResponse');
     helper.add(
-      'failedItems',
-      failedItems,
-    );
-    helper.add(
       'failureMessage',
       failureMessage,
+    );
+    helper.add(
+      'failedItems',
+      failedItems,
     );
     return helper.toString();
   }
@@ -103,26 +104,23 @@ class StartRemediationExecutionResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'FailedItems':
-          if (value != null) {
-            result.failedItems.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ResourceKey)],
-              ),
-            ) as _i3.BuiltList<_i2.ResourceKey>));
-          }
-          break;
         case 'FailureMessage':
-          if (value != null) {
-            result.failureMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.failureMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'FailedItems':
+          result.failedItems.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ResourceKey)],
+            ),
+          ) as _i3.BuiltList<_i2.ResourceKey>));
       }
     }
 
@@ -132,30 +130,31 @@ class StartRemediationExecutionResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StartRemediationExecutionResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StartRemediationExecutionResponse);
-    final result = <Object?>[];
-    if (payload.failedItems != null) {
-      result
+    final result$ = <Object?>[];
+    final StartRemediationExecutionResponse(:failureMessage, :failedItems) =
+        object;
+    if (failureMessage != null) {
+      result$
+        ..add('FailureMessage')
+        ..add(serializers.serialize(
+          failureMessage,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (failedItems != null) {
+      result$
         ..add('FailedItems')
         ..add(serializers.serialize(
-          payload.failedItems!,
+          failedItems,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ResourceKey)],
           ),
         ));
     }
-    if (payload.failureMessage != null) {
-      result
-        ..add('FailureMessage')
-        ..add(serializers.serialize(
-          payload.failureMessage!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

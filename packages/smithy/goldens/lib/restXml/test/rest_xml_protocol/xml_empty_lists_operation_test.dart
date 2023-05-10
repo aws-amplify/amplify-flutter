@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_xml_v1.rest_xml_protocol.test.xml_empty_lists_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -128,178 +129,136 @@ class XmlListsInputOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'booleanList':
-          if (value != null) {
-            result.booleanList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(bool)],
-              ),
-            ) as _i6.BuiltList<bool>));
-          }
-          break;
-        case 'enumList':
-          if (value != null) {
-            result.enumList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i7.FooEnum)],
-              ),
-            ) as _i6.BuiltList<_i7.FooEnum>));
-          }
-          break;
-        case 'flattenedList':
-          if (value != null) {
-            result.flattenedList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
-        case 'flattenedList2':
-          if (value != null) {
-            result.flattenedList2.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
-        case 'flattenedListWithMemberNamespace':
-          if (value != null) {
-            result.flattenedListWithMemberNamespace
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
-        case 'flattenedListWithNamespace':
-          if (value != null) {
-            result.flattenedListWithNamespace.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
-        case 'flattenedStructureList':
-          if (value != null) {
-            result.flattenedStructureList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i8.StructureListMember)],
-              ),
-            ) as _i6.BuiltList<_i8.StructureListMember>));
-          }
-          break;
-        case 'intEnumList':
-          if (value != null) {
-            result.intEnumList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(int)],
-              ),
-            ) as _i6.BuiltList<int>));
-          }
-          break;
-        case 'integerList':
-          if (value != null) {
-            result.integerList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(int)],
-              ),
-            ) as _i6.BuiltList<int>));
-          }
-          break;
-        case 'nestedStringList':
-          if (value != null) {
-            result.nestedStringList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [
-                  FullType(
-                    _i6.BuiltList,
-                    [FullType(String)],
-                  )
-                ],
-              ),
-            ) as _i6.BuiltList<_i6.BuiltList<String>>));
-          }
-          break;
-        case 'renamedListMembers':
-          if (value != null) {
-            result.renamedListMembers.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
         case 'stringList':
-          if (value != null) {
-            result.stringList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
+          result.stringList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
         case 'stringSet':
-          if (value != null) {
-            result.stringSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltSet,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltSet<String>));
-          }
-          break;
-        case 'structureList':
-          if (value != null) {
-            result.structureList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i8.StructureListMember)],
-              ),
-            ) as _i6.BuiltList<_i8.StructureListMember>));
-          }
-          break;
+          result.stringSet.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltSet,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltSet<String>));
+        case 'integerList':
+          result.integerList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(int)],
+            ),
+          ) as _i6.BuiltList<int>));
+        case 'booleanList':
+          result.booleanList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(bool)],
+            ),
+          ) as _i6.BuiltList<bool>));
         case 'timestampList':
-          if (value != null) {
-            result.timestampList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(DateTime)],
-              ),
-            ) as _i6.BuiltList<DateTime>));
-          }
-          break;
+          result.timestampList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(DateTime)],
+            ),
+          ) as _i6.BuiltList<DateTime>));
+        case 'enumList':
+          result.enumList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i7.FooEnum)],
+            ),
+          ) as _i6.BuiltList<_i7.FooEnum>));
+        case 'intEnumList':
+          result.intEnumList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(int)],
+            ),
+          ) as _i6.BuiltList<int>));
+        case 'nestedStringList':
+          result.nestedStringList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [
+                FullType(
+                  _i6.BuiltList,
+                  [FullType(String)],
+                )
+              ],
+            ),
+          ) as _i6.BuiltList<_i6.BuiltList<String>>));
+        case 'renamedListMembers':
+          result.renamedListMembers.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
+        case 'flattenedList':
+          result.flattenedList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
+        case 'flattenedList2':
+          result.flattenedList2.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
+        case 'flattenedListWithMemberNamespace':
+          result.flattenedListWithMemberNamespace
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
+        case 'flattenedListWithNamespace':
+          result.flattenedListWithNamespace.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
+        case 'structureList':
+          result.structureList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i8.StructureListMember)],
+            ),
+          ) as _i6.BuiltList<_i8.StructureListMember>));
+        case 'flattenedStructureList':
+          result.flattenedStructureList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i8.StructureListMember)],
+            ),
+          ) as _i6.BuiltList<_i8.StructureListMember>));
       }
     }
 
@@ -309,7 +268,7 @@ class XmlListsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.XmlListsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -341,23 +300,20 @@ class StructureListMemberRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'a':
-          if (value != null) {
-            result.a = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.a = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'b':
-          if (value != null) {
-            result.b = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.b = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -367,7 +323,7 @@ class StructureListMemberRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i8.StructureListMember object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

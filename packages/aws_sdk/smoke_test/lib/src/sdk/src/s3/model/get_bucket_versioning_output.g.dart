@@ -8,15 +8,15 @@ part of smoke_test.s3.model.get_bucket_versioning_output;
 
 class _$GetBucketVersioningOutput extends GetBucketVersioningOutput {
   @override
-  final _i2.MfaDeleteStatus? mfaDelete;
+  final _i2.BucketVersioningStatus? status;
   @override
-  final _i3.BucketVersioningStatus? status;
+  final _i3.MfaDeleteStatus? mfaDelete;
 
   factory _$GetBucketVersioningOutput(
           [void Function(GetBucketVersioningOutputBuilder)? updates]) =>
       (new GetBucketVersioningOutputBuilder()..update(updates))._build();
 
-  _$GetBucketVersioningOutput._({this.mfaDelete, this.status}) : super._();
+  _$GetBucketVersioningOutput._({this.status, this.mfaDelete}) : super._();
 
   @override
   GetBucketVersioningOutput rebuild(
@@ -31,15 +31,15 @@ class _$GetBucketVersioningOutput extends GetBucketVersioningOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetBucketVersioningOutput &&
-        mfaDelete == other.mfaDelete &&
-        status == other.status;
+        status == other.status &&
+        mfaDelete == other.mfaDelete;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, mfaDelete.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, mfaDelete.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -50,14 +50,14 @@ class GetBucketVersioningOutputBuilder
         Builder<GetBucketVersioningOutput, GetBucketVersioningOutputBuilder> {
   _$GetBucketVersioningOutput? _$v;
 
-  _i2.MfaDeleteStatus? _mfaDelete;
-  _i2.MfaDeleteStatus? get mfaDelete => _$this._mfaDelete;
-  set mfaDelete(_i2.MfaDeleteStatus? mfaDelete) =>
-      _$this._mfaDelete = mfaDelete;
+  _i2.BucketVersioningStatus? _status;
+  _i2.BucketVersioningStatus? get status => _$this._status;
+  set status(_i2.BucketVersioningStatus? status) => _$this._status = status;
 
-  _i3.BucketVersioningStatus? _status;
-  _i3.BucketVersioningStatus? get status => _$this._status;
-  set status(_i3.BucketVersioningStatus? status) => _$this._status = status;
+  _i3.MfaDeleteStatus? _mfaDelete;
+  _i3.MfaDeleteStatus? get mfaDelete => _$this._mfaDelete;
+  set mfaDelete(_i3.MfaDeleteStatus? mfaDelete) =>
+      _$this._mfaDelete = mfaDelete;
 
   GetBucketVersioningOutputBuilder() {
     GetBucketVersioningOutput._init(this);
@@ -66,8 +66,8 @@ class GetBucketVersioningOutputBuilder
   GetBucketVersioningOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _mfaDelete = $v.mfaDelete;
       _status = $v.status;
+      _mfaDelete = $v.mfaDelete;
       _$v = null;
     }
     return this;
@@ -89,7 +89,7 @@ class GetBucketVersioningOutputBuilder
 
   _$GetBucketVersioningOutput _build() {
     final _$result = _$v ??
-        new _$GetBucketVersioningOutput._(mfaDelete: mfaDelete, status: status);
+        new _$GetBucketVersioningOutput._(status: status, mfaDelete: mfaDelete);
     replace(_$result);
     return _$result;
   }

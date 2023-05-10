@@ -8,25 +8,25 @@ part of smoke_test.config_service.model.stored_query;
 
 class _$StoredQuery extends StoredQuery {
   @override
-  final String? description;
-  @override
-  final String? expression;
+  final String? queryId;
   @override
   final String? queryArn;
   @override
-  final String? queryId;
-  @override
   final String queryName;
+  @override
+  final String? description;
+  @override
+  final String? expression;
 
   factory _$StoredQuery([void Function(StoredQueryBuilder)? updates]) =>
       (new StoredQueryBuilder()..update(updates))._build();
 
   _$StoredQuery._(
-      {this.description,
-      this.expression,
+      {this.queryId,
       this.queryArn,
-      this.queryId,
-      required this.queryName})
+      required this.queryName,
+      this.description,
+      this.expression})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         queryName, r'StoredQuery', 'queryName');
@@ -43,21 +43,21 @@ class _$StoredQuery extends StoredQuery {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is StoredQuery &&
-        description == other.description &&
-        expression == other.expression &&
-        queryArn == other.queryArn &&
         queryId == other.queryId &&
-        queryName == other.queryName;
+        queryArn == other.queryArn &&
+        queryName == other.queryName &&
+        description == other.description &&
+        expression == other.expression;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, queryId.hashCode);
+    _$hash = $jc(_$hash, queryArn.hashCode);
+    _$hash = $jc(_$hash, queryName.hashCode);
     _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, expression.hashCode);
-    _$hash = $jc(_$hash, queryArn.hashCode);
-    _$hash = $jc(_$hash, queryId.hashCode);
-    _$hash = $jc(_$hash, queryName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -65,6 +65,18 @@ class _$StoredQuery extends StoredQuery {
 
 class StoredQueryBuilder implements Builder<StoredQuery, StoredQueryBuilder> {
   _$StoredQuery? _$v;
+
+  String? _queryId;
+  String? get queryId => _$this._queryId;
+  set queryId(String? queryId) => _$this._queryId = queryId;
+
+  String? _queryArn;
+  String? get queryArn => _$this._queryArn;
+  set queryArn(String? queryArn) => _$this._queryArn = queryArn;
+
+  String? _queryName;
+  String? get queryName => _$this._queryName;
+  set queryName(String? queryName) => _$this._queryName = queryName;
 
   String? _description;
   String? get description => _$this._description;
@@ -74,18 +86,6 @@ class StoredQueryBuilder implements Builder<StoredQuery, StoredQueryBuilder> {
   String? get expression => _$this._expression;
   set expression(String? expression) => _$this._expression = expression;
 
-  String? _queryArn;
-  String? get queryArn => _$this._queryArn;
-  set queryArn(String? queryArn) => _$this._queryArn = queryArn;
-
-  String? _queryId;
-  String? get queryId => _$this._queryId;
-  set queryId(String? queryId) => _$this._queryId = queryId;
-
-  String? _queryName;
-  String? get queryName => _$this._queryName;
-  set queryName(String? queryName) => _$this._queryName = queryName;
-
   StoredQueryBuilder() {
     StoredQuery._init(this);
   }
@@ -93,11 +93,11 @@ class StoredQueryBuilder implements Builder<StoredQuery, StoredQueryBuilder> {
   StoredQueryBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _queryId = $v.queryId;
+      _queryArn = $v.queryArn;
+      _queryName = $v.queryName;
       _description = $v.description;
       _expression = $v.expression;
-      _queryArn = $v.queryArn;
-      _queryId = $v.queryId;
-      _queryName = $v.queryName;
       _$v = null;
     }
     return this;
@@ -120,12 +120,12 @@ class StoredQueryBuilder implements Builder<StoredQuery, StoredQueryBuilder> {
   _$StoredQuery _build() {
     final _$result = _$v ??
         new _$StoredQuery._(
-            description: description,
-            expression: expression,
-            queryArn: queryArn,
             queryId: queryId,
+            queryArn: queryArn,
             queryName: BuiltValueNullFieldError.checkNotNull(
-                queryName, r'StoredQuery', 'queryName'));
+                queryName, r'StoredQuery', 'queryName'),
+            description: description,
+            expression: expression);
     replace(_$result);
     return _$result;
   }

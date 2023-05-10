@@ -6,7 +6,7 @@ library amplify_auth_cognito_dart.model.auth_user_ext;
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
-import 'package:amplify_auth_cognito_dart/src/state/state/credential_store_state.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state/auth_state.dart';
 import 'package:meta/meta.dart';
 
 /// Helper for getting an [CognitoAuthUser] from [CognitoUserPoolTokens].

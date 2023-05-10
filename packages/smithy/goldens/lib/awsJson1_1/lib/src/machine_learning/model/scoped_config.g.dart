@@ -8,13 +8,13 @@ part of aws_json1_1_v1.machine_learning.model.scoped_config;
 
 class _$ScopedConfig extends ScopedConfig {
   @override
-  final _i2.ClientConfig? client;
+  final _i2.EnvironmentConfig? environment;
   @override
   final _i6.BuiltMap<String, _i3.FileConfigSettings>? configFile;
   @override
   final _i6.BuiltMap<String, _i3.FileConfigSettings>? credentialsFile;
   @override
-  final _i4.EnvironmentConfig? environment;
+  final _i4.ClientConfig? client;
   @override
   final _i5.OperationConfig? operation;
 
@@ -22,10 +22,10 @@ class _$ScopedConfig extends ScopedConfig {
       (new ScopedConfigBuilder()..update(updates))._build();
 
   _$ScopedConfig._(
-      {this.client,
+      {this.environment,
       this.configFile,
       this.credentialsFile,
-      this.environment,
+      this.client,
       this.operation})
       : super._();
 
@@ -40,20 +40,20 @@ class _$ScopedConfig extends ScopedConfig {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ScopedConfig &&
-        client == other.client &&
+        environment == other.environment &&
         configFile == other.configFile &&
         credentialsFile == other.credentialsFile &&
-        environment == other.environment &&
+        client == other.client &&
         operation == other.operation;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, client.hashCode);
+    _$hash = $jc(_$hash, environment.hashCode);
     _$hash = $jc(_$hash, configFile.hashCode);
     _$hash = $jc(_$hash, credentialsFile.hashCode);
-    _$hash = $jc(_$hash, environment.hashCode);
+    _$hash = $jc(_$hash, client.hashCode);
     _$hash = $jc(_$hash, operation.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -64,10 +64,11 @@ class ScopedConfigBuilder
     implements Builder<ScopedConfig, ScopedConfigBuilder> {
   _$ScopedConfig? _$v;
 
-  _i2.ClientConfigBuilder? _client;
-  _i2.ClientConfigBuilder get client =>
-      _$this._client ??= new _i2.ClientConfigBuilder();
-  set client(_i2.ClientConfigBuilder? client) => _$this._client = client;
+  _i2.EnvironmentConfigBuilder? _environment;
+  _i2.EnvironmentConfigBuilder get environment =>
+      _$this._environment ??= new _i2.EnvironmentConfigBuilder();
+  set environment(_i2.EnvironmentConfigBuilder? environment) =>
+      _$this._environment = environment;
 
   _i6.MapBuilder<String, _i3.FileConfigSettings>? _configFile;
   _i6.MapBuilder<String, _i3.FileConfigSettings> get configFile =>
@@ -84,11 +85,10 @@ class ScopedConfigBuilder
           _i6.MapBuilder<String, _i3.FileConfigSettings>? credentialsFile) =>
       _$this._credentialsFile = credentialsFile;
 
-  _i4.EnvironmentConfigBuilder? _environment;
-  _i4.EnvironmentConfigBuilder get environment =>
-      _$this._environment ??= new _i4.EnvironmentConfigBuilder();
-  set environment(_i4.EnvironmentConfigBuilder? environment) =>
-      _$this._environment = environment;
+  _i4.ClientConfigBuilder? _client;
+  _i4.ClientConfigBuilder get client =>
+      _$this._client ??= new _i4.ClientConfigBuilder();
+  set client(_i4.ClientConfigBuilder? client) => _$this._client = client;
 
   _i5.OperationConfigBuilder? _operation;
   _i5.OperationConfigBuilder get operation =>
@@ -103,10 +103,10 @@ class ScopedConfigBuilder
   ScopedConfigBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _client = $v.client?.toBuilder();
+      _environment = $v.environment?.toBuilder();
       _configFile = $v.configFile?.toBuilder();
       _credentialsFile = $v.credentialsFile?.toBuilder();
-      _environment = $v.environment?.toBuilder();
+      _client = $v.client?.toBuilder();
       _operation = $v.operation?.toBuilder();
       _$v = null;
     }
@@ -132,22 +132,22 @@ class ScopedConfigBuilder
     try {
       _$result = _$v ??
           new _$ScopedConfig._(
-              client: _client?.build(),
+              environment: _environment?.build(),
               configFile: _configFile?.build(),
               credentialsFile: _credentialsFile?.build(),
-              environment: _environment?.build(),
+              client: _client?.build(),
               operation: _operation?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'client';
-        _client?.build();
+        _$failedField = 'environment';
+        _environment?.build();
         _$failedField = 'configFile';
         _configFile?.build();
         _$failedField = 'credentialsFile';
         _credentialsFile?.build();
-        _$failedField = 'environment';
-        _environment?.build();
+        _$failedField = 'client';
+        _client?.build();
         _$failedField = 'operation';
         _operation?.build();
       } catch (e) {

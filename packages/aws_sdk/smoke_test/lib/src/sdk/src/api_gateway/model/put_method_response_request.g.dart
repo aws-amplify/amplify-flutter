@@ -8,36 +8,36 @@ part of smoke_test.api_gateway.model.put_method_response_request;
 
 class _$PutMethodResponseRequest extends PutMethodResponseRequest {
   @override
-  final String httpMethod;
+  final String restApiId;
   @override
   final String resourceId;
   @override
-  final _i3.BuiltMap<String, String>? responseModels;
+  final String httpMethod;
+  @override
+  final String statusCode;
   @override
   final _i3.BuiltMap<String, bool>? responseParameters;
   @override
-  final String restApiId;
-  @override
-  final String statusCode;
+  final _i3.BuiltMap<String, String>? responseModels;
 
   factory _$PutMethodResponseRequest(
           [void Function(PutMethodResponseRequestBuilder)? updates]) =>
       (new PutMethodResponseRequestBuilder()..update(updates))._build();
 
   _$PutMethodResponseRequest._(
-      {required this.httpMethod,
+      {required this.restApiId,
       required this.resourceId,
-      this.responseModels,
+      required this.httpMethod,
+      required this.statusCode,
       this.responseParameters,
-      required this.restApiId,
-      required this.statusCode})
+      this.responseModels})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        httpMethod, r'PutMethodResponseRequest', 'httpMethod');
+        restApiId, r'PutMethodResponseRequest', 'restApiId');
     BuiltValueNullFieldError.checkNotNull(
         resourceId, r'PutMethodResponseRequest', 'resourceId');
     BuiltValueNullFieldError.checkNotNull(
-        restApiId, r'PutMethodResponseRequest', 'restApiId');
+        httpMethod, r'PutMethodResponseRequest', 'httpMethod');
     BuiltValueNullFieldError.checkNotNull(
         statusCode, r'PutMethodResponseRequest', 'statusCode');
   }
@@ -55,23 +55,23 @@ class _$PutMethodResponseRequest extends PutMethodResponseRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PutMethodResponseRequest &&
-        httpMethod == other.httpMethod &&
-        resourceId == other.resourceId &&
-        responseModels == other.responseModels &&
-        responseParameters == other.responseParameters &&
         restApiId == other.restApiId &&
-        statusCode == other.statusCode;
+        resourceId == other.resourceId &&
+        httpMethod == other.httpMethod &&
+        statusCode == other.statusCode &&
+        responseParameters == other.responseParameters &&
+        responseModels == other.responseModels;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, httpMethod.hashCode);
-    _$hash = $jc(_$hash, resourceId.hashCode);
-    _$hash = $jc(_$hash, responseModels.hashCode);
-    _$hash = $jc(_$hash, responseParameters.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
+    _$hash = $jc(_$hash, httpMethod.hashCode);
     _$hash = $jc(_$hash, statusCode.hashCode);
+    _$hash = $jc(_$hash, responseParameters.hashCode);
+    _$hash = $jc(_$hash, responseModels.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -82,19 +82,21 @@ class PutMethodResponseRequestBuilder
         Builder<PutMethodResponseRequest, PutMethodResponseRequestBuilder> {
   _$PutMethodResponseRequest? _$v;
 
-  String? _httpMethod;
-  String? get httpMethod => _$this._httpMethod;
-  set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _resourceId;
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  _i3.MapBuilder<String, String>? _responseModels;
-  _i3.MapBuilder<String, String> get responseModels =>
-      _$this._responseModels ??= new _i3.MapBuilder<String, String>();
-  set responseModels(_i3.MapBuilder<String, String>? responseModels) =>
-      _$this._responseModels = responseModels;
+  String? _httpMethod;
+  String? get httpMethod => _$this._httpMethod;
+  set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
+
+  String? _statusCode;
+  String? get statusCode => _$this._statusCode;
+  set statusCode(String? statusCode) => _$this._statusCode = statusCode;
 
   _i3.MapBuilder<String, bool>? _responseParameters;
   _i3.MapBuilder<String, bool> get responseParameters =>
@@ -102,13 +104,11 @@ class PutMethodResponseRequestBuilder
   set responseParameters(_i3.MapBuilder<String, bool>? responseParameters) =>
       _$this._responseParameters = responseParameters;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
-
-  String? _statusCode;
-  String? get statusCode => _$this._statusCode;
-  set statusCode(String? statusCode) => _$this._statusCode = statusCode;
+  _i3.MapBuilder<String, String>? _responseModels;
+  _i3.MapBuilder<String, String> get responseModels =>
+      _$this._responseModels ??= new _i3.MapBuilder<String, String>();
+  set responseModels(_i3.MapBuilder<String, String>? responseModels) =>
+      _$this._responseModels = responseModels;
 
   PutMethodResponseRequestBuilder() {
     PutMethodResponseRequest._init(this);
@@ -117,12 +117,12 @@ class PutMethodResponseRequestBuilder
   PutMethodResponseRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _httpMethod = $v.httpMethod;
-      _resourceId = $v.resourceId;
-      _responseModels = $v.responseModels?.toBuilder();
-      _responseParameters = $v.responseParameters?.toBuilder();
       _restApiId = $v.restApiId;
+      _resourceId = $v.resourceId;
+      _httpMethod = $v.httpMethod;
       _statusCode = $v.statusCode;
+      _responseParameters = $v.responseParameters?.toBuilder();
+      _responseModels = $v.responseModels?.toBuilder();
       _$v = null;
     }
     return this;
@@ -147,23 +147,23 @@ class PutMethodResponseRequestBuilder
     try {
       _$result = _$v ??
           new _$PutMethodResponseRequest._(
-              httpMethod: BuiltValueNullFieldError.checkNotNull(
-                  httpMethod, r'PutMethodResponseRequest', 'httpMethod'),
-              resourceId: BuiltValueNullFieldError.checkNotNull(
-                  resourceId, r'PutMethodResponseRequest', 'resourceId'),
-              responseModels: _responseModels?.build(),
-              responseParameters: _responseParameters?.build(),
               restApiId: BuiltValueNullFieldError.checkNotNull(
                   restApiId, r'PutMethodResponseRequest', 'restApiId'),
+              resourceId: BuiltValueNullFieldError.checkNotNull(
+                  resourceId, r'PutMethodResponseRequest', 'resourceId'),
+              httpMethod: BuiltValueNullFieldError.checkNotNull(
+                  httpMethod, r'PutMethodResponseRequest', 'httpMethod'),
               statusCode: BuiltValueNullFieldError.checkNotNull(
-                  statusCode, r'PutMethodResponseRequest', 'statusCode'));
+                  statusCode, r'PutMethodResponseRequest', 'statusCode'),
+              responseParameters: _responseParameters?.build(),
+              responseModels: _responseModels?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'responseModels';
-        _responseModels?.build();
         _$failedField = 'responseParameters';
         _responseParameters?.build();
+        _$failedField = 'responseModels';
+        _responseModels?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'PutMethodResponseRequest', _$failedField, e.toString());

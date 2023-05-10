@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.put_bucket_lifecycle_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -25,14 +26,14 @@ abstract class PutBucketLifecycleConfigurationRequest
   factory PutBucketLifecycleConfigurationRequest({
     required String bucket,
     _i4.ChecksumAlgorithm? checksumAlgorithm,
-    String? expectedBucketOwner,
     _i2.BucketLifecycleConfiguration? lifecycleConfiguration,
+    String? expectedBucketOwner,
   }) {
     return _$PutBucketLifecycleConfigurationRequest._(
       bucket: bucket,
       checksumAlgorithm: checksumAlgorithm,
-      expectedBucketOwner: expectedBucketOwner,
       lifecycleConfiguration: lifecycleConfiguration,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -79,11 +80,11 @@ abstract class PutBucketLifecycleConfigurationRequest
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
   _i4.ChecksumAlgorithm? get checksumAlgorithm;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// Container for lifecycle rules. You can add as many as 1,000 rules.
   _i2.BucketLifecycleConfiguration? get lifecycleConfiguration;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -102,8 +103,8 @@ abstract class PutBucketLifecycleConfigurationRequest
   List<Object?> get props => [
         bucket,
         checksumAlgorithm,
-        expectedBucketOwner,
         lifecycleConfiguration,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -118,12 +119,12 @@ abstract class PutBucketLifecycleConfigurationRequest
       checksumAlgorithm,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'lifecycleConfiguration',
       lifecycleConfiguration,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }
@@ -155,16 +156,18 @@ class PutBucketLifecycleConfigurationRequestRestXmlSerializer
     final result = _i2.BucketLifecycleConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i5.LifecycleRule),
           ) as _i5.LifecycleRule));
-          break;
       }
     }
 
@@ -174,30 +177,25 @@ class PutBucketLifecycleConfigurationRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.BucketLifecycleConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutBucketLifecycleConfigurationRequest
-        ? object.getPayload()
-        : (object as _i2.BucketLifecycleConfiguration?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'LifecycleConfiguration',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
-    result
+    final _i2.BucketLifecycleConfiguration(:rules) = object;
+    result$
         .addAll(const _i1.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
-      payload.rules,
+      rules,
       specifiedType: const FullType.nullable(
         _i6.BuiltList,
         [FullType(_i5.LifecycleRule)],
       ),
     ));
-    return result;
+    return result$;
   }
 }

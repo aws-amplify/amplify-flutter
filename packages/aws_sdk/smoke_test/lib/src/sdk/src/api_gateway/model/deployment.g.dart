@@ -8,19 +8,19 @@ part of smoke_test.api_gateway.model.deployment;
 
 class _$Deployment extends Deployment {
   @override
-  final _i3.BuiltMap<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>?
-      apiSummary;
-  @override
-  final DateTime? createdDate;
+  final String? id;
   @override
   final String? description;
   @override
-  final String? id;
+  final DateTime? createdDate;
+  @override
+  final _i3.BuiltMap<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>?
+      apiSummary;
 
   factory _$Deployment([void Function(DeploymentBuilder)? updates]) =>
       (new DeploymentBuilder()..update(updates))._build();
 
-  _$Deployment._({this.apiSummary, this.createdDate, this.description, this.id})
+  _$Deployment._({this.id, this.description, this.createdDate, this.apiSummary})
       : super._();
 
   @override
@@ -34,19 +34,19 @@ class _$Deployment extends Deployment {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Deployment &&
-        apiSummary == other.apiSummary &&
-        createdDate == other.createdDate &&
+        id == other.id &&
         description == other.description &&
-        id == other.id;
+        createdDate == other.createdDate &&
+        apiSummary == other.apiSummary;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, apiSummary.hashCode);
-    _$hash = $jc(_$hash, createdDate.hashCode);
-    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, createdDate.hashCode);
+    _$hash = $jc(_$hash, apiSummary.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,6 +54,18 @@ class _$Deployment extends Deployment {
 
 class DeploymentBuilder implements Builder<Deployment, DeploymentBuilder> {
   _$Deployment? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
 
   _i3.MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>? _apiSummary;
   _i3.MapBuilder<String,
@@ -65,18 +77,6 @@ class DeploymentBuilder implements Builder<Deployment, DeploymentBuilder> {
               apiSummary) =>
       _$this._apiSummary = apiSummary;
 
-  DateTime? _createdDate;
-  DateTime? get createdDate => _$this._createdDate;
-  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
-
-  String? _description;
-  String? get description => _$this._description;
-  set description(String? description) => _$this._description = description;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
   DeploymentBuilder() {
     Deployment._init(this);
   }
@@ -84,10 +84,10 @@ class DeploymentBuilder implements Builder<Deployment, DeploymentBuilder> {
   DeploymentBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _apiSummary = $v.apiSummary?.toBuilder();
-      _createdDate = $v.createdDate;
-      _description = $v.description;
       _id = $v.id;
+      _description = $v.description;
+      _createdDate = $v.createdDate;
+      _apiSummary = $v.apiSummary?.toBuilder();
       _$v = null;
     }
     return this;
@@ -112,10 +112,10 @@ class DeploymentBuilder implements Builder<Deployment, DeploymentBuilder> {
     try {
       _$result = _$v ??
           new _$Deployment._(
-              apiSummary: _apiSummary?.build(),
-              createdDate: createdDate,
+              id: id,
               description: description,
-              id: id);
+              createdDate: createdDate,
+              apiSummary: _apiSummary?.build());
     } catch (_) {
       late String _$failedField;
       try {

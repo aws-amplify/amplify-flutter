@@ -159,13 +159,11 @@ class GraphQLRequestFactory {
           upperOutput = r'($id: ID!)';
           lowerOutput = r'(id: $id)';
         }
-        break;
       case GraphQLRequestOperation.list:
         upperOutput =
             '(\$filter: Model${modelName}FilterInput, \$limit: Int, \$nextToken: String)';
         lowerOutput =
             r'(filter: $filter, limit: $limit, nextToken: $nextToken)';
-        break;
       case GraphQLRequestOperation.create:
       case GraphQLRequestOperation.update:
       case GraphQLRequestOperation.delete:
@@ -174,7 +172,6 @@ class GraphQLRequestFactory {
         upperOutput =
             '(\$input: $operationValue${modelName}Input!, \$condition:  Model${modelName}ConditionInput)';
         lowerOutput = r'(input: $input, condition: $condition)';
-        break;
       case GraphQLRequestOperation.onCreate:
       case GraphQLRequestOperation.onUpdate:
       case GraphQLRequestOperation.onDelete:
@@ -183,7 +180,6 @@ class GraphQLRequestFactory {
           upperOutput = '(\$filter: ModelSubscription${modelName}FilterInput)';
           lowerOutput = r'(filter: $filter)';
         }
-        break;
       default:
         throw const ApiOperationException(
           'GraphQL Request Operation is currently unsupported',

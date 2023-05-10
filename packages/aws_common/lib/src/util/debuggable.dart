@@ -16,13 +16,10 @@ mixin AWSDebuggable on Object {
   String get runtimeTypeName;
 
   @override
-  String toString() {
-    if (this is AWSSerializable) {
-      return '$runtimeTypeName ${prettyPrintJson((this as AWSSerializable).toJson())}';
-    }
-    if (this is AWSEquatable) {
-      return '$runtimeTypeName ${(this as AWSEquatable).props}';
-    }
-    return 'Instance of $runtimeTypeName';
-  }
+  String toString() => switch (this) {
+        AWSSerializable(:final toJson) =>
+          '$runtimeTypeName ${prettyPrintJson(toJson())}',
+        AWSEquatable(:final props) => '$runtimeTypeName $props',
+        _ => 'Instance of $runtimeTypeName',
+      };
 }

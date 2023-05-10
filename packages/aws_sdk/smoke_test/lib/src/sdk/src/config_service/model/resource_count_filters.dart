@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.resource_count_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,14 +18,14 @@ abstract class ResourceCountFilters
     implements Built<ResourceCountFilters, ResourceCountFiltersBuilder> {
   /// Filters the resource count based on account ID, region, and resource type.
   factory ResourceCountFilters({
+    _i2.ResourceType? resourceType,
     String? accountId,
     String? region,
-    _i2.ResourceType? resourceType,
   }) {
     return _$ResourceCountFilters._(
+      resourceType: resourceType,
       accountId: accountId,
       region: region,
-      resourceType: resourceType,
     );
   }
 
@@ -42,23 +43,27 @@ abstract class ResourceCountFilters
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceCountFiltersBuilder b) {}
 
+  /// The type of the Amazon Web Services resource.
+  _i2.ResourceType? get resourceType;
+
   /// The 12-digit ID of the account.
   String? get accountId;
 
   /// The region where the account is located.
   String? get region;
-
-  /// The type of the Amazon Web Services resource.
-  _i2.ResourceType? get resourceType;
   @override
   List<Object?> get props => [
+        resourceType,
         accountId,
         region,
-        resourceType,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResourceCountFilters');
+    helper.add(
+      'resourceType',
+      resourceType,
+    );
     helper.add(
       'accountId',
       accountId,
@@ -66,10 +71,6 @@ abstract class ResourceCountFilters
     helper.add(
       'region',
       region,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
     );
     return helper.toString();
   }
@@ -104,31 +105,25 @@ class ResourceCountFiltersAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'AccountId':
-          if (value != null) {
-            result.accountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Region':
-          if (value != null) {
-            result.region = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ResourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ResourceType),
-            ) as _i2.ResourceType);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ResourceType),
+          ) as _i2.ResourceType);
+        case 'AccountId':
+          result.accountId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'Region':
+          result.region = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -138,35 +133,35 @@ class ResourceCountFiltersAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ResourceCountFilters object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ResourceCountFilters);
-    final result = <Object?>[];
-    if (payload.accountId != null) {
-      result
-        ..add('AccountId')
-        ..add(serializers.serialize(
-          payload.accountId!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.region != null) {
-      result
-        ..add('Region')
-        ..add(serializers.serialize(
-          payload.region!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceType != null) {
-      result
+    final result$ = <Object?>[];
+    final ResourceCountFilters(:resourceType, :accountId, :region) = object;
+    if (resourceType != null) {
+      result$
         ..add('ResourceType')
         ..add(serializers.serialize(
-          payload.resourceType!,
+          resourceType,
           specifiedType: const FullType(_i2.ResourceType),
         ));
     }
-    return result;
+    if (accountId != null) {
+      result$
+        ..add('AccountId')
+        ..add(serializers.serialize(
+          accountId,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (region != null) {
+      result$
+        ..add('Region')
+        ..add(serializers.serialize(
+          region,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

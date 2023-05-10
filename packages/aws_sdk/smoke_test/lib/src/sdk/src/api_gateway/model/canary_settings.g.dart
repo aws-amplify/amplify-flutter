@@ -8,9 +8,9 @@ part of smoke_test.api_gateway.model.canary_settings;
 
 class _$CanarySettings extends CanarySettings {
   @override
-  final String? deploymentId;
-  @override
   final double? percentTraffic;
+  @override
+  final String? deploymentId;
   @override
   final _i2.BuiltMap<String, String>? stageVariableOverrides;
   @override
@@ -20,8 +20,8 @@ class _$CanarySettings extends CanarySettings {
       (new CanarySettingsBuilder()..update(updates))._build();
 
   _$CanarySettings._(
-      {this.deploymentId,
-      this.percentTraffic,
+      {this.percentTraffic,
+      this.deploymentId,
       this.stageVariableOverrides,
       this.useStageCache})
       : super._();
@@ -38,8 +38,8 @@ class _$CanarySettings extends CanarySettings {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CanarySettings &&
-        deploymentId == other.deploymentId &&
         percentTraffic == other.percentTraffic &&
+        deploymentId == other.deploymentId &&
         stageVariableOverrides == other.stageVariableOverrides &&
         useStageCache == other.useStageCache;
   }
@@ -47,8 +47,8 @@ class _$CanarySettings extends CanarySettings {
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, deploymentId.hashCode);
     _$hash = $jc(_$hash, percentTraffic.hashCode);
+    _$hash = $jc(_$hash, deploymentId.hashCode);
     _$hash = $jc(_$hash, stageVariableOverrides.hashCode);
     _$hash = $jc(_$hash, useStageCache.hashCode);
     _$hash = $jf(_$hash);
@@ -60,14 +60,14 @@ class CanarySettingsBuilder
     implements Builder<CanarySettings, CanarySettingsBuilder> {
   _$CanarySettings? _$v;
 
-  String? _deploymentId;
-  String? get deploymentId => _$this._deploymentId;
-  set deploymentId(String? deploymentId) => _$this._deploymentId = deploymentId;
-
   double? _percentTraffic;
   double? get percentTraffic => _$this._percentTraffic;
   set percentTraffic(double? percentTraffic) =>
       _$this._percentTraffic = percentTraffic;
+
+  String? _deploymentId;
+  String? get deploymentId => _$this._deploymentId;
+  set deploymentId(String? deploymentId) => _$this._deploymentId = deploymentId;
 
   _i2.MapBuilder<String, String>? _stageVariableOverrides;
   _i2.MapBuilder<String, String> get stageVariableOverrides =>
@@ -88,8 +88,8 @@ class CanarySettingsBuilder
   CanarySettingsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _deploymentId = $v.deploymentId;
       _percentTraffic = $v.percentTraffic;
+      _deploymentId = $v.deploymentId;
       _stageVariableOverrides = $v.stageVariableOverrides?.toBuilder();
       _useStageCache = $v.useStageCache;
       _$v = null;
@@ -116,8 +116,8 @@ class CanarySettingsBuilder
     try {
       _$result = _$v ??
           new _$CanarySettings._(
-              deploymentId: deploymentId,
               percentTraffic: percentTraffic,
+              deploymentId: deploymentId,
               stageVariableOverrides: _stageVariableOverrides?.build(),
               useStageCache: useStageCache);
     } catch (_) {

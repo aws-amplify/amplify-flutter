@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_json1_v1.rest_json_protocol.test.http_request_with_labels_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -142,55 +143,50 @@ class HttpRequestWithLabelsInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'boolean':
-          result.boolean = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
-          break;
-        case 'double':
-          result.double_ = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(double),
-          ) as double);
-          break;
-        case 'float':
-          result.float = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(double),
-          ) as double);
-          break;
-        case 'integer':
-          result.integer = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
-          break;
-        case 'long':
-          result.long = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
-          break;
-        case 'short':
-          result.short = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
-          break;
         case 'string':
           result.string = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'short':
+          result.short = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'integer':
+          result.integer = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'long':
+          result.long = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.Int64),
+          ) as _i6.Int64);
+        case 'float':
+          result.float = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
+        case 'double':
+          result.double_ = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
+        case 'boolean':
+          result.boolean = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'timestamp':
           result.timestamp = _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
       }
     }
 
@@ -200,7 +196,7 @@ class HttpRequestWithLabelsInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.HttpRequestWithLabelsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

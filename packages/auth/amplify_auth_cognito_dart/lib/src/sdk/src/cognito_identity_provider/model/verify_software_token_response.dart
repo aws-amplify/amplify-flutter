@@ -16,12 +16,12 @@ abstract class VerifySoftwareTokenResponse
     implements
         Built<VerifySoftwareTokenResponse, VerifySoftwareTokenResponseBuilder> {
   factory VerifySoftwareTokenResponse({
-    String? session,
     _i2.VerifySoftwareTokenResponseType? status,
+    String? session,
   }) {
     return _$VerifySoftwareTokenResponse._(
-      session: session,
       status: status,
+      session: session,
     );
   }
 
@@ -45,26 +45,26 @@ abstract class VerifySoftwareTokenResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(VerifySoftwareTokenResponseBuilder b) {}
 
-  /// The session that should be passed both ways in challenge-response calls to the service.
-  String? get session;
-
   /// The status of the verify software token.
   _i2.VerifySoftwareTokenResponseType? get status;
+
+  /// The session that should be passed both ways in challenge-response calls to the service.
+  String? get session;
   @override
   List<Object?> get props => [
-        session,
         status,
+        session,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('VerifySoftwareTokenResponse');
     helper.add(
-      'session',
-      session,
-    );
-    helper.add(
       'status',
       status,
+    );
+    helper.add(
+      'session',
+      session,
     );
     return helper.toString();
   }
@@ -100,14 +100,6 @@ class VerifySoftwareTokenResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'Session':
-          if (value != null) {
-            result.session = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'Status':
           if (value != null) {
             result.status = (serializers.deserialize(
@@ -115,6 +107,14 @@ class VerifySoftwareTokenResponseAwsJson11Serializer
               specifiedType:
                   const FullType(_i2.VerifySoftwareTokenResponseType),
             ) as _i2.VerifySoftwareTokenResponseType);
+          }
+          break;
+        case 'Session':
+          if (value != null) {
+            result.session = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -131,20 +131,20 @@ class VerifySoftwareTokenResponseAwsJson11Serializer
   }) {
     final payload = (object as VerifySoftwareTokenResponse);
     final result = <Object?>[];
-    if (payload.session != null) {
-      result
-        ..add('Session')
-        ..add(serializers.serialize(
-          payload.session!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.status != null) {
       result
         ..add('Status')
         ..add(serializers.serialize(
           payload.status!,
           specifiedType: const FullType(_i2.VerifySoftwareTokenResponseType),
+        ));
+    }
+    if (payload.session != null) {
+      result
+        ..add('Session')
+        ..add(serializers.serialize(
+          payload.session!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

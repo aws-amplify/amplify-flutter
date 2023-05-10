@@ -8,18 +8,18 @@ part of smoke_test.config_service.model.compliance_by_resource;
 
 class _$ComplianceByResource extends ComplianceByResource {
   @override
-  final _i2.Compliance? compliance;
+  final String? resourceType;
   @override
   final String? resourceId;
   @override
-  final String? resourceType;
+  final _i2.Compliance? compliance;
 
   factory _$ComplianceByResource(
           [void Function(ComplianceByResourceBuilder)? updates]) =>
       (new ComplianceByResourceBuilder()..update(updates))._build();
 
   _$ComplianceByResource._(
-      {this.compliance, this.resourceId, this.resourceType})
+      {this.resourceType, this.resourceId, this.compliance})
       : super._();
 
   @override
@@ -35,17 +35,17 @@ class _$ComplianceByResource extends ComplianceByResource {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ComplianceByResource &&
-        compliance == other.compliance &&
+        resourceType == other.resourceType &&
         resourceId == other.resourceId &&
-        resourceType == other.resourceType;
+        compliance == other.compliance;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, compliance.hashCode);
-    _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jc(_$hash, resourceType.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
+    _$hash = $jc(_$hash, compliance.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -55,19 +55,19 @@ class ComplianceByResourceBuilder
     implements Builder<ComplianceByResource, ComplianceByResourceBuilder> {
   _$ComplianceByResource? _$v;
 
-  _i2.ComplianceBuilder? _compliance;
-  _i2.ComplianceBuilder get compliance =>
-      _$this._compliance ??= new _i2.ComplianceBuilder();
-  set compliance(_i2.ComplianceBuilder? compliance) =>
-      _$this._compliance = compliance;
+  String? _resourceType;
+  String? get resourceType => _$this._resourceType;
+  set resourceType(String? resourceType) => _$this._resourceType = resourceType;
 
   String? _resourceId;
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  String? _resourceType;
-  String? get resourceType => _$this._resourceType;
-  set resourceType(String? resourceType) => _$this._resourceType = resourceType;
+  _i2.ComplianceBuilder? _compliance;
+  _i2.ComplianceBuilder get compliance =>
+      _$this._compliance ??= new _i2.ComplianceBuilder();
+  set compliance(_i2.ComplianceBuilder? compliance) =>
+      _$this._compliance = compliance;
 
   ComplianceByResourceBuilder() {
     ComplianceByResource._init(this);
@@ -76,9 +76,9 @@ class ComplianceByResourceBuilder
   ComplianceByResourceBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _compliance = $v.compliance?.toBuilder();
-      _resourceId = $v.resourceId;
       _resourceType = $v.resourceType;
+      _resourceId = $v.resourceId;
+      _compliance = $v.compliance?.toBuilder();
       _$v = null;
     }
     return this;
@@ -103,9 +103,9 @@ class ComplianceByResourceBuilder
     try {
       _$result = _$v ??
           new _$ComplianceByResource._(
-              compliance: _compliance?.build(),
+              resourceType: resourceType,
               resourceId: resourceId,
-              resourceType: resourceType);
+              compliance: _compliance?.build());
     } catch (_) {
       late String _$failedField;
       try {

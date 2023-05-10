@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library custom_v2.custom.model.nested_collections_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -96,28 +97,28 @@ class NestedCollectionsInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'mapOfListOfMapOfLists':
-          if (value != null) {
-            result.mapOfListOfMapOfLists.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType.nullable(
-                    _i3.BuiltListMultimap,
-                    [
-                      FullType(String),
-                      FullType(String),
-                    ],
-                  ),
-                ],
-              ),
-            ) as _i3.BuiltListMultimap<String,
-                _i3.BuiltListMultimap<String, String>?>));
-          }
-          break;
+          result.mapOfListOfMapOfLists.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType.nullable(
+                  _i3.BuiltListMultimap,
+                  [
+                    FullType(String),
+                    FullType(String),
+                  ],
+                ),
+              ],
+            ),
+          ) as _i3.BuiltListMultimap<String,
+              _i3.BuiltListMultimap<String, String>?>));
       }
     }
 
@@ -127,16 +128,16 @@ class NestedCollectionsInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    NestedCollectionsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as NestedCollectionsInput);
-    final result = <Object?>[];
-    if (payload.mapOfListOfMapOfLists != null) {
-      result
+    final result$ = <Object?>[];
+    final NestedCollectionsInput(:mapOfListOfMapOfLists) = object;
+    if (mapOfListOfMapOfLists != null) {
+      result$
         ..add('mapOfListOfMapOfLists')
         ..add(serializers.serialize(
-          payload.mapOfListOfMapOfLists!,
+          mapOfListOfMapOfLists,
           specifiedType: const FullType(
             _i3.BuiltListMultimap,
             [
@@ -152,6 +153,6 @@ class NestedCollectionsInputRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

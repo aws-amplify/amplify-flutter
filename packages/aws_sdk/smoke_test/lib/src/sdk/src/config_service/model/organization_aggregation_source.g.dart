@@ -8,18 +8,18 @@ part of smoke_test.config_service.model.organization_aggregation_source;
 
 class _$OrganizationAggregationSource extends OrganizationAggregationSource {
   @override
-  final bool? allAwsRegions;
+  final String roleArn;
   @override
   final _i2.BuiltList<String>? awsRegions;
   @override
-  final String roleArn;
+  final bool? allAwsRegions;
 
   factory _$OrganizationAggregationSource(
           [void Function(OrganizationAggregationSourceBuilder)? updates]) =>
       (new OrganizationAggregationSourceBuilder()..update(updates))._build();
 
   _$OrganizationAggregationSource._(
-      {this.allAwsRegions, this.awsRegions, required this.roleArn})
+      {required this.roleArn, this.awsRegions, this.allAwsRegions})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         roleArn, r'OrganizationAggregationSource', 'roleArn');
@@ -38,17 +38,17 @@ class _$OrganizationAggregationSource extends OrganizationAggregationSource {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is OrganizationAggregationSource &&
-        allAwsRegions == other.allAwsRegions &&
+        roleArn == other.roleArn &&
         awsRegions == other.awsRegions &&
-        roleArn == other.roleArn;
+        allAwsRegions == other.allAwsRegions;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, allAwsRegions.hashCode);
-    _$hash = $jc(_$hash, awsRegions.hashCode);
     _$hash = $jc(_$hash, roleArn.hashCode);
+    _$hash = $jc(_$hash, awsRegions.hashCode);
+    _$hash = $jc(_$hash, allAwsRegions.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -60,10 +60,9 @@ class OrganizationAggregationSourceBuilder
             OrganizationAggregationSourceBuilder> {
   _$OrganizationAggregationSource? _$v;
 
-  bool? _allAwsRegions;
-  bool? get allAwsRegions => _$this._allAwsRegions;
-  set allAwsRegions(bool? allAwsRegions) =>
-      _$this._allAwsRegions = allAwsRegions;
+  String? _roleArn;
+  String? get roleArn => _$this._roleArn;
+  set roleArn(String? roleArn) => _$this._roleArn = roleArn;
 
   _i2.ListBuilder<String>? _awsRegions;
   _i2.ListBuilder<String> get awsRegions =>
@@ -71,9 +70,10 @@ class OrganizationAggregationSourceBuilder
   set awsRegions(_i2.ListBuilder<String>? awsRegions) =>
       _$this._awsRegions = awsRegions;
 
-  String? _roleArn;
-  String? get roleArn => _$this._roleArn;
-  set roleArn(String? roleArn) => _$this._roleArn = roleArn;
+  bool? _allAwsRegions;
+  bool? get allAwsRegions => _$this._allAwsRegions;
+  set allAwsRegions(bool? allAwsRegions) =>
+      _$this._allAwsRegions = allAwsRegions;
 
   OrganizationAggregationSourceBuilder() {
     OrganizationAggregationSource._init(this);
@@ -82,9 +82,9 @@ class OrganizationAggregationSourceBuilder
   OrganizationAggregationSourceBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _allAwsRegions = $v.allAwsRegions;
-      _awsRegions = $v.awsRegions?.toBuilder();
       _roleArn = $v.roleArn;
+      _awsRegions = $v.awsRegions?.toBuilder();
+      _allAwsRegions = $v.allAwsRegions;
       _$v = null;
     }
     return this;
@@ -109,10 +109,10 @@ class OrganizationAggregationSourceBuilder
     try {
       _$result = _$v ??
           new _$OrganizationAggregationSource._(
-              allAwsRegions: allAwsRegions,
-              awsRegions: _awsRegions?.build(),
               roleArn: BuiltValueNullFieldError.checkNotNull(
-                  roleArn, r'OrganizationAggregationSource', 'roleArn'));
+                  roleArn, r'OrganizationAggregationSource', 'roleArn'),
+              awsRegions: _awsRegions?.build(),
+              allAwsRegions: allAwsRegions);
     } catch (_) {
       late String _$failedField;
       try {

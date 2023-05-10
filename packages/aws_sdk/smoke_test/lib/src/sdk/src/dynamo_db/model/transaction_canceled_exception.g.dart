@@ -8,9 +8,9 @@ part of smoke_test.dynamo_db.model.transaction_canceled_exception;
 
 class _$TransactionCanceledException extends TransactionCanceledException {
   @override
-  final _i4.BuiltList<_i3.CancellationReason>? cancellationReasons;
-  @override
   final String? message;
+  @override
+  final _i4.BuiltList<_i3.CancellationReason>? cancellationReasons;
   @override
   final int? statusCode;
   @override
@@ -21,7 +21,7 @@ class _$TransactionCanceledException extends TransactionCanceledException {
       (new TransactionCanceledExceptionBuilder()..update(updates))._build();
 
   _$TransactionCanceledException._(
-      {this.cancellationReasons, this.message, this.statusCode, this.headers})
+      {this.message, this.cancellationReasons, this.statusCode, this.headers})
       : super._();
 
   @override
@@ -37,15 +37,15 @@ class _$TransactionCanceledException extends TransactionCanceledException {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TransactionCanceledException &&
-        cancellationReasons == other.cancellationReasons &&
-        message == other.message;
+        message == other.message &&
+        cancellationReasons == other.cancellationReasons;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, cancellationReasons.hashCode);
     _$hash = $jc(_$hash, message.hashCode);
+    _$hash = $jc(_$hash, cancellationReasons.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,6 +57,10 @@ class TransactionCanceledExceptionBuilder
             TransactionCanceledExceptionBuilder> {
   _$TransactionCanceledException? _$v;
 
+  String? _message;
+  String? get message => _$this._message;
+  set message(String? message) => _$this._message = message;
+
   _i4.ListBuilder<_i3.CancellationReason>? _cancellationReasons;
   _i4.ListBuilder<_i3.CancellationReason> get cancellationReasons =>
       _$this._cancellationReasons ??=
@@ -64,10 +68,6 @@ class TransactionCanceledExceptionBuilder
   set cancellationReasons(
           _i4.ListBuilder<_i3.CancellationReason>? cancellationReasons) =>
       _$this._cancellationReasons = cancellationReasons;
-
-  String? _message;
-  String? get message => _$this._message;
-  set message(String? message) => _$this._message = message;
 
   int? _statusCode;
   int? get statusCode => _$this._statusCode;
@@ -84,8 +84,8 @@ class TransactionCanceledExceptionBuilder
   TransactionCanceledExceptionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _cancellationReasons = $v.cancellationReasons?.toBuilder();
       _message = $v.message;
+      _cancellationReasons = $v.cancellationReasons?.toBuilder();
       _statusCode = $v.statusCode;
       _headers = $v.headers;
       _$v = null;
@@ -112,8 +112,8 @@ class TransactionCanceledExceptionBuilder
     try {
       _$result = _$v ??
           new _$TransactionCanceledException._(
-              cancellationReasons: _cancellationReasons?.build(),
               message: message,
+              cancellationReasons: _cancellationReasons?.build(),
               statusCode: statusCode,
               headers: headers);
     } catch (_) {

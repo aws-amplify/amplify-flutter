@@ -8,53 +8,53 @@ part of smoke_test.api_gateway.model.put_method_request;
 
 class _$PutMethodRequest extends PutMethodRequest {
   @override
-  final bool? apiKeyRequired;
+  final String restApiId;
   @override
-  final _i3.BuiltList<String>? authorizationScopes;
+  final String resourceId;
+  @override
+  final String httpMethod;
   @override
   final String authorizationType;
   @override
   final String? authorizerId;
   @override
-  final String httpMethod;
+  final bool? apiKeyRequired;
   @override
   final String? operationName;
   @override
-  final _i3.BuiltMap<String, String>? requestModels;
-  @override
   final _i3.BuiltMap<String, bool>? requestParameters;
+  @override
+  final _i3.BuiltMap<String, String>? requestModels;
   @override
   final String? requestValidatorId;
   @override
-  final String resourceId;
-  @override
-  final String restApiId;
+  final _i3.BuiltList<String>? authorizationScopes;
 
   factory _$PutMethodRequest(
           [void Function(PutMethodRequestBuilder)? updates]) =>
       (new PutMethodRequestBuilder()..update(updates))._build();
 
   _$PutMethodRequest._(
-      {this.apiKeyRequired,
-      this.authorizationScopes,
+      {required this.restApiId,
+      required this.resourceId,
+      required this.httpMethod,
       required this.authorizationType,
       this.authorizerId,
-      required this.httpMethod,
+      this.apiKeyRequired,
       this.operationName,
-      this.requestModels,
       this.requestParameters,
+      this.requestModels,
       this.requestValidatorId,
-      required this.resourceId,
-      required this.restApiId})
+      this.authorizationScopes})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        authorizationType, r'PutMethodRequest', 'authorizationType');
-    BuiltValueNullFieldError.checkNotNull(
-        httpMethod, r'PutMethodRequest', 'httpMethod');
+        restApiId, r'PutMethodRequest', 'restApiId');
     BuiltValueNullFieldError.checkNotNull(
         resourceId, r'PutMethodRequest', 'resourceId');
     BuiltValueNullFieldError.checkNotNull(
-        restApiId, r'PutMethodRequest', 'restApiId');
+        httpMethod, r'PutMethodRequest', 'httpMethod');
+    BuiltValueNullFieldError.checkNotNull(
+        authorizationType, r'PutMethodRequest', 'authorizationType');
   }
 
   @override
@@ -69,33 +69,33 @@ class _$PutMethodRequest extends PutMethodRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PutMethodRequest &&
-        apiKeyRequired == other.apiKeyRequired &&
-        authorizationScopes == other.authorizationScopes &&
+        restApiId == other.restApiId &&
+        resourceId == other.resourceId &&
+        httpMethod == other.httpMethod &&
         authorizationType == other.authorizationType &&
         authorizerId == other.authorizerId &&
-        httpMethod == other.httpMethod &&
+        apiKeyRequired == other.apiKeyRequired &&
         operationName == other.operationName &&
-        requestModels == other.requestModels &&
         requestParameters == other.requestParameters &&
+        requestModels == other.requestModels &&
         requestValidatorId == other.requestValidatorId &&
-        resourceId == other.resourceId &&
-        restApiId == other.restApiId;
+        authorizationScopes == other.authorizationScopes;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, apiKeyRequired.hashCode);
-    _$hash = $jc(_$hash, authorizationScopes.hashCode);
+    _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
+    _$hash = $jc(_$hash, httpMethod.hashCode);
     _$hash = $jc(_$hash, authorizationType.hashCode);
     _$hash = $jc(_$hash, authorizerId.hashCode);
-    _$hash = $jc(_$hash, httpMethod.hashCode);
+    _$hash = $jc(_$hash, apiKeyRequired.hashCode);
     _$hash = $jc(_$hash, operationName.hashCode);
-    _$hash = $jc(_$hash, requestModels.hashCode);
     _$hash = $jc(_$hash, requestParameters.hashCode);
+    _$hash = $jc(_$hash, requestModels.hashCode);
     _$hash = $jc(_$hash, requestValidatorId.hashCode);
-    _$hash = $jc(_$hash, resourceId.hashCode);
-    _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, authorizationScopes.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -105,16 +105,17 @@ class PutMethodRequestBuilder
     implements Builder<PutMethodRequest, PutMethodRequestBuilder> {
   _$PutMethodRequest? _$v;
 
-  bool? _apiKeyRequired;
-  bool? get apiKeyRequired => _$this._apiKeyRequired;
-  set apiKeyRequired(bool? apiKeyRequired) =>
-      _$this._apiKeyRequired = apiKeyRequired;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
-  _i3.ListBuilder<String>? _authorizationScopes;
-  _i3.ListBuilder<String> get authorizationScopes =>
-      _$this._authorizationScopes ??= new _i3.ListBuilder<String>();
-  set authorizationScopes(_i3.ListBuilder<String>? authorizationScopes) =>
-      _$this._authorizationScopes = authorizationScopes;
+  String? _resourceId;
+  String? get resourceId => _$this._resourceId;
+  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
+
+  String? _httpMethod;
+  String? get httpMethod => _$this._httpMethod;
+  set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
 
   String? _authorizationType;
   String? get authorizationType => _$this._authorizationType;
@@ -125,20 +126,15 @@ class PutMethodRequestBuilder
   String? get authorizerId => _$this._authorizerId;
   set authorizerId(String? authorizerId) => _$this._authorizerId = authorizerId;
 
-  String? _httpMethod;
-  String? get httpMethod => _$this._httpMethod;
-  set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
+  bool? _apiKeyRequired;
+  bool? get apiKeyRequired => _$this._apiKeyRequired;
+  set apiKeyRequired(bool? apiKeyRequired) =>
+      _$this._apiKeyRequired = apiKeyRequired;
 
   String? _operationName;
   String? get operationName => _$this._operationName;
   set operationName(String? operationName) =>
       _$this._operationName = operationName;
-
-  _i3.MapBuilder<String, String>? _requestModels;
-  _i3.MapBuilder<String, String> get requestModels =>
-      _$this._requestModels ??= new _i3.MapBuilder<String, String>();
-  set requestModels(_i3.MapBuilder<String, String>? requestModels) =>
-      _$this._requestModels = requestModels;
 
   _i3.MapBuilder<String, bool>? _requestParameters;
   _i3.MapBuilder<String, bool> get requestParameters =>
@@ -146,18 +142,22 @@ class PutMethodRequestBuilder
   set requestParameters(_i3.MapBuilder<String, bool>? requestParameters) =>
       _$this._requestParameters = requestParameters;
 
+  _i3.MapBuilder<String, String>? _requestModels;
+  _i3.MapBuilder<String, String> get requestModels =>
+      _$this._requestModels ??= new _i3.MapBuilder<String, String>();
+  set requestModels(_i3.MapBuilder<String, String>? requestModels) =>
+      _$this._requestModels = requestModels;
+
   String? _requestValidatorId;
   String? get requestValidatorId => _$this._requestValidatorId;
   set requestValidatorId(String? requestValidatorId) =>
       _$this._requestValidatorId = requestValidatorId;
 
-  String? _resourceId;
-  String? get resourceId => _$this._resourceId;
-  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  _i3.ListBuilder<String>? _authorizationScopes;
+  _i3.ListBuilder<String> get authorizationScopes =>
+      _$this._authorizationScopes ??= new _i3.ListBuilder<String>();
+  set authorizationScopes(_i3.ListBuilder<String>? authorizationScopes) =>
+      _$this._authorizationScopes = authorizationScopes;
 
   PutMethodRequestBuilder() {
     PutMethodRequest._init(this);
@@ -166,17 +166,17 @@ class PutMethodRequestBuilder
   PutMethodRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _apiKeyRequired = $v.apiKeyRequired;
-      _authorizationScopes = $v.authorizationScopes?.toBuilder();
+      _restApiId = $v.restApiId;
+      _resourceId = $v.resourceId;
+      _httpMethod = $v.httpMethod;
       _authorizationType = $v.authorizationType;
       _authorizerId = $v.authorizerId;
-      _httpMethod = $v.httpMethod;
+      _apiKeyRequired = $v.apiKeyRequired;
       _operationName = $v.operationName;
-      _requestModels = $v.requestModels?.toBuilder();
       _requestParameters = $v.requestParameters?.toBuilder();
+      _requestModels = $v.requestModels?.toBuilder();
       _requestValidatorId = $v.requestValidatorId;
-      _resourceId = $v.resourceId;
-      _restApiId = $v.restApiId;
+      _authorizationScopes = $v.authorizationScopes?.toBuilder();
       _$v = null;
     }
     return this;
@@ -201,31 +201,31 @@ class PutMethodRequestBuilder
     try {
       _$result = _$v ??
           new _$PutMethodRequest._(
-              apiKeyRequired: apiKeyRequired,
-              authorizationScopes: _authorizationScopes?.build(),
+              restApiId: BuiltValueNullFieldError.checkNotNull(
+                  restApiId, r'PutMethodRequest', 'restApiId'),
+              resourceId: BuiltValueNullFieldError.checkNotNull(
+                  resourceId, r'PutMethodRequest', 'resourceId'),
+              httpMethod: BuiltValueNullFieldError.checkNotNull(
+                  httpMethod, r'PutMethodRequest', 'httpMethod'),
               authorizationType: BuiltValueNullFieldError.checkNotNull(
                   authorizationType, r'PutMethodRequest', 'authorizationType'),
               authorizerId: authorizerId,
-              httpMethod: BuiltValueNullFieldError.checkNotNull(
-                  httpMethod, r'PutMethodRequest', 'httpMethod'),
+              apiKeyRequired: apiKeyRequired,
               operationName: operationName,
-              requestModels: _requestModels?.build(),
               requestParameters: _requestParameters?.build(),
+              requestModels: _requestModels?.build(),
               requestValidatorId: requestValidatorId,
-              resourceId: BuiltValueNullFieldError.checkNotNull(
-                  resourceId, r'PutMethodRequest', 'resourceId'),
-              restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'PutMethodRequest', 'restApiId'));
+              authorizationScopes: _authorizationScopes?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'authorizationScopes';
-        _authorizationScopes?.build();
-
-        _$failedField = 'requestModels';
-        _requestModels?.build();
         _$failedField = 'requestParameters';
         _requestParameters?.build();
+        _$failedField = 'requestModels';
+        _requestModels?.build();
+
+        _$failedField = 'authorizationScopes';
+        _authorizationScopes?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'PutMethodRequest', _$failedField, e.toString());

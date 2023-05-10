@@ -10,11 +10,11 @@ class _$DeleteObjectTaggingRequest extends DeleteObjectTaggingRequest {
   @override
   final String bucket;
   @override
-  final String? expectedBucketOwner;
-  @override
   final String key;
   @override
   final String? versionId;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$DeleteObjectTaggingRequest(
           [void Function(DeleteObjectTaggingRequestBuilder)? updates]) =>
@@ -22,9 +22,9 @@ class _$DeleteObjectTaggingRequest extends DeleteObjectTaggingRequest {
 
   _$DeleteObjectTaggingRequest._(
       {required this.bucket,
-      this.expectedBucketOwner,
       required this.key,
-      this.versionId})
+      this.versionId,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'DeleteObjectTaggingRequest', 'bucket');
@@ -46,18 +46,18 @@ class _$DeleteObjectTaggingRequest extends DeleteObjectTaggingRequest {
     if (identical(other, this)) return true;
     return other is DeleteObjectTaggingRequest &&
         bucket == other.bucket &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         key == other.key &&
-        versionId == other.versionId;
+        versionId == other.versionId &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
     _$hash = $jc(_$hash, versionId.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -72,11 +72,6 @@ class DeleteObjectTaggingRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
   String? _key;
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
@@ -84,6 +79,11 @@ class DeleteObjectTaggingRequestBuilder
   String? _versionId;
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
+
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
 
   DeleteObjectTaggingRequestBuilder() {
     DeleteObjectTaggingRequest._init(this);
@@ -93,9 +93,9 @@ class DeleteObjectTaggingRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _key = $v.key;
       _versionId = $v.versionId;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -120,10 +120,10 @@ class DeleteObjectTaggingRequestBuilder
         new _$DeleteObjectTaggingRequest._(
             bucket: BuiltValueNullFieldError.checkNotNull(
                 bucket, r'DeleteObjectTaggingRequest', 'bucket'),
-            expectedBucketOwner: expectedBucketOwner,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'DeleteObjectTaggingRequest', 'key'),
-            versionId: versionId);
+            versionId: versionId,
+            expectedBucketOwner: expectedBucketOwner);
     replace(_$result);
     return _$result;
   }

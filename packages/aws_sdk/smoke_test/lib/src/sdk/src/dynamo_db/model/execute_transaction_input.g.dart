@@ -8,20 +8,20 @@ part of smoke_test.dynamo_db.model.execute_transaction_input;
 
 class _$ExecuteTransactionInput extends ExecuteTransactionInput {
   @override
+  final _i5.BuiltList<_i3.ParameterizedStatement> transactStatements;
+  @override
   final String? clientRequestToken;
   @override
-  final _i3.ReturnConsumedCapacity? returnConsumedCapacity;
-  @override
-  final _i5.BuiltList<_i4.ParameterizedStatement> transactStatements;
+  final _i4.ReturnConsumedCapacity? returnConsumedCapacity;
 
   factory _$ExecuteTransactionInput(
           [void Function(ExecuteTransactionInputBuilder)? updates]) =>
       (new ExecuteTransactionInputBuilder()..update(updates))._build();
 
   _$ExecuteTransactionInput._(
-      {this.clientRequestToken,
-      this.returnConsumedCapacity,
-      required this.transactStatements})
+      {required this.transactStatements,
+      this.clientRequestToken,
+      this.returnConsumedCapacity})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         transactStatements, r'ExecuteTransactionInput', 'transactStatements');
@@ -40,17 +40,17 @@ class _$ExecuteTransactionInput extends ExecuteTransactionInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ExecuteTransactionInput &&
+        transactStatements == other.transactStatements &&
         clientRequestToken == other.clientRequestToken &&
-        returnConsumedCapacity == other.returnConsumedCapacity &&
-        transactStatements == other.transactStatements;
+        returnConsumedCapacity == other.returnConsumedCapacity;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, transactStatements.hashCode);
     _$hash = $jc(_$hash, clientRequestToken.hashCode);
     _$hash = $jc(_$hash, returnConsumedCapacity.hashCode);
-    _$hash = $jc(_$hash, transactStatements.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -61,25 +61,25 @@ class ExecuteTransactionInputBuilder
         Builder<ExecuteTransactionInput, ExecuteTransactionInputBuilder> {
   _$ExecuteTransactionInput? _$v;
 
+  _i5.ListBuilder<_i3.ParameterizedStatement>? _transactStatements;
+  _i5.ListBuilder<_i3.ParameterizedStatement> get transactStatements =>
+      _$this._transactStatements ??=
+          new _i5.ListBuilder<_i3.ParameterizedStatement>();
+  set transactStatements(
+          _i5.ListBuilder<_i3.ParameterizedStatement>? transactStatements) =>
+      _$this._transactStatements = transactStatements;
+
   String? _clientRequestToken;
   String? get clientRequestToken => _$this._clientRequestToken;
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  _i3.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i3.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  _i4.ReturnConsumedCapacity? _returnConsumedCapacity;
+  _i4.ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
   set returnConsumedCapacity(
-          _i3.ReturnConsumedCapacity? returnConsumedCapacity) =>
+          _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
-
-  _i5.ListBuilder<_i4.ParameterizedStatement>? _transactStatements;
-  _i5.ListBuilder<_i4.ParameterizedStatement> get transactStatements =>
-      _$this._transactStatements ??=
-          new _i5.ListBuilder<_i4.ParameterizedStatement>();
-  set transactStatements(
-          _i5.ListBuilder<_i4.ParameterizedStatement>? transactStatements) =>
-      _$this._transactStatements = transactStatements;
 
   ExecuteTransactionInputBuilder() {
     ExecuteTransactionInput._init(this);
@@ -88,9 +88,9 @@ class ExecuteTransactionInputBuilder
   ExecuteTransactionInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _transactStatements = $v.transactStatements.toBuilder();
       _clientRequestToken = $v.clientRequestToken;
       _returnConsumedCapacity = $v.returnConsumedCapacity;
-      _transactStatements = $v.transactStatements.toBuilder();
       _$v = null;
     }
     return this;
@@ -115,9 +115,9 @@ class ExecuteTransactionInputBuilder
     try {
       _$result = _$v ??
           new _$ExecuteTransactionInput._(
+              transactStatements: transactStatements.build(),
               clientRequestToken: clientRequestToken,
-              returnConsumedCapacity: returnConsumedCapacity,
-              transactStatements: transactStatements.build());
+              returnConsumedCapacity: returnConsumedCapacity);
     } catch (_) {
       late String _$failedField;
       try {

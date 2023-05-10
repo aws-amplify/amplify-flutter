@@ -8,17 +8,17 @@ part of smoke_test.api_gateway.model.documentation_version;
 
 class _$DocumentationVersion extends DocumentationVersion {
   @override
+  final String? version;
+  @override
   final DateTime? createdDate;
   @override
   final String? description;
-  @override
-  final String? version;
 
   factory _$DocumentationVersion(
           [void Function(DocumentationVersionBuilder)? updates]) =>
       (new DocumentationVersionBuilder()..update(updates))._build();
 
-  _$DocumentationVersion._({this.createdDate, this.description, this.version})
+  _$DocumentationVersion._({this.version, this.createdDate, this.description})
       : super._();
 
   @override
@@ -34,17 +34,17 @@ class _$DocumentationVersion extends DocumentationVersion {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DocumentationVersion &&
+        version == other.version &&
         createdDate == other.createdDate &&
-        description == other.description &&
-        version == other.version;
+        description == other.description;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, version.hashCode);
     _$hash = $jc(_$hash, createdDate.hashCode);
     _$hash = $jc(_$hash, description.hashCode);
-    _$hash = $jc(_$hash, version.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,6 +54,10 @@ class DocumentationVersionBuilder
     implements Builder<DocumentationVersion, DocumentationVersionBuilder> {
   _$DocumentationVersion? _$v;
 
+  String? _version;
+  String? get version => _$this._version;
+  set version(String? version) => _$this._version = version;
+
   DateTime? _createdDate;
   DateTime? get createdDate => _$this._createdDate;
   set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
@@ -62,10 +66,6 @@ class DocumentationVersionBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  String? _version;
-  String? get version => _$this._version;
-  set version(String? version) => _$this._version = version;
-
   DocumentationVersionBuilder() {
     DocumentationVersion._init(this);
   }
@@ -73,9 +73,9 @@ class DocumentationVersionBuilder
   DocumentationVersionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _version = $v.version;
       _createdDate = $v.createdDate;
       _description = $v.description;
-      _version = $v.version;
       _$v = null;
     }
     return this;
@@ -98,9 +98,9 @@ class DocumentationVersionBuilder
   _$DocumentationVersion _build() {
     final _$result = _$v ??
         new _$DocumentationVersion._(
+            version: version,
             createdDate: createdDate,
-            description: description,
-            version: version);
+            description: description);
     replace(_$result);
     return _$result;
   }

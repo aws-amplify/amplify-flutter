@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_retention_configurations_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,14 +20,14 @@ abstract class DescribeRetentionConfigurationsResponse
         Built<DescribeRetentionConfigurationsResponse,
             DescribeRetentionConfigurationsResponseBuilder> {
   factory DescribeRetentionConfigurationsResponse({
-    String? nextToken,
     List<_i2.RetentionConfiguration>? retentionConfigurations,
+    String? nextToken,
   }) {
     return _$DescribeRetentionConfigurationsResponse._(
-      nextToken: nextToken,
       retentionConfigurations: retentionConfigurations == null
           ? null
           : _i3.BuiltList(retentionConfigurations),
+      nextToken: nextToken,
     );
   }
 
@@ -50,27 +51,27 @@ abstract class DescribeRetentionConfigurationsResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeRetentionConfigurationsResponseBuilder b) {}
 
-  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// Returns a retention configuration object.
   _i3.BuiltList<_i2.RetentionConfiguration>? get retentionConfigurations;
+
+  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         retentionConfigurations,
+        nextToken,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DescribeRetentionConfigurationsResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'retentionConfigurations',
       retentionConfigurations,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -105,26 +106,23 @@ class DescribeRetentionConfigurationsResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'RetentionConfigurations':
-          if (value != null) {
-            result.retentionConfigurations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.RetentionConfiguration)],
-              ),
-            ) as _i3.BuiltList<_i2.RetentionConfiguration>));
-          }
-          break;
+          result.retentionConfigurations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.RetentionConfiguration)],
+            ),
+          ) as _i3.BuiltList<_i2.RetentionConfiguration>));
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -134,30 +132,33 @@ class DescribeRetentionConfigurationsResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeRetentionConfigurationsResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeRetentionConfigurationsResponse);
-    final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.retentionConfigurations != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeRetentionConfigurationsResponse(
+      :retentionConfigurations,
+      :nextToken
+    ) = object;
+    if (retentionConfigurations != null) {
+      result$
         ..add('RetentionConfigurations')
         ..add(serializers.serialize(
-          payload.retentionConfigurations!,
+          retentionConfigurations,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.RetentionConfiguration)],
           ),
         ));
     }
-    return result;
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

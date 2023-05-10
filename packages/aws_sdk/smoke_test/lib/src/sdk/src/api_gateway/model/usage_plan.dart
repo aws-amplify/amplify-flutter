@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.usage_plan; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -9,9 +10,9 @@ import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/api_gateway/model/api_stage.dart' as _i2;
 import 'package:smoke_test/src/sdk/src/api_gateway/model/quota_settings.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/throttle_settings.dart'
     as _i4;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/throttle_settings.dart'
+    as _i3;
 
 part 'usage_plan.g.dart';
 
@@ -21,24 +22,24 @@ abstract class UsagePlan
     implements Built<UsagePlan, UsagePlanBuilder> {
   /// Represents a usage plan used to specify who can assess associated API stages. Optionally, target request rate and quota limits can be set. In some cases clients can exceed the targets that you set. Don’t rely on usage plans to control costs. Consider using [Amazon Web Services Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) to monitor costs and [WAF](https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html) to manage API requests.
   factory UsagePlan({
-    List<_i2.ApiStage>? apiStages,
-    String? description,
     String? id,
     String? name,
+    String? description,
+    List<_i2.ApiStage>? apiStages,
+    _i3.ThrottleSettings? throttle,
+    _i4.QuotaSettings? quota,
     String? productCode,
-    _i3.QuotaSettings? quota,
     Map<String, String>? tags,
-    _i4.ThrottleSettings? throttle,
   }) {
     return _$UsagePlan._(
-      apiStages: apiStages == null ? null : _i5.BuiltList(apiStages),
-      description: description,
       id: id,
       name: name,
-      productCode: productCode,
-      quota: quota,
-      tags: tags == null ? null : _i5.BuiltMap(tags),
+      description: description,
+      apiStages: apiStages == null ? null : _i5.BuiltList(apiStages),
       throttle: throttle,
+      quota: quota,
+      productCode: productCode,
+      tags: tags == null ? null : _i5.BuiltMap(tags),
     );
   }
 
@@ -62,51 +63,43 @@ abstract class UsagePlan
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UsagePlanBuilder b) {}
 
-  /// The associated API stages of a usage plan.
-  _i5.BuiltList<_i2.ApiStage>? get apiStages;
-
-  /// The description of a usage plan.
-  String? get description;
-
   /// The identifier of a UsagePlan resource.
   String? get id;
 
   /// The name of a usage plan.
   String? get name;
 
+  /// The description of a usage plan.
+  String? get description;
+
+  /// The associated API stages of a usage plan.
+  _i5.BuiltList<_i2.ApiStage>? get apiStages;
+
+  /// A map containing method level throttling information for API stage in a usage plan.
+  _i3.ThrottleSettings? get throttle;
+
+  /// The target maximum number of permitted requests per a given unit time interval.
+  _i4.QuotaSettings? get quota;
+
   /// The AWS Markeplace product identifier to associate with the usage plan as a SaaS product on AWS Marketplace.
   String? get productCode;
 
-  /// The target maximum number of permitted requests per a given unit time interval.
-  _i3.QuotaSettings? get quota;
-
   /// The collection of tags. Each tag element is associated with a given resource.
   _i5.BuiltMap<String, String>? get tags;
-
-  /// A map containing method level throttling information for API stage in a usage plan.
-  _i4.ThrottleSettings? get throttle;
   @override
   List<Object?> get props => [
-        apiStages,
-        description,
         id,
         name,
-        productCode,
-        quota,
-        tags,
+        description,
+        apiStages,
         throttle,
+        quota,
+        productCode,
+        tags,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UsagePlan');
-    helper.add(
-      'apiStages',
-      apiStages,
-    );
-    helper.add(
-      'description',
-      description,
-    );
     helper.add(
       'id',
       id,
@@ -116,20 +109,28 @@ abstract class UsagePlan
       name,
     );
     helper.add(
-      'productCode',
-      productCode,
+      'description',
+      description,
+    );
+    helper.add(
+      'apiStages',
+      apiStages,
+    );
+    helper.add(
+      'throttle',
+      throttle,
     );
     helper.add(
       'quota',
       quota,
     );
     helper.add(
-      'tags',
-      tags,
+      'productCode',
+      productCode,
     );
     helper.add(
-      'throttle',
-      throttle,
+      'tags',
+      tags,
     );
     return helper.toString();
   }
@@ -163,80 +164,59 @@ class UsagePlanRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'apiStages':
-          if (value != null) {
-            result.apiStages.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i2.ApiStage)],
-              ),
-            ) as _i5.BuiltList<_i2.ApiStage>));
-          }
-          break;
+          result.apiStages.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i2.ApiStage)],
+            ),
+          ) as _i5.BuiltList<_i2.ApiStage>));
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'productCode':
-          if (value != null) {
-            result.productCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.productCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'quota':
-          if (value != null) {
-            result.quota.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.QuotaSettings),
-            ) as _i3.QuotaSettings));
-          }
-          break;
+          result.quota.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.QuotaSettings),
+          ) as _i4.QuotaSettings));
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, String>));
         case 'throttle':
-          if (value != null) {
-            result.throttle.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ThrottleSettings),
-            ) as _i4.ThrottleSettings));
-          }
-          break;
+          result.throttle.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ThrottleSettings),
+          ) as _i3.ThrottleSettings));
       }
     }
 
@@ -246,67 +226,76 @@ class UsagePlanRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UsagePlan object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UsagePlan);
-    final result = <Object?>[];
-    if (payload.apiStages != null) {
-      result
+    final result$ = <Object?>[];
+    final UsagePlan(
+      :apiStages,
+      :description,
+      :id,
+      :name,
+      :productCode,
+      :quota,
+      :tags,
+      :throttle
+    ) = object;
+    if (apiStages != null) {
+      result$
         ..add('apiStages')
         ..add(serializers.serialize(
-          payload.apiStages!,
+          apiStages,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i2.ApiStage)],
           ),
         ));
     }
-    if (payload.description != null) {
-      result
+    if (description != null) {
+      result$
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.id != null) {
-      result
+    if (id != null) {
+      result$
         ..add('id')
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.name != null) {
-      result
+    if (name != null) {
+      result$
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.productCode != null) {
-      result
+    if (productCode != null) {
+      result$
         ..add('productCode')
         ..add(serializers.serialize(
-          payload.productCode!,
+          productCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.quota != null) {
-      result
+    if (quota != null) {
+      result$
         ..add('quota')
         ..add(serializers.serialize(
-          payload.quota!,
-          specifiedType: const FullType(_i3.QuotaSettings),
+          quota,
+          specifiedType: const FullType(_i4.QuotaSettings),
         ));
     }
-    if (payload.tags != null) {
-      result
+    if (tags != null) {
+      result$
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -316,14 +305,14 @@ class UsagePlanRestJson1Serializer
           ),
         ));
     }
-    if (payload.throttle != null) {
-      result
+    if (throttle != null) {
+      result$
         ..add('throttle')
         ..add(serializers.serialize(
-          payload.throttle!,
-          specifiedType: const FullType(_i4.ThrottleSettings),
+          throttle,
+          specifiedType: const FullType(_i3.ThrottleSettings),
         ));
     }
-    return result;
+    return result$;
   }
 }

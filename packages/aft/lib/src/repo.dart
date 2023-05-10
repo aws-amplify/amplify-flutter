@@ -88,15 +88,27 @@ class Repo {
     return null;
   }
 
+  /// Returns the directed graph of packages to the packages it depends on.
+  ///
+  /// Will include dev dependencies if [includeDevDependencies] is true.
+  Map<PackageInfo, List<PackageInfo>> getPackageGraph({
+    bool includeDevDependencies = false,
+  }) =>
+      UnmodifiableMapView({
+        for (final package in allPackages.values)
+          package: [
+            ...package.pubspecInfo.pubspec.dependencies.keys,
+            if (includeDevDependencies)
+              ...package.pubspecInfo.pubspec.devDependencies.keys,
+          ]
+              .map((packageName) => allPackages[packageName])
+              .whereType<PackageInfo>()
+              .toList(),
+      });
+
   /// The directed graph of packages to the packages it depends on.
   late final Map<PackageInfo, List<PackageInfo>> packageGraph =
-      UnmodifiableMapView({
-    for (final package in allPackages.values)
-      package: package.pubspecInfo.pubspec.dependencies.keys
-          .map((packageName) => allPackages[packageName])
-          .whereType<PackageInfo>()
-          .toList(),
-  });
+      getPackageGraph();
 
   /// The reversed (transposed) [packageGraph].
   ///

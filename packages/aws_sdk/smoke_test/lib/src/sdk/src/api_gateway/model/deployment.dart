@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.deployment; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,12 +19,15 @@ abstract class Deployment
     implements Built<Deployment, DeploymentBuilder> {
   /// An immutable representation of a RestApi resource that can be called by users using Stages. A deployment must be associated with a Stage for it to be callable over the Internet.
   factory Deployment({
-    Map<String, Map<String, _i2.MethodSnapshot>>? apiSummary,
-    DateTime? createdDate,
-    String? description,
     String? id,
+    String? description,
+    DateTime? createdDate,
+    Map<String, Map<String, _i2.MethodSnapshot>>? apiSummary,
   }) {
     return _$Deployment._(
+      id: id,
+      description: description,
+      createdDate: createdDate,
       apiSummary: apiSummary == null
           ? null
           : _i3.BuiltMap(apiSummary.map((
@@ -34,9 +38,6 @@ abstract class Deployment
                 key,
                 _i3.BuiltMap(value),
               ))),
-      createdDate: createdDate,
-      description: description,
-      id: id,
     );
   }
 
@@ -60,43 +61,43 @@ abstract class Deployment
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeploymentBuilder b) {}
 
-  /// A summary of the RestApi at the date and time that the deployment resource was created.
-  _i3.BuiltMap<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>?
-      get apiSummary;
-
-  /// The date and time that the deployment resource was created.
-  DateTime? get createdDate;
+  /// The identifier for the deployment resource.
+  String? get id;
 
   /// The description for the deployment resource.
   String? get description;
 
-  /// The identifier for the deployment resource.
-  String? get id;
+  /// The date and time that the deployment resource was created.
+  DateTime? get createdDate;
+
+  /// A summary of the RestApi at the date and time that the deployment resource was created.
+  _i3.BuiltMap<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>?
+      get apiSummary;
   @override
   List<Object?> get props => [
-        apiSummary,
-        createdDate,
-        description,
         id,
+        description,
+        createdDate,
+        apiSummary,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Deployment');
     helper.add(
-      'apiSummary',
-      apiSummary,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
+      'id',
+      id,
     );
     helper.add(
       'description',
       description,
     );
     helper.add(
-      'id',
-      id,
+      'createdDate',
+      createdDate,
+    );
+    helper.add(
+      'apiSummary',
+      apiSummary,
     );
     return helper.toString();
   }
@@ -130,52 +131,42 @@ class DeploymentRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'apiSummary':
-          if (value != null) {
-            result.apiSummary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(
-                    _i3.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(_i2.MethodSnapshot),
-                    ],
-                  ),
-                ],
-              ),
-            ) as _i3
-                .BuiltMap<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>));
-          }
-          break;
+          result.apiSummary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(
+                  _i3.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(_i2.MethodSnapshot),
+                  ],
+                ),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>));
         case 'createdDate':
-          if (value != null) {
-            result.createdDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createdDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -185,16 +176,16 @@ class DeploymentRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Deployment object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Deployment);
-    final result = <Object?>[];
-    if (payload.apiSummary != null) {
-      result
+    final result$ = <Object?>[];
+    final Deployment(:apiSummary, :createdDate, :description, :id) = object;
+    if (apiSummary != null) {
+      result$
         ..add('apiSummary')
         ..add(serializers.serialize(
-          payload.apiSummary!,
+          apiSummary,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -210,30 +201,30 @@ class DeploymentRestJson1Serializer
           ),
         ));
     }
-    if (payload.createdDate != null) {
-      result
+    if (createdDate != null) {
+      result$
         ..add('createdDate')
         ..add(serializers.serialize(
-          payload.createdDate!,
+          createdDate,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.description != null) {
-      result
+    if (description != null) {
+      result$
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.id != null) {
-      result
+    if (id != null) {
+      result$
         ..add('id')
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

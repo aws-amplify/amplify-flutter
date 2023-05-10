@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.get_shard_iterator_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -83,15 +84,15 @@ class GetShardIteratorOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ShardIterator':
-          if (value != null) {
-            result.shardIterator = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.shardIterator = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -101,19 +102,19 @@ class GetShardIteratorOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetShardIteratorOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetShardIteratorOutput);
-    final result = <Object?>[];
-    if (payload.shardIterator != null) {
-      result
+    final result$ = <Object?>[];
+    final GetShardIteratorOutput(:shardIterator) = object;
+    if (shardIterator != null) {
+      result$
         ..add('ShardIterator')
         ..add(serializers.serialize(
-          payload.shardIterator!,
+          shardIterator,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

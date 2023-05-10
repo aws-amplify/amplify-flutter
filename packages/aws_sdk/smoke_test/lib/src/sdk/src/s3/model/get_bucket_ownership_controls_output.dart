@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_bucket_ownership_controls_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -94,16 +95,18 @@ class GetBucketOwnershipControlsOutputRestXmlSerializer
     final result = _i3.OwnershipControlsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i4.OwnershipControlsRule),
           ) as _i4.OwnershipControlsRule));
-          break;
       }
     }
 
@@ -113,30 +116,25 @@ class GetBucketOwnershipControlsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i3.OwnershipControls object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is GetBucketOwnershipControlsOutput
-        ? object.getPayload()
-        : (object as _i3.OwnershipControls?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'OwnershipControls',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
-    result
+    final _i3.OwnershipControls(:rules) = object;
+    result$
         .addAll(const _i2.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
-      payload.rules,
+      rules,
       specifiedType: const FullType.nullable(
         _i5.BuiltList,
         [FullType(_i4.OwnershipControlsRule)],
       ),
     ));
-    return result;
+    return result$;
   }
 }

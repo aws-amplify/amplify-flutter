@@ -8,31 +8,31 @@ part of smoke_test.api_gateway.model.put_gateway_response_request;
 
 class _$PutGatewayResponseRequest extends PutGatewayResponseRequest {
   @override
-  final _i4.BuiltMap<String, String>? responseParameters;
-  @override
-  final _i4.BuiltMap<String, String>? responseTemplates;
+  final String restApiId;
   @override
   final _i3.GatewayResponseType responseType;
   @override
-  final String restApiId;
-  @override
   final String? statusCode;
+  @override
+  final _i4.BuiltMap<String, String>? responseParameters;
+  @override
+  final _i4.BuiltMap<String, String>? responseTemplates;
 
   factory _$PutGatewayResponseRequest(
           [void Function(PutGatewayResponseRequestBuilder)? updates]) =>
       (new PutGatewayResponseRequestBuilder()..update(updates))._build();
 
   _$PutGatewayResponseRequest._(
-      {this.responseParameters,
-      this.responseTemplates,
+      {required this.restApiId,
       required this.responseType,
-      required this.restApiId,
-      this.statusCode})
+      this.statusCode,
+      this.responseParameters,
+      this.responseTemplates})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        responseType, r'PutGatewayResponseRequest', 'responseType');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'PutGatewayResponseRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        responseType, r'PutGatewayResponseRequest', 'responseType');
   }
 
   @override
@@ -48,21 +48,21 @@ class _$PutGatewayResponseRequest extends PutGatewayResponseRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PutGatewayResponseRequest &&
-        responseParameters == other.responseParameters &&
-        responseTemplates == other.responseTemplates &&
-        responseType == other.responseType &&
         restApiId == other.restApiId &&
-        statusCode == other.statusCode;
+        responseType == other.responseType &&
+        statusCode == other.statusCode &&
+        responseParameters == other.responseParameters &&
+        responseTemplates == other.responseTemplates;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, responseType.hashCode);
+    _$hash = $jc(_$hash, statusCode.hashCode);
     _$hash = $jc(_$hash, responseParameters.hashCode);
     _$hash = $jc(_$hash, responseTemplates.hashCode);
-    _$hash = $jc(_$hash, responseType.hashCode);
-    _$hash = $jc(_$hash, restApiId.hashCode);
-    _$hash = $jc(_$hash, statusCode.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -72,6 +72,19 @@ class PutGatewayResponseRequestBuilder
     implements
         Builder<PutGatewayResponseRequest, PutGatewayResponseRequestBuilder> {
   _$PutGatewayResponseRequest? _$v;
+
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  _i3.GatewayResponseType? _responseType;
+  _i3.GatewayResponseType? get responseType => _$this._responseType;
+  set responseType(_i3.GatewayResponseType? responseType) =>
+      _$this._responseType = responseType;
+
+  String? _statusCode;
+  String? get statusCode => _$this._statusCode;
+  set statusCode(String? statusCode) => _$this._statusCode = statusCode;
 
   _i4.MapBuilder<String, String>? _responseParameters;
   _i4.MapBuilder<String, String> get responseParameters =>
@@ -85,19 +98,6 @@ class PutGatewayResponseRequestBuilder
   set responseTemplates(_i4.MapBuilder<String, String>? responseTemplates) =>
       _$this._responseTemplates = responseTemplates;
 
-  _i3.GatewayResponseType? _responseType;
-  _i3.GatewayResponseType? get responseType => _$this._responseType;
-  set responseType(_i3.GatewayResponseType? responseType) =>
-      _$this._responseType = responseType;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
-
-  String? _statusCode;
-  String? get statusCode => _$this._statusCode;
-  set statusCode(String? statusCode) => _$this._statusCode = statusCode;
-
   PutGatewayResponseRequestBuilder() {
     PutGatewayResponseRequest._init(this);
   }
@@ -105,11 +105,11 @@ class PutGatewayResponseRequestBuilder
   PutGatewayResponseRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _restApiId = $v.restApiId;
+      _responseType = $v.responseType;
+      _statusCode = $v.statusCode;
       _responseParameters = $v.responseParameters?.toBuilder();
       _responseTemplates = $v.responseTemplates?.toBuilder();
-      _responseType = $v.responseType;
-      _restApiId = $v.restApiId;
-      _statusCode = $v.statusCode;
       _$v = null;
     }
     return this;
@@ -134,13 +134,13 @@ class PutGatewayResponseRequestBuilder
     try {
       _$result = _$v ??
           new _$PutGatewayResponseRequest._(
-              responseParameters: _responseParameters?.build(),
-              responseTemplates: _responseTemplates?.build(),
-              responseType: BuiltValueNullFieldError.checkNotNull(
-                  responseType, r'PutGatewayResponseRequest', 'responseType'),
               restApiId: BuiltValueNullFieldError.checkNotNull(
                   restApiId, r'PutGatewayResponseRequest', 'restApiId'),
-              statusCode: statusCode);
+              responseType: BuiltValueNullFieldError.checkNotNull(
+                  responseType, r'PutGatewayResponseRequest', 'responseType'),
+              statusCode: statusCode,
+              responseParameters: _responseParameters?.build(),
+              responseTemplates: _responseTemplates?.build());
     } catch (_) {
       late String _$failedField;
       try {

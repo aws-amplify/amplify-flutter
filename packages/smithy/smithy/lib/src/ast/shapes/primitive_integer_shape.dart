@@ -11,17 +11,18 @@ abstract class PrimitiveIntegerShape
     implements
         SimpleShape,
         Built<PrimitiveIntegerShape, PrimitiveIntegerShapeBuilder> {
-  factory PrimitiveIntegerShape(
-          [void Function(PrimitiveIntegerShapeBuilder) updates]) =
-      _$PrimitiveIntegerShape;
+  factory PrimitiveIntegerShape([
+    void Function(PrimitiveIntegerShapeBuilder) updates,
+  ]) = _$PrimitiveIntegerShape;
   PrimitiveIntegerShape._();
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PrimitiveIntegerShapeBuilder b) {
-    b.shapeId = id;
-    b.traits = TraitMap.fromTraits(const [
-      DefaultTrait(0),
-    ]);
+    b
+      ..shapeId = id
+      ..traits = TraitMap.fromTraits(const [
+        DefaultTrait(0),
+      ]);
   }
 
   static const id = ShapeId.core('PrimitiveInteger');

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.operation.http_prefix_headers_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -89,7 +90,7 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
         if (input.fooMap != null) {
           for (var entry in input.fooMap!.toMap().entries) {
             if (entry.value.isNotEmpty) {
-              b.headers['X-Foo-' + entry.key] = entry.value;
+              b.headers['X-Foo-${entry.key}'] = entry.value;
             }
           }
         }

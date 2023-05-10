@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.failure_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,12 +16,12 @@ abstract class FailureException
     implements Built<FailureException, FailureExceptionBuilder> {
   /// Represents a failure a contributor insights operation.
   factory FailureException({
-    String? exceptionDescription,
     String? exceptionName,
+    String? exceptionDescription,
   }) {
     return _$FailureException._(
-      exceptionDescription: exceptionDescription,
       exceptionName: exceptionName,
+      exceptionDescription: exceptionDescription,
     );
   }
 
@@ -37,26 +38,26 @@ abstract class FailureException
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FailureExceptionBuilder b) {}
 
-  /// Description of the failure.
-  String? get exceptionDescription;
-
   /// Exception name.
   String? get exceptionName;
+
+  /// Description of the failure.
+  String? get exceptionDescription;
   @override
   List<Object?> get props => [
-        exceptionDescription,
         exceptionName,
+        exceptionDescription,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('FailureException');
     helper.add(
-      'exceptionDescription',
-      exceptionDescription,
-    );
-    helper.add(
       'exceptionName',
       exceptionName,
+    );
+    helper.add(
+      'exceptionDescription',
+      exceptionDescription,
     );
     return helper.toString();
   }
@@ -90,23 +91,20 @@ class FailureExceptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ExceptionDescription':
-          if (value != null) {
-            result.exceptionDescription = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ExceptionName':
-          if (value != null) {
-            result.exceptionName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.exceptionName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ExceptionDescription':
+          result.exceptionDescription = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -116,27 +114,27 @@ class FailureExceptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    FailureException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as FailureException);
-    final result = <Object?>[];
-    if (payload.exceptionDescription != null) {
-      result
-        ..add('ExceptionDescription')
-        ..add(serializers.serialize(
-          payload.exceptionDescription!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.exceptionName != null) {
-      result
+    final result$ = <Object?>[];
+    final FailureException(:exceptionName, :exceptionDescription) = object;
+    if (exceptionName != null) {
+      result$
         ..add('ExceptionName')
         ..add(serializers.serialize(
-          payload.exceptionName!,
+          exceptionName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    if (exceptionDescription != null) {
+      result$
+        ..add('ExceptionDescription')
+        ..add(serializers.serialize(
+          exceptionDescription,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

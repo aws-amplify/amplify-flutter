@@ -8,20 +8,20 @@ part of smoke_test.config_service.model.custom_policy_details;
 
 class _$CustomPolicyDetails extends CustomPolicyDetails {
   @override
-  final bool? enableDebugLogDelivery;
-  @override
   final String policyRuntime;
   @override
   final String policyText;
+  @override
+  final bool? enableDebugLogDelivery;
 
   factory _$CustomPolicyDetails(
           [void Function(CustomPolicyDetailsBuilder)? updates]) =>
       (new CustomPolicyDetailsBuilder()..update(updates))._build();
 
   _$CustomPolicyDetails._(
-      {this.enableDebugLogDelivery,
-      required this.policyRuntime,
-      required this.policyText})
+      {required this.policyRuntime,
+      required this.policyText,
+      this.enableDebugLogDelivery})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         policyRuntime, r'CustomPolicyDetails', 'policyRuntime');
@@ -42,17 +42,17 @@ class _$CustomPolicyDetails extends CustomPolicyDetails {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CustomPolicyDetails &&
-        enableDebugLogDelivery == other.enableDebugLogDelivery &&
         policyRuntime == other.policyRuntime &&
-        policyText == other.policyText;
+        policyText == other.policyText &&
+        enableDebugLogDelivery == other.enableDebugLogDelivery;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, enableDebugLogDelivery.hashCode);
     _$hash = $jc(_$hash, policyRuntime.hashCode);
     _$hash = $jc(_$hash, policyText.hashCode);
+    _$hash = $jc(_$hash, enableDebugLogDelivery.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -61,11 +61,6 @@ class _$CustomPolicyDetails extends CustomPolicyDetails {
 class CustomPolicyDetailsBuilder
     implements Builder<CustomPolicyDetails, CustomPolicyDetailsBuilder> {
   _$CustomPolicyDetails? _$v;
-
-  bool? _enableDebugLogDelivery;
-  bool? get enableDebugLogDelivery => _$this._enableDebugLogDelivery;
-  set enableDebugLogDelivery(bool? enableDebugLogDelivery) =>
-      _$this._enableDebugLogDelivery = enableDebugLogDelivery;
 
   String? _policyRuntime;
   String? get policyRuntime => _$this._policyRuntime;
@@ -76,6 +71,11 @@ class CustomPolicyDetailsBuilder
   String? get policyText => _$this._policyText;
   set policyText(String? policyText) => _$this._policyText = policyText;
 
+  bool? _enableDebugLogDelivery;
+  bool? get enableDebugLogDelivery => _$this._enableDebugLogDelivery;
+  set enableDebugLogDelivery(bool? enableDebugLogDelivery) =>
+      _$this._enableDebugLogDelivery = enableDebugLogDelivery;
+
   CustomPolicyDetailsBuilder() {
     CustomPolicyDetails._init(this);
   }
@@ -83,9 +83,9 @@ class CustomPolicyDetailsBuilder
   CustomPolicyDetailsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _enableDebugLogDelivery = $v.enableDebugLogDelivery;
       _policyRuntime = $v.policyRuntime;
       _policyText = $v.policyText;
+      _enableDebugLogDelivery = $v.enableDebugLogDelivery;
       _$v = null;
     }
     return this;
@@ -108,11 +108,11 @@ class CustomPolicyDetailsBuilder
   _$CustomPolicyDetails _build() {
     final _$result = _$v ??
         new _$CustomPolicyDetails._(
-            enableDebugLogDelivery: enableDebugLogDelivery,
             policyRuntime: BuiltValueNullFieldError.checkNotNull(
                 policyRuntime, r'CustomPolicyDetails', 'policyRuntime'),
             policyText: BuiltValueNullFieldError.checkNotNull(
-                policyText, r'CustomPolicyDetails', 'policyText'));
+                policyText, r'CustomPolicyDetails', 'policyText'),
+            enableDebugLogDelivery: enableDebugLogDelivery);
     replace(_$result);
     return _$result;
   }

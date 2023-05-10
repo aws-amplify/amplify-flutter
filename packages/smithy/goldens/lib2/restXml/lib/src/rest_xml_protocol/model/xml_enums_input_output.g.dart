@@ -16,9 +16,9 @@ class _$XmlEnumsInputOutput extends XmlEnumsInputOutput {
   @override
   final _i4.BuiltList<_i3.FooEnum>? fooEnumList;
   @override
-  final _i4.BuiltMap<String, _i3.FooEnum>? fooEnumMap;
-  @override
   final _i4.BuiltSet<_i3.FooEnum>? fooEnumSet;
+  @override
+  final _i4.BuiltMap<String, _i3.FooEnum>? fooEnumMap;
 
   factory _$XmlEnumsInputOutput(
           [void Function(XmlEnumsInputOutputBuilder)? updates]) =>
@@ -29,8 +29,8 @@ class _$XmlEnumsInputOutput extends XmlEnumsInputOutput {
       this.fooEnum2,
       this.fooEnum3,
       this.fooEnumList,
-      this.fooEnumMap,
-      this.fooEnumSet})
+      this.fooEnumSet,
+      this.fooEnumMap})
       : super._();
 
   @override
@@ -50,8 +50,8 @@ class _$XmlEnumsInputOutput extends XmlEnumsInputOutput {
         fooEnum2 == other.fooEnum2 &&
         fooEnum3 == other.fooEnum3 &&
         fooEnumList == other.fooEnumList &&
-        fooEnumMap == other.fooEnumMap &&
-        fooEnumSet == other.fooEnumSet;
+        fooEnumSet == other.fooEnumSet &&
+        fooEnumMap == other.fooEnumMap;
   }
 
   @override
@@ -61,8 +61,8 @@ class _$XmlEnumsInputOutput extends XmlEnumsInputOutput {
     _$hash = $jc(_$hash, fooEnum2.hashCode);
     _$hash = $jc(_$hash, fooEnum3.hashCode);
     _$hash = $jc(_$hash, fooEnumList.hashCode);
-    _$hash = $jc(_$hash, fooEnumMap.hashCode);
     _$hash = $jc(_$hash, fooEnumSet.hashCode);
+    _$hash = $jc(_$hash, fooEnumMap.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -90,17 +90,17 @@ class XmlEnumsInputOutputBuilder
   set fooEnumList(_i4.ListBuilder<_i3.FooEnum>? fooEnumList) =>
       _$this._fooEnumList = fooEnumList;
 
-  _i4.MapBuilder<String, _i3.FooEnum>? _fooEnumMap;
-  _i4.MapBuilder<String, _i3.FooEnum> get fooEnumMap =>
-      _$this._fooEnumMap ??= new _i4.MapBuilder<String, _i3.FooEnum>();
-  set fooEnumMap(_i4.MapBuilder<String, _i3.FooEnum>? fooEnumMap) =>
-      _$this._fooEnumMap = fooEnumMap;
-
   _i4.SetBuilder<_i3.FooEnum>? _fooEnumSet;
   _i4.SetBuilder<_i3.FooEnum> get fooEnumSet =>
       _$this._fooEnumSet ??= new _i4.SetBuilder<_i3.FooEnum>();
   set fooEnumSet(_i4.SetBuilder<_i3.FooEnum>? fooEnumSet) =>
       _$this._fooEnumSet = fooEnumSet;
+
+  _i4.MapBuilder<String, _i3.FooEnum>? _fooEnumMap;
+  _i4.MapBuilder<String, _i3.FooEnum> get fooEnumMap =>
+      _$this._fooEnumMap ??= new _i4.MapBuilder<String, _i3.FooEnum>();
+  set fooEnumMap(_i4.MapBuilder<String, _i3.FooEnum>? fooEnumMap) =>
+      _$this._fooEnumMap = fooEnumMap;
 
   XmlEnumsInputOutputBuilder() {
     XmlEnumsInputOutput._init(this);
@@ -113,8 +113,8 @@ class XmlEnumsInputOutputBuilder
       _fooEnum2 = $v.fooEnum2;
       _fooEnum3 = $v.fooEnum3;
       _fooEnumList = $v.fooEnumList?.toBuilder();
-      _fooEnumMap = $v.fooEnumMap?.toBuilder();
       _fooEnumSet = $v.fooEnumSet?.toBuilder();
+      _fooEnumMap = $v.fooEnumMap?.toBuilder();
       _$v = null;
     }
     return this;
@@ -143,17 +143,17 @@ class XmlEnumsInputOutputBuilder
               fooEnum2: fooEnum2,
               fooEnum3: fooEnum3,
               fooEnumList: _fooEnumList?.build(),
-              fooEnumMap: _fooEnumMap?.build(),
-              fooEnumSet: _fooEnumSet?.build());
+              fooEnumSet: _fooEnumSet?.build(),
+              fooEnumMap: _fooEnumMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'fooEnumList';
         _fooEnumList?.build();
-        _$failedField = 'fooEnumMap';
-        _fooEnumMap?.build();
         _$failedField = 'fooEnumSet';
         _fooEnumSet?.build();
+        _$failedField = 'fooEnumMap';
+        _fooEnumMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'XmlEnumsInputOutput', _$failedField, e.toString());

@@ -8,35 +8,35 @@ part of rest_xml_v1.rest_xml_protocol.model.xml_nested_union_struct;
 
 class _$XmlNestedUnionStruct extends XmlNestedUnionStruct {
   @override
+  final String? stringValue;
+  @override
   final bool? booleanValue;
   @override
   final int? byteValue;
   @override
-  final double? doubleValue;
-  @override
-  final double? floatValue;
+  final int? shortValue;
   @override
   final int? integerValue;
   @override
   final _i2.Int64? longValue;
   @override
-  final int? shortValue;
+  final double? floatValue;
   @override
-  final String? stringValue;
+  final double? doubleValue;
 
   factory _$XmlNestedUnionStruct(
           [void Function(XmlNestedUnionStructBuilder)? updates]) =>
       (new XmlNestedUnionStructBuilder()..update(updates))._build();
 
   _$XmlNestedUnionStruct._(
-      {this.booleanValue,
+      {this.stringValue,
+      this.booleanValue,
       this.byteValue,
-      this.doubleValue,
-      this.floatValue,
+      this.shortValue,
       this.integerValue,
       this.longValue,
-      this.shortValue,
-      this.stringValue})
+      this.floatValue,
+      this.doubleValue})
       : super._();
 
   @override
@@ -52,27 +52,27 @@ class _$XmlNestedUnionStruct extends XmlNestedUnionStruct {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is XmlNestedUnionStruct &&
+        stringValue == other.stringValue &&
         booleanValue == other.booleanValue &&
         byteValue == other.byteValue &&
-        doubleValue == other.doubleValue &&
-        floatValue == other.floatValue &&
+        shortValue == other.shortValue &&
         integerValue == other.integerValue &&
         longValue == other.longValue &&
-        shortValue == other.shortValue &&
-        stringValue == other.stringValue;
+        floatValue == other.floatValue &&
+        doubleValue == other.doubleValue;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, stringValue.hashCode);
     _$hash = $jc(_$hash, booleanValue.hashCode);
     _$hash = $jc(_$hash, byteValue.hashCode);
-    _$hash = $jc(_$hash, doubleValue.hashCode);
-    _$hash = $jc(_$hash, floatValue.hashCode);
+    _$hash = $jc(_$hash, shortValue.hashCode);
     _$hash = $jc(_$hash, integerValue.hashCode);
     _$hash = $jc(_$hash, longValue.hashCode);
-    _$hash = $jc(_$hash, shortValue.hashCode);
-    _$hash = $jc(_$hash, stringValue.hashCode);
+    _$hash = $jc(_$hash, floatValue.hashCode);
+    _$hash = $jc(_$hash, doubleValue.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -82,6 +82,10 @@ class XmlNestedUnionStructBuilder
     implements Builder<XmlNestedUnionStruct, XmlNestedUnionStructBuilder> {
   _$XmlNestedUnionStruct? _$v;
 
+  String? _stringValue;
+  String? get stringValue => _$this._stringValue;
+  set stringValue(String? stringValue) => _$this._stringValue = stringValue;
+
   bool? _booleanValue;
   bool? get booleanValue => _$this._booleanValue;
   set booleanValue(bool? booleanValue) => _$this._booleanValue = booleanValue;
@@ -90,13 +94,9 @@ class XmlNestedUnionStructBuilder
   int? get byteValue => _$this._byteValue;
   set byteValue(int? byteValue) => _$this._byteValue = byteValue;
 
-  double? _doubleValue;
-  double? get doubleValue => _$this._doubleValue;
-  set doubleValue(double? doubleValue) => _$this._doubleValue = doubleValue;
-
-  double? _floatValue;
-  double? get floatValue => _$this._floatValue;
-  set floatValue(double? floatValue) => _$this._floatValue = floatValue;
+  int? _shortValue;
+  int? get shortValue => _$this._shortValue;
+  set shortValue(int? shortValue) => _$this._shortValue = shortValue;
 
   int? _integerValue;
   int? get integerValue => _$this._integerValue;
@@ -106,13 +106,13 @@ class XmlNestedUnionStructBuilder
   _i2.Int64? get longValue => _$this._longValue;
   set longValue(_i2.Int64? longValue) => _$this._longValue = longValue;
 
-  int? _shortValue;
-  int? get shortValue => _$this._shortValue;
-  set shortValue(int? shortValue) => _$this._shortValue = shortValue;
+  double? _floatValue;
+  double? get floatValue => _$this._floatValue;
+  set floatValue(double? floatValue) => _$this._floatValue = floatValue;
 
-  String? _stringValue;
-  String? get stringValue => _$this._stringValue;
-  set stringValue(String? stringValue) => _$this._stringValue = stringValue;
+  double? _doubleValue;
+  double? get doubleValue => _$this._doubleValue;
+  set doubleValue(double? doubleValue) => _$this._doubleValue = doubleValue;
 
   XmlNestedUnionStructBuilder() {
     XmlNestedUnionStruct._init(this);
@@ -121,14 +121,14 @@ class XmlNestedUnionStructBuilder
   XmlNestedUnionStructBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _stringValue = $v.stringValue;
       _booleanValue = $v.booleanValue;
       _byteValue = $v.byteValue;
-      _doubleValue = $v.doubleValue;
-      _floatValue = $v.floatValue;
+      _shortValue = $v.shortValue;
       _integerValue = $v.integerValue;
       _longValue = $v.longValue;
-      _shortValue = $v.shortValue;
-      _stringValue = $v.stringValue;
+      _floatValue = $v.floatValue;
+      _doubleValue = $v.doubleValue;
       _$v = null;
     }
     return this;
@@ -151,14 +151,14 @@ class XmlNestedUnionStructBuilder
   _$XmlNestedUnionStruct _build() {
     final _$result = _$v ??
         new _$XmlNestedUnionStruct._(
+            stringValue: stringValue,
             booleanValue: booleanValue,
             byteValue: byteValue,
-            doubleValue: doubleValue,
-            floatValue: floatValue,
+            shortValue: shortValue,
             integerValue: integerValue,
             longValue: longValue,
-            shortValue: shortValue,
-            stringValue: stringValue);
+            floatValue: floatValue,
+            doubleValue: doubleValue);
     replace(_$result);
     return _$result;
   }

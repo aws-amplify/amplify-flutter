@@ -8,20 +8,20 @@ part of smoke_test.api_gateway.model.delete_model_request;
 
 class _$DeleteModelRequest extends DeleteModelRequest {
   @override
-  final String modelName;
-  @override
   final String restApiId;
+  @override
+  final String modelName;
 
   factory _$DeleteModelRequest(
           [void Function(DeleteModelRequestBuilder)? updates]) =>
       (new DeleteModelRequestBuilder()..update(updates))._build();
 
-  _$DeleteModelRequest._({required this.modelName, required this.restApiId})
+  _$DeleteModelRequest._({required this.restApiId, required this.modelName})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        modelName, r'DeleteModelRequest', 'modelName');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'DeleteModelRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        modelName, r'DeleteModelRequest', 'modelName');
   }
 
   @override
@@ -37,15 +37,15 @@ class _$DeleteModelRequest extends DeleteModelRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DeleteModelRequest &&
-        modelName == other.modelName &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        modelName == other.modelName;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, modelName.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, modelName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -55,13 +55,13 @@ class DeleteModelRequestBuilder
     implements Builder<DeleteModelRequest, DeleteModelRequestBuilder> {
   _$DeleteModelRequest? _$v;
 
-  String? _modelName;
-  String? get modelName => _$this._modelName;
-  set modelName(String? modelName) => _$this._modelName = modelName;
-
   String? _restApiId;
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  String? _modelName;
+  String? get modelName => _$this._modelName;
+  set modelName(String? modelName) => _$this._modelName = modelName;
 
   DeleteModelRequestBuilder() {
     DeleteModelRequest._init(this);
@@ -70,8 +70,8 @@ class DeleteModelRequestBuilder
   DeleteModelRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _modelName = $v.modelName;
       _restApiId = $v.restApiId;
+      _modelName = $v.modelName;
       _$v = null;
     }
     return this;
@@ -94,10 +94,10 @@ class DeleteModelRequestBuilder
   _$DeleteModelRequest _build() {
     final _$result = _$v ??
         new _$DeleteModelRequest._(
-            modelName: BuiltValueNullFieldError.checkNotNull(
-                modelName, r'DeleteModelRequest', 'modelName'),
             restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'DeleteModelRequest', 'restApiId'));
+                restApiId, r'DeleteModelRequest', 'restApiId'),
+            modelName: BuiltValueNullFieldError.checkNotNull(
+                modelName, r'DeleteModelRequest', 'modelName'));
     replace(_$result);
     return _$result;
   }

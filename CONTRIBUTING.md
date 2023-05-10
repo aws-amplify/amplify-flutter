@@ -7,7 +7,6 @@ Thank you for your interest in contributing to our project! <3 Whether it's a bu
 - [Our Design](#our-design)
 - [Development Process](#development-process)
   - [Setting up for local development](#setting-up-for-local-development)
-      - [Amplify Flutter Repo Tool (aft)](#amplify-flutter-repo-tool-aft)
       - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
     - [Platform Setup](#platform-setup)
       - [Linux](#linux)
@@ -53,31 +52,34 @@ Our work is done directly on Github and PR's are sent to the github repo by core
 
 This section should get you running with **Amplify Flutter** and get you familiar with the basics of the codebase.
 
-Start by, [Forking](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the main branch of [amplify-flutter](https://github.com/aws-amplify/amplify-flutter).
+Start by [forking](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the main branch of [amplify-flutter](https://github.com/aws-amplify/amplify-flutter) and cloning the repo locally.
 
-You will need to install `melos` for dependency management.
-Run `melos bootstrap` to link local packages together and install remaining dependencies.
-
-Note that running `flutter pub get` in the packages is no longer required, because `melos bootstrap` has
-already installed all the dependencies.
-
-See [invertase/melos](https://github.com/invertase/melos) for more instructions on how to use `melos`.
-
-```
+```sh
 $ git clone git@github.com:[username]/amplify-flutter.git --recurse-submodules
 $ cd amplify-flutter
-$ dart pub global activate melos
-$ melos bootstrap
 ```
 > Note: If you already cloned the project and forgot `--recurse-submodules`, run `git submodule update --init --recursive`.
 
-> Note: If you don't include `melos` on your path, you may execute `dart pub global run melos bootstrap` instead of the last command above.
-
 > Note: Make sure to always [sync your fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork) with main branch of amplify-flutter
 
-#### Amplify Flutter Repo Tool (aft)
+Next setup Amplify Flutter Repo Tool (aft). This can be installed using the following:
 
-Some workflows are being migrated to a tool we call `aft`. This is developed locally in the repo and can be installed using `dart pub global activate -spath packages/aft`. For a list of supported commands, run `aft --help`.
+```sh 
+$ brew install libgit2
+$ dart pub global activate -spath packages/aft
+```
+
+Then, from the root of the project, run `aft bootstrap` to link local packages together and install remaining dependencies. 
+
+```sh
+$ aft bootstrap
+```
+
+> The bootstrap command creates `pubspec_override.yaml` files in each of the packages, overriding dependencies to use the local version
+> instead of the published one. This allows changes in one package to be instantly available in all others. It also means that commands
+> like `flutter pub get` will continue to work as expected.
+
+> The `aft` command provides useful tooling when developing within this repo. See `aft`'s [README](packages/aft/README.md) for more instructions on how to use `aft`.
 
 #### Packages inside Amplify Flutter
 

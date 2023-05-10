@@ -8,15 +8,15 @@ part of smoke_test.api_gateway.model.get_sdk_types_request;
 
 class _$GetSdkTypesRequest extends GetSdkTypesRequest {
   @override
-  final int? limit;
-  @override
   final String? position;
+  @override
+  final int? limit;
 
   factory _$GetSdkTypesRequest(
           [void Function(GetSdkTypesRequestBuilder)? updates]) =>
       (new GetSdkTypesRequestBuilder()..update(updates))._build();
 
-  _$GetSdkTypesRequest._({this.limit, this.position}) : super._();
+  _$GetSdkTypesRequest._({this.position, this.limit}) : super._();
 
   @override
   GetSdkTypesRequest rebuild(
@@ -31,15 +31,15 @@ class _$GetSdkTypesRequest extends GetSdkTypesRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetSdkTypesRequest &&
-        limit == other.limit &&
-        position == other.position;
+        position == other.position &&
+        limit == other.limit;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, position.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -49,13 +49,13 @@ class GetSdkTypesRequestBuilder
     implements Builder<GetSdkTypesRequest, GetSdkTypesRequestBuilder> {
   _$GetSdkTypesRequest? _$v;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
-
   String? _position;
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
+
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
 
   GetSdkTypesRequestBuilder() {
     GetSdkTypesRequest._init(this);
@@ -64,8 +64,8 @@ class GetSdkTypesRequestBuilder
   GetSdkTypesRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _limit = $v.limit;
       _position = $v.position;
+      _limit = $v.limit;
       _$v = null;
     }
     return this;
@@ -87,7 +87,7 @@ class GetSdkTypesRequestBuilder
 
   _$GetSdkTypesRequest _build() {
     final _$result =
-        _$v ?? new _$GetSdkTypesRequest._(limit: limit, position: position);
+        _$v ?? new _$GetSdkTypesRequest._(position: position, limit: limit);
     replace(_$result);
     return _$result;
   }

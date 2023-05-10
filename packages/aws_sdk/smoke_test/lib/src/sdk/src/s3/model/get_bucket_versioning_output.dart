@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_bucket_versioning_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -7,8 +8,8 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/s3/model/bucket_versioning_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/mfa_delete_status.dart' as _i2;
+    as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/mfa_delete_status.dart' as _i3;
 
 part 'get_bucket_versioning_output.g.dart';
 
@@ -17,12 +18,12 @@ abstract class GetBucketVersioningOutput
     implements
         Built<GetBucketVersioningOutput, GetBucketVersioningOutputBuilder> {
   factory GetBucketVersioningOutput({
-    _i2.MfaDeleteStatus? mfaDelete,
-    _i3.BucketVersioningStatus? status,
+    _i2.BucketVersioningStatus? status,
+    _i3.MfaDeleteStatus? mfaDelete,
   }) {
     return _$GetBucketVersioningOutput._(
-      mfaDelete: mfaDelete,
       status: status,
+      mfaDelete: mfaDelete,
     );
   }
 
@@ -46,26 +47,26 @@ abstract class GetBucketVersioningOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketVersioningOutputBuilder b) {}
 
-  /// Specifies whether MFA delete is enabled in the bucket versioning configuration. This element is only returned if the bucket has been configured with MFA delete. If the bucket has never been so configured, this element is not returned.
-  _i2.MfaDeleteStatus? get mfaDelete;
-
   /// The versioning state of the bucket.
-  _i3.BucketVersioningStatus? get status;
+  _i2.BucketVersioningStatus? get status;
+
+  /// Specifies whether MFA delete is enabled in the bucket versioning configuration. This element is only returned if the bucket has been configured with MFA delete. If the bucket has never been so configured, this element is not returned.
+  _i3.MfaDeleteStatus? get mfaDelete;
   @override
   List<Object?> get props => [
-        mfaDelete,
         status,
+        mfaDelete,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetBucketVersioningOutput');
     helper.add(
-      'mfaDelete',
-      mfaDelete,
-    );
-    helper.add(
       'status',
       status,
+    );
+    helper.add(
+      'mfaDelete',
+      mfaDelete,
     );
     return helper.toString();
   }
@@ -97,26 +98,23 @@ class GetBucketVersioningOutputRestXmlSerializer
     final result = GetBucketVersioningOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'MfaDelete':
-          if (value != null) {
-            result.mfaDelete = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.MfaDeleteStatus),
-            ) as _i2.MfaDeleteStatus);
-          }
-          break;
+          result.mfaDelete = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.MfaDeleteStatus),
+          ) as _i3.MfaDeleteStatus);
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.BucketVersioningStatus),
-            ) as _i3.BucketVersioningStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.BucketVersioningStatus),
+          ) as _i2.BucketVersioningStatus);
       }
     }
 
@@ -126,32 +124,32 @@ class GetBucketVersioningOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetBucketVersioningOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetBucketVersioningOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'VersioningConfiguration',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.mfaDelete != null) {
-      result
+    final GetBucketVersioningOutput(:mfaDelete, :status) = object;
+    if (mfaDelete != null) {
+      result$
         ..add(const _i4.XmlElementName('MfaDelete'))
         ..add(serializers.serialize(
-          payload.mfaDelete!,
-          specifiedType: const FullType.nullable(_i2.MfaDeleteStatus),
+          mfaDelete,
+          specifiedType: const FullType.nullable(_i3.MfaDeleteStatus),
         ));
     }
-    if (payload.status != null) {
-      result
+    if (status != null) {
+      result$
         ..add(const _i4.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
-          specifiedType: const FullType.nullable(_i3.BucketVersioningStatus),
+          status,
+          specifiedType: const FullType.nullable(_i2.BucketVersioningStatus),
         ));
     }
-    return result;
+    return result$;
   }
 }

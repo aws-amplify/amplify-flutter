@@ -31,7 +31,9 @@ TestSession _$TestSessionFromJson(Map<String, dynamic> json) => TestSession(
       startTimestamp:
           const _DateTimeSerializer().fromJson(json['start_timestamp'] as int),
       stopTimestamp: _$JsonConverterFromJson<int, DateTime>(
-          json['stop_timestamp'], const _DateTimeSerializer().fromJson),
+        json['stop_timestamp'],
+        const _DateTimeSerializer().fromJson,
+      ),
     );
 
 Value? _$JsonConverterFromJson<Json, Value>(

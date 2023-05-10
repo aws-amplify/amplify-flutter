@@ -10,15 +10,15 @@ class _$SseSpecification extends SseSpecification {
   @override
   final bool? enabled;
   @override
-  final String? kmsMasterKeyId;
-  @override
   final _i2.SseType? sseType;
+  @override
+  final String? kmsMasterKeyId;
 
   factory _$SseSpecification(
           [void Function(SseSpecificationBuilder)? updates]) =>
       (new SseSpecificationBuilder()..update(updates))._build();
 
-  _$SseSpecification._({this.enabled, this.kmsMasterKeyId, this.sseType})
+  _$SseSpecification._({this.enabled, this.sseType, this.kmsMasterKeyId})
       : super._();
 
   @override
@@ -34,16 +34,16 @@ class _$SseSpecification extends SseSpecification {
     if (identical(other, this)) return true;
     return other is SseSpecification &&
         enabled == other.enabled &&
-        kmsMasterKeyId == other.kmsMasterKeyId &&
-        sseType == other.sseType;
+        sseType == other.sseType &&
+        kmsMasterKeyId == other.kmsMasterKeyId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, enabled.hashCode);
-    _$hash = $jc(_$hash, kmsMasterKeyId.hashCode);
     _$hash = $jc(_$hash, sseType.hashCode);
+    _$hash = $jc(_$hash, kmsMasterKeyId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,14 +57,14 @@ class SseSpecificationBuilder
   bool? get enabled => _$this._enabled;
   set enabled(bool? enabled) => _$this._enabled = enabled;
 
+  _i2.SseType? _sseType;
+  _i2.SseType? get sseType => _$this._sseType;
+  set sseType(_i2.SseType? sseType) => _$this._sseType = sseType;
+
   String? _kmsMasterKeyId;
   String? get kmsMasterKeyId => _$this._kmsMasterKeyId;
   set kmsMasterKeyId(String? kmsMasterKeyId) =>
       _$this._kmsMasterKeyId = kmsMasterKeyId;
-
-  _i2.SseType? _sseType;
-  _i2.SseType? get sseType => _$this._sseType;
-  set sseType(_i2.SseType? sseType) => _$this._sseType = sseType;
 
   SseSpecificationBuilder() {
     SseSpecification._init(this);
@@ -74,8 +74,8 @@ class SseSpecificationBuilder
     final $v = _$v;
     if ($v != null) {
       _enabled = $v.enabled;
-      _kmsMasterKeyId = $v.kmsMasterKeyId;
       _sseType = $v.sseType;
+      _kmsMasterKeyId = $v.kmsMasterKeyId;
       _$v = null;
     }
     return this;
@@ -98,7 +98,7 @@ class SseSpecificationBuilder
   _$SseSpecification _build() {
     final _$result = _$v ??
         new _$SseSpecification._(
-            enabled: enabled, kmsMasterKeyId: kmsMasterKeyId, sseType: sseType);
+            enabled: enabled, sseType: sseType, kmsMasterKeyId: kmsMasterKeyId);
     replace(_$result);
     return _$result;
   }

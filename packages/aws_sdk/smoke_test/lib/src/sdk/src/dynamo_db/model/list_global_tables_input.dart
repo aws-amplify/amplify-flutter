@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.list_global_tables_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -112,31 +113,25 @@ class ListGlobalTablesInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ExclusiveStartGlobalTableName':
-          if (value != null) {
-            result.exclusiveStartGlobalTableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.exclusiveStartGlobalTableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'RegionName':
-          if (value != null) {
-            result.regionName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.regionName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -146,35 +141,39 @@ class ListGlobalTablesInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListGlobalTablesInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListGlobalTablesInput);
-    final result = <Object?>[];
-    if (payload.exclusiveStartGlobalTableName != null) {
-      result
+    final result$ = <Object?>[];
+    final ListGlobalTablesInput(
+      :exclusiveStartGlobalTableName,
+      :limit,
+      :regionName
+    ) = object;
+    if (exclusiveStartGlobalTableName != null) {
+      result$
         ..add('ExclusiveStartGlobalTableName')
         ..add(serializers.serialize(
-          payload.exclusiveStartGlobalTableName!,
+          exclusiveStartGlobalTableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.limit != null) {
-      result
+    if (limit != null) {
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.regionName != null) {
-      result
+    if (regionName != null) {
+      result$
         ..add('RegionName')
         ..add(serializers.serialize(
-          payload.regionName!,
+          regionName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

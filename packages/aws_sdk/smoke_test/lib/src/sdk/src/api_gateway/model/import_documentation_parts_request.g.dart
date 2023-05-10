@@ -9,28 +9,28 @@ part of smoke_test.api_gateway.model.import_documentation_parts_request;
 class _$ImportDocumentationPartsRequest
     extends ImportDocumentationPartsRequest {
   @override
-  final _i2.Uint8List body;
-  @override
-  final bool? failOnWarnings;
+  final String restApiId;
   @override
   final _i4.PutMode? mode;
   @override
-  final String restApiId;
+  final bool? failOnWarnings;
+  @override
+  final _i2.Uint8List body;
 
   factory _$ImportDocumentationPartsRequest(
           [void Function(ImportDocumentationPartsRequestBuilder)? updates]) =>
       (new ImportDocumentationPartsRequestBuilder()..update(updates))._build();
 
   _$ImportDocumentationPartsRequest._(
-      {required this.body,
-      this.failOnWarnings,
+      {required this.restApiId,
       this.mode,
-      required this.restApiId})
+      this.failOnWarnings,
+      required this.body})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        body, r'ImportDocumentationPartsRequest', 'body');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'ImportDocumentationPartsRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        body, r'ImportDocumentationPartsRequest', 'body');
   }
 
   @override
@@ -46,19 +46,19 @@ class _$ImportDocumentationPartsRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ImportDocumentationPartsRequest &&
-        body == other.body &&
-        failOnWarnings == other.failOnWarnings &&
+        restApiId == other.restApiId &&
         mode == other.mode &&
-        restApiId == other.restApiId;
+        failOnWarnings == other.failOnWarnings &&
+        body == other.body;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, body.hashCode);
-    _$hash = $jc(_$hash, failOnWarnings.hashCode);
-    _$hash = $jc(_$hash, mode.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, mode.hashCode);
+    _$hash = $jc(_$hash, failOnWarnings.hashCode);
+    _$hash = $jc(_$hash, body.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -70,22 +70,22 @@ class ImportDocumentationPartsRequestBuilder
             ImportDocumentationPartsRequestBuilder> {
   _$ImportDocumentationPartsRequest? _$v;
 
-  _i2.Uint8List? _body;
-  _i2.Uint8List? get body => _$this._body;
-  set body(_i2.Uint8List? body) => _$this._body = body;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  _i4.PutMode? _mode;
+  _i4.PutMode? get mode => _$this._mode;
+  set mode(_i4.PutMode? mode) => _$this._mode = mode;
 
   bool? _failOnWarnings;
   bool? get failOnWarnings => _$this._failOnWarnings;
   set failOnWarnings(bool? failOnWarnings) =>
       _$this._failOnWarnings = failOnWarnings;
 
-  _i4.PutMode? _mode;
-  _i4.PutMode? get mode => _$this._mode;
-  set mode(_i4.PutMode? mode) => _$this._mode = mode;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  _i2.Uint8List? _body;
+  _i2.Uint8List? get body => _$this._body;
+  set body(_i2.Uint8List? body) => _$this._body = body;
 
   ImportDocumentationPartsRequestBuilder() {
     ImportDocumentationPartsRequest._init(this);
@@ -94,10 +94,10 @@ class ImportDocumentationPartsRequestBuilder
   ImportDocumentationPartsRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _body = $v.body;
-      _failOnWarnings = $v.failOnWarnings;
-      _mode = $v.mode;
       _restApiId = $v.restApiId;
+      _mode = $v.mode;
+      _failOnWarnings = $v.failOnWarnings;
+      _body = $v.body;
       _$v = null;
     }
     return this;
@@ -120,12 +120,12 @@ class ImportDocumentationPartsRequestBuilder
   _$ImportDocumentationPartsRequest _build() {
     final _$result = _$v ??
         new _$ImportDocumentationPartsRequest._(
-            body: BuiltValueNullFieldError.checkNotNull(
-                body, r'ImportDocumentationPartsRequest', 'body'),
-            failOnWarnings: failOnWarnings,
-            mode: mode,
             restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'ImportDocumentationPartsRequest', 'restApiId'));
+                restApiId, r'ImportDocumentationPartsRequest', 'restApiId'),
+            mode: mode,
+            failOnWarnings: failOnWarnings,
+            body: BuiltValueNullFieldError.checkNotNull(
+                body, r'ImportDocumentationPartsRequest', 'body'));
     replace(_$result);
     return _$result;
   }

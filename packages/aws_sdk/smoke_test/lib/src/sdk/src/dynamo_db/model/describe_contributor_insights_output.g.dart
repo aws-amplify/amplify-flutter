@@ -9,17 +9,17 @@ part of smoke_test.dynamo_db.model.describe_contributor_insights_output;
 class _$DescribeContributorInsightsOutput
     extends DescribeContributorInsightsOutput {
   @override
+  final String? tableName;
+  @override
+  final String? indexName;
+  @override
   final _i4.BuiltList<String>? contributorInsightsRuleList;
   @override
   final _i2.ContributorInsightsStatus? contributorInsightsStatus;
   @override
-  final _i3.FailureException? failureException;
-  @override
-  final String? indexName;
-  @override
   final DateTime? lastUpdateDateTime;
   @override
-  final String? tableName;
+  final _i3.FailureException? failureException;
 
   factory _$DescribeContributorInsightsOutput(
           [void Function(DescribeContributorInsightsOutputBuilder)? updates]) =>
@@ -27,12 +27,12 @@ class _$DescribeContributorInsightsOutput
           ._build();
 
   _$DescribeContributorInsightsOutput._(
-      {this.contributorInsightsRuleList,
-      this.contributorInsightsStatus,
-      this.failureException,
+      {this.tableName,
       this.indexName,
+      this.contributorInsightsRuleList,
+      this.contributorInsightsStatus,
       this.lastUpdateDateTime,
-      this.tableName})
+      this.failureException})
       : super._();
 
   @override
@@ -48,23 +48,23 @@ class _$DescribeContributorInsightsOutput
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DescribeContributorInsightsOutput &&
+        tableName == other.tableName &&
+        indexName == other.indexName &&
         contributorInsightsRuleList == other.contributorInsightsRuleList &&
         contributorInsightsStatus == other.contributorInsightsStatus &&
-        failureException == other.failureException &&
-        indexName == other.indexName &&
         lastUpdateDateTime == other.lastUpdateDateTime &&
-        tableName == other.tableName;
+        failureException == other.failureException;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, indexName.hashCode);
     _$hash = $jc(_$hash, contributorInsightsRuleList.hashCode);
     _$hash = $jc(_$hash, contributorInsightsStatus.hashCode);
-    _$hash = $jc(_$hash, failureException.hashCode);
-    _$hash = $jc(_$hash, indexName.hashCode);
     _$hash = $jc(_$hash, lastUpdateDateTime.hashCode);
-    _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, failureException.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -75,6 +75,14 @@ class DescribeContributorInsightsOutputBuilder
         Builder<DescribeContributorInsightsOutput,
             DescribeContributorInsightsOutputBuilder> {
   _$DescribeContributorInsightsOutput? _$v;
+
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
+
+  String? _indexName;
+  String? get indexName => _$this._indexName;
+  set indexName(String? indexName) => _$this._indexName = indexName;
 
   _i4.ListBuilder<String>? _contributorInsightsRuleList;
   _i4.ListBuilder<String> get contributorInsightsRuleList =>
@@ -90,24 +98,16 @@ class DescribeContributorInsightsOutputBuilder
           _i2.ContributorInsightsStatus? contributorInsightsStatus) =>
       _$this._contributorInsightsStatus = contributorInsightsStatus;
 
-  _i3.FailureExceptionBuilder? _failureException;
-  _i3.FailureExceptionBuilder get failureException =>
-      _$this._failureException ??= new _i3.FailureExceptionBuilder();
-  set failureException(_i3.FailureExceptionBuilder? failureException) =>
-      _$this._failureException = failureException;
-
-  String? _indexName;
-  String? get indexName => _$this._indexName;
-  set indexName(String? indexName) => _$this._indexName = indexName;
-
   DateTime? _lastUpdateDateTime;
   DateTime? get lastUpdateDateTime => _$this._lastUpdateDateTime;
   set lastUpdateDateTime(DateTime? lastUpdateDateTime) =>
       _$this._lastUpdateDateTime = lastUpdateDateTime;
 
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
+  _i3.FailureExceptionBuilder? _failureException;
+  _i3.FailureExceptionBuilder get failureException =>
+      _$this._failureException ??= new _i3.FailureExceptionBuilder();
+  set failureException(_i3.FailureExceptionBuilder? failureException) =>
+      _$this._failureException = failureException;
 
   DescribeContributorInsightsOutputBuilder() {
     DescribeContributorInsightsOutput._init(this);
@@ -116,13 +116,13 @@ class DescribeContributorInsightsOutputBuilder
   DescribeContributorInsightsOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _tableName = $v.tableName;
+      _indexName = $v.indexName;
       _contributorInsightsRuleList =
           $v.contributorInsightsRuleList?.toBuilder();
       _contributorInsightsStatus = $v.contributorInsightsStatus;
-      _failureException = $v.failureException?.toBuilder();
-      _indexName = $v.indexName;
       _lastUpdateDateTime = $v.lastUpdateDateTime;
-      _tableName = $v.tableName;
+      _failureException = $v.failureException?.toBuilder();
       _$v = null;
     }
     return this;
@@ -148,13 +148,13 @@ class DescribeContributorInsightsOutputBuilder
     try {
       _$result = _$v ??
           new _$DescribeContributorInsightsOutput._(
+              tableName: tableName,
+              indexName: indexName,
               contributorInsightsRuleList:
                   _contributorInsightsRuleList?.build(),
               contributorInsightsStatus: contributorInsightsStatus,
-              failureException: _failureException?.build(),
-              indexName: indexName,
               lastUpdateDateTime: lastUpdateDateTime,
-              tableName: tableName);
+              failureException: _failureException?.build());
     } catch (_) {
       late String _$failedField;
       try {

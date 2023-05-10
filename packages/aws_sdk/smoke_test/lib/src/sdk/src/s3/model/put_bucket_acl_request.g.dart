@@ -8,17 +8,15 @@ part of smoke_test.s3.model.put_bucket_acl_request;
 
 class _$PutBucketAclRequest extends PutBucketAclRequest {
   @override
-  final _i2.AccessControlPolicy? accessControlPolicy;
-  @override
   final _i4.BucketCannedAcl? acl;
+  @override
+  final _i2.AccessControlPolicy? accessControlPolicy;
   @override
   final String bucket;
   @override
-  final _i5.ChecksumAlgorithm? checksumAlgorithm;
-  @override
   final String? contentMd5;
   @override
-  final String? expectedBucketOwner;
+  final _i5.ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? grantFullControl;
   @override
@@ -29,23 +27,25 @@ class _$PutBucketAclRequest extends PutBucketAclRequest {
   final String? grantWrite;
   @override
   final String? grantWriteAcp;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$PutBucketAclRequest(
           [void Function(PutBucketAclRequestBuilder)? updates]) =>
       (new PutBucketAclRequestBuilder()..update(updates))._build();
 
   _$PutBucketAclRequest._(
-      {this.accessControlPolicy,
-      this.acl,
+      {this.acl,
+      this.accessControlPolicy,
       required this.bucket,
-      this.checksumAlgorithm,
       this.contentMd5,
-      this.expectedBucketOwner,
+      this.checksumAlgorithm,
       this.grantFullControl,
       this.grantRead,
       this.grantReadAcp,
       this.grantWrite,
-      this.grantWriteAcp})
+      this.grantWriteAcp,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutBucketAclRequest', 'bucket');
@@ -64,33 +64,33 @@ class _$PutBucketAclRequest extends PutBucketAclRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PutBucketAclRequest &&
-        accessControlPolicy == other.accessControlPolicy &&
         acl == other.acl &&
+        accessControlPolicy == other.accessControlPolicy &&
         bucket == other.bucket &&
-        checksumAlgorithm == other.checksumAlgorithm &&
         contentMd5 == other.contentMd5 &&
-        expectedBucketOwner == other.expectedBucketOwner &&
+        checksumAlgorithm == other.checksumAlgorithm &&
         grantFullControl == other.grantFullControl &&
         grantRead == other.grantRead &&
         grantReadAcp == other.grantReadAcp &&
         grantWrite == other.grantWrite &&
-        grantWriteAcp == other.grantWriteAcp;
+        grantWriteAcp == other.grantWriteAcp &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, accessControlPolicy.hashCode);
     _$hash = $jc(_$hash, acl.hashCode);
+    _$hash = $jc(_$hash, accessControlPolicy.hashCode);
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jc(_$hash, contentMd5.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jc(_$hash, grantFullControl.hashCode);
     _$hash = $jc(_$hash, grantRead.hashCode);
     _$hash = $jc(_$hash, grantReadAcp.hashCode);
     _$hash = $jc(_$hash, grantWrite.hashCode);
     _$hash = $jc(_$hash, grantWriteAcp.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -100,6 +100,10 @@ class PutBucketAclRequestBuilder
     implements Builder<PutBucketAclRequest, PutBucketAclRequestBuilder> {
   _$PutBucketAclRequest? _$v;
 
+  _i4.BucketCannedAcl? _acl;
+  _i4.BucketCannedAcl? get acl => _$this._acl;
+  set acl(_i4.BucketCannedAcl? acl) => _$this._acl = acl;
+
   _i2.AccessControlPolicyBuilder? _accessControlPolicy;
   _i2.AccessControlPolicyBuilder get accessControlPolicy =>
       _$this._accessControlPolicy ??= new _i2.AccessControlPolicyBuilder();
@@ -107,27 +111,18 @@ class PutBucketAclRequestBuilder
           _i2.AccessControlPolicyBuilder? accessControlPolicy) =>
       _$this._accessControlPolicy = accessControlPolicy;
 
-  _i4.BucketCannedAcl? _acl;
-  _i4.BucketCannedAcl? get acl => _$this._acl;
-  set acl(_i4.BucketCannedAcl? acl) => _$this._acl = acl;
-
   String? _bucket;
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
-
-  _i5.ChecksumAlgorithm? _checksumAlgorithm;
-  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
-      _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _contentMd5;
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
+  _i5.ChecksumAlgorithm? _checksumAlgorithm;
+  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+      _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _grantFullControl;
   String? get grantFullControl => _$this._grantFullControl;
@@ -151,6 +146,11 @@ class PutBucketAclRequestBuilder
   set grantWriteAcp(String? grantWriteAcp) =>
       _$this._grantWriteAcp = grantWriteAcp;
 
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
+
   PutBucketAclRequestBuilder() {
     PutBucketAclRequest._init(this);
   }
@@ -158,17 +158,17 @@ class PutBucketAclRequestBuilder
   PutBucketAclRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _accessControlPolicy = $v.accessControlPolicy?.toBuilder();
       _acl = $v.acl;
+      _accessControlPolicy = $v.accessControlPolicy?.toBuilder();
       _bucket = $v.bucket;
-      _checksumAlgorithm = $v.checksumAlgorithm;
       _contentMd5 = $v.contentMd5;
-      _expectedBucketOwner = $v.expectedBucketOwner;
+      _checksumAlgorithm = $v.checksumAlgorithm;
       _grantFullControl = $v.grantFullControl;
       _grantRead = $v.grantRead;
       _grantReadAcp = $v.grantReadAcp;
       _grantWrite = $v.grantWrite;
       _grantWriteAcp = $v.grantWriteAcp;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -193,18 +193,18 @@ class PutBucketAclRequestBuilder
     try {
       _$result = _$v ??
           new _$PutBucketAclRequest._(
-              accessControlPolicy: _accessControlPolicy?.build(),
               acl: acl,
+              accessControlPolicy: _accessControlPolicy?.build(),
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutBucketAclRequest', 'bucket'),
-              checksumAlgorithm: checksumAlgorithm,
               contentMd5: contentMd5,
-              expectedBucketOwner: expectedBucketOwner,
+              checksumAlgorithm: checksumAlgorithm,
               grantFullControl: grantFullControl,
               grantRead: grantRead,
               grantReadAcp: grantReadAcp,
               grantWrite: grantWrite,
-              grantWriteAcp: grantWriteAcp);
+              grantWriteAcp: grantWriteAcp,
+              expectedBucketOwner: expectedBucketOwner);
     } catch (_) {
       late String _$failedField;
       try {

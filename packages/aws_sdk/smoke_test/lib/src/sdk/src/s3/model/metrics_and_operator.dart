@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.metrics_and_operator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,14 +18,14 @@ abstract class MetricsAndOperator
     implements Built<MetricsAndOperator, MetricsAndOperatorBuilder> {
   /// A conjunction (logical AND) of predicates, which is used in evaluating a metrics filter. The operator must have at least two predicates, and an object must match all of the predicates in order for the filter to apply.
   factory MetricsAndOperator({
-    String? accessPointArn,
     String? prefix,
     List<_i2.Tag>? tags,
+    String? accessPointArn,
   }) {
     return _$MetricsAndOperator._(
-      accessPointArn: accessPointArn,
       prefix: prefix,
       tags: tags == null ? null : _i3.BuiltList(tags),
+      accessPointArn: accessPointArn,
     );
   }
 
@@ -42,27 +43,23 @@ abstract class MetricsAndOperator
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MetricsAndOperatorBuilder b) {}
 
-  /// The access point ARN used when evaluating an `AND` predicate.
-  String? get accessPointArn;
-
   /// The prefix used when evaluating an AND predicate.
   String? get prefix;
 
   /// The list of tags used when evaluating an AND predicate.
   _i3.BuiltList<_i2.Tag>? get tags;
+
+  /// The access point ARN used when evaluating an `AND` predicate.
+  String? get accessPointArn;
   @override
   List<Object?> get props => [
-        accessPointArn,
         prefix,
         tags,
+        accessPointArn,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MetricsAndOperator');
-    helper.add(
-      'accessPointArn',
-      accessPointArn,
-    );
     helper.add(
       'prefix',
       prefix,
@@ -70,6 +67,10 @@ abstract class MetricsAndOperator
     helper.add(
       'tags',
       tags,
+    );
+    helper.add(
+      'accessPointArn',
+      accessPointArn,
     );
     return helper.toString();
   }
@@ -100,34 +101,28 @@ class MetricsAndOperatorRestXmlSerializer
     final result = MetricsAndOperatorBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AccessPointArn':
-          if (value != null) {
-            result.accessPointArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.accessPointArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Tag':
-          if (value != null) {
-            result.tags.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Tag),
-            ) as _i2.Tag));
-          }
-          break;
+          result.tags.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Tag),
+          ) as _i2.Tag));
       }
     }
 
@@ -137,43 +132,43 @@ class MetricsAndOperatorRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MetricsAndOperator object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MetricsAndOperator);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'MetricsAndOperator',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.accessPointArn != null) {
-      result
+    final MetricsAndOperator(:accessPointArn, :prefix, :tags) = object;
+    if (accessPointArn != null) {
+      result$
         ..add(const _i4.XmlElementName('AccessPointArn'))
         ..add(serializers.serialize(
-          payload.accessPointArn!,
+          accessPointArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.prefix != null) {
-      result
+    if (prefix != null) {
+      result$
         ..add(const _i4.XmlElementName('Prefix'))
         ..add(serializers.serialize(
-          payload.prefix!,
+          prefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
-      result
+    if (tags != null) {
+      result$
           .addAll(const _i4.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
-        payload.tags!,
+        tags,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.Tag)],
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

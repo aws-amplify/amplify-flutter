@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.config_export_delivery_info; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,18 +19,18 @@ abstract class ConfigExportDeliveryInfo
         Built<ConfigExportDeliveryInfo, ConfigExportDeliveryInfoBuilder> {
   /// Provides status of the delivery of the snapshot or the configuration history to the specified Amazon S3 bucket. Also provides the status of notifications about the Amazon S3 delivery to the specified Amazon SNS topic.
   factory ConfigExportDeliveryInfo({
-    DateTime? lastAttemptTime,
+    _i2.DeliveryStatus? lastStatus,
     String? lastErrorCode,
     String? lastErrorMessage,
-    _i2.DeliveryStatus? lastStatus,
+    DateTime? lastAttemptTime,
     DateTime? lastSuccessfulTime,
     DateTime? nextDeliveryTime,
   }) {
     return _$ConfigExportDeliveryInfo._(
-      lastAttemptTime: lastAttemptTime,
+      lastStatus: lastStatus,
       lastErrorCode: lastErrorCode,
       lastErrorMessage: lastErrorMessage,
-      lastStatus: lastStatus,
+      lastAttemptTime: lastAttemptTime,
       lastSuccessfulTime: lastSuccessfulTime,
       nextDeliveryTime: nextDeliveryTime,
     );
@@ -49,8 +50,8 @@ abstract class ConfigExportDeliveryInfo
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigExportDeliveryInfoBuilder b) {}
 
-  /// The time of the last attempted delivery.
-  DateTime? get lastAttemptTime;
+  /// Status of the last attempted delivery.
+  _i2.DeliveryStatus? get lastStatus;
 
   /// The error code from the last attempted delivery.
   String? get lastErrorCode;
@@ -58,8 +59,8 @@ abstract class ConfigExportDeliveryInfo
   /// The error message from the last attempted delivery.
   String? get lastErrorMessage;
 
-  /// Status of the last attempted delivery.
-  _i2.DeliveryStatus? get lastStatus;
+  /// The time of the last attempted delivery.
+  DateTime? get lastAttemptTime;
 
   /// The time of the last successful delivery.
   DateTime? get lastSuccessfulTime;
@@ -68,10 +69,10 @@ abstract class ConfigExportDeliveryInfo
   DateTime? get nextDeliveryTime;
   @override
   List<Object?> get props => [
-        lastAttemptTime,
+        lastStatus,
         lastErrorCode,
         lastErrorMessage,
-        lastStatus,
+        lastAttemptTime,
         lastSuccessfulTime,
         nextDeliveryTime,
       ];
@@ -79,8 +80,8 @@ abstract class ConfigExportDeliveryInfo
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfigExportDeliveryInfo');
     helper.add(
-      'lastAttemptTime',
-      lastAttemptTime,
+      'lastStatus',
+      lastStatus,
     );
     helper.add(
       'lastErrorCode',
@@ -91,8 +92,8 @@ abstract class ConfigExportDeliveryInfo
       lastErrorMessage,
     );
     helper.add(
-      'lastStatus',
-      lastStatus,
+      'lastAttemptTime',
+      lastAttemptTime,
     );
     helper.add(
       'lastSuccessfulTime',
@@ -135,55 +136,40 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'lastAttemptTime':
-          if (value != null) {
-            result.lastAttemptTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'lastErrorCode':
-          if (value != null) {
-            result.lastErrorCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'lastErrorMessage':
-          if (value != null) {
-            result.lastErrorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'lastStatus':
-          if (value != null) {
-            result.lastStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.DeliveryStatus),
-            ) as _i2.DeliveryStatus);
-          }
-          break;
+          result.lastStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.DeliveryStatus),
+          ) as _i2.DeliveryStatus);
+        case 'lastErrorCode':
+          result.lastErrorCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'lastErrorMessage':
+          result.lastErrorMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'lastAttemptTime':
+          result.lastAttemptTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'lastSuccessfulTime':
-          if (value != null) {
-            result.lastSuccessfulTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastSuccessfulTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'nextDeliveryTime':
-          if (value != null) {
-            result.nextDeliveryTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.nextDeliveryTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -193,59 +179,66 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConfigExportDeliveryInfo object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConfigExportDeliveryInfo);
-    final result = <Object?>[];
-    if (payload.lastAttemptTime != null) {
-      result
-        ..add('lastAttemptTime')
-        ..add(serializers.serialize(
-          payload.lastAttemptTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.lastErrorCode != null) {
-      result
-        ..add('lastErrorCode')
-        ..add(serializers.serialize(
-          payload.lastErrorCode!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.lastErrorMessage != null) {
-      result
-        ..add('lastErrorMessage')
-        ..add(serializers.serialize(
-          payload.lastErrorMessage!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.lastStatus != null) {
-      result
+    final result$ = <Object?>[];
+    final ConfigExportDeliveryInfo(
+      :lastStatus,
+      :lastErrorCode,
+      :lastErrorMessage,
+      :lastAttemptTime,
+      :lastSuccessfulTime,
+      :nextDeliveryTime
+    ) = object;
+    if (lastStatus != null) {
+      result$
         ..add('lastStatus')
         ..add(serializers.serialize(
-          payload.lastStatus!,
+          lastStatus,
           specifiedType: const FullType(_i2.DeliveryStatus),
         ));
     }
-    if (payload.lastSuccessfulTime != null) {
-      result
+    if (lastErrorCode != null) {
+      result$
+        ..add('lastErrorCode')
+        ..add(serializers.serialize(
+          lastErrorCode,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (lastErrorMessage != null) {
+      result$
+        ..add('lastErrorMessage')
+        ..add(serializers.serialize(
+          lastErrorMessage,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (lastAttemptTime != null) {
+      result$
+        ..add('lastAttemptTime')
+        ..add(serializers.serialize(
+          lastAttemptTime,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (lastSuccessfulTime != null) {
+      result$
         ..add('lastSuccessfulTime')
         ..add(serializers.serialize(
-          payload.lastSuccessfulTime!,
+          lastSuccessfulTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.nextDeliveryTime != null) {
-      result
+    if (nextDeliveryTime != null) {
+      result$
         ..add('nextDeliveryTime')
         ..add(serializers.serialize(
-          payload.nextDeliveryTime!,
+          nextDeliveryTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

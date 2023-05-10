@@ -218,31 +218,22 @@ abstract class AuthenticatorFormFieldState<
     switch (state.currentStep) {
       case AuthenticatorStep.signUp:
         state.signUp();
-        break;
       case AuthenticatorStep.signIn:
         state.signIn();
-        break;
       case AuthenticatorStep.confirmSignUp:
         state.confirmSignUp();
-        break;
       case AuthenticatorStep.confirmSignInCustomAuth:
         state.confirmSignInCustomAuth();
-        break;
       case AuthenticatorStep.confirmSignInMfa:
         state.confirmSignInMFA();
-        break;
       case AuthenticatorStep.confirmSignInNewPassword:
         state.confirmSignInNewPassword();
-        break;
       case AuthenticatorStep.resetPassword:
         state.resetPassword();
-        break;
       case AuthenticatorStep.confirmResetPassword:
         state.confirmResetPassword();
-        break;
       case AuthenticatorStep.verifyUser:
         state.verifyUser();
-        break;
       default:
         break;
     }

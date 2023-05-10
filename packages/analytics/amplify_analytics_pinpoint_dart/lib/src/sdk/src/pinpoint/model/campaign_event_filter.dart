@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.campaign_event_filter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -95,19 +96,20 @@ class CampaignEventFilterRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Dimensions':
           result.dimensions.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.EventDimensions),
           ) as _i2.EventDimensions));
-          break;
         case 'FilterType':
           result.filterType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.FilterType),
           ) as _i3.FilterType);
-          break;
       }
     }
 
@@ -117,22 +119,23 @@ class CampaignEventFilterRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CampaignEventFilter object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CampaignEventFilter);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final CampaignEventFilter(:dimensions, :filterType) = object;
+    result$.addAll([
       'Dimensions',
       serializers.serialize(
-        payload.dimensions,
+        dimensions,
         specifiedType: const FullType(_i2.EventDimensions),
       ),
       'FilterType',
       serializers.serialize(
-        payload.filterType,
+        filterType,
         specifiedType: const FullType(_i3.FilterType),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

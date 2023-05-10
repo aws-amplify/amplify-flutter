@@ -24,9 +24,6 @@ abstract class SmithyUnion<U extends SmithyUnion<U>>
   @override
   List<Object> get props => [U, value];
 
-  /// Switch on the union's value.
-  T? when<T>();
-
   @override
   String toString() => value.toString();
 }
@@ -46,16 +43,22 @@ class SmithyUnionSerializer<U extends SmithyUnion<U>>
   final String wireName;
 
   @override
-  U? deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  U? deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ctor({
       serialized.first as String: serialized.elementAt(1),
     });
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, U? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    U? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     if (object == null) {
       return const Iterable.empty();
     }

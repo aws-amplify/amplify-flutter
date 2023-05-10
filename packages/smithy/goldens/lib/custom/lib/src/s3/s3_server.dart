@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library custom_v1.s3.s3_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -86,8 +87,8 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _copyObjectProtocol.contentType;
     try {
-      final payload = (await _copyObjectProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _copyObjectProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i6.CopyObjectRequestPayload),
       ) as _i6.CopyObjectRequestPayload);
       final input = _i6.CopyObjectRequest.fromRequest(
@@ -103,7 +104,7 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _copyObjectProtocol.serialize(
+      final body = await _copyObjectProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i5.CopyObjectOutput,
@@ -117,7 +118,7 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
       );
     } on _i11.CopyObjectError catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'CopyObjectError';
-      final body = _copyObjectProtocol.serialize(
+      final body = _copyObjectProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i11.CopyObjectError,
@@ -147,8 +148,8 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _getObjectProtocol.contentType;
     try {
-      final payload = (await _getObjectProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _getObjectProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i8.GetObjectRequestPayload),
       ) as _i8.GetObjectRequestPayload);
       final input = _i8.GetObjectRequest.fromRequest(
@@ -164,7 +165,7 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _getObjectProtocol.serialize(
+      final body = await _getObjectProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i7.GetObjectOutput,

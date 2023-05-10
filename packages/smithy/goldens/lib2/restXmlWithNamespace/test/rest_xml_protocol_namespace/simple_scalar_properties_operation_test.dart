@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_xml_with_namespace_v2.rest_xml_protocol_namespace.test.simple_scalar_properties_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -152,95 +153,65 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'byteValue':
-          if (value != null) {
-            result.byteValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'doubleValue':
-          if (value != null) {
-            result.doubleValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
-        case 'falseBooleanValue':
-          if (value != null) {
-            result.falseBooleanValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
-        case 'floatValue':
-          if (value != null) {
-            result.floatValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
         case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'integerValue':
-          if (value != null) {
-            result.integerValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'longValue':
-          if (value != null) {
-            result.longValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.Int64),
-            ) as _i6.Int64);
-          }
-          break;
-        case 'Nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.NestedWithNamespace),
-            ) as _i7.NestedWithNamespace));
-          }
-          break;
-        case 'shortValue':
-          if (value != null) {
-            result.shortValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'stringValue':
-          if (value != null) {
-            result.stringValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stringValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'trueBooleanValue':
-          if (value != null) {
-            result.trueBooleanValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.trueBooleanValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
+        case 'falseBooleanValue':
+          result.falseBooleanValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
+        case 'byteValue':
+          result.byteValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'shortValue':
+          result.shortValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'integerValue':
+          result.integerValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'longValue':
+          result.longValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.Int64),
+          ) as _i6.Int64);
+        case 'floatValue':
+          result.floatValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
+        case 'Nested':
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.NestedWithNamespace),
+          ) as _i7.NestedWithNamespace));
+        case 'doubleValue':
+          result.doubleValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
       }
     }
 
@@ -250,7 +221,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.SimpleScalarPropertiesInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -282,15 +253,15 @@ class NestedWithNamespaceRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'attrField':
-          if (value != null) {
-            result.attrField = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.attrField = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -300,7 +271,7 @@ class NestedWithNamespaceRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i7.NestedWithNamespace object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

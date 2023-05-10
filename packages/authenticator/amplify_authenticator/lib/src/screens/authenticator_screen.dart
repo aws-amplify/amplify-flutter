@@ -71,7 +71,6 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
             initialIndex: step == AuthenticatorStep.signUp ? 1 : 0,
           ),
         );
-        break;
       case AuthenticatorStep.confirmSignUp:
       case AuthenticatorStep.confirmSignInCustomAuth:
       case AuthenticatorStep.confirmSignInMfa:
@@ -81,7 +80,6 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
       case AuthenticatorStep.verifyUser:
       case AuthenticatorStep.confirmVerifyUser:
         child = _FormWrapperView(step: step);
-        break;
       case AuthenticatorStep.loading:
         throw StateError('Invalid step: $this');
     }
@@ -154,7 +152,6 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
       case AuthenticatorStep.signIn:
       case AuthenticatorStep.signUp:
         layout = form;
-        break;
       default:
         layout = Column(
           children: <Widget>[

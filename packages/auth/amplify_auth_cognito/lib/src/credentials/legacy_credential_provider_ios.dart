@@ -11,8 +11,8 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
-// ignore: implementation_imports
-import 'package:amplify_auth_cognito_dart/src/state/state/credential_store_state.dart';
+// ignore: implementation_imports, invalid_use_of_internal_member
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async/async.dart';
 

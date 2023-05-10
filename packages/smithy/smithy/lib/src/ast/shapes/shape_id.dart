@@ -14,19 +14,19 @@ class ShapeId with AWSEquatable<ShapeId>, AWSSerializable {
     this.member,
   });
 
-  static const empty = ShapeId(namespace: '', shape: '');
-  static final serializer = ShapeIdSerializer();
-
   const ShapeId.core(this.shape, [this.member]) : namespace = coreNamespace;
 
   factory ShapeId.parse(String shapeId) => ShapeId(
         namespace: shapeId.split('#').first,
         shape: shapeId.substring(
           shapeId.indexOf('#') + 1,
-          shapeId.contains('\$') ? shapeId.indexOf('\$') : shapeId.length,
+          shapeId.contains(r'$') ? shapeId.indexOf(r'$') : shapeId.length,
         ),
-        member: shapeId.contains('\$') ? shapeId.split('\$').last : null,
+        member: shapeId.contains(r'$') ? shapeId.split(r'$').last : null,
       );
+
+  static const empty = ShapeId(namespace: '', shape: '');
+  static final serializer = ShapeIdSerializer();
 
   final String namespace;
   final String shape;
@@ -91,14 +91,20 @@ class NullableShapeIdConverter implements JsonConverter<ShapeId?, String?> {
 
 class ShapeIdSerializer extends PrimitiveSerializer<ShapeId> {
   @override
-  ShapeId deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  ShapeId deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ShapeId.parse(serialized as String);
   }
 
   @override
-  String serialize(Serializers serializers, ShapeId object,
-      {FullType specifiedType = FullType.unspecified}) {
+  String serialize(
+    Serializers serializers,
+    ShapeId object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return object.absoluteName;
   }
 

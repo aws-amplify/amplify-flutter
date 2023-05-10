@@ -8,25 +8,25 @@ part of smoke_test.api_gateway.model.create_usage_plan_key_request;
 
 class _$CreateUsagePlanKeyRequest extends CreateUsagePlanKeyRequest {
   @override
+  final String usagePlanId;
+  @override
   final String keyId;
   @override
   final String keyType;
-  @override
-  final String usagePlanId;
 
   factory _$CreateUsagePlanKeyRequest(
           [void Function(CreateUsagePlanKeyRequestBuilder)? updates]) =>
       (new CreateUsagePlanKeyRequestBuilder()..update(updates))._build();
 
   _$CreateUsagePlanKeyRequest._(
-      {required this.keyId, required this.keyType, required this.usagePlanId})
+      {required this.usagePlanId, required this.keyId, required this.keyType})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        usagePlanId, r'CreateUsagePlanKeyRequest', 'usagePlanId');
     BuiltValueNullFieldError.checkNotNull(
         keyId, r'CreateUsagePlanKeyRequest', 'keyId');
     BuiltValueNullFieldError.checkNotNull(
         keyType, r'CreateUsagePlanKeyRequest', 'keyType');
-    BuiltValueNullFieldError.checkNotNull(
-        usagePlanId, r'CreateUsagePlanKeyRequest', 'usagePlanId');
   }
 
   @override
@@ -42,17 +42,17 @@ class _$CreateUsagePlanKeyRequest extends CreateUsagePlanKeyRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CreateUsagePlanKeyRequest &&
+        usagePlanId == other.usagePlanId &&
         keyId == other.keyId &&
-        keyType == other.keyType &&
-        usagePlanId == other.usagePlanId;
+        keyType == other.keyType;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, usagePlanId.hashCode);
     _$hash = $jc(_$hash, keyId.hashCode);
     _$hash = $jc(_$hash, keyType.hashCode);
-    _$hash = $jc(_$hash, usagePlanId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -63,6 +63,10 @@ class CreateUsagePlanKeyRequestBuilder
         Builder<CreateUsagePlanKeyRequest, CreateUsagePlanKeyRequestBuilder> {
   _$CreateUsagePlanKeyRequest? _$v;
 
+  String? _usagePlanId;
+  String? get usagePlanId => _$this._usagePlanId;
+  set usagePlanId(String? usagePlanId) => _$this._usagePlanId = usagePlanId;
+
   String? _keyId;
   String? get keyId => _$this._keyId;
   set keyId(String? keyId) => _$this._keyId = keyId;
@@ -71,10 +75,6 @@ class CreateUsagePlanKeyRequestBuilder
   String? get keyType => _$this._keyType;
   set keyType(String? keyType) => _$this._keyType = keyType;
 
-  String? _usagePlanId;
-  String? get usagePlanId => _$this._usagePlanId;
-  set usagePlanId(String? usagePlanId) => _$this._usagePlanId = usagePlanId;
-
   CreateUsagePlanKeyRequestBuilder() {
     CreateUsagePlanKeyRequest._init(this);
   }
@@ -82,9 +82,9 @@ class CreateUsagePlanKeyRequestBuilder
   CreateUsagePlanKeyRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _usagePlanId = $v.usagePlanId;
       _keyId = $v.keyId;
       _keyType = $v.keyType;
-      _usagePlanId = $v.usagePlanId;
       _$v = null;
     }
     return this;
@@ -107,12 +107,12 @@ class CreateUsagePlanKeyRequestBuilder
   _$CreateUsagePlanKeyRequest _build() {
     final _$result = _$v ??
         new _$CreateUsagePlanKeyRequest._(
+            usagePlanId: BuiltValueNullFieldError.checkNotNull(
+                usagePlanId, r'CreateUsagePlanKeyRequest', 'usagePlanId'),
             keyId: BuiltValueNullFieldError.checkNotNull(
                 keyId, r'CreateUsagePlanKeyRequest', 'keyId'),
             keyType: BuiltValueNullFieldError.checkNotNull(
-                keyType, r'CreateUsagePlanKeyRequest', 'keyType'),
-            usagePlanId: BuiltValueNullFieldError.checkNotNull(
-                usagePlanId, r'CreateUsagePlanKeyRequest', 'usagePlanId'));
+                keyType, r'CreateUsagePlanKeyRequest', 'keyType'));
     replace(_$result);
     return _$result;
   }

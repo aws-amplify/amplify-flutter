@@ -58,13 +58,16 @@ abstract class Shape {
 
 class ShapeSerializer extends StructuredSerializer<Shape> {
   @override
-  Shape deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  Shape deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object? value = iterator.current;
+      final value = iterator.current;
       if (key == 'type') {
         final type = ShapeType.deserialize(value as String);
         return serializers.deserialize(
@@ -77,21 +80,28 @@ class ShapeSerializer extends StructuredSerializer<Shape> {
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Shape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Shape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final map = serializers.serialize(
       object,
       specifiedType: FullType(object.getType().type),
     ) as Map<String, Object?>;
     map['type'] = object.getType().name;
-    map.removeWhere((key, value) =>
-        value == null ||
-        (value is Map && value.isEmpty) ||
-        (value is List && value.isEmpty));
-    return map.entries.expand((entry) => [
-          entry.key,
-          entry.value,
-        ]);
+    map.removeWhere(
+      (key, value) =>
+          value == null ||
+          (value is Map && value.isEmpty) ||
+          (value is List && value.isEmpty),
+    );
+    return map.entries.expand(
+      (entry) => [
+        entry.key,
+        entry.value,
+      ],
+    );
   }
 
   @override

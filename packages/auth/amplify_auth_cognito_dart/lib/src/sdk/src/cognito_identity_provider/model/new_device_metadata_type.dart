@@ -15,12 +15,12 @@ abstract class NewDeviceMetadataType
     implements Built<NewDeviceMetadataType, NewDeviceMetadataTypeBuilder> {
   /// The new device metadata type.
   factory NewDeviceMetadataType({
-    String? deviceGroupKey,
     String? deviceKey,
+    String? deviceGroupKey,
   }) {
     return _$NewDeviceMetadataType._(
-      deviceGroupKey: deviceGroupKey,
       deviceKey: deviceKey,
+      deviceGroupKey: deviceGroupKey,
     );
   }
 
@@ -38,26 +38,26 @@ abstract class NewDeviceMetadataType
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NewDeviceMetadataTypeBuilder b) {}
 
-  /// The device group key.
-  String? get deviceGroupKey;
-
   /// The device key.
   String? get deviceKey;
+
+  /// The device group key.
+  String? get deviceGroupKey;
   @override
   List<Object?> get props => [
-        deviceGroupKey,
         deviceKey,
+        deviceGroupKey,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NewDeviceMetadataType');
     helper.add(
-      'deviceGroupKey',
-      deviceGroupKey,
-    );
-    helper.add(
       'deviceKey',
       deviceKey,
+    );
+    helper.add(
+      'deviceGroupKey',
+      deviceGroupKey,
     );
     return helper.toString();
   }
@@ -93,17 +93,17 @@ class NewDeviceMetadataTypeAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'DeviceGroupKey':
+        case 'DeviceKey':
           if (value != null) {
-            result.deviceGroupKey = (serializers.deserialize(
+            result.deviceKey = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'DeviceKey':
+        case 'DeviceGroupKey':
           if (value != null) {
-            result.deviceKey = (serializers.deserialize(
+            result.deviceGroupKey = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -123,19 +123,19 @@ class NewDeviceMetadataTypeAwsJson11Serializer
   }) {
     final payload = (object as NewDeviceMetadataType);
     final result = <Object?>[];
-    if (payload.deviceGroupKey != null) {
-      result
-        ..add('DeviceGroupKey')
-        ..add(serializers.serialize(
-          payload.deviceGroupKey!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.deviceKey != null) {
       result
         ..add('DeviceKey')
         ..add(serializers.serialize(
           payload.deviceKey!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.deviceGroupKey != null) {
+      result
+        ..add('DeviceGroupKey')
+        ..add(serializers.serialize(
+          payload.deviceGroupKey!,
           specifiedType: const FullType(String),
         ));
     }

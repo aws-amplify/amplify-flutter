@@ -10,17 +10,17 @@ class _$DeleteObjectRequest extends DeleteObjectRequest {
   @override
   final String bucket;
   @override
-  final bool? bypassGovernanceRetention;
-  @override
-  final String? expectedBucketOwner;
-  @override
   final String key;
   @override
   final String? mfa;
   @override
+  final String? versionId;
+  @override
   final _i3.RequestPayer? requestPayer;
   @override
-  final String? versionId;
+  final bool? bypassGovernanceRetention;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$DeleteObjectRequest(
           [void Function(DeleteObjectRequestBuilder)? updates]) =>
@@ -28,12 +28,12 @@ class _$DeleteObjectRequest extends DeleteObjectRequest {
 
   _$DeleteObjectRequest._(
       {required this.bucket,
-      this.bypassGovernanceRetention,
-      this.expectedBucketOwner,
       required this.key,
       this.mfa,
+      this.versionId,
       this.requestPayer,
-      this.versionId})
+      this.bypassGovernanceRetention,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'DeleteObjectRequest', 'bucket');
@@ -54,24 +54,24 @@ class _$DeleteObjectRequest extends DeleteObjectRequest {
     if (identical(other, this)) return true;
     return other is DeleteObjectRequest &&
         bucket == other.bucket &&
-        bypassGovernanceRetention == other.bypassGovernanceRetention &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         key == other.key &&
         mfa == other.mfa &&
+        versionId == other.versionId &&
         requestPayer == other.requestPayer &&
-        versionId == other.versionId;
+        bypassGovernanceRetention == other.bypassGovernanceRetention &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, bypassGovernanceRetention.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
     _$hash = $jc(_$hash, mfa.hashCode);
-    _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jc(_$hash, versionId.hashCode);
+    _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, bypassGovernanceRetention.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -85,6 +85,23 @@ class DeleteObjectRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
+  String? _key;
+  String? get key => _$this._key;
+  set key(String? key) => _$this._key = key;
+
+  String? _mfa;
+  String? get mfa => _$this._mfa;
+  set mfa(String? mfa) => _$this._mfa = mfa;
+
+  String? _versionId;
+  String? get versionId => _$this._versionId;
+  set versionId(String? versionId) => _$this._versionId = versionId;
+
+  _i3.RequestPayer? _requestPayer;
+  _i3.RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(_i3.RequestPayer? requestPayer) =>
+      _$this._requestPayer = requestPayer;
+
   bool? _bypassGovernanceRetention;
   bool? get bypassGovernanceRetention => _$this._bypassGovernanceRetention;
   set bypassGovernanceRetention(bool? bypassGovernanceRetention) =>
@@ -95,23 +112,6 @@ class DeleteObjectRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  String? _key;
-  String? get key => _$this._key;
-  set key(String? key) => _$this._key = key;
-
-  String? _mfa;
-  String? get mfa => _$this._mfa;
-  set mfa(String? mfa) => _$this._mfa = mfa;
-
-  _i3.RequestPayer? _requestPayer;
-  _i3.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i3.RequestPayer? requestPayer) =>
-      _$this._requestPayer = requestPayer;
-
-  String? _versionId;
-  String? get versionId => _$this._versionId;
-  set versionId(String? versionId) => _$this._versionId = versionId;
-
   DeleteObjectRequestBuilder() {
     DeleteObjectRequest._init(this);
   }
@@ -120,12 +120,12 @@ class DeleteObjectRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _bypassGovernanceRetention = $v.bypassGovernanceRetention;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _key = $v.key;
       _mfa = $v.mfa;
-      _requestPayer = $v.requestPayer;
       _versionId = $v.versionId;
+      _requestPayer = $v.requestPayer;
+      _bypassGovernanceRetention = $v.bypassGovernanceRetention;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -150,13 +150,13 @@ class DeleteObjectRequestBuilder
         new _$DeleteObjectRequest._(
             bucket: BuiltValueNullFieldError.checkNotNull(
                 bucket, r'DeleteObjectRequest', 'bucket'),
-            bypassGovernanceRetention: bypassGovernanceRetention,
-            expectedBucketOwner: expectedBucketOwner,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'DeleteObjectRequest', 'key'),
             mfa: mfa,
+            versionId: versionId,
             requestPayer: requestPayer,
-            versionId: versionId);
+            bypassGovernanceRetention: bypassGovernanceRetention,
+            expectedBucketOwner: expectedBucketOwner);
     replace(_$result);
     return _$result;
   }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_xml_v1.rest_xml_protocol.test.constant_and_variable_query_string_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -131,23 +132,20 @@ class ConstantAndVariableQueryStringInputRestXmlSerializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'baz':
-          if (value != null) {
-            result.baz = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.baz = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'maybeSet':
-          if (value != null) {
-            result.maybeSet = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.maybeSet = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -157,7 +155,7 @@ class ConstantAndVariableQueryStringInputRestXmlSerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.ConstantAndVariableQueryStringInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

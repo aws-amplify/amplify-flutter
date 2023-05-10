@@ -8,15 +8,15 @@ part of smoke_test.api_gateway.model.get_vpc_links_request;
 
 class _$GetVpcLinksRequest extends GetVpcLinksRequest {
   @override
-  final int? limit;
-  @override
   final String? position;
+  @override
+  final int? limit;
 
   factory _$GetVpcLinksRequest(
           [void Function(GetVpcLinksRequestBuilder)? updates]) =>
       (new GetVpcLinksRequestBuilder()..update(updates))._build();
 
-  _$GetVpcLinksRequest._({this.limit, this.position}) : super._();
+  _$GetVpcLinksRequest._({this.position, this.limit}) : super._();
 
   @override
   GetVpcLinksRequest rebuild(
@@ -31,15 +31,15 @@ class _$GetVpcLinksRequest extends GetVpcLinksRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetVpcLinksRequest &&
-        limit == other.limit &&
-        position == other.position;
+        position == other.position &&
+        limit == other.limit;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, position.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -49,13 +49,13 @@ class GetVpcLinksRequestBuilder
     implements Builder<GetVpcLinksRequest, GetVpcLinksRequestBuilder> {
   _$GetVpcLinksRequest? _$v;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
-
   String? _position;
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
+
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
 
   GetVpcLinksRequestBuilder() {
     GetVpcLinksRequest._init(this);
@@ -64,8 +64,8 @@ class GetVpcLinksRequestBuilder
   GetVpcLinksRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _limit = $v.limit;
       _position = $v.position;
+      _limit = $v.limit;
       _$v = null;
     }
     return this;
@@ -87,7 +87,7 @@ class GetVpcLinksRequestBuilder
 
   _$GetVpcLinksRequest _build() {
     final _$result =
-        _$v ?? new _$GetVpcLinksRequest._(limit: limit, position: position);
+        _$v ?? new _$GetVpcLinksRequest._(position: position, limit: limit);
     replace(_$result);
     return _$result;
   }

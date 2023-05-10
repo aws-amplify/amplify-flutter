@@ -9,27 +9,27 @@ part of smoke_test.config_service.model.put_organization_config_rule_request;
 class _$PutOrganizationConfigRuleRequest
     extends PutOrganizationConfigRuleRequest {
   @override
-  final _i6.BuiltList<String>? excludedAccounts;
-  @override
   final String organizationConfigRuleName;
   @override
-  final _i3.OrganizationCustomPolicyRuleMetadata?
-      organizationCustomPolicyRuleMetadata;
+  final _i3.OrganizationManagedRuleMetadata? organizationManagedRuleMetadata;
   @override
   final _i4.OrganizationCustomRuleMetadata? organizationCustomRuleMetadata;
   @override
-  final _i5.OrganizationManagedRuleMetadata? organizationManagedRuleMetadata;
+  final _i6.BuiltList<String>? excludedAccounts;
+  @override
+  final _i5.OrganizationCustomPolicyRuleMetadata?
+      organizationCustomPolicyRuleMetadata;
 
   factory _$PutOrganizationConfigRuleRequest(
           [void Function(PutOrganizationConfigRuleRequestBuilder)? updates]) =>
       (new PutOrganizationConfigRuleRequestBuilder()..update(updates))._build();
 
   _$PutOrganizationConfigRuleRequest._(
-      {this.excludedAccounts,
-      required this.organizationConfigRuleName,
-      this.organizationCustomPolicyRuleMetadata,
+      {required this.organizationConfigRuleName,
+      this.organizationManagedRuleMetadata,
       this.organizationCustomRuleMetadata,
-      this.organizationManagedRuleMetadata})
+      this.excludedAccounts,
+      this.organizationCustomPolicyRuleMetadata})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(organizationConfigRuleName,
         r'PutOrganizationConfigRuleRequest', 'organizationConfigRuleName');
@@ -48,24 +48,24 @@ class _$PutOrganizationConfigRuleRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PutOrganizationConfigRuleRequest &&
-        excludedAccounts == other.excludedAccounts &&
         organizationConfigRuleName == other.organizationConfigRuleName &&
-        organizationCustomPolicyRuleMetadata ==
-            other.organizationCustomPolicyRuleMetadata &&
+        organizationManagedRuleMetadata ==
+            other.organizationManagedRuleMetadata &&
         organizationCustomRuleMetadata ==
             other.organizationCustomRuleMetadata &&
-        organizationManagedRuleMetadata ==
-            other.organizationManagedRuleMetadata;
+        excludedAccounts == other.excludedAccounts &&
+        organizationCustomPolicyRuleMetadata ==
+            other.organizationCustomPolicyRuleMetadata;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, excludedAccounts.hashCode);
     _$hash = $jc(_$hash, organizationConfigRuleName.hashCode);
-    _$hash = $jc(_$hash, organizationCustomPolicyRuleMetadata.hashCode);
-    _$hash = $jc(_$hash, organizationCustomRuleMetadata.hashCode);
     _$hash = $jc(_$hash, organizationManagedRuleMetadata.hashCode);
+    _$hash = $jc(_$hash, organizationCustomRuleMetadata.hashCode);
+    _$hash = $jc(_$hash, excludedAccounts.hashCode);
+    _$hash = $jc(_$hash, organizationCustomPolicyRuleMetadata.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -77,28 +77,20 @@ class PutOrganizationConfigRuleRequestBuilder
             PutOrganizationConfigRuleRequestBuilder> {
   _$PutOrganizationConfigRuleRequest? _$v;
 
-  _i6.ListBuilder<String>? _excludedAccounts;
-  _i6.ListBuilder<String> get excludedAccounts =>
-      _$this._excludedAccounts ??= new _i6.ListBuilder<String>();
-  set excludedAccounts(_i6.ListBuilder<String>? excludedAccounts) =>
-      _$this._excludedAccounts = excludedAccounts;
-
   String? _organizationConfigRuleName;
   String? get organizationConfigRuleName => _$this._organizationConfigRuleName;
   set organizationConfigRuleName(String? organizationConfigRuleName) =>
       _$this._organizationConfigRuleName = organizationConfigRuleName;
 
-  _i3.OrganizationCustomPolicyRuleMetadataBuilder?
-      _organizationCustomPolicyRuleMetadata;
-  _i3.OrganizationCustomPolicyRuleMetadataBuilder
-      get organizationCustomPolicyRuleMetadata =>
-          _$this._organizationCustomPolicyRuleMetadata ??=
-              new _i3.OrganizationCustomPolicyRuleMetadataBuilder();
-  set organizationCustomPolicyRuleMetadata(
-          _i3.OrganizationCustomPolicyRuleMetadataBuilder?
-              organizationCustomPolicyRuleMetadata) =>
-      _$this._organizationCustomPolicyRuleMetadata =
-          organizationCustomPolicyRuleMetadata;
+  _i3.OrganizationManagedRuleMetadataBuilder? _organizationManagedRuleMetadata;
+  _i3.OrganizationManagedRuleMetadataBuilder
+      get organizationManagedRuleMetadata =>
+          _$this._organizationManagedRuleMetadata ??=
+              new _i3.OrganizationManagedRuleMetadataBuilder();
+  set organizationManagedRuleMetadata(
+          _i3.OrganizationManagedRuleMetadataBuilder?
+              organizationManagedRuleMetadata) =>
+      _$this._organizationManagedRuleMetadata = organizationManagedRuleMetadata;
 
   _i4.OrganizationCustomRuleMetadataBuilder? _organizationCustomRuleMetadata;
   _i4.OrganizationCustomRuleMetadataBuilder
@@ -110,15 +102,23 @@ class PutOrganizationConfigRuleRequestBuilder
               organizationCustomRuleMetadata) =>
       _$this._organizationCustomRuleMetadata = organizationCustomRuleMetadata;
 
-  _i5.OrganizationManagedRuleMetadataBuilder? _organizationManagedRuleMetadata;
-  _i5.OrganizationManagedRuleMetadataBuilder
-      get organizationManagedRuleMetadata =>
-          _$this._organizationManagedRuleMetadata ??=
-              new _i5.OrganizationManagedRuleMetadataBuilder();
-  set organizationManagedRuleMetadata(
-          _i5.OrganizationManagedRuleMetadataBuilder?
-              organizationManagedRuleMetadata) =>
-      _$this._organizationManagedRuleMetadata = organizationManagedRuleMetadata;
+  _i6.ListBuilder<String>? _excludedAccounts;
+  _i6.ListBuilder<String> get excludedAccounts =>
+      _$this._excludedAccounts ??= new _i6.ListBuilder<String>();
+  set excludedAccounts(_i6.ListBuilder<String>? excludedAccounts) =>
+      _$this._excludedAccounts = excludedAccounts;
+
+  _i5.OrganizationCustomPolicyRuleMetadataBuilder?
+      _organizationCustomPolicyRuleMetadata;
+  _i5.OrganizationCustomPolicyRuleMetadataBuilder
+      get organizationCustomPolicyRuleMetadata =>
+          _$this._organizationCustomPolicyRuleMetadata ??=
+              new _i5.OrganizationCustomPolicyRuleMetadataBuilder();
+  set organizationCustomPolicyRuleMetadata(
+          _i5.OrganizationCustomPolicyRuleMetadataBuilder?
+              organizationCustomPolicyRuleMetadata) =>
+      _$this._organizationCustomPolicyRuleMetadata =
+          organizationCustomPolicyRuleMetadata;
 
   PutOrganizationConfigRuleRequestBuilder() {
     PutOrganizationConfigRuleRequest._init(this);
@@ -127,14 +127,14 @@ class PutOrganizationConfigRuleRequestBuilder
   PutOrganizationConfigRuleRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _excludedAccounts = $v.excludedAccounts?.toBuilder();
       _organizationConfigRuleName = $v.organizationConfigRuleName;
-      _organizationCustomPolicyRuleMetadata =
-          $v.organizationCustomPolicyRuleMetadata?.toBuilder();
-      _organizationCustomRuleMetadata =
-          $v.organizationCustomRuleMetadata?.toBuilder();
       _organizationManagedRuleMetadata =
           $v.organizationManagedRuleMetadata?.toBuilder();
+      _organizationCustomRuleMetadata =
+          $v.organizationCustomRuleMetadata?.toBuilder();
+      _excludedAccounts = $v.excludedAccounts?.toBuilder();
+      _organizationCustomPolicyRuleMetadata =
+          $v.organizationCustomPolicyRuleMetadata?.toBuilder();
       _$v = null;
     }
     return this;
@@ -159,29 +159,28 @@ class PutOrganizationConfigRuleRequestBuilder
     try {
       _$result = _$v ??
           new _$PutOrganizationConfigRuleRequest._(
-              excludedAccounts: _excludedAccounts?.build(),
               organizationConfigRuleName: BuiltValueNullFieldError.checkNotNull(
                   organizationConfigRuleName,
                   r'PutOrganizationConfigRuleRequest',
                   'organizationConfigRuleName'),
-              organizationCustomPolicyRuleMetadata:
-                  _organizationCustomPolicyRuleMetadata?.build(),
+              organizationManagedRuleMetadata:
+                  _organizationManagedRuleMetadata?.build(),
               organizationCustomRuleMetadata:
                   _organizationCustomRuleMetadata?.build(),
-              organizationManagedRuleMetadata:
-                  _organizationManagedRuleMetadata?.build());
+              excludedAccounts: _excludedAccounts?.build(),
+              organizationCustomPolicyRuleMetadata:
+                  _organizationCustomPolicyRuleMetadata?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'excludedAccounts';
-        _excludedAccounts?.build();
-
-        _$failedField = 'organizationCustomPolicyRuleMetadata';
-        _organizationCustomPolicyRuleMetadata?.build();
-        _$failedField = 'organizationCustomRuleMetadata';
-        _organizationCustomRuleMetadata?.build();
         _$failedField = 'organizationManagedRuleMetadata';
         _organizationManagedRuleMetadata?.build();
+        _$failedField = 'organizationCustomRuleMetadata';
+        _organizationCustomRuleMetadata?.build();
+        _$failedField = 'excludedAccounts';
+        _excludedAccounts?.build();
+        _$failedField = 'organizationCustomPolicyRuleMetadata';
+        _organizationCustomPolicyRuleMetadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'PutOrganizationConfigRuleRequest', _$failedField, e.toString());

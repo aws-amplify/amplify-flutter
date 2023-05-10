@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.update_integration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,17 +24,17 @@ abstract class UpdateIntegrationRequest
         _i1.HasPayload<UpdateIntegrationRequestPayload> {
   /// Represents an update integration request.
   factory UpdateIntegrationRequest({
+    required String restApiId,
+    required String resourceId,
     required String httpMethod,
     List<_i3.PatchOperation>? patchOperations,
-    required String resourceId,
-    required String restApiId,
   }) {
     return _$UpdateIntegrationRequest._(
+      restApiId: restApiId,
+      resourceId: resourceId,
       httpMethod: httpMethod,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      resourceId: resourceId,
-      restApiId: restApiId,
     );
   }
 
@@ -71,17 +72,17 @@ abstract class UpdateIntegrationRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateIntegrationRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
+  /// Represents an update integration request's resource identifier.
+  String get resourceId;
+
   /// Represents an update integration request's HTTP method.
   String get httpMethod;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
-  /// Represents an update integration request's resource identifier.
-  String get resourceId;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -107,14 +108,22 @@ abstract class UpdateIntegrationRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
+        resourceId,
         httpMethod,
         patchOperations,
-        resourceId,
-        restApiId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateIntegrationRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
+    );
     helper.add(
       'httpMethod',
       httpMethod,
@@ -122,14 +131,6 @@ abstract class UpdateIntegrationRequest
     helper.add(
       'patchOperations',
       patchOperations,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
     );
     return helper.toString();
   }
@@ -198,18 +199,18 @@ class UpdateIntegrationRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'patchOperations':
-          if (value != null) {
-            result.patchOperations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.PatchOperation)],
-              ),
-            ) as _i4.BuiltList<_i3.PatchOperation>));
-          }
-          break;
+          result.patchOperations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.PatchOperation)],
+            ),
+          ) as _i4.BuiltList<_i3.PatchOperation>));
       }
     }
 
@@ -219,24 +220,22 @@ class UpdateIntegrationRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateIntegrationRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UpdateIntegrationRequest
-        ? object.getPayload()
-        : (object as UpdateIntegrationRequestPayload);
-    final result = <Object?>[];
-    if (payload.patchOperations != null) {
-      result
+    final result$ = <Object?>[];
+    final UpdateIntegrationRequestPayload(:patchOperations) = object;
+    if (patchOperations != null) {
+      result$
         ..add('patchOperations')
         ..add(serializers.serialize(
-          payload.patchOperations!,
+          patchOperations,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.PatchOperation)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

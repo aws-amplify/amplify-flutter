@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.s3.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -65,10 +66,10 @@ final Map<FullType, Function> builderFactories = {
   ): _i24.MapBuilder<String, _i9.FileConfigSettings>.new,
   const FullType(
     _i24.BuiltList,
-    [FullType(_i17.CommonPrefix)],
-  ): _i24.ListBuilder<_i17.CommonPrefix>.new,
-  const FullType(
-    _i24.BuiltList,
     [FullType(_i15.S3Object)],
   ): _i24.ListBuilder<_i15.S3Object>.new,
+  const FullType(
+    _i24.BuiltList,
+    [FullType(_i17.CommonPrefix)],
+  ): _i24.ListBuilder<_i17.CommonPrefix>.new,
 };

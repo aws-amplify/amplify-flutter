@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.member_account_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,18 +20,18 @@ abstract class MemberAccountStatus
   factory MemberAccountStatus({
     required String accountId,
     required String configRuleName,
+    required _i2.MemberAccountRuleStatus memberAccountRuleStatus,
     String? errorCode,
     String? errorMessage,
     DateTime? lastUpdateTime,
-    required _i2.MemberAccountRuleStatus memberAccountRuleStatus,
   }) {
     return _$MemberAccountStatus._(
       accountId: accountId,
       configRuleName: configRuleName,
+      memberAccountRuleStatus: memberAccountRuleStatus,
       errorCode: errorCode,
       errorMessage: errorMessage,
       lastUpdateTime: lastUpdateTime,
-      memberAccountRuleStatus: memberAccountRuleStatus,
     );
   }
 
@@ -54,15 +55,6 @@ abstract class MemberAccountStatus
   /// The name of Config rule deployed in the member account.
   String get configRuleName;
 
-  /// An error code that is returned when Config rule creation or deletion failed in the member account.
-  String? get errorCode;
-
-  /// An error message indicating that Config rule account creation or deletion has failed due to an error in the member account.
-  String? get errorMessage;
-
-  /// The timestamp of the last status update.
-  DateTime? get lastUpdateTime;
-
   /// Indicates deployment status for Config rule in the member account. When master account calls `PutOrganizationConfigRule` action for the first time, Config rule status is created in the member account. When master account calls `PutOrganizationConfigRule` action for the second time, Config rule status is updated in the member account. Config rule status is deleted when the master account deletes `OrganizationConfigRule` and disables service access for `config-multiaccountsetup.amazonaws.com`.
   ///
   /// Config sets the state of the rule to:
@@ -85,14 +77,23 @@ abstract class MemberAccountStatus
   ///
   /// *   `UPDATE_FAILED` when Config rule deletion has failed in the member account.
   _i2.MemberAccountRuleStatus get memberAccountRuleStatus;
+
+  /// An error code that is returned when Config rule creation or deletion failed in the member account.
+  String? get errorCode;
+
+  /// An error message indicating that Config rule account creation or deletion has failed due to an error in the member account.
+  String? get errorMessage;
+
+  /// The timestamp of the last status update.
+  DateTime? get lastUpdateTime;
   @override
   List<Object?> get props => [
         accountId,
         configRuleName,
+        memberAccountRuleStatus,
         errorCode,
         errorMessage,
         lastUpdateTime,
-        memberAccountRuleStatus,
       ];
   @override
   String toString() {
@@ -106,6 +107,10 @@ abstract class MemberAccountStatus
       configRuleName,
     );
     helper.add(
+      'memberAccountRuleStatus',
+      memberAccountRuleStatus,
+    );
+    helper.add(
       'errorCode',
       errorCode,
     );
@@ -116,10 +121,6 @@ abstract class MemberAccountStatus
     helper.add(
       'lastUpdateTime',
       lastUpdateTime,
-    );
-    helper.add(
-      'memberAccountRuleStatus',
-      memberAccountRuleStatus,
     );
     return helper.toString();
   }
@@ -153,49 +154,40 @@ class MemberAccountStatusAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AccountId':
           result.accountId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ConfigRuleName':
           result.configRuleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
-        case 'ErrorCode':
-          if (value != null) {
-            result.errorCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ErrorMessage':
-          if (value != null) {
-            result.errorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'LastUpdateTime':
-          if (value != null) {
-            result.lastUpdateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'MemberAccountRuleStatus':
           result.memberAccountRuleStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.MemberAccountRuleStatus),
           ) as _i2.MemberAccountRuleStatus);
-          break;
+        case 'ErrorCode':
+          result.errorCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ErrorMessage':
+          result.errorMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'LastUpdateTime':
+          result.lastUpdateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -205,51 +197,59 @@ class MemberAccountStatusAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MemberAccountStatus object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MemberAccountStatus);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final MemberAccountStatus(
+      :accountId,
+      :configRuleName,
+      :memberAccountRuleStatus,
+      :errorCode,
+      :errorMessage,
+      :lastUpdateTime
+    ) = object;
+    result$.addAll([
       'AccountId',
       serializers.serialize(
-        payload.accountId,
+        accountId,
         specifiedType: const FullType(String),
       ),
       'ConfigRuleName',
       serializers.serialize(
-        payload.configRuleName,
+        configRuleName,
         specifiedType: const FullType(String),
       ),
       'MemberAccountRuleStatus',
       serializers.serialize(
-        payload.memberAccountRuleStatus,
+        memberAccountRuleStatus,
         specifiedType: const FullType(_i2.MemberAccountRuleStatus),
       ),
-    ];
-    if (payload.errorCode != null) {
-      result
+    ]);
+    if (errorCode != null) {
+      result$
         ..add('ErrorCode')
         ..add(serializers.serialize(
-          payload.errorCode!,
+          errorCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.errorMessage != null) {
-      result
+    if (errorMessage != null) {
+      result$
         ..add('ErrorMessage')
         ..add(serializers.serialize(
-          payload.errorMessage!,
+          errorMessage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastUpdateTime != null) {
-      result
+    if (lastUpdateTime != null) {
+      result$
         ..add('LastUpdateTime')
         ..add(serializers.serialize(
-          payload.lastUpdateTime!,
+          lastUpdateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

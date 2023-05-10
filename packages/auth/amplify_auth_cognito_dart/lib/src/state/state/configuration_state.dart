@@ -1,8 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_core/amplify_core.dart';
+part of 'auth_state.dart';
 
 /// {@template amplify_auth_cognito.configuration_state.configuration_state_type}
 /// Discrete state types of the Auth state machine.
@@ -24,7 +23,7 @@ enum ConfigurationStateType {
 /// {@template amplify_auth_cognito.configuration_state}
 /// Discrete states of the Auth state machine.
 /// {@endtemplate}
-abstract class ConfigurationState extends AuthState<ConfigurationStateType> {
+sealed class ConfigurationState extends AuthState<ConfigurationStateType> {
   /// {@macro amplify_auth_cognito.configuration_state}
   const ConfigurationState();
 
@@ -51,7 +50,7 @@ abstract class ConfigurationState extends AuthState<ConfigurationStateType> {
 /// {@template amplify_auth_cognito.configuration_state.not_configured}
 /// Initial state.
 /// {@endtemplate}
-class NotConfigured extends ConfigurationState {
+final class NotConfigured extends ConfigurationState {
   /// {@macro amplify_auth_cognito.configuration_state.not_configured}
   const NotConfigured();
 
@@ -65,7 +64,7 @@ class NotConfigured extends ConfigurationState {
 /// {@template amplify_auth_cognito.configuration_state.configuring}
 /// Configuring the Auth category.
 /// {@endtemplate}
-class Configuring extends ConfigurationState {
+final class Configuring extends ConfigurationState {
   /// {@macro amplify_auth_cognito.configuration_state.configuring}
   const Configuring();
 
@@ -79,7 +78,7 @@ class Configuring extends ConfigurationState {
 /// {@template amplify_auth_cognito.configuration_state.configured}
 /// Successfully configured the Auth category.
 /// {@endtemplate}
-class Configured extends ConfigurationState with SuccessState {
+final class Configured extends ConfigurationState with SuccessState {
   /// {@macro amplify_auth_cognito.configuration_state.configured}
   const Configured(this.config);
 
@@ -96,7 +95,7 @@ class Configured extends ConfigurationState with SuccessState {
 /// {@template amplify_auth_cognito.configuration_state.configure_failure}
 /// A failure occurred during configuration of the Auth category.
 /// {@endtemplate}
-class ConfigureFailure extends ConfigurationState with ErrorState {
+final class ConfigureFailure extends ConfigurationState with ErrorState {
   /// {@macro amplify_auth_cognito.configuration_state.configure_failure}
   const ConfigureFailure(this.exception, this.stackTrace);
 

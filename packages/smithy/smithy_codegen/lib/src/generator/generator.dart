@@ -99,9 +99,10 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
             targetShape.timestampFormat ??
             (isHeader ? TimestampFormat.httpDate : TimestampFormat.dateTime);
         return DartTypes.smithy.timestamp.property('parse').call([
-          format == TimestampFormat.epochSeconds
-              ? DartTypes.core.int.property('parse').call([ref])
-              : ref
+          if (format == TimestampFormat.epochSeconds)
+            DartTypes.core.int.property('parse').call([ref])
+          else
+            ref
         ], {
           'format': DartTypes.smithy.timestampFormat.property(format.name),
         }).property('asDateTime');
@@ -123,14 +124,16 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
             })
             .property('map')
             .call([
-              Method((m) => m
-                ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-                ..lambda = true
-                ..body = valueFromString(
-                  refer('el').property('trim').call([]),
-                  memberShape,
-                  isHeader: true,
-                ).code).closure,
+              Method(
+                (m) => m
+                  ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                  ..lambda = true
+                  ..body = valueFromString(
+                    refer('el').property('trim').call([]),
+                    memberShape,
+                    isHeader: true,
+                  ).code,
+              ).closure,
             ]);
       default:
         throw ArgumentError('Invalid header shape type: $type');
@@ -212,22 +215,26 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
         var mappedRef = identical(memberEl, memberToString)
             ? ref
             : ref.property('map').call([
-                Method((m) => m
-                  ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-                  ..lambda = true
-                  ..body = memberToString.code).closure,
+                Method(
+                  (m) => m
+                    ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                    ..lambda = true
+                    ..body = memberToString.code,
+                ).closure,
               ]);
         if (isHeader) {
           mappedRef = mappedRef.property('map').call([
-            Method((m) => m
-              ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-              ..lambda = true
-              ..body = DartTypes.smithy.sanitizeHeader.call([
-                refer('el')
-              ], {
-                if (memberTarget is TimestampShape)
-                  'isTimestampList': literalTrue,
-              }).code).closure
+            Method(
+              (m) => m
+                ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                ..lambda = true
+                ..body = DartTypes.smithy.sanitizeHeader.call([
+                  refer('el')
+                ], {
+                  if (memberTarget is TimestampShape)
+                    'isTimestampList': literalTrue,
+                }).code,
+            ).closure
           ]);
         }
         if (isHeader) {

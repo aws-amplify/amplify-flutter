@@ -8,26 +8,26 @@ part of smoke_test.dynamo_db.model.source_table_feature_details;
 
 class _$SourceTableFeatureDetails extends SourceTableFeatureDetails {
   @override
-  final _i7.BuiltList<_i2.GlobalSecondaryIndexInfo>? globalSecondaryIndexes;
+  final _i7.BuiltList<_i2.LocalSecondaryIndexInfo>? localSecondaryIndexes;
   @override
-  final _i7.BuiltList<_i3.LocalSecondaryIndexInfo>? localSecondaryIndexes;
+  final _i7.BuiltList<_i3.GlobalSecondaryIndexInfo>? globalSecondaryIndexes;
   @override
-  final _i4.SseDescription? sseDescription;
+  final _i4.StreamSpecification? streamDescription;
   @override
-  final _i5.StreamSpecification? streamDescription;
+  final _i5.TimeToLiveDescription? timeToLiveDescription;
   @override
-  final _i6.TimeToLiveDescription? timeToLiveDescription;
+  final _i6.SseDescription? sseDescription;
 
   factory _$SourceTableFeatureDetails(
           [void Function(SourceTableFeatureDetailsBuilder)? updates]) =>
       (new SourceTableFeatureDetailsBuilder()..update(updates))._build();
 
   _$SourceTableFeatureDetails._(
-      {this.globalSecondaryIndexes,
-      this.localSecondaryIndexes,
-      this.sseDescription,
+      {this.localSecondaryIndexes,
+      this.globalSecondaryIndexes,
       this.streamDescription,
-      this.timeToLiveDescription})
+      this.timeToLiveDescription,
+      this.sseDescription})
       : super._();
 
   @override
@@ -43,21 +43,21 @@ class _$SourceTableFeatureDetails extends SourceTableFeatureDetails {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SourceTableFeatureDetails &&
-        globalSecondaryIndexes == other.globalSecondaryIndexes &&
         localSecondaryIndexes == other.localSecondaryIndexes &&
-        sseDescription == other.sseDescription &&
+        globalSecondaryIndexes == other.globalSecondaryIndexes &&
         streamDescription == other.streamDescription &&
-        timeToLiveDescription == other.timeToLiveDescription;
+        timeToLiveDescription == other.timeToLiveDescription &&
+        sseDescription == other.sseDescription;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
     _$hash = $jc(_$hash, localSecondaryIndexes.hashCode);
-    _$hash = $jc(_$hash, sseDescription.hashCode);
+    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
     _$hash = $jc(_$hash, streamDescription.hashCode);
     _$hash = $jc(_$hash, timeToLiveDescription.hashCode);
+    _$hash = $jc(_$hash, sseDescription.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -68,42 +68,42 @@ class SourceTableFeatureDetailsBuilder
         Builder<SourceTableFeatureDetails, SourceTableFeatureDetailsBuilder> {
   _$SourceTableFeatureDetails? _$v;
 
-  _i7.ListBuilder<_i2.GlobalSecondaryIndexInfo>? _globalSecondaryIndexes;
-  _i7.ListBuilder<_i2.GlobalSecondaryIndexInfo> get globalSecondaryIndexes =>
-      _$this._globalSecondaryIndexes ??=
-          new _i7.ListBuilder<_i2.GlobalSecondaryIndexInfo>();
-  set globalSecondaryIndexes(
-          _i7.ListBuilder<_i2.GlobalSecondaryIndexInfo>?
-              globalSecondaryIndexes) =>
-      _$this._globalSecondaryIndexes = globalSecondaryIndexes;
-
-  _i7.ListBuilder<_i3.LocalSecondaryIndexInfo>? _localSecondaryIndexes;
-  _i7.ListBuilder<_i3.LocalSecondaryIndexInfo> get localSecondaryIndexes =>
+  _i7.ListBuilder<_i2.LocalSecondaryIndexInfo>? _localSecondaryIndexes;
+  _i7.ListBuilder<_i2.LocalSecondaryIndexInfo> get localSecondaryIndexes =>
       _$this._localSecondaryIndexes ??=
-          new _i7.ListBuilder<_i3.LocalSecondaryIndexInfo>();
+          new _i7.ListBuilder<_i2.LocalSecondaryIndexInfo>();
   set localSecondaryIndexes(
-          _i7.ListBuilder<_i3.LocalSecondaryIndexInfo>?
+          _i7.ListBuilder<_i2.LocalSecondaryIndexInfo>?
               localSecondaryIndexes) =>
       _$this._localSecondaryIndexes = localSecondaryIndexes;
 
-  _i4.SseDescriptionBuilder? _sseDescription;
-  _i4.SseDescriptionBuilder get sseDescription =>
-      _$this._sseDescription ??= new _i4.SseDescriptionBuilder();
-  set sseDescription(_i4.SseDescriptionBuilder? sseDescription) =>
-      _$this._sseDescription = sseDescription;
+  _i7.ListBuilder<_i3.GlobalSecondaryIndexInfo>? _globalSecondaryIndexes;
+  _i7.ListBuilder<_i3.GlobalSecondaryIndexInfo> get globalSecondaryIndexes =>
+      _$this._globalSecondaryIndexes ??=
+          new _i7.ListBuilder<_i3.GlobalSecondaryIndexInfo>();
+  set globalSecondaryIndexes(
+          _i7.ListBuilder<_i3.GlobalSecondaryIndexInfo>?
+              globalSecondaryIndexes) =>
+      _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
-  _i5.StreamSpecificationBuilder? _streamDescription;
-  _i5.StreamSpecificationBuilder get streamDescription =>
-      _$this._streamDescription ??= new _i5.StreamSpecificationBuilder();
-  set streamDescription(_i5.StreamSpecificationBuilder? streamDescription) =>
+  _i4.StreamSpecificationBuilder? _streamDescription;
+  _i4.StreamSpecificationBuilder get streamDescription =>
+      _$this._streamDescription ??= new _i4.StreamSpecificationBuilder();
+  set streamDescription(_i4.StreamSpecificationBuilder? streamDescription) =>
       _$this._streamDescription = streamDescription;
 
-  _i6.TimeToLiveDescriptionBuilder? _timeToLiveDescription;
-  _i6.TimeToLiveDescriptionBuilder get timeToLiveDescription =>
-      _$this._timeToLiveDescription ??= new _i6.TimeToLiveDescriptionBuilder();
+  _i5.TimeToLiveDescriptionBuilder? _timeToLiveDescription;
+  _i5.TimeToLiveDescriptionBuilder get timeToLiveDescription =>
+      _$this._timeToLiveDescription ??= new _i5.TimeToLiveDescriptionBuilder();
   set timeToLiveDescription(
-          _i6.TimeToLiveDescriptionBuilder? timeToLiveDescription) =>
+          _i5.TimeToLiveDescriptionBuilder? timeToLiveDescription) =>
       _$this._timeToLiveDescription = timeToLiveDescription;
+
+  _i6.SseDescriptionBuilder? _sseDescription;
+  _i6.SseDescriptionBuilder get sseDescription =>
+      _$this._sseDescription ??= new _i6.SseDescriptionBuilder();
+  set sseDescription(_i6.SseDescriptionBuilder? sseDescription) =>
+      _$this._sseDescription = sseDescription;
 
   SourceTableFeatureDetailsBuilder() {
     SourceTableFeatureDetails._init(this);
@@ -112,11 +112,11 @@ class SourceTableFeatureDetailsBuilder
   SourceTableFeatureDetailsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
       _localSecondaryIndexes = $v.localSecondaryIndexes?.toBuilder();
-      _sseDescription = $v.sseDescription?.toBuilder();
+      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
       _streamDescription = $v.streamDescription?.toBuilder();
       _timeToLiveDescription = $v.timeToLiveDescription?.toBuilder();
+      _sseDescription = $v.sseDescription?.toBuilder();
       _$v = null;
     }
     return this;
@@ -141,24 +141,24 @@ class SourceTableFeatureDetailsBuilder
     try {
       _$result = _$v ??
           new _$SourceTableFeatureDetails._(
-              globalSecondaryIndexes: _globalSecondaryIndexes?.build(),
               localSecondaryIndexes: _localSecondaryIndexes?.build(),
-              sseDescription: _sseDescription?.build(),
+              globalSecondaryIndexes: _globalSecondaryIndexes?.build(),
               streamDescription: _streamDescription?.build(),
-              timeToLiveDescription: _timeToLiveDescription?.build());
+              timeToLiveDescription: _timeToLiveDescription?.build(),
+              sseDescription: _sseDescription?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'globalSecondaryIndexes';
-        _globalSecondaryIndexes?.build();
         _$failedField = 'localSecondaryIndexes';
         _localSecondaryIndexes?.build();
-        _$failedField = 'sseDescription';
-        _sseDescription?.build();
+        _$failedField = 'globalSecondaryIndexes';
+        _globalSecondaryIndexes?.build();
         _$failedField = 'streamDescription';
         _streamDescription?.build();
         _$failedField = 'timeToLiveDescription';
         _timeToLiveDescription?.build();
+        _$failedField = 'sseDescription';
+        _sseDescription?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'SourceTableFeatureDetails', _$failedField, e.toString());

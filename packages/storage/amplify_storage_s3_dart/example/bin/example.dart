@@ -49,34 +49,24 @@ Future<void> main() async {
     switch (operationNum) {
       case 1:
         await listOperation();
-        break;
       case 2:
         await getPropertiesOperation();
-        break;
       case 3:
         await getUrlOperation();
-        break;
       case 4:
         await downloadDataOperation();
-        break;
       case 5:
         await downloadFileOperation();
-        break;
       case 6:
-        await uploadDataUrlOperation();
         break;
       case 7:
         await uploadFileOperation();
-        break;
       case 8:
         await copyOperation();
-        break;
       case 9:
         await moveOperation();
-        break;
       case 10:
         await removeOperation();
-        break;
       case null:
         break;
       case 0:

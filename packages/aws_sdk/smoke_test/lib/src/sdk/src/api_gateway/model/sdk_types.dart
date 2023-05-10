@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.sdk_types; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -82,18 +83,18 @@ class SdkTypesRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'item':
-          if (value != null) {
-            result.items.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.SdkType)],
-              ),
-            ) as _i3.BuiltList<_i2.SdkType>));
-          }
-          break;
+          result.items.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.SdkType)],
+            ),
+          ) as _i3.BuiltList<_i2.SdkType>));
       }
     }
 
@@ -103,22 +104,22 @@ class SdkTypesRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SdkTypes object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SdkTypes);
-    final result = <Object?>[];
-    if (payload.items != null) {
-      result
+    final result$ = <Object?>[];
+    final SdkTypes(:items) = object;
+    if (items != null) {
+      result$
         ..add('item')
         ..add(serializers.serialize(
-          payload.items!,
+          items,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.SdkType)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

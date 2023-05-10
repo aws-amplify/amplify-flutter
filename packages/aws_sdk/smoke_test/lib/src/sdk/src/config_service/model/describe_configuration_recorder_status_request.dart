@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_configuration_recorder_status_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -95,18 +96,18 @@ class DescribeConfigurationRecorderStatusRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigurationRecorderNames':
-          if (value != null) {
-            result.configurationRecorderNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.configurationRecorderNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -116,22 +117,24 @@ class DescribeConfigurationRecorderStatusRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeConfigurationRecorderStatusRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeConfigurationRecorderStatusRequest);
-    final result = <Object?>[];
-    if (payload.configurationRecorderNames != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeConfigurationRecorderStatusRequest(
+      :configurationRecorderNames
+    ) = object;
+    if (configurationRecorderNames != null) {
+      result$
         ..add('ConfigurationRecorderNames')
         ..add(serializers.serialize(
-          payload.configurationRecorderNames!,
+          configurationRecorderNames,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

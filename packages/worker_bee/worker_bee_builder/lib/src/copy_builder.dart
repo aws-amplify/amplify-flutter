@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'package:build/build.dart';
 import 'package:path/path.dart' as p;
 
-/// Copies the generated workers to [_publishedWorkersJs].
+/// Copies the generated workers to `.js` and `.min.js` files, respectively.
 class WorkerCopyBuilder extends Builder {
   @override
   late final Map<String, List<String>> buildExtensions = {

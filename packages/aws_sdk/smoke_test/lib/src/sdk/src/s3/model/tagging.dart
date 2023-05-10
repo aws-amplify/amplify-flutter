@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.tagging; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -71,21 +72,23 @@ class TaggingRestXmlSerializer extends _i4.StructuredSmithySerializer<Tagging> {
     final result = TaggingBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TagSet':
           result.tagSet.replace(
               (const _i4.XmlBuiltListSerializer(memberName: 'Tag').deserialize(
             serializers,
-            (value as Iterable<Object?>),
+            value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
               _i3.BuiltList,
               [FullType(_i2.Tag)],
             ),
           ) as _i3.BuiltList<_i2.Tag>));
-          break;
       }
     }
 
@@ -95,26 +98,26 @@ class TaggingRestXmlSerializer extends _i4.StructuredSmithySerializer<Tagging> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Tagging object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Tagging);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'Tagging',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
+    final Tagging(:tagSet) = object;
+    result$
       ..add(const _i4.XmlElementName('TagSet'))
       ..add(const _i4.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
-        payload.tagSet,
+        tagSet,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.Tag)],
         ),
       ));
-    return result;
+    return result$;
   }
 }

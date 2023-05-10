@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_xml_v1.rest_xml_protocol.test.nested_xml_maps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -205,47 +206,44 @@ class NestedXmlMapsInputOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'flatNestedMap':
-          if (value != null) {
-            result.flatNestedMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(
-                    _i6.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(_i7.FooEnum),
-                    ],
-                  ),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, _i6.BuiltMap<String, _i7.FooEnum>>));
-          }
-          break;
         case 'nestedMap':
-          if (value != null) {
-            result.nestedMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(
-                    _i6.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(_i7.FooEnum),
-                    ],
-                  ),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, _i6.BuiltMap<String, _i7.FooEnum>>));
-          }
-          break;
+          result.nestedMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(
+                  _i6.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(_i7.FooEnum),
+                  ],
+                ),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, _i6.BuiltMap<String, _i7.FooEnum>>));
+        case 'flatNestedMap':
+          result.flatNestedMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(
+                  _i6.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(_i7.FooEnum),
+                  ],
+                ),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, _i6.BuiltMap<String, _i7.FooEnum>>));
       }
     }
 
@@ -255,7 +253,7 @@ class NestedXmlMapsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.NestedXmlMapsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

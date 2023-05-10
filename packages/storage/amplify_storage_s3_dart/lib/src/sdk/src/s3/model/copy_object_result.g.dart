@@ -8,6 +8,10 @@ part of amplify_storage_s3_dart.s3.model.copy_object_result;
 
 class _$CopyObjectResult extends CopyObjectResult {
   @override
+  final String? eTag;
+  @override
+  final DateTime? lastModified;
+  @override
   final String? checksumCrc32;
   @override
   final String? checksumCrc32C;
@@ -15,22 +19,18 @@ class _$CopyObjectResult extends CopyObjectResult {
   final String? checksumSha1;
   @override
   final String? checksumSha256;
-  @override
-  final String? eTag;
-  @override
-  final DateTime? lastModified;
 
   factory _$CopyObjectResult(
           [void Function(CopyObjectResultBuilder)? updates]) =>
       (new CopyObjectResultBuilder()..update(updates))._build();
 
   _$CopyObjectResult._(
-      {this.checksumCrc32,
+      {this.eTag,
+      this.lastModified,
+      this.checksumCrc32,
       this.checksumCrc32C,
       this.checksumSha1,
-      this.checksumSha256,
-      this.eTag,
-      this.lastModified})
+      this.checksumSha256})
       : super._();
 
   @override
@@ -45,23 +45,23 @@ class _$CopyObjectResult extends CopyObjectResult {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CopyObjectResult &&
+        eTag == other.eTag &&
+        lastModified == other.lastModified &&
         checksumCrc32 == other.checksumCrc32 &&
         checksumCrc32C == other.checksumCrc32C &&
         checksumSha1 == other.checksumSha1 &&
-        checksumSha256 == other.checksumSha256 &&
-        eTag == other.eTag &&
-        lastModified == other.lastModified;
+        checksumSha256 == other.checksumSha256;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, eTag.hashCode);
+    _$hash = $jc(_$hash, lastModified.hashCode);
     _$hash = $jc(_$hash, checksumCrc32.hashCode);
     _$hash = $jc(_$hash, checksumCrc32C.hashCode);
     _$hash = $jc(_$hash, checksumSha1.hashCode);
     _$hash = $jc(_$hash, checksumSha256.hashCode);
-    _$hash = $jc(_$hash, eTag.hashCode);
-    _$hash = $jc(_$hash, lastModified.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -70,6 +70,15 @@ class _$CopyObjectResult extends CopyObjectResult {
 class CopyObjectResultBuilder
     implements Builder<CopyObjectResult, CopyObjectResultBuilder> {
   _$CopyObjectResult? _$v;
+
+  String? _eTag;
+  String? get eTag => _$this._eTag;
+  set eTag(String? eTag) => _$this._eTag = eTag;
+
+  DateTime? _lastModified;
+  DateTime? get lastModified => _$this._lastModified;
+  set lastModified(DateTime? lastModified) =>
+      _$this._lastModified = lastModified;
 
   String? _checksumCrc32;
   String? get checksumCrc32 => _$this._checksumCrc32;
@@ -90,15 +99,6 @@ class CopyObjectResultBuilder
   set checksumSha256(String? checksumSha256) =>
       _$this._checksumSha256 = checksumSha256;
 
-  String? _eTag;
-  String? get eTag => _$this._eTag;
-  set eTag(String? eTag) => _$this._eTag = eTag;
-
-  DateTime? _lastModified;
-  DateTime? get lastModified => _$this._lastModified;
-  set lastModified(DateTime? lastModified) =>
-      _$this._lastModified = lastModified;
-
   CopyObjectResultBuilder() {
     CopyObjectResult._init(this);
   }
@@ -106,12 +106,12 @@ class CopyObjectResultBuilder
   CopyObjectResultBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _eTag = $v.eTag;
+      _lastModified = $v.lastModified;
       _checksumCrc32 = $v.checksumCrc32;
       _checksumCrc32C = $v.checksumCrc32C;
       _checksumSha1 = $v.checksumSha1;
       _checksumSha256 = $v.checksumSha256;
-      _eTag = $v.eTag;
-      _lastModified = $v.lastModified;
       _$v = null;
     }
     return this;
@@ -134,12 +134,12 @@ class CopyObjectResultBuilder
   _$CopyObjectResult _build() {
     final _$result = _$v ??
         new _$CopyObjectResult._(
+            eTag: eTag,
+            lastModified: lastModified,
             checksumCrc32: checksumCrc32,
             checksumCrc32C: checksumCrc32C,
             checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256,
-            eTag: eTag,
-            lastModified: lastModified);
+            checksumSha256: checksumSha256);
     replace(_$result);
     return _$result;
   }

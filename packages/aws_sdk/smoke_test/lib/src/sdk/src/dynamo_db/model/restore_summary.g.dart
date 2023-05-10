@@ -8,22 +8,22 @@ part of smoke_test.dynamo_db.model.restore_summary;
 
 class _$RestoreSummary extends RestoreSummary {
   @override
-  final DateTime restoreDateTime;
-  @override
-  final bool restoreInProgress;
-  @override
   final String? sourceBackupArn;
   @override
   final String? sourceTableArn;
+  @override
+  final DateTime restoreDateTime;
+  @override
+  final bool restoreInProgress;
 
   factory _$RestoreSummary([void Function(RestoreSummaryBuilder)? updates]) =>
       (new RestoreSummaryBuilder()..update(updates))._build();
 
   _$RestoreSummary._(
-      {required this.restoreDateTime,
-      required this.restoreInProgress,
-      this.sourceBackupArn,
-      this.sourceTableArn})
+      {this.sourceBackupArn,
+      this.sourceTableArn,
+      required this.restoreDateTime,
+      required this.restoreInProgress})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         restoreDateTime, r'RestoreSummary', 'restoreDateTime');
@@ -43,19 +43,19 @@ class _$RestoreSummary extends RestoreSummary {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is RestoreSummary &&
-        restoreDateTime == other.restoreDateTime &&
-        restoreInProgress == other.restoreInProgress &&
         sourceBackupArn == other.sourceBackupArn &&
-        sourceTableArn == other.sourceTableArn;
+        sourceTableArn == other.sourceTableArn &&
+        restoreDateTime == other.restoreDateTime &&
+        restoreInProgress == other.restoreInProgress;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, restoreDateTime.hashCode);
-    _$hash = $jc(_$hash, restoreInProgress.hashCode);
     _$hash = $jc(_$hash, sourceBackupArn.hashCode);
     _$hash = $jc(_$hash, sourceTableArn.hashCode);
+    _$hash = $jc(_$hash, restoreDateTime.hashCode);
+    _$hash = $jc(_$hash, restoreInProgress.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -64,16 +64,6 @@ class _$RestoreSummary extends RestoreSummary {
 class RestoreSummaryBuilder
     implements Builder<RestoreSummary, RestoreSummaryBuilder> {
   _$RestoreSummary? _$v;
-
-  DateTime? _restoreDateTime;
-  DateTime? get restoreDateTime => _$this._restoreDateTime;
-  set restoreDateTime(DateTime? restoreDateTime) =>
-      _$this._restoreDateTime = restoreDateTime;
-
-  bool? _restoreInProgress;
-  bool? get restoreInProgress => _$this._restoreInProgress;
-  set restoreInProgress(bool? restoreInProgress) =>
-      _$this._restoreInProgress = restoreInProgress;
 
   String? _sourceBackupArn;
   String? get sourceBackupArn => _$this._sourceBackupArn;
@@ -85,6 +75,16 @@ class RestoreSummaryBuilder
   set sourceTableArn(String? sourceTableArn) =>
       _$this._sourceTableArn = sourceTableArn;
 
+  DateTime? _restoreDateTime;
+  DateTime? get restoreDateTime => _$this._restoreDateTime;
+  set restoreDateTime(DateTime? restoreDateTime) =>
+      _$this._restoreDateTime = restoreDateTime;
+
+  bool? _restoreInProgress;
+  bool? get restoreInProgress => _$this._restoreInProgress;
+  set restoreInProgress(bool? restoreInProgress) =>
+      _$this._restoreInProgress = restoreInProgress;
+
   RestoreSummaryBuilder() {
     RestoreSummary._init(this);
   }
@@ -92,10 +92,10 @@ class RestoreSummaryBuilder
   RestoreSummaryBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _restoreDateTime = $v.restoreDateTime;
-      _restoreInProgress = $v.restoreInProgress;
       _sourceBackupArn = $v.sourceBackupArn;
       _sourceTableArn = $v.sourceTableArn;
+      _restoreDateTime = $v.restoreDateTime;
+      _restoreInProgress = $v.restoreInProgress;
       _$v = null;
     }
     return this;
@@ -118,12 +118,12 @@ class RestoreSummaryBuilder
   _$RestoreSummary _build() {
     final _$result = _$v ??
         new _$RestoreSummary._(
+            sourceBackupArn: sourceBackupArn,
+            sourceTableArn: sourceTableArn,
             restoreDateTime: BuiltValueNullFieldError.checkNotNull(
                 restoreDateTime, r'RestoreSummary', 'restoreDateTime'),
             restoreInProgress: BuiltValueNullFieldError.checkNotNull(
-                restoreInProgress, r'RestoreSummary', 'restoreInProgress'),
-            sourceBackupArn: sourceBackupArn,
-            sourceTableArn: sourceTableArn);
+                restoreInProgress, r'RestoreSummary', 'restoreInProgress'));
     replace(_$result);
     return _$result;
   }

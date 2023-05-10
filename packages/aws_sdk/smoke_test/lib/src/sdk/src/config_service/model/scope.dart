@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.scope; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,18 +17,18 @@ abstract class Scope
     implements Built<Scope, ScopeBuilder> {
   /// Defines which resources trigger an evaluation for an Config rule. The scope can include one or more resource types, a combination of a tag key and value, or a combination of one resource type and one resource ID. Specify a scope to constrain which resources trigger an evaluation for a rule. Otherwise, evaluations for the rule are triggered when any resource in your recording group changes in configuration.
   factory Scope({
-    String? complianceResourceId,
     List<String>? complianceResourceTypes,
     String? tagKey,
     String? tagValue,
+    String? complianceResourceId,
   }) {
     return _$Scope._(
-      complianceResourceId: complianceResourceId,
       complianceResourceTypes: complianceResourceTypes == null
           ? null
           : _i2.BuiltList(complianceResourceTypes),
       tagKey: tagKey,
       tagValue: tagValue,
+      complianceResourceId: complianceResourceId,
     );
   }
 
@@ -43,9 +44,6 @@ abstract class Scope
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ScopeBuilder b) {}
 
-  /// The ID of the only Amazon Web Services resource that you want to trigger an evaluation for the rule. If you specify a resource ID, you must specify one resource type for `ComplianceResourceTypes`.
-  String? get complianceResourceId;
-
   /// The resource types of only those Amazon Web Services resources that you want to trigger an evaluation for the rule. You can only specify one type if you also specify a resource ID for `ComplianceResourceId`.
   _i2.BuiltList<String>? get complianceResourceTypes;
 
@@ -54,20 +52,19 @@ abstract class Scope
 
   /// The tag value applied to only those Amazon Web Services resources that you want to trigger an evaluation for the rule. If you specify a value for `TagValue`, you must also specify a value for `TagKey`.
   String? get tagValue;
+
+  /// The ID of the only Amazon Web Services resource that you want to trigger an evaluation for the rule. If you specify a resource ID, you must specify one resource type for `ComplianceResourceTypes`.
+  String? get complianceResourceId;
   @override
   List<Object?> get props => [
-        complianceResourceId,
         complianceResourceTypes,
         tagKey,
         tagValue,
+        complianceResourceId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Scope');
-    helper.add(
-      'complianceResourceId',
-      complianceResourceId,
-    );
     helper.add(
       'complianceResourceTypes',
       complianceResourceTypes,
@@ -79,6 +76,10 @@ abstract class Scope
     helper.add(
       'tagValue',
       tagValue,
+    );
+    helper.add(
+      'complianceResourceId',
+      complianceResourceId,
     );
     return helper.toString();
   }
@@ -111,42 +112,33 @@ class ScopeAwsJson11Serializer extends _i3.StructuredSmithySerializer<Scope> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ComplianceResourceId':
-          if (value != null) {
-            result.complianceResourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ComplianceResourceTypes':
-          if (value != null) {
-            result.complianceResourceTypes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.complianceResourceTypes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
         case 'TagKey':
-          if (value != null) {
-            result.tagKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tagKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TagValue':
-          if (value != null) {
-            result.tagValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tagValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ComplianceResourceId':
+          result.complianceResourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -156,46 +148,51 @@ class ScopeAwsJson11Serializer extends _i3.StructuredSmithySerializer<Scope> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Scope object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Scope);
-    final result = <Object?>[];
-    if (payload.complianceResourceId != null) {
-      result
-        ..add('ComplianceResourceId')
-        ..add(serializers.serialize(
-          payload.complianceResourceId!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.complianceResourceTypes != null) {
-      result
+    final result$ = <Object?>[];
+    final Scope(
+      :complianceResourceTypes,
+      :tagKey,
+      :tagValue,
+      :complianceResourceId
+    ) = object;
+    if (complianceResourceTypes != null) {
+      result$
         ..add('ComplianceResourceTypes')
         ..add(serializers.serialize(
-          payload.complianceResourceTypes!,
+          complianceResourceTypes,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.tagKey != null) {
-      result
+    if (tagKey != null) {
+      result$
         ..add('TagKey')
         ..add(serializers.serialize(
-          payload.tagKey!,
+          tagKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tagValue != null) {
-      result
+    if (tagValue != null) {
+      result$
         ..add('TagValue')
         ..add(serializers.serialize(
-          payload.tagValue!,
+          tagValue,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    if (complianceResourceId != null) {
+      result$
+        ..add('ComplianceResourceId')
+        ..add(serializers.serialize(
+          complianceResourceId,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

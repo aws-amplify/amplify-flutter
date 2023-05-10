@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.batch_execute_statement_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,9 +9,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_statement_request.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart'
+    as _i4;
 
 part 'batch_execute_statement_input.g.dart';
 
@@ -21,12 +22,12 @@ abstract class BatchExecuteStatementInput
     implements
         Built<BatchExecuteStatementInput, BatchExecuteStatementInputBuilder> {
   factory BatchExecuteStatementInput({
-    _i3.ReturnConsumedCapacity? returnConsumedCapacity,
-    required List<_i4.BatchStatementRequest> statements,
+    required List<_i3.BatchStatementRequest> statements,
+    _i4.ReturnConsumedCapacity? returnConsumedCapacity,
   }) {
     return _$BatchExecuteStatementInput._(
-      returnConsumedCapacity: returnConsumedCapacity,
       statements: _i5.BuiltList(statements),
+      returnConsumedCapacity: returnConsumedCapacity,
     );
   }
 
@@ -50,6 +51,9 @@ abstract class BatchExecuteStatementInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BatchExecuteStatementInputBuilder b) {}
 
+  /// The list of PartiQL statements representing the batch to run.
+  _i5.BuiltList<_i3.BatchStatementRequest> get statements;
+
   /// Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response:
   ///
   /// *   `INDEXES` \- The response includes the aggregate `ConsumedCapacity` for the operation, together with `ConsumedCapacity` for each table and secondary index that was accessed.
@@ -59,27 +63,24 @@ abstract class BatchExecuteStatementInput
   /// *   `TOTAL` \- The response includes only the aggregate `ConsumedCapacity` for the operation.
   ///
   /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
-  _i3.ReturnConsumedCapacity? get returnConsumedCapacity;
-
-  /// The list of PartiQL statements representing the batch to run.
-  _i5.BuiltList<_i4.BatchStatementRequest> get statements;
+  _i4.ReturnConsumedCapacity? get returnConsumedCapacity;
   @override
   BatchExecuteStatementInput getPayload() => this;
   @override
   List<Object?> get props => [
-        returnConsumedCapacity,
         statements,
+        returnConsumedCapacity,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('BatchExecuteStatementInput');
     helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
       'statements',
       statements,
+    );
+    helper.add(
+      'returnConsumedCapacity',
+      returnConsumedCapacity,
     );
     return helper.toString();
   }
@@ -114,24 +115,23 @@ class BatchExecuteStatementInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ReturnConsumedCapacity),
-            ) as _i3.ReturnConsumedCapacity);
-          }
-          break;
         case 'Statements':
           result.statements.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
               _i5.BuiltList,
-              [FullType(_i4.BatchStatementRequest)],
+              [FullType(_i3.BatchStatementRequest)],
             ),
-          ) as _i5.BuiltList<_i4.BatchStatementRequest>));
-          break;
+          ) as _i5.BuiltList<_i3.BatchStatementRequest>));
+        case 'ReturnConsumedCapacity':
+          result.returnConsumedCapacity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          ) as _i4.ReturnConsumedCapacity);
       }
     }
 
@@ -141,28 +141,30 @@ class BatchExecuteStatementInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BatchExecuteStatementInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BatchExecuteStatementInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final BatchExecuteStatementInput(:statements, :returnConsumedCapacity) =
+        object;
+    result$.addAll([
       'Statements',
       serializers.serialize(
-        payload.statements,
+        statements,
         specifiedType: const FullType(
           _i5.BuiltList,
-          [FullType(_i4.BatchStatementRequest)],
+          [FullType(_i3.BatchStatementRequest)],
         ),
       ),
-    ];
-    if (payload.returnConsumedCapacity != null) {
-      result
+    ]);
+    if (returnConsumedCapacity != null) {
+      result$
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
-          payload.returnConsumedCapacity!,
-          specifiedType: const FullType(_i3.ReturnConsumedCapacity),
+          returnConsumedCapacity,
+          specifiedType: const FullType(_i4.ReturnConsumedCapacity),
         ));
     }
-    return result;
+    return result$;
   }
 }

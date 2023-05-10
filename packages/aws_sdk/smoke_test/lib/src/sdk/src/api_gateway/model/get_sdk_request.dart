@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.get_sdk_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,16 +21,16 @@ abstract class GetSdkRequest
         _i1.HasPayload<GetSdkRequestPayload> {
   /// Request a new generated client SDK for a RestApi and Stage.
   factory GetSdkRequest({
-    Map<String, String>? parameters,
     required String restApiId,
-    required String sdkType,
     required String stageName,
+    required String sdkType,
+    Map<String, String>? parameters,
   }) {
     return _$GetSdkRequest._(
-      parameters: parameters == null ? null : _i3.BuiltMap(parameters),
       restApiId: restApiId,
-      sdkType: sdkType,
       stageName: stageName,
+      sdkType: sdkType,
+      parameters: parameters == null ? null : _i3.BuiltMap(parameters),
     );
   }
 
@@ -63,17 +64,17 @@ abstract class GetSdkRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetSdkRequestBuilder b) {}
 
-  /// A string-to-string key-value map of query parameters `sdkType`-dependent properties of the SDK. For `sdkType` of `objectivec` or `swift`, a parameter named `classPrefix` is required. For `sdkType` of `android`, parameters named `groupId`, `artifactId`, `artifactVersion`, and `invokerPackage` are required. For `sdkType` of `java`, parameters named `serviceName` and `javaPackageName` are required.
-  _i3.BuiltMap<String, String>? get parameters;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The name of the Stage that the SDK will use.
+  String get stageName;
 
   /// The language for the generated SDK. Currently `java`, `javascript`, `android`, `objectivec` (for iOS), `swift` (for iOS), and `ruby` are supported.
   String get sdkType;
 
-  /// The name of the Stage that the SDK will use.
-  String get stageName;
+  /// A string-to-string key-value map of query parameters `sdkType`-dependent properties of the SDK. For `sdkType` of `objectivec` or `swift`, a parameter named `classPrefix` is required. For `sdkType` of `android`, parameters named `groupId`, `artifactId`, `artifactVersion`, and `invokerPackage` are required. For `sdkType` of `java`, parameters named `serviceName` and `javaPackageName` are required.
+  _i3.BuiltMap<String, String>? get parameters;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -94,29 +95,29 @@ abstract class GetSdkRequest
   GetSdkRequestPayload getPayload() => GetSdkRequestPayload();
   @override
   List<Object?> get props => [
-        parameters,
         restApiId,
-        sdkType,
         stageName,
+        sdkType,
+        parameters,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetSdkRequest');
     helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'stageName',
+      stageName,
     );
     helper.add(
       'sdkType',
       sdkType,
     );
     helper.add(
-      'stageName',
-      stageName,
+      'parameters',
+      parameters,
     );
     return helper.toString();
   }
@@ -175,7 +176,7 @@ class GetSdkRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetSdkRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

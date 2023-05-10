@@ -8,15 +8,15 @@ part of smoke_test.dynamo_db_streams.model.list_streams_output;
 
 class _$ListStreamsOutput extends ListStreamsOutput {
   @override
-  final String? lastEvaluatedStreamArn;
-  @override
   final _i3.BuiltList<_i2.Stream>? streams;
+  @override
+  final String? lastEvaluatedStreamArn;
 
   factory _$ListStreamsOutput(
           [void Function(ListStreamsOutputBuilder)? updates]) =>
       (new ListStreamsOutputBuilder()..update(updates))._build();
 
-  _$ListStreamsOutput._({this.lastEvaluatedStreamArn, this.streams})
+  _$ListStreamsOutput._({this.streams, this.lastEvaluatedStreamArn})
       : super._();
 
   @override
@@ -31,15 +31,15 @@ class _$ListStreamsOutput extends ListStreamsOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListStreamsOutput &&
-        lastEvaluatedStreamArn == other.lastEvaluatedStreamArn &&
-        streams == other.streams;
+        streams == other.streams &&
+        lastEvaluatedStreamArn == other.lastEvaluatedStreamArn;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, lastEvaluatedStreamArn.hashCode);
     _$hash = $jc(_$hash, streams.hashCode);
+    _$hash = $jc(_$hash, lastEvaluatedStreamArn.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -49,16 +49,16 @@ class ListStreamsOutputBuilder
     implements Builder<ListStreamsOutput, ListStreamsOutputBuilder> {
   _$ListStreamsOutput? _$v;
 
-  String? _lastEvaluatedStreamArn;
-  String? get lastEvaluatedStreamArn => _$this._lastEvaluatedStreamArn;
-  set lastEvaluatedStreamArn(String? lastEvaluatedStreamArn) =>
-      _$this._lastEvaluatedStreamArn = lastEvaluatedStreamArn;
-
   _i3.ListBuilder<_i2.Stream>? _streams;
   _i3.ListBuilder<_i2.Stream> get streams =>
       _$this._streams ??= new _i3.ListBuilder<_i2.Stream>();
   set streams(_i3.ListBuilder<_i2.Stream>? streams) =>
       _$this._streams = streams;
+
+  String? _lastEvaluatedStreamArn;
+  String? get lastEvaluatedStreamArn => _$this._lastEvaluatedStreamArn;
+  set lastEvaluatedStreamArn(String? lastEvaluatedStreamArn) =>
+      _$this._lastEvaluatedStreamArn = lastEvaluatedStreamArn;
 
   ListStreamsOutputBuilder() {
     ListStreamsOutput._init(this);
@@ -67,8 +67,8 @@ class ListStreamsOutputBuilder
   ListStreamsOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _lastEvaluatedStreamArn = $v.lastEvaluatedStreamArn;
       _streams = $v.streams?.toBuilder();
+      _lastEvaluatedStreamArn = $v.lastEvaluatedStreamArn;
       _$v = null;
     }
     return this;
@@ -93,8 +93,8 @@ class ListStreamsOutputBuilder
     try {
       _$result = _$v ??
           new _$ListStreamsOutput._(
-              lastEvaluatedStreamArn: lastEvaluatedStreamArn,
-              streams: _streams?.build());
+              streams: _streams?.build(),
+              lastEvaluatedStreamArn: lastEvaluatedStreamArn);
     } catch (_) {
       late String _$failedField;
       try {

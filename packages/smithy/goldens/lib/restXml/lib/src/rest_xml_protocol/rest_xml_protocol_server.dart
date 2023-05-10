@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.rest_xml_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -1233,8 +1234,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _allQueryStringTypesProtocol.contentType;
     try {
-      final payload = (await _allQueryStringTypesProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _allQueryStringTypesProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i5.AllQueryStringTypesInputPayload),
       ) as _i5.AllQueryStringTypesInputPayload);
       final input = _i5.AllQueryStringTypesInput.fromRequest(
@@ -1247,7 +1249,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _allQueryStringTypesProtocol.serialize(
+      final body = await _allQueryStringTypesProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -1273,8 +1275,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _bodyWithXmlNameProtocol.contentType;
     try {
-      final payload = (await _bodyWithXmlNameProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _bodyWithXmlNameProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i6.BodyWithXmlNameInputOutput),
       ) as _i6.BodyWithXmlNameInputOutput);
       final input = _i6.BodyWithXmlNameInputOutput.fromRequest(
@@ -1287,7 +1290,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _bodyWithXmlNameProtocol.serialize(
+      final body = await _bodyWithXmlNameProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i6.BodyWithXmlNameInputOutput,
@@ -1314,9 +1317,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _constantAndVariableQueryStringProtocol.contentType;
     try {
-      final payload =
-          (await _constantAndVariableQueryStringProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _constantAndVariableQueryStringProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i7.ConstantAndVariableQueryStringInputPayload),
       ) as _i7.ConstantAndVariableQueryStringInputPayload);
@@ -1330,7 +1334,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _constantAndVariableQueryStringProtocol.serialize(
+      final body = await _constantAndVariableQueryStringProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -1359,8 +1364,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _constantQueryStringProtocol.contentType;
     try {
-      final payload = (await _constantQueryStringProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _constantQueryStringProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i8.ConstantQueryStringInputPayload),
       ) as _i8.ConstantQueryStringInputPayload);
       final input = _i8.ConstantQueryStringInput.fromRequest(
@@ -1373,7 +1379,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _constantQueryStringProtocol.serialize(
+      final body = await _constantQueryStringProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -1399,8 +1405,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _datetimeOffsetsProtocol.contentType;
     try {
-      final payload = (await _datetimeOffsetsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _datetimeOffsetsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -1409,7 +1416,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _datetimeOffsetsProtocol.serialize(
+      final body = await _datetimeOffsetsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i9.DatetimeOffsetsOutput,
@@ -1436,8 +1443,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _emptyInputAndEmptyOutputProtocol.contentType;
     try {
-      final payload = (await _emptyInputAndEmptyOutputProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _emptyInputAndEmptyOutputProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i11.EmptyInputAndEmptyOutputInput),
       ) as _i11.EmptyInputAndEmptyOutputInput);
       final input = _i11.EmptyInputAndEmptyOutputInput.fromRequest(
@@ -1450,7 +1458,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _emptyInputAndEmptyOutputProtocol.serialize(
+      final body =
+          await _emptyInputAndEmptyOutputProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i10.EmptyInputAndEmptyOutputOutput,
@@ -1476,8 +1485,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _endpointOperationProtocol.contentType;
     try {
-      final payload = (await _endpointOperationProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _endpointOperationProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -1486,7 +1496,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _endpointOperationProtocol.serialize(
+      final body = await _endpointOperationProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -1513,9 +1523,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _endpointWithHostLabelHeaderOperationProtocol.contentType;
     try {
-      final payload =
-          (await _endpointWithHostLabelHeaderOperationProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _endpointWithHostLabelHeaderOperationProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i12.HostLabelHeaderInputPayload),
       ) as _i12.HostLabelHeaderInputPayload);
       final input = _i12.HostLabelHeaderInput.fromRequest(
@@ -1528,7 +1539,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _endpointWithHostLabelHeaderOperationProtocol.serialize(
+      final body = await _endpointWithHostLabelHeaderOperationProtocol
+          .wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -1555,9 +1568,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _endpointWithHostLabelOperationProtocol.contentType;
     try {
-      final payload =
-          (await _endpointWithHostLabelOperationProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _endpointWithHostLabelOperationProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i13.HostLabelInput),
       ) as _i13.HostLabelInput);
       final input = _i13.HostLabelInput.fromRequest(
@@ -1570,7 +1584,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _endpointWithHostLabelOperationProtocol.serialize(
+      final body = await _endpointWithHostLabelOperationProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -1596,8 +1611,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _flattenedXmlMapProtocol.contentType;
     try {
-      final payload = (await _flattenedXmlMapProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _flattenedXmlMapProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i14.FlattenedXmlMapInputOutput),
       ) as _i14.FlattenedXmlMapInputOutput);
       final input = _i14.FlattenedXmlMapInputOutput.fromRequest(
@@ -1610,7 +1626,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _flattenedXmlMapProtocol.serialize(
+      final body = await _flattenedXmlMapProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i14.FlattenedXmlMapInputOutput,
@@ -1637,8 +1653,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _flattenedXmlMapWithXmlNameProtocol.contentType;
     try {
-      final payload = (await _flattenedXmlMapWithXmlNameProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _flattenedXmlMapWithXmlNameProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i15.FlattenedXmlMapWithXmlNameInputOutput),
       ) as _i15.FlattenedXmlMapWithXmlNameInputOutput);
@@ -1652,7 +1669,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _flattenedXmlMapWithXmlNameProtocol.serialize(
+      final body =
+          await _flattenedXmlMapWithXmlNameProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i15.FlattenedXmlMapWithXmlNameInputOutput,
@@ -1679,9 +1697,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _flattenedXmlMapWithXmlNamespaceProtocol.contentType;
     try {
-      final payload =
-          (await _flattenedXmlMapWithXmlNamespaceProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _flattenedXmlMapWithXmlNamespaceProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -1690,7 +1709,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _flattenedXmlMapWithXmlNamespaceProtocol.serialize(
+      final body = await _flattenedXmlMapWithXmlNamespaceProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i16.FlattenedXmlMapWithXmlNamespaceOutput,
@@ -1716,8 +1736,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _fractionalSecondsProtocol.contentType;
     try {
-      final payload = (await _fractionalSecondsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _fractionalSecondsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -1726,7 +1747,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _fractionalSecondsProtocol.serialize(
+      final body = await _fractionalSecondsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i17.FractionalSecondsOutput,
@@ -1752,8 +1773,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _greetingWithErrorsProtocol.contentType;
     try {
-      final payload = (await _greetingWithErrorsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _greetingWithErrorsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -1762,7 +1784,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _greetingWithErrorsProtocol.serialize(
+      final body = await _greetingWithErrorsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i18.GreetingWithErrorsOutput,
@@ -1776,7 +1798,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
       );
     } on _i62.ComplexError catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ComplexError';
-      final body = _greetingWithErrorsProtocol.serialize(
+      final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i62.ComplexError,
@@ -1791,7 +1813,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
       );
     } on _i63.InvalidGreeting catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'InvalidGreeting';
-      final body = _greetingWithErrorsProtocol.serialize(
+      final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i63.InvalidGreeting,
@@ -1818,8 +1840,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _httpPayloadTraitsProtocol.contentType;
     try {
-      final payload = (await _httpPayloadTraitsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpPayloadTraitsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i57.Uint8List),
       ) as _i57.Uint8List?);
       final input = _i19.HttpPayloadTraitsInputOutput.fromRequest(
@@ -1835,7 +1858,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context.response.headers['X-Foo'] = output.foo!;
       }
       const statusCode = 200;
-      final body = _httpPayloadTraitsProtocol.serialize(
+      final body = await _httpPayloadTraitsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i19.HttpPayloadTraitsInputOutput,
@@ -1862,9 +1885,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _httpPayloadTraitsWithMediaTypeProtocol.contentType;
     try {
-      final payload =
-          (await _httpPayloadTraitsWithMediaTypeProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpPayloadTraitsWithMediaTypeProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i57.Uint8List),
       ) as _i57.Uint8List?);
       final input = _i20.HttpPayloadTraitsWithMediaTypeInputOutput.fromRequest(
@@ -1880,7 +1904,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context.response.headers['X-Foo'] = output.foo!;
       }
       const statusCode = 200;
-      final body = _httpPayloadTraitsWithMediaTypeProtocol.serialize(
+      final body = await _httpPayloadTraitsWithMediaTypeProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i20.HttpPayloadTraitsWithMediaTypeInputOutput,
@@ -1907,8 +1932,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _httpPayloadWithMemberXmlNameProtocol.contentType;
     try {
-      final payload = (await _httpPayloadWithMemberXmlNameProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpPayloadWithMemberXmlNameProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i58.PayloadWithXmlName),
       ) as _i58.PayloadWithXmlName?);
       final input = _i21.HttpPayloadWithMemberXmlNameInputOutput.fromRequest(
@@ -1921,7 +1948,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpPayloadWithMemberXmlNameProtocol.serialize(
+      final body =
+          await _httpPayloadWithMemberXmlNameProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i21.HttpPayloadWithMemberXmlNameInputOutput,
@@ -1948,8 +1976,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _httpPayloadWithStructureProtocol.contentType;
     try {
-      final payload = (await _httpPayloadWithStructureProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpPayloadWithStructureProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i59.NestedPayload),
       ) as _i59.NestedPayload?);
       final input = _i22.HttpPayloadWithStructureInputOutput.fromRequest(
@@ -1962,7 +1991,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpPayloadWithStructureProtocol.serialize(
+      final body =
+          await _httpPayloadWithStructureProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i22.HttpPayloadWithStructureInputOutput,
@@ -1988,8 +2018,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _httpPayloadWithXmlNameProtocol.contentType;
     try {
-      final payload = (await _httpPayloadWithXmlNameProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpPayloadWithXmlNameProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i58.PayloadWithXmlName),
       ) as _i58.PayloadWithXmlName?);
       final input = _i23.HttpPayloadWithXmlNameInputOutput.fromRequest(
@@ -2002,7 +2033,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpPayloadWithXmlNameProtocol.serialize(
+      final body =
+          await _httpPayloadWithXmlNameProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i23.HttpPayloadWithXmlNameInputOutput,
@@ -2029,8 +2061,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _httpPayloadWithXmlNamespaceProtocol.contentType;
     try {
-      final payload = (await _httpPayloadWithXmlNamespaceProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpPayloadWithXmlNamespaceProtocol.wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i60.PayloadWithXmlNamespace),
       ) as _i60.PayloadWithXmlNamespace?);
       final input = _i24.HttpPayloadWithXmlNamespaceInputOutput.fromRequest(
@@ -2043,7 +2076,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpPayloadWithXmlNamespaceProtocol.serialize(
+      final body =
+          await _httpPayloadWithXmlNamespaceProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i24.HttpPayloadWithXmlNamespaceInputOutput,
@@ -2070,9 +2104,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _httpPayloadWithXmlNamespaceAndPrefixProtocol.contentType;
     try {
-      final payload =
-          (await _httpPayloadWithXmlNamespaceAndPrefixProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpPayloadWithXmlNamespaceAndPrefixProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType.nullable(_i61.PayloadWithXmlNamespaceAndPrefix),
       ) as _i61.PayloadWithXmlNamespaceAndPrefix?);
@@ -2087,7 +2122,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpPayloadWithXmlNamespaceAndPrefixProtocol.serialize(
+      final body = await _httpPayloadWithXmlNamespaceAndPrefixProtocol
+          .wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i25.HttpPayloadWithXmlNamespaceAndPrefixInputOutput,
@@ -2113,8 +2150,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _httpPrefixHeadersProtocol.contentType;
     try {
-      final payload = (await _httpPrefixHeadersProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpPrefixHeadersProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i26.HttpPrefixHeadersInputOutputPayload),
       ) as _i26.HttpPrefixHeadersInputOutputPayload);
       final input = _i26.HttpPrefixHeadersInputOutput.fromRequest(
@@ -2130,7 +2168,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context.response.headers['X-Foo'] = output.foo!;
       }
       const statusCode = 200;
-      final body = _httpPrefixHeadersProtocol.serialize(
+      final body = await _httpPrefixHeadersProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i26.HttpPrefixHeadersInputOutput,
@@ -2160,8 +2198,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _httpRequestWithFloatLabelsProtocol.contentType;
     try {
-      final payload = (await _httpRequestWithFloatLabelsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpRequestWithFloatLabelsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i27.HttpRequestWithFloatLabelsInputPayload),
       ) as _i27.HttpRequestWithFloatLabelsInputPayload);
@@ -2178,7 +2217,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpRequestWithFloatLabelsProtocol.serialize(
+      final body =
+          await _httpRequestWithFloatLabelsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2208,9 +2248,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _httpRequestWithGreedyLabelInPathProtocol.contentType;
     try {
-      final payload =
-          (await _httpRequestWithGreedyLabelInPathProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpRequestWithGreedyLabelInPathProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i28.HttpRequestWithGreedyLabelInPathInputPayload),
       ) as _i28.HttpRequestWithGreedyLabelInPathInputPayload);
@@ -2227,7 +2268,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpRequestWithGreedyLabelInPathProtocol.serialize(
+      final body = await _httpRequestWithGreedyLabelInPathProtocol
+          .wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2263,8 +2306,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _httpRequestWithLabelsProtocol.contentType;
     try {
-      final payload = (await _httpRequestWithLabelsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpRequestWithLabelsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i29.HttpRequestWithLabelsInputPayload),
       ) as _i29.HttpRequestWithLabelsInputPayload);
       final input = _i29.HttpRequestWithLabelsInput.fromRequest(
@@ -2286,7 +2330,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpRequestWithLabelsProtocol.serialize(
+      final body =
+          await _httpRequestWithLabelsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2321,9 +2366,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _httpRequestWithLabelsAndTimestampFormatProtocol.contentType;
     try {
-      final payload =
-          (await _httpRequestWithLabelsAndTimestampFormatProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpRequestWithLabelsAndTimestampFormatProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(
             _i30.HttpRequestWithLabelsAndTimestampFormatInputPayload),
       ) as _i30.HttpRequestWithLabelsAndTimestampFormatInputPayload);
@@ -2346,7 +2392,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpRequestWithLabelsAndTimestampFormatProtocol.serialize(
+      final body = await _httpRequestWithLabelsAndTimestampFormatProtocol
+          .wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2372,8 +2420,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _httpResponseCodeProtocol.contentType;
     try {
-      final payload = (await _httpResponseCodeProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpResponseCodeProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -2382,7 +2431,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpResponseCodeProtocol.serialize(
+      final body = await _httpResponseCodeProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i31.HttpResponseCodeOutput,
@@ -2409,8 +2458,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _ignoreQueryParamsInResponseProtocol.contentType;
     try {
-      final payload = (await _ignoreQueryParamsInResponseProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _ignoreQueryParamsInResponseProtocol.wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -2419,7 +2469,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _ignoreQueryParamsInResponseProtocol.serialize(
+      final body =
+          await _ignoreQueryParamsInResponseProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i32.IgnoreQueryParamsInResponseOutput,
@@ -2446,8 +2497,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _inputAndOutputWithHeadersProtocol.contentType;
     try {
-      final payload = (await _inputAndOutputWithHeadersProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _inputAndOutputWithHeadersProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i33.InputAndOutputWithHeadersIoPayload),
       ) as _i33.InputAndOutputWithHeadersIoPayload);
       final input = _i33.InputAndOutputWithHeadersIo.fromRequest(
@@ -2533,7 +2585,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
             .join(', ');
       }
       const statusCode = 200;
-      final body = _inputAndOutputWithHeadersProtocol.serialize(
+      final body =
+          await _inputAndOutputWithHeadersProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i33.InputAndOutputWithHeadersIo,
@@ -2559,8 +2612,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _nestedXmlMapsProtocol.contentType;
     try {
-      final payload = (await _nestedXmlMapsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _nestedXmlMapsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i34.NestedXmlMapsInputOutput),
       ) as _i34.NestedXmlMapsInputOutput);
       final input = _i34.NestedXmlMapsInputOutput.fromRequest(
@@ -2573,7 +2626,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _nestedXmlMapsProtocol.serialize(
+      final body = await _nestedXmlMapsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i34.NestedXmlMapsInputOutput,
@@ -2599,8 +2652,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _noInputAndNoOutputProtocol.contentType;
     try {
-      final payload = (await _noInputAndNoOutputProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _noInputAndNoOutputProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -2609,7 +2663,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _noInputAndNoOutputProtocol.serialize(
+      final body = await _noInputAndNoOutputProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2635,8 +2689,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _noInputAndOutputProtocol.contentType;
     try {
-      final payload = (await _noInputAndOutputProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _noInputAndOutputProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -2645,7 +2700,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _noInputAndOutputProtocol.serialize(
+      final body = await _noInputAndOutputProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i35.NoInputAndOutputOutput,
@@ -2672,8 +2727,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _nullAndEmptyHeadersClientProtocol.contentType;
     try {
-      final payload = (await _nullAndEmptyHeadersClientProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _nullAndEmptyHeadersClientProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i36.NullAndEmptyHeadersIoPayload),
       ) as _i36.NullAndEmptyHeadersIoPayload);
       final input = _i36.NullAndEmptyHeadersIo.fromRequest(
@@ -2696,7 +2752,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
             output.c!.map((el) => _i1.sanitizeHeader(el)).join(', ');
       }
       const statusCode = 200;
-      final body = _nullAndEmptyHeadersClientProtocol.serialize(
+      final body =
+          await _nullAndEmptyHeadersClientProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i36.NullAndEmptyHeadersIo,
@@ -2723,8 +2780,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _nullAndEmptyHeadersServerProtocol.contentType;
     try {
-      final payload = (await _nullAndEmptyHeadersServerProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _nullAndEmptyHeadersServerProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i36.NullAndEmptyHeadersIoPayload),
       ) as _i36.NullAndEmptyHeadersIoPayload);
       final input = _i36.NullAndEmptyHeadersIo.fromRequest(
@@ -2747,7 +2805,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
             output.c!.map((el) => _i1.sanitizeHeader(el)).join(', ');
       }
       const statusCode = 200;
-      final body = _nullAndEmptyHeadersServerProtocol.serialize(
+      final body =
+          await _nullAndEmptyHeadersServerProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i36.NullAndEmptyHeadersIo,
@@ -2774,9 +2833,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _omitsNullSerializesEmptyStringProtocol.contentType;
     try {
-      final payload =
-          (await _omitsNullSerializesEmptyStringProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _omitsNullSerializesEmptyStringProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i37.OmitsNullSerializesEmptyStringInputPayload),
       ) as _i37.OmitsNullSerializesEmptyStringInputPayload);
@@ -2790,7 +2850,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _omitsNullSerializesEmptyStringProtocol.serialize(
+      final body = await _omitsNullSerializesEmptyStringProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2817,8 +2878,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _queryIdempotencyTokenAutoFillProtocol.contentType;
     try {
-      final payload = (await _queryIdempotencyTokenAutoFillProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _queryIdempotencyTokenAutoFillProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i38.QueryIdempotencyTokenAutoFillInputPayload),
       ) as _i38.QueryIdempotencyTokenAutoFillInputPayload);
@@ -2832,7 +2895,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _queryIdempotencyTokenAutoFillProtocol.serialize(
+      final body =
+          await _queryIdempotencyTokenAutoFillProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2859,8 +2923,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _queryParamsAsStringListMapProtocol.contentType;
     try {
-      final payload = (await _queryParamsAsStringListMapProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _queryParamsAsStringListMapProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i39.QueryParamsAsStringListMapInputPayload),
       ) as _i39.QueryParamsAsStringListMapInputPayload);
@@ -2874,7 +2939,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _queryParamsAsStringListMapProtocol.serialize(
+      final body =
+          await _queryParamsAsStringListMapProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2900,8 +2966,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _queryPrecedenceProtocol.contentType;
     try {
-      final payload = (await _queryPrecedenceProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _queryPrecedenceProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i40.QueryPrecedenceInputPayload),
       ) as _i40.QueryPrecedenceInputPayload);
       final input = _i40.QueryPrecedenceInput.fromRequest(
@@ -2914,7 +2981,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _queryPrecedenceProtocol.serialize(
+      final body = await _queryPrecedenceProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2940,8 +3007,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _recursiveShapesProtocol.contentType;
     try {
-      final payload = (await _recursiveShapesProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _recursiveShapesProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i41.RecursiveShapesInputOutput),
       ) as _i41.RecursiveShapesInputOutput);
       final input = _i41.RecursiveShapesInputOutput.fromRequest(
@@ -2954,7 +3022,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _recursiveShapesProtocol.serialize(
+      final body = await _recursiveShapesProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i41.RecursiveShapesInputOutput,
@@ -2980,8 +3048,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _simpleScalarPropertiesProtocol.contentType;
     try {
-      final payload = (await _simpleScalarPropertiesProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _simpleScalarPropertiesProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i42.SimpleScalarPropertiesInputOutputPayload),
       ) as _i42.SimpleScalarPropertiesInputOutputPayload);
@@ -2998,7 +3067,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context.response.headers['X-Foo'] = output.foo!;
       }
       const statusCode = 200;
-      final body = _simpleScalarPropertiesProtocol.serialize(
+      final body =
+          await _simpleScalarPropertiesProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i42.SimpleScalarPropertiesInputOutput,
@@ -3024,8 +3094,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _timestampFormatHeadersProtocol.contentType;
     try {
-      final payload = (await _timestampFormatHeadersProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _timestampFormatHeadersProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i43.TimestampFormatHeadersIoPayload),
       ) as _i43.TimestampFormatHeadersIoPayload);
       final input = _i43.TimestampFormatHeadersIo.fromRequest(
@@ -3080,7 +3151,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
                 .toString();
       }
       const statusCode = 200;
-      final body = _timestampFormatHeadersProtocol.serialize(
+      final body =
+          await _timestampFormatHeadersProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i43.TimestampFormatHeadersIo,
@@ -3106,8 +3178,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _xmlAttributesProtocol.contentType;
     try {
-      final payload = (await _xmlAttributesProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _xmlAttributesProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i44.XmlAttributesInputOutput),
       ) as _i44.XmlAttributesInputOutput);
       final input = _i44.XmlAttributesInputOutput.fromRequest(
@@ -3120,7 +3192,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlAttributesProtocol.serialize(
+      final body = await _xmlAttributesProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i44.XmlAttributesInputOutput,
@@ -3146,8 +3218,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _xmlAttributesOnPayloadProtocol.contentType;
     try {
-      final payload = (await _xmlAttributesOnPayloadProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _xmlAttributesOnPayloadProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i44.XmlAttributesInputOutput),
       ) as _i44.XmlAttributesInputOutput?);
       final input = _i45.XmlAttributesOnPayloadInputOutput.fromRequest(
@@ -3160,7 +3233,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlAttributesOnPayloadProtocol.serialize(
+      final body =
+          await _xmlAttributesOnPayloadProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i45.XmlAttributesOnPayloadInputOutput,
@@ -3185,8 +3259,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _xmlBlobsProtocol.contentType;
     try {
-      final payload = (await _xmlBlobsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _xmlBlobsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i46.XmlBlobsInputOutput),
       ) as _i46.XmlBlobsInputOutput);
       final input = _i46.XmlBlobsInputOutput.fromRequest(
@@ -3199,7 +3273,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlBlobsProtocol.serialize(
+      final body = await _xmlBlobsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i46.XmlBlobsInputOutput,
@@ -3225,8 +3299,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _xmlEmptyBlobsProtocol.contentType;
     try {
-      final payload = (await _xmlEmptyBlobsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _xmlEmptyBlobsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i46.XmlBlobsInputOutput),
       ) as _i46.XmlBlobsInputOutput);
       final input = _i46.XmlBlobsInputOutput.fromRequest(
@@ -3239,7 +3313,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlEmptyBlobsProtocol.serialize(
+      final body = await _xmlEmptyBlobsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i46.XmlBlobsInputOutput,
@@ -3265,8 +3339,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _xmlEmptyListsProtocol.contentType;
     try {
-      final payload = (await _xmlEmptyListsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _xmlEmptyListsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i47.XmlListsInputOutput),
       ) as _i47.XmlListsInputOutput);
       final input = _i47.XmlListsInputOutput.fromRequest(
@@ -3279,7 +3353,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlEmptyListsProtocol.serialize(
+      final body = await _xmlEmptyListsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i47.XmlListsInputOutput,
@@ -3305,8 +3379,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _xmlEmptyMapsProtocol.contentType;
     try {
-      final payload = (await _xmlEmptyMapsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _xmlEmptyMapsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i48.XmlMapsInputOutput),
       ) as _i48.XmlMapsInputOutput);
       final input = _i48.XmlMapsInputOutput.fromRequest(
@@ -3319,7 +3393,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlEmptyMapsProtocol.serialize(
+      final body = await _xmlEmptyMapsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i48.XmlMapsInputOutput,
@@ -3345,8 +3419,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _xmlEmptyStringsProtocol.contentType;
     try {
-      final payload = (await _xmlEmptyStringsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _xmlEmptyStringsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i49.XmlEmptyStringsInputOutput),
       ) as _i49.XmlEmptyStringsInputOutput);
       final input = _i49.XmlEmptyStringsInputOutput.fromRequest(
@@ -3359,7 +3434,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlEmptyStringsProtocol.serialize(
+      final body = await _xmlEmptyStringsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i49.XmlEmptyStringsInputOutput,
@@ -3384,8 +3459,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _xmlEnumsProtocol.contentType;
     try {
-      final payload = (await _xmlEnumsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _xmlEnumsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i50.XmlEnumsInputOutput),
       ) as _i50.XmlEnumsInputOutput);
       final input = _i50.XmlEnumsInputOutput.fromRequest(
@@ -3398,7 +3473,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlEnumsProtocol.serialize(
+      final body = await _xmlEnumsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i50.XmlEnumsInputOutput,
@@ -3423,8 +3498,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _xmlIntEnumsProtocol.contentType;
     try {
-      final payload = (await _xmlIntEnumsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _xmlIntEnumsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i51.XmlIntEnumsInputOutput),
       ) as _i51.XmlIntEnumsInputOutput);
       final input = _i51.XmlIntEnumsInputOutput.fromRequest(
@@ -3437,7 +3512,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlIntEnumsProtocol.serialize(
+      final body = await _xmlIntEnumsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i51.XmlIntEnumsInputOutput,
@@ -3462,8 +3537,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _xmlListsProtocol.contentType;
     try {
-      final payload = (await _xmlListsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _xmlListsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i47.XmlListsInputOutput),
       ) as _i47.XmlListsInputOutput);
       final input = _i47.XmlListsInputOutput.fromRequest(
@@ -3476,7 +3551,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlListsProtocol.serialize(
+      final body = await _xmlListsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i47.XmlListsInputOutput,
@@ -3501,8 +3576,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _xmlMapsProtocol.contentType;
     try {
-      final payload = (await _xmlMapsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _xmlMapsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i48.XmlMapsInputOutput),
       ) as _i48.XmlMapsInputOutput);
       final input = _i48.XmlMapsInputOutput.fromRequest(
@@ -3515,7 +3590,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlMapsProtocol.serialize(
+      final body = await _xmlMapsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i48.XmlMapsInputOutput,
@@ -3541,8 +3616,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _xmlMapsXmlNameProtocol.contentType;
     try {
-      final payload = (await _xmlMapsXmlNameProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _xmlMapsXmlNameProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i52.XmlMapsXmlNameInputOutput),
       ) as _i52.XmlMapsXmlNameInputOutput);
       final input = _i52.XmlMapsXmlNameInputOutput.fromRequest(
@@ -3555,7 +3630,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlMapsXmlNameProtocol.serialize(
+      final body = await _xmlMapsXmlNameProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i52.XmlMapsXmlNameInputOutput,
@@ -3581,8 +3656,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _xmlNamespacesProtocol.contentType;
     try {
-      final payload = (await _xmlNamespacesProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _xmlNamespacesProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i53.XmlNamespacesInputOutput),
       ) as _i53.XmlNamespacesInputOutput);
       final input = _i53.XmlNamespacesInputOutput.fromRequest(
@@ -3595,7 +3670,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlNamespacesProtocol.serialize(
+      final body = await _xmlNamespacesProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i53.XmlNamespacesInputOutput,
@@ -3621,8 +3696,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     context.response.headers['Content-Type'] =
         _xmlTimestampsProtocol.contentType;
     try {
-      final payload = (await _xmlTimestampsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _xmlTimestampsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i54.XmlTimestampsInputOutput),
       ) as _i54.XmlTimestampsInputOutput);
       final input = _i54.XmlTimestampsInputOutput.fromRequest(
@@ -3635,7 +3710,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlTimestampsProtocol.serialize(
+      final body = await _xmlTimestampsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i54.XmlTimestampsInputOutput,
@@ -3660,8 +3735,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _xmlUnionsProtocol.contentType;
     try {
-      final payload = (await _xmlUnionsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _xmlUnionsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i55.XmlUnionsInputOutput),
       ) as _i55.XmlUnionsInputOutput);
       final input = _i55.XmlUnionsInputOutput.fromRequest(
@@ -3674,7 +3749,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _xmlUnionsProtocol.serialize(
+      final body = await _xmlUnionsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i55.XmlUnionsInputOutput,

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.test_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -69,15 +70,15 @@ class TestConfigRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'timeout':
-          if (value != null) {
-            result.timeout = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.timeout = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -87,19 +88,19 @@ class TestConfigRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TestConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TestConfig);
-    final result = <Object?>[];
-    if (payload.timeout != null) {
-      result
+    final result$ = <Object?>[];
+    final TestConfig(:timeout) = object;
+    if (timeout != null) {
+      result$
         ..add('timeout')
         ..add(serializers.serialize(
-          payload.timeout!,
+          timeout,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

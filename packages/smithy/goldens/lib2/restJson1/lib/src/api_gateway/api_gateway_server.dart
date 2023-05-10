@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.api_gateway.api_gateway_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -65,8 +66,8 @@ class _ApiGatewayServer extends _i1.HttpServer<ApiGatewayServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _getRestApisProtocol.contentType;
     try {
-      final payload = (await _getRestApisProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _getRestApisProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i6.GetRestApisRequestPayload),
       ) as _i6.GetRestApisRequestPayload);
       final input = _i6.GetRestApisRequest.fromRequest(
@@ -79,7 +80,7 @@ class _ApiGatewayServer extends _i1.HttpServer<ApiGatewayServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _getRestApisProtocol.serialize(
+      final body = await _getRestApisProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i5.RestApis,
@@ -93,7 +94,7 @@ class _ApiGatewayServer extends _i1.HttpServer<ApiGatewayServerBase> {
       );
     } on _i8.BadRequestException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'BadRequestException';
-      final body = _getRestApisProtocol.serialize(
+      final body = _getRestApisProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i8.BadRequestException,
@@ -108,7 +109,7 @@ class _ApiGatewayServer extends _i1.HttpServer<ApiGatewayServerBase> {
       );
     } on _i9.TooManyRequestsException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'TooManyRequestsException';
-      final body = _getRestApisProtocol.serialize(
+      final body = _getRestApisProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i9.TooManyRequestsException,
@@ -123,7 +124,7 @@ class _ApiGatewayServer extends _i1.HttpServer<ApiGatewayServerBase> {
       );
     } on _i10.UnauthorizedException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'UnauthorizedException';
-      final body = _getRestApisProtocol.serialize(
+      final body = _getRestApisProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i10.UnauthorizedException,

@@ -21,15 +21,15 @@ abstract class UpdateUserAttributesRequest
         Built<UpdateUserAttributesRequest, UpdateUserAttributesRequestBuilder> {
   /// Represents the request to update user attributes.
   factory UpdateUserAttributesRequest({
+    required List<_i3.AttributeType> userAttributes,
     required String accessToken,
     Map<String, String>? clientMetadata,
-    required List<_i3.AttributeType> userAttributes,
   }) {
     return _$UpdateUserAttributesRequest._(
+      userAttributes: _i4.BuiltList(userAttributes),
       accessToken: accessToken,
       clientMetadata:
           clientMetadata == null ? null : _i4.BuiltMap(clientMetadata),
-      userAttributes: _i4.BuiltList(userAttributes),
     );
   }
 
@@ -54,6 +54,13 @@ abstract class UpdateUserAttributesRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateUserAttributesRequestBuilder b) {}
 
+  /// An array of name-value pairs representing user attributes.
+  ///
+  /// For custom attributes, you must prepend the `custom:` prefix to the attribute name.
+  ///
+  /// If you have set an attribute to require verification before Amazon Cognito updates its value, this request doesn’t immediately update the value of that attribute. After your user receives and responds to a verification message to verify the new value, Amazon Cognito updates the attribute value. Your user can sign in and receive messages with the original attribute value until they verify the new value.
+  _i4.BuiltList<_i3.AttributeType> get userAttributes;
+
   /// A valid access token that Amazon Cognito issued to the user whose user attributes you want to update.
   String get accessToken;
 
@@ -71,24 +78,21 @@ abstract class UpdateUserAttributesRequest
   ///
   /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
   _i4.BuiltMap<String, String>? get clientMetadata;
-
-  /// An array of name-value pairs representing user attributes.
-  ///
-  /// For custom attributes, you must prepend the `custom:` prefix to the attribute name.
-  ///
-  /// If you have set an attribute to require verification before Amazon Cognito updates its value, this request doesn’t immediately update the value of that attribute. After your user receives and responds to a verification message to verify the new value, Amazon Cognito updates the attribute value. Your user can sign in and receive messages with the original attribute value until they verify the new value.
-  _i4.BuiltList<_i3.AttributeType> get userAttributes;
   @override
   UpdateUserAttributesRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        userAttributes,
         accessToken,
         clientMetadata,
-        userAttributes,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateUserAttributesRequest');
+    helper.add(
+      'userAttributes',
+      userAttributes,
+    );
     helper.add(
       'accessToken',
       '***SENSITIVE***',
@@ -96,10 +100,6 @@ abstract class UpdateUserAttributesRequest
     helper.add(
       'clientMetadata',
       clientMetadata,
-    );
-    helper.add(
-      'userAttributes',
-      userAttributes,
     );
     return helper.toString();
   }
@@ -135,6 +135,15 @@ class UpdateUserAttributesRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'UserAttributes':
+          result.userAttributes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.AttributeType)],
+            ),
+          ) as _i4.BuiltList<_i3.AttributeType>));
+          break;
         case 'AccessToken':
           result.accessToken = (serializers.deserialize(
             value!,
@@ -155,15 +164,6 @@ class UpdateUserAttributesRequestAwsJson11Serializer
             ) as _i4.BuiltMap<String, String>));
           }
           break;
-        case 'UserAttributes':
-          result.userAttributes.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.AttributeType)],
-            ),
-          ) as _i4.BuiltList<_i3.AttributeType>));
-          break;
       }
     }
 
@@ -178,11 +178,6 @@ class UpdateUserAttributesRequestAwsJson11Serializer
   }) {
     final payload = (object as UpdateUserAttributesRequest);
     final result = <Object?>[
-      'AccessToken',
-      serializers.serialize(
-        payload.accessToken,
-        specifiedType: const FullType(String),
-      ),
       'UserAttributes',
       serializers.serialize(
         payload.userAttributes,
@@ -190,6 +185,11 @@ class UpdateUserAttributesRequestAwsJson11Serializer
           _i4.BuiltList,
           [FullType(_i3.AttributeType)],
         ),
+      ),
+      'AccessToken',
+      serializers.serialize(
+        payload.accessToken,
+        specifiedType: const FullType(String),
       ),
     ];
     if (payload.clientMetadata != null) {

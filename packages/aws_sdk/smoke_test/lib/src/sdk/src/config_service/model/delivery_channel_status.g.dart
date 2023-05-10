@@ -8,23 +8,23 @@ part of smoke_test.config_service.model.delivery_channel_status;
 
 class _$DeliveryChannelStatus extends DeliveryChannelStatus {
   @override
-  final _i2.ConfigExportDeliveryInfo? configHistoryDeliveryInfo;
+  final String? name;
   @override
   final _i2.ConfigExportDeliveryInfo? configSnapshotDeliveryInfo;
   @override
-  final _i3.ConfigStreamDeliveryInfo? configStreamDeliveryInfo;
+  final _i2.ConfigExportDeliveryInfo? configHistoryDeliveryInfo;
   @override
-  final String? name;
+  final _i3.ConfigStreamDeliveryInfo? configStreamDeliveryInfo;
 
   factory _$DeliveryChannelStatus(
           [void Function(DeliveryChannelStatusBuilder)? updates]) =>
       (new DeliveryChannelStatusBuilder()..update(updates))._build();
 
   _$DeliveryChannelStatus._(
-      {this.configHistoryDeliveryInfo,
+      {this.name,
       this.configSnapshotDeliveryInfo,
-      this.configStreamDeliveryInfo,
-      this.name})
+      this.configHistoryDeliveryInfo,
+      this.configStreamDeliveryInfo})
       : super._();
 
   @override
@@ -40,19 +40,19 @@ class _$DeliveryChannelStatus extends DeliveryChannelStatus {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DeliveryChannelStatus &&
-        configHistoryDeliveryInfo == other.configHistoryDeliveryInfo &&
+        name == other.name &&
         configSnapshotDeliveryInfo == other.configSnapshotDeliveryInfo &&
-        configStreamDeliveryInfo == other.configStreamDeliveryInfo &&
-        name == other.name;
+        configHistoryDeliveryInfo == other.configHistoryDeliveryInfo &&
+        configStreamDeliveryInfo == other.configStreamDeliveryInfo;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, configHistoryDeliveryInfo.hashCode);
-    _$hash = $jc(_$hash, configSnapshotDeliveryInfo.hashCode);
-    _$hash = $jc(_$hash, configStreamDeliveryInfo.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, configSnapshotDeliveryInfo.hashCode);
+    _$hash = $jc(_$hash, configHistoryDeliveryInfo.hashCode);
+    _$hash = $jc(_$hash, configStreamDeliveryInfo.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,13 +62,9 @@ class DeliveryChannelStatusBuilder
     implements Builder<DeliveryChannelStatus, DeliveryChannelStatusBuilder> {
   _$DeliveryChannelStatus? _$v;
 
-  _i2.ConfigExportDeliveryInfoBuilder? _configHistoryDeliveryInfo;
-  _i2.ConfigExportDeliveryInfoBuilder get configHistoryDeliveryInfo =>
-      _$this._configHistoryDeliveryInfo ??=
-          new _i2.ConfigExportDeliveryInfoBuilder();
-  set configHistoryDeliveryInfo(
-          _i2.ConfigExportDeliveryInfoBuilder? configHistoryDeliveryInfo) =>
-      _$this._configHistoryDeliveryInfo = configHistoryDeliveryInfo;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
   _i2.ConfigExportDeliveryInfoBuilder? _configSnapshotDeliveryInfo;
   _i2.ConfigExportDeliveryInfoBuilder get configSnapshotDeliveryInfo =>
@@ -78,6 +74,14 @@ class DeliveryChannelStatusBuilder
           _i2.ConfigExportDeliveryInfoBuilder? configSnapshotDeliveryInfo) =>
       _$this._configSnapshotDeliveryInfo = configSnapshotDeliveryInfo;
 
+  _i2.ConfigExportDeliveryInfoBuilder? _configHistoryDeliveryInfo;
+  _i2.ConfigExportDeliveryInfoBuilder get configHistoryDeliveryInfo =>
+      _$this._configHistoryDeliveryInfo ??=
+          new _i2.ConfigExportDeliveryInfoBuilder();
+  set configHistoryDeliveryInfo(
+          _i2.ConfigExportDeliveryInfoBuilder? configHistoryDeliveryInfo) =>
+      _$this._configHistoryDeliveryInfo = configHistoryDeliveryInfo;
+
   _i3.ConfigStreamDeliveryInfoBuilder? _configStreamDeliveryInfo;
   _i3.ConfigStreamDeliveryInfoBuilder get configStreamDeliveryInfo =>
       _$this._configStreamDeliveryInfo ??=
@@ -86,10 +90,6 @@ class DeliveryChannelStatusBuilder
           _i3.ConfigStreamDeliveryInfoBuilder? configStreamDeliveryInfo) =>
       _$this._configStreamDeliveryInfo = configStreamDeliveryInfo;
 
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
-
   DeliveryChannelStatusBuilder() {
     DeliveryChannelStatus._init(this);
   }
@@ -97,10 +97,10 @@ class DeliveryChannelStatusBuilder
   DeliveryChannelStatusBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _configHistoryDeliveryInfo = $v.configHistoryDeliveryInfo?.toBuilder();
-      _configSnapshotDeliveryInfo = $v.configSnapshotDeliveryInfo?.toBuilder();
-      _configStreamDeliveryInfo = $v.configStreamDeliveryInfo?.toBuilder();
       _name = $v.name;
+      _configSnapshotDeliveryInfo = $v.configSnapshotDeliveryInfo?.toBuilder();
+      _configHistoryDeliveryInfo = $v.configHistoryDeliveryInfo?.toBuilder();
+      _configStreamDeliveryInfo = $v.configStreamDeliveryInfo?.toBuilder();
       _$v = null;
     }
     return this;
@@ -125,17 +125,17 @@ class DeliveryChannelStatusBuilder
     try {
       _$result = _$v ??
           new _$DeliveryChannelStatus._(
-              configHistoryDeliveryInfo: _configHistoryDeliveryInfo?.build(),
+              name: name,
               configSnapshotDeliveryInfo: _configSnapshotDeliveryInfo?.build(),
-              configStreamDeliveryInfo: _configStreamDeliveryInfo?.build(),
-              name: name);
+              configHistoryDeliveryInfo: _configHistoryDeliveryInfo?.build(),
+              configStreamDeliveryInfo: _configStreamDeliveryInfo?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'configHistoryDeliveryInfo';
-        _configHistoryDeliveryInfo?.build();
         _$failedField = 'configSnapshotDeliveryInfo';
         _configSnapshotDeliveryInfo?.build();
+        _$failedField = 'configHistoryDeliveryInfo';
+        _configHistoryDeliveryInfo?.build();
         _$failedField = 'configStreamDeliveryInfo';
         _configStreamDeliveryInfo?.build();
       } catch (e) {

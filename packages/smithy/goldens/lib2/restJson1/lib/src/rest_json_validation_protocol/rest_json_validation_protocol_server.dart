@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_validation_protocol.rest_json_validation_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -280,8 +281,8 @@ class _RestJsonValidationProtocolServer
     context.response.headers['Content-Type'] =
         _malformedEnumProtocol.contentType;
     try {
-      final payload = (await _malformedEnumProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedEnumProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i5.MalformedEnumInput),
       ) as _i5.MalformedEnumInput);
       final input = _i5.MalformedEnumInput.fromRequest(
@@ -294,7 +295,7 @@ class _RestJsonValidationProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedEnumProtocol.serialize(
+      final body = await _malformedEnumProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -308,7 +309,7 @@ class _RestJsonValidationProtocolServer
       );
     } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
-      final body = _malformedEnumProtocol.serialize(
+      final body = _malformedEnumProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i18.ValidationException,
@@ -335,8 +336,9 @@ class _RestJsonValidationProtocolServer
     context.response.headers['Content-Type'] =
         _malformedLengthProtocol.contentType;
     try {
-      final payload = (await _malformedLengthProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedLengthProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i6.MalformedLengthInput),
       ) as _i6.MalformedLengthInput);
       final input = _i6.MalformedLengthInput.fromRequest(
@@ -349,7 +351,7 @@ class _RestJsonValidationProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedLengthProtocol.serialize(
+      final body = await _malformedLengthProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -363,7 +365,7 @@ class _RestJsonValidationProtocolServer
       );
     } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
-      final body = _malformedLengthProtocol.serialize(
+      final body = _malformedLengthProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i18.ValidationException,
@@ -391,8 +393,9 @@ class _RestJsonValidationProtocolServer
     context.response.headers['Content-Type'] =
         _malformedLengthOverrideProtocol.contentType;
     try {
-      final payload = (await _malformedLengthOverrideProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedLengthOverrideProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i7.MalformedLengthOverrideInput),
       ) as _i7.MalformedLengthOverrideInput);
       final input = _i7.MalformedLengthOverrideInput.fromRequest(
@@ -405,7 +408,8 @@ class _RestJsonValidationProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedLengthOverrideProtocol.serialize(
+      final body =
+          await _malformedLengthOverrideProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -419,7 +423,7 @@ class _RestJsonValidationProtocolServer
       );
     } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
-      final body = _malformedLengthOverrideProtocol.serialize(
+      final body = _malformedLengthOverrideProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i18.ValidationException,
@@ -447,8 +451,9 @@ class _RestJsonValidationProtocolServer
     context.response.headers['Content-Type'] =
         _malformedLengthQueryStringProtocol.contentType;
     try {
-      final payload = (await _malformedLengthQueryStringProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedLengthQueryStringProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i8.MalformedLengthQueryStringInputPayload),
       ) as _i8.MalformedLengthQueryStringInputPayload);
@@ -462,7 +467,8 @@ class _RestJsonValidationProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedLengthQueryStringProtocol.serialize(
+      final body =
+          await _malformedLengthQueryStringProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -476,7 +482,7 @@ class _RestJsonValidationProtocolServer
       );
     } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
-      final body = _malformedLengthQueryStringProtocol.serialize(
+      final body = _malformedLengthQueryStringProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i18.ValidationException,
@@ -503,8 +509,9 @@ class _RestJsonValidationProtocolServer
     context.response.headers['Content-Type'] =
         _malformedPatternProtocol.contentType;
     try {
-      final payload = (await _malformedPatternProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedPatternProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i9.MalformedPatternInput),
       ) as _i9.MalformedPatternInput);
       final input = _i9.MalformedPatternInput.fromRequest(
@@ -517,7 +524,7 @@ class _RestJsonValidationProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedPatternProtocol.serialize(
+      final body = await _malformedPatternProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -531,7 +538,7 @@ class _RestJsonValidationProtocolServer
       );
     } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
-      final body = _malformedPatternProtocol.serialize(
+      final body = _malformedPatternProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i18.ValidationException,
@@ -559,8 +566,9 @@ class _RestJsonValidationProtocolServer
     context.response.headers['Content-Type'] =
         _malformedPatternOverrideProtocol.contentType;
     try {
-      final payload = (await _malformedPatternOverrideProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedPatternOverrideProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i10.MalformedPatternOverrideInput),
       ) as _i10.MalformedPatternOverrideInput);
       final input = _i10.MalformedPatternOverrideInput.fromRequest(
@@ -573,7 +581,8 @@ class _RestJsonValidationProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedPatternOverrideProtocol.serialize(
+      final body =
+          await _malformedPatternOverrideProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -587,7 +596,7 @@ class _RestJsonValidationProtocolServer
       );
     } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
-      final body = _malformedPatternOverrideProtocol.serialize(
+      final body = _malformedPatternOverrideProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i18.ValidationException,
@@ -614,8 +623,8 @@ class _RestJsonValidationProtocolServer
     context.response.headers['Content-Type'] =
         _malformedRangeProtocol.contentType;
     try {
-      final payload = (await _malformedRangeProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedRangeProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i11.MalformedRangeInput),
       ) as _i11.MalformedRangeInput);
       final input = _i11.MalformedRangeInput.fromRequest(
@@ -628,7 +637,7 @@ class _RestJsonValidationProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedRangeProtocol.serialize(
+      final body = await _malformedRangeProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -642,7 +651,7 @@ class _RestJsonValidationProtocolServer
       );
     } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
-      final body = _malformedRangeProtocol.serialize(
+      final body = _malformedRangeProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i18.ValidationException,
@@ -669,8 +678,9 @@ class _RestJsonValidationProtocolServer
     context.response.headers['Content-Type'] =
         _malformedRangeOverrideProtocol.contentType;
     try {
-      final payload = (await _malformedRangeOverrideProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedRangeOverrideProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i12.MalformedRangeOverrideInput),
       ) as _i12.MalformedRangeOverrideInput);
       final input = _i12.MalformedRangeOverrideInput.fromRequest(
@@ -683,7 +693,8 @@ class _RestJsonValidationProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedRangeOverrideProtocol.serialize(
+      final body =
+          await _malformedRangeOverrideProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -697,7 +708,7 @@ class _RestJsonValidationProtocolServer
       );
     } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
-      final body = _malformedRangeOverrideProtocol.serialize(
+      final body = _malformedRangeOverrideProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i18.ValidationException,
@@ -724,8 +735,9 @@ class _RestJsonValidationProtocolServer
     context.response.headers['Content-Type'] =
         _malformedRequiredProtocol.contentType;
     try {
-      final payload = (await _malformedRequiredProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedRequiredProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i13.MalformedRequiredInputPayload),
       ) as _i13.MalformedRequiredInputPayload);
       final input = _i13.MalformedRequiredInput.fromRequest(
@@ -738,7 +750,7 @@ class _RestJsonValidationProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedRequiredProtocol.serialize(
+      final body = await _malformedRequiredProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -752,7 +764,7 @@ class _RestJsonValidationProtocolServer
       );
     } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
-      final body = _malformedRequiredProtocol.serialize(
+      final body = _malformedRequiredProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i18.ValidationException,
@@ -779,8 +791,9 @@ class _RestJsonValidationProtocolServer
     context.response.headers['Content-Type'] =
         _malformedUniqueItemsProtocol.contentType;
     try {
-      final payload = (await _malformedUniqueItemsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedUniqueItemsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i14.MalformedUniqueItemsInput),
       ) as _i14.MalformedUniqueItemsInput);
       final input = _i14.MalformedUniqueItemsInput.fromRequest(
@@ -793,7 +806,7 @@ class _RestJsonValidationProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedUniqueItemsProtocol.serialize(
+      final body = await _malformedUniqueItemsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -807,7 +820,7 @@ class _RestJsonValidationProtocolServer
       );
     } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
-      final body = _malformedUniqueItemsProtocol.serialize(
+      final body = _malformedUniqueItemsProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i18.ValidationException,
@@ -834,8 +847,9 @@ class _RestJsonValidationProtocolServer
     context.response.headers['Content-Type'] =
         _recursiveStructuresProtocol.contentType;
     try {
-      final payload = (await _recursiveStructuresProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _recursiveStructuresProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i15.RecursiveStructuresInput),
       ) as _i15.RecursiveStructuresInput);
       final input = _i15.RecursiveStructuresInput.fromRequest(
@@ -848,7 +862,7 @@ class _RestJsonValidationProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _recursiveStructuresProtocol.serialize(
+      final body = await _recursiveStructuresProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -862,7 +876,7 @@ class _RestJsonValidationProtocolServer
       );
     } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
-      final body = _recursiveStructuresProtocol.serialize(
+      final body = _recursiveStructuresProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i18.ValidationException,
@@ -889,8 +903,9 @@ class _RestJsonValidationProtocolServer
     context.response.headers['Content-Type'] =
         _sensitiveValidationProtocol.contentType;
     try {
-      final payload = (await _sensitiveValidationProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _sensitiveValidationProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i16.SensitiveValidationInput),
       ) as _i16.SensitiveValidationInput);
       final input = _i16.SensitiveValidationInput.fromRequest(
@@ -903,7 +918,7 @@ class _RestJsonValidationProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _sensitiveValidationProtocol.serialize(
+      final body = await _sensitiveValidationProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -917,7 +932,7 @@ class _RestJsonValidationProtocolServer
       );
     } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
-      final body = _sensitiveValidationProtocol.serialize(
+      final body = _sensitiveValidationProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i18.ValidationException,

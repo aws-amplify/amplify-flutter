@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.stored_query; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,18 +16,18 @@ abstract class StoredQuery
     implements Built<StoredQuery, StoredQueryBuilder> {
   /// Provides the details of a stored query.
   factory StoredQuery({
+    String? queryId,
+    String? queryArn,
+    required String queryName,
     String? description,
     String? expression,
-    String? queryArn,
-    String? queryId,
-    required String queryName,
   }) {
     return _$StoredQuery._(
+      queryId: queryId,
+      queryArn: queryArn,
+      queryName: queryName,
       description: description,
       expression: expression,
-      queryArn: queryArn,
-      queryId: queryId,
-      queryName: queryName,
     );
   }
 
@@ -43,31 +44,43 @@ abstract class StoredQuery
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StoredQueryBuilder b) {}
 
+  /// The ID of the query.
+  String? get queryId;
+
+  /// Amazon Resource Name (ARN) of the query. For example, arn:partition:service:region:account-id:resource-type/resource-name/resource-id.
+  String? get queryArn;
+
+  /// The name of the query.
+  String get queryName;
+
   /// A unique description for the query.
   String? get description;
 
   /// The expression of the query. For example, `SELECT resourceId, resourceType, supplementaryConfiguration.BucketVersioningConfiguration.status WHERE resourceType = 'AWS::S3::Bucket' AND supplementaryConfiguration.BucketVersioningConfiguration.status = 'Off'.`
   String? get expression;
-
-  /// Amazon Resource Name (ARN) of the query. For example, arn:partition:service:region:account-id:resource-type/resource-name/resource-id.
-  String? get queryArn;
-
-  /// The ID of the query.
-  String? get queryId;
-
-  /// The name of the query.
-  String get queryName;
   @override
   List<Object?> get props => [
+        queryId,
+        queryArn,
+        queryName,
         description,
         expression,
-        queryArn,
-        queryId,
-        queryName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StoredQuery');
+    helper.add(
+      'queryId',
+      queryId,
+    );
+    helper.add(
+      'queryArn',
+      queryArn,
+    );
+    helper.add(
+      'queryName',
+      queryName,
+    );
     helper.add(
       'description',
       description,
@@ -75,18 +88,6 @@ abstract class StoredQuery
     helper.add(
       'expression',
       expression,
-    );
-    helper.add(
-      'queryArn',
-      queryArn,
-    );
-    helper.add(
-      'queryId',
-      queryId,
-    );
-    helper.add(
-      'queryName',
-      queryName,
     );
     return helper.toString();
   }
@@ -120,45 +121,35 @@ class StoredQueryAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Expression':
-          if (value != null) {
-            result.expression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'QueryArn':
-          if (value != null) {
-            result.queryArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'QueryId':
-          if (value != null) {
-            result.queryId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'QueryName':
-          result.queryName = (serializers.deserialize(
-            value!,
+          result.queryId = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'QueryArn':
+          result.queryArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'QueryName':
+          result.queryName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'Description':
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'Expression':
+          result.expression = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -168,49 +159,56 @@ class StoredQueryAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StoredQuery object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StoredQuery);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final StoredQuery(
+      :queryId,
+      :queryArn,
+      :queryName,
+      :description,
+      :expression
+    ) = object;
+    result$.addAll([
       'QueryName',
       serializers.serialize(
-        payload.queryName,
+        queryName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.description != null) {
-      result
-        ..add('Description')
-        ..add(serializers.serialize(
-          payload.description!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.expression != null) {
-      result
-        ..add('Expression')
-        ..add(serializers.serialize(
-          payload.expression!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.queryArn != null) {
-      result
-        ..add('QueryArn')
-        ..add(serializers.serialize(
-          payload.queryArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.queryId != null) {
-      result
+    ]);
+    if (queryId != null) {
+      result$
         ..add('QueryId')
         ..add(serializers.serialize(
-          payload.queryId!,
+          queryId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    if (queryArn != null) {
+      result$
+        ..add('QueryArn')
+        ..add(serializers.serialize(
+          queryArn,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (description != null) {
+      result$
+        ..add('Description')
+        ..add(serializers.serialize(
+          description,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (expression != null) {
+      result$
+        ..add('Expression')
+        ..add(serializers.serialize(
+          expression,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

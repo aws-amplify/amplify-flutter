@@ -8,16 +8,16 @@ part of smoke_test.s3.model.source_selection_criteria;
 
 class _$SourceSelectionCriteria extends SourceSelectionCriteria {
   @override
-  final _i2.ReplicaModifications? replicaModifications;
+  final _i2.SseKmsEncryptedObjects? sseKmsEncryptedObjects;
   @override
-  final _i3.SseKmsEncryptedObjects? sseKmsEncryptedObjects;
+  final _i3.ReplicaModifications? replicaModifications;
 
   factory _$SourceSelectionCriteria(
           [void Function(SourceSelectionCriteriaBuilder)? updates]) =>
       (new SourceSelectionCriteriaBuilder()..update(updates))._build();
 
   _$SourceSelectionCriteria._(
-      {this.replicaModifications, this.sseKmsEncryptedObjects})
+      {this.sseKmsEncryptedObjects, this.replicaModifications})
       : super._();
 
   @override
@@ -33,15 +33,15 @@ class _$SourceSelectionCriteria extends SourceSelectionCriteria {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SourceSelectionCriteria &&
-        replicaModifications == other.replicaModifications &&
-        sseKmsEncryptedObjects == other.sseKmsEncryptedObjects;
+        sseKmsEncryptedObjects == other.sseKmsEncryptedObjects &&
+        replicaModifications == other.replicaModifications;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, replicaModifications.hashCode);
     _$hash = $jc(_$hash, sseKmsEncryptedObjects.hashCode);
+    _$hash = $jc(_$hash, replicaModifications.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -52,20 +52,20 @@ class SourceSelectionCriteriaBuilder
         Builder<SourceSelectionCriteria, SourceSelectionCriteriaBuilder> {
   _$SourceSelectionCriteria? _$v;
 
-  _i2.ReplicaModificationsBuilder? _replicaModifications;
-  _i2.ReplicaModificationsBuilder get replicaModifications =>
-      _$this._replicaModifications ??= new _i2.ReplicaModificationsBuilder();
-  set replicaModifications(
-          _i2.ReplicaModificationsBuilder? replicaModifications) =>
-      _$this._replicaModifications = replicaModifications;
-
-  _i3.SseKmsEncryptedObjectsBuilder? _sseKmsEncryptedObjects;
-  _i3.SseKmsEncryptedObjectsBuilder get sseKmsEncryptedObjects =>
+  _i2.SseKmsEncryptedObjectsBuilder? _sseKmsEncryptedObjects;
+  _i2.SseKmsEncryptedObjectsBuilder get sseKmsEncryptedObjects =>
       _$this._sseKmsEncryptedObjects ??=
-          new _i3.SseKmsEncryptedObjectsBuilder();
+          new _i2.SseKmsEncryptedObjectsBuilder();
   set sseKmsEncryptedObjects(
-          _i3.SseKmsEncryptedObjectsBuilder? sseKmsEncryptedObjects) =>
+          _i2.SseKmsEncryptedObjectsBuilder? sseKmsEncryptedObjects) =>
       _$this._sseKmsEncryptedObjects = sseKmsEncryptedObjects;
+
+  _i3.ReplicaModificationsBuilder? _replicaModifications;
+  _i3.ReplicaModificationsBuilder get replicaModifications =>
+      _$this._replicaModifications ??= new _i3.ReplicaModificationsBuilder();
+  set replicaModifications(
+          _i3.ReplicaModificationsBuilder? replicaModifications) =>
+      _$this._replicaModifications = replicaModifications;
 
   SourceSelectionCriteriaBuilder() {
     SourceSelectionCriteria._init(this);
@@ -74,8 +74,8 @@ class SourceSelectionCriteriaBuilder
   SourceSelectionCriteriaBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _replicaModifications = $v.replicaModifications?.toBuilder();
       _sseKmsEncryptedObjects = $v.sseKmsEncryptedObjects?.toBuilder();
+      _replicaModifications = $v.replicaModifications?.toBuilder();
       _$v = null;
     }
     return this;
@@ -100,15 +100,15 @@ class SourceSelectionCriteriaBuilder
     try {
       _$result = _$v ??
           new _$SourceSelectionCriteria._(
-              replicaModifications: _replicaModifications?.build(),
-              sseKmsEncryptedObjects: _sseKmsEncryptedObjects?.build());
+              sseKmsEncryptedObjects: _sseKmsEncryptedObjects?.build(),
+              replicaModifications: _replicaModifications?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'replicaModifications';
-        _replicaModifications?.build();
         _$failedField = 'sseKmsEncryptedObjects';
         _sseKmsEncryptedObjects?.build();
+        _$failedField = 'replicaModifications';
+        _replicaModifications?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'SourceSelectionCriteria', _$failedField, e.toString());

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.malformed_byte_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,16 +20,16 @@ abstract class MalformedByteInput
         _i1.HasPayload<MalformedByteInputPayload> {
   factory MalformedByteInput({
     int? byteInBody,
-    int? byteInHeader,
     int? byteInPath,
     int? byteInQuery,
+    int? byteInHeader,
   }) {
     byteInPath ??= 0;
     return _$MalformedByteInput._(
       byteInBody: byteInBody,
-      byteInHeader: byteInHeader,
       byteInPath: byteInPath,
       byteInQuery: byteInQuery,
+      byteInHeader: byteInHeader,
     );
   }
 
@@ -66,9 +67,9 @@ abstract class MalformedByteInput
   }
 
   int? get byteInBody;
-  int? get byteInHeader;
   int get byteInPath;
   int? get byteInQuery;
+  int? get byteInHeader;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -88,9 +89,9 @@ abstract class MalformedByteInput
   @override
   List<Object?> get props => [
         byteInBody,
-        byteInHeader,
         byteInPath,
         byteInQuery,
+        byteInHeader,
       ];
   @override
   String toString() {
@@ -100,16 +101,16 @@ abstract class MalformedByteInput
       byteInBody,
     );
     helper.add(
-      'byteInHeader',
-      byteInHeader,
-    );
-    helper.add(
       'byteInPath',
       byteInPath,
     );
     helper.add(
       'byteInQuery',
       byteInQuery,
+    );
+    helper.add(
+      'byteInHeader',
+      byteInHeader,
     );
     return helper.toString();
   }
@@ -172,15 +173,15 @@ class MalformedByteInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'byteInBody':
-          if (value != null) {
-            result.byteInBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.byteInBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -190,21 +191,19 @@ class MalformedByteInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedByteInputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is MalformedByteInput
-        ? object.getPayload()
-        : (object as MalformedByteInputPayload);
-    final result = <Object?>[];
-    if (payload.byteInBody != null) {
-      result
+    final result$ = <Object?>[];
+    final MalformedByteInputPayload(:byteInBody) = object;
+    if (byteInBody != null) {
+      result$
         ..add('byteInBody')
         ..add(serializers.serialize(
-          payload.byteInBody!,
+          byteInBody,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

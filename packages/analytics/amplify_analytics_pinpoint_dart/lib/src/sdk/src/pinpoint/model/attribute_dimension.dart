@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.attribute_dimension; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,15 +103,15 @@ class AttributeDimensionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AttributeType':
-          if (value != null) {
-            result.attributeType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AttributeType),
-            ) as _i2.AttributeType);
-          }
-          break;
+          result.attributeType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.AttributeType),
+          ) as _i2.AttributeType);
         case 'Values':
           result.values.replace((serializers.deserialize(
             value,
@@ -119,7 +120,6 @@ class AttributeDimensionRestJson1Serializer
               [FullType(String)],
             ),
           ) as _i3.BuiltList<String>));
-          break;
       }
     }
 
@@ -129,28 +129,29 @@ class AttributeDimensionRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AttributeDimension object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AttributeDimension);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final AttributeDimension(:attributeType, :values) = object;
+    result$.addAll([
       'Values',
       serializers.serialize(
-        payload.values,
+        values,
         specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
       ),
-    ];
-    if (payload.attributeType != null) {
-      result
+    ]);
+    if (attributeType != null) {
+      result$
         ..add('AttributeType')
         ..add(serializers.serialize(
-          payload.attributeType!,
+          attributeType,
           specifiedType: const FullType(_i2.AttributeType),
         ));
     }
-    return result;
+    return result$;
   }
 }

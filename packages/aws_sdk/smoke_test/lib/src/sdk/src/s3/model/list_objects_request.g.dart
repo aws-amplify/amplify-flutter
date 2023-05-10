@@ -14,8 +14,6 @@ class _$ListObjectsRequest extends ListObjectsRequest {
   @override
   final _i3.EncodingType? encodingType;
   @override
-  final String? expectedBucketOwner;
-  @override
   final String? marker;
   @override
   final int? maxKeys;
@@ -23,6 +21,8 @@ class _$ListObjectsRequest extends ListObjectsRequest {
   final String? prefix;
   @override
   final _i4.RequestPayer? requestPayer;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$ListObjectsRequest(
           [void Function(ListObjectsRequestBuilder)? updates]) =>
@@ -32,11 +32,11 @@ class _$ListObjectsRequest extends ListObjectsRequest {
       {required this.bucket,
       this.delimiter,
       this.encodingType,
-      this.expectedBucketOwner,
       this.marker,
       this.maxKeys,
       this.prefix,
-      this.requestPayer})
+      this.requestPayer,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'ListObjectsRequest', 'bucket');
@@ -58,11 +58,11 @@ class _$ListObjectsRequest extends ListObjectsRequest {
         bucket == other.bucket &&
         delimiter == other.delimiter &&
         encodingType == other.encodingType &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         marker == other.marker &&
         maxKeys == other.maxKeys &&
         prefix == other.prefix &&
-        requestPayer == other.requestPayer;
+        requestPayer == other.requestPayer &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
@@ -71,11 +71,11 @@ class _$ListObjectsRequest extends ListObjectsRequest {
     _$hash = $jc(_$hash, bucket.hashCode);
     _$hash = $jc(_$hash, delimiter.hashCode);
     _$hash = $jc(_$hash, encodingType.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, marker.hashCode);
     _$hash = $jc(_$hash, maxKeys.hashCode);
     _$hash = $jc(_$hash, prefix.hashCode);
     _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -98,11 +98,6 @@ class ListObjectsRequestBuilder
   set encodingType(_i3.EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
   String? _marker;
   String? get marker => _$this._marker;
   set marker(String? marker) => _$this._marker = marker;
@@ -120,6 +115,11 @@ class ListObjectsRequestBuilder
   set requestPayer(_i4.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
+
   ListObjectsRequestBuilder() {
     ListObjectsRequest._init(this);
   }
@@ -130,11 +130,11 @@ class ListObjectsRequestBuilder
       _bucket = $v.bucket;
       _delimiter = $v.delimiter;
       _encodingType = $v.encodingType;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _marker = $v.marker;
       _maxKeys = $v.maxKeys;
       _prefix = $v.prefix;
       _requestPayer = $v.requestPayer;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -161,11 +161,11 @@ class ListObjectsRequestBuilder
                 bucket, r'ListObjectsRequest', 'bucket'),
             delimiter: delimiter,
             encodingType: encodingType,
-            expectedBucketOwner: expectedBucketOwner,
             marker: marker,
             maxKeys: maxKeys,
             prefix: prefix,
-            requestPayer: requestPayer);
+            requestPayer: requestPayer,
+            expectedBucketOwner: expectedBucketOwner);
     replace(_$result);
     return _$result;
   }

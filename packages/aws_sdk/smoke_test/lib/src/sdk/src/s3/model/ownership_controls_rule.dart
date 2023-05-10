@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.ownership_controls_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -81,16 +82,18 @@ class OwnershipControlsRuleRestXmlSerializer
     final result = OwnershipControlsRuleBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ObjectOwnership':
           result.objectOwnership = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ObjectOwnership),
           ) as _i2.ObjectOwnership);
-          break;
       }
     }
 
@@ -100,22 +103,22 @@ class OwnershipControlsRuleRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OwnershipControlsRule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OwnershipControlsRule);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'OwnershipControlsRule',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
+    final OwnershipControlsRule(:objectOwnership) = object;
+    result$
       ..add(const _i3.XmlElementName('ObjectOwnership'))
       ..add(serializers.serialize(
-        payload.objectOwnership,
+        objectOwnership,
         specifiedType: const FullType.nullable(_i2.ObjectOwnership),
       ));
-    return result;
+    return result$;
   }
 }

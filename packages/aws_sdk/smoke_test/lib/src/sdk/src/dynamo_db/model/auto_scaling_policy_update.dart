@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.auto_scaling_policy_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -97,15 +98,15 @@ class AutoScalingPolicyUpdateAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'PolicyName':
-          if (value != null) {
-            result.policyName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policyName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TargetTrackingScalingPolicyConfiguration':
           result.targetTrackingScalingPolicyConfiguration
               .replace((serializers.deserialize(
@@ -113,7 +114,6 @@ class AutoScalingPolicyUpdateAwsJson10Serializer
             specifiedType: const FullType(
                 _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdate),
           ) as _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdate));
-          break;
       }
     }
 
@@ -123,26 +123,30 @@ class AutoScalingPolicyUpdateAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AutoScalingPolicyUpdate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AutoScalingPolicyUpdate);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final AutoScalingPolicyUpdate(
+      :policyName,
+      :targetTrackingScalingPolicyConfiguration
+    ) = object;
+    result$.addAll([
       'TargetTrackingScalingPolicyConfiguration',
       serializers.serialize(
-        payload.targetTrackingScalingPolicyConfiguration,
+        targetTrackingScalingPolicyConfiguration,
         specifiedType: const FullType(
             _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdate),
       ),
-    ];
-    if (payload.policyName != null) {
-      result
+    ]);
+    if (policyName != null) {
+      result$
         ..add('PolicyName')
         ..add(serializers.serialize(
-          payload.policyName!,
+          policyName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

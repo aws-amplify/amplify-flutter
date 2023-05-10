@@ -15,20 +15,19 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 class OperationGenerator extends LibraryGenerator<OperationShape>
     with OperationGenerationContext {
   OperationGenerator(
-    OperationShape shape,
+    super.shape,
     CodegenContext context, {
-    SmithyLibrary? smithyLibrary,
-  }) : super(shape, context: context, smithyLibrary: smithyLibrary);
+    super.smithyLibrary,
+  }) : super(context: context);
 
   @override
-  String get className => shape.dartName;
+  String get className => shape.dartName(context);
 
   @override
   Library generate() {
     if (httpTrait != null) {
       builder.body.add(_operationClass);
     }
-
     return builder.build();
   }
 
@@ -76,10 +75,11 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
           ])
           ..optionalParameters.addAll(shape.constructorParameters(context))
           ..initializers.addAll(
-              shape.constructorParameters(context).where((p) => !p.toThis).map(
-                    (field) =>
-                        refer('_${field.name}').assign(refer(field.name)).code,
-                  )),
+            shape.constructorParameters(context).where((p) => !p.toThis).map(
+                  (field) =>
+                      refer('_${field.name}').assign(refer(field.name)).code,
+                ),
+          ),
       );
 
   /// The statements of the HTTP request builder.
@@ -99,17 +99,19 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
     if (isS3 && uri.contains(RegExp('^/{Bucket}'))) {
       yield builder
           .property('path')
-          .assign(refer('_s3ClientConfig').property('usePathStyle').conditional(
-                // `raw` because some AWS paths use the '$' char.
-                literalString(uri, raw: true),
+          .assign(
+            refer('_s3ClientConfig').property('usePathStyle').conditional(
+                  // `raw` because some AWS paths use the '$' char.
+                  literalString(uri, raw: true),
 
-                // Change `/{Bucket}/{Key+}?param` to `/{Key+}?param` and
-                // `/{Bucket}` to `/`
-                literalString(
-                  uri.replaceFirst(RegExp('^/{Bucket}/?'), '/'),
-                  raw: true,
+                  // Change `/{Bucket}/{Key+}?param` to `/{Key+}?param` and
+                  // `/{Bucket}` to `/`
+                  literalString(
+                    uri.replaceFirst(RegExp('^/{Bucket}/?'), '/'),
+                    raw: true,
+                  ),
                 ),
-              ))
+          )
           .statement;
     } else {
       yield builder
@@ -138,7 +140,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
           .statement;
     }
 
-    for (var entry in httpInputTraits.httpHeaders.entries) {
+    for (final entry in httpInputTraits.httpHeaders.entries) {
       yield _inputHttpHeader(
         literalString(entry.key),
         entry.value,
@@ -151,7 +153,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
       yield _httpPrefixedHeaders(httpInputTraits.httpPrefixHeaders!);
     }
 
-    for (var entry in httpInputTraits.httpQuery.entries) {
+    for (final entry in httpInputTraits.httpQuery.entries) {
       yield _httpQuery(
         literalString(entry.key),
         entry.value,
@@ -224,12 +226,12 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
         // From restJson1 test suite:
         // "Do not send null values, empty strings, or empty lists over the wire in headers"
         .wrapWithBlockIf(
-            (isNullable ? valueRef.nullChecked : valueRef)
-                .property('isNotEmpty'),
-            const [ShapeType.list, ShapeType.set, ShapeType.string]
-                    .contains(targetShape.getType()) &&
-                !targetShape.hasTrait<MediaTypeTrait>() &&
-                !targetShape.isEnum)
+          (isNullable ? valueRef.nullChecked : valueRef).property('isNotEmpty'),
+          const [ShapeType.list, ShapeType.set, ShapeType.string]
+                  .contains(targetShape.getType()) &&
+              !targetShape.hasTrait<MediaTypeTrait>() &&
+              !targetShape.isEnum,
+        )
         .wrapWithBlockIf(
           valueRef.notEqualTo(literalNull),
           isNullable,
@@ -252,8 +254,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
           .code,
       const Code(') {'),
       _inputHttpHeader(
-        literalString(headers.trait.value)
-            .operatorAdd(refer('entry').property('key')),
+        literalString('${headers.trait.value}\${entry.key}'),
         valueTarget,
         refer('entry').property('value'),
         isNullable: valueTarget.isNullable(context, mapShape),
@@ -352,9 +353,13 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
         ..annotations.add(DartTypes.core.override)
         ..returns = DartTypes.smithy.httpRequest
         ..name = 'buildRequest'
-        ..requiredParameters.add(Parameter((p) => p
-          ..name = 'input'
-          ..type = inputSymbol))
+        ..requiredParameters.add(
+          Parameter(
+            (p) => p
+              ..name = 'input'
+              ..type = inputSymbol,
+          ),
+        )
         ..body = request.code,
     );
 
@@ -372,9 +377,13 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
         ..returns = DartTypes.core.int
         ..name = 'successCode'
         ..lambda = true
-        ..optionalParameters.add(Parameter((p) => p
-          ..name = 'output'
-          ..type = outputSymbol.boxed))
+        ..optionalParameters.add(
+          Parameter(
+            (p) => p
+              ..name = 'output'
+              ..type = outputSymbol.boxed,
+          ),
+        )
         ..body = successCode.code,
     );
 
@@ -391,12 +400,16 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
         ..returns = outputSymbol
         ..name = 'buildOutput'
         ..requiredParameters.addAll([
-          Parameter((p) => p
-            ..name = 'payload'
-            ..type = outputPayload.symbol),
-          Parameter((p) => p
-            ..name = 'response'
-            ..type = DartTypes.awsCommon.awsBaseHttpResponse),
+          Parameter(
+            (p) => p
+              ..name = 'payload'
+              ..type = outputPayload.symbol,
+          ),
+          Parameter(
+            (p) => p
+              ..name = 'response'
+              ..type = DartTypes.awsCommon.awsBaseHttpResponse,
+          ),
         ])
         ..body = output.code,
     );
@@ -446,7 +459,8 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
             ..returns = DartTypes.core.uri
             ..name = 'baseUri'
             ..type = MethodType.getter
-            ..body = Code.scope((allocate) => '''
+            ..body = Code.scope(
+              (allocate) => '''
   var baseUri = _baseUri ?? endpoint.uri;
   if (_s3ClientConfig.useDualStack) {
     baseUri = baseUri.replace(
@@ -460,7 +474,8 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
         .replaceFirst(${allocate(DartTypes.core.regExp)}(r'^s3\\.'), 's3-accelerate.'),
     );
   }
-  return baseUri;'''),
+  return baseUri;''',
+            ),
         );
       } else {
         yield Method(
@@ -506,18 +521,26 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
           ..annotations.add(DartTypes.core.override)
           ..returns = DartTypes.smithy.smithyOperation(outputSymbol)
           ..name = 'run'
-          ..requiredParameters.add(Parameter((p) => p
-            ..type = inputSymbol
-            ..name = 'input'))
+          ..requiredParameters.add(
+            Parameter(
+              (p) => p
+                ..type = inputSymbol
+                ..name = 'input',
+            ),
+          )
           ..optionalParameters.addAll([
-            Parameter((p) => p
-              ..type = DartTypes.awsCommon.awsHttpClient.boxed
-              ..name = 'client'
-              ..named = true),
-            Parameter((p) => p
-              ..type = DartTypes.smithy.shapeId.boxed
-              ..name = 'useProtocol'
-              ..named = true),
+            Parameter(
+              (p) => p
+                ..type = DartTypes.awsCommon.awsHttpClient.boxed
+                ..name = 'client'
+                ..named = true,
+            ),
+            Parameter(
+              (p) => p
+                ..type = DartTypes.smithy.shapeId.boxed
+                ..name = 'useProtocol'
+                ..named = true,
+            ),
           ])
           ..body = DartTypes.async.runZoned
               .call([
@@ -533,20 +556,23 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
               ], {
                 // Create a map with spread and new values. Cannot be done
                 // via [literalMap].
-                'zoneValues': CodeExpression(Block.of([
-                  const Code('{'),
-                  refer('_awsEndpoint')
-                      .property('credentialScope')
-                      .nullSafeProperty('zoneValues')
-                      .nullSafeSpread
-                      .code,
-                  const Code(','),
-                  literalMap({
-                    DartTypes.awsCommon.awsHeaders.property('sdkInvocationId'):
-                        DartTypes.awsCommon.uuid(),
-                  }).spread.code,
-                  const Code('}'),
-                ])),
+                'zoneValues': CodeExpression(
+                  Block.of([
+                    const Code('{'),
+                    refer('_awsEndpoint')
+                        .property('credentialScope')
+                        .nullSafeProperty('zoneValues')
+                        .nullSafeSpread
+                        .code,
+                    const Code(','),
+                    literalMap({
+                      DartTypes.awsCommon.awsHeaders
+                              .property('sdkInvocationId'):
+                          DartTypes.awsCommon.uuid(),
+                    }).spread.code,
+                    const Code('}'),
+                  ]),
+                ),
               })
               .returned
               .statement,
@@ -602,9 +628,13 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
         ..annotations.add(DartTypes.core.override)
         ..returns = outputToken?.symbol.boxed ?? DartTypes.core.void$
         ..name = 'getToken'
-        ..requiredParameters.add(Parameter((p) => p
-          ..type = outputSymbol
-          ..name = 'output'))
+        ..requiredParameters.add(
+          Parameter(
+            (p) => p
+              ..type = outputSymbol
+              ..name = 'output',
+          ),
+        )
         ..lambda = outputToken != null
         ..body = outputToken?.buildExpression.call(refer('output')).code ??
             emptyBody,
@@ -614,9 +644,11 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
     Expression? defaultValue;
     final items = paginatedTraits.items;
     if (items != null && items.isNullable) {
-      final symbol = items.symbol.typeRef.rebuild((t) => t
-        ..isNullable = false
-        ..types.clear());
+      final symbol = items.symbol.typeRef.rebuild(
+        (t) => t
+          ..isNullable = false
+          ..types.clear(),
+      );
       defaultValue = symbol.newInstance([]);
     }
     var itemsBody =
@@ -629,9 +661,13 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
         ..annotations.add(DartTypes.core.override)
         ..returns = items?.symbol.unboxed ?? outputSymbol
         ..name = 'getItems'
-        ..requiredParameters.add(Parameter((p) => p
-          ..type = outputSymbol
-          ..name = 'output'))
+        ..requiredParameters.add(
+          Parameter(
+            (p) => p
+              ..type = outputSymbol
+              ..name = 'output',
+          ),
+        )
         ..lambda = true
         ..body = itemsBody.code,
     );
@@ -662,15 +698,21 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
         ..returns = inputSymbol
         ..name = 'rebuildInput'
         ..requiredParameters.addAll([
-          Parameter((p) => p
-            ..type = inputSymbol
-            ..name = 'input'),
-          Parameter((p) => p
-            ..type = inputToken?.symbol.unboxed ?? DartTypes.core.void$
-            ..name = 'token'),
-          Parameter((p) => p
-            ..type = pageSize?.symbol.boxed ?? DartTypes.core.void$
-            ..name = 'pageSize')
+          Parameter(
+            (p) => p
+              ..type = inputSymbol
+              ..name = 'input',
+          ),
+          Parameter(
+            (p) => p
+              ..type = inputToken?.symbol.unboxed ?? DartTypes.core.void$
+              ..name = 'token',
+          ),
+          Parameter(
+            (p) => p
+              ..type = pageSize?.symbol.boxed ?? DartTypes.core.void$
+              ..name = 'pageSize',
+          )
         ])
         ..lambda = true
         ..body = refer('input').property('rebuild').call([

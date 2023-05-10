@@ -19,27 +19,39 @@ void main() {
   AmplifyDataStore dataStore =
       AmplifyDataStore(modelProvider: ModelProvider.instance);
 
-  TestWidgetsFlutterBinding.ensureInitialized();
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {});
 
   tearDown(() {
-    dataStoreChannel.setMockMethodCallHandler(null);
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      null,
+    );
   });
 
   test('observe a valid model type and receive an item ', () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      expect("setUpObserve", methodCall.method);
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        expect("setUpObserve", methodCall.method);
+        return null;
+      },
+    );
     var json =
         await getJsonFromFile('observe_api/post_type_success_event.json');
-    eventChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
-        "com.amazonaws.amplify/datastore_observe_events",
-        const StandardMethodCodec().encodeSuccessEnvelope(json),
-        (ByteData? data) {},
-      );
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+            .handlePlatformMessage(
+          "com.amazonaws.amplify/datastore_observe_events",
+          const StandardMethodCodec().encodeSuccessEnvelope(json),
+          (ByteData? data) {},
+        );
+        return null;
+      },
+    );
     dataStore.observe(Post.classType).listen((event) {
       expect(
           event.item,
@@ -54,18 +66,27 @@ void main() {
   });
 
   test('observe a model type, but event is for different model type', () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      expect("setUpObserve", methodCall.method);
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        expect("setUpObserve", methodCall.method);
+        return null;
+      },
+    );
     var json =
         await getJsonFromFile('observe_api/blog_type_success_event.json');
-    eventChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
-        "com.amazonaws.amplify/datastore_observe_events",
-        const StandardMethodCodec().encodeSuccessEnvelope(json),
-        (ByteData? data) {},
-      );
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      eventChannel,
+      (MethodCall methodCall) async {
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+            .handlePlatformMessage(
+          "com.amazonaws.amplify/datastore_observe_events",
+          const StandardMethodCodec().encodeSuccessEnvelope(json),
+          (ByteData? data) {},
+        );
+        return null;
+      },
+    );
     dataStore.observe(Post.classType).listen((event) {
       fail("No message should ever be received");
     });

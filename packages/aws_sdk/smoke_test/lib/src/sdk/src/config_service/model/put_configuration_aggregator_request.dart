@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_configuration_aggregator_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,16 +24,16 @@ abstract class PutConfigurationAggregatorRequest
         Built<PutConfigurationAggregatorRequest,
             PutConfigurationAggregatorRequestBuilder> {
   factory PutConfigurationAggregatorRequest({
-    List<_i3.AccountAggregationSource>? accountAggregationSources,
     required String configurationAggregatorName,
+    List<_i3.AccountAggregationSource>? accountAggregationSources,
     _i4.OrganizationAggregationSource? organizationAggregationSource,
     List<_i5.Tag>? tags,
   }) {
     return _$PutConfigurationAggregatorRequest._(
+      configurationAggregatorName: configurationAggregatorName,
       accountAggregationSources: accountAggregationSources == null
           ? null
           : _i6.BuiltList(accountAggregationSources),
-      configurationAggregatorName: configurationAggregatorName,
       organizationAggregationSource: organizationAggregationSource,
       tags: tags == null ? null : _i6.BuiltList(tags),
     );
@@ -58,11 +59,11 @@ abstract class PutConfigurationAggregatorRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutConfigurationAggregatorRequestBuilder b) {}
 
-  /// A list of AccountAggregationSource object.
-  _i6.BuiltList<_i3.AccountAggregationSource>? get accountAggregationSources;
-
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
+
+  /// A list of AccountAggregationSource object.
+  _i6.BuiltList<_i3.AccountAggregationSource>? get accountAggregationSources;
 
   /// An OrganizationAggregationSource object.
   _i4.OrganizationAggregationSource? get organizationAggregationSource;
@@ -73,8 +74,8 @@ abstract class PutConfigurationAggregatorRequest
   PutConfigurationAggregatorRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        accountAggregationSources,
         configurationAggregatorName,
+        accountAggregationSources,
         organizationAggregationSource,
         tags,
       ];
@@ -83,12 +84,12 @@ abstract class PutConfigurationAggregatorRequest
     final helper =
         newBuiltValueToStringHelper('PutConfigurationAggregatorRequest');
     helper.add(
-      'accountAggregationSources',
-      accountAggregationSources,
-    );
-    helper.add(
       'configurationAggregatorName',
       configurationAggregatorName,
+    );
+    helper.add(
+      'accountAggregationSources',
+      accountAggregationSources,
     );
     helper.add(
       'organizationAggregationSource',
@@ -131,44 +132,36 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'AccountAggregationSources':
-          if (value != null) {
-            result.accountAggregationSources.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i3.AccountAggregationSource)],
-              ),
-            ) as _i6.BuiltList<_i3.AccountAggregationSource>));
-          }
-          break;
         case 'ConfigurationAggregatorName':
           result.configurationAggregatorName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'AccountAggregationSources':
+          result.accountAggregationSources.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i3.AccountAggregationSource)],
+            ),
+          ) as _i6.BuiltList<_i3.AccountAggregationSource>));
         case 'OrganizationAggregationSource':
-          if (value != null) {
-            result.organizationAggregationSource
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.OrganizationAggregationSource),
-            ) as _i4.OrganizationAggregationSource));
-          }
-          break;
+          result.organizationAggregationSource.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.OrganizationAggregationSource),
+          ) as _i4.OrganizationAggregationSource));
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i5.Tag)],
-              ),
-            ) as _i6.BuiltList<_i5.Tag>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i5.Tag)],
+            ),
+          ) as _i6.BuiltList<_i5.Tag>));
       }
     }
 
@@ -178,47 +171,53 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutConfigurationAggregatorRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutConfigurationAggregatorRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutConfigurationAggregatorRequest(
+      :configurationAggregatorName,
+      :accountAggregationSources,
+      :organizationAggregationSource,
+      :tags
+    ) = object;
+    result$.addAll([
       'ConfigurationAggregatorName',
       serializers.serialize(
-        payload.configurationAggregatorName,
+        configurationAggregatorName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.accountAggregationSources != null) {
-      result
+    ]);
+    if (accountAggregationSources != null) {
+      result$
         ..add('AccountAggregationSources')
         ..add(serializers.serialize(
-          payload.accountAggregationSources!,
+          accountAggregationSources,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i3.AccountAggregationSource)],
           ),
         ));
     }
-    if (payload.organizationAggregationSource != null) {
-      result
+    if (organizationAggregationSource != null) {
+      result$
         ..add('OrganizationAggregationSource')
         ..add(serializers.serialize(
-          payload.organizationAggregationSource!,
+          organizationAggregationSource,
           specifiedType: const FullType(_i4.OrganizationAggregationSource),
         ));
     }
-    if (payload.tags != null) {
-      result
+    if (tags != null) {
+      result$
         ..add('Tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i5.Tag)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

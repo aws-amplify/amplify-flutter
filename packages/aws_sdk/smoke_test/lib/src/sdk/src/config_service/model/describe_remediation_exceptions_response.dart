@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_remediation_exceptions_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,14 +20,14 @@ abstract class DescribeRemediationExceptionsResponse
         Built<DescribeRemediationExceptionsResponse,
             DescribeRemediationExceptionsResponseBuilder> {
   factory DescribeRemediationExceptionsResponse({
-    String? nextToken,
     List<_i2.RemediationException>? remediationExceptions,
+    String? nextToken,
   }) {
     return _$DescribeRemediationExceptionsResponse._(
-      nextToken: nextToken,
       remediationExceptions: remediationExceptions == null
           ? null
           : _i3.BuiltList(remediationExceptions),
+      nextToken: nextToken,
     );
   }
 
@@ -50,27 +51,27 @@ abstract class DescribeRemediationExceptionsResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeRemediationExceptionsResponseBuilder b) {}
 
-  /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
-  String? get nextToken;
-
   /// Returns a list of remediation exception objects.
   _i3.BuiltList<_i2.RemediationException>? get remediationExceptions;
+
+  /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         remediationExceptions,
+        nextToken,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DescribeRemediationExceptionsResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'remediationExceptions',
       remediationExceptions,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -105,26 +106,23 @@ class DescribeRemediationExceptionsResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'RemediationExceptions':
-          if (value != null) {
-            result.remediationExceptions.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.RemediationException)],
-              ),
-            ) as _i3.BuiltList<_i2.RemediationException>));
-          }
-          break;
+          result.remediationExceptions.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.RemediationException)],
+            ),
+          ) as _i3.BuiltList<_i2.RemediationException>));
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -134,30 +132,33 @@ class DescribeRemediationExceptionsResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeRemediationExceptionsResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeRemediationExceptionsResponse);
-    final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.remediationExceptions != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeRemediationExceptionsResponse(
+      :remediationExceptions,
+      :nextToken
+    ) = object;
+    if (remediationExceptions != null) {
+      result$
         ..add('RemediationExceptions')
         ..add(serializers.serialize(
-          payload.remediationExceptions!,
+          remediationExceptions,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.RemediationException)],
           ),
         ));
     }
-    return result;
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

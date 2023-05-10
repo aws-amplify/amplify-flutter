@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_remediation_exceptions_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,15 +22,15 @@ abstract class PutRemediationExceptionsRequest
             PutRemediationExceptionsRequestBuilder> {
   factory PutRemediationExceptionsRequest({
     required String configRuleName,
-    DateTime? expirationTime,
-    String? message,
     required List<_i3.RemediationExceptionResourceKey> resourceKeys,
+    String? message,
+    DateTime? expirationTime,
   }) {
     return _$PutRemediationExceptionsRequest._(
       configRuleName: configRuleName,
-      expirationTime: expirationTime,
-      message: message,
       resourceKeys: _i4.BuiltList(resourceKeys),
+      message: message,
+      expirationTime: expirationTime,
     );
   }
 
@@ -56,22 +57,22 @@ abstract class PutRemediationExceptionsRequest
   /// The name of the Config rule for which you want to create remediation exception.
   String get configRuleName;
 
-  /// The exception is automatically deleted after the expiration date.
-  DateTime? get expirationTime;
+  /// An exception list of resource exception keys to be processed with the current request. Config adds exception for each resource key. For example, Config adds 3 exceptions for 3 resource keys.
+  _i4.BuiltList<_i3.RemediationExceptionResourceKey> get resourceKeys;
 
   /// The message contains an explanation of the exception.
   String? get message;
 
-  /// An exception list of resource exception keys to be processed with the current request. Config adds exception for each resource key. For example, Config adds 3 exceptions for 3 resource keys.
-  _i4.BuiltList<_i3.RemediationExceptionResourceKey> get resourceKeys;
+  /// The exception is automatically deleted after the expiration date.
+  DateTime? get expirationTime;
   @override
   PutRemediationExceptionsRequest getPayload() => this;
   @override
   List<Object?> get props => [
         configRuleName,
-        expirationTime,
-        message,
         resourceKeys,
+        message,
+        expirationTime,
       ];
   @override
   String toString() {
@@ -82,16 +83,16 @@ abstract class PutRemediationExceptionsRequest
       configRuleName,
     );
     helper.add(
-      'expirationTime',
-      expirationTime,
+      'resourceKeys',
+      resourceKeys,
     );
     helper.add(
       'message',
       message,
     );
     helper.add(
-      'resourceKeys',
-      resourceKeys,
+      'expirationTime',
+      expirationTime,
     );
     return helper.toString();
   }
@@ -126,29 +127,15 @@ class PutRemediationExceptionsRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleName':
           result.configRuleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
-        case 'ExpirationTime':
-          if (value != null) {
-            result.expirationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ResourceKeys':
           result.resourceKeys.replace((serializers.deserialize(
             value,
@@ -157,7 +144,16 @@ class PutRemediationExceptionsRequestAwsJson11Serializer
               [FullType(_i3.RemediationExceptionResourceKey)],
             ),
           ) as _i4.BuiltList<_i3.RemediationExceptionResourceKey>));
-          break;
+        case 'Message':
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ExpirationTime':
+          result.expirationTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -167,41 +163,47 @@ class PutRemediationExceptionsRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutRemediationExceptionsRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutRemediationExceptionsRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutRemediationExceptionsRequest(
+      :configRuleName,
+      :resourceKeys,
+      :message,
+      :expirationTime
+    ) = object;
+    result$.addAll([
       'ConfigRuleName',
       serializers.serialize(
-        payload.configRuleName,
+        configRuleName,
         specifiedType: const FullType(String),
       ),
       'ResourceKeys',
       serializers.serialize(
-        payload.resourceKeys,
+        resourceKeys,
         specifiedType: const FullType(
           _i4.BuiltList,
           [FullType(_i3.RemediationExceptionResourceKey)],
         ),
       ),
-    ];
-    if (payload.expirationTime != null) {
-      result
-        ..add('ExpirationTime')
-        ..add(serializers.serialize(
-          payload.expirationTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.message != null) {
-      result
+    ]);
+    if (message != null) {
+      result$
         ..add('Message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    if (expirationTime != null) {
+      result$
+        ..add('ExpirationTime')
+        ..add(serializers.serialize(
+          expirationTime,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    return result$;
   }
 }

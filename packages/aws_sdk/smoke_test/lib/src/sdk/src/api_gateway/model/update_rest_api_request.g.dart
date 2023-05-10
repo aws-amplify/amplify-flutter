@@ -8,15 +8,15 @@ part of smoke_test.api_gateway.model.update_rest_api_request;
 
 class _$UpdateRestApiRequest extends UpdateRestApiRequest {
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
-  @override
   final String restApiId;
+  @override
+  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
 
   factory _$UpdateRestApiRequest(
           [void Function(UpdateRestApiRequestBuilder)? updates]) =>
       (new UpdateRestApiRequestBuilder()..update(updates))._build();
 
-  _$UpdateRestApiRequest._({this.patchOperations, required this.restApiId})
+  _$UpdateRestApiRequest._({required this.restApiId, this.patchOperations})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'UpdateRestApiRequest', 'restApiId');
@@ -35,15 +35,15 @@ class _$UpdateRestApiRequest extends UpdateRestApiRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateRestApiRequest &&
-        patchOperations == other.patchOperations &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        patchOperations == other.patchOperations;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, patchOperations.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, patchOperations.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,15 +53,15 @@ class UpdateRestApiRequestBuilder
     implements Builder<UpdateRestApiRequest, UpdateRestApiRequestBuilder> {
   _$UpdateRestApiRequest? _$v;
 
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
   _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
   _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
       _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   UpdateRestApiRequestBuilder() {
     UpdateRestApiRequest._init(this);
@@ -70,8 +70,8 @@ class UpdateRestApiRequestBuilder
   UpdateRestApiRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _patchOperations = $v.patchOperations?.toBuilder();
       _restApiId = $v.restApiId;
+      _patchOperations = $v.patchOperations?.toBuilder();
       _$v = null;
     }
     return this;
@@ -96,9 +96,9 @@ class UpdateRestApiRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateRestApiRequest._(
-              patchOperations: _patchOperations?.build(),
               restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'UpdateRestApiRequest', 'restApiId'));
+                  restApiId, r'UpdateRestApiRequest', 'restApiId'),
+              patchOperations: _patchOperations?.build());
     } catch (_) {
       late String _$failedField;
       try {

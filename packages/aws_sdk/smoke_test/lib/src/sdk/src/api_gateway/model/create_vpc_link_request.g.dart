@@ -8,23 +8,23 @@ part of smoke_test.api_gateway.model.create_vpc_link_request;
 
 class _$CreateVpcLinkRequest extends CreateVpcLinkRequest {
   @override
-  final String? description;
-  @override
   final String name;
   @override
-  final _i3.BuiltMap<String, String>? tags;
+  final String? description;
   @override
   final _i3.BuiltList<String> targetArns;
+  @override
+  final _i3.BuiltMap<String, String>? tags;
 
   factory _$CreateVpcLinkRequest(
           [void Function(CreateVpcLinkRequestBuilder)? updates]) =>
       (new CreateVpcLinkRequestBuilder()..update(updates))._build();
 
   _$CreateVpcLinkRequest._(
-      {this.description,
-      required this.name,
-      this.tags,
-      required this.targetArns})
+      {required this.name,
+      this.description,
+      required this.targetArns,
+      this.tags})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         name, r'CreateVpcLinkRequest', 'name');
@@ -45,19 +45,19 @@ class _$CreateVpcLinkRequest extends CreateVpcLinkRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CreateVpcLinkRequest &&
-        description == other.description &&
         name == other.name &&
-        tags == other.tags &&
-        targetArns == other.targetArns;
+        description == other.description &&
+        targetArns == other.targetArns &&
+        tags == other.tags;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, tags.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, targetArns.hashCode);
+    _$hash = $jc(_$hash, tags.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -67,24 +67,24 @@ class CreateVpcLinkRequestBuilder
     implements Builder<CreateVpcLinkRequest, CreateVpcLinkRequestBuilder> {
   _$CreateVpcLinkRequest? _$v;
 
-  String? _description;
-  String? get description => _$this._description;
-  set description(String? description) => _$this._description = description;
-
   String? _name;
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  _i3.MapBuilder<String, String>? _tags;
-  _i3.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i3.MapBuilder<String, String>();
-  set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
   _i3.ListBuilder<String>? _targetArns;
   _i3.ListBuilder<String> get targetArns =>
       _$this._targetArns ??= new _i3.ListBuilder<String>();
   set targetArns(_i3.ListBuilder<String>? targetArns) =>
       _$this._targetArns = targetArns;
+
+  _i3.MapBuilder<String, String>? _tags;
+  _i3.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i3.MapBuilder<String, String>();
+  set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
   CreateVpcLinkRequestBuilder() {
     CreateVpcLinkRequest._init(this);
@@ -93,10 +93,10 @@ class CreateVpcLinkRequestBuilder
   CreateVpcLinkRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _description = $v.description;
       _name = $v.name;
-      _tags = $v.tags?.toBuilder();
+      _description = $v.description;
       _targetArns = $v.targetArns.toBuilder();
+      _tags = $v.tags?.toBuilder();
       _$v = null;
     }
     return this;
@@ -121,18 +121,18 @@ class CreateVpcLinkRequestBuilder
     try {
       _$result = _$v ??
           new _$CreateVpcLinkRequest._(
-              description: description,
               name: BuiltValueNullFieldError.checkNotNull(
                   name, r'CreateVpcLinkRequest', 'name'),
-              tags: _tags?.build(),
-              targetArns: targetArns.build());
+              description: description,
+              targetArns: targetArns.build(),
+              tags: _tags?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'tags';
-        _tags?.build();
         _$failedField = 'targetArns';
         targetArns.build();
+        _$failedField = 'tags';
+        _tags?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'CreateVpcLinkRequest', _$failedField, e.toString());

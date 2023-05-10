@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.malformed_double_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,16 +20,16 @@ abstract class MalformedDoubleInput
         _i1.HasPayload<MalformedDoubleInputPayload> {
   factory MalformedDoubleInput({
     double? doubleInBody,
-    double? doubleInHeader,
     double? doubleInPath,
     double? doubleInQuery,
+    double? doubleInHeader,
   }) {
     doubleInPath ??= 0;
     return _$MalformedDoubleInput._(
       doubleInBody: doubleInBody,
-      doubleInHeader: doubleInHeader,
       doubleInPath: doubleInPath,
       doubleInQuery: doubleInQuery,
+      doubleInHeader: doubleInHeader,
     );
   }
 
@@ -67,9 +68,9 @@ abstract class MalformedDoubleInput
   }
 
   double? get doubleInBody;
-  double? get doubleInHeader;
   double get doubleInPath;
   double? get doubleInQuery;
+  double? get doubleInHeader;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -89,9 +90,9 @@ abstract class MalformedDoubleInput
   @override
   List<Object?> get props => [
         doubleInBody,
-        doubleInHeader,
         doubleInPath,
         doubleInQuery,
+        doubleInHeader,
       ];
   @override
   String toString() {
@@ -101,16 +102,16 @@ abstract class MalformedDoubleInput
       doubleInBody,
     );
     helper.add(
-      'doubleInHeader',
-      doubleInHeader,
-    );
-    helper.add(
       'doubleInPath',
       doubleInPath,
     );
     helper.add(
       'doubleInQuery',
       doubleInQuery,
+    );
+    helper.add(
+      'doubleInHeader',
+      doubleInHeader,
     );
     return helper.toString();
   }
@@ -174,15 +175,15 @@ class MalformedDoubleInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'doubleInBody':
-          if (value != null) {
-            result.doubleInBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.doubleInBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
       }
     }
 
@@ -192,21 +193,19 @@ class MalformedDoubleInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedDoubleInputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is MalformedDoubleInput
-        ? object.getPayload()
-        : (object as MalformedDoubleInputPayload);
-    final result = <Object?>[];
-    if (payload.doubleInBody != null) {
-      result
+    final result$ = <Object?>[];
+    final MalformedDoubleInputPayload(:doubleInBody) = object;
+    if (doubleInBody != null) {
+      result$
         ..add('doubleInBody')
         ..add(serializers.serialize(
-          payload.doubleInBody!,
+          doubleInBody,
           specifiedType: const FullType(double),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -3,9 +3,9 @@
 library amplify_auth_cognito_dart.cognito_identity_provider.model.get_user_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/attribute_type.dart'
-    as _i3;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/mfa_option_type.dart'
     as _i2;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/mfa_option_type.dart'
+    as _i3;
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
@@ -20,19 +20,19 @@ abstract class GetUserResponse
     implements Built<GetUserResponse, GetUserResponseBuilder> {
   /// Represents the response from the server from the request to get information about the user.
   factory GetUserResponse({
-    List<_i2.MfaOptionType>? mfaOptions,
-    String? preferredMfaSetting,
-    required List<_i3.AttributeType> userAttributes,
-    List<String>? userMfaSettingList,
     required String username,
+    required List<_i2.AttributeType> userAttributes,
+    List<_i3.MfaOptionType>? mfaOptions,
+    String? preferredMfaSetting,
+    List<String>? userMfaSettingList,
   }) {
     return _$GetUserResponse._(
+      username: username,
+      userAttributes: _i4.BuiltList(userAttributes),
       mfaOptions: mfaOptions == null ? null : _i4.BuiltList(mfaOptions),
       preferredMfaSetting: preferredMfaSetting,
-      userAttributes: _i4.BuiltList(userAttributes),
       userMfaSettingList:
           userMfaSettingList == null ? null : _i4.BuiltList(userMfaSettingList),
-      username: username,
     );
   }
 
@@ -56,33 +56,41 @@ abstract class GetUserResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetUserResponseBuilder b) {}
 
-  /// _This response parameter is no longer supported._ It provides information only about SMS MFA configurations. It doesn't provide information about time-based one-time password (TOTP) software token MFA configurations. To look up information about either type of MFA configuration, use UserMFASettingList instead.
-  _i4.BuiltList<_i2.MfaOptionType>? get mfaOptions;
-
-  /// The user's preferred MFA setting.
-  String? get preferredMfaSetting;
+  /// The user name of the user you want to retrieve from the get user request.
+  String get username;
 
   /// An array of name-value pairs representing user attributes.
   ///
   /// For custom attributes, you must prepend the `custom:` prefix to the attribute name.
-  _i4.BuiltList<_i3.AttributeType> get userAttributes;
+  _i4.BuiltList<_i2.AttributeType> get userAttributes;
+
+  /// _This response parameter is no longer supported._ It provides information only about SMS MFA configurations. It doesn't provide information about time-based one-time password (TOTP) software token MFA configurations. To look up information about either type of MFA configuration, use UserMFASettingList instead.
+  _i4.BuiltList<_i3.MfaOptionType>? get mfaOptions;
+
+  /// The user's preferred MFA setting.
+  String? get preferredMfaSetting;
 
   /// The MFA options that are activated for the user. The possible values in this list are `SMS_MFA` and `SOFTWARE\_TOKEN\_MFA`.
   _i4.BuiltList<String>? get userMfaSettingList;
-
-  /// The user name of the user you want to retrieve from the get user request.
-  String get username;
   @override
   List<Object?> get props => [
+        username,
+        userAttributes,
         mfaOptions,
         preferredMfaSetting,
-        userAttributes,
         userMfaSettingList,
-        username,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetUserResponse');
+    helper.add(
+      'username',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'userAttributes',
+      userAttributes,
+    );
     helper.add(
       'mfaOptions',
       mfaOptions,
@@ -92,16 +100,8 @@ abstract class GetUserResponse
       preferredMfaSetting,
     );
     helper.add(
-      'userAttributes',
-      userAttributes,
-    );
-    helper.add(
       'userMfaSettingList',
       userMfaSettingList,
-    );
-    helper.add(
-      'username',
-      '***SENSITIVE***',
     );
     return helper.toString();
   }
@@ -136,15 +136,30 @@ class GetUserResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'Username':
+          result.username = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
+        case 'UserAttributes':
+          result.userAttributes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.AttributeType)],
+            ),
+          ) as _i4.BuiltList<_i2.AttributeType>));
+          break;
         case 'MFAOptions':
           if (value != null) {
             result.mfaOptions.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
                 _i4.BuiltList,
-                [FullType(_i2.MfaOptionType)],
+                [FullType(_i3.MfaOptionType)],
               ),
-            ) as _i4.BuiltList<_i2.MfaOptionType>));
+            ) as _i4.BuiltList<_i3.MfaOptionType>));
           }
           break;
         case 'PreferredMfaSetting':
@@ -154,15 +169,6 @@ class GetUserResponseAwsJson11Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
-          break;
-        case 'UserAttributes':
-          result.userAttributes.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.AttributeType)],
-            ),
-          ) as _i4.BuiltList<_i3.AttributeType>));
           break;
         case 'UserMFASettingList':
           if (value != null) {
@@ -174,12 +180,6 @@ class GetUserResponseAwsJson11Serializer
               ),
             ) as _i4.BuiltList<String>));
           }
-          break;
-        case 'Username':
-          result.username = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }
@@ -195,18 +195,18 @@ class GetUserResponseAwsJson11Serializer
   }) {
     final payload = (object as GetUserResponse);
     final result = <Object?>[
+      'Username',
+      serializers.serialize(
+        payload.username,
+        specifiedType: const FullType(String),
+      ),
       'UserAttributes',
       serializers.serialize(
         payload.userAttributes,
         specifiedType: const FullType(
           _i4.BuiltList,
-          [FullType(_i3.AttributeType)],
+          [FullType(_i2.AttributeType)],
         ),
-      ),
-      'Username',
-      serializers.serialize(
-        payload.username,
-        specifiedType: const FullType(String),
       ),
     ];
     if (payload.mfaOptions != null) {
@@ -216,7 +216,7 @@ class GetUserResponseAwsJson11Serializer
           payload.mfaOptions!,
           specifiedType: const FullType(
             _i4.BuiltList,
-            [FullType(_i2.MfaOptionType)],
+            [FullType(_i3.MfaOptionType)],
           ),
         ));
     }

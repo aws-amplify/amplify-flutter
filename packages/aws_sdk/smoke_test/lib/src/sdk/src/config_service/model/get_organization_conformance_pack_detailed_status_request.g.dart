@@ -9,13 +9,13 @@ part of smoke_test.config_service.model.get_organization_conformance_pack_detail
 class _$GetOrganizationConformancePackDetailedStatusRequest
     extends GetOrganizationConformancePackDetailedStatusRequest {
   @override
+  final String organizationConformancePackName;
+  @override
   final _i3.OrganizationResourceDetailedStatusFilters? filters;
   @override
   final int? limit;
   @override
   final String? nextToken;
-  @override
-  final String organizationConformancePackName;
 
   factory _$GetOrganizationConformancePackDetailedStatusRequest(
           [void Function(
@@ -26,10 +26,10 @@ class _$GetOrganizationConformancePackDetailedStatusRequest
           ._build();
 
   _$GetOrganizationConformancePackDetailedStatusRequest._(
-      {this.filters,
+      {required this.organizationConformancePackName,
+      this.filters,
       this.limit,
-      this.nextToken,
-      required this.organizationConformancePackName})
+      this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         organizationConformancePackName,
@@ -53,20 +53,20 @@ class _$GetOrganizationConformancePackDetailedStatusRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetOrganizationConformancePackDetailedStatusRequest &&
+        organizationConformancePackName ==
+            other.organizationConformancePackName &&
         filters == other.filters &&
         limit == other.limit &&
-        nextToken == other.nextToken &&
-        organizationConformancePackName ==
-            other.organizationConformancePackName;
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, organizationConformancePackName.hashCode);
     _$hash = $jc(_$hash, filters.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, organizationConformancePackName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -77,6 +77,13 @@ class GetOrganizationConformancePackDetailedStatusRequestBuilder
         Builder<GetOrganizationConformancePackDetailedStatusRequest,
             GetOrganizationConformancePackDetailedStatusRequestBuilder> {
   _$GetOrganizationConformancePackDetailedStatusRequest? _$v;
+
+  String? _organizationConformancePackName;
+  String? get organizationConformancePackName =>
+      _$this._organizationConformancePackName;
+  set organizationConformancePackName(
+          String? organizationConformancePackName) =>
+      _$this._organizationConformancePackName = organizationConformancePackName;
 
   _i3.OrganizationResourceDetailedStatusFiltersBuilder? _filters;
   _i3.OrganizationResourceDetailedStatusFiltersBuilder get filters =>
@@ -93,13 +100,6 @@ class GetOrganizationConformancePackDetailedStatusRequestBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  String? _organizationConformancePackName;
-  String? get organizationConformancePackName =>
-      _$this._organizationConformancePackName;
-  set organizationConformancePackName(
-          String? organizationConformancePackName) =>
-      _$this._organizationConformancePackName = organizationConformancePackName;
-
   GetOrganizationConformancePackDetailedStatusRequestBuilder() {
     GetOrganizationConformancePackDetailedStatusRequest._init(this);
   }
@@ -107,10 +107,10 @@ class GetOrganizationConformancePackDetailedStatusRequestBuilder
   GetOrganizationConformancePackDetailedStatusRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _organizationConformancePackName = $v.organizationConformancePackName;
       _filters = $v.filters?.toBuilder();
       _limit = $v.limit;
       _nextToken = $v.nextToken;
-      _organizationConformancePackName = $v.organizationConformancePackName;
       _$v = null;
     }
     return this;
@@ -137,14 +137,14 @@ class GetOrganizationConformancePackDetailedStatusRequestBuilder
     try {
       _$result = _$v ??
           new _$GetOrganizationConformancePackDetailedStatusRequest._(
-              filters: _filters?.build(),
-              limit: limit,
-              nextToken: nextToken,
               organizationConformancePackName:
                   BuiltValueNullFieldError.checkNotNull(
                       organizationConformancePackName,
                       r'GetOrganizationConformancePackDetailedStatusRequest',
-                      'organizationConformancePackName'));
+                      'organizationConformancePackName'),
+              filters: _filters?.build(),
+              limit: limit,
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

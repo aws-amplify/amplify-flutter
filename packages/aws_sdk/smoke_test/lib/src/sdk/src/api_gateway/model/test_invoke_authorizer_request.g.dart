@@ -8,11 +8,9 @@ part of smoke_test.api_gateway.model.test_invoke_authorizer_request;
 
 class _$TestInvokeAuthorizerRequest extends TestInvokeAuthorizerRequest {
   @override
-  final _i3.BuiltMap<String, String>? additionalContext;
+  final String restApiId;
   @override
   final String authorizerId;
-  @override
-  final String? body;
   @override
   final _i3.BuiltMap<String, String>? headers;
   @override
@@ -20,28 +18,30 @@ class _$TestInvokeAuthorizerRequest extends TestInvokeAuthorizerRequest {
   @override
   final String? pathWithQueryString;
   @override
-  final String restApiId;
+  final String? body;
   @override
   final _i3.BuiltMap<String, String>? stageVariables;
+  @override
+  final _i3.BuiltMap<String, String>? additionalContext;
 
   factory _$TestInvokeAuthorizerRequest(
           [void Function(TestInvokeAuthorizerRequestBuilder)? updates]) =>
       (new TestInvokeAuthorizerRequestBuilder()..update(updates))._build();
 
   _$TestInvokeAuthorizerRequest._(
-      {this.additionalContext,
+      {required this.restApiId,
       required this.authorizerId,
-      this.body,
       this.headers,
       this.multiValueHeaders,
       this.pathWithQueryString,
-      required this.restApiId,
-      this.stageVariables})
+      this.body,
+      this.stageVariables,
+      this.additionalContext})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        authorizerId, r'TestInvokeAuthorizerRequest', 'authorizerId');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'TestInvokeAuthorizerRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        authorizerId, r'TestInvokeAuthorizerRequest', 'authorizerId');
   }
 
   @override
@@ -57,27 +57,27 @@ class _$TestInvokeAuthorizerRequest extends TestInvokeAuthorizerRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TestInvokeAuthorizerRequest &&
-        additionalContext == other.additionalContext &&
+        restApiId == other.restApiId &&
         authorizerId == other.authorizerId &&
-        body == other.body &&
         headers == other.headers &&
         multiValueHeaders == other.multiValueHeaders &&
         pathWithQueryString == other.pathWithQueryString &&
-        restApiId == other.restApiId &&
-        stageVariables == other.stageVariables;
+        body == other.body &&
+        stageVariables == other.stageVariables &&
+        additionalContext == other.additionalContext;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, additionalContext.hashCode);
+    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jc(_$hash, authorizerId.hashCode);
-    _$hash = $jc(_$hash, body.hashCode);
     _$hash = $jc(_$hash, headers.hashCode);
     _$hash = $jc(_$hash, multiValueHeaders.hashCode);
     _$hash = $jc(_$hash, pathWithQueryString.hashCode);
-    _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, body.hashCode);
     _$hash = $jc(_$hash, stageVariables.hashCode);
+    _$hash = $jc(_$hash, additionalContext.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -89,19 +89,13 @@ class TestInvokeAuthorizerRequestBuilder
             TestInvokeAuthorizerRequestBuilder> {
   _$TestInvokeAuthorizerRequest? _$v;
 
-  _i3.MapBuilder<String, String>? _additionalContext;
-  _i3.MapBuilder<String, String> get additionalContext =>
-      _$this._additionalContext ??= new _i3.MapBuilder<String, String>();
-  set additionalContext(_i3.MapBuilder<String, String>? additionalContext) =>
-      _$this._additionalContext = additionalContext;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _authorizerId;
   String? get authorizerId => _$this._authorizerId;
   set authorizerId(String? authorizerId) => _$this._authorizerId = authorizerId;
-
-  String? _body;
-  String? get body => _$this._body;
-  set body(String? body) => _$this._body = body;
 
   _i3.MapBuilder<String, String>? _headers;
   _i3.MapBuilder<String, String> get headers =>
@@ -122,15 +116,21 @@ class TestInvokeAuthorizerRequestBuilder
   set pathWithQueryString(String? pathWithQueryString) =>
       _$this._pathWithQueryString = pathWithQueryString;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  String? _body;
+  String? get body => _$this._body;
+  set body(String? body) => _$this._body = body;
 
   _i3.MapBuilder<String, String>? _stageVariables;
   _i3.MapBuilder<String, String> get stageVariables =>
       _$this._stageVariables ??= new _i3.MapBuilder<String, String>();
   set stageVariables(_i3.MapBuilder<String, String>? stageVariables) =>
       _$this._stageVariables = stageVariables;
+
+  _i3.MapBuilder<String, String>? _additionalContext;
+  _i3.MapBuilder<String, String> get additionalContext =>
+      _$this._additionalContext ??= new _i3.MapBuilder<String, String>();
+  set additionalContext(_i3.MapBuilder<String, String>? additionalContext) =>
+      _$this._additionalContext = additionalContext;
 
   TestInvokeAuthorizerRequestBuilder() {
     TestInvokeAuthorizerRequest._init(this);
@@ -139,14 +139,14 @@ class TestInvokeAuthorizerRequestBuilder
   TestInvokeAuthorizerRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _additionalContext = $v.additionalContext?.toBuilder();
+      _restApiId = $v.restApiId;
       _authorizerId = $v.authorizerId;
-      _body = $v.body;
       _headers = $v.headers?.toBuilder();
       _multiValueHeaders = $v.multiValueHeaders?.toBuilder();
       _pathWithQueryString = $v.pathWithQueryString;
-      _restApiId = $v.restApiId;
+      _body = $v.body;
       _stageVariables = $v.stageVariables?.toBuilder();
+      _additionalContext = $v.additionalContext?.toBuilder();
       _$v = null;
     }
     return this;
@@ -171,22 +171,19 @@ class TestInvokeAuthorizerRequestBuilder
     try {
       _$result = _$v ??
           new _$TestInvokeAuthorizerRequest._(
-              additionalContext: _additionalContext?.build(),
+              restApiId: BuiltValueNullFieldError.checkNotNull(
+                  restApiId, r'TestInvokeAuthorizerRequest', 'restApiId'),
               authorizerId: BuiltValueNullFieldError.checkNotNull(
                   authorizerId, r'TestInvokeAuthorizerRequest', 'authorizerId'),
-              body: body,
               headers: _headers?.build(),
               multiValueHeaders: _multiValueHeaders?.build(),
               pathWithQueryString: pathWithQueryString,
-              restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'TestInvokeAuthorizerRequest', 'restApiId'),
-              stageVariables: _stageVariables?.build());
+              body: body,
+              stageVariables: _stageVariables?.build(),
+              additionalContext: _additionalContext?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'additionalContext';
-        _additionalContext?.build();
-
         _$failedField = 'headers';
         _headers?.build();
         _$failedField = 'multiValueHeaders';
@@ -194,6 +191,8 @@ class TestInvokeAuthorizerRequestBuilder
 
         _$failedField = 'stageVariables';
         _stageVariables?.build();
+        _$failedField = 'additionalContext';
+        _additionalContext?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'TestInvokeAuthorizerRequest', _$failedField, e.toString());

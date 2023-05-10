@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.versioning_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -92,26 +93,23 @@ class VersioningConfigurationRestXmlSerializer
     final result = VersioningConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'MfaDelete':
-          if (value != null) {
-            result.mfaDelete = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.MfaDelete),
-            ) as _i2.MfaDelete);
-          }
-          break;
+          result.mfaDelete = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.MfaDelete),
+          ) as _i2.MfaDelete);
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.BucketVersioningStatus),
-            ) as _i3.BucketVersioningStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.BucketVersioningStatus),
+          ) as _i3.BucketVersioningStatus);
       }
     }
 
@@ -121,32 +119,32 @@ class VersioningConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    VersioningConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as VersioningConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'VersioningConfiguration',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.mfaDelete != null) {
-      result
+    final VersioningConfiguration(:mfaDelete, :status) = object;
+    if (mfaDelete != null) {
+      result$
         ..add(const _i4.XmlElementName('MfaDelete'))
         ..add(serializers.serialize(
-          payload.mfaDelete!,
+          mfaDelete,
           specifiedType: const FullType.nullable(_i2.MfaDelete),
         ));
     }
-    if (payload.status != null) {
-      result
+    if (status != null) {
+      result$
         ..add(const _i4.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType.nullable(_i3.BucketVersioningStatus),
         ));
     }
-    return result;
+    return result$;
   }
 }

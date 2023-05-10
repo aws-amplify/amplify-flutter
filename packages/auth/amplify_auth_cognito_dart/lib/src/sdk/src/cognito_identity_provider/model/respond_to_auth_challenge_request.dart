@@ -3,9 +3,9 @@
 library amplify_auth_cognito_dart.cognito_identity_provider.model.respond_to_auth_challenge_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart'
-    as _i3;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/challenge_name_type.dart'
     as _i4;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/challenge_name_type.dart'
+    as _i3;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_context_data_type.dart'
     as _i5;
 import 'package:aws_common/aws_common.dart' as _i2;
@@ -26,24 +26,24 @@ abstract class RespondToAuthChallengeRequest
             RespondToAuthChallengeRequestBuilder> {
   /// The request to respond to an authentication challenge.
   factory RespondToAuthChallengeRequest({
-    _i3.AnalyticsMetadataType? analyticsMetadata,
-    required _i4.ChallengeNameType challengeName,
-    Map<String, String>? challengeResponses,
     required String clientId,
-    Map<String, String>? clientMetadata,
+    required _i3.ChallengeNameType challengeName,
     String? session,
+    Map<String, String>? challengeResponses,
+    _i4.AnalyticsMetadataType? analyticsMetadata,
     _i5.UserContextDataType? userContextData,
+    Map<String, String>? clientMetadata,
   }) {
     return _$RespondToAuthChallengeRequest._(
-      analyticsMetadata: analyticsMetadata,
+      clientId: clientId,
       challengeName: challengeName,
+      session: session,
       challengeResponses:
           challengeResponses == null ? null : _i6.BuiltMap(challengeResponses),
-      clientId: clientId,
+      analyticsMetadata: analyticsMetadata,
+      userContextData: userContextData,
       clientMetadata:
           clientMetadata == null ? null : _i6.BuiltMap(clientMetadata),
-      session: session,
-      userContextData: userContextData,
     );
   }
 
@@ -68,13 +68,16 @@ abstract class RespondToAuthChallengeRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RespondToAuthChallengeRequestBuilder b) {}
 
-  /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `RespondToAuthChallenge` calls.
-  _i3.AnalyticsMetadataType? get analyticsMetadata;
+  /// The app client ID.
+  String get clientId;
 
   /// The challenge name. For more information, see [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html).
   ///
   /// `ADMIN\_NO\_SRP_AUTH` isn't a valid value.
-  _i4.ChallengeNameType get challengeName;
+  _i3.ChallengeNameType get challengeName;
+
+  /// The session that should be passed both ways in challenge-response calls to the service. If `InitiateAuth` or `RespondToAuthChallenge` API call determines that the caller must pass another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
+  String? get session;
 
   /// The challenge responses. These are inputs corresponding to the value of `ChallengeName`, for example:
   ///
@@ -99,8 +102,11 @@ abstract class RespondToAuthChallengeRequest
   /// *   `MFA_SETUP` requires `USERNAME`, plus you must use the session value returned by `VerifySoftwareToken` in the `Session` parameter.
   _i6.BuiltMap<String, String>? get challengeResponses;
 
-  /// The app client ID.
-  String get clientId;
+  /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `RespondToAuthChallenge` calls.
+  _i4.AnalyticsMetadataType? get analyticsMetadata;
+
+  /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
+  _i5.UserContextDataType? get userContextData;
 
   /// A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
   ///
@@ -116,54 +122,48 @@ abstract class RespondToAuthChallengeRequest
   ///
   /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
   _i6.BuiltMap<String, String>? get clientMetadata;
-
-  /// The session that should be passed both ways in challenge-response calls to the service. If `InitiateAuth` or `RespondToAuthChallenge` API call determines that the caller must pass another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
-  String? get session;
-
-  /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
-  _i5.UserContextDataType? get userContextData;
   @override
   RespondToAuthChallengeRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        analyticsMetadata,
-        challengeName,
-        challengeResponses,
         clientId,
-        clientMetadata,
+        challengeName,
         session,
+        challengeResponses,
+        analyticsMetadata,
         userContextData,
+        clientMetadata,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RespondToAuthChallengeRequest');
     helper.add(
-      'analyticsMetadata',
-      analyticsMetadata,
+      'clientId',
+      '***SENSITIVE***',
     );
     helper.add(
       'challengeName',
       challengeName,
     );
     helper.add(
-      'challengeResponses',
-      challengeResponses,
-    );
-    helper.add(
-      'clientId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'clientMetadata',
-      clientMetadata,
-    );
-    helper.add(
       'session',
       session,
     );
     helper.add(
+      'challengeResponses',
+      challengeResponses,
+    );
+    helper.add(
+      'analyticsMetadata',
+      analyticsMetadata,
+    );
+    helper.add(
       'userContextData',
       userContextData,
+    );
+    helper.add(
+      'clientMetadata',
+      clientMetadata,
     );
     return helper.toString();
   }
@@ -199,19 +199,25 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'AnalyticsMetadata':
-          if (value != null) {
-            result.analyticsMetadata.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AnalyticsMetadataType),
-            ) as _i3.AnalyticsMetadataType));
-          }
+        case 'ClientId':
+          result.clientId = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'ChallengeName':
           result.challengeName = (serializers.deserialize(
             value!,
-            specifiedType: const FullType(_i4.ChallengeNameType),
-          ) as _i4.ChallengeNameType);
+            specifiedType: const FullType(_i3.ChallengeNameType),
+          ) as _i3.ChallengeNameType);
+          break;
+        case 'Session':
+          if (value != null) {
+            result.session = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
           break;
         case 'ChallengeResponses':
           if (value != null) {
@@ -227,11 +233,21 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
             ) as _i6.BuiltMap<String, String>));
           }
           break;
-        case 'ClientId':
-          result.clientId = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
+        case 'AnalyticsMetadata':
+          if (value != null) {
+            result.analyticsMetadata.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.AnalyticsMetadataType),
+            ) as _i4.AnalyticsMetadataType));
+          }
+          break;
+        case 'UserContextData':
+          if (value != null) {
+            result.userContextData.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i5.UserContextDataType),
+            ) as _i5.UserContextDataType));
+          }
           break;
         case 'ClientMetadata':
           if (value != null) {
@@ -245,22 +261,6 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
                 ],
               ),
             ) as _i6.BuiltMap<String, String>));
-          }
-          break;
-        case 'Session':
-          if (value != null) {
-            result.session = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'UserContextData':
-          if (value != null) {
-            result.userContextData.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.UserContextDataType),
-            ) as _i5.UserContextDataType));
           }
           break;
       }
@@ -277,23 +277,23 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
   }) {
     final payload = (object as RespondToAuthChallengeRequest);
     final result = <Object?>[
-      'ChallengeName',
-      serializers.serialize(
-        payload.challengeName,
-        specifiedType: const FullType(_i4.ChallengeNameType),
-      ),
       'ClientId',
       serializers.serialize(
         payload.clientId,
         specifiedType: const FullType(String),
       ),
+      'ChallengeName',
+      serializers.serialize(
+        payload.challengeName,
+        specifiedType: const FullType(_i3.ChallengeNameType),
+      ),
     ];
-    if (payload.analyticsMetadata != null) {
+    if (payload.session != null) {
       result
-        ..add('AnalyticsMetadata')
+        ..add('Session')
         ..add(serializers.serialize(
-          payload.analyticsMetadata!,
-          specifiedType: const FullType(_i3.AnalyticsMetadataType),
+          payload.session!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.challengeResponses != null) {
@@ -310,6 +310,22 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
           ),
         ));
     }
+    if (payload.analyticsMetadata != null) {
+      result
+        ..add('AnalyticsMetadata')
+        ..add(serializers.serialize(
+          payload.analyticsMetadata!,
+          specifiedType: const FullType(_i4.AnalyticsMetadataType),
+        ));
+    }
+    if (payload.userContextData != null) {
+      result
+        ..add('UserContextData')
+        ..add(serializers.serialize(
+          payload.userContextData!,
+          specifiedType: const FullType(_i5.UserContextDataType),
+        ));
+    }
     if (payload.clientMetadata != null) {
       result
         ..add('ClientMetadata')
@@ -322,22 +338,6 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
               FullType(String),
             ],
           ),
-        ));
-    }
-    if (payload.session != null) {
-      result
-        ..add('Session')
-        ..add(serializers.serialize(
-          payload.session!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.userContextData != null) {
-      result
-        ..add('UserContextData')
-        ..add(serializers.serialize(
-          payload.userContextData!,
-          specifiedType: const FullType(_i5.UserContextDataType),
         ));
     }
     return result;

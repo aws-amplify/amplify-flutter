@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.get_item_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,25 +21,25 @@ abstract class GetItemInput
     implements Built<GetItemInput, GetItemInputBuilder> {
   /// Represents the input of a `GetItem` operation.
   factory GetItemInput({
+    required String tableName,
+    required Map<String, _i3.AttributeValue> key,
     List<String>? attributesToGet,
     bool? consistentRead,
-    Map<String, String>? expressionAttributeNames,
-    required Map<String, _i3.AttributeValue> key,
-    String? projectionExpression,
     _i4.ReturnConsumedCapacity? returnConsumedCapacity,
-    required String tableName,
+    String? projectionExpression,
+    Map<String, String>? expressionAttributeNames,
   }) {
     return _$GetItemInput._(
+      tableName: tableName,
+      key: _i5.BuiltMap(key),
       attributesToGet:
           attributesToGet == null ? null : _i5.BuiltList(attributesToGet),
       consistentRead: consistentRead,
+      returnConsumedCapacity: returnConsumedCapacity,
+      projectionExpression: projectionExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
           : _i5.BuiltMap(expressionAttributeNames),
-      key: _i5.BuiltMap(key),
-      projectionExpression: projectionExpression,
-      returnConsumedCapacity: returnConsumedCapacity,
-      tableName: tableName,
     );
   }
 
@@ -62,11 +63,37 @@ abstract class GetItemInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetItemInputBuilder b) {}
 
+  /// The name of the table containing the requested item.
+  String get tableName;
+
+  /// A map of attribute names to `AttributeValue` objects, representing the primary key of the item to retrieve.
+  ///
+  /// For the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.
+  _i5.BuiltMap<String, _i3.AttributeValue> get key;
+
   /// This is a legacy parameter. Use `ProjectionExpression` instead. For more information, see [AttributesToGet](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html) in the _Amazon DynamoDB Developer Guide_.
   _i5.BuiltList<String>? get attributesToGet;
 
   /// Determines the read consistency model: If set to `true`, then the operation uses strongly consistent reads; otherwise, the operation uses eventually consistent reads.
   bool? get consistentRead;
+
+  /// Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response:
+  ///
+  /// *   `INDEXES` \- The response includes the aggregate `ConsumedCapacity` for the operation, together with `ConsumedCapacity` for each table and secondary index that was accessed.
+  ///
+  ///     Note that some operations, such as `GetItem` and `BatchGetItem`, do not access any indexes at all. In these cases, specifying `INDEXES` will only return `ConsumedCapacity` information for table(s).
+  ///
+  /// *   `TOTAL` \- The response includes only the aggregate `ConsumedCapacity` for the operation.
+  ///
+  /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
+  _i4.ReturnConsumedCapacity? get returnConsumedCapacity;
+
+  /// A string that identifies one or more attributes to retrieve from the table. These attributes can include scalars, sets, or elements of a JSON document. The attributes in the expression must be separated by commas.
+  ///
+  /// If no attribute names are specified, then all attributes are returned. If any of the requested attributes are not found, they do not appear in the result.
+  ///
+  /// For more information, see [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
+  String? get projectionExpression;
 
   /// One or more substitution tokens for attribute names in an expression. The following are some use cases for using `ExpressionAttributeNames`:
   ///
@@ -96,47 +123,29 @@ abstract class GetItemInput
   ///
   /// For more information on expression attribute names, see [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
   _i5.BuiltMap<String, String>? get expressionAttributeNames;
-
-  /// A map of attribute names to `AttributeValue` objects, representing the primary key of the item to retrieve.
-  ///
-  /// For the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.
-  _i5.BuiltMap<String, _i3.AttributeValue> get key;
-
-  /// A string that identifies one or more attributes to retrieve from the table. These attributes can include scalars, sets, or elements of a JSON document. The attributes in the expression must be separated by commas.
-  ///
-  /// If no attribute names are specified, then all attributes are returned. If any of the requested attributes are not found, they do not appear in the result.
-  ///
-  /// For more information, see [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
-  String? get projectionExpression;
-
-  /// Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response:
-  ///
-  /// *   `INDEXES` \- The response includes the aggregate `ConsumedCapacity` for the operation, together with `ConsumedCapacity` for each table and secondary index that was accessed.
-  ///
-  ///     Note that some operations, such as `GetItem` and `BatchGetItem`, do not access any indexes at all. In these cases, specifying `INDEXES` will only return `ConsumedCapacity` information for table(s).
-  ///
-  /// *   `TOTAL` \- The response includes only the aggregate `ConsumedCapacity` for the operation.
-  ///
-  /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity;
-
-  /// The name of the table containing the requested item.
-  String get tableName;
   @override
   GetItemInput getPayload() => this;
   @override
   List<Object?> get props => [
+        tableName,
+        key,
         attributesToGet,
         consistentRead,
-        expressionAttributeNames,
-        key,
-        projectionExpression,
         returnConsumedCapacity,
-        tableName,
+        projectionExpression,
+        expressionAttributeNames,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetItemInput');
+    helper.add(
+      'tableName',
+      tableName,
+    );
+    helper.add(
+      'key',
+      key,
+    );
     helper.add(
       'attributesToGet',
       attributesToGet,
@@ -146,24 +155,16 @@ abstract class GetItemInput
       consistentRead,
     );
     helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'key',
-      key,
+      'returnConsumedCapacity',
+      returnConsumedCapacity,
     );
     helper.add(
       'projectionExpression',
       projectionExpression,
     );
     helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'tableName',
-      tableName,
+      'expressionAttributeNames',
+      expressionAttributeNames,
     );
     return helper.toString();
   }
@@ -197,40 +198,15 @@ class GetItemInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'AttributesToGet':
-          if (value != null) {
-            result.attributesToGet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i5.BuiltList<String>));
-          }
-          break;
-        case 'ConsistentRead':
-          if (value != null) {
-            result.consistentRead = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
-        case 'ExpressionAttributeNames':
-          if (value != null) {
-            result.expressionAttributeNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, String>));
-          }
-          break;
+        case 'TableName':
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Key':
           result.key.replace((serializers.deserialize(
             value,
@@ -242,29 +218,40 @@ class GetItemInputAwsJson10Serializer
               ],
             ),
           ) as _i5.BuiltMap<String, _i3.AttributeValue>));
-          break;
-        case 'ProjectionExpression':
-          if (value != null) {
-            result.projectionExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+        case 'AttributesToGet':
+          result.attributesToGet.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i5.BuiltList<String>));
+        case 'ConsistentRead':
+          result.consistentRead = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-            ) as _i4.ReturnConsumedCapacity);
-          }
-          break;
-        case 'TableName':
-          result.tableName = (serializers.deserialize(
-            value!,
+          result.returnConsumedCapacity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          ) as _i4.ReturnConsumedCapacity);
+        case 'ProjectionExpression':
+          result.projectionExpression = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'ExpressionAttributeNames':
+          result.expressionAttributeNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, String>));
       }
     }
 
@@ -274,14 +261,28 @@ class GetItemInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetItemInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetItemInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GetItemInput(
+      :tableName,
+      :key,
+      :attributesToGet,
+      :consistentRead,
+      :returnConsumedCapacity,
+      :projectionExpression,
+      :expressionAttributeNames
+    ) = object;
+    result$.addAll([
+      'TableName',
+      serializers.serialize(
+        tableName,
+        specifiedType: const FullType(String),
+      ),
       'Key',
       serializers.serialize(
-        payload.key,
+        key,
         specifiedType: const FullType(
           _i5.BuiltMap,
           [
@@ -290,36 +291,47 @@ class GetItemInputAwsJson10Serializer
           ],
         ),
       ),
-      'TableName',
-      serializers.serialize(
-        payload.tableName,
-        specifiedType: const FullType(String),
-      ),
-    ];
-    if (payload.attributesToGet != null) {
-      result
+    ]);
+    if (attributesToGet != null) {
+      result$
         ..add('AttributesToGet')
         ..add(serializers.serialize(
-          payload.attributesToGet!,
+          attributesToGet,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.consistentRead != null) {
-      result
+    if (consistentRead != null) {
+      result$
         ..add('ConsistentRead')
         ..add(serializers.serialize(
-          payload.consistentRead!,
+          consistentRead,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.expressionAttributeNames != null) {
-      result
+    if (returnConsumedCapacity != null) {
+      result$
+        ..add('ReturnConsumedCapacity')
+        ..add(serializers.serialize(
+          returnConsumedCapacity,
+          specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+        ));
+    }
+    if (projectionExpression != null) {
+      result$
+        ..add('ProjectionExpression')
+        ..add(serializers.serialize(
+          projectionExpression,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (expressionAttributeNames != null) {
+      result$
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
-          payload.expressionAttributeNames!,
+          expressionAttributeNames,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -329,22 +341,6 @@ class GetItemInputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.projectionExpression != null) {
-      result
-        ..add('ProjectionExpression')
-        ..add(serializers.serialize(
-          payload.projectionExpression!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.returnConsumedCapacity != null) {
-      result
-        ..add('ReturnConsumedCapacity')
-        ..add(serializers.serialize(
-          payload.returnConsumedCapacity!,
-          specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

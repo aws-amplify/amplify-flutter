@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_remediation_execution_status_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,15 +22,15 @@ abstract class DescribeRemediationExecutionStatusRequest
             DescribeRemediationExecutionStatusRequestBuilder> {
   factory DescribeRemediationExecutionStatusRequest({
     required String configRuleName,
+    List<_i3.ResourceKey>? resourceKeys,
     int? limit,
     String? nextToken,
-    List<_i3.ResourceKey>? resourceKeys,
   }) {
     return _$DescribeRemediationExecutionStatusRequest._(
       configRuleName: configRuleName,
+      resourceKeys: resourceKeys == null ? null : _i4.BuiltList(resourceKeys),
       limit: limit,
       nextToken: nextToken,
-      resourceKeys: resourceKeys == null ? null : _i4.BuiltList(resourceKeys),
     );
   }
 
@@ -56,22 +57,22 @@ abstract class DescribeRemediationExecutionStatusRequest
   /// A list of Config rule names.
   String get configRuleName;
 
+  /// A list of resource keys to be processed with the current request. Each element in the list consists of the resource type and resource ID.
+  _i4.BuiltList<_i3.ResourceKey>? get resourceKeys;
+
   /// The maximum number of RemediationExecutionStatuses returned on each page. The default is maximum. If you specify 0, Config uses the default.
   int? get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// A list of resource keys to be processed with the current request. Each element in the list consists of the resource type and resource ID.
-  _i4.BuiltList<_i3.ResourceKey>? get resourceKeys;
   @override
   DescribeRemediationExecutionStatusRequest getPayload() => this;
   @override
   List<Object?> get props => [
         configRuleName,
+        resourceKeys,
         limit,
         nextToken,
-        resourceKeys,
       ];
   @override
   String toString() {
@@ -82,16 +83,16 @@ abstract class DescribeRemediationExecutionStatusRequest
       configRuleName,
     );
     helper.add(
+      'resourceKeys',
+      resourceKeys,
+    );
+    helper.add(
       'limit',
       limit,
     );
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'resourceKeys',
-      resourceKeys,
     );
     return helper.toString();
   }
@@ -126,40 +127,33 @@ class DescribeRemediationExecutionStatusRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleName':
           result.configRuleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
-        case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ResourceKeys':
-          if (value != null) {
-            result.resourceKeys.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ResourceKey)],
-              ),
-            ) as _i4.BuiltList<_i3.ResourceKey>));
-          }
-          break;
+          result.resourceKeys.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.ResourceKey)],
+            ),
+          ) as _i4.BuiltList<_i3.ResourceKey>));
+        case 'Limit':
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -169,44 +163,50 @@ class DescribeRemediationExecutionStatusRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeRemediationExecutionStatusRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeRemediationExecutionStatusRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DescribeRemediationExecutionStatusRequest(
+      :configRuleName,
+      :resourceKeys,
+      :limit,
+      :nextToken
+    ) = object;
+    result$.addAll([
       'ConfigRuleName',
       serializers.serialize(
-        payload.configRuleName,
+        configRuleName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceKeys != null) {
-      result
+    ]);
+    if (resourceKeys != null) {
+      result$
         ..add('ResourceKeys')
         ..add(serializers.serialize(
-          payload.resourceKeys!,
+          resourceKeys,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.ResourceKey)],
           ),
         ));
     }
-    return result;
+    if (limit != null) {
+      result$
+        ..add('Limit')
+        ..add(serializers.serialize(
+          limit,
+          specifiedType: const FullType(int),
+        ));
+    }
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

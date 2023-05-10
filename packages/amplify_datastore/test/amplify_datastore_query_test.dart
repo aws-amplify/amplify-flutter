@@ -14,18 +14,25 @@ void main() {
   AmplifyDataStore dataStore =
       AmplifyDataStore(modelProvider: ModelProvider.instance);
 
-  TestWidgetsFlutterBinding.ensureInitialized();
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
   tearDown(() {
-    dataStoreChannel.setMockMethodCallHandler(null);
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      null,
+    );
   });
 
   test('query returns nested model result', () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "query") {
-        return getJsonFromFile('query_api/response/nested_results.json');
-      }
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        if (methodCall.method == "query") {
+          return getJsonFromFile('query_api/response/nested_results.json');
+        }
+        return null;
+      },
+    );
     List<Comment> comments = await dataStore.query(Comment.classType);
     expect(comments.length, 1);
     expect(
@@ -42,11 +49,15 @@ void main() {
   });
 
   test('query returns 2 sucessful results', () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "query") {
-        return getJsonFromFile('query_api/response/2_results.json');
-      }
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        if (methodCall.method == "query") {
+          return getJsonFromFile('query_api/response/2_results.json');
+        }
+        return null;
+      },
+    );
     List<Post> posts = await dataStore.query(Post.classType);
     expect(posts.length, 2);
     expect(
@@ -66,11 +77,15 @@ void main() {
   });
 
   test('query returns 0 sucessful results', () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "query") {
-        return [];
-      }
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        if (methodCall.method == "query") {
+          return [];
+        }
+        return null;
+      },
+    );
     List<Post> posts = await dataStore.query(Post.classType);
     expect(posts.length, 0);
   });
@@ -78,28 +93,36 @@ void main() {
   test(
       'method channel is called with empty query parameters and correct model name',
       () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "query") {
-        expect(methodCall.arguments,
-            await getJsonFromFile('query_api/request/only_model_name.json'));
-        return [];
-      }
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        if (methodCall.method == "query") {
+          expect(methodCall.arguments,
+              await getJsonFromFile('query_api/request/only_model_name.json'));
+          return [];
+        }
+        return null;
+      },
+    );
     List<Post> posts = await dataStore.query(Post.classType);
     expect(posts.length, 0);
   });
 
   test('method channel is called with all query parameters and model name',
       () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "query") {
-        expect(
-            methodCall.arguments,
-            await getJsonFromFile(
-                'query_api/request/model_name_with_all_query_parameters.json'));
-        return [];
-      }
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        if (methodCall.method == "query") {
+          expect(
+              methodCall.arguments,
+              await getJsonFromFile(
+                  'query_api/request/model_name_with_all_query_parameters.json'));
+          return [];
+        }
+        return null;
+      },
+    );
     List<Post> posts = await dataStore.query(Post.classType,
         where: Post.ID.eq("123").or(Post.RATING
             .ge(4)
@@ -110,15 +133,19 @@ void main() {
   });
 
   test('method channel throws a known PlatformException', () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "query") {
-        throw PlatformException(code: 'DataStoreException', details: {
-          'message': 'Query failed for whatever known reason',
-          'recoverySuggestion': 'some insightful suggestion',
-          'underlyingException': 'Act of God'
-        });
-      }
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        if (methodCall.method == "query") {
+          throw PlatformException(code: 'DataStoreException', details: {
+            'message': 'Query failed for whatever known reason',
+            'recoverySuggestion': 'some insightful suggestion',
+            'underlyingException': 'Act of God'
+          });
+        }
+        return null;
+      },
+    );
     expect(
         () => dataStore.query(Post.classType),
         throwsA(isA<DataStoreException>()

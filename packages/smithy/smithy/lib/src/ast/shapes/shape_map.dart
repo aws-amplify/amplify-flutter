@@ -9,7 +9,7 @@ import 'package:collection/collection.dart';
 import 'package:smithy/ast.dart';
 
 class ShapeMap extends DelegatingMap<ShapeId, Shape> {
-  ShapeMap(Map<ShapeId, Shape> shapes) : super(shapes);
+  ShapeMap(super.shapes);
 
   @override
   bool operator ==(Object? other) =>
@@ -23,22 +23,28 @@ class ShapeMap extends DelegatingMap<ShapeId, Shape> {
 
 class ShapeMapSerializer extends StructuredSerializer<ShapeMap> {
   @override
-  ShapeMap deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  ShapeMap deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final shapeMap = ShapeMap({});
     final applyTraits = ShapeMap({});
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final shapeId = serializers.deserializeWith(
-          ShapeId.serializer, iterator.current as String) as ShapeId;
+        ShapeId.serializer,
+        iterator.current as String,
+      ) as ShapeId;
       iterator.moveNext();
-      final Map<String, Object?> value = (iterator.current as Map).cast();
-      final String type = value['type'] as String;
-      final Shape shape = serializers
+      final value = (iterator.current as Map).cast<String, Object?>();
+      final type = value['type'] as String;
+      final shape = serializers
           .deserializeWith(
-              Shape.serializer,
-              StandardJsonPlugin()
-                  .beforeDeserialize(value, const FullType(Shape)))!
+            Shape.serializer,
+            StandardJsonPlugin()
+                .beforeDeserialize(value, const FullType(Shape)),
+          )!
           .rebuild((b) => b.shapeId = shapeId);
       if (ShapeType.deserialize(type) == ShapeType.apply) {
         applyTraits[shapeId] = shape;
@@ -46,11 +52,13 @@ class ShapeMapSerializer extends StructuredSerializer<ShapeMap> {
         // Update members before saving shape.
         shapeMap[shapeId] = shape.rebuild((b) {
           if (b is NamedMembersShapeBuilder) {
-            b.members?.updateAll((name, shape) => shape.rebuild(
-                  (s) => s
-                    ..shapeId = b.shapeId!.replace(member: name)
-                    ..memberName = name,
-                ));
+            b.members?.updateAll(
+              (name, shape) => shape.rebuild(
+                (s) => s
+                  ..shapeId = b.shapeId!.replace(member: name)
+                  ..memberName = name,
+              ),
+            );
           } else if (b is CollectionShapeBuilder) {
             b.member
               ..shapeId = b.shapeId!.replace(member: 'member')
@@ -126,9 +134,12 @@ class ShapeMapSerializer extends StructuredSerializer<ShapeMap> {
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, ShapeMap object,
-      {FullType specifiedType = FullType.unspecified}) sync* {
-    for (var entry in object.entries) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    ShapeMap object, {
+    FullType specifiedType = FullType.unspecified,
+  }) sync* {
+    for (final entry in object.entries) {
       yield entry.key.absoluteName;
       yield serializers.serializeWith(Shape.serializer, entry.value);
     }

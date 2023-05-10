@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_protocol.test.json_int_enums_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -150,67 +151,52 @@ class JsonIntEnumsInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'integerEnum1':
-          if (value != null) {
-            result.integerEnum1 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.IntegerEnum),
-            ) as _i6.IntegerEnum);
-          }
-          break;
+          result.integerEnum1 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.IntegerEnum),
+          ) as _i6.IntegerEnum);
         case 'integerEnum2':
-          if (value != null) {
-            result.integerEnum2 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.IntegerEnum),
-            ) as _i6.IntegerEnum);
-          }
-          break;
+          result.integerEnum2 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.IntegerEnum),
+          ) as _i6.IntegerEnum);
         case 'integerEnum3':
-          if (value != null) {
-            result.integerEnum3 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.IntegerEnum),
-            ) as _i6.IntegerEnum);
-          }
-          break;
+          result.integerEnum3 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.IntegerEnum),
+          ) as _i6.IntegerEnum);
         case 'integerEnumList':
-          if (value != null) {
-            result.integerEnumList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i6.IntegerEnum)],
-              ),
-            ) as _i7.BuiltList<_i6.IntegerEnum>));
-          }
-          break;
-        case 'integerEnumMap':
-          if (value != null) {
-            result.integerEnumMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i6.IntegerEnum),
-                ],
-              ),
-            ) as _i7.BuiltMap<String, _i6.IntegerEnum>));
-          }
-          break;
+          result.integerEnumList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(_i6.IntegerEnum)],
+            ),
+          ) as _i7.BuiltList<_i6.IntegerEnum>));
         case 'integerEnumSet':
-          if (value != null) {
-            result.integerEnumSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltSet,
-                [FullType(_i6.IntegerEnum)],
-              ),
-            ) as _i7.BuiltSet<_i6.IntegerEnum>));
-          }
-          break;
+          result.integerEnumSet.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltSet,
+              [FullType(_i6.IntegerEnum)],
+            ),
+          ) as _i7.BuiltSet<_i6.IntegerEnum>));
+        case 'integerEnumMap':
+          result.integerEnumMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i6.IntegerEnum),
+              ],
+            ),
+          ) as _i7.BuiltMap<String, _i6.IntegerEnum>));
       }
     }
 
@@ -220,7 +206,7 @@ class JsonIntEnumsInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.JsonIntEnumsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

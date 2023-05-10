@@ -8,17 +8,17 @@ part of smoke_test.dynamo_db.model.list_imports_input;
 
 class _$ListImportsInput extends ListImportsInput {
   @override
-  final String? nextToken;
+  final String? tableArn;
   @override
   final int? pageSize;
   @override
-  final String? tableArn;
+  final String? nextToken;
 
   factory _$ListImportsInput(
           [void Function(ListImportsInputBuilder)? updates]) =>
       (new ListImportsInputBuilder()..update(updates))._build();
 
-  _$ListImportsInput._({this.nextToken, this.pageSize, this.tableArn})
+  _$ListImportsInput._({this.tableArn, this.pageSize, this.nextToken})
       : super._();
 
   @override
@@ -33,17 +33,17 @@ class _$ListImportsInput extends ListImportsInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListImportsInput &&
-        nextToken == other.nextToken &&
+        tableArn == other.tableArn &&
         pageSize == other.pageSize &&
-        tableArn == other.tableArn;
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, pageSize.hashCode);
     _$hash = $jc(_$hash, tableArn.hashCode);
+    _$hash = $jc(_$hash, pageSize.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,17 +53,17 @@ class ListImportsInputBuilder
     implements Builder<ListImportsInput, ListImportsInputBuilder> {
   _$ListImportsInput? _$v;
 
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+  String? _tableArn;
+  String? get tableArn => _$this._tableArn;
+  set tableArn(String? tableArn) => _$this._tableArn = tableArn;
 
   int? _pageSize;
   int? get pageSize => _$this._pageSize;
   set pageSize(int? pageSize) => _$this._pageSize = pageSize;
 
-  String? _tableArn;
-  String? get tableArn => _$this._tableArn;
-  set tableArn(String? tableArn) => _$this._tableArn = tableArn;
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
   ListImportsInputBuilder() {
     ListImportsInput._init(this);
@@ -72,9 +72,9 @@ class ListImportsInputBuilder
   ListImportsInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
-      _pageSize = $v.pageSize;
       _tableArn = $v.tableArn;
+      _pageSize = $v.pageSize;
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -97,7 +97,7 @@ class ListImportsInputBuilder
   _$ListImportsInput _build() {
     final _$result = _$v ??
         new _$ListImportsInput._(
-            nextToken: nextToken, pageSize: pageSize, tableArn: tableArn);
+            tableArn: tableArn, pageSize: pageSize, nextToken: nextToken);
     replace(_$result);
     return _$result;
   }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.json_lists_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,33 +23,33 @@ abstract class JsonListsInputOutput
         _i2.AWSEquatable<JsonListsInputOutput>
     implements Built<JsonListsInputOutput, JsonListsInputOutputBuilder> {
   factory JsonListsInputOutput({
+    List<String>? stringList,
+    List<String?>? sparseStringList,
+    Set<String>? stringSet,
+    List<int>? integerList,
     List<bool>? booleanList,
+    List<DateTime>? timestampList,
     List<_i3.FooEnum>? enumList,
     List<_i4.IntegerEnum>? intEnumList,
-    List<int>? integerList,
     List<List<String>>? nestedStringList,
-    List<String?>? sparseStringList,
-    List<String>? stringList,
-    Set<String>? stringSet,
     List<_i5.StructureListMember>? structureList,
-    List<DateTime>? timestampList,
   }) {
     return _$JsonListsInputOutput._(
+      stringList: stringList == null ? null : _i6.BuiltList(stringList),
+      sparseStringList:
+          sparseStringList == null ? null : _i6.BuiltList(sparseStringList),
+      stringSet: stringSet == null ? null : _i6.BuiltSet(stringSet),
+      integerList: integerList == null ? null : _i6.BuiltList(integerList),
       booleanList: booleanList == null ? null : _i6.BuiltList(booleanList),
+      timestampList:
+          timestampList == null ? null : _i6.BuiltList(timestampList),
       enumList: enumList == null ? null : _i6.BuiltList(enumList),
       intEnumList: intEnumList == null ? null : _i6.BuiltList(intEnumList),
-      integerList: integerList == null ? null : _i6.BuiltList(integerList),
       nestedStringList: nestedStringList == null
           ? null
           : _i6.BuiltList(nestedStringList.map((el) => _i6.BuiltList(el))),
-      sparseStringList:
-          sparseStringList == null ? null : _i6.BuiltList(sparseStringList),
-      stringList: stringList == null ? null : _i6.BuiltList(stringList),
-      stringSet: stringSet == null ? null : _i6.BuiltSet(stringSet),
       structureList:
           structureList == null ? null : _i6.BuiltList(structureList),
-      timestampList:
-          timestampList == null ? null : _i6.BuiltList(timestampList),
     );
   }
 
@@ -78,39 +79,59 @@ abstract class JsonListsInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(JsonListsInputOutputBuilder b) {}
+  _i6.BuiltList<String>? get stringList;
+  _i6.BuiltList<String?>? get sparseStringList;
+  _i6.BuiltSet<String>? get stringSet;
+  _i6.BuiltList<int>? get integerList;
   _i6.BuiltList<bool>? get booleanList;
+  _i6.BuiltList<DateTime>? get timestampList;
   _i6.BuiltList<_i3.FooEnum>? get enumList;
   _i6.BuiltList<_i4.IntegerEnum>? get intEnumList;
-  _i6.BuiltList<int>? get integerList;
 
   /// A list of lists of strings.
   _i6.BuiltList<_i6.BuiltList<String>>? get nestedStringList;
-  _i6.BuiltList<String?>? get sparseStringList;
-  _i6.BuiltList<String>? get stringList;
-  _i6.BuiltSet<String>? get stringSet;
   _i6.BuiltList<_i5.StructureListMember>? get structureList;
-  _i6.BuiltList<DateTime>? get timestampList;
   @override
   JsonListsInputOutput getPayload() => this;
   @override
   List<Object?> get props => [
+        stringList,
+        sparseStringList,
+        stringSet,
+        integerList,
         booleanList,
+        timestampList,
         enumList,
         intEnumList,
-        integerList,
         nestedStringList,
-        sparseStringList,
-        stringList,
-        stringSet,
         structureList,
-        timestampList,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonListsInputOutput');
     helper.add(
+      'stringList',
+      stringList,
+    );
+    helper.add(
+      'sparseStringList',
+      sparseStringList,
+    );
+    helper.add(
+      'stringSet',
+      stringSet,
+    );
+    helper.add(
+      'integerList',
+      integerList,
+    );
+    helper.add(
       'booleanList',
       booleanList,
+    );
+    helper.add(
+      'timestampList',
+      timestampList,
     );
     helper.add(
       'enumList',
@@ -121,32 +142,12 @@ abstract class JsonListsInputOutput
       intEnumList,
     );
     helper.add(
-      'integerList',
-      integerList,
-    );
-    helper.add(
       'nestedStringList',
       nestedStringList,
     );
     helper.add(
-      'sparseStringList',
-      sparseStringList,
-    );
-    helper.add(
-      'stringList',
-      stringList,
-    );
-    helper.add(
-      'stringSet',
-      stringSet,
-    );
-    helper.add(
       'structureList',
       structureList,
-    );
-    helper.add(
-      'timestampList',
-      timestampList,
     );
     return helper.toString();
   }
@@ -181,122 +182,95 @@ class JsonListsInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'booleanList':
-          if (value != null) {
-            result.booleanList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(bool)],
-              ),
-            ) as _i6.BuiltList<bool>));
-          }
-          break;
+          result.booleanList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(bool)],
+            ),
+          ) as _i6.BuiltList<bool>));
         case 'enumList':
-          if (value != null) {
-            result.enumList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i3.FooEnum)],
-              ),
-            ) as _i6.BuiltList<_i3.FooEnum>));
-          }
-          break;
+          result.enumList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i3.FooEnum)],
+            ),
+          ) as _i6.BuiltList<_i3.FooEnum>));
         case 'intEnumList':
-          if (value != null) {
-            result.intEnumList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i4.IntegerEnum)],
-              ),
-            ) as _i6.BuiltList<_i4.IntegerEnum>));
-          }
-          break;
+          result.intEnumList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i4.IntegerEnum)],
+            ),
+          ) as _i6.BuiltList<_i4.IntegerEnum>));
         case 'integerList':
-          if (value != null) {
-            result.integerList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(int)],
-              ),
-            ) as _i6.BuiltList<int>));
-          }
-          break;
+          result.integerList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(int)],
+            ),
+          ) as _i6.BuiltList<int>));
         case 'nestedStringList':
-          if (value != null) {
-            result.nestedStringList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [
-                  FullType(
-                    _i6.BuiltList,
-                    [FullType(String)],
-                  )
-                ],
-              ),
-            ) as _i6.BuiltList<_i6.BuiltList<String>>));
-          }
-          break;
+          result.nestedStringList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [
+                FullType(
+                  _i6.BuiltList,
+                  [FullType(String)],
+                )
+              ],
+            ),
+          ) as _i6.BuiltList<_i6.BuiltList<String>>));
         case 'sparseStringList':
-          if (value != null) {
-            result.sparseStringList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType.nullable(String)],
-              ),
-            ) as _i6.BuiltList<String?>));
-          }
-          break;
+          result.sparseStringList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType.nullable(String)],
+            ),
+          ) as _i6.BuiltList<String?>));
         case 'stringList':
-          if (value != null) {
-            result.stringList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
+          result.stringList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
         case 'stringSet':
-          if (value != null) {
-            result.stringSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltSet,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltSet<String>));
-          }
-          break;
+          result.stringSet.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltSet,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltSet<String>));
         case 'myStructureList':
-          if (value != null) {
-            result.structureList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i5.StructureListMember)],
-              ),
-            ) as _i6.BuiltList<_i5.StructureListMember>));
-          }
-          break;
+          result.structureList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i5.StructureListMember)],
+            ),
+          ) as _i6.BuiltList<_i5.StructureListMember>));
         case 'timestampList':
-          if (value != null) {
-            result.timestampList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(DateTime)],
-              ),
-            ) as _i6.BuiltList<DateTime>));
-          }
-          break;
+          result.timestampList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(DateTime)],
+            ),
+          ) as _i6.BuiltList<DateTime>));
       }
     }
 
@@ -306,60 +280,71 @@ class JsonListsInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    JsonListsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as JsonListsInputOutput);
-    final result = <Object?>[];
-    if (payload.booleanList != null) {
-      result
+    final result$ = <Object?>[];
+    final JsonListsInputOutput(
+      :booleanList,
+      :enumList,
+      :intEnumList,
+      :integerList,
+      :nestedStringList,
+      :sparseStringList,
+      :stringList,
+      :stringSet,
+      :structureList,
+      :timestampList
+    ) = object;
+    if (booleanList != null) {
+      result$
         ..add('booleanList')
         ..add(serializers.serialize(
-          payload.booleanList!,
+          booleanList,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(bool)],
           ),
         ));
     }
-    if (payload.enumList != null) {
-      result
+    if (enumList != null) {
+      result$
         ..add('enumList')
         ..add(serializers.serialize(
-          payload.enumList!,
+          enumList,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i3.FooEnum)],
           ),
         ));
     }
-    if (payload.intEnumList != null) {
-      result
+    if (intEnumList != null) {
+      result$
         ..add('intEnumList')
         ..add(serializers.serialize(
-          payload.intEnumList!,
+          intEnumList,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i4.IntegerEnum)],
           ),
         ));
     }
-    if (payload.integerList != null) {
-      result
+    if (integerList != null) {
+      result$
         ..add('integerList')
         ..add(serializers.serialize(
-          payload.integerList!,
+          integerList,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(int)],
           ),
         ));
     }
-    if (payload.nestedStringList != null) {
-      result
+    if (nestedStringList != null) {
+      result$
         ..add('nestedStringList')
         ..add(serializers.serialize(
-          payload.nestedStringList!,
+          nestedStringList,
           specifiedType: const FullType(
             _i6.BuiltList,
             [
@@ -371,61 +356,61 @@ class JsonListsInputOutputRestJson1Serializer
           ),
         ));
     }
-    if (payload.sparseStringList != null) {
-      result
+    if (sparseStringList != null) {
+      result$
         ..add('sparseStringList')
         ..add(serializers.serialize(
-          payload.sparseStringList!,
+          sparseStringList,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType.nullable(String)],
           ),
         ));
     }
-    if (payload.stringList != null) {
-      result
+    if (stringList != null) {
+      result$
         ..add('stringList')
         ..add(serializers.serialize(
-          payload.stringList!,
+          stringList,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.stringSet != null) {
-      result
+    if (stringSet != null) {
+      result$
         ..add('stringSet')
         ..add(serializers.serialize(
-          payload.stringSet!,
+          stringSet,
           specifiedType: const FullType(
             _i6.BuiltSet,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.structureList != null) {
-      result
+    if (structureList != null) {
+      result$
         ..add('myStructureList')
         ..add(serializers.serialize(
-          payload.structureList!,
+          structureList,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i5.StructureListMember)],
           ),
         ));
     }
-    if (payload.timestampList != null) {
-      result
+    if (timestampList != null) {
+      result$
         ..add('timestampList')
         ..add(serializers.serialize(
-          payload.timestampList!,
+          timestampList,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(DateTime)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

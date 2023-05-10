@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.key_schema_element; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -112,19 +113,20 @@ class KeySchemaElementAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AttributeName':
           result.attributeName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'KeyType':
           result.keyType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.KeyType),
           ) as _i2.KeyType);
-          break;
       }
     }
 
@@ -134,22 +136,23 @@ class KeySchemaElementAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    KeySchemaElement object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as KeySchemaElement);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final KeySchemaElement(:attributeName, :keyType) = object;
+    result$.addAll([
       'AttributeName',
       serializers.serialize(
-        payload.attributeName,
+        attributeName,
         specifiedType: const FullType(String),
       ),
       'KeyType',
       serializers.serialize(
-        payload.keyType,
+        keyType,
         specifiedType: const FullType(_i2.KeyType),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

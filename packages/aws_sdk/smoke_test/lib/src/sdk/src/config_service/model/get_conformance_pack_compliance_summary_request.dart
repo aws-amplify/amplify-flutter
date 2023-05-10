@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_conformance_pack_compliance_summary_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -114,6 +115,9 @@ class GetConformancePackComplianceSummaryRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConformancePackNames':
           result.conformancePackNames.replace((serializers.deserialize(
@@ -123,23 +127,16 @@ class GetConformancePackComplianceSummaryRequestAwsJson11Serializer extends _i1
               [FullType(String)],
             ),
           ) as _i3.BuiltList<String>));
-          break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -149,36 +146,41 @@ class GetConformancePackComplianceSummaryRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetConformancePackComplianceSummaryRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetConformancePackComplianceSummaryRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GetConformancePackComplianceSummaryRequest(
+      :conformancePackNames,
+      :limit,
+      :nextToken
+    ) = object;
+    result$.addAll([
       'ConformancePackNames',
       serializers.serialize(
-        payload.conformancePackNames,
+        conformancePackNames,
         specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
       ),
-    ];
-    if (payload.limit != null) {
-      result
+    ]);
+    if (limit != null) {
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
-      result
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

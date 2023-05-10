@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.put_bucket_notification_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,14 +31,14 @@ abstract class PutBucketNotificationConfigurationRequest
         _i1.HasPayload<_i2.NotificationConfiguration> {
   factory PutBucketNotificationConfigurationRequest({
     required String bucket,
-    String? expectedBucketOwner,
     required _i2.NotificationConfiguration notificationConfiguration,
+    String? expectedBucketOwner,
     bool? skipDestinationValidation,
   }) {
     return _$PutBucketNotificationConfigurationRequest._(
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
       notificationConfiguration: notificationConfiguration,
+      expectedBucketOwner: expectedBucketOwner,
       skipDestinationValidation: skipDestinationValidation,
     );
   }
@@ -78,11 +79,11 @@ abstract class PutBucketNotificationConfigurationRequest
   /// The name of the bucket.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// A container for specifying the notification configuration of the bucket. If this element is empty, notifications are turned off for the bucket.
   _i2.NotificationConfiguration get notificationConfiguration;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
 
   /// Skips validation of Amazon SQS, Amazon SNS, and Lambda destinations. True or false value.
   bool? get skipDestinationValidation;
@@ -103,8 +104,8 @@ abstract class PutBucketNotificationConfigurationRequest
   @override
   List<Object?> get props => [
         bucket,
-        expectedBucketOwner,
         notificationConfiguration,
+        expectedBucketOwner,
         skipDestinationValidation,
       ];
   @override
@@ -116,12 +117,12 @@ abstract class PutBucketNotificationConfigurationRequest
       bucket,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'notificationConfiguration',
       notificationConfiguration,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     helper.add(
       'skipDestinationValidation',
@@ -157,42 +158,33 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
     final result = _i2.NotificationConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TopicConfiguration':
-          if (value != null) {
-            result.topicConfigurations.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.TopicConfiguration),
-            ) as _i4.TopicConfiguration));
-          }
-          break;
+          result.topicConfigurations.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.TopicConfiguration),
+          ) as _i4.TopicConfiguration));
         case 'QueueConfiguration':
-          if (value != null) {
-            result.queueConfigurations.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.QueueConfiguration),
-            ) as _i5.QueueConfiguration));
-          }
-          break;
+          result.queueConfigurations.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.QueueConfiguration),
+          ) as _i5.QueueConfiguration));
         case 'CloudFunctionConfiguration':
-          if (value != null) {
-            result.lambdaFunctionConfigurations.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.LambdaFunctionConfiguration),
-            ) as _i6.LambdaFunctionConfiguration));
-          }
-          break;
+          result.lambdaFunctionConfigurations.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.LambdaFunctionConfiguration),
+          ) as _i6.LambdaFunctionConfiguration));
         case 'EventBridgeConfiguration':
-          if (value != null) {
-            result.eventBridgeConfiguration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.EventBridgeConfiguration),
-            ) as _i7.EventBridgeConfiguration));
-          }
-          break;
+          result.eventBridgeConfiguration.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.EventBridgeConfiguration),
+          ) as _i7.EventBridgeConfiguration));
       }
     }
 
@@ -202,62 +194,65 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.NotificationConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutBucketNotificationConfigurationRequest
-        ? object.getPayload()
-        : (object as _i2.NotificationConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'NotificationConfiguration',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.topicConfigurations != null) {
-      result.addAll(
+    final _i2.NotificationConfiguration(
+      :topicConfigurations,
+      :queueConfigurations,
+      :lambdaFunctionConfigurations,
+      :eventBridgeConfiguration
+    ) = object;
+    if (topicConfigurations != null) {
+      result$.addAll(
           const _i1.XmlBuiltListSerializer(memberName: 'TopicConfiguration')
               .serialize(
         serializers,
-        payload.topicConfigurations!,
+        topicConfigurations,
         specifiedType: const FullType.nullable(
           _i8.BuiltList,
           [FullType(_i4.TopicConfiguration)],
         ),
       ));
     }
-    if (payload.queueConfigurations != null) {
-      result.addAll(
+    if (queueConfigurations != null) {
+      result$.addAll(
           const _i1.XmlBuiltListSerializer(memberName: 'QueueConfiguration')
               .serialize(
         serializers,
-        payload.queueConfigurations!,
+        queueConfigurations,
         specifiedType: const FullType.nullable(
           _i8.BuiltList,
           [FullType(_i5.QueueConfiguration)],
         ),
       ));
     }
-    if (payload.lambdaFunctionConfigurations != null) {
-      result.addAll(const _i1.XmlBuiltListSerializer(
+    if (lambdaFunctionConfigurations != null) {
+      result$.addAll(const _i1.XmlBuiltListSerializer(
               memberName: 'CloudFunctionConfiguration')
           .serialize(
         serializers,
-        payload.lambdaFunctionConfigurations!,
+        lambdaFunctionConfigurations,
         specifiedType: const FullType.nullable(
           _i8.BuiltList,
           [FullType(_i6.LambdaFunctionConfiguration)],
         ),
       ));
     }
-    if (payload.eventBridgeConfiguration != null) {
-      result
+    if (eventBridgeConfiguration != null) {
+      result$
         ..add(const _i1.XmlElementName('EventBridgeConfiguration'))
         ..add(serializers.serialize(
-          payload.eventBridgeConfiguration!,
+          eventBridgeConfiguration,
           specifiedType: const FullType(_i7.EventBridgeConfiguration),
         ));
     }
-    return result;
+    return result$;
   }
 }

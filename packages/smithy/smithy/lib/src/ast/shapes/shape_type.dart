@@ -17,6 +17,7 @@ enum Category {
 }
 
 class ShapeType extends EnumClass {
+  const ShapeType._(super.name);
   static const ShapeType apply = _$apply;
   static const ShapeType blob = _$blob;
   static const ShapeType boolean = _$boolean;
@@ -43,8 +44,6 @@ class ShapeType extends EnumClass {
   static const ShapeType service = _$service;
   static const ShapeType resource = _$resource;
   static const ShapeType operation = _$operation;
-
-  const ShapeType._(String name) : super(name);
 
   static BuiltSet<ShapeType> get values => _$shapeTypeValues;
   static ShapeType valueOf(String name) => _$shapeTypeValueOf(name);

@@ -8,29 +8,29 @@ part of smoke_test.dynamo_db.model.list_backups_input;
 
 class _$ListBackupsInput extends ListBackupsInput {
   @override
-  final _i3.BackupTypeFilter? backupType;
-  @override
-  final String? exclusiveStartBackupArn;
+  final String? tableName;
   @override
   final int? limit;
-  @override
-  final String? tableName;
   @override
   final DateTime? timeRangeLowerBound;
   @override
   final DateTime? timeRangeUpperBound;
+  @override
+  final String? exclusiveStartBackupArn;
+  @override
+  final _i3.BackupTypeFilter? backupType;
 
   factory _$ListBackupsInput(
           [void Function(ListBackupsInputBuilder)? updates]) =>
       (new ListBackupsInputBuilder()..update(updates))._build();
 
   _$ListBackupsInput._(
-      {this.backupType,
-      this.exclusiveStartBackupArn,
+      {this.tableName,
       this.limit,
-      this.tableName,
       this.timeRangeLowerBound,
-      this.timeRangeUpperBound})
+      this.timeRangeUpperBound,
+      this.exclusiveStartBackupArn,
+      this.backupType})
       : super._();
 
   @override
@@ -45,23 +45,23 @@ class _$ListBackupsInput extends ListBackupsInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListBackupsInput &&
-        backupType == other.backupType &&
-        exclusiveStartBackupArn == other.exclusiveStartBackupArn &&
-        limit == other.limit &&
         tableName == other.tableName &&
+        limit == other.limit &&
         timeRangeLowerBound == other.timeRangeLowerBound &&
-        timeRangeUpperBound == other.timeRangeUpperBound;
+        timeRangeUpperBound == other.timeRangeUpperBound &&
+        exclusiveStartBackupArn == other.exclusiveStartBackupArn &&
+        backupType == other.backupType;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, backupType.hashCode);
-    _$hash = $jc(_$hash, exclusiveStartBackupArn.hashCode);
-    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, timeRangeLowerBound.hashCode);
     _$hash = $jc(_$hash, timeRangeUpperBound.hashCode);
+    _$hash = $jc(_$hash, exclusiveStartBackupArn.hashCode);
+    _$hash = $jc(_$hash, backupType.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -71,23 +71,13 @@ class ListBackupsInputBuilder
     implements Builder<ListBackupsInput, ListBackupsInputBuilder> {
   _$ListBackupsInput? _$v;
 
-  _i3.BackupTypeFilter? _backupType;
-  _i3.BackupTypeFilter? get backupType => _$this._backupType;
-  set backupType(_i3.BackupTypeFilter? backupType) =>
-      _$this._backupType = backupType;
-
-  String? _exclusiveStartBackupArn;
-  String? get exclusiveStartBackupArn => _$this._exclusiveStartBackupArn;
-  set exclusiveStartBackupArn(String? exclusiveStartBackupArn) =>
-      _$this._exclusiveStartBackupArn = exclusiveStartBackupArn;
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
 
   int? _limit;
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
-
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
 
   DateTime? _timeRangeLowerBound;
   DateTime? get timeRangeLowerBound => _$this._timeRangeLowerBound;
@@ -99,6 +89,16 @@ class ListBackupsInputBuilder
   set timeRangeUpperBound(DateTime? timeRangeUpperBound) =>
       _$this._timeRangeUpperBound = timeRangeUpperBound;
 
+  String? _exclusiveStartBackupArn;
+  String? get exclusiveStartBackupArn => _$this._exclusiveStartBackupArn;
+  set exclusiveStartBackupArn(String? exclusiveStartBackupArn) =>
+      _$this._exclusiveStartBackupArn = exclusiveStartBackupArn;
+
+  _i3.BackupTypeFilter? _backupType;
+  _i3.BackupTypeFilter? get backupType => _$this._backupType;
+  set backupType(_i3.BackupTypeFilter? backupType) =>
+      _$this._backupType = backupType;
+
   ListBackupsInputBuilder() {
     ListBackupsInput._init(this);
   }
@@ -106,12 +106,12 @@ class ListBackupsInputBuilder
   ListBackupsInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _backupType = $v.backupType;
-      _exclusiveStartBackupArn = $v.exclusiveStartBackupArn;
-      _limit = $v.limit;
       _tableName = $v.tableName;
+      _limit = $v.limit;
       _timeRangeLowerBound = $v.timeRangeLowerBound;
       _timeRangeUpperBound = $v.timeRangeUpperBound;
+      _exclusiveStartBackupArn = $v.exclusiveStartBackupArn;
+      _backupType = $v.backupType;
       _$v = null;
     }
     return this;
@@ -134,12 +134,12 @@ class ListBackupsInputBuilder
   _$ListBackupsInput _build() {
     final _$result = _$v ??
         new _$ListBackupsInput._(
-            backupType: backupType,
-            exclusiveStartBackupArn: exclusiveStartBackupArn,
-            limit: limit,
             tableName: tableName,
+            limit: limit,
             timeRangeLowerBound: timeRangeLowerBound,
-            timeRangeUpperBound: timeRangeUpperBound);
+            timeRangeUpperBound: timeRangeUpperBound,
+            exclusiveStartBackupArn: exclusiveStartBackupArn,
+            backupType: backupType);
     replace(_$result);
     return _$result;
   }

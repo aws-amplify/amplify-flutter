@@ -8,7 +8,7 @@ import 'dart:io';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform.dart';
 import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
-import 'package:amplify_auth_cognito_dart/src/state/event/hosted_ui_event.dart';
+import 'package:amplify_auth_cognito_dart/src/state/event/auth_event.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 

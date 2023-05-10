@@ -8,25 +8,25 @@ part of smoke_test.api_gateway.model.update_gateway_response_request;
 
 class _$UpdateGatewayResponseRequest extends UpdateGatewayResponseRequest {
   @override
-  final _i5.BuiltList<_i3.PatchOperation>? patchOperations;
-  @override
-  final _i4.GatewayResponseType responseType;
-  @override
   final String restApiId;
+  @override
+  final _i3.GatewayResponseType responseType;
+  @override
+  final _i5.BuiltList<_i4.PatchOperation>? patchOperations;
 
   factory _$UpdateGatewayResponseRequest(
           [void Function(UpdateGatewayResponseRequestBuilder)? updates]) =>
       (new UpdateGatewayResponseRequestBuilder()..update(updates))._build();
 
   _$UpdateGatewayResponseRequest._(
-      {this.patchOperations,
+      {required this.restApiId,
       required this.responseType,
-      required this.restApiId})
+      this.patchOperations})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        responseType, r'UpdateGatewayResponseRequest', 'responseType');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'UpdateGatewayResponseRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        responseType, r'UpdateGatewayResponseRequest', 'responseType');
   }
 
   @override
@@ -42,17 +42,17 @@ class _$UpdateGatewayResponseRequest extends UpdateGatewayResponseRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateGatewayResponseRequest &&
-        patchOperations == other.patchOperations &&
+        restApiId == other.restApiId &&
         responseType == other.responseType &&
-        restApiId == other.restApiId;
+        patchOperations == other.patchOperations;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, patchOperations.hashCode);
-    _$hash = $jc(_$hash, responseType.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, responseType.hashCode);
+    _$hash = $jc(_$hash, patchOperations.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -64,20 +64,20 @@ class UpdateGatewayResponseRequestBuilder
             UpdateGatewayResponseRequestBuilder> {
   _$UpdateGatewayResponseRequest? _$v;
 
-  _i5.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i5.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i5.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i5.ListBuilder<_i3.PatchOperation>? patchOperations) =>
-      _$this._patchOperations = patchOperations;
-
-  _i4.GatewayResponseType? _responseType;
-  _i4.GatewayResponseType? get responseType => _$this._responseType;
-  set responseType(_i4.GatewayResponseType? responseType) =>
-      _$this._responseType = responseType;
-
   String? _restApiId;
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  _i3.GatewayResponseType? _responseType;
+  _i3.GatewayResponseType? get responseType => _$this._responseType;
+  set responseType(_i3.GatewayResponseType? responseType) =>
+      _$this._responseType = responseType;
+
+  _i5.ListBuilder<_i4.PatchOperation>? _patchOperations;
+  _i5.ListBuilder<_i4.PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i5.ListBuilder<_i4.PatchOperation>();
+  set patchOperations(_i5.ListBuilder<_i4.PatchOperation>? patchOperations) =>
+      _$this._patchOperations = patchOperations;
 
   UpdateGatewayResponseRequestBuilder() {
     UpdateGatewayResponseRequest._init(this);
@@ -86,9 +86,9 @@ class UpdateGatewayResponseRequestBuilder
   UpdateGatewayResponseRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _patchOperations = $v.patchOperations?.toBuilder();
-      _responseType = $v.responseType;
       _restApiId = $v.restApiId;
+      _responseType = $v.responseType;
+      _patchOperations = $v.patchOperations?.toBuilder();
       _$v = null;
     }
     return this;
@@ -113,11 +113,11 @@ class UpdateGatewayResponseRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateGatewayResponseRequest._(
-              patchOperations: _patchOperations?.build(),
+              restApiId: BuiltValueNullFieldError.checkNotNull(
+                  restApiId, r'UpdateGatewayResponseRequest', 'restApiId'),
               responseType: BuiltValueNullFieldError.checkNotNull(responseType,
                   r'UpdateGatewayResponseRequest', 'responseType'),
-              restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'UpdateGatewayResponseRequest', 'restApiId'));
+              patchOperations: _patchOperations?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -137,7 +137,7 @@ class UpdateGatewayResponseRequestBuilder
 class _$UpdateGatewayResponseRequestPayload
     extends UpdateGatewayResponseRequestPayload {
   @override
-  final _i5.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i5.BuiltList<_i4.PatchOperation>? patchOperations;
 
   factory _$UpdateGatewayResponseRequestPayload(
           [void Function(UpdateGatewayResponseRequestPayloadBuilder)?
@@ -178,10 +178,10 @@ class UpdateGatewayResponseRequestPayloadBuilder
             UpdateGatewayResponseRequestPayloadBuilder> {
   _$UpdateGatewayResponseRequestPayload? _$v;
 
-  _i5.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i5.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i5.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i5.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i5.ListBuilder<_i4.PatchOperation>? _patchOperations;
+  _i5.ListBuilder<_i4.PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i5.ListBuilder<_i4.PatchOperation>();
+  set patchOperations(_i5.ListBuilder<_i4.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateGatewayResponseRequestPayloadBuilder() {

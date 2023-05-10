@@ -9,16 +9,16 @@ part of aws_json1_1_v1.json_protocol.model.simple_scalar_properties_input_output
 class _$SimpleScalarPropertiesInputOutput
     extends SimpleScalarPropertiesInputOutput {
   @override
-  final double? doubleValue;
-  @override
   final double? floatValue;
+  @override
+  final double? doubleValue;
 
   factory _$SimpleScalarPropertiesInputOutput(
           [void Function(SimpleScalarPropertiesInputOutputBuilder)? updates]) =>
       (new SimpleScalarPropertiesInputOutputBuilder()..update(updates))
           ._build();
 
-  _$SimpleScalarPropertiesInputOutput._({this.doubleValue, this.floatValue})
+  _$SimpleScalarPropertiesInputOutput._({this.floatValue, this.doubleValue})
       : super._();
 
   @override
@@ -34,15 +34,15 @@ class _$SimpleScalarPropertiesInputOutput
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SimpleScalarPropertiesInputOutput &&
-        doubleValue == other.doubleValue &&
-        floatValue == other.floatValue;
+        floatValue == other.floatValue &&
+        doubleValue == other.doubleValue;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, doubleValue.hashCode);
     _$hash = $jc(_$hash, floatValue.hashCode);
+    _$hash = $jc(_$hash, doubleValue.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,13 +54,13 @@ class SimpleScalarPropertiesInputOutputBuilder
             SimpleScalarPropertiesInputOutputBuilder> {
   _$SimpleScalarPropertiesInputOutput? _$v;
 
-  double? _doubleValue;
-  double? get doubleValue => _$this._doubleValue;
-  set doubleValue(double? doubleValue) => _$this._doubleValue = doubleValue;
-
   double? _floatValue;
   double? get floatValue => _$this._floatValue;
   set floatValue(double? floatValue) => _$this._floatValue = floatValue;
+
+  double? _doubleValue;
+  double? get doubleValue => _$this._doubleValue;
+  set doubleValue(double? doubleValue) => _$this._doubleValue = doubleValue;
 
   SimpleScalarPropertiesInputOutputBuilder() {
     SimpleScalarPropertiesInputOutput._init(this);
@@ -69,8 +69,8 @@ class SimpleScalarPropertiesInputOutputBuilder
   SimpleScalarPropertiesInputOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _doubleValue = $v.doubleValue;
       _floatValue = $v.floatValue;
+      _doubleValue = $v.doubleValue;
       _$v = null;
     }
     return this;
@@ -94,7 +94,7 @@ class SimpleScalarPropertiesInputOutputBuilder
   _$SimpleScalarPropertiesInputOutput _build() {
     final _$result = _$v ??
         new _$SimpleScalarPropertiesInputOutput._(
-            doubleValue: doubleValue, floatValue: floatValue);
+            floatValue: floatValue, doubleValue: doubleValue);
     replace(_$result);
     return _$result;
   }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.complex_nested_error_data; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -68,18 +69,18 @@ class ComplexNestedErrorDataRestXmlSerializer
     final result = ComplexNestedErrorDataBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -89,21 +90,21 @@ class ComplexNestedErrorDataRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ComplexNestedErrorData object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ComplexNestedErrorData);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName('ComplexNestedErrorData')
     ];
-    if (payload.foo != null) {
-      result
+    final ComplexNestedErrorData(:foo) = object;
+    if (foo != null) {
+      result$
         ..add(const _i2.XmlElementName('Foo'))
         ..add(serializers.serialize(
-          payload.foo!,
+          foo,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

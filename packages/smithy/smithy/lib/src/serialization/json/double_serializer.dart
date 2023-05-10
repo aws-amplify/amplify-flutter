@@ -20,8 +20,11 @@ class DoubleSerializer implements PrimitiveSerializer<double> {
   String get wireName => 'double';
 
   @override
-  Object serialize(Serializers serializers, double aDouble,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    double aDouble, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     if (aDouble.isNaN) {
       return nan;
     } else if (aDouble.isInfinite) {
@@ -32,8 +35,11 @@ class DoubleSerializer implements PrimitiveSerializer<double> {
   }
 
   @override
-  double deserialize(Serializers serializers, Object? serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  double deserialize(
+    Serializers serializers,
+    Object? serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     if (serialized == nan) {
       return double.nan;
     } else if (serialized == negativeInfinity) {

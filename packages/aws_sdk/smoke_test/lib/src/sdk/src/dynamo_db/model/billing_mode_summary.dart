@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.billing_mode_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -97,23 +98,20 @@ class BillingModeSummaryAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BillingMode':
-          if (value != null) {
-            result.billingMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BillingMode),
-            ) as _i2.BillingMode);
-          }
-          break;
+          result.billingMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.BillingMode),
+          ) as _i2.BillingMode);
         case 'LastUpdateToPayPerRequestDateTime':
-          if (value != null) {
-            result.lastUpdateToPayPerRequestDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdateToPayPerRequestDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -123,27 +121,28 @@ class BillingModeSummaryAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BillingModeSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BillingModeSummary);
-    final result = <Object?>[];
-    if (payload.billingMode != null) {
-      result
+    final result$ = <Object?>[];
+    final BillingModeSummary(:billingMode, :lastUpdateToPayPerRequestDateTime) =
+        object;
+    if (billingMode != null) {
+      result$
         ..add('BillingMode')
         ..add(serializers.serialize(
-          payload.billingMode!,
+          billingMode,
           specifiedType: const FullType(_i2.BillingMode),
         ));
     }
-    if (payload.lastUpdateToPayPerRequestDateTime != null) {
-      result
+    if (lastUpdateToPayPerRequestDateTime != null) {
+      result$
         ..add('LastUpdateToPayPerRequestDateTime')
         ..add(serializers.serialize(
-          payload.lastUpdateToPayPerRequestDateTime!,
+          lastUpdateToPayPerRequestDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,9 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_core/amplify_core.dart';
+part of 'auth_event.dart';
 
 /// Discrete event types of the fetch auth session state machine.
 enum FetchAuthSessionEventType {
@@ -21,7 +19,7 @@ enum FetchAuthSessionEventType {
 }
 
 /// Discrete events of the fetch auth session state machine.
-abstract class FetchAuthSessionEvent
+sealed class FetchAuthSessionEvent
     extends AuthEvent<FetchAuthSessionEventType, FetchAuthSessionStateType> {
   const FetchAuthSessionEvent._();
 
@@ -53,7 +51,7 @@ abstract class FetchAuthSessionEvent
 /// {@template amplify_auth_cognito.fetch_auth_session_fetch}
 /// Fetch the current user's auth session.
 /// {@endtemplate}
-class FetchAuthSessionFetch extends FetchAuthSessionEvent {
+final class FetchAuthSessionFetch extends FetchAuthSessionEvent {
   /// {@macro amplify_auth_cognito.fetch_auth_session_fetch}
   const FetchAuthSessionFetch([this.options]) : super._();
 
@@ -84,7 +82,7 @@ class FetchAuthSessionFetch extends FetchAuthSessionEvent {
 /// {@template amplify_auth_cognito.fetch_auth_session_federate}
 /// Fetch AWS credentials by federating to the registered identity pool.
 /// {@endtemplate}
-class FetchAuthSessionFederate extends FetchAuthSessionEvent {
+final class FetchAuthSessionFederate extends FetchAuthSessionEvent {
   /// {@macro amplify_auth_cognito.fetch_auth_session_federate}
   const FetchAuthSessionFederate(this.request) : super._();
 
@@ -114,7 +112,7 @@ class FetchAuthSessionFederate extends FetchAuthSessionEvent {
 /// {@template amplify_auth_cognito.fetch_auth_session_refresh}
 /// Refresh the current user's auth session.
 /// {@endtemplate}
-class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
+final class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
   /// {@macro amplify_auth_cognito.fetch_auth_session_refresh}
   const FetchAuthSessionRefresh({
     required this.refreshUserPoolTokens,
@@ -159,7 +157,7 @@ class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
 /// {@template amplify_auth_cognito.fetch_auth_session_succeeded}
 /// Fetching the current user's auth session succeeded.
 /// {@endtemplate}
-class FetchAuthSessionSucceeded extends FetchAuthSessionEvent {
+final class FetchAuthSessionSucceeded extends FetchAuthSessionEvent {
   /// {@macro amplify_auth_cognito.fetch_auth_session_succeeded}
   const FetchAuthSessionSucceeded(this.session) : super._();
 

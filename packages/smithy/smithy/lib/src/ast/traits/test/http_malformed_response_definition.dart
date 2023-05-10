@@ -4,7 +4,7 @@
 import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'http_malformed_response_body_definition.dart';
+import 'package:smithy/src/ast/traits/test/http_malformed_response_body_definition.dart';
 
 part 'http_malformed_response_definition.g.dart';
 

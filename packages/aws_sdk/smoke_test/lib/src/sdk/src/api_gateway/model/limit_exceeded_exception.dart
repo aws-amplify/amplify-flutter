@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.limit_exceeded_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,12 +20,12 @@ abstract class LimitExceededException
         _i2.SmithyHttpException {
   /// The request exceeded the rate limit. Retry after the specified time period.
   factory LimitExceededException({
-    String? message,
     String? retryAfterSeconds,
+    String? message,
   }) {
     return _$LimitExceededException._(
-      message: message,
       retryAfterSeconds: retryAfterSeconds,
+      message: message,
     );
   }
 
@@ -54,9 +55,9 @@ abstract class LimitExceededException
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(LimitExceededExceptionBuilder b) {}
+  String? get retryAfterSeconds;
   @override
   String? get message;
-  String? get retryAfterSeconds;
   @override
   LimitExceededExceptionPayload getPayload() =>
       LimitExceededExceptionPayload((b) {
@@ -79,19 +80,19 @@ abstract class LimitExceededException
   Exception? get underlyingException => null;
   @override
   List<Object?> get props => [
-        message,
         retryAfterSeconds,
+        message,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('LimitExceededException');
     helper.add(
-      'message',
-      message,
-    );
-    helper.add(
       'retryAfterSeconds',
       retryAfterSeconds,
+    );
+    helper.add(
+      'message',
+      message,
     );
     return helper.toString();
   }
@@ -157,15 +158,15 @@ class LimitExceededExceptionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -175,21 +176,19 @@ class LimitExceededExceptionRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    LimitExceededExceptionPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is LimitExceededException
-        ? object.getPayload()
-        : (object as LimitExceededExceptionPayload);
-    final result = <Object?>[];
-    if (payload.message != null) {
-      result
+    final result$ = <Object?>[];
+    final LimitExceededExceptionPayload(:message) = object;
+    if (message != null) {
+      result$
         ..add('message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

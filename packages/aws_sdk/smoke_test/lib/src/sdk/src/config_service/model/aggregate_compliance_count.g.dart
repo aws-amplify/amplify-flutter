@@ -8,15 +8,15 @@ part of smoke_test.config_service.model.aggregate_compliance_count;
 
 class _$AggregateComplianceCount extends AggregateComplianceCount {
   @override
-  final _i2.ComplianceSummary? complianceSummary;
-  @override
   final String? groupName;
+  @override
+  final _i2.ComplianceSummary? complianceSummary;
 
   factory _$AggregateComplianceCount(
           [void Function(AggregateComplianceCountBuilder)? updates]) =>
       (new AggregateComplianceCountBuilder()..update(updates))._build();
 
-  _$AggregateComplianceCount._({this.complianceSummary, this.groupName})
+  _$AggregateComplianceCount._({this.groupName, this.complianceSummary})
       : super._();
 
   @override
@@ -32,15 +32,15 @@ class _$AggregateComplianceCount extends AggregateComplianceCount {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AggregateComplianceCount &&
-        complianceSummary == other.complianceSummary &&
-        groupName == other.groupName;
+        groupName == other.groupName &&
+        complianceSummary == other.complianceSummary;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, complianceSummary.hashCode);
     _$hash = $jc(_$hash, groupName.hashCode);
+    _$hash = $jc(_$hash, complianceSummary.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -51,15 +51,15 @@ class AggregateComplianceCountBuilder
         Builder<AggregateComplianceCount, AggregateComplianceCountBuilder> {
   _$AggregateComplianceCount? _$v;
 
+  String? _groupName;
+  String? get groupName => _$this._groupName;
+  set groupName(String? groupName) => _$this._groupName = groupName;
+
   _i2.ComplianceSummaryBuilder? _complianceSummary;
   _i2.ComplianceSummaryBuilder get complianceSummary =>
       _$this._complianceSummary ??= new _i2.ComplianceSummaryBuilder();
   set complianceSummary(_i2.ComplianceSummaryBuilder? complianceSummary) =>
       _$this._complianceSummary = complianceSummary;
-
-  String? _groupName;
-  String? get groupName => _$this._groupName;
-  set groupName(String? groupName) => _$this._groupName = groupName;
 
   AggregateComplianceCountBuilder() {
     AggregateComplianceCount._init(this);
@@ -68,8 +68,8 @@ class AggregateComplianceCountBuilder
   AggregateComplianceCountBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _complianceSummary = $v.complianceSummary?.toBuilder();
       _groupName = $v.groupName;
+      _complianceSummary = $v.complianceSummary?.toBuilder();
       _$v = null;
     }
     return this;
@@ -94,8 +94,8 @@ class AggregateComplianceCountBuilder
     try {
       _$result = _$v ??
           new _$AggregateComplianceCount._(
-              complianceSummary: _complianceSummary?.build(),
-              groupName: groupName);
+              groupName: groupName,
+              complianceSummary: _complianceSummary?.build());
     } catch (_) {
       late String _$failedField;
       try {

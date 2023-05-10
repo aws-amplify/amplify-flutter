@@ -21,8 +21,16 @@ class AmplifyClassImpl extends AmplifyClass {
   final AmplifyAuthProviderRepository authProviderRepo =
       AmplifyAuthProviderRepository();
 
+  final _addPluginFutures = <Future<void>>[];
+
   @override
   Future<void> addPlugin(AmplifyPluginInterface plugin) {
+    final future = _addPlugin(plugin);
+    _addPluginFutures.add(future);
+    return future;
+  }
+
+  Future<void> _addPlugin(AmplifyPluginInterface plugin) {
     switch (plugin.category) {
       case Category.analytics:
         return Analytics.addPlugin(
@@ -64,6 +72,8 @@ class AmplifyClassImpl extends AmplifyClass {
     final amplifyConfig = AmplifyConfig.fromJson(
       (jsonDecode(config) as Map<Object?, Object?>).cast(),
     );
+    await Future.wait(_addPluginFutures);
+    _addPluginFutures.clear();
     await Future.wait(
       [
         ...Analytics.plugins,
@@ -83,6 +93,7 @@ class AmplifyClassImpl extends AmplifyClass {
 
   @override
   Future<void> reset() async {
+    _addPluginFutures.clear();
     await Future.wait([
       Analytics.reset(),
       API.reset(),

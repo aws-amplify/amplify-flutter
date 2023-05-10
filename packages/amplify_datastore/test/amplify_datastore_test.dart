@@ -25,10 +25,11 @@ void main() {
       syncMaxRecords: mockSyncMaxRecords,
       syncPageSize: mockSyncPagesize);
 
-  TestWidgetsFlutterBinding.ensureInitialized();
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
   tearDown(() {
-    dataStoreChannel.setMockMethodCallHandler(null);
+    binding.defaultBinaryMessenger
+        .setMockMethodCallHandler(dataStoreChannel, null);
   });
 
   test('DataStore custom configuration should be passed via MethodChannel',
@@ -37,29 +38,33 @@ void main() {
         await getJsonFromFile('sync_expressions/blog_name.json');
     var expectedPostExpression =
         await getJsonFromFile('sync_expressions/post_title.json');
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "configureDataStore") {
-        final modelSchemas = methodCall.arguments['modelSchemas'];
-        final syncExpressions = methodCall.arguments['syncExpressions'];
-        final syncInterval = methodCall.arguments['syncInterval'];
-        final syncMaxRecords = methodCall.arguments['syncMaxRecords'];
-        final syncPageSize = methodCall.arguments['syncPageSize'];
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        if (methodCall.method == "configureDataStore") {
+          final modelSchemas = methodCall.arguments['modelSchemas'];
+          final syncExpressions = methodCall.arguments['syncExpressions'];
+          final syncInterval = methodCall.arguments['syncInterval'];
+          final syncMaxRecords = methodCall.arguments['syncMaxRecords'];
+          final syncPageSize = methodCall.arguments['syncPageSize'];
 
-        expect(
-            modelSchemas,
-            ModelProvider.instance.modelSchemas
-                .map((schema) => schema.toMap())
-                .toList());
-        expect(syncExpressions.map((expression) {
-          // Ignore generated ID
-          (expression as Map).remove("id");
-          return expression;
-        }), [expectedBlogExpression, expectedPostExpression]);
-        expect(syncInterval, mockSyncInterval);
-        expect(syncMaxRecords, mockSyncMaxRecords);
-        expect(syncPageSize, mockSyncPagesize);
-      }
-    });
+          expect(
+              modelSchemas,
+              ModelProvider.instance.modelSchemas
+                  .map((schema) => schema.toMap())
+                  .toList());
+          expect(syncExpressions.map((expression) {
+            // Ignore generated ID
+            (expression as Map).remove("id");
+            return expression;
+          }), [expectedBlogExpression, expectedPostExpression]);
+          expect(syncInterval, mockSyncInterval);
+          expect(syncMaxRecords, mockSyncMaxRecords);
+          expect(syncPageSize, mockSyncPagesize);
+        }
+        return null;
+      },
+    );
 
     await dataStore.configureDataStore();
   });

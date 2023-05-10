@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.mutual_tls_authentication; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -104,34 +105,28 @@ class MutualTlsAuthenticationRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'truststoreUri':
-          if (value != null) {
-            result.truststoreUri = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.truststoreUri = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'truststoreVersion':
-          if (value != null) {
-            result.truststoreVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.truststoreVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'truststoreWarnings':
-          if (value != null) {
-            result.truststoreWarnings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.truststoreWarnings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -141,38 +136,42 @@ class MutualTlsAuthenticationRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MutualTlsAuthentication object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MutualTlsAuthentication);
-    final result = <Object?>[];
-    if (payload.truststoreUri != null) {
-      result
+    final result$ = <Object?>[];
+    final MutualTlsAuthentication(
+      :truststoreUri,
+      :truststoreVersion,
+      :truststoreWarnings
+    ) = object;
+    if (truststoreUri != null) {
+      result$
         ..add('truststoreUri')
         ..add(serializers.serialize(
-          payload.truststoreUri!,
+          truststoreUri,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.truststoreVersion != null) {
-      result
+    if (truststoreVersion != null) {
+      result$
         ..add('truststoreVersion')
         ..add(serializers.serialize(
-          payload.truststoreVersion!,
+          truststoreVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.truststoreWarnings != null) {
-      result
+    if (truststoreWarnings != null) {
+      result$
         ..add('truststoreWarnings')
         ..add(serializers.serialize(
-          payload.truststoreWarnings!,
+          truststoreWarnings,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

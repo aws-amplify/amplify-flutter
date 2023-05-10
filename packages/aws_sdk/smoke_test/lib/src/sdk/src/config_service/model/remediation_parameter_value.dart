@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.remediation_parameter_value; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -97,23 +98,20 @@ class RemediationParameterValueAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ResourceValue':
-          if (value != null) {
-            result.resourceValue.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ResourceValue),
-            ) as _i2.ResourceValue));
-          }
-          break;
+          result.resourceValue.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ResourceValue),
+          ) as _i2.ResourceValue));
         case 'StaticValue':
-          if (value != null) {
-            result.staticValue.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.StaticValue),
-            ) as _i3.StaticValue));
-          }
-          break;
+          result.staticValue.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.StaticValue),
+          ) as _i3.StaticValue));
       }
     }
 
@@ -123,27 +121,27 @@ class RemediationParameterValueAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RemediationParameterValue object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RemediationParameterValue);
-    final result = <Object?>[];
-    if (payload.resourceValue != null) {
-      result
+    final result$ = <Object?>[];
+    final RemediationParameterValue(:resourceValue, :staticValue) = object;
+    if (resourceValue != null) {
+      result$
         ..add('ResourceValue')
         ..add(serializers.serialize(
-          payload.resourceValue!,
+          resourceValue,
           specifiedType: const FullType(_i2.ResourceValue),
         ));
     }
-    if (payload.staticValue != null) {
-      result
+    if (staticValue != null) {
+      result$
         ..add('StaticValue')
         ..add(serializers.serialize(
-          payload.staticValue!,
+          staticValue,
           specifiedType: const FullType(_i3.StaticValue),
         ));
     }
-    return result;
+    return result$;
   }
 }

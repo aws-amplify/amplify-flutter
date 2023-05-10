@@ -8,38 +8,38 @@ part of smoke_test.s3.model.get_object_attributes_output;
 
 class _$GetObjectAttributesOutput extends GetObjectAttributesOutput {
   @override
-  final _i3.Checksum? checksum;
-  @override
   final bool? deleteMarker;
-  @override
-  final String? eTag;
   @override
   final DateTime? lastModified;
   @override
-  final _i4.GetObjectAttributesParts? objectParts;
-  @override
-  final _i5.Int64? objectSize;
-  @override
-  final _i6.RequestCharged? requestCharged;
-  @override
-  final _i7.StorageClass? storageClass;
-  @override
   final String? versionId;
+  @override
+  final _i3.RequestCharged? requestCharged;
+  @override
+  final String? eTag;
+  @override
+  final _i4.Checksum? checksum;
+  @override
+  final _i5.GetObjectAttributesParts? objectParts;
+  @override
+  final _i6.StorageClass? storageClass;
+  @override
+  final _i7.Int64? objectSize;
 
   factory _$GetObjectAttributesOutput(
           [void Function(GetObjectAttributesOutputBuilder)? updates]) =>
       (new GetObjectAttributesOutputBuilder()..update(updates))._build();
 
   _$GetObjectAttributesOutput._(
-      {this.checksum,
-      this.deleteMarker,
-      this.eTag,
+      {this.deleteMarker,
       this.lastModified,
-      this.objectParts,
-      this.objectSize,
+      this.versionId,
       this.requestCharged,
+      this.eTag,
+      this.checksum,
+      this.objectParts,
       this.storageClass,
-      this.versionId})
+      this.objectSize})
       : super._();
 
   @override
@@ -55,29 +55,29 @@ class _$GetObjectAttributesOutput extends GetObjectAttributesOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetObjectAttributesOutput &&
-        checksum == other.checksum &&
         deleteMarker == other.deleteMarker &&
-        eTag == other.eTag &&
         lastModified == other.lastModified &&
-        objectParts == other.objectParts &&
-        objectSize == other.objectSize &&
+        versionId == other.versionId &&
         requestCharged == other.requestCharged &&
+        eTag == other.eTag &&
+        checksum == other.checksum &&
+        objectParts == other.objectParts &&
         storageClass == other.storageClass &&
-        versionId == other.versionId;
+        objectSize == other.objectSize;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, checksum.hashCode);
     _$hash = $jc(_$hash, deleteMarker.hashCode);
-    _$hash = $jc(_$hash, eTag.hashCode);
     _$hash = $jc(_$hash, lastModified.hashCode);
-    _$hash = $jc(_$hash, objectParts.hashCode);
-    _$hash = $jc(_$hash, objectSize.hashCode);
-    _$hash = $jc(_$hash, requestCharged.hashCode);
-    _$hash = $jc(_$hash, storageClass.hashCode);
     _$hash = $jc(_$hash, versionId.hashCode);
+    _$hash = $jc(_$hash, requestCharged.hashCode);
+    _$hash = $jc(_$hash, eTag.hashCode);
+    _$hash = $jc(_$hash, checksum.hashCode);
+    _$hash = $jc(_$hash, objectParts.hashCode);
+    _$hash = $jc(_$hash, storageClass.hashCode);
+    _$hash = $jc(_$hash, objectSize.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -88,47 +88,47 @@ class GetObjectAttributesOutputBuilder
         Builder<GetObjectAttributesOutput, GetObjectAttributesOutputBuilder> {
   _$GetObjectAttributesOutput? _$v;
 
-  _i3.ChecksumBuilder? _checksum;
-  _i3.ChecksumBuilder get checksum =>
-      _$this._checksum ??= new _i3.ChecksumBuilder();
-  set checksum(_i3.ChecksumBuilder? checksum) => _$this._checksum = checksum;
-
   bool? _deleteMarker;
   bool? get deleteMarker => _$this._deleteMarker;
   set deleteMarker(bool? deleteMarker) => _$this._deleteMarker = deleteMarker;
-
-  String? _eTag;
-  String? get eTag => _$this._eTag;
-  set eTag(String? eTag) => _$this._eTag = eTag;
 
   DateTime? _lastModified;
   DateTime? get lastModified => _$this._lastModified;
   set lastModified(DateTime? lastModified) =>
       _$this._lastModified = lastModified;
 
-  _i4.GetObjectAttributesPartsBuilder? _objectParts;
-  _i4.GetObjectAttributesPartsBuilder get objectParts =>
-      _$this._objectParts ??= new _i4.GetObjectAttributesPartsBuilder();
-  set objectParts(_i4.GetObjectAttributesPartsBuilder? objectParts) =>
-      _$this._objectParts = objectParts;
-
-  _i5.Int64? _objectSize;
-  _i5.Int64? get objectSize => _$this._objectSize;
-  set objectSize(_i5.Int64? objectSize) => _$this._objectSize = objectSize;
-
-  _i6.RequestCharged? _requestCharged;
-  _i6.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i6.RequestCharged? requestCharged) =>
-      _$this._requestCharged = requestCharged;
-
-  _i7.StorageClass? _storageClass;
-  _i7.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i7.StorageClass? storageClass) =>
-      _$this._storageClass = storageClass;
-
   String? _versionId;
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
+
+  _i3.RequestCharged? _requestCharged;
+  _i3.RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(_i3.RequestCharged? requestCharged) =>
+      _$this._requestCharged = requestCharged;
+
+  String? _eTag;
+  String? get eTag => _$this._eTag;
+  set eTag(String? eTag) => _$this._eTag = eTag;
+
+  _i4.ChecksumBuilder? _checksum;
+  _i4.ChecksumBuilder get checksum =>
+      _$this._checksum ??= new _i4.ChecksumBuilder();
+  set checksum(_i4.ChecksumBuilder? checksum) => _$this._checksum = checksum;
+
+  _i5.GetObjectAttributesPartsBuilder? _objectParts;
+  _i5.GetObjectAttributesPartsBuilder get objectParts =>
+      _$this._objectParts ??= new _i5.GetObjectAttributesPartsBuilder();
+  set objectParts(_i5.GetObjectAttributesPartsBuilder? objectParts) =>
+      _$this._objectParts = objectParts;
+
+  _i6.StorageClass? _storageClass;
+  _i6.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i6.StorageClass? storageClass) =>
+      _$this._storageClass = storageClass;
+
+  _i7.Int64? _objectSize;
+  _i7.Int64? get objectSize => _$this._objectSize;
+  set objectSize(_i7.Int64? objectSize) => _$this._objectSize = objectSize;
 
   GetObjectAttributesOutputBuilder() {
     GetObjectAttributesOutput._init(this);
@@ -137,15 +137,15 @@ class GetObjectAttributesOutputBuilder
   GetObjectAttributesOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _checksum = $v.checksum?.toBuilder();
       _deleteMarker = $v.deleteMarker;
-      _eTag = $v.eTag;
       _lastModified = $v.lastModified;
-      _objectParts = $v.objectParts?.toBuilder();
-      _objectSize = $v.objectSize;
-      _requestCharged = $v.requestCharged;
-      _storageClass = $v.storageClass;
       _versionId = $v.versionId;
+      _requestCharged = $v.requestCharged;
+      _eTag = $v.eTag;
+      _checksum = $v.checksum?.toBuilder();
+      _objectParts = $v.objectParts?.toBuilder();
+      _storageClass = $v.storageClass;
+      _objectSize = $v.objectSize;
       _$v = null;
     }
     return this;
@@ -170,21 +170,20 @@ class GetObjectAttributesOutputBuilder
     try {
       _$result = _$v ??
           new _$GetObjectAttributesOutput._(
-              checksum: _checksum?.build(),
               deleteMarker: deleteMarker,
-              eTag: eTag,
               lastModified: lastModified,
-              objectParts: _objectParts?.build(),
-              objectSize: objectSize,
+              versionId: versionId,
               requestCharged: requestCharged,
+              eTag: eTag,
+              checksum: _checksum?.build(),
+              objectParts: _objectParts?.build(),
               storageClass: storageClass,
-              versionId: versionId);
+              objectSize: objectSize);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'checksum';
         _checksum?.build();
-
         _$failedField = 'objectParts';
         _objectParts?.build();
       } catch (e) {
@@ -201,15 +200,15 @@ class GetObjectAttributesOutputBuilder
 class _$GetObjectAttributesOutputPayload
     extends GetObjectAttributesOutputPayload {
   @override
-  final _i3.Checksum? checksum;
+  final _i4.Checksum? checksum;
   @override
   final String? eTag;
   @override
-  final _i4.GetObjectAttributesParts? objectParts;
+  final _i5.GetObjectAttributesParts? objectParts;
   @override
-  final _i5.Int64? objectSize;
+  final _i7.Int64? objectSize;
   @override
-  final _i7.StorageClass? storageClass;
+  final _i6.StorageClass? storageClass;
 
   factory _$GetObjectAttributesOutputPayload(
           [void Function(GetObjectAttributesOutputPayloadBuilder)? updates]) =>
@@ -262,28 +261,28 @@ class GetObjectAttributesOutputPayloadBuilder
             GetObjectAttributesOutputPayloadBuilder> {
   _$GetObjectAttributesOutputPayload? _$v;
 
-  _i3.ChecksumBuilder? _checksum;
-  _i3.ChecksumBuilder get checksum =>
-      _$this._checksum ??= new _i3.ChecksumBuilder();
-  set checksum(_i3.ChecksumBuilder? checksum) => _$this._checksum = checksum;
+  _i4.ChecksumBuilder? _checksum;
+  _i4.ChecksumBuilder get checksum =>
+      _$this._checksum ??= new _i4.ChecksumBuilder();
+  set checksum(_i4.ChecksumBuilder? checksum) => _$this._checksum = checksum;
 
   String? _eTag;
   String? get eTag => _$this._eTag;
   set eTag(String? eTag) => _$this._eTag = eTag;
 
-  _i4.GetObjectAttributesPartsBuilder? _objectParts;
-  _i4.GetObjectAttributesPartsBuilder get objectParts =>
-      _$this._objectParts ??= new _i4.GetObjectAttributesPartsBuilder();
-  set objectParts(_i4.GetObjectAttributesPartsBuilder? objectParts) =>
+  _i5.GetObjectAttributesPartsBuilder? _objectParts;
+  _i5.GetObjectAttributesPartsBuilder get objectParts =>
+      _$this._objectParts ??= new _i5.GetObjectAttributesPartsBuilder();
+  set objectParts(_i5.GetObjectAttributesPartsBuilder? objectParts) =>
       _$this._objectParts = objectParts;
 
-  _i5.Int64? _objectSize;
-  _i5.Int64? get objectSize => _$this._objectSize;
-  set objectSize(_i5.Int64? objectSize) => _$this._objectSize = objectSize;
+  _i7.Int64? _objectSize;
+  _i7.Int64? get objectSize => _$this._objectSize;
+  set objectSize(_i7.Int64? objectSize) => _$this._objectSize = objectSize;
 
-  _i7.StorageClass? _storageClass;
-  _i7.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i7.StorageClass? storageClass) =>
+  _i6.StorageClass? _storageClass;
+  _i6.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i6.StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   GetObjectAttributesOutputPayloadBuilder() {

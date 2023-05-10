@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_config_rules_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -103,26 +104,23 @@ class DescribeConfigRulesRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleNames':
-          if (value != null) {
-            result.configRuleNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.configRuleNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -132,30 +130,30 @@ class DescribeConfigRulesRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeConfigRulesRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeConfigRulesRequest);
-    final result = <Object?>[];
-    if (payload.configRuleNames != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeConfigRulesRequest(:configRuleNames, :nextToken) = object;
+    if (configRuleNames != null) {
+      result$
         ..add('ConfigRuleNames')
         ..add(serializers.serialize(
-          payload.configRuleNames!,
+          configRuleNames,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
-      result
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

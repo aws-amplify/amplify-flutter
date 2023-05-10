@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.conformance_pack_rule_compliance; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,13 +22,13 @@ abstract class ConformancePackRuleCompliance
             ConformancePackRuleComplianceBuilder> {
   /// Compliance information of one or more Config rules within a conformance pack. You can filter using Config rule names and compliance types.
   factory ConformancePackRuleCompliance({
-    _i2.ConformancePackComplianceType? complianceType,
     String? configRuleName,
+    _i2.ConformancePackComplianceType? complianceType,
     List<String>? controls,
   }) {
     return _$ConformancePackRuleCompliance._(
-      complianceType: complianceType,
       configRuleName: configRuleName,
+      complianceType: complianceType,
       controls: controls == null ? null : _i3.BuiltList(controls),
     );
   }
@@ -46,32 +47,32 @@ abstract class ConformancePackRuleCompliance
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackRuleComplianceBuilder b) {}
 
+  /// Name of the Config rule.
+  String? get configRuleName;
+
   /// Compliance of the Config rule.
   ///
   /// The allowed values are `COMPLIANT`, `NON_COMPLIANT`, and `INSUFFICIENT_DATA`.
   _i2.ConformancePackComplianceType? get complianceType;
 
-  /// Name of the Config rule.
-  String? get configRuleName;
-
   /// Controls for the conformance pack. A control is a process to prevent or detect problems while meeting objectives. A control can align with a specific compliance regime or map to internal controls defined by an organization.
   _i3.BuiltList<String>? get controls;
   @override
   List<Object?> get props => [
-        complianceType,
         configRuleName,
+        complianceType,
         controls,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConformancePackRuleCompliance');
     helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
       'configRuleName',
       configRuleName,
+    );
+    helper.add(
+      'complianceType',
+      complianceType,
     );
     helper.add(
       'controls',
@@ -110,34 +111,28 @@ class ConformancePackRuleComplianceAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ComplianceType':
-          if (value != null) {
-            result.complianceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConformancePackComplianceType),
-            ) as _i2.ConformancePackComplianceType);
-          }
-          break;
         case 'ConfigRuleName':
-          if (value != null) {
-            result.configRuleName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configRuleName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ComplianceType':
+          result.complianceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConformancePackComplianceType),
+          ) as _i2.ConformancePackComplianceType);
         case 'Controls':
-          if (value != null) {
-            result.controls.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.controls.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -147,38 +142,42 @@ class ConformancePackRuleComplianceAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConformancePackRuleCompliance object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConformancePackRuleCompliance);
-    final result = <Object?>[];
-    if (payload.complianceType != null) {
-      result
-        ..add('ComplianceType')
-        ..add(serializers.serialize(
-          payload.complianceType!,
-          specifiedType: const FullType(_i2.ConformancePackComplianceType),
-        ));
-    }
-    if (payload.configRuleName != null) {
-      result
+    final result$ = <Object?>[];
+    final ConformancePackRuleCompliance(
+      :configRuleName,
+      :complianceType,
+      :controls
+    ) = object;
+    if (configRuleName != null) {
+      result$
         ..add('ConfigRuleName')
         ..add(serializers.serialize(
-          payload.configRuleName!,
+          configRuleName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.controls != null) {
-      result
+    if (complianceType != null) {
+      result$
+        ..add('ComplianceType')
+        ..add(serializers.serialize(
+          complianceType,
+          specifiedType: const FullType(_i2.ConformancePackComplianceType),
+        ));
+    }
+    if (controls != null) {
+      result$
         ..add('Controls')
         ..add(serializers.serialize(
-          payload.controls!,
+          controls,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

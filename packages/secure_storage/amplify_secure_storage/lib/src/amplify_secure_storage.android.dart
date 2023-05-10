@@ -3,7 +3,7 @@
 
 import 'dart:async';
 
-import 'package:amplify_secure_storage/src/messages.android.g.dart';
+import 'package:amplify_secure_storage/src/pigeons/amplify_secure_storage_pigeon.g.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
 class AmplifySecureStorageAndroid extends AmplifySecureStorageInterface {
@@ -11,25 +11,25 @@ class AmplifySecureStorageAndroid extends AmplifySecureStorageInterface {
     required super.config,
   });
 
-  static final AmplifySecureStorageApi _api = AmplifySecureStorageApi();
+  static final _pigeon = AmplifySecureStoragePigeon();
 
   @override
   Future<String?> read({required String key}) {
-    return _api.read(config.defaultNamespace, key);
+    return _pigeon.read(config.defaultNamespace, key);
   }
 
   @override
   Future<void> write({required String key, required String value}) {
-    return _api.write(config.defaultNamespace, key, value);
+    return _pigeon.write(config.defaultNamespace, key, value);
   }
 
   @override
   Future<void> delete({required String key}) {
-    return _api.delete(config.defaultNamespace, key);
+    return _pigeon.delete(config.defaultNamespace, key);
   }
 
   @override
   Future<void> removeAll() {
-    return _api.removeAll(config.defaultNamespace);
+    return _pigeon.removeAll(config.defaultNamespace);
   }
 }

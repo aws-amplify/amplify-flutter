@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_configuration_recorders_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -94,18 +95,18 @@ class DescribeConfigurationRecordersResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigurationRecorders':
-          if (value != null) {
-            result.configurationRecorders.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ConfigurationRecorder)],
-              ),
-            ) as _i3.BuiltList<_i2.ConfigurationRecorder>));
-          }
-          break;
+          result.configurationRecorders.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ConfigurationRecorder)],
+            ),
+          ) as _i3.BuiltList<_i2.ConfigurationRecorder>));
       }
     }
 
@@ -115,22 +116,23 @@ class DescribeConfigurationRecordersResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeConfigurationRecordersResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeConfigurationRecordersResponse);
-    final result = <Object?>[];
-    if (payload.configurationRecorders != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeConfigurationRecordersResponse(:configurationRecorders) =
+        object;
+    if (configurationRecorders != null) {
+      result$
         ..add('ConfigurationRecorders')
         ..add(serializers.serialize(
-          payload.configurationRecorders!,
+          configurationRecorders,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ConfigurationRecorder)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

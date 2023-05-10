@@ -33,11 +33,16 @@ class VmGenerator extends ImplGenerator {
         (m) => m
           ..name = '_run'
           ..returns = DartTypes.async.future(DartTypes.core.void$)
-          ..requiredParameters.add(Parameter((p) => p
-            ..type = DartTypes.workerBee.sendPorts
-            ..name = 'ports'))
+          ..requiredParameters.add(
+            Parameter(
+              (p) => p
+                ..type = DartTypes.workerBee.sendPorts
+                ..name = 'ports',
+            ),
+          )
           ..modifier = MethodModifier.async
-          ..body = Code.scope((allocate) => '''
+          ..body = Code.scope(
+            (allocate) => '''
 final channel = ${allocate(DartTypes.streamChannel.isolateChannel)}<${allocate(DartTypes.core.object)}?>.connectSend(ports.messagePort);
 final logsChannel = ${allocate(DartTypes.streamChannel.isolateChannel)}<${allocate(DartTypes.workerBee.logEntry)}>.connectSend(ports.logPort);
 final worker = $workerImplName();
@@ -50,7 +55,8 @@ ${responseType.isVoid ? '' : 'final result ='} await worker.run(
 worker.logger.verbose('Finished');
 ${allocate(DartTypes.async.unawaited)}(worker.close());
 ${allocate(DartTypes.isolate.isolate)}.exit(ports.donePort${responseType.isVoid ? '' : ', result'});
-            '''),
+            ''',
+          ),
       );
 
   Class get _workerClass => Class(
@@ -59,18 +65,22 @@ ${allocate(DartTypes.isolate.isolate)}.exit(ports.donePort${responseType.isVoid 
           ..docs.add('/// The VM implementation of [${workerType.symbol}].')
           ..extend = workerType
           ..methods.addAll([
-            Method((m) => m
-              ..annotations.add(DartTypes.core.override)
-              ..returns = DartTypes.core.string
-              ..type = MethodType.getter
-              ..name = 'name'
-              ..body = literalString(workerName).code),
-            Method((m) => m
-              ..annotations.add(DartTypes.core.override)
-              ..returns = DartTypes.workerBee.vmEntrypoint
-              ..type = MethodType.getter
-              ..name = 'vmEntrypoint'
-              ..body = refer('_run').code),
+            Method(
+              (m) => m
+                ..annotations.add(DartTypes.core.override)
+                ..returns = DartTypes.core.string
+                ..type = MethodType.getter
+                ..name = 'name'
+                ..body = literalString(workerName).code,
+            ),
+            Method(
+              (m) => m
+                ..annotations.add(DartTypes.core.override)
+                ..returns = DartTypes.workerBee.vmEntrypoint
+                ..type = MethodType.getter
+                ..name = 'vmEntrypoint'
+                ..body = refer('_run').code,
+            ),
           ]),
       );
 }

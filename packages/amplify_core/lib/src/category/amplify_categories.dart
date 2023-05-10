@@ -49,28 +49,17 @@ enum Category {
   storage,
 
   /// Push Notifications
-  pushNotifications,
-}
+  pushNotifications;
 
-extension CategoryName on Category {
-  String get name {
-    switch (this) {
-      case Category.analytics:
-        return 'Analytics';
-      case Category.api:
-        return 'API';
-      case Category.auth:
-        return 'Auth';
-      case Category.dataStore:
-        return 'DataStore';
-      case Category.hub:
-        return 'Hub';
-      case Category.storage:
-        return 'Storage';
-      case Category.pushNotifications:
-        return 'PushNotifications';
-    }
-  }
+  String get name => switch (this) {
+        Category.analytics => 'Analytics',
+        Category.api => 'API',
+        Category.auth => 'Auth',
+        Category.dataStore => 'DataStore',
+        Category.hub => 'Hub',
+        Category.storage => 'Storage',
+        Category.pushNotifications => 'PushNotifications',
+      };
 }
 
 /// Base functionality for Amplify categories.
@@ -88,11 +77,10 @@ abstract class AmplifyCategory<P extends AmplifyPluginInterface> {
 
   @protected
   P get defaultPlugin {
-    final plugin = plugins.firstOrNull;
-    if (plugin == null) {
-      throw _pluginNotAddedException(category.name);
+    if (plugins case [final singlePlugin]) {
+      return singlePlugin;
     }
-    return plugin;
+    throw _pluginNotAddedException(category.name);
   }
 
   /// Adds a plugin to the category.

@@ -9,7 +9,7 @@ import 'package:async/async.dart';
 /// {@template aws_common.http.http_payload}
 /// An HTTP request's payload.
 /// {@endtemplate}
-class HttpPayload extends StreamView<List<int>> {
+final class HttpPayload extends StreamView<List<int>> {
   /// A constructor that wraps [HttpPayload.empty], [HttpPayload.string],
   /// [HttpPayload.bytes], [HttpPayload.streaming], and [HttpPayload.formFields]
   /// based on the body type.

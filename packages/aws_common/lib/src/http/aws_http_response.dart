@@ -17,7 +17,7 @@ import 'package:meta/meta.dart';
 /// See also:
 /// - [AWSHttpResponse]
 /// - [AWSStreamedHttpResponse]
-abstract class AWSBaseHttpResponse
+sealed class AWSBaseHttpResponse
     implements StreamSplitter<List<int>>, Closeable {
   AWSBaseHttpResponse._({
     required this.statusCode,

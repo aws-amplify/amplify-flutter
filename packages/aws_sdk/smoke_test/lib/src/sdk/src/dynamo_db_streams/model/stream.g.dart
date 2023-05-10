@@ -10,14 +10,14 @@ class _$Stream extends Stream {
   @override
   final String? streamArn;
   @override
-  final String? streamLabel;
-  @override
   final String? tableName;
+  @override
+  final String? streamLabel;
 
   factory _$Stream([void Function(StreamBuilder)? updates]) =>
       (new StreamBuilder()..update(updates))._build();
 
-  _$Stream._({this.streamArn, this.streamLabel, this.tableName}) : super._();
+  _$Stream._({this.streamArn, this.tableName, this.streamLabel}) : super._();
 
   @override
   Stream rebuild(void Function(StreamBuilder) updates) =>
@@ -31,16 +31,16 @@ class _$Stream extends Stream {
     if (identical(other, this)) return true;
     return other is Stream &&
         streamArn == other.streamArn &&
-        streamLabel == other.streamLabel &&
-        tableName == other.tableName;
+        tableName == other.tableName &&
+        streamLabel == other.streamLabel;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, streamArn.hashCode);
-    _$hash = $jc(_$hash, streamLabel.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, streamLabel.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,13 +53,13 @@ class StreamBuilder implements Builder<Stream, StreamBuilder> {
   String? get streamArn => _$this._streamArn;
   set streamArn(String? streamArn) => _$this._streamArn = streamArn;
 
-  String? _streamLabel;
-  String? get streamLabel => _$this._streamLabel;
-  set streamLabel(String? streamLabel) => _$this._streamLabel = streamLabel;
-
   String? _tableName;
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
+
+  String? _streamLabel;
+  String? get streamLabel => _$this._streamLabel;
+  set streamLabel(String? streamLabel) => _$this._streamLabel = streamLabel;
 
   StreamBuilder() {
     Stream._init(this);
@@ -69,8 +69,8 @@ class StreamBuilder implements Builder<Stream, StreamBuilder> {
     final $v = _$v;
     if ($v != null) {
       _streamArn = $v.streamArn;
-      _streamLabel = $v.streamLabel;
       _tableName = $v.tableName;
+      _streamLabel = $v.streamLabel;
       _$v = null;
     }
     return this;
@@ -94,8 +94,8 @@ class StreamBuilder implements Builder<Stream, StreamBuilder> {
     final _$result = _$v ??
         new _$Stream._(
             streamArn: streamArn,
-            streamLabel: streamLabel,
-            tableName: tableName);
+            tableName: tableName,
+            streamLabel: streamLabel);
     replace(_$result);
     return _$result;
   }

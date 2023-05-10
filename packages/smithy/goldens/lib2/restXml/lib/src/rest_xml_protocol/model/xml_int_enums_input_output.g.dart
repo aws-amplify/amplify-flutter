@@ -16,9 +16,9 @@ class _$XmlIntEnumsInputOutput extends XmlIntEnumsInputOutput {
   @override
   final _i4.BuiltList<_i3.IntegerEnum>? intEnumList;
   @override
-  final _i4.BuiltMap<String, _i3.IntegerEnum>? intEnumMap;
-  @override
   final _i4.BuiltSet<_i3.IntegerEnum>? intEnumSet;
+  @override
+  final _i4.BuiltMap<String, _i3.IntegerEnum>? intEnumMap;
 
   factory _$XmlIntEnumsInputOutput(
           [void Function(XmlIntEnumsInputOutputBuilder)? updates]) =>
@@ -29,8 +29,8 @@ class _$XmlIntEnumsInputOutput extends XmlIntEnumsInputOutput {
       this.intEnum2,
       this.intEnum3,
       this.intEnumList,
-      this.intEnumMap,
-      this.intEnumSet})
+      this.intEnumSet,
+      this.intEnumMap})
       : super._();
 
   @override
@@ -50,8 +50,8 @@ class _$XmlIntEnumsInputOutput extends XmlIntEnumsInputOutput {
         intEnum2 == other.intEnum2 &&
         intEnum3 == other.intEnum3 &&
         intEnumList == other.intEnumList &&
-        intEnumMap == other.intEnumMap &&
-        intEnumSet == other.intEnumSet;
+        intEnumSet == other.intEnumSet &&
+        intEnumMap == other.intEnumMap;
   }
 
   @override
@@ -61,8 +61,8 @@ class _$XmlIntEnumsInputOutput extends XmlIntEnumsInputOutput {
     _$hash = $jc(_$hash, intEnum2.hashCode);
     _$hash = $jc(_$hash, intEnum3.hashCode);
     _$hash = $jc(_$hash, intEnumList.hashCode);
-    _$hash = $jc(_$hash, intEnumMap.hashCode);
     _$hash = $jc(_$hash, intEnumSet.hashCode);
+    _$hash = $jc(_$hash, intEnumMap.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -90,17 +90,17 @@ class XmlIntEnumsInputOutputBuilder
   set intEnumList(_i4.ListBuilder<_i3.IntegerEnum>? intEnumList) =>
       _$this._intEnumList = intEnumList;
 
-  _i4.MapBuilder<String, _i3.IntegerEnum>? _intEnumMap;
-  _i4.MapBuilder<String, _i3.IntegerEnum> get intEnumMap =>
-      _$this._intEnumMap ??= new _i4.MapBuilder<String, _i3.IntegerEnum>();
-  set intEnumMap(_i4.MapBuilder<String, _i3.IntegerEnum>? intEnumMap) =>
-      _$this._intEnumMap = intEnumMap;
-
   _i4.SetBuilder<_i3.IntegerEnum>? _intEnumSet;
   _i4.SetBuilder<_i3.IntegerEnum> get intEnumSet =>
       _$this._intEnumSet ??= new _i4.SetBuilder<_i3.IntegerEnum>();
   set intEnumSet(_i4.SetBuilder<_i3.IntegerEnum>? intEnumSet) =>
       _$this._intEnumSet = intEnumSet;
+
+  _i4.MapBuilder<String, _i3.IntegerEnum>? _intEnumMap;
+  _i4.MapBuilder<String, _i3.IntegerEnum> get intEnumMap =>
+      _$this._intEnumMap ??= new _i4.MapBuilder<String, _i3.IntegerEnum>();
+  set intEnumMap(_i4.MapBuilder<String, _i3.IntegerEnum>? intEnumMap) =>
+      _$this._intEnumMap = intEnumMap;
 
   XmlIntEnumsInputOutputBuilder() {
     XmlIntEnumsInputOutput._init(this);
@@ -113,8 +113,8 @@ class XmlIntEnumsInputOutputBuilder
       _intEnum2 = $v.intEnum2;
       _intEnum3 = $v.intEnum3;
       _intEnumList = $v.intEnumList?.toBuilder();
-      _intEnumMap = $v.intEnumMap?.toBuilder();
       _intEnumSet = $v.intEnumSet?.toBuilder();
+      _intEnumMap = $v.intEnumMap?.toBuilder();
       _$v = null;
     }
     return this;
@@ -143,17 +143,17 @@ class XmlIntEnumsInputOutputBuilder
               intEnum2: intEnum2,
               intEnum3: intEnum3,
               intEnumList: _intEnumList?.build(),
-              intEnumMap: _intEnumMap?.build(),
-              intEnumSet: _intEnumSet?.build());
+              intEnumSet: _intEnumSet?.build(),
+              intEnumMap: _intEnumMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'intEnumList';
         _intEnumList?.build();
-        _$failedField = 'intEnumMap';
-        _intEnumMap?.build();
         _$failedField = 'intEnumSet';
         _intEnumSet?.build();
+        _$failedField = 'intEnumMap';
+        _intEnumMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'XmlIntEnumsInputOutput', _$failedField, e.toString());

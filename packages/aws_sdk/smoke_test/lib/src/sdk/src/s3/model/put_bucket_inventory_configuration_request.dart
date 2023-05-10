@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.put_bucket_inventory_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,15 +31,15 @@ abstract class PutBucketInventoryConfigurationRequest
         _i1.HasPayload<_i2.InventoryConfiguration> {
   factory PutBucketInventoryConfigurationRequest({
     required String bucket,
-    String? expectedBucketOwner,
     required String id,
     required _i2.InventoryConfiguration inventoryConfiguration,
+    String? expectedBucketOwner,
   }) {
     return _$PutBucketInventoryConfigurationRequest._(
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
       id: id,
       inventoryConfiguration: inventoryConfiguration,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -77,14 +78,14 @@ abstract class PutBucketInventoryConfigurationRequest
   /// The name of the bucket where the inventory configuration will be stored.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// The ID used to identify the inventory configuration.
   String get id;
 
   /// Specifies the inventory configuration.
   _i2.InventoryConfiguration get inventoryConfiguration;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -102,9 +103,9 @@ abstract class PutBucketInventoryConfigurationRequest
   @override
   List<Object?> get props => [
         bucket,
-        expectedBucketOwner,
         id,
         inventoryConfiguration,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -115,16 +116,16 @@ abstract class PutBucketInventoryConfigurationRequest
       bucket,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'id',
       id,
     );
     helper.add(
       'inventoryConfiguration',
       inventoryConfiguration,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }
@@ -156,62 +157,54 @@ class PutBucketInventoryConfigurationRequestRestXmlSerializer
     final result = _i2.InventoryConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Destination':
           result.destination.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i4.InventoryDestination),
           ) as _i4.InventoryDestination));
-          break;
         case 'IsEnabled':
           result.isEnabled = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(bool),
           ) as bool);
-          break;
         case 'Filter':
-          if (value != null) {
-            result.filter.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.InventoryFilter),
-            ) as _i5.InventoryFilter));
-          }
-          break;
+          result.filter.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.InventoryFilter),
+          ) as _i5.InventoryFilter));
         case 'Id':
           result.id = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'IncludedObjectVersions':
           result.includedObjectVersions = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i6.InventoryIncludedObjectVersions),
           ) as _i6.InventoryIncludedObjectVersions);
-          break;
         case 'OptionalFields':
-          if (value != null) {
-            result.optionalFields.replace(
-                (const _i1.XmlBuiltListSerializer(memberName: 'Field')
-                    .deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i8.InventoryOptionalField)],
-              ),
-            ) as _i7.BuiltList<_i8.InventoryOptionalField>));
-          }
-          break;
+          result.optionalFields.replace(
+              (const _i1.XmlBuiltListSerializer(memberName: 'Field')
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(_i8.InventoryOptionalField)],
+            ),
+          ) as _i7.BuiltList<_i8.InventoryOptionalField>));
         case 'Schedule':
           result.schedule.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i9.InventorySchedule),
           ) as _i9.InventorySchedule));
-          break;
       }
     }
 
@@ -221,69 +214,75 @@ class PutBucketInventoryConfigurationRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.InventoryConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutBucketInventoryConfigurationRequest
-        ? object.getPayload()
-        : (object as _i2.InventoryConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'InventoryConfiguration',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
+    final _i2.InventoryConfiguration(
+      :destination,
+      :isEnabled,
+      :filter,
+      :id,
+      :includedObjectVersions,
+      :optionalFields,
+      :schedule
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('Destination'))
       ..add(serializers.serialize(
-        payload.destination,
+        destination,
         specifiedType: const FullType(_i4.InventoryDestination),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('IsEnabled'))
       ..add(serializers.serialize(
-        payload.isEnabled,
+        isEnabled,
         specifiedType: const FullType.nullable(bool),
       ));
-    if (payload.filter != null) {
-      result
+    if (filter != null) {
+      result$
         ..add(const _i1.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i5.InventoryFilter),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('Id'))
       ..add(serializers.serialize(
-        payload.id,
+        id,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i1.XmlElementName('IncludedObjectVersions'))
       ..add(serializers.serialize(
-        payload.includedObjectVersions,
+        includedObjectVersions,
         specifiedType:
             const FullType.nullable(_i6.InventoryIncludedObjectVersions),
       ));
-    if (payload.optionalFields != null) {
-      result
+    if (optionalFields != null) {
+      result$
         ..add(const _i1.XmlElementName('OptionalFields'))
         ..add(const _i1.XmlBuiltListSerializer(memberName: 'Field').serialize(
           serializers,
-          payload.optionalFields!,
+          optionalFields,
           specifiedType: const FullType.nullable(
             _i7.BuiltList,
             [FullType(_i8.InventoryOptionalField)],
           ),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('Schedule'))
       ..add(serializers.serialize(
-        payload.schedule,
+        schedule,
         specifiedType: const FullType(_i9.InventorySchedule),
       ));
-    return result;
+    return result$;
   }
 }

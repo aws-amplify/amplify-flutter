@@ -10,23 +10,23 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
   @override
   final String bucket;
   @override
-  final String? continuationToken;
-  @override
   final String? delimiter;
   @override
   final _i3.EncodingType? encodingType;
-  @override
-  final String? expectedBucketOwner;
-  @override
-  final bool? fetchOwner;
   @override
   final int? maxKeys;
   @override
   final String? prefix;
   @override
-  final _i4.RequestPayer? requestPayer;
+  final String? continuationToken;
+  @override
+  final bool? fetchOwner;
   @override
   final String? startAfter;
+  @override
+  final _i4.RequestPayer? requestPayer;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$ListObjectsV2Request(
           [void Function(ListObjectsV2RequestBuilder)? updates]) =>
@@ -34,15 +34,15 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
 
   _$ListObjectsV2Request._(
       {required this.bucket,
-      this.continuationToken,
       this.delimiter,
       this.encodingType,
-      this.expectedBucketOwner,
-      this.fetchOwner,
       this.maxKeys,
       this.prefix,
+      this.continuationToken,
+      this.fetchOwner,
+      this.startAfter,
       this.requestPayer,
-      this.startAfter})
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'ListObjectsV2Request', 'bucket');
@@ -62,30 +62,30 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
     if (identical(other, this)) return true;
     return other is ListObjectsV2Request &&
         bucket == other.bucket &&
-        continuationToken == other.continuationToken &&
         delimiter == other.delimiter &&
         encodingType == other.encodingType &&
-        expectedBucketOwner == other.expectedBucketOwner &&
-        fetchOwner == other.fetchOwner &&
         maxKeys == other.maxKeys &&
         prefix == other.prefix &&
+        continuationToken == other.continuationToken &&
+        fetchOwner == other.fetchOwner &&
+        startAfter == other.startAfter &&
         requestPayer == other.requestPayer &&
-        startAfter == other.startAfter;
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, continuationToken.hashCode);
     _$hash = $jc(_$hash, delimiter.hashCode);
     _$hash = $jc(_$hash, encodingType.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
-    _$hash = $jc(_$hash, fetchOwner.hashCode);
     _$hash = $jc(_$hash, maxKeys.hashCode);
     _$hash = $jc(_$hash, prefix.hashCode);
-    _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, continuationToken.hashCode);
+    _$hash = $jc(_$hash, fetchOwner.hashCode);
     _$hash = $jc(_$hash, startAfter.hashCode);
+    _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -99,11 +99,6 @@ class ListObjectsV2RequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  String? _continuationToken;
-  String? get continuationToken => _$this._continuationToken;
-  set continuationToken(String? continuationToken) =>
-      _$this._continuationToken = continuationToken;
-
   String? _delimiter;
   String? get delimiter => _$this._delimiter;
   set delimiter(String? delimiter) => _$this._delimiter = delimiter;
@@ -113,15 +108,6 @@ class ListObjectsV2RequestBuilder
   set encodingType(_i3.EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
-  bool? _fetchOwner;
-  bool? get fetchOwner => _$this._fetchOwner;
-  set fetchOwner(bool? fetchOwner) => _$this._fetchOwner = fetchOwner;
-
   int? _maxKeys;
   int? get maxKeys => _$this._maxKeys;
   set maxKeys(int? maxKeys) => _$this._maxKeys = maxKeys;
@@ -130,14 +116,28 @@ class ListObjectsV2RequestBuilder
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
+  String? _continuationToken;
+  String? get continuationToken => _$this._continuationToken;
+  set continuationToken(String? continuationToken) =>
+      _$this._continuationToken = continuationToken;
+
+  bool? _fetchOwner;
+  bool? get fetchOwner => _$this._fetchOwner;
+  set fetchOwner(bool? fetchOwner) => _$this._fetchOwner = fetchOwner;
+
+  String? _startAfter;
+  String? get startAfter => _$this._startAfter;
+  set startAfter(String? startAfter) => _$this._startAfter = startAfter;
+
   _i4.RequestPayer? _requestPayer;
   _i4.RequestPayer? get requestPayer => _$this._requestPayer;
   set requestPayer(_i4.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
-  String? _startAfter;
-  String? get startAfter => _$this._startAfter;
-  set startAfter(String? startAfter) => _$this._startAfter = startAfter;
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
 
   ListObjectsV2RequestBuilder() {
     ListObjectsV2Request._init(this);
@@ -147,15 +147,15 @@ class ListObjectsV2RequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _continuationToken = $v.continuationToken;
       _delimiter = $v.delimiter;
       _encodingType = $v.encodingType;
-      _expectedBucketOwner = $v.expectedBucketOwner;
-      _fetchOwner = $v.fetchOwner;
       _maxKeys = $v.maxKeys;
       _prefix = $v.prefix;
-      _requestPayer = $v.requestPayer;
+      _continuationToken = $v.continuationToken;
+      _fetchOwner = $v.fetchOwner;
       _startAfter = $v.startAfter;
+      _requestPayer = $v.requestPayer;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -180,15 +180,15 @@ class ListObjectsV2RequestBuilder
         new _$ListObjectsV2Request._(
             bucket: BuiltValueNullFieldError.checkNotNull(
                 bucket, r'ListObjectsV2Request', 'bucket'),
-            continuationToken: continuationToken,
             delimiter: delimiter,
             encodingType: encodingType,
-            expectedBucketOwner: expectedBucketOwner,
-            fetchOwner: fetchOwner,
             maxKeys: maxKeys,
             prefix: prefix,
+            continuationToken: continuationToken,
+            fetchOwner: fetchOwner,
+            startAfter: startAfter,
             requestPayer: requestPayer,
-            startAfter: startAfter);
+            expectedBucketOwner: expectedBucketOwner);
     replace(_$result);
     return _$result;
   }

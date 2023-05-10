@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.organization_aggregation_source; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,14 +20,14 @@ abstract class OrganizationAggregationSource
             OrganizationAggregationSourceBuilder> {
   /// This object contains regions to set up the aggregator and an IAM role to retrieve organization details.
   factory OrganizationAggregationSource({
-    bool? allAwsRegions,
-    List<String>? awsRegions,
     required String roleArn,
+    List<String>? awsRegions,
+    bool? allAwsRegions,
   }) {
     return _$OrganizationAggregationSource._(
-      allAwsRegions: allAwsRegions,
-      awsRegions: awsRegions == null ? null : _i2.BuiltList(awsRegions),
       roleArn: roleArn,
+      awsRegions: awsRegions == null ? null : _i2.BuiltList(awsRegions),
+      allAwsRegions: allAwsRegions,
     );
   }
 
@@ -44,34 +45,34 @@ abstract class OrganizationAggregationSource
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationAggregationSourceBuilder b) {}
 
-  /// If true, aggregate existing Config regions and future regions.
-  bool? get allAwsRegions;
+  /// ARN of the IAM role used to retrieve Amazon Web Services Organization details associated with the aggregator account.
+  String get roleArn;
 
   /// The source regions being aggregated.
   _i2.BuiltList<String>? get awsRegions;
 
-  /// ARN of the IAM role used to retrieve Amazon Web Services Organization details associated with the aggregator account.
-  String get roleArn;
+  /// If true, aggregate existing Config regions and future regions.
+  bool? get allAwsRegions;
   @override
   List<Object?> get props => [
-        allAwsRegions,
-        awsRegions,
         roleArn,
+        awsRegions,
+        allAwsRegions,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('OrganizationAggregationSource');
     helper.add(
-      'allAwsRegions',
-      allAwsRegions,
+      'roleArn',
+      roleArn,
     );
     helper.add(
       'awsRegions',
       awsRegions,
     );
     helper.add(
-      'roleArn',
-      roleArn,
+      'allAwsRegions',
+      allAwsRegions,
     );
     return helper.toString();
   }
@@ -106,32 +107,28 @@ class OrganizationAggregationSourceAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'AllAwsRegions':
-          if (value != null) {
-            result.allAwsRegions = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
-        case 'AwsRegions':
-          if (value != null) {
-            result.awsRegions.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
         case 'RoleArn':
           result.roleArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'AwsRegions':
+          result.awsRegions.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
+        case 'AllAwsRegions':
+          result.allAwsRegions = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -141,36 +138,38 @@ class OrganizationAggregationSourceAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OrganizationAggregationSource object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OrganizationAggregationSource);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final OrganizationAggregationSource(:roleArn, :awsRegions, :allAwsRegions) =
+        object;
+    result$.addAll([
       'RoleArn',
       serializers.serialize(
-        payload.roleArn,
+        roleArn,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.allAwsRegions != null) {
-      result
-        ..add('AllAwsRegions')
-        ..add(serializers.serialize(
-          payload.allAwsRegions!,
-          specifiedType: const FullType(bool),
-        ));
-    }
-    if (payload.awsRegions != null) {
-      result
+    ]);
+    if (awsRegions != null) {
+      result$
         ..add('AwsRegions')
         ..add(serializers.serialize(
-          payload.awsRegions!,
+          awsRegions,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    if (allAwsRegions != null) {
+      result$
+        ..add('AllAwsRegions')
+        ..add(serializers.serialize(
+          allAwsRegions,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    return result$;
   }
 }

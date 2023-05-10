@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.update_contributor_insights_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,14 +20,14 @@ abstract class UpdateContributorInsightsInput
         Built<UpdateContributorInsightsInput,
             UpdateContributorInsightsInputBuilder> {
   factory UpdateContributorInsightsInput({
-    required _i3.ContributorInsightsAction contributorInsightsAction,
-    String? indexName,
     required String tableName,
+    String? indexName,
+    required _i3.ContributorInsightsAction contributorInsightsAction,
   }) {
     return _$UpdateContributorInsightsInput._(
-      contributorInsightsAction: contributorInsightsAction,
-      indexName: indexName,
       tableName: tableName,
+      indexName: indexName,
+      contributorInsightsAction: contributorInsightsAction,
     );
   }
 
@@ -50,37 +51,37 @@ abstract class UpdateContributorInsightsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateContributorInsightsInputBuilder b) {}
 
-  /// Represents the contributor insights action.
-  _i3.ContributorInsightsAction get contributorInsightsAction;
+  /// The name of the table.
+  String get tableName;
 
   /// The global secondary index name, if applicable.
   String? get indexName;
 
-  /// The name of the table.
-  String get tableName;
+  /// Represents the contributor insights action.
+  _i3.ContributorInsightsAction get contributorInsightsAction;
   @override
   UpdateContributorInsightsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        contributorInsightsAction,
-        indexName,
         tableName,
+        indexName,
+        contributorInsightsAction,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('UpdateContributorInsightsInput');
     helper.add(
-      'contributorInsightsAction',
-      contributorInsightsAction,
+      'tableName',
+      tableName,
     );
     helper.add(
       'indexName',
       indexName,
     );
     helper.add(
-      'tableName',
-      tableName,
+      'contributorInsightsAction',
+      contributorInsightsAction,
     );
     return helper.toString();
   }
@@ -115,27 +116,25 @@ class UpdateContributorInsightsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ContributorInsightsAction':
-          result.contributorInsightsAction = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i3.ContributorInsightsAction),
-          ) as _i3.ContributorInsightsAction);
-          break;
-        case 'IndexName':
-          if (value != null) {
-            result.indexName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'IndexName':
+          result.indexName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ContributorInsightsAction':
+          result.contributorInsightsAction = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ContributorInsightsAction),
+          ) as _i3.ContributorInsightsAction);
       }
     }
 
@@ -145,30 +144,35 @@ class UpdateContributorInsightsInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateContributorInsightsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateContributorInsightsInput);
-    final result = <Object?>[
-      'ContributorInsightsAction',
-      serializers.serialize(
-        payload.contributorInsightsAction,
-        specifiedType: const FullType(_i3.ContributorInsightsAction),
-      ),
+    final result$ = <Object?>[];
+    final UpdateContributorInsightsInput(
+      :tableName,
+      :indexName,
+      :contributorInsightsAction
+    ) = object;
+    result$.addAll([
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.indexName != null) {
-      result
+      'ContributorInsightsAction',
+      serializers.serialize(
+        contributorInsightsAction,
+        specifiedType: const FullType(_i3.ContributorInsightsAction),
+      ),
+    ]);
+    if (indexName != null) {
+      result$
         ..add('IndexName')
         ..add(serializers.serialize(
-          payload.indexName!,
+          indexName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

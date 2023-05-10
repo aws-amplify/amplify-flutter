@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.item_collection_metrics; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -100,32 +101,29 @@ class ItemCollectionMetricsAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ItemCollectionKey':
-          if (value != null) {
-            result.itemCollectionKey.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeValue),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, _i2.AttributeValue>));
-          }
-          break;
+          result.itemCollectionKey.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, _i2.AttributeValue>));
         case 'SizeEstimateRangeGB':
-          if (value != null) {
-            result.sizeEstimateRangeGb.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(double)],
-              ),
-            ) as _i3.BuiltList<double>));
-          }
-          break;
+          result.sizeEstimateRangeGb.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(double)],
+            ),
+          ) as _i3.BuiltList<double>));
       }
     }
 
@@ -135,16 +133,17 @@ class ItemCollectionMetricsAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ItemCollectionMetrics object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ItemCollectionMetrics);
-    final result = <Object?>[];
-    if (payload.itemCollectionKey != null) {
-      result
+    final result$ = <Object?>[];
+    final ItemCollectionMetrics(:itemCollectionKey, :sizeEstimateRangeGb) =
+        object;
+    if (itemCollectionKey != null) {
+      result$
         ..add('ItemCollectionKey')
         ..add(serializers.serialize(
-          payload.itemCollectionKey!,
+          itemCollectionKey,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -154,17 +153,17 @@ class ItemCollectionMetricsAwsJson10Serializer
           ),
         ));
     }
-    if (payload.sizeEstimateRangeGb != null) {
-      result
+    if (sizeEstimateRangeGb != null) {
+      result$
         ..add('SizeEstimateRangeGB')
         ..add(serializers.serialize(
-          payload.sizeEstimateRangeGb!,
+          sizeEstimateRangeGb,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(double)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

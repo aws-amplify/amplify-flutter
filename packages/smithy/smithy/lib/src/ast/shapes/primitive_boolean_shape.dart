@@ -11,17 +11,18 @@ abstract class PrimitiveBooleanShape
     implements
         SimpleShape,
         Built<PrimitiveBooleanShape, PrimitiveBooleanShapeBuilder> {
-  factory PrimitiveBooleanShape(
-          [void Function(PrimitiveBooleanShapeBuilder) updates]) =
-      _$PrimitiveBooleanShape;
+  factory PrimitiveBooleanShape([
+    void Function(PrimitiveBooleanShapeBuilder) updates,
+  ]) = _$PrimitiveBooleanShape;
   PrimitiveBooleanShape._();
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PrimitiveBooleanShapeBuilder b) {
-    b.shapeId = id;
-    b.traits = TraitMap.fromTraits(const [
-      DefaultTrait(false),
-    ]);
+    b
+      ..shapeId = id
+      ..traits = TraitMap.fromTraits(const [
+        DefaultTrait(false),
+      ]);
   }
 
   static const id = ShapeId.core('PrimitiveBoolean');

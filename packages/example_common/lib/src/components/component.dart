@@ -28,7 +28,7 @@ abstract class Component {
   /// The style of the component's element
   CssStyleDeclaration get style => _element.style;
 
-  /// Calls [render], schedules the [componentDidMount] callback, and returns the [element]
+  /// Calls [render], schedules the [componentDidMount] callback, and returns the [_element].
   ///
   /// This should only be called when the Element is about to be inserted into the DOM.
   /// For example, when calling `element.append(component.renderElement())`.
@@ -88,10 +88,10 @@ abstract class StatefulComponent extends Component {
 /// Useful for creating primitive components, but generally
 /// shouldn't be used directly
 class _ElementComponent extends Component {
+  _ElementComponent(Element element) : _element = element;
+
   @override
   final Element _element;
-
-  _ElementComponent(Element element) : _element = element;
 
   @override
   Component render() {

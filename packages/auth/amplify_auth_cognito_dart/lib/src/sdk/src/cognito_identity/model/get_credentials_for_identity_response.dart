@@ -20,12 +20,12 @@ abstract class GetCredentialsForIdentityResponse
             GetCredentialsForIdentityResponseBuilder> {
   /// Returned in response to a successful `GetCredentialsForIdentity` operation.
   factory GetCredentialsForIdentityResponse({
-    _i2.Credentials? credentials,
     String? identityId,
+    _i2.Credentials? credentials,
   }) {
     return _$GetCredentialsForIdentityResponse._(
-      credentials: credentials,
       identityId: identityId,
+      credentials: credentials,
     );
   }
 
@@ -50,27 +50,27 @@ abstract class GetCredentialsForIdentityResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetCredentialsForIdentityResponseBuilder b) {}
 
-  /// Credentials for the provided identity ID.
-  _i2.Credentials? get credentials;
-
   /// A unique identifier in the format REGION:GUID.
   String? get identityId;
+
+  /// Credentials for the provided identity ID.
+  _i2.Credentials? get credentials;
   @override
   List<Object?> get props => [
-        credentials,
         identityId,
+        credentials,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('GetCredentialsForIdentityResponse');
     helper.add(
-      'credentials',
-      credentials,
-    );
-    helper.add(
       'identityId',
       identityId,
+    );
+    helper.add(
+      'credentials',
+      credentials,
     );
     return helper.toString();
   }
@@ -106,20 +106,20 @@ class GetCredentialsForIdentityResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'Credentials':
-          if (value != null) {
-            result.credentials.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Credentials),
-            ) as _i2.Credentials));
-          }
-          break;
         case 'IdentityId':
           if (value != null) {
             result.identityId = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'Credentials':
+          if (value != null) {
+            result.credentials.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Credentials),
+            ) as _i2.Credentials));
           }
           break;
       }
@@ -136,20 +136,20 @@ class GetCredentialsForIdentityResponseAwsJson11Serializer
   }) {
     final payload = (object as GetCredentialsForIdentityResponse);
     final result = <Object?>[];
-    if (payload.credentials != null) {
-      result
-        ..add('Credentials')
-        ..add(serializers.serialize(
-          payload.credentials!,
-          specifiedType: const FullType(_i2.Credentials),
-        ));
-    }
     if (payload.identityId != null) {
       result
         ..add('IdentityId')
         ..add(serializers.serialize(
           payload.identityId!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.credentials != null) {
+      result
+        ..add('Credentials')
+        ..add(serializers.serialize(
+          payload.credentials!,
+          specifiedType: const FullType(_i2.Credentials),
         ));
     }
     return result;

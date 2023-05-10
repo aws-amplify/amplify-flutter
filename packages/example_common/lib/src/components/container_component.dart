@@ -3,8 +3,8 @@
 
 import 'dart:html';
 
-import '../utils/component_edge_insets.dart';
-import 'component.dart';
+import 'package:example_common/src/components/component.dart';
+import 'package:example_common/src/utils/component_edge_insets.dart';
 
 /// {@template example_common.container_component}
 /// A component that renders a container with an optional child

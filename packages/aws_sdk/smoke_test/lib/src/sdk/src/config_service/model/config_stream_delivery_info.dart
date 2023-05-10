@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.config_stream_delivery_info; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,15 +19,15 @@ abstract class ConfigStreamDeliveryInfo
         Built<ConfigStreamDeliveryInfo, ConfigStreamDeliveryInfoBuilder> {
   /// A list that contains the status of the delivery of the configuration stream notification to the Amazon SNS topic.
   factory ConfigStreamDeliveryInfo({
+    _i2.DeliveryStatus? lastStatus,
     String? lastErrorCode,
     String? lastErrorMessage,
-    _i2.DeliveryStatus? lastStatus,
     DateTime? lastStatusChangeTime,
   }) {
     return _$ConfigStreamDeliveryInfo._(
+      lastStatus: lastStatus,
       lastErrorCode: lastErrorCode,
       lastErrorMessage: lastErrorMessage,
-      lastStatus: lastStatus,
       lastStatusChangeTime: lastStatusChangeTime,
     );
   }
@@ -45,29 +46,33 @@ abstract class ConfigStreamDeliveryInfo
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigStreamDeliveryInfoBuilder b) {}
 
+  /// Status of the last attempted delivery.
+  ///
+  /// **Note** Providing an SNS topic on a [DeliveryChannel](https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html) for Config is optional. If the SNS delivery is turned off, the last status will be **Not_Applicable**.
+  _i2.DeliveryStatus? get lastStatus;
+
   /// The error code from the last attempted delivery.
   String? get lastErrorCode;
 
   /// The error message from the last attempted delivery.
   String? get lastErrorMessage;
 
-  /// Status of the last attempted delivery.
-  ///
-  /// **Note** Providing an SNS topic on a [DeliveryChannel](https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html) for Config is optional. If the SNS delivery is turned off, the last status will be **Not_Applicable**.
-  _i2.DeliveryStatus? get lastStatus;
-
   /// The time from the last status change.
   DateTime? get lastStatusChangeTime;
   @override
   List<Object?> get props => [
+        lastStatus,
         lastErrorCode,
         lastErrorMessage,
-        lastStatus,
         lastStatusChangeTime,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfigStreamDeliveryInfo');
+    helper.add(
+      'lastStatus',
+      lastStatus,
+    );
     helper.add(
       'lastErrorCode',
       lastErrorCode,
@@ -75,10 +80,6 @@ abstract class ConfigStreamDeliveryInfo
     helper.add(
       'lastErrorMessage',
       lastErrorMessage,
-    );
-    helper.add(
-      'lastStatus',
-      lastStatus,
     );
     helper.add(
       'lastStatusChangeTime',
@@ -117,39 +118,30 @@ class ConfigStreamDeliveryInfoAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'lastErrorCode':
-          if (value != null) {
-            result.lastErrorCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'lastErrorMessage':
-          if (value != null) {
-            result.lastErrorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'lastStatus':
-          if (value != null) {
-            result.lastStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.DeliveryStatus),
-            ) as _i2.DeliveryStatus);
-          }
-          break;
+          result.lastStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.DeliveryStatus),
+          ) as _i2.DeliveryStatus);
+        case 'lastErrorCode':
+          result.lastErrorCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'lastErrorMessage':
+          result.lastErrorMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'lastStatusChangeTime':
-          if (value != null) {
-            result.lastStatusChangeTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastStatusChangeTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -159,43 +151,48 @@ class ConfigStreamDeliveryInfoAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConfigStreamDeliveryInfo object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConfigStreamDeliveryInfo);
-    final result = <Object?>[];
-    if (payload.lastErrorCode != null) {
-      result
-        ..add('lastErrorCode')
-        ..add(serializers.serialize(
-          payload.lastErrorCode!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.lastErrorMessage != null) {
-      result
-        ..add('lastErrorMessage')
-        ..add(serializers.serialize(
-          payload.lastErrorMessage!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.lastStatus != null) {
-      result
+    final result$ = <Object?>[];
+    final ConfigStreamDeliveryInfo(
+      :lastStatus,
+      :lastErrorCode,
+      :lastErrorMessage,
+      :lastStatusChangeTime
+    ) = object;
+    if (lastStatus != null) {
+      result$
         ..add('lastStatus')
         ..add(serializers.serialize(
-          payload.lastStatus!,
+          lastStatus,
           specifiedType: const FullType(_i2.DeliveryStatus),
         ));
     }
-    if (payload.lastStatusChangeTime != null) {
-      result
+    if (lastErrorCode != null) {
+      result$
+        ..add('lastErrorCode')
+        ..add(serializers.serialize(
+          lastErrorCode,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (lastErrorMessage != null) {
+      result$
+        ..add('lastErrorMessage')
+        ..add(serializers.serialize(
+          lastErrorMessage,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (lastStatusChangeTime != null) {
+      result$
         ..add('lastStatusChangeTime')
         ..add(serializers.serialize(
-          payload.lastStatusChangeTime!,
+          lastStatusChangeTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_object_retention_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -90,27 +91,23 @@ class GetObjectRetentionOutputRestXmlSerializer
     final result = _i3.ObjectLockRetentionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Mode':
-          if (value != null) {
-            result.mode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ObjectLockRetentionMode),
-            ) as _i4.ObjectLockRetentionMode);
-          }
-          break;
+          result.mode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ObjectLockRetentionMode),
+          ) as _i4.ObjectLockRetentionMode);
         case 'RetainUntilDate':
-          if (value != null) {
-            result.retainUntilDate =
-                _i2.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.retainUntilDate = _i2.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -120,37 +117,32 @@ class GetObjectRetentionOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i3.ObjectLockRetention object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is GetObjectRetentionOutput
-        ? object.getPayload()
-        : (object as _i3.ObjectLockRetention?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'ObjectLockRetention',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
-    if (payload.mode != null) {
-      result
+    final _i3.ObjectLockRetention(:mode, :retainUntilDate) = object;
+    if (mode != null) {
+      result$
         ..add(const _i2.XmlElementName('Mode'))
         ..add(serializers.serialize(
-          payload.mode!,
+          mode,
           specifiedType: const FullType.nullable(_i4.ObjectLockRetentionMode),
         ));
     }
-    if (payload.retainUntilDate != null) {
-      result
+    if (retainUntilDate != null) {
+      result$
         ..add(const _i2.XmlElementName('RetainUntilDate'))
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.retainUntilDate!,
+          retainUntilDate,
         ));
     }
-    return result;
+    return result$;
   }
 }

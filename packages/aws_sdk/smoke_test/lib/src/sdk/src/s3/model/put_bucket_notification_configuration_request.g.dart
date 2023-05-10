@@ -11,9 +11,9 @@ class _$PutBucketNotificationConfigurationRequest
   @override
   final String bucket;
   @override
-  final String? expectedBucketOwner;
-  @override
   final _i2.NotificationConfiguration notificationConfiguration;
+  @override
+  final String? expectedBucketOwner;
   @override
   final bool? skipDestinationValidation;
 
@@ -25,8 +25,8 @@ class _$PutBucketNotificationConfigurationRequest
 
   _$PutBucketNotificationConfigurationRequest._(
       {required this.bucket,
-      this.expectedBucketOwner,
       required this.notificationConfiguration,
+      this.expectedBucketOwner,
       this.skipDestinationValidation})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -52,8 +52,8 @@ class _$PutBucketNotificationConfigurationRequest
     if (identical(other, this)) return true;
     return other is PutBucketNotificationConfigurationRequest &&
         bucket == other.bucket &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         notificationConfiguration == other.notificationConfiguration &&
+        expectedBucketOwner == other.expectedBucketOwner &&
         skipDestinationValidation == other.skipDestinationValidation;
   }
 
@@ -61,8 +61,8 @@ class _$PutBucketNotificationConfigurationRequest
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, notificationConfiguration.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, skipDestinationValidation.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -79,11 +79,6 @@ class PutBucketNotificationConfigurationRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
   _i2.NotificationConfigurationBuilder? _notificationConfiguration;
   _i2.NotificationConfigurationBuilder get notificationConfiguration =>
       _$this._notificationConfiguration ??=
@@ -91,6 +86,11 @@ class PutBucketNotificationConfigurationRequestBuilder
   set notificationConfiguration(
           _i2.NotificationConfigurationBuilder? notificationConfiguration) =>
       _$this._notificationConfiguration = notificationConfiguration;
+
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
 
   bool? _skipDestinationValidation;
   bool? get skipDestinationValidation => _$this._skipDestinationValidation;
@@ -105,8 +105,8 @@ class PutBucketNotificationConfigurationRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _notificationConfiguration = $v.notificationConfiguration.toBuilder();
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _skipDestinationValidation = $v.skipDestinationValidation;
       _$v = null;
     }
@@ -136,8 +136,8 @@ class PutBucketNotificationConfigurationRequestBuilder
           new _$PutBucketNotificationConfigurationRequest._(
               bucket: BuiltValueNullFieldError.checkNotNull(bucket,
                   r'PutBucketNotificationConfigurationRequest', 'bucket'),
-              expectedBucketOwner: expectedBucketOwner,
               notificationConfiguration: notificationConfiguration.build(),
+              expectedBucketOwner: expectedBucketOwner,
               skipDestinationValidation: skipDestinationValidation);
     } catch (_) {
       late String _$failedField;

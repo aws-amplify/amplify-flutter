@@ -8,29 +8,29 @@ part of smoke_test.dynamo_db.model.local_secondary_index_description;
 
 class _$LocalSecondaryIndexDescription extends LocalSecondaryIndexDescription {
   @override
-  final String? indexArn;
-  @override
   final String? indexName;
   @override
-  final _i2.Int64? indexSizeBytes;
+  final _i5.BuiltList<_i2.KeySchemaElement>? keySchema;
   @override
-  final _i2.Int64? itemCount;
+  final _i3.Projection? projection;
   @override
-  final _i5.BuiltList<_i3.KeySchemaElement>? keySchema;
+  final _i4.Int64? indexSizeBytes;
   @override
-  final _i4.Projection? projection;
+  final _i4.Int64? itemCount;
+  @override
+  final String? indexArn;
 
   factory _$LocalSecondaryIndexDescription(
           [void Function(LocalSecondaryIndexDescriptionBuilder)? updates]) =>
       (new LocalSecondaryIndexDescriptionBuilder()..update(updates))._build();
 
   _$LocalSecondaryIndexDescription._(
-      {this.indexArn,
-      this.indexName,
+      {this.indexName,
+      this.keySchema,
+      this.projection,
       this.indexSizeBytes,
       this.itemCount,
-      this.keySchema,
-      this.projection})
+      this.indexArn})
       : super._();
 
   @override
@@ -46,23 +46,23 @@ class _$LocalSecondaryIndexDescription extends LocalSecondaryIndexDescription {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is LocalSecondaryIndexDescription &&
-        indexArn == other.indexArn &&
         indexName == other.indexName &&
+        keySchema == other.keySchema &&
+        projection == other.projection &&
         indexSizeBytes == other.indexSizeBytes &&
         itemCount == other.itemCount &&
-        keySchema == other.keySchema &&
-        projection == other.projection;
+        indexArn == other.indexArn;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, indexArn.hashCode);
     _$hash = $jc(_$hash, indexName.hashCode);
-    _$hash = $jc(_$hash, indexSizeBytes.hashCode);
-    _$hash = $jc(_$hash, itemCount.hashCode);
     _$hash = $jc(_$hash, keySchema.hashCode);
     _$hash = $jc(_$hash, projection.hashCode);
+    _$hash = $jc(_$hash, indexSizeBytes.hashCode);
+    _$hash = $jc(_$hash, itemCount.hashCode);
+    _$hash = $jc(_$hash, indexArn.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -74,34 +74,34 @@ class LocalSecondaryIndexDescriptionBuilder
             LocalSecondaryIndexDescriptionBuilder> {
   _$LocalSecondaryIndexDescription? _$v;
 
-  String? _indexArn;
-  String? get indexArn => _$this._indexArn;
-  set indexArn(String? indexArn) => _$this._indexArn = indexArn;
-
   String? _indexName;
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i2.Int64? _indexSizeBytes;
-  _i2.Int64? get indexSizeBytes => _$this._indexSizeBytes;
-  set indexSizeBytes(_i2.Int64? indexSizeBytes) =>
-      _$this._indexSizeBytes = indexSizeBytes;
-
-  _i2.Int64? _itemCount;
-  _i2.Int64? get itemCount => _$this._itemCount;
-  set itemCount(_i2.Int64? itemCount) => _$this._itemCount = itemCount;
-
-  _i5.ListBuilder<_i3.KeySchemaElement>? _keySchema;
-  _i5.ListBuilder<_i3.KeySchemaElement> get keySchema =>
-      _$this._keySchema ??= new _i5.ListBuilder<_i3.KeySchemaElement>();
-  set keySchema(_i5.ListBuilder<_i3.KeySchemaElement>? keySchema) =>
+  _i5.ListBuilder<_i2.KeySchemaElement>? _keySchema;
+  _i5.ListBuilder<_i2.KeySchemaElement> get keySchema =>
+      _$this._keySchema ??= new _i5.ListBuilder<_i2.KeySchemaElement>();
+  set keySchema(_i5.ListBuilder<_i2.KeySchemaElement>? keySchema) =>
       _$this._keySchema = keySchema;
 
-  _i4.ProjectionBuilder? _projection;
-  _i4.ProjectionBuilder get projection =>
-      _$this._projection ??= new _i4.ProjectionBuilder();
-  set projection(_i4.ProjectionBuilder? projection) =>
+  _i3.ProjectionBuilder? _projection;
+  _i3.ProjectionBuilder get projection =>
+      _$this._projection ??= new _i3.ProjectionBuilder();
+  set projection(_i3.ProjectionBuilder? projection) =>
       _$this._projection = projection;
+
+  _i4.Int64? _indexSizeBytes;
+  _i4.Int64? get indexSizeBytes => _$this._indexSizeBytes;
+  set indexSizeBytes(_i4.Int64? indexSizeBytes) =>
+      _$this._indexSizeBytes = indexSizeBytes;
+
+  _i4.Int64? _itemCount;
+  _i4.Int64? get itemCount => _$this._itemCount;
+  set itemCount(_i4.Int64? itemCount) => _$this._itemCount = itemCount;
+
+  String? _indexArn;
+  String? get indexArn => _$this._indexArn;
+  set indexArn(String? indexArn) => _$this._indexArn = indexArn;
 
   LocalSecondaryIndexDescriptionBuilder() {
     LocalSecondaryIndexDescription._init(this);
@@ -110,12 +110,12 @@ class LocalSecondaryIndexDescriptionBuilder
   LocalSecondaryIndexDescriptionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _indexArn = $v.indexArn;
       _indexName = $v.indexName;
-      _indexSizeBytes = $v.indexSizeBytes;
-      _itemCount = $v.itemCount;
       _keySchema = $v.keySchema?.toBuilder();
       _projection = $v.projection?.toBuilder();
+      _indexSizeBytes = $v.indexSizeBytes;
+      _itemCount = $v.itemCount;
+      _indexArn = $v.indexArn;
       _$v = null;
     }
     return this;
@@ -140,12 +140,12 @@ class LocalSecondaryIndexDescriptionBuilder
     try {
       _$result = _$v ??
           new _$LocalSecondaryIndexDescription._(
-              indexArn: indexArn,
               indexName: indexName,
+              keySchema: _keySchema?.build(),
+              projection: _projection?.build(),
               indexSizeBytes: indexSizeBytes,
               itemCount: itemCount,
-              keySchema: _keySchema?.build(),
-              projection: _projection?.build());
+              indexArn: indexArn);
     } catch (_) {
       late String _$failedField;
       try {

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_protocol.test.test_body_structure_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -127,23 +128,20 @@ class TestBodyStructureInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'testConfig':
-          if (value != null) {
-            result.testConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.TestConfig),
-            ) as _i6.TestConfig));
-          }
-          break;
         case 'testId':
-          if (value != null) {
-            result.testId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.testId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'testConfig':
+          result.testConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.TestConfig),
+          ) as _i6.TestConfig));
       }
     }
 
@@ -153,7 +151,7 @@ class TestBodyStructureInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.TestBodyStructureInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -185,15 +183,15 @@ class TestConfigRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'timeout':
-          if (value != null) {
-            result.timeout = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.timeout = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -203,7 +201,7 @@ class TestConfigRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i6.TestConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

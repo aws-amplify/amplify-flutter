@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.update_endpoint_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -139,15 +140,12 @@ class UpdateEndpointRequestRestJson1Serializer
   @override
   Object serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.EndpointRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UpdateEndpointRequest
-        ? object.getPayload()
-        : (object as _i2.EndpointRequest);
-    return (serializers.serialize(
-      payload,
+    return serializers.serialize(
+      object,
       specifiedType: const FullType(_i2.EndpointRequest),
-    ) as Object);
+    )!;
   }
 }

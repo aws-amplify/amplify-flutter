@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.get_tags_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,14 +20,14 @@ abstract class GetTagsRequest
         _i1.HasPayload<GetTagsRequestPayload> {
   /// Gets the Tags collection for a given resource.
   factory GetTagsRequest({
-    int? limit,
-    String? position,
     required String resourceArn,
+    String? position,
+    int? limit,
   }) {
     return _$GetTagsRequest._(
-      limit: limit,
-      position: position,
       resourceArn: resourceArn,
+      position: position,
+      limit: limit,
     );
   }
 
@@ -60,14 +61,14 @@ abstract class GetTagsRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetTagsRequestBuilder b) {}
 
-  /// (Not currently supported) The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-  int? get limit;
+  /// The ARN of a resource that can be tagged.
+  String get resourceArn;
 
   /// (Not currently supported) The current pagination position in the paged result set.
   String? get position;
 
-  /// The ARN of a resource that can be tagged.
-  String get resourceArn;
+  /// (Not currently supported) The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+  int? get limit;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -84,24 +85,24 @@ abstract class GetTagsRequest
   GetTagsRequestPayload getPayload() => GetTagsRequestPayload();
   @override
   List<Object?> get props => [
-        limit,
-        position,
         resourceArn,
+        position,
+        limit,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetTagsRequest');
     helper.add(
-      'limit',
-      limit,
+      'resourceArn',
+      resourceArn,
     );
     helper.add(
       'position',
       position,
     );
     helper.add(
-      'resourceArn',
-      resourceArn,
+      'limit',
+      limit,
     );
     return helper.toString();
   }
@@ -160,7 +161,7 @@ class GetTagsRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetTagsRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

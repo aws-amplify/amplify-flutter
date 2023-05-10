@@ -8,14 +8,14 @@ part of smoke_test.api_gateway.model.method_snapshot;
 
 class _$MethodSnapshot extends MethodSnapshot {
   @override
-  final bool? apiKeyRequired;
-  @override
   final String? authorizationType;
+  @override
+  final bool? apiKeyRequired;
 
   factory _$MethodSnapshot([void Function(MethodSnapshotBuilder)? updates]) =>
       (new MethodSnapshotBuilder()..update(updates))._build();
 
-  _$MethodSnapshot._({this.apiKeyRequired, this.authorizationType}) : super._();
+  _$MethodSnapshot._({this.authorizationType, this.apiKeyRequired}) : super._();
 
   @override
   MethodSnapshot rebuild(void Function(MethodSnapshotBuilder) updates) =>
@@ -29,15 +29,15 @@ class _$MethodSnapshot extends MethodSnapshot {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is MethodSnapshot &&
-        apiKeyRequired == other.apiKeyRequired &&
-        authorizationType == other.authorizationType;
+        authorizationType == other.authorizationType &&
+        apiKeyRequired == other.apiKeyRequired;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, apiKeyRequired.hashCode);
     _$hash = $jc(_$hash, authorizationType.hashCode);
+    _$hash = $jc(_$hash, apiKeyRequired.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -47,15 +47,15 @@ class MethodSnapshotBuilder
     implements Builder<MethodSnapshot, MethodSnapshotBuilder> {
   _$MethodSnapshot? _$v;
 
-  bool? _apiKeyRequired;
-  bool? get apiKeyRequired => _$this._apiKeyRequired;
-  set apiKeyRequired(bool? apiKeyRequired) =>
-      _$this._apiKeyRequired = apiKeyRequired;
-
   String? _authorizationType;
   String? get authorizationType => _$this._authorizationType;
   set authorizationType(String? authorizationType) =>
       _$this._authorizationType = authorizationType;
+
+  bool? _apiKeyRequired;
+  bool? get apiKeyRequired => _$this._apiKeyRequired;
+  set apiKeyRequired(bool? apiKeyRequired) =>
+      _$this._apiKeyRequired = apiKeyRequired;
 
   MethodSnapshotBuilder() {
     MethodSnapshot._init(this);
@@ -64,8 +64,8 @@ class MethodSnapshotBuilder
   MethodSnapshotBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _apiKeyRequired = $v.apiKeyRequired;
       _authorizationType = $v.authorizationType;
+      _apiKeyRequired = $v.apiKeyRequired;
       _$v = null;
     }
     return this;
@@ -88,8 +88,8 @@ class MethodSnapshotBuilder
   _$MethodSnapshot _build() {
     final _$result = _$v ??
         new _$MethodSnapshot._(
-            apiKeyRequired: apiKeyRequired,
-            authorizationType: authorizationType);
+            authorizationType: authorizationType,
+            apiKeyRequired: apiKeyRequired);
     replace(_$result);
     return _$result;
   }

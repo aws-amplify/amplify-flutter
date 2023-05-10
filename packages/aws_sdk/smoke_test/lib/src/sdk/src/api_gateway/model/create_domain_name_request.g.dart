@@ -8,50 +8,50 @@ part of smoke_test.api_gateway.model.create_domain_name_request;
 
 class _$CreateDomainNameRequest extends CreateDomainNameRequest {
   @override
-  final String? certificateArn;
-  @override
-  final String? certificateBody;
-  @override
-  final String? certificateChain;
+  final String domainName;
   @override
   final String? certificateName;
   @override
+  final String? certificateBody;
+  @override
   final String? certificatePrivateKey;
   @override
-  final String domainName;
+  final String? certificateChain;
   @override
-  final _i3.EndpointConfiguration? endpointConfiguration;
-  @override
-  final _i4.MutualTlsAuthenticationInput? mutualTlsAuthentication;
-  @override
-  final String? ownershipVerificationCertificateArn;
-  @override
-  final String? regionalCertificateArn;
+  final String? certificateArn;
   @override
   final String? regionalCertificateName;
   @override
-  final _i5.SecurityPolicy? securityPolicy;
+  final String? regionalCertificateArn;
+  @override
+  final _i3.EndpointConfiguration? endpointConfiguration;
   @override
   final _i6.BuiltMap<String, String>? tags;
+  @override
+  final _i4.SecurityPolicy? securityPolicy;
+  @override
+  final _i5.MutualTlsAuthenticationInput? mutualTlsAuthentication;
+  @override
+  final String? ownershipVerificationCertificateArn;
 
   factory _$CreateDomainNameRequest(
           [void Function(CreateDomainNameRequestBuilder)? updates]) =>
       (new CreateDomainNameRequestBuilder()..update(updates))._build();
 
   _$CreateDomainNameRequest._(
-      {this.certificateArn,
-      this.certificateBody,
-      this.certificateChain,
+      {required this.domainName,
       this.certificateName,
+      this.certificateBody,
       this.certificatePrivateKey,
-      required this.domainName,
-      this.endpointConfiguration,
-      this.mutualTlsAuthentication,
-      this.ownershipVerificationCertificateArn,
-      this.regionalCertificateArn,
+      this.certificateChain,
+      this.certificateArn,
       this.regionalCertificateName,
+      this.regionalCertificateArn,
+      this.endpointConfiguration,
+      this.tags,
       this.securityPolicy,
-      this.tags})
+      this.mutualTlsAuthentication,
+      this.ownershipVerificationCertificateArn})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         domainName, r'CreateDomainNameRequest', 'domainName');
@@ -70,38 +70,38 @@ class _$CreateDomainNameRequest extends CreateDomainNameRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CreateDomainNameRequest &&
-        certificateArn == other.certificateArn &&
-        certificateBody == other.certificateBody &&
-        certificateChain == other.certificateChain &&
-        certificateName == other.certificateName &&
-        certificatePrivateKey == other.certificatePrivateKey &&
         domainName == other.domainName &&
+        certificateName == other.certificateName &&
+        certificateBody == other.certificateBody &&
+        certificatePrivateKey == other.certificatePrivateKey &&
+        certificateChain == other.certificateChain &&
+        certificateArn == other.certificateArn &&
+        regionalCertificateName == other.regionalCertificateName &&
+        regionalCertificateArn == other.regionalCertificateArn &&
         endpointConfiguration == other.endpointConfiguration &&
+        tags == other.tags &&
+        securityPolicy == other.securityPolicy &&
         mutualTlsAuthentication == other.mutualTlsAuthentication &&
         ownershipVerificationCertificateArn ==
-            other.ownershipVerificationCertificateArn &&
-        regionalCertificateArn == other.regionalCertificateArn &&
-        regionalCertificateName == other.regionalCertificateName &&
-        securityPolicy == other.securityPolicy &&
-        tags == other.tags;
+            other.ownershipVerificationCertificateArn;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, certificateArn.hashCode);
-    _$hash = $jc(_$hash, certificateBody.hashCode);
-    _$hash = $jc(_$hash, certificateChain.hashCode);
-    _$hash = $jc(_$hash, certificateName.hashCode);
-    _$hash = $jc(_$hash, certificatePrivateKey.hashCode);
     _$hash = $jc(_$hash, domainName.hashCode);
+    _$hash = $jc(_$hash, certificateName.hashCode);
+    _$hash = $jc(_$hash, certificateBody.hashCode);
+    _$hash = $jc(_$hash, certificatePrivateKey.hashCode);
+    _$hash = $jc(_$hash, certificateChain.hashCode);
+    _$hash = $jc(_$hash, certificateArn.hashCode);
+    _$hash = $jc(_$hash, regionalCertificateName.hashCode);
+    _$hash = $jc(_$hash, regionalCertificateArn.hashCode);
     _$hash = $jc(_$hash, endpointConfiguration.hashCode);
+    _$hash = $jc(_$hash, tags.hashCode);
+    _$hash = $jc(_$hash, securityPolicy.hashCode);
     _$hash = $jc(_$hash, mutualTlsAuthentication.hashCode);
     _$hash = $jc(_$hash, ownershipVerificationCertificateArn.hashCode);
-    _$hash = $jc(_$hash, regionalCertificateArn.hashCode);
-    _$hash = $jc(_$hash, regionalCertificateName.hashCode);
-    _$hash = $jc(_$hash, securityPolicy.hashCode);
-    _$hash = $jc(_$hash, tags.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -112,34 +112,44 @@ class CreateDomainNameRequestBuilder
         Builder<CreateDomainNameRequest, CreateDomainNameRequestBuilder> {
   _$CreateDomainNameRequest? _$v;
 
-  String? _certificateArn;
-  String? get certificateArn => _$this._certificateArn;
-  set certificateArn(String? certificateArn) =>
-      _$this._certificateArn = certificateArn;
-
-  String? _certificateBody;
-  String? get certificateBody => _$this._certificateBody;
-  set certificateBody(String? certificateBody) =>
-      _$this._certificateBody = certificateBody;
-
-  String? _certificateChain;
-  String? get certificateChain => _$this._certificateChain;
-  set certificateChain(String? certificateChain) =>
-      _$this._certificateChain = certificateChain;
+  String? _domainName;
+  String? get domainName => _$this._domainName;
+  set domainName(String? domainName) => _$this._domainName = domainName;
 
   String? _certificateName;
   String? get certificateName => _$this._certificateName;
   set certificateName(String? certificateName) =>
       _$this._certificateName = certificateName;
 
+  String? _certificateBody;
+  String? get certificateBody => _$this._certificateBody;
+  set certificateBody(String? certificateBody) =>
+      _$this._certificateBody = certificateBody;
+
   String? _certificatePrivateKey;
   String? get certificatePrivateKey => _$this._certificatePrivateKey;
   set certificatePrivateKey(String? certificatePrivateKey) =>
       _$this._certificatePrivateKey = certificatePrivateKey;
 
-  String? _domainName;
-  String? get domainName => _$this._domainName;
-  set domainName(String? domainName) => _$this._domainName = domainName;
+  String? _certificateChain;
+  String? get certificateChain => _$this._certificateChain;
+  set certificateChain(String? certificateChain) =>
+      _$this._certificateChain = certificateChain;
+
+  String? _certificateArn;
+  String? get certificateArn => _$this._certificateArn;
+  set certificateArn(String? certificateArn) =>
+      _$this._certificateArn = certificateArn;
+
+  String? _regionalCertificateName;
+  String? get regionalCertificateName => _$this._regionalCertificateName;
+  set regionalCertificateName(String? regionalCertificateName) =>
+      _$this._regionalCertificateName = regionalCertificateName;
+
+  String? _regionalCertificateArn;
+  String? get regionalCertificateArn => _$this._regionalCertificateArn;
+  set regionalCertificateArn(String? regionalCertificateArn) =>
+      _$this._regionalCertificateArn = regionalCertificateArn;
 
   _i3.EndpointConfigurationBuilder? _endpointConfiguration;
   _i3.EndpointConfigurationBuilder get endpointConfiguration =>
@@ -148,12 +158,22 @@ class CreateDomainNameRequestBuilder
           _i3.EndpointConfigurationBuilder? endpointConfiguration) =>
       _$this._endpointConfiguration = endpointConfiguration;
 
-  _i4.MutualTlsAuthenticationInputBuilder? _mutualTlsAuthentication;
-  _i4.MutualTlsAuthenticationInputBuilder get mutualTlsAuthentication =>
+  _i6.MapBuilder<String, String>? _tags;
+  _i6.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i6.MapBuilder<String, String>();
+  set tags(_i6.MapBuilder<String, String>? tags) => _$this._tags = tags;
+
+  _i4.SecurityPolicy? _securityPolicy;
+  _i4.SecurityPolicy? get securityPolicy => _$this._securityPolicy;
+  set securityPolicy(_i4.SecurityPolicy? securityPolicy) =>
+      _$this._securityPolicy = securityPolicy;
+
+  _i5.MutualTlsAuthenticationInputBuilder? _mutualTlsAuthentication;
+  _i5.MutualTlsAuthenticationInputBuilder get mutualTlsAuthentication =>
       _$this._mutualTlsAuthentication ??=
-          new _i4.MutualTlsAuthenticationInputBuilder();
+          new _i5.MutualTlsAuthenticationInputBuilder();
   set mutualTlsAuthentication(
-          _i4.MutualTlsAuthenticationInputBuilder? mutualTlsAuthentication) =>
+          _i5.MutualTlsAuthenticationInputBuilder? mutualTlsAuthentication) =>
       _$this._mutualTlsAuthentication = mutualTlsAuthentication;
 
   String? _ownershipVerificationCertificateArn;
@@ -164,26 +184,6 @@ class CreateDomainNameRequestBuilder
       _$this._ownershipVerificationCertificateArn =
           ownershipVerificationCertificateArn;
 
-  String? _regionalCertificateArn;
-  String? get regionalCertificateArn => _$this._regionalCertificateArn;
-  set regionalCertificateArn(String? regionalCertificateArn) =>
-      _$this._regionalCertificateArn = regionalCertificateArn;
-
-  String? _regionalCertificateName;
-  String? get regionalCertificateName => _$this._regionalCertificateName;
-  set regionalCertificateName(String? regionalCertificateName) =>
-      _$this._regionalCertificateName = regionalCertificateName;
-
-  _i5.SecurityPolicy? _securityPolicy;
-  _i5.SecurityPolicy? get securityPolicy => _$this._securityPolicy;
-  set securityPolicy(_i5.SecurityPolicy? securityPolicy) =>
-      _$this._securityPolicy = securityPolicy;
-
-  _i6.MapBuilder<String, String>? _tags;
-  _i6.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i6.MapBuilder<String, String>();
-  set tags(_i6.MapBuilder<String, String>? tags) => _$this._tags = tags;
-
   CreateDomainNameRequestBuilder() {
     CreateDomainNameRequest._init(this);
   }
@@ -191,20 +191,20 @@ class CreateDomainNameRequestBuilder
   CreateDomainNameRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _certificateArn = $v.certificateArn;
-      _certificateBody = $v.certificateBody;
-      _certificateChain = $v.certificateChain;
-      _certificateName = $v.certificateName;
-      _certificatePrivateKey = $v.certificatePrivateKey;
       _domainName = $v.domainName;
+      _certificateName = $v.certificateName;
+      _certificateBody = $v.certificateBody;
+      _certificatePrivateKey = $v.certificatePrivateKey;
+      _certificateChain = $v.certificateChain;
+      _certificateArn = $v.certificateArn;
+      _regionalCertificateName = $v.regionalCertificateName;
+      _regionalCertificateArn = $v.regionalCertificateArn;
       _endpointConfiguration = $v.endpointConfiguration?.toBuilder();
+      _tags = $v.tags?.toBuilder();
+      _securityPolicy = $v.securityPolicy;
       _mutualTlsAuthentication = $v.mutualTlsAuthentication?.toBuilder();
       _ownershipVerificationCertificateArn =
           $v.ownershipVerificationCertificateArn;
-      _regionalCertificateArn = $v.regionalCertificateArn;
-      _regionalCertificateName = $v.regionalCertificateName;
-      _securityPolicy = $v.securityPolicy;
-      _tags = $v.tags?.toBuilder();
       _$v = null;
     }
     return this;
@@ -229,31 +229,31 @@ class CreateDomainNameRequestBuilder
     try {
       _$result = _$v ??
           new _$CreateDomainNameRequest._(
-              certificateArn: certificateArn,
-              certificateBody: certificateBody,
-              certificateChain: certificateChain,
-              certificateName: certificateName,
-              certificatePrivateKey: certificatePrivateKey,
               domainName: BuiltValueNullFieldError.checkNotNull(
                   domainName, r'CreateDomainNameRequest', 'domainName'),
+              certificateName: certificateName,
+              certificateBody: certificateBody,
+              certificatePrivateKey: certificatePrivateKey,
+              certificateChain: certificateChain,
+              certificateArn: certificateArn,
+              regionalCertificateName: regionalCertificateName,
+              regionalCertificateArn: regionalCertificateArn,
               endpointConfiguration: _endpointConfiguration?.build(),
+              tags: _tags?.build(),
+              securityPolicy: securityPolicy,
               mutualTlsAuthentication: _mutualTlsAuthentication?.build(),
               ownershipVerificationCertificateArn:
-                  ownershipVerificationCertificateArn,
-              regionalCertificateArn: regionalCertificateArn,
-              regionalCertificateName: regionalCertificateName,
-              securityPolicy: securityPolicy,
-              tags: _tags?.build());
+                  ownershipVerificationCertificateArn);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'endpointConfiguration';
         _endpointConfiguration?.build();
-        _$failedField = 'mutualTlsAuthentication';
-        _mutualTlsAuthentication?.build();
-
         _$failedField = 'tags';
         _tags?.build();
+
+        _$failedField = 'mutualTlsAuthentication';
+        _mutualTlsAuthentication?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'CreateDomainNameRequest', _$failedField, e.toString());

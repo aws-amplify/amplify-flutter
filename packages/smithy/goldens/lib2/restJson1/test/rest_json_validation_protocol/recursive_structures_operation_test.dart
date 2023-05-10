@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_validation_protocol.test.recursive_structures_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -93,15 +94,15 @@ class RecursiveStructuresInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'union':
-          if (value != null) {
-            result.union = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.RecursiveUnionOne),
-            ) as _i6.RecursiveUnionOne);
-          }
-          break;
+          result.union = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.RecursiveUnionOne),
+          ) as _i6.RecursiveUnionOne);
       }
     }
 
@@ -111,7 +112,7 @@ class RecursiveStructuresInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.RecursiveStructuresInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -143,24 +144,23 @@ class ValidationExceptionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'fieldList':
-          if (value != null) {
-            result.fieldList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i9.ValidationExceptionField)],
-              ),
-            ) as _i8.BuiltList<_i9.ValidationExceptionField>));
-          }
-          break;
         case 'message':
           result.message = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'fieldList':
+          result.fieldList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i9.ValidationExceptionField)],
+            ),
+          ) as _i8.BuiltList<_i9.ValidationExceptionField>));
       }
     }
 
@@ -170,7 +170,7 @@ class ValidationExceptionRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i7.ValidationException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -203,19 +203,20 @@ class ValidationExceptionFieldRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'message':
-          result.message = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'path':
           result.path = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'message':
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -225,7 +226,7 @@ class ValidationExceptionFieldRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i9.ValidationExceptionField object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

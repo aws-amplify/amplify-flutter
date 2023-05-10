@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.grouped_resource_count; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -96,19 +97,20 @@ class GroupedResourceCountAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'GroupName':
           result.groupName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ResourceCount':
           result.resourceCount = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.Int64),
           ) as _i2.Int64);
-          break;
       }
     }
 
@@ -118,22 +120,23 @@ class GroupedResourceCountAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GroupedResourceCount object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GroupedResourceCount);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GroupedResourceCount(:groupName, :resourceCount) = object;
+    result$.addAll([
       'GroupName',
       serializers.serialize(
-        payload.groupName,
+        groupName,
         specifiedType: const FullType(String),
       ),
       'ResourceCount',
       serializers.serialize(
-        payload.resourceCount,
+        resourceCount,
         specifiedType: const FullType(_i2.Int64),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

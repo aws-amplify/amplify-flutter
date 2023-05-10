@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.list_exports_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -13,14 +14,14 @@ abstract class ListExportsInput
     with _i1.HttpInput<ListExportsInput>, _i2.AWSEquatable<ListExportsInput>
     implements Built<ListExportsInput, ListExportsInputBuilder> {
   factory ListExportsInput({
+    String? tableArn,
     int? maxResults,
     String? nextToken,
-    String? tableArn,
   }) {
     return _$ListExportsInput._(
+      tableArn: tableArn,
       maxResults: maxResults,
       nextToken: nextToken,
-      tableArn: tableArn,
     );
   }
 
@@ -43,25 +44,29 @@ abstract class ListExportsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListExportsInputBuilder b) {}
 
+  /// The Amazon Resource Name (ARN) associated with the exported table.
+  String? get tableArn;
+
   /// Maximum number of results to return per page.
   int? get maxResults;
 
   /// An optional string that, if supplied, must be copied from the output of a previous call to `ListExports`. When provided in this manner, the API fetches the next page of results.
   String? get nextToken;
-
-  /// The Amazon Resource Name (ARN) associated with the exported table.
-  String? get tableArn;
   @override
   ListExportsInput getPayload() => this;
   @override
   List<Object?> get props => [
+        tableArn,
         maxResults,
         nextToken,
-        tableArn,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListExportsInput');
+    helper.add(
+      'tableArn',
+      tableArn,
+    );
     helper.add(
       'maxResults',
       maxResults,
@@ -69,10 +74,6 @@ abstract class ListExportsInput
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'tableArn',
-      tableArn,
     );
     return helper.toString();
   }
@@ -106,31 +107,25 @@ class ListExportsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'MaxResults':
-          if (value != null) {
-            result.maxResults = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'TableArn':
-          if (value != null) {
-            result.tableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'MaxResults':
+          result.maxResults = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -140,35 +135,35 @@ class ListExportsInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListExportsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListExportsInput);
-    final result = <Object?>[];
-    if (payload.maxResults != null) {
-      result
+    final result$ = <Object?>[];
+    final ListExportsInput(:tableArn, :maxResults, :nextToken) = object;
+    if (tableArn != null) {
+      result$
+        ..add('TableArn')
+        ..add(serializers.serialize(
+          tableArn,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (maxResults != null) {
+      result$
         ..add('MaxResults')
         ..add(serializers.serialize(
-          payload.maxResults!,
+          maxResults,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
-      result
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tableArn != null) {
-      result
-        ..add('TableArn')
-        ..add(serializers.serialize(
-          payload.tableArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

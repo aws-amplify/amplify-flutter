@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.failed_remediation_exception_batch; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,12 +22,12 @@ abstract class FailedRemediationExceptionBatch
             FailedRemediationExceptionBatchBuilder> {
   /// List of each of the failed remediation exceptions with specific reasons.
   factory FailedRemediationExceptionBatch({
-    List<_i2.RemediationException>? failedItems,
     String? failureMessage,
+    List<_i2.RemediationException>? failedItems,
   }) {
     return _$FailedRemediationExceptionBatch._(
-      failedItems: failedItems == null ? null : _i3.BuiltList(failedItems),
       failureMessage: failureMessage,
+      failedItems: failedItems == null ? null : _i3.BuiltList(failedItems),
     );
   }
 
@@ -44,27 +45,27 @@ abstract class FailedRemediationExceptionBatch
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FailedRemediationExceptionBatchBuilder b) {}
 
-  /// Returns remediation exception resource key object of the failed items.
-  _i3.BuiltList<_i2.RemediationException>? get failedItems;
-
   /// Returns a failure message. For example, the auto-remediation has failed.
   String? get failureMessage;
+
+  /// Returns remediation exception resource key object of the failed items.
+  _i3.BuiltList<_i2.RemediationException>? get failedItems;
   @override
   List<Object?> get props => [
-        failedItems,
         failureMessage,
+        failedItems,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('FailedRemediationExceptionBatch');
     helper.add(
-      'failedItems',
-      failedItems,
-    );
-    helper.add(
       'failureMessage',
       failureMessage,
+    );
+    helper.add(
+      'failedItems',
+      failedItems,
     );
     return helper.toString();
   }
@@ -99,26 +100,23 @@ class FailedRemediationExceptionBatchAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'FailedItems':
-          if (value != null) {
-            result.failedItems.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.RemediationException)],
-              ),
-            ) as _i3.BuiltList<_i2.RemediationException>));
-          }
-          break;
         case 'FailureMessage':
-          if (value != null) {
-            result.failureMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.failureMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'FailedItems':
+          result.failedItems.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.RemediationException)],
+            ),
+          ) as _i3.BuiltList<_i2.RemediationException>));
       }
     }
 
@@ -128,30 +126,31 @@ class FailedRemediationExceptionBatchAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    FailedRemediationExceptionBatch object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as FailedRemediationExceptionBatch);
-    final result = <Object?>[];
-    if (payload.failedItems != null) {
-      result
+    final result$ = <Object?>[];
+    final FailedRemediationExceptionBatch(:failureMessage, :failedItems) =
+        object;
+    if (failureMessage != null) {
+      result$
+        ..add('FailureMessage')
+        ..add(serializers.serialize(
+          failureMessage,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (failedItems != null) {
+      result$
         ..add('FailedItems')
         ..add(serializers.serialize(
-          payload.failedItems!,
+          failedItems,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.RemediationException)],
           ),
         ));
     }
-    if (payload.failureMessage != null) {
-      result
-        ..add('FailureMessage')
-        ..add(serializers.serialize(
-          payload.failureMessage!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

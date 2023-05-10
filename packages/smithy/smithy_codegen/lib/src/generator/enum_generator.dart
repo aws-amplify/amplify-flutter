@@ -14,13 +14,11 @@ import 'package:smithy_codegen/src/util/shape_ext.dart';
 /// Generates enums for [StringShape] types.
 class EnumGenerator extends LibraryGenerator<EnumShape> {
   EnumGenerator(
-    EnumShape enumShape,
+    super.enumShape,
     CodegenContext context, {
-    SmithyLibrary? smithyLibrary,
+    super.smithyLibrary,
   }) : super(
-          enumShape,
           context: context,
-          smithyLibrary: smithyLibrary,
         );
 
   late final List<MemberShape> sortedDefinitions = shape.enumValues.toList()
@@ -81,21 +79,29 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
           ..constant = true
           ..name = '_'
           ..requiredParameters.addAll([
-            Parameter((p) => p
-              ..name = 'index'
-              ..type = DartTypes.core.int),
-            Parameter((p) => p
-              ..name = 'name'
-              ..type = DartTypes.core.string),
-            Parameter((p) => p
-              ..name = 'value'
-              ..type = valueType),
+            Parameter(
+              (p) => p
+                ..name = 'index'
+                ..type = DartTypes.core.int,
+            ),
+            Parameter(
+              (p) => p
+                ..name = 'name'
+                ..type = DartTypes.core.string,
+            ),
+            Parameter(
+              (p) => p
+                ..name = 'value'
+                ..type = valueType,
+            ),
           ])
-          ..initializers.add(refer('super').call([
-            refer('index'),
-            refer('name'),
-            refer('value'),
-          ]).code),
+          ..initializers.add(
+            refer('super').call([
+              refer('index'),
+              refer('name'),
+              refer('value'),
+            ]).code,
+          ),
       );
 
   /// The `sdkUnknown` constructor for values which do not match the
@@ -108,12 +114,18 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
         (c) => c
           ..constant = true
           ..name = '_sdkUnknown'
-          ..requiredParameters.add(Parameter((p) => p
-            ..name = 'value'
-            ..type = valueType))
-          ..initializers.add(refer('super').property('sdkUnknown').call([
-            refer('value'),
-          ]).code),
+          ..requiredParameters.add(
+            Parameter(
+              (p) => p
+                ..name = 'value'
+                ..type = valueType,
+            ),
+          )
+          ..initializers.add(
+            refer('super').property('sdkUnknown').call([
+              refer('value'),
+            ]).code,
+          ),
       );
 
   /// Enumerated value fields, as `static const` properties.
@@ -155,82 +167,98 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
     final serializerType = shape is StringEnumShape
         ? DartTypes.smithy.smithyEnumSerializer
         : DartTypes.smithy.smithyIntEnumSerializer;
-    return Field((f) => f
-      ..static = true
-      ..modifier = FieldModifier.constant
-      ..type = DartTypes.core.list(DartTypes.smithy.smithySerializer(symbol))
-      ..name = 'serializers'
-      ..assignment = literalConstList([
-        serializerType.constInstance([
-          literalString(shape.shapeId.shape),
-        ], {
-          'values': refer('values'),
-          'sdkUnknown': symbol.property('_sdkUnknown'),
-          'supportedProtocols': literalConstList([
-            for (final protocol in context.serviceProtocols)
-              if (!protocol.isSynthetic) protocol.shapeId.constructed,
-          ])
-        })
-      ]).code);
+    return Field(
+      (f) => f
+        ..static = true
+        ..modifier = FieldModifier.constant
+        ..type = DartTypes.core.list(DartTypes.smithy.smithySerializer(symbol))
+        ..name = 'serializers'
+        ..assignment = literalConstList([
+          serializerType.constInstance([
+            literalString(shape.shapeId.shape),
+          ], {
+            'values': refer('values'),
+            'sdkUnknown': symbol.property('_sdkUnknown'),
+            'supportedProtocols': literalConstList([
+              for (final protocol in context.serviceProtocols)
+                if (!protocol.isSynthetic) protocol.shapeId.constructed,
+            ])
+          })
+        ]).code,
+    );
   }
 
   /// Adds helper functions `byName` and `byValue` via an extension.
-  Extension get _helperExtension => Extension((e) => e
-    ..name = '${className}Helpers'
-    ..on = DartTypes.core.list(symbol)
-    ..methods.addAll([
-      // The `byName` method
-      Method(
-        (m) => m
-          ..returns = symbol
-          ..name = 'byName'
-          ..docs.addAll([
-            '/// Returns the value of [$className] whose name matches [name].',
-            '/// ',
-            '/// Throws a `StateError` if no matching value is found.',
-          ])
-          ..requiredParameters.add(Parameter((p) => p
-            ..type = DartTypes.core.string
-            ..name = 'name'))
-          ..lambda = true
-          ..body = refer('firstWhere').call([
+  Extension get _helperExtension => Extension(
+        (e) => e
+          ..name = '${className}Helpers'
+          ..on = DartTypes.core.list(symbol)
+          ..methods.addAll([
+            // The `byName` method
             Method(
-              (c) => c
+              (m) => m
+                ..returns = symbol
+                ..name = 'byName'
+                ..docs.addAll([
+                  '/// Returns the value of [$className] whose name matches [name].',
+                  '/// ',
+                  '/// Throws a `StateError` if no matching value is found.',
+                ])
+                ..requiredParameters.add(
+                  Parameter(
+                    (p) => p
+                      ..type = DartTypes.core.string
+                      ..name = 'name',
+                  ),
+                )
                 ..lambda = true
-                ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-                ..body = refer('el')
-                    .property('name')
-                    .property('toLowerCase')
-                    .call([])
-                    .equalTo(refer('name').property('toLowerCase').call([]))
-                    .code,
-            ).closure,
-          ]).code,
-      ),
+                ..body = refer('firstWhere').call([
+                  Method(
+                    (c) => c
+                      ..lambda = true
+                      ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                      ..body = refer('el')
+                          .property('name')
+                          .property('toLowerCase')
+                          .call([])
+                          .equalTo(
+                            refer('name').property('toLowerCase').call([]),
+                          )
+                          .code,
+                  ).closure,
+                ]).code,
+            ),
 
-      // The `byValue` method
-      Method(
-        (m) => m
-          ..returns = symbol
-          ..name = 'byValue'
-          ..docs.addAll([
-            '/// Returns the value of [$className] whose value matches [value].'
-          ])
-          ..requiredParameters.add(Parameter((p) => p
-            ..type = valueType
-            ..name = 'value'))
-          ..lambda = true
-          ..body = refer('firstWhere').call([
+            // The `byValue` method
             Method(
-              (c) => c
+              (m) => m
+                ..returns = symbol
+                ..name = 'byValue'
+                ..docs.addAll([
+                  '/// Returns the value of [$className] whose value matches [value].'
+                ])
+                ..requiredParameters.add(
+                  Parameter(
+                    (p) => p
+                      ..type = valueType
+                      ..name = 'value',
+                  ),
+                )
                 ..lambda = true
-                ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-                ..body =
-                    refer('el').property('value').equalTo(refer('value')).code,
-            ).closure,
-          ]).code,
-      ),
-    ]));
+                ..body = refer('firstWhere').call([
+                  Method(
+                    (c) => c
+                      ..lambda = true
+                      ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                      ..body = refer('el')
+                          .property('value')
+                          .equalTo(refer('value'))
+                          .code,
+                  ).closure,
+                ]).code,
+            ),
+          ]),
+      );
 }
 
 extension EnumVariantName on MemberShape {

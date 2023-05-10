@@ -14,7 +14,7 @@ import 'package:meta/meta.dart';
 /// credentials directly.
 /// {@endtemplate}
 @internal
-class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
+final class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
   /// {@macro amplify_auth_cognito_dart.cognito_iam_auth_provider}
   const CognitoIamAuthProvider();
 

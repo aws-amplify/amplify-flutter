@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.malformed_integer_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,16 +20,16 @@ abstract class MalformedIntegerInput
         _i1.HasPayload<MalformedIntegerInputPayload> {
   factory MalformedIntegerInput({
     int? integerInBody,
-    int? integerInHeader,
     int? integerInPath,
     int? integerInQuery,
+    int? integerInHeader,
   }) {
     integerInPath ??= 0;
     return _$MalformedIntegerInput._(
       integerInBody: integerInBody,
-      integerInHeader: integerInHeader,
       integerInPath: integerInPath,
       integerInQuery: integerInQuery,
+      integerInHeader: integerInHeader,
     );
   }
 
@@ -67,9 +68,9 @@ abstract class MalformedIntegerInput
   }
 
   int? get integerInBody;
-  int? get integerInHeader;
   int get integerInPath;
   int? get integerInQuery;
+  int? get integerInHeader;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -90,9 +91,9 @@ abstract class MalformedIntegerInput
   @override
   List<Object?> get props => [
         integerInBody,
-        integerInHeader,
         integerInPath,
         integerInQuery,
+        integerInHeader,
       ];
   @override
   String toString() {
@@ -102,16 +103,16 @@ abstract class MalformedIntegerInput
       integerInBody,
     );
     helper.add(
-      'integerInHeader',
-      integerInHeader,
-    );
-    helper.add(
       'integerInPath',
       integerInPath,
     );
     helper.add(
       'integerInQuery',
       integerInQuery,
+    );
+    helper.add(
+      'integerInHeader',
+      integerInHeader,
     );
     return helper.toString();
   }
@@ -177,15 +178,15 @@ class MalformedIntegerInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'integerInBody':
-          if (value != null) {
-            result.integerInBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.integerInBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -195,21 +196,19 @@ class MalformedIntegerInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedIntegerInputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is MalformedIntegerInput
-        ? object.getPayload()
-        : (object as MalformedIntegerInputPayload);
-    final result = <Object?>[];
-    if (payload.integerInBody != null) {
-      result
+    final result$ = <Object?>[];
+    final MalformedIntegerInputPayload(:integerInBody) = object;
+    if (integerInBody != null) {
+      result$
         ..add('integerInBody')
         ..add(serializers.serialize(
-          payload.integerInBody!,
+          integerInBody,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

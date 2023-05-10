@@ -15,12 +15,12 @@ abstract class GetDeviceRequest
     implements Built<GetDeviceRequest, GetDeviceRequestBuilder> {
   /// Represents the request to get the device.
   factory GetDeviceRequest({
-    String? accessToken,
     required String deviceKey,
+    String? accessToken,
   }) {
     return _$GetDeviceRequest._(
-      accessToken: accessToken,
       deviceKey: deviceKey,
+      accessToken: accessToken,
     );
   }
 
@@ -44,28 +44,28 @@ abstract class GetDeviceRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetDeviceRequestBuilder b) {}
 
-  /// A valid access token that Amazon Cognito issued to the user whose device information you want to request.
-  String? get accessToken;
-
   /// The device key.
   String get deviceKey;
+
+  /// A valid access token that Amazon Cognito issued to the user whose device information you want to request.
+  String? get accessToken;
   @override
   GetDeviceRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        accessToken,
         deviceKey,
+        accessToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetDeviceRequest');
     helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
       'deviceKey',
       deviceKey,
+    );
+    helper.add(
+      'accessToken',
+      '***SENSITIVE***',
     );
     return helper.toString();
   }
@@ -100,6 +100,12 @@ class GetDeviceRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'DeviceKey':
+          result.deviceKey = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'AccessToken':
           if (value != null) {
             result.accessToken = (serializers.deserialize(
@@ -107,12 +113,6 @@ class GetDeviceRequestAwsJson11Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
-          break;
-        case 'DeviceKey':
-          result.deviceKey = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }

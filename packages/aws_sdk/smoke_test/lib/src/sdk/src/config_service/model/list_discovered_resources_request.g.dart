@@ -8,29 +8,29 @@ part of smoke_test.config_service.model.list_discovered_resources_request;
 
 class _$ListDiscoveredResourcesRequest extends ListDiscoveredResourcesRequest {
   @override
-  final bool? includeDeletedResources;
-  @override
-  final int? limit;
-  @override
-  final String? nextToken;
+  final _i3.ResourceType resourceType;
   @override
   final _i4.BuiltList<String>? resourceIds;
   @override
   final String? resourceName;
   @override
-  final _i3.ResourceType resourceType;
+  final int? limit;
+  @override
+  final bool? includeDeletedResources;
+  @override
+  final String? nextToken;
 
   factory _$ListDiscoveredResourcesRequest(
           [void Function(ListDiscoveredResourcesRequestBuilder)? updates]) =>
       (new ListDiscoveredResourcesRequestBuilder()..update(updates))._build();
 
   _$ListDiscoveredResourcesRequest._(
-      {this.includeDeletedResources,
-      this.limit,
-      this.nextToken,
+      {required this.resourceType,
       this.resourceIds,
       this.resourceName,
-      required this.resourceType})
+      this.limit,
+      this.includeDeletedResources,
+      this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         resourceType, r'ListDiscoveredResourcesRequest', 'resourceType');
@@ -49,23 +49,23 @@ class _$ListDiscoveredResourcesRequest extends ListDiscoveredResourcesRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListDiscoveredResourcesRequest &&
-        includeDeletedResources == other.includeDeletedResources &&
-        limit == other.limit &&
-        nextToken == other.nextToken &&
+        resourceType == other.resourceType &&
         resourceIds == other.resourceIds &&
         resourceName == other.resourceName &&
-        resourceType == other.resourceType;
+        limit == other.limit &&
+        includeDeletedResources == other.includeDeletedResources &&
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, includeDeletedResources.hashCode);
-    _$hash = $jc(_$hash, limit.hashCode);
-    _$hash = $jc(_$hash, nextToken.hashCode);
+    _$hash = $jc(_$hash, resourceType.hashCode);
     _$hash = $jc(_$hash, resourceIds.hashCode);
     _$hash = $jc(_$hash, resourceName.hashCode);
-    _$hash = $jc(_$hash, resourceType.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
+    _$hash = $jc(_$hash, includeDeletedResources.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -77,18 +77,10 @@ class ListDiscoveredResourcesRequestBuilder
             ListDiscoveredResourcesRequestBuilder> {
   _$ListDiscoveredResourcesRequest? _$v;
 
-  bool? _includeDeletedResources;
-  bool? get includeDeletedResources => _$this._includeDeletedResources;
-  set includeDeletedResources(bool? includeDeletedResources) =>
-      _$this._includeDeletedResources = includeDeletedResources;
-
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
-
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+  _i3.ResourceType? _resourceType;
+  _i3.ResourceType? get resourceType => _$this._resourceType;
+  set resourceType(_i3.ResourceType? resourceType) =>
+      _$this._resourceType = resourceType;
 
   _i4.ListBuilder<String>? _resourceIds;
   _i4.ListBuilder<String> get resourceIds =>
@@ -100,10 +92,18 @@ class ListDiscoveredResourcesRequestBuilder
   String? get resourceName => _$this._resourceName;
   set resourceName(String? resourceName) => _$this._resourceName = resourceName;
 
-  _i3.ResourceType? _resourceType;
-  _i3.ResourceType? get resourceType => _$this._resourceType;
-  set resourceType(_i3.ResourceType? resourceType) =>
-      _$this._resourceType = resourceType;
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
+
+  bool? _includeDeletedResources;
+  bool? get includeDeletedResources => _$this._includeDeletedResources;
+  set includeDeletedResources(bool? includeDeletedResources) =>
+      _$this._includeDeletedResources = includeDeletedResources;
+
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
   ListDiscoveredResourcesRequestBuilder() {
     ListDiscoveredResourcesRequest._init(this);
@@ -112,12 +112,12 @@ class ListDiscoveredResourcesRequestBuilder
   ListDiscoveredResourcesRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _includeDeletedResources = $v.includeDeletedResources;
-      _limit = $v.limit;
-      _nextToken = $v.nextToken;
+      _resourceType = $v.resourceType;
       _resourceIds = $v.resourceIds?.toBuilder();
       _resourceName = $v.resourceName;
-      _resourceType = $v.resourceType;
+      _limit = $v.limit;
+      _includeDeletedResources = $v.includeDeletedResources;
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -142,13 +142,13 @@ class ListDiscoveredResourcesRequestBuilder
     try {
       _$result = _$v ??
           new _$ListDiscoveredResourcesRequest._(
-              includeDeletedResources: includeDeletedResources,
-              limit: limit,
-              nextToken: nextToken,
+              resourceType: BuiltValueNullFieldError.checkNotNull(resourceType,
+                  r'ListDiscoveredResourcesRequest', 'resourceType'),
               resourceIds: _resourceIds?.build(),
               resourceName: resourceName,
-              resourceType: BuiltValueNullFieldError.checkNotNull(resourceType,
-                  r'ListDiscoveredResourcesRequest', 'resourceType'));
+              limit: limit,
+              includeDeletedResources: includeDeletedResources,
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

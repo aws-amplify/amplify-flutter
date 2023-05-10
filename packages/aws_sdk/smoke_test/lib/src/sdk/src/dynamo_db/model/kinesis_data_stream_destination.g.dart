@@ -8,20 +8,20 @@ part of smoke_test.dynamo_db.model.kinesis_data_stream_destination;
 
 class _$KinesisDataStreamDestination extends KinesisDataStreamDestination {
   @override
+  final String? streamArn;
+  @override
   final _i2.DestinationStatus? destinationStatus;
   @override
   final String? destinationStatusDescription;
-  @override
-  final String? streamArn;
 
   factory _$KinesisDataStreamDestination(
           [void Function(KinesisDataStreamDestinationBuilder)? updates]) =>
       (new KinesisDataStreamDestinationBuilder()..update(updates))._build();
 
   _$KinesisDataStreamDestination._(
-      {this.destinationStatus,
-      this.destinationStatusDescription,
-      this.streamArn})
+      {this.streamArn,
+      this.destinationStatus,
+      this.destinationStatusDescription})
       : super._();
 
   @override
@@ -37,17 +37,17 @@ class _$KinesisDataStreamDestination extends KinesisDataStreamDestination {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is KinesisDataStreamDestination &&
+        streamArn == other.streamArn &&
         destinationStatus == other.destinationStatus &&
-        destinationStatusDescription == other.destinationStatusDescription &&
-        streamArn == other.streamArn;
+        destinationStatusDescription == other.destinationStatusDescription;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, streamArn.hashCode);
     _$hash = $jc(_$hash, destinationStatus.hashCode);
     _$hash = $jc(_$hash, destinationStatusDescription.hashCode);
-    _$hash = $jc(_$hash, streamArn.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,6 +58,10 @@ class KinesisDataStreamDestinationBuilder
         Builder<KinesisDataStreamDestination,
             KinesisDataStreamDestinationBuilder> {
   _$KinesisDataStreamDestination? _$v;
+
+  String? _streamArn;
+  String? get streamArn => _$this._streamArn;
+  set streamArn(String? streamArn) => _$this._streamArn = streamArn;
 
   _i2.DestinationStatus? _destinationStatus;
   _i2.DestinationStatus? get destinationStatus => _$this._destinationStatus;
@@ -70,10 +74,6 @@ class KinesisDataStreamDestinationBuilder
   set destinationStatusDescription(String? destinationStatusDescription) =>
       _$this._destinationStatusDescription = destinationStatusDescription;
 
-  String? _streamArn;
-  String? get streamArn => _$this._streamArn;
-  set streamArn(String? streamArn) => _$this._streamArn = streamArn;
-
   KinesisDataStreamDestinationBuilder() {
     KinesisDataStreamDestination._init(this);
   }
@@ -81,9 +81,9 @@ class KinesisDataStreamDestinationBuilder
   KinesisDataStreamDestinationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _streamArn = $v.streamArn;
       _destinationStatus = $v.destinationStatus;
       _destinationStatusDescription = $v.destinationStatusDescription;
-      _streamArn = $v.streamArn;
       _$v = null;
     }
     return this;
@@ -106,9 +106,9 @@ class KinesisDataStreamDestinationBuilder
   _$KinesisDataStreamDestination _build() {
     final _$result = _$v ??
         new _$KinesisDataStreamDestination._(
+            streamArn: streamArn,
             destinationStatus: destinationStatus,
-            destinationStatusDescription: destinationStatusDescription,
-            streamArn: streamArn);
+            destinationStatusDescription: destinationStatusDescription);
     replace(_$result);
     return _$result;
   }

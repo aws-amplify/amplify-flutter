@@ -1,10 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
-import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
-import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_core/amplify_core.dart';
+part of 'auth_event.dart';
 
 /// {@template amplify_auth_cognito.sign_in_event_type}
 /// Discrete event types of an auth flow state machine.
@@ -26,7 +23,7 @@ enum SignInEventType {
 /// {@template amplify_auth_cognito.sign_in_event}
 /// Discrete events of an auth flow state machine.
 /// {@endtemplate}
-abstract class SignInEvent extends AuthEvent<SignInEventType, SignInStateType> {
+sealed class SignInEvent extends AuthEvent<SignInEventType, SignInStateType> {
   /// {@macro amplify_auth_cognito.sign_in_event}
   const SignInEvent._();
 
@@ -48,7 +45,7 @@ abstract class SignInEvent extends AuthEvent<SignInEventType, SignInStateType> {
   const factory SignInEvent.cancelled() = SignInCancelled;
 
   /// {@macro amplify_auth_cognito.sign_in_succeeded}
-  const factory SignInEvent.succeeded(CognitoUser user) = SignInSucceeded;
+  const factory SignInEvent.succeeded(AuthUser user) = SignInSucceeded;
 
   /// Client metadata for the sign in flow.
   Map<String, String> get clientMetadata => const {};
@@ -63,7 +60,7 @@ abstract class SignInEvent extends AuthEvent<SignInEventType, SignInStateType> {
 /// {@template amplify_auth_cognito.sign_in_initiate}
 /// Initiates the auth flow.
 /// {@endtemplate}
-class SignInInitiate extends SignInEvent {
+final class SignInInitiate extends SignInEvent {
   /// {@macro amplify_auth_cognito.sign_in_initiate}
   const SignInInitiate({
     this.authFlowType,
@@ -97,7 +94,7 @@ class SignInInitiate extends SignInEvent {
 /// {@template amplify_auth_cognito.sign_in_respond_to_challenge}
 /// Responds to an auth challenge.
 /// {@endtemplate}
-class SignInRespondToChallenge extends SignInEvent {
+final class SignInRespondToChallenge extends SignInEvent {
   /// {@macro amplify_auth_cognito.sign_in_respond_to_challenge}
   const SignInRespondToChallenge({
     required this.answer,
@@ -165,7 +162,7 @@ class SignInRespondToChallenge extends SignInEvent {
 /// {@template amplify_auth_cognito.sign_in_cancelled}
 /// Cancels the auth flow.
 /// {@endtemplate}
-class SignInCancelled extends SignInEvent {
+final class SignInCancelled extends SignInEvent {
   /// {@macro amplify_auth_cognito.sign_in_cancelled}
   const SignInCancelled() : super._();
 
@@ -184,12 +181,12 @@ class SignInCancelled extends SignInEvent {
 /// {@template amplify_auth_cognito.sign_in_succeeded}
 /// Successful auth flow completion.
 /// {@endtemplate}
-class SignInSucceeded extends SignInEvent {
+final class SignInSucceeded extends SignInEvent {
   /// {@macro amplify_auth_cognito.sign_in_succeeded}
   const SignInSucceeded(this.user) : super._();
 
   /// The logged-in user.
-  final CognitoUser user;
+  final AuthUser user;
 
   @override
   SignInEventType get type => SignInEventType.succeeded;

@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.get_documentation_version_request;
 
 class _$GetDocumentationVersionRequest extends GetDocumentationVersionRequest {
   @override
-  final String documentationVersion;
-  @override
   final String restApiId;
+  @override
+  final String documentationVersion;
 
   factory _$GetDocumentationVersionRequest(
           [void Function(GetDocumentationVersionRequestBuilder)? updates]) =>
       (new GetDocumentationVersionRequestBuilder()..update(updates))._build();
 
   _$GetDocumentationVersionRequest._(
-      {required this.documentationVersion, required this.restApiId})
+      {required this.restApiId, required this.documentationVersion})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(documentationVersion,
-        r'GetDocumentationVersionRequest', 'documentationVersion');
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetDocumentationVersionRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(documentationVersion,
+        r'GetDocumentationVersionRequest', 'documentationVersion');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$GetDocumentationVersionRequest extends GetDocumentationVersionRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetDocumentationVersionRequest &&
-        documentationVersion == other.documentationVersion &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        documentationVersion == other.documentationVersion;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, documentationVersion.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, documentationVersion.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,14 +58,14 @@ class GetDocumentationVersionRequestBuilder
             GetDocumentationVersionRequestBuilder> {
   _$GetDocumentationVersionRequest? _$v;
 
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
   String? _documentationVersion;
   String? get documentationVersion => _$this._documentationVersion;
   set documentationVersion(String? documentationVersion) =>
       _$this._documentationVersion = documentationVersion;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   GetDocumentationVersionRequestBuilder() {
     GetDocumentationVersionRequest._init(this);
@@ -74,8 +74,8 @@ class GetDocumentationVersionRequestBuilder
   GetDocumentationVersionRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _documentationVersion = $v.documentationVersion;
       _restApiId = $v.restApiId;
+      _documentationVersion = $v.documentationVersion;
       _$v = null;
     }
     return this;
@@ -98,12 +98,12 @@ class GetDocumentationVersionRequestBuilder
   _$GetDocumentationVersionRequest _build() {
     final _$result = _$v ??
         new _$GetDocumentationVersionRequest._(
+            restApiId: BuiltValueNullFieldError.checkNotNull(
+                restApiId, r'GetDocumentationVersionRequest', 'restApiId'),
             documentationVersion: BuiltValueNullFieldError.checkNotNull(
                 documentationVersion,
                 r'GetDocumentationVersionRequest',
-                'documentationVersion'),
-            restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'GetDocumentationVersionRequest', 'restApiId'));
+                'documentationVersion'));
     replace(_$result);
     return _$result;
   }

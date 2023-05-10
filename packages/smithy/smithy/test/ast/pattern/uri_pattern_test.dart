@@ -13,7 +13,7 @@ void main() {
       final uri = UriPattern.parse(pattern);
       final segment = Segment('bar', SegmentType.label);
 
-      expect(pattern.toString(), equals(pattern));
+      expect(pattern, equals(pattern));
       expect(uri.segments.length, equals(3));
       expect(uri.queryLiterals.length, equals(2));
       expect(

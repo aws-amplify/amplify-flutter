@@ -1,0 +1,17 @@
+{
+  "resourceName": "canaries",
+  "policyUUID": "dffcbaf8",
+  "bucketName": "canaries8c608a6f85fc4b7e84ad55e5e01a7c14",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "groupAccess": {}
+}

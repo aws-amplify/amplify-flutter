@@ -10,7 +10,8 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_auth_cognito.sign_out_state_machine}
 /// Manages signing out a user and clearing credentials from the local store.
 /// {@endtemplate}
-class SignOutStateMachine extends AuthStateMachine<SignOutEvent, SignOutState> {
+final class SignOutStateMachine
+    extends AuthStateMachine<SignOutEvent, SignOutState> {
   /// {@macro amplify_auth_cognito.sign_out_state_machine}
   SignOutStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 
@@ -23,11 +24,9 @@ class SignOutStateMachine extends AuthStateMachine<SignOutEvent, SignOutState> {
 
   @override
   Future<void> resolve(SignOutEvent event) async {
-    switch (event.type) {
-      case SignOutEventType.initiate:
-        event as SignOutInitiate;
+    switch (event) {
+      case SignOutInitiate _:
         await _onInitiate(event);
-        break;
     }
   }
 
@@ -70,14 +69,11 @@ class SignOutStateMachine extends AuthStateMachine<SignOutEvent, SignOutState> {
     Future<void> signOutHostedUi() async {
       if (tokens.signInMethod == CognitoSignInMethod.hostedUi) {
         final hostedUiResult = await manager.signOutHostedUI();
-        if (hostedUiResult is HostedUiFailure) {
-          final exception = hostedUiResult.exception;
+        if (hostedUiResult case HostedUiFailure(:final exception)) {
           if (exception is UserCancelledException) {
             throw exception;
           }
-          hostedUiException = HostedUiException(
-            underlyingException: hostedUiResult.exception,
-          );
+          hostedUiException = HostedUiException(underlyingException: exception);
         }
       }
     }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.ignore_query_params_in_response_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -79,18 +80,18 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer
     final result = IgnoreQueryParamsInResponseOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'baz':
-          if (value != null) {
-            result.baz = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.baz = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -100,21 +101,21 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    IgnoreQueryParamsInResponseOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as IgnoreQueryParamsInResponseOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName('IgnoreQueryParamsInResponseOutput')
     ];
-    if (payload.baz != null) {
-      result
+    final IgnoreQueryParamsInResponseOutput(:baz) = object;
+    if (baz != null) {
+      result$
         ..add(const _i2.XmlElementName('baz'))
         ..add(serializers.serialize(
-          payload.baz!,
+          baz,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

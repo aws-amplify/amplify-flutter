@@ -17,14 +17,14 @@ abstract class SignUpResponse
     implements Built<SignUpResponse, SignUpResponseBuilder> {
   /// The response from the server for a registration request.
   factory SignUpResponse({
-    _i2.CodeDeliveryDetailsType? codeDeliveryDetails,
     bool? userConfirmed,
+    _i2.CodeDeliveryDetailsType? codeDeliveryDetails,
     required String userSub,
   }) {
     userConfirmed ??= false;
     return _$SignUpResponse._(
-      codeDeliveryDetails: codeDeliveryDetails,
       userConfirmed: userConfirmed,
+      codeDeliveryDetails: codeDeliveryDetails,
       userSub: userSub,
     );
   }
@@ -51,30 +51,30 @@ abstract class SignUpResponse
     b.userConfirmed = false;
   }
 
-  /// The code delivery details returned by the server response to the user registration request.
-  _i2.CodeDeliveryDetailsType? get codeDeliveryDetails;
-
   /// A response from the server indicating that a user registration has been confirmed.
   bool get userConfirmed;
+
+  /// The code delivery details returned by the server response to the user registration request.
+  _i2.CodeDeliveryDetailsType? get codeDeliveryDetails;
 
   /// The UUID of the authenticated user. This isn't the same as `username`.
   String get userSub;
   @override
   List<Object?> get props => [
-        codeDeliveryDetails,
         userConfirmed,
+        codeDeliveryDetails,
         userSub,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SignUpResponse');
     helper.add(
-      'codeDeliveryDetails',
-      codeDeliveryDetails,
-    );
-    helper.add(
       'userConfirmed',
       userConfirmed,
+    );
+    helper.add(
+      'codeDeliveryDetails',
+      codeDeliveryDetails,
     );
     helper.add(
       'userSub',
@@ -113,6 +113,12 @@ class SignUpResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'UserConfirmed':
+          result.userConfirmed = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
+          break;
         case 'CodeDeliveryDetails':
           if (value != null) {
             result.codeDeliveryDetails.replace((serializers.deserialize(
@@ -120,12 +126,6 @@ class SignUpResponseAwsJson11Serializer
               specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
             ) as _i2.CodeDeliveryDetailsType));
           }
-          break;
-        case 'UserConfirmed':
-          result.userConfirmed = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
           break;
         case 'UserSub':
           result.userSub = (serializers.deserialize(

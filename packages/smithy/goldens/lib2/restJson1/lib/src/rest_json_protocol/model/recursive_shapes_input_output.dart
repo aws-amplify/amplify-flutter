@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.recursive_shapes_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -93,16 +94,16 @@ class RecursiveShapesInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.RecursiveShapesInputOutputNested1),
-            ) as _i3.RecursiveShapesInputOutputNested1));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i3.RecursiveShapesInputOutputNested1),
+          ) as _i3.RecursiveShapesInputOutputNested1));
       }
     }
 
@@ -112,19 +113,19 @@ class RecursiveShapesInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RecursiveShapesInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RecursiveShapesInputOutput);
-    final result = <Object?>[];
-    if (payload.nested != null) {
-      result
+    final result$ = <Object?>[];
+    final RecursiveShapesInputOutput(:nested) = object;
+    if (nested != null) {
+      result$
         ..add('nested')
         ..add(serializers.serialize(
-          payload.nested!,
+          nested,
           specifiedType: const FullType(_i3.RecursiveShapesInputOutputNested1),
         ));
     }
-    return result;
+    return result$;
   }
 }

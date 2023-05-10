@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.stream; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,13 +17,13 @@ abstract class Stream
   /// Represents all of the data describing a particular stream.
   factory Stream({
     String? streamArn,
-    String? streamLabel,
     String? tableName,
+    String? streamLabel,
   }) {
     return _$Stream._(
       streamArn: streamArn,
-      streamLabel: streamLabel,
       tableName: tableName,
+      streamLabel: streamLabel,
     );
   }
 
@@ -41,6 +42,9 @@ abstract class Stream
   /// The Amazon Resource Name (ARN) for the stream.
   String? get streamArn;
 
+  /// The DynamoDB table with which the stream is associated.
+  String? get tableName;
+
   /// A timestamp, in ISO 8601 format, for this stream.
   ///
   /// Note that `LatestStreamLabel` is not a unique identifier for the stream, because it is possible that a stream from another table might have the same timestamp. However, the combination of the following three elements is guaranteed to be unique:
@@ -51,14 +55,11 @@ abstract class Stream
   ///
   /// *   the `StreamLabel`
   String? get streamLabel;
-
-  /// The DynamoDB table with which the stream is associated.
-  String? get tableName;
   @override
   List<Object?> get props => [
         streamArn,
-        streamLabel,
         tableName,
+        streamLabel,
       ];
   @override
   String toString() {
@@ -68,12 +69,12 @@ abstract class Stream
       streamArn,
     );
     helper.add(
-      'streamLabel',
-      streamLabel,
-    );
-    helper.add(
       'tableName',
       tableName,
+    );
+    helper.add(
+      'streamLabel',
+      streamLabel,
     );
     return helper.toString();
   }
@@ -106,31 +107,25 @@ class StreamAwsJson10Serializer extends _i2.StructuredSmithySerializer<Stream> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StreamArn':
-          if (value != null) {
-            result.streamArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'StreamLabel':
-          if (value != null) {
-            result.streamLabel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.streamArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'StreamLabel':
+          result.streamLabel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -140,35 +135,35 @@ class StreamAwsJson10Serializer extends _i2.StructuredSmithySerializer<Stream> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Stream object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Stream);
-    final result = <Object?>[];
-    if (payload.streamArn != null) {
-      result
+    final result$ = <Object?>[];
+    final Stream(:streamArn, :tableName, :streamLabel) = object;
+    if (streamArn != null) {
+      result$
         ..add('StreamArn')
         ..add(serializers.serialize(
-          payload.streamArn!,
+          streamArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.streamLabel != null) {
-      result
-        ..add('StreamLabel')
-        ..add(serializers.serialize(
-          payload.streamLabel!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.tableName != null) {
-      result
+    if (tableName != null) {
+      result$
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    if (streamLabel != null) {
+      result$
+        ..add('StreamLabel')
+        ..add(serializers.serialize(
+          streamLabel,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

@@ -8,14 +8,14 @@ part of smoke_test.s3.model.scan_range;
 
 class _$ScanRange extends ScanRange {
   @override
-  final _i2.Int64? end;
-  @override
   final _i2.Int64? start;
+  @override
+  final _i2.Int64? end;
 
   factory _$ScanRange([void Function(ScanRangeBuilder)? updates]) =>
       (new ScanRangeBuilder()..update(updates))._build();
 
-  _$ScanRange._({this.end, this.start}) : super._();
+  _$ScanRange._({this.start, this.end}) : super._();
 
   @override
   ScanRange rebuild(void Function(ScanRangeBuilder) updates) =>
@@ -27,14 +27,14 @@ class _$ScanRange extends ScanRange {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is ScanRange && end == other.end && start == other.start;
+    return other is ScanRange && start == other.start && end == other.end;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, end.hashCode);
     _$hash = $jc(_$hash, start.hashCode);
+    _$hash = $jc(_$hash, end.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -43,13 +43,13 @@ class _$ScanRange extends ScanRange {
 class ScanRangeBuilder implements Builder<ScanRange, ScanRangeBuilder> {
   _$ScanRange? _$v;
 
-  _i2.Int64? _end;
-  _i2.Int64? get end => _$this._end;
-  set end(_i2.Int64? end) => _$this._end = end;
-
   _i2.Int64? _start;
   _i2.Int64? get start => _$this._start;
   set start(_i2.Int64? start) => _$this._start = start;
+
+  _i2.Int64? _end;
+  _i2.Int64? get end => _$this._end;
+  set end(_i2.Int64? end) => _$this._end = end;
 
   ScanRangeBuilder() {
     ScanRange._init(this);
@@ -58,8 +58,8 @@ class ScanRangeBuilder implements Builder<ScanRange, ScanRangeBuilder> {
   ScanRangeBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _end = $v.end;
       _start = $v.start;
+      _end = $v.end;
       _$v = null;
     }
     return this;
@@ -80,7 +80,7 @@ class ScanRangeBuilder implements Builder<ScanRange, ScanRangeBuilder> {
   ScanRange build() => _build();
 
   _$ScanRange _build() {
-    final _$result = _$v ?? new _$ScanRange._(end: end, start: start);
+    final _$result = _$v ?? new _$ScanRange._(start: start, end: end);
     replace(_$result);
     return _$result;
   }

@@ -9,9 +9,9 @@ part of smoke_test.config_service.model.list_aggregate_discovered_resources_resp
 class _$ListAggregateDiscoveredResourcesResponse
     extends ListAggregateDiscoveredResourcesResponse {
   @override
-  final String? nextToken;
-  @override
   final _i3.BuiltList<_i2.AggregateResourceIdentifier>? resourceIdentifiers;
+  @override
+  final String? nextToken;
 
   factory _$ListAggregateDiscoveredResourcesResponse(
           [void Function(ListAggregateDiscoveredResourcesResponseBuilder)?
@@ -20,7 +20,7 @@ class _$ListAggregateDiscoveredResourcesResponse
           ._build();
 
   _$ListAggregateDiscoveredResourcesResponse._(
-      {this.nextToken, this.resourceIdentifiers})
+      {this.resourceIdentifiers, this.nextToken})
       : super._();
 
   @override
@@ -37,15 +37,15 @@ class _$ListAggregateDiscoveredResourcesResponse
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListAggregateDiscoveredResourcesResponse &&
-        nextToken == other.nextToken &&
-        resourceIdentifiers == other.resourceIdentifiers;
+        resourceIdentifiers == other.resourceIdentifiers &&
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, resourceIdentifiers.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,10 +57,6 @@ class ListAggregateDiscoveredResourcesResponseBuilder
             ListAggregateDiscoveredResourcesResponseBuilder> {
   _$ListAggregateDiscoveredResourcesResponse? _$v;
 
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
   _i3.ListBuilder<_i2.AggregateResourceIdentifier>? _resourceIdentifiers;
   _i3.ListBuilder<_i2.AggregateResourceIdentifier> get resourceIdentifiers =>
       _$this._resourceIdentifiers ??=
@@ -70,6 +66,10 @@ class ListAggregateDiscoveredResourcesResponseBuilder
               resourceIdentifiers) =>
       _$this._resourceIdentifiers = resourceIdentifiers;
 
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+
   ListAggregateDiscoveredResourcesResponseBuilder() {
     ListAggregateDiscoveredResourcesResponse._init(this);
   }
@@ -77,8 +77,8 @@ class ListAggregateDiscoveredResourcesResponseBuilder
   ListAggregateDiscoveredResourcesResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
       _resourceIdentifiers = $v.resourceIdentifiers?.toBuilder();
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -104,8 +104,8 @@ class ListAggregateDiscoveredResourcesResponseBuilder
     try {
       _$result = _$v ??
           new _$ListAggregateDiscoveredResourcesResponse._(
-              nextToken: nextToken,
-              resourceIdentifiers: _resourceIdentifiers?.build());
+              resourceIdentifiers: _resourceIdentifiers?.build(),
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

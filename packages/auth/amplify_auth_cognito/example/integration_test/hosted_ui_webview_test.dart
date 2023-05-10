@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// ignore_for_file: invalid_use_of_protected_member
+// ignore_for_file: invalid_use_of_protected_member, invalid_use_of_internal_member
 
 import 'dart:async';
 import 'dart:io';
@@ -12,7 +12,7 @@ import 'package:amplify_auth_cognito/src/flows/hosted_ui/hosted_ui_platform_flut
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform.dart';
 import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
-import 'package:amplify_auth_cognito_dart/src/state/event/hosted_ui_event.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';

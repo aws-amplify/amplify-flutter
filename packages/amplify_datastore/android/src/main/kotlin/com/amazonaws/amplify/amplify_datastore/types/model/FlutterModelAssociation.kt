@@ -3,7 +3,7 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.model
 
-import com.amazonaws.amplify.cast
+import com.amazonaws.amplify.amplify_datastore.util.cast
 import com.amplifyframework.core.model.ModelAssociation
 
 data class FlutterModelAssociation(val map: Map<String, Any>) {

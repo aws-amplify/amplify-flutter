@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.usage_plan_key; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,15 +17,15 @@ abstract class UsagePlanKey
   /// Represents a usage plan key to identify a plan customer.
   factory UsagePlanKey({
     String? id,
-    String? name,
     String? type,
     String? value,
+    String? name,
   }) {
     return _$UsagePlanKey._(
       id: id,
-      name: name,
       type: type,
       value: value,
+      name: name,
     );
   }
 
@@ -51,20 +52,20 @@ abstract class UsagePlanKey
   /// The Id of a usage plan key.
   String? get id;
 
-  /// The name of a usage plan key.
-  String? get name;
-
   /// The type of a usage plan key. Currently, the valid key type is `API_KEY`.
   String? get type;
 
   /// The value of a usage plan key.
   String? get value;
+
+  /// The name of a usage plan key.
+  String? get name;
   @override
   List<Object?> get props => [
         id,
-        name,
         type,
         value,
+        name,
       ];
   @override
   String toString() {
@@ -74,16 +75,16 @@ abstract class UsagePlanKey
       id,
     );
     helper.add(
-      'name',
-      name,
-    );
-    helper.add(
       'type',
       type,
     );
     helper.add(
       'value',
       value,
+    );
+    helper.add(
+      'name',
+      name,
     );
     return helper.toString();
   }
@@ -117,39 +118,30 @@ class UsagePlanKeyRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'value':
-          if (value != null) {
-            result.value = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.value = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -159,43 +151,43 @@ class UsagePlanKeyRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UsagePlanKey object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UsagePlanKey);
-    final result = <Object?>[];
-    if (payload.id != null) {
-      result
+    final result$ = <Object?>[];
+    final UsagePlanKey(:id, :name, :type, :value) = object;
+    if (id != null) {
+      result$
         ..add('id')
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.name != null) {
-      result
+    if (name != null) {
+      result$
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.type != null) {
-      result
+    if (type != null) {
+      result$
         ..add('type')
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.value != null) {
-      result
+    if (value != null) {
+      result$
         ..add('value')
         ..add(serializers.serialize(
-          payload.value!,
+          value,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

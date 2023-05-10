@@ -8,21 +8,21 @@ part of smoke_test.s3.model.storage_class_analysis_data_export;
 
 class _$StorageClassAnalysisDataExport extends StorageClassAnalysisDataExport {
   @override
-  final _i2.AnalyticsExportDestination destination;
+  final _i2.StorageClassAnalysisSchemaVersion outputSchemaVersion;
   @override
-  final _i3.StorageClassAnalysisSchemaVersion outputSchemaVersion;
+  final _i3.AnalyticsExportDestination destination;
 
   factory _$StorageClassAnalysisDataExport(
           [void Function(StorageClassAnalysisDataExportBuilder)? updates]) =>
       (new StorageClassAnalysisDataExportBuilder()..update(updates))._build();
 
   _$StorageClassAnalysisDataExport._(
-      {required this.destination, required this.outputSchemaVersion})
+      {required this.outputSchemaVersion, required this.destination})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        destination, r'StorageClassAnalysisDataExport', 'destination');
     BuiltValueNullFieldError.checkNotNull(outputSchemaVersion,
         r'StorageClassAnalysisDataExport', 'outputSchemaVersion');
+    BuiltValueNullFieldError.checkNotNull(
+        destination, r'StorageClassAnalysisDataExport', 'destination');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$StorageClassAnalysisDataExport extends StorageClassAnalysisDataExport {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is StorageClassAnalysisDataExport &&
-        destination == other.destination &&
-        outputSchemaVersion == other.outputSchemaVersion;
+        outputSchemaVersion == other.outputSchemaVersion &&
+        destination == other.destination;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, destination.hashCode);
     _$hash = $jc(_$hash, outputSchemaVersion.hashCode);
+    _$hash = $jc(_$hash, destination.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,18 +58,18 @@ class StorageClassAnalysisDataExportBuilder
             StorageClassAnalysisDataExportBuilder> {
   _$StorageClassAnalysisDataExport? _$v;
 
-  _i2.AnalyticsExportDestinationBuilder? _destination;
-  _i2.AnalyticsExportDestinationBuilder get destination =>
-      _$this._destination ??= new _i2.AnalyticsExportDestinationBuilder();
-  set destination(_i2.AnalyticsExportDestinationBuilder? destination) =>
-      _$this._destination = destination;
-
-  _i3.StorageClassAnalysisSchemaVersion? _outputSchemaVersion;
-  _i3.StorageClassAnalysisSchemaVersion? get outputSchemaVersion =>
+  _i2.StorageClassAnalysisSchemaVersion? _outputSchemaVersion;
+  _i2.StorageClassAnalysisSchemaVersion? get outputSchemaVersion =>
       _$this._outputSchemaVersion;
   set outputSchemaVersion(
-          _i3.StorageClassAnalysisSchemaVersion? outputSchemaVersion) =>
+          _i2.StorageClassAnalysisSchemaVersion? outputSchemaVersion) =>
       _$this._outputSchemaVersion = outputSchemaVersion;
+
+  _i3.AnalyticsExportDestinationBuilder? _destination;
+  _i3.AnalyticsExportDestinationBuilder get destination =>
+      _$this._destination ??= new _i3.AnalyticsExportDestinationBuilder();
+  set destination(_i3.AnalyticsExportDestinationBuilder? destination) =>
+      _$this._destination = destination;
 
   StorageClassAnalysisDataExportBuilder() {
     StorageClassAnalysisDataExport._init(this);
@@ -78,8 +78,8 @@ class StorageClassAnalysisDataExportBuilder
   StorageClassAnalysisDataExportBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _destination = $v.destination.toBuilder();
       _outputSchemaVersion = $v.outputSchemaVersion;
+      _destination = $v.destination.toBuilder();
       _$v = null;
     }
     return this;
@@ -104,11 +104,11 @@ class StorageClassAnalysisDataExportBuilder
     try {
       _$result = _$v ??
           new _$StorageClassAnalysisDataExport._(
-              destination: destination.build(),
               outputSchemaVersion: BuiltValueNullFieldError.checkNotNull(
                   outputSchemaVersion,
                   r'StorageClassAnalysisDataExport',
-                  'outputSchemaVersion'));
+                  'outputSchemaVersion'),
+              destination: destination.build());
     } catch (_) {
       late String _$failedField;
       try {

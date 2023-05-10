@@ -5,8 +5,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_secure_storage/src/amplify_secure_storage.android.dart';
-import 'package:amplify_secure_storage/src/messages.cupertino.g.dart';
 import 'package:amplify_secure_storage/src/path_provider_local.dart';
+import 'package:amplify_secure_storage/src/pigeons/ns_user_defaults_pigeon.g.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 // ignore: implementation_imports
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
@@ -151,7 +151,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
     }
 
     if (Platform.isIOS || Platform.isMacOS) {
-      final userDefaults = NSUserDefaultsAPI();
+      final userDefaults = NSUserDefaultsPigeon();
       final key = '$scopeStoragePrefix.${config.scope}.isKeychainConfigured';
       final isInitialized = await userDefaults.boolFor(key);
       if (!isInitialized) {

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.client_certificate; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,18 +18,18 @@ abstract class ClientCertificate
   /// Represents a client certificate used to configure client-side SSL authentication while sending requests to the integration endpoint.
   factory ClientCertificate({
     String? clientCertificateId,
-    DateTime? createdDate,
     String? description,
-    DateTime? expirationDate,
     String? pemEncodedCertificate,
+    DateTime? createdDate,
+    DateTime? expirationDate,
     Map<String, String>? tags,
   }) {
     return _$ClientCertificate._(
       clientCertificateId: clientCertificateId,
-      createdDate: createdDate,
       description: description,
-      expirationDate: expirationDate,
       pemEncodedCertificate: pemEncodedCertificate,
+      createdDate: createdDate,
+      expirationDate: expirationDate,
       tags: tags == null ? null : _i2.BuiltMap(tags),
     );
   }
@@ -56,27 +57,27 @@ abstract class ClientCertificate
   /// The identifier of the client certificate.
   String? get clientCertificateId;
 
-  /// The timestamp when the client certificate was created.
-  DateTime? get createdDate;
-
   /// The description of the client certificate.
   String? get description;
 
-  /// The timestamp when the client certificate will expire.
-  DateTime? get expirationDate;
-
   /// The PEM-encoded public key of the client certificate, which can be used to configure certificate authentication in the integration endpoint .
   String? get pemEncodedCertificate;
+
+  /// The timestamp when the client certificate was created.
+  DateTime? get createdDate;
+
+  /// The timestamp when the client certificate will expire.
+  DateTime? get expirationDate;
 
   /// The collection of tags. Each tag element is associated with a given resource.
   _i2.BuiltMap<String, String>? get tags;
   @override
   List<Object?> get props => [
         clientCertificateId,
-        createdDate,
         description,
-        expirationDate,
         pemEncodedCertificate,
+        createdDate,
+        expirationDate,
         tags,
       ];
   @override
@@ -87,20 +88,20 @@ abstract class ClientCertificate
       clientCertificateId,
     );
     helper.add(
-      'createdDate',
-      createdDate,
-    );
-    helper.add(
       'description',
       description,
     );
     helper.add(
-      'expirationDate',
-      expirationDate,
-    );
-    helper.add(
       'pemEncodedCertificate',
       pemEncodedCertificate,
+    );
+    helper.add(
+      'createdDate',
+      createdDate,
+    );
+    helper.add(
+      'expirationDate',
+      expirationDate,
     );
     helper.add(
       'tags',
@@ -138,61 +139,46 @@ class ClientCertificateRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'clientCertificateId':
-          if (value != null) {
-            result.clientCertificateId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientCertificateId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'createdDate':
-          if (value != null) {
-            result.createdDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createdDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'expirationDate':
-          if (value != null) {
-            result.expirationDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.expirationDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'pemEncodedCertificate':
-          if (value != null) {
-            result.pemEncodedCertificate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.pemEncodedCertificate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i2.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i2.BuiltMap<String, String>));
       }
     }
 
@@ -202,56 +188,63 @@ class ClientCertificateRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ClientCertificate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ClientCertificate);
-    final result = <Object?>[];
-    if (payload.clientCertificateId != null) {
-      result
+    final result$ = <Object?>[];
+    final ClientCertificate(
+      :clientCertificateId,
+      :createdDate,
+      :description,
+      :expirationDate,
+      :pemEncodedCertificate,
+      :tags
+    ) = object;
+    if (clientCertificateId != null) {
+      result$
         ..add('clientCertificateId')
         ..add(serializers.serialize(
-          payload.clientCertificateId!,
+          clientCertificateId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.createdDate != null) {
-      result
+    if (createdDate != null) {
+      result$
         ..add('createdDate')
         ..add(serializers.serialize(
-          payload.createdDate!,
+          createdDate,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.description != null) {
-      result
+    if (description != null) {
+      result$
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.expirationDate != null) {
-      result
+    if (expirationDate != null) {
+      result$
         ..add('expirationDate')
         ..add(serializers.serialize(
-          payload.expirationDate!,
+          expirationDate,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.pemEncodedCertificate != null) {
-      result
+    if (pemEncodedCertificate != null) {
+      result$
         ..add('pemEncodedCertificate')
         ..add(serializers.serialize(
-          payload.pemEncodedCertificate!,
+          pemEncodedCertificate,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
-      result
+    if (tags != null) {
+      result$
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i2.BuiltMap,
             [
@@ -261,6 +254,6 @@ class ClientCertificateRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

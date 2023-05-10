@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library aws_json1_1_v2.json_protocol.test.null_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -306,40 +307,34 @@ class NullOperationInputOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'sparseStringList':
-          if (value != null) {
-            result.sparseStringList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType.nullable(String)],
-              ),
-            ) as _i7.BuiltList<String?>));
-          }
-          break;
-        case 'sparseStringMap':
-          if (value != null) {
-            result.sparseStringMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltMap,
-                [
-                  FullType(String),
-                  FullType.nullable(String),
-                ],
-              ),
-            ) as _i7.BuiltMap<String, String?>));
-          }
-          break;
         case 'string':
-          if (value != null) {
-            result.string = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.string = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'sparseStringList':
+          result.sparseStringList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType.nullable(String)],
+            ),
+          ) as _i7.BuiltList<String?>));
+        case 'sparseStringMap':
+          result.sparseStringMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltMap,
+              [
+                FullType(String),
+                FullType.nullable(String),
+              ],
+            ),
+          ) as _i7.BuiltMap<String, String?>));
       }
     }
 
@@ -349,7 +344,7 @@ class NullOperationInputOutputAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i6.NullOperationInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

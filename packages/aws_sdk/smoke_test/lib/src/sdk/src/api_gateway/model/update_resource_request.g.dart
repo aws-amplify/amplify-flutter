@@ -8,23 +8,23 @@ part of smoke_test.api_gateway.model.update_resource_request;
 
 class _$UpdateResourceRequest extends UpdateResourceRequest {
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final String restApiId;
   @override
   final String resourceId;
   @override
-  final String restApiId;
+  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
 
   factory _$UpdateResourceRequest(
           [void Function(UpdateResourceRequestBuilder)? updates]) =>
       (new UpdateResourceRequestBuilder()..update(updates))._build();
 
   _$UpdateResourceRequest._(
-      {this.patchOperations, required this.resourceId, required this.restApiId})
+      {required this.restApiId, required this.resourceId, this.patchOperations})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        resourceId, r'UpdateResourceRequest', 'resourceId');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'UpdateResourceRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        resourceId, r'UpdateResourceRequest', 'resourceId');
   }
 
   @override
@@ -40,17 +40,17 @@ class _$UpdateResourceRequest extends UpdateResourceRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateResourceRequest &&
-        patchOperations == other.patchOperations &&
+        restApiId == other.restApiId &&
         resourceId == other.resourceId &&
-        restApiId == other.restApiId;
+        patchOperations == other.patchOperations;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, patchOperations.hashCode);
-    _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
+    _$hash = $jc(_$hash, patchOperations.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -60,19 +60,19 @@ class UpdateResourceRequestBuilder
     implements Builder<UpdateResourceRequest, UpdateResourceRequestBuilder> {
   _$UpdateResourceRequest? _$v;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
-      _$this._patchOperations = patchOperations;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _resourceId;
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
+  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
+  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+      _$this._patchOperations = patchOperations;
 
   UpdateResourceRequestBuilder() {
     UpdateResourceRequest._init(this);
@@ -81,9 +81,9 @@ class UpdateResourceRequestBuilder
   UpdateResourceRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _patchOperations = $v.patchOperations?.toBuilder();
-      _resourceId = $v.resourceId;
       _restApiId = $v.restApiId;
+      _resourceId = $v.resourceId;
+      _patchOperations = $v.patchOperations?.toBuilder();
       _$v = null;
     }
     return this;
@@ -108,11 +108,11 @@ class UpdateResourceRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateResourceRequest._(
-              patchOperations: _patchOperations?.build(),
+              restApiId: BuiltValueNullFieldError.checkNotNull(
+                  restApiId, r'UpdateResourceRequest', 'restApiId'),
               resourceId: BuiltValueNullFieldError.checkNotNull(
                   resourceId, r'UpdateResourceRequest', 'resourceId'),
-              restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'UpdateResourceRequest', 'restApiId'));
+              patchOperations: _patchOperations?.build());
     } catch (_) {
       late String _$failedField;
       try {

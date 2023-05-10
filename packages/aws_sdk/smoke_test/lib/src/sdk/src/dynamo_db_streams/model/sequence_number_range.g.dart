@@ -8,16 +8,16 @@ part of smoke_test.dynamo_db_streams.model.sequence_number_range;
 
 class _$SequenceNumberRange extends SequenceNumberRange {
   @override
-  final String? endingSequenceNumber;
-  @override
   final String? startingSequenceNumber;
+  @override
+  final String? endingSequenceNumber;
 
   factory _$SequenceNumberRange(
           [void Function(SequenceNumberRangeBuilder)? updates]) =>
       (new SequenceNumberRangeBuilder()..update(updates))._build();
 
   _$SequenceNumberRange._(
-      {this.endingSequenceNumber, this.startingSequenceNumber})
+      {this.startingSequenceNumber, this.endingSequenceNumber})
       : super._();
 
   @override
@@ -33,15 +33,15 @@ class _$SequenceNumberRange extends SequenceNumberRange {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SequenceNumberRange &&
-        endingSequenceNumber == other.endingSequenceNumber &&
-        startingSequenceNumber == other.startingSequenceNumber;
+        startingSequenceNumber == other.startingSequenceNumber &&
+        endingSequenceNumber == other.endingSequenceNumber;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, endingSequenceNumber.hashCode);
     _$hash = $jc(_$hash, startingSequenceNumber.hashCode);
+    _$hash = $jc(_$hash, endingSequenceNumber.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -51,15 +51,15 @@ class SequenceNumberRangeBuilder
     implements Builder<SequenceNumberRange, SequenceNumberRangeBuilder> {
   _$SequenceNumberRange? _$v;
 
-  String? _endingSequenceNumber;
-  String? get endingSequenceNumber => _$this._endingSequenceNumber;
-  set endingSequenceNumber(String? endingSequenceNumber) =>
-      _$this._endingSequenceNumber = endingSequenceNumber;
-
   String? _startingSequenceNumber;
   String? get startingSequenceNumber => _$this._startingSequenceNumber;
   set startingSequenceNumber(String? startingSequenceNumber) =>
       _$this._startingSequenceNumber = startingSequenceNumber;
+
+  String? _endingSequenceNumber;
+  String? get endingSequenceNumber => _$this._endingSequenceNumber;
+  set endingSequenceNumber(String? endingSequenceNumber) =>
+      _$this._endingSequenceNumber = endingSequenceNumber;
 
   SequenceNumberRangeBuilder() {
     SequenceNumberRange._init(this);
@@ -68,8 +68,8 @@ class SequenceNumberRangeBuilder
   SequenceNumberRangeBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _endingSequenceNumber = $v.endingSequenceNumber;
       _startingSequenceNumber = $v.startingSequenceNumber;
+      _endingSequenceNumber = $v.endingSequenceNumber;
       _$v = null;
     }
     return this;
@@ -92,8 +92,8 @@ class SequenceNumberRangeBuilder
   _$SequenceNumberRange _build() {
     final _$result = _$v ??
         new _$SequenceNumberRange._(
-            endingSequenceNumber: endingSequenceNumber,
-            startingSequenceNumber: startingSequenceNumber);
+            startingSequenceNumber: startingSequenceNumber,
+            endingSequenceNumber: endingSequenceNumber);
     replace(_$result);
     return _$result;
   }

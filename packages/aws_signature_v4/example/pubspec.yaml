@@ -2,7 +2,7 @@ name: example
 publish_to: none
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
+  sdk: ">=3.0.0-0 <4.0.0"
 
 dependencies:
   args: ^2.3.0
@@ -18,5 +18,5 @@ dependency_overrides:
 dev_dependencies:
   amplify_lints:
     path: ../../amplify_lints
-  build_runner: ^2.0.0
-  build_web_compilers: ^3.2.2
+  build_runner: ^2.4.0
+  build_web_compilers: ^4.0.0

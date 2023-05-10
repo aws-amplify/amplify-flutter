@@ -12,13 +12,13 @@ class _$AuthenticationResultType extends AuthenticationResultType {
   @override
   final int expiresIn;
   @override
-  final String? idToken;
-  @override
-  final _i2.NewDeviceMetadataType? newDeviceMetadata;
+  final String? tokenType;
   @override
   final String? refreshToken;
   @override
-  final String? tokenType;
+  final String? idToken;
+  @override
+  final _i2.NewDeviceMetadataType? newDeviceMetadata;
 
   factory _$AuthenticationResultType(
           [void Function(AuthenticationResultTypeBuilder)? updates]) =>
@@ -27,10 +27,10 @@ class _$AuthenticationResultType extends AuthenticationResultType {
   _$AuthenticationResultType._(
       {this.accessToken,
       required this.expiresIn,
-      this.idToken,
-      this.newDeviceMetadata,
+      this.tokenType,
       this.refreshToken,
-      this.tokenType})
+      this.idToken,
+      this.newDeviceMetadata})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         expiresIn, r'AuthenticationResultType', 'expiresIn');
@@ -51,10 +51,10 @@ class _$AuthenticationResultType extends AuthenticationResultType {
     return other is AuthenticationResultType &&
         accessToken == other.accessToken &&
         expiresIn == other.expiresIn &&
-        idToken == other.idToken &&
-        newDeviceMetadata == other.newDeviceMetadata &&
+        tokenType == other.tokenType &&
         refreshToken == other.refreshToken &&
-        tokenType == other.tokenType;
+        idToken == other.idToken &&
+        newDeviceMetadata == other.newDeviceMetadata;
   }
 
   @override
@@ -62,10 +62,10 @@ class _$AuthenticationResultType extends AuthenticationResultType {
     var _$hash = 0;
     _$hash = $jc(_$hash, accessToken.hashCode);
     _$hash = $jc(_$hash, expiresIn.hashCode);
+    _$hash = $jc(_$hash, tokenType.hashCode);
+    _$hash = $jc(_$hash, refreshToken.hashCode);
     _$hash = $jc(_$hash, idToken.hashCode);
     _$hash = $jc(_$hash, newDeviceMetadata.hashCode);
-    _$hash = $jc(_$hash, refreshToken.hashCode);
-    _$hash = $jc(_$hash, tokenType.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -84,6 +84,14 @@ class AuthenticationResultTypeBuilder
   int? get expiresIn => _$this._expiresIn;
   set expiresIn(int? expiresIn) => _$this._expiresIn = expiresIn;
 
+  String? _tokenType;
+  String? get tokenType => _$this._tokenType;
+  set tokenType(String? tokenType) => _$this._tokenType = tokenType;
+
+  String? _refreshToken;
+  String? get refreshToken => _$this._refreshToken;
+  set refreshToken(String? refreshToken) => _$this._refreshToken = refreshToken;
+
   String? _idToken;
   String? get idToken => _$this._idToken;
   set idToken(String? idToken) => _$this._idToken = idToken;
@@ -94,14 +102,6 @@ class AuthenticationResultTypeBuilder
   set newDeviceMetadata(_i2.NewDeviceMetadataTypeBuilder? newDeviceMetadata) =>
       _$this._newDeviceMetadata = newDeviceMetadata;
 
-  String? _refreshToken;
-  String? get refreshToken => _$this._refreshToken;
-  set refreshToken(String? refreshToken) => _$this._refreshToken = refreshToken;
-
-  String? _tokenType;
-  String? get tokenType => _$this._tokenType;
-  set tokenType(String? tokenType) => _$this._tokenType = tokenType;
-
   AuthenticationResultTypeBuilder() {
     AuthenticationResultType._init(this);
   }
@@ -111,10 +111,10 @@ class AuthenticationResultTypeBuilder
     if ($v != null) {
       _accessToken = $v.accessToken;
       _expiresIn = $v.expiresIn;
+      _tokenType = $v.tokenType;
+      _refreshToken = $v.refreshToken;
       _idToken = $v.idToken;
       _newDeviceMetadata = $v.newDeviceMetadata?.toBuilder();
-      _refreshToken = $v.refreshToken;
-      _tokenType = $v.tokenType;
       _$v = null;
     }
     return this;
@@ -142,10 +142,10 @@ class AuthenticationResultTypeBuilder
               accessToken: accessToken,
               expiresIn: BuiltValueNullFieldError.checkNotNull(
                   expiresIn, r'AuthenticationResultType', 'expiresIn'),
-              idToken: idToken,
-              newDeviceMetadata: _newDeviceMetadata?.build(),
+              tokenType: tokenType,
               refreshToken: refreshToken,
-              tokenType: tokenType);
+              idToken: idToken,
+              newDeviceMetadata: _newDeviceMetadata?.build());
     } catch (_) {
       late String _$failedField;
       try {

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_protocol.test.test_payload_structure_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -172,23 +173,20 @@ class TestPayloadStructureInputOutputRestJson1Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'payloadConfig':
-          if (value != null) {
-            result.payloadConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.PayloadConfig),
-            ) as _i6.PayloadConfig));
-          }
-          break;
         case 'testId':
-          if (value != null) {
-            result.testId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.testId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'payloadConfig':
+          result.payloadConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.PayloadConfig),
+          ) as _i6.PayloadConfig));
       }
     }
 
@@ -198,7 +196,7 @@ class TestPayloadStructureInputOutputRestJson1Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.TestPayloadStructureInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -230,15 +228,15 @@ class PayloadConfigRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'data':
-          if (value != null) {
-            result.data = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.data = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -248,7 +246,7 @@ class PayloadConfigRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i6.PayloadConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

@@ -50,7 +50,7 @@ void main() {
         // to ensure the failure is not triggered
         await Future<void>.delayed(const Duration(minutes: 1));
 
-        streamSubscription.cancel();
+        await streamSubscription.cancel();
 
         // Ensure data sent, if sent manually
         await Amplify.Analytics.flushEvents();

@@ -13,7 +13,7 @@ import 'package:meta/meta.dart';
 ///
 /// See: https://datatracker.ietf.org/doc/html/rfc5869
 /// {@endtemplate}
-class HkdfSha256 {
+final class HkdfSha256 {
   /// {@macro amplify_auth_cognito.hkdf_sha_256}
   factory HkdfSha256(List<int> salt, List<int> internalKeyMaterial) {
     // Perform the "extract" portion of the HKDF protocol to derive the

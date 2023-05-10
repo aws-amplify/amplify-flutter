@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.s3_key_filter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -74,18 +75,18 @@ class S3KeyFilterRestXmlSerializer
     final result = S3KeyFilterBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'FilterRule':
-          if (value != null) {
-            result.filterRules.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.FilterRule),
-            ) as _i2.FilterRule));
-          }
-          break;
+          result.filterRules.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.FilterRule),
+          ) as _i2.FilterRule));
       }
     }
 
@@ -95,27 +96,27 @@ class S3KeyFilterRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    S3KeyFilter object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as S3KeyFilter);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'S3KeyFilter',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.filterRules != null) {
-      result.addAll(
+    final S3KeyFilter(:filterRules) = object;
+    if (filterRules != null) {
+      result$.addAll(
           const _i4.XmlBuiltListSerializer(memberName: 'FilterRule').serialize(
         serializers,
-        payload.filterRules!,
+        filterRules,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.FilterRule)],
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

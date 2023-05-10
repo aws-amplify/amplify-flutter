@@ -10,13 +10,13 @@ class _$ClientCertificate extends ClientCertificate {
   @override
   final String? clientCertificateId;
   @override
-  final DateTime? createdDate;
-  @override
   final String? description;
   @override
-  final DateTime? expirationDate;
-  @override
   final String? pemEncodedCertificate;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? expirationDate;
   @override
   final _i2.BuiltMap<String, String>? tags;
 
@@ -26,10 +26,10 @@ class _$ClientCertificate extends ClientCertificate {
 
   _$ClientCertificate._(
       {this.clientCertificateId,
-      this.createdDate,
       this.description,
-      this.expirationDate,
       this.pemEncodedCertificate,
+      this.createdDate,
+      this.expirationDate,
       this.tags})
       : super._();
 
@@ -46,10 +46,10 @@ class _$ClientCertificate extends ClientCertificate {
     if (identical(other, this)) return true;
     return other is ClientCertificate &&
         clientCertificateId == other.clientCertificateId &&
-        createdDate == other.createdDate &&
         description == other.description &&
-        expirationDate == other.expirationDate &&
         pemEncodedCertificate == other.pemEncodedCertificate &&
+        createdDate == other.createdDate &&
+        expirationDate == other.expirationDate &&
         tags == other.tags;
   }
 
@@ -57,10 +57,10 @@ class _$ClientCertificate extends ClientCertificate {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, clientCertificateId.hashCode);
-    _$hash = $jc(_$hash, createdDate.hashCode);
     _$hash = $jc(_$hash, description.hashCode);
-    _$hash = $jc(_$hash, expirationDate.hashCode);
     _$hash = $jc(_$hash, pemEncodedCertificate.hashCode);
+    _$hash = $jc(_$hash, createdDate.hashCode);
+    _$hash = $jc(_$hash, expirationDate.hashCode);
     _$hash = $jc(_$hash, tags.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -76,23 +76,23 @@ class ClientCertificateBuilder
   set clientCertificateId(String? clientCertificateId) =>
       _$this._clientCertificateId = clientCertificateId;
 
-  DateTime? _createdDate;
-  DateTime? get createdDate => _$this._createdDate;
-  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
-
   String? _description;
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
-
-  DateTime? _expirationDate;
-  DateTime? get expirationDate => _$this._expirationDate;
-  set expirationDate(DateTime? expirationDate) =>
-      _$this._expirationDate = expirationDate;
 
   String? _pemEncodedCertificate;
   String? get pemEncodedCertificate => _$this._pemEncodedCertificate;
   set pemEncodedCertificate(String? pemEncodedCertificate) =>
       _$this._pemEncodedCertificate = pemEncodedCertificate;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _expirationDate;
+  DateTime? get expirationDate => _$this._expirationDate;
+  set expirationDate(DateTime? expirationDate) =>
+      _$this._expirationDate = expirationDate;
 
   _i2.MapBuilder<String, String>? _tags;
   _i2.MapBuilder<String, String> get tags =>
@@ -107,10 +107,10 @@ class ClientCertificateBuilder
     final $v = _$v;
     if ($v != null) {
       _clientCertificateId = $v.clientCertificateId;
-      _createdDate = $v.createdDate;
       _description = $v.description;
-      _expirationDate = $v.expirationDate;
       _pemEncodedCertificate = $v.pemEncodedCertificate;
+      _createdDate = $v.createdDate;
+      _expirationDate = $v.expirationDate;
       _tags = $v.tags?.toBuilder();
       _$v = null;
     }
@@ -137,10 +137,10 @@ class ClientCertificateBuilder
       _$result = _$v ??
           new _$ClientCertificate._(
               clientCertificateId: clientCertificateId,
-              createdDate: createdDate,
               description: description,
-              expirationDate: expirationDate,
               pemEncodedCertificate: pemEncodedCertificate,
+              createdDate: createdDate,
+              expirationDate: expirationDate,
               tags: _tags?.build());
     } catch (_) {
       late String _$failedField;

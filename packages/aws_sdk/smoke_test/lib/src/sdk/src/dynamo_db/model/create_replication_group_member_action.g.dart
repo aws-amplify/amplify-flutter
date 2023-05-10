@@ -9,13 +9,13 @@ part of smoke_test.dynamo_db.model.create_replication_group_member_action;
 class _$CreateReplicationGroupMemberAction
     extends CreateReplicationGroupMemberAction {
   @override
-  final _i5.BuiltList<_i2.ReplicaGlobalSecondaryIndex>? globalSecondaryIndexes;
+  final String regionName;
   @override
   final String? kmsMasterKeyId;
   @override
-  final _i3.ProvisionedThroughputOverride? provisionedThroughputOverride;
+  final _i2.ProvisionedThroughputOverride? provisionedThroughputOverride;
   @override
-  final String regionName;
+  final _i5.BuiltList<_i3.ReplicaGlobalSecondaryIndex>? globalSecondaryIndexes;
   @override
   final _i4.TableClass? tableClassOverride;
 
@@ -26,10 +26,10 @@ class _$CreateReplicationGroupMemberAction
           ._build();
 
   _$CreateReplicationGroupMemberAction._(
-      {this.globalSecondaryIndexes,
+      {required this.regionName,
       this.kmsMasterKeyId,
       this.provisionedThroughputOverride,
-      required this.regionName,
+      this.globalSecondaryIndexes,
       this.tableClassOverride})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -49,20 +49,20 @@ class _$CreateReplicationGroupMemberAction
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CreateReplicationGroupMemberAction &&
-        globalSecondaryIndexes == other.globalSecondaryIndexes &&
+        regionName == other.regionName &&
         kmsMasterKeyId == other.kmsMasterKeyId &&
         provisionedThroughputOverride == other.provisionedThroughputOverride &&
-        regionName == other.regionName &&
+        globalSecondaryIndexes == other.globalSecondaryIndexes &&
         tableClassOverride == other.tableClassOverride;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
+    _$hash = $jc(_$hash, regionName.hashCode);
     _$hash = $jc(_$hash, kmsMasterKeyId.hashCode);
     _$hash = $jc(_$hash, provisionedThroughputOverride.hashCode);
-    _$hash = $jc(_$hash, regionName.hashCode);
+    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
     _$hash = $jc(_$hash, tableClassOverride.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -75,32 +75,32 @@ class CreateReplicationGroupMemberActionBuilder
             CreateReplicationGroupMemberActionBuilder> {
   _$CreateReplicationGroupMemberAction? _$v;
 
-  _i5.ListBuilder<_i2.ReplicaGlobalSecondaryIndex>? _globalSecondaryIndexes;
-  _i5.ListBuilder<_i2.ReplicaGlobalSecondaryIndex> get globalSecondaryIndexes =>
-      _$this._globalSecondaryIndexes ??=
-          new _i5.ListBuilder<_i2.ReplicaGlobalSecondaryIndex>();
-  set globalSecondaryIndexes(
-          _i5.ListBuilder<_i2.ReplicaGlobalSecondaryIndex>?
-              globalSecondaryIndexes) =>
-      _$this._globalSecondaryIndexes = globalSecondaryIndexes;
+  String? _regionName;
+  String? get regionName => _$this._regionName;
+  set regionName(String? regionName) => _$this._regionName = regionName;
 
   String? _kmsMasterKeyId;
   String? get kmsMasterKeyId => _$this._kmsMasterKeyId;
   set kmsMasterKeyId(String? kmsMasterKeyId) =>
       _$this._kmsMasterKeyId = kmsMasterKeyId;
 
-  _i3.ProvisionedThroughputOverrideBuilder? _provisionedThroughputOverride;
-  _i3.ProvisionedThroughputOverrideBuilder get provisionedThroughputOverride =>
+  _i2.ProvisionedThroughputOverrideBuilder? _provisionedThroughputOverride;
+  _i2.ProvisionedThroughputOverrideBuilder get provisionedThroughputOverride =>
       _$this._provisionedThroughputOverride ??=
-          new _i3.ProvisionedThroughputOverrideBuilder();
+          new _i2.ProvisionedThroughputOverrideBuilder();
   set provisionedThroughputOverride(
-          _i3.ProvisionedThroughputOverrideBuilder?
+          _i2.ProvisionedThroughputOverrideBuilder?
               provisionedThroughputOverride) =>
       _$this._provisionedThroughputOverride = provisionedThroughputOverride;
 
-  String? _regionName;
-  String? get regionName => _$this._regionName;
-  set regionName(String? regionName) => _$this._regionName = regionName;
+  _i5.ListBuilder<_i3.ReplicaGlobalSecondaryIndex>? _globalSecondaryIndexes;
+  _i5.ListBuilder<_i3.ReplicaGlobalSecondaryIndex> get globalSecondaryIndexes =>
+      _$this._globalSecondaryIndexes ??=
+          new _i5.ListBuilder<_i3.ReplicaGlobalSecondaryIndex>();
+  set globalSecondaryIndexes(
+          _i5.ListBuilder<_i3.ReplicaGlobalSecondaryIndex>?
+              globalSecondaryIndexes) =>
+      _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
   _i4.TableClass? _tableClassOverride;
   _i4.TableClass? get tableClassOverride => _$this._tableClassOverride;
@@ -114,11 +114,11 @@ class CreateReplicationGroupMemberActionBuilder
   CreateReplicationGroupMemberActionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
+      _regionName = $v.regionName;
       _kmsMasterKeyId = $v.kmsMasterKeyId;
       _provisionedThroughputOverride =
           $v.provisionedThroughputOverride?.toBuilder();
-      _regionName = $v.regionName;
+      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
       _tableClassOverride = $v.tableClassOverride;
       _$v = null;
     }
@@ -145,21 +145,20 @@ class CreateReplicationGroupMemberActionBuilder
     try {
       _$result = _$v ??
           new _$CreateReplicationGroupMemberAction._(
-              globalSecondaryIndexes: _globalSecondaryIndexes?.build(),
+              regionName: BuiltValueNullFieldError.checkNotNull(regionName,
+                  r'CreateReplicationGroupMemberAction', 'regionName'),
               kmsMasterKeyId: kmsMasterKeyId,
               provisionedThroughputOverride:
                   _provisionedThroughputOverride?.build(),
-              regionName: BuiltValueNullFieldError.checkNotNull(regionName,
-                  r'CreateReplicationGroupMemberAction', 'regionName'),
+              globalSecondaryIndexes: _globalSecondaryIndexes?.build(),
               tableClassOverride: tableClassOverride);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'globalSecondaryIndexes';
-        _globalSecondaryIndexes?.build();
-
         _$failedField = 'provisionedThroughputOverride';
         _provisionedThroughputOverride?.build();
+        _$failedField = 'globalSecondaryIndexes';
+        _globalSecondaryIndexes?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'CreateReplicationGroupMemberAction', _$failedField, e.toString());

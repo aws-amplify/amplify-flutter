@@ -10,11 +10,11 @@ class _$MalformedLongInput extends MalformedLongInput {
   @override
   final _i3.Int64? longInBody;
   @override
-  final _i3.Int64? longInHeader;
-  @override
   final _i3.Int64 longInPath;
   @override
   final _i3.Int64? longInQuery;
+  @override
+  final _i3.Int64? longInHeader;
 
   factory _$MalformedLongInput(
           [void Function(MalformedLongInputBuilder)? updates]) =>
@@ -22,9 +22,9 @@ class _$MalformedLongInput extends MalformedLongInput {
 
   _$MalformedLongInput._(
       {this.longInBody,
-      this.longInHeader,
       required this.longInPath,
-      this.longInQuery})
+      this.longInQuery,
+      this.longInHeader})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         longInPath, r'MalformedLongInput', 'longInPath');
@@ -44,18 +44,18 @@ class _$MalformedLongInput extends MalformedLongInput {
     if (identical(other, this)) return true;
     return other is MalformedLongInput &&
         longInBody == other.longInBody &&
-        longInHeader == other.longInHeader &&
         longInPath == other.longInPath &&
-        longInQuery == other.longInQuery;
+        longInQuery == other.longInQuery &&
+        longInHeader == other.longInHeader;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, longInBody.hashCode);
-    _$hash = $jc(_$hash, longInHeader.hashCode);
     _$hash = $jc(_$hash, longInPath.hashCode);
     _$hash = $jc(_$hash, longInQuery.hashCode);
+    _$hash = $jc(_$hash, longInHeader.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -69,11 +69,6 @@ class MalformedLongInputBuilder
   _i3.Int64? get longInBody => _$this._longInBody;
   set longInBody(_i3.Int64? longInBody) => _$this._longInBody = longInBody;
 
-  _i3.Int64? _longInHeader;
-  _i3.Int64? get longInHeader => _$this._longInHeader;
-  set longInHeader(_i3.Int64? longInHeader) =>
-      _$this._longInHeader = longInHeader;
-
   _i3.Int64? _longInPath;
   _i3.Int64? get longInPath => _$this._longInPath;
   set longInPath(_i3.Int64? longInPath) => _$this._longInPath = longInPath;
@@ -81,6 +76,11 @@ class MalformedLongInputBuilder
   _i3.Int64? _longInQuery;
   _i3.Int64? get longInQuery => _$this._longInQuery;
   set longInQuery(_i3.Int64? longInQuery) => _$this._longInQuery = longInQuery;
+
+  _i3.Int64? _longInHeader;
+  _i3.Int64? get longInHeader => _$this._longInHeader;
+  set longInHeader(_i3.Int64? longInHeader) =>
+      _$this._longInHeader = longInHeader;
 
   MalformedLongInputBuilder() {
     MalformedLongInput._init(this);
@@ -90,9 +90,9 @@ class MalformedLongInputBuilder
     final $v = _$v;
     if ($v != null) {
       _longInBody = $v.longInBody;
-      _longInHeader = $v.longInHeader;
       _longInPath = $v.longInPath;
       _longInQuery = $v.longInQuery;
+      _longInHeader = $v.longInHeader;
       _$v = null;
     }
     return this;
@@ -116,10 +116,10 @@ class MalformedLongInputBuilder
     final _$result = _$v ??
         new _$MalformedLongInput._(
             longInBody: longInBody,
-            longInHeader: longInHeader,
             longInPath: BuiltValueNullFieldError.checkNotNull(
                 longInPath, r'MalformedLongInput', 'longInPath'),
-            longInQuery: longInQuery);
+            longInQuery: longInQuery,
+            longInHeader: longInHeader);
     replace(_$result);
     return _$result;
   }

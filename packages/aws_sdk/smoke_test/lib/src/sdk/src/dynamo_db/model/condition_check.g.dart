@@ -8,35 +8,35 @@ part of smoke_test.dynamo_db.model.condition_check;
 
 class _$ConditionCheck extends ConditionCheck {
   @override
+  final _i4.BuiltMap<String, _i2.AttributeValue> key;
+  @override
+  final String tableName;
+  @override
   final String conditionExpression;
   @override
   final _i4.BuiltMap<String, String>? expressionAttributeNames;
   @override
   final _i4.BuiltMap<String, _i2.AttributeValue>? expressionAttributeValues;
   @override
-  final _i4.BuiltMap<String, _i2.AttributeValue> key;
-  @override
   final _i3.ReturnValuesOnConditionCheckFailure?
       returnValuesOnConditionCheckFailure;
-  @override
-  final String tableName;
 
   factory _$ConditionCheck([void Function(ConditionCheckBuilder)? updates]) =>
       (new ConditionCheckBuilder()..update(updates))._build();
 
   _$ConditionCheck._(
-      {required this.conditionExpression,
+      {required this.key,
+      required this.tableName,
+      required this.conditionExpression,
       this.expressionAttributeNames,
       this.expressionAttributeValues,
-      required this.key,
-      this.returnValuesOnConditionCheckFailure,
-      required this.tableName})
+      this.returnValuesOnConditionCheckFailure})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        conditionExpression, r'ConditionCheck', 'conditionExpression');
     BuiltValueNullFieldError.checkNotNull(key, r'ConditionCheck', 'key');
     BuiltValueNullFieldError.checkNotNull(
         tableName, r'ConditionCheck', 'tableName');
+    BuiltValueNullFieldError.checkNotNull(
+        conditionExpression, r'ConditionCheck', 'conditionExpression');
   }
 
   @override
@@ -51,24 +51,24 @@ class _$ConditionCheck extends ConditionCheck {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ConditionCheck &&
+        key == other.key &&
+        tableName == other.tableName &&
         conditionExpression == other.conditionExpression &&
         expressionAttributeNames == other.expressionAttributeNames &&
         expressionAttributeValues == other.expressionAttributeValues &&
-        key == other.key &&
         returnValuesOnConditionCheckFailure ==
-            other.returnValuesOnConditionCheckFailure &&
-        tableName == other.tableName;
+            other.returnValuesOnConditionCheckFailure;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, key.hashCode);
+    _$hash = $jc(_$hash, tableName.hashCode);
     _$hash = $jc(_$hash, conditionExpression.hashCode);
     _$hash = $jc(_$hash, expressionAttributeNames.hashCode);
     _$hash = $jc(_$hash, expressionAttributeValues.hashCode);
-    _$hash = $jc(_$hash, key.hashCode);
     _$hash = $jc(_$hash, returnValuesOnConditionCheckFailure.hashCode);
-    _$hash = $jc(_$hash, tableName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -77,6 +77,15 @@ class _$ConditionCheck extends ConditionCheck {
 class ConditionCheckBuilder
     implements Builder<ConditionCheck, ConditionCheckBuilder> {
   _$ConditionCheck? _$v;
+
+  _i4.MapBuilder<String, _i2.AttributeValue>? _key;
+  _i4.MapBuilder<String, _i2.AttributeValue> get key =>
+      _$this._key ??= new _i4.MapBuilder<String, _i2.AttributeValue>();
+  set key(_i4.MapBuilder<String, _i2.AttributeValue>? key) => _$this._key = key;
+
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
 
   String? _conditionExpression;
   String? get conditionExpression => _$this._conditionExpression;
@@ -99,11 +108,6 @@ class ConditionCheckBuilder
               expressionAttributeValues) =>
       _$this._expressionAttributeValues = expressionAttributeValues;
 
-  _i4.MapBuilder<String, _i2.AttributeValue>? _key;
-  _i4.MapBuilder<String, _i2.AttributeValue> get key =>
-      _$this._key ??= new _i4.MapBuilder<String, _i2.AttributeValue>();
-  set key(_i4.MapBuilder<String, _i2.AttributeValue>? key) => _$this._key = key;
-
   _i3.ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
   _i3.ReturnValuesOnConditionCheckFailure?
       get returnValuesOnConditionCheckFailure =>
@@ -114,10 +118,6 @@ class ConditionCheckBuilder
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
-
   ConditionCheckBuilder() {
     ConditionCheck._init(this);
   }
@@ -125,13 +125,13 @@ class ConditionCheckBuilder
   ConditionCheckBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _key = $v.key.toBuilder();
+      _tableName = $v.tableName;
       _conditionExpression = $v.conditionExpression;
       _expressionAttributeNames = $v.expressionAttributeNames?.toBuilder();
       _expressionAttributeValues = $v.expressionAttributeValues?.toBuilder();
-      _key = $v.key.toBuilder();
       _returnValuesOnConditionCheckFailure =
           $v.returnValuesOnConditionCheckFailure;
-      _tableName = $v.tableName;
       _$v = null;
     }
     return this;
@@ -156,26 +156,27 @@ class ConditionCheckBuilder
     try {
       _$result = _$v ??
           new _$ConditionCheck._(
+              key: key.build(),
+              tableName: BuiltValueNullFieldError.checkNotNull(
+                  tableName, r'ConditionCheck', 'tableName'),
               conditionExpression: BuiltValueNullFieldError.checkNotNull(
                   conditionExpression,
                   r'ConditionCheck',
                   'conditionExpression'),
               expressionAttributeNames: _expressionAttributeNames?.build(),
               expressionAttributeValues: _expressionAttributeValues?.build(),
-              key: key.build(),
               returnValuesOnConditionCheckFailure:
-                  returnValuesOnConditionCheckFailure,
-              tableName: BuiltValueNullFieldError.checkNotNull(
-                  tableName, r'ConditionCheck', 'tableName'));
+                  returnValuesOnConditionCheckFailure);
     } catch (_) {
       late String _$failedField;
       try {
+        _$failedField = 'key';
+        key.build();
+
         _$failedField = 'expressionAttributeNames';
         _expressionAttributeNames?.build();
         _$failedField = 'expressionAttributeValues';
         _expressionAttributeValues?.build();
-        _$failedField = 'key';
-        key.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ConditionCheck', _$failedField, e.toString());

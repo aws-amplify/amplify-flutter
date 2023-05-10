@@ -8,6 +8,8 @@ part of smoke_test.dynamo_db.model.restore_table_from_backup_input;
 
 class _$RestoreTableFromBackupInput extends RestoreTableFromBackupInput {
   @override
+  final String targetTableName;
+  @override
   final String backupArn;
   @override
   final _i3.BillingMode? billingModeOverride;
@@ -19,26 +21,24 @@ class _$RestoreTableFromBackupInput extends RestoreTableFromBackupInput {
   final _i6.ProvisionedThroughput? provisionedThroughputOverride;
   @override
   final _i7.SseSpecification? sseSpecificationOverride;
-  @override
-  final String targetTableName;
 
   factory _$RestoreTableFromBackupInput(
           [void Function(RestoreTableFromBackupInputBuilder)? updates]) =>
       (new RestoreTableFromBackupInputBuilder()..update(updates))._build();
 
   _$RestoreTableFromBackupInput._(
-      {required this.backupArn,
+      {required this.targetTableName,
+      required this.backupArn,
       this.billingModeOverride,
       this.globalSecondaryIndexOverride,
       this.localSecondaryIndexOverride,
       this.provisionedThroughputOverride,
-      this.sseSpecificationOverride,
-      required this.targetTableName})
+      this.sseSpecificationOverride})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        backupArn, r'RestoreTableFromBackupInput', 'backupArn');
-    BuiltValueNullFieldError.checkNotNull(
         targetTableName, r'RestoreTableFromBackupInput', 'targetTableName');
+    BuiltValueNullFieldError.checkNotNull(
+        backupArn, r'RestoreTableFromBackupInput', 'backupArn');
   }
 
   @override
@@ -54,25 +54,25 @@ class _$RestoreTableFromBackupInput extends RestoreTableFromBackupInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is RestoreTableFromBackupInput &&
+        targetTableName == other.targetTableName &&
         backupArn == other.backupArn &&
         billingModeOverride == other.billingModeOverride &&
         globalSecondaryIndexOverride == other.globalSecondaryIndexOverride &&
         localSecondaryIndexOverride == other.localSecondaryIndexOverride &&
         provisionedThroughputOverride == other.provisionedThroughputOverride &&
-        sseSpecificationOverride == other.sseSpecificationOverride &&
-        targetTableName == other.targetTableName;
+        sseSpecificationOverride == other.sseSpecificationOverride;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, targetTableName.hashCode);
     _$hash = $jc(_$hash, backupArn.hashCode);
     _$hash = $jc(_$hash, billingModeOverride.hashCode);
     _$hash = $jc(_$hash, globalSecondaryIndexOverride.hashCode);
     _$hash = $jc(_$hash, localSecondaryIndexOverride.hashCode);
     _$hash = $jc(_$hash, provisionedThroughputOverride.hashCode);
     _$hash = $jc(_$hash, sseSpecificationOverride.hashCode);
-    _$hash = $jc(_$hash, targetTableName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -83,6 +83,11 @@ class RestoreTableFromBackupInputBuilder
         Builder<RestoreTableFromBackupInput,
             RestoreTableFromBackupInputBuilder> {
   _$RestoreTableFromBackupInput? _$v;
+
+  String? _targetTableName;
+  String? get targetTableName => _$this._targetTableName;
+  set targetTableName(String? targetTableName) =>
+      _$this._targetTableName = targetTableName;
 
   String? _backupArn;
   String? get backupArn => _$this._backupArn;
@@ -126,11 +131,6 @@ class RestoreTableFromBackupInputBuilder
           _i7.SseSpecificationBuilder? sseSpecificationOverride) =>
       _$this._sseSpecificationOverride = sseSpecificationOverride;
 
-  String? _targetTableName;
-  String? get targetTableName => _$this._targetTableName;
-  set targetTableName(String? targetTableName) =>
-      _$this._targetTableName = targetTableName;
-
   RestoreTableFromBackupInputBuilder() {
     RestoreTableFromBackupInput._init(this);
   }
@@ -138,6 +138,7 @@ class RestoreTableFromBackupInputBuilder
   RestoreTableFromBackupInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _targetTableName = $v.targetTableName;
       _backupArn = $v.backupArn;
       _billingModeOverride = $v.billingModeOverride;
       _globalSecondaryIndexOverride =
@@ -147,7 +148,6 @@ class RestoreTableFromBackupInputBuilder
       _provisionedThroughputOverride =
           $v.provisionedThroughputOverride?.toBuilder();
       _sseSpecificationOverride = $v.sseSpecificationOverride?.toBuilder();
-      _targetTableName = $v.targetTableName;
       _$v = null;
     }
     return this;
@@ -172,6 +172,10 @@ class RestoreTableFromBackupInputBuilder
     try {
       _$result = _$v ??
           new _$RestoreTableFromBackupInput._(
+              targetTableName: BuiltValueNullFieldError.checkNotNull(
+                  targetTableName,
+                  r'RestoreTableFromBackupInput',
+                  'targetTableName'),
               backupArn: BuiltValueNullFieldError.checkNotNull(
                   backupArn, r'RestoreTableFromBackupInput', 'backupArn'),
               billingModeOverride: billingModeOverride,
@@ -181,11 +185,7 @@ class RestoreTableFromBackupInputBuilder
                   _localSecondaryIndexOverride?.build(),
               provisionedThroughputOverride:
                   _provisionedThroughputOverride?.build(),
-              sseSpecificationOverride: _sseSpecificationOverride?.build(),
-              targetTableName: BuiltValueNullFieldError.checkNotNull(
-                  targetTableName,
-                  r'RestoreTableFromBackupInput',
-                  'targetTableName'));
+              sseSpecificationOverride: _sseSpecificationOverride?.build());
     } catch (_) {
       late String _$failedField;
       try {

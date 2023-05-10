@@ -59,22 +59,18 @@ class WebSocketSubscriptionStreamTransformer<T>
             onEstablished?.call();
             _establishedRequest = true;
           }
-          break;
         case MessageType.data:
           final payload = event.payload as SubscriptionDataPayload;
           yield GraphQLResponseDecoder.instance.decode<T>(
             request: request,
             response: payload.toJson(),
           );
-
-          break;
         case MessageType.error:
           final wsError = event.payload as WebSocketError;
           yield GraphQLResponseDecoder.instance.decode<T>(
             request: request,
             response: wsError.toJson(),
           );
-          break;
         case MessageType.complete:
           logger.info('Cancel succeeded for Operation: ${event.id}');
           return;

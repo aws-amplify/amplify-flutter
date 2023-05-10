@@ -8,15 +8,15 @@ part of smoke_test.config_service.model.evaluation_result;
 
 class _$EvaluationResult extends EvaluationResult {
   @override
-  final String? annotation;
+  final _i2.EvaluationResultIdentifier? evaluationResultIdentifier;
   @override
-  final _i2.ComplianceType? complianceType;
+  final _i3.ComplianceType? complianceType;
+  @override
+  final DateTime? resultRecordedTime;
   @override
   final DateTime? configRuleInvokedTime;
   @override
-  final _i3.EvaluationResultIdentifier? evaluationResultIdentifier;
-  @override
-  final DateTime? resultRecordedTime;
+  final String? annotation;
   @override
   final String? resultToken;
 
@@ -25,11 +25,11 @@ class _$EvaluationResult extends EvaluationResult {
       (new EvaluationResultBuilder()..update(updates))._build();
 
   _$EvaluationResult._(
-      {this.annotation,
+      {this.evaluationResultIdentifier,
       this.complianceType,
-      this.configRuleInvokedTime,
-      this.evaluationResultIdentifier,
       this.resultRecordedTime,
+      this.configRuleInvokedTime,
+      this.annotation,
       this.resultToken})
       : super._();
 
@@ -45,22 +45,22 @@ class _$EvaluationResult extends EvaluationResult {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is EvaluationResult &&
-        annotation == other.annotation &&
-        complianceType == other.complianceType &&
-        configRuleInvokedTime == other.configRuleInvokedTime &&
         evaluationResultIdentifier == other.evaluationResultIdentifier &&
+        complianceType == other.complianceType &&
         resultRecordedTime == other.resultRecordedTime &&
+        configRuleInvokedTime == other.configRuleInvokedTime &&
+        annotation == other.annotation &&
         resultToken == other.resultToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, annotation.hashCode);
-    _$hash = $jc(_$hash, complianceType.hashCode);
-    _$hash = $jc(_$hash, configRuleInvokedTime.hashCode);
     _$hash = $jc(_$hash, evaluationResultIdentifier.hashCode);
+    _$hash = $jc(_$hash, complianceType.hashCode);
     _$hash = $jc(_$hash, resultRecordedTime.hashCode);
+    _$hash = $jc(_$hash, configRuleInvokedTime.hashCode);
+    _$hash = $jc(_$hash, annotation.hashCode);
     _$hash = $jc(_$hash, resultToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -71,32 +71,32 @@ class EvaluationResultBuilder
     implements Builder<EvaluationResult, EvaluationResultBuilder> {
   _$EvaluationResult? _$v;
 
-  String? _annotation;
-  String? get annotation => _$this._annotation;
-  set annotation(String? annotation) => _$this._annotation = annotation;
+  _i2.EvaluationResultIdentifierBuilder? _evaluationResultIdentifier;
+  _i2.EvaluationResultIdentifierBuilder get evaluationResultIdentifier =>
+      _$this._evaluationResultIdentifier ??=
+          new _i2.EvaluationResultIdentifierBuilder();
+  set evaluationResultIdentifier(
+          _i2.EvaluationResultIdentifierBuilder? evaluationResultIdentifier) =>
+      _$this._evaluationResultIdentifier = evaluationResultIdentifier;
 
-  _i2.ComplianceType? _complianceType;
-  _i2.ComplianceType? get complianceType => _$this._complianceType;
-  set complianceType(_i2.ComplianceType? complianceType) =>
+  _i3.ComplianceType? _complianceType;
+  _i3.ComplianceType? get complianceType => _$this._complianceType;
+  set complianceType(_i3.ComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
+
+  DateTime? _resultRecordedTime;
+  DateTime? get resultRecordedTime => _$this._resultRecordedTime;
+  set resultRecordedTime(DateTime? resultRecordedTime) =>
+      _$this._resultRecordedTime = resultRecordedTime;
 
   DateTime? _configRuleInvokedTime;
   DateTime? get configRuleInvokedTime => _$this._configRuleInvokedTime;
   set configRuleInvokedTime(DateTime? configRuleInvokedTime) =>
       _$this._configRuleInvokedTime = configRuleInvokedTime;
 
-  _i3.EvaluationResultIdentifierBuilder? _evaluationResultIdentifier;
-  _i3.EvaluationResultIdentifierBuilder get evaluationResultIdentifier =>
-      _$this._evaluationResultIdentifier ??=
-          new _i3.EvaluationResultIdentifierBuilder();
-  set evaluationResultIdentifier(
-          _i3.EvaluationResultIdentifierBuilder? evaluationResultIdentifier) =>
-      _$this._evaluationResultIdentifier = evaluationResultIdentifier;
-
-  DateTime? _resultRecordedTime;
-  DateTime? get resultRecordedTime => _$this._resultRecordedTime;
-  set resultRecordedTime(DateTime? resultRecordedTime) =>
-      _$this._resultRecordedTime = resultRecordedTime;
+  String? _annotation;
+  String? get annotation => _$this._annotation;
+  set annotation(String? annotation) => _$this._annotation = annotation;
 
   String? _resultToken;
   String? get resultToken => _$this._resultToken;
@@ -109,11 +109,11 @@ class EvaluationResultBuilder
   EvaluationResultBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _annotation = $v.annotation;
-      _complianceType = $v.complianceType;
-      _configRuleInvokedTime = $v.configRuleInvokedTime;
       _evaluationResultIdentifier = $v.evaluationResultIdentifier?.toBuilder();
+      _complianceType = $v.complianceType;
       _resultRecordedTime = $v.resultRecordedTime;
+      _configRuleInvokedTime = $v.configRuleInvokedTime;
+      _annotation = $v.annotation;
       _resultToken = $v.resultToken;
       _$v = null;
     }
@@ -139,11 +139,11 @@ class EvaluationResultBuilder
     try {
       _$result = _$v ??
           new _$EvaluationResult._(
-              annotation: annotation,
-              complianceType: complianceType,
-              configRuleInvokedTime: configRuleInvokedTime,
               evaluationResultIdentifier: _evaluationResultIdentifier?.build(),
+              complianceType: complianceType,
               resultRecordedTime: resultRecordedTime,
+              configRuleInvokedTime: configRuleInvokedTime,
+              annotation: annotation,
               resultToken: resultToken);
     } catch (_) {
       late String _$failedField;

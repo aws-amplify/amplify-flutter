@@ -8,48 +8,48 @@ part of smoke_test.config_service.model.conformance_pack_status_detail;
 
 class _$ConformancePackStatusDetail extends ConformancePackStatusDetail {
   @override
-  final String conformancePackArn;
+  final String conformancePackName;
   @override
   final String conformancePackId;
   @override
-  final String conformancePackName;
+  final String conformancePackArn;
   @override
   final _i2.ConformancePackState conformancePackState;
   @override
-  final String? conformancePackStatusReason;
+  final String stackArn;
   @override
-  final DateTime? lastUpdateCompletedTime;
+  final String? conformancePackStatusReason;
   @override
   final DateTime lastUpdateRequestedTime;
   @override
-  final String stackArn;
+  final DateTime? lastUpdateCompletedTime;
 
   factory _$ConformancePackStatusDetail(
           [void Function(ConformancePackStatusDetailBuilder)? updates]) =>
       (new ConformancePackStatusDetailBuilder()..update(updates))._build();
 
   _$ConformancePackStatusDetail._(
-      {required this.conformancePackArn,
+      {required this.conformancePackName,
       required this.conformancePackId,
-      required this.conformancePackName,
+      required this.conformancePackArn,
       required this.conformancePackState,
+      required this.stackArn,
       this.conformancePackStatusReason,
-      this.lastUpdateCompletedTime,
       required this.lastUpdateRequestedTime,
-      required this.stackArn})
+      this.lastUpdateCompletedTime})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(conformancePackArn,
-        r'ConformancePackStatusDetail', 'conformancePackArn');
-    BuiltValueNullFieldError.checkNotNull(
-        conformancePackId, r'ConformancePackStatusDetail', 'conformancePackId');
     BuiltValueNullFieldError.checkNotNull(conformancePackName,
         r'ConformancePackStatusDetail', 'conformancePackName');
+    BuiltValueNullFieldError.checkNotNull(
+        conformancePackId, r'ConformancePackStatusDetail', 'conformancePackId');
+    BuiltValueNullFieldError.checkNotNull(conformancePackArn,
+        r'ConformancePackStatusDetail', 'conformancePackArn');
     BuiltValueNullFieldError.checkNotNull(conformancePackState,
         r'ConformancePackStatusDetail', 'conformancePackState');
-    BuiltValueNullFieldError.checkNotNull(lastUpdateRequestedTime,
-        r'ConformancePackStatusDetail', 'lastUpdateRequestedTime');
     BuiltValueNullFieldError.checkNotNull(
         stackArn, r'ConformancePackStatusDetail', 'stackArn');
+    BuiltValueNullFieldError.checkNotNull(lastUpdateRequestedTime,
+        r'ConformancePackStatusDetail', 'lastUpdateRequestedTime');
   }
 
   @override
@@ -65,27 +65,27 @@ class _$ConformancePackStatusDetail extends ConformancePackStatusDetail {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ConformancePackStatusDetail &&
-        conformancePackArn == other.conformancePackArn &&
-        conformancePackId == other.conformancePackId &&
         conformancePackName == other.conformancePackName &&
+        conformancePackId == other.conformancePackId &&
+        conformancePackArn == other.conformancePackArn &&
         conformancePackState == other.conformancePackState &&
+        stackArn == other.stackArn &&
         conformancePackStatusReason == other.conformancePackStatusReason &&
-        lastUpdateCompletedTime == other.lastUpdateCompletedTime &&
         lastUpdateRequestedTime == other.lastUpdateRequestedTime &&
-        stackArn == other.stackArn;
+        lastUpdateCompletedTime == other.lastUpdateCompletedTime;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, conformancePackArn.hashCode);
-    _$hash = $jc(_$hash, conformancePackId.hashCode);
     _$hash = $jc(_$hash, conformancePackName.hashCode);
+    _$hash = $jc(_$hash, conformancePackId.hashCode);
+    _$hash = $jc(_$hash, conformancePackArn.hashCode);
     _$hash = $jc(_$hash, conformancePackState.hashCode);
-    _$hash = $jc(_$hash, conformancePackStatusReason.hashCode);
-    _$hash = $jc(_$hash, lastUpdateCompletedTime.hashCode);
-    _$hash = $jc(_$hash, lastUpdateRequestedTime.hashCode);
     _$hash = $jc(_$hash, stackArn.hashCode);
+    _$hash = $jc(_$hash, conformancePackStatusReason.hashCode);
+    _$hash = $jc(_$hash, lastUpdateRequestedTime.hashCode);
+    _$hash = $jc(_$hash, lastUpdateCompletedTime.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -97,20 +97,20 @@ class ConformancePackStatusDetailBuilder
             ConformancePackStatusDetailBuilder> {
   _$ConformancePackStatusDetail? _$v;
 
-  String? _conformancePackArn;
-  String? get conformancePackArn => _$this._conformancePackArn;
-  set conformancePackArn(String? conformancePackArn) =>
-      _$this._conformancePackArn = conformancePackArn;
+  String? _conformancePackName;
+  String? get conformancePackName => _$this._conformancePackName;
+  set conformancePackName(String? conformancePackName) =>
+      _$this._conformancePackName = conformancePackName;
 
   String? _conformancePackId;
   String? get conformancePackId => _$this._conformancePackId;
   set conformancePackId(String? conformancePackId) =>
       _$this._conformancePackId = conformancePackId;
 
-  String? _conformancePackName;
-  String? get conformancePackName => _$this._conformancePackName;
-  set conformancePackName(String? conformancePackName) =>
-      _$this._conformancePackName = conformancePackName;
+  String? _conformancePackArn;
+  String? get conformancePackArn => _$this._conformancePackArn;
+  set conformancePackArn(String? conformancePackArn) =>
+      _$this._conformancePackArn = conformancePackArn;
 
   _i2.ConformancePackState? _conformancePackState;
   _i2.ConformancePackState? get conformancePackState =>
@@ -118,25 +118,25 @@ class ConformancePackStatusDetailBuilder
   set conformancePackState(_i2.ConformancePackState? conformancePackState) =>
       _$this._conformancePackState = conformancePackState;
 
+  String? _stackArn;
+  String? get stackArn => _$this._stackArn;
+  set stackArn(String? stackArn) => _$this._stackArn = stackArn;
+
   String? _conformancePackStatusReason;
   String? get conformancePackStatusReason =>
       _$this._conformancePackStatusReason;
   set conformancePackStatusReason(String? conformancePackStatusReason) =>
       _$this._conformancePackStatusReason = conformancePackStatusReason;
 
-  DateTime? _lastUpdateCompletedTime;
-  DateTime? get lastUpdateCompletedTime => _$this._lastUpdateCompletedTime;
-  set lastUpdateCompletedTime(DateTime? lastUpdateCompletedTime) =>
-      _$this._lastUpdateCompletedTime = lastUpdateCompletedTime;
-
   DateTime? _lastUpdateRequestedTime;
   DateTime? get lastUpdateRequestedTime => _$this._lastUpdateRequestedTime;
   set lastUpdateRequestedTime(DateTime? lastUpdateRequestedTime) =>
       _$this._lastUpdateRequestedTime = lastUpdateRequestedTime;
 
-  String? _stackArn;
-  String? get stackArn => _$this._stackArn;
-  set stackArn(String? stackArn) => _$this._stackArn = stackArn;
+  DateTime? _lastUpdateCompletedTime;
+  DateTime? get lastUpdateCompletedTime => _$this._lastUpdateCompletedTime;
+  set lastUpdateCompletedTime(DateTime? lastUpdateCompletedTime) =>
+      _$this._lastUpdateCompletedTime = lastUpdateCompletedTime;
 
   ConformancePackStatusDetailBuilder() {
     ConformancePackStatusDetail._init(this);
@@ -145,14 +145,14 @@ class ConformancePackStatusDetailBuilder
   ConformancePackStatusDetailBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _conformancePackArn = $v.conformancePackArn;
-      _conformancePackId = $v.conformancePackId;
       _conformancePackName = $v.conformancePackName;
+      _conformancePackId = $v.conformancePackId;
+      _conformancePackArn = $v.conformancePackArn;
       _conformancePackState = $v.conformancePackState;
-      _conformancePackStatusReason = $v.conformancePackStatusReason;
-      _lastUpdateCompletedTime = $v.lastUpdateCompletedTime;
-      _lastUpdateRequestedTime = $v.lastUpdateRequestedTime;
       _stackArn = $v.stackArn;
+      _conformancePackStatusReason = $v.conformancePackStatusReason;
+      _lastUpdateRequestedTime = $v.lastUpdateRequestedTime;
+      _lastUpdateCompletedTime = $v.lastUpdateCompletedTime;
       _$v = null;
     }
     return this;
@@ -175,24 +175,24 @@ class ConformancePackStatusDetailBuilder
   _$ConformancePackStatusDetail _build() {
     final _$result = _$v ??
         new _$ConformancePackStatusDetail._(
-            conformancePackArn: BuiltValueNullFieldError.checkNotNull(
-                conformancePackArn, r'ConformancePackStatusDetail', 'conformancePackArn'),
-            conformancePackId: BuiltValueNullFieldError.checkNotNull(
-                conformancePackId, r'ConformancePackStatusDetail', 'conformancePackId'),
             conformancePackName: BuiltValueNullFieldError.checkNotNull(
                 conformancePackName, r'ConformancePackStatusDetail', 'conformancePackName'),
+            conformancePackId: BuiltValueNullFieldError.checkNotNull(
+                conformancePackId, r'ConformancePackStatusDetail', 'conformancePackId'),
+            conformancePackArn: BuiltValueNullFieldError.checkNotNull(
+                conformancePackArn, r'ConformancePackStatusDetail', 'conformancePackArn'),
             conformancePackState: BuiltValueNullFieldError.checkNotNull(
                 conformancePackState,
                 r'ConformancePackStatusDetail',
                 'conformancePackState'),
+            stackArn: BuiltValueNullFieldError.checkNotNull(
+                stackArn, r'ConformancePackStatusDetail', 'stackArn'),
             conformancePackStatusReason: conformancePackStatusReason,
-            lastUpdateCompletedTime: lastUpdateCompletedTime,
             lastUpdateRequestedTime: BuiltValueNullFieldError.checkNotNull(
                 lastUpdateRequestedTime,
                 r'ConformancePackStatusDetail',
                 'lastUpdateRequestedTime'),
-            stackArn: BuiltValueNullFieldError.checkNotNull(
-                stackArn, r'ConformancePackStatusDetail', 'stackArn'));
+            lastUpdateCompletedTime: lastUpdateCompletedTime);
     replace(_$result);
     return _$result;
   }

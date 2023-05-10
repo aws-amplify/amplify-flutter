@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.documentation_part_ids; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -100,29 +101,26 @@ class DocumentationPartIdsRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ids':
-          if (value != null) {
-            result.ids.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.ids.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
         case 'warnings':
-          if (value != null) {
-            result.warnings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.warnings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -132,33 +130,33 @@ class DocumentationPartIdsRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DocumentationPartIds object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DocumentationPartIds);
-    final result = <Object?>[];
-    if (payload.ids != null) {
-      result
+    final result$ = <Object?>[];
+    final DocumentationPartIds(:ids, :warnings) = object;
+    if (ids != null) {
+      result$
         ..add('ids')
         ..add(serializers.serialize(
-          payload.ids!,
+          ids,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.warnings != null) {
-      result
+    if (warnings != null) {
+      result$
         ..add('warnings')
         ..add(serializers.serialize(
-          payload.warnings!,
+          warnings,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

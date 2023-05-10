@@ -11,10 +11,10 @@ class _$GlobalTableGlobalSecondaryIndexSettingsUpdate
   @override
   final String indexName;
   @override
-  final _i2.AutoScalingSettingsUpdate?
-      provisionedWriteCapacityAutoScalingSettingsUpdate;
+  final _i2.Int64? provisionedWriteCapacityUnits;
   @override
-  final _i3.Int64? provisionedWriteCapacityUnits;
+  final _i3.AutoScalingSettingsUpdate?
+      provisionedWriteCapacityAutoScalingSettingsUpdate;
 
   factory _$GlobalTableGlobalSecondaryIndexSettingsUpdate(
           [void Function(GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder)?
@@ -25,8 +25,8 @@ class _$GlobalTableGlobalSecondaryIndexSettingsUpdate
 
   _$GlobalTableGlobalSecondaryIndexSettingsUpdate._(
       {required this.indexName,
-      this.provisionedWriteCapacityAutoScalingSettingsUpdate,
-      this.provisionedWriteCapacityUnits})
+      this.provisionedWriteCapacityUnits,
+      this.provisionedWriteCapacityAutoScalingSettingsUpdate})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(indexName,
         r'GlobalTableGlobalSecondaryIndexSettingsUpdate', 'indexName');
@@ -47,18 +47,18 @@ class _$GlobalTableGlobalSecondaryIndexSettingsUpdate
     if (identical(other, this)) return true;
     return other is GlobalTableGlobalSecondaryIndexSettingsUpdate &&
         indexName == other.indexName &&
+        provisionedWriteCapacityUnits == other.provisionedWriteCapacityUnits &&
         provisionedWriteCapacityAutoScalingSettingsUpdate ==
-            other.provisionedWriteCapacityAutoScalingSettingsUpdate &&
-        provisionedWriteCapacityUnits == other.provisionedWriteCapacityUnits;
+            other.provisionedWriteCapacityAutoScalingSettingsUpdate;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, indexName.hashCode);
+    _$hash = $jc(_$hash, provisionedWriteCapacityUnits.hashCode);
     _$hash =
         $jc(_$hash, provisionedWriteCapacityAutoScalingSettingsUpdate.hashCode);
-    _$hash = $jc(_$hash, provisionedWriteCapacityUnits.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -74,23 +74,23 @@ class GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i2.AutoScalingSettingsUpdateBuilder?
+  _i2.Int64? _provisionedWriteCapacityUnits;
+  _i2.Int64? get provisionedWriteCapacityUnits =>
+      _$this._provisionedWriteCapacityUnits;
+  set provisionedWriteCapacityUnits(_i2.Int64? provisionedWriteCapacityUnits) =>
+      _$this._provisionedWriteCapacityUnits = provisionedWriteCapacityUnits;
+
+  _i3.AutoScalingSettingsUpdateBuilder?
       _provisionedWriteCapacityAutoScalingSettingsUpdate;
-  _i2.AutoScalingSettingsUpdateBuilder
+  _i3.AutoScalingSettingsUpdateBuilder
       get provisionedWriteCapacityAutoScalingSettingsUpdate =>
           _$this._provisionedWriteCapacityAutoScalingSettingsUpdate ??=
-              new _i2.AutoScalingSettingsUpdateBuilder();
+              new _i3.AutoScalingSettingsUpdateBuilder();
   set provisionedWriteCapacityAutoScalingSettingsUpdate(
-          _i2.AutoScalingSettingsUpdateBuilder?
+          _i3.AutoScalingSettingsUpdateBuilder?
               provisionedWriteCapacityAutoScalingSettingsUpdate) =>
       _$this._provisionedWriteCapacityAutoScalingSettingsUpdate =
           provisionedWriteCapacityAutoScalingSettingsUpdate;
-
-  _i3.Int64? _provisionedWriteCapacityUnits;
-  _i3.Int64? get provisionedWriteCapacityUnits =>
-      _$this._provisionedWriteCapacityUnits;
-  set provisionedWriteCapacityUnits(_i3.Int64? provisionedWriteCapacityUnits) =>
-      _$this._provisionedWriteCapacityUnits = provisionedWriteCapacityUnits;
 
   GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder() {
     GlobalTableGlobalSecondaryIndexSettingsUpdate._init(this);
@@ -100,9 +100,9 @@ class GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder
     final $v = _$v;
     if ($v != null) {
       _indexName = $v.indexName;
+      _provisionedWriteCapacityUnits = $v.provisionedWriteCapacityUnits;
       _provisionedWriteCapacityAutoScalingSettingsUpdate =
           $v.provisionedWriteCapacityAutoScalingSettingsUpdate?.toBuilder();
-      _provisionedWriteCapacityUnits = $v.provisionedWriteCapacityUnits;
       _$v = null;
     }
     return this;
@@ -133,9 +133,9 @@ class GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder
                   indexName,
                   r'GlobalTableGlobalSecondaryIndexSettingsUpdate',
                   'indexName'),
+              provisionedWriteCapacityUnits: provisionedWriteCapacityUnits,
               provisionedWriteCapacityAutoScalingSettingsUpdate:
-                  _provisionedWriteCapacityAutoScalingSettingsUpdate?.build(),
-              provisionedWriteCapacityUnits: provisionedWriteCapacityUnits);
+                  _provisionedWriteCapacityAutoScalingSettingsUpdate?.build());
     } catch (_) {
       late String _$failedField;
       try {

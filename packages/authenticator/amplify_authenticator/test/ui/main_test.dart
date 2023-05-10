@@ -119,9 +119,7 @@ void main() {
   });
 
   group('UI Tests', () {
-    setUp(() {
-      binding.window.platformDispatcher.clearPlatformBrightnessTestValue();
-    });
+    setUp(binding.platformDispatcher.clearPlatformBrightnessTestValue);
 
     // Tests the layout for each config/step/geometry.
     group('layout', () {
@@ -144,7 +142,10 @@ void main() {
           final testName = 'layout_${configName}_${stepName}_$geometryName';
 
           setUp(() {
+            // TODO(Jordan-Nelson): Migrate to WidgetTester
+            // ignore: deprecated_member_use
             binding.window.devicePixelRatioTestValue = geometry.pixelRatio;
+            // ignore: deprecated_member_use
             binding.window.physicalSizeTestValue = geometry.size;
           });
 
@@ -186,9 +187,12 @@ void main() {
               'theme_${configName}_${stepName}_${themeName}_${brightnessName}_$geometryName';
 
           setUp(() {
-            binding.window.platformDispatcher.platformBrightnessTestValue =
-                brightness;
+            binding.platformDispatcher.platformBrightnessTestValue = brightness;
+
+            // TODO(Jordan-Nelson): Migrate to WidgetTester
+            // ignore: deprecated_member_use
             binding.window.devicePixelRatioTestValue = geometry.pixelRatio;
+            // ignore: deprecated_member_use
             binding.window.physicalSizeTestValue = geometry.size;
           });
 

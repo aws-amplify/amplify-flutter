@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.describe_stream_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,14 +18,14 @@ abstract class DescribeStreamInput
     implements Built<DescribeStreamInput, DescribeStreamInputBuilder> {
   /// Represents the input of a `DescribeStream` operation.
   factory DescribeStreamInput({
-    String? exclusiveStartShardId,
-    int? limit,
     required String streamArn,
+    int? limit,
+    String? exclusiveStartShardId,
   }) {
     return _$DescribeStreamInput._(
-      exclusiveStartShardId: exclusiveStartShardId,
-      limit: limit,
       streamArn: streamArn,
+      limit: limit,
+      exclusiveStartShardId: exclusiveStartShardId,
     );
   }
 
@@ -49,36 +50,36 @@ abstract class DescribeStreamInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeStreamInputBuilder b) {}
 
-  /// The shard ID of the first item that this operation will evaluate. Use the value that was returned for `LastEvaluatedShardId` in the previous operation.
-  String? get exclusiveStartShardId;
+  /// The Amazon Resource Name (ARN) for the stream.
+  String get streamArn;
 
   /// The maximum number of shard objects to return. The upper limit is 100.
   int? get limit;
 
-  /// The Amazon Resource Name (ARN) for the stream.
-  String get streamArn;
+  /// The shard ID of the first item that this operation will evaluate. Use the value that was returned for `LastEvaluatedShardId` in the previous operation.
+  String? get exclusiveStartShardId;
   @override
   DescribeStreamInput getPayload() => this;
   @override
   List<Object?> get props => [
-        exclusiveStartShardId,
-        limit,
         streamArn,
+        limit,
+        exclusiveStartShardId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DescribeStreamInput');
     helper.add(
-      'exclusiveStartShardId',
-      exclusiveStartShardId,
+      'streamArn',
+      streamArn,
     );
     helper.add(
       'limit',
       limit,
     );
     helper.add(
-      'streamArn',
-      streamArn,
+      'exclusiveStartShardId',
+      exclusiveStartShardId,
     );
     return helper.toString();
   }
@@ -112,29 +113,25 @@ class DescribeStreamInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ExclusiveStartShardId':
-          if (value != null) {
-            result.exclusiveStartShardId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'StreamArn':
           result.streamArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'Limit':
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'ExclusiveStartShardId':
+          result.exclusiveStartShardId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -144,33 +141,35 @@ class DescribeStreamInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeStreamInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeStreamInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DescribeStreamInput(:streamArn, :limit, :exclusiveStartShardId) =
+        object;
+    result$.addAll([
       'StreamArn',
       serializers.serialize(
-        payload.streamArn,
+        streamArn,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.exclusiveStartShardId != null) {
-      result
-        ..add('ExclusiveStartShardId')
-        ..add(serializers.serialize(
-          payload.exclusiveStartShardId!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.limit != null) {
-      result
+    ]);
+    if (limit != null) {
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    if (exclusiveStartShardId != null) {
+      result$
+        ..add('ExclusiveStartShardId')
+        ..add(serializers.serialize(
+          exclusiveStartShardId,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.relationship; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,16 +18,16 @@ abstract class Relationship
     implements Built<Relationship, RelationshipBuilder> {
   /// The relationship of the related resource to the main resource.
   factory Relationship({
-    String? relationshipName,
+    _i2.ResourceType? resourceType,
     String? resourceId,
     String? resourceName,
-    _i2.ResourceType? resourceType,
+    String? relationshipName,
   }) {
     return _$Relationship._(
-      relationshipName: relationshipName,
+      resourceType: resourceType,
       resourceId: resourceId,
       resourceName: resourceName,
-      resourceType: resourceType,
+      relationshipName: relationshipName,
     );
   }
 
@@ -43,8 +44,8 @@ abstract class Relationship
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RelationshipBuilder b) {}
 
-  /// The type of relationship with the related resource.
-  String? get relationshipName;
+  /// The resource type of the related resource.
+  _i2.ResourceType? get resourceType;
 
   /// The ID of the related resource (for example, `sg-xxxxxx`).
   String? get resourceId;
@@ -52,21 +53,21 @@ abstract class Relationship
   /// The custom name of the related resource, if available.
   String? get resourceName;
 
-  /// The resource type of the related resource.
-  _i2.ResourceType? get resourceType;
+  /// The type of relationship with the related resource.
+  String? get relationshipName;
   @override
   List<Object?> get props => [
-        relationshipName,
+        resourceType,
         resourceId,
         resourceName,
-        resourceType,
+        relationshipName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Relationship');
     helper.add(
-      'relationshipName',
-      relationshipName,
+      'resourceType',
+      resourceType,
     );
     helper.add(
       'resourceId',
@@ -77,8 +78,8 @@ abstract class Relationship
       resourceName,
     );
     helper.add(
-      'resourceType',
-      resourceType,
+      'relationshipName',
+      relationshipName,
     );
     return helper.toString();
   }
@@ -112,39 +113,30 @@ class RelationshipAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'relationshipName':
-          if (value != null) {
-            result.relationshipName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'resourceId':
-          if (value != null) {
-            result.resourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'resourceName':
-          if (value != null) {
-            result.resourceName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'resourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ResourceType),
-            ) as _i2.ResourceType);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ResourceType),
+          ) as _i2.ResourceType);
+        case 'resourceId':
+          result.resourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'resourceName':
+          result.resourceName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'relationshipName':
+          result.relationshipName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -154,43 +146,48 @@ class RelationshipAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Relationship object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Relationship);
-    final result = <Object?>[];
-    if (payload.relationshipName != null) {
-      result
-        ..add('relationshipName')
-        ..add(serializers.serialize(
-          payload.relationshipName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceId != null) {
-      result
-        ..add('resourceId')
-        ..add(serializers.serialize(
-          payload.resourceId!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceName != null) {
-      result
-        ..add('resourceName')
-        ..add(serializers.serialize(
-          payload.resourceName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceType != null) {
-      result
+    final result$ = <Object?>[];
+    final Relationship(
+      :resourceType,
+      :resourceId,
+      :resourceName,
+      :relationshipName
+    ) = object;
+    if (resourceType != null) {
+      result$
         ..add('resourceType')
         ..add(serializers.serialize(
-          payload.resourceType!,
+          resourceType,
           specifiedType: const FullType(_i2.ResourceType),
         ));
     }
-    return result;
+    if (resourceId != null) {
+      result$
+        ..add('resourceId')
+        ..add(serializers.serialize(
+          resourceId,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (resourceName != null) {
+      result$
+        ..add('resourceName')
+        ..add(serializers.serialize(
+          resourceName,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (relationshipName != null) {
+      result$
+        ..add('relationshipName')
+        ..add(serializers.serialize(
+          relationshipName,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

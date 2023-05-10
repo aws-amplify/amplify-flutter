@@ -9,33 +9,33 @@ part of smoke_test.config_service.model.conformance_pack_evaluation_result;
 class _$ConformancePackEvaluationResult
     extends ConformancePackEvaluationResult {
   @override
-  final String? annotation;
-  @override
   final _i2.ConformancePackComplianceType complianceType;
-  @override
-  final DateTime configRuleInvokedTime;
   @override
   final _i3.EvaluationResultIdentifier evaluationResultIdentifier;
   @override
+  final DateTime configRuleInvokedTime;
+  @override
   final DateTime resultRecordedTime;
+  @override
+  final String? annotation;
 
   factory _$ConformancePackEvaluationResult(
           [void Function(ConformancePackEvaluationResultBuilder)? updates]) =>
       (new ConformancePackEvaluationResultBuilder()..update(updates))._build();
 
   _$ConformancePackEvaluationResult._(
-      {this.annotation,
-      required this.complianceType,
-      required this.configRuleInvokedTime,
+      {required this.complianceType,
       required this.evaluationResultIdentifier,
-      required this.resultRecordedTime})
+      required this.configRuleInvokedTime,
+      required this.resultRecordedTime,
+      this.annotation})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         complianceType, r'ConformancePackEvaluationResult', 'complianceType');
-    BuiltValueNullFieldError.checkNotNull(configRuleInvokedTime,
-        r'ConformancePackEvaluationResult', 'configRuleInvokedTime');
     BuiltValueNullFieldError.checkNotNull(evaluationResultIdentifier,
         r'ConformancePackEvaluationResult', 'evaluationResultIdentifier');
+    BuiltValueNullFieldError.checkNotNull(configRuleInvokedTime,
+        r'ConformancePackEvaluationResult', 'configRuleInvokedTime');
     BuiltValueNullFieldError.checkNotNull(resultRecordedTime,
         r'ConformancePackEvaluationResult', 'resultRecordedTime');
   }
@@ -53,21 +53,21 @@ class _$ConformancePackEvaluationResult
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ConformancePackEvaluationResult &&
-        annotation == other.annotation &&
         complianceType == other.complianceType &&
-        configRuleInvokedTime == other.configRuleInvokedTime &&
         evaluationResultIdentifier == other.evaluationResultIdentifier &&
-        resultRecordedTime == other.resultRecordedTime;
+        configRuleInvokedTime == other.configRuleInvokedTime &&
+        resultRecordedTime == other.resultRecordedTime &&
+        annotation == other.annotation;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, annotation.hashCode);
     _$hash = $jc(_$hash, complianceType.hashCode);
-    _$hash = $jc(_$hash, configRuleInvokedTime.hashCode);
     _$hash = $jc(_$hash, evaluationResultIdentifier.hashCode);
+    _$hash = $jc(_$hash, configRuleInvokedTime.hashCode);
     _$hash = $jc(_$hash, resultRecordedTime.hashCode);
+    _$hash = $jc(_$hash, annotation.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -79,20 +79,11 @@ class ConformancePackEvaluationResultBuilder
             ConformancePackEvaluationResultBuilder> {
   _$ConformancePackEvaluationResult? _$v;
 
-  String? _annotation;
-  String? get annotation => _$this._annotation;
-  set annotation(String? annotation) => _$this._annotation = annotation;
-
   _i2.ConformancePackComplianceType? _complianceType;
   _i2.ConformancePackComplianceType? get complianceType =>
       _$this._complianceType;
   set complianceType(_i2.ConformancePackComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
-
-  DateTime? _configRuleInvokedTime;
-  DateTime? get configRuleInvokedTime => _$this._configRuleInvokedTime;
-  set configRuleInvokedTime(DateTime? configRuleInvokedTime) =>
-      _$this._configRuleInvokedTime = configRuleInvokedTime;
 
   _i3.EvaluationResultIdentifierBuilder? _evaluationResultIdentifier;
   _i3.EvaluationResultIdentifierBuilder get evaluationResultIdentifier =>
@@ -102,10 +93,19 @@ class ConformancePackEvaluationResultBuilder
           _i3.EvaluationResultIdentifierBuilder? evaluationResultIdentifier) =>
       _$this._evaluationResultIdentifier = evaluationResultIdentifier;
 
+  DateTime? _configRuleInvokedTime;
+  DateTime? get configRuleInvokedTime => _$this._configRuleInvokedTime;
+  set configRuleInvokedTime(DateTime? configRuleInvokedTime) =>
+      _$this._configRuleInvokedTime = configRuleInvokedTime;
+
   DateTime? _resultRecordedTime;
   DateTime? get resultRecordedTime => _$this._resultRecordedTime;
   set resultRecordedTime(DateTime? resultRecordedTime) =>
       _$this._resultRecordedTime = resultRecordedTime;
+
+  String? _annotation;
+  String? get annotation => _$this._annotation;
+  set annotation(String? annotation) => _$this._annotation = annotation;
 
   ConformancePackEvaluationResultBuilder() {
     ConformancePackEvaluationResult._init(this);
@@ -114,11 +114,11 @@ class ConformancePackEvaluationResultBuilder
   ConformancePackEvaluationResultBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _annotation = $v.annotation;
       _complianceType = $v.complianceType;
-      _configRuleInvokedTime = $v.configRuleInvokedTime;
       _evaluationResultIdentifier = $v.evaluationResultIdentifier.toBuilder();
+      _configRuleInvokedTime = $v.configRuleInvokedTime;
       _resultRecordedTime = $v.resultRecordedTime;
+      _annotation = $v.annotation;
       _$v = null;
     }
     return this;
@@ -143,20 +143,20 @@ class ConformancePackEvaluationResultBuilder
     try {
       _$result = _$v ??
           new _$ConformancePackEvaluationResult._(
-              annotation: annotation,
               complianceType: BuiltValueNullFieldError.checkNotNull(
                   complianceType,
                   r'ConformancePackEvaluationResult',
                   'complianceType'),
+              evaluationResultIdentifier: evaluationResultIdentifier.build(),
               configRuleInvokedTime: BuiltValueNullFieldError.checkNotNull(
                   configRuleInvokedTime,
                   r'ConformancePackEvaluationResult',
                   'configRuleInvokedTime'),
-              evaluationResultIdentifier: evaluationResultIdentifier.build(),
               resultRecordedTime: BuiltValueNullFieldError.checkNotNull(
                   resultRecordedTime,
                   r'ConformancePackEvaluationResult',
-                  'resultRecordedTime'));
+                  'resultRecordedTime'),
+              annotation: annotation);
     } catch (_) {
       late String _$failedField;
       try {

@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.delete_base_path_mapping_request;
 
 class _$DeleteBasePathMappingRequest extends DeleteBasePathMappingRequest {
   @override
-  final String basePath;
-  @override
   final String domainName;
+  @override
+  final String basePath;
 
   factory _$DeleteBasePathMappingRequest(
           [void Function(DeleteBasePathMappingRequestBuilder)? updates]) =>
       (new DeleteBasePathMappingRequestBuilder()..update(updates))._build();
 
   _$DeleteBasePathMappingRequest._(
-      {required this.basePath, required this.domainName})
+      {required this.domainName, required this.basePath})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        basePath, r'DeleteBasePathMappingRequest', 'basePath');
-    BuiltValueNullFieldError.checkNotNull(
         domainName, r'DeleteBasePathMappingRequest', 'domainName');
+    BuiltValueNullFieldError.checkNotNull(
+        basePath, r'DeleteBasePathMappingRequest', 'basePath');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$DeleteBasePathMappingRequest extends DeleteBasePathMappingRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DeleteBasePathMappingRequest &&
-        basePath == other.basePath &&
-        domainName == other.domainName;
+        domainName == other.domainName &&
+        basePath == other.basePath;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, basePath.hashCode);
     _$hash = $jc(_$hash, domainName.hashCode);
+    _$hash = $jc(_$hash, basePath.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,13 +58,13 @@ class DeleteBasePathMappingRequestBuilder
             DeleteBasePathMappingRequestBuilder> {
   _$DeleteBasePathMappingRequest? _$v;
 
-  String? _basePath;
-  String? get basePath => _$this._basePath;
-  set basePath(String? basePath) => _$this._basePath = basePath;
-
   String? _domainName;
   String? get domainName => _$this._domainName;
   set domainName(String? domainName) => _$this._domainName = domainName;
+
+  String? _basePath;
+  String? get basePath => _$this._basePath;
+  set basePath(String? basePath) => _$this._basePath = basePath;
 
   DeleteBasePathMappingRequestBuilder() {
     DeleteBasePathMappingRequest._init(this);
@@ -73,8 +73,8 @@ class DeleteBasePathMappingRequestBuilder
   DeleteBasePathMappingRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _basePath = $v.basePath;
       _domainName = $v.domainName;
+      _basePath = $v.basePath;
       _$v = null;
     }
     return this;
@@ -97,10 +97,10 @@ class DeleteBasePathMappingRequestBuilder
   _$DeleteBasePathMappingRequest _build() {
     final _$result = _$v ??
         new _$DeleteBasePathMappingRequest._(
-            basePath: BuiltValueNullFieldError.checkNotNull(
-                basePath, r'DeleteBasePathMappingRequest', 'basePath'),
             domainName: BuiltValueNullFieldError.checkNotNull(
-                domainName, r'DeleteBasePathMappingRequest', 'domainName'));
+                domainName, r'DeleteBasePathMappingRequest', 'domainName'),
+            basePath: BuiltValueNullFieldError.checkNotNull(
+                basePath, r'DeleteBasePathMappingRequest', 'basePath'));
     replace(_$result);
     return _$result;
   }

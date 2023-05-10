@@ -9,16 +9,16 @@ part of smoke_test.config_service.model.compliance_summary_by_resource_type;
 class _$ComplianceSummaryByResourceType
     extends ComplianceSummaryByResourceType {
   @override
-  final _i2.ComplianceSummary? complianceSummary;
-  @override
   final String? resourceType;
+  @override
+  final _i2.ComplianceSummary? complianceSummary;
 
   factory _$ComplianceSummaryByResourceType(
           [void Function(ComplianceSummaryByResourceTypeBuilder)? updates]) =>
       (new ComplianceSummaryByResourceTypeBuilder()..update(updates))._build();
 
   _$ComplianceSummaryByResourceType._(
-      {this.complianceSummary, this.resourceType})
+      {this.resourceType, this.complianceSummary})
       : super._();
 
   @override
@@ -34,15 +34,15 @@ class _$ComplianceSummaryByResourceType
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ComplianceSummaryByResourceType &&
-        complianceSummary == other.complianceSummary &&
-        resourceType == other.resourceType;
+        resourceType == other.resourceType &&
+        complianceSummary == other.complianceSummary;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, complianceSummary.hashCode);
     _$hash = $jc(_$hash, resourceType.hashCode);
+    _$hash = $jc(_$hash, complianceSummary.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,15 +54,15 @@ class ComplianceSummaryByResourceTypeBuilder
             ComplianceSummaryByResourceTypeBuilder> {
   _$ComplianceSummaryByResourceType? _$v;
 
+  String? _resourceType;
+  String? get resourceType => _$this._resourceType;
+  set resourceType(String? resourceType) => _$this._resourceType = resourceType;
+
   _i2.ComplianceSummaryBuilder? _complianceSummary;
   _i2.ComplianceSummaryBuilder get complianceSummary =>
       _$this._complianceSummary ??= new _i2.ComplianceSummaryBuilder();
   set complianceSummary(_i2.ComplianceSummaryBuilder? complianceSummary) =>
       _$this._complianceSummary = complianceSummary;
-
-  String? _resourceType;
-  String? get resourceType => _$this._resourceType;
-  set resourceType(String? resourceType) => _$this._resourceType = resourceType;
 
   ComplianceSummaryByResourceTypeBuilder() {
     ComplianceSummaryByResourceType._init(this);
@@ -71,8 +71,8 @@ class ComplianceSummaryByResourceTypeBuilder
   ComplianceSummaryByResourceTypeBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _complianceSummary = $v.complianceSummary?.toBuilder();
       _resourceType = $v.resourceType;
+      _complianceSummary = $v.complianceSummary?.toBuilder();
       _$v = null;
     }
     return this;
@@ -97,8 +97,8 @@ class ComplianceSummaryByResourceTypeBuilder
     try {
       _$result = _$v ??
           new _$ComplianceSummaryByResourceType._(
-              complianceSummary: _complianceSummary?.build(),
-              resourceType: resourceType);
+              resourceType: resourceType,
+              complianceSummary: _complianceSummary?.build());
     } catch (_) {
       late String _$failedField;
       try {

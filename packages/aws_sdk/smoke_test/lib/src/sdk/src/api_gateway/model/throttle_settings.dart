@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.throttle_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -90,23 +91,20 @@ class ThrottleSettingsRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'burstLimit':
-          if (value != null) {
-            result.burstLimit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.burstLimit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'rateLimit':
-          if (value != null) {
-            result.rateLimit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.rateLimit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
       }
     }
 
@@ -116,27 +114,27 @@ class ThrottleSettingsRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ThrottleSettings object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ThrottleSettings);
-    final result = <Object?>[];
-    if (payload.burstLimit != null) {
-      result
+    final result$ = <Object?>[];
+    final ThrottleSettings(:burstLimit, :rateLimit) = object;
+    if (burstLimit != null) {
+      result$
         ..add('burstLimit')
         ..add(serializers.serialize(
-          payload.burstLimit!,
+          burstLimit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.rateLimit != null) {
-      result
+    if (rateLimit != null) {
+      result$
         ..add('rateLimit')
         ..add(serializers.serialize(
-          payload.rateLimit!,
+          rateLimit,
           specifiedType: const FullType(double),
         ));
     }
-    return result;
+    return result$;
   }
 }

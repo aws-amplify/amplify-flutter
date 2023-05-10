@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.csv_options; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -91,26 +92,23 @@ class CsvOptionsAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Delimiter':
-          if (value != null) {
-            result.delimiter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.delimiter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'HeaderList':
-          if (value != null) {
-            result.headerList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.headerList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -120,30 +118,30 @@ class CsvOptionsAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CsvOptions object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CsvOptions);
-    final result = <Object?>[];
-    if (payload.delimiter != null) {
-      result
+    final result$ = <Object?>[];
+    final CsvOptions(:delimiter, :headerList) = object;
+    if (delimiter != null) {
+      result$
         ..add('Delimiter')
         ..add(serializers.serialize(
-          payload.delimiter!,
+          delimiter,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.headerList != null) {
-      result
+    if (headerList != null) {
+      result$
         ..add('HeaderList')
         ..add(serializers.serialize(
-          payload.headerList!,
+          headerList,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

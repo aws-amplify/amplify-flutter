@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_evaluations_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -86,18 +87,18 @@ class PutEvaluationsResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'FailedEvaluations':
-          if (value != null) {
-            result.failedEvaluations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.Evaluation)],
-              ),
-            ) as _i3.BuiltList<_i2.Evaluation>));
-          }
-          break;
+          result.failedEvaluations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.Evaluation)],
+            ),
+          ) as _i3.BuiltList<_i2.Evaluation>));
       }
     }
 
@@ -107,22 +108,22 @@ class PutEvaluationsResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutEvaluationsResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutEvaluationsResponse);
-    final result = <Object?>[];
-    if (payload.failedEvaluations != null) {
-      result
+    final result$ = <Object?>[];
+    final PutEvaluationsResponse(:failedEvaluations) = object;
+    if (failedEvaluations != null) {
+      result$
         ..add('FailedEvaluations')
         ..add(serializers.serialize(
-          payload.failedEvaluations!,
+          failedEvaluations,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.Evaluation)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

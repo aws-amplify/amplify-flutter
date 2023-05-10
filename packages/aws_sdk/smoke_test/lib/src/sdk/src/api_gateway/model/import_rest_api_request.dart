@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.import_rest_api_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,14 +21,14 @@ abstract class ImportRestApiRequest
         _i1.HasPayload<_i2.Uint8List> {
   /// A POST request to import an API to API Gateway using an input of an API definition file.
   factory ImportRestApiRequest({
-    required _i2.Uint8List body,
     bool? failOnWarnings,
     Map<String, String>? parameters,
+    required _i2.Uint8List body,
   }) {
     return _$ImportRestApiRequest._(
-      body: body,
       failOnWarnings: failOnWarnings,
       parameters: parameters == null ? null : _i4.BuiltMap(parameters),
+      body: body,
     );
   }
 
@@ -58,9 +59,6 @@ abstract class ImportRestApiRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ImportRestApiRequestBuilder b) {}
 
-  /// The POST request body containing external API definitions. Currently, only OpenAPI definition JSON/YAML files are supported. The maximum size of the API definition file is 6MB.
-  _i2.Uint8List get body;
-
   /// A query parameter to indicate whether to rollback the API creation (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
   bool? get failOnWarnings;
 
@@ -76,21 +74,20 @@ abstract class ImportRestApiRequest
   ///
   /// The AWS CLI command to set the regional endpoint on the imported API is:
   _i4.BuiltMap<String, String>? get parameters;
+
+  /// The POST request body containing external API definitions. Currently, only OpenAPI definition JSON/YAML files are supported. The maximum size of the API definition file is 6MB.
+  _i2.Uint8List get body;
   @override
   _i2.Uint8List getPayload() => body;
   @override
   List<Object?> get props => [
-        body,
         failOnWarnings,
         parameters,
+        body,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ImportRestApiRequest');
-    helper.add(
-      'body',
-      body,
-    );
     helper.add(
       'failOnWarnings',
       failOnWarnings,
@@ -98,6 +95,10 @@ abstract class ImportRestApiRequest
     helper.add(
       'parameters',
       parameters,
+    );
+    helper.add(
+      'body',
+      body,
     );
     return helper.toString();
   }
@@ -135,15 +136,12 @@ class ImportRestApiRequestRestJson1Serializer
   @override
   Object serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.Uint8List object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is ImportRestApiRequest
-        ? object.getPayload()
-        : (object as _i2.Uint8List);
-    return (serializers.serialize(
-      payload,
+    return serializers.serialize(
+      object,
       specifiedType: const FullType(_i2.Uint8List),
-    ) as Object);
+    )!;
   }
 }

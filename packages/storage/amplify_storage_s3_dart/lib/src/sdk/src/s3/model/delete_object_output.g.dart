@@ -10,16 +10,16 @@ class _$DeleteObjectOutput extends DeleteObjectOutput {
   @override
   final bool? deleteMarker;
   @override
-  final _i3.RequestCharged? requestCharged;
-  @override
   final String? versionId;
+  @override
+  final _i3.RequestCharged? requestCharged;
 
   factory _$DeleteObjectOutput(
           [void Function(DeleteObjectOutputBuilder)? updates]) =>
       (new DeleteObjectOutputBuilder()..update(updates))._build();
 
   _$DeleteObjectOutput._(
-      {this.deleteMarker, this.requestCharged, this.versionId})
+      {this.deleteMarker, this.versionId, this.requestCharged})
       : super._();
 
   @override
@@ -36,16 +36,16 @@ class _$DeleteObjectOutput extends DeleteObjectOutput {
     if (identical(other, this)) return true;
     return other is DeleteObjectOutput &&
         deleteMarker == other.deleteMarker &&
-        requestCharged == other.requestCharged &&
-        versionId == other.versionId;
+        versionId == other.versionId &&
+        requestCharged == other.requestCharged;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, deleteMarker.hashCode);
-    _$hash = $jc(_$hash, requestCharged.hashCode);
     _$hash = $jc(_$hash, versionId.hashCode);
+    _$hash = $jc(_$hash, requestCharged.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -59,14 +59,14 @@ class DeleteObjectOutputBuilder
   bool? get deleteMarker => _$this._deleteMarker;
   set deleteMarker(bool? deleteMarker) => _$this._deleteMarker = deleteMarker;
 
+  String? _versionId;
+  String? get versionId => _$this._versionId;
+  set versionId(String? versionId) => _$this._versionId = versionId;
+
   _i3.RequestCharged? _requestCharged;
   _i3.RequestCharged? get requestCharged => _$this._requestCharged;
   set requestCharged(_i3.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
-
-  String? _versionId;
-  String? get versionId => _$this._versionId;
-  set versionId(String? versionId) => _$this._versionId = versionId;
 
   DeleteObjectOutputBuilder() {
     DeleteObjectOutput._init(this);
@@ -76,8 +76,8 @@ class DeleteObjectOutputBuilder
     final $v = _$v;
     if ($v != null) {
       _deleteMarker = $v.deleteMarker;
-      _requestCharged = $v.requestCharged;
       _versionId = $v.versionId;
+      _requestCharged = $v.requestCharged;
       _$v = null;
     }
     return this;
@@ -101,8 +101,8 @@ class DeleteObjectOutputBuilder
     final _$result = _$v ??
         new _$DeleteObjectOutput._(
             deleteMarker: deleteMarker,
-            requestCharged: requestCharged,
-            versionId: versionId);
+            versionId: versionId,
+            requestCharged: requestCharged);
     replace(_$result);
     return _$result;
   }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_custom_rule_policy_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -81,15 +82,15 @@ class GetCustomRulePolicyResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'PolicyText':
-          if (value != null) {
-            result.policyText = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policyText = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -99,19 +100,19 @@ class GetCustomRulePolicyResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetCustomRulePolicyResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetCustomRulePolicyResponse);
-    final result = <Object?>[];
-    if (payload.policyText != null) {
-      result
+    final result$ = <Object?>[];
+    final GetCustomRulePolicyResponse(:policyText) = object;
+    if (policyText != null) {
+      result$
         ..add('PolicyText')
         ..add(serializers.serialize(
-          payload.policyText!,
+          policyText,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

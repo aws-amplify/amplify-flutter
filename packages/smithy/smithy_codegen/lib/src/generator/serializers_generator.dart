@@ -16,12 +16,14 @@ class SerializersGenerator extends Generator<Library> {
 
   @override
   Library generate() {
-    return Library((b) => b
-      ..name = context.serviceSerializersLibrary.libraryName
-      ..body.addAll([
-        _serializers,
-        _builderFactories,
-      ]));
+    return Library(
+      (b) => b
+        ..name = context.serviceSerializersLibrary.libraryName
+        ..body.addAll([
+          _serializers,
+          _builderFactories,
+        ]),
+    );
   }
 
   /// The `serializers` field which aggregates all serializers across the

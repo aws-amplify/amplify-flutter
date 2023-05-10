@@ -21,7 +21,7 @@ Uint8List getRandomBytes(int length) {
 
 /// Byte sink for use with crypto converters'
 /// [Converter.startChunkedConversion].
-class DigestSink implements Sink<Digest> {
+final class DigestSink implements Sink<Digest> {
   late final Digest _digest;
 
   /// The digest's output bytes.

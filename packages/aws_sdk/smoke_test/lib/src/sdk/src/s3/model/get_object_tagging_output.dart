@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_object_tagging_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,12 +19,12 @@ abstract class GetObjectTaggingOutput
         Built<GetObjectTaggingOutput, GetObjectTaggingOutputBuilder>,
         _i2.HasPayload<GetObjectTaggingOutputPayload> {
   factory GetObjectTaggingOutput({
-    required List<_i3.Tag> tagSet,
     String? versionId,
+    required List<_i3.Tag> tagSet,
   }) {
     return _$GetObjectTaggingOutput._(
-      tagSet: _i4.BuiltList(tagSet),
       versionId: versionId,
+      tagSet: _i4.BuiltList(tagSet),
     );
   }
 
@@ -52,11 +53,11 @@ abstract class GetObjectTaggingOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectTaggingOutputBuilder b) {}
 
-  /// Contains the tag set.
-  _i4.BuiltList<_i3.Tag> get tagSet;
-
   /// The versionId of the object for which you got the tagging information.
   String? get versionId;
+
+  /// Contains the tag set.
+  _i4.BuiltList<_i3.Tag> get tagSet;
   @override
   GetObjectTaggingOutputPayload getPayload() =>
       GetObjectTaggingOutputPayload((b) {
@@ -64,19 +65,19 @@ abstract class GetObjectTaggingOutput
       });
   @override
   List<Object?> get props => [
-        tagSet,
         versionId,
+        tagSet,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetObjectTaggingOutput');
     helper.add(
-      'tagSet',
-      tagSet,
-    );
-    helper.add(
       'versionId',
       versionId,
+    );
+    helper.add(
+      'tagSet',
+      tagSet,
     );
     return helper.toString();
   }
@@ -141,21 +142,23 @@ class GetObjectTaggingOutputRestXmlSerializer
     final result = GetObjectTaggingOutputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TagSet':
           result.tagSet.replace(
               (const _i2.XmlBuiltListSerializer(memberName: 'Tag').deserialize(
             serializers,
-            (value as Iterable<Object?>),
+            value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
               _i4.BuiltList,
               [FullType(_i3.Tag)],
             ),
           ) as _i4.BuiltList<_i3.Tag>));
-          break;
       }
     }
 
@@ -165,28 +168,26 @@ class GetObjectTaggingOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetObjectTaggingOutputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is GetObjectTaggingOutput
-        ? object.getPayload()
-        : (object as GetObjectTaggingOutputPayload);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'Tagging',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
+    final GetObjectTaggingOutputPayload(:tagSet) = object;
+    result$
       ..add(const _i2.XmlElementName('TagSet'))
       ..add(const _i2.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
-        payload.tagSet,
+        tagSet,
         specifiedType: const FullType.nullable(
           _i4.BuiltList,
           [FullType(_i3.Tag)],
         ),
       ));
-    return result;
+    return result$;
   }
 }

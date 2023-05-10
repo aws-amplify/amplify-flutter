@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/amplify_core.dart';
+part of '../amplify_exception.dart';
 
 /// {@template amplify_core.storage.local_file_not_found_exception}
 /// Exception thrown when a file in the local file system is not found.

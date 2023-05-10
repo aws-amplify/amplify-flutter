@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.delete_authorizer_request;
 
 class _$DeleteAuthorizerRequest extends DeleteAuthorizerRequest {
   @override
-  final String authorizerId;
-  @override
   final String restApiId;
+  @override
+  final String authorizerId;
 
   factory _$DeleteAuthorizerRequest(
           [void Function(DeleteAuthorizerRequestBuilder)? updates]) =>
       (new DeleteAuthorizerRequestBuilder()..update(updates))._build();
 
   _$DeleteAuthorizerRequest._(
-      {required this.authorizerId, required this.restApiId})
+      {required this.restApiId, required this.authorizerId})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        authorizerId, r'DeleteAuthorizerRequest', 'authorizerId');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'DeleteAuthorizerRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        authorizerId, r'DeleteAuthorizerRequest', 'authorizerId');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$DeleteAuthorizerRequest extends DeleteAuthorizerRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DeleteAuthorizerRequest &&
-        authorizerId == other.authorizerId &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        authorizerId == other.authorizerId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, authorizerId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, authorizerId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,13 +57,13 @@ class DeleteAuthorizerRequestBuilder
         Builder<DeleteAuthorizerRequest, DeleteAuthorizerRequestBuilder> {
   _$DeleteAuthorizerRequest? _$v;
 
-  String? _authorizerId;
-  String? get authorizerId => _$this._authorizerId;
-  set authorizerId(String? authorizerId) => _$this._authorizerId = authorizerId;
-
   String? _restApiId;
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  String? _authorizerId;
+  String? get authorizerId => _$this._authorizerId;
+  set authorizerId(String? authorizerId) => _$this._authorizerId = authorizerId;
 
   DeleteAuthorizerRequestBuilder() {
     DeleteAuthorizerRequest._init(this);
@@ -72,8 +72,8 @@ class DeleteAuthorizerRequestBuilder
   DeleteAuthorizerRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _authorizerId = $v.authorizerId;
       _restApiId = $v.restApiId;
+      _authorizerId = $v.authorizerId;
       _$v = null;
     }
     return this;
@@ -96,10 +96,10 @@ class DeleteAuthorizerRequestBuilder
   _$DeleteAuthorizerRequest _build() {
     final _$result = _$v ??
         new _$DeleteAuthorizerRequest._(
-            authorizerId: BuiltValueNullFieldError.checkNotNull(
-                authorizerId, r'DeleteAuthorizerRequest', 'authorizerId'),
             restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'DeleteAuthorizerRequest', 'restApiId'));
+                restApiId, r'DeleteAuthorizerRequest', 'restApiId'),
+            authorizerId: BuiltValueNullFieldError.checkNotNull(
+                authorizerId, r'DeleteAuthorizerRequest', 'authorizerId'));
     replace(_$result);
     return _$result;
   }

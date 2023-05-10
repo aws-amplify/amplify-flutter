@@ -8,7 +8,7 @@ import 'package:meta/meta.dart';
 /// A state machine transition from one state to the next.
 /// {@endtemplate}
 @immutable
-class Transition<E extends StateMachineEvent, S extends StateMachineState>
+final class Transition<E extends StateMachineEvent, S extends StateMachineState>
     with AWSEquatable<Transition<E, S>>, AWSDebuggable {
   /// {@macro amplify_core.transition}
   const Transition(this.previousState, this.event, this.nextState);

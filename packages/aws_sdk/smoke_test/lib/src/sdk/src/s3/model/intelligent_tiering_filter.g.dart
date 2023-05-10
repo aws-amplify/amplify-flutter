@@ -8,17 +8,17 @@ part of smoke_test.s3.model.intelligent_tiering_filter;
 
 class _$IntelligentTieringFilter extends IntelligentTieringFilter {
   @override
-  final _i2.IntelligentTieringAndOperator? and;
-  @override
   final String? prefix;
   @override
-  final _i3.Tag? tag;
+  final _i2.Tag? tag;
+  @override
+  final _i3.IntelligentTieringAndOperator? and;
 
   factory _$IntelligentTieringFilter(
           [void Function(IntelligentTieringFilterBuilder)? updates]) =>
       (new IntelligentTieringFilterBuilder()..update(updates))._build();
 
-  _$IntelligentTieringFilter._({this.and, this.prefix, this.tag}) : super._();
+  _$IntelligentTieringFilter._({this.prefix, this.tag, this.and}) : super._();
 
   @override
   IntelligentTieringFilter rebuild(
@@ -33,17 +33,17 @@ class _$IntelligentTieringFilter extends IntelligentTieringFilter {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is IntelligentTieringFilter &&
-        and == other.and &&
         prefix == other.prefix &&
-        tag == other.tag;
+        tag == other.tag &&
+        and == other.and;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, and.hashCode);
     _$hash = $jc(_$hash, prefix.hashCode);
     _$hash = $jc(_$hash, tag.hashCode);
+    _$hash = $jc(_$hash, and.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,18 +54,18 @@ class IntelligentTieringFilterBuilder
         Builder<IntelligentTieringFilter, IntelligentTieringFilterBuilder> {
   _$IntelligentTieringFilter? _$v;
 
-  _i2.IntelligentTieringAndOperatorBuilder? _and;
-  _i2.IntelligentTieringAndOperatorBuilder get and =>
-      _$this._and ??= new _i2.IntelligentTieringAndOperatorBuilder();
-  set and(_i2.IntelligentTieringAndOperatorBuilder? and) => _$this._and = and;
-
   String? _prefix;
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  _i3.TagBuilder? _tag;
-  _i3.TagBuilder get tag => _$this._tag ??= new _i3.TagBuilder();
-  set tag(_i3.TagBuilder? tag) => _$this._tag = tag;
+  _i2.TagBuilder? _tag;
+  _i2.TagBuilder get tag => _$this._tag ??= new _i2.TagBuilder();
+  set tag(_i2.TagBuilder? tag) => _$this._tag = tag;
+
+  _i3.IntelligentTieringAndOperatorBuilder? _and;
+  _i3.IntelligentTieringAndOperatorBuilder get and =>
+      _$this._and ??= new _i3.IntelligentTieringAndOperatorBuilder();
+  set and(_i3.IntelligentTieringAndOperatorBuilder? and) => _$this._and = and;
 
   IntelligentTieringFilterBuilder() {
     IntelligentTieringFilter._init(this);
@@ -74,9 +74,9 @@ class IntelligentTieringFilterBuilder
   IntelligentTieringFilterBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _and = $v.and?.toBuilder();
       _prefix = $v.prefix;
       _tag = $v.tag?.toBuilder();
+      _and = $v.and?.toBuilder();
       _$v = null;
     }
     return this;
@@ -101,15 +101,14 @@ class IntelligentTieringFilterBuilder
     try {
       _$result = _$v ??
           new _$IntelligentTieringFilter._(
-              and: _and?.build(), prefix: prefix, tag: _tag?.build());
+              prefix: prefix, tag: _tag?.build(), and: _and?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'and';
-        _and?.build();
-
         _$failedField = 'tag';
         _tag?.build();
+        _$failedField = 'and';
+        _and?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'IntelligentTieringFilter', _$failedField, e.toString());

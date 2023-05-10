@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.describe_contributor_insights_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,22 +22,22 @@ abstract class DescribeContributorInsightsOutput
         Built<DescribeContributorInsightsOutput,
             DescribeContributorInsightsOutputBuilder> {
   factory DescribeContributorInsightsOutput({
+    String? tableName,
+    String? indexName,
     List<String>? contributorInsightsRuleList,
     _i2.ContributorInsightsStatus? contributorInsightsStatus,
-    _i3.FailureException? failureException,
-    String? indexName,
     DateTime? lastUpdateDateTime,
-    String? tableName,
+    _i3.FailureException? failureException,
   }) {
     return _$DescribeContributorInsightsOutput._(
+      tableName: tableName,
+      indexName: indexName,
       contributorInsightsRuleList: contributorInsightsRuleList == null
           ? null
           : _i4.BuiltList(contributorInsightsRuleList),
       contributorInsightsStatus: contributorInsightsStatus,
-      failureException: failureException,
-      indexName: indexName,
       lastUpdateDateTime: lastUpdateDateTime,
-      tableName: tableName,
+      failureException: failureException,
     );
   }
 
@@ -60,11 +61,20 @@ abstract class DescribeContributorInsightsOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeContributorInsightsOutputBuilder b) {}
 
+  /// The name of the table being described.
+  String? get tableName;
+
+  /// The name of the global secondary index being described.
+  String? get indexName;
+
   /// List of names of the associated contributor insights rules.
   _i4.BuiltList<String>? get contributorInsightsRuleList;
 
   /// Current status of contributor insights.
   _i2.ContributorInsightsStatus? get contributorInsightsStatus;
+
+  /// Timestamp of the last time the status was changed.
+  DateTime? get lastUpdateDateTime;
 
   /// Returns information about the last failure that was encountered.
   ///
@@ -78,28 +88,27 @@ abstract class DescribeContributorInsightsOutput
   ///
   /// *   InternalServerError - Failed to create Amazon CloudWatch Contributor Insights rules. Please retry request.
   _i3.FailureException? get failureException;
-
-  /// The name of the global secondary index being described.
-  String? get indexName;
-
-  /// Timestamp of the last time the status was changed.
-  DateTime? get lastUpdateDateTime;
-
-  /// The name of the table being described.
-  String? get tableName;
   @override
   List<Object?> get props => [
+        tableName,
+        indexName,
         contributorInsightsRuleList,
         contributorInsightsStatus,
-        failureException,
-        indexName,
         lastUpdateDateTime,
-        tableName,
+        failureException,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DescribeContributorInsightsOutput');
+    helper.add(
+      'tableName',
+      tableName,
+    );
+    helper.add(
+      'indexName',
+      indexName,
+    );
     helper.add(
       'contributorInsightsRuleList',
       contributorInsightsRuleList,
@@ -109,20 +118,12 @@ abstract class DescribeContributorInsightsOutput
       contributorInsightsStatus,
     );
     helper.add(
-      'failureException',
-      failureException,
-    );
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
       'lastUpdateDateTime',
       lastUpdateDateTime,
     );
     helper.add(
-      'tableName',
-      tableName,
+      'failureException',
+      failureException,
     );
     return helper.toString();
   }
@@ -157,58 +158,43 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ContributorInsightsRuleList':
-          if (value != null) {
-            result.contributorInsightsRuleList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
-        case 'ContributorInsightsStatus':
-          if (value != null) {
-            result.contributorInsightsStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ContributorInsightsStatus),
-            ) as _i2.ContributorInsightsStatus);
-          }
-          break;
-        case 'FailureException':
-          if (value != null) {
-            result.failureException.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.FailureException),
-            ) as _i3.FailureException));
-          }
-          break;
-        case 'IndexName':
-          if (value != null) {
-            result.indexName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'LastUpdateDateTime':
-          if (value != null) {
-            result.lastUpdateDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'IndexName':
+          result.indexName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ContributorInsightsRuleList':
+          result.contributorInsightsRuleList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
+        case 'ContributorInsightsStatus':
+          result.contributorInsightsStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ContributorInsightsStatus),
+          ) as _i2.ContributorInsightsStatus);
+        case 'LastUpdateDateTime':
+          result.lastUpdateDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
+        case 'FailureException':
+          result.failureException.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.FailureException),
+          ) as _i3.FailureException));
       }
     }
 
@@ -218,62 +204,69 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeContributorInsightsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeContributorInsightsOutput);
-    final result = <Object?>[];
-    if (payload.contributorInsightsRuleList != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeContributorInsightsOutput(
+      :tableName,
+      :indexName,
+      :contributorInsightsRuleList,
+      :contributorInsightsStatus,
+      :lastUpdateDateTime,
+      :failureException
+    ) = object;
+    if (tableName != null) {
+      result$
+        ..add('TableName')
+        ..add(serializers.serialize(
+          tableName,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (indexName != null) {
+      result$
+        ..add('IndexName')
+        ..add(serializers.serialize(
+          indexName,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (contributorInsightsRuleList != null) {
+      result$
         ..add('ContributorInsightsRuleList')
         ..add(serializers.serialize(
-          payload.contributorInsightsRuleList!,
+          contributorInsightsRuleList,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.contributorInsightsStatus != null) {
-      result
+    if (contributorInsightsStatus != null) {
+      result$
         ..add('ContributorInsightsStatus')
         ..add(serializers.serialize(
-          payload.contributorInsightsStatus!,
+          contributorInsightsStatus,
           specifiedType: const FullType(_i2.ContributorInsightsStatus),
         ));
     }
-    if (payload.failureException != null) {
-      result
-        ..add('FailureException')
-        ..add(serializers.serialize(
-          payload.failureException!,
-          specifiedType: const FullType(_i3.FailureException),
-        ));
-    }
-    if (payload.indexName != null) {
-      result
-        ..add('IndexName')
-        ..add(serializers.serialize(
-          payload.indexName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.lastUpdateDateTime != null) {
-      result
+    if (lastUpdateDateTime != null) {
+      result$
         ..add('LastUpdateDateTime')
         ..add(serializers.serialize(
-          payload.lastUpdateDateTime!,
+          lastUpdateDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.tableName != null) {
-      result
-        ..add('TableName')
+    if (failureException != null) {
+      result$
+        ..add('FailureException')
         ..add(serializers.serialize(
-          payload.tableName!,
-          specifiedType: const FullType(String),
+          failureException,
+          specifiedType: const FullType(_i3.FailureException),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_organization_config_rule_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -86,15 +87,15 @@ class PutOrganizationConfigRuleResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'OrganizationConfigRuleArn':
-          if (value != null) {
-            result.organizationConfigRuleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.organizationConfigRuleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -104,19 +105,20 @@ class PutOrganizationConfigRuleResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutOrganizationConfigRuleResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutOrganizationConfigRuleResponse);
-    final result = <Object?>[];
-    if (payload.organizationConfigRuleArn != null) {
-      result
+    final result$ = <Object?>[];
+    final PutOrganizationConfigRuleResponse(:organizationConfigRuleArn) =
+        object;
+    if (organizationConfigRuleArn != null) {
+      result$
         ..add('OrganizationConfigRuleArn')
         ..add(serializers.serialize(
-          payload.organizationConfigRuleArn!,
+          organizationConfigRuleArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

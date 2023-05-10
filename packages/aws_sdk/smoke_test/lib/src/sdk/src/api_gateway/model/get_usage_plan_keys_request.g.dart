@@ -8,20 +8,20 @@ part of smoke_test.api_gateway.model.get_usage_plan_keys_request;
 
 class _$GetUsagePlanKeysRequest extends GetUsagePlanKeysRequest {
   @override
-  final int? limit;
-  @override
-  final String? nameQuery;
+  final String usagePlanId;
   @override
   final String? position;
   @override
-  final String usagePlanId;
+  final int? limit;
+  @override
+  final String? nameQuery;
 
   factory _$GetUsagePlanKeysRequest(
           [void Function(GetUsagePlanKeysRequestBuilder)? updates]) =>
       (new GetUsagePlanKeysRequestBuilder()..update(updates))._build();
 
   _$GetUsagePlanKeysRequest._(
-      {this.limit, this.nameQuery, this.position, required this.usagePlanId})
+      {required this.usagePlanId, this.position, this.limit, this.nameQuery})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         usagePlanId, r'GetUsagePlanKeysRequest', 'usagePlanId');
@@ -40,19 +40,19 @@ class _$GetUsagePlanKeysRequest extends GetUsagePlanKeysRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetUsagePlanKeysRequest &&
-        limit == other.limit &&
-        nameQuery == other.nameQuery &&
+        usagePlanId == other.usagePlanId &&
         position == other.position &&
-        usagePlanId == other.usagePlanId;
+        limit == other.limit &&
+        nameQuery == other.nameQuery;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, usagePlanId.hashCode);
+    _$hash = $jc(_$hash, position.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nameQuery.hashCode);
-    _$hash = $jc(_$hash, position.hashCode);
-    _$hash = $jc(_$hash, usagePlanId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -63,6 +63,14 @@ class GetUsagePlanKeysRequestBuilder
         Builder<GetUsagePlanKeysRequest, GetUsagePlanKeysRequestBuilder> {
   _$GetUsagePlanKeysRequest? _$v;
 
+  String? _usagePlanId;
+  String? get usagePlanId => _$this._usagePlanId;
+  set usagePlanId(String? usagePlanId) => _$this._usagePlanId = usagePlanId;
+
+  String? _position;
+  String? get position => _$this._position;
+  set position(String? position) => _$this._position = position;
+
   int? _limit;
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
@@ -71,14 +79,6 @@ class GetUsagePlanKeysRequestBuilder
   String? get nameQuery => _$this._nameQuery;
   set nameQuery(String? nameQuery) => _$this._nameQuery = nameQuery;
 
-  String? _position;
-  String? get position => _$this._position;
-  set position(String? position) => _$this._position = position;
-
-  String? _usagePlanId;
-  String? get usagePlanId => _$this._usagePlanId;
-  set usagePlanId(String? usagePlanId) => _$this._usagePlanId = usagePlanId;
-
   GetUsagePlanKeysRequestBuilder() {
     GetUsagePlanKeysRequest._init(this);
   }
@@ -86,10 +86,10 @@ class GetUsagePlanKeysRequestBuilder
   GetUsagePlanKeysRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _usagePlanId = $v.usagePlanId;
+      _position = $v.position;
       _limit = $v.limit;
       _nameQuery = $v.nameQuery;
-      _position = $v.position;
-      _usagePlanId = $v.usagePlanId;
       _$v = null;
     }
     return this;
@@ -112,11 +112,11 @@ class GetUsagePlanKeysRequestBuilder
   _$GetUsagePlanKeysRequest _build() {
     final _$result = _$v ??
         new _$GetUsagePlanKeysRequest._(
-            limit: limit,
-            nameQuery: nameQuery,
-            position: position,
             usagePlanId: BuiltValueNullFieldError.checkNotNull(
-                usagePlanId, r'GetUsagePlanKeysRequest', 'usagePlanId'));
+                usagePlanId, r'GetUsagePlanKeysRequest', 'usagePlanId'),
+            position: position,
+            limit: limit,
+            nameQuery: nameQuery);
     replace(_$result);
     return _$result;
   }

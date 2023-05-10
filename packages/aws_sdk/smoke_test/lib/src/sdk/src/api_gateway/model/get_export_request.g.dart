@@ -8,33 +8,33 @@ part of smoke_test.api_gateway.model.get_export_request;
 
 class _$GetExportRequest extends GetExportRequest {
   @override
-  final String? accepts;
+  final String restApiId;
+  @override
+  final String stageName;
   @override
   final String exportType;
   @override
   final _i3.BuiltMap<String, String>? parameters;
   @override
-  final String restApiId;
-  @override
-  final String stageName;
+  final String? accepts;
 
   factory _$GetExportRequest(
           [void Function(GetExportRequestBuilder)? updates]) =>
       (new GetExportRequestBuilder()..update(updates))._build();
 
   _$GetExportRequest._(
-      {this.accepts,
+      {required this.restApiId,
+      required this.stageName,
       required this.exportType,
       this.parameters,
-      required this.restApiId,
-      required this.stageName})
+      this.accepts})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        exportType, r'GetExportRequest', 'exportType');
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetExportRequest', 'restApiId');
     BuiltValueNullFieldError.checkNotNull(
         stageName, r'GetExportRequest', 'stageName');
+    BuiltValueNullFieldError.checkNotNull(
+        exportType, r'GetExportRequest', 'exportType');
   }
 
   @override
@@ -49,21 +49,21 @@ class _$GetExportRequest extends GetExportRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetExportRequest &&
-        accepts == other.accepts &&
+        restApiId == other.restApiId &&
+        stageName == other.stageName &&
         exportType == other.exportType &&
         parameters == other.parameters &&
-        restApiId == other.restApiId &&
-        stageName == other.stageName;
+        accepts == other.accepts;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, accepts.hashCode);
-    _$hash = $jc(_$hash, exportType.hashCode);
-    _$hash = $jc(_$hash, parameters.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jc(_$hash, stageName.hashCode);
+    _$hash = $jc(_$hash, exportType.hashCode);
+    _$hash = $jc(_$hash, parameters.hashCode);
+    _$hash = $jc(_$hash, accepts.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -73,9 +73,13 @@ class GetExportRequestBuilder
     implements Builder<GetExportRequest, GetExportRequestBuilder> {
   _$GetExportRequest? _$v;
 
-  String? _accepts;
-  String? get accepts => _$this._accepts;
-  set accepts(String? accepts) => _$this._accepts = accepts;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  String? _stageName;
+  String? get stageName => _$this._stageName;
+  set stageName(String? stageName) => _$this._stageName = stageName;
 
   String? _exportType;
   String? get exportType => _$this._exportType;
@@ -87,13 +91,9 @@ class GetExportRequestBuilder
   set parameters(_i3.MapBuilder<String, String>? parameters) =>
       _$this._parameters = parameters;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
-
-  String? _stageName;
-  String? get stageName => _$this._stageName;
-  set stageName(String? stageName) => _$this._stageName = stageName;
+  String? _accepts;
+  String? get accepts => _$this._accepts;
+  set accepts(String? accepts) => _$this._accepts = accepts;
 
   GetExportRequestBuilder() {
     GetExportRequest._init(this);
@@ -102,11 +102,11 @@ class GetExportRequestBuilder
   GetExportRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _accepts = $v.accepts;
-      _exportType = $v.exportType;
-      _parameters = $v.parameters?.toBuilder();
       _restApiId = $v.restApiId;
       _stageName = $v.stageName;
+      _exportType = $v.exportType;
+      _parameters = $v.parameters?.toBuilder();
+      _accepts = $v.accepts;
       _$v = null;
     }
     return this;
@@ -131,14 +131,14 @@ class GetExportRequestBuilder
     try {
       _$result = _$v ??
           new _$GetExportRequest._(
-              accepts: accepts,
-              exportType: BuiltValueNullFieldError.checkNotNull(
-                  exportType, r'GetExportRequest', 'exportType'),
-              parameters: _parameters?.build(),
               restApiId: BuiltValueNullFieldError.checkNotNull(
                   restApiId, r'GetExportRequest', 'restApiId'),
               stageName: BuiltValueNullFieldError.checkNotNull(
-                  stageName, r'GetExportRequest', 'stageName'));
+                  stageName, r'GetExportRequest', 'stageName'),
+              exportType: BuiltValueNullFieldError.checkNotNull(
+                  exportType, r'GetExportRequest', 'exportType'),
+              parameters: _parameters?.build(),
+              accepts: accepts);
     } catch (_) {
       late String _$failedField;
       try {

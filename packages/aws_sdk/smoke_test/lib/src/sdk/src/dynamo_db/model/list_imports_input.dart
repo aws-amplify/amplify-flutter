@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.list_imports_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -13,14 +14,14 @@ abstract class ListImportsInput
     with _i1.HttpInput<ListImportsInput>, _i2.AWSEquatable<ListImportsInput>
     implements Built<ListImportsInput, ListImportsInputBuilder> {
   factory ListImportsInput({
-    String? nextToken,
-    int? pageSize,
     String? tableArn,
+    int? pageSize,
+    String? nextToken,
   }) {
     return _$ListImportsInput._(
-      nextToken: nextToken,
-      pageSize: pageSize,
       tableArn: tableArn,
+      pageSize: pageSize,
+      nextToken: nextToken,
     );
   }
 
@@ -43,36 +44,36 @@ abstract class ListImportsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListImportsInputBuilder b) {}
 
-  /// An optional string that, if supplied, must be copied from the output of a previous call to `ListImports`. When provided in this manner, the API fetches the next page of results.
-  String? get nextToken;
+  /// The Amazon Resource Name (ARN) associated with the table that was imported to.
+  String? get tableArn;
 
   /// The number of `ImportSummary` objects returned in a single page.
   int? get pageSize;
 
-  /// The Amazon Resource Name (ARN) associated with the table that was imported to.
-  String? get tableArn;
+  /// An optional string that, if supplied, must be copied from the output of a previous call to `ListImports`. When provided in this manner, the API fetches the next page of results.
+  String? get nextToken;
   @override
   ListImportsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        nextToken,
-        pageSize,
         tableArn,
+        pageSize,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListImportsInput');
     helper.add(
-      'nextToken',
-      nextToken,
+      'tableArn',
+      tableArn,
     );
     helper.add(
       'pageSize',
       pageSize,
     );
     helper.add(
-      'tableArn',
-      tableArn,
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -106,31 +107,25 @@ class ListImportsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'PageSize':
-          if (value != null) {
-            result.pageSize = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'TableArn':
-          if (value != null) {
-            result.tableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'PageSize':
+          result.pageSize = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -140,35 +135,35 @@ class ListImportsInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListImportsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListImportsInput);
-    final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
+    final result$ = <Object?>[];
+    final ListImportsInput(:tableArn, :pageSize, :nextToken) = object;
+    if (tableArn != null) {
+      result$
+        ..add('TableArn')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          tableArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.pageSize != null) {
-      result
+    if (pageSize != null) {
+      result$
         ..add('PageSize')
         ..add(serializers.serialize(
-          payload.pageSize!,
+          pageSize,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.tableArn != null) {
-      result
-        ..add('TableArn')
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
         ..add(serializers.serialize(
-          payload.tableArn!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

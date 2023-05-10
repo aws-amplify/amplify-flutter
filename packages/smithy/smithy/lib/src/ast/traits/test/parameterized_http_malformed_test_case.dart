@@ -24,7 +24,8 @@ class ParameterizedHttpMalformedRequestTestCase
   });
 
   factory ParameterizedHttpMalformedRequestTestCase.fromJson(
-          Map<String, Object?> json) =>
+    Map<String, Object?> json,
+  ) =>
       _$ParameterizedHttpMalformedRequestTestCaseFromJson(json);
 
   final String? documentation;

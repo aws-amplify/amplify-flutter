@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.aggregate_conformance_pack_compliance_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -98,24 +99,21 @@ class AggregateConformancePackComplianceSummaryAwsJson11Serializer extends _i3
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ComplianceSummary':
-          if (value != null) {
-            result.complianceSummary.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.AggregateConformancePackComplianceCount),
-            ) as _i2.AggregateConformancePackComplianceCount));
-          }
-          break;
+          result.complianceSummary.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i2.AggregateConformancePackComplianceCount),
+          ) as _i2.AggregateConformancePackComplianceCount));
         case 'GroupName':
-          if (value != null) {
-            result.groupName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.groupName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -125,28 +123,31 @@ class AggregateConformancePackComplianceSummaryAwsJson11Serializer extends _i3
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AggregateConformancePackComplianceSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AggregateConformancePackComplianceSummary);
-    final result = <Object?>[];
-    if (payload.complianceSummary != null) {
-      result
+    final result$ = <Object?>[];
+    final AggregateConformancePackComplianceSummary(
+      :complianceSummary,
+      :groupName
+    ) = object;
+    if (complianceSummary != null) {
+      result$
         ..add('ComplianceSummary')
         ..add(serializers.serialize(
-          payload.complianceSummary!,
+          complianceSummary,
           specifiedType:
               const FullType(_i2.AggregateConformancePackComplianceCount),
         ));
     }
-    if (payload.groupName != null) {
-      result
+    if (groupName != null) {
+      result$
         ..add('GroupName')
         ..add(serializers.serialize(
-          payload.groupName!,
+          groupName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

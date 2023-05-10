@@ -8,13 +8,13 @@ part of smoke_test.config_service.model.evaluation;
 
 class _$Evaluation extends Evaluation {
   @override
-  final String? annotation;
+  final String complianceResourceType;
   @override
   final String complianceResourceId;
   @override
-  final String complianceResourceType;
-  @override
   final _i2.ComplianceType complianceType;
+  @override
+  final String? annotation;
   @override
   final DateTime orderingTimestamp;
 
@@ -22,16 +22,16 @@ class _$Evaluation extends Evaluation {
       (new EvaluationBuilder()..update(updates))._build();
 
   _$Evaluation._(
-      {this.annotation,
+      {required this.complianceResourceType,
       required this.complianceResourceId,
-      required this.complianceResourceType,
       required this.complianceType,
+      this.annotation,
       required this.orderingTimestamp})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        complianceResourceId, r'Evaluation', 'complianceResourceId');
-    BuiltValueNullFieldError.checkNotNull(
         complianceResourceType, r'Evaluation', 'complianceResourceType');
+    BuiltValueNullFieldError.checkNotNull(
+        complianceResourceId, r'Evaluation', 'complianceResourceId');
     BuiltValueNullFieldError.checkNotNull(
         complianceType, r'Evaluation', 'complianceType');
     BuiltValueNullFieldError.checkNotNull(
@@ -49,20 +49,20 @@ class _$Evaluation extends Evaluation {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Evaluation &&
-        annotation == other.annotation &&
-        complianceResourceId == other.complianceResourceId &&
         complianceResourceType == other.complianceResourceType &&
+        complianceResourceId == other.complianceResourceId &&
         complianceType == other.complianceType &&
+        annotation == other.annotation &&
         orderingTimestamp == other.orderingTimestamp;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, annotation.hashCode);
-    _$hash = $jc(_$hash, complianceResourceId.hashCode);
     _$hash = $jc(_$hash, complianceResourceType.hashCode);
+    _$hash = $jc(_$hash, complianceResourceId.hashCode);
     _$hash = $jc(_$hash, complianceType.hashCode);
+    _$hash = $jc(_$hash, annotation.hashCode);
     _$hash = $jc(_$hash, orderingTimestamp.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -72,24 +72,24 @@ class _$Evaluation extends Evaluation {
 class EvaluationBuilder implements Builder<Evaluation, EvaluationBuilder> {
   _$Evaluation? _$v;
 
-  String? _annotation;
-  String? get annotation => _$this._annotation;
-  set annotation(String? annotation) => _$this._annotation = annotation;
+  String? _complianceResourceType;
+  String? get complianceResourceType => _$this._complianceResourceType;
+  set complianceResourceType(String? complianceResourceType) =>
+      _$this._complianceResourceType = complianceResourceType;
 
   String? _complianceResourceId;
   String? get complianceResourceId => _$this._complianceResourceId;
   set complianceResourceId(String? complianceResourceId) =>
       _$this._complianceResourceId = complianceResourceId;
 
-  String? _complianceResourceType;
-  String? get complianceResourceType => _$this._complianceResourceType;
-  set complianceResourceType(String? complianceResourceType) =>
-      _$this._complianceResourceType = complianceResourceType;
-
   _i2.ComplianceType? _complianceType;
   _i2.ComplianceType? get complianceType => _$this._complianceType;
   set complianceType(_i2.ComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
+
+  String? _annotation;
+  String? get annotation => _$this._annotation;
+  set annotation(String? annotation) => _$this._annotation = annotation;
 
   DateTime? _orderingTimestamp;
   DateTime? get orderingTimestamp => _$this._orderingTimestamp;
@@ -103,10 +103,10 @@ class EvaluationBuilder implements Builder<Evaluation, EvaluationBuilder> {
   EvaluationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _annotation = $v.annotation;
-      _complianceResourceId = $v.complianceResourceId;
       _complianceResourceType = $v.complianceResourceType;
+      _complianceResourceId = $v.complianceResourceId;
       _complianceType = $v.complianceType;
+      _annotation = $v.annotation;
       _orderingTimestamp = $v.orderingTimestamp;
       _$v = null;
     }
@@ -130,15 +130,15 @@ class EvaluationBuilder implements Builder<Evaluation, EvaluationBuilder> {
   _$Evaluation _build() {
     final _$result = _$v ??
         new _$Evaluation._(
-            annotation: annotation,
-            complianceResourceId: BuiltValueNullFieldError.checkNotNull(
-                complianceResourceId, r'Evaluation', 'complianceResourceId'),
             complianceResourceType: BuiltValueNullFieldError.checkNotNull(
                 complianceResourceType,
                 r'Evaluation',
                 'complianceResourceType'),
+            complianceResourceId: BuiltValueNullFieldError.checkNotNull(
+                complianceResourceId, r'Evaluation', 'complianceResourceId'),
             complianceType: BuiltValueNullFieldError.checkNotNull(
                 complianceType, r'Evaluation', 'complianceType'),
+            annotation: annotation,
             orderingTimestamp: BuiltValueNullFieldError.checkNotNull(
                 orderingTimestamp, r'Evaluation', 'orderingTimestamp'));
     replace(_$result);

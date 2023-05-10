@@ -10,25 +10,25 @@ class _$CreateTableInput extends CreateTableInput {
   @override
   final _i13.BuiltList<_i3.AttributeDefinition> attributeDefinitions;
   @override
-  final _i4.BillingMode? billingMode;
+  final String tableName;
   @override
-  final _i13.BuiltList<_i5.GlobalSecondaryIndex>? globalSecondaryIndexes;
+  final _i13.BuiltList<_i4.KeySchemaElement> keySchema;
   @override
-  final _i13.BuiltList<_i6.KeySchemaElement> keySchema;
+  final _i13.BuiltList<_i5.LocalSecondaryIndex>? localSecondaryIndexes;
   @override
-  final _i13.BuiltList<_i7.LocalSecondaryIndex>? localSecondaryIndexes;
+  final _i13.BuiltList<_i6.GlobalSecondaryIndex>? globalSecondaryIndexes;
+  @override
+  final _i7.BillingMode? billingMode;
   @override
   final _i8.ProvisionedThroughput? provisionedThroughput;
   @override
-  final _i9.SseSpecification? sseSpecification;
+  final _i9.StreamSpecification? streamSpecification;
   @override
-  final _i10.StreamSpecification? streamSpecification;
+  final _i10.SseSpecification? sseSpecification;
   @override
-  final _i11.TableClass? tableClass;
+  final _i13.BuiltList<_i11.Tag>? tags;
   @override
-  final String tableName;
-  @override
-  final _i13.BuiltList<_i12.Tag>? tags;
+  final _i12.TableClass? tableClass;
 
   factory _$CreateTableInput(
           [void Function(CreateTableInputBuilder)? updates]) =>
@@ -36,23 +36,23 @@ class _$CreateTableInput extends CreateTableInput {
 
   _$CreateTableInput._(
       {required this.attributeDefinitions,
-      this.billingMode,
-      this.globalSecondaryIndexes,
+      required this.tableName,
       required this.keySchema,
       this.localSecondaryIndexes,
+      this.globalSecondaryIndexes,
+      this.billingMode,
       this.provisionedThroughput,
-      this.sseSpecification,
       this.streamSpecification,
-      this.tableClass,
-      required this.tableName,
-      this.tags})
+      this.sseSpecification,
+      this.tags,
+      this.tableClass})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         attributeDefinitions, r'CreateTableInput', 'attributeDefinitions');
     BuiltValueNullFieldError.checkNotNull(
-        keySchema, r'CreateTableInput', 'keySchema');
-    BuiltValueNullFieldError.checkNotNull(
         tableName, r'CreateTableInput', 'tableName');
+    BuiltValueNullFieldError.checkNotNull(
+        keySchema, r'CreateTableInput', 'keySchema');
   }
 
   @override
@@ -68,32 +68,32 @@ class _$CreateTableInput extends CreateTableInput {
     if (identical(other, this)) return true;
     return other is CreateTableInput &&
         attributeDefinitions == other.attributeDefinitions &&
-        billingMode == other.billingMode &&
-        globalSecondaryIndexes == other.globalSecondaryIndexes &&
+        tableName == other.tableName &&
         keySchema == other.keySchema &&
         localSecondaryIndexes == other.localSecondaryIndexes &&
+        globalSecondaryIndexes == other.globalSecondaryIndexes &&
+        billingMode == other.billingMode &&
         provisionedThroughput == other.provisionedThroughput &&
-        sseSpecification == other.sseSpecification &&
         streamSpecification == other.streamSpecification &&
-        tableClass == other.tableClass &&
-        tableName == other.tableName &&
-        tags == other.tags;
+        sseSpecification == other.sseSpecification &&
+        tags == other.tags &&
+        tableClass == other.tableClass;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, attributeDefinitions.hashCode);
-    _$hash = $jc(_$hash, billingMode.hashCode);
-    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
+    _$hash = $jc(_$hash, tableName.hashCode);
     _$hash = $jc(_$hash, keySchema.hashCode);
     _$hash = $jc(_$hash, localSecondaryIndexes.hashCode);
+    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
+    _$hash = $jc(_$hash, billingMode.hashCode);
     _$hash = $jc(_$hash, provisionedThroughput.hashCode);
-    _$hash = $jc(_$hash, sseSpecification.hashCode);
     _$hash = $jc(_$hash, streamSpecification.hashCode);
-    _$hash = $jc(_$hash, tableClass.hashCode);
-    _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, sseSpecification.hashCode);
     _$hash = $jc(_$hash, tags.hashCode);
+    _$hash = $jc(_$hash, tableClass.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -111,32 +111,36 @@ class CreateTableInputBuilder
           _i13.ListBuilder<_i3.AttributeDefinition>? attributeDefinitions) =>
       _$this._attributeDefinitions = attributeDefinitions;
 
-  _i4.BillingMode? _billingMode;
-  _i4.BillingMode? get billingMode => _$this._billingMode;
-  set billingMode(_i4.BillingMode? billingMode) =>
-      _$this._billingMode = billingMode;
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i13.ListBuilder<_i5.GlobalSecondaryIndex>? _globalSecondaryIndexes;
-  _i13.ListBuilder<_i5.GlobalSecondaryIndex> get globalSecondaryIndexes =>
-      _$this._globalSecondaryIndexes ??=
-          new _i13.ListBuilder<_i5.GlobalSecondaryIndex>();
-  set globalSecondaryIndexes(
-          _i13.ListBuilder<_i5.GlobalSecondaryIndex>? globalSecondaryIndexes) =>
-      _$this._globalSecondaryIndexes = globalSecondaryIndexes;
-
-  _i13.ListBuilder<_i6.KeySchemaElement>? _keySchema;
-  _i13.ListBuilder<_i6.KeySchemaElement> get keySchema =>
-      _$this._keySchema ??= new _i13.ListBuilder<_i6.KeySchemaElement>();
-  set keySchema(_i13.ListBuilder<_i6.KeySchemaElement>? keySchema) =>
+  _i13.ListBuilder<_i4.KeySchemaElement>? _keySchema;
+  _i13.ListBuilder<_i4.KeySchemaElement> get keySchema =>
+      _$this._keySchema ??= new _i13.ListBuilder<_i4.KeySchemaElement>();
+  set keySchema(_i13.ListBuilder<_i4.KeySchemaElement>? keySchema) =>
       _$this._keySchema = keySchema;
 
-  _i13.ListBuilder<_i7.LocalSecondaryIndex>? _localSecondaryIndexes;
-  _i13.ListBuilder<_i7.LocalSecondaryIndex> get localSecondaryIndexes =>
+  _i13.ListBuilder<_i5.LocalSecondaryIndex>? _localSecondaryIndexes;
+  _i13.ListBuilder<_i5.LocalSecondaryIndex> get localSecondaryIndexes =>
       _$this._localSecondaryIndexes ??=
-          new _i13.ListBuilder<_i7.LocalSecondaryIndex>();
+          new _i13.ListBuilder<_i5.LocalSecondaryIndex>();
   set localSecondaryIndexes(
-          _i13.ListBuilder<_i7.LocalSecondaryIndex>? localSecondaryIndexes) =>
+          _i13.ListBuilder<_i5.LocalSecondaryIndex>? localSecondaryIndexes) =>
       _$this._localSecondaryIndexes = localSecondaryIndexes;
+
+  _i13.ListBuilder<_i6.GlobalSecondaryIndex>? _globalSecondaryIndexes;
+  _i13.ListBuilder<_i6.GlobalSecondaryIndex> get globalSecondaryIndexes =>
+      _$this._globalSecondaryIndexes ??=
+          new _i13.ListBuilder<_i6.GlobalSecondaryIndex>();
+  set globalSecondaryIndexes(
+          _i13.ListBuilder<_i6.GlobalSecondaryIndex>? globalSecondaryIndexes) =>
+      _$this._globalSecondaryIndexes = globalSecondaryIndexes;
+
+  _i7.BillingMode? _billingMode;
+  _i7.BillingMode? get billingMode => _$this._billingMode;
+  set billingMode(_i7.BillingMode? billingMode) =>
+      _$this._billingMode = billingMode;
 
   _i8.ProvisionedThroughputBuilder? _provisionedThroughput;
   _i8.ProvisionedThroughputBuilder get provisionedThroughput =>
@@ -145,32 +149,28 @@ class CreateTableInputBuilder
           _i8.ProvisionedThroughputBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
 
-  _i9.SseSpecificationBuilder? _sseSpecification;
-  _i9.SseSpecificationBuilder get sseSpecification =>
-      _$this._sseSpecification ??= new _i9.SseSpecificationBuilder();
-  set sseSpecification(_i9.SseSpecificationBuilder? sseSpecification) =>
-      _$this._sseSpecification = sseSpecification;
-
-  _i10.StreamSpecificationBuilder? _streamSpecification;
-  _i10.StreamSpecificationBuilder get streamSpecification =>
-      _$this._streamSpecification ??= new _i10.StreamSpecificationBuilder();
+  _i9.StreamSpecificationBuilder? _streamSpecification;
+  _i9.StreamSpecificationBuilder get streamSpecification =>
+      _$this._streamSpecification ??= new _i9.StreamSpecificationBuilder();
   set streamSpecification(
-          _i10.StreamSpecificationBuilder? streamSpecification) =>
+          _i9.StreamSpecificationBuilder? streamSpecification) =>
       _$this._streamSpecification = streamSpecification;
 
-  _i11.TableClass? _tableClass;
-  _i11.TableClass? get tableClass => _$this._tableClass;
-  set tableClass(_i11.TableClass? tableClass) =>
+  _i10.SseSpecificationBuilder? _sseSpecification;
+  _i10.SseSpecificationBuilder get sseSpecification =>
+      _$this._sseSpecification ??= new _i10.SseSpecificationBuilder();
+  set sseSpecification(_i10.SseSpecificationBuilder? sseSpecification) =>
+      _$this._sseSpecification = sseSpecification;
+
+  _i13.ListBuilder<_i11.Tag>? _tags;
+  _i13.ListBuilder<_i11.Tag> get tags =>
+      _$this._tags ??= new _i13.ListBuilder<_i11.Tag>();
+  set tags(_i13.ListBuilder<_i11.Tag>? tags) => _$this._tags = tags;
+
+  _i12.TableClass? _tableClass;
+  _i12.TableClass? get tableClass => _$this._tableClass;
+  set tableClass(_i12.TableClass? tableClass) =>
       _$this._tableClass = tableClass;
-
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
-
-  _i13.ListBuilder<_i12.Tag>? _tags;
-  _i13.ListBuilder<_i12.Tag> get tags =>
-      _$this._tags ??= new _i13.ListBuilder<_i12.Tag>();
-  set tags(_i13.ListBuilder<_i12.Tag>? tags) => _$this._tags = tags;
 
   CreateTableInputBuilder() {
     CreateTableInput._init(this);
@@ -180,16 +180,16 @@ class CreateTableInputBuilder
     final $v = _$v;
     if ($v != null) {
       _attributeDefinitions = $v.attributeDefinitions.toBuilder();
-      _billingMode = $v.billingMode;
-      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
+      _tableName = $v.tableName;
       _keySchema = $v.keySchema.toBuilder();
       _localSecondaryIndexes = $v.localSecondaryIndexes?.toBuilder();
+      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
+      _billingMode = $v.billingMode;
       _provisionedThroughput = $v.provisionedThroughput?.toBuilder();
-      _sseSpecification = $v.sseSpecification?.toBuilder();
       _streamSpecification = $v.streamSpecification?.toBuilder();
-      _tableClass = $v.tableClass;
-      _tableName = $v.tableName;
+      _sseSpecification = $v.sseSpecification?.toBuilder();
       _tags = $v.tags?.toBuilder();
+      _tableClass = $v.tableClass;
       _$v = null;
     }
     return this;
@@ -215,36 +215,36 @@ class CreateTableInputBuilder
       _$result = _$v ??
           new _$CreateTableInput._(
               attributeDefinitions: attributeDefinitions.build(),
-              billingMode: billingMode,
-              globalSecondaryIndexes: _globalSecondaryIndexes?.build(),
-              keySchema: keySchema.build(),
-              localSecondaryIndexes: _localSecondaryIndexes?.build(),
-              provisionedThroughput: _provisionedThroughput?.build(),
-              sseSpecification: _sseSpecification?.build(),
-              streamSpecification: _streamSpecification?.build(),
-              tableClass: tableClass,
               tableName: BuiltValueNullFieldError.checkNotNull(
                   tableName, r'CreateTableInput', 'tableName'),
-              tags: _tags?.build());
+              keySchema: keySchema.build(),
+              localSecondaryIndexes: _localSecondaryIndexes?.build(),
+              globalSecondaryIndexes: _globalSecondaryIndexes?.build(),
+              billingMode: billingMode,
+              provisionedThroughput: _provisionedThroughput?.build(),
+              streamSpecification: _streamSpecification?.build(),
+              sseSpecification: _sseSpecification?.build(),
+              tags: _tags?.build(),
+              tableClass: tableClass);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'attributeDefinitions';
         attributeDefinitions.build();
 
-        _$failedField = 'globalSecondaryIndexes';
-        _globalSecondaryIndexes?.build();
         _$failedField = 'keySchema';
         keySchema.build();
         _$failedField = 'localSecondaryIndexes';
         _localSecondaryIndexes?.build();
+        _$failedField = 'globalSecondaryIndexes';
+        _globalSecondaryIndexes?.build();
+
         _$failedField = 'provisionedThroughput';
         _provisionedThroughput?.build();
-        _$failedField = 'sseSpecification';
-        _sseSpecification?.build();
         _$failedField = 'streamSpecification';
         _streamSpecification?.build();
-
+        _$failedField = 'sseSpecification';
+        _sseSpecification?.build();
         _$failedField = 'tags';
         _tags?.build();
       } catch (e) {

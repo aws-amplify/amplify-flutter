@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.output_serialization; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -90,26 +91,23 @@ class OutputSerializationRestXmlSerializer
     final result = OutputSerializationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'CSV':
-          if (value != null) {
-            result.csv.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CsvOutput),
-            ) as _i2.CsvOutput));
-          }
-          break;
+          result.csv.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CsvOutput),
+          ) as _i2.CsvOutput));
         case 'JSON':
-          if (value != null) {
-            result.json.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.JsonOutput),
-            ) as _i3.JsonOutput));
-          }
-          break;
+          result.json.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.JsonOutput),
+          ) as _i3.JsonOutput));
       }
     }
 
@@ -119,32 +117,32 @@ class OutputSerializationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OutputSerialization object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OutputSerialization);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'OutputSerialization',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.csv != null) {
-      result
+    final OutputSerialization(:csv, :json) = object;
+    if (csv != null) {
+      result$
         ..add(const _i4.XmlElementName('CSV'))
         ..add(serializers.serialize(
-          payload.csv!,
+          csv,
           specifiedType: const FullType(_i2.CsvOutput),
         ));
     }
-    if (payload.json != null) {
-      result
+    if (json != null) {
+      result$
         ..add(const _i4.XmlElementName('JSON'))
         ..add(serializers.serialize(
-          payload.json!,
+          json,
           specifiedType: const FullType(_i3.JsonOutput),
         ));
     }
-    return result;
+    return result$;
   }
 }

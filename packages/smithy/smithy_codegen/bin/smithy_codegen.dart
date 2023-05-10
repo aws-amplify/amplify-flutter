@@ -34,8 +34,8 @@ void main(List<String> args) async {
   }
 
   // Read from stdin or inputFile, depending on configuration.
-  final String? inputFile = config.inputFile;
-  final String? json = inputFile != null
+  final inputFile = config.inputFile;
+  final json = inputFile != null
       ? File(inputFile).readAsStringSync()
       : stdin.readLineSync(encoding: utf8);
   if (json == null) {
@@ -62,7 +62,7 @@ void main(List<String> args) async {
     packageName: packageName,
     generateServer: config.server,
   );
-  final Set<String> dependencies = {};
+  final dependencies = <String>{};
   for (final library in outputs.values.expand((out) => out.libraries)) {
     final smithyLibrary = library.smithyLibrary;
     final outPath = path.join(
@@ -117,9 +117,10 @@ analyzer:
     stderrEncoding: utf8,
   );
   if (pubGetRes.exitCode != 0) {
-    stderr.write('`dart pub upgrade` failed for $outputPath: ');
-    stderr.writeln(pubGetRes.stdout);
-    stderr.writeln(pubGetRes.stderr);
+    stderr
+      ..write('`dart pub upgrade` failed for $outputPath: ')
+      ..writeln(pubGetRes.stdout)
+      ..writeln(pubGetRes.stderr);
     exit(pubGetRes.exitCode);
   }
 

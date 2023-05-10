@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.transact_write_item; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,8 +9,8 @@ import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/condition_check.dart'
     as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/put.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/put.dart' as _i3;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/update.dart' as _i5;
 
 part 'transact_write_item.g.dart';
@@ -21,14 +22,14 @@ abstract class TransactWriteItem
   /// A list of requests that can perform update, put, delete, or check operations on multiple items in one or more tables atomically.
   factory TransactWriteItem({
     _i2.ConditionCheck? conditionCheck,
-    _i3.Delete? delete,
-    _i4.Put? put,
+    _i3.Put? put,
+    _i4.Delete? delete,
     _i5.Update? update_,
   }) {
     return _$TransactWriteItem._(
       conditionCheck: conditionCheck,
-      delete: delete,
       put: put,
+      delete: delete,
       update_: update_,
     );
   }
@@ -49,19 +50,19 @@ abstract class TransactWriteItem
   /// A request to perform a check item operation.
   _i2.ConditionCheck? get conditionCheck;
 
-  /// A request to perform a `DeleteItem` operation.
-  _i3.Delete? get delete;
-
   /// A request to perform a `PutItem` operation.
-  _i4.Put? get put;
+  _i3.Put? get put;
+
+  /// A request to perform a `DeleteItem` operation.
+  _i4.Delete? get delete;
 
   /// A request to perform an `UpdateItem` operation.
   _i5.Update? get update_;
   @override
   List<Object?> get props => [
         conditionCheck,
-        delete,
         put,
+        delete,
         update_,
       ];
   @override
@@ -72,12 +73,12 @@ abstract class TransactWriteItem
       conditionCheck,
     );
     helper.add(
-      'delete',
-      delete,
-    );
-    helper.add(
       'put',
       put,
+    );
+    helper.add(
+      'delete',
+      delete,
     );
     helper.add(
       'update_',
@@ -115,39 +116,30 @@ class TransactWriteItemAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConditionCheck':
-          if (value != null) {
-            result.conditionCheck.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConditionCheck),
-            ) as _i2.ConditionCheck));
-          }
-          break;
-        case 'Delete':
-          if (value != null) {
-            result.delete.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Delete),
-            ) as _i3.Delete));
-          }
-          break;
+          result.conditionCheck.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConditionCheck),
+          ) as _i2.ConditionCheck));
         case 'Put':
-          if (value != null) {
-            result.put.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Put),
-            ) as _i4.Put));
-          }
-          break;
+          result.put.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Put),
+          ) as _i3.Put));
+        case 'Delete':
+          result.delete.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.Delete),
+          ) as _i4.Delete));
         case 'Update':
-          if (value != null) {
-            result.update_.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.Update),
-            ) as _i5.Update));
-          }
-          break;
+          result.update_.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.Update),
+          ) as _i5.Update));
       }
     }
 
@@ -157,43 +149,43 @@ class TransactWriteItemAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TransactWriteItem object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TransactWriteItem);
-    final result = <Object?>[];
-    if (payload.conditionCheck != null) {
-      result
+    final result$ = <Object?>[];
+    final TransactWriteItem(:conditionCheck, :put, :delete, :update_) = object;
+    if (conditionCheck != null) {
+      result$
         ..add('ConditionCheck')
         ..add(serializers.serialize(
-          payload.conditionCheck!,
+          conditionCheck,
           specifiedType: const FullType(_i2.ConditionCheck),
         ));
     }
-    if (payload.delete != null) {
-      result
-        ..add('Delete')
-        ..add(serializers.serialize(
-          payload.delete!,
-          specifiedType: const FullType(_i3.Delete),
-        ));
-    }
-    if (payload.put != null) {
-      result
+    if (put != null) {
+      result$
         ..add('Put')
         ..add(serializers.serialize(
-          payload.put!,
-          specifiedType: const FullType(_i4.Put),
+          put,
+          specifiedType: const FullType(_i3.Put),
         ));
     }
-    if (payload.update_ != null) {
-      result
+    if (delete != null) {
+      result$
+        ..add('Delete')
+        ..add(serializers.serialize(
+          delete,
+          specifiedType: const FullType(_i4.Delete),
+        ));
+    }
+    if (update_ != null) {
+      result$
         ..add('Update')
         ..add(serializers.serialize(
-          payload.update_!,
+          update_,
           specifiedType: const FullType(_i5.Update),
         ));
     }
-    return result;
+    return result$;
   }
 }

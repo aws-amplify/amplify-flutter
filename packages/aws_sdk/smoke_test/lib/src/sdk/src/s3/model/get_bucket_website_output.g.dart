@@ -8,11 +8,11 @@ part of smoke_test.s3.model.get_bucket_website_output;
 
 class _$GetBucketWebsiteOutput extends GetBucketWebsiteOutput {
   @override
-  final _i2.ErrorDocument? errorDocument;
+  final _i2.RedirectAllRequestsTo? redirectAllRequestsTo;
   @override
   final _i3.IndexDocument? indexDocument;
   @override
-  final _i4.RedirectAllRequestsTo? redirectAllRequestsTo;
+  final _i4.ErrorDocument? errorDocument;
   @override
   final _i6.BuiltList<_i5.RoutingRule>? routingRules;
 
@@ -21,9 +21,9 @@ class _$GetBucketWebsiteOutput extends GetBucketWebsiteOutput {
       (new GetBucketWebsiteOutputBuilder()..update(updates))._build();
 
   _$GetBucketWebsiteOutput._(
-      {this.errorDocument,
+      {this.redirectAllRequestsTo,
       this.indexDocument,
-      this.redirectAllRequestsTo,
+      this.errorDocument,
       this.routingRules})
       : super._();
 
@@ -40,18 +40,18 @@ class _$GetBucketWebsiteOutput extends GetBucketWebsiteOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetBucketWebsiteOutput &&
-        errorDocument == other.errorDocument &&
-        indexDocument == other.indexDocument &&
         redirectAllRequestsTo == other.redirectAllRequestsTo &&
+        indexDocument == other.indexDocument &&
+        errorDocument == other.errorDocument &&
         routingRules == other.routingRules;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, errorDocument.hashCode);
-    _$hash = $jc(_$hash, indexDocument.hashCode);
     _$hash = $jc(_$hash, redirectAllRequestsTo.hashCode);
+    _$hash = $jc(_$hash, indexDocument.hashCode);
+    _$hash = $jc(_$hash, errorDocument.hashCode);
     _$hash = $jc(_$hash, routingRules.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -62,11 +62,12 @@ class GetBucketWebsiteOutputBuilder
     implements Builder<GetBucketWebsiteOutput, GetBucketWebsiteOutputBuilder> {
   _$GetBucketWebsiteOutput? _$v;
 
-  _i2.ErrorDocumentBuilder? _errorDocument;
-  _i2.ErrorDocumentBuilder get errorDocument =>
-      _$this._errorDocument ??= new _i2.ErrorDocumentBuilder();
-  set errorDocument(_i2.ErrorDocumentBuilder? errorDocument) =>
-      _$this._errorDocument = errorDocument;
+  _i2.RedirectAllRequestsToBuilder? _redirectAllRequestsTo;
+  _i2.RedirectAllRequestsToBuilder get redirectAllRequestsTo =>
+      _$this._redirectAllRequestsTo ??= new _i2.RedirectAllRequestsToBuilder();
+  set redirectAllRequestsTo(
+          _i2.RedirectAllRequestsToBuilder? redirectAllRequestsTo) =>
+      _$this._redirectAllRequestsTo = redirectAllRequestsTo;
 
   _i3.IndexDocumentBuilder? _indexDocument;
   _i3.IndexDocumentBuilder get indexDocument =>
@@ -74,12 +75,11 @@ class GetBucketWebsiteOutputBuilder
   set indexDocument(_i3.IndexDocumentBuilder? indexDocument) =>
       _$this._indexDocument = indexDocument;
 
-  _i4.RedirectAllRequestsToBuilder? _redirectAllRequestsTo;
-  _i4.RedirectAllRequestsToBuilder get redirectAllRequestsTo =>
-      _$this._redirectAllRequestsTo ??= new _i4.RedirectAllRequestsToBuilder();
-  set redirectAllRequestsTo(
-          _i4.RedirectAllRequestsToBuilder? redirectAllRequestsTo) =>
-      _$this._redirectAllRequestsTo = redirectAllRequestsTo;
+  _i4.ErrorDocumentBuilder? _errorDocument;
+  _i4.ErrorDocumentBuilder get errorDocument =>
+      _$this._errorDocument ??= new _i4.ErrorDocumentBuilder();
+  set errorDocument(_i4.ErrorDocumentBuilder? errorDocument) =>
+      _$this._errorDocument = errorDocument;
 
   _i6.ListBuilder<_i5.RoutingRule>? _routingRules;
   _i6.ListBuilder<_i5.RoutingRule> get routingRules =>
@@ -94,9 +94,9 @@ class GetBucketWebsiteOutputBuilder
   GetBucketWebsiteOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _errorDocument = $v.errorDocument?.toBuilder();
-      _indexDocument = $v.indexDocument?.toBuilder();
       _redirectAllRequestsTo = $v.redirectAllRequestsTo?.toBuilder();
+      _indexDocument = $v.indexDocument?.toBuilder();
+      _errorDocument = $v.errorDocument?.toBuilder();
       _routingRules = $v.routingRules?.toBuilder();
       _$v = null;
     }
@@ -122,19 +122,19 @@ class GetBucketWebsiteOutputBuilder
     try {
       _$result = _$v ??
           new _$GetBucketWebsiteOutput._(
-              errorDocument: _errorDocument?.build(),
-              indexDocument: _indexDocument?.build(),
               redirectAllRequestsTo: _redirectAllRequestsTo?.build(),
+              indexDocument: _indexDocument?.build(),
+              errorDocument: _errorDocument?.build(),
               routingRules: _routingRules?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'errorDocument';
-        _errorDocument?.build();
-        _$failedField = 'indexDocument';
-        _indexDocument?.build();
         _$failedField = 'redirectAllRequestsTo';
         _redirectAllRequestsTo?.build();
+        _$failedField = 'indexDocument';
+        _indexDocument?.build();
+        _$failedField = 'errorDocument';
+        _errorDocument?.build();
         _$failedField = 'routingRules';
         _routingRules?.build();
       } catch (e) {

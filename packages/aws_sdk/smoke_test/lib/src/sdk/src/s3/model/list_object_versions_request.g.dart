@@ -14,8 +14,6 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
   @override
   final _i3.EncodingType? encodingType;
   @override
-  final String? expectedBucketOwner;
-  @override
   final String? keyMarker;
   @override
   final int? maxKeys;
@@ -23,6 +21,8 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
   final String? prefix;
   @override
   final String? versionIdMarker;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$ListObjectVersionsRequest(
           [void Function(ListObjectVersionsRequestBuilder)? updates]) =>
@@ -32,11 +32,11 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
       {required this.bucket,
       this.delimiter,
       this.encodingType,
-      this.expectedBucketOwner,
       this.keyMarker,
       this.maxKeys,
       this.prefix,
-      this.versionIdMarker})
+      this.versionIdMarker,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'ListObjectVersionsRequest', 'bucket');
@@ -58,11 +58,11 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
         bucket == other.bucket &&
         delimiter == other.delimiter &&
         encodingType == other.encodingType &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         keyMarker == other.keyMarker &&
         maxKeys == other.maxKeys &&
         prefix == other.prefix &&
-        versionIdMarker == other.versionIdMarker;
+        versionIdMarker == other.versionIdMarker &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
@@ -71,11 +71,11 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
     _$hash = $jc(_$hash, bucket.hashCode);
     _$hash = $jc(_$hash, delimiter.hashCode);
     _$hash = $jc(_$hash, encodingType.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, keyMarker.hashCode);
     _$hash = $jc(_$hash, maxKeys.hashCode);
     _$hash = $jc(_$hash, prefix.hashCode);
     _$hash = $jc(_$hash, versionIdMarker.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -99,11 +99,6 @@ class ListObjectVersionsRequestBuilder
   set encodingType(_i3.EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
   String? _keyMarker;
   String? get keyMarker => _$this._keyMarker;
   set keyMarker(String? keyMarker) => _$this._keyMarker = keyMarker;
@@ -121,6 +116,11 @@ class ListObjectVersionsRequestBuilder
   set versionIdMarker(String? versionIdMarker) =>
       _$this._versionIdMarker = versionIdMarker;
 
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
+
   ListObjectVersionsRequestBuilder() {
     ListObjectVersionsRequest._init(this);
   }
@@ -131,11 +131,11 @@ class ListObjectVersionsRequestBuilder
       _bucket = $v.bucket;
       _delimiter = $v.delimiter;
       _encodingType = $v.encodingType;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _keyMarker = $v.keyMarker;
       _maxKeys = $v.maxKeys;
       _prefix = $v.prefix;
       _versionIdMarker = $v.versionIdMarker;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -162,11 +162,11 @@ class ListObjectVersionsRequestBuilder
                 bucket, r'ListObjectVersionsRequest', 'bucket'),
             delimiter: delimiter,
             encodingType: encodingType,
-            expectedBucketOwner: expectedBucketOwner,
             keyMarker: keyMarker,
             maxKeys: maxKeys,
             prefix: prefix,
-            versionIdMarker: versionIdMarker);
+            versionIdMarker: versionIdMarker,
+            expectedBucketOwner: expectedBucketOwner);
     replace(_$result);
     return _$result;
   }

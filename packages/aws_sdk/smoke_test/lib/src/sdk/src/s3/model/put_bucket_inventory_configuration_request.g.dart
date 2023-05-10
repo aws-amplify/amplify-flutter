@@ -11,11 +11,11 @@ class _$PutBucketInventoryConfigurationRequest
   @override
   final String bucket;
   @override
-  final String? expectedBucketOwner;
-  @override
   final String id;
   @override
   final _i2.InventoryConfiguration inventoryConfiguration;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$PutBucketInventoryConfigurationRequest(
           [void Function(PutBucketInventoryConfigurationRequestBuilder)?
@@ -25,9 +25,9 @@ class _$PutBucketInventoryConfigurationRequest
 
   _$PutBucketInventoryConfigurationRequest._(
       {required this.bucket,
-      this.expectedBucketOwner,
       required this.id,
-      required this.inventoryConfiguration})
+      required this.inventoryConfiguration,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutBucketInventoryConfigurationRequest', 'bucket');
@@ -52,18 +52,18 @@ class _$PutBucketInventoryConfigurationRequest
     if (identical(other, this)) return true;
     return other is PutBucketInventoryConfigurationRequest &&
         bucket == other.bucket &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         id == other.id &&
-        inventoryConfiguration == other.inventoryConfiguration;
+        inventoryConfiguration == other.inventoryConfiguration &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, inventoryConfiguration.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -79,11 +79,6 @@ class PutBucketInventoryConfigurationRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
@@ -96,6 +91,11 @@ class PutBucketInventoryConfigurationRequestBuilder
           _i2.InventoryConfigurationBuilder? inventoryConfiguration) =>
       _$this._inventoryConfiguration = inventoryConfiguration;
 
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
+
   PutBucketInventoryConfigurationRequestBuilder() {
     PutBucketInventoryConfigurationRequest._init(this);
   }
@@ -104,9 +104,9 @@ class PutBucketInventoryConfigurationRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _id = $v.id;
       _inventoryConfiguration = $v.inventoryConfiguration.toBuilder();
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -134,10 +134,10 @@ class PutBucketInventoryConfigurationRequestBuilder
           new _$PutBucketInventoryConfigurationRequest._(
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutBucketInventoryConfigurationRequest', 'bucket'),
-              expectedBucketOwner: expectedBucketOwner,
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'PutBucketInventoryConfigurationRequest', 'id'),
-              inventoryConfiguration: inventoryConfiguration.build());
+              inventoryConfiguration: inventoryConfiguration.build(),
+              expectedBucketOwner: expectedBucketOwner);
     } catch (_) {
       late String _$failedField;
       try {

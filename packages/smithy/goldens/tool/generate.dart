@@ -20,6 +20,7 @@ const skipProtocols = [
 const awsProtocols = [
   'awsJson1_0',
   'awsJson1_1',
+  'awsQuery',
   'restJson1',
   'restXml',
   'restXmlWithNamespace'
@@ -247,8 +248,8 @@ include: package:lints/recommended.yaml
 analyzer:
   errors:
     avoid_unused_constructor_parameters: ignore
+    deprecated_member_use_from_same_package: ignore
     non_constant_identifier_names: ignore
-    prefer_interpolation_to_compose_strings: ignore
 ''');
 
   // Create mono_pkg for testing

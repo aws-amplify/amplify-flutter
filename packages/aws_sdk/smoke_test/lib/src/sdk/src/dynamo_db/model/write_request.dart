@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.write_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -7,8 +8,8 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/put_request.dart' as _i3;
+    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/put_request.dart' as _i2;
 
 part 'write_request.g.dart';
 
@@ -18,12 +19,12 @@ abstract class WriteRequest
     implements Built<WriteRequest, WriteRequestBuilder> {
   /// Represents an operation to perform - either `DeleteItem` or `PutItem`. You can only request one of these operations, not both, in a single `WriteRequest`. If you do need to perform both of these operations, you need to provide two separate `WriteRequest` objects.
   factory WriteRequest({
-    _i2.DeleteRequest? deleteRequest,
-    _i3.PutRequest? putRequest,
+    _i2.PutRequest? putRequest,
+    _i3.DeleteRequest? deleteRequest,
   }) {
     return _$WriteRequest._(
-      deleteRequest: deleteRequest,
       putRequest: putRequest,
+      deleteRequest: deleteRequest,
     );
   }
 
@@ -40,26 +41,26 @@ abstract class WriteRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(WriteRequestBuilder b) {}
 
-  /// A request to perform a `DeleteItem` operation.
-  _i2.DeleteRequest? get deleteRequest;
-
   /// A request to perform a `PutItem` operation.
-  _i3.PutRequest? get putRequest;
+  _i2.PutRequest? get putRequest;
+
+  /// A request to perform a `DeleteItem` operation.
+  _i3.DeleteRequest? get deleteRequest;
   @override
   List<Object?> get props => [
-        deleteRequest,
         putRequest,
+        deleteRequest,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('WriteRequest');
     helper.add(
-      'deleteRequest',
-      deleteRequest,
-    );
-    helper.add(
       'putRequest',
       putRequest,
+    );
+    helper.add(
+      'deleteRequest',
+      deleteRequest,
     );
     return helper.toString();
   }
@@ -93,23 +94,20 @@ class WriteRequestAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'DeleteRequest':
-          if (value != null) {
-            result.deleteRequest.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.DeleteRequest),
-            ) as _i2.DeleteRequest));
-          }
-          break;
         case 'PutRequest':
-          if (value != null) {
-            result.putRequest.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.PutRequest),
-            ) as _i3.PutRequest));
-          }
-          break;
+          result.putRequest.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.PutRequest),
+          ) as _i2.PutRequest));
+        case 'DeleteRequest':
+          result.deleteRequest.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.DeleteRequest),
+          ) as _i3.DeleteRequest));
       }
     }
 
@@ -119,27 +117,27 @@ class WriteRequestAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    WriteRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as WriteRequest);
-    final result = <Object?>[];
-    if (payload.deleteRequest != null) {
-      result
-        ..add('DeleteRequest')
-        ..add(serializers.serialize(
-          payload.deleteRequest!,
-          specifiedType: const FullType(_i2.DeleteRequest),
-        ));
-    }
-    if (payload.putRequest != null) {
-      result
+    final result$ = <Object?>[];
+    final WriteRequest(:putRequest, :deleteRequest) = object;
+    if (putRequest != null) {
+      result$
         ..add('PutRequest')
         ..add(serializers.serialize(
-          payload.putRequest!,
-          specifiedType: const FullType(_i3.PutRequest),
+          putRequest,
+          specifiedType: const FullType(_i2.PutRequest),
         ));
     }
-    return result;
+    if (deleteRequest != null) {
+      result$
+        ..add('DeleteRequest')
+        ..add(serializers.serialize(
+          deleteRequest,
+          specifiedType: const FullType(_i3.DeleteRequest),
+        ));
+    }
+    return result$;
   }
 }

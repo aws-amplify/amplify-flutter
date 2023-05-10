@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.create_request_validator_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,14 +22,14 @@ abstract class CreateRequestValidatorRequest
         _i1.HasPayload<CreateRequestValidatorRequestPayload> {
   /// Creates a RequestValidator of a given RestApi.
   factory CreateRequestValidatorRequest({
-    String? name,
     required String restApiId,
+    String? name,
     bool? validateRequestBody,
     bool? validateRequestParameters,
   }) {
     return _$CreateRequestValidatorRequest._(
-      name: name,
       restApiId: restApiId,
+      name: name,
       validateRequestBody: validateRequestBody,
       validateRequestParameters: validateRequestParameters,
     );
@@ -62,11 +63,11 @@ abstract class CreateRequestValidatorRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateRequestValidatorRequestBuilder b) {}
 
-  /// The name of the to-be-created RequestValidator.
-  String? get name;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The name of the to-be-created RequestValidator.
+  String? get name;
 
   /// A Boolean flag to indicate whether to validate request body according to the configured model schema for the method (`true`) or not (`false`).
   bool? get validateRequestBody;
@@ -94,8 +95,8 @@ abstract class CreateRequestValidatorRequest
       });
   @override
   List<Object?> get props => [
-        name,
         restApiId,
+        name,
         validateRequestBody,
         validateRequestParameters,
       ];
@@ -103,12 +104,12 @@ abstract class CreateRequestValidatorRequest
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateRequestValidatorRequest');
     helper.add(
-      'name',
-      name,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'name',
+      name,
     );
     helper.add(
       'validateRequestBody',
@@ -203,31 +204,25 @@ class CreateRequestValidatorRequestRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'validateRequestBody':
-          if (value != null) {
-            result.validateRequestBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.validateRequestBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'validateRequestParameters':
-          if (value != null) {
-            result.validateRequestParameters = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.validateRequestParameters = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -237,37 +232,39 @@ class CreateRequestValidatorRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateRequestValidatorRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is CreateRequestValidatorRequest
-        ? object.getPayload()
-        : (object as CreateRequestValidatorRequestPayload);
-    final result = <Object?>[];
-    if (payload.name != null) {
-      result
+    final result$ = <Object?>[];
+    final CreateRequestValidatorRequestPayload(
+      :name,
+      :validateRequestBody,
+      :validateRequestParameters
+    ) = object;
+    if (name != null) {
+      result$
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.validateRequestBody != null) {
-      result
+    if (validateRequestBody != null) {
+      result$
         ..add('validateRequestBody')
         ..add(serializers.serialize(
-          payload.validateRequestBody!,
+          validateRequestBody,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.validateRequestParameters != null) {
-      result
+    if (validateRequestParameters != null) {
+      result$
         ..add('validateRequestParameters')
         ..add(serializers.serialize(
-          payload.validateRequestParameters!,
+          validateRequestParameters,
           specifiedType: const FullType(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

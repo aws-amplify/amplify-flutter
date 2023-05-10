@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.select_resource_config_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -111,29 +112,25 @@ class SelectResourceConfigRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Expression':
           result.expression = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -143,33 +140,34 @@ class SelectResourceConfigRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SelectResourceConfigRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SelectResourceConfigRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final SelectResourceConfigRequest(:expression, :limit, :nextToken) = object;
+    result$.addAll([
       'Expression',
       serializers.serialize(
-        payload.expression,
+        expression,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.limit != null) {
-      result
+    ]);
+    if (limit != null) {
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
-      result
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

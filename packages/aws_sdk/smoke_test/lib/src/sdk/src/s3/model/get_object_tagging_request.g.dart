@@ -10,13 +10,13 @@ class _$GetObjectTaggingRequest extends GetObjectTaggingRequest {
   @override
   final String bucket;
   @override
-  final String? expectedBucketOwner;
-  @override
   final String key;
   @override
-  final _i3.RequestPayer? requestPayer;
-  @override
   final String? versionId;
+  @override
+  final String? expectedBucketOwner;
+  @override
+  final _i3.RequestPayer? requestPayer;
 
   factory _$GetObjectTaggingRequest(
           [void Function(GetObjectTaggingRequestBuilder)? updates]) =>
@@ -24,10 +24,10 @@ class _$GetObjectTaggingRequest extends GetObjectTaggingRequest {
 
   _$GetObjectTaggingRequest._(
       {required this.bucket,
-      this.expectedBucketOwner,
       required this.key,
-      this.requestPayer,
-      this.versionId})
+      this.versionId,
+      this.expectedBucketOwner,
+      this.requestPayer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'GetObjectTaggingRequest', 'bucket');
@@ -49,20 +49,20 @@ class _$GetObjectTaggingRequest extends GetObjectTaggingRequest {
     if (identical(other, this)) return true;
     return other is GetObjectTaggingRequest &&
         bucket == other.bucket &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         key == other.key &&
-        requestPayer == other.requestPayer &&
-        versionId == other.versionId;
+        versionId == other.versionId &&
+        expectedBucketOwner == other.expectedBucketOwner &&
+        requestPayer == other.requestPayer;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
-    _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jc(_$hash, versionId.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -77,23 +77,23 @@ class GetObjectTaggingRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
+  String? _key;
+  String? get key => _$this._key;
+  set key(String? key) => _$this._key = key;
+
+  String? _versionId;
+  String? get versionId => _$this._versionId;
+  set versionId(String? versionId) => _$this._versionId = versionId;
+
   String? _expectedBucketOwner;
   String? get expectedBucketOwner => _$this._expectedBucketOwner;
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  String? _key;
-  String? get key => _$this._key;
-  set key(String? key) => _$this._key = key;
-
   _i3.RequestPayer? _requestPayer;
   _i3.RequestPayer? get requestPayer => _$this._requestPayer;
   set requestPayer(_i3.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
-
-  String? _versionId;
-  String? get versionId => _$this._versionId;
-  set versionId(String? versionId) => _$this._versionId = versionId;
 
   GetObjectTaggingRequestBuilder() {
     GetObjectTaggingRequest._init(this);
@@ -103,10 +103,10 @@ class GetObjectTaggingRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _key = $v.key;
-      _requestPayer = $v.requestPayer;
       _versionId = $v.versionId;
+      _expectedBucketOwner = $v.expectedBucketOwner;
+      _requestPayer = $v.requestPayer;
       _$v = null;
     }
     return this;
@@ -131,11 +131,11 @@ class GetObjectTaggingRequestBuilder
         new _$GetObjectTaggingRequest._(
             bucket: BuiltValueNullFieldError.checkNotNull(
                 bucket, r'GetObjectTaggingRequest', 'bucket'),
-            expectedBucketOwner: expectedBucketOwner,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'GetObjectTaggingRequest', 'key'),
-            requestPayer: requestPayer,
-            versionId: versionId);
+            versionId: versionId,
+            expectedBucketOwner: expectedBucketOwner,
+            requestPayer: requestPayer);
     replace(_$result);
     return _$result;
   }

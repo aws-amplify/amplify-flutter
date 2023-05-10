@@ -8,25 +8,25 @@ part of amplify_storage_s3_dart.s3.model.csv_output;
 
 class _$CsvOutput extends CsvOutput {
   @override
-  final String? fieldDelimiter;
-  @override
-  final String? quoteCharacter;
+  final _i2.QuoteFields? quoteFields;
   @override
   final String? quoteEscapeCharacter;
   @override
-  final _i2.QuoteFields? quoteFields;
-  @override
   final String? recordDelimiter;
+  @override
+  final String? fieldDelimiter;
+  @override
+  final String? quoteCharacter;
 
   factory _$CsvOutput([void Function(CsvOutputBuilder)? updates]) =>
       (new CsvOutputBuilder()..update(updates))._build();
 
   _$CsvOutput._(
-      {this.fieldDelimiter,
-      this.quoteCharacter,
+      {this.quoteFields,
       this.quoteEscapeCharacter,
-      this.quoteFields,
-      this.recordDelimiter})
+      this.recordDelimiter,
+      this.fieldDelimiter,
+      this.quoteCharacter})
       : super._();
 
   @override
@@ -40,21 +40,21 @@ class _$CsvOutput extends CsvOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CsvOutput &&
-        fieldDelimiter == other.fieldDelimiter &&
-        quoteCharacter == other.quoteCharacter &&
-        quoteEscapeCharacter == other.quoteEscapeCharacter &&
         quoteFields == other.quoteFields &&
-        recordDelimiter == other.recordDelimiter;
+        quoteEscapeCharacter == other.quoteEscapeCharacter &&
+        recordDelimiter == other.recordDelimiter &&
+        fieldDelimiter == other.fieldDelimiter &&
+        quoteCharacter == other.quoteCharacter;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, quoteFields.hashCode);
+    _$hash = $jc(_$hash, quoteEscapeCharacter.hashCode);
+    _$hash = $jc(_$hash, recordDelimiter.hashCode);
     _$hash = $jc(_$hash, fieldDelimiter.hashCode);
     _$hash = $jc(_$hash, quoteCharacter.hashCode);
-    _$hash = $jc(_$hash, quoteEscapeCharacter.hashCode);
-    _$hash = $jc(_$hash, quoteFields.hashCode);
-    _$hash = $jc(_$hash, recordDelimiter.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,6 +62,21 @@ class _$CsvOutput extends CsvOutput {
 
 class CsvOutputBuilder implements Builder<CsvOutput, CsvOutputBuilder> {
   _$CsvOutput? _$v;
+
+  _i2.QuoteFields? _quoteFields;
+  _i2.QuoteFields? get quoteFields => _$this._quoteFields;
+  set quoteFields(_i2.QuoteFields? quoteFields) =>
+      _$this._quoteFields = quoteFields;
+
+  String? _quoteEscapeCharacter;
+  String? get quoteEscapeCharacter => _$this._quoteEscapeCharacter;
+  set quoteEscapeCharacter(String? quoteEscapeCharacter) =>
+      _$this._quoteEscapeCharacter = quoteEscapeCharacter;
+
+  String? _recordDelimiter;
+  String? get recordDelimiter => _$this._recordDelimiter;
+  set recordDelimiter(String? recordDelimiter) =>
+      _$this._recordDelimiter = recordDelimiter;
 
   String? _fieldDelimiter;
   String? get fieldDelimiter => _$this._fieldDelimiter;
@@ -73,21 +88,6 @@ class CsvOutputBuilder implements Builder<CsvOutput, CsvOutputBuilder> {
   set quoteCharacter(String? quoteCharacter) =>
       _$this._quoteCharacter = quoteCharacter;
 
-  String? _quoteEscapeCharacter;
-  String? get quoteEscapeCharacter => _$this._quoteEscapeCharacter;
-  set quoteEscapeCharacter(String? quoteEscapeCharacter) =>
-      _$this._quoteEscapeCharacter = quoteEscapeCharacter;
-
-  _i2.QuoteFields? _quoteFields;
-  _i2.QuoteFields? get quoteFields => _$this._quoteFields;
-  set quoteFields(_i2.QuoteFields? quoteFields) =>
-      _$this._quoteFields = quoteFields;
-
-  String? _recordDelimiter;
-  String? get recordDelimiter => _$this._recordDelimiter;
-  set recordDelimiter(String? recordDelimiter) =>
-      _$this._recordDelimiter = recordDelimiter;
-
   CsvOutputBuilder() {
     CsvOutput._init(this);
   }
@@ -95,11 +95,11 @@ class CsvOutputBuilder implements Builder<CsvOutput, CsvOutputBuilder> {
   CsvOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _quoteFields = $v.quoteFields;
+      _quoteEscapeCharacter = $v.quoteEscapeCharacter;
+      _recordDelimiter = $v.recordDelimiter;
       _fieldDelimiter = $v.fieldDelimiter;
       _quoteCharacter = $v.quoteCharacter;
-      _quoteEscapeCharacter = $v.quoteEscapeCharacter;
-      _quoteFields = $v.quoteFields;
-      _recordDelimiter = $v.recordDelimiter;
       _$v = null;
     }
     return this;
@@ -122,11 +122,11 @@ class CsvOutputBuilder implements Builder<CsvOutput, CsvOutputBuilder> {
   _$CsvOutput _build() {
     final _$result = _$v ??
         new _$CsvOutput._(
-            fieldDelimiter: fieldDelimiter,
-            quoteCharacter: quoteCharacter,
-            quoteEscapeCharacter: quoteEscapeCharacter,
             quoteFields: quoteFields,
-            recordDelimiter: recordDelimiter);
+            quoteEscapeCharacter: quoteEscapeCharacter,
+            recordDelimiter: recordDelimiter,
+            fieldDelimiter: fieldDelimiter,
+            quoteCharacter: quoteCharacter);
     replace(_$result);
     return _$result;
   }

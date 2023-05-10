@@ -8,31 +8,31 @@ part of smoke_test.api_gateway.model.vpc_link;
 
 class _$VpcLink extends VpcLink {
   @override
-  final String? description;
-  @override
   final String? id;
   @override
   final String? name;
+  @override
+  final String? description;
+  @override
+  final _i3.BuiltList<String>? targetArns;
   @override
   final _i2.VpcLinkStatus? status;
   @override
   final String? statusMessage;
   @override
   final _i3.BuiltMap<String, String>? tags;
-  @override
-  final _i3.BuiltList<String>? targetArns;
 
   factory _$VpcLink([void Function(VpcLinkBuilder)? updates]) =>
       (new VpcLinkBuilder()..update(updates))._build();
 
   _$VpcLink._(
-      {this.description,
-      this.id,
+      {this.id,
       this.name,
+      this.description,
+      this.targetArns,
       this.status,
       this.statusMessage,
-      this.tags,
-      this.targetArns})
+      this.tags})
       : super._();
 
   @override
@@ -46,25 +46,25 @@ class _$VpcLink extends VpcLink {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is VpcLink &&
-        description == other.description &&
         id == other.id &&
         name == other.name &&
+        description == other.description &&
+        targetArns == other.targetArns &&
         status == other.status &&
         statusMessage == other.statusMessage &&
-        tags == other.tags &&
-        targetArns == other.targetArns;
+        tags == other.tags;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, targetArns.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
     _$hash = $jc(_$hash, statusMessage.hashCode);
     _$hash = $jc(_$hash, tags.hashCode);
-    _$hash = $jc(_$hash, targetArns.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -73,10 +73,6 @@ class _$VpcLink extends VpcLink {
 class VpcLinkBuilder implements Builder<VpcLink, VpcLinkBuilder> {
   _$VpcLink? _$v;
 
-  String? _description;
-  String? get description => _$this._description;
-  set description(String? description) => _$this._description = description;
-
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
@@ -84,6 +80,16 @@ class VpcLinkBuilder implements Builder<VpcLink, VpcLinkBuilder> {
   String? _name;
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
+
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
+
+  _i3.ListBuilder<String>? _targetArns;
+  _i3.ListBuilder<String> get targetArns =>
+      _$this._targetArns ??= new _i3.ListBuilder<String>();
+  set targetArns(_i3.ListBuilder<String>? targetArns) =>
+      _$this._targetArns = targetArns;
 
   _i2.VpcLinkStatus? _status;
   _i2.VpcLinkStatus? get status => _$this._status;
@@ -99,12 +105,6 @@ class VpcLinkBuilder implements Builder<VpcLink, VpcLinkBuilder> {
       _$this._tags ??= new _i3.MapBuilder<String, String>();
   set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  _i3.ListBuilder<String>? _targetArns;
-  _i3.ListBuilder<String> get targetArns =>
-      _$this._targetArns ??= new _i3.ListBuilder<String>();
-  set targetArns(_i3.ListBuilder<String>? targetArns) =>
-      _$this._targetArns = targetArns;
-
   VpcLinkBuilder() {
     VpcLink._init(this);
   }
@@ -112,13 +112,13 @@ class VpcLinkBuilder implements Builder<VpcLink, VpcLinkBuilder> {
   VpcLinkBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _description = $v.description;
       _id = $v.id;
       _name = $v.name;
+      _description = $v.description;
+      _targetArns = $v.targetArns?.toBuilder();
       _status = $v.status;
       _statusMessage = $v.statusMessage;
       _tags = $v.tags?.toBuilder();
-      _targetArns = $v.targetArns?.toBuilder();
       _$v = null;
     }
     return this;
@@ -143,20 +143,21 @@ class VpcLinkBuilder implements Builder<VpcLink, VpcLinkBuilder> {
     try {
       _$result = _$v ??
           new _$VpcLink._(
-              description: description,
               id: id,
               name: name,
+              description: description,
+              targetArns: _targetArns?.build(),
               status: status,
               statusMessage: statusMessage,
-              tags: _tags?.build(),
-              targetArns: _targetArns?.build());
+              tags: _tags?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'tags';
-        _tags?.build();
         _$failedField = 'targetArns';
         _targetArns?.build();
+
+        _$failedField = 'tags';
+        _tags?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'VpcLink', _$failedField, e.toString());

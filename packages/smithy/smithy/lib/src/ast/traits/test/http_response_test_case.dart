@@ -10,37 +10,22 @@ part 'http_response_test_case.g.dart';
 @ShapeIdConverter()
 class HttpResponseTestCase extends HttpMessageTestCase<HttpResponseTestCase> {
   const HttpResponseTestCase({
-    required String id,
-    String? documentation,
-    required ShapeId protocol,
-    ShapeId? authScheme,
-    String? body,
-    String? bodyMediaType,
-    Map<String, Object?> params = const {},
-    ShapeId? vendorParamsShape,
-    Map<String, Object?> vendorParams = const {},
-    Map<String, String> headers = const {},
-    List<String> forbidHeaders = const [],
-    List<String> requireHeaders = const [],
-    List<String> tags = const [],
-    AppliesTo? appliesTo,
+    required super.id,
+    super.documentation,
+    required super.protocol,
+    super.authScheme,
+    super.body,
+    super.bodyMediaType,
+    super.params,
+    super.vendorParamsShape,
+    super.vendorParams,
+    super.headers,
+    super.forbidHeaders,
+    super.requireHeaders,
+    super.tags,
+    super.appliesTo,
     required this.code,
-  }) : super(
-          id: id,
-          documentation: documentation,
-          protocol: protocol,
-          authScheme: authScheme,
-          body: body,
-          bodyMediaType: bodyMediaType,
-          params: params,
-          vendorParamsShape: vendorParamsShape,
-          vendorParams: vendorParams,
-          headers: headers,
-          forbidHeaders: forbidHeaders,
-          requireHeaders: requireHeaders,
-          tags: tags,
-          appliesTo: appliesTo,
-        );
+  });
 
   factory HttpResponseTestCase.fromJson(Map<String, Object?> json) =>
       _$HttpResponseTestCaseFromJson(json);

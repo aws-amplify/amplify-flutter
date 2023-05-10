@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.delivery_channel; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,20 +18,20 @@ abstract class DeliveryChannel
     implements Built<DeliveryChannel, DeliveryChannelBuilder> {
   /// The channel through which Config delivers notifications and updated configuration states.
   factory DeliveryChannel({
-    _i2.ConfigSnapshotDeliveryProperties? configSnapshotDeliveryProperties,
     String? name,
     String? s3BucketName,
     String? s3KeyPrefix,
     String? s3KmsKeyArn,
     String? snsTopicArn,
+    _i2.ConfigSnapshotDeliveryProperties? configSnapshotDeliveryProperties,
   }) {
     return _$DeliveryChannel._(
-      configSnapshotDeliveryProperties: configSnapshotDeliveryProperties,
       name: name,
       s3BucketName: s3BucketName,
       s3KeyPrefix: s3KeyPrefix,
       s3KmsKeyArn: s3KmsKeyArn,
       snsTopicArn: snsTopicArn,
+      configSnapshotDeliveryProperties: configSnapshotDeliveryProperties,
     );
   }
 
@@ -46,9 +47,6 @@ abstract class DeliveryChannel
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeliveryChannelBuilder b) {}
-
-  /// The options for how often Config delivers configuration snapshots to the Amazon S3 bucket.
-  _i2.ConfigSnapshotDeliveryProperties? get configSnapshotDeliveryProperties;
 
   /// The name of the delivery channel. By default, Config assigns the name "default" when creating the delivery channel. To change the delivery channel name, you must use the DeleteDeliveryChannel action to delete your current delivery channel, and then you must use the PutDeliveryChannel command to create a delivery channel that has the desired name.
   String? get name;
@@ -68,22 +66,21 @@ abstract class DeliveryChannel
   ///
   /// If you choose a topic from another account, the topic must have policies that grant access permissions to Config. For more information, see [Permissions for the Amazon SNS Topic](https://docs.aws.amazon.com/config/latest/developerguide/sns-topic-policy.html) in the _Config Developer Guide_.
   String? get snsTopicArn;
+
+  /// The options for how often Config delivers configuration snapshots to the Amazon S3 bucket.
+  _i2.ConfigSnapshotDeliveryProperties? get configSnapshotDeliveryProperties;
   @override
   List<Object?> get props => [
-        configSnapshotDeliveryProperties,
         name,
         s3BucketName,
         s3KeyPrefix,
         s3KmsKeyArn,
         snsTopicArn,
+        configSnapshotDeliveryProperties,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeliveryChannel');
-    helper.add(
-      'configSnapshotDeliveryProperties',
-      configSnapshotDeliveryProperties,
-    );
     helper.add(
       'name',
       name,
@@ -103,6 +100,10 @@ abstract class DeliveryChannel
     helper.add(
       'snsTopicArn',
       snsTopicArn,
+    );
+    helper.add(
+      'configSnapshotDeliveryProperties',
+      configSnapshotDeliveryProperties,
     );
     return helper.toString();
   }
@@ -136,57 +137,41 @@ class DeliveryChannelAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'configSnapshotDeliveryProperties':
-          if (value != null) {
-            result.configSnapshotDeliveryProperties
-                .replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.ConfigSnapshotDeliveryProperties),
-            ) as _i2.ConfigSnapshotDeliveryProperties));
-          }
-          break;
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 's3BucketName':
-          if (value != null) {
-            result.s3BucketName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.s3BucketName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 's3KeyPrefix':
-          if (value != null) {
-            result.s3KeyPrefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.s3KeyPrefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 's3KmsKeyArn':
-          if (value != null) {
-            result.s3KmsKeyArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.s3KmsKeyArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'snsTopicARN':
-          if (value != null) {
-            result.snsTopicArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.snsTopicArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'configSnapshotDeliveryProperties':
+          result.configSnapshotDeliveryProperties
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConfigSnapshotDeliveryProperties),
+          ) as _i2.ConfigSnapshotDeliveryProperties));
       }
     }
 
@@ -196,59 +181,66 @@ class DeliveryChannelAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeliveryChannel object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeliveryChannel);
-    final result = <Object?>[];
-    if (payload.configSnapshotDeliveryProperties != null) {
-      result
+    final result$ = <Object?>[];
+    final DeliveryChannel(
+      :name,
+      :s3BucketName,
+      :s3KeyPrefix,
+      :s3KmsKeyArn,
+      :snsTopicArn,
+      :configSnapshotDeliveryProperties
+    ) = object;
+    if (name != null) {
+      result$
+        ..add('name')
+        ..add(serializers.serialize(
+          name,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (s3BucketName != null) {
+      result$
+        ..add('s3BucketName')
+        ..add(serializers.serialize(
+          s3BucketName,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (s3KeyPrefix != null) {
+      result$
+        ..add('s3KeyPrefix')
+        ..add(serializers.serialize(
+          s3KeyPrefix,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (s3KmsKeyArn != null) {
+      result$
+        ..add('s3KmsKeyArn')
+        ..add(serializers.serialize(
+          s3KmsKeyArn,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (snsTopicArn != null) {
+      result$
+        ..add('snsTopicARN')
+        ..add(serializers.serialize(
+          snsTopicArn,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (configSnapshotDeliveryProperties != null) {
+      result$
         ..add('configSnapshotDeliveryProperties')
         ..add(serializers.serialize(
-          payload.configSnapshotDeliveryProperties!,
+          configSnapshotDeliveryProperties,
           specifiedType: const FullType(_i2.ConfigSnapshotDeliveryProperties),
         ));
     }
-    if (payload.name != null) {
-      result
-        ..add('name')
-        ..add(serializers.serialize(
-          payload.name!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.s3BucketName != null) {
-      result
-        ..add('s3BucketName')
-        ..add(serializers.serialize(
-          payload.s3BucketName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.s3KeyPrefix != null) {
-      result
-        ..add('s3KeyPrefix')
-        ..add(serializers.serialize(
-          payload.s3KeyPrefix!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.s3KmsKeyArn != null) {
-      result
-        ..add('s3KmsKeyArn')
-        ..add(serializers.serialize(
-          payload.s3KmsKeyArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.snsTopicArn != null) {
-      result
-        ..add('snsTopicARN')
-        ..add(serializers.serialize(
-          payload.snsTopicArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

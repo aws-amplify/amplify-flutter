@@ -10,19 +10,19 @@ class _$PutObjectLegalHoldRequest extends PutObjectLegalHoldRequest {
   @override
   final String bucket;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
-  @override
-  final String? contentMd5;
-  @override
-  final String? expectedBucketOwner;
-  @override
   final String key;
   @override
   final _i2.ObjectLockLegalHold? legalHold;
   @override
-  final _i5.RequestPayer? requestPayer;
+  final _i4.RequestPayer? requestPayer;
   @override
   final String? versionId;
+  @override
+  final String? contentMd5;
+  @override
+  final _i5.ChecksumAlgorithm? checksumAlgorithm;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$PutObjectLegalHoldRequest(
           [void Function(PutObjectLegalHoldRequestBuilder)? updates]) =>
@@ -30,13 +30,13 @@ class _$PutObjectLegalHoldRequest extends PutObjectLegalHoldRequest {
 
   _$PutObjectLegalHoldRequest._(
       {required this.bucket,
-      this.checksumAlgorithm,
-      this.contentMd5,
-      this.expectedBucketOwner,
       required this.key,
       this.legalHold,
       this.requestPayer,
-      this.versionId})
+      this.versionId,
+      this.contentMd5,
+      this.checksumAlgorithm,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutObjectLegalHoldRequest', 'bucket');
@@ -58,26 +58,26 @@ class _$PutObjectLegalHoldRequest extends PutObjectLegalHoldRequest {
     if (identical(other, this)) return true;
     return other is PutObjectLegalHoldRequest &&
         bucket == other.bucket &&
-        checksumAlgorithm == other.checksumAlgorithm &&
-        contentMd5 == other.contentMd5 &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         key == other.key &&
         legalHold == other.legalHold &&
         requestPayer == other.requestPayer &&
-        versionId == other.versionId;
+        versionId == other.versionId &&
+        contentMd5 == other.contentMd5 &&
+        checksumAlgorithm == other.checksumAlgorithm &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
-    _$hash = $jc(_$hash, contentMd5.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
     _$hash = $jc(_$hash, legalHold.hashCode);
     _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jc(_$hash, versionId.hashCode);
+    _$hash = $jc(_$hash, contentMd5.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -92,20 +92,6 @@ class PutObjectLegalHoldRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
-      _$this._checksumAlgorithm = checksumAlgorithm;
-
-  String? _contentMd5;
-  String? get contentMd5 => _$this._contentMd5;
-  set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
-
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
   String? _key;
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
@@ -116,14 +102,28 @@ class PutObjectLegalHoldRequestBuilder
   set legalHold(_i2.ObjectLockLegalHoldBuilder? legalHold) =>
       _$this._legalHold = legalHold;
 
-  _i5.RequestPayer? _requestPayer;
-  _i5.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i5.RequestPayer? requestPayer) =>
+  _i4.RequestPayer? _requestPayer;
+  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(_i4.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   String? _versionId;
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
+
+  String? _contentMd5;
+  String? get contentMd5 => _$this._contentMd5;
+  set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
+
+  _i5.ChecksumAlgorithm? _checksumAlgorithm;
+  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+      _$this._checksumAlgorithm = checksumAlgorithm;
+
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
 
   PutObjectLegalHoldRequestBuilder() {
     PutObjectLegalHoldRequest._init(this);
@@ -133,13 +133,13 @@ class PutObjectLegalHoldRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _checksumAlgorithm = $v.checksumAlgorithm;
-      _contentMd5 = $v.contentMd5;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _key = $v.key;
       _legalHold = $v.legalHold?.toBuilder();
       _requestPayer = $v.requestPayer;
       _versionId = $v.versionId;
+      _contentMd5 = $v.contentMd5;
+      _checksumAlgorithm = $v.checksumAlgorithm;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -166,14 +166,14 @@ class PutObjectLegalHoldRequestBuilder
           new _$PutObjectLegalHoldRequest._(
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutObjectLegalHoldRequest', 'bucket'),
-              checksumAlgorithm: checksumAlgorithm,
-              contentMd5: contentMd5,
-              expectedBucketOwner: expectedBucketOwner,
               key: BuiltValueNullFieldError.checkNotNull(
                   key, r'PutObjectLegalHoldRequest', 'key'),
               legalHold: _legalHold?.build(),
               requestPayer: requestPayer,
-              versionId: versionId);
+              versionId: versionId,
+              contentMd5: contentMd5,
+              checksumAlgorithm: checksumAlgorithm,
+              expectedBucketOwner: expectedBucketOwner);
     } catch (_) {
       late String _$failedField;
       try {

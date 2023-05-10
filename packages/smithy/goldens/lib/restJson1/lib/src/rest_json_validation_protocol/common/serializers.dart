@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_validation_protocol.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -157,8 +158,16 @@ final Map<FullType, Function> builderFactories = {
   ): _i36.SetBuilder<bool>.new,
   const FullType(
     _i36.BuiltSet,
+    [FullType(String)],
+  ): _i36.SetBuilder<String>.new,
+  const FullType(
+    _i36.BuiltSet,
     [FullType(int)],
   ): _i36.SetBuilder<int>.new,
+  const FullType(
+    _i36.BuiltSet,
+    [FullType(_i38.Int64)],
+  ): _i36.SetBuilder<_i38.Int64>.new,
   const FullType(
     _i36.BuiltSet,
     [FullType(DateTime)],
@@ -176,14 +185,6 @@ final Map<FullType, Function> builderFactories = {
       )
     ],
   ): _i36.SetBuilder<_i36.BuiltList<String>>.new,
-  const FullType(
-    _i36.BuiltSet,
-    [FullType(_i38.Int64)],
-  ): _i36.SetBuilder<_i38.Int64>.new,
-  const FullType(
-    _i36.BuiltSet,
-    [FullType(String)],
-  ): _i36.SetBuilder<String>.new,
   const FullType(
     _i36.BuiltSet,
     [FullType(_i18.GreetingStruct)],

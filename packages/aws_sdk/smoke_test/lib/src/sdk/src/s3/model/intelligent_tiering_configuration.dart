@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.intelligent_tiering_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,14 +29,14 @@ abstract class IntelligentTieringConfiguration
   ///
   /// For information about the S3 Intelligent-Tiering storage class, see [Storage class for automatically optimizing frequently and infrequently accessed objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access).
   factory IntelligentTieringConfiguration({
-    _i2.IntelligentTieringFilter? filter,
     required String id,
+    _i2.IntelligentTieringFilter? filter,
     required _i3.IntelligentTieringStatus status,
     required List<_i4.Tiering> tierings,
   }) {
     return _$IntelligentTieringConfiguration._(
-      filter: filter,
       id: id,
+      filter: filter,
       status: status,
       tierings: _i5.BuiltList(tierings),
     );
@@ -57,11 +58,11 @@ abstract class IntelligentTieringConfiguration
   @BuiltValueHook(initializeBuilder: true)
   static void _init(IntelligentTieringConfigurationBuilder b) {}
 
-  /// Specifies a bucket filter. The configuration only includes objects that meet the filter's criteria.
-  _i2.IntelligentTieringFilter? get filter;
-
   /// The ID used to identify the S3 Intelligent-Tiering configuration.
   String get id;
+
+  /// Specifies a bucket filter. The configuration only includes objects that meet the filter's criteria.
+  _i2.IntelligentTieringFilter? get filter;
 
   /// Specifies the status of the configuration.
   _i3.IntelligentTieringStatus get status;
@@ -70,8 +71,8 @@ abstract class IntelligentTieringConfiguration
   _i5.BuiltList<_i4.Tiering> get tierings;
   @override
   List<Object?> get props => [
-        filter,
         id,
+        filter,
         status,
         tierings,
       ];
@@ -80,12 +81,12 @@ abstract class IntelligentTieringConfiguration
     final helper =
         newBuiltValueToStringHelper('IntelligentTieringConfiguration');
     helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
       'id',
       id,
+    );
+    helper.add(
+      'filter',
+      filter,
     );
     helper.add(
       'status',
@@ -125,36 +126,33 @@ class IntelligentTieringConfigurationRestXmlSerializer
     final result = IntelligentTieringConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Filter':
-          if (value != null) {
-            result.filter.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.IntelligentTieringFilter),
-            ) as _i2.IntelligentTieringFilter));
-          }
-          break;
+          result.filter.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.IntelligentTieringFilter),
+          ) as _i2.IntelligentTieringFilter));
         case 'Id':
           result.id = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.IntelligentTieringStatus),
           ) as _i3.IntelligentTieringStatus);
-          break;
         case 'Tiering':
           result.tierings.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i4.Tiering),
           ) as _i4.Tiering));
-          break;
       }
     }
 
@@ -164,45 +162,46 @@ class IntelligentTieringConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    IntelligentTieringConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as IntelligentTieringConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'IntelligentTieringConfiguration',
         _i6.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.filter != null) {
-      result
+    final IntelligentTieringConfiguration(:filter, :id, :status, :tierings) =
+        object;
+    if (filter != null) {
+      result$
         ..add(const _i6.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i2.IntelligentTieringFilter),
         ));
     }
-    result
+    result$
       ..add(const _i6.XmlElementName('Id'))
       ..add(serializers.serialize(
-        payload.id,
+        id,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i6.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType.nullable(_i3.IntelligentTieringStatus),
       ));
-    result.addAll(
+    result$.addAll(
         const _i6.XmlBuiltListSerializer(memberName: 'Tiering').serialize(
       serializers,
-      payload.tierings,
+      tierings,
       specifiedType: const FullType.nullable(
         _i5.BuiltList,
         [FullType(_i4.Tiering)],
       ),
     ));
-    return result;
+    return result$;
   }
 }

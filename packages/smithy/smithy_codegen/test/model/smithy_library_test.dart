@@ -107,7 +107,9 @@ void main() {
         equals('package:example/src/foo/model/get_foo_input.dart'),
       );
       expect(
-          expected.libRelativePath, equals('src/foo/model/get_foo_input.dart'));
+        expected.libRelativePath,
+        equals('src/foo/model/get_foo_input.dart'),
+      );
       expect(
         expected.projectRelativePath,
         equals('lib/src/foo/model/get_foo_input.dart'),

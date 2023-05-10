@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.progress; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,14 +17,14 @@ abstract class Progress
     implements Built<Progress, ProgressBuilder> {
   /// This data type contains information about progress of an operation.
   factory Progress({
+    _i2.Int64? bytesScanned,
     _i2.Int64? bytesProcessed,
     _i2.Int64? bytesReturned,
-    _i2.Int64? bytesScanned,
   }) {
     return _$Progress._(
+      bytesScanned: bytesScanned,
       bytesProcessed: bytesProcessed,
       bytesReturned: bytesReturned,
-      bytesScanned: bytesScanned,
     );
   }
 
@@ -39,23 +40,27 @@ abstract class Progress
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ProgressBuilder b) {}
 
+  /// The current number of object bytes scanned.
+  _i2.Int64? get bytesScanned;
+
   /// The current number of uncompressed object bytes processed.
   _i2.Int64? get bytesProcessed;
 
   /// The current number of bytes of records payload data returned.
   _i2.Int64? get bytesReturned;
-
-  /// The current number of object bytes scanned.
-  _i2.Int64? get bytesScanned;
   @override
   List<Object?> get props => [
+        bytesScanned,
         bytesProcessed,
         bytesReturned,
-        bytesScanned,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Progress');
+    helper.add(
+      'bytesScanned',
+      bytesScanned,
+    );
     helper.add(
       'bytesProcessed',
       bytesProcessed,
@@ -63,10 +68,6 @@ abstract class Progress
     helper.add(
       'bytesReturned',
       bytesReturned,
-    );
-    helper.add(
-      'bytesScanned',
-      bytesScanned,
     );
     return helper.toString();
   }
@@ -97,34 +98,28 @@ class ProgressRestXmlSerializer
     final result = ProgressBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'BytesProcessed':
-          if (value != null) {
-            result.bytesProcessed = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.bytesProcessed = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'BytesReturned':
-          if (value != null) {
-            result.bytesReturned = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.bytesReturned = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'BytesScanned':
-          if (value != null) {
-            result.bytesScanned = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.bytesScanned = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
       }
     }
 
@@ -134,40 +129,40 @@ class ProgressRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Progress object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Progress);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'Progress',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.bytesProcessed != null) {
-      result
+    final Progress(:bytesProcessed, :bytesReturned, :bytesScanned) = object;
+    if (bytesProcessed != null) {
+      result$
         ..add(const _i3.XmlElementName('BytesProcessed'))
         ..add(serializers.serialize(
-          payload.bytesProcessed!,
+          bytesProcessed,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
-    if (payload.bytesReturned != null) {
-      result
+    if (bytesReturned != null) {
+      result$
         ..add(const _i3.XmlElementName('BytesReturned'))
         ..add(serializers.serialize(
-          payload.bytesReturned!,
+          bytesReturned,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
-    if (payload.bytesScanned != null) {
-      result
+    if (bytesScanned != null) {
+      result$
         ..add(const _i3.XmlElementName('BytesScanned'))
         ..add(serializers.serialize(
-          payload.bytesScanned!,
+          bytesScanned,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
-    return result;
+    return result$;
   }
 }

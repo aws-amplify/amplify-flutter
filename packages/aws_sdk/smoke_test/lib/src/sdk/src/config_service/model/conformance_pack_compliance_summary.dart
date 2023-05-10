@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.conformance_pack_compliance_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,12 +21,12 @@ abstract class ConformancePackComplianceSummary
             ConformancePackComplianceSummaryBuilder> {
   /// Summary includes the name and status of the conformance pack.
   factory ConformancePackComplianceSummary({
-    required _i2.ConformancePackComplianceType conformancePackComplianceStatus,
     required String conformancePackName,
+    required _i2.ConformancePackComplianceType conformancePackComplianceStatus,
   }) {
     return _$ConformancePackComplianceSummary._(
-      conformancePackComplianceStatus: conformancePackComplianceStatus,
       conformancePackName: conformancePackName,
+      conformancePackComplianceStatus: conformancePackComplianceStatus,
     );
   }
 
@@ -43,27 +44,27 @@ abstract class ConformancePackComplianceSummary
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackComplianceSummaryBuilder b) {}
 
-  /// The status of the conformance pack. The allowed values are `COMPLIANT`, `NON_COMPLIANT` and `INSUFFICIENT_DATA`.
-  _i2.ConformancePackComplianceType get conformancePackComplianceStatus;
-
   /// The name of the conformance pack name.
   String get conformancePackName;
+
+  /// The status of the conformance pack. The allowed values are `COMPLIANT`, `NON_COMPLIANT` and `INSUFFICIENT_DATA`.
+  _i2.ConformancePackComplianceType get conformancePackComplianceStatus;
   @override
   List<Object?> get props => [
-        conformancePackComplianceStatus,
         conformancePackName,
+        conformancePackComplianceStatus,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ConformancePackComplianceSummary');
     helper.add(
-      'conformancePackComplianceStatus',
-      conformancePackComplianceStatus,
-    );
-    helper.add(
       'conformancePackName',
       conformancePackName,
+    );
+    helper.add(
+      'conformancePackComplianceStatus',
+      conformancePackComplianceStatus,
     );
     return helper.toString();
   }
@@ -98,19 +99,20 @@ class ConformancePackComplianceSummaryAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ConformancePackComplianceStatus':
-          result.conformancePackComplianceStatus = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.ConformancePackComplianceType),
-          ) as _i2.ConformancePackComplianceType);
-          break;
         case 'ConformancePackName':
           result.conformancePackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'ConformancePackComplianceStatus':
+          result.conformancePackComplianceStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConformancePackComplianceType),
+          ) as _i2.ConformancePackComplianceType);
       }
     }
 
@@ -120,22 +122,26 @@ class ConformancePackComplianceSummaryAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConformancePackComplianceSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConformancePackComplianceSummary);
-    final result = <Object?>[
-      'ConformancePackComplianceStatus',
-      serializers.serialize(
-        payload.conformancePackComplianceStatus,
-        specifiedType: const FullType(_i2.ConformancePackComplianceType),
-      ),
+    final result$ = <Object?>[];
+    final ConformancePackComplianceSummary(
+      :conformancePackName,
+      :conformancePackComplianceStatus
+    ) = object;
+    result$.addAll([
       'ConformancePackName',
       serializers.serialize(
-        payload.conformancePackName,
+        conformancePackName,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+      'ConformancePackComplianceStatus',
+      serializers.serialize(
+        conformancePackComplianceStatus,
+        specifiedType: const FullType(_i2.ConformancePackComplianceType),
+      ),
+    ]);
+    return result$;
   }
 }

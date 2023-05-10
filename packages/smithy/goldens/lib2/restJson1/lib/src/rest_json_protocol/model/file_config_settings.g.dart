@@ -14,13 +14,13 @@ class _$FileConfigSettings extends FileConfigSettings {
   @override
   final String? awsSessionToken;
   @override
-  final int? maxAttempts;
-  @override
   final String? region;
   @override
-  final _i2.RetryMode? retryMode;
+  final _i2.S3Config? s3;
   @override
-  final _i3.S3Config? s3;
+  final _i3.RetryMode? retryMode;
+  @override
+  final int? maxAttempts;
 
   factory _$FileConfigSettings(
           [void Function(FileConfigSettingsBuilder)? updates]) =>
@@ -30,10 +30,10 @@ class _$FileConfigSettings extends FileConfigSettings {
       {this.awsAccessKeyId,
       this.awsSecretAccessKey,
       this.awsSessionToken,
-      this.maxAttempts,
       this.region,
+      this.s3,
       this.retryMode,
-      this.s3})
+      this.maxAttempts})
       : super._();
 
   @override
@@ -52,10 +52,10 @@ class _$FileConfigSettings extends FileConfigSettings {
         awsAccessKeyId == other.awsAccessKeyId &&
         awsSecretAccessKey == other.awsSecretAccessKey &&
         awsSessionToken == other.awsSessionToken &&
-        maxAttempts == other.maxAttempts &&
         region == other.region &&
+        s3 == other.s3 &&
         retryMode == other.retryMode &&
-        s3 == other.s3;
+        maxAttempts == other.maxAttempts;
   }
 
   @override
@@ -64,10 +64,10 @@ class _$FileConfigSettings extends FileConfigSettings {
     _$hash = $jc(_$hash, awsAccessKeyId.hashCode);
     _$hash = $jc(_$hash, awsSecretAccessKey.hashCode);
     _$hash = $jc(_$hash, awsSessionToken.hashCode);
-    _$hash = $jc(_$hash, maxAttempts.hashCode);
     _$hash = $jc(_$hash, region.hashCode);
-    _$hash = $jc(_$hash, retryMode.hashCode);
     _$hash = $jc(_$hash, s3.hashCode);
+    _$hash = $jc(_$hash, retryMode.hashCode);
+    _$hash = $jc(_$hash, maxAttempts.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -92,21 +92,21 @@ class FileConfigSettingsBuilder
   set awsSessionToken(String? awsSessionToken) =>
       _$this._awsSessionToken = awsSessionToken;
 
-  int? _maxAttempts;
-  int? get maxAttempts => _$this._maxAttempts;
-  set maxAttempts(int? maxAttempts) => _$this._maxAttempts = maxAttempts;
-
   String? _region;
   String? get region => _$this._region;
   set region(String? region) => _$this._region = region;
 
-  _i2.RetryMode? _retryMode;
-  _i2.RetryMode? get retryMode => _$this._retryMode;
-  set retryMode(_i2.RetryMode? retryMode) => _$this._retryMode = retryMode;
+  _i2.S3ConfigBuilder? _s3;
+  _i2.S3ConfigBuilder get s3 => _$this._s3 ??= new _i2.S3ConfigBuilder();
+  set s3(_i2.S3ConfigBuilder? s3) => _$this._s3 = s3;
 
-  _i3.S3ConfigBuilder? _s3;
-  _i3.S3ConfigBuilder get s3 => _$this._s3 ??= new _i3.S3ConfigBuilder();
-  set s3(_i3.S3ConfigBuilder? s3) => _$this._s3 = s3;
+  _i3.RetryMode? _retryMode;
+  _i3.RetryMode? get retryMode => _$this._retryMode;
+  set retryMode(_i3.RetryMode? retryMode) => _$this._retryMode = retryMode;
+
+  int? _maxAttempts;
+  int? get maxAttempts => _$this._maxAttempts;
+  set maxAttempts(int? maxAttempts) => _$this._maxAttempts = maxAttempts;
 
   FileConfigSettingsBuilder() {
     FileConfigSettings._init(this);
@@ -118,10 +118,10 @@ class FileConfigSettingsBuilder
       _awsAccessKeyId = $v.awsAccessKeyId;
       _awsSecretAccessKey = $v.awsSecretAccessKey;
       _awsSessionToken = $v.awsSessionToken;
-      _maxAttempts = $v.maxAttempts;
       _region = $v.region;
-      _retryMode = $v.retryMode;
       _s3 = $v.s3?.toBuilder();
+      _retryMode = $v.retryMode;
+      _maxAttempts = $v.maxAttempts;
       _$v = null;
     }
     return this;
@@ -149,10 +149,10 @@ class FileConfigSettingsBuilder
               awsAccessKeyId: awsAccessKeyId,
               awsSecretAccessKey: awsSecretAccessKey,
               awsSessionToken: awsSessionToken,
-              maxAttempts: maxAttempts,
               region: region,
+              s3: _s3?.build(),
               retryMode: retryMode,
-              s3: _s3?.build());
+              maxAttempts: maxAttempts);
     } catch (_) {
       late String _$failedField;
       try {

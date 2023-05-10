@@ -10,16 +10,16 @@ class _$ImportApiKeysRequest extends ImportApiKeysRequest {
   @override
   final _i2.Uint8List body;
   @override
-  final bool? failOnWarnings;
-  @override
   final _i4.ApiKeysFormat format;
+  @override
+  final bool? failOnWarnings;
 
   factory _$ImportApiKeysRequest(
           [void Function(ImportApiKeysRequestBuilder)? updates]) =>
       (new ImportApiKeysRequestBuilder()..update(updates))._build();
 
   _$ImportApiKeysRequest._(
-      {required this.body, this.failOnWarnings, required this.format})
+      {required this.body, required this.format, this.failOnWarnings})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         body, r'ImportApiKeysRequest', 'body');
@@ -41,16 +41,16 @@ class _$ImportApiKeysRequest extends ImportApiKeysRequest {
     if (identical(other, this)) return true;
     return other is ImportApiKeysRequest &&
         body == other.body &&
-        failOnWarnings == other.failOnWarnings &&
-        format == other.format;
+        format == other.format &&
+        failOnWarnings == other.failOnWarnings;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, body.hashCode);
-    _$hash = $jc(_$hash, failOnWarnings.hashCode);
     _$hash = $jc(_$hash, format.hashCode);
+    _$hash = $jc(_$hash, failOnWarnings.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -64,14 +64,14 @@ class ImportApiKeysRequestBuilder
   _i2.Uint8List? get body => _$this._body;
   set body(_i2.Uint8List? body) => _$this._body = body;
 
+  _i4.ApiKeysFormat? _format;
+  _i4.ApiKeysFormat? get format => _$this._format;
+  set format(_i4.ApiKeysFormat? format) => _$this._format = format;
+
   bool? _failOnWarnings;
   bool? get failOnWarnings => _$this._failOnWarnings;
   set failOnWarnings(bool? failOnWarnings) =>
       _$this._failOnWarnings = failOnWarnings;
-
-  _i4.ApiKeysFormat? _format;
-  _i4.ApiKeysFormat? get format => _$this._format;
-  set format(_i4.ApiKeysFormat? format) => _$this._format = format;
 
   ImportApiKeysRequestBuilder() {
     ImportApiKeysRequest._init(this);
@@ -81,8 +81,8 @@ class ImportApiKeysRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _body = $v.body;
-      _failOnWarnings = $v.failOnWarnings;
       _format = $v.format;
+      _failOnWarnings = $v.failOnWarnings;
       _$v = null;
     }
     return this;
@@ -107,9 +107,9 @@ class ImportApiKeysRequestBuilder
         new _$ImportApiKeysRequest._(
             body: BuiltValueNullFieldError.checkNotNull(
                 body, r'ImportApiKeysRequest', 'body'),
-            failOnWarnings: failOnWarnings,
             format: BuiltValueNullFieldError.checkNotNull(
-                format, r'ImportApiKeysRequest', 'format'));
+                format, r'ImportApiKeysRequest', 'format'),
+            failOnWarnings: failOnWarnings);
     replace(_$result);
     return _$result;
   }

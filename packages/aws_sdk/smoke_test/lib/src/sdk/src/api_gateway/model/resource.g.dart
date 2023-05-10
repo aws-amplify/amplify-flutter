@@ -12,9 +12,9 @@ class _$Resource extends Resource {
   @override
   final String? parentId;
   @override
-  final String? path;
-  @override
   final String? pathPart;
+  @override
+  final String? path;
   @override
   final _i3.BuiltMap<String, _i2.Method>? resourceMethods;
 
@@ -22,7 +22,7 @@ class _$Resource extends Resource {
       (new ResourceBuilder()..update(updates))._build();
 
   _$Resource._(
-      {this.id, this.parentId, this.path, this.pathPart, this.resourceMethods})
+      {this.id, this.parentId, this.pathPart, this.path, this.resourceMethods})
       : super._();
 
   @override
@@ -38,8 +38,8 @@ class _$Resource extends Resource {
     return other is Resource &&
         id == other.id &&
         parentId == other.parentId &&
-        path == other.path &&
         pathPart == other.pathPart &&
+        path == other.path &&
         resourceMethods == other.resourceMethods;
   }
 
@@ -48,8 +48,8 @@ class _$Resource extends Resource {
     var _$hash = 0;
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, parentId.hashCode);
-    _$hash = $jc(_$hash, path.hashCode);
     _$hash = $jc(_$hash, pathPart.hashCode);
+    _$hash = $jc(_$hash, path.hashCode);
     _$hash = $jc(_$hash, resourceMethods.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -67,13 +67,13 @@ class ResourceBuilder implements Builder<Resource, ResourceBuilder> {
   String? get parentId => _$this._parentId;
   set parentId(String? parentId) => _$this._parentId = parentId;
 
-  String? _path;
-  String? get path => _$this._path;
-  set path(String? path) => _$this._path = path;
-
   String? _pathPart;
   String? get pathPart => _$this._pathPart;
   set pathPart(String? pathPart) => _$this._pathPart = pathPart;
+
+  String? _path;
+  String? get path => _$this._path;
+  set path(String? path) => _$this._path = path;
 
   _i3.MapBuilder<String, _i2.Method>? _resourceMethods;
   _i3.MapBuilder<String, _i2.Method> get resourceMethods =>
@@ -90,8 +90,8 @@ class ResourceBuilder implements Builder<Resource, ResourceBuilder> {
     if ($v != null) {
       _id = $v.id;
       _parentId = $v.parentId;
-      _path = $v.path;
       _pathPart = $v.pathPart;
+      _path = $v.path;
       _resourceMethods = $v.resourceMethods?.toBuilder();
       _$v = null;
     }
@@ -119,8 +119,8 @@ class ResourceBuilder implements Builder<Resource, ResourceBuilder> {
           new _$Resource._(
               id: id,
               parentId: parentId,
-              path: path,
               pathPart: pathPart,
+              path: path,
               resourceMethods: _resourceMethods?.build());
     } catch (_) {
       late String _$failedField;

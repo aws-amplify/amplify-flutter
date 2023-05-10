@@ -65,7 +65,9 @@ abstract class AuthService {
   Stream<AuthHubEvent> get hubEvents;
 }
 
-class AmplifyAuthService implements AuthService {
+class AmplifyAuthService
+    with AWSDebuggable, AmplifyLoggerMixin
+    implements AuthService {
   static final userAgent =
       'amplify-authenticator/${packageVersion.split('+').first}';
 
@@ -201,22 +203,24 @@ class AmplifyAuthService implements AuthService {
   @override
   Future<bool> isValidSession() async {
     return _withUserAgent(() async {
-      final res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-      try {
+      final session =
+          await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+      final CognitoAuthSession(:userPoolTokensResult) = session;
+      return switch (userPoolTokensResult) {
         // If tokens can be retrieved without an exception, return true.
-        res.userPoolTokensResult.value;
-        return true;
-      } on SignedOutException {
-        return false;
-      } on NetworkException {
-        // NetworkException indicates that access and/or id tokens have expired
-        // and cannot be refreshed due to a network error. In this case the user
-        // should be treated as authenticated to allow for offline use cases.
-        return true;
-      } on Exception {
-        // Any other exception should be thrown to be handled appropriately.
-        rethrow;
-      }
+        AuthSuccessResult _ => true,
+        AuthErrorResult(:final exception) => switch (exception) {
+            SignedOutException _ => false,
+
+            // NetworkException indicates that access and/or id tokens have expired
+            // and cannot be refreshed due to a network error. In this case the user
+            // should be treated as authenticated to allow for offline use cases.
+            NetworkException _ => true,
+
+            // Any other exception should be thrown to be handled appropriately.
+            _ => throw exception,
+          },
+      };
     });
   }
 
@@ -311,13 +315,26 @@ class AmplifyAuthService implements AuthService {
   }
 
   @override
-  Future<AmplifyConfig> waitForConfiguration() {
-    return Amplify.asyncConfig;
+  Future<AmplifyConfig> waitForConfiguration() async {
+    final timer = Timer.periodic(const Duration(seconds: 10), (timer) {
+      logger.warn(
+        'Amplify is taking longer than expected to configure.'
+        ' Have you called `Amplify.configure()`?',
+      );
+    });
+    try {
+      return await Amplify.asyncConfig;
+    } finally {
+      timer.cancel();
+    }
   }
 
   @override
   Stream<AuthHubEvent> get hubEvents =>
       Amplify.Hub.availableStreams[HubChannel.Auth]!.cast();
+
+  @override
+  String get runtimeTypeName => 'AmplifyAuthService';
 }
 
 class GetAttributeVerificationStatusResult {

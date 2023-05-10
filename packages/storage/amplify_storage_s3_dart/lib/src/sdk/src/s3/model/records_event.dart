@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.records_event; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -73,18 +74,18 @@ class RecordsEventRestXmlSerializer
     final result = RecordsEventBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Payload':
-          if (value != null) {
-            result.payload = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Uint8List),
-            ) as _i2.Uint8List);
-          }
-          break;
+          result.payload = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Uint8List),
+          ) as _i2.Uint8List);
       }
     }
 
@@ -94,24 +95,24 @@ class RecordsEventRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RecordsEvent object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RecordsEvent);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'RecordsEvent',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.payload != null) {
-      result
+    final RecordsEvent(:payload) = object;
+    if (payload != null) {
+      result$
         ..add(const _i3.XmlElementName('Payload'))
         ..add(serializers.serialize(
-          payload.payload!,
+          payload,
           specifiedType: const FullType.nullable(_i2.Uint8List),
         ));
     }
-    return result;
+    return result$;
   }
 }

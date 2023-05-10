@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_evaluations_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -115,32 +116,28 @@ class PutEvaluationsRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Evaluations':
-          if (value != null) {
-            result.evaluations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.Evaluation)],
-              ),
-            ) as _i4.BuiltList<_i3.Evaluation>));
-          }
-          break;
+          result.evaluations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.Evaluation)],
+            ),
+          ) as _i4.BuiltList<_i3.Evaluation>));
         case 'ResultToken':
           result.resultToken = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'TestMode':
-          if (value != null) {
-            result.testMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.testMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -150,36 +147,37 @@ class PutEvaluationsRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutEvaluationsRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutEvaluationsRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutEvaluationsRequest(:evaluations, :resultToken, :testMode) = object;
+    result$.addAll([
       'ResultToken',
       serializers.serialize(
-        payload.resultToken,
+        resultToken,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.evaluations != null) {
-      result
+    ]);
+    if (evaluations != null) {
+      result$
         ..add('Evaluations')
         ..add(serializers.serialize(
-          payload.evaluations!,
+          evaluations,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.Evaluation)],
           ),
         ));
     }
-    if (payload.testMode != null) {
-      result
+    if (testMode != null) {
+      result$
         ..add('TestMode')
         ..add(serializers.serialize(
-          payload.testMode!,
+          testMode,
           specifiedType: const FullType(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

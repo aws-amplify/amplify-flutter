@@ -3,10 +3,10 @@
 
 import 'dart:html';
 
-import '../utils/component_edge_insets.dart';
-import 'component.dart';
-import 'container_component.dart';
-import 'flex_component.dart';
+import 'package:example_common/src/components/component.dart';
+import 'package:example_common/src/components/container_component.dart';
+import 'package:example_common/src/components/flex_component.dart';
+import 'package:example_common/src/utils/component_edge_insets.dart';
 
 /// {@template example_common.text_form_field_component}
 /// a component that displays a form field - an input and a label.

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.item_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -96,29 +97,26 @@ class ItemResponseRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'EndpointItemResponse':
-          if (value != null) {
-            result.endpointItemResponse.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.EndpointItemResponse),
-            ) as _i2.EndpointItemResponse));
-          }
-          break;
+          result.endpointItemResponse.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.EndpointItemResponse),
+          ) as _i2.EndpointItemResponse));
         case 'EventsItemResponse':
-          if (value != null) {
-            result.eventsItemResponse.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.EventItemResponse),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, _i3.EventItemResponse>));
-          }
-          break;
+          result.eventsItemResponse.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.EventItemResponse),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i3.EventItemResponse>));
       }
     }
 
@@ -128,24 +126,24 @@ class ItemResponseRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ItemResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ItemResponse);
-    final result = <Object?>[];
-    if (payload.endpointItemResponse != null) {
-      result
+    final result$ = <Object?>[];
+    final ItemResponse(:endpointItemResponse, :eventsItemResponse) = object;
+    if (endpointItemResponse != null) {
+      result$
         ..add('EndpointItemResponse')
         ..add(serializers.serialize(
-          payload.endpointItemResponse!,
+          endpointItemResponse,
           specifiedType: const FullType(_i2.EndpointItemResponse),
         ));
     }
-    if (payload.eventsItemResponse != null) {
-      result
+    if (eventsItemResponse != null) {
+      result$
         ..add('EventsItemResponse')
         ..add(serializers.serialize(
-          payload.eventsItemResponse!,
+          eventsItemResponse,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -155,6 +153,6 @@ class ItemResponseRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

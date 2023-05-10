@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.create_model_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,18 +21,18 @@ abstract class CreateModelRequest
         _i1.HasPayload<CreateModelRequestPayload> {
   /// Request to add a new Model to an existing RestApi resource.
   factory CreateModelRequest({
-    required String contentType,
-    String? description,
-    required String name,
     required String restApiId,
+    required String name,
+    String? description,
     String? schema,
+    required String contentType,
   }) {
     return _$CreateModelRequest._(
-      contentType: contentType,
-      description: description,
-      name: name,
       restApiId: restApiId,
+      name: name,
+      description: description,
       schema: schema,
+      contentType: contentType,
     );
   }
 
@@ -64,20 +65,20 @@ abstract class CreateModelRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateModelRequestBuilder b) {}
 
-  /// The content-type for the model.
-  String get contentType;
-
-  /// The description of the model.
-  String? get description;
+  /// The RestApi identifier under which the Model will be created.
+  String get restApiId;
 
   /// The name of the model. Must be alphanumeric.
   String get name;
 
-  /// The RestApi identifier under which the Model will be created.
-  String get restApiId;
+  /// The description of the model.
+  String? get description;
 
   /// The schema for the model. For `application/json` models, this should be JSON schema draft 4 model.
   String? get schema;
+
+  /// The content-type for the model.
+  String get contentType;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -99,34 +100,34 @@ abstract class CreateModelRequest
       });
   @override
   List<Object?> get props => [
-        contentType,
-        description,
-        name,
         restApiId,
+        name,
+        description,
         schema,
+        contentType,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateModelRequest');
     helper.add(
-      'contentType',
-      contentType,
-    );
-    helper.add(
-      'description',
-      description,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'name',
       name,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'description',
+      description,
     );
     helper.add(
       'schema',
       schema,
+    );
+    helper.add(
+      'contentType',
+      contentType,
     );
     return helper.toString();
   }
@@ -217,35 +218,30 @@ class CreateModelRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'contentType':
           result.contentType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'name':
           result.name = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'schema':
-          if (value != null) {
-            result.schema = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.schema = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -255,40 +251,44 @@ class CreateModelRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateModelRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is CreateModelRequest
-        ? object.getPayload()
-        : (object as CreateModelRequestPayload);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final CreateModelRequestPayload(
+      :contentType,
+      :description,
+      :name,
+      :schema
+    ) = object;
+    result$.addAll([
       'contentType',
       serializers.serialize(
-        payload.contentType,
+        contentType,
         specifiedType: const FullType(String),
       ),
       'name',
       serializers.serialize(
-        payload.name,
+        name,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.description != null) {
-      result
+    ]);
+    if (description != null) {
+      result$
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.schema != null) {
-      result
+    if (schema != null) {
+      result$
         ..add('schema')
         ..add(serializers.serialize(
-          payload.schema!,
+          schema,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.continuous_backups_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -99,22 +100,21 @@ class ContinuousBackupsDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ContinuousBackupsStatus':
           result.continuousBackupsStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ContinuousBackupsStatus),
           ) as _i2.ContinuousBackupsStatus);
-          break;
         case 'PointInTimeRecoveryDescription':
-          if (value != null) {
-            result.pointInTimeRecoveryDescription
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.PointInTimeRecoveryDescription),
-            ) as _i3.PointInTimeRecoveryDescription));
-          }
-          break;
+          result.pointInTimeRecoveryDescription
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.PointInTimeRecoveryDescription),
+          ) as _i3.PointInTimeRecoveryDescription));
       }
     }
 
@@ -124,25 +124,29 @@ class ContinuousBackupsDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ContinuousBackupsDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ContinuousBackupsDescription);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ContinuousBackupsDescription(
+      :continuousBackupsStatus,
+      :pointInTimeRecoveryDescription
+    ) = object;
+    result$.addAll([
       'ContinuousBackupsStatus',
       serializers.serialize(
-        payload.continuousBackupsStatus,
+        continuousBackupsStatus,
         specifiedType: const FullType(_i2.ContinuousBackupsStatus),
       ),
-    ];
-    if (payload.pointInTimeRecoveryDescription != null) {
-      result
+    ]);
+    if (pointInTimeRecoveryDescription != null) {
+      result$
         ..add('PointInTimeRecoveryDescription')
         ..add(serializers.serialize(
-          payload.pointInTimeRecoveryDescription!,
+          pointInTimeRecoveryDescription,
           specifiedType: const FullType(_i3.PointInTimeRecoveryDescription),
         ));
     }
-    return result;
+    return result$;
   }
 }

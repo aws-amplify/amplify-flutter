@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.delete_request_validator_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,12 +23,12 @@ abstract class DeleteRequestValidatorRequest
         _i1.HasPayload<DeleteRequestValidatorRequestPayload> {
   /// Deletes a specified RequestValidator of a given RestApi.
   factory DeleteRequestValidatorRequest({
-    required String requestValidatorId,
     required String restApiId,
+    required String requestValidatorId,
   }) {
     return _$DeleteRequestValidatorRequest._(
-      requestValidatorId: requestValidatorId,
       restApiId: restApiId,
+      requestValidatorId: requestValidatorId,
     );
   }
 
@@ -59,11 +60,11 @@ abstract class DeleteRequestValidatorRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteRequestValidatorRequestBuilder b) {}
 
-  /// The identifier of the RequestValidator to be deleted.
-  String get requestValidatorId;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The identifier of the RequestValidator to be deleted.
+  String get requestValidatorId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -83,19 +84,19 @@ abstract class DeleteRequestValidatorRequest
       DeleteRequestValidatorRequestPayload();
   @override
   List<Object?> get props => [
-        requestValidatorId,
         restApiId,
+        requestValidatorId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteRequestValidatorRequest');
     helper.add(
-      'requestValidatorId',
-      requestValidatorId,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'requestValidatorId',
+      requestValidatorId,
     );
     return helper.toString();
   }
@@ -158,7 +159,7 @@ class DeleteRequestValidatorRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteRequestValidatorRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

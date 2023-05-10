@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.stored_query_metadata; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,16 +16,16 @@ abstract class StoredQueryMetadata
     implements Built<StoredQueryMetadata, StoredQueryMetadataBuilder> {
   /// Returns details of a specific query.
   factory StoredQueryMetadata({
-    String? description,
-    required String queryArn,
     required String queryId,
+    required String queryArn,
     required String queryName,
+    String? description,
   }) {
     return _$StoredQueryMetadata._(
-      description: description,
-      queryArn: queryArn,
       queryId: queryId,
+      queryArn: queryArn,
       queryName: queryName,
+      description: description,
     );
   }
 
@@ -42,42 +43,42 @@ abstract class StoredQueryMetadata
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StoredQueryMetadataBuilder b) {}
 
-  /// A unique description for the query.
-  String? get description;
+  /// The ID of the query.
+  String get queryId;
 
   /// Amazon Resource Name (ARN) of the query. For example, arn:partition:service:region:account-id:resource-type/resource-name/resource-id.
   String get queryArn;
 
-  /// The ID of the query.
-  String get queryId;
-
   /// The name of the query.
   String get queryName;
+
+  /// A unique description for the query.
+  String? get description;
   @override
   List<Object?> get props => [
-        description,
-        queryArn,
         queryId,
+        queryArn,
         queryName,
+        description,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StoredQueryMetadata');
     helper.add(
-      'description',
-      description,
+      'queryId',
+      queryId,
     );
     helper.add(
       'queryArn',
       queryArn,
     );
     helper.add(
-      'queryId',
-      queryId,
-    );
-    helper.add(
       'queryName',
       queryName,
+    );
+    helper.add(
+      'description',
+      description,
     );
     return helper.toString();
   }
@@ -111,33 +112,30 @@ class StoredQueryMetadataAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'QueryArn':
-          result.queryArn = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'QueryId':
           result.queryId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'QueryArn':
+          result.queryArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'QueryName':
           result.queryName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'Description':
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -147,35 +145,37 @@ class StoredQueryMetadataAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StoredQueryMetadata object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StoredQueryMetadata);
-    final result = <Object?>[
-      'QueryArn',
-      serializers.serialize(
-        payload.queryArn,
-        specifiedType: const FullType(String),
-      ),
+    final result$ = <Object?>[];
+    final StoredQueryMetadata(:queryId, :queryArn, :queryName, :description) =
+        object;
+    result$.addAll([
       'QueryId',
       serializers.serialize(
-        payload.queryId,
+        queryId,
+        specifiedType: const FullType(String),
+      ),
+      'QueryArn',
+      serializers.serialize(
+        queryArn,
         specifiedType: const FullType(String),
       ),
       'QueryName',
       serializers.serialize(
-        payload.queryName,
+        queryName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.description != null) {
-      result
+    ]);
+    if (description != null) {
+      result$
         ..add('Description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

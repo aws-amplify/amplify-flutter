@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.xml_timestamps_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,22 +17,22 @@ abstract class XmlTimestampsInputOutput
     implements
         Built<XmlTimestampsInputOutput, XmlTimestampsInputOutputBuilder> {
   factory XmlTimestampsInputOutput({
+    DateTime? normal,
     DateTime? dateTime,
     DateTime? dateTimeOnTarget,
     DateTime? epochSeconds,
     DateTime? epochSecondsOnTarget,
     DateTime? httpDate,
     DateTime? httpDateOnTarget,
-    DateTime? normal,
   }) {
     return _$XmlTimestampsInputOutput._(
+      normal: normal,
       dateTime: dateTime,
       dateTimeOnTarget: dateTimeOnTarget,
       epochSeconds: epochSeconds,
       epochSecondsOnTarget: epochSecondsOnTarget,
       httpDate: httpDate,
       httpDateOnTarget: httpDateOnTarget,
-      normal: normal,
     );
   }
 
@@ -61,28 +62,32 @@ abstract class XmlTimestampsInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(XmlTimestampsInputOutputBuilder b) {}
+  DateTime? get normal;
   DateTime? get dateTime;
   DateTime? get dateTimeOnTarget;
   DateTime? get epochSeconds;
   DateTime? get epochSecondsOnTarget;
   DateTime? get httpDate;
   DateTime? get httpDateOnTarget;
-  DateTime? get normal;
   @override
   XmlTimestampsInputOutput getPayload() => this;
   @override
   List<Object?> get props => [
+        normal,
         dateTime,
         dateTimeOnTarget,
         epochSeconds,
         epochSecondsOnTarget,
         httpDate,
         httpDateOnTarget,
-        normal,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlTimestampsInputOutput');
+    helper.add(
+      'normal',
+      normal,
+    );
     helper.add(
       'dateTime',
       dateTime,
@@ -106,10 +111,6 @@ abstract class XmlTimestampsInputOutput
     helper.add(
       'httpDateOnTarget',
       httpDateOnTarget,
-    );
-    helper.add(
-      'normal',
-      normal,
     );
     return helper.toString();
   }
@@ -141,70 +142,52 @@ class XmlTimestampsInputOutputRestXmlSerializer
     final result = XmlTimestampsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'dateTime':
-          if (value != null) {
-            result.dateTime = _i1.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.dateTime = _i1.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
         case 'dateTimeOnTarget':
-          if (value != null) {
-            result.dateTimeOnTarget =
-                _i1.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.dateTimeOnTarget =
+              _i1.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
         case 'epochSeconds':
-          if (value != null) {
-            result.epochSeconds =
-                _i1.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.epochSeconds =
+              _i1.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'epochSecondsOnTarget':
-          if (value != null) {
-            result.epochSecondsOnTarget =
-                _i1.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.epochSecondsOnTarget =
+              _i1.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'httpDate':
-          if (value != null) {
-            result.httpDate = _i1.TimestampSerializer.httpDate.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.httpDate = _i1.TimestampSerializer.httpDate.deserialize(
+            serializers,
+            value,
+          );
         case 'httpDateOnTarget':
-          if (value != null) {
-            result.httpDateOnTarget =
-                _i1.TimestampSerializer.httpDate.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.httpDateOnTarget =
+              _i1.TimestampSerializer.httpDate.deserialize(
+            serializers,
+            value,
+          );
         case 'normal':
-          if (value != null) {
-            result.normal = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.normal = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -214,69 +197,77 @@ class XmlTimestampsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlTimestampsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlTimestampsInputOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName('XmlTimestampsInputOutput')
     ];
-    if (payload.dateTime != null) {
-      result
+    final XmlTimestampsInputOutput(
+      :dateTime,
+      :dateTimeOnTarget,
+      :epochSeconds,
+      :epochSecondsOnTarget,
+      :httpDate,
+      :httpDateOnTarget,
+      :normal
+    ) = object;
+    if (dateTime != null) {
+      result$
         ..add(const _i1.XmlElementName('dateTime'))
         ..add(_i1.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.dateTime!,
+          dateTime,
         ));
     }
-    if (payload.dateTimeOnTarget != null) {
-      result
+    if (dateTimeOnTarget != null) {
+      result$
         ..add(const _i1.XmlElementName('dateTimeOnTarget'))
         ..add(_i1.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.dateTimeOnTarget!,
+          dateTimeOnTarget,
         ));
     }
-    if (payload.epochSeconds != null) {
-      result
+    if (epochSeconds != null) {
+      result$
         ..add(const _i1.XmlElementName('epochSeconds'))
         ..add(_i1.TimestampSerializer.epochSeconds.serialize(
           serializers,
-          payload.epochSeconds!,
+          epochSeconds,
         ));
     }
-    if (payload.epochSecondsOnTarget != null) {
-      result
+    if (epochSecondsOnTarget != null) {
+      result$
         ..add(const _i1.XmlElementName('epochSecondsOnTarget'))
         ..add(_i1.TimestampSerializer.epochSeconds.serialize(
           serializers,
-          payload.epochSecondsOnTarget!,
+          epochSecondsOnTarget,
         ));
     }
-    if (payload.httpDate != null) {
-      result
+    if (httpDate != null) {
+      result$
         ..add(const _i1.XmlElementName('httpDate'))
         ..add(_i1.TimestampSerializer.httpDate.serialize(
           serializers,
-          payload.httpDate!,
+          httpDate,
         ));
     }
-    if (payload.httpDateOnTarget != null) {
-      result
+    if (httpDateOnTarget != null) {
+      result$
         ..add(const _i1.XmlElementName('httpDateOnTarget'))
         ..add(_i1.TimestampSerializer.httpDate.serialize(
           serializers,
-          payload.httpDateOnTarget!,
+          httpDateOnTarget,
         ));
     }
-    if (payload.normal != null) {
-      result
+    if (normal != null) {
+      result$
         ..add(const _i1.XmlElementName('normal'))
         ..add(serializers.serialize(
-          payload.normal!,
+          normal,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

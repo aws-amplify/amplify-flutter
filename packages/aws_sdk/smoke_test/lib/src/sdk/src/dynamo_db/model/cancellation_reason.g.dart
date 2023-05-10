@@ -8,9 +8,9 @@ part of smoke_test.dynamo_db.model.cancellation_reason;
 
 class _$CancellationReason extends CancellationReason {
   @override
-  final String? code;
-  @override
   final _i3.BuiltMap<String, _i2.AttributeValue>? item;
+  @override
+  final String? code;
   @override
   final String? message;
 
@@ -18,7 +18,7 @@ class _$CancellationReason extends CancellationReason {
           [void Function(CancellationReasonBuilder)? updates]) =>
       (new CancellationReasonBuilder()..update(updates))._build();
 
-  _$CancellationReason._({this.code, this.item, this.message}) : super._();
+  _$CancellationReason._({this.item, this.code, this.message}) : super._();
 
   @override
   CancellationReason rebuild(
@@ -33,16 +33,16 @@ class _$CancellationReason extends CancellationReason {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CancellationReason &&
-        code == other.code &&
         item == other.item &&
+        code == other.code &&
         message == other.message;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, code.hashCode);
     _$hash = $jc(_$hash, item.hashCode);
+    _$hash = $jc(_$hash, code.hashCode);
     _$hash = $jc(_$hash, message.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -53,15 +53,15 @@ class CancellationReasonBuilder
     implements Builder<CancellationReason, CancellationReasonBuilder> {
   _$CancellationReason? _$v;
 
-  String? _code;
-  String? get code => _$this._code;
-  set code(String? code) => _$this._code = code;
-
   _i3.MapBuilder<String, _i2.AttributeValue>? _item;
   _i3.MapBuilder<String, _i2.AttributeValue> get item =>
       _$this._item ??= new _i3.MapBuilder<String, _i2.AttributeValue>();
   set item(_i3.MapBuilder<String, _i2.AttributeValue>? item) =>
       _$this._item = item;
+
+  String? _code;
+  String? get code => _$this._code;
+  set code(String? code) => _$this._code = code;
 
   String? _message;
   String? get message => _$this._message;
@@ -74,8 +74,8 @@ class CancellationReasonBuilder
   CancellationReasonBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _code = $v.code;
       _item = $v.item?.toBuilder();
+      _code = $v.code;
       _message = $v.message;
       _$v = null;
     }
@@ -101,7 +101,7 @@ class CancellationReasonBuilder
     try {
       _$result = _$v ??
           new _$CancellationReason._(
-              code: code, item: _item?.build(), message: message);
+              item: _item?.build(), code: code, message: message);
     } catch (_) {
       late String _$failedField;
       try {

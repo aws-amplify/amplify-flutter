@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.create_vpc_link_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,16 +19,16 @@ abstract class CreateVpcLinkRequest
     implements Built<CreateVpcLinkRequest, CreateVpcLinkRequestBuilder> {
   /// Creates a VPC link, under the caller's account in a selected region, in an asynchronous operation that typically takes 2-4 minutes to complete and become operational. The caller must have permissions to create and update VPC Endpoint services.
   factory CreateVpcLinkRequest({
-    String? description,
     required String name,
-    Map<String, String>? tags,
+    String? description,
     required List<String> targetArns,
+    Map<String, String>? tags,
   }) {
     return _$CreateVpcLinkRequest._(
-      description: description,
       name: name,
-      tags: tags == null ? null : _i3.BuiltMap(tags),
+      description: description,
       targetArns: _i3.BuiltList(targetArns),
+      tags: tags == null ? null : _i3.BuiltMap(tags),
     );
   }
 
@@ -52,44 +53,44 @@ abstract class CreateVpcLinkRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateVpcLinkRequestBuilder b) {}
 
-  /// The description of the VPC link.
-  String? get description;
-
   /// The name used to label and identify the VPC link.
   String get name;
 
-  /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
-  _i3.BuiltMap<String, String>? get tags;
+  /// The description of the VPC link.
+  String? get description;
 
   /// The ARN of the network load balancer of the VPC targeted by the VPC link. The network load balancer must be owned by the same AWS account of the API owner.
   _i3.BuiltList<String> get targetArns;
+
+  /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
+  _i3.BuiltMap<String, String>? get tags;
   @override
   CreateVpcLinkRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        description,
         name,
-        tags,
+        description,
         targetArns,
+        tags,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateVpcLinkRequest');
     helper.add(
-      'description',
-      description,
-    );
-    helper.add(
       'name',
       name,
     );
     helper.add(
-      'tags',
-      tags,
+      'description',
+      description,
     );
     helper.add(
       'targetArns',
       targetArns,
+    );
+    helper.add(
+      'tags',
+      tags,
     );
     return helper.toString();
   }
@@ -124,35 +125,31 @@ class CreateVpcLinkRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'name':
-          result.name = (serializers.deserialize(
-            value!,
+          result.description = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'name':
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'targetArns':
           result.targetArns.replace((serializers.deserialize(
             value,
@@ -161,7 +158,6 @@ class CreateVpcLinkRequestRestJson1Serializer
               [FullType(String)],
             ),
           ) as _i3.BuiltList<String>));
-          break;
       }
     }
 
@@ -171,38 +167,40 @@ class CreateVpcLinkRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateVpcLinkRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateVpcLinkRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final CreateVpcLinkRequest(:description, :name, :tags, :targetArns) =
+        object;
+    result$.addAll([
       'name',
       serializers.serialize(
-        payload.name,
+        name,
         specifiedType: const FullType(String),
       ),
       'targetArns',
       serializers.serialize(
-        payload.targetArns,
+        targetArns,
         specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
       ),
-    ];
-    if (payload.description != null) {
-      result
+    ]);
+    if (description != null) {
+      result$
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
-      result
+    if (tags != null) {
+      result$
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -212,6 +210,6 @@ class CreateVpcLinkRequestRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

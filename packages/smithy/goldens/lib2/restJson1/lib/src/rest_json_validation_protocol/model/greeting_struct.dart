@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_validation_protocol.model.greeting_struct; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -85,15 +86,15 @@ class GreetingStructRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'hi':
-          if (value != null) {
-            result.hi = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.hi = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -103,19 +104,19 @@ class GreetingStructRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GreetingStruct object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GreetingStruct);
-    final result = <Object?>[];
-    if (payload.hi != null) {
-      result
+    final result$ = <Object?>[];
+    final GreetingStruct(:hi) = object;
+    if (hi != null) {
+      result$
         ..add('hi')
         ..add(serializers.serialize(
-          payload.hi!,
+          hi,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

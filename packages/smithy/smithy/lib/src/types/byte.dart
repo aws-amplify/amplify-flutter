@@ -13,14 +13,20 @@ class Byte {
 
 class ByteSerializer extends PrimitiveSerializer<Byte> {
   @override
-  Byte deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  Byte deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return Byte(serialized as int);
   }
 
   @override
-  Object serialize(Serializers serializers, Byte object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Byte object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return object.value;
   }
 

@@ -8,25 +8,25 @@ part of smoke_test.api_gateway.model.update_request_validator_request;
 
 class _$UpdateRequestValidatorRequest extends UpdateRequestValidatorRequest {
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final String restApiId;
   @override
   final String requestValidatorId;
   @override
-  final String restApiId;
+  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
 
   factory _$UpdateRequestValidatorRequest(
           [void Function(UpdateRequestValidatorRequestBuilder)? updates]) =>
       (new UpdateRequestValidatorRequestBuilder()..update(updates))._build();
 
   _$UpdateRequestValidatorRequest._(
-      {this.patchOperations,
+      {required this.restApiId,
       required this.requestValidatorId,
-      required this.restApiId})
+      this.patchOperations})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(requestValidatorId,
-        r'UpdateRequestValidatorRequest', 'requestValidatorId');
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'UpdateRequestValidatorRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(requestValidatorId,
+        r'UpdateRequestValidatorRequest', 'requestValidatorId');
   }
 
   @override
@@ -42,17 +42,17 @@ class _$UpdateRequestValidatorRequest extends UpdateRequestValidatorRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateRequestValidatorRequest &&
-        patchOperations == other.patchOperations &&
+        restApiId == other.restApiId &&
         requestValidatorId == other.requestValidatorId &&
-        restApiId == other.restApiId;
+        patchOperations == other.patchOperations;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, patchOperations.hashCode);
-    _$hash = $jc(_$hash, requestValidatorId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, requestValidatorId.hashCode);
+    _$hash = $jc(_$hash, patchOperations.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -64,20 +64,20 @@ class UpdateRequestValidatorRequestBuilder
             UpdateRequestValidatorRequestBuilder> {
   _$UpdateRequestValidatorRequest? _$v;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
-      _$this._patchOperations = patchOperations;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _requestValidatorId;
   String? get requestValidatorId => _$this._requestValidatorId;
   set requestValidatorId(String? requestValidatorId) =>
       _$this._requestValidatorId = requestValidatorId;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
+  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
+  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+      _$this._patchOperations = patchOperations;
 
   UpdateRequestValidatorRequestBuilder() {
     UpdateRequestValidatorRequest._init(this);
@@ -86,9 +86,9 @@ class UpdateRequestValidatorRequestBuilder
   UpdateRequestValidatorRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _patchOperations = $v.patchOperations?.toBuilder();
-      _requestValidatorId = $v.requestValidatorId;
       _restApiId = $v.restApiId;
+      _requestValidatorId = $v.requestValidatorId;
+      _patchOperations = $v.patchOperations?.toBuilder();
       _$v = null;
     }
     return this;
@@ -113,13 +113,13 @@ class UpdateRequestValidatorRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateRequestValidatorRequest._(
-              patchOperations: _patchOperations?.build(),
+              restApiId: BuiltValueNullFieldError.checkNotNull(
+                  restApiId, r'UpdateRequestValidatorRequest', 'restApiId'),
               requestValidatorId: BuiltValueNullFieldError.checkNotNull(
                   requestValidatorId,
                   r'UpdateRequestValidatorRequest',
                   'requestValidatorId'),
-              restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'UpdateRequestValidatorRequest', 'restApiId'));
+              patchOperations: _patchOperations?.build());
     } catch (_) {
       late String _$failedField;
       try {

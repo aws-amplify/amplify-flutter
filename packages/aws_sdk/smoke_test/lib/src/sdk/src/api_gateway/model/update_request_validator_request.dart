@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.update_request_validator_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,15 +25,15 @@ abstract class UpdateRequestValidatorRequest
         _i1.HasPayload<UpdateRequestValidatorRequestPayload> {
   /// Updates a RequestValidator of a given RestApi.
   factory UpdateRequestValidatorRequest({
-    List<_i3.PatchOperation>? patchOperations,
-    required String requestValidatorId,
     required String restApiId,
+    required String requestValidatorId,
+    List<_i3.PatchOperation>? patchOperations,
   }) {
     return _$UpdateRequestValidatorRequest._(
+      restApiId: restApiId,
+      requestValidatorId: requestValidatorId,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      requestValidatorId: requestValidatorId,
-      restApiId: restApiId,
     );
   }
 
@@ -67,14 +68,14 @@ abstract class UpdateRequestValidatorRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateRequestValidatorRequestBuilder b) {}
 
-  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The identifier of RequestValidator to be updated.
   String get requestValidatorId;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
+  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -98,24 +99,24 @@ abstract class UpdateRequestValidatorRequest
       });
   @override
   List<Object?> get props => [
-        patchOperations,
-        requestValidatorId,
         restApiId,
+        requestValidatorId,
+        patchOperations,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateRequestValidatorRequest');
     helper.add(
-      'patchOperations',
-      patchOperations,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'requestValidatorId',
       requestValidatorId,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'patchOperations',
+      patchOperations,
     );
     return helper.toString();
   }
@@ -184,18 +185,18 @@ class UpdateRequestValidatorRequestRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'patchOperations':
-          if (value != null) {
-            result.patchOperations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.PatchOperation)],
-              ),
-            ) as _i4.BuiltList<_i3.PatchOperation>));
-          }
-          break;
+          result.patchOperations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.PatchOperation)],
+            ),
+          ) as _i4.BuiltList<_i3.PatchOperation>));
       }
     }
 
@@ -205,24 +206,22 @@ class UpdateRequestValidatorRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateRequestValidatorRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UpdateRequestValidatorRequest
-        ? object.getPayload()
-        : (object as UpdateRequestValidatorRequestPayload);
-    final result = <Object?>[];
-    if (payload.patchOperations != null) {
-      result
+    final result$ = <Object?>[];
+    final UpdateRequestValidatorRequestPayload(:patchOperations) = object;
+    if (patchOperations != null) {
+      result$
         ..add('patchOperations')
         ..add(serializers.serialize(
-          payload.patchOperations!,
+          patchOperations,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.PatchOperation)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

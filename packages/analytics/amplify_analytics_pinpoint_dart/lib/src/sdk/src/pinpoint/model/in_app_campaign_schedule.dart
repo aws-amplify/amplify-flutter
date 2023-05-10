@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_campaign_schedule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -106,31 +107,25 @@ class InAppCampaignScheduleRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'EndDate':
-          if (value != null) {
-            result.endDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.endDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'EventFilter':
-          if (value != null) {
-            result.eventFilter.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CampaignEventFilter),
-            ) as _i2.CampaignEventFilter));
-          }
-          break;
+          result.eventFilter.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CampaignEventFilter),
+          ) as _i2.CampaignEventFilter));
         case 'QuietTime':
-          if (value != null) {
-            result.quietTime.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.QuietTime),
-            ) as _i3.QuietTime));
-          }
-          break;
+          result.quietTime.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.QuietTime),
+          ) as _i3.QuietTime));
       }
     }
 
@@ -140,35 +135,35 @@ class InAppCampaignScheduleRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InAppCampaignSchedule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InAppCampaignSchedule);
-    final result = <Object?>[];
-    if (payload.endDate != null) {
-      result
+    final result$ = <Object?>[];
+    final InAppCampaignSchedule(:endDate, :eventFilter, :quietTime) = object;
+    if (endDate != null) {
+      result$
         ..add('EndDate')
         ..add(serializers.serialize(
-          payload.endDate!,
+          endDate,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.eventFilter != null) {
-      result
+    if (eventFilter != null) {
+      result$
         ..add('EventFilter')
         ..add(serializers.serialize(
-          payload.eventFilter!,
+          eventFilter,
           specifiedType: const FullType(_i2.CampaignEventFilter),
         ));
     }
-    if (payload.quietTime != null) {
-      result
+    if (quietTime != null) {
+      result$
         ..add('QuietTime')
         ..add(serializers.serialize(
-          payload.quietTime!,
+          quietTime,
           specifiedType: const FullType(_i3.QuietTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

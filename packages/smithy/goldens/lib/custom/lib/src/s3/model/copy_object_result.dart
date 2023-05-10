@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library custom_v1.s3.model.copy_object_result; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -66,18 +67,18 @@ class CopyObjectResultRestXmlSerializer
     final result = CopyObjectResultBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ETag':
-          if (value != null) {
-            result.eTag = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.eTag = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -87,24 +88,24 @@ class CopyObjectResultRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CopyObjectResult object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CopyObjectResult);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'CopyObjectResult',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.eTag != null) {
-      result
+    final CopyObjectResult(:eTag) = object;
+    if (eTag != null) {
+      result$
         ..add(const _i2.XmlElementName('ETag'))
         ..add(serializers.serialize(
-          payload.eTag!,
+          eTag,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

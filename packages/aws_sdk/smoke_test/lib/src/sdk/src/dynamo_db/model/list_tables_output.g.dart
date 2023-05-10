@@ -8,15 +8,15 @@ part of smoke_test.dynamo_db.model.list_tables_output;
 
 class _$ListTablesOutput extends ListTablesOutput {
   @override
-  final String? lastEvaluatedTableName;
-  @override
   final _i2.BuiltList<String>? tableNames;
+  @override
+  final String? lastEvaluatedTableName;
 
   factory _$ListTablesOutput(
           [void Function(ListTablesOutputBuilder)? updates]) =>
       (new ListTablesOutputBuilder()..update(updates))._build();
 
-  _$ListTablesOutput._({this.lastEvaluatedTableName, this.tableNames})
+  _$ListTablesOutput._({this.tableNames, this.lastEvaluatedTableName})
       : super._();
 
   @override
@@ -31,15 +31,15 @@ class _$ListTablesOutput extends ListTablesOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListTablesOutput &&
-        lastEvaluatedTableName == other.lastEvaluatedTableName &&
-        tableNames == other.tableNames;
+        tableNames == other.tableNames &&
+        lastEvaluatedTableName == other.lastEvaluatedTableName;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, lastEvaluatedTableName.hashCode);
     _$hash = $jc(_$hash, tableNames.hashCode);
+    _$hash = $jc(_$hash, lastEvaluatedTableName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -49,16 +49,16 @@ class ListTablesOutputBuilder
     implements Builder<ListTablesOutput, ListTablesOutputBuilder> {
   _$ListTablesOutput? _$v;
 
-  String? _lastEvaluatedTableName;
-  String? get lastEvaluatedTableName => _$this._lastEvaluatedTableName;
-  set lastEvaluatedTableName(String? lastEvaluatedTableName) =>
-      _$this._lastEvaluatedTableName = lastEvaluatedTableName;
-
   _i2.ListBuilder<String>? _tableNames;
   _i2.ListBuilder<String> get tableNames =>
       _$this._tableNames ??= new _i2.ListBuilder<String>();
   set tableNames(_i2.ListBuilder<String>? tableNames) =>
       _$this._tableNames = tableNames;
+
+  String? _lastEvaluatedTableName;
+  String? get lastEvaluatedTableName => _$this._lastEvaluatedTableName;
+  set lastEvaluatedTableName(String? lastEvaluatedTableName) =>
+      _$this._lastEvaluatedTableName = lastEvaluatedTableName;
 
   ListTablesOutputBuilder() {
     ListTablesOutput._init(this);
@@ -67,8 +67,8 @@ class ListTablesOutputBuilder
   ListTablesOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _lastEvaluatedTableName = $v.lastEvaluatedTableName;
       _tableNames = $v.tableNames?.toBuilder();
+      _lastEvaluatedTableName = $v.lastEvaluatedTableName;
       _$v = null;
     }
     return this;
@@ -93,8 +93,8 @@ class ListTablesOutputBuilder
     try {
       _$result = _$v ??
           new _$ListTablesOutput._(
-              lastEvaluatedTableName: lastEvaluatedTableName,
-              tableNames: _tableNames?.build());
+              tableNames: _tableNames?.build(),
+              lastEvaluatedTableName: lastEvaluatedTableName);
     } catch (_) {
       late String _$failedField;
       try {

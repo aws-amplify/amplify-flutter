@@ -10,7 +10,7 @@ import 'package:meta/meta.dart';
 /// Base class for discrete events of a state machine.
 /// {@endtemplate}
 @immutable
-abstract class StateMachineEvent<EventType extends Object,
+abstract base class StateMachineEvent<EventType extends Object,
         StateType extends Object>
     with AWSEquatable<StateMachineEvent<EventType, StateType>>, AWSDebuggable {
   /// {@macro amplify_core.event}
@@ -20,6 +20,7 @@ abstract class StateMachineEvent<EventType extends Object,
   EventType get type;
 
   /// Casts this to an event of type [E].
+  @Deprecated('Use pattern matching instead')
   E cast<E extends StateMachineEvent<EventType, StateType>>() => this as E;
 
   /// Checks the precondition, given [currentState].
@@ -35,7 +36,7 @@ abstract class StateMachineEvent<EventType extends Object,
 /// A [Completer] for [Event]s in a state machine, used to signal processing
 /// of a particular event which otherwise would be fired and forgotten.
 /// {@endtemplate}
-class EventCompleter<Event extends StateMachineEvent,
+final class EventCompleter<Event extends StateMachineEvent,
     State extends StateMachineState> {
   /// {@macro amplify_core.event_completer}
   EventCompleter(this.event, [StackTrace? stackTrace])

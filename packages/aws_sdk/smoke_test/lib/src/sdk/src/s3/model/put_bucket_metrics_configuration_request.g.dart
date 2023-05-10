@@ -11,11 +11,11 @@ class _$PutBucketMetricsConfigurationRequest
   @override
   final String bucket;
   @override
-  final String? expectedBucketOwner;
-  @override
   final String id;
   @override
   final _i2.MetricsConfiguration metricsConfiguration;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$PutBucketMetricsConfigurationRequest(
           [void Function(PutBucketMetricsConfigurationRequestBuilder)?
@@ -25,9 +25,9 @@ class _$PutBucketMetricsConfigurationRequest
 
   _$PutBucketMetricsConfigurationRequest._(
       {required this.bucket,
-      this.expectedBucketOwner,
       required this.id,
-      required this.metricsConfiguration})
+      required this.metricsConfiguration,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutBucketMetricsConfigurationRequest', 'bucket');
@@ -51,18 +51,18 @@ class _$PutBucketMetricsConfigurationRequest
     if (identical(other, this)) return true;
     return other is PutBucketMetricsConfigurationRequest &&
         bucket == other.bucket &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         id == other.id &&
-        metricsConfiguration == other.metricsConfiguration;
+        metricsConfiguration == other.metricsConfiguration &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, metricsConfiguration.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -78,11 +78,6 @@ class PutBucketMetricsConfigurationRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
@@ -94,6 +89,11 @@ class PutBucketMetricsConfigurationRequestBuilder
           _i2.MetricsConfigurationBuilder? metricsConfiguration) =>
       _$this._metricsConfiguration = metricsConfiguration;
 
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
+
   PutBucketMetricsConfigurationRequestBuilder() {
     PutBucketMetricsConfigurationRequest._init(this);
   }
@@ -102,9 +102,9 @@ class PutBucketMetricsConfigurationRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _id = $v.id;
       _metricsConfiguration = $v.metricsConfiguration.toBuilder();
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -132,10 +132,10 @@ class PutBucketMetricsConfigurationRequestBuilder
           new _$PutBucketMetricsConfigurationRequest._(
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutBucketMetricsConfigurationRequest', 'bucket'),
-              expectedBucketOwner: expectedBucketOwner,
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'PutBucketMetricsConfigurationRequest', 'id'),
-              metricsConfiguration: metricsConfiguration.build());
+              metricsConfiguration: metricsConfiguration.build(),
+              expectedBucketOwner: expectedBucketOwner);
     } catch (_) {
       late String _$failedField;
       try {

@@ -9,11 +9,11 @@ part of smoke_test.api_gateway.model.update_documentation_version_request;
 class _$UpdateDocumentationVersionRequest
     extends UpdateDocumentationVersionRequest {
   @override
+  final String restApiId;
+  @override
   final String documentationVersion;
   @override
   final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
-  @override
-  final String restApiId;
 
   factory _$UpdateDocumentationVersionRequest(
           [void Function(UpdateDocumentationVersionRequestBuilder)? updates]) =>
@@ -21,14 +21,14 @@ class _$UpdateDocumentationVersionRequest
           ._build();
 
   _$UpdateDocumentationVersionRequest._(
-      {required this.documentationVersion,
-      this.patchOperations,
-      required this.restApiId})
+      {required this.restApiId,
+      required this.documentationVersion,
+      this.patchOperations})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(documentationVersion,
-        r'UpdateDocumentationVersionRequest', 'documentationVersion');
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'UpdateDocumentationVersionRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(documentationVersion,
+        r'UpdateDocumentationVersionRequest', 'documentationVersion');
   }
 
   @override
@@ -44,17 +44,17 @@ class _$UpdateDocumentationVersionRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateDocumentationVersionRequest &&
+        restApiId == other.restApiId &&
         documentationVersion == other.documentationVersion &&
-        patchOperations == other.patchOperations &&
-        restApiId == other.restApiId;
+        patchOperations == other.patchOperations;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jc(_$hash, documentationVersion.hashCode);
     _$hash = $jc(_$hash, patchOperations.hashCode);
-    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -65,6 +65,10 @@ class UpdateDocumentationVersionRequestBuilder
         Builder<UpdateDocumentationVersionRequest,
             UpdateDocumentationVersionRequestBuilder> {
   _$UpdateDocumentationVersionRequest? _$v;
+
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _documentationVersion;
   String? get documentationVersion => _$this._documentationVersion;
@@ -77,10 +81,6 @@ class UpdateDocumentationVersionRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
-
   UpdateDocumentationVersionRequestBuilder() {
     UpdateDocumentationVersionRequest._init(this);
   }
@@ -88,9 +88,9 @@ class UpdateDocumentationVersionRequestBuilder
   UpdateDocumentationVersionRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _restApiId = $v.restApiId;
       _documentationVersion = $v.documentationVersion;
       _patchOperations = $v.patchOperations?.toBuilder();
-      _restApiId = $v.restApiId;
       _$v = null;
     }
     return this;
@@ -116,13 +116,13 @@ class UpdateDocumentationVersionRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateDocumentationVersionRequest._(
+              restApiId: BuiltValueNullFieldError.checkNotNull(
+                  restApiId, r'UpdateDocumentationVersionRequest', 'restApiId'),
               documentationVersion: BuiltValueNullFieldError.checkNotNull(
                   documentationVersion,
                   r'UpdateDocumentationVersionRequest',
                   'documentationVersion'),
-              patchOperations: _patchOperations?.build(),
-              restApiId: BuiltValueNullFieldError.checkNotNull(restApiId,
-                  r'UpdateDocumentationVersionRequest', 'restApiId'));
+              patchOperations: _patchOperations?.build());
     } catch (_) {
       late String _$failedField;
       try {

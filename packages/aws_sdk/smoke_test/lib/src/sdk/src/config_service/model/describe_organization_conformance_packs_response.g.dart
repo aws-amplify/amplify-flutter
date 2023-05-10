@@ -9,10 +9,10 @@ part of smoke_test.config_service.model.describe_organization_conformance_packs_
 class _$DescribeOrganizationConformancePacksResponse
     extends DescribeOrganizationConformancePacksResponse {
   @override
-  final String? nextToken;
-  @override
   final _i3.BuiltList<_i2.OrganizationConformancePack>?
       organizationConformancePacks;
+  @override
+  final String? nextToken;
 
   factory _$DescribeOrganizationConformancePacksResponse(
           [void Function(DescribeOrganizationConformancePacksResponseBuilder)?
@@ -22,7 +22,7 @@ class _$DescribeOrganizationConformancePacksResponse
           ._build();
 
   _$DescribeOrganizationConformancePacksResponse._(
-      {this.nextToken, this.organizationConformancePacks})
+      {this.organizationConformancePacks, this.nextToken})
       : super._();
 
   @override
@@ -39,15 +39,15 @@ class _$DescribeOrganizationConformancePacksResponse
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DescribeOrganizationConformancePacksResponse &&
-        nextToken == other.nextToken &&
-        organizationConformancePacks == other.organizationConformancePacks;
+        organizationConformancePacks == other.organizationConformancePacks &&
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, organizationConformancePacks.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,10 +58,6 @@ class DescribeOrganizationConformancePacksResponseBuilder
         Builder<DescribeOrganizationConformancePacksResponse,
             DescribeOrganizationConformancePacksResponseBuilder> {
   _$DescribeOrganizationConformancePacksResponse? _$v;
-
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
   _i3.ListBuilder<_i2.OrganizationConformancePack>?
       _organizationConformancePacks;
@@ -74,6 +70,10 @@ class DescribeOrganizationConformancePacksResponseBuilder
               organizationConformancePacks) =>
       _$this._organizationConformancePacks = organizationConformancePacks;
 
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+
   DescribeOrganizationConformancePacksResponseBuilder() {
     DescribeOrganizationConformancePacksResponse._init(this);
   }
@@ -81,9 +81,9 @@ class DescribeOrganizationConformancePacksResponseBuilder
   DescribeOrganizationConformancePacksResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
       _organizationConformancePacks =
           $v.organizationConformancePacks?.toBuilder();
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -110,9 +110,9 @@ class DescribeOrganizationConformancePacksResponseBuilder
     try {
       _$result = _$v ??
           new _$DescribeOrganizationConformancePacksResponse._(
-              nextToken: nextToken,
               organizationConformancePacks:
-                  _organizationConformancePacks?.build());
+                  _organizationConformancePacks?.build(),
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

@@ -1,12 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-export '../exception/storage/access_denied_exception.dart';
-export '../exception/storage/http_status_exception.dart';
-export '../exception/storage/key_not_found_exception.dart';
-export '../exception/storage/local_file_not_found_exception.dart';
-export '../exception/storage/operation_canceled_exception.dart';
-export '../exception/storage/storage_exception.dart';
+export '../exception/amplify_exception.dart'
+    show
+        StorageException,
+        StorageAccessDeniedException,
+        StorageHttpStatusException,
+        StorageKeyNotFoundException,
+        StorageLocalFileNotFoundException,
+        StorageOperationCanceledException,
+        NetworkException,
+        UnknownException;
 export 'access_level.dart';
 export 'copy_operation.dart';
 export 'copy_options.dart';

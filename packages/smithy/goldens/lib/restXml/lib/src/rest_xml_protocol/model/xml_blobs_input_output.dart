@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.xml_blobs_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -87,18 +88,18 @@ class XmlBlobsInputOutputRestXmlSerializer
     final result = XmlBlobsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'data':
-          if (value != null) {
-            result.data = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Uint8List),
-            ) as _i3.Uint8List);
-          }
-          break;
+          result.data = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Uint8List),
+          ) as _i3.Uint8List);
       }
     }
 
@@ -108,19 +109,19 @@ class XmlBlobsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlBlobsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlBlobsInputOutput);
-    final result = <Object?>[const _i1.XmlElementName('XmlBlobsInputOutput')];
-    if (payload.data != null) {
-      result
+    final result$ = <Object?>[const _i1.XmlElementName('XmlBlobsInputOutput')];
+    final XmlBlobsInputOutput(:data) = object;
+    if (data != null) {
+      result$
         ..add(const _i1.XmlElementName('data'))
         ..add(serializers.serialize(
-          payload.data!,
+          data,
           specifiedType: const FullType.nullable(_i3.Uint8List),
         ));
     }
-    return result;
+    return result$;
   }
 }

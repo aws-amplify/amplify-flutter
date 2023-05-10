@@ -19,7 +19,7 @@ import 'package:stream_transform/stream_transform.dart';
 /// See also:
 /// - [AWSHttpRequest]
 /// - [AWSStreamedHttpRequest]
-abstract class AWSBaseHttpRequest
+sealed class AWSBaseHttpRequest
     implements StreamSplitter<List<int>>, Closeable {
   AWSBaseHttpRequest._({
     required this.method,

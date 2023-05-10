@@ -9,13 +9,13 @@ part of smoke_test.api_gateway.model.create_documentation_version_request;
 class _$CreateDocumentationVersionRequest
     extends CreateDocumentationVersionRequest {
   @override
-  final String? description;
+  final String restApiId;
   @override
   final String documentationVersion;
   @override
-  final String restApiId;
-  @override
   final String? stageName;
+  @override
+  final String? description;
 
   factory _$CreateDocumentationVersionRequest(
           [void Function(CreateDocumentationVersionRequestBuilder)? updates]) =>
@@ -23,15 +23,15 @@ class _$CreateDocumentationVersionRequest
           ._build();
 
   _$CreateDocumentationVersionRequest._(
-      {this.description,
+      {required this.restApiId,
       required this.documentationVersion,
-      required this.restApiId,
-      this.stageName})
+      this.stageName,
+      this.description})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(documentationVersion,
-        r'CreateDocumentationVersionRequest', 'documentationVersion');
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'CreateDocumentationVersionRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(documentationVersion,
+        r'CreateDocumentationVersionRequest', 'documentationVersion');
   }
 
   @override
@@ -47,19 +47,19 @@ class _$CreateDocumentationVersionRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CreateDocumentationVersionRequest &&
-        description == other.description &&
-        documentationVersion == other.documentationVersion &&
         restApiId == other.restApiId &&
-        stageName == other.stageName;
+        documentationVersion == other.documentationVersion &&
+        stageName == other.stageName &&
+        description == other.description;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, description.hashCode);
-    _$hash = $jc(_$hash, documentationVersion.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, documentationVersion.hashCode);
     _$hash = $jc(_$hash, stageName.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -71,22 +71,22 @@ class CreateDocumentationVersionRequestBuilder
             CreateDocumentationVersionRequestBuilder> {
   _$CreateDocumentationVersionRequest? _$v;
 
-  String? _description;
-  String? get description => _$this._description;
-  set description(String? description) => _$this._description = description;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _documentationVersion;
   String? get documentationVersion => _$this._documentationVersion;
   set documentationVersion(String? documentationVersion) =>
       _$this._documentationVersion = documentationVersion;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
-
   String? _stageName;
   String? get stageName => _$this._stageName;
   set stageName(String? stageName) => _$this._stageName = stageName;
+
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
   CreateDocumentationVersionRequestBuilder() {
     CreateDocumentationVersionRequest._init(this);
@@ -95,10 +95,10 @@ class CreateDocumentationVersionRequestBuilder
   CreateDocumentationVersionRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _description = $v.description;
-      _documentationVersion = $v.documentationVersion;
       _restApiId = $v.restApiId;
+      _documentationVersion = $v.documentationVersion;
       _stageName = $v.stageName;
+      _description = $v.description;
       _$v = null;
     }
     return this;
@@ -122,14 +122,14 @@ class CreateDocumentationVersionRequestBuilder
   _$CreateDocumentationVersionRequest _build() {
     final _$result = _$v ??
         new _$CreateDocumentationVersionRequest._(
-            description: description,
+            restApiId: BuiltValueNullFieldError.checkNotNull(
+                restApiId, r'CreateDocumentationVersionRequest', 'restApiId'),
             documentationVersion: BuiltValueNullFieldError.checkNotNull(
                 documentationVersion,
                 r'CreateDocumentationVersionRequest',
                 'documentationVersion'),
-            restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'CreateDocumentationVersionRequest', 'restApiId'),
-            stageName: stageName);
+            stageName: stageName,
+            description: description);
     replace(_$result);
     return _$result;
   }

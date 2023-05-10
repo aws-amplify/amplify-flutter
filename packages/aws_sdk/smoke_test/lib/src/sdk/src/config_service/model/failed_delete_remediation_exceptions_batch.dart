@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.failed_delete_remediation_exceptions_batch; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,12 +22,12 @@ abstract class FailedDeleteRemediationExceptionsBatch
             FailedDeleteRemediationExceptionsBatchBuilder> {
   /// List of each of the failed delete remediation exceptions with specific reasons.
   factory FailedDeleteRemediationExceptionsBatch({
-    List<_i2.RemediationExceptionResourceKey>? failedItems,
     String? failureMessage,
+    List<_i2.RemediationExceptionResourceKey>? failedItems,
   }) {
     return _$FailedDeleteRemediationExceptionsBatch._(
-      failedItems: failedItems == null ? null : _i3.BuiltList(failedItems),
       failureMessage: failureMessage,
+      failedItems: failedItems == null ? null : _i3.BuiltList(failedItems),
     );
   }
 
@@ -44,27 +45,27 @@ abstract class FailedDeleteRemediationExceptionsBatch
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FailedDeleteRemediationExceptionsBatchBuilder b) {}
 
-  /// Returns remediation exception resource key object of the failed items.
-  _i3.BuiltList<_i2.RemediationExceptionResourceKey>? get failedItems;
-
   /// Returns a failure message for delete remediation exception. For example, Config creates an exception due to an internal error.
   String? get failureMessage;
+
+  /// Returns remediation exception resource key object of the failed items.
+  _i3.BuiltList<_i2.RemediationExceptionResourceKey>? get failedItems;
   @override
   List<Object?> get props => [
-        failedItems,
         failureMessage,
+        failedItems,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('FailedDeleteRemediationExceptionsBatch');
     helper.add(
-      'failedItems',
-      failedItems,
-    );
-    helper.add(
       'failureMessage',
       failureMessage,
+    );
+    helper.add(
+      'failedItems',
+      failedItems,
     );
     return helper.toString();
   }
@@ -99,26 +100,23 @@ class FailedDeleteRemediationExceptionsBatchAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'FailedItems':
-          if (value != null) {
-            result.failedItems.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.RemediationExceptionResourceKey)],
-              ),
-            ) as _i3.BuiltList<_i2.RemediationExceptionResourceKey>));
-          }
-          break;
         case 'FailureMessage':
-          if (value != null) {
-            result.failureMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.failureMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'FailedItems':
+          result.failedItems.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.RemediationExceptionResourceKey)],
+            ),
+          ) as _i3.BuiltList<_i2.RemediationExceptionResourceKey>));
       }
     }
 
@@ -128,30 +126,33 @@ class FailedDeleteRemediationExceptionsBatchAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    FailedDeleteRemediationExceptionsBatch object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as FailedDeleteRemediationExceptionsBatch);
-    final result = <Object?>[];
-    if (payload.failedItems != null) {
-      result
+    final result$ = <Object?>[];
+    final FailedDeleteRemediationExceptionsBatch(
+      :failureMessage,
+      :failedItems
+    ) = object;
+    if (failureMessage != null) {
+      result$
+        ..add('FailureMessage')
+        ..add(serializers.serialize(
+          failureMessage,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (failedItems != null) {
+      result$
         ..add('FailedItems')
         ..add(serializers.serialize(
-          payload.failedItems!,
+          failedItems,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.RemediationExceptionResourceKey)],
           ),
         ));
     }
-    if (payload.failureMessage != null) {
-      result
-        ..add('FailureMessage')
-        ..add(serializers.serialize(
-          payload.failureMessage!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

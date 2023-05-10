@@ -8,15 +8,15 @@ part of smoke_test.dynamo_db.model.list_tags_of_resource_output;
 
 class _$ListTagsOfResourceOutput extends ListTagsOfResourceOutput {
   @override
-  final String? nextToken;
-  @override
   final _i3.BuiltList<_i2.Tag>? tags;
+  @override
+  final String? nextToken;
 
   factory _$ListTagsOfResourceOutput(
           [void Function(ListTagsOfResourceOutputBuilder)? updates]) =>
       (new ListTagsOfResourceOutputBuilder()..update(updates))._build();
 
-  _$ListTagsOfResourceOutput._({this.nextToken, this.tags}) : super._();
+  _$ListTagsOfResourceOutput._({this.tags, this.nextToken}) : super._();
 
   @override
   ListTagsOfResourceOutput rebuild(
@@ -31,15 +31,15 @@ class _$ListTagsOfResourceOutput extends ListTagsOfResourceOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListTagsOfResourceOutput &&
-        nextToken == other.nextToken &&
-        tags == other.tags;
+        tags == other.tags &&
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, tags.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -50,14 +50,14 @@ class ListTagsOfResourceOutputBuilder
         Builder<ListTagsOfResourceOutput, ListTagsOfResourceOutputBuilder> {
   _$ListTagsOfResourceOutput? _$v;
 
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
   _i3.ListBuilder<_i2.Tag>? _tags;
   _i3.ListBuilder<_i2.Tag> get tags =>
       _$this._tags ??= new _i3.ListBuilder<_i2.Tag>();
   set tags(_i3.ListBuilder<_i2.Tag>? tags) => _$this._tags = tags;
+
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
   ListTagsOfResourceOutputBuilder() {
     ListTagsOfResourceOutput._init(this);
@@ -66,8 +66,8 @@ class ListTagsOfResourceOutputBuilder
   ListTagsOfResourceOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
       _tags = $v.tags?.toBuilder();
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -92,7 +92,7 @@ class ListTagsOfResourceOutputBuilder
     try {
       _$result = _$v ??
           new _$ListTagsOfResourceOutput._(
-              nextToken: nextToken, tags: _tags?.build());
+              tags: _tags?.build(), nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

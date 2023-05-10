@@ -42,31 +42,24 @@ class LogEntrySerializer implements StructuredSerializer<LogEntry> {
       switch (key) {
         case 'level':
           level = LogLevel.values.byName(value as String);
-          break;
         case 'message':
           message = value as String;
-          break;
         case 'loggerName':
           loggerName = value as String;
-          break;
         case 'time':
           time = serializers.deserialize(
             value,
             specifiedType: const FullType(DateTime),
           ) as DateTime;
-          break;
         case 'error':
           error = value?.toString();
-          break;
         case 'stackTrace':
           stackTrace = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(StackTrace),
           ) as StackTrace;
-          break;
         case 'local':
           local = value as bool;
-          break;
       }
     }
 

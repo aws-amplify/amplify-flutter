@@ -11,144 +11,6 @@ import 'dart:typed_data' show Float64List, Int32List, Int64List, Uint8List;
 import 'package:flutter/foundation.dart' show ReadBuffer, WriteBuffer;
 import 'package:flutter/services.dart';
 
-class NativeAuthSession {
-  NativeAuthSession({
-    required this.isSignedIn,
-    this.userSub,
-    this.userPoolTokens,
-    this.identityId,
-    this.awsCredentials,
-  });
-
-  bool isSignedIn;
-
-  String? userSub;
-
-  NativeUserPoolTokens? userPoolTokens;
-
-  String? identityId;
-
-  NativeAWSCredentials? awsCredentials;
-
-  Object encode() {
-    return <Object?>[
-      isSignedIn,
-      userSub,
-      userPoolTokens?.encode(),
-      identityId,
-      awsCredentials?.encode(),
-    ];
-  }
-
-  static NativeAuthSession decode(Object result) {
-    result as List<Object?>;
-    return NativeAuthSession(
-      isSignedIn: result[0]! as bool,
-      userSub: result[1] as String?,
-      userPoolTokens: result[2] != null
-          ? NativeUserPoolTokens.decode(result[2]! as List<Object?>)
-          : null,
-      identityId: result[3] as String?,
-      awsCredentials: result[4] != null
-          ? NativeAWSCredentials.decode(result[4]! as List<Object?>)
-          : null,
-    );
-  }
-}
-
-class NativeAuthUser {
-  NativeAuthUser({
-    required this.userId,
-    required this.username,
-  });
-
-  String userId;
-
-  String username;
-
-  Object encode() {
-    return <Object?>[
-      userId,
-      username,
-    ];
-  }
-
-  static NativeAuthUser decode(Object result) {
-    result as List<Object?>;
-    return NativeAuthUser(
-      userId: result[0]! as String,
-      username: result[1]! as String,
-    );
-  }
-}
-
-class NativeUserPoolTokens {
-  NativeUserPoolTokens({
-    required this.accessToken,
-    required this.refreshToken,
-    required this.idToken,
-  });
-
-  String accessToken;
-
-  String refreshToken;
-
-  String idToken;
-
-  Object encode() {
-    return <Object?>[
-      accessToken,
-      refreshToken,
-      idToken,
-    ];
-  }
-
-  static NativeUserPoolTokens decode(Object result) {
-    result as List<Object?>;
-    return NativeUserPoolTokens(
-      accessToken: result[0]! as String,
-      refreshToken: result[1]! as String,
-      idToken: result[2]! as String,
-    );
-  }
-}
-
-class NativeAWSCredentials {
-  NativeAWSCredentials({
-    required this.accessKeyId,
-    required this.secretAccessKey,
-    this.sessionToken,
-    this.expirationIso8601Utc,
-  });
-
-  String accessKeyId;
-
-  String secretAccessKey;
-
-  String? sessionToken;
-
-  String? expirationIso8601Utc;
-
-  Object encode() {
-    return <Object?>[
-      accessKeyId,
-      secretAccessKey,
-      sessionToken,
-      expirationIso8601Utc,
-    ];
-  }
-
-  static NativeAWSCredentials decode(Object result) {
-    result as List<Object?>;
-    return NativeAWSCredentials(
-      accessKeyId: result[0]! as String,
-      secretAccessKey: result[1]! as String,
-      sessionToken: result[2] as String?,
-      expirationIso8601Utc: result[3] as String?,
-    );
-  }
-}
-
 class LegacyCredentialStoreData {
   LegacyCredentialStoreData({
     this.identityId,
@@ -205,48 +67,13 @@ class LegacyCredentialStoreData {
   }
 }
 
-class _NativeAuthPluginCodec extends StandardMessageCodec {
-  const _NativeAuthPluginCodec();
-  @override
-  void writeValue(WriteBuffer buffer, Object? value) {
-    if (value is NativeAWSCredentials) {
-      buffer.putUint8(128);
-      writeValue(buffer, value.encode());
-    } else if (value is NativeAuthSession) {
-      buffer.putUint8(129);
-      writeValue(buffer, value.encode());
-    } else if (value is NativeUserPoolTokens) {
-      buffer.putUint8(130);
-      writeValue(buffer, value.encode());
-    } else {
-      super.writeValue(buffer, value);
-    }
-  }
-
-  @override
-  Object? readValueOfType(int type, ReadBuffer buffer) {
-    switch (type) {
-      case 128:
-        return NativeAWSCredentials.decode(readValue(buffer)!);
-      case 129:
-        return NativeAuthSession.decode(readValue(buffer)!);
-      case 130:
-        return NativeUserPoolTokens.decode(readValue(buffer)!);
-      default:
-        return super.readValueOfType(type, buffer);
-    }
-  }
-}
-
 abstract class NativeAuthPlugin {
-  static const MessageCodec<Object?> codec = _NativeAuthPluginCodec();
+  static const MessageCodec<Object?> codec = StandardMessageCodec();
 
   /// Exchanges the route parameters used to launch the app, i.e. if the app
   /// was closed and a redirect happened to the custom URI scheme (iOS) or an
   /// intent was launched with the redirect parameters (Android).
   void exchange(Map<String?, String?> params);
-
-  Future<NativeAuthSession> fetchAuthSession();
 
   static void setup(NativeAuthPlugin? api, {BinaryMessenger? binaryMessenger}) {
     {
@@ -269,20 +96,6 @@ abstract class NativeAuthPlugin {
         });
       }
     }
-    {
-      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.NativeAuthPlugin.fetchAuthSession', codec,
-          binaryMessenger: binaryMessenger);
-      if (api == null) {
-        channel.setMessageHandler(null);
-      } else {
-        channel.setMessageHandler((Object? message) async {
-          // ignore message
-          final NativeAuthSession output = await api.fetchAuthSession();
-          return output;
-        });
-      }
-    }
   }
 }
 
@@ -292,9 +105,6 @@ class _NativeAuthBridgeCodec extends StandardMessageCodec {
   void writeValue(WriteBuffer buffer, Object? value) {
     if (value is LegacyCredentialStoreData) {
       buffer.putUint8(128);
-      writeValue(buffer, value.encode());
-    } else if (value is NativeAuthUser) {
-      buffer.putUint8(129);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -306,8 +116,6 @@ class _NativeAuthBridgeCodec extends StandardMessageCodec {
     switch (type) {
       case 128:
         return LegacyCredentialStoreData.decode(readValue(buffer)!);
-      case 129:
-        return NativeAuthUser.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -323,31 +131,6 @@ class NativeAuthBridge {
   final BinaryMessenger? _binaryMessenger;
 
   static const MessageCodec<Object?> codec = _NativeAuthBridgeCodec();
-
-  /// Adds the native platform/plugin.
-  ///
-  /// On iOS/Android, this calls `Amplify.addPlugin` with the [NativeAuthPlugin]
-  /// implementation.
-  Future<void> addPlugin() async {
-    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.NativeAuthBridge.addPlugin', codec,
-        binaryMessenger: _binaryMessenger);
-    final List<Object?>? replyList = await channel.send(null) as List<Object?>?;
-    if (replyList == null) {
-      throw PlatformException(
-        code: 'channel-error',
-        message: 'Unable to establish connection on channel.',
-      );
-    } else if (replyList.length > 1) {
-      throw PlatformException(
-        code: replyList[0]! as String,
-        message: replyList[1] as String?,
-        details: replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
 
   /// Sign in by presenting [url] and waiting for a response to a URL with
   /// [callbackUrlScheme].
@@ -467,29 +250,6 @@ class NativeAuthBridge {
       );
     } else {
       return (replyList[0] as String?)!;
-    }
-  }
-
-  /// Updates the native cache of the current user.
-  Future<void> updateCurrentUser(NativeAuthUser? arg_user) async {
-    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.NativeAuthBridge.updateCurrentUser', codec,
-        binaryMessenger: _binaryMessenger);
-    final List<Object?>? replyList =
-        await channel.send(<Object?>[arg_user]) as List<Object?>?;
-    if (replyList == null) {
-      throw PlatformException(
-        code: 'channel-error',
-        message: 'Unable to establish connection on channel.',
-      );
-    } else if (replyList.length > 1) {
-      throw PlatformException(
-        code: replyList[0]! as String,
-        message: replyList[1] as String?,
-        details: replyList[2],
-      );
-    } else {
-      return;
     }
   }
 

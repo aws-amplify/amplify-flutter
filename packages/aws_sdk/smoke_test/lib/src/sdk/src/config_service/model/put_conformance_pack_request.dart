@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_conformance_pack_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,23 +22,23 @@ abstract class PutConformancePackRequest
     implements
         Built<PutConformancePackRequest, PutConformancePackRequestBuilder> {
   factory PutConformancePackRequest({
-    List<_i3.ConformancePackInputParameter>? conformancePackInputParameters,
     required String conformancePackName,
+    String? templateS3Uri,
+    String? templateBody,
     String? deliveryS3Bucket,
     String? deliveryS3KeyPrefix,
-    String? templateBody,
-    String? templateS3Uri,
+    List<_i3.ConformancePackInputParameter>? conformancePackInputParameters,
     _i4.TemplateSsmDocumentDetails? templateSsmDocumentDetails,
   }) {
     return _$PutConformancePackRequest._(
+      conformancePackName: conformancePackName,
+      templateS3Uri: templateS3Uri,
+      templateBody: templateBody,
+      deliveryS3Bucket: deliveryS3Bucket,
+      deliveryS3KeyPrefix: deliveryS3KeyPrefix,
       conformancePackInputParameters: conformancePackInputParameters == null
           ? null
           : _i5.BuiltList(conformancePackInputParameters),
-      conformancePackName: conformancePackName,
-      deliveryS3Bucket: deliveryS3Bucket,
-      deliveryS3KeyPrefix: deliveryS3KeyPrefix,
-      templateBody: templateBody,
-      templateS3Uri: templateS3Uri,
       templateSsmDocumentDetails: templateSsmDocumentDetails,
     );
   }
@@ -62,12 +63,18 @@ abstract class PutConformancePackRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutConformancePackRequestBuilder b) {}
 
-  /// A list of `ConformancePackInputParameter` objects.
-  _i5.BuiltList<_i3.ConformancePackInputParameter>?
-      get conformancePackInputParameters;
-
   /// The unique name of the conformance pack you want to deploy.
   String get conformancePackName;
+
+  /// The location of the file containing the template body (`s3://bucketname/prefix`). The uri must point to a conformance pack template (max size: 300 KB) that is located in an Amazon S3 bucket in the same region as the conformance pack.
+  ///
+  /// You must have access to read Amazon S3 bucket.
+  String? get templateS3Uri;
+
+  /// A string containing the full conformance pack template body. The structure containing the template body has a minimum length of 1 byte and a maximum length of 51,200 bytes.
+  ///
+  /// You can only use a YAML template with two resource types: Config rule (`AWS::Config::ConfigRule`) and remediation action (`AWS::Config::RemediationConfiguration`).
+  String? get templateBody;
 
   /// The name of the Amazon S3 bucket where Config stores conformance pack templates.
   ///
@@ -79,15 +86,9 @@ abstract class PutConformancePackRequest
   /// This field is optional.
   String? get deliveryS3KeyPrefix;
 
-  /// A string containing the full conformance pack template body. The structure containing the template body has a minimum length of 1 byte and a maximum length of 51,200 bytes.
-  ///
-  /// You can only use a YAML template with two resource types: Config rule (`AWS::Config::ConfigRule`) and remediation action (`AWS::Config::RemediationConfiguration`).
-  String? get templateBody;
-
-  /// The location of the file containing the template body (`s3://bucketname/prefix`). The uri must point to a conformance pack template (max size: 300 KB) that is located in an Amazon S3 bucket in the same region as the conformance pack.
-  ///
-  /// You must have access to read Amazon S3 bucket.
-  String? get templateS3Uri;
+  /// A list of `ConformancePackInputParameter` objects.
+  _i5.BuiltList<_i3.ConformancePackInputParameter>?
+      get conformancePackInputParameters;
 
   /// An object of type `TemplateSSMDocumentDetails`, which contains the name or the Amazon Resource Name (ARN) of the Amazon Web Services Systems Manager document (SSM document) and the version of the SSM document that is used to create a conformance pack.
   _i4.TemplateSsmDocumentDetails? get templateSsmDocumentDetails;
@@ -95,24 +96,28 @@ abstract class PutConformancePackRequest
   PutConformancePackRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        conformancePackInputParameters,
         conformancePackName,
+        templateS3Uri,
+        templateBody,
         deliveryS3Bucket,
         deliveryS3KeyPrefix,
-        templateBody,
-        templateS3Uri,
+        conformancePackInputParameters,
         templateSsmDocumentDetails,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutConformancePackRequest');
     helper.add(
-      'conformancePackInputParameters',
-      conformancePackInputParameters,
-    );
-    helper.add(
       'conformancePackName',
       conformancePackName,
+    );
+    helper.add(
+      'templateS3Uri',
+      templateS3Uri,
+    );
+    helper.add(
+      'templateBody',
+      templateBody,
     );
     helper.add(
       'deliveryS3Bucket',
@@ -123,12 +128,8 @@ abstract class PutConformancePackRequest
       deliveryS3KeyPrefix,
     );
     helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateS3Uri',
-      templateS3Uri,
+      'conformancePackInputParameters',
+      conformancePackInputParameters,
     );
     helper.add(
       'templateSsmDocumentDetails',
@@ -167,65 +168,49 @@ class PutConformancePackRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ConformancePackInputParameters':
-          if (value != null) {
-            result.conformancePackInputParameters
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.ConformancePackInputParameter)],
-              ),
-            ) as _i5.BuiltList<_i3.ConformancePackInputParameter>));
-          }
-          break;
         case 'ConformancePackName':
           result.conformancePackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
-        case 'DeliveryS3Bucket':
-          if (value != null) {
-            result.deliveryS3Bucket = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'DeliveryS3KeyPrefix':
-          if (value != null) {
-            result.deliveryS3KeyPrefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'TemplateBody':
-          if (value != null) {
-            result.templateBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'TemplateS3Uri':
-          if (value != null) {
-            result.templateS3Uri = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.templateS3Uri = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'TemplateBody':
+          result.templateBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'DeliveryS3Bucket':
+          result.deliveryS3Bucket = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'DeliveryS3KeyPrefix':
+          result.deliveryS3KeyPrefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ConformancePackInputParameters':
+          result.conformancePackInputParameters
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.ConformancePackInputParameter)],
+            ),
+          ) as _i5.BuiltList<_i3.ConformancePackInputParameter>));
         case 'TemplateSSMDocumentDetails':
-          if (value != null) {
-            result.templateSsmDocumentDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.TemplateSsmDocumentDetails),
-            ) as _i4.TemplateSsmDocumentDetails));
-          }
-          break;
+          result.templateSsmDocumentDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.TemplateSsmDocumentDetails),
+          ) as _i4.TemplateSsmDocumentDetails));
       }
     }
 
@@ -235,68 +220,77 @@ class PutConformancePackRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutConformancePackRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutConformancePackRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutConformancePackRequest(
+      :conformancePackName,
+      :templateS3Uri,
+      :templateBody,
+      :deliveryS3Bucket,
+      :deliveryS3KeyPrefix,
+      :conformancePackInputParameters,
+      :templateSsmDocumentDetails
+    ) = object;
+    result$.addAll([
       'ConformancePackName',
       serializers.serialize(
-        payload.conformancePackName,
+        conformancePackName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.conformancePackInputParameters != null) {
-      result
+    ]);
+    if (templateS3Uri != null) {
+      result$
+        ..add('TemplateS3Uri')
+        ..add(serializers.serialize(
+          templateS3Uri,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (templateBody != null) {
+      result$
+        ..add('TemplateBody')
+        ..add(serializers.serialize(
+          templateBody,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (deliveryS3Bucket != null) {
+      result$
+        ..add('DeliveryS3Bucket')
+        ..add(serializers.serialize(
+          deliveryS3Bucket,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (deliveryS3KeyPrefix != null) {
+      result$
+        ..add('DeliveryS3KeyPrefix')
+        ..add(serializers.serialize(
+          deliveryS3KeyPrefix,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (conformancePackInputParameters != null) {
+      result$
         ..add('ConformancePackInputParameters')
         ..add(serializers.serialize(
-          payload.conformancePackInputParameters!,
+          conformancePackInputParameters,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i3.ConformancePackInputParameter)],
           ),
         ));
     }
-    if (payload.deliveryS3Bucket != null) {
-      result
-        ..add('DeliveryS3Bucket')
-        ..add(serializers.serialize(
-          payload.deliveryS3Bucket!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.deliveryS3KeyPrefix != null) {
-      result
-        ..add('DeliveryS3KeyPrefix')
-        ..add(serializers.serialize(
-          payload.deliveryS3KeyPrefix!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.templateBody != null) {
-      result
-        ..add('TemplateBody')
-        ..add(serializers.serialize(
-          payload.templateBody!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.templateS3Uri != null) {
-      result
-        ..add('TemplateS3Uri')
-        ..add(serializers.serialize(
-          payload.templateS3Uri!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.templateSsmDocumentDetails != null) {
-      result
+    if (templateSsmDocumentDetails != null) {
+      result$
         ..add('TemplateSSMDocumentDetails')
         ..add(serializers.serialize(
-          payload.templateSsmDocumentDetails!,
+          templateSsmDocumentDetails,
           specifiedType: const FullType(_i4.TemplateSsmDocumentDetails),
         ));
     }
-    return result;
+    return result$;
   }
 }

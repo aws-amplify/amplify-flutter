@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.list_bucket_intelligent_tiering_configurations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,20 +20,20 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
         Built<ListBucketIntelligentTieringConfigurationsOutput,
             ListBucketIntelligentTieringConfigurationsOutputBuilder> {
   factory ListBucketIntelligentTieringConfigurationsOutput({
+    bool? isTruncated,
     String? continuationToken,
+    String? nextContinuationToken,
     List<_i2.IntelligentTieringConfiguration>?
         intelligentTieringConfigurationList,
-    bool? isTruncated,
-    String? nextContinuationToken,
   }) {
     return _$ListBucketIntelligentTieringConfigurationsOutput._(
+      isTruncated: isTruncated,
       continuationToken: continuationToken,
+      nextContinuationToken: nextContinuationToken,
       intelligentTieringConfigurationList:
           intelligentTieringConfigurationList == null
               ? null
               : _i3.BuiltList(intelligentTieringConfigurationList),
-      isTruncated: isTruncated,
-      nextContinuationToken: nextContinuationToken,
     );
   }
 
@@ -57,44 +58,44 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
   static void _init(
       ListBucketIntelligentTieringConfigurationsOutputBuilder b) {}
 
+  /// Indicates whether the returned list of analytics configurations is complete. A value of `true` indicates that the list is not complete and the `NextContinuationToken` will be provided for a subsequent request.
+  bool? get isTruncated;
+
   /// The `ContinuationToken` that represents a placeholder from where this request should begin.
   String? get continuationToken;
+
+  /// The marker used to continue this inventory configuration listing. Use the `NextContinuationToken` from this response to continue the listing in a subsequent request. The continuation token is an opaque value that Amazon S3 understands.
+  String? get nextContinuationToken;
 
   /// The list of S3 Intelligent-Tiering configurations for a bucket.
   _i3.BuiltList<_i2.IntelligentTieringConfiguration>?
       get intelligentTieringConfigurationList;
-
-  /// Indicates whether the returned list of analytics configurations is complete. A value of `true` indicates that the list is not complete and the `NextContinuationToken` will be provided for a subsequent request.
-  bool? get isTruncated;
-
-  /// The marker used to continue this inventory configuration listing. Use the `NextContinuationToken` from this response to continue the listing in a subsequent request. The continuation token is an opaque value that Amazon S3 understands.
-  String? get nextContinuationToken;
   @override
   List<Object?> get props => [
-        continuationToken,
-        intelligentTieringConfigurationList,
         isTruncated,
+        continuationToken,
         nextContinuationToken,
+        intelligentTieringConfigurationList,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'ListBucketIntelligentTieringConfigurationsOutput');
     helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'intelligentTieringConfigurationList',
-      intelligentTieringConfigurationList,
-    );
-    helper.add(
       'isTruncated',
       isTruncated,
     );
     helper.add(
+      'continuationToken',
+      continuationToken,
+    );
+    helper.add(
       'nextContinuationToken',
       nextContinuationToken,
+    );
+    helper.add(
+      'intelligentTieringConfigurationList',
+      intelligentTieringConfigurationList,
     );
     return helper.toString();
   }
@@ -127,44 +128,34 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
     final result = ListBucketIntelligentTieringConfigurationsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ContinuationToken':
-          if (value != null) {
-            result.continuationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.continuationToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IntelligentTieringConfiguration':
-          if (value != null) {
-            result.intelligentTieringConfigurationList
-                .add((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.IntelligentTieringConfiguration),
-            ) as _i2.IntelligentTieringConfiguration));
-          }
-          break;
+          result.intelligentTieringConfigurationList
+              .add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.IntelligentTieringConfiguration),
+          ) as _i2.IntelligentTieringConfiguration));
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'NextContinuationToken':
-          if (value != null) {
-            result.nextContinuationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextContinuationToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -174,53 +165,57 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListBucketIntelligentTieringConfigurationsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload =
-        (object as ListBucketIntelligentTieringConfigurationsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ListBucketIntelligentTieringConfigurationsOutput',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.continuationToken != null) {
-      result
+    final ListBucketIntelligentTieringConfigurationsOutput(
+      :continuationToken,
+      :intelligentTieringConfigurationList,
+      :isTruncated,
+      :nextContinuationToken
+    ) = object;
+    if (continuationToken != null) {
+      result$
         ..add(const _i4.XmlElementName('ContinuationToken'))
         ..add(serializers.serialize(
-          payload.continuationToken!,
+          continuationToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.intelligentTieringConfigurationList != null) {
-      result.addAll(const _i4.XmlBuiltListSerializer(
+    if (intelligentTieringConfigurationList != null) {
+      result$.addAll(const _i4.XmlBuiltListSerializer(
               memberName: 'IntelligentTieringConfiguration')
           .serialize(
         serializers,
-        payload.intelligentTieringConfigurationList!,
+        intelligentTieringConfigurationList,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.IntelligentTieringConfiguration)],
         ),
       ));
     }
-    if (payload.isTruncated != null) {
-      result
+    if (isTruncated != null) {
+      result$
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.nextContinuationToken != null) {
-      result
+    if (nextContinuationToken != null) {
+      result$
         ..add(const _i4.XmlElementName('NextContinuationToken'))
         ..add(serializers.serialize(
-          payload.nextContinuationToken!,
+          nextContinuationToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

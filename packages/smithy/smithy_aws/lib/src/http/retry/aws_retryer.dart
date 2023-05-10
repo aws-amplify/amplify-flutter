@@ -109,7 +109,7 @@ class AWSRetryer implements Retryer {
     }
     final retryConfig = exception.retryConfig;
     final shape = exception.shapeId?.shape;
-    final bool isRetryable = retryConfig != null ||
+    final isRetryable = retryConfig != null ||
         _transientErrors.contains(shape) ||
         _throttlingErrors.contains(shape);
     if (!isRetryable) {

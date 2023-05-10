@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.machine_learning.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -76,17 +77,17 @@ final Map<FullType, Function> builderFactories = {
   const FullType(
     _i21.BuiltMap,
     [
-      FullType(_i10.DetailsAttributes),
-      FullType(String),
-    ],
-  ): _i21.MapBuilder<_i10.DetailsAttributes, String>.new,
-  const FullType(
-    _i21.BuiltMap,
-    [
       FullType(String),
       FullType(double),
     ],
   ): _i21.MapBuilder<String, double>.new,
+  const FullType(
+    _i21.BuiltMap,
+    [
+      FullType(_i10.DetailsAttributes),
+      FullType(String),
+    ],
+  ): _i21.MapBuilder<_i10.DetailsAttributes, String>.new,
   const FullType(
     _i21.BuiltMap,
     [

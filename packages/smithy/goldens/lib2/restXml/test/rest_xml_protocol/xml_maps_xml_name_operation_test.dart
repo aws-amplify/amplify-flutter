@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_xml_v2.rest_xml_protocol.test.xml_maps_xml_name_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -132,21 +133,21 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'myMap':
-          if (value != null) {
-            result.myMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i7.GreetingStruct),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, _i7.GreetingStruct>));
-          }
-          break;
+          result.myMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i7.GreetingStruct),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, _i7.GreetingStruct>));
       }
     }
 
@@ -156,7 +157,7 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.XmlMapsXmlNameInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -188,15 +189,15 @@ class GreetingStructRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'hi':
-          if (value != null) {
-            result.hi = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.hi = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -206,7 +207,7 @@ class GreetingStructRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i7.GreetingStruct object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

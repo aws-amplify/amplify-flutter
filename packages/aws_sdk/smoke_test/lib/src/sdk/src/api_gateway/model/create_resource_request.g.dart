@@ -8,25 +8,25 @@ part of smoke_test.api_gateway.model.create_resource_request;
 
 class _$CreateResourceRequest extends CreateResourceRequest {
   @override
+  final String restApiId;
+  @override
   final String parentId;
   @override
   final String pathPart;
-  @override
-  final String restApiId;
 
   factory _$CreateResourceRequest(
           [void Function(CreateResourceRequestBuilder)? updates]) =>
       (new CreateResourceRequestBuilder()..update(updates))._build();
 
   _$CreateResourceRequest._(
-      {required this.parentId, required this.pathPart, required this.restApiId})
+      {required this.restApiId, required this.parentId, required this.pathPart})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        restApiId, r'CreateResourceRequest', 'restApiId');
     BuiltValueNullFieldError.checkNotNull(
         parentId, r'CreateResourceRequest', 'parentId');
     BuiltValueNullFieldError.checkNotNull(
         pathPart, r'CreateResourceRequest', 'pathPart');
-    BuiltValueNullFieldError.checkNotNull(
-        restApiId, r'CreateResourceRequest', 'restApiId');
   }
 
   @override
@@ -42,17 +42,17 @@ class _$CreateResourceRequest extends CreateResourceRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CreateResourceRequest &&
+        restApiId == other.restApiId &&
         parentId == other.parentId &&
-        pathPart == other.pathPart &&
-        restApiId == other.restApiId;
+        pathPart == other.pathPart;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jc(_$hash, parentId.hashCode);
     _$hash = $jc(_$hash, pathPart.hashCode);
-    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,6 +62,10 @@ class CreateResourceRequestBuilder
     implements Builder<CreateResourceRequest, CreateResourceRequestBuilder> {
   _$CreateResourceRequest? _$v;
 
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
   String? _parentId;
   String? get parentId => _$this._parentId;
   set parentId(String? parentId) => _$this._parentId = parentId;
@@ -70,10 +74,6 @@ class CreateResourceRequestBuilder
   String? get pathPart => _$this._pathPart;
   set pathPart(String? pathPart) => _$this._pathPart = pathPart;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
-
   CreateResourceRequestBuilder() {
     CreateResourceRequest._init(this);
   }
@@ -81,9 +81,9 @@ class CreateResourceRequestBuilder
   CreateResourceRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _restApiId = $v.restApiId;
       _parentId = $v.parentId;
       _pathPart = $v.pathPart;
-      _restApiId = $v.restApiId;
       _$v = null;
     }
     return this;
@@ -106,12 +106,12 @@ class CreateResourceRequestBuilder
   _$CreateResourceRequest _build() {
     final _$result = _$v ??
         new _$CreateResourceRequest._(
+            restApiId: BuiltValueNullFieldError.checkNotNull(
+                restApiId, r'CreateResourceRequest', 'restApiId'),
             parentId: BuiltValueNullFieldError.checkNotNull(
                 parentId, r'CreateResourceRequest', 'parentId'),
             pathPart: BuiltValueNullFieldError.checkNotNull(
-                pathPart, r'CreateResourceRequest', 'pathPart'),
-            restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'CreateResourceRequest', 'restApiId'));
+                pathPart, r'CreateResourceRequest', 'pathPart'));
     replace(_$result);
     return _$result;
   }

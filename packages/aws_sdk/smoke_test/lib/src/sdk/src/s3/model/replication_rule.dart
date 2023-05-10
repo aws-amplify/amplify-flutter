@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.replication_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -7,16 +8,16 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i8;
 import 'package:smoke_test/src/sdk/src/s3/model/delete_marker_replication.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/destination.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/existing_object_replication.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/replication_rule_filter.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/replication_rule_status.dart'
     as _i7;
+import 'package:smoke_test/src/sdk/src/s3/model/destination.dart' as _i6;
+import 'package:smoke_test/src/sdk/src/s3/model/existing_object_replication.dart'
+    as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/replication_rule_filter.dart'
+    as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/replication_rule_status.dart'
+    as _i3;
 import 'package:smoke_test/src/sdk/src/s3/model/source_selection_criteria.dart'
-    as _i6;
+    as _i4;
 
 part 'replication_rule.g.dart';
 
@@ -26,27 +27,27 @@ abstract class ReplicationRule
     implements Built<ReplicationRule, ReplicationRuleBuilder> {
   /// Specifies which Amazon S3 objects to replicate and where to store the replicas.
   factory ReplicationRule({
-    _i2.DeleteMarkerReplication? deleteMarkerReplication,
-    required _i3.Destination destination,
-    _i4.ExistingObjectReplication? existingObjectReplication,
-    _i5.ReplicationRuleFilter? filter,
     String? id,
+    int? priority,
     @Deprecated('No longer recommended for use. See API documentation for more details.')
         String? prefix,
-    int? priority,
-    _i6.SourceSelectionCriteria? sourceSelectionCriteria,
-    required _i7.ReplicationRuleStatus status,
+    _i2.ReplicationRuleFilter? filter,
+    required _i3.ReplicationRuleStatus status,
+    _i4.SourceSelectionCriteria? sourceSelectionCriteria,
+    _i5.ExistingObjectReplication? existingObjectReplication,
+    required _i6.Destination destination,
+    _i7.DeleteMarkerReplication? deleteMarkerReplication,
   }) {
     return _$ReplicationRule._(
-      deleteMarkerReplication: deleteMarkerReplication,
-      destination: destination,
-      existingObjectReplication: existingObjectReplication,
-      filter: filter,
       id: id,
-      prefix: prefix,
       priority: priority,
-      sourceSelectionCriteria: sourceSelectionCriteria,
+      prefix: prefix,
+      filter: filter,
       status: status,
+      sourceSelectionCriteria: sourceSelectionCriteria,
+      existingObjectReplication: existingObjectReplication,
+      destination: destination,
+      deleteMarkerReplication: deleteMarkerReplication,
     );
   }
 
@@ -63,23 +64,13 @@ abstract class ReplicationRule
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ReplicationRuleBuilder b) {}
 
-  /// Specifies whether Amazon S3 replicates delete markers. If you specify a `Filter` in your replication configuration, you must also include a `DeleteMarkerReplication` element. If your `Filter` includes a `Tag` element, the `DeleteMarkerReplication` `Status` must be set to Disabled, because Amazon S3 does not support replicating delete markers for tag-based rules. For an example configuration, see [Basic Rule Configuration](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-add-config.html#replication-config-min-rule-config).
-  ///
-  /// For more information about delete marker replication, see [Basic Rule Configuration](https://docs.aws.amazon.com/AmazonS3/latest/dev/delete-marker-replication.html).
-  ///
-  /// If you are using an earlier version of the replication configuration, Amazon S3 handles replication of delete markers differently. For more information, see [Backward Compatibility](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-add-config.html#replication-backward-compat-considerations).
-  _i2.DeleteMarkerReplication? get deleteMarkerReplication;
-
-  /// A container for information about the replication destination and its configurations including enabling the S3 Replication Time Control (S3 RTC).
-  _i3.Destination get destination;
-
-  _i4.ExistingObjectReplication? get existingObjectReplication;
-
-  /// A filter that identifies the subset of objects to which the replication rule applies. A `Filter` must specify exactly one `Prefix`, `Tag`, or an `And` child element.
-  _i5.ReplicationRuleFilter? get filter;
-
   /// A unique identifier for the rule. The maximum value is 255 characters.
   String? get id;
+
+  /// The priority indicates which rule has precedence whenever two or more replication rules conflict. Amazon S3 will attempt to replicate objects according to all replication rules. However, if there are two or more rules with the same destination bucket, then objects will be replicated according to the rule with the highest priority. The higher the number, the higher the priority.
+  ///
+  /// For more information, see [Replication](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html) in the _Amazon S3 User Guide_.
+  int? get priority;
 
   /// An object key name prefix that identifies the object or objects to which the rule applies. The maximum prefix length is 1,024 characters. To include all objects in a bucket, specify an empty string.
   ///
@@ -88,66 +79,76 @@ abstract class ReplicationRule
       'No longer recommended for use. See API documentation for more details.')
   String? get prefix;
 
-  /// The priority indicates which rule has precedence whenever two or more replication rules conflict. Amazon S3 will attempt to replicate objects according to all replication rules. However, if there are two or more rules with the same destination bucket, then objects will be replicated according to the rule with the highest priority. The higher the number, the higher the priority.
-  ///
-  /// For more information, see [Replication](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html) in the _Amazon S3 User Guide_.
-  int? get priority;
-
-  /// A container that describes additional filters for identifying the source objects that you want to replicate. You can choose to enable or disable the replication of these objects. Currently, Amazon S3 supports only the filter that you can specify for objects created with server-side encryption using a customer managed key stored in Amazon Web Services Key Management Service (SSE-KMS).
-  _i6.SourceSelectionCriteria? get sourceSelectionCriteria;
+  /// A filter that identifies the subset of objects to which the replication rule applies. A `Filter` must specify exactly one `Prefix`, `Tag`, or an `And` child element.
+  _i2.ReplicationRuleFilter? get filter;
 
   /// Specifies whether the rule is enabled.
-  _i7.ReplicationRuleStatus get status;
+  _i3.ReplicationRuleStatus get status;
+
+  /// A container that describes additional filters for identifying the source objects that you want to replicate. You can choose to enable or disable the replication of these objects. Currently, Amazon S3 supports only the filter that you can specify for objects created with server-side encryption using a customer managed key stored in Amazon Web Services Key Management Service (SSE-KMS).
+  _i4.SourceSelectionCriteria? get sourceSelectionCriteria;
+
+  _i5.ExistingObjectReplication? get existingObjectReplication;
+
+  /// A container for information about the replication destination and its configurations including enabling the S3 Replication Time Control (S3 RTC).
+  _i6.Destination get destination;
+
+  /// Specifies whether Amazon S3 replicates delete markers. If you specify a `Filter` in your replication configuration, you must also include a `DeleteMarkerReplication` element. If your `Filter` includes a `Tag` element, the `DeleteMarkerReplication` `Status` must be set to Disabled, because Amazon S3 does not support replicating delete markers for tag-based rules. For an example configuration, see [Basic Rule Configuration](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-add-config.html#replication-config-min-rule-config).
+  ///
+  /// For more information about delete marker replication, see [Basic Rule Configuration](https://docs.aws.amazon.com/AmazonS3/latest/dev/delete-marker-replication.html).
+  ///
+  /// If you are using an earlier version of the replication configuration, Amazon S3 handles replication of delete markers differently. For more information, see [Backward Compatibility](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-add-config.html#replication-backward-compat-considerations).
+  _i7.DeleteMarkerReplication? get deleteMarkerReplication;
   @override
   List<Object?> get props => [
-        deleteMarkerReplication,
-        destination,
-        existingObjectReplication,
-        filter,
         id,
-        prefix,
         priority,
-        sourceSelectionCriteria,
+        prefix,
+        filter,
         status,
+        sourceSelectionCriteria,
+        existingObjectReplication,
+        destination,
+        deleteMarkerReplication,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ReplicationRule');
     helper.add(
-      'deleteMarkerReplication',
-      deleteMarkerReplication,
-    );
-    helper.add(
-      'destination',
-      destination,
-    );
-    helper.add(
-      'existingObjectReplication',
-      existingObjectReplication,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
       'id',
       id,
-    );
-    helper.add(
-      'prefix',
-      prefix,
     );
     helper.add(
       'priority',
       priority,
     );
     helper.add(
-      'sourceSelectionCriteria',
-      sourceSelectionCriteria,
+      'prefix',
+      prefix,
+    );
+    helper.add(
+      'filter',
+      filter,
     );
     helper.add(
       'status',
       status,
+    );
+    helper.add(
+      'sourceSelectionCriteria',
+      sourceSelectionCriteria,
+    );
+    helper.add(
+      'existingObjectReplication',
+      existingObjectReplication,
+    );
+    helper.add(
+      'destination',
+      destination,
+    );
+    helper.add(
+      'deleteMarkerReplication',
+      deleteMarkerReplication,
     );
     return helper.toString();
   }
@@ -178,78 +179,58 @@ class ReplicationRuleRestXmlSerializer
     final result = ReplicationRuleBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'DeleteMarkerReplication':
-          if (value != null) {
-            result.deleteMarkerReplication.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.DeleteMarkerReplication),
-            ) as _i2.DeleteMarkerReplication));
-          }
-          break;
+          result.deleteMarkerReplication.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.DeleteMarkerReplication),
+          ) as _i7.DeleteMarkerReplication));
         case 'Destination':
           result.destination.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Destination),
-          ) as _i3.Destination));
-          break;
+            specifiedType: const FullType(_i6.Destination),
+          ) as _i6.Destination));
         case 'ExistingObjectReplication':
-          if (value != null) {
-            result.existingObjectReplication.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ExistingObjectReplication),
-            ) as _i4.ExistingObjectReplication));
-          }
-          break;
+          result.existingObjectReplication.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ExistingObjectReplication),
+          ) as _i5.ExistingObjectReplication));
         case 'Filter':
-          if (value != null) {
-            result.filter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ReplicationRuleFilter),
-            ) as _i5.ReplicationRuleFilter);
-          }
-          break;
+          result.filter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ReplicationRuleFilter),
+          ) as _i2.ReplicationRuleFilter);
         case 'ID':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Priority':
-          if (value != null) {
-            result.priority = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.priority = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'SourceSelectionCriteria':
-          if (value != null) {
-            result.sourceSelectionCriteria.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.SourceSelectionCriteria),
-            ) as _i6.SourceSelectionCriteria));
-          }
-          break;
+          result.sourceSelectionCriteria.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.SourceSelectionCriteria),
+          ) as _i4.SourceSelectionCriteria));
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i7.ReplicationRuleStatus),
-          ) as _i7.ReplicationRuleStatus);
-          break;
+            value,
+            specifiedType: const FullType(_i3.ReplicationRuleStatus),
+          ) as _i3.ReplicationRuleStatus);
       }
     }
 
@@ -259,84 +240,94 @@ class ReplicationRuleRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicationRule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicationRule);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i8.XmlElementName(
         'ReplicationRule',
         _i8.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.deleteMarkerReplication != null) {
-      result
+    final ReplicationRule(
+      :deleteMarkerReplication,
+      :destination,
+      :existingObjectReplication,
+      :filter,
+      :id,
+      :prefix,
+      :priority,
+      :sourceSelectionCriteria,
+      :status
+    ) = object;
+    if (deleteMarkerReplication != null) {
+      result$
         ..add(const _i8.XmlElementName('DeleteMarkerReplication'))
         ..add(serializers.serialize(
-          payload.deleteMarkerReplication!,
-          specifiedType: const FullType(_i2.DeleteMarkerReplication),
+          deleteMarkerReplication,
+          specifiedType: const FullType(_i7.DeleteMarkerReplication),
         ));
     }
-    result
+    result$
       ..add(const _i8.XmlElementName('Destination'))
       ..add(serializers.serialize(
-        payload.destination,
-        specifiedType: const FullType(_i3.Destination),
+        destination,
+        specifiedType: const FullType(_i6.Destination),
       ));
-    if (payload.existingObjectReplication != null) {
-      result
+    if (existingObjectReplication != null) {
+      result$
         ..add(const _i8.XmlElementName('ExistingObjectReplication'))
         ..add(serializers.serialize(
-          payload.existingObjectReplication!,
-          specifiedType: const FullType(_i4.ExistingObjectReplication),
+          existingObjectReplication,
+          specifiedType: const FullType(_i5.ExistingObjectReplication),
         ));
     }
-    if (payload.filter != null) {
-      result
+    if (filter != null) {
+      result$
         ..add(const _i8.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
-          specifiedType: const FullType(_i5.ReplicationRuleFilter),
+          filter,
+          specifiedType: const FullType(_i2.ReplicationRuleFilter),
         ));
     }
-    if (payload.id != null) {
-      result
+    if (id != null) {
+      result$
         ..add(const _i8.XmlElementName('ID'))
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.prefix != null) {
-      result
+    if (prefix != null) {
+      result$
         ..add(const _i8.XmlElementName('Prefix'))
         ..add(serializers.serialize(
-          payload.prefix!,
+          prefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.priority != null) {
-      result
+    if (priority != null) {
+      result$
         ..add(const _i8.XmlElementName('Priority'))
         ..add(serializers.serialize(
-          payload.priority!,
+          priority,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.sourceSelectionCriteria != null) {
-      result
+    if (sourceSelectionCriteria != null) {
+      result$
         ..add(const _i8.XmlElementName('SourceSelectionCriteria'))
         ..add(serializers.serialize(
-          payload.sourceSelectionCriteria!,
-          specifiedType: const FullType(_i6.SourceSelectionCriteria),
+          sourceSelectionCriteria,
+          specifiedType: const FullType(_i4.SourceSelectionCriteria),
         ));
     }
-    result
+    result$
       ..add(const _i8.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
-        specifiedType: const FullType.nullable(_i7.ReplicationRuleStatus),
+        status,
+        specifiedType: const FullType.nullable(_i3.ReplicationRuleStatus),
       ));
-    return result;
+    return result$;
   }
 }

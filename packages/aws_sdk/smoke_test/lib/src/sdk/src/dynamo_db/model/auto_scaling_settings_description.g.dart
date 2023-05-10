@@ -8,13 +8,13 @@ part of smoke_test.dynamo_db.model.auto_scaling_settings_description;
 
 class _$AutoScalingSettingsDescription extends AutoScalingSettingsDescription {
   @override
-  final bool? autoScalingDisabled;
-  @override
-  final String? autoScalingRoleArn;
+  final _i2.Int64? minimumUnits;
   @override
   final _i2.Int64? maximumUnits;
   @override
-  final _i2.Int64? minimumUnits;
+  final bool? autoScalingDisabled;
+  @override
+  final String? autoScalingRoleArn;
   @override
   final _i4.BuiltList<_i3.AutoScalingPolicyDescription>? scalingPolicies;
 
@@ -23,10 +23,10 @@ class _$AutoScalingSettingsDescription extends AutoScalingSettingsDescription {
       (new AutoScalingSettingsDescriptionBuilder()..update(updates))._build();
 
   _$AutoScalingSettingsDescription._(
-      {this.autoScalingDisabled,
-      this.autoScalingRoleArn,
+      {this.minimumUnits,
       this.maximumUnits,
-      this.minimumUnits,
+      this.autoScalingDisabled,
+      this.autoScalingRoleArn,
       this.scalingPolicies})
       : super._();
 
@@ -43,20 +43,20 @@ class _$AutoScalingSettingsDescription extends AutoScalingSettingsDescription {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AutoScalingSettingsDescription &&
+        minimumUnits == other.minimumUnits &&
+        maximumUnits == other.maximumUnits &&
         autoScalingDisabled == other.autoScalingDisabled &&
         autoScalingRoleArn == other.autoScalingRoleArn &&
-        maximumUnits == other.maximumUnits &&
-        minimumUnits == other.minimumUnits &&
         scalingPolicies == other.scalingPolicies;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, minimumUnits.hashCode);
+    _$hash = $jc(_$hash, maximumUnits.hashCode);
     _$hash = $jc(_$hash, autoScalingDisabled.hashCode);
     _$hash = $jc(_$hash, autoScalingRoleArn.hashCode);
-    _$hash = $jc(_$hash, maximumUnits.hashCode);
-    _$hash = $jc(_$hash, minimumUnits.hashCode);
     _$hash = $jc(_$hash, scalingPolicies.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -69,6 +69,16 @@ class AutoScalingSettingsDescriptionBuilder
             AutoScalingSettingsDescriptionBuilder> {
   _$AutoScalingSettingsDescription? _$v;
 
+  _i2.Int64? _minimumUnits;
+  _i2.Int64? get minimumUnits => _$this._minimumUnits;
+  set minimumUnits(_i2.Int64? minimumUnits) =>
+      _$this._minimumUnits = minimumUnits;
+
+  _i2.Int64? _maximumUnits;
+  _i2.Int64? get maximumUnits => _$this._maximumUnits;
+  set maximumUnits(_i2.Int64? maximumUnits) =>
+      _$this._maximumUnits = maximumUnits;
+
   bool? _autoScalingDisabled;
   bool? get autoScalingDisabled => _$this._autoScalingDisabled;
   set autoScalingDisabled(bool? autoScalingDisabled) =>
@@ -78,16 +88,6 @@ class AutoScalingSettingsDescriptionBuilder
   String? get autoScalingRoleArn => _$this._autoScalingRoleArn;
   set autoScalingRoleArn(String? autoScalingRoleArn) =>
       _$this._autoScalingRoleArn = autoScalingRoleArn;
-
-  _i2.Int64? _maximumUnits;
-  _i2.Int64? get maximumUnits => _$this._maximumUnits;
-  set maximumUnits(_i2.Int64? maximumUnits) =>
-      _$this._maximumUnits = maximumUnits;
-
-  _i2.Int64? _minimumUnits;
-  _i2.Int64? get minimumUnits => _$this._minimumUnits;
-  set minimumUnits(_i2.Int64? minimumUnits) =>
-      _$this._minimumUnits = minimumUnits;
 
   _i4.ListBuilder<_i3.AutoScalingPolicyDescription>? _scalingPolicies;
   _i4.ListBuilder<_i3.AutoScalingPolicyDescription> get scalingPolicies =>
@@ -104,10 +104,10 @@ class AutoScalingSettingsDescriptionBuilder
   AutoScalingSettingsDescriptionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _minimumUnits = $v.minimumUnits;
+      _maximumUnits = $v.maximumUnits;
       _autoScalingDisabled = $v.autoScalingDisabled;
       _autoScalingRoleArn = $v.autoScalingRoleArn;
-      _maximumUnits = $v.maximumUnits;
-      _minimumUnits = $v.minimumUnits;
       _scalingPolicies = $v.scalingPolicies?.toBuilder();
       _$v = null;
     }
@@ -133,10 +133,10 @@ class AutoScalingSettingsDescriptionBuilder
     try {
       _$result = _$v ??
           new _$AutoScalingSettingsDescription._(
+              minimumUnits: minimumUnits,
+              maximumUnits: maximumUnits,
               autoScalingDisabled: autoScalingDisabled,
               autoScalingRoleArn: autoScalingRoleArn,
-              maximumUnits: maximumUnits,
-              minimumUnits: minimumUnits,
               scalingPolicies: _scalingPolicies?.build());
     } catch (_) {
       late String _$failedField;

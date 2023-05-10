@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_organization_config_rule_statuses_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,14 +20,14 @@ abstract class DescribeOrganizationConfigRuleStatusesResponse
         Built<DescribeOrganizationConfigRuleStatusesResponse,
             DescribeOrganizationConfigRuleStatusesResponseBuilder> {
   factory DescribeOrganizationConfigRuleStatusesResponse({
-    String? nextToken,
     List<_i2.OrganizationConfigRuleStatus>? organizationConfigRuleStatuses,
+    String? nextToken,
   }) {
     return _$DescribeOrganizationConfigRuleStatusesResponse._(
-      nextToken: nextToken,
       organizationConfigRuleStatuses: organizationConfigRuleStatuses == null
           ? null
           : _i3.BuiltList(organizationConfigRuleStatuses),
+      nextToken: nextToken,
     );
   }
 
@@ -50,28 +51,28 @@ abstract class DescribeOrganizationConfigRuleStatusesResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeOrganizationConfigRuleStatusesResponseBuilder b) {}
 
-  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// A list of `OrganizationConfigRuleStatus` objects.
   _i3.BuiltList<_i2.OrganizationConfigRuleStatus>?
       get organizationConfigRuleStatuses;
+
+  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         organizationConfigRuleStatuses,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'DescribeOrganizationConfigRuleStatusesResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'organizationConfigRuleStatuses',
       organizationConfigRuleStatuses,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -107,27 +108,24 @@ class DescribeOrganizationConfigRuleStatusesResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'OrganizationConfigRuleStatuses':
-          if (value != null) {
-            result.organizationConfigRuleStatuses
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.OrganizationConfigRuleStatus)],
-              ),
-            ) as _i3.BuiltList<_i2.OrganizationConfigRuleStatus>));
-          }
-          break;
+          result.organizationConfigRuleStatuses
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.OrganizationConfigRuleStatus)],
+            ),
+          ) as _i3.BuiltList<_i2.OrganizationConfigRuleStatus>));
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -137,30 +135,33 @@ class DescribeOrganizationConfigRuleStatusesResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeOrganizationConfigRuleStatusesResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeOrganizationConfigRuleStatusesResponse);
-    final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.organizationConfigRuleStatuses != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeOrganizationConfigRuleStatusesResponse(
+      :organizationConfigRuleStatuses,
+      :nextToken
+    ) = object;
+    if (organizationConfigRuleStatuses != null) {
+      result$
         ..add('OrganizationConfigRuleStatuses')
         ..add(serializers.serialize(
-          payload.organizationConfigRuleStatuses!,
+          organizationConfigRuleStatuses,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.OrganizationConfigRuleStatus)],
           ),
         ));
     }
-    return result;
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

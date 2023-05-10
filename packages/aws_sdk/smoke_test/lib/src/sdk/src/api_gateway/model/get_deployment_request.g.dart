@@ -8,23 +8,23 @@ part of smoke_test.api_gateway.model.get_deployment_request;
 
 class _$GetDeploymentRequest extends GetDeploymentRequest {
   @override
+  final String restApiId;
+  @override
   final String deploymentId;
   @override
   final _i3.BuiltList<String>? embed;
-  @override
-  final String restApiId;
 
   factory _$GetDeploymentRequest(
           [void Function(GetDeploymentRequestBuilder)? updates]) =>
       (new GetDeploymentRequestBuilder()..update(updates))._build();
 
   _$GetDeploymentRequest._(
-      {required this.deploymentId, this.embed, required this.restApiId})
+      {required this.restApiId, required this.deploymentId, this.embed})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        deploymentId, r'GetDeploymentRequest', 'deploymentId');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetDeploymentRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        deploymentId, r'GetDeploymentRequest', 'deploymentId');
   }
 
   @override
@@ -40,17 +40,17 @@ class _$GetDeploymentRequest extends GetDeploymentRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetDeploymentRequest &&
+        restApiId == other.restApiId &&
         deploymentId == other.deploymentId &&
-        embed == other.embed &&
-        restApiId == other.restApiId;
+        embed == other.embed;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jc(_$hash, deploymentId.hashCode);
     _$hash = $jc(_$hash, embed.hashCode);
-    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -59,6 +59,10 @@ class _$GetDeploymentRequest extends GetDeploymentRequest {
 class GetDeploymentRequestBuilder
     implements Builder<GetDeploymentRequest, GetDeploymentRequestBuilder> {
   _$GetDeploymentRequest? _$v;
+
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _deploymentId;
   String? get deploymentId => _$this._deploymentId;
@@ -69,10 +73,6 @@ class GetDeploymentRequestBuilder
       _$this._embed ??= new _i3.ListBuilder<String>();
   set embed(_i3.ListBuilder<String>? embed) => _$this._embed = embed;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
-
   GetDeploymentRequestBuilder() {
     GetDeploymentRequest._init(this);
   }
@@ -80,9 +80,9 @@ class GetDeploymentRequestBuilder
   GetDeploymentRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _restApiId = $v.restApiId;
       _deploymentId = $v.deploymentId;
       _embed = $v.embed?.toBuilder();
-      _restApiId = $v.restApiId;
       _$v = null;
     }
     return this;
@@ -107,11 +107,11 @@ class GetDeploymentRequestBuilder
     try {
       _$result = _$v ??
           new _$GetDeploymentRequest._(
+              restApiId: BuiltValueNullFieldError.checkNotNull(
+                  restApiId, r'GetDeploymentRequest', 'restApiId'),
               deploymentId: BuiltValueNullFieldError.checkNotNull(
                   deploymentId, r'GetDeploymentRequest', 'deploymentId'),
-              embed: _embed?.build(),
-              restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'GetDeploymentRequest', 'restApiId'));
+              embed: _embed?.build());
     } catch (_) {
       late String _$failedField;
       try {

@@ -9,11 +9,11 @@ part of smoke_test.config_service.model.get_discovered_resource_counts_response;
 class _$GetDiscoveredResourceCountsResponse
     extends GetDiscoveredResourceCountsResponse {
   @override
+  final _i2.Int64? totalDiscoveredResources;
+  @override
+  final _i4.BuiltList<_i3.ResourceCount>? resourceCounts;
+  @override
   final String? nextToken;
-  @override
-  final _i4.BuiltList<_i2.ResourceCount>? resourceCounts;
-  @override
-  final _i3.Int64? totalDiscoveredResources;
 
   factory _$GetDiscoveredResourceCountsResponse(
           [void Function(GetDiscoveredResourceCountsResponseBuilder)?
@@ -22,7 +22,7 @@ class _$GetDiscoveredResourceCountsResponse
           ._build();
 
   _$GetDiscoveredResourceCountsResponse._(
-      {this.nextToken, this.resourceCounts, this.totalDiscoveredResources})
+      {this.totalDiscoveredResources, this.resourceCounts, this.nextToken})
       : super._();
 
   @override
@@ -38,17 +38,17 @@ class _$GetDiscoveredResourceCountsResponse
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetDiscoveredResourceCountsResponse &&
-        nextToken == other.nextToken &&
+        totalDiscoveredResources == other.totalDiscoveredResources &&
         resourceCounts == other.resourceCounts &&
-        totalDiscoveredResources == other.totalDiscoveredResources;
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, resourceCounts.hashCode);
     _$hash = $jc(_$hash, totalDiscoveredResources.hashCode);
+    _$hash = $jc(_$hash, resourceCounts.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -60,20 +60,20 @@ class GetDiscoveredResourceCountsResponseBuilder
             GetDiscoveredResourceCountsResponseBuilder> {
   _$GetDiscoveredResourceCountsResponse? _$v;
 
+  _i2.Int64? _totalDiscoveredResources;
+  _i2.Int64? get totalDiscoveredResources => _$this._totalDiscoveredResources;
+  set totalDiscoveredResources(_i2.Int64? totalDiscoveredResources) =>
+      _$this._totalDiscoveredResources = totalDiscoveredResources;
+
+  _i4.ListBuilder<_i3.ResourceCount>? _resourceCounts;
+  _i4.ListBuilder<_i3.ResourceCount> get resourceCounts =>
+      _$this._resourceCounts ??= new _i4.ListBuilder<_i3.ResourceCount>();
+  set resourceCounts(_i4.ListBuilder<_i3.ResourceCount>? resourceCounts) =>
+      _$this._resourceCounts = resourceCounts;
+
   String? _nextToken;
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
-  _i4.ListBuilder<_i2.ResourceCount>? _resourceCounts;
-  _i4.ListBuilder<_i2.ResourceCount> get resourceCounts =>
-      _$this._resourceCounts ??= new _i4.ListBuilder<_i2.ResourceCount>();
-  set resourceCounts(_i4.ListBuilder<_i2.ResourceCount>? resourceCounts) =>
-      _$this._resourceCounts = resourceCounts;
-
-  _i3.Int64? _totalDiscoveredResources;
-  _i3.Int64? get totalDiscoveredResources => _$this._totalDiscoveredResources;
-  set totalDiscoveredResources(_i3.Int64? totalDiscoveredResources) =>
-      _$this._totalDiscoveredResources = totalDiscoveredResources;
 
   GetDiscoveredResourceCountsResponseBuilder() {
     GetDiscoveredResourceCountsResponse._init(this);
@@ -82,9 +82,9 @@ class GetDiscoveredResourceCountsResponseBuilder
   GetDiscoveredResourceCountsResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
-      _resourceCounts = $v.resourceCounts?.toBuilder();
       _totalDiscoveredResources = $v.totalDiscoveredResources;
+      _resourceCounts = $v.resourceCounts?.toBuilder();
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -110,9 +110,9 @@ class GetDiscoveredResourceCountsResponseBuilder
     try {
       _$result = _$v ??
           new _$GetDiscoveredResourceCountsResponse._(
-              nextToken: nextToken,
+              totalDiscoveredResources: totalDiscoveredResources,
               resourceCounts: _resourceCounts?.build(),
-              totalDiscoveredResources: totalDiscoveredResources);
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

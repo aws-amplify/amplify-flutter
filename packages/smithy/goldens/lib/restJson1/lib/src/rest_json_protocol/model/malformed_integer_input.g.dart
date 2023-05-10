@@ -10,11 +10,11 @@ class _$MalformedIntegerInput extends MalformedIntegerInput {
   @override
   final int? integerInBody;
   @override
-  final int? integerInHeader;
-  @override
   final int integerInPath;
   @override
   final int? integerInQuery;
+  @override
+  final int? integerInHeader;
 
   factory _$MalformedIntegerInput(
           [void Function(MalformedIntegerInputBuilder)? updates]) =>
@@ -22,9 +22,9 @@ class _$MalformedIntegerInput extends MalformedIntegerInput {
 
   _$MalformedIntegerInput._(
       {this.integerInBody,
-      this.integerInHeader,
       required this.integerInPath,
-      this.integerInQuery})
+      this.integerInQuery,
+      this.integerInHeader})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         integerInPath, r'MalformedIntegerInput', 'integerInPath');
@@ -44,18 +44,18 @@ class _$MalformedIntegerInput extends MalformedIntegerInput {
     if (identical(other, this)) return true;
     return other is MalformedIntegerInput &&
         integerInBody == other.integerInBody &&
-        integerInHeader == other.integerInHeader &&
         integerInPath == other.integerInPath &&
-        integerInQuery == other.integerInQuery;
+        integerInQuery == other.integerInQuery &&
+        integerInHeader == other.integerInHeader;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, integerInBody.hashCode);
-    _$hash = $jc(_$hash, integerInHeader.hashCode);
     _$hash = $jc(_$hash, integerInPath.hashCode);
     _$hash = $jc(_$hash, integerInQuery.hashCode);
+    _$hash = $jc(_$hash, integerInHeader.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -70,11 +70,6 @@ class MalformedIntegerInputBuilder
   set integerInBody(int? integerInBody) =>
       _$this._integerInBody = integerInBody;
 
-  int? _integerInHeader;
-  int? get integerInHeader => _$this._integerInHeader;
-  set integerInHeader(int? integerInHeader) =>
-      _$this._integerInHeader = integerInHeader;
-
   int? _integerInPath;
   int? get integerInPath => _$this._integerInPath;
   set integerInPath(int? integerInPath) =>
@@ -85,6 +80,11 @@ class MalformedIntegerInputBuilder
   set integerInQuery(int? integerInQuery) =>
       _$this._integerInQuery = integerInQuery;
 
+  int? _integerInHeader;
+  int? get integerInHeader => _$this._integerInHeader;
+  set integerInHeader(int? integerInHeader) =>
+      _$this._integerInHeader = integerInHeader;
+
   MalformedIntegerInputBuilder() {
     MalformedIntegerInput._init(this);
   }
@@ -93,9 +93,9 @@ class MalformedIntegerInputBuilder
     final $v = _$v;
     if ($v != null) {
       _integerInBody = $v.integerInBody;
-      _integerInHeader = $v.integerInHeader;
       _integerInPath = $v.integerInPath;
       _integerInQuery = $v.integerInQuery;
+      _integerInHeader = $v.integerInHeader;
       _$v = null;
     }
     return this;
@@ -119,10 +119,10 @@ class MalformedIntegerInputBuilder
     final _$result = _$v ??
         new _$MalformedIntegerInput._(
             integerInBody: integerInBody,
-            integerInHeader: integerInHeader,
             integerInPath: BuiltValueNullFieldError.checkNotNull(
                 integerInPath, r'MalformedIntegerInput', 'integerInPath'),
-            integerInQuery: integerInQuery);
+            integerInQuery: integerInQuery,
+            integerInHeader: integerInHeader);
     replace(_$result);
     return _$result;
   }

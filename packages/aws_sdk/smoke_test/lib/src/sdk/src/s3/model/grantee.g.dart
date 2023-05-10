@@ -14,9 +14,9 @@ class _$Grantee extends Grantee {
   @override
   final String? id;
   @override
-  final _i2.S3Type type;
-  @override
   final String? uri;
+  @override
+  final _i2.S3Type type;
 
   factory _$Grantee([void Function(GranteeBuilder)? updates]) =>
       (new GranteeBuilder()..update(updates))._build();
@@ -25,8 +25,8 @@ class _$Grantee extends Grantee {
       {this.displayName,
       this.emailAddress,
       this.id,
-      required this.type,
-      this.uri})
+      this.uri,
+      required this.type})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(type, r'Grantee', 'type');
   }
@@ -45,8 +45,8 @@ class _$Grantee extends Grantee {
         displayName == other.displayName &&
         emailAddress == other.emailAddress &&
         id == other.id &&
-        type == other.type &&
-        uri == other.uri;
+        uri == other.uri &&
+        type == other.type;
   }
 
   @override
@@ -55,8 +55,8 @@ class _$Grantee extends Grantee {
     _$hash = $jc(_$hash, displayName.hashCode);
     _$hash = $jc(_$hash, emailAddress.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, type.hashCode);
     _$hash = $jc(_$hash, uri.hashCode);
+    _$hash = $jc(_$hash, type.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -77,13 +77,13 @@ class GranteeBuilder implements Builder<Grantee, GranteeBuilder> {
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  _i2.S3Type? _type;
-  _i2.S3Type? get type => _$this._type;
-  set type(_i2.S3Type? type) => _$this._type = type;
-
   String? _uri;
   String? get uri => _$this._uri;
   set uri(String? uri) => _$this._uri = uri;
+
+  _i2.S3Type? _type;
+  _i2.S3Type? get type => _$this._type;
+  set type(_i2.S3Type? type) => _$this._type = type;
 
   GranteeBuilder() {
     Grantee._init(this);
@@ -95,8 +95,8 @@ class GranteeBuilder implements Builder<Grantee, GranteeBuilder> {
       _displayName = $v.displayName;
       _emailAddress = $v.emailAddress;
       _id = $v.id;
-      _type = $v.type;
       _uri = $v.uri;
+      _type = $v.type;
       _$v = null;
     }
     return this;
@@ -122,9 +122,9 @@ class GranteeBuilder implements Builder<Grantee, GranteeBuilder> {
             displayName: displayName,
             emailAddress: emailAddress,
             id: id,
-            type:
-                BuiltValueNullFieldError.checkNotNull(type, r'Grantee', 'type'),
-            uri: uri);
+            uri: uri,
+            type: BuiltValueNullFieldError.checkNotNull(
+                type, r'Grantee', 'type'));
     replace(_$result);
     return _$result;
   }

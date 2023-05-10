@@ -10,13 +10,13 @@ class _$ImportTableInput extends ImportTableInput {
   @override
   final String? clientToken;
   @override
-  final _i3.InputCompressionType? inputCompressionType;
+  final _i3.S3BucketSource s3BucketSource;
   @override
   final _i4.InputFormat inputFormat;
   @override
   final _i5.InputFormatOptions? inputFormatOptions;
   @override
-  final _i6.S3BucketSource s3BucketSource;
+  final _i6.InputCompressionType? inputCompressionType;
   @override
   final _i7.TableCreationParameters tableCreationParameters;
 
@@ -26,16 +26,16 @@ class _$ImportTableInput extends ImportTableInput {
 
   _$ImportTableInput._(
       {this.clientToken,
-      this.inputCompressionType,
+      required this.s3BucketSource,
       required this.inputFormat,
       this.inputFormatOptions,
-      required this.s3BucketSource,
+      this.inputCompressionType,
       required this.tableCreationParameters})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        inputFormat, r'ImportTableInput', 'inputFormat');
-    BuiltValueNullFieldError.checkNotNull(
         s3BucketSource, r'ImportTableInput', 's3BucketSource');
+    BuiltValueNullFieldError.checkNotNull(
+        inputFormat, r'ImportTableInput', 'inputFormat');
     BuiltValueNullFieldError.checkNotNull(tableCreationParameters,
         r'ImportTableInput', 'tableCreationParameters');
   }
@@ -53,10 +53,10 @@ class _$ImportTableInput extends ImportTableInput {
     if (identical(other, this)) return true;
     return other is ImportTableInput &&
         clientToken == other.clientToken &&
-        inputCompressionType == other.inputCompressionType &&
+        s3BucketSource == other.s3BucketSource &&
         inputFormat == other.inputFormat &&
         inputFormatOptions == other.inputFormatOptions &&
-        s3BucketSource == other.s3BucketSource &&
+        inputCompressionType == other.inputCompressionType &&
         tableCreationParameters == other.tableCreationParameters;
   }
 
@@ -64,10 +64,10 @@ class _$ImportTableInput extends ImportTableInput {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, clientToken.hashCode);
-    _$hash = $jc(_$hash, inputCompressionType.hashCode);
+    _$hash = $jc(_$hash, s3BucketSource.hashCode);
     _$hash = $jc(_$hash, inputFormat.hashCode);
     _$hash = $jc(_$hash, inputFormatOptions.hashCode);
-    _$hash = $jc(_$hash, s3BucketSource.hashCode);
+    _$hash = $jc(_$hash, inputCompressionType.hashCode);
     _$hash = $jc(_$hash, tableCreationParameters.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -82,11 +82,11 @@ class ImportTableInputBuilder
   String? get clientToken => _$this._clientToken;
   set clientToken(String? clientToken) => _$this._clientToken = clientToken;
 
-  _i3.InputCompressionType? _inputCompressionType;
-  _i3.InputCompressionType? get inputCompressionType =>
-      _$this._inputCompressionType;
-  set inputCompressionType(_i3.InputCompressionType? inputCompressionType) =>
-      _$this._inputCompressionType = inputCompressionType;
+  _i3.S3BucketSourceBuilder? _s3BucketSource;
+  _i3.S3BucketSourceBuilder get s3BucketSource =>
+      _$this._s3BucketSource ??= new _i3.S3BucketSourceBuilder();
+  set s3BucketSource(_i3.S3BucketSourceBuilder? s3BucketSource) =>
+      _$this._s3BucketSource = s3BucketSource;
 
   _i4.InputFormat? _inputFormat;
   _i4.InputFormat? get inputFormat => _$this._inputFormat;
@@ -99,11 +99,11 @@ class ImportTableInputBuilder
   set inputFormatOptions(_i5.InputFormatOptionsBuilder? inputFormatOptions) =>
       _$this._inputFormatOptions = inputFormatOptions;
 
-  _i6.S3BucketSourceBuilder? _s3BucketSource;
-  _i6.S3BucketSourceBuilder get s3BucketSource =>
-      _$this._s3BucketSource ??= new _i6.S3BucketSourceBuilder();
-  set s3BucketSource(_i6.S3BucketSourceBuilder? s3BucketSource) =>
-      _$this._s3BucketSource = s3BucketSource;
+  _i6.InputCompressionType? _inputCompressionType;
+  _i6.InputCompressionType? get inputCompressionType =>
+      _$this._inputCompressionType;
+  set inputCompressionType(_i6.InputCompressionType? inputCompressionType) =>
+      _$this._inputCompressionType = inputCompressionType;
 
   _i7.TableCreationParametersBuilder? _tableCreationParameters;
   _i7.TableCreationParametersBuilder get tableCreationParameters =>
@@ -121,10 +121,10 @@ class ImportTableInputBuilder
     final $v = _$v;
     if ($v != null) {
       _clientToken = $v.clientToken;
-      _inputCompressionType = $v.inputCompressionType;
+      _s3BucketSource = $v.s3BucketSource.toBuilder();
       _inputFormat = $v.inputFormat;
       _inputFormatOptions = $v.inputFormatOptions?.toBuilder();
-      _s3BucketSource = $v.s3BucketSource.toBuilder();
+      _inputCompressionType = $v.inputCompressionType;
       _tableCreationParameters = $v.tableCreationParameters.toBuilder();
       _$v = null;
     }
@@ -151,19 +151,21 @@ class ImportTableInputBuilder
       _$result = _$v ??
           new _$ImportTableInput._(
               clientToken: clientToken,
-              inputCompressionType: inputCompressionType,
+              s3BucketSource: s3BucketSource.build(),
               inputFormat: BuiltValueNullFieldError.checkNotNull(
                   inputFormat, r'ImportTableInput', 'inputFormat'),
               inputFormatOptions: _inputFormatOptions?.build(),
-              s3BucketSource: s3BucketSource.build(),
+              inputCompressionType: inputCompressionType,
               tableCreationParameters: tableCreationParameters.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'inputFormatOptions';
-        _inputFormatOptions?.build();
         _$failedField = 's3BucketSource';
         s3BucketSource.build();
+
+        _$failedField = 'inputFormatOptions';
+        _inputFormatOptions?.build();
+
         _$failedField = 'tableCreationParameters';
         tableCreationParameters.build();
       } catch (e) {

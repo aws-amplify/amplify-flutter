@@ -9,7 +9,8 @@ import 'package:meta/meta.dart';
 
 /// [AmplifyAuthProvider] implementation that adds access token to request headers.
 @internal
-class CognitoUserPoolsAuthProvider extends TokenIdentityAmplifyAuthProvider {
+final class CognitoUserPoolsAuthProvider
+    extends TokenIdentityAmplifyAuthProvider {
   /// Get access token from `Amplify.Auth.fetchAuthSession()`.
   @override
   Future<String> getLatestAuthToken() async {

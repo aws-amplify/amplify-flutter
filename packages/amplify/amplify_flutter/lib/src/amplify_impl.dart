@@ -3,16 +3,12 @@
 
 // ignore_for_file: invalid_use_of_internal_member, implementation_imports
 
-import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/amplify_class_impl.dart' as core;
 import 'package:amplify_flutter/src/hybrid_impl.dart';
-import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
-
-part 'method_channel_amplify.dart';
 
 /// {@macro amplify_flutter.amplify_class}
 @internal

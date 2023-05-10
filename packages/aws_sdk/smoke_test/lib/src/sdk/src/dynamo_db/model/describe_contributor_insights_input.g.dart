@@ -9,16 +9,16 @@ part of smoke_test.dynamo_db.model.describe_contributor_insights_input;
 class _$DescribeContributorInsightsInput
     extends DescribeContributorInsightsInput {
   @override
-  final String? indexName;
-  @override
   final String tableName;
+  @override
+  final String? indexName;
 
   factory _$DescribeContributorInsightsInput(
           [void Function(DescribeContributorInsightsInputBuilder)? updates]) =>
       (new DescribeContributorInsightsInputBuilder()..update(updates))._build();
 
   _$DescribeContributorInsightsInput._(
-      {this.indexName, required this.tableName})
+      {required this.tableName, this.indexName})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         tableName, r'DescribeContributorInsightsInput', 'tableName');
@@ -37,15 +37,15 @@ class _$DescribeContributorInsightsInput
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DescribeContributorInsightsInput &&
-        indexName == other.indexName &&
-        tableName == other.tableName;
+        tableName == other.tableName &&
+        indexName == other.indexName;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, indexName.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, indexName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,13 +57,13 @@ class DescribeContributorInsightsInputBuilder
             DescribeContributorInsightsInputBuilder> {
   _$DescribeContributorInsightsInput? _$v;
 
-  String? _indexName;
-  String? get indexName => _$this._indexName;
-  set indexName(String? indexName) => _$this._indexName = indexName;
-
   String? _tableName;
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
+
+  String? _indexName;
+  String? get indexName => _$this._indexName;
+  set indexName(String? indexName) => _$this._indexName = indexName;
 
   DescribeContributorInsightsInputBuilder() {
     DescribeContributorInsightsInput._init(this);
@@ -72,8 +72,8 @@ class DescribeContributorInsightsInputBuilder
   DescribeContributorInsightsInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _indexName = $v.indexName;
       _tableName = $v.tableName;
+      _indexName = $v.indexName;
       _$v = null;
     }
     return this;
@@ -96,9 +96,9 @@ class DescribeContributorInsightsInputBuilder
   _$DescribeContributorInsightsInput _build() {
     final _$result = _$v ??
         new _$DescribeContributorInsightsInput._(
-            indexName: indexName,
             tableName: BuiltValueNullFieldError.checkNotNull(
-                tableName, r'DescribeContributorInsightsInput', 'tableName'));
+                tableName, r'DescribeContributorInsightsInput', 'tableName'),
+            indexName: indexName);
     replace(_$result);
     return _$result;
   }

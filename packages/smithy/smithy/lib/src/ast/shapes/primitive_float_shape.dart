@@ -11,17 +11,18 @@ abstract class PrimitiveFloatShape
     implements
         SimpleShape,
         Built<PrimitiveFloatShape, PrimitiveFloatShapeBuilder> {
-  factory PrimitiveFloatShape(
-          [void Function(PrimitiveFloatShapeBuilder) updates]) =
-      _$PrimitiveFloatShape;
+  factory PrimitiveFloatShape([
+    void Function(PrimitiveFloatShapeBuilder) updates,
+  ]) = _$PrimitiveFloatShape;
   PrimitiveFloatShape._();
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PrimitiveFloatShapeBuilder b) {
-    b.shapeId = id;
-    b.traits = TraitMap.fromTraits(const [
-      DefaultTrait(0.0),
-    ]);
+    b
+      ..shapeId = id
+      ..traits = TraitMap.fromTraits(const [
+        DefaultTrait(0.0),
+      ]);
   }
 
   static const id = ShapeId.core('PrimitiveFloat');

@@ -8,10 +8,8 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 // ignore: invalid_use_of_internal_member
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
-import 'package:amplify_auth_cognito_dart/src/state/event/sign_in_event.dart';
-import 'package:amplify_auth_cognito_dart/src/state/machines/sign_in_state_machine.dart';
-import 'package:amplify_auth_cognito_dart/src/state/state/credential_store_state.dart';
-import 'package:amplify_auth_cognito_dart/src/state/state/sign_in_state.dart';
+// ignore: invalid_use_of_internal_member
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';

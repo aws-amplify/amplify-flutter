@@ -8,15 +8,15 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.new_device_met
 
 class _$NewDeviceMetadataType extends NewDeviceMetadataType {
   @override
-  final String? deviceGroupKey;
-  @override
   final String? deviceKey;
+  @override
+  final String? deviceGroupKey;
 
   factory _$NewDeviceMetadataType(
           [void Function(NewDeviceMetadataTypeBuilder)? updates]) =>
       (new NewDeviceMetadataTypeBuilder()..update(updates))._build();
 
-  _$NewDeviceMetadataType._({this.deviceGroupKey, this.deviceKey}) : super._();
+  _$NewDeviceMetadataType._({this.deviceKey, this.deviceGroupKey}) : super._();
 
   @override
   NewDeviceMetadataType rebuild(
@@ -31,15 +31,15 @@ class _$NewDeviceMetadataType extends NewDeviceMetadataType {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is NewDeviceMetadataType &&
-        deviceGroupKey == other.deviceGroupKey &&
-        deviceKey == other.deviceKey;
+        deviceKey == other.deviceKey &&
+        deviceGroupKey == other.deviceGroupKey;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, deviceGroupKey.hashCode);
     _$hash = $jc(_$hash, deviceKey.hashCode);
+    _$hash = $jc(_$hash, deviceGroupKey.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -49,14 +49,14 @@ class NewDeviceMetadataTypeBuilder
     implements Builder<NewDeviceMetadataType, NewDeviceMetadataTypeBuilder> {
   _$NewDeviceMetadataType? _$v;
 
+  String? _deviceKey;
+  String? get deviceKey => _$this._deviceKey;
+  set deviceKey(String? deviceKey) => _$this._deviceKey = deviceKey;
+
   String? _deviceGroupKey;
   String? get deviceGroupKey => _$this._deviceGroupKey;
   set deviceGroupKey(String? deviceGroupKey) =>
       _$this._deviceGroupKey = deviceGroupKey;
-
-  String? _deviceKey;
-  String? get deviceKey => _$this._deviceKey;
-  set deviceKey(String? deviceKey) => _$this._deviceKey = deviceKey;
 
   NewDeviceMetadataTypeBuilder() {
     NewDeviceMetadataType._init(this);
@@ -65,8 +65,8 @@ class NewDeviceMetadataTypeBuilder
   NewDeviceMetadataTypeBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _deviceGroupKey = $v.deviceGroupKey;
       _deviceKey = $v.deviceKey;
+      _deviceGroupKey = $v.deviceGroupKey;
       _$v = null;
     }
     return this;
@@ -89,7 +89,7 @@ class NewDeviceMetadataTypeBuilder
   _$NewDeviceMetadataType _build() {
     final _$result = _$v ??
         new _$NewDeviceMetadataType._(
-            deviceGroupKey: deviceGroupKey, deviceKey: deviceKey);
+            deviceKey: deviceKey, deviceGroupKey: deviceGroupKey);
     replace(_$result);
     return _$result;
   }

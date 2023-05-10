@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_compliance_by_config_rule_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -105,26 +106,23 @@ class DescribeComplianceByConfigRuleResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ComplianceByConfigRules':
-          if (value != null) {
-            result.complianceByConfigRules.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ComplianceByConfigRule)],
-              ),
-            ) as _i3.BuiltList<_i2.ComplianceByConfigRule>));
-          }
-          break;
+          result.complianceByConfigRules.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ComplianceByConfigRule)],
+            ),
+          ) as _i3.BuiltList<_i2.ComplianceByConfigRule>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -134,30 +132,33 @@ class DescribeComplianceByConfigRuleResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeComplianceByConfigRuleResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeComplianceByConfigRuleResponse);
-    final result = <Object?>[];
-    if (payload.complianceByConfigRules != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeComplianceByConfigRuleResponse(
+      :complianceByConfigRules,
+      :nextToken
+    ) = object;
+    if (complianceByConfigRules != null) {
+      result$
         ..add('ComplianceByConfigRules')
         ..add(serializers.serialize(
-          payload.complianceByConfigRules!,
+          complianceByConfigRules,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ComplianceByConfigRule)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
-      result
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.list_stored_queries_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,14 +18,14 @@ abstract class ListStoredQueriesResponse
     implements
         Built<ListStoredQueriesResponse, ListStoredQueriesResponseBuilder> {
   factory ListStoredQueriesResponse({
-    String? nextToken,
     List<_i2.StoredQueryMetadata>? storedQueryMetadata,
+    String? nextToken,
   }) {
     return _$ListStoredQueriesResponse._(
-      nextToken: nextToken,
       storedQueryMetadata: storedQueryMetadata == null
           ? null
           : _i3.BuiltList(storedQueryMetadata),
+      nextToken: nextToken,
     );
   }
 
@@ -48,26 +49,26 @@ abstract class ListStoredQueriesResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListStoredQueriesResponseBuilder b) {}
 
-  /// If the previous paginated request didn't return all of the remaining results, the response object's `NextToken` parameter value is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's `NextToken` parameter. If there are no remaining results, the previous response object's `NextToken` parameter is set to `null`.
-  String? get nextToken;
-
   /// A list of `StoredQueryMetadata` objects.
   _i3.BuiltList<_i2.StoredQueryMetadata>? get storedQueryMetadata;
+
+  /// If the previous paginated request didn't return all of the remaining results, the response object's `NextToken` parameter value is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's `NextToken` parameter. If there are no remaining results, the previous response object's `NextToken` parameter is set to `null`.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         storedQueryMetadata,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListStoredQueriesResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'storedQueryMetadata',
       storedQueryMetadata,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -102,26 +103,23 @@ class ListStoredQueriesResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'StoredQueryMetadata':
-          if (value != null) {
-            result.storedQueryMetadata.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.StoredQueryMetadata)],
-              ),
-            ) as _i3.BuiltList<_i2.StoredQueryMetadata>));
-          }
-          break;
+          result.storedQueryMetadata.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.StoredQueryMetadata)],
+            ),
+          ) as _i3.BuiltList<_i2.StoredQueryMetadata>));
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -131,30 +129,30 @@ class ListStoredQueriesResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListStoredQueriesResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListStoredQueriesResponse);
-    final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.storedQueryMetadata != null) {
-      result
+    final result$ = <Object?>[];
+    final ListStoredQueriesResponse(:storedQueryMetadata, :nextToken) = object;
+    if (storedQueryMetadata != null) {
+      result$
         ..add('StoredQueryMetadata')
         ..add(serializers.serialize(
-          payload.storedQueryMetadata!,
+          storedQueryMetadata,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.StoredQueryMetadata)],
           ),
         ));
     }
-    return result;
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

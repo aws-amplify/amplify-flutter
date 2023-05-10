@@ -43,7 +43,8 @@ class WorkerBeeGenerator extends GeneratorForAnnotation<WorkerBee> {
     final supertype = element.supertype;
     if (supertype == null || (supertype.element.name != 'WorkerBeeBase')) {
       throw ArgumentError(
-          '@WorkerBee classes must extends WorkerBeeBase<M, R>.');
+        '@WorkerBee classes must extends WorkerBeeBase<M, R>.',
+      );
     }
     final typeArgs = supertype.typeArguments;
     if (typeArgs.length < 2) {
@@ -127,9 +128,13 @@ export '${libraries[Target.vm]}'
 
     return [
       WorkerImpl(
-          Target.vm, formatter.format('${vmClass.accept(createEmitter())}')),
+        Target.vm,
+        formatter.format('${vmClass.accept(createEmitter())}'),
+      ),
       WorkerImpl(
-          Target.js, formatter.format('${jsClass.accept(createEmitter())}')),
+        Target.js,
+        formatter.format('${jsClass.accept(createEmitter())}'),
+      ),
     ];
   }
 }

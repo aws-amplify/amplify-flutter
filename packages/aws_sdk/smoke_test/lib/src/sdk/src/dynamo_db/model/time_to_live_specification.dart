@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.time_to_live_specification; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,13 +16,13 @@ abstract class TimeToLiveSpecification
     implements Built<TimeToLiveSpecification, TimeToLiveSpecificationBuilder> {
   /// Represents the settings used to enable or disable Time to Live (TTL) for the specified table.
   factory TimeToLiveSpecification({
-    required String attributeName,
     bool? enabled,
+    required String attributeName,
   }) {
     enabled ??= false;
     return _$TimeToLiveSpecification._(
-      attributeName: attributeName,
       enabled: enabled,
+      attributeName: attributeName,
     );
   }
 
@@ -41,26 +42,26 @@ abstract class TimeToLiveSpecification
     b.enabled = false;
   }
 
-  /// The name of the TTL attribute used to store the expiration time for items in the table.
-  String get attributeName;
-
   /// Indicates whether TTL is to be enabled (true) or disabled (false) on the table.
   bool get enabled;
+
+  /// The name of the TTL attribute used to store the expiration time for items in the table.
+  String get attributeName;
   @override
   List<Object?> get props => [
-        attributeName,
         enabled,
+        attributeName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TimeToLiveSpecification');
     helper.add(
-      'attributeName',
-      attributeName,
-    );
-    helper.add(
       'enabled',
       enabled,
+    );
+    helper.add(
+      'attributeName',
+      attributeName,
     );
     return helper.toString();
   }
@@ -95,19 +96,20 @@ class TimeToLiveSpecificationAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'AttributeName':
-          result.attributeName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'Enabled':
           result.enabled = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(bool),
           ) as bool);
-          break;
+        case 'AttributeName':
+          result.attributeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -117,22 +119,23 @@ class TimeToLiveSpecificationAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TimeToLiveSpecification object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TimeToLiveSpecification);
-    final result = <Object?>[
-      'AttributeName',
-      serializers.serialize(
-        payload.attributeName,
-        specifiedType: const FullType(String),
-      ),
+    final result$ = <Object?>[];
+    final TimeToLiveSpecification(:enabled, :attributeName) = object;
+    result$.addAll([
       'Enabled',
       serializers.serialize(
-        payload.enabled,
+        enabled,
         specifiedType: const FullType(bool),
       ),
-    ];
-    return result;
+      'AttributeName',
+      serializers.serialize(
+        attributeName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
+    return result$;
   }
 }

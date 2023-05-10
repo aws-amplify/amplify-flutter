@@ -1,13 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// ignore_for_file: implementation_imports
+// ignore_for_file: implementation_imports, invalid_use_of_internal_member
 
 import 'package:amplify_auth_cognito/src/credentials/legacy_credential_store_data_extension.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
-import 'package:amplify_auth_cognito_dart/src/state/state/credential_store_state.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/src/config/auth/cognito/credentials_provider.dart';
 import 'package:amplify_core/src/config/auth/cognito/oauth.dart';
 import 'package:amplify_core/src/config/auth/cognito/user_pool.dart';

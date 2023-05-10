@@ -10,15 +10,15 @@ class _$EnvironmentConfig extends EnvironmentConfig {
   @override
   final String? awsAccessKeyId;
   @override
-  final String? awsDefaultRegion;
+  final String? awsSecretAccessKey;
   @override
-  final String? awsProfile;
+  final String? awsDefaultRegion;
   @override
   final _i2.RetryMode? awsRetryMode;
   @override
-  final String? awsSecretAccessKey;
-  @override
   final String? awsSessionToken;
+  @override
+  final String? awsProfile;
 
   factory _$EnvironmentConfig(
           [void Function(EnvironmentConfigBuilder)? updates]) =>
@@ -26,11 +26,11 @@ class _$EnvironmentConfig extends EnvironmentConfig {
 
   _$EnvironmentConfig._(
       {this.awsAccessKeyId,
-      this.awsDefaultRegion,
-      this.awsProfile,
-      this.awsRetryMode,
       this.awsSecretAccessKey,
-      this.awsSessionToken})
+      this.awsDefaultRegion,
+      this.awsRetryMode,
+      this.awsSessionToken,
+      this.awsProfile})
       : super._();
 
   @override
@@ -46,22 +46,22 @@ class _$EnvironmentConfig extends EnvironmentConfig {
     if (identical(other, this)) return true;
     return other is EnvironmentConfig &&
         awsAccessKeyId == other.awsAccessKeyId &&
-        awsDefaultRegion == other.awsDefaultRegion &&
-        awsProfile == other.awsProfile &&
-        awsRetryMode == other.awsRetryMode &&
         awsSecretAccessKey == other.awsSecretAccessKey &&
-        awsSessionToken == other.awsSessionToken;
+        awsDefaultRegion == other.awsDefaultRegion &&
+        awsRetryMode == other.awsRetryMode &&
+        awsSessionToken == other.awsSessionToken &&
+        awsProfile == other.awsProfile;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, awsAccessKeyId.hashCode);
-    _$hash = $jc(_$hash, awsDefaultRegion.hashCode);
-    _$hash = $jc(_$hash, awsProfile.hashCode);
-    _$hash = $jc(_$hash, awsRetryMode.hashCode);
     _$hash = $jc(_$hash, awsSecretAccessKey.hashCode);
+    _$hash = $jc(_$hash, awsDefaultRegion.hashCode);
+    _$hash = $jc(_$hash, awsRetryMode.hashCode);
     _$hash = $jc(_$hash, awsSessionToken.hashCode);
+    _$hash = $jc(_$hash, awsProfile.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -76,29 +76,29 @@ class EnvironmentConfigBuilder
   set awsAccessKeyId(String? awsAccessKeyId) =>
       _$this._awsAccessKeyId = awsAccessKeyId;
 
+  String? _awsSecretAccessKey;
+  String? get awsSecretAccessKey => _$this._awsSecretAccessKey;
+  set awsSecretAccessKey(String? awsSecretAccessKey) =>
+      _$this._awsSecretAccessKey = awsSecretAccessKey;
+
   String? _awsDefaultRegion;
   String? get awsDefaultRegion => _$this._awsDefaultRegion;
   set awsDefaultRegion(String? awsDefaultRegion) =>
       _$this._awsDefaultRegion = awsDefaultRegion;
-
-  String? _awsProfile;
-  String? get awsProfile => _$this._awsProfile;
-  set awsProfile(String? awsProfile) => _$this._awsProfile = awsProfile;
 
   _i2.RetryMode? _awsRetryMode;
   _i2.RetryMode? get awsRetryMode => _$this._awsRetryMode;
   set awsRetryMode(_i2.RetryMode? awsRetryMode) =>
       _$this._awsRetryMode = awsRetryMode;
 
-  String? _awsSecretAccessKey;
-  String? get awsSecretAccessKey => _$this._awsSecretAccessKey;
-  set awsSecretAccessKey(String? awsSecretAccessKey) =>
-      _$this._awsSecretAccessKey = awsSecretAccessKey;
-
   String? _awsSessionToken;
   String? get awsSessionToken => _$this._awsSessionToken;
   set awsSessionToken(String? awsSessionToken) =>
       _$this._awsSessionToken = awsSessionToken;
+
+  String? _awsProfile;
+  String? get awsProfile => _$this._awsProfile;
+  set awsProfile(String? awsProfile) => _$this._awsProfile = awsProfile;
 
   EnvironmentConfigBuilder() {
     EnvironmentConfig._init(this);
@@ -108,11 +108,11 @@ class EnvironmentConfigBuilder
     final $v = _$v;
     if ($v != null) {
       _awsAccessKeyId = $v.awsAccessKeyId;
-      _awsDefaultRegion = $v.awsDefaultRegion;
-      _awsProfile = $v.awsProfile;
-      _awsRetryMode = $v.awsRetryMode;
       _awsSecretAccessKey = $v.awsSecretAccessKey;
+      _awsDefaultRegion = $v.awsDefaultRegion;
+      _awsRetryMode = $v.awsRetryMode;
       _awsSessionToken = $v.awsSessionToken;
+      _awsProfile = $v.awsProfile;
       _$v = null;
     }
     return this;
@@ -136,11 +136,11 @@ class EnvironmentConfigBuilder
     final _$result = _$v ??
         new _$EnvironmentConfig._(
             awsAccessKeyId: awsAccessKeyId,
-            awsDefaultRegion: awsDefaultRegion,
-            awsProfile: awsProfile,
-            awsRetryMode: awsRetryMode,
             awsSecretAccessKey: awsSecretAccessKey,
-            awsSessionToken: awsSessionToken);
+            awsDefaultRegion: awsDefaultRegion,
+            awsRetryMode: awsRetryMode,
+            awsSessionToken: awsSessionToken,
+            awsProfile: awsProfile);
     replace(_$result);
     return _$result;
   }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.update_model_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,15 +24,15 @@ abstract class UpdateModelRequest
         _i1.HasPayload<UpdateModelRequestPayload> {
   /// Request to update an existing model in an existing RestApi resource.
   factory UpdateModelRequest({
+    required String restApiId,
     required String modelName,
     List<_i3.PatchOperation>? patchOperations,
-    required String restApiId,
   }) {
     return _$UpdateModelRequest._(
+      restApiId: restApiId,
       modelName: modelName,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      restApiId: restApiId,
     );
   }
 
@@ -66,14 +67,14 @@ abstract class UpdateModelRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateModelRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
   /// The name of the model to update.
   String get modelName;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -96,13 +97,17 @@ abstract class UpdateModelRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
         modelName,
         patchOperations,
-        restApiId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateModelRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
     helper.add(
       'modelName',
       modelName,
@@ -110,10 +115,6 @@ abstract class UpdateModelRequest
     helper.add(
       'patchOperations',
       patchOperations,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
     );
     return helper.toString();
   }
@@ -178,18 +179,18 @@ class UpdateModelRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'patchOperations':
-          if (value != null) {
-            result.patchOperations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.PatchOperation)],
-              ),
-            ) as _i4.BuiltList<_i3.PatchOperation>));
-          }
-          break;
+          result.patchOperations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.PatchOperation)],
+            ),
+          ) as _i4.BuiltList<_i3.PatchOperation>));
       }
     }
 
@@ -199,24 +200,22 @@ class UpdateModelRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateModelRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UpdateModelRequest
-        ? object.getPayload()
-        : (object as UpdateModelRequestPayload);
-    final result = <Object?>[];
-    if (payload.patchOperations != null) {
-      result
+    final result$ = <Object?>[];
+    final UpdateModelRequestPayload(:patchOperations) = object;
+    if (patchOperations != null) {
+      result$
         ..add('patchOperations')
         ..add(serializers.serialize(
-          payload.patchOperations!,
+          patchOperations,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.PatchOperation)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 /// A REST XML service that sends XML requests and responses. This service and test case is complementary to the test cases in the \`restXml\` directory, but the service under test here has the \`xmlNamespace\` trait applied to it. See https://github.com/awslabs/smithy/issues/616
 library rest_xml_with_namespace_v2.rest_xml_protocol_namespace;

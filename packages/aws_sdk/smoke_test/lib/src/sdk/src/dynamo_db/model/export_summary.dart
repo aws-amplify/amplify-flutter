@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.export_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -92,23 +93,20 @@ class ExportSummaryAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ExportArn':
-          if (value != null) {
-            result.exportArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.exportArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExportStatus':
-          if (value != null) {
-            result.exportStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ExportStatus),
-            ) as _i2.ExportStatus);
-          }
-          break;
+          result.exportStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ExportStatus),
+          ) as _i2.ExportStatus);
       }
     }
 
@@ -118,27 +116,27 @@ class ExportSummaryAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ExportSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ExportSummary);
-    final result = <Object?>[];
-    if (payload.exportArn != null) {
-      result
+    final result$ = <Object?>[];
+    final ExportSummary(:exportArn, :exportStatus) = object;
+    if (exportArn != null) {
+      result$
         ..add('ExportArn')
         ..add(serializers.serialize(
-          payload.exportArn!,
+          exportArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.exportStatus != null) {
-      result
+    if (exportStatus != null) {
+      result$
         ..add('ExportStatus')
         ..add(serializers.serialize(
-          payload.exportStatus!,
+          exportStatus,
           specifiedType: const FullType(_i2.ExportStatus),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.get_sdk_types_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,12 +22,12 @@ abstract class GetSdkTypesRequest
         _i1.HasPayload<GetSdkTypesRequestPayload> {
   /// Get the SdkTypes collection.
   factory GetSdkTypesRequest({
-    int? limit,
     String? position,
+    int? limit,
   }) {
     return _$GetSdkTypesRequest._(
-      limit: limit,
       position: position,
+      limit: limit,
     );
   }
 
@@ -58,28 +59,28 @@ abstract class GetSdkTypesRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetSdkTypesRequestBuilder b) {}
 
-  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-  int? get limit;
-
   /// The current pagination position in the paged result set.
   String? get position;
+
+  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+  int? get limit;
   @override
   GetSdkTypesRequestPayload getPayload() => GetSdkTypesRequestPayload();
   @override
   List<Object?> get props => [
-        limit,
         position,
+        limit,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetSdkTypesRequest');
     helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
       'position',
       position,
+    );
+    helper.add(
+      'limit',
+      limit,
     );
     return helper.toString();
   }
@@ -138,7 +139,7 @@ class GetSdkTypesRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetSdkTypesRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

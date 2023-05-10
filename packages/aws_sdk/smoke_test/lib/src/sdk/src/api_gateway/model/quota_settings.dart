@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.quota_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,31 +103,25 @@ class QuotaSettingsRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'offset':
-          if (value != null) {
-            result.offset = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.offset = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'period':
-          if (value != null) {
-            result.period = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.QuotaPeriodType),
-            ) as _i2.QuotaPeriodType);
-          }
-          break;
+          result.period = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.QuotaPeriodType),
+          ) as _i2.QuotaPeriodType);
       }
     }
 
@@ -136,35 +131,35 @@ class QuotaSettingsRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    QuotaSettings object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as QuotaSettings);
-    final result = <Object?>[];
-    if (payload.limit != null) {
-      result
+    final result$ = <Object?>[];
+    final QuotaSettings(:limit, :offset, :period) = object;
+    if (limit != null) {
+      result$
         ..add('limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.offset != null) {
-      result
+    if (offset != null) {
+      result$
         ..add('offset')
         ..add(serializers.serialize(
-          payload.offset!,
+          offset,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.period != null) {
-      result
+    if (period != null) {
+      result$
         ..add('period')
         ..add(serializers.serialize(
-          payload.period!,
+          period,
           specifiedType: const FullType(_i2.QuotaPeriodType),
         ));
     }
-    return result;
+    return result$;
   }
 }

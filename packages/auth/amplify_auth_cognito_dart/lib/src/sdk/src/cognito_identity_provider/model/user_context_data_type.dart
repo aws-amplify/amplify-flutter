@@ -15,12 +15,12 @@ abstract class UserContextDataType
     implements Built<UserContextDataType, UserContextDataTypeBuilder> {
   /// Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
   factory UserContextDataType({
-    String? encodedData,
     String? ipAddress,
+    String? encodedData,
   }) {
     return _$UserContextDataType._(
-      encodedData: encodedData,
       ipAddress: ipAddress,
+      encodedData: encodedData,
     );
   }
 
@@ -38,26 +38,26 @@ abstract class UserContextDataType
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UserContextDataTypeBuilder b) {}
 
-  /// Encoded device-fingerprint details that your app collected with the Amazon Cognito context data collection library. For more information, see [Adding user device and session data to API requests](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint).
-  String? get encodedData;
-
   /// The source IP address of your user's device.
   String? get ipAddress;
+
+  /// Encoded device-fingerprint details that your app collected with the Amazon Cognito context data collection library. For more information, see [Adding user device and session data to API requests](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint).
+  String? get encodedData;
   @override
   List<Object?> get props => [
-        encodedData,
         ipAddress,
+        encodedData,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UserContextDataType');
     helper.add(
-      'encodedData',
-      encodedData,
-    );
-    helper.add(
       'ipAddress',
       ipAddress,
+    );
+    helper.add(
+      'encodedData',
+      encodedData,
     );
     return helper.toString();
   }
@@ -92,17 +92,17 @@ class UserContextDataTypeAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'EncodedData':
+        case 'IpAddress':
           if (value != null) {
-            result.encodedData = (serializers.deserialize(
+            result.ipAddress = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'IpAddress':
+        case 'EncodedData':
           if (value != null) {
-            result.ipAddress = (serializers.deserialize(
+            result.encodedData = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -122,19 +122,19 @@ class UserContextDataTypeAwsJson11Serializer
   }) {
     final payload = (object as UserContextDataType);
     final result = <Object?>[];
-    if (payload.encodedData != null) {
-      result
-        ..add('EncodedData')
-        ..add(serializers.serialize(
-          payload.encodedData!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.ipAddress != null) {
       result
         ..add('IpAddress')
         ..add(serializers.serialize(
           payload.ipAddress!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.encodedData != null) {
+      result
+        ..add('EncodedData')
+        ..add(serializers.serialize(
+          payload.encodedData!,
           specifiedType: const FullType(String),
         ));
     }

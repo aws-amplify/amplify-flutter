@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.update_rest_api_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,13 +24,13 @@ abstract class UpdateRestApiRequest
         _i1.HasPayload<UpdateRestApiRequestPayload> {
   /// Request to update an existing RestApi resource in your collection.
   factory UpdateRestApiRequest({
-    List<_i3.PatchOperation>? patchOperations,
     required String restApiId,
+    List<_i3.PatchOperation>? patchOperations,
   }) {
     return _$UpdateRestApiRequest._(
+      restApiId: restApiId,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      restApiId: restApiId,
     );
   }
 
@@ -61,11 +62,11 @@ abstract class UpdateRestApiRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateRestApiRequestBuilder b) {}
 
-  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
+  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -86,19 +87,19 @@ abstract class UpdateRestApiRequest
       });
   @override
   List<Object?> get props => [
-        patchOperations,
         restApiId,
+        patchOperations,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateRestApiRequest');
     helper.add(
-      'patchOperations',
-      patchOperations,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'patchOperations',
+      patchOperations,
     );
     return helper.toString();
   }
@@ -164,18 +165,18 @@ class UpdateRestApiRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'patchOperations':
-          if (value != null) {
-            result.patchOperations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.PatchOperation)],
-              ),
-            ) as _i4.BuiltList<_i3.PatchOperation>));
-          }
-          break;
+          result.patchOperations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.PatchOperation)],
+            ),
+          ) as _i4.BuiltList<_i3.PatchOperation>));
       }
     }
 
@@ -185,24 +186,22 @@ class UpdateRestApiRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateRestApiRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UpdateRestApiRequest
-        ? object.getPayload()
-        : (object as UpdateRestApiRequestPayload);
-    final result = <Object?>[];
-    if (payload.patchOperations != null) {
-      result
+    final result$ = <Object?>[];
+    final UpdateRestApiRequestPayload(:patchOperations) = object;
+    if (patchOperations != null) {
+      result$
         ..add('patchOperations')
         ..add(serializers.serialize(
-          payload.patchOperations!,
+          patchOperations,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.PatchOperation)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

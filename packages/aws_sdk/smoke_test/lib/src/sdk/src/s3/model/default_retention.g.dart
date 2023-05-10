@@ -8,9 +8,9 @@ part of smoke_test.s3.model.default_retention;
 
 class _$DefaultRetention extends DefaultRetention {
   @override
-  final int? days;
-  @override
   final _i2.ObjectLockRetentionMode? mode;
+  @override
+  final int? days;
   @override
   final int? years;
 
@@ -18,7 +18,7 @@ class _$DefaultRetention extends DefaultRetention {
           [void Function(DefaultRetentionBuilder)? updates]) =>
       (new DefaultRetentionBuilder()..update(updates))._build();
 
-  _$DefaultRetention._({this.days, this.mode, this.years}) : super._();
+  _$DefaultRetention._({this.mode, this.days, this.years}) : super._();
 
   @override
   DefaultRetention rebuild(void Function(DefaultRetentionBuilder) updates) =>
@@ -32,16 +32,16 @@ class _$DefaultRetention extends DefaultRetention {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DefaultRetention &&
-        days == other.days &&
         mode == other.mode &&
+        days == other.days &&
         years == other.years;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, days.hashCode);
     _$hash = $jc(_$hash, mode.hashCode);
+    _$hash = $jc(_$hash, days.hashCode);
     _$hash = $jc(_$hash, years.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -52,13 +52,13 @@ class DefaultRetentionBuilder
     implements Builder<DefaultRetention, DefaultRetentionBuilder> {
   _$DefaultRetention? _$v;
 
-  int? _days;
-  int? get days => _$this._days;
-  set days(int? days) => _$this._days = days;
-
   _i2.ObjectLockRetentionMode? _mode;
   _i2.ObjectLockRetentionMode? get mode => _$this._mode;
   set mode(_i2.ObjectLockRetentionMode? mode) => _$this._mode = mode;
+
+  int? _days;
+  int? get days => _$this._days;
+  set days(int? days) => _$this._days = days;
 
   int? _years;
   int? get years => _$this._years;
@@ -71,8 +71,8 @@ class DefaultRetentionBuilder
   DefaultRetentionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _days = $v.days;
       _mode = $v.mode;
+      _days = $v.days;
       _years = $v.years;
       _$v = null;
     }
@@ -95,7 +95,7 @@ class DefaultRetentionBuilder
 
   _$DefaultRetention _build() {
     final _$result =
-        _$v ?? new _$DefaultRetention._(days: days, mode: mode, years: years);
+        _$v ?? new _$DefaultRetention._(mode: mode, days: days, years: years);
     replace(_$result);
     return _$result;
   }

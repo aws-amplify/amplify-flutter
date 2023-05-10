@@ -14,7 +14,7 @@ extension MockMethodChannel on MethodChannel {
     const codec = StandardMethodCodec();
     final data = codec.encodeMethodCall(MethodCall(method, arguments));
 
-    return ServicesBinding.instance.defaultBinaryMessenger
+    await TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .handlePlatformMessage(
       name,
       data,
@@ -29,10 +29,15 @@ void main() {
 
   AmplifyException? receivedException;
 
-  TestWidgetsFlutterBinding.ensureInitialized();
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        return null;
+      },
+    );
     AmplifyDataStore dataStore = AmplifyDataStore(
         modelProvider: ModelProvider.instance,
         errorHandler: (exception) => {receivedException = exception});

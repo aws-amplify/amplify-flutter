@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.owner; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -85,26 +86,23 @@ class OwnerRestXmlSerializer extends _i2.StructuredSmithySerializer<Owner> {
     final result = OwnerBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'DisplayName':
-          if (value != null) {
-            result.displayName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.displayName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ID':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -114,32 +112,32 @@ class OwnerRestXmlSerializer extends _i2.StructuredSmithySerializer<Owner> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Owner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Owner);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'Owner',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.displayName != null) {
-      result
+    final Owner(:displayName, :id) = object;
+    if (displayName != null) {
+      result$
         ..add(const _i2.XmlElementName('DisplayName'))
         ..add(serializers.serialize(
-          payload.displayName!,
+          displayName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.id != null) {
-      result
+    if (id != null) {
+      result$
         ..add(const _i2.XmlElementName('ID'))
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

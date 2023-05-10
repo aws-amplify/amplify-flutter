@@ -8,29 +8,29 @@ part of smoke_test.dynamo_db.model.put;
 
 class _$Put extends Put {
   @override
+  final _i4.BuiltMap<String, _i2.AttributeValue> item;
+  @override
+  final String tableName;
+  @override
   final String? conditionExpression;
   @override
   final _i4.BuiltMap<String, String>? expressionAttributeNames;
   @override
   final _i4.BuiltMap<String, _i2.AttributeValue>? expressionAttributeValues;
   @override
-  final _i4.BuiltMap<String, _i2.AttributeValue> item;
-  @override
   final _i3.ReturnValuesOnConditionCheckFailure?
       returnValuesOnConditionCheckFailure;
-  @override
-  final String tableName;
 
   factory _$Put([void Function(PutBuilder)? updates]) =>
       (new PutBuilder()..update(updates))._build();
 
   _$Put._(
-      {this.conditionExpression,
+      {required this.item,
+      required this.tableName,
+      this.conditionExpression,
       this.expressionAttributeNames,
       this.expressionAttributeValues,
-      required this.item,
-      this.returnValuesOnConditionCheckFailure,
-      required this.tableName})
+      this.returnValuesOnConditionCheckFailure})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(item, r'Put', 'item');
     BuiltValueNullFieldError.checkNotNull(tableName, r'Put', 'tableName');
@@ -47,24 +47,24 @@ class _$Put extends Put {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Put &&
+        item == other.item &&
+        tableName == other.tableName &&
         conditionExpression == other.conditionExpression &&
         expressionAttributeNames == other.expressionAttributeNames &&
         expressionAttributeValues == other.expressionAttributeValues &&
-        item == other.item &&
         returnValuesOnConditionCheckFailure ==
-            other.returnValuesOnConditionCheckFailure &&
-        tableName == other.tableName;
+            other.returnValuesOnConditionCheckFailure;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, item.hashCode);
+    _$hash = $jc(_$hash, tableName.hashCode);
     _$hash = $jc(_$hash, conditionExpression.hashCode);
     _$hash = $jc(_$hash, expressionAttributeNames.hashCode);
     _$hash = $jc(_$hash, expressionAttributeValues.hashCode);
-    _$hash = $jc(_$hash, item.hashCode);
     _$hash = $jc(_$hash, returnValuesOnConditionCheckFailure.hashCode);
-    _$hash = $jc(_$hash, tableName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -72,6 +72,16 @@ class _$Put extends Put {
 
 class PutBuilder implements Builder<Put, PutBuilder> {
   _$Put? _$v;
+
+  _i4.MapBuilder<String, _i2.AttributeValue>? _item;
+  _i4.MapBuilder<String, _i2.AttributeValue> get item =>
+      _$this._item ??= new _i4.MapBuilder<String, _i2.AttributeValue>();
+  set item(_i4.MapBuilder<String, _i2.AttributeValue>? item) =>
+      _$this._item = item;
+
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
 
   String? _conditionExpression;
   String? get conditionExpression => _$this._conditionExpression;
@@ -94,12 +104,6 @@ class PutBuilder implements Builder<Put, PutBuilder> {
               expressionAttributeValues) =>
       _$this._expressionAttributeValues = expressionAttributeValues;
 
-  _i4.MapBuilder<String, _i2.AttributeValue>? _item;
-  _i4.MapBuilder<String, _i2.AttributeValue> get item =>
-      _$this._item ??= new _i4.MapBuilder<String, _i2.AttributeValue>();
-  set item(_i4.MapBuilder<String, _i2.AttributeValue>? item) =>
-      _$this._item = item;
-
   _i3.ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
   _i3.ReturnValuesOnConditionCheckFailure?
       get returnValuesOnConditionCheckFailure =>
@@ -110,10 +114,6 @@ class PutBuilder implements Builder<Put, PutBuilder> {
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
-
   PutBuilder() {
     Put._init(this);
   }
@@ -121,13 +121,13 @@ class PutBuilder implements Builder<Put, PutBuilder> {
   PutBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _item = $v.item.toBuilder();
+      _tableName = $v.tableName;
       _conditionExpression = $v.conditionExpression;
       _expressionAttributeNames = $v.expressionAttributeNames?.toBuilder();
       _expressionAttributeValues = $v.expressionAttributeValues?.toBuilder();
-      _item = $v.item.toBuilder();
       _returnValuesOnConditionCheckFailure =
           $v.returnValuesOnConditionCheckFailure;
-      _tableName = $v.tableName;
       _$v = null;
     }
     return this;
@@ -152,23 +152,24 @@ class PutBuilder implements Builder<Put, PutBuilder> {
     try {
       _$result = _$v ??
           new _$Put._(
+              item: item.build(),
+              tableName: BuiltValueNullFieldError.checkNotNull(
+                  tableName, r'Put', 'tableName'),
               conditionExpression: conditionExpression,
               expressionAttributeNames: _expressionAttributeNames?.build(),
               expressionAttributeValues: _expressionAttributeValues?.build(),
-              item: item.build(),
               returnValuesOnConditionCheckFailure:
-                  returnValuesOnConditionCheckFailure,
-              tableName: BuiltValueNullFieldError.checkNotNull(
-                  tableName, r'Put', 'tableName'));
+                  returnValuesOnConditionCheckFailure);
     } catch (_) {
       late String _$failedField;
       try {
+        _$failedField = 'item';
+        item.build();
+
         _$failedField = 'expressionAttributeNames';
         _expressionAttributeNames?.build();
         _$failedField = 'expressionAttributeValues';
         _expressionAttributeValues?.build();
-        _$failedField = 'item';
-        item.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'Put', _$failedField, e.toString());

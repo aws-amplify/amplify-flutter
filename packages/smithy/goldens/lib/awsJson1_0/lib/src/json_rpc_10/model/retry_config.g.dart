@@ -8,14 +8,14 @@ part of aws_json1_0_v1.json_rpc_10.model.retry_config;
 
 class _$RetryConfig extends RetryConfig {
   @override
-  final int? maxAttempts;
-  @override
   final _i2.RetryMode? mode;
+  @override
+  final int? maxAttempts;
 
   factory _$RetryConfig([void Function(RetryConfigBuilder)? updates]) =>
       (new RetryConfigBuilder()..update(updates))._build();
 
-  _$RetryConfig._({this.maxAttempts, this.mode}) : super._();
+  _$RetryConfig._({this.mode, this.maxAttempts}) : super._();
 
   @override
   RetryConfig rebuild(void Function(RetryConfigBuilder) updates) =>
@@ -28,15 +28,15 @@ class _$RetryConfig extends RetryConfig {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is RetryConfig &&
-        maxAttempts == other.maxAttempts &&
-        mode == other.mode;
+        mode == other.mode &&
+        maxAttempts == other.maxAttempts;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, maxAttempts.hashCode);
     _$hash = $jc(_$hash, mode.hashCode);
+    _$hash = $jc(_$hash, maxAttempts.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -45,13 +45,13 @@ class _$RetryConfig extends RetryConfig {
 class RetryConfigBuilder implements Builder<RetryConfig, RetryConfigBuilder> {
   _$RetryConfig? _$v;
 
-  int? _maxAttempts;
-  int? get maxAttempts => _$this._maxAttempts;
-  set maxAttempts(int? maxAttempts) => _$this._maxAttempts = maxAttempts;
-
   _i2.RetryMode? _mode;
   _i2.RetryMode? get mode => _$this._mode;
   set mode(_i2.RetryMode? mode) => _$this._mode = mode;
+
+  int? _maxAttempts;
+  int? get maxAttempts => _$this._maxAttempts;
+  set maxAttempts(int? maxAttempts) => _$this._maxAttempts = maxAttempts;
 
   RetryConfigBuilder() {
     RetryConfig._init(this);
@@ -60,8 +60,8 @@ class RetryConfigBuilder implements Builder<RetryConfig, RetryConfigBuilder> {
   RetryConfigBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _maxAttempts = $v.maxAttempts;
       _mode = $v.mode;
+      _maxAttempts = $v.maxAttempts;
       _$v = null;
     }
     return this;
@@ -83,7 +83,7 @@ class RetryConfigBuilder implements Builder<RetryConfig, RetryConfigBuilder> {
 
   _$RetryConfig _build() {
     final _$result =
-        _$v ?? new _$RetryConfig._(maxAttempts: maxAttempts, mode: mode);
+        _$v ?? new _$RetryConfig._(mode: mode, maxAttempts: maxAttempts);
     replace(_$result);
     return _$result;
   }

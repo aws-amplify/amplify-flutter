@@ -8,9 +8,9 @@ part of amplify_storage_s3_dart.s3.model.invalid_object_state;
 
 class _$InvalidObjectState extends InvalidObjectState {
   @override
-  final _i3.IntelligentTieringAccessTier? accessTier;
+  final _i3.StorageClass? storageClass;
   @override
-  final _i4.StorageClass? storageClass;
+  final _i4.IntelligentTieringAccessTier? accessTier;
   @override
   final int? statusCode;
   @override
@@ -21,7 +21,7 @@ class _$InvalidObjectState extends InvalidObjectState {
       (new InvalidObjectStateBuilder()..update(updates))._build();
 
   _$InvalidObjectState._(
-      {this.accessTier, this.storageClass, this.statusCode, this.headers})
+      {this.storageClass, this.accessTier, this.statusCode, this.headers})
       : super._();
 
   @override
@@ -37,15 +37,15 @@ class _$InvalidObjectState extends InvalidObjectState {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is InvalidObjectState &&
-        accessTier == other.accessTier &&
-        storageClass == other.storageClass;
+        storageClass == other.storageClass &&
+        accessTier == other.accessTier;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, accessTier.hashCode);
     _$hash = $jc(_$hash, storageClass.hashCode);
+    _$hash = $jc(_$hash, accessTier.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -55,15 +55,15 @@ class InvalidObjectStateBuilder
     implements Builder<InvalidObjectState, InvalidObjectStateBuilder> {
   _$InvalidObjectState? _$v;
 
-  _i3.IntelligentTieringAccessTier? _accessTier;
-  _i3.IntelligentTieringAccessTier? get accessTier => _$this._accessTier;
-  set accessTier(_i3.IntelligentTieringAccessTier? accessTier) =>
-      _$this._accessTier = accessTier;
-
-  _i4.StorageClass? _storageClass;
-  _i4.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i4.StorageClass? storageClass) =>
+  _i3.StorageClass? _storageClass;
+  _i3.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i3.StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
+
+  _i4.IntelligentTieringAccessTier? _accessTier;
+  _i4.IntelligentTieringAccessTier? get accessTier => _$this._accessTier;
+  set accessTier(_i4.IntelligentTieringAccessTier? accessTier) =>
+      _$this._accessTier = accessTier;
 
   int? _statusCode;
   int? get statusCode => _$this._statusCode;
@@ -80,8 +80,8 @@ class InvalidObjectStateBuilder
   InvalidObjectStateBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _accessTier = $v.accessTier;
       _storageClass = $v.storageClass;
+      _accessTier = $v.accessTier;
       _statusCode = $v.statusCode;
       _headers = $v.headers;
       _$v = null;
@@ -106,8 +106,8 @@ class InvalidObjectStateBuilder
   _$InvalidObjectState _build() {
     final _$result = _$v ??
         new _$InvalidObjectState._(
-            accessTier: accessTier,
             storageClass: storageClass,
+            accessTier: accessTier,
             statusCode: statusCode,
             headers: headers);
     replace(_$result);

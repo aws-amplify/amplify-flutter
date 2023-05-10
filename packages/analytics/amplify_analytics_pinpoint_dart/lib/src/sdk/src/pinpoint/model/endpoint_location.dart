@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_location; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -135,51 +136,40 @@ class EndpointLocationRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'City':
-          if (value != null) {
-            result.city = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.city = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Country':
-          if (value != null) {
-            result.country = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.country = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Latitude':
           result.latitude = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(double),
           ) as double);
-          break;
         case 'Longitude':
           result.longitude = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(double),
           ) as double);
-          break;
         case 'PostalCode':
-          if (value != null) {
-            result.postalCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.postalCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Region':
-          if (value != null) {
-            result.region = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.region = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -189,54 +179,62 @@ class EndpointLocationRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EndpointLocation object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EndpointLocation);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final EndpointLocation(
+      :city,
+      :country,
+      :latitude,
+      :longitude,
+      :postalCode,
+      :region
+    ) = object;
+    result$.addAll([
       'Latitude',
       serializers.serialize(
-        payload.latitude,
+        latitude,
         specifiedType: const FullType(double),
       ),
       'Longitude',
       serializers.serialize(
-        payload.longitude,
+        longitude,
         specifiedType: const FullType(double),
       ),
-    ];
-    if (payload.city != null) {
-      result
+    ]);
+    if (city != null) {
+      result$
         ..add('City')
         ..add(serializers.serialize(
-          payload.city!,
+          city,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.country != null) {
-      result
+    if (country != null) {
+      result$
         ..add('Country')
         ..add(serializers.serialize(
-          payload.country!,
+          country,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.postalCode != null) {
-      result
+    if (postalCode != null) {
+      result$
         ..add('PostalCode')
         ..add(serializers.serialize(
-          payload.postalCode!,
+          postalCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.region != null) {
-      result
+    if (region != null) {
+      result$
         ..add('Region')
         ..add(serializers.serialize(
-          payload.region!,
+          region,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

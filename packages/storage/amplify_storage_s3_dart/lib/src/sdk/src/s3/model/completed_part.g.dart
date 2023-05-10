@@ -8,6 +8,8 @@ part of amplify_storage_s3_dart.s3.model.completed_part;
 
 class _$CompletedPart extends CompletedPart {
   @override
+  final String? eTag;
+  @override
   final String? checksumCrc32;
   @override
   final String? checksumCrc32C;
@@ -16,19 +18,17 @@ class _$CompletedPart extends CompletedPart {
   @override
   final String? checksumSha256;
   @override
-  final String? eTag;
-  @override
   final int? partNumber;
 
   factory _$CompletedPart([void Function(CompletedPartBuilder)? updates]) =>
       (new CompletedPartBuilder()..update(updates))._build();
 
   _$CompletedPart._(
-      {this.checksumCrc32,
+      {this.eTag,
+      this.checksumCrc32,
       this.checksumCrc32C,
       this.checksumSha1,
       this.checksumSha256,
-      this.eTag,
       this.partNumber})
       : super._();
 
@@ -43,22 +43,22 @@ class _$CompletedPart extends CompletedPart {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CompletedPart &&
+        eTag == other.eTag &&
         checksumCrc32 == other.checksumCrc32 &&
         checksumCrc32C == other.checksumCrc32C &&
         checksumSha1 == other.checksumSha1 &&
         checksumSha256 == other.checksumSha256 &&
-        eTag == other.eTag &&
         partNumber == other.partNumber;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, eTag.hashCode);
     _$hash = $jc(_$hash, checksumCrc32.hashCode);
     _$hash = $jc(_$hash, checksumCrc32C.hashCode);
     _$hash = $jc(_$hash, checksumSha1.hashCode);
     _$hash = $jc(_$hash, checksumSha256.hashCode);
-    _$hash = $jc(_$hash, eTag.hashCode);
     _$hash = $jc(_$hash, partNumber.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -68,6 +68,10 @@ class _$CompletedPart extends CompletedPart {
 class CompletedPartBuilder
     implements Builder<CompletedPart, CompletedPartBuilder> {
   _$CompletedPart? _$v;
+
+  String? _eTag;
+  String? get eTag => _$this._eTag;
+  set eTag(String? eTag) => _$this._eTag = eTag;
 
   String? _checksumCrc32;
   String? get checksumCrc32 => _$this._checksumCrc32;
@@ -88,10 +92,6 @@ class CompletedPartBuilder
   set checksumSha256(String? checksumSha256) =>
       _$this._checksumSha256 = checksumSha256;
 
-  String? _eTag;
-  String? get eTag => _$this._eTag;
-  set eTag(String? eTag) => _$this._eTag = eTag;
-
   int? _partNumber;
   int? get partNumber => _$this._partNumber;
   set partNumber(int? partNumber) => _$this._partNumber = partNumber;
@@ -103,11 +103,11 @@ class CompletedPartBuilder
   CompletedPartBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _eTag = $v.eTag;
       _checksumCrc32 = $v.checksumCrc32;
       _checksumCrc32C = $v.checksumCrc32C;
       _checksumSha1 = $v.checksumSha1;
       _checksumSha256 = $v.checksumSha256;
-      _eTag = $v.eTag;
       _partNumber = $v.partNumber;
       _$v = null;
     }
@@ -131,11 +131,11 @@ class CompletedPartBuilder
   _$CompletedPart _build() {
     final _$result = _$v ??
         new _$CompletedPart._(
+            eTag: eTag,
             checksumCrc32: checksumCrc32,
             checksumCrc32C: checksumCrc32C,
             checksumSha1: checksumSha1,
             checksumSha256: checksumSha256,
-            eTag: eTag,
             partNumber: partNumber);
     replace(_$result);
     return _$result;

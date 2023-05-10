@@ -10,9 +10,9 @@ class _$TransactWriteItem extends TransactWriteItem {
   @override
   final _i2.ConditionCheck? conditionCheck;
   @override
-  final _i3.Delete? delete;
+  final _i3.Put? put;
   @override
-  final _i4.Put? put;
+  final _i4.Delete? delete;
   @override
   final _i5.Update? update_;
 
@@ -21,7 +21,7 @@ class _$TransactWriteItem extends TransactWriteItem {
       (new TransactWriteItemBuilder()..update(updates))._build();
 
   _$TransactWriteItem._(
-      {this.conditionCheck, this.delete, this.put, this.update_})
+      {this.conditionCheck, this.put, this.delete, this.update_})
       : super._();
 
   @override
@@ -37,8 +37,8 @@ class _$TransactWriteItem extends TransactWriteItem {
     if (identical(other, this)) return true;
     return other is TransactWriteItem &&
         conditionCheck == other.conditionCheck &&
-        delete == other.delete &&
         put == other.put &&
+        delete == other.delete &&
         update_ == other.update_;
   }
 
@@ -46,8 +46,8 @@ class _$TransactWriteItem extends TransactWriteItem {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, conditionCheck.hashCode);
-    _$hash = $jc(_$hash, delete.hashCode);
     _$hash = $jc(_$hash, put.hashCode);
+    _$hash = $jc(_$hash, delete.hashCode);
     _$hash = $jc(_$hash, update_.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -64,13 +64,13 @@ class TransactWriteItemBuilder
   set conditionCheck(_i2.ConditionCheckBuilder? conditionCheck) =>
       _$this._conditionCheck = conditionCheck;
 
-  _i3.DeleteBuilder? _delete;
-  _i3.DeleteBuilder get delete => _$this._delete ??= new _i3.DeleteBuilder();
-  set delete(_i3.DeleteBuilder? delete) => _$this._delete = delete;
+  _i3.PutBuilder? _put;
+  _i3.PutBuilder get put => _$this._put ??= new _i3.PutBuilder();
+  set put(_i3.PutBuilder? put) => _$this._put = put;
 
-  _i4.PutBuilder? _put;
-  _i4.PutBuilder get put => _$this._put ??= new _i4.PutBuilder();
-  set put(_i4.PutBuilder? put) => _$this._put = put;
+  _i4.DeleteBuilder? _delete;
+  _i4.DeleteBuilder get delete => _$this._delete ??= new _i4.DeleteBuilder();
+  set delete(_i4.DeleteBuilder? delete) => _$this._delete = delete;
 
   _i5.UpdateBuilder? _update_;
   _i5.UpdateBuilder get update_ => _$this._update_ ??= new _i5.UpdateBuilder();
@@ -84,8 +84,8 @@ class TransactWriteItemBuilder
     final $v = _$v;
     if ($v != null) {
       _conditionCheck = $v.conditionCheck?.toBuilder();
-      _delete = $v.delete?.toBuilder();
       _put = $v.put?.toBuilder();
+      _delete = $v.delete?.toBuilder();
       _update_ = $v.update_?.toBuilder();
       _$v = null;
     }
@@ -112,18 +112,18 @@ class TransactWriteItemBuilder
       _$result = _$v ??
           new _$TransactWriteItem._(
               conditionCheck: _conditionCheck?.build(),
-              delete: _delete?.build(),
               put: _put?.build(),
+              delete: _delete?.build(),
               update_: _update_?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'conditionCheck';
         _conditionCheck?.build();
-        _$failedField = 'delete';
-        _delete?.build();
         _$failedField = 'put';
         _put?.build();
+        _$failedField = 'delete';
+        _delete?.build();
         _$failedField = 'update_';
         _update_?.build();
       } catch (e) {

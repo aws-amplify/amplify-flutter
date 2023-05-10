@@ -21,14 +21,14 @@ abstract class ConfirmDeviceRequest
   factory ConfirmDeviceRequest({
     required String accessToken,
     required String deviceKey,
-    String? deviceName,
     _i3.DeviceSecretVerifierConfigType? deviceSecretVerifierConfig,
+    String? deviceName,
   }) {
     return _$ConfirmDeviceRequest._(
       accessToken: accessToken,
       deviceKey: deviceKey,
-      deviceName: deviceName,
       deviceSecretVerifierConfig: deviceSecretVerifierConfig,
+      deviceName: deviceName,
     );
   }
 
@@ -59,19 +59,19 @@ abstract class ConfirmDeviceRequest
   /// The device key.
   String get deviceKey;
 
-  /// The device name.
-  String? get deviceName;
-
   /// The configuration of the device secret verifier.
   _i3.DeviceSecretVerifierConfigType? get deviceSecretVerifierConfig;
+
+  /// The device name.
+  String? get deviceName;
   @override
   ConfirmDeviceRequest getPayload() => this;
   @override
   List<Object?> get props => [
         accessToken,
         deviceKey,
-        deviceName,
         deviceSecretVerifierConfig,
+        deviceName,
       ];
   @override
   String toString() {
@@ -85,12 +85,12 @@ abstract class ConfirmDeviceRequest
       deviceKey,
     );
     helper.add(
-      'deviceName',
-      deviceName,
-    );
-    helper.add(
       'deviceSecretVerifierConfig',
       deviceSecretVerifierConfig,
+    );
+    helper.add(
+      'deviceName',
+      deviceName,
     );
     return helper.toString();
   }
@@ -138,20 +138,20 @@ class ConfirmDeviceRequestAwsJson11Serializer
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'DeviceName':
-          if (value != null) {
-            result.deviceName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'DeviceSecretVerifierConfig':
           if (value != null) {
             result.deviceSecretVerifierConfig.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(_i3.DeviceSecretVerifierConfigType),
             ) as _i3.DeviceSecretVerifierConfigType));
+          }
+          break;
+        case 'DeviceName':
+          if (value != null) {
+            result.deviceName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -179,20 +179,20 @@ class ConfirmDeviceRequestAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.deviceName != null) {
-      result
-        ..add('DeviceName')
-        ..add(serializers.serialize(
-          payload.deviceName!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.deviceSecretVerifierConfig != null) {
       result
         ..add('DeviceSecretVerifierConfig')
         ..add(serializers.serialize(
           payload.deviceSecretVerifierConfig!,
           specifiedType: const FullType(_i3.DeviceSecretVerifierConfigType),
+        ));
+    }
+    if (payload.deviceName != null) {
+      result
+        ..add('DeviceName')
+        ..add(serializers.serialize(
+          payload.deviceName!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

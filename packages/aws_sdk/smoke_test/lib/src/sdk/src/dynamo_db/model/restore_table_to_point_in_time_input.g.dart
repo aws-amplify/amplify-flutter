@@ -8,6 +8,16 @@ part of smoke_test.dynamo_db.model.restore_table_to_point_in_time_input;
 
 class _$RestoreTableToPointInTimeInput extends RestoreTableToPointInTimeInput {
   @override
+  final String? sourceTableArn;
+  @override
+  final String? sourceTableName;
+  @override
+  final String targetTableName;
+  @override
+  final bool? useLatestRestorableTime;
+  @override
+  final DateTime? restoreDateTime;
+  @override
   final _i3.BillingMode? billingModeOverride;
   @override
   final _i8.BuiltList<_i4.GlobalSecondaryIndex>? globalSecondaryIndexOverride;
@@ -16,33 +26,23 @@ class _$RestoreTableToPointInTimeInput extends RestoreTableToPointInTimeInput {
   @override
   final _i6.ProvisionedThroughput? provisionedThroughputOverride;
   @override
-  final DateTime? restoreDateTime;
-  @override
-  final String? sourceTableArn;
-  @override
-  final String? sourceTableName;
-  @override
   final _i7.SseSpecification? sseSpecificationOverride;
-  @override
-  final String targetTableName;
-  @override
-  final bool? useLatestRestorableTime;
 
   factory _$RestoreTableToPointInTimeInput(
           [void Function(RestoreTableToPointInTimeInputBuilder)? updates]) =>
       (new RestoreTableToPointInTimeInputBuilder()..update(updates))._build();
 
   _$RestoreTableToPointInTimeInput._(
-      {this.billingModeOverride,
+      {this.sourceTableArn,
+      this.sourceTableName,
+      required this.targetTableName,
+      this.useLatestRestorableTime,
+      this.restoreDateTime,
+      this.billingModeOverride,
       this.globalSecondaryIndexOverride,
       this.localSecondaryIndexOverride,
       this.provisionedThroughputOverride,
-      this.restoreDateTime,
-      this.sourceTableArn,
-      this.sourceTableName,
-      this.sseSpecificationOverride,
-      required this.targetTableName,
-      this.useLatestRestorableTime})
+      this.sseSpecificationOverride})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         targetTableName, r'RestoreTableToPointInTimeInput', 'targetTableName');
@@ -61,31 +61,31 @@ class _$RestoreTableToPointInTimeInput extends RestoreTableToPointInTimeInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is RestoreTableToPointInTimeInput &&
+        sourceTableArn == other.sourceTableArn &&
+        sourceTableName == other.sourceTableName &&
+        targetTableName == other.targetTableName &&
+        useLatestRestorableTime == other.useLatestRestorableTime &&
+        restoreDateTime == other.restoreDateTime &&
         billingModeOverride == other.billingModeOverride &&
         globalSecondaryIndexOverride == other.globalSecondaryIndexOverride &&
         localSecondaryIndexOverride == other.localSecondaryIndexOverride &&
         provisionedThroughputOverride == other.provisionedThroughputOverride &&
-        restoreDateTime == other.restoreDateTime &&
-        sourceTableArn == other.sourceTableArn &&
-        sourceTableName == other.sourceTableName &&
-        sseSpecificationOverride == other.sseSpecificationOverride &&
-        targetTableName == other.targetTableName &&
-        useLatestRestorableTime == other.useLatestRestorableTime;
+        sseSpecificationOverride == other.sseSpecificationOverride;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, sourceTableArn.hashCode);
+    _$hash = $jc(_$hash, sourceTableName.hashCode);
+    _$hash = $jc(_$hash, targetTableName.hashCode);
+    _$hash = $jc(_$hash, useLatestRestorableTime.hashCode);
+    _$hash = $jc(_$hash, restoreDateTime.hashCode);
     _$hash = $jc(_$hash, billingModeOverride.hashCode);
     _$hash = $jc(_$hash, globalSecondaryIndexOverride.hashCode);
     _$hash = $jc(_$hash, localSecondaryIndexOverride.hashCode);
     _$hash = $jc(_$hash, provisionedThroughputOverride.hashCode);
-    _$hash = $jc(_$hash, restoreDateTime.hashCode);
-    _$hash = $jc(_$hash, sourceTableArn.hashCode);
-    _$hash = $jc(_$hash, sourceTableName.hashCode);
     _$hash = $jc(_$hash, sseSpecificationOverride.hashCode);
-    _$hash = $jc(_$hash, targetTableName.hashCode);
-    _$hash = $jc(_$hash, useLatestRestorableTime.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -96,6 +96,31 @@ class RestoreTableToPointInTimeInputBuilder
         Builder<RestoreTableToPointInTimeInput,
             RestoreTableToPointInTimeInputBuilder> {
   _$RestoreTableToPointInTimeInput? _$v;
+
+  String? _sourceTableArn;
+  String? get sourceTableArn => _$this._sourceTableArn;
+  set sourceTableArn(String? sourceTableArn) =>
+      _$this._sourceTableArn = sourceTableArn;
+
+  String? _sourceTableName;
+  String? get sourceTableName => _$this._sourceTableName;
+  set sourceTableName(String? sourceTableName) =>
+      _$this._sourceTableName = sourceTableName;
+
+  String? _targetTableName;
+  String? get targetTableName => _$this._targetTableName;
+  set targetTableName(String? targetTableName) =>
+      _$this._targetTableName = targetTableName;
+
+  bool? _useLatestRestorableTime;
+  bool? get useLatestRestorableTime => _$this._useLatestRestorableTime;
+  set useLatestRestorableTime(bool? useLatestRestorableTime) =>
+      _$this._useLatestRestorableTime = useLatestRestorableTime;
+
+  DateTime? _restoreDateTime;
+  DateTime? get restoreDateTime => _$this._restoreDateTime;
+  set restoreDateTime(DateTime? restoreDateTime) =>
+      _$this._restoreDateTime = restoreDateTime;
 
   _i3.BillingMode? _billingModeOverride;
   _i3.BillingMode? get billingModeOverride => _$this._billingModeOverride;
@@ -128,37 +153,12 @@ class RestoreTableToPointInTimeInputBuilder
           _i6.ProvisionedThroughputBuilder? provisionedThroughputOverride) =>
       _$this._provisionedThroughputOverride = provisionedThroughputOverride;
 
-  DateTime? _restoreDateTime;
-  DateTime? get restoreDateTime => _$this._restoreDateTime;
-  set restoreDateTime(DateTime? restoreDateTime) =>
-      _$this._restoreDateTime = restoreDateTime;
-
-  String? _sourceTableArn;
-  String? get sourceTableArn => _$this._sourceTableArn;
-  set sourceTableArn(String? sourceTableArn) =>
-      _$this._sourceTableArn = sourceTableArn;
-
-  String? _sourceTableName;
-  String? get sourceTableName => _$this._sourceTableName;
-  set sourceTableName(String? sourceTableName) =>
-      _$this._sourceTableName = sourceTableName;
-
   _i7.SseSpecificationBuilder? _sseSpecificationOverride;
   _i7.SseSpecificationBuilder get sseSpecificationOverride =>
       _$this._sseSpecificationOverride ??= new _i7.SseSpecificationBuilder();
   set sseSpecificationOverride(
           _i7.SseSpecificationBuilder? sseSpecificationOverride) =>
       _$this._sseSpecificationOverride = sseSpecificationOverride;
-
-  String? _targetTableName;
-  String? get targetTableName => _$this._targetTableName;
-  set targetTableName(String? targetTableName) =>
-      _$this._targetTableName = targetTableName;
-
-  bool? _useLatestRestorableTime;
-  bool? get useLatestRestorableTime => _$this._useLatestRestorableTime;
-  set useLatestRestorableTime(bool? useLatestRestorableTime) =>
-      _$this._useLatestRestorableTime = useLatestRestorableTime;
 
   RestoreTableToPointInTimeInputBuilder() {
     RestoreTableToPointInTimeInput._init(this);
@@ -167,6 +167,11 @@ class RestoreTableToPointInTimeInputBuilder
   RestoreTableToPointInTimeInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _sourceTableArn = $v.sourceTableArn;
+      _sourceTableName = $v.sourceTableName;
+      _targetTableName = $v.targetTableName;
+      _useLatestRestorableTime = $v.useLatestRestorableTime;
+      _restoreDateTime = $v.restoreDateTime;
       _billingModeOverride = $v.billingModeOverride;
       _globalSecondaryIndexOverride =
           $v.globalSecondaryIndexOverride?.toBuilder();
@@ -174,12 +179,7 @@ class RestoreTableToPointInTimeInputBuilder
           $v.localSecondaryIndexOverride?.toBuilder();
       _provisionedThroughputOverride =
           $v.provisionedThroughputOverride?.toBuilder();
-      _restoreDateTime = $v.restoreDateTime;
-      _sourceTableArn = $v.sourceTableArn;
-      _sourceTableName = $v.sourceTableName;
       _sseSpecificationOverride = $v.sseSpecificationOverride?.toBuilder();
-      _targetTableName = $v.targetTableName;
-      _useLatestRestorableTime = $v.useLatestRestorableTime;
       _$v = null;
     }
     return this;
@@ -204,6 +204,14 @@ class RestoreTableToPointInTimeInputBuilder
     try {
       _$result = _$v ??
           new _$RestoreTableToPointInTimeInput._(
+              sourceTableArn: sourceTableArn,
+              sourceTableName: sourceTableName,
+              targetTableName: BuiltValueNullFieldError.checkNotNull(
+                  targetTableName,
+                  r'RestoreTableToPointInTimeInput',
+                  'targetTableName'),
+              useLatestRestorableTime: useLatestRestorableTime,
+              restoreDateTime: restoreDateTime,
               billingModeOverride: billingModeOverride,
               globalSecondaryIndexOverride:
                   _globalSecondaryIndexOverride?.build(),
@@ -211,15 +219,7 @@ class RestoreTableToPointInTimeInputBuilder
                   _localSecondaryIndexOverride?.build(),
               provisionedThroughputOverride:
                   _provisionedThroughputOverride?.build(),
-              restoreDateTime: restoreDateTime,
-              sourceTableArn: sourceTableArn,
-              sourceTableName: sourceTableName,
-              sseSpecificationOverride: _sseSpecificationOverride?.build(),
-              targetTableName: BuiltValueNullFieldError.checkNotNull(
-                  targetTableName,
-                  r'RestoreTableToPointInTimeInput',
-                  'targetTableName'),
-              useLatestRestorableTime: useLatestRestorableTime);
+              sseSpecificationOverride: _sseSpecificationOverride?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -229,7 +229,6 @@ class RestoreTableToPointInTimeInputBuilder
         _localSecondaryIndexOverride?.build();
         _$failedField = 'provisionedThroughputOverride';
         _provisionedThroughputOverride?.build();
-
         _$failedField = 'sseSpecificationOverride';
         _sseSpecificationOverride?.build();
       } catch (e) {

@@ -13,15 +13,15 @@ class _$ReplicaGlobalSecondaryIndexSettingsDescription
   @override
   final _i2.IndexStatus? indexStatus;
   @override
-  final _i3.AutoScalingSettingsDescription?
+  final _i3.Int64? provisionedReadCapacityUnits;
+  @override
+  final _i4.AutoScalingSettingsDescription?
       provisionedReadCapacityAutoScalingSettings;
   @override
-  final _i4.Int64? provisionedReadCapacityUnits;
+  final _i3.Int64? provisionedWriteCapacityUnits;
   @override
-  final _i3.AutoScalingSettingsDescription?
+  final _i4.AutoScalingSettingsDescription?
       provisionedWriteCapacityAutoScalingSettings;
-  @override
-  final _i4.Int64? provisionedWriteCapacityUnits;
 
   factory _$ReplicaGlobalSecondaryIndexSettingsDescription(
           [void Function(ReplicaGlobalSecondaryIndexSettingsDescriptionBuilder)?
@@ -33,10 +33,10 @@ class _$ReplicaGlobalSecondaryIndexSettingsDescription
   _$ReplicaGlobalSecondaryIndexSettingsDescription._(
       {required this.indexName,
       this.indexStatus,
-      this.provisionedReadCapacityAutoScalingSettings,
       this.provisionedReadCapacityUnits,
-      this.provisionedWriteCapacityAutoScalingSettings,
-      this.provisionedWriteCapacityUnits})
+      this.provisionedReadCapacityAutoScalingSettings,
+      this.provisionedWriteCapacityUnits,
+      this.provisionedWriteCapacityAutoScalingSettings})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(indexName,
         r'ReplicaGlobalSecondaryIndexSettingsDescription', 'indexName');
@@ -59,12 +59,12 @@ class _$ReplicaGlobalSecondaryIndexSettingsDescription
     return other is ReplicaGlobalSecondaryIndexSettingsDescription &&
         indexName == other.indexName &&
         indexStatus == other.indexStatus &&
+        provisionedReadCapacityUnits == other.provisionedReadCapacityUnits &&
         provisionedReadCapacityAutoScalingSettings ==
             other.provisionedReadCapacityAutoScalingSettings &&
-        provisionedReadCapacityUnits == other.provisionedReadCapacityUnits &&
+        provisionedWriteCapacityUnits == other.provisionedWriteCapacityUnits &&
         provisionedWriteCapacityAutoScalingSettings ==
-            other.provisionedWriteCapacityAutoScalingSettings &&
-        provisionedWriteCapacityUnits == other.provisionedWriteCapacityUnits;
+            other.provisionedWriteCapacityAutoScalingSettings;
   }
 
   @override
@@ -72,10 +72,10 @@ class _$ReplicaGlobalSecondaryIndexSettingsDescription
     var _$hash = 0;
     _$hash = $jc(_$hash, indexName.hashCode);
     _$hash = $jc(_$hash, indexStatus.hashCode);
-    _$hash = $jc(_$hash, provisionedReadCapacityAutoScalingSettings.hashCode);
     _$hash = $jc(_$hash, provisionedReadCapacityUnits.hashCode);
-    _$hash = $jc(_$hash, provisionedWriteCapacityAutoScalingSettings.hashCode);
+    _$hash = $jc(_$hash, provisionedReadCapacityAutoScalingSettings.hashCode);
     _$hash = $jc(_$hash, provisionedWriteCapacityUnits.hashCode);
+    _$hash = $jc(_$hash, provisionedWriteCapacityAutoScalingSettings.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -96,41 +96,41 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionBuilder
   set indexStatus(_i2.IndexStatus? indexStatus) =>
       _$this._indexStatus = indexStatus;
 
-  _i3.AutoScalingSettingsDescriptionBuilder?
+  _i3.Int64? _provisionedReadCapacityUnits;
+  _i3.Int64? get provisionedReadCapacityUnits =>
+      _$this._provisionedReadCapacityUnits;
+  set provisionedReadCapacityUnits(_i3.Int64? provisionedReadCapacityUnits) =>
+      _$this._provisionedReadCapacityUnits = provisionedReadCapacityUnits;
+
+  _i4.AutoScalingSettingsDescriptionBuilder?
       _provisionedReadCapacityAutoScalingSettings;
-  _i3.AutoScalingSettingsDescriptionBuilder
+  _i4.AutoScalingSettingsDescriptionBuilder
       get provisionedReadCapacityAutoScalingSettings =>
           _$this._provisionedReadCapacityAutoScalingSettings ??=
-              new _i3.AutoScalingSettingsDescriptionBuilder();
+              new _i4.AutoScalingSettingsDescriptionBuilder();
   set provisionedReadCapacityAutoScalingSettings(
-          _i3.AutoScalingSettingsDescriptionBuilder?
+          _i4.AutoScalingSettingsDescriptionBuilder?
               provisionedReadCapacityAutoScalingSettings) =>
       _$this._provisionedReadCapacityAutoScalingSettings =
           provisionedReadCapacityAutoScalingSettings;
 
-  _i4.Int64? _provisionedReadCapacityUnits;
-  _i4.Int64? get provisionedReadCapacityUnits =>
-      _$this._provisionedReadCapacityUnits;
-  set provisionedReadCapacityUnits(_i4.Int64? provisionedReadCapacityUnits) =>
-      _$this._provisionedReadCapacityUnits = provisionedReadCapacityUnits;
+  _i3.Int64? _provisionedWriteCapacityUnits;
+  _i3.Int64? get provisionedWriteCapacityUnits =>
+      _$this._provisionedWriteCapacityUnits;
+  set provisionedWriteCapacityUnits(_i3.Int64? provisionedWriteCapacityUnits) =>
+      _$this._provisionedWriteCapacityUnits = provisionedWriteCapacityUnits;
 
-  _i3.AutoScalingSettingsDescriptionBuilder?
+  _i4.AutoScalingSettingsDescriptionBuilder?
       _provisionedWriteCapacityAutoScalingSettings;
-  _i3.AutoScalingSettingsDescriptionBuilder
+  _i4.AutoScalingSettingsDescriptionBuilder
       get provisionedWriteCapacityAutoScalingSettings =>
           _$this._provisionedWriteCapacityAutoScalingSettings ??=
-              new _i3.AutoScalingSettingsDescriptionBuilder();
+              new _i4.AutoScalingSettingsDescriptionBuilder();
   set provisionedWriteCapacityAutoScalingSettings(
-          _i3.AutoScalingSettingsDescriptionBuilder?
+          _i4.AutoScalingSettingsDescriptionBuilder?
               provisionedWriteCapacityAutoScalingSettings) =>
       _$this._provisionedWriteCapacityAutoScalingSettings =
           provisionedWriteCapacityAutoScalingSettings;
-
-  _i4.Int64? _provisionedWriteCapacityUnits;
-  _i4.Int64? get provisionedWriteCapacityUnits =>
-      _$this._provisionedWriteCapacityUnits;
-  set provisionedWriteCapacityUnits(_i4.Int64? provisionedWriteCapacityUnits) =>
-      _$this._provisionedWriteCapacityUnits = provisionedWriteCapacityUnits;
 
   ReplicaGlobalSecondaryIndexSettingsDescriptionBuilder() {
     ReplicaGlobalSecondaryIndexSettingsDescription._init(this);
@@ -141,12 +141,12 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionBuilder
     if ($v != null) {
       _indexName = $v.indexName;
       _indexStatus = $v.indexStatus;
+      _provisionedReadCapacityUnits = $v.provisionedReadCapacityUnits;
       _provisionedReadCapacityAutoScalingSettings =
           $v.provisionedReadCapacityAutoScalingSettings?.toBuilder();
-      _provisionedReadCapacityUnits = $v.provisionedReadCapacityUnits;
+      _provisionedWriteCapacityUnits = $v.provisionedWriteCapacityUnits;
       _provisionedWriteCapacityAutoScalingSettings =
           $v.provisionedWriteCapacityAutoScalingSettings?.toBuilder();
-      _provisionedWriteCapacityUnits = $v.provisionedWriteCapacityUnits;
       _$v = null;
     }
     return this;
@@ -178,12 +178,12 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionBuilder
                   r'ReplicaGlobalSecondaryIndexSettingsDescription',
                   'indexName'),
               indexStatus: indexStatus,
+              provisionedReadCapacityUnits: provisionedReadCapacityUnits,
               provisionedReadCapacityAutoScalingSettings:
                   _provisionedReadCapacityAutoScalingSettings?.build(),
-              provisionedReadCapacityUnits: provisionedReadCapacityUnits,
+              provisionedWriteCapacityUnits: provisionedWriteCapacityUnits,
               provisionedWriteCapacityAutoScalingSettings:
-                  _provisionedWriteCapacityAutoScalingSettings?.build(),
-              provisionedWriteCapacityUnits: provisionedWriteCapacityUnits);
+                  _provisionedWriteCapacityAutoScalingSettings?.build());
     } catch (_) {
       late String _$failedField;
       try {

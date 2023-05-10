@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.delete_usage_plan_key_request;
 
 class _$DeleteUsagePlanKeyRequest extends DeleteUsagePlanKeyRequest {
   @override
-  final String keyId;
-  @override
   final String usagePlanId;
+  @override
+  final String keyId;
 
   factory _$DeleteUsagePlanKeyRequest(
           [void Function(DeleteUsagePlanKeyRequestBuilder)? updates]) =>
       (new DeleteUsagePlanKeyRequestBuilder()..update(updates))._build();
 
   _$DeleteUsagePlanKeyRequest._(
-      {required this.keyId, required this.usagePlanId})
+      {required this.usagePlanId, required this.keyId})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        keyId, r'DeleteUsagePlanKeyRequest', 'keyId');
-    BuiltValueNullFieldError.checkNotNull(
         usagePlanId, r'DeleteUsagePlanKeyRequest', 'usagePlanId');
+    BuiltValueNullFieldError.checkNotNull(
+        keyId, r'DeleteUsagePlanKeyRequest', 'keyId');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$DeleteUsagePlanKeyRequest extends DeleteUsagePlanKeyRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DeleteUsagePlanKeyRequest &&
-        keyId == other.keyId &&
-        usagePlanId == other.usagePlanId;
+        usagePlanId == other.usagePlanId &&
+        keyId == other.keyId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, keyId.hashCode);
     _$hash = $jc(_$hash, usagePlanId.hashCode);
+    _$hash = $jc(_$hash, keyId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,13 +57,13 @@ class DeleteUsagePlanKeyRequestBuilder
         Builder<DeleteUsagePlanKeyRequest, DeleteUsagePlanKeyRequestBuilder> {
   _$DeleteUsagePlanKeyRequest? _$v;
 
-  String? _keyId;
-  String? get keyId => _$this._keyId;
-  set keyId(String? keyId) => _$this._keyId = keyId;
-
   String? _usagePlanId;
   String? get usagePlanId => _$this._usagePlanId;
   set usagePlanId(String? usagePlanId) => _$this._usagePlanId = usagePlanId;
+
+  String? _keyId;
+  String? get keyId => _$this._keyId;
+  set keyId(String? keyId) => _$this._keyId = keyId;
 
   DeleteUsagePlanKeyRequestBuilder() {
     DeleteUsagePlanKeyRequest._init(this);
@@ -72,8 +72,8 @@ class DeleteUsagePlanKeyRequestBuilder
   DeleteUsagePlanKeyRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _keyId = $v.keyId;
       _usagePlanId = $v.usagePlanId;
+      _keyId = $v.keyId;
       _$v = null;
     }
     return this;
@@ -96,10 +96,10 @@ class DeleteUsagePlanKeyRequestBuilder
   _$DeleteUsagePlanKeyRequest _build() {
     final _$result = _$v ??
         new _$DeleteUsagePlanKeyRequest._(
-            keyId: BuiltValueNullFieldError.checkNotNull(
-                keyId, r'DeleteUsagePlanKeyRequest', 'keyId'),
             usagePlanId: BuiltValueNullFieldError.checkNotNull(
-                usagePlanId, r'DeleteUsagePlanKeyRequest', 'usagePlanId'));
+                usagePlanId, r'DeleteUsagePlanKeyRequest', 'usagePlanId'),
+            keyId: BuiltValueNullFieldError.checkNotNull(
+                keyId, r'DeleteUsagePlanKeyRequest', 'keyId'));
     replace(_$result);
     return _$result;
   }

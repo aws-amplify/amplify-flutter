@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.batch_statement_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,14 +19,14 @@ abstract class BatchStatementRequest
     implements Built<BatchStatementRequest, BatchStatementRequestBuilder> {
   /// A PartiQL batch statement request.
   factory BatchStatementRequest({
-    bool? consistentRead,
-    List<_i2.AttributeValue>? parameters,
     required String statement,
+    List<_i2.AttributeValue>? parameters,
+    bool? consistentRead,
   }) {
     return _$BatchStatementRequest._(
-      consistentRead: consistentRead,
-      parameters: parameters == null ? null : _i3.BuiltList(parameters),
       statement: statement,
+      parameters: parameters == null ? null : _i3.BuiltList(parameters),
+      consistentRead: consistentRead,
     );
   }
 
@@ -43,34 +44,34 @@ abstract class BatchStatementRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BatchStatementRequestBuilder b) {}
 
-  /// The read consistency of the PartiQL batch request.
-  bool? get consistentRead;
+  /// A valid PartiQL statement.
+  String get statement;
 
   /// The parameters associated with a PartiQL statement in the batch request.
   _i3.BuiltList<_i2.AttributeValue>? get parameters;
 
-  /// A valid PartiQL statement.
-  String get statement;
+  /// The read consistency of the PartiQL batch request.
+  bool? get consistentRead;
   @override
   List<Object?> get props => [
-        consistentRead,
-        parameters,
         statement,
+        parameters,
+        consistentRead,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('BatchStatementRequest');
     helper.add(
-      'consistentRead',
-      consistentRead,
+      'statement',
+      statement,
     );
     helper.add(
       'parameters',
       parameters,
     );
     helper.add(
-      'statement',
-      statement,
+      'consistentRead',
+      consistentRead,
     );
     return helper.toString();
   }
@@ -105,32 +106,28 @@ class BatchStatementRequestAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ConsistentRead':
-          if (value != null) {
-            result.consistentRead = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
-        case 'Parameters':
-          if (value != null) {
-            result.parameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AttributeValue)],
-              ),
-            ) as _i3.BuiltList<_i2.AttributeValue>));
-          }
-          break;
         case 'Statement':
           result.statement = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'Parameters':
+          result.parameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AttributeValue)],
+            ),
+          ) as _i3.BuiltList<_i2.AttributeValue>));
+        case 'ConsistentRead':
+          result.consistentRead = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -140,36 +137,38 @@ class BatchStatementRequestAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BatchStatementRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BatchStatementRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final BatchStatementRequest(:statement, :parameters, :consistentRead) =
+        object;
+    result$.addAll([
       'Statement',
       serializers.serialize(
-        payload.statement,
+        statement,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.consistentRead != null) {
-      result
-        ..add('ConsistentRead')
-        ..add(serializers.serialize(
-          payload.consistentRead!,
-          specifiedType: const FullType(bool),
-        ));
-    }
-    if (payload.parameters != null) {
-      result
+    ]);
+    if (parameters != null) {
+      result$
         ..add('Parameters')
         ..add(serializers.serialize(
-          payload.parameters!,
+          parameters,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AttributeValue)],
           ),
         ));
     }
-    return result;
+    if (consistentRead != null) {
+      result$
+        ..add('ConsistentRead')
+        ..add(serializers.serialize(
+          consistentRead,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    return result$;
   }
 }

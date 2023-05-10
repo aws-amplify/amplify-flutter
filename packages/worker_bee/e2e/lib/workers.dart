@@ -8,6 +8,7 @@
   E2EWorkerNullResult,
   E2EWorkerThrows,
 ])
+library;
 
 import 'package:worker_bee/worker_bee.dart';
 

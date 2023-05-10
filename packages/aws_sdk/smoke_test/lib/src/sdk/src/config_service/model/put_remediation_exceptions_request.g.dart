@@ -11,11 +11,11 @@ class _$PutRemediationExceptionsRequest
   @override
   final String configRuleName;
   @override
-  final DateTime? expirationTime;
+  final _i4.BuiltList<_i3.RemediationExceptionResourceKey> resourceKeys;
   @override
   final String? message;
   @override
-  final _i4.BuiltList<_i3.RemediationExceptionResourceKey> resourceKeys;
+  final DateTime? expirationTime;
 
   factory _$PutRemediationExceptionsRequest(
           [void Function(PutRemediationExceptionsRequestBuilder)? updates]) =>
@@ -23,9 +23,9 @@ class _$PutRemediationExceptionsRequest
 
   _$PutRemediationExceptionsRequest._(
       {required this.configRuleName,
-      this.expirationTime,
+      required this.resourceKeys,
       this.message,
-      required this.resourceKeys})
+      this.expirationTime})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         configRuleName, r'PutRemediationExceptionsRequest', 'configRuleName');
@@ -47,18 +47,18 @@ class _$PutRemediationExceptionsRequest
     if (identical(other, this)) return true;
     return other is PutRemediationExceptionsRequest &&
         configRuleName == other.configRuleName &&
-        expirationTime == other.expirationTime &&
+        resourceKeys == other.resourceKeys &&
         message == other.message &&
-        resourceKeys == other.resourceKeys;
+        expirationTime == other.expirationTime;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, configRuleName.hashCode);
-    _$hash = $jc(_$hash, expirationTime.hashCode);
-    _$hash = $jc(_$hash, message.hashCode);
     _$hash = $jc(_$hash, resourceKeys.hashCode);
+    _$hash = $jc(_$hash, message.hashCode);
+    _$hash = $jc(_$hash, expirationTime.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -75,15 +75,6 @@ class PutRemediationExceptionsRequestBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  DateTime? _expirationTime;
-  DateTime? get expirationTime => _$this._expirationTime;
-  set expirationTime(DateTime? expirationTime) =>
-      _$this._expirationTime = expirationTime;
-
-  String? _message;
-  String? get message => _$this._message;
-  set message(String? message) => _$this._message = message;
-
   _i4.ListBuilder<_i3.RemediationExceptionResourceKey>? _resourceKeys;
   _i4.ListBuilder<_i3.RemediationExceptionResourceKey> get resourceKeys =>
       _$this._resourceKeys ??=
@@ -91,6 +82,15 @@ class PutRemediationExceptionsRequestBuilder
   set resourceKeys(
           _i4.ListBuilder<_i3.RemediationExceptionResourceKey>? resourceKeys) =>
       _$this._resourceKeys = resourceKeys;
+
+  String? _message;
+  String? get message => _$this._message;
+  set message(String? message) => _$this._message = message;
+
+  DateTime? _expirationTime;
+  DateTime? get expirationTime => _$this._expirationTime;
+  set expirationTime(DateTime? expirationTime) =>
+      _$this._expirationTime = expirationTime;
 
   PutRemediationExceptionsRequestBuilder() {
     PutRemediationExceptionsRequest._init(this);
@@ -100,9 +100,9 @@ class PutRemediationExceptionsRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _configRuleName = $v.configRuleName;
-      _expirationTime = $v.expirationTime;
-      _message = $v.message;
       _resourceKeys = $v.resourceKeys.toBuilder();
+      _message = $v.message;
+      _expirationTime = $v.expirationTime;
       _$v = null;
     }
     return this;
@@ -131,9 +131,9 @@ class PutRemediationExceptionsRequestBuilder
                   configRuleName,
                   r'PutRemediationExceptionsRequest',
                   'configRuleName'),
-              expirationTime: expirationTime,
+              resourceKeys: resourceKeys.build(),
               message: message,
-              resourceKeys: resourceKeys.build());
+              expirationTime: expirationTime);
     } catch (_) {
       late String _$failedField;
       try {

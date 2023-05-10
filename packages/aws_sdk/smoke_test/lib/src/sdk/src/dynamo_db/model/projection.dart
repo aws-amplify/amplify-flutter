@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.projection; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,13 +19,13 @@ abstract class Projection
     implements Built<Projection, ProjectionBuilder> {
   /// Represents attributes that are copied (projected) from the table into an index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
   factory Projection({
-    List<String>? nonKeyAttributes,
     _i2.ProjectionType? projectionType,
+    List<String>? nonKeyAttributes,
   }) {
     return _$Projection._(
+      projectionType: projectionType,
       nonKeyAttributes:
           nonKeyAttributes == null ? null : _i3.BuiltList(nonKeyAttributes),
-      projectionType: projectionType,
     );
   }
 
@@ -41,11 +42,6 @@ abstract class Projection
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ProjectionBuilder b) {}
 
-  /// Represents the non-key attribute names which will be projected into the index.
-  ///
-  /// For local secondary indexes, the total count of `NonKeyAttributes` summed across all of the local secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.
-  _i3.BuiltList<String>? get nonKeyAttributes;
-
   /// The set of attributes that are projected into the index:
   ///
   /// *   `KEYS_ONLY` \- Only the index and primary keys are projected into the index.
@@ -54,21 +50,26 @@ abstract class Projection
   ///
   /// *   `ALL` \- All of the table attributes are projected into the index.
   _i2.ProjectionType? get projectionType;
+
+  /// Represents the non-key attribute names which will be projected into the index.
+  ///
+  /// For local secondary indexes, the total count of `NonKeyAttributes` summed across all of the local secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.
+  _i3.BuiltList<String>? get nonKeyAttributes;
   @override
   List<Object?> get props => [
-        nonKeyAttributes,
         projectionType,
+        nonKeyAttributes,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Projection');
     helper.add(
-      'nonKeyAttributes',
-      nonKeyAttributes,
-    );
-    helper.add(
       'projectionType',
       projectionType,
+    );
+    helper.add(
+      'nonKeyAttributes',
+      nonKeyAttributes,
     );
     return helper.toString();
   }
@@ -102,26 +103,23 @@ class ProjectionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'NonKeyAttributes':
-          if (value != null) {
-            result.nonKeyAttributes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
         case 'ProjectionType':
-          if (value != null) {
-            result.projectionType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ProjectionType),
-            ) as _i2.ProjectionType);
-          }
-          break;
+          result.projectionType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ProjectionType),
+          ) as _i2.ProjectionType);
+        case 'NonKeyAttributes':
+          result.nonKeyAttributes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -131,30 +129,30 @@ class ProjectionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Projection object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Projection);
-    final result = <Object?>[];
-    if (payload.nonKeyAttributes != null) {
-      result
+    final result$ = <Object?>[];
+    final Projection(:projectionType, :nonKeyAttributes) = object;
+    if (projectionType != null) {
+      result$
+        ..add('ProjectionType')
+        ..add(serializers.serialize(
+          projectionType,
+          specifiedType: const FullType(_i2.ProjectionType),
+        ));
+    }
+    if (nonKeyAttributes != null) {
+      result$
         ..add('NonKeyAttributes')
         ..add(serializers.serialize(
-          payload.nonKeyAttributes!,
+          nonKeyAttributes,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.projectionType != null) {
-      result
-        ..add('ProjectionType')
-        ..add(serializers.serialize(
-          payload.projectionType!,
-          specifiedType: const FullType(_i2.ProjectionType),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

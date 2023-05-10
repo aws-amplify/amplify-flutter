@@ -494,7 +494,7 @@ class _Smithy {
 
   static const _url = 'package:smithy/smithy.dart';
 
-  /// Creates a [smithy.Acceptor] reference.
+  /// Creates a `smithy.Acceptor` reference.
   Reference acceptor(Reference input, Reference output) => TypeReference(
         (t) => t
           ..symbol = 'Acceptor'
@@ -539,10 +539,10 @@ class _Smithy {
   /// Creates a [smithy.Context] refererence.
   Reference get context => const Reference('Context', _url);
 
-  /// Creates a [smithy.RequestContext] refererence.
+  /// Creates a `smithy.RequestContext` refererence.
   Reference get requestContext => const Reference('RequestContext', _url);
 
-  /// Creates a [smithy.ResponseContext] refererence.
+  /// Creates a `smithy.ResponseContext` refererence.
   Reference get responseContext => const Reference('ResponseContext', _url);
 
   /// Creates a [smithy.HttpRequestInterceptor] refererence.
@@ -554,10 +554,12 @@ class _Smithy {
       const Reference('HttpResponseInterceptor', _url);
 
   /// Creates a [smithy.HttpServer] refererence.
-  Reference httpServer(Reference baseService) => TypeReference((t) => t
-    ..symbol = 'HttpServer'
-    ..url = _url
-    ..types.add(baseService));
+  Reference httpServer(Reference baseService) => TypeReference(
+        (t) => t
+          ..symbol = 'HttpServer'
+          ..url = _url
+          ..types.add(baseService),
+      );
 
   /// Creates a [smithy.HttpInput] reference for [ref], the input type.
   Reference httpInput(Reference ref) => TypeReference(
@@ -771,7 +773,7 @@ class _Smithy {
   /// Creates a [smithy.ValidateChecksum] reference.
   Reference get validateChecksum => const Reference('ValidateChecksum', _url);
 
-  /// Creates a [smithy.Waiter] reference.
+  /// Creates a `smithy.Waiter` reference.
   Reference waiter(Reference inputType, Reference outputType) => TypeReference(
         (t) => t
           ..symbol = 'Waiter'
@@ -805,12 +807,19 @@ class _Smithy {
   Reference get xmlBuiltMapSerializer =>
       const Reference('XmlBuiltMapSerializer', _url);
 
+  /// Creates a [smithy.XmlBuiltMultimapSerializer] reference.
+  Reference get xmlBuiltMultimapSerializer =>
+      const Reference('XmlBuiltMultimapSerializer', _url);
+
   /// Creates a [smithy.XmlBuiltSetSerializer] reference.
   Reference get xmlBuiltSetSerializer =>
       const Reference('XmlBuiltSetSerializer', _url);
 
   /// Creates a [smithy.XmlElementName] reference.
   Reference get xmlElementName => const Reference('XmlElementName', _url);
+
+  /// Creates a [smithy.XmlIndexer] reference.
+  Reference get xmlIndexer => const Reference('XmlIndexer', _url);
 
   /// Creates a [smithy.XmlNamespace] reference.
   Reference get xmlNamespace => const Reference('XmlNamespace', _url);
@@ -836,6 +845,12 @@ class _SmithyAws {
   /// Creates a [smithy_aws.AwsJson1_1Protocol] refererence.
   Reference get awsJson1_1Protocol =>
       const Reference('AwsJson1_1Protocol', _url);
+
+  /// Creates a [smithy_aws.AwsQueryError] reference.
+  Reference get awsQueryError => const Reference('AwsQueryError', _url);
+
+  /// Creates a [smithy_aws.AwsQueryProtocol] refererence.
+  Reference get awsQueryProtocol => const Reference('AwsQueryProtocol', _url);
 
   /// Creates a [smithy_aws.AWSRetryer] refererence.
   Reference get awsRetryer => const Reference('AWSRetryer', _url);

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.events_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -78,21 +79,21 @@ class EventsResponseRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Results':
-          if (value != null) {
-            result.results.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.ItemResponse),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, _i2.ItemResponse>));
-          }
-          break;
+          result.results.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.ItemResponse),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, _i2.ItemResponse>));
       }
     }
 
@@ -102,16 +103,16 @@ class EventsResponseRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EventsResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EventsResponse);
-    final result = <Object?>[];
-    if (payload.results != null) {
-      result
+    final result$ = <Object?>[];
+    final EventsResponse(:results) = object;
+    if (results != null) {
+      result$
         ..add('Results')
         ..add(serializers.serialize(
-          payload.results!,
+          results,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -121,6 +122,6 @@ class EventsResponseRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

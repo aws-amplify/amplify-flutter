@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
@@ -20,6 +22,16 @@ void main() {
         expect(Amplify.asyncConfig, completes);
         await Amplify.addPlugin(SuccessPlugin());
         expect(Amplify.configure(dummyConfiguration), completes);
+      });
+
+      test('plugin is configured even if addPlugin is not awaited', () async {
+        expect(Amplify.asyncConfig, completes);
+        final plugin = AsyncAddPlugin();
+        unawaited(Amplify.addPlugin(plugin));
+        expect(Amplify.Analytics.plugins.length, 0);
+        await Amplify.configure(dummyConfiguration);
+        expect(Amplify.Analytics.plugins.length, 1);
+        expect(plugin.isConfigured, isTrue);
       });
 
       test('throws for invalid JSON', () async {
@@ -84,5 +96,28 @@ class SuccessPlugin extends AnalyticsPluginInterface {
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     return;
+  }
+}
+
+/// A plugin that has async behavior in addPlugin.
+class AsyncAddPlugin extends AnalyticsPluginInterface {
+  final _configureCompleter = Completer<void>();
+
+  bool get isConfigured => _configureCompleter.isCompleted;
+
+  @override
+  Future<void> configure({
+    AmplifyConfig? config,
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
+    _configureCompleter.complete();
+  }
+
+  @override
+  Future<void> addPlugin({
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
+    await super.addPlugin(authProviderRepo: authProviderRepo);
+    await Future<void>.delayed(Duration.zero);
   }
 }

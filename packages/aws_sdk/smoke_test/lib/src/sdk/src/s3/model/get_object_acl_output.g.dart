@@ -8,9 +8,9 @@ part of smoke_test.s3.model.get_object_acl_output;
 
 class _$GetObjectAclOutput extends GetObjectAclOutput {
   @override
-  final _i6.BuiltList<_i3.Grant>? grants;
+  final _i3.Owner? owner;
   @override
-  final _i4.Owner? owner;
+  final _i6.BuiltList<_i4.Grant>? grants;
   @override
   final _i5.RequestCharged? requestCharged;
 
@@ -18,7 +18,7 @@ class _$GetObjectAclOutput extends GetObjectAclOutput {
           [void Function(GetObjectAclOutputBuilder)? updates]) =>
       (new GetObjectAclOutputBuilder()..update(updates))._build();
 
-  _$GetObjectAclOutput._({this.grants, this.owner, this.requestCharged})
+  _$GetObjectAclOutput._({this.owner, this.grants, this.requestCharged})
       : super._();
 
   @override
@@ -34,16 +34,16 @@ class _$GetObjectAclOutput extends GetObjectAclOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetObjectAclOutput &&
-        grants == other.grants &&
         owner == other.owner &&
+        grants == other.grants &&
         requestCharged == other.requestCharged;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, grants.hashCode);
     _$hash = $jc(_$hash, owner.hashCode);
+    _$hash = $jc(_$hash, grants.hashCode);
     _$hash = $jc(_$hash, requestCharged.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -54,14 +54,14 @@ class GetObjectAclOutputBuilder
     implements Builder<GetObjectAclOutput, GetObjectAclOutputBuilder> {
   _$GetObjectAclOutput? _$v;
 
-  _i6.ListBuilder<_i3.Grant>? _grants;
-  _i6.ListBuilder<_i3.Grant> get grants =>
-      _$this._grants ??= new _i6.ListBuilder<_i3.Grant>();
-  set grants(_i6.ListBuilder<_i3.Grant>? grants) => _$this._grants = grants;
+  _i3.OwnerBuilder? _owner;
+  _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
+  set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
 
-  _i4.OwnerBuilder? _owner;
-  _i4.OwnerBuilder get owner => _$this._owner ??= new _i4.OwnerBuilder();
-  set owner(_i4.OwnerBuilder? owner) => _$this._owner = owner;
+  _i6.ListBuilder<_i4.Grant>? _grants;
+  _i6.ListBuilder<_i4.Grant> get grants =>
+      _$this._grants ??= new _i6.ListBuilder<_i4.Grant>();
+  set grants(_i6.ListBuilder<_i4.Grant>? grants) => _$this._grants = grants;
 
   _i5.RequestCharged? _requestCharged;
   _i5.RequestCharged? get requestCharged => _$this._requestCharged;
@@ -75,8 +75,8 @@ class GetObjectAclOutputBuilder
   GetObjectAclOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _grants = $v.grants?.toBuilder();
       _owner = $v.owner?.toBuilder();
+      _grants = $v.grants?.toBuilder();
       _requestCharged = $v.requestCharged;
       _$v = null;
     }
@@ -102,16 +102,16 @@ class GetObjectAclOutputBuilder
     try {
       _$result = _$v ??
           new _$GetObjectAclOutput._(
-              grants: _grants?.build(),
               owner: _owner?.build(),
+              grants: _grants?.build(),
               requestCharged: requestCharged);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'grants';
-        _grants?.build();
         _$failedField = 'owner';
         _owner?.build();
+        _$failedField = 'grants';
+        _grants?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GetObjectAclOutput', _$failedField, e.toString());
@@ -125,9 +125,9 @@ class GetObjectAclOutputBuilder
 
 class _$GetObjectAclOutputPayload extends GetObjectAclOutputPayload {
   @override
-  final _i6.BuiltList<_i3.Grant>? grants;
+  final _i6.BuiltList<_i4.Grant>? grants;
   @override
-  final _i4.Owner? owner;
+  final _i3.Owner? owner;
 
   factory _$GetObjectAclOutputPayload(
           [void Function(GetObjectAclOutputPayloadBuilder)? updates]) =>
@@ -167,14 +167,14 @@ class GetObjectAclOutputPayloadBuilder
         Builder<GetObjectAclOutputPayload, GetObjectAclOutputPayloadBuilder> {
   _$GetObjectAclOutputPayload? _$v;
 
-  _i6.ListBuilder<_i3.Grant>? _grants;
-  _i6.ListBuilder<_i3.Grant> get grants =>
-      _$this._grants ??= new _i6.ListBuilder<_i3.Grant>();
-  set grants(_i6.ListBuilder<_i3.Grant>? grants) => _$this._grants = grants;
+  _i6.ListBuilder<_i4.Grant>? _grants;
+  _i6.ListBuilder<_i4.Grant> get grants =>
+      _$this._grants ??= new _i6.ListBuilder<_i4.Grant>();
+  set grants(_i6.ListBuilder<_i4.Grant>? grants) => _$this._grants = grants;
 
-  _i4.OwnerBuilder? _owner;
-  _i4.OwnerBuilder get owner => _$this._owner ??= new _i4.OwnerBuilder();
-  set owner(_i4.OwnerBuilder? owner) => _$this._owner = owner;
+  _i3.OwnerBuilder? _owner;
+  _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
+  set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
 
   GetObjectAclOutputPayloadBuilder() {
     GetObjectAclOutputPayload._init(this);

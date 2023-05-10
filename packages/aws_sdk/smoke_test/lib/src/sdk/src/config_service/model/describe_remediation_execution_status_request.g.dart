@@ -11,11 +11,11 @@ class _$DescribeRemediationExecutionStatusRequest
   @override
   final String configRuleName;
   @override
+  final _i4.BuiltList<_i3.ResourceKey>? resourceKeys;
+  @override
   final int? limit;
   @override
   final String? nextToken;
-  @override
-  final _i4.BuiltList<_i3.ResourceKey>? resourceKeys;
 
   factory _$DescribeRemediationExecutionStatusRequest(
           [void Function(DescribeRemediationExecutionStatusRequestBuilder)?
@@ -25,9 +25,9 @@ class _$DescribeRemediationExecutionStatusRequest
 
   _$DescribeRemediationExecutionStatusRequest._(
       {required this.configRuleName,
+      this.resourceKeys,
       this.limit,
-      this.nextToken,
-      this.resourceKeys})
+      this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(configRuleName,
         r'DescribeRemediationExecutionStatusRequest', 'configRuleName');
@@ -48,18 +48,18 @@ class _$DescribeRemediationExecutionStatusRequest
     if (identical(other, this)) return true;
     return other is DescribeRemediationExecutionStatusRequest &&
         configRuleName == other.configRuleName &&
+        resourceKeys == other.resourceKeys &&
         limit == other.limit &&
-        nextToken == other.nextToken &&
-        resourceKeys == other.resourceKeys;
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, configRuleName.hashCode);
+    _$hash = $jc(_$hash, resourceKeys.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, resourceKeys.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -76,6 +76,12 @@ class DescribeRemediationExecutionStatusRequestBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
+  _i4.ListBuilder<_i3.ResourceKey>? _resourceKeys;
+  _i4.ListBuilder<_i3.ResourceKey> get resourceKeys =>
+      _$this._resourceKeys ??= new _i4.ListBuilder<_i3.ResourceKey>();
+  set resourceKeys(_i4.ListBuilder<_i3.ResourceKey>? resourceKeys) =>
+      _$this._resourceKeys = resourceKeys;
+
   int? _limit;
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
@@ -83,12 +89,6 @@ class DescribeRemediationExecutionStatusRequestBuilder
   String? _nextToken;
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
-  _i4.ListBuilder<_i3.ResourceKey>? _resourceKeys;
-  _i4.ListBuilder<_i3.ResourceKey> get resourceKeys =>
-      _$this._resourceKeys ??= new _i4.ListBuilder<_i3.ResourceKey>();
-  set resourceKeys(_i4.ListBuilder<_i3.ResourceKey>? resourceKeys) =>
-      _$this._resourceKeys = resourceKeys;
 
   DescribeRemediationExecutionStatusRequestBuilder() {
     DescribeRemediationExecutionStatusRequest._init(this);
@@ -98,9 +98,9 @@ class DescribeRemediationExecutionStatusRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _configRuleName = $v.configRuleName;
+      _resourceKeys = $v.resourceKeys?.toBuilder();
       _limit = $v.limit;
       _nextToken = $v.nextToken;
-      _resourceKeys = $v.resourceKeys?.toBuilder();
       _$v = null;
     }
     return this;
@@ -131,9 +131,9 @@ class DescribeRemediationExecutionStatusRequestBuilder
                   configRuleName,
                   r'DescribeRemediationExecutionStatusRequest',
                   'configRuleName'),
+              resourceKeys: _resourceKeys?.build(),
               limit: limit,
-              nextToken: nextToken,
-              resourceKeys: _resourceKeys?.build());
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

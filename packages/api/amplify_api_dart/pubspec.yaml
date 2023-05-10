@@ -6,11 +6,11 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/ap
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
+  sdk: ">=3.0.0-0 <4.0.0"
 
 dependencies:
   amplify_core: ">=1.0.0 <1.1.0"
-  async: ^2.9.0
+  async: ^2.10.0
   aws_common: ">=0.4.2+4 <0.5.0"
   collection: ^1.15.0
   json_annotation: ">=4.8.0 <4.9.0"
@@ -22,8 +22,8 @@ dependencies:
 dev_dependencies:
   amplify_lints: ">=2.0.3 <2.1.0"
   aws_signature_v4: ">=0.3.1+6 <0.4.0"
-  build_runner: ^2.0.0
+  build_runner: ^2.4.0
   build_test: ^2.1.5
-  build_web_compilers: ^3.2.4
+  build_web_compilers: ^4.0.0
   stream_channel: ^2.1.0
-  test: ^1.16.0
+  test: ^1.22.1

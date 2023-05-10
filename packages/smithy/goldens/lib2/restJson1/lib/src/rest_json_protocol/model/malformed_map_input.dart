@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.malformed_map_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -80,21 +81,21 @@ class MalformedMapInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'bodyMap':
-          if (value != null) {
-            result.bodyMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.bodyMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -104,16 +105,16 @@ class MalformedMapInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedMapInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MalformedMapInput);
-    final result = <Object?>[];
-    if (payload.bodyMap != null) {
-      result
+    final result$ = <Object?>[];
+    final MalformedMapInput(:bodyMap) = object;
+    if (bodyMap != null) {
+      result$
         ..add('bodyMap')
         ..add(serializers.serialize(
-          payload.bodyMap!,
+          bodyMap,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -123,6 +124,6 @@ class MalformedMapInputRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

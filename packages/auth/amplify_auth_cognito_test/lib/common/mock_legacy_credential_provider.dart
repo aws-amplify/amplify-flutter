@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
-import 'package:amplify_auth_cognito_dart/src/state/state/credential_store_state.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/src/config/auth/cognito/credentials_provider.dart';
 import 'package:amplify_core/src/config/auth/cognito/oauth.dart';
 import 'package:amplify_core/src/config/auth/cognito/user_pool.dart';

@@ -20,19 +20,19 @@ abstract class AuthenticationResultType
   factory AuthenticationResultType({
     String? accessToken,
     int? expiresIn,
+    String? tokenType,
+    String? refreshToken,
     String? idToken,
     _i2.NewDeviceMetadataType? newDeviceMetadata,
-    String? refreshToken,
-    String? tokenType,
   }) {
     expiresIn ??= 0;
     return _$AuthenticationResultType._(
       accessToken: accessToken,
       expiresIn: expiresIn,
+      tokenType: tokenType,
+      refreshToken: refreshToken,
       idToken: idToken,
       newDeviceMetadata: newDeviceMetadata,
-      refreshToken: refreshToken,
-      tokenType: tokenType,
     );
   }
 
@@ -58,25 +58,25 @@ abstract class AuthenticationResultType
   /// The expiration period of the authentication result in seconds.
   int get expiresIn;
 
+  /// The token type.
+  String? get tokenType;
+
+  /// The refresh token.
+  String? get refreshToken;
+
   /// The ID token.
   String? get idToken;
 
   /// The new device metadata from an authentication result.
   _i2.NewDeviceMetadataType? get newDeviceMetadata;
-
-  /// The refresh token.
-  String? get refreshToken;
-
-  /// The token type.
-  String? get tokenType;
   @override
   List<Object?> get props => [
         accessToken,
         expiresIn,
+        tokenType,
+        refreshToken,
         idToken,
         newDeviceMetadata,
-        refreshToken,
-        tokenType,
       ];
   @override
   String toString() {
@@ -90,20 +90,20 @@ abstract class AuthenticationResultType
       expiresIn,
     );
     helper.add(
-      'idToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'newDeviceMetadata',
-      newDeviceMetadata,
+      'tokenType',
+      tokenType,
     );
     helper.add(
       'refreshToken',
       '***SENSITIVE***',
     );
     helper.add(
-      'tokenType',
-      tokenType,
+      'idToken',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'newDeviceMetadata',
+      newDeviceMetadata,
     );
     return helper.toString();
   }
@@ -153,6 +153,22 @@ class AuthenticationResultTypeAwsJson11Serializer
             specifiedType: const FullType(int),
           ) as int);
           break;
+        case 'TokenType':
+          if (value != null) {
+            result.tokenType = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'RefreshToken':
+          if (value != null) {
+            result.refreshToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'IdToken':
           if (value != null) {
             result.idToken = (serializers.deserialize(
@@ -167,22 +183,6 @@ class AuthenticationResultTypeAwsJson11Serializer
               value,
               specifiedType: const FullType(_i2.NewDeviceMetadataType),
             ) as _i2.NewDeviceMetadataType));
-          }
-          break;
-        case 'RefreshToken':
-          if (value != null) {
-            result.refreshToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'TokenType':
-          if (value != null) {
-            result.tokenType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }
@@ -213,6 +213,22 @@ class AuthenticationResultTypeAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
+    if (payload.tokenType != null) {
+      result
+        ..add('TokenType')
+        ..add(serializers.serialize(
+          payload.tokenType!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.refreshToken != null) {
+      result
+        ..add('RefreshToken')
+        ..add(serializers.serialize(
+          payload.refreshToken!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.idToken != null) {
       result
         ..add('IdToken')
@@ -227,22 +243,6 @@ class AuthenticationResultTypeAwsJson11Serializer
         ..add(serializers.serialize(
           payload.newDeviceMetadata!,
           specifiedType: const FullType(_i2.NewDeviceMetadataType),
-        ));
-    }
-    if (payload.refreshToken != null) {
-      result
-        ..add('RefreshToken')
-        ..add(serializers.serialize(
-          payload.refreshToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.tokenType != null) {
-      result
-        ..add('TokenType')
-        ..add(serializers.serialize(
-          payload.tokenType!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

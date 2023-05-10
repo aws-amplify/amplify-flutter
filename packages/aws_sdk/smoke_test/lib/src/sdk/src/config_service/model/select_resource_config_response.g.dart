@@ -8,18 +8,18 @@ part of smoke_test.config_service.model.select_resource_config_response;
 
 class _$SelectResourceConfigResponse extends SelectResourceConfigResponse {
   @override
-  final String? nextToken;
+  final _i3.BuiltList<String>? results;
   @override
   final _i2.QueryInfo? queryInfo;
   @override
-  final _i3.BuiltList<String>? results;
+  final String? nextToken;
 
   factory _$SelectResourceConfigResponse(
           [void Function(SelectResourceConfigResponseBuilder)? updates]) =>
       (new SelectResourceConfigResponseBuilder()..update(updates))._build();
 
   _$SelectResourceConfigResponse._(
-      {this.nextToken, this.queryInfo, this.results})
+      {this.results, this.queryInfo, this.nextToken})
       : super._();
 
   @override
@@ -35,17 +35,17 @@ class _$SelectResourceConfigResponse extends SelectResourceConfigResponse {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SelectResourceConfigResponse &&
-        nextToken == other.nextToken &&
+        results == other.results &&
         queryInfo == other.queryInfo &&
-        results == other.results;
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, queryInfo.hashCode);
     _$hash = $jc(_$hash, results.hashCode);
+    _$hash = $jc(_$hash, queryInfo.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,9 +57,10 @@ class SelectResourceConfigResponseBuilder
             SelectResourceConfigResponseBuilder> {
   _$SelectResourceConfigResponse? _$v;
 
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+  _i3.ListBuilder<String>? _results;
+  _i3.ListBuilder<String> get results =>
+      _$this._results ??= new _i3.ListBuilder<String>();
+  set results(_i3.ListBuilder<String>? results) => _$this._results = results;
 
   _i2.QueryInfoBuilder? _queryInfo;
   _i2.QueryInfoBuilder get queryInfo =>
@@ -67,10 +68,9 @@ class SelectResourceConfigResponseBuilder
   set queryInfo(_i2.QueryInfoBuilder? queryInfo) =>
       _$this._queryInfo = queryInfo;
 
-  _i3.ListBuilder<String>? _results;
-  _i3.ListBuilder<String> get results =>
-      _$this._results ??= new _i3.ListBuilder<String>();
-  set results(_i3.ListBuilder<String>? results) => _$this._results = results;
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
   SelectResourceConfigResponseBuilder() {
     SelectResourceConfigResponse._init(this);
@@ -79,9 +79,9 @@ class SelectResourceConfigResponseBuilder
   SelectResourceConfigResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
-      _queryInfo = $v.queryInfo?.toBuilder();
       _results = $v.results?.toBuilder();
+      _queryInfo = $v.queryInfo?.toBuilder();
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -106,16 +106,16 @@ class SelectResourceConfigResponseBuilder
     try {
       _$result = _$v ??
           new _$SelectResourceConfigResponse._(
-              nextToken: nextToken,
+              results: _results?.build(),
               queryInfo: _queryInfo?.build(),
-              results: _results?.build());
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'queryInfo';
-        _queryInfo?.build();
         _$failedField = 'results';
         _results?.build();
+        _$failedField = 'queryInfo';
+        _queryInfo?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'SelectResourceConfigResponse', _$failedField, e.toString());

@@ -35,7 +35,7 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         continue;
       }
       // Packages without a `lib/` folder generally contain only native code,
-      // e.g. `amplify_flutter_android`. These packages are tested via their
+      // e.g. `amplify_auth_cognito_android`. These packages are tested via their
       // parent package, e.g. `amplify_flutter`, and do not require a workflow
       // of their own.
       final libDir = Directory(p.join(package.path, 'lib'));
@@ -87,7 +87,7 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         '$repoRelativePath/test/**/*',
       ];
       dfs(
-        repo.packageGraph,
+        repo.getPackageGraph(includeDevDependencies: true),
         root: package,
         (dependent) {
           if (dependent == package || !dependent.isDevelopmentPackage) {
@@ -97,12 +97,21 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
             dependent.path,
             from: rootDir.path,
           );
+          if (dependent.isLintsPackage) {
+            workflowPaths.addAll([
+              '$repoRelativePath/pubspec.yaml',
+              '$repoRelativePath/lib/**/*.yaml',
+            ]);
+            return;
+          }
           workflowPaths.addAll([
             '$repoRelativePath/pubspec.yaml',
             '$repoRelativePath/lib/**/*.dart',
           ]);
         },
       );
+
+      workflowPaths.sort();
 
       final workflowContents = StringBuffer(
         '''
@@ -170,6 +179,28 @@ jobs:
         package: package,
         repoRelativePath: repoRelativePath,
       );
+    }
+
+    // Check if workflow generation caused `git diff` to change.
+    if (setExitIfChanged) {
+      final gitDiff = await Process.start(
+        'git',
+        ['diff', '--relative', '--', '.github/workflows'],
+        workingDirectory: rootDir.path,
+      );
+
+      final gitDiffOutput = StringBuffer();
+      gitDiff
+        ..captureStdout()
+        ..captureStdout(sink: gitDiffOutput.write)
+        ..captureStderr()
+        ..captureStderr(sink: gitDiffOutput.write);
+      if (await gitDiff.exitCode != 0 || gitDiffOutput.isNotEmpty) {
+        logger
+          ..error('Workflows are not up to date.')
+          ..error('Run `aft generate workflows` to regenerate them.');
+        exit(1);
+      }
     }
   }
 
@@ -343,13 +374,6 @@ jobs:
   void writeWorkflowFile(File workflowFile, String content) {
     if (!workflowFile.existsSync()) {
       workflowFile.createSync();
-    }
-    final currentContent = workflowFile.readAsStringSync();
-    if (currentContent != content && setExitIfChanged) {
-      logger
-        ..error('Workflows are not up to date.')
-        ..error('Run `aft generate workflows` to regenerate them.');
-      exit(1);
     }
     workflowFile.writeAsStringSync(content);
   }

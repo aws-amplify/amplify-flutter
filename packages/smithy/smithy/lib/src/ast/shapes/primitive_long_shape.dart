@@ -12,17 +12,18 @@ abstract class PrimitiveLongShape
     implements
         SimpleShape,
         Built<PrimitiveLongShape, PrimitiveLongShapeBuilder> {
-  factory PrimitiveLongShape(
-          [void Function(PrimitiveLongShapeBuilder) updates]) =
-      _$PrimitiveLongShape;
+  factory PrimitiveLongShape([
+    void Function(PrimitiveLongShapeBuilder) updates,
+  ]) = _$PrimitiveLongShape;
   PrimitiveLongShape._();
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PrimitiveLongShapeBuilder b) {
-    b.shapeId = id;
-    b.traits = TraitMap.fromTraits(const [
-      DefaultTrait(Int64.ZERO),
-    ]);
+    b
+      ..shapeId = id
+      ..traits = TraitMap.fromTraits(const [
+        DefaultTrait(Int64.ZERO),
+      ]);
   }
 
   static const id = ShapeId.core('PrimitiveLong');

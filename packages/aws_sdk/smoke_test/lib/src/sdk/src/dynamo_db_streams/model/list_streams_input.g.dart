@@ -8,18 +8,18 @@ part of smoke_test.dynamo_db_streams.model.list_streams_input;
 
 class _$ListStreamsInput extends ListStreamsInput {
   @override
-  final String? exclusiveStartStreamArn;
+  final String? tableName;
   @override
   final int? limit;
   @override
-  final String? tableName;
+  final String? exclusiveStartStreamArn;
 
   factory _$ListStreamsInput(
           [void Function(ListStreamsInputBuilder)? updates]) =>
       (new ListStreamsInputBuilder()..update(updates))._build();
 
   _$ListStreamsInput._(
-      {this.exclusiveStartStreamArn, this.limit, this.tableName})
+      {this.tableName, this.limit, this.exclusiveStartStreamArn})
       : super._();
 
   @override
@@ -34,17 +34,17 @@ class _$ListStreamsInput extends ListStreamsInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListStreamsInput &&
-        exclusiveStartStreamArn == other.exclusiveStartStreamArn &&
+        tableName == other.tableName &&
         limit == other.limit &&
-        tableName == other.tableName;
+        exclusiveStartStreamArn == other.exclusiveStartStreamArn;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, exclusiveStartStreamArn.hashCode);
-    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
+    _$hash = $jc(_$hash, exclusiveStartStreamArn.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,18 +54,18 @@ class ListStreamsInputBuilder
     implements Builder<ListStreamsInput, ListStreamsInputBuilder> {
   _$ListStreamsInput? _$v;
 
-  String? _exclusiveStartStreamArn;
-  String? get exclusiveStartStreamArn => _$this._exclusiveStartStreamArn;
-  set exclusiveStartStreamArn(String? exclusiveStartStreamArn) =>
-      _$this._exclusiveStartStreamArn = exclusiveStartStreamArn;
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
 
   int? _limit;
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
+  String? _exclusiveStartStreamArn;
+  String? get exclusiveStartStreamArn => _$this._exclusiveStartStreamArn;
+  set exclusiveStartStreamArn(String? exclusiveStartStreamArn) =>
+      _$this._exclusiveStartStreamArn = exclusiveStartStreamArn;
 
   ListStreamsInputBuilder() {
     ListStreamsInput._init(this);
@@ -74,9 +74,9 @@ class ListStreamsInputBuilder
   ListStreamsInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _exclusiveStartStreamArn = $v.exclusiveStartStreamArn;
-      _limit = $v.limit;
       _tableName = $v.tableName;
+      _limit = $v.limit;
+      _exclusiveStartStreamArn = $v.exclusiveStartStreamArn;
       _$v = null;
     }
     return this;
@@ -99,9 +99,9 @@ class ListStreamsInputBuilder
   _$ListStreamsInput _build() {
     final _$result = _$v ??
         new _$ListStreamsInput._(
-            exclusiveStartStreamArn: exclusiveStartStreamArn,
+            tableName: tableName,
             limit: limit,
-            tableName: tableName);
+            exclusiveStartStreamArn: exclusiveStartStreamArn);
     replace(_$result);
     return _$result;
   }

@@ -1,4 +1,4 @@
-group 'com.amazonaws.amplify.amplify_analytics_pinpoint.amplify_analytics_pinpoint'
+group 'com.amazonaws.amplify.amplify_analytics_pinpoint'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -43,6 +43,8 @@ android {
     defaultConfig {
         minSdkVersion 23
     }
+
+    namespace 'com.amazonaws.amplify.amplify_analytics_pinpoint'
 }
 
 dependencies {

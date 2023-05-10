@@ -7,13 +7,10 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform.dart';
 import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_auth_cognito_test/common/mock_config.dart';
-import 'package:amplify_auth_cognito_test/common/mock_dispatcher.dart';
-import 'package:amplify_auth_cognito_test/common/mock_hosted_ui.dart';
-import 'package:amplify_auth_cognito_test/common/mock_oauth_server.dart';
-import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
+import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:http/http.dart' as http;
@@ -72,6 +69,7 @@ class FailingHostedUiPlatform extends HostedUiPlatform {
 }
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   const keys = HostedUiKeys(hostedUiConfig);
 
   group('HostedUiStateMachine', () {
@@ -263,7 +261,7 @@ void main() {
     });
 
     group('onExchange', () {
-      test('no provider', () async {
+      setUp(() async {
         stateMachine
             .dispatch(ConfigurationEvent.configure(mockConfig))
             .ignore();
@@ -277,12 +275,39 @@ void main() {
           ]),
         );
 
+        stateMachine.addInstance<CognitoIdentityClient>(
+          MockCognitoIdentityClient(
+            getId: () async => GetIdResponse(
+              identityId: identityId,
+            ),
+            getCredentialsForIdentity: () async =>
+                GetCredentialsForIdentityResponse(
+              credentials: Credentials(
+                accessKeyId: accessKeyId,
+                secretKey: secretAccessKey,
+                sessionToken: sessionToken,
+                expiration: expiration,
+              ),
+            ),
+          ),
+        );
+      });
+
+      test('no provider', () async {
+        await expectLater(
+          secureStorage.read(
+            key: identityPoolKeys[CognitoIdentityPoolKey.sessionToken],
+          ),
+          isNull,
+          reason: "Shouldn't have AWS credentials before sign in",
+        );
+
         stateMachine.dispatch(const HostedUiEvent.signIn()).ignore();
         final params = await server.authorize(await _launchUrl.future);
         stateMachine.dispatch(HostedUiEvent.exchange(params)).ignore();
 
         expect(
-          sm.stream,
+          stateMachine.stream.whereType<HostedUiState>(),
           emitsInOrder(<Matcher>[
             isA<HostedUiSigningIn>(),
             isA<HostedUiSignedIn>().having(
@@ -294,34 +319,38 @@ void main() {
         );
         expect(
           stateMachine.stream.whereType<CredentialStoreState>(),
-          emitsThrough(
-            isA<CredentialStoreSuccess>()
-                .having(
-                  (state) => state.data.userPoolTokens,
-                  'tokens',
-                  isNotNull,
-                )
-                .having(
-                  (state) => state.data.userPoolTokens!.signInMethod,
-                  'signInMethod',
-                  CognitoSignInMethod.hostedUi,
-                ),
-          ),
+          allOf([
+            emitsThrough(
+              isA<CredentialStoreSuccess>()
+                  .having(
+                    (state) => state.data.userPoolTokens,
+                    'tokens',
+                    isNotNull,
+                  )
+                  .having(
+                    (state) => state.data.userPoolTokens!.signInMethod,
+                    'signInMethod',
+                    CognitoSignInMethod.hostedUi,
+                  ),
+            ),
+            emitsThrough(
+              isA<CredentialStoreSuccess>().having(
+                (state) => state.data.awsCredentials?.sessionToken,
+                'sessionToken',
+                sessionToken,
+              ),
+            ),
+          ]),
         );
       });
 
       test('w/ provider', () async {
-        stateMachine
-            .dispatch(ConfigurationEvent.configure(mockConfig))
-            .ignore();
-
-        final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
         await expectLater(
-          sm.stream,
-          emitsInOrder(<Matcher>[
-            isA<HostedUiConfiguring>(),
-            isA<HostedUiSignedOut>(),
-          ]),
+          secureStorage.read(
+            key: identityPoolKeys[CognitoIdentityPoolKey.sessionToken],
+          ),
+          isNull,
+          reason: "Shouldn't have AWS credentials before sign in",
         );
 
         const provider = AuthProvider.oidc('providerName', 'issuer');
@@ -334,7 +363,7 @@ void main() {
         stateMachine.dispatch(HostedUiEvent.exchange(params)).ignore();
 
         expect(
-          sm.stream,
+          stateMachine.stream.whereType<HostedUiState>(),
           emitsInOrder(<Matcher>[
             isA<HostedUiSigningIn>(),
             isA<HostedUiSignedIn>().having(
@@ -350,36 +379,32 @@ void main() {
         );
         expect(
           stateMachine.stream.whereType<CredentialStoreState>(),
-          emitsThrough(
-            isA<CredentialStoreSuccess>()
-                .having(
-                  (state) => state.data.userPoolTokens,
-                  'tokens',
-                  isNotNull,
-                )
-                .having(
-                  (state) => state.data.userPoolTokens!.signInMethod,
-                  'signInMethod',
-                  CognitoSignInMethod.hostedUi,
-                ),
-          ),
+          allOf([
+            emitsThrough(
+              isA<CredentialStoreSuccess>()
+                  .having(
+                    (state) => state.data.userPoolTokens,
+                    'tokens',
+                    isNotNull,
+                  )
+                  .having(
+                    (state) => state.data.userPoolTokens!.signInMethod,
+                    'signInMethod',
+                    CognitoSignInMethod.hostedUi,
+                  ),
+            ),
+            emitsThrough(
+              isA<CredentialStoreSuccess>().having(
+                (state) => state.data.awsCredentials?.sessionToken,
+                'sessionToken',
+                sessionToken,
+              ),
+            ),
+          ]),
         );
       });
 
       test('fails with remote error', () async {
-        stateMachine
-            .dispatch(ConfigurationEvent.configure(mockConfig))
-            .ignore();
-
-        final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
-        await expectLater(
-          sm.stream,
-          emitsInOrder(<Matcher>[
-            isA<HostedUiConfiguring>(),
-            isA<HostedUiSignedOut>(),
-          ]),
-        );
-
         stateMachine.dispatch(const HostedUiEvent.signIn()).ignore();
         await server.authorize(await _launchUrl.future);
 
@@ -397,7 +422,7 @@ void main() {
             .ignore();
 
         expect(
-          sm.stream,
+          stateMachine.stream.whereType<HostedUiState>(),
           emitsInOrder(<Matcher>[
             isA<HostedUiSigningIn>(),
             isA<HostedUiFailure>(),
@@ -406,19 +431,6 @@ void main() {
       });
 
       test('fails with bad code', () async {
-        stateMachine
-            .dispatch(ConfigurationEvent.configure(mockConfig))
-            .ignore();
-
-        final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
-        await expectLater(
-          sm.stream,
-          emitsInOrder(<Matcher>[
-            isA<HostedUiConfiguring>(),
-            isA<HostedUiSignedOut>(),
-          ]),
-        );
-
         stateMachine.dispatch(const HostedUiEvent.signIn()).ignore();
         await server.authorize(await _launchUrl.future);
         stateMachine
@@ -434,7 +446,7 @@ void main() {
             .ignore();
 
         expect(
-          sm.stream,
+          stateMachine.stream.whereType<HostedUiState>(),
           emitsInOrder(<Matcher>[
             isA<HostedUiSigningIn>(),
             isA<HostedUiFailure>(),

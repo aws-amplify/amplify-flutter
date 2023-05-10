@@ -9,10 +9,10 @@ part of smoke_test.config_service.model.list_conformance_pack_compliance_scores_
 class _$ListConformancePackComplianceScoresResponse
     extends ListConformancePackComplianceScoresResponse {
   @override
+  final String? nextToken;
+  @override
   final _i3.BuiltList<_i2.ConformancePackComplianceScore>
       conformancePackComplianceScores;
-  @override
-  final String? nextToken;
 
   factory _$ListConformancePackComplianceScoresResponse(
           [void Function(ListConformancePackComplianceScoresResponseBuilder)?
@@ -22,7 +22,7 @@ class _$ListConformancePackComplianceScoresResponse
           ._build();
 
   _$ListConformancePackComplianceScoresResponse._(
-      {required this.conformancePackComplianceScores, this.nextToken})
+      {this.nextToken, required this.conformancePackComplianceScores})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         conformancePackComplianceScores,
@@ -44,16 +44,16 @@ class _$ListConformancePackComplianceScoresResponse
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListConformancePackComplianceScoresResponse &&
+        nextToken == other.nextToken &&
         conformancePackComplianceScores ==
-            other.conformancePackComplianceScores &&
-        nextToken == other.nextToken;
+            other.conformancePackComplianceScores;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, conformancePackComplianceScores.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
+    _$hash = $jc(_$hash, conformancePackComplianceScores.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -64,6 +64,10 @@ class ListConformancePackComplianceScoresResponseBuilder
         Builder<ListConformancePackComplianceScoresResponse,
             ListConformancePackComplianceScoresResponseBuilder> {
   _$ListConformancePackComplianceScoresResponse? _$v;
+
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
   _i3.ListBuilder<_i2.ConformancePackComplianceScore>?
       _conformancePackComplianceScores;
@@ -76,10 +80,6 @@ class ListConformancePackComplianceScoresResponseBuilder
               conformancePackComplianceScores) =>
       _$this._conformancePackComplianceScores = conformancePackComplianceScores;
 
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
   ListConformancePackComplianceScoresResponseBuilder() {
     ListConformancePackComplianceScoresResponse._init(this);
   }
@@ -87,9 +87,9 @@ class ListConformancePackComplianceScoresResponseBuilder
   ListConformancePackComplianceScoresResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _nextToken = $v.nextToken;
       _conformancePackComplianceScores =
           $v.conformancePackComplianceScores.toBuilder();
-      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -116,9 +116,9 @@ class ListConformancePackComplianceScoresResponseBuilder
     try {
       _$result = _$v ??
           new _$ListConformancePackComplianceScoresResponse._(
+              nextToken: nextToken,
               conformancePackComplianceScores:
-                  conformancePackComplianceScores.build(),
-              nextToken: nextToken);
+                  conformancePackComplianceScores.build());
     } catch (_) {
       late String _$failedField;
       try {

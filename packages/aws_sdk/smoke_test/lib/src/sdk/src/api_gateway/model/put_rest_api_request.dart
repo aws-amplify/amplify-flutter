@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.put_rest_api_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,18 +22,18 @@ abstract class PutRestApiRequest
         _i1.HasPayload<_i2.Uint8List> {
   /// A PUT request to update an existing API, with external API definitions specified as the request body.
   factory PutRestApiRequest({
-    required _i2.Uint8List body,
-    bool? failOnWarnings,
-    _i4.PutMode? mode,
-    Map<String, String>? parameters,
     required String restApiId,
+    _i4.PutMode? mode,
+    bool? failOnWarnings,
+    Map<String, String>? parameters,
+    required _i2.Uint8List body,
   }) {
     return _$PutRestApiRequest._(
-      body: body,
-      failOnWarnings: failOnWarnings,
-      mode: mode,
-      parameters: parameters == null ? null : _i5.BuiltMap(parameters),
       restApiId: restApiId,
+      mode: mode,
+      failOnWarnings: failOnWarnings,
+      parameters: parameters == null ? null : _i5.BuiltMap(parameters),
+      body: body,
     );
   }
 
@@ -68,20 +69,20 @@ abstract class PutRestApiRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutRestApiRequestBuilder b) {}
 
-  /// The PUT request body containing external API definitions. Currently, only OpenAPI definition JSON/YAML files are supported. The maximum size of the API definition file is 6MB.
-  _i2.Uint8List get body;
-
-  /// A query parameter to indicate whether to rollback the API update (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
-  bool? get failOnWarnings;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The `mode` query parameter to specify the update mode. Valid values are "merge" and "overwrite". By default, the update mode is "merge".
   _i4.PutMode? get mode;
 
+  /// A query parameter to indicate whether to rollback the API update (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
+  bool? get failOnWarnings;
+
   /// Custom header parameters as part of the request. For example, to exclude DocumentationParts from an imported API, set `ignore=documentation` as a `parameters` value, as in the AWS CLI command of `aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'`.
   _i5.BuiltMap<String, String>? get parameters;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// The PUT request body containing external API definitions. Currently, only OpenAPI definition JSON/YAML files are supported. The maximum size of the API definition file is 6MB.
+  _i2.Uint8List get body;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -98,34 +99,34 @@ abstract class PutRestApiRequest
   _i2.Uint8List getPayload() => body;
   @override
   List<Object?> get props => [
-        body,
-        failOnWarnings,
-        mode,
-        parameters,
         restApiId,
+        mode,
+        failOnWarnings,
+        parameters,
+        body,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutRestApiRequest');
     helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'failOnWarnings',
-      failOnWarnings,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'mode',
       mode,
     );
     helper.add(
+      'failOnWarnings',
+      failOnWarnings,
+    );
+    helper.add(
       'parameters',
       parameters,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'body',
+      body,
     );
     return helper.toString();
   }
@@ -162,15 +163,12 @@ class PutRestApiRequestRestJson1Serializer
   @override
   Object serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.Uint8List object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutRestApiRequest
-        ? object.getPayload()
-        : (object as _i2.Uint8List);
-    return (serializers.serialize(
-      payload,
+    return serializers.serialize(
+      object,
       specifiedType: const FullType(_i2.Uint8List),
-    ) as Object);
+    )!;
   }
 }

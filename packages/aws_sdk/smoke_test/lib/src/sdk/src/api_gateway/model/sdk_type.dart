@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.sdk_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,18 +19,18 @@ abstract class SdkType
     implements Built<SdkType, SdkTypeBuilder> {
   /// A type of SDK that API Gateway can generate.
   factory SdkType({
-    List<_i2.SdkConfigurationProperty>? configurationProperties,
-    String? description,
-    String? friendlyName,
     String? id,
+    String? friendlyName,
+    String? description,
+    List<_i2.SdkConfigurationProperty>? configurationProperties,
   }) {
     return _$SdkType._(
+      id: id,
+      friendlyName: friendlyName,
+      description: description,
       configurationProperties: configurationProperties == null
           ? null
           : _i3.BuiltList(configurationProperties),
-      description: description,
-      friendlyName: friendlyName,
-      id: id,
     );
   }
 
@@ -52,42 +53,42 @@ abstract class SdkType
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SdkTypeBuilder b) {}
 
-  /// A list of configuration properties of an SdkType.
-  _i3.BuiltList<_i2.SdkConfigurationProperty>? get configurationProperties;
-
-  /// The description of an SdkType.
-  String? get description;
+  /// The identifier of an SdkType instance.
+  String? get id;
 
   /// The user-friendly name of an SdkType instance.
   String? get friendlyName;
 
-  /// The identifier of an SdkType instance.
-  String? get id;
+  /// The description of an SdkType.
+  String? get description;
+
+  /// A list of configuration properties of an SdkType.
+  _i3.BuiltList<_i2.SdkConfigurationProperty>? get configurationProperties;
   @override
   List<Object?> get props => [
-        configurationProperties,
-        description,
-        friendlyName,
         id,
+        friendlyName,
+        description,
+        configurationProperties,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SdkType');
     helper.add(
-      'configurationProperties',
-      configurationProperties,
-    );
-    helper.add(
-      'description',
-      description,
+      'id',
+      id,
     );
     helper.add(
       'friendlyName',
       friendlyName,
     );
     helper.add(
-      'id',
-      id,
+      'description',
+      description,
+    );
+    helper.add(
+      'configurationProperties',
+      configurationProperties,
     );
     return helper.toString();
   }
@@ -121,42 +122,33 @@ class SdkTypeRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'configurationProperties':
-          if (value != null) {
-            result.configurationProperties.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.SdkConfigurationProperty)],
-              ),
-            ) as _i3.BuiltList<_i2.SdkConfigurationProperty>));
-          }
-          break;
+          result.configurationProperties.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.SdkConfigurationProperty)],
+            ),
+          ) as _i3.BuiltList<_i2.SdkConfigurationProperty>));
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'friendlyName':
-          if (value != null) {
-            result.friendlyName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.friendlyName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -166,46 +158,47 @@ class SdkTypeRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SdkType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SdkType);
-    final result = <Object?>[];
-    if (payload.configurationProperties != null) {
-      result
+    final result$ = <Object?>[];
+    final SdkType(:configurationProperties, :description, :friendlyName, :id) =
+        object;
+    if (configurationProperties != null) {
+      result$
         ..add('configurationProperties')
         ..add(serializers.serialize(
-          payload.configurationProperties!,
+          configurationProperties,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.SdkConfigurationProperty)],
           ),
         ));
     }
-    if (payload.description != null) {
-      result
+    if (description != null) {
+      result$
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.friendlyName != null) {
-      result
+    if (friendlyName != null) {
+      result$
         ..add('friendlyName')
         ..add(serializers.serialize(
-          payload.friendlyName!,
+          friendlyName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.id != null) {
-      result
+    if (id != null) {
+      result$
         ..add('id')
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

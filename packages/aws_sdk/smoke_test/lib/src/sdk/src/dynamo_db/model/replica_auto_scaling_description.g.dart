@@ -8,10 +8,10 @@ part of smoke_test.dynamo_db.model.replica_auto_scaling_description;
 
 class _$ReplicaAutoScalingDescription extends ReplicaAutoScalingDescription {
   @override
+  final String? regionName;
+  @override
   final _i5.BuiltList<_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>?
       globalSecondaryIndexes;
-  @override
-  final String? regionName;
   @override
   final _i3.AutoScalingSettingsDescription?
       replicaProvisionedReadCapacityAutoScalingSettings;
@@ -26,8 +26,8 @@ class _$ReplicaAutoScalingDescription extends ReplicaAutoScalingDescription {
       (new ReplicaAutoScalingDescriptionBuilder()..update(updates))._build();
 
   _$ReplicaAutoScalingDescription._(
-      {this.globalSecondaryIndexes,
-      this.regionName,
+      {this.regionName,
+      this.globalSecondaryIndexes,
       this.replicaProvisionedReadCapacityAutoScalingSettings,
       this.replicaProvisionedWriteCapacityAutoScalingSettings,
       this.replicaStatus})
@@ -46,8 +46,8 @@ class _$ReplicaAutoScalingDescription extends ReplicaAutoScalingDescription {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ReplicaAutoScalingDescription &&
-        globalSecondaryIndexes == other.globalSecondaryIndexes &&
         regionName == other.regionName &&
+        globalSecondaryIndexes == other.globalSecondaryIndexes &&
         replicaProvisionedReadCapacityAutoScalingSettings ==
             other.replicaProvisionedReadCapacityAutoScalingSettings &&
         replicaProvisionedWriteCapacityAutoScalingSettings ==
@@ -58,8 +58,8 @@ class _$ReplicaAutoScalingDescription extends ReplicaAutoScalingDescription {
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
     _$hash = $jc(_$hash, regionName.hashCode);
+    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
     _$hash =
         $jc(_$hash, replicaProvisionedReadCapacityAutoScalingSettings.hashCode);
     _$hash = $jc(
@@ -76,6 +76,10 @@ class ReplicaAutoScalingDescriptionBuilder
             ReplicaAutoScalingDescriptionBuilder> {
   _$ReplicaAutoScalingDescription? _$v;
 
+  String? _regionName;
+  String? get regionName => _$this._regionName;
+  set regionName(String? regionName) => _$this._regionName = regionName;
+
   _i5.ListBuilder<_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>?
       _globalSecondaryIndexes;
   _i5.ListBuilder<_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>
@@ -86,10 +90,6 @@ class ReplicaAutoScalingDescriptionBuilder
                   _i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>?
               globalSecondaryIndexes) =>
       _$this._globalSecondaryIndexes = globalSecondaryIndexes;
-
-  String? _regionName;
-  String? get regionName => _$this._regionName;
-  set regionName(String? regionName) => _$this._regionName = regionName;
 
   _i3.AutoScalingSettingsDescriptionBuilder?
       _replicaProvisionedReadCapacityAutoScalingSettings;
@@ -127,8 +127,8 @@ class ReplicaAutoScalingDescriptionBuilder
   ReplicaAutoScalingDescriptionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
       _regionName = $v.regionName;
+      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
       _replicaProvisionedReadCapacityAutoScalingSettings =
           $v.replicaProvisionedReadCapacityAutoScalingSettings?.toBuilder();
       _replicaProvisionedWriteCapacityAutoScalingSettings =
@@ -158,8 +158,8 @@ class ReplicaAutoScalingDescriptionBuilder
     try {
       _$result = _$v ??
           new _$ReplicaAutoScalingDescription._(
-              globalSecondaryIndexes: _globalSecondaryIndexes?.build(),
               regionName: regionName,
+              globalSecondaryIndexes: _globalSecondaryIndexes?.build(),
               replicaProvisionedReadCapacityAutoScalingSettings:
                   _replicaProvisionedReadCapacityAutoScalingSettings?.build(),
               replicaProvisionedWriteCapacityAutoScalingSettings:
@@ -170,7 +170,6 @@ class ReplicaAutoScalingDescriptionBuilder
       try {
         _$failedField = 'globalSecondaryIndexes';
         _globalSecondaryIndexes?.build();
-
         _$failedField = 'replicaProvisionedReadCapacityAutoScalingSettings';
         _replicaProvisionedReadCapacityAutoScalingSettings?.build();
         _$failedField = 'replicaProvisionedWriteCapacityAutoScalingSettings';

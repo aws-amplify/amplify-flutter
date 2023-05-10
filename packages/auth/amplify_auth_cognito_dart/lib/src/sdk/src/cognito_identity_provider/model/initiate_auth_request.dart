@@ -3,9 +3,9 @@
 library amplify_auth_cognito_dart.cognito_identity_provider.model.initiate_auth_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart'
-    as _i3;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/auth_flow_type.dart'
     as _i4;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/auth_flow_type.dart'
+    as _i3;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_context_data_type.dart'
     as _i5;
 import 'package:aws_common/aws_common.dart' as _i2;
@@ -24,21 +24,21 @@ abstract class InitiateAuthRequest
     implements Built<InitiateAuthRequest, InitiateAuthRequestBuilder> {
   /// Initiates the authentication request.
   factory InitiateAuthRequest({
-    _i3.AnalyticsMetadataType? analyticsMetadata,
-    required _i4.AuthFlowType authFlow,
+    required _i3.AuthFlowType authFlow,
     Map<String, String>? authParameters,
-    required String clientId,
     Map<String, String>? clientMetadata,
+    required String clientId,
+    _i4.AnalyticsMetadataType? analyticsMetadata,
     _i5.UserContextDataType? userContextData,
   }) {
     return _$InitiateAuthRequest._(
-      analyticsMetadata: analyticsMetadata,
       authFlow: authFlow,
       authParameters:
           authParameters == null ? null : _i6.BuiltMap(authParameters),
-      clientId: clientId,
       clientMetadata:
           clientMetadata == null ? null : _i6.BuiltMap(clientMetadata),
+      clientId: clientId,
+      analyticsMetadata: analyticsMetadata,
       userContextData: userContextData,
     );
   }
@@ -64,9 +64,6 @@ abstract class InitiateAuthRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InitiateAuthRequestBuilder b) {}
 
-  /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `InitiateAuth` calls.
-  _i3.AnalyticsMetadataType? get analyticsMetadata;
-
   /// The authentication flow for this call to run. The API action will depend on this value. For example:
   ///
   /// *   `REFRESH\_TOKEN\_AUTH` takes in a valid refresh token and returns new tokens.
@@ -88,7 +85,7 @@ abstract class InitiateAuthRequest
   ///
   ///
   /// `ADMIN\_NO\_SRP_AUTH` isn't a valid value.
-  _i4.AuthFlowType get authFlow;
+  _i3.AuthFlowType get authFlow;
 
   /// The authentication parameters. These are inputs corresponding to the `AuthFlow` that you're invoking. The required values depend on the value of `AuthFlow`:
   ///
@@ -98,9 +95,6 @@ abstract class InitiateAuthRequest
   ///
   /// *   For `CUSTOM_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app client is configured with client secret), `DEVICE_KEY`. To start the authentication flow with password verification, include `ChallengeName: SRP_A` and `SRP\_A: (The SRP\_A Value)`.
   _i6.BuiltMap<String, String>? get authParameters;
-
-  /// The app client ID.
-  String get clientId;
 
   /// A map of custom key-value pairs that you can provide as input for certain custom workflows that this action triggers.
   ///
@@ -141,26 +135,28 @@ abstract class InitiateAuthRequest
   /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
   _i6.BuiltMap<String, String>? get clientMetadata;
 
+  /// The app client ID.
+  String get clientId;
+
+  /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `InitiateAuth` calls.
+  _i4.AnalyticsMetadataType? get analyticsMetadata;
+
   /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
   _i5.UserContextDataType? get userContextData;
   @override
   InitiateAuthRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        analyticsMetadata,
         authFlow,
         authParameters,
-        clientId,
         clientMetadata,
+        clientId,
+        analyticsMetadata,
         userContextData,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InitiateAuthRequest');
-    helper.add(
-      'analyticsMetadata',
-      analyticsMetadata,
-    );
     helper.add(
       'authFlow',
       authFlow,
@@ -170,12 +166,16 @@ abstract class InitiateAuthRequest
       '***SENSITIVE***',
     );
     helper.add(
+      'clientMetadata',
+      clientMetadata,
+    );
+    helper.add(
       'clientId',
       '***SENSITIVE***',
     );
     helper.add(
-      'clientMetadata',
-      clientMetadata,
+      'analyticsMetadata',
+      analyticsMetadata,
     );
     helper.add(
       'userContextData',
@@ -214,23 +214,29 @@ class InitiateAuthRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'AnalyticsMetadata':
-          if (value != null) {
-            result.analyticsMetadata.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AnalyticsMetadataType),
-            ) as _i3.AnalyticsMetadataType));
-          }
-          break;
         case 'AuthFlow':
           result.authFlow = (serializers.deserialize(
             value!,
-            specifiedType: const FullType(_i4.AuthFlowType),
-          ) as _i4.AuthFlowType);
+            specifiedType: const FullType(_i3.AuthFlowType),
+          ) as _i3.AuthFlowType);
           break;
         case 'AuthParameters':
           if (value != null) {
             result.authParameters.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i6.BuiltMap<String, String>));
+          }
+          break;
+        case 'ClientMetadata':
+          if (value != null) {
+            result.clientMetadata.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
                 _i6.BuiltMap,
@@ -248,18 +254,12 @@ class InitiateAuthRequestAwsJson11Serializer
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'ClientMetadata':
+        case 'AnalyticsMetadata':
           if (value != null) {
-            result.clientMetadata.replace((serializers.deserialize(
+            result.analyticsMetadata.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
+              specifiedType: const FullType(_i4.AnalyticsMetadataType),
+            ) as _i4.AnalyticsMetadataType));
           }
           break;
         case 'UserContextData':
@@ -287,7 +287,7 @@ class InitiateAuthRequestAwsJson11Serializer
       'AuthFlow',
       serializers.serialize(
         payload.authFlow,
-        specifiedType: const FullType(_i4.AuthFlowType),
+        specifiedType: const FullType(_i3.AuthFlowType),
       ),
       'ClientId',
       serializers.serialize(
@@ -295,14 +295,6 @@ class InitiateAuthRequestAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.analyticsMetadata != null) {
-      result
-        ..add('AnalyticsMetadata')
-        ..add(serializers.serialize(
-          payload.analyticsMetadata!,
-          specifiedType: const FullType(_i3.AnalyticsMetadataType),
-        ));
-    }
     if (payload.authParameters != null) {
       result
         ..add('AuthParameters')
@@ -329,6 +321,14 @@ class InitiateAuthRequestAwsJson11Serializer
               FullType(String),
             ],
           ),
+        ));
+    }
+    if (payload.analyticsMetadata != null) {
+      result
+        ..add('AnalyticsMetadata')
+        ..add(serializers.serialize(
+          payload.analyticsMetadata!,
+          specifiedType: const FullType(_i4.AnalyticsMetadataType),
         ));
     }
     if (payload.userContextData != null) {

@@ -8,20 +8,20 @@ part of smoke_test.config_service.model.compliance_summary;
 
 class _$ComplianceSummary extends ComplianceSummary {
   @override
-  final DateTime? complianceSummaryTimestamp;
-  @override
   final _i2.ComplianceContributorCount? compliantResourceCount;
   @override
   final _i2.ComplianceContributorCount? nonCompliantResourceCount;
+  @override
+  final DateTime? complianceSummaryTimestamp;
 
   factory _$ComplianceSummary(
           [void Function(ComplianceSummaryBuilder)? updates]) =>
       (new ComplianceSummaryBuilder()..update(updates))._build();
 
   _$ComplianceSummary._(
-      {this.complianceSummaryTimestamp,
-      this.compliantResourceCount,
-      this.nonCompliantResourceCount})
+      {this.compliantResourceCount,
+      this.nonCompliantResourceCount,
+      this.complianceSummaryTimestamp})
       : super._();
 
   @override
@@ -36,17 +36,17 @@ class _$ComplianceSummary extends ComplianceSummary {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ComplianceSummary &&
-        complianceSummaryTimestamp == other.complianceSummaryTimestamp &&
         compliantResourceCount == other.compliantResourceCount &&
-        nonCompliantResourceCount == other.nonCompliantResourceCount;
+        nonCompliantResourceCount == other.nonCompliantResourceCount &&
+        complianceSummaryTimestamp == other.complianceSummaryTimestamp;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, complianceSummaryTimestamp.hashCode);
     _$hash = $jc(_$hash, compliantResourceCount.hashCode);
     _$hash = $jc(_$hash, nonCompliantResourceCount.hashCode);
+    _$hash = $jc(_$hash, complianceSummaryTimestamp.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -55,12 +55,6 @@ class _$ComplianceSummary extends ComplianceSummary {
 class ComplianceSummaryBuilder
     implements Builder<ComplianceSummary, ComplianceSummaryBuilder> {
   _$ComplianceSummary? _$v;
-
-  DateTime? _complianceSummaryTimestamp;
-  DateTime? get complianceSummaryTimestamp =>
-      _$this._complianceSummaryTimestamp;
-  set complianceSummaryTimestamp(DateTime? complianceSummaryTimestamp) =>
-      _$this._complianceSummaryTimestamp = complianceSummaryTimestamp;
 
   _i2.ComplianceContributorCountBuilder? _compliantResourceCount;
   _i2.ComplianceContributorCountBuilder get compliantResourceCount =>
@@ -78,6 +72,12 @@ class ComplianceSummaryBuilder
           _i2.ComplianceContributorCountBuilder? nonCompliantResourceCount) =>
       _$this._nonCompliantResourceCount = nonCompliantResourceCount;
 
+  DateTime? _complianceSummaryTimestamp;
+  DateTime? get complianceSummaryTimestamp =>
+      _$this._complianceSummaryTimestamp;
+  set complianceSummaryTimestamp(DateTime? complianceSummaryTimestamp) =>
+      _$this._complianceSummaryTimestamp = complianceSummaryTimestamp;
+
   ComplianceSummaryBuilder() {
     ComplianceSummary._init(this);
   }
@@ -85,9 +85,9 @@ class ComplianceSummaryBuilder
   ComplianceSummaryBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _complianceSummaryTimestamp = $v.complianceSummaryTimestamp;
       _compliantResourceCount = $v.compliantResourceCount?.toBuilder();
       _nonCompliantResourceCount = $v.nonCompliantResourceCount?.toBuilder();
+      _complianceSummaryTimestamp = $v.complianceSummaryTimestamp;
       _$v = null;
     }
     return this;
@@ -112,9 +112,9 @@ class ComplianceSummaryBuilder
     try {
       _$result = _$v ??
           new _$ComplianceSummary._(
-              complianceSummaryTimestamp: complianceSummaryTimestamp,
               compliantResourceCount: _compliantResourceCount?.build(),
-              nonCompliantResourceCount: _nonCompliantResourceCount?.build());
+              nonCompliantResourceCount: _nonCompliantResourceCount?.build(),
+              complianceSummaryTimestamp: complianceSummaryTimestamp);
     } catch (_) {
       late String _$failedField;
       try {

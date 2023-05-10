@@ -8,25 +8,25 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.device_type;
 
 class _$DeviceType extends DeviceType {
   @override
+  final String? deviceKey;
+  @override
   final _i3.BuiltList<_i2.AttributeType>? deviceAttributes;
   @override
   final DateTime? deviceCreateDate;
   @override
-  final String? deviceKey;
+  final DateTime? deviceLastModifiedDate;
   @override
   final DateTime? deviceLastAuthenticatedDate;
-  @override
-  final DateTime? deviceLastModifiedDate;
 
   factory _$DeviceType([void Function(DeviceTypeBuilder)? updates]) =>
       (new DeviceTypeBuilder()..update(updates))._build();
 
   _$DeviceType._(
-      {this.deviceAttributes,
+      {this.deviceKey,
+      this.deviceAttributes,
       this.deviceCreateDate,
-      this.deviceKey,
-      this.deviceLastAuthenticatedDate,
-      this.deviceLastModifiedDate})
+      this.deviceLastModifiedDate,
+      this.deviceLastAuthenticatedDate})
       : super._();
 
   @override
@@ -40,21 +40,21 @@ class _$DeviceType extends DeviceType {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DeviceType &&
+        deviceKey == other.deviceKey &&
         deviceAttributes == other.deviceAttributes &&
         deviceCreateDate == other.deviceCreateDate &&
-        deviceKey == other.deviceKey &&
-        deviceLastAuthenticatedDate == other.deviceLastAuthenticatedDate &&
-        deviceLastModifiedDate == other.deviceLastModifiedDate;
+        deviceLastModifiedDate == other.deviceLastModifiedDate &&
+        deviceLastAuthenticatedDate == other.deviceLastAuthenticatedDate;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, deviceKey.hashCode);
     _$hash = $jc(_$hash, deviceAttributes.hashCode);
     _$hash = $jc(_$hash, deviceCreateDate.hashCode);
-    _$hash = $jc(_$hash, deviceKey.hashCode);
-    _$hash = $jc(_$hash, deviceLastAuthenticatedDate.hashCode);
     _$hash = $jc(_$hash, deviceLastModifiedDate.hashCode);
+    _$hash = $jc(_$hash, deviceLastAuthenticatedDate.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,6 +62,10 @@ class _$DeviceType extends DeviceType {
 
 class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
   _$DeviceType? _$v;
+
+  String? _deviceKey;
+  String? get deviceKey => _$this._deviceKey;
+  set deviceKey(String? deviceKey) => _$this._deviceKey = deviceKey;
 
   _i3.ListBuilder<_i2.AttributeType>? _deviceAttributes;
   _i3.ListBuilder<_i2.AttributeType> get deviceAttributes =>
@@ -74,20 +78,16 @@ class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
   set deviceCreateDate(DateTime? deviceCreateDate) =>
       _$this._deviceCreateDate = deviceCreateDate;
 
-  String? _deviceKey;
-  String? get deviceKey => _$this._deviceKey;
-  set deviceKey(String? deviceKey) => _$this._deviceKey = deviceKey;
+  DateTime? _deviceLastModifiedDate;
+  DateTime? get deviceLastModifiedDate => _$this._deviceLastModifiedDate;
+  set deviceLastModifiedDate(DateTime? deviceLastModifiedDate) =>
+      _$this._deviceLastModifiedDate = deviceLastModifiedDate;
 
   DateTime? _deviceLastAuthenticatedDate;
   DateTime? get deviceLastAuthenticatedDate =>
       _$this._deviceLastAuthenticatedDate;
   set deviceLastAuthenticatedDate(DateTime? deviceLastAuthenticatedDate) =>
       _$this._deviceLastAuthenticatedDate = deviceLastAuthenticatedDate;
-
-  DateTime? _deviceLastModifiedDate;
-  DateTime? get deviceLastModifiedDate => _$this._deviceLastModifiedDate;
-  set deviceLastModifiedDate(DateTime? deviceLastModifiedDate) =>
-      _$this._deviceLastModifiedDate = deviceLastModifiedDate;
 
   DeviceTypeBuilder() {
     DeviceType._init(this);
@@ -96,11 +96,11 @@ class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
   DeviceTypeBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _deviceKey = $v.deviceKey;
       _deviceAttributes = $v.deviceAttributes?.toBuilder();
       _deviceCreateDate = $v.deviceCreateDate;
-      _deviceKey = $v.deviceKey;
-      _deviceLastAuthenticatedDate = $v.deviceLastAuthenticatedDate;
       _deviceLastModifiedDate = $v.deviceLastModifiedDate;
+      _deviceLastAuthenticatedDate = $v.deviceLastAuthenticatedDate;
       _$v = null;
     }
     return this;
@@ -125,11 +125,11 @@ class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
     try {
       _$result = _$v ??
           new _$DeviceType._(
+              deviceKey: deviceKey,
               deviceAttributes: _deviceAttributes?.build(),
               deviceCreateDate: deviceCreateDate,
-              deviceKey: deviceKey,
-              deviceLastAuthenticatedDate: deviceLastAuthenticatedDate,
-              deviceLastModifiedDate: deviceLastModifiedDate);
+              deviceLastModifiedDate: deviceLastModifiedDate,
+              deviceLastAuthenticatedDate: deviceLastAuthenticatedDate);
     } catch (_) {
       late String _$failedField;
       try {

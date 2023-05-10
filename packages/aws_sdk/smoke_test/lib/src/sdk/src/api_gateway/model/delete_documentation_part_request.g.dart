@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.delete_documentation_part_request;
 
 class _$DeleteDocumentationPartRequest extends DeleteDocumentationPartRequest {
   @override
-  final String documentationPartId;
-  @override
   final String restApiId;
+  @override
+  final String documentationPartId;
 
   factory _$DeleteDocumentationPartRequest(
           [void Function(DeleteDocumentationPartRequestBuilder)? updates]) =>
       (new DeleteDocumentationPartRequestBuilder()..update(updates))._build();
 
   _$DeleteDocumentationPartRequest._(
-      {required this.documentationPartId, required this.restApiId})
+      {required this.restApiId, required this.documentationPartId})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(documentationPartId,
-        r'DeleteDocumentationPartRequest', 'documentationPartId');
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'DeleteDocumentationPartRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(documentationPartId,
+        r'DeleteDocumentationPartRequest', 'documentationPartId');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$DeleteDocumentationPartRequest extends DeleteDocumentationPartRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DeleteDocumentationPartRequest &&
-        documentationPartId == other.documentationPartId &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        documentationPartId == other.documentationPartId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, documentationPartId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, documentationPartId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,14 +58,14 @@ class DeleteDocumentationPartRequestBuilder
             DeleteDocumentationPartRequestBuilder> {
   _$DeleteDocumentationPartRequest? _$v;
 
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
   String? _documentationPartId;
   String? get documentationPartId => _$this._documentationPartId;
   set documentationPartId(String? documentationPartId) =>
       _$this._documentationPartId = documentationPartId;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   DeleteDocumentationPartRequestBuilder() {
     DeleteDocumentationPartRequest._init(this);
@@ -74,8 +74,8 @@ class DeleteDocumentationPartRequestBuilder
   DeleteDocumentationPartRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _documentationPartId = $v.documentationPartId;
       _restApiId = $v.restApiId;
+      _documentationPartId = $v.documentationPartId;
       _$v = null;
     }
     return this;
@@ -98,12 +98,12 @@ class DeleteDocumentationPartRequestBuilder
   _$DeleteDocumentationPartRequest _build() {
     final _$result = _$v ??
         new _$DeleteDocumentationPartRequest._(
+            restApiId: BuiltValueNullFieldError.checkNotNull(
+                restApiId, r'DeleteDocumentationPartRequest', 'restApiId'),
             documentationPartId: BuiltValueNullFieldError.checkNotNull(
                 documentationPartId,
                 r'DeleteDocumentationPartRequest',
-                'documentationPartId'),
-            restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'DeleteDocumentationPartRequest', 'restApiId'));
+                'documentationPartId'));
     replace(_$result);
     return _$result;
   }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.delete_documentation_part_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,12 +23,12 @@ abstract class DeleteDocumentationPartRequest
         _i1.HasPayload<DeleteDocumentationPartRequestPayload> {
   /// Deletes an existing documentation part of an API.
   factory DeleteDocumentationPartRequest({
-    required String documentationPartId,
     required String restApiId,
+    required String documentationPartId,
   }) {
     return _$DeleteDocumentationPartRequest._(
-      documentationPartId: documentationPartId,
       restApiId: restApiId,
+      documentationPartId: documentationPartId,
     );
   }
 
@@ -59,11 +60,11 @@ abstract class DeleteDocumentationPartRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteDocumentationPartRequestBuilder b) {}
 
-  /// The identifier of the to-be-deleted documentation part.
-  String get documentationPartId;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The identifier of the to-be-deleted documentation part.
+  String get documentationPartId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -83,20 +84,20 @@ abstract class DeleteDocumentationPartRequest
       DeleteDocumentationPartRequestPayload();
   @override
   List<Object?> get props => [
-        documentationPartId,
         restApiId,
+        documentationPartId,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DeleteDocumentationPartRequest');
     helper.add(
-      'documentationPartId',
-      documentationPartId,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'documentationPartId',
+      documentationPartId,
     );
     return helper.toString();
   }
@@ -159,7 +160,7 @@ class DeleteDocumentationPartRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteDocumentationPartRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

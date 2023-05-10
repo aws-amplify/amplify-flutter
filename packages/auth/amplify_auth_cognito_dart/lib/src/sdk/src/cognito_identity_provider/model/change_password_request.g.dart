@@ -8,27 +8,27 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.change_passwor
 
 class _$ChangePasswordRequest extends ChangePasswordRequest {
   @override
-  final String accessToken;
-  @override
   final String previousPassword;
   @override
   final String proposedPassword;
+  @override
+  final String accessToken;
 
   factory _$ChangePasswordRequest(
           [void Function(ChangePasswordRequestBuilder)? updates]) =>
       (new ChangePasswordRequestBuilder()..update(updates))._build();
 
   _$ChangePasswordRequest._(
-      {required this.accessToken,
-      required this.previousPassword,
-      required this.proposedPassword})
+      {required this.previousPassword,
+      required this.proposedPassword,
+      required this.accessToken})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'ChangePasswordRequest', 'accessToken');
     BuiltValueNullFieldError.checkNotNull(
         previousPassword, r'ChangePasswordRequest', 'previousPassword');
     BuiltValueNullFieldError.checkNotNull(
         proposedPassword, r'ChangePasswordRequest', 'proposedPassword');
+    BuiltValueNullFieldError.checkNotNull(
+        accessToken, r'ChangePasswordRequest', 'accessToken');
   }
 
   @override
@@ -44,17 +44,17 @@ class _$ChangePasswordRequest extends ChangePasswordRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ChangePasswordRequest &&
-        accessToken == other.accessToken &&
         previousPassword == other.previousPassword &&
-        proposedPassword == other.proposedPassword;
+        proposedPassword == other.proposedPassword &&
+        accessToken == other.accessToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, accessToken.hashCode);
     _$hash = $jc(_$hash, previousPassword.hashCode);
     _$hash = $jc(_$hash, proposedPassword.hashCode);
+    _$hash = $jc(_$hash, accessToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -63,10 +63,6 @@ class _$ChangePasswordRequest extends ChangePasswordRequest {
 class ChangePasswordRequestBuilder
     implements Builder<ChangePasswordRequest, ChangePasswordRequestBuilder> {
   _$ChangePasswordRequest? _$v;
-
-  String? _accessToken;
-  String? get accessToken => _$this._accessToken;
-  set accessToken(String? accessToken) => _$this._accessToken = accessToken;
 
   String? _previousPassword;
   String? get previousPassword => _$this._previousPassword;
@@ -78,6 +74,10 @@ class ChangePasswordRequestBuilder
   set proposedPassword(String? proposedPassword) =>
       _$this._proposedPassword = proposedPassword;
 
+  String? _accessToken;
+  String? get accessToken => _$this._accessToken;
+  set accessToken(String? accessToken) => _$this._accessToken = accessToken;
+
   ChangePasswordRequestBuilder() {
     ChangePasswordRequest._init(this);
   }
@@ -85,9 +85,9 @@ class ChangePasswordRequestBuilder
   ChangePasswordRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _accessToken = $v.accessToken;
       _previousPassword = $v.previousPassword;
       _proposedPassword = $v.proposedPassword;
+      _accessToken = $v.accessToken;
       _$v = null;
     }
     return this;
@@ -110,14 +110,12 @@ class ChangePasswordRequestBuilder
   _$ChangePasswordRequest _build() {
     final _$result = _$v ??
         new _$ChangePasswordRequest._(
-            accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'ChangePasswordRequest', 'accessToken'),
             previousPassword: BuiltValueNullFieldError.checkNotNull(
                 previousPassword, r'ChangePasswordRequest', 'previousPassword'),
             proposedPassword: BuiltValueNullFieldError.checkNotNull(
-                proposedPassword,
-                r'ChangePasswordRequest',
-                'proposedPassword'));
+                proposedPassword, r'ChangePasswordRequest', 'proposedPassword'),
+            accessToken: BuiltValueNullFieldError.checkNotNull(
+                accessToken, r'ChangePasswordRequest', 'accessToken'));
     replace(_$result);
     return _$result;
   }

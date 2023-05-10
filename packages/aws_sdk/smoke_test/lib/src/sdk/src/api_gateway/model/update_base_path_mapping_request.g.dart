@@ -8,9 +8,9 @@ part of smoke_test.api_gateway.model.update_base_path_mapping_request;
 
 class _$UpdateBasePathMappingRequest extends UpdateBasePathMappingRequest {
   @override
-  final String basePath;
-  @override
   final String domainName;
+  @override
+  final String basePath;
   @override
   final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
 
@@ -19,12 +19,12 @@ class _$UpdateBasePathMappingRequest extends UpdateBasePathMappingRequest {
       (new UpdateBasePathMappingRequestBuilder()..update(updates))._build();
 
   _$UpdateBasePathMappingRequest._(
-      {required this.basePath, required this.domainName, this.patchOperations})
+      {required this.domainName, required this.basePath, this.patchOperations})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        basePath, r'UpdateBasePathMappingRequest', 'basePath');
-    BuiltValueNullFieldError.checkNotNull(
         domainName, r'UpdateBasePathMappingRequest', 'domainName');
+    BuiltValueNullFieldError.checkNotNull(
+        basePath, r'UpdateBasePathMappingRequest', 'basePath');
   }
 
   @override
@@ -40,16 +40,16 @@ class _$UpdateBasePathMappingRequest extends UpdateBasePathMappingRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateBasePathMappingRequest &&
-        basePath == other.basePath &&
         domainName == other.domainName &&
+        basePath == other.basePath &&
         patchOperations == other.patchOperations;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, basePath.hashCode);
     _$hash = $jc(_$hash, domainName.hashCode);
+    _$hash = $jc(_$hash, basePath.hashCode);
     _$hash = $jc(_$hash, patchOperations.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -62,13 +62,13 @@ class UpdateBasePathMappingRequestBuilder
             UpdateBasePathMappingRequestBuilder> {
   _$UpdateBasePathMappingRequest? _$v;
 
-  String? _basePath;
-  String? get basePath => _$this._basePath;
-  set basePath(String? basePath) => _$this._basePath = basePath;
-
   String? _domainName;
   String? get domainName => _$this._domainName;
   set domainName(String? domainName) => _$this._domainName = domainName;
+
+  String? _basePath;
+  String? get basePath => _$this._basePath;
+  set basePath(String? basePath) => _$this._basePath = basePath;
 
   _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
   _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
@@ -83,8 +83,8 @@ class UpdateBasePathMappingRequestBuilder
   UpdateBasePathMappingRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _basePath = $v.basePath;
       _domainName = $v.domainName;
+      _basePath = $v.basePath;
       _patchOperations = $v.patchOperations?.toBuilder();
       _$v = null;
     }
@@ -110,10 +110,10 @@ class UpdateBasePathMappingRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateBasePathMappingRequest._(
-              basePath: BuiltValueNullFieldError.checkNotNull(
-                  basePath, r'UpdateBasePathMappingRequest', 'basePath'),
               domainName: BuiltValueNullFieldError.checkNotNull(
                   domainName, r'UpdateBasePathMappingRequest', 'domainName'),
+              basePath: BuiltValueNullFieldError.checkNotNull(
+                  basePath, r'UpdateBasePathMappingRequest', 'basePath'),
               patchOperations: _patchOperations?.build());
     } catch (_) {
       late String _$failedField;

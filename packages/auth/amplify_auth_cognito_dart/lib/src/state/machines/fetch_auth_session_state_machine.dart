@@ -23,7 +23,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// Fetches the user's auth session from the credential store and, optionally,
 /// a Cognito Identity Pool.
 /// {@endtemplate}
-class FetchAuthSessionStateMachine
+final class FetchAuthSessionStateMachine
     extends AuthStateMachine<FetchAuthSessionEvent, FetchAuthSessionState> {
   /// {@macro amplify_auth_cognito.fetch_auth_session_state_machine}
   FetchAuthSessionStateMachine(CognitoAuthStateMachine manager)
@@ -58,26 +58,18 @@ class FetchAuthSessionStateMachine
 
   @override
   Future<void> resolve(FetchAuthSessionEvent event) async {
-    switch (event.type) {
-      case FetchAuthSessionEventType.fetch:
-        event as FetchAuthSessionFetch;
+    switch (event) {
+      case FetchAuthSessionFetch _:
         emit(const FetchAuthSessionState.fetching());
         await onFetchAuthSession(event);
-        break;
-      case FetchAuthSessionEventType.federate:
-        event as FetchAuthSessionFederate;
+      case FetchAuthSessionFederate _:
         emit(const FetchAuthSessionState.fetching());
         await onFederate(event);
-        break;
-      case FetchAuthSessionEventType.refresh:
-        event as FetchAuthSessionRefresh;
+      case FetchAuthSessionRefresh _:
         emit(const FetchAuthSessionState.refreshing());
         await onRefresh(event);
-        break;
-      case FetchAuthSessionEventType.succeeded:
-        event as FetchAuthSessionSucceeded;
-        emit(FetchAuthSessionState.success(event.session));
-        break;
+      case FetchAuthSessionSucceeded(:final session):
+        emit(FetchAuthSessionState.success(session));
     }
   }
 
@@ -562,10 +554,8 @@ class FetchAuthSessionStateMachine
       switch (userPoolTokens.signInMethod) {
         case CognitoSignInMethod.default$:
           keys = CognitoUserPoolKeys(expect());
-          break;
         case CognitoSignInMethod.hostedUi:
           keys = HostedUiKeys(expect());
-          break;
       }
       final identityPoolConfig = _identityPoolConfig;
       await manager.clearCredentials([

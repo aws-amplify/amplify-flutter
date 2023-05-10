@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.update_resource_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,15 +24,15 @@ abstract class UpdateResourceRequest
         _i1.HasPayload<UpdateResourceRequestPayload> {
   /// Request to change information about a Resource resource.
   factory UpdateResourceRequest({
-    List<_i3.PatchOperation>? patchOperations,
-    required String resourceId,
     required String restApiId,
+    required String resourceId,
+    List<_i3.PatchOperation>? patchOperations,
   }) {
     return _$UpdateResourceRequest._(
+      restApiId: restApiId,
+      resourceId: resourceId,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      resourceId: resourceId,
-      restApiId: restApiId,
     );
   }
 
@@ -66,14 +67,14 @@ abstract class UpdateResourceRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateResourceRequestBuilder b) {}
 
-  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The identifier of the Resource resource.
   String get resourceId;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
+  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -97,24 +98,24 @@ abstract class UpdateResourceRequest
       });
   @override
   List<Object?> get props => [
-        patchOperations,
-        resourceId,
         restApiId,
+        resourceId,
+        patchOperations,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateResourceRequest');
     helper.add(
-      'patchOperations',
-      patchOperations,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'patchOperations',
+      patchOperations,
     );
     return helper.toString();
   }
@@ -182,18 +183,18 @@ class UpdateResourceRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'patchOperations':
-          if (value != null) {
-            result.patchOperations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.PatchOperation)],
-              ),
-            ) as _i4.BuiltList<_i3.PatchOperation>));
-          }
-          break;
+          result.patchOperations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.PatchOperation)],
+            ),
+          ) as _i4.BuiltList<_i3.PatchOperation>));
       }
     }
 
@@ -203,24 +204,22 @@ class UpdateResourceRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateResourceRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UpdateResourceRequest
-        ? object.getPayload()
-        : (object as UpdateResourceRequestPayload);
-    final result = <Object?>[];
-    if (payload.patchOperations != null) {
-      result
+    final result$ = <Object?>[];
+    final UpdateResourceRequestPayload(:patchOperations) = object;
+    if (patchOperations != null) {
+      result$
         ..add('patchOperations')
         ..add(serializers.serialize(
-          payload.patchOperations!,
+          patchOperations,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.PatchOperation)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

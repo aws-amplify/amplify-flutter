@@ -17,15 +17,15 @@ abstract class VerifySoftwareTokenRequest
         Built<VerifySoftwareTokenRequest, VerifySoftwareTokenRequestBuilder> {
   factory VerifySoftwareTokenRequest({
     String? accessToken,
-    String? friendlyDeviceName,
     String? session,
     required String userCode,
+    String? friendlyDeviceName,
   }) {
     return _$VerifySoftwareTokenRequest._(
       accessToken: accessToken,
-      friendlyDeviceName: friendlyDeviceName,
       session: session,
       userCode: userCode,
+      friendlyDeviceName: friendlyDeviceName,
     );
   }
 
@@ -52,22 +52,22 @@ abstract class VerifySoftwareTokenRequest
   /// A valid access token that Amazon Cognito issued to the user whose software token you want to verify.
   String? get accessToken;
 
-  /// The friendly device name.
-  String? get friendlyDeviceName;
-
   /// The session that should be passed both ways in challenge-response calls to the service.
   String? get session;
 
   /// The one- time password computed using the secret code returned by [AssociateSoftwareToken](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html).
   String get userCode;
+
+  /// The friendly device name.
+  String? get friendlyDeviceName;
   @override
   VerifySoftwareTokenRequest getPayload() => this;
   @override
   List<Object?> get props => [
         accessToken,
-        friendlyDeviceName,
         session,
         userCode,
+        friendlyDeviceName,
       ];
   @override
   String toString() {
@@ -77,16 +77,16 @@ abstract class VerifySoftwareTokenRequest
       '***SENSITIVE***',
     );
     helper.add(
-      'friendlyDeviceName',
-      friendlyDeviceName,
-    );
-    helper.add(
       'session',
       session,
     );
     helper.add(
       'userCode',
       userCode,
+    );
+    helper.add(
+      'friendlyDeviceName',
+      friendlyDeviceName,
     );
     return helper.toString();
   }
@@ -130,14 +130,6 @@ class VerifySoftwareTokenRequestAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'FriendlyDeviceName':
-          if (value != null) {
-            result.friendlyDeviceName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'Session':
           if (value != null) {
             result.session = (serializers.deserialize(
@@ -151,6 +143,14 @@ class VerifySoftwareTokenRequestAwsJson11Serializer
             value!,
             specifiedType: const FullType(String),
           ) as String);
+          break;
+        case 'FriendlyDeviceName':
+          if (value != null) {
+            result.friendlyDeviceName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
           break;
       }
     }
@@ -180,19 +180,19 @@ class VerifySoftwareTokenRequestAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.friendlyDeviceName != null) {
-      result
-        ..add('FriendlyDeviceName')
-        ..add(serializers.serialize(
-          payload.friendlyDeviceName!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.session != null) {
       result
         ..add('Session')
         ..add(serializers.serialize(
           payload.session!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.friendlyDeviceName != null) {
+      result
+        ..add('FriendlyDeviceName')
+        ..add(serializers.serialize(
+          payload.friendlyDeviceName!,
           specifiedType: const FullType(String),
         ));
     }

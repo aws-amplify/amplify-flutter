@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.put_gateway_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,20 +24,20 @@ abstract class PutGatewayResponseRequest
         _i1.HasPayload<PutGatewayResponseRequestPayload> {
   /// Creates a customization of a GatewayResponse of a specified response type and status code on the given RestApi.
   factory PutGatewayResponseRequest({
+    required String restApiId,
+    required _i3.GatewayResponseType responseType,
+    String? statusCode,
     Map<String, String>? responseParameters,
     Map<String, String>? responseTemplates,
-    required _i3.GatewayResponseType responseType,
-    required String restApiId,
-    String? statusCode,
   }) {
     return _$PutGatewayResponseRequest._(
+      restApiId: restApiId,
+      responseType: responseType,
+      statusCode: statusCode,
       responseParameters:
           responseParameters == null ? null : _i4.BuiltMap(responseParameters),
       responseTemplates:
           responseTemplates == null ? null : _i4.BuiltMap(responseTemplates),
-      responseType: responseType,
-      restApiId: restApiId,
-      statusCode: statusCode,
     );
   }
 
@@ -76,20 +77,20 @@ abstract class PutGatewayResponseRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutGatewayResponseRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
+  /// The response type of the associated GatewayResponse
+  _i3.GatewayResponseType get responseType;
+
+  /// The HTTP status code of the GatewayResponse.
+  String? get statusCode;
+
   /// Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of key-value pairs.
   _i4.BuiltMap<String, String>? get responseParameters;
 
   /// Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
   _i4.BuiltMap<String, String>? get responseTemplates;
-
-  /// The response type of the associated GatewayResponse
-  _i3.GatewayResponseType get responseType;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
-
-  /// The HTTP status code of the GatewayResponse.
-  String? get statusCode;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -117,15 +118,27 @@ abstract class PutGatewayResponseRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
+        responseType,
+        statusCode,
         responseParameters,
         responseTemplates,
-        responseType,
-        restApiId,
-        statusCode,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutGatewayResponseRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
+    helper.add(
+      'responseType',
+      responseType,
+    );
+    helper.add(
+      'statusCode',
+      statusCode,
+    );
     helper.add(
       'responseParameters',
       responseParameters,
@@ -133,18 +146,6 @@ abstract class PutGatewayResponseRequest
     helper.add(
       'responseTemplates',
       responseTemplates,
-    );
-    helper.add(
-      'responseType',
-      responseType,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
     );
     return helper.toString();
   }
@@ -231,43 +232,37 @@ class PutGatewayResponseRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'responseParameters':
-          if (value != null) {
-            result.responseParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.responseParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'responseTemplates':
-          if (value != null) {
-            result.responseTemplates.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.responseTemplates.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'statusCode':
-          if (value != null) {
-            result.statusCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -277,18 +272,20 @@ class PutGatewayResponseRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutGatewayResponseRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutGatewayResponseRequest
-        ? object.getPayload()
-        : (object as PutGatewayResponseRequestPayload);
-    final result = <Object?>[];
-    if (payload.responseParameters != null) {
-      result
+    final result$ = <Object?>[];
+    final PutGatewayResponseRequestPayload(
+      :responseParameters,
+      :responseTemplates,
+      :statusCode
+    ) = object;
+    if (responseParameters != null) {
+      result$
         ..add('responseParameters')
         ..add(serializers.serialize(
-          payload.responseParameters!,
+          responseParameters,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -298,11 +295,11 @@ class PutGatewayResponseRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.responseTemplates != null) {
-      result
+    if (responseTemplates != null) {
+      result$
         ..add('responseTemplates')
         ..add(serializers.serialize(
-          payload.responseTemplates!,
+          responseTemplates,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -312,14 +309,14 @@ class PutGatewayResponseRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.statusCode != null) {
-      result
+    if (statusCode != null) {
+      result$
         ..add('statusCode')
         ..add(serializers.serialize(
-          payload.statusCode!,
+          statusCode,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -8,16 +8,16 @@ part of smoke_test.dynamo_db.model.batch_execute_statement_input;
 
 class _$BatchExecuteStatementInput extends BatchExecuteStatementInput {
   @override
-  final _i3.ReturnConsumedCapacity? returnConsumedCapacity;
+  final _i5.BuiltList<_i3.BatchStatementRequest> statements;
   @override
-  final _i5.BuiltList<_i4.BatchStatementRequest> statements;
+  final _i4.ReturnConsumedCapacity? returnConsumedCapacity;
 
   factory _$BatchExecuteStatementInput(
           [void Function(BatchExecuteStatementInputBuilder)? updates]) =>
       (new BatchExecuteStatementInputBuilder()..update(updates))._build();
 
   _$BatchExecuteStatementInput._(
-      {this.returnConsumedCapacity, required this.statements})
+      {required this.statements, this.returnConsumedCapacity})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         statements, r'BatchExecuteStatementInput', 'statements');
@@ -36,15 +36,15 @@ class _$BatchExecuteStatementInput extends BatchExecuteStatementInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is BatchExecuteStatementInput &&
-        returnConsumedCapacity == other.returnConsumedCapacity &&
-        statements == other.statements;
+        statements == other.statements &&
+        returnConsumedCapacity == other.returnConsumedCapacity;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, returnConsumedCapacity.hashCode);
     _$hash = $jc(_$hash, statements.hashCode);
+    _$hash = $jc(_$hash, returnConsumedCapacity.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -55,18 +55,18 @@ class BatchExecuteStatementInputBuilder
         Builder<BatchExecuteStatementInput, BatchExecuteStatementInputBuilder> {
   _$BatchExecuteStatementInput? _$v;
 
-  _i3.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i3.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  _i5.ListBuilder<_i3.BatchStatementRequest>? _statements;
+  _i5.ListBuilder<_i3.BatchStatementRequest> get statements =>
+      _$this._statements ??= new _i5.ListBuilder<_i3.BatchStatementRequest>();
+  set statements(_i5.ListBuilder<_i3.BatchStatementRequest>? statements) =>
+      _$this._statements = statements;
+
+  _i4.ReturnConsumedCapacity? _returnConsumedCapacity;
+  _i4.ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
   set returnConsumedCapacity(
-          _i3.ReturnConsumedCapacity? returnConsumedCapacity) =>
+          _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
-
-  _i5.ListBuilder<_i4.BatchStatementRequest>? _statements;
-  _i5.ListBuilder<_i4.BatchStatementRequest> get statements =>
-      _$this._statements ??= new _i5.ListBuilder<_i4.BatchStatementRequest>();
-  set statements(_i5.ListBuilder<_i4.BatchStatementRequest>? statements) =>
-      _$this._statements = statements;
 
   BatchExecuteStatementInputBuilder() {
     BatchExecuteStatementInput._init(this);
@@ -75,8 +75,8 @@ class BatchExecuteStatementInputBuilder
   BatchExecuteStatementInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _returnConsumedCapacity = $v.returnConsumedCapacity;
       _statements = $v.statements.toBuilder();
+      _returnConsumedCapacity = $v.returnConsumedCapacity;
       _$v = null;
     }
     return this;
@@ -101,8 +101,8 @@ class BatchExecuteStatementInputBuilder
     try {
       _$result = _$v ??
           new _$BatchExecuteStatementInput._(
-              returnConsumedCapacity: returnConsumedCapacity,
-              statements: statements.build());
+              statements: statements.build(),
+              returnConsumedCapacity: returnConsumedCapacity);
     } catch (_) {
       late String _$failedField;
       try {

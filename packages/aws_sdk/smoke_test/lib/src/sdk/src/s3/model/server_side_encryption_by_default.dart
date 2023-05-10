@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.server_side_encryption_by_default; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,12 +21,12 @@ abstract class ServerSideEncryptionByDefault
             ServerSideEncryptionByDefaultBuilder> {
   /// Describes the default server-side encryption to apply to new objects in the bucket. If a PUT Object request doesn't specify any server-side encryption, this default encryption will be applied. If you don't specify a customer managed key at configuration, Amazon S3 automatically creates an Amazon Web Services KMS key in your Amazon Web Services account the first time that you add an object encrypted with SSE-KMS to a bucket. By default, Amazon S3 uses this KMS key for SSE-KMS. For more information, see [PUT Bucket encryption](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTencryption.html) in the _Amazon S3 API Reference_.
   factory ServerSideEncryptionByDefault({
-    String? kmsMasterKeyId,
     required _i2.ServerSideEncryption sseAlgorithm,
+    String? kmsMasterKeyId,
   }) {
     return _$ServerSideEncryptionByDefault._(
-      kmsMasterKeyId: kmsMasterKeyId,
       sseAlgorithm: sseAlgorithm,
+      kmsMasterKeyId: kmsMasterKeyId,
     );
   }
 
@@ -43,6 +44,9 @@ abstract class ServerSideEncryptionByDefault
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ServerSideEncryptionByDefaultBuilder b) {}
 
+  /// Server-side encryption algorithm to use for the default encryption.
+  _i2.ServerSideEncryption get sseAlgorithm;
+
   /// Amazon Web Services Key Management Service (KMS) customer Amazon Web Services KMS key ID to use for the default encryption. This parameter is allowed if and only if `SSEAlgorithm` is set to `aws:kms`.
   ///
   /// You can specify the key ID or the Amazon Resource Name (ARN) of the KMS key. However, if you are using encryption with cross-account or Amazon Web Services service operations you must use a fully qualified KMS key ARN. For more information, see [Using encryption for cross-account operations](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html#bucket-encryption-update-bucket-policy).
@@ -56,24 +60,21 @@ abstract class ServerSideEncryptionByDefault
   ///
   /// Amazon S3 only supports symmetric KMS keys and not asymmetric KMS keys. For more information, see [Using symmetric and asymmetric keys](https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html) in the _Amazon Web Services Key Management Service Developer Guide_.
   String? get kmsMasterKeyId;
-
-  /// Server-side encryption algorithm to use for the default encryption.
-  _i2.ServerSideEncryption get sseAlgorithm;
   @override
   List<Object?> get props => [
-        kmsMasterKeyId,
         sseAlgorithm,
+        kmsMasterKeyId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ServerSideEncryptionByDefault');
     helper.add(
-      'kmsMasterKeyId',
-      '***SENSITIVE***',
-    );
-    helper.add(
       'sseAlgorithm',
       sseAlgorithm,
+    );
+    helper.add(
+      'kmsMasterKeyId',
+      '***SENSITIVE***',
     );
     return helper.toString();
   }
@@ -105,24 +106,23 @@ class ServerSideEncryptionByDefaultRestXmlSerializer
     final result = ServerSideEncryptionByDefaultBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'KMSMasterKeyID':
-          if (value != null) {
-            result.kmsMasterKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.kmsMasterKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SSEAlgorithm':
           result.sseAlgorithm = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ServerSideEncryption),
           ) as _i2.ServerSideEncryption);
-          break;
       }
     }
 
@@ -132,30 +132,31 @@ class ServerSideEncryptionByDefaultRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ServerSideEncryptionByDefault object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ServerSideEncryptionByDefault);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ServerSideEncryptionByDefault',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.kmsMasterKeyId != null) {
-      result
+    final ServerSideEncryptionByDefault(:kmsMasterKeyId, :sseAlgorithm) =
+        object;
+    if (kmsMasterKeyId != null) {
+      result$
         ..add(const _i3.XmlElementName('KMSMasterKeyID'))
         ..add(serializers.serialize(
-          payload.kmsMasterKeyId!,
+          kmsMasterKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i3.XmlElementName('SSEAlgorithm'))
       ..add(serializers.serialize(
-        payload.sseAlgorithm,
+        sseAlgorithm,
         specifiedType: const FullType.nullable(_i2.ServerSideEncryption),
       ));
-    return result;
+    return result$;
   }
 }

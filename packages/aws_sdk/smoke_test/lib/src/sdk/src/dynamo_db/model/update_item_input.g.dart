@@ -8,50 +8,50 @@ part of smoke_test.dynamo_db.model.update_item_input;
 
 class _$UpdateItemInput extends UpdateItemInput {
   @override
-  final _i10.BuiltMap<String, _i3.AttributeValueUpdate>? attributeUpdates;
+  final String tableName;
   @override
-  final String? conditionExpression;
+  final _i10.BuiltMap<String, _i3.AttributeValue> key;
   @override
-  final _i4.ConditionalOperator? conditionalOperator;
+  final _i10.BuiltMap<String, _i4.AttributeValueUpdate>? attributeUpdates;
   @override
   final _i10.BuiltMap<String, _i5.ExpectedAttributeValue>? expected;
   @override
-  final _i10.BuiltMap<String, String>? expressionAttributeNames;
+  final _i6.ConditionalOperator? conditionalOperator;
   @override
-  final _i10.BuiltMap<String, _i6.AttributeValue>? expressionAttributeValues;
+  final _i7.ReturnValue? returnValues;
   @override
-  final _i10.BuiltMap<String, _i6.AttributeValue> key;
+  final _i8.ReturnConsumedCapacity? returnConsumedCapacity;
   @override
-  final _i7.ReturnConsumedCapacity? returnConsumedCapacity;
-  @override
-  final _i8.ReturnItemCollectionMetrics? returnItemCollectionMetrics;
-  @override
-  final _i9.ReturnValue? returnValues;
-  @override
-  final String tableName;
+  final _i9.ReturnItemCollectionMetrics? returnItemCollectionMetrics;
   @override
   final String? updateExpression;
+  @override
+  final String? conditionExpression;
+  @override
+  final _i10.BuiltMap<String, String>? expressionAttributeNames;
+  @override
+  final _i10.BuiltMap<String, _i3.AttributeValue>? expressionAttributeValues;
 
   factory _$UpdateItemInput([void Function(UpdateItemInputBuilder)? updates]) =>
       (new UpdateItemInputBuilder()..update(updates))._build();
 
   _$UpdateItemInput._(
-      {this.attributeUpdates,
-      this.conditionExpression,
-      this.conditionalOperator,
-      this.expected,
-      this.expressionAttributeNames,
-      this.expressionAttributeValues,
+      {required this.tableName,
       required this.key,
+      this.attributeUpdates,
+      this.expected,
+      this.conditionalOperator,
+      this.returnValues,
       this.returnConsumedCapacity,
       this.returnItemCollectionMetrics,
-      this.returnValues,
-      required this.tableName,
-      this.updateExpression})
+      this.updateExpression,
+      this.conditionExpression,
+      this.expressionAttributeNames,
+      this.expressionAttributeValues})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(key, r'UpdateItemInput', 'key');
     BuiltValueNullFieldError.checkNotNull(
         tableName, r'UpdateItemInput', 'tableName');
+    BuiltValueNullFieldError.checkNotNull(key, r'UpdateItemInput', 'key');
   }
 
   @override
@@ -66,35 +66,35 @@ class _$UpdateItemInput extends UpdateItemInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateItemInput &&
-        attributeUpdates == other.attributeUpdates &&
-        conditionExpression == other.conditionExpression &&
-        conditionalOperator == other.conditionalOperator &&
-        expected == other.expected &&
-        expressionAttributeNames == other.expressionAttributeNames &&
-        expressionAttributeValues == other.expressionAttributeValues &&
+        tableName == other.tableName &&
         key == other.key &&
+        attributeUpdates == other.attributeUpdates &&
+        expected == other.expected &&
+        conditionalOperator == other.conditionalOperator &&
+        returnValues == other.returnValues &&
         returnConsumedCapacity == other.returnConsumedCapacity &&
         returnItemCollectionMetrics == other.returnItemCollectionMetrics &&
-        returnValues == other.returnValues &&
-        tableName == other.tableName &&
-        updateExpression == other.updateExpression;
+        updateExpression == other.updateExpression &&
+        conditionExpression == other.conditionExpression &&
+        expressionAttributeNames == other.expressionAttributeNames &&
+        expressionAttributeValues == other.expressionAttributeValues;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, attributeUpdates.hashCode);
-    _$hash = $jc(_$hash, conditionExpression.hashCode);
-    _$hash = $jc(_$hash, conditionalOperator.hashCode);
-    _$hash = $jc(_$hash, expected.hashCode);
-    _$hash = $jc(_$hash, expressionAttributeNames.hashCode);
-    _$hash = $jc(_$hash, expressionAttributeValues.hashCode);
+    _$hash = $jc(_$hash, tableName.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
+    _$hash = $jc(_$hash, attributeUpdates.hashCode);
+    _$hash = $jc(_$hash, expected.hashCode);
+    _$hash = $jc(_$hash, conditionalOperator.hashCode);
+    _$hash = $jc(_$hash, returnValues.hashCode);
     _$hash = $jc(_$hash, returnConsumedCapacity.hashCode);
     _$hash = $jc(_$hash, returnItemCollectionMetrics.hashCode);
-    _$hash = $jc(_$hash, returnValues.hashCode);
-    _$hash = $jc(_$hash, tableName.hashCode);
     _$hash = $jc(_$hash, updateExpression.hashCode);
+    _$hash = $jc(_$hash, conditionExpression.hashCode);
+    _$hash = $jc(_$hash, expressionAttributeNames.hashCode);
+    _$hash = $jc(_$hash, expressionAttributeValues.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -104,25 +104,24 @@ class UpdateItemInputBuilder
     implements Builder<UpdateItemInput, UpdateItemInputBuilder> {
   _$UpdateItemInput? _$v;
 
-  _i10.MapBuilder<String, _i3.AttributeValueUpdate>? _attributeUpdates;
-  _i10.MapBuilder<String, _i3.AttributeValueUpdate> get attributeUpdates =>
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
+
+  _i10.MapBuilder<String, _i3.AttributeValue>? _key;
+  _i10.MapBuilder<String, _i3.AttributeValue> get key =>
+      _$this._key ??= new _i10.MapBuilder<String, _i3.AttributeValue>();
+  set key(_i10.MapBuilder<String, _i3.AttributeValue>? key) =>
+      _$this._key = key;
+
+  _i10.MapBuilder<String, _i4.AttributeValueUpdate>? _attributeUpdates;
+  _i10.MapBuilder<String, _i4.AttributeValueUpdate> get attributeUpdates =>
       _$this._attributeUpdates ??=
-          new _i10.MapBuilder<String, _i3.AttributeValueUpdate>();
+          new _i10.MapBuilder<String, _i4.AttributeValueUpdate>();
   set attributeUpdates(
-          _i10.MapBuilder<String, _i3.AttributeValueUpdate>?
+          _i10.MapBuilder<String, _i4.AttributeValueUpdate>?
               attributeUpdates) =>
       _$this._attributeUpdates = attributeUpdates;
-
-  String? _conditionExpression;
-  String? get conditionExpression => _$this._conditionExpression;
-  set conditionExpression(String? conditionExpression) =>
-      _$this._conditionExpression = conditionExpression;
-
-  _i4.ConditionalOperator? _conditionalOperator;
-  _i4.ConditionalOperator? get conditionalOperator =>
-      _$this._conditionalOperator;
-  set conditionalOperator(_i4.ConditionalOperator? conditionalOperator) =>
-      _$this._conditionalOperator = conditionalOperator;
 
   _i10.MapBuilder<String, _i5.ExpectedAttributeValue>? _expected;
   _i10.MapBuilder<String, _i5.ExpectedAttributeValue> get expected =>
@@ -130,6 +129,41 @@ class UpdateItemInputBuilder
           new _i10.MapBuilder<String, _i5.ExpectedAttributeValue>();
   set expected(_i10.MapBuilder<String, _i5.ExpectedAttributeValue>? expected) =>
       _$this._expected = expected;
+
+  _i6.ConditionalOperator? _conditionalOperator;
+  _i6.ConditionalOperator? get conditionalOperator =>
+      _$this._conditionalOperator;
+  set conditionalOperator(_i6.ConditionalOperator? conditionalOperator) =>
+      _$this._conditionalOperator = conditionalOperator;
+
+  _i7.ReturnValue? _returnValues;
+  _i7.ReturnValue? get returnValues => _$this._returnValues;
+  set returnValues(_i7.ReturnValue? returnValues) =>
+      _$this._returnValues = returnValues;
+
+  _i8.ReturnConsumedCapacity? _returnConsumedCapacity;
+  _i8.ReturnConsumedCapacity? get returnConsumedCapacity =>
+      _$this._returnConsumedCapacity;
+  set returnConsumedCapacity(
+          _i8.ReturnConsumedCapacity? returnConsumedCapacity) =>
+      _$this._returnConsumedCapacity = returnConsumedCapacity;
+
+  _i9.ReturnItemCollectionMetrics? _returnItemCollectionMetrics;
+  _i9.ReturnItemCollectionMetrics? get returnItemCollectionMetrics =>
+      _$this._returnItemCollectionMetrics;
+  set returnItemCollectionMetrics(
+          _i9.ReturnItemCollectionMetrics? returnItemCollectionMetrics) =>
+      _$this._returnItemCollectionMetrics = returnItemCollectionMetrics;
+
+  String? _updateExpression;
+  String? get updateExpression => _$this._updateExpression;
+  set updateExpression(String? updateExpression) =>
+      _$this._updateExpression = updateExpression;
+
+  String? _conditionExpression;
+  String? get conditionExpression => _$this._conditionExpression;
+  set conditionExpression(String? conditionExpression) =>
+      _$this._conditionExpression = conditionExpression;
 
   _i10.MapBuilder<String, String>? _expressionAttributeNames;
   _i10.MapBuilder<String, String> get expressionAttributeNames =>
@@ -139,48 +173,14 @@ class UpdateItemInputBuilder
           _i10.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
-  _i10.MapBuilder<String, _i6.AttributeValue>? _expressionAttributeValues;
-  _i10.MapBuilder<String, _i6.AttributeValue> get expressionAttributeValues =>
+  _i10.MapBuilder<String, _i3.AttributeValue>? _expressionAttributeValues;
+  _i10.MapBuilder<String, _i3.AttributeValue> get expressionAttributeValues =>
       _$this._expressionAttributeValues ??=
-          new _i10.MapBuilder<String, _i6.AttributeValue>();
+          new _i10.MapBuilder<String, _i3.AttributeValue>();
   set expressionAttributeValues(
-          _i10.MapBuilder<String, _i6.AttributeValue>?
+          _i10.MapBuilder<String, _i3.AttributeValue>?
               expressionAttributeValues) =>
       _$this._expressionAttributeValues = expressionAttributeValues;
-
-  _i10.MapBuilder<String, _i6.AttributeValue>? _key;
-  _i10.MapBuilder<String, _i6.AttributeValue> get key =>
-      _$this._key ??= new _i10.MapBuilder<String, _i6.AttributeValue>();
-  set key(_i10.MapBuilder<String, _i6.AttributeValue>? key) =>
-      _$this._key = key;
-
-  _i7.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i7.ReturnConsumedCapacity? get returnConsumedCapacity =>
-      _$this._returnConsumedCapacity;
-  set returnConsumedCapacity(
-          _i7.ReturnConsumedCapacity? returnConsumedCapacity) =>
-      _$this._returnConsumedCapacity = returnConsumedCapacity;
-
-  _i8.ReturnItemCollectionMetrics? _returnItemCollectionMetrics;
-  _i8.ReturnItemCollectionMetrics? get returnItemCollectionMetrics =>
-      _$this._returnItemCollectionMetrics;
-  set returnItemCollectionMetrics(
-          _i8.ReturnItemCollectionMetrics? returnItemCollectionMetrics) =>
-      _$this._returnItemCollectionMetrics = returnItemCollectionMetrics;
-
-  _i9.ReturnValue? _returnValues;
-  _i9.ReturnValue? get returnValues => _$this._returnValues;
-  set returnValues(_i9.ReturnValue? returnValues) =>
-      _$this._returnValues = returnValues;
-
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
-
-  String? _updateExpression;
-  String? get updateExpression => _$this._updateExpression;
-  set updateExpression(String? updateExpression) =>
-      _$this._updateExpression = updateExpression;
 
   UpdateItemInputBuilder() {
     UpdateItemInput._init(this);
@@ -189,18 +189,18 @@ class UpdateItemInputBuilder
   UpdateItemInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _attributeUpdates = $v.attributeUpdates?.toBuilder();
-      _conditionExpression = $v.conditionExpression;
-      _conditionalOperator = $v.conditionalOperator;
-      _expected = $v.expected?.toBuilder();
-      _expressionAttributeNames = $v.expressionAttributeNames?.toBuilder();
-      _expressionAttributeValues = $v.expressionAttributeValues?.toBuilder();
+      _tableName = $v.tableName;
       _key = $v.key.toBuilder();
+      _attributeUpdates = $v.attributeUpdates?.toBuilder();
+      _expected = $v.expected?.toBuilder();
+      _conditionalOperator = $v.conditionalOperator;
+      _returnValues = $v.returnValues;
       _returnConsumedCapacity = $v.returnConsumedCapacity;
       _returnItemCollectionMetrics = $v.returnItemCollectionMetrics;
-      _returnValues = $v.returnValues;
-      _tableName = $v.tableName;
       _updateExpression = $v.updateExpression;
+      _conditionExpression = $v.conditionExpression;
+      _expressionAttributeNames = $v.expressionAttributeNames?.toBuilder();
+      _expressionAttributeValues = $v.expressionAttributeValues?.toBuilder();
       _$v = null;
     }
     return this;
@@ -225,33 +225,33 @@ class UpdateItemInputBuilder
     try {
       _$result = _$v ??
           new _$UpdateItemInput._(
-              attributeUpdates: _attributeUpdates?.build(),
-              conditionExpression: conditionExpression,
-              conditionalOperator: conditionalOperator,
-              expected: _expected?.build(),
-              expressionAttributeNames: _expressionAttributeNames?.build(),
-              expressionAttributeValues: _expressionAttributeValues?.build(),
-              key: key.build(),
-              returnConsumedCapacity: returnConsumedCapacity,
-              returnItemCollectionMetrics: returnItemCollectionMetrics,
-              returnValues: returnValues,
               tableName: BuiltValueNullFieldError.checkNotNull(
                   tableName, r'UpdateItemInput', 'tableName'),
-              updateExpression: updateExpression);
+              key: key.build(),
+              attributeUpdates: _attributeUpdates?.build(),
+              expected: _expected?.build(),
+              conditionalOperator: conditionalOperator,
+              returnValues: returnValues,
+              returnConsumedCapacity: returnConsumedCapacity,
+              returnItemCollectionMetrics: returnItemCollectionMetrics,
+              updateExpression: updateExpression,
+              conditionExpression: conditionExpression,
+              expressionAttributeNames: _expressionAttributeNames?.build(),
+              expressionAttributeValues: _expressionAttributeValues?.build());
     } catch (_) {
       late String _$failedField;
       try {
+        _$failedField = 'key';
+        key.build();
         _$failedField = 'attributeUpdates';
         _attributeUpdates?.build();
-
         _$failedField = 'expected';
         _expected?.build();
+
         _$failedField = 'expressionAttributeNames';
         _expressionAttributeNames?.build();
         _$failedField = 'expressionAttributeValues';
         _expressionAttributeValues?.build();
-        _$failedField = 'key';
-        key.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'UpdateItemInput', _$failedField, e.toString());

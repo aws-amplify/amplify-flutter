@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_configuration_aggregator_sources_status_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,15 +22,15 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
             DescribeConfigurationAggregatorSourcesStatusRequestBuilder> {
   factory DescribeConfigurationAggregatorSourcesStatusRequest({
     required String configurationAggregatorName,
-    int? limit,
-    String? nextToken,
     List<_i3.AggregatedSourceStatusType>? updateStatus,
+    String? nextToken,
+    int? limit,
   }) {
     return _$DescribeConfigurationAggregatorSourcesStatusRequest._(
       configurationAggregatorName: configurationAggregatorName,
-      limit: limit,
-      nextToken: nextToken,
       updateStatus: updateStatus == null ? null : _i4.BuiltList(updateStatus),
+      nextToken: nextToken,
+      limit: limit,
     );
   }
 
@@ -57,12 +58,6 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
 
-  /// The maximum number of AggregatorSourceStatus returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int? get limit;
-
-  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// Filters the status type.
   ///
   /// *   Valid value FAILED indicates errors while moving data.
@@ -71,14 +66,20 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
   ///
   /// *   Valid value OUTDATED indicates the data is not the most recent.
   _i4.BuiltList<_i3.AggregatedSourceStatusType>? get updateStatus;
+
+  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
+
+  /// The maximum number of AggregatorSourceStatus returned on each page. The default is maximum. If you specify 0, Config uses the default.
+  int? get limit;
   @override
   DescribeConfigurationAggregatorSourcesStatusRequest getPayload() => this;
   @override
   List<Object?> get props => [
         configurationAggregatorName,
-        limit,
-        nextToken,
         updateStatus,
+        nextToken,
+        limit,
       ];
   @override
   String toString() {
@@ -89,16 +90,16 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
       configurationAggregatorName,
     );
     helper.add(
-      'limit',
-      limit,
+      'updateStatus',
+      updateStatus,
     );
     helper.add(
       'nextToken',
       nextToken,
     );
     helper.add(
-      'updateStatus',
-      updateStatus,
+      'limit',
+      limit,
     );
     return helper.toString();
   }
@@ -134,40 +135,33 @@ class DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigurationAggregatorName':
           result.configurationAggregatorName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
-        case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'UpdateStatus':
-          if (value != null) {
-            result.updateStatus.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.AggregatedSourceStatusType)],
-              ),
-            ) as _i4.BuiltList<_i3.AggregatedSourceStatusType>));
-          }
-          break;
+          result.updateStatus.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.AggregatedSourceStatusType)],
+            ),
+          ) as _i4.BuiltList<_i3.AggregatedSourceStatusType>));
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'Limit':
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -177,45 +171,50 @@ class DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeConfigurationAggregatorSourcesStatusRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload =
-        (object as DescribeConfigurationAggregatorSourcesStatusRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DescribeConfigurationAggregatorSourcesStatusRequest(
+      :configurationAggregatorName,
+      :updateStatus,
+      :nextToken,
+      :limit
+    ) = object;
+    result$.addAll([
       'ConfigurationAggregatorName',
       serializers.serialize(
-        payload.configurationAggregatorName,
+        configurationAggregatorName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.updateStatus != null) {
-      result
+    ]);
+    if (updateStatus != null) {
+      result$
         ..add('UpdateStatus')
         ..add(serializers.serialize(
-          payload.updateStatus!,
+          updateStatus,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.AggregatedSourceStatusType)],
           ),
         ));
     }
-    return result;
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (limit != null) {
+      result$
+        ..add('Limit')
+        ..add(serializers.serialize(
+          limit,
+          specifiedType: const FullType(int),
+        ));
+    }
+    return result$;
   }
 }

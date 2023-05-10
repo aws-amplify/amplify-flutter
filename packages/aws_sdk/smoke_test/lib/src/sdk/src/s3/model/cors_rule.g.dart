@@ -8,6 +8,8 @@ part of smoke_test.s3.model.cors_rule;
 
 class _$CorsRule extends CorsRule {
   @override
+  final String? id;
+  @override
   final _i2.BuiltList<String>? allowedHeaders;
   @override
   final _i2.BuiltList<String> allowedMethods;
@@ -16,19 +18,17 @@ class _$CorsRule extends CorsRule {
   @override
   final _i2.BuiltList<String>? exposeHeaders;
   @override
-  final String? id;
-  @override
   final int? maxAgeSeconds;
 
   factory _$CorsRule([void Function(CorsRuleBuilder)? updates]) =>
       (new CorsRuleBuilder()..update(updates))._build();
 
   _$CorsRule._(
-      {this.allowedHeaders,
+      {this.id,
+      this.allowedHeaders,
       required this.allowedMethods,
       required this.allowedOrigins,
       this.exposeHeaders,
-      this.id,
       this.maxAgeSeconds})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -48,22 +48,22 @@ class _$CorsRule extends CorsRule {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CorsRule &&
+        id == other.id &&
         allowedHeaders == other.allowedHeaders &&
         allowedMethods == other.allowedMethods &&
         allowedOrigins == other.allowedOrigins &&
         exposeHeaders == other.exposeHeaders &&
-        id == other.id &&
         maxAgeSeconds == other.maxAgeSeconds;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, allowedHeaders.hashCode);
     _$hash = $jc(_$hash, allowedMethods.hashCode);
     _$hash = $jc(_$hash, allowedOrigins.hashCode);
     _$hash = $jc(_$hash, exposeHeaders.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, maxAgeSeconds.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -72,6 +72,10 @@ class _$CorsRule extends CorsRule {
 
 class CorsRuleBuilder implements Builder<CorsRule, CorsRuleBuilder> {
   _$CorsRule? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
   _i2.ListBuilder<String>? _allowedHeaders;
   _i2.ListBuilder<String> get allowedHeaders =>
@@ -97,10 +101,6 @@ class CorsRuleBuilder implements Builder<CorsRule, CorsRuleBuilder> {
   set exposeHeaders(_i2.ListBuilder<String>? exposeHeaders) =>
       _$this._exposeHeaders = exposeHeaders;
 
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
   int? _maxAgeSeconds;
   int? get maxAgeSeconds => _$this._maxAgeSeconds;
   set maxAgeSeconds(int? maxAgeSeconds) =>
@@ -113,11 +113,11 @@ class CorsRuleBuilder implements Builder<CorsRule, CorsRuleBuilder> {
   CorsRuleBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
       _allowedHeaders = $v.allowedHeaders?.toBuilder();
       _allowedMethods = $v.allowedMethods.toBuilder();
       _allowedOrigins = $v.allowedOrigins.toBuilder();
       _exposeHeaders = $v.exposeHeaders?.toBuilder();
-      _id = $v.id;
       _maxAgeSeconds = $v.maxAgeSeconds;
       _$v = null;
     }
@@ -143,11 +143,11 @@ class CorsRuleBuilder implements Builder<CorsRule, CorsRuleBuilder> {
     try {
       _$result = _$v ??
           new _$CorsRule._(
+              id: id,
               allowedHeaders: _allowedHeaders?.build(),
               allowedMethods: allowedMethods.build(),
               allowedOrigins: allowedOrigins.build(),
               exposeHeaders: _exposeHeaders?.build(),
-              id: id,
               maxAgeSeconds: maxAgeSeconds);
     } catch (_) {
       late String _$failedField;

@@ -8,17 +8,17 @@ part of smoke_test.s3.model.metrics_and_operator;
 
 class _$MetricsAndOperator extends MetricsAndOperator {
   @override
-  final String? accessPointArn;
-  @override
   final String? prefix;
   @override
   final _i3.BuiltList<_i2.Tag>? tags;
+  @override
+  final String? accessPointArn;
 
   factory _$MetricsAndOperator(
           [void Function(MetricsAndOperatorBuilder)? updates]) =>
       (new MetricsAndOperatorBuilder()..update(updates))._build();
 
-  _$MetricsAndOperator._({this.accessPointArn, this.prefix, this.tags})
+  _$MetricsAndOperator._({this.prefix, this.tags, this.accessPointArn})
       : super._();
 
   @override
@@ -34,17 +34,17 @@ class _$MetricsAndOperator extends MetricsAndOperator {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is MetricsAndOperator &&
-        accessPointArn == other.accessPointArn &&
         prefix == other.prefix &&
-        tags == other.tags;
+        tags == other.tags &&
+        accessPointArn == other.accessPointArn;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, accessPointArn.hashCode);
     _$hash = $jc(_$hash, prefix.hashCode);
     _$hash = $jc(_$hash, tags.hashCode);
+    _$hash = $jc(_$hash, accessPointArn.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,11 +53,6 @@ class _$MetricsAndOperator extends MetricsAndOperator {
 class MetricsAndOperatorBuilder
     implements Builder<MetricsAndOperator, MetricsAndOperatorBuilder> {
   _$MetricsAndOperator? _$v;
-
-  String? _accessPointArn;
-  String? get accessPointArn => _$this._accessPointArn;
-  set accessPointArn(String? accessPointArn) =>
-      _$this._accessPointArn = accessPointArn;
 
   String? _prefix;
   String? get prefix => _$this._prefix;
@@ -68,6 +63,11 @@ class MetricsAndOperatorBuilder
       _$this._tags ??= new _i3.ListBuilder<_i2.Tag>();
   set tags(_i3.ListBuilder<_i2.Tag>? tags) => _$this._tags = tags;
 
+  String? _accessPointArn;
+  String? get accessPointArn => _$this._accessPointArn;
+  set accessPointArn(String? accessPointArn) =>
+      _$this._accessPointArn = accessPointArn;
+
   MetricsAndOperatorBuilder() {
     MetricsAndOperator._init(this);
   }
@@ -75,9 +75,9 @@ class MetricsAndOperatorBuilder
   MetricsAndOperatorBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _accessPointArn = $v.accessPointArn;
       _prefix = $v.prefix;
       _tags = $v.tags?.toBuilder();
+      _accessPointArn = $v.accessPointArn;
       _$v = null;
     }
     return this;
@@ -102,9 +102,9 @@ class MetricsAndOperatorBuilder
     try {
       _$result = _$v ??
           new _$MetricsAndOperator._(
-              accessPointArn: accessPointArn,
               prefix: prefix,
-              tags: _tags?.build());
+              tags: _tags?.build(),
+              accessPointArn: accessPointArn);
     } catch (_) {
       late String _$failedField;
       try {

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_bucket_analytics_configuration_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -95,30 +96,28 @@ class GetBucketAnalyticsConfigurationOutputRestXmlSerializer
     final result = _i3.AnalyticsConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Id':
           result.id = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Filter':
-          if (value != null) {
-            result.filter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.AnalyticsFilter),
-            ) as _i4.AnalyticsFilter);
-          }
-          break;
+          result.filter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.AnalyticsFilter),
+          ) as _i4.AnalyticsFilter);
         case 'StorageClassAnalysis':
           result.storageClassAnalysis.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i5.StorageClassAnalysis),
           ) as _i5.StorageClassAnalysis));
-          break;
       }
     }
 
@@ -128,41 +127,37 @@ class GetBucketAnalyticsConfigurationOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i3.AnalyticsConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is GetBucketAnalyticsConfigurationOutput
-        ? object.getPayload()
-        : (object as _i3.AnalyticsConfiguration?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'AnalyticsConfiguration',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
-    result
+    final _i3.AnalyticsConfiguration(:id, :filter, :storageClassAnalysis) =
+        object;
+    result$
       ..add(const _i2.XmlElementName('Id'))
       ..add(serializers.serialize(
-        payload.id,
+        id,
         specifiedType: const FullType(String),
       ));
-    if (payload.filter != null) {
-      result
+    if (filter != null) {
+      result$
         ..add(const _i2.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i4.AnalyticsFilter),
         ));
     }
-    result
+    result$
       ..add(const _i2.XmlElementName('StorageClassAnalysis'))
       ..add(serializers.serialize(
-        payload.storageClassAnalysis,
+        storageClassAnalysis,
         specifiedType: const FullType(_i5.StorageClassAnalysis),
       ));
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.rest_json_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -1895,8 +1896,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _allQueryStringTypesProtocol.contentType;
     try {
-      final payload = (await _allQueryStringTypesProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _allQueryStringTypesProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i5.AllQueryStringTypesInputPayload),
       ) as _i5.AllQueryStringTypesInputPayload);
       final input = _i5.AllQueryStringTypesInput.fromRequest(
@@ -1909,7 +1911,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _allQueryStringTypesProtocol.serialize(
+      final body = await _allQueryStringTypesProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -1936,9 +1938,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _constantAndVariableQueryStringProtocol.contentType;
     try {
-      final payload =
-          (await _constantAndVariableQueryStringProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _constantAndVariableQueryStringProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i6.ConstantAndVariableQueryStringInputPayload),
       ) as _i6.ConstantAndVariableQueryStringInputPayload);
@@ -1952,7 +1955,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _constantAndVariableQueryStringProtocol.serialize(
+      final body = await _constantAndVariableQueryStringProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -1981,8 +1985,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _constantQueryStringProtocol.contentType;
     try {
-      final payload = (await _constantQueryStringProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _constantQueryStringProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i7.ConstantQueryStringInputPayload),
       ) as _i7.ConstantQueryStringInputPayload);
       final input = _i7.ConstantQueryStringInput.fromRequest(
@@ -1995,7 +2000,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _constantQueryStringProtocol.serialize(
+      final body = await _constantQueryStringProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2021,8 +2026,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _datetimeOffsetsProtocol.contentType;
     try {
-      final payload = (await _datetimeOffsetsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _datetimeOffsetsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -2031,7 +2037,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _datetimeOffsetsProtocol.serialize(
+      final body = await _datetimeOffsetsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i8.DatetimeOffsetsOutput,
@@ -2057,8 +2063,8 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _documentTypeProtocol.contentType;
     try {
-      final payload = (await _documentTypeProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _documentTypeProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i9.DocumentTypeInputOutput),
       ) as _i9.DocumentTypeInputOutput);
       final input = _i9.DocumentTypeInputOutput.fromRequest(
@@ -2071,7 +2077,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _documentTypeProtocol.serialize(
+      final body = await _documentTypeProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i9.DocumentTypeInputOutput,
@@ -2097,8 +2103,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _documentTypeAsPayloadProtocol.contentType;
     try {
-      final payload = (await _documentTypeAsPayloadProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _documentTypeAsPayloadProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i98.JsonObject),
       ) as _i98.JsonObject?);
       final input = _i10.DocumentTypeAsPayloadInputOutput.fromRequest(
@@ -2111,7 +2118,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _documentTypeAsPayloadProtocol.serialize(
+      final body =
+          await _documentTypeAsPayloadProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i10.DocumentTypeAsPayloadInputOutput,
@@ -2138,8 +2146,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _emptyInputAndEmptyOutputProtocol.contentType;
     try {
-      final payload = (await _emptyInputAndEmptyOutputProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _emptyInputAndEmptyOutputProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i12.EmptyInputAndEmptyOutputInput),
       ) as _i12.EmptyInputAndEmptyOutputInput);
       final input = _i12.EmptyInputAndEmptyOutputInput.fromRequest(
@@ -2152,7 +2161,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _emptyInputAndEmptyOutputProtocol.serialize(
+      final body =
+          await _emptyInputAndEmptyOutputProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i11.EmptyInputAndEmptyOutputOutput,
@@ -2178,8 +2188,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _endpointOperationProtocol.contentType;
     try {
-      final payload = (await _endpointOperationProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _endpointOperationProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -2188,7 +2199,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _endpointOperationProtocol.serialize(
+      final body = await _endpointOperationProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2215,9 +2226,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _endpointWithHostLabelOperationProtocol.contentType;
     try {
-      final payload =
-          (await _endpointWithHostLabelOperationProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _endpointWithHostLabelOperationProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i13.HostLabelInput),
       ) as _i13.HostLabelInput);
       final input = _i13.HostLabelInput.fromRequest(
@@ -2230,7 +2242,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _endpointWithHostLabelOperationProtocol.serialize(
+      final body = await _endpointWithHostLabelOperationProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2256,8 +2269,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _fractionalSecondsProtocol.contentType;
     try {
-      final payload = (await _fractionalSecondsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _fractionalSecondsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -2266,7 +2280,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _fractionalSecondsProtocol.serialize(
+      final body = await _fractionalSecondsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i14.FractionalSecondsOutput,
@@ -2292,8 +2306,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _greetingWithErrorsProtocol.contentType;
     try {
-      final payload = (await _greetingWithErrorsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _greetingWithErrorsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -2302,7 +2317,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _greetingWithErrorsProtocol.serialize(
+      final body = await _greetingWithErrorsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i15.GreetingWithErrorsOutput,
@@ -2316,7 +2331,7 @@ class _RestJsonProtocolServer
       );
     } on _i103.ComplexError catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ComplexError';
-      final body = _greetingWithErrorsProtocol.serialize(
+      final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i103.ComplexError,
@@ -2331,7 +2346,7 @@ class _RestJsonProtocolServer
       );
     } on _i104.FooError catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'FooError';
-      final body = _greetingWithErrorsProtocol.serialize(
+      final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i104.FooError,
@@ -2346,7 +2361,7 @@ class _RestJsonProtocolServer
       );
     } on _i105.InvalidGreeting catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'InvalidGreeting';
-      final body = _greetingWithErrorsProtocol.serialize(
+      final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i105.InvalidGreeting,
@@ -2373,8 +2388,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _hostWithPathOperationProtocol.contentType;
     try {
-      final payload = (await _hostWithPathOperationProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _hostWithPathOperationProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -2383,7 +2399,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _hostWithPathOperationProtocol.serialize(
+      final body =
+          await _hostWithPathOperationProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2409,8 +2426,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpChecksumRequiredProtocol.contentType;
     try {
-      final payload = (await _httpChecksumRequiredProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpChecksumRequiredProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i16.HttpChecksumRequiredInputOutput),
       ) as _i16.HttpChecksumRequiredInputOutput);
       final input = _i16.HttpChecksumRequiredInputOutput.fromRequest(
@@ -2423,7 +2441,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _httpChecksumRequiredProtocol.serialize(
+      final body = await _httpChecksumRequiredProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i16.HttpChecksumRequiredInputOutput,
@@ -2449,8 +2467,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpEnumPayloadProtocol.contentType;
     try {
-      final payload = (await _httpEnumPayloadProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpEnumPayloadProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i99.StringEnum),
       ) as _i99.StringEnum?);
       final input = _i17.EnumPayloadInput.fromRequest(
@@ -2463,7 +2482,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _httpEnumPayloadProtocol.serialize(
+      final body = await _httpEnumPayloadProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i17.EnumPayloadInput,
@@ -2489,8 +2508,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpPayloadTraitsProtocol.contentType;
     try {
-      final payload = (await _httpPayloadTraitsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpPayloadTraitsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i100.Uint8List),
       ) as _i100.Uint8List?);
       final input = _i18.HttpPayloadTraitsInputOutput.fromRequest(
@@ -2506,7 +2526,7 @@ class _RestJsonProtocolServer
         context.response.headers['X-Foo'] = output.foo!;
       }
       const statusCode = 200;
-      final body = _httpPayloadTraitsProtocol.serialize(
+      final body = await _httpPayloadTraitsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i18.HttpPayloadTraitsInputOutput,
@@ -2533,9 +2553,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpPayloadTraitsWithMediaTypeProtocol.contentType;
     try {
-      final payload =
-          (await _httpPayloadTraitsWithMediaTypeProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpPayloadTraitsWithMediaTypeProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i100.Uint8List),
       ) as _i100.Uint8List?);
       final input = _i19.HttpPayloadTraitsWithMediaTypeInputOutput.fromRequest(
@@ -2551,7 +2572,8 @@ class _RestJsonProtocolServer
         context.response.headers['X-Foo'] = output.foo!;
       }
       const statusCode = 200;
-      final body = _httpPayloadTraitsWithMediaTypeProtocol.serialize(
+      final body = await _httpPayloadTraitsWithMediaTypeProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i19.HttpPayloadTraitsWithMediaTypeInputOutput,
@@ -2578,8 +2600,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpPayloadWithStructureProtocol.contentType;
     try {
-      final payload = (await _httpPayloadWithStructureProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpPayloadWithStructureProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i101.NestedPayload),
       ) as _i101.NestedPayload?);
       final input = _i20.HttpPayloadWithStructureInputOutput.fromRequest(
@@ -2592,7 +2615,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _httpPayloadWithStructureProtocol.serialize(
+      final body =
+          await _httpPayloadWithStructureProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i20.HttpPayloadWithStructureInputOutput,
@@ -2618,8 +2642,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpPrefixHeadersProtocol.contentType;
     try {
-      final payload = (await _httpPrefixHeadersProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpPrefixHeadersProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i22.HttpPrefixHeadersInputPayload),
       ) as _i22.HttpPrefixHeadersInputPayload);
       final input = _i22.HttpPrefixHeadersInput.fromRequest(
@@ -2632,7 +2657,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _httpPrefixHeadersProtocol.serialize(
+      final body = await _httpPrefixHeadersProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i21.HttpPrefixHeadersOutput,
@@ -2659,8 +2684,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpPrefixHeadersInResponseProtocol.contentType;
     try {
-      final payload = (await _httpPrefixHeadersInResponseProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpPrefixHeadersInResponseProtocol.wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i24.HttpPrefixHeadersInResponseInput),
       ) as _i24.HttpPrefixHeadersInResponseInput);
       final input = _i24.HttpPrefixHeadersInResponseInput.fromRequest(
@@ -2673,7 +2699,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _httpPrefixHeadersInResponseProtocol.serialize(
+      final body =
+          await _httpPrefixHeadersInResponseProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i23.HttpPrefixHeadersInResponseOutput,
@@ -2703,8 +2730,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpRequestWithFloatLabelsProtocol.contentType;
     try {
-      final payload = (await _httpRequestWithFloatLabelsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpRequestWithFloatLabelsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i25.HttpRequestWithFloatLabelsInputPayload),
       ) as _i25.HttpRequestWithFloatLabelsInputPayload);
@@ -2721,7 +2749,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _httpRequestWithFloatLabelsProtocol.serialize(
+      final body =
+          await _httpRequestWithFloatLabelsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2751,9 +2780,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpRequestWithGreedyLabelInPathProtocol.contentType;
     try {
-      final payload =
-          (await _httpRequestWithGreedyLabelInPathProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpRequestWithGreedyLabelInPathProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i26.HttpRequestWithGreedyLabelInPathInputPayload),
       ) as _i26.HttpRequestWithGreedyLabelInPathInputPayload);
@@ -2770,7 +2800,9 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _httpRequestWithGreedyLabelInPathProtocol.serialize(
+      final body = await _httpRequestWithGreedyLabelInPathProtocol
+          .wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2806,8 +2838,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpRequestWithLabelsProtocol.contentType;
     try {
-      final payload = (await _httpRequestWithLabelsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpRequestWithLabelsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i27.HttpRequestWithLabelsInputPayload),
       ) as _i27.HttpRequestWithLabelsInputPayload);
       final input = _i27.HttpRequestWithLabelsInput.fromRequest(
@@ -2829,7 +2862,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _httpRequestWithLabelsProtocol.serialize(
+      final body =
+          await _httpRequestWithLabelsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2864,9 +2898,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpRequestWithLabelsAndTimestampFormatProtocol.contentType;
     try {
-      final payload =
-          (await _httpRequestWithLabelsAndTimestampFormatProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpRequestWithLabelsAndTimestampFormatProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(
             _i28.HttpRequestWithLabelsAndTimestampFormatInputPayload),
       ) as _i28.HttpRequestWithLabelsAndTimestampFormatInputPayload);
@@ -2889,7 +2924,9 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _httpRequestWithLabelsAndTimestampFormatProtocol.serialize(
+      final body = await _httpRequestWithLabelsAndTimestampFormatProtocol
+          .wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2918,8 +2955,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpRequestWithRegexLiteralProtocol.contentType;
     try {
-      final payload = (await _httpRequestWithRegexLiteralProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpRequestWithRegexLiteralProtocol.wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i29.HttpRequestWithRegexLiteralInputPayload),
       ) as _i29.HttpRequestWithRegexLiteralInputPayload);
@@ -2933,7 +2971,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _httpRequestWithRegexLiteralProtocol.serialize(
+      final body =
+          await _httpRequestWithRegexLiteralProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -2959,8 +2998,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpResponseCodeProtocol.contentType;
     try {
-      final payload = (await _httpResponseCodeProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpResponseCodeProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -2969,7 +3009,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _httpResponseCodeProtocol.serialize(
+      final body = await _httpResponseCodeProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i30.HttpResponseCodeOutput,
@@ -2995,8 +3035,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _httpStringPayloadProtocol.contentType;
     try {
-      final payload = (await _httpStringPayloadProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpStringPayloadProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(String),
       ) as String?);
       final input = _i31.StringPayloadInput.fromRequest(
@@ -3009,7 +3050,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _httpStringPayloadProtocol.serialize(
+      final body = await _httpStringPayloadProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i31.StringPayloadInput,
@@ -3036,8 +3077,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _ignoreQueryParamsInResponseProtocol.contentType;
     try {
-      final payload = (await _ignoreQueryParamsInResponseProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _ignoreQueryParamsInResponseProtocol.wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -3046,7 +3088,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _ignoreQueryParamsInResponseProtocol.serialize(
+      final body =
+          await _ignoreQueryParamsInResponseProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i32.IgnoreQueryParamsInResponseOutput,
@@ -3073,8 +3116,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _inputAndOutputWithHeadersProtocol.contentType;
     try {
-      final payload = (await _inputAndOutputWithHeadersProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _inputAndOutputWithHeadersProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i33.InputAndOutputWithHeadersIoPayload),
       ) as _i33.InputAndOutputWithHeadersIoPayload);
       final input = _i33.InputAndOutputWithHeadersIo.fromRequest(
@@ -3171,7 +3215,8 @@ class _RestJsonProtocolServer
             .join(', ');
       }
       const statusCode = 200;
-      final body = _inputAndOutputWithHeadersProtocol.serialize(
+      final body =
+          await _inputAndOutputWithHeadersProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i33.InputAndOutputWithHeadersIo,
@@ -3196,8 +3241,8 @@ class _RestJsonProtocolServer
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonBlobsProtocol.contentType;
     try {
-      final payload = (await _jsonBlobsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _jsonBlobsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i34.JsonBlobsInputOutput),
       ) as _i34.JsonBlobsInputOutput);
       final input = _i34.JsonBlobsInputOutput.fromRequest(
@@ -3210,7 +3255,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _jsonBlobsProtocol.serialize(
+      final body = await _jsonBlobsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i34.JsonBlobsInputOutput,
@@ -3235,8 +3280,8 @@ class _RestJsonProtocolServer
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonEnumsProtocol.contentType;
     try {
-      final payload = (await _jsonEnumsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _jsonEnumsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i35.JsonEnumsInputOutput),
       ) as _i35.JsonEnumsInputOutput);
       final input = _i35.JsonEnumsInputOutput.fromRequest(
@@ -3249,7 +3294,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _jsonEnumsProtocol.serialize(
+      final body = await _jsonEnumsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i35.JsonEnumsInputOutput,
@@ -3275,8 +3320,8 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _jsonIntEnumsProtocol.contentType;
     try {
-      final payload = (await _jsonIntEnumsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _jsonIntEnumsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i36.JsonIntEnumsInputOutput),
       ) as _i36.JsonIntEnumsInputOutput);
       final input = _i36.JsonIntEnumsInputOutput.fromRequest(
@@ -3289,7 +3334,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _jsonIntEnumsProtocol.serialize(
+      final body = await _jsonIntEnumsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i36.JsonIntEnumsInputOutput,
@@ -3314,8 +3359,8 @@ class _RestJsonProtocolServer
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonListsProtocol.contentType;
     try {
-      final payload = (await _jsonListsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _jsonListsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i37.JsonListsInputOutput),
       ) as _i37.JsonListsInputOutput);
       final input = _i37.JsonListsInputOutput.fromRequest(
@@ -3328,7 +3373,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _jsonListsProtocol.serialize(
+      final body = await _jsonListsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i37.JsonListsInputOutput,
@@ -3353,8 +3398,8 @@ class _RestJsonProtocolServer
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonMapsProtocol.contentType;
     try {
-      final payload = (await _jsonMapsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _jsonMapsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i38.JsonMapsInputOutput),
       ) as _i38.JsonMapsInputOutput);
       final input = _i38.JsonMapsInputOutput.fromRequest(
@@ -3367,7 +3412,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _jsonMapsProtocol.serialize(
+      final body = await _jsonMapsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i38.JsonMapsInputOutput,
@@ -3393,8 +3438,8 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _jsonTimestampsProtocol.contentType;
     try {
-      final payload = (await _jsonTimestampsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _jsonTimestampsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i39.JsonTimestampsInputOutput),
       ) as _i39.JsonTimestampsInputOutput);
       final input = _i39.JsonTimestampsInputOutput.fromRequest(
@@ -3407,7 +3452,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _jsonTimestampsProtocol.serialize(
+      final body = await _jsonTimestampsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i39.JsonTimestampsInputOutput,
@@ -3432,8 +3477,8 @@ class _RestJsonProtocolServer
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonUnionsProtocol.contentType;
     try {
-      final payload = (await _jsonUnionsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _jsonUnionsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i40.UnionInputOutput),
       ) as _i40.UnionInputOutput);
       final input = _i40.UnionInputOutput.fromRequest(
@@ -3446,7 +3491,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _jsonUnionsProtocol.serialize(
+      final body = await _jsonUnionsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i40.UnionInputOutput,
@@ -3473,8 +3518,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedAcceptWithBodyProtocol.contentType;
     try {
-      final payload = (await _malformedAcceptWithBodyProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedAcceptWithBodyProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -3483,7 +3529,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedAcceptWithBodyProtocol.serialize(
+      final body =
+          await _malformedAcceptWithBodyProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i41.GreetingStruct,
@@ -3510,9 +3557,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedAcceptWithGenericStringProtocol.contentType;
     try {
-      final payload =
-          (await _malformedAcceptWithGenericStringProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedAcceptWithGenericStringProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -3521,7 +3569,9 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedAcceptWithGenericStringProtocol.serialize(
+      final body = await _malformedAcceptWithGenericStringProtocol
+          .wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i42.MalformedAcceptWithGenericStringOutput,
@@ -3548,8 +3598,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedAcceptWithPayloadProtocol.contentType;
     try {
-      final payload = (await _malformedAcceptWithPayloadProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedAcceptWithPayloadProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -3558,7 +3609,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedAcceptWithPayloadProtocol.serialize(
+      final body =
+          await _malformedAcceptWithPayloadProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i43.MalformedAcceptWithPayloadOutput,
@@ -3584,8 +3636,8 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedBlobProtocol.contentType;
     try {
-      final payload = (await _malformedBlobProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedBlobProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i44.MalformedBlobInput),
       ) as _i44.MalformedBlobInput);
       final input = _i44.MalformedBlobInput.fromRequest(
@@ -3598,7 +3650,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedBlobProtocol.serialize(
+      final body = await _malformedBlobProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -3627,8 +3679,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedBooleanProtocol.contentType;
     try {
-      final payload = (await _malformedBooleanProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedBooleanProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i45.MalformedBooleanInputPayload),
       ) as _i45.MalformedBooleanInputPayload);
       final input = _i45.MalformedBooleanInput.fromRequest(
@@ -3641,7 +3694,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedBooleanProtocol.serialize(
+      final body = await _malformedBooleanProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -3670,8 +3723,8 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedByteProtocol.contentType;
     try {
-      final payload = (await _malformedByteProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedByteProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i46.MalformedByteInputPayload),
       ) as _i46.MalformedByteInputPayload);
       final input = _i46.MalformedByteInput.fromRequest(
@@ -3684,7 +3737,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedByteProtocol.serialize(
+      final body = await _malformedByteProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -3711,8 +3764,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedContentTypeWithBodyProtocol.contentType;
     try {
-      final payload = (await _malformedContentTypeWithBodyProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedContentTypeWithBodyProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i41.GreetingStruct),
       ) as _i41.GreetingStruct);
       final input = _i41.GreetingStruct.fromRequest(
@@ -3725,7 +3780,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedContentTypeWithBodyProtocol.serialize(
+      final body =
+          await _malformedContentTypeWithBodyProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -3752,9 +3808,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedContentTypeWithGenericStringProtocol.contentType;
     try {
-      final payload =
-          (await _malformedContentTypeWithGenericStringProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedContentTypeWithGenericStringProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(String),
       ) as String?);
       final input = _i47.MalformedContentTypeWithGenericStringInput.fromRequest(
@@ -3767,7 +3824,9 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedContentTypeWithGenericStringProtocol.serialize(
+      final body = await _malformedContentTypeWithGenericStringProtocol
+          .wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -3794,9 +3853,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedContentTypeWithPayloadProtocol.contentType;
     try {
-      final payload =
-          (await _malformedContentTypeWithPayloadProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedContentTypeWithPayloadProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i100.Uint8List),
       ) as _i100.Uint8List?);
       final input = _i48.MalformedContentTypeWithPayloadInput.fromRequest(
@@ -3809,7 +3869,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedContentTypeWithPayloadProtocol.serialize(
+      final body = await _malformedContentTypeWithPayloadProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -3836,9 +3897,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedContentTypeWithoutBodyProtocol.contentType;
     try {
-      final payload =
-          (await _malformedContentTypeWithoutBodyProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedContentTypeWithoutBodyProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -3847,7 +3909,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedContentTypeWithoutBodyProtocol.serialize(
+      final body = await _malformedContentTypeWithoutBodyProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -3874,9 +3937,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedContentTypeWithoutBodyEmptyInputProtocol.contentType;
     try {
-      final payload =
-          (await _malformedContentTypeWithoutBodyEmptyInputProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedContentTypeWithoutBodyEmptyInputProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(
             _i49.MalformedContentTypeWithoutBodyEmptyInputInputPayload),
       ) as _i49.MalformedContentTypeWithoutBodyEmptyInputInputPayload);
@@ -3891,7 +3955,9 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedContentTypeWithoutBodyEmptyInputProtocol.serialize(
+      final body = await _malformedContentTypeWithoutBodyEmptyInputProtocol
+          .wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -3920,8 +3986,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedDoubleProtocol.contentType;
     try {
-      final payload = (await _malformedDoubleProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedDoubleProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i50.MalformedDoubleInputPayload),
       ) as _i50.MalformedDoubleInputPayload);
       final input = _i50.MalformedDoubleInput.fromRequest(
@@ -3934,7 +4001,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedDoubleProtocol.serialize(
+      final body = await _malformedDoubleProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -3963,8 +4030,8 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedFloatProtocol.contentType;
     try {
-      final payload = (await _malformedFloatProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedFloatProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i51.MalformedFloatInputPayload),
       ) as _i51.MalformedFloatInputPayload);
       final input = _i51.MalformedFloatInput.fromRequest(
@@ -3977,7 +4044,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedFloatProtocol.serialize(
+      final body = await _malformedFloatProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4006,8 +4073,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedIntegerProtocol.contentType;
     try {
-      final payload = (await _malformedIntegerProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedIntegerProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i52.MalformedIntegerInputPayload),
       ) as _i52.MalformedIntegerInputPayload);
       final input = _i52.MalformedIntegerInput.fromRequest(
@@ -4020,7 +4088,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedIntegerProtocol.serialize(
+      final body = await _malformedIntegerProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4046,8 +4114,8 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedListProtocol.contentType;
     try {
-      final payload = (await _malformedListProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedListProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i53.MalformedListInput),
       ) as _i53.MalformedListInput);
       final input = _i53.MalformedListInput.fromRequest(
@@ -4060,7 +4128,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedListProtocol.serialize(
+      final body = await _malformedListProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4089,8 +4157,8 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedLongProtocol.contentType;
     try {
-      final payload = (await _malformedLongProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedLongProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i54.MalformedLongInputPayload),
       ) as _i54.MalformedLongInputPayload);
       final input = _i54.MalformedLongInput.fromRequest(
@@ -4103,7 +4171,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedLongProtocol.serialize(
+      final body = await _malformedLongProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4129,8 +4197,8 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedMapProtocol.contentType;
     try {
-      final payload = (await _malformedMapProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedMapProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i55.MalformedMapInput),
       ) as _i55.MalformedMapInput);
       final input = _i55.MalformedMapInput.fromRequest(
@@ -4143,7 +4211,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedMapProtocol.serialize(
+      final body = await _malformedMapProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4169,8 +4237,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedRequestBodyProtocol.contentType;
     try {
-      final payload = (await _malformedRequestBodyProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedRequestBodyProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i56.MalformedRequestBodyInput),
       ) as _i56.MalformedRequestBodyInput);
       final input = _i56.MalformedRequestBodyInput.fromRequest(
@@ -4183,7 +4252,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedRequestBodyProtocol.serialize(
+      final body = await _malformedRequestBodyProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4212,8 +4281,8 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedShortProtocol.contentType;
     try {
-      final payload = (await _malformedShortProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedShortProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i57.MalformedShortInputPayload),
       ) as _i57.MalformedShortInputPayload);
       final input = _i57.MalformedShortInput.fromRequest(
@@ -4226,7 +4295,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedShortProtocol.serialize(
+      final body = await _malformedShortProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4252,8 +4321,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedStringProtocol.contentType;
     try {
-      final payload = (await _malformedStringProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _malformedStringProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i58.MalformedStringInputPayload),
       ) as _i58.MalformedStringInputPayload);
       final input = _i58.MalformedStringInput.fromRequest(
@@ -4266,7 +4336,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedStringProtocol.serialize(
+      final body = await _malformedStringProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4293,9 +4363,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedTimestampBodyDateTimeProtocol.contentType;
     try {
-      final payload =
-          (await _malformedTimestampBodyDateTimeProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedTimestampBodyDateTimeProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i59.MalformedTimestampBodyDateTimeInput),
       ) as _i59.MalformedTimestampBodyDateTimeInput);
       final input = _i59.MalformedTimestampBodyDateTimeInput.fromRequest(
@@ -4308,7 +4379,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedTimestampBodyDateTimeProtocol.serialize(
+      final body = await _malformedTimestampBodyDateTimeProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4335,8 +4407,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedTimestampBodyDefaultProtocol.contentType;
     try {
-      final payload = (await _malformedTimestampBodyDefaultProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedTimestampBodyDefaultProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i60.MalformedTimestampBodyDefaultInput),
       ) as _i60.MalformedTimestampBodyDefaultInput);
       final input = _i60.MalformedTimestampBodyDefaultInput.fromRequest(
@@ -4349,7 +4423,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedTimestampBodyDefaultProtocol.serialize(
+      final body =
+          await _malformedTimestampBodyDefaultProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4376,9 +4451,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedTimestampBodyHttpDateProtocol.contentType;
     try {
-      final payload =
-          (await _malformedTimestampBodyHttpDateProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedTimestampBodyHttpDateProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i61.MalformedTimestampBodyHttpDateInput),
       ) as _i61.MalformedTimestampBodyHttpDateInput);
       final input = _i61.MalformedTimestampBodyHttpDateInput.fromRequest(
@@ -4391,7 +4467,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedTimestampBodyHttpDateProtocol.serialize(
+      final body = await _malformedTimestampBodyHttpDateProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4418,9 +4495,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedTimestampHeaderDateTimeProtocol.contentType;
     try {
-      final payload =
-          (await _malformedTimestampHeaderDateTimeProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedTimestampHeaderDateTimeProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i62.MalformedTimestampHeaderDateTimeInputPayload),
       ) as _i62.MalformedTimestampHeaderDateTimeInputPayload);
@@ -4434,7 +4512,9 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedTimestampHeaderDateTimeProtocol.serialize(
+      final body = await _malformedTimestampHeaderDateTimeProtocol
+          .wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4461,9 +4541,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedTimestampHeaderDefaultProtocol.contentType;
     try {
-      final payload =
-          (await _malformedTimestampHeaderDefaultProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedTimestampHeaderDefaultProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i63.MalformedTimestampHeaderDefaultInputPayload),
       ) as _i63.MalformedTimestampHeaderDefaultInputPayload);
@@ -4477,7 +4558,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedTimestampHeaderDefaultProtocol.serialize(
+      final body = await _malformedTimestampHeaderDefaultProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4504,8 +4586,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedTimestampHeaderEpochProtocol.contentType;
     try {
-      final payload = (await _malformedTimestampHeaderEpochProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedTimestampHeaderEpochProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i64.MalformedTimestampHeaderEpochInputPayload),
       ) as _i64.MalformedTimestampHeaderEpochInputPayload);
@@ -4519,7 +4603,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedTimestampHeaderEpochProtocol.serialize(
+      final body =
+          await _malformedTimestampHeaderEpochProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4548,8 +4633,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedTimestampPathDefaultProtocol.contentType;
     try {
-      final payload = (await _malformedTimestampPathDefaultProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedTimestampPathDefaultProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i65.MalformedTimestampPathDefaultInputPayload),
       ) as _i65.MalformedTimestampPathDefaultInputPayload);
@@ -4563,7 +4650,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedTimestampPathDefaultProtocol.serialize(
+      final body =
+          await _malformedTimestampPathDefaultProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4592,8 +4680,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedTimestampPathEpochProtocol.contentType;
     try {
-      final payload = (await _malformedTimestampPathEpochProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedTimestampPathEpochProtocol.wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i66.MalformedTimestampPathEpochInputPayload),
       ) as _i66.MalformedTimestampPathEpochInputPayload);
@@ -4607,7 +4696,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedTimestampPathEpochProtocol.serialize(
+      final body =
+          await _malformedTimestampPathEpochProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4636,9 +4726,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedTimestampPathHttpDateProtocol.contentType;
     try {
-      final payload =
-          (await _malformedTimestampPathHttpDateProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedTimestampPathHttpDateProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i67.MalformedTimestampPathHttpDateInputPayload),
       ) as _i67.MalformedTimestampPathHttpDateInputPayload);
@@ -4652,7 +4743,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedTimestampPathHttpDateProtocol.serialize(
+      final body = await _malformedTimestampPathHttpDateProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4679,9 +4771,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedTimestampQueryDefaultProtocol.contentType;
     try {
-      final payload =
-          (await _malformedTimestampQueryDefaultProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedTimestampQueryDefaultProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i68.MalformedTimestampQueryDefaultInputPayload),
       ) as _i68.MalformedTimestampQueryDefaultInputPayload);
@@ -4695,7 +4788,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedTimestampQueryDefaultProtocol.serialize(
+      final body = await _malformedTimestampQueryDefaultProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4722,8 +4816,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedTimestampQueryEpochProtocol.contentType;
     try {
-      final payload = (await _malformedTimestampQueryEpochProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedTimestampQueryEpochProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i69.MalformedTimestampQueryEpochInputPayload),
       ) as _i69.MalformedTimestampQueryEpochInputPayload);
@@ -4737,7 +4833,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedTimestampQueryEpochProtocol.serialize(
+      final body =
+          await _malformedTimestampQueryEpochProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4764,9 +4861,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedTimestampQueryHttpDateProtocol.contentType;
     try {
-      final payload =
-          (await _malformedTimestampQueryHttpDateProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedTimestampQueryHttpDateProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i70.MalformedTimestampQueryHttpDateInputPayload),
       ) as _i70.MalformedTimestampQueryHttpDateInputPayload);
@@ -4780,7 +4878,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedTimestampQueryHttpDateProtocol.serialize(
+      final body = await _malformedTimestampQueryHttpDateProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4806,8 +4905,8 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _malformedUnionProtocol.contentType;
     try {
-      final payload = (await _malformedUnionProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _malformedUnionProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i71.MalformedUnionInput),
       ) as _i71.MalformedUnionInput);
       final input = _i71.MalformedUnionInput.fromRequest(
@@ -4820,7 +4919,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _malformedUnionProtocol.serialize(
+      final body = await _malformedUnionProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4846,8 +4945,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _mediaTypeHeaderProtocol.contentType;
     try {
-      final payload = (await _mediaTypeHeaderProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _mediaTypeHeaderProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i73.MediaTypeHeaderInputPayload),
       ) as _i73.MediaTypeHeaderInputPayload);
       final input = _i73.MediaTypeHeaderInput.fromRequest(
@@ -4860,7 +4960,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _mediaTypeHeaderProtocol.serialize(
+      final body = await _mediaTypeHeaderProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i72.MediaTypeHeaderOutput,
@@ -4886,8 +4986,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _noInputAndNoOutputProtocol.contentType;
     try {
-      final payload = (await _noInputAndNoOutputProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _noInputAndNoOutputProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -4896,7 +4997,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _noInputAndNoOutputProtocol.serialize(
+      final body = await _noInputAndNoOutputProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -4922,8 +5023,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _noInputAndOutputProtocol.contentType;
     try {
-      final payload = (await _noInputAndOutputProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _noInputAndOutputProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -4932,7 +5034,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _noInputAndOutputProtocol.serialize(
+      final body = await _noInputAndOutputProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i74.NoInputAndOutputOutput,
@@ -4959,8 +5061,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _nullAndEmptyHeadersClientProtocol.contentType;
     try {
-      final payload = (await _nullAndEmptyHeadersClientProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _nullAndEmptyHeadersClientProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i75.NullAndEmptyHeadersIoPayload),
       ) as _i75.NullAndEmptyHeadersIoPayload);
       final input = _i75.NullAndEmptyHeadersIo.fromRequest(
@@ -4983,7 +5086,8 @@ class _RestJsonProtocolServer
             output.c!.map((el) => _i1.sanitizeHeader(el)).join(', ');
       }
       const statusCode = 200;
-      final body = _nullAndEmptyHeadersClientProtocol.serialize(
+      final body =
+          await _nullAndEmptyHeadersClientProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i75.NullAndEmptyHeadersIo,
@@ -5010,8 +5114,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _nullAndEmptyHeadersServerProtocol.contentType;
     try {
-      final payload = (await _nullAndEmptyHeadersServerProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _nullAndEmptyHeadersServerProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i75.NullAndEmptyHeadersIoPayload),
       ) as _i75.NullAndEmptyHeadersIoPayload);
       final input = _i75.NullAndEmptyHeadersIo.fromRequest(
@@ -5034,7 +5139,8 @@ class _RestJsonProtocolServer
             output.c!.map((el) => _i1.sanitizeHeader(el)).join(', ');
       }
       const statusCode = 200;
-      final body = _nullAndEmptyHeadersServerProtocol.serialize(
+      final body =
+          await _nullAndEmptyHeadersServerProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i75.NullAndEmptyHeadersIo,
@@ -5061,9 +5167,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _omitsNullSerializesEmptyStringProtocol.contentType;
     try {
-      final payload =
-          (await _omitsNullSerializesEmptyStringProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _omitsNullSerializesEmptyStringProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i76.OmitsNullSerializesEmptyStringInputPayload),
       ) as _i76.OmitsNullSerializesEmptyStringInputPayload);
@@ -5077,7 +5184,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _omitsNullSerializesEmptyStringProtocol.serialize(
+      final body = await _omitsNullSerializesEmptyStringProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -5104,8 +5212,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _omitsSerializingEmptyListsProtocol.contentType;
     try {
-      final payload = (await _omitsSerializingEmptyListsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _omitsSerializingEmptyListsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i77.OmitsSerializingEmptyListsInputPayload),
       ) as _i77.OmitsSerializingEmptyListsInputPayload);
@@ -5119,7 +5228,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _omitsSerializingEmptyListsProtocol.serialize(
+      final body =
+          await _omitsSerializingEmptyListsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -5145,8 +5255,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _postPlayerActionProtocol.contentType;
     try {
-      final payload = (await _postPlayerActionProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _postPlayerActionProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i79.PostPlayerActionInput),
       ) as _i79.PostPlayerActionInput);
       final input = _i79.PostPlayerActionInput.fromRequest(
@@ -5159,7 +5270,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _postPlayerActionProtocol.serialize(
+      final body = await _postPlayerActionProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i78.PostPlayerActionOutput,
@@ -5185,8 +5296,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _postUnionWithJsonNameProtocol.contentType;
     try {
-      final payload = (await _postUnionWithJsonNameProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _postUnionWithJsonNameProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i81.PostUnionWithJsonNameInput),
       ) as _i81.PostUnionWithJsonNameInput);
       final input = _i81.PostUnionWithJsonNameInput.fromRequest(
@@ -5199,7 +5311,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _postUnionWithJsonNameProtocol.serialize(
+      final body =
+          await _postUnionWithJsonNameProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i80.PostUnionWithJsonNameOutput,
@@ -5226,8 +5339,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _queryIdempotencyTokenAutoFillProtocol.contentType;
     try {
-      final payload = (await _queryIdempotencyTokenAutoFillProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _queryIdempotencyTokenAutoFillProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i82.QueryIdempotencyTokenAutoFillInputPayload),
       ) as _i82.QueryIdempotencyTokenAutoFillInputPayload);
@@ -5241,7 +5356,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _queryIdempotencyTokenAutoFillProtocol.serialize(
+      final body =
+          await _queryIdempotencyTokenAutoFillProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -5268,8 +5384,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _queryParamsAsStringListMapProtocol.contentType;
     try {
-      final payload = (await _queryParamsAsStringListMapProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _queryParamsAsStringListMapProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i83.QueryParamsAsStringListMapInputPayload),
       ) as _i83.QueryParamsAsStringListMapInputPayload);
@@ -5283,7 +5400,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _queryParamsAsStringListMapProtocol.serialize(
+      final body =
+          await _queryParamsAsStringListMapProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -5309,8 +5427,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _queryPrecedenceProtocol.contentType;
     try {
-      final payload = (await _queryPrecedenceProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _queryPrecedenceProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i84.QueryPrecedenceInputPayload),
       ) as _i84.QueryPrecedenceInputPayload);
       final input = _i84.QueryPrecedenceInput.fromRequest(
@@ -5323,7 +5442,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _queryPrecedenceProtocol.serialize(
+      final body = await _queryPrecedenceProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -5349,8 +5468,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _recursiveShapesProtocol.contentType;
     try {
-      final payload = (await _recursiveShapesProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _recursiveShapesProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i85.RecursiveShapesInputOutput),
       ) as _i85.RecursiveShapesInputOutput);
       final input = _i85.RecursiveShapesInputOutput.fromRequest(
@@ -5363,7 +5483,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _recursiveShapesProtocol.serialize(
+      final body = await _recursiveShapesProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i85.RecursiveShapesInputOutput,
@@ -5390,8 +5510,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _responseCodeHttpFallbackProtocol.contentType;
     try {
-      final payload = (await _responseCodeHttpFallbackProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _responseCodeHttpFallbackProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i86.ResponseCodeHttpFallbackInputOutput),
       ) as _i86.ResponseCodeHttpFallbackInputOutput);
       final input = _i86.ResponseCodeHttpFallbackInputOutput.fromRequest(
@@ -5404,7 +5525,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 201;
-      final body = _responseCodeHttpFallbackProtocol.serialize(
+      final body =
+          await _responseCodeHttpFallbackProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i86.ResponseCodeHttpFallbackInputOutput,
@@ -5430,8 +5552,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _responseCodeRequiredProtocol.contentType;
     try {
-      final payload = (await _responseCodeRequiredProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _responseCodeRequiredProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -5440,7 +5563,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _responseCodeRequiredProtocol.serialize(
+      final body = await _responseCodeRequiredProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i87.ResponseCodeRequiredOutput,
@@ -5466,8 +5589,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _simpleScalarPropertiesProtocol.contentType;
     try {
-      final payload = (await _simpleScalarPropertiesProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _simpleScalarPropertiesProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i88.SimpleScalarPropertiesInputOutputPayload),
       ) as _i88.SimpleScalarPropertiesInputOutputPayload);
@@ -5484,7 +5608,8 @@ class _RestJsonProtocolServer
         context.response.headers['X-Foo'] = output.foo!;
       }
       const statusCode = 200;
-      final body = _simpleScalarPropertiesProtocol.serialize(
+      final body =
+          await _simpleScalarPropertiesProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i88.SimpleScalarPropertiesInputOutput,
@@ -5510,8 +5635,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _streamingTraitsProtocol.contentType;
     try {
-      final payload = (await _streamingTraitsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _streamingTraitsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(
           _i4.Stream,
           [
@@ -5535,7 +5661,7 @@ class _RestJsonProtocolServer
         context.response.headers['X-Foo'] = output.foo!;
       }
       const statusCode = 200;
-      final body = _streamingTraitsProtocol.serialize(
+      final body = await _streamingTraitsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i89.StreamingTraitsInputOutput,
@@ -5572,8 +5698,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _streamingTraitsRequireLengthProtocol.contentType;
     try {
-      final payload = (await _streamingTraitsRequireLengthProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _streamingTraitsRequireLengthProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(
           _i4.Stream,
           [
@@ -5594,7 +5722,8 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _streamingTraitsRequireLengthProtocol.serialize(
+      final body =
+          await _streamingTraitsRequireLengthProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -5621,8 +5750,10 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _streamingTraitsWithMediaTypeProtocol.contentType;
     try {
-      final payload = (await _streamingTraitsWithMediaTypeProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _streamingTraitsWithMediaTypeProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(
           _i4.Stream,
           [
@@ -5646,7 +5777,8 @@ class _RestJsonProtocolServer
         context.response.headers['X-Foo'] = output.foo!;
       }
       const statusCode = 200;
-      final body = _streamingTraitsWithMediaTypeProtocol.serialize(
+      final body =
+          await _streamingTraitsWithMediaTypeProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i91.StreamingTraitsWithMediaTypeInputOutput,
@@ -5682,8 +5814,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _testBodyStructureProtocol.contentType;
     try {
-      final payload = (await _testBodyStructureProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _testBodyStructureProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i92.TestBodyStructureInputOutputPayload),
       ) as _i92.TestBodyStructureInputOutputPayload);
       final input = _i92.TestBodyStructureInputOutput.fromRequest(
@@ -5699,7 +5832,7 @@ class _RestJsonProtocolServer
         context.response.headers['x-amz-test-id'] = output.testId!;
       }
       const statusCode = 200;
-      final body = _testBodyStructureProtocol.serialize(
+      final body = await _testBodyStructureProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i92.TestBodyStructureInputOutput,
@@ -5725,8 +5858,8 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _testNoPayloadProtocol.contentType;
     try {
-      final payload = (await _testNoPayloadProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _testNoPayloadProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i93.TestNoPayloadInputOutputPayload),
       ) as _i93.TestNoPayloadInputOutputPayload);
       final input = _i93.TestNoPayloadInputOutput.fromRequest(
@@ -5742,7 +5875,7 @@ class _RestJsonProtocolServer
         context.response.headers['X-Amz-Test-Id'] = output.testId!;
       }
       const statusCode = 200;
-      final body = _testNoPayloadProtocol.serialize(
+      final body = await _testNoPayloadProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i93.TestNoPayloadInputOutput,
@@ -5768,8 +5901,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _testPayloadBlobProtocol.contentType;
     try {
-      final payload = (await _testPayloadBlobProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _testPayloadBlobProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i100.Uint8List),
       ) as _i100.Uint8List?);
       final input = _i94.TestPayloadBlobInputOutput.fromRequest(
@@ -5785,7 +5919,7 @@ class _RestJsonProtocolServer
         context.response.headers['Content-Type'] = output.contentType!;
       }
       const statusCode = 200;
-      final body = _testPayloadBlobProtocol.serialize(
+      final body = await _testPayloadBlobProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i94.TestPayloadBlobInputOutput,
@@ -5811,8 +5945,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _testPayloadStructureProtocol.contentType;
     try {
-      final payload = (await _testPayloadStructureProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _testPayloadStructureProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i102.PayloadConfig),
       ) as _i102.PayloadConfig?);
       final input = _i95.TestPayloadStructureInputOutput.fromRequest(
@@ -5828,7 +5963,7 @@ class _RestJsonProtocolServer
         context.response.headers['x-amz-test-id'] = output.testId!;
       }
       const statusCode = 200;
-      final body = _testPayloadStructureProtocol.serialize(
+      final body = await _testPayloadStructureProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i95.TestPayloadStructureInputOutput,
@@ -5854,8 +5989,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _timestampFormatHeadersProtocol.contentType;
     try {
-      final payload = (await _timestampFormatHeadersProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _timestampFormatHeadersProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i96.TimestampFormatHeadersIoPayload),
       ) as _i96.TimestampFormatHeadersIoPayload);
       final input = _i96.TimestampFormatHeadersIo.fromRequest(
@@ -5910,7 +6046,8 @@ class _RestJsonProtocolServer
                 .toString();
       }
       const statusCode = 200;
-      final body = _timestampFormatHeadersProtocol.serialize(
+      final body =
+          await _timestampFormatHeadersProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i96.TimestampFormatHeadersIo,
@@ -5936,8 +6073,9 @@ class _RestJsonProtocolServer
     context.response.headers['Content-Type'] =
         _unitInputAndOutputProtocol.contentType;
     try {
-      final payload = (await _unitInputAndOutputProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _unitInputAndOutputProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -5946,7 +6084,7 @@ class _RestJsonProtocolServer
         context,
       );
       const statusCode = 200;
-      final body = _unitInputAndOutputProtocol.serialize(
+      final body = await _unitInputAndOutputProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library custom_v2.s3.model.aws_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -85,26 +86,23 @@ class AwsConfigRestXmlSerializer
     final result = AwsConfigBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'clockTime':
-          if (value != null) {
-            result.clockTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.clockTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'scopedConfig':
-          if (value != null) {
-            result.scopedConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ScopedConfig),
-            ) as _i2.ScopedConfig));
-          }
-          break;
+          result.scopedConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ScopedConfig),
+          ) as _i2.ScopedConfig));
       }
     }
 
@@ -114,32 +112,32 @@ class AwsConfigRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AwsConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AwsConfig);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'AwsConfig',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.clockTime != null) {
-      result
+    final AwsConfig(:clockTime, :scopedConfig) = object;
+    if (clockTime != null) {
+      result$
         ..add(const _i3.XmlElementName('clockTime'))
         ..add(serializers.serialize(
-          payload.clockTime!,
+          clockTime,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.scopedConfig != null) {
-      result
+    if (scopedConfig != null) {
+      result$
         ..add(const _i3.XmlElementName('scopedConfig'))
         ..add(serializers.serialize(
-          payload.scopedConfig!,
+          scopedConfig,
           specifiedType: const FullType(_i2.ScopedConfig),
         ));
     }
-    return result;
+    return result$;
   }
 }

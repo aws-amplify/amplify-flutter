@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v2.json_protocol.model.put_and_get_inline_documents_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -95,15 +96,15 @@ class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'inlineDocument':
-          if (value != null) {
-            result.inlineDocument = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.JsonObject),
-            ) as _i3.JsonObject);
-          }
-          break;
+          result.inlineDocument = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.JsonObject),
+          ) as _i3.JsonObject);
       }
     }
 
@@ -113,19 +114,19 @@ class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutAndGetInlineDocumentsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutAndGetInlineDocumentsInputOutput);
-    final result = <Object?>[];
-    if (payload.inlineDocument != null) {
-      result
+    final result$ = <Object?>[];
+    final PutAndGetInlineDocumentsInputOutput(:inlineDocument) = object;
+    if (inlineDocument != null) {
+      result$
         ..add('inlineDocument')
         ..add(serializers.serialize(
-          payload.inlineDocument!,
+          inlineDocument,
           specifiedType: const FullType(_i3.JsonObject),
         ));
     }
-    return result;
+    return result$;
   }
 }

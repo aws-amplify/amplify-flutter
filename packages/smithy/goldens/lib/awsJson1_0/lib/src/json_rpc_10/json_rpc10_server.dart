@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_0_v1.json_rpc_10.json_rpc10_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -192,8 +193,9 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     context.response.headers['Content-Type'] =
         _emptyInputAndEmptyOutputProtocol.contentType;
     try {
-      final payload = (await _emptyInputAndEmptyOutputProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _emptyInputAndEmptyOutputProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i6.EmptyInputAndEmptyOutputInput),
       ) as _i6.EmptyInputAndEmptyOutputInput);
       final input = _i6.EmptyInputAndEmptyOutputInput.fromRequest(
@@ -206,7 +208,8 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _emptyInputAndEmptyOutputProtocol.serialize(
+      final body =
+          await _emptyInputAndEmptyOutputProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i5.EmptyInputAndEmptyOutputOutput,
@@ -232,8 +235,9 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     context.response.headers['Content-Type'] =
         _endpointOperationProtocol.contentType;
     try {
-      final payload = (await _endpointOperationProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _endpointOperationProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -242,7 +246,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _endpointOperationProtocol.serialize(
+      final body = await _endpointOperationProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -269,9 +273,10 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     context.response.headers['Content-Type'] =
         _endpointWithHostLabelOperationProtocol.contentType;
     try {
-      final payload =
-          (await _endpointWithHostLabelOperationProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _endpointWithHostLabelOperationProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i7.EndpointWithHostLabelOperationInput),
       ) as _i7.EndpointWithHostLabelOperationInput);
       final input = _i7.EndpointWithHostLabelOperationInput.fromRequest(
@@ -284,7 +289,8 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _endpointWithHostLabelOperationProtocol.serialize(
+      final body = await _endpointWithHostLabelOperationProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -310,8 +316,9 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     context.response.headers['Content-Type'] =
         _greetingWithErrorsProtocol.contentType;
     try {
-      final payload = (await _greetingWithErrorsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _greetingWithErrorsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i9.GreetingWithErrorsInput),
       ) as _i9.GreetingWithErrorsInput);
       final input = _i9.GreetingWithErrorsInput.fromRequest(
@@ -324,7 +331,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _greetingWithErrorsProtocol.serialize(
+      final body = await _greetingWithErrorsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i8.GreetingWithErrorsOutput,
@@ -337,7 +344,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on _i16.ComplexError catch (e) {
-      final body = _greetingWithErrorsProtocol.serialize(
+      final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i16.ComplexError,
@@ -351,7 +358,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on _i17.FooError catch (e) {
-      final body = _greetingWithErrorsProtocol.serialize(
+      final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i17.FooError,
@@ -365,7 +372,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on _i18.InvalidGreeting catch (e) {
-      final body = _greetingWithErrorsProtocol.serialize(
+      final body = _greetingWithErrorsProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i18.InvalidGreeting,
@@ -392,8 +399,9 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     context.response.headers['Content-Type'] =
         _hostWithPathOperationProtocol.contentType;
     try {
-      final payload = (await _hostWithPathOperationProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _hostWithPathOperationProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -402,7 +410,8 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _hostWithPathOperationProtocol.serialize(
+      final body =
+          await _hostWithPathOperationProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -427,8 +436,8 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonUnionsProtocol.contentType;
     try {
-      final payload = (await _jsonUnionsProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _jsonUnionsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i11.JsonUnionsInput),
       ) as _i11.JsonUnionsInput);
       final input = _i11.JsonUnionsInput.fromRequest(
@@ -441,7 +450,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _jsonUnionsProtocol.serialize(
+      final body = await _jsonUnionsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i10.JsonUnionsOutput,
@@ -467,8 +476,9 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     context.response.headers['Content-Type'] =
         _noInputAndNoOutputProtocol.contentType;
     try {
-      final payload = (await _noInputAndNoOutputProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _noInputAndNoOutputProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -477,7 +487,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _noInputAndNoOutputProtocol.serialize(
+      final body = await _noInputAndNoOutputProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -503,8 +513,9 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     context.response.headers['Content-Type'] =
         _noInputAndOutputProtocol.contentType;
     try {
-      final payload = (await _noInputAndOutputProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _noInputAndOutputProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i1.Unit),
       ) as _i1.Unit);
       final input = payload;
@@ -513,7 +524,7 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _noInputAndOutputProtocol.serialize(
+      final body = await _noInputAndOutputProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i12.NoInputAndOutputOutput,
@@ -539,8 +550,9 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
     context.response.headers['Content-Type'] =
         _simpleScalarPropertiesProtocol.contentType;
     try {
-      final payload = (await _simpleScalarPropertiesProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _simpleScalarPropertiesProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i14.SimpleScalarPropertiesInput),
       ) as _i14.SimpleScalarPropertiesInput);
       final input = _i14.SimpleScalarPropertiesInput.fromRequest(
@@ -553,7 +565,8 @@ class _JsonRpc10Server extends _i1.HttpServer<JsonRpc10ServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _simpleScalarPropertiesProtocol.serialize(
+      final body =
+          await _simpleScalarPropertiesProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i13.SimpleScalarPropertiesOutput,

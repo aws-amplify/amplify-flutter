@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.item_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -77,21 +78,21 @@ class ItemResponseAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Item':
-          if (value != null) {
-            result.item.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeValue),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, _i2.AttributeValue>));
-          }
-          break;
+          result.item.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, _i2.AttributeValue>));
       }
     }
 
@@ -101,16 +102,16 @@ class ItemResponseAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ItemResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ItemResponse);
-    final result = <Object?>[];
-    if (payload.item != null) {
-      result
+    final result$ = <Object?>[];
+    final ItemResponse(:item) = object;
+    if (item != null) {
+      result$
         ..add('Item')
         ..add(serializers.serialize(
-          payload.item!,
+          item,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -120,6 +121,6 @@ class ItemResponseAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

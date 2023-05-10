@@ -8,18 +8,18 @@ part of smoke_test.dynamo_db.model.table_auto_scaling_description;
 
 class _$TableAutoScalingDescription extends TableAutoScalingDescription {
   @override
-  final _i4.BuiltList<_i2.ReplicaAutoScalingDescription>? replicas;
-  @override
   final String? tableName;
   @override
-  final _i3.TableStatus? tableStatus;
+  final _i2.TableStatus? tableStatus;
+  @override
+  final _i4.BuiltList<_i3.ReplicaAutoScalingDescription>? replicas;
 
   factory _$TableAutoScalingDescription(
           [void Function(TableAutoScalingDescriptionBuilder)? updates]) =>
       (new TableAutoScalingDescriptionBuilder()..update(updates))._build();
 
   _$TableAutoScalingDescription._(
-      {this.replicas, this.tableName, this.tableStatus})
+      {this.tableName, this.tableStatus, this.replicas})
       : super._();
 
   @override
@@ -35,17 +35,17 @@ class _$TableAutoScalingDescription extends TableAutoScalingDescription {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TableAutoScalingDescription &&
-        replicas == other.replicas &&
         tableName == other.tableName &&
-        tableStatus == other.tableStatus;
+        tableStatus == other.tableStatus &&
+        replicas == other.replicas;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, replicas.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
     _$hash = $jc(_$hash, tableStatus.hashCode);
+    _$hash = $jc(_$hash, replicas.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,21 +57,21 @@ class TableAutoScalingDescriptionBuilder
             TableAutoScalingDescriptionBuilder> {
   _$TableAutoScalingDescription? _$v;
 
-  _i4.ListBuilder<_i2.ReplicaAutoScalingDescription>? _replicas;
-  _i4.ListBuilder<_i2.ReplicaAutoScalingDescription> get replicas =>
-      _$this._replicas ??=
-          new _i4.ListBuilder<_i2.ReplicaAutoScalingDescription>();
-  set replicas(_i4.ListBuilder<_i2.ReplicaAutoScalingDescription>? replicas) =>
-      _$this._replicas = replicas;
-
   String? _tableName;
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i3.TableStatus? _tableStatus;
-  _i3.TableStatus? get tableStatus => _$this._tableStatus;
-  set tableStatus(_i3.TableStatus? tableStatus) =>
+  _i2.TableStatus? _tableStatus;
+  _i2.TableStatus? get tableStatus => _$this._tableStatus;
+  set tableStatus(_i2.TableStatus? tableStatus) =>
       _$this._tableStatus = tableStatus;
+
+  _i4.ListBuilder<_i3.ReplicaAutoScalingDescription>? _replicas;
+  _i4.ListBuilder<_i3.ReplicaAutoScalingDescription> get replicas =>
+      _$this._replicas ??=
+          new _i4.ListBuilder<_i3.ReplicaAutoScalingDescription>();
+  set replicas(_i4.ListBuilder<_i3.ReplicaAutoScalingDescription>? replicas) =>
+      _$this._replicas = replicas;
 
   TableAutoScalingDescriptionBuilder() {
     TableAutoScalingDescription._init(this);
@@ -80,9 +80,9 @@ class TableAutoScalingDescriptionBuilder
   TableAutoScalingDescriptionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _replicas = $v.replicas?.toBuilder();
       _tableName = $v.tableName;
       _tableStatus = $v.tableStatus;
+      _replicas = $v.replicas?.toBuilder();
       _$v = null;
     }
     return this;
@@ -107,9 +107,9 @@ class TableAutoScalingDescriptionBuilder
     try {
       _$result = _$v ??
           new _$TableAutoScalingDescription._(
-              replicas: _replicas?.build(),
               tableName: tableName,
-              tableStatus: tableStatus);
+              tableStatus: tableStatus,
+              replicas: _replicas?.build());
     } catch (_) {
       late String _$failedField;
       try {

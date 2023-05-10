@@ -119,24 +119,26 @@ class _MyAppState extends State<MyApp> {
 
   void _identifyUser() async {
     final analyticsUserProfile = AWSPinpointUserProfile(
-        name: '${_userId}_name',
-        email: '${_userId}_email',
-        plan: '${_userId}_plan',
-        location: const UserProfileLocation(
-            latitude: 5,
-            longitude: 5,
-            postalCode: '94070',
-            city: 'SanFrancisco',
-            region: 'California',
-            country: 'USA'),
-        customProperties: CustomProperties()
-          ..addStringProperty('${_userId}_endpoint_stringKey', 'stringValue')
-          ..addIntProperty('${_userId}_endpoint_intKey', 10)
-          ..addDoubleProperty('${_userId}_endpoint_doubleKey', 10)
-          ..addBoolProperty('${_userId}_endpoint_boolKey', false),
-        userAttributes: {
-          '${_userId}_user_stringKey': ['stringValue', 'anotherStringValue']
-        });
+      name: '${_userId}_name',
+      email: '${_userId}_email',
+      plan: '${_userId}_plan',
+      location: const UserProfileLocation(
+        latitude: 5,
+        longitude: 5,
+        postalCode: '94070',
+        city: 'SanFrancisco',
+        region: 'California',
+        country: 'USA',
+      ),
+      customProperties: CustomProperties()
+        ..addStringProperty('${_userId}_endpoint_stringKey', 'stringValue')
+        ..addIntProperty('${_userId}_endpoint_intKey', 10)
+        ..addDoubleProperty('${_userId}_endpoint_doubleKey', 10)
+        ..addBoolProperty('${_userId}_endpoint_boolKey', false),
+      userAttributes: {
+        '${_userId}_user_stringKey': ['stringValue', 'anotherStringValue']
+      },
+    );
 
     await Amplify.Analytics.identifyUser(
       userId: _userId,

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.backup_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,21 +21,21 @@ abstract class BackupDetails
   /// Contains the details of the backup created for the table.
   factory BackupDetails({
     required String backupArn,
-    required DateTime backupCreationDateTime,
-    DateTime? backupExpiryDateTime,
     required String backupName,
     _i2.Int64? backupSizeBytes,
     required _i3.BackupStatus backupStatus,
     required _i4.BackupType backupType,
+    required DateTime backupCreationDateTime,
+    DateTime? backupExpiryDateTime,
   }) {
     return _$BackupDetails._(
       backupArn: backupArn,
-      backupCreationDateTime: backupCreationDateTime,
-      backupExpiryDateTime: backupExpiryDateTime,
       backupName: backupName,
       backupSizeBytes: backupSizeBytes,
       backupStatus: backupStatus,
       backupType: backupType,
+      backupCreationDateTime: backupCreationDateTime,
+      backupExpiryDateTime: backupExpiryDateTime,
     );
   }
 
@@ -54,12 +55,6 @@ abstract class BackupDetails
   /// ARN associated with the backup.
   String get backupArn;
 
-  /// Time at which the backup was created. This is the request time of the backup.
-  DateTime get backupCreationDateTime;
-
-  /// Time at which the automatic on-demand backup created by DynamoDB will expire. This `SYSTEM` on-demand backup expires automatically 35 days after its creation.
-  DateTime? get backupExpiryDateTime;
-
   /// Name of the requested backup.
   String get backupName;
 
@@ -77,15 +72,21 @@ abstract class BackupDetails
   ///
   /// *   `AWS_BACKUP` \- On-demand backup created by you from Backup service.
   _i4.BackupType get backupType;
+
+  /// Time at which the backup was created. This is the request time of the backup.
+  DateTime get backupCreationDateTime;
+
+  /// Time at which the automatic on-demand backup created by DynamoDB will expire. This `SYSTEM` on-demand backup expires automatically 35 days after its creation.
+  DateTime? get backupExpiryDateTime;
   @override
   List<Object?> get props => [
         backupArn,
-        backupCreationDateTime,
-        backupExpiryDateTime,
         backupName,
         backupSizeBytes,
         backupStatus,
         backupType,
+        backupCreationDateTime,
+        backupExpiryDateTime,
       ];
   @override
   String toString() {
@@ -93,14 +94,6 @@ abstract class BackupDetails
     helper.add(
       'backupArn',
       backupArn,
-    );
-    helper.add(
-      'backupCreationDateTime',
-      backupCreationDateTime,
-    );
-    helper.add(
-      'backupExpiryDateTime',
-      backupExpiryDateTime,
     );
     helper.add(
       'backupName',
@@ -117,6 +110,14 @@ abstract class BackupDetails
     helper.add(
       'backupType',
       backupType,
+    );
+    helper.add(
+      'backupCreationDateTime',
+      backupCreationDateTime,
+    );
+    helper.add(
+      'backupExpiryDateTime',
+      backupExpiryDateTime,
     );
     return helper.toString();
   }
@@ -150,53 +151,45 @@ class BackupDetailsAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BackupArn':
           result.backupArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
-        case 'BackupCreationDateTime':
-          result.backupCreationDateTime = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
-          break;
-        case 'BackupExpiryDateTime':
-          if (value != null) {
-            result.backupExpiryDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'BackupName':
           result.backupName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'BackupSizeBytes':
-          if (value != null) {
-            result.backupSizeBytes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.backupSizeBytes = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'BackupStatus':
           result.backupStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.BackupStatus),
           ) as _i3.BackupStatus);
-          break;
         case 'BackupType':
           result.backupType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i4.BackupType),
           ) as _i4.BackupType);
-          break;
+        case 'BackupCreationDateTime':
+          result.backupCreationDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
+        case 'BackupExpiryDateTime':
+          result.backupExpiryDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -206,53 +199,62 @@ class BackupDetailsAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BackupDetails object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BackupDetails);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final BackupDetails(
+      :backupArn,
+      :backupName,
+      :backupSizeBytes,
+      :backupStatus,
+      :backupType,
+      :backupCreationDateTime,
+      :backupExpiryDateTime
+    ) = object;
+    result$.addAll([
       'BackupArn',
       serializers.serialize(
-        payload.backupArn,
+        backupArn,
         specifiedType: const FullType(String),
-      ),
-      'BackupCreationDateTime',
-      serializers.serialize(
-        payload.backupCreationDateTime,
-        specifiedType: const FullType(DateTime),
       ),
       'BackupName',
       serializers.serialize(
-        payload.backupName,
+        backupName,
         specifiedType: const FullType(String),
       ),
       'BackupStatus',
       serializers.serialize(
-        payload.backupStatus,
+        backupStatus,
         specifiedType: const FullType(_i3.BackupStatus),
       ),
       'BackupType',
       serializers.serialize(
-        payload.backupType,
+        backupType,
         specifiedType: const FullType(_i4.BackupType),
       ),
-    ];
-    if (payload.backupExpiryDateTime != null) {
-      result
-        ..add('BackupExpiryDateTime')
-        ..add(serializers.serialize(
-          payload.backupExpiryDateTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.backupSizeBytes != null) {
-      result
+      'BackupCreationDateTime',
+      serializers.serialize(
+        backupCreationDateTime,
+        specifiedType: const FullType(DateTime),
+      ),
+    ]);
+    if (backupSizeBytes != null) {
+      result$
         ..add('BackupSizeBytes')
         ..add(serializers.serialize(
-          payload.backupSizeBytes!,
+          backupSizeBytes,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    return result;
+    if (backupExpiryDateTime != null) {
+      result$
+        ..add('BackupExpiryDateTime')
+        ..add(serializers.serialize(
+          backupExpiryDateTime,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    return result$;
   }
 }

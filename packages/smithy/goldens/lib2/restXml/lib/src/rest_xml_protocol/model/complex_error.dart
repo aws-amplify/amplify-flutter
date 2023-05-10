@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.complex_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,13 +23,13 @@ abstract class ComplexError
   /// This error is thrown when a request is invalid.
   factory ComplexError({
     String? header,
-    _i3.ComplexNestedErrorData? nested,
     String? topLevel,
+    _i3.ComplexNestedErrorData? nested,
   }) {
     return _$ComplexError._(
       header: header,
-      nested: nested,
       topLevel: topLevel,
+      nested: nested,
     );
   }
 
@@ -61,8 +62,8 @@ abstract class ComplexError
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplexErrorBuilder b) {}
   String? get header;
-  _i3.ComplexNestedErrorData? get nested;
   String? get topLevel;
+  _i3.ComplexNestedErrorData? get nested;
   @override
   ComplexErrorPayload getPayload() => ComplexErrorPayload((b) {
         if (nested != null) {
@@ -90,8 +91,8 @@ abstract class ComplexError
   @override
   List<Object?> get props => [
         header,
-        nested,
         topLevel,
+        nested,
       ];
   @override
   String toString() {
@@ -101,12 +102,12 @@ abstract class ComplexError
       header,
     );
     helper.add(
-      'nested',
-      nested,
-    );
-    helper.add(
       'topLevel',
       topLevel,
+    );
+    helper.add(
+      'nested',
+      nested,
     );
     return helper.toString();
   }
@@ -181,26 +182,23 @@ class ComplexErrorRestXmlSerializer
     }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ComplexNestedErrorData),
-            ) as _i3.ComplexNestedErrorData));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ComplexNestedErrorData),
+          ) as _i3.ComplexNestedErrorData));
         case 'TopLevel':
-          if (value != null) {
-            result.topLevel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.topLevel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -210,29 +208,27 @@ class ComplexErrorRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ComplexErrorPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is ComplexError
-        ? object.getPayload()
-        : (object as ComplexErrorPayload);
-    final result = <Object?>[const _i2.XmlElementName('ComplexError')];
-    if (payload.nested != null) {
-      result
+    final result$ = <Object?>[const _i2.XmlElementName('ComplexError')];
+    final ComplexErrorPayload(:nested, :topLevel) = object;
+    if (nested != null) {
+      result$
         ..add(const _i2.XmlElementName('Nested'))
         ..add(serializers.serialize(
-          payload.nested!,
+          nested,
           specifiedType: const FullType(_i3.ComplexNestedErrorData),
         ));
     }
-    if (payload.topLevel != null) {
-      result
+    if (topLevel != null) {
+      result$
         ..add(const _i2.XmlElementName('TopLevel'))
         ..add(serializers.serialize(
-          payload.topLevel!,
+          topLevel,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

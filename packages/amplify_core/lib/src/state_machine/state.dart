@@ -8,7 +8,7 @@ import 'package:meta/meta.dart';
 /// Base class for the discrete states of a state machine.
 /// {@endtemplate}
 @immutable
-abstract class StateMachineState<StateType extends Object>
+abstract base class StateMachineState<StateType extends Object>
     with AWSEquatable<StateMachineState<StateType>>, AWSDebuggable {
   /// {@macro amplify_core.state}
   const StateMachineState();
@@ -18,10 +18,12 @@ abstract class StateMachineState<StateType extends Object>
 }
 
 /// Mixin for the success/idle states of a state machine.
-mixin SuccessState<StateType extends Object> on StateMachineState<StateType> {}
+base mixin SuccessState<StateType extends Object>
+    on StateMachineState<StateType> {}
 
 /// Mixin for the error/failure states of a state machine.
-mixin ErrorState<StateType extends Object> on StateMachineState<StateType> {
+base mixin ErrorState<StateType extends Object>
+    on StateMachineState<StateType> {
   /// The exception which triggered this state.
   Exception get exception;
 

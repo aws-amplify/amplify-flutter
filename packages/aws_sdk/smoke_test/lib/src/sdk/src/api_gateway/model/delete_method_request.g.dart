@@ -8,27 +8,27 @@ part of smoke_test.api_gateway.model.delete_method_request;
 
 class _$DeleteMethodRequest extends DeleteMethodRequest {
   @override
-  final String httpMethod;
+  final String restApiId;
   @override
   final String resourceId;
   @override
-  final String restApiId;
+  final String httpMethod;
 
   factory _$DeleteMethodRequest(
           [void Function(DeleteMethodRequestBuilder)? updates]) =>
       (new DeleteMethodRequestBuilder()..update(updates))._build();
 
   _$DeleteMethodRequest._(
-      {required this.httpMethod,
+      {required this.restApiId,
       required this.resourceId,
-      required this.restApiId})
+      required this.httpMethod})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        httpMethod, r'DeleteMethodRequest', 'httpMethod');
+        restApiId, r'DeleteMethodRequest', 'restApiId');
     BuiltValueNullFieldError.checkNotNull(
         resourceId, r'DeleteMethodRequest', 'resourceId');
     BuiltValueNullFieldError.checkNotNull(
-        restApiId, r'DeleteMethodRequest', 'restApiId');
+        httpMethod, r'DeleteMethodRequest', 'httpMethod');
   }
 
   @override
@@ -44,17 +44,17 @@ class _$DeleteMethodRequest extends DeleteMethodRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DeleteMethodRequest &&
-        httpMethod == other.httpMethod &&
+        restApiId == other.restApiId &&
         resourceId == other.resourceId &&
-        restApiId == other.restApiId;
+        httpMethod == other.httpMethod;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, httpMethod.hashCode);
-    _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
+    _$hash = $jc(_$hash, httpMethod.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -64,17 +64,17 @@ class DeleteMethodRequestBuilder
     implements Builder<DeleteMethodRequest, DeleteMethodRequestBuilder> {
   _$DeleteMethodRequest? _$v;
 
-  String? _httpMethod;
-  String? get httpMethod => _$this._httpMethod;
-  set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _resourceId;
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  String? _httpMethod;
+  String? get httpMethod => _$this._httpMethod;
+  set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
 
   DeleteMethodRequestBuilder() {
     DeleteMethodRequest._init(this);
@@ -83,9 +83,9 @@ class DeleteMethodRequestBuilder
   DeleteMethodRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _httpMethod = $v.httpMethod;
-      _resourceId = $v.resourceId;
       _restApiId = $v.restApiId;
+      _resourceId = $v.resourceId;
+      _httpMethod = $v.httpMethod;
       _$v = null;
     }
     return this;
@@ -108,12 +108,12 @@ class DeleteMethodRequestBuilder
   _$DeleteMethodRequest _build() {
     final _$result = _$v ??
         new _$DeleteMethodRequest._(
-            httpMethod: BuiltValueNullFieldError.checkNotNull(
-                httpMethod, r'DeleteMethodRequest', 'httpMethod'),
+            restApiId: BuiltValueNullFieldError.checkNotNull(
+                restApiId, r'DeleteMethodRequest', 'restApiId'),
             resourceId: BuiltValueNullFieldError.checkNotNull(
                 resourceId, r'DeleteMethodRequest', 'resourceId'),
-            restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'DeleteMethodRequest', 'restApiId'));
+            httpMethod: BuiltValueNullFieldError.checkNotNull(
+                httpMethod, r'DeleteMethodRequest', 'httpMethod'));
     replace(_$result);
     return _$result;
   }

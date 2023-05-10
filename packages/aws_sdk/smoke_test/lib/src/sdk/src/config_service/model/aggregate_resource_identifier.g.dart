@@ -8,35 +8,35 @@ part of smoke_test.config_service.model.aggregate_resource_identifier;
 
 class _$AggregateResourceIdentifier extends AggregateResourceIdentifier {
   @override
-  final String resourceId;
-  @override
-  final String? resourceName;
-  @override
-  final _i2.ResourceType resourceType;
-  @override
   final String sourceAccountId;
   @override
   final String sourceRegion;
+  @override
+  final String resourceId;
+  @override
+  final _i2.ResourceType resourceType;
+  @override
+  final String? resourceName;
 
   factory _$AggregateResourceIdentifier(
           [void Function(AggregateResourceIdentifierBuilder)? updates]) =>
       (new AggregateResourceIdentifierBuilder()..update(updates))._build();
 
   _$AggregateResourceIdentifier._(
-      {required this.resourceId,
-      this.resourceName,
+      {required this.sourceAccountId,
+      required this.sourceRegion,
+      required this.resourceId,
       required this.resourceType,
-      required this.sourceAccountId,
-      required this.sourceRegion})
+      this.resourceName})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        resourceId, r'AggregateResourceIdentifier', 'resourceId');
-    BuiltValueNullFieldError.checkNotNull(
-        resourceType, r'AggregateResourceIdentifier', 'resourceType');
     BuiltValueNullFieldError.checkNotNull(
         sourceAccountId, r'AggregateResourceIdentifier', 'sourceAccountId');
     BuiltValueNullFieldError.checkNotNull(
         sourceRegion, r'AggregateResourceIdentifier', 'sourceRegion');
+    BuiltValueNullFieldError.checkNotNull(
+        resourceId, r'AggregateResourceIdentifier', 'resourceId');
+    BuiltValueNullFieldError.checkNotNull(
+        resourceType, r'AggregateResourceIdentifier', 'resourceType');
   }
 
   @override
@@ -52,21 +52,21 @@ class _$AggregateResourceIdentifier extends AggregateResourceIdentifier {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AggregateResourceIdentifier &&
-        resourceId == other.resourceId &&
-        resourceName == other.resourceName &&
-        resourceType == other.resourceType &&
         sourceAccountId == other.sourceAccountId &&
-        sourceRegion == other.sourceRegion;
+        sourceRegion == other.sourceRegion &&
+        resourceId == other.resourceId &&
+        resourceType == other.resourceType &&
+        resourceName == other.resourceName;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, resourceId.hashCode);
-    _$hash = $jc(_$hash, resourceName.hashCode);
-    _$hash = $jc(_$hash, resourceType.hashCode);
     _$hash = $jc(_$hash, sourceAccountId.hashCode);
     _$hash = $jc(_$hash, sourceRegion.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
+    _$hash = $jc(_$hash, resourceType.hashCode);
+    _$hash = $jc(_$hash, resourceName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -78,19 +78,6 @@ class AggregateResourceIdentifierBuilder
             AggregateResourceIdentifierBuilder> {
   _$AggregateResourceIdentifier? _$v;
 
-  String? _resourceId;
-  String? get resourceId => _$this._resourceId;
-  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
-
-  String? _resourceName;
-  String? get resourceName => _$this._resourceName;
-  set resourceName(String? resourceName) => _$this._resourceName = resourceName;
-
-  _i2.ResourceType? _resourceType;
-  _i2.ResourceType? get resourceType => _$this._resourceType;
-  set resourceType(_i2.ResourceType? resourceType) =>
-      _$this._resourceType = resourceType;
-
   String? _sourceAccountId;
   String? get sourceAccountId => _$this._sourceAccountId;
   set sourceAccountId(String? sourceAccountId) =>
@@ -100,6 +87,19 @@ class AggregateResourceIdentifierBuilder
   String? get sourceRegion => _$this._sourceRegion;
   set sourceRegion(String? sourceRegion) => _$this._sourceRegion = sourceRegion;
 
+  String? _resourceId;
+  String? get resourceId => _$this._resourceId;
+  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
+
+  _i2.ResourceType? _resourceType;
+  _i2.ResourceType? get resourceType => _$this._resourceType;
+  set resourceType(_i2.ResourceType? resourceType) =>
+      _$this._resourceType = resourceType;
+
+  String? _resourceName;
+  String? get resourceName => _$this._resourceName;
+  set resourceName(String? resourceName) => _$this._resourceName = resourceName;
+
   AggregateResourceIdentifierBuilder() {
     AggregateResourceIdentifier._init(this);
   }
@@ -107,11 +107,11 @@ class AggregateResourceIdentifierBuilder
   AggregateResourceIdentifierBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _resourceId = $v.resourceId;
-      _resourceName = $v.resourceName;
-      _resourceType = $v.resourceType;
       _sourceAccountId = $v.sourceAccountId;
       _sourceRegion = $v.sourceRegion;
+      _resourceId = $v.resourceId;
+      _resourceType = $v.resourceType;
+      _resourceName = $v.resourceName;
       _$v = null;
     }
     return this;
@@ -134,17 +134,17 @@ class AggregateResourceIdentifierBuilder
   _$AggregateResourceIdentifier _build() {
     final _$result = _$v ??
         new _$AggregateResourceIdentifier._(
-            resourceId: BuiltValueNullFieldError.checkNotNull(
-                resourceId, r'AggregateResourceIdentifier', 'resourceId'),
-            resourceName: resourceName,
-            resourceType: BuiltValueNullFieldError.checkNotNull(
-                resourceType, r'AggregateResourceIdentifier', 'resourceType'),
             sourceAccountId: BuiltValueNullFieldError.checkNotNull(
                 sourceAccountId,
                 r'AggregateResourceIdentifier',
                 'sourceAccountId'),
             sourceRegion: BuiltValueNullFieldError.checkNotNull(
-                sourceRegion, r'AggregateResourceIdentifier', 'sourceRegion'));
+                sourceRegion, r'AggregateResourceIdentifier', 'sourceRegion'),
+            resourceId: BuiltValueNullFieldError.checkNotNull(
+                resourceId, r'AggregateResourceIdentifier', 'resourceId'),
+            resourceType: BuiltValueNullFieldError.checkNotNull(
+                resourceType, r'AggregateResourceIdentifier', 'resourceType'),
+            resourceName: resourceName);
     replace(_$result);
     return _$result;
   }

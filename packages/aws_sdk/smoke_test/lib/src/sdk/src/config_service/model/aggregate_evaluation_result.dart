@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.aggregate_evaluation_result; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -7,9 +8,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result_identifier.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result_identifier.dart'
+    as _i2;
 
 part 'aggregate_evaluation_result.g.dart';
 
@@ -20,22 +21,22 @@ abstract class AggregateEvaluationResult
         Built<AggregateEvaluationResult, AggregateEvaluationResultBuilder> {
   /// The details of an Config evaluation for an account ID and region in an aggregator. Provides the Amazon Web Services resource that was evaluated, the compliance of the resource, related time stamps, and supplementary information.
   factory AggregateEvaluationResult({
-    String? accountId,
-    String? annotation,
-    String? awsRegion,
-    _i2.ComplianceType? complianceType,
-    DateTime? configRuleInvokedTime,
-    _i3.EvaluationResultIdentifier? evaluationResultIdentifier,
+    _i2.EvaluationResultIdentifier? evaluationResultIdentifier,
+    _i3.ComplianceType? complianceType,
     DateTime? resultRecordedTime,
+    DateTime? configRuleInvokedTime,
+    String? annotation,
+    String? accountId,
+    String? awsRegion,
   }) {
     return _$AggregateEvaluationResult._(
-      accountId: accountId,
-      annotation: annotation,
-      awsRegion: awsRegion,
-      complianceType: complianceType,
-      configRuleInvokedTime: configRuleInvokedTime,
       evaluationResultIdentifier: evaluationResultIdentifier,
+      complianceType: complianceType,
       resultRecordedTime: resultRecordedTime,
+      configRuleInvokedTime: configRuleInvokedTime,
+      annotation: annotation,
+      accountId: accountId,
+      awsRegion: awsRegion,
     );
   }
 
@@ -53,68 +54,68 @@ abstract class AggregateEvaluationResult
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AggregateEvaluationResultBuilder b) {}
 
-  /// The 12-digit account ID of the source account.
-  String? get accountId;
-
-  /// Supplementary information about how the agrregate evaluation determined the compliance.
-  String? get annotation;
-
-  /// The source region from where the data is aggregated.
-  String? get awsRegion;
+  /// Uniquely identifies the evaluation result.
+  _i2.EvaluationResultIdentifier? get evaluationResultIdentifier;
 
   /// The resource compliance status.
   ///
   /// For the `AggregationEvaluationResult` data type, Config supports only the `COMPLIANT` and `NON_COMPLIANT`. Config does not support the `NOT_APPLICABLE` and `INSUFFICIENT_DATA` value.
-  _i2.ComplianceType? get complianceType;
+  _i3.ComplianceType? get complianceType;
+
+  /// The time when Config recorded the aggregate evaluation result.
+  DateTime? get resultRecordedTime;
 
   /// The time when the Config rule evaluated the Amazon Web Services resource.
   DateTime? get configRuleInvokedTime;
 
-  /// Uniquely identifies the evaluation result.
-  _i3.EvaluationResultIdentifier? get evaluationResultIdentifier;
+  /// Supplementary information about how the agrregate evaluation determined the compliance.
+  String? get annotation;
 
-  /// The time when Config recorded the aggregate evaluation result.
-  DateTime? get resultRecordedTime;
+  /// The 12-digit account ID of the source account.
+  String? get accountId;
+
+  /// The source region from where the data is aggregated.
+  String? get awsRegion;
   @override
   List<Object?> get props => [
-        accountId,
-        annotation,
-        awsRegion,
-        complianceType,
-        configRuleInvokedTime,
         evaluationResultIdentifier,
+        complianceType,
         resultRecordedTime,
+        configRuleInvokedTime,
+        annotation,
+        accountId,
+        awsRegion,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AggregateEvaluationResult');
     helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'annotation',
-      annotation,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
+      'evaluationResultIdentifier',
+      evaluationResultIdentifier,
     );
     helper.add(
       'complianceType',
       complianceType,
     );
     helper.add(
+      'resultRecordedTime',
+      resultRecordedTime,
+    );
+    helper.add(
       'configRuleInvokedTime',
       configRuleInvokedTime,
     );
     helper.add(
-      'evaluationResultIdentifier',
-      evaluationResultIdentifier,
+      'annotation',
+      annotation,
     );
     helper.add(
-      'resultRecordedTime',
-      resultRecordedTime,
+      'accountId',
+      accountId,
+    );
+    helper.add(
+      'awsRegion',
+      awsRegion,
     );
     return helper.toString();
   }
@@ -149,63 +150,45 @@ class AggregateEvaluationResultAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'AccountId':
-          if (value != null) {
-            result.accountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Annotation':
-          if (value != null) {
-            result.annotation = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'AwsRegion':
-          if (value != null) {
-            result.awsRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ComplianceType':
-          if (value != null) {
-            result.complianceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ComplianceType),
-            ) as _i2.ComplianceType);
-          }
-          break;
-        case 'ConfigRuleInvokedTime':
-          if (value != null) {
-            result.configRuleInvokedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'EvaluationResultIdentifier':
-          if (value != null) {
-            result.evaluationResultIdentifier.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.EvaluationResultIdentifier),
-            ) as _i3.EvaluationResultIdentifier));
-          }
-          break;
+          result.evaluationResultIdentifier.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.EvaluationResultIdentifier),
+          ) as _i2.EvaluationResultIdentifier));
+        case 'ComplianceType':
+          result.complianceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ComplianceType),
+          ) as _i3.ComplianceType);
         case 'ResultRecordedTime':
-          if (value != null) {
-            result.resultRecordedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.resultRecordedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
+        case 'ConfigRuleInvokedTime':
+          result.configRuleInvokedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
+        case 'Annotation':
+          result.annotation = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'AccountId':
+          result.accountId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'AwsRegion':
+          result.awsRegion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -215,67 +198,75 @@ class AggregateEvaluationResultAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AggregateEvaluationResult object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AggregateEvaluationResult);
-    final result = <Object?>[];
-    if (payload.accountId != null) {
-      result
-        ..add('AccountId')
-        ..add(serializers.serialize(
-          payload.accountId!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.annotation != null) {
-      result
-        ..add('Annotation')
-        ..add(serializers.serialize(
-          payload.annotation!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.awsRegion != null) {
-      result
-        ..add('AwsRegion')
-        ..add(serializers.serialize(
-          payload.awsRegion!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.complianceType != null) {
-      result
-        ..add('ComplianceType')
-        ..add(serializers.serialize(
-          payload.complianceType!,
-          specifiedType: const FullType(_i2.ComplianceType),
-        ));
-    }
-    if (payload.configRuleInvokedTime != null) {
-      result
-        ..add('ConfigRuleInvokedTime')
-        ..add(serializers.serialize(
-          payload.configRuleInvokedTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.evaluationResultIdentifier != null) {
-      result
+    final result$ = <Object?>[];
+    final AggregateEvaluationResult(
+      :evaluationResultIdentifier,
+      :complianceType,
+      :resultRecordedTime,
+      :configRuleInvokedTime,
+      :annotation,
+      :accountId,
+      :awsRegion
+    ) = object;
+    if (evaluationResultIdentifier != null) {
+      result$
         ..add('EvaluationResultIdentifier')
         ..add(serializers.serialize(
-          payload.evaluationResultIdentifier!,
-          specifiedType: const FullType(_i3.EvaluationResultIdentifier),
+          evaluationResultIdentifier,
+          specifiedType: const FullType(_i2.EvaluationResultIdentifier),
         ));
     }
-    if (payload.resultRecordedTime != null) {
-      result
+    if (complianceType != null) {
+      result$
+        ..add('ComplianceType')
+        ..add(serializers.serialize(
+          complianceType,
+          specifiedType: const FullType(_i3.ComplianceType),
+        ));
+    }
+    if (resultRecordedTime != null) {
+      result$
         ..add('ResultRecordedTime')
         ..add(serializers.serialize(
-          payload.resultRecordedTime!,
+          resultRecordedTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    if (configRuleInvokedTime != null) {
+      result$
+        ..add('ConfigRuleInvokedTime')
+        ..add(serializers.serialize(
+          configRuleInvokedTime,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (annotation != null) {
+      result$
+        ..add('Annotation')
+        ..add(serializers.serialize(
+          annotation,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (accountId != null) {
+      result$
+        ..add('AccountId')
+        ..add(serializers.serialize(
+          accountId,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (awsRegion != null) {
+      result$
+        ..add('AwsRegion')
+        ..add(serializers.serialize(
+          awsRegion,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

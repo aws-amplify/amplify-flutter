@@ -10,15 +10,15 @@ class _$ReplicationGroupUpdate extends ReplicationGroupUpdate {
   @override
   final _i2.CreateReplicationGroupMemberAction? create;
   @override
-  final _i3.DeleteReplicationGroupMemberAction? delete;
+  final _i3.UpdateReplicationGroupMemberAction? update_;
   @override
-  final _i4.UpdateReplicationGroupMemberAction? update_;
+  final _i4.DeleteReplicationGroupMemberAction? delete;
 
   factory _$ReplicationGroupUpdate(
           [void Function(ReplicationGroupUpdateBuilder)? updates]) =>
       (new ReplicationGroupUpdateBuilder()..update(updates))._build();
 
-  _$ReplicationGroupUpdate._({this.create, this.delete, this.update_})
+  _$ReplicationGroupUpdate._({this.create, this.update_, this.delete})
       : super._();
 
   @override
@@ -35,16 +35,16 @@ class _$ReplicationGroupUpdate extends ReplicationGroupUpdate {
     if (identical(other, this)) return true;
     return other is ReplicationGroupUpdate &&
         create == other.create &&
-        delete == other.delete &&
-        update_ == other.update_;
+        update_ == other.update_ &&
+        delete == other.delete;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, create.hashCode);
-    _$hash = $jc(_$hash, delete.hashCode);
     _$hash = $jc(_$hash, update_.hashCode);
+    _$hash = $jc(_$hash, delete.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -60,17 +60,17 @@ class ReplicationGroupUpdateBuilder
   set create(_i2.CreateReplicationGroupMemberActionBuilder? create) =>
       _$this._create = create;
 
-  _i3.DeleteReplicationGroupMemberActionBuilder? _delete;
-  _i3.DeleteReplicationGroupMemberActionBuilder get delete =>
-      _$this._delete ??= new _i3.DeleteReplicationGroupMemberActionBuilder();
-  set delete(_i3.DeleteReplicationGroupMemberActionBuilder? delete) =>
-      _$this._delete = delete;
-
-  _i4.UpdateReplicationGroupMemberActionBuilder? _update_;
-  _i4.UpdateReplicationGroupMemberActionBuilder get update_ =>
-      _$this._update_ ??= new _i4.UpdateReplicationGroupMemberActionBuilder();
-  set update_(_i4.UpdateReplicationGroupMemberActionBuilder? update_) =>
+  _i3.UpdateReplicationGroupMemberActionBuilder? _update_;
+  _i3.UpdateReplicationGroupMemberActionBuilder get update_ =>
+      _$this._update_ ??= new _i3.UpdateReplicationGroupMemberActionBuilder();
+  set update_(_i3.UpdateReplicationGroupMemberActionBuilder? update_) =>
       _$this._update_ = update_;
+
+  _i4.DeleteReplicationGroupMemberActionBuilder? _delete;
+  _i4.DeleteReplicationGroupMemberActionBuilder get delete =>
+      _$this._delete ??= new _i4.DeleteReplicationGroupMemberActionBuilder();
+  set delete(_i4.DeleteReplicationGroupMemberActionBuilder? delete) =>
+      _$this._delete = delete;
 
   ReplicationGroupUpdateBuilder() {
     ReplicationGroupUpdate._init(this);
@@ -80,8 +80,8 @@ class ReplicationGroupUpdateBuilder
     final $v = _$v;
     if ($v != null) {
       _create = $v.create?.toBuilder();
-      _delete = $v.delete?.toBuilder();
       _update_ = $v.update_?.toBuilder();
+      _delete = $v.delete?.toBuilder();
       _$v = null;
     }
     return this;
@@ -107,17 +107,17 @@ class ReplicationGroupUpdateBuilder
       _$result = _$v ??
           new _$ReplicationGroupUpdate._(
               create: _create?.build(),
-              delete: _delete?.build(),
-              update_: _update_?.build());
+              update_: _update_?.build(),
+              delete: _delete?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'create';
         _create?.build();
-        _$failedField = 'delete';
-        _delete?.build();
         _$failedField = 'update_';
         _update_?.build();
+        _$failedField = 'delete';
+        _delete?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ReplicationGroupUpdate', _$failedField, e.toString());

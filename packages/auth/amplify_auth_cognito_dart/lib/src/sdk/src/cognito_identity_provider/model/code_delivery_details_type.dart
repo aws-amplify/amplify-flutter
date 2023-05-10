@@ -17,14 +17,14 @@ abstract class CodeDeliveryDetailsType
     implements Built<CodeDeliveryDetailsType, CodeDeliveryDetailsTypeBuilder> {
   /// The delivery details for an email or SMS message that Amazon Cognito sent for authentication or verification.
   factory CodeDeliveryDetailsType({
-    String? attributeName,
-    _i2.DeliveryMediumType? deliveryMedium,
     String? destination,
+    _i2.DeliveryMediumType? deliveryMedium,
+    String? attributeName,
   }) {
     return _$CodeDeliveryDetailsType._(
-      attributeName: attributeName,
-      deliveryMedium: deliveryMedium,
       destination: destination,
+      deliveryMedium: deliveryMedium,
+      attributeName: attributeName,
     );
   }
 
@@ -42,34 +42,34 @@ abstract class CodeDeliveryDetailsType
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CodeDeliveryDetailsTypeBuilder b) {}
 
-  /// The name of the attribute that Amazon Cognito verifies with the code.
-  String? get attributeName;
+  /// The email address or phone number destination where Amazon Cognito sent the code.
+  String? get destination;
 
   /// The method that Amazon Cognito used to send the code.
   _i2.DeliveryMediumType? get deliveryMedium;
 
-  /// The email address or phone number destination where Amazon Cognito sent the code.
-  String? get destination;
+  /// The name of the attribute that Amazon Cognito verifies with the code.
+  String? get attributeName;
   @override
   List<Object?> get props => [
-        attributeName,
-        deliveryMedium,
         destination,
+        deliveryMedium,
+        attributeName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CodeDeliveryDetailsType');
     helper.add(
-      'attributeName',
-      attributeName,
+      'destination',
+      destination,
     );
     helper.add(
       'deliveryMedium',
       deliveryMedium,
     );
     helper.add(
-      'destination',
-      destination,
+      'attributeName',
+      attributeName,
     );
     return helper.toString();
   }
@@ -105,9 +105,9 @@ class CodeDeliveryDetailsTypeAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'AttributeName':
+        case 'Destination':
           if (value != null) {
-            result.attributeName = (serializers.deserialize(
+            result.destination = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -121,9 +121,9 @@ class CodeDeliveryDetailsTypeAwsJson11Serializer
             ) as _i2.DeliveryMediumType);
           }
           break;
-        case 'Destination':
+        case 'AttributeName':
           if (value != null) {
-            result.destination = (serializers.deserialize(
+            result.attributeName = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -143,11 +143,11 @@ class CodeDeliveryDetailsTypeAwsJson11Serializer
   }) {
     final payload = (object as CodeDeliveryDetailsType);
     final result = <Object?>[];
-    if (payload.attributeName != null) {
+    if (payload.destination != null) {
       result
-        ..add('AttributeName')
+        ..add('Destination')
         ..add(serializers.serialize(
-          payload.attributeName!,
+          payload.destination!,
           specifiedType: const FullType(String),
         ));
     }
@@ -159,11 +159,11 @@ class CodeDeliveryDetailsTypeAwsJson11Serializer
           specifiedType: const FullType(_i2.DeliveryMediumType),
         ));
     }
-    if (payload.destination != null) {
+    if (payload.attributeName != null) {
       result
-        ..add('Destination')
+        ..add('AttributeName')
         ..add(serializers.serialize(
-          payload.destination!,
+          payload.attributeName!,
           specifiedType: const FullType(String),
         ));
     }

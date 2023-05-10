@@ -9,21 +9,21 @@ part of rest_json1_v1.rest_json_protocol.model.http_request_with_float_labels_in
 class _$HttpRequestWithFloatLabelsInput
     extends HttpRequestWithFloatLabelsInput {
   @override
-  final double double_;
-  @override
   final double float;
+  @override
+  final double double_;
 
   factory _$HttpRequestWithFloatLabelsInput(
           [void Function(HttpRequestWithFloatLabelsInputBuilder)? updates]) =>
       (new HttpRequestWithFloatLabelsInputBuilder()..update(updates))._build();
 
   _$HttpRequestWithFloatLabelsInput._(
-      {required this.double_, required this.float})
+      {required this.float, required this.double_})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        double_, r'HttpRequestWithFloatLabelsInput', 'double_');
-    BuiltValueNullFieldError.checkNotNull(
         float, r'HttpRequestWithFloatLabelsInput', 'float');
+    BuiltValueNullFieldError.checkNotNull(
+        double_, r'HttpRequestWithFloatLabelsInput', 'double_');
   }
 
   @override
@@ -39,15 +39,15 @@ class _$HttpRequestWithFloatLabelsInput
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is HttpRequestWithFloatLabelsInput &&
-        double_ == other.double_ &&
-        float == other.float;
+        float == other.float &&
+        double_ == other.double_;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, double_.hashCode);
     _$hash = $jc(_$hash, float.hashCode);
+    _$hash = $jc(_$hash, double_.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -59,13 +59,13 @@ class HttpRequestWithFloatLabelsInputBuilder
             HttpRequestWithFloatLabelsInputBuilder> {
   _$HttpRequestWithFloatLabelsInput? _$v;
 
-  double? _double_;
-  double? get double_ => _$this._double_;
-  set double_(double? double_) => _$this._double_ = double_;
-
   double? _float;
   double? get float => _$this._float;
   set float(double? float) => _$this._float = float;
+
+  double? _double_;
+  double? get double_ => _$this._double_;
+  set double_(double? double_) => _$this._double_ = double_;
 
   HttpRequestWithFloatLabelsInputBuilder() {
     HttpRequestWithFloatLabelsInput._init(this);
@@ -74,8 +74,8 @@ class HttpRequestWithFloatLabelsInputBuilder
   HttpRequestWithFloatLabelsInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _double_ = $v.double_;
       _float = $v.float;
+      _double_ = $v.double_;
       _$v = null;
     }
     return this;
@@ -98,10 +98,10 @@ class HttpRequestWithFloatLabelsInputBuilder
   _$HttpRequestWithFloatLabelsInput _build() {
     final _$result = _$v ??
         new _$HttpRequestWithFloatLabelsInput._(
-            double_: BuiltValueNullFieldError.checkNotNull(
-                double_, r'HttpRequestWithFloatLabelsInput', 'double_'),
             float: BuiltValueNullFieldError.checkNotNull(
-                float, r'HttpRequestWithFloatLabelsInput', 'float'));
+                float, r'HttpRequestWithFloatLabelsInput', 'float'),
+            double_: BuiltValueNullFieldError.checkNotNull(
+                double_, r'HttpRequestWithFloatLabelsInput', 'double_'));
     replace(_$result);
     return _$result;
   }

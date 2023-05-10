@@ -8,16 +8,16 @@ part of smoke_test.dynamo_db_streams.model.shard;
 
 class _$Shard extends Shard {
   @override
-  final String? parentShardId;
+  final String? shardId;
   @override
   final _i2.SequenceNumberRange? sequenceNumberRange;
   @override
-  final String? shardId;
+  final String? parentShardId;
 
   factory _$Shard([void Function(ShardBuilder)? updates]) =>
       (new ShardBuilder()..update(updates))._build();
 
-  _$Shard._({this.parentShardId, this.sequenceNumberRange, this.shardId})
+  _$Shard._({this.shardId, this.sequenceNumberRange, this.parentShardId})
       : super._();
 
   @override
@@ -31,17 +31,17 @@ class _$Shard extends Shard {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Shard &&
-        parentShardId == other.parentShardId &&
+        shardId == other.shardId &&
         sequenceNumberRange == other.sequenceNumberRange &&
-        shardId == other.shardId;
+        parentShardId == other.parentShardId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, parentShardId.hashCode);
-    _$hash = $jc(_$hash, sequenceNumberRange.hashCode);
     _$hash = $jc(_$hash, shardId.hashCode);
+    _$hash = $jc(_$hash, sequenceNumberRange.hashCode);
+    _$hash = $jc(_$hash, parentShardId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -50,10 +50,9 @@ class _$Shard extends Shard {
 class ShardBuilder implements Builder<Shard, ShardBuilder> {
   _$Shard? _$v;
 
-  String? _parentShardId;
-  String? get parentShardId => _$this._parentShardId;
-  set parentShardId(String? parentShardId) =>
-      _$this._parentShardId = parentShardId;
+  String? _shardId;
+  String? get shardId => _$this._shardId;
+  set shardId(String? shardId) => _$this._shardId = shardId;
 
   _i2.SequenceNumberRangeBuilder? _sequenceNumberRange;
   _i2.SequenceNumberRangeBuilder get sequenceNumberRange =>
@@ -62,9 +61,10 @@ class ShardBuilder implements Builder<Shard, ShardBuilder> {
           _i2.SequenceNumberRangeBuilder? sequenceNumberRange) =>
       _$this._sequenceNumberRange = sequenceNumberRange;
 
-  String? _shardId;
-  String? get shardId => _$this._shardId;
-  set shardId(String? shardId) => _$this._shardId = shardId;
+  String? _parentShardId;
+  String? get parentShardId => _$this._parentShardId;
+  set parentShardId(String? parentShardId) =>
+      _$this._parentShardId = parentShardId;
 
   ShardBuilder() {
     Shard._init(this);
@@ -73,9 +73,9 @@ class ShardBuilder implements Builder<Shard, ShardBuilder> {
   ShardBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _parentShardId = $v.parentShardId;
-      _sequenceNumberRange = $v.sequenceNumberRange?.toBuilder();
       _shardId = $v.shardId;
+      _sequenceNumberRange = $v.sequenceNumberRange?.toBuilder();
+      _parentShardId = $v.parentShardId;
       _$v = null;
     }
     return this;
@@ -100,9 +100,9 @@ class ShardBuilder implements Builder<Shard, ShardBuilder> {
     try {
       _$result = _$v ??
           new _$Shard._(
-              parentShardId: parentShardId,
+              shardId: shardId,
               sequenceNumberRange: _sequenceNumberRange?.build(),
-              shardId: shardId);
+              parentShardId: parentShardId);
     } catch (_) {
       late String _$failedField;
       try {

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library custom_v1.custom.custom_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -156,9 +157,10 @@ class _CustomServer extends _i1.HttpServer<CustomServerBase> {
     context.response.headers['Content-Type'] =
         _httpChecksumNotRequiredWithMemberProtocol.contentType;
     try {
-      final payload =
-          (await _httpChecksumNotRequiredWithMemberProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpChecksumNotRequiredWithMemberProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i12.Uint8List),
       ) as _i12.Uint8List?);
       final input = _i5.HttpChecksumNotRequiredWithMemberInput.fromRequest(
@@ -171,7 +173,9 @@ class _CustomServer extends _i1.HttpServer<CustomServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpChecksumNotRequiredWithMemberProtocol.serialize(
+      final body = await _httpChecksumNotRequiredWithMemberProtocol
+          .wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -198,8 +202,10 @@ class _CustomServer extends _i1.HttpServer<CustomServerBase> {
     context.response.headers['Content-Type'] =
         _httpChecksumReallyNotRequiredProtocol.contentType;
     try {
-      final payload = (await _httpChecksumReallyNotRequiredProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpChecksumReallyNotRequiredProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i12.Uint8List),
       ) as _i12.Uint8List?);
       final input = _i6.HttpChecksumReallyNotRequiredInput.fromRequest(
@@ -212,7 +218,8 @@ class _CustomServer extends _i1.HttpServer<CustomServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpChecksumReallyNotRequiredProtocol.serialize(
+      final body =
+          await _httpChecksumReallyNotRequiredProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -239,8 +246,9 @@ class _CustomServer extends _i1.HttpServer<CustomServerBase> {
     context.response.headers['Content-Type'] =
         _httpChecksumReallyRequiredProtocol.contentType;
     try {
-      final payload = (await _httpChecksumReallyRequiredProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpChecksumReallyRequiredProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i12.Uint8List),
       ) as _i12.Uint8List?);
       final input = _i7.HttpChecksumReallyRequiredInput.fromRequest(
@@ -253,7 +261,8 @@ class _CustomServer extends _i1.HttpServer<CustomServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpChecksumReallyRequiredProtocol.serialize(
+      final body =
+          await _httpChecksumReallyRequiredProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -279,8 +288,9 @@ class _CustomServer extends _i1.HttpServer<CustomServerBase> {
     context.response.headers['Content-Type'] =
         _httpChecksumRequiredProtocol.contentType;
     try {
-      final payload = (await _httpChecksumRequiredProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _httpChecksumRequiredProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i12.Uint8List),
       ) as _i12.Uint8List?);
       final input = _i8.HttpChecksumRequiredInput.fromRequest(
@@ -293,7 +303,7 @@ class _CustomServer extends _i1.HttpServer<CustomServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpChecksumRequiredProtocol.serialize(
+      final body = await _httpChecksumRequiredProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -320,9 +330,10 @@ class _CustomServer extends _i1.HttpServer<CustomServerBase> {
     context.response.headers['Content-Type'] =
         _httpChecksumRequiredWithMemberProtocol.contentType;
     try {
-      final payload =
-          (await _httpChecksumRequiredWithMemberProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _httpChecksumRequiredWithMemberProtocol
+          .wireSerializer
+          .deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(_i12.Uint8List),
       ) as _i12.Uint8List?);
       final input = _i9.HttpChecksumRequiredWithMemberInput.fromRequest(
@@ -335,7 +346,8 @@ class _CustomServer extends _i1.HttpServer<CustomServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _httpChecksumRequiredWithMemberProtocol.serialize(
+      final body = await _httpChecksumRequiredWithMemberProtocol.wireSerializer
+          .serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,
@@ -361,8 +373,9 @@ class _CustomServer extends _i1.HttpServer<CustomServerBase> {
     context.response.headers['Content-Type'] =
         _nestedCollectionsProtocol.contentType;
     try {
-      final payload = (await _nestedCollectionsProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _nestedCollectionsProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i10.NestedCollectionsInput),
       ) as _i10.NestedCollectionsInput);
       final input = _i10.NestedCollectionsInput.fromRequest(
@@ -375,7 +388,7 @@ class _CustomServer extends _i1.HttpServer<CustomServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _nestedCollectionsProtocol.serialize(
+      final body = await _nestedCollectionsProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i1.Unit,

@@ -18,19 +18,19 @@ abstract class DeviceType
     implements Built<DeviceType, DeviceTypeBuilder> {
   /// The device type.
   factory DeviceType({
+    String? deviceKey,
     List<_i2.AttributeType>? deviceAttributes,
     DateTime? deviceCreateDate,
-    String? deviceKey,
-    DateTime? deviceLastAuthenticatedDate,
     DateTime? deviceLastModifiedDate,
+    DateTime? deviceLastAuthenticatedDate,
   }) {
     return _$DeviceType._(
+      deviceKey: deviceKey,
       deviceAttributes:
           deviceAttributes == null ? null : _i3.BuiltList(deviceAttributes),
       deviceCreateDate: deviceCreateDate,
-      deviceKey: deviceKey,
-      deviceLastAuthenticatedDate: deviceLastAuthenticatedDate,
       deviceLastModifiedDate: deviceLastModifiedDate,
+      deviceLastAuthenticatedDate: deviceLastAuthenticatedDate,
     );
   }
 
@@ -47,31 +47,35 @@ abstract class DeviceType
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeviceTypeBuilder b) {}
 
+  /// The device key.
+  String? get deviceKey;
+
   /// The device attributes.
   _i3.BuiltList<_i2.AttributeType>? get deviceAttributes;
 
   /// The creation date of the device.
   DateTime? get deviceCreateDate;
 
-  /// The device key.
-  String? get deviceKey;
+  /// The last modified date of the device.
+  DateTime? get deviceLastModifiedDate;
 
   /// The date when the device was last authenticated.
   DateTime? get deviceLastAuthenticatedDate;
-
-  /// The last modified date of the device.
-  DateTime? get deviceLastModifiedDate;
   @override
   List<Object?> get props => [
+        deviceKey,
         deviceAttributes,
         deviceCreateDate,
-        deviceKey,
-        deviceLastAuthenticatedDate,
         deviceLastModifiedDate,
+        deviceLastAuthenticatedDate,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeviceType');
+    helper.add(
+      'deviceKey',
+      deviceKey,
+    );
     helper.add(
       'deviceAttributes',
       deviceAttributes,
@@ -81,16 +85,12 @@ abstract class DeviceType
       deviceCreateDate,
     );
     helper.add(
-      'deviceKey',
-      deviceKey,
+      'deviceLastModifiedDate',
+      deviceLastModifiedDate,
     );
     helper.add(
       'deviceLastAuthenticatedDate',
       deviceLastAuthenticatedDate,
-    );
-    helper.add(
-      'deviceLastModifiedDate',
-      deviceLastModifiedDate,
     );
     return helper.toString();
   }
@@ -125,6 +125,14 @@ class DeviceTypeAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'DeviceKey':
+          if (value != null) {
+            result.deviceKey = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'DeviceAttributes':
           if (value != null) {
             result.deviceAttributes.replace((serializers.deserialize(
@@ -144,25 +152,17 @@ class DeviceTypeAwsJson11Serializer
             ) as DateTime);
           }
           break;
-        case 'DeviceKey':
+        case 'DeviceLastModifiedDate':
           if (value != null) {
-            result.deviceKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'DeviceLastAuthenticatedDate':
-          if (value != null) {
-            result.deviceLastAuthenticatedDate = (serializers.deserialize(
+            result.deviceLastModifiedDate = (serializers.deserialize(
               value,
               specifiedType: const FullType(DateTime),
             ) as DateTime);
           }
           break;
-        case 'DeviceLastModifiedDate':
+        case 'DeviceLastAuthenticatedDate':
           if (value != null) {
-            result.deviceLastModifiedDate = (serializers.deserialize(
+            result.deviceLastAuthenticatedDate = (serializers.deserialize(
               value,
               specifiedType: const FullType(DateTime),
             ) as DateTime);
@@ -182,6 +182,14 @@ class DeviceTypeAwsJson11Serializer
   }) {
     final payload = (object as DeviceType);
     final result = <Object?>[];
+    if (payload.deviceKey != null) {
+      result
+        ..add('DeviceKey')
+        ..add(serializers.serialize(
+          payload.deviceKey!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.deviceAttributes != null) {
       result
         ..add('DeviceAttributes')
@@ -201,12 +209,12 @@ class DeviceTypeAwsJson11Serializer
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.deviceKey != null) {
+    if (payload.deviceLastModifiedDate != null) {
       result
-        ..add('DeviceKey')
+        ..add('DeviceLastModifiedDate')
         ..add(serializers.serialize(
-          payload.deviceKey!,
-          specifiedType: const FullType(String),
+          payload.deviceLastModifiedDate!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (payload.deviceLastAuthenticatedDate != null) {
@@ -214,14 +222,6 @@ class DeviceTypeAwsJson11Serializer
         ..add('DeviceLastAuthenticatedDate')
         ..add(serializers.serialize(
           payload.deviceLastAuthenticatedDate!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.deviceLastModifiedDate != null) {
-      result
-        ..add('DeviceLastModifiedDate')
-        ..add(serializers.serialize(
-          payload.deviceLastModifiedDate!,
           specifiedType: const FullType(DateTime),
         ));
     }

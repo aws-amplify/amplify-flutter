@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_xml_v2.rest_xml_protocol.test.xml_unions_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -372,15 +373,15 @@ class XmlUnionsInputOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'unionValue':
-          if (value != null) {
-            result.unionValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.XmlUnionShape),
-            ) as _i6.XmlUnionShape);
-          }
-          break;
+          result.unionValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.XmlUnionShape),
+          ) as _i6.XmlUnionShape);
       }
     }
 
@@ -390,7 +391,7 @@ class XmlUnionsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.XmlUnionsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

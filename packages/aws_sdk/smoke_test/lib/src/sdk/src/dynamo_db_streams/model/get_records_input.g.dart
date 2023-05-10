@@ -8,14 +8,14 @@ part of smoke_test.dynamo_db_streams.model.get_records_input;
 
 class _$GetRecordsInput extends GetRecordsInput {
   @override
-  final int? limit;
-  @override
   final String shardIterator;
+  @override
+  final int? limit;
 
   factory _$GetRecordsInput([void Function(GetRecordsInputBuilder)? updates]) =>
       (new GetRecordsInputBuilder()..update(updates))._build();
 
-  _$GetRecordsInput._({this.limit, required this.shardIterator}) : super._() {
+  _$GetRecordsInput._({required this.shardIterator, this.limit}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
         shardIterator, r'GetRecordsInput', 'shardIterator');
   }
@@ -32,15 +32,15 @@ class _$GetRecordsInput extends GetRecordsInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetRecordsInput &&
-        limit == other.limit &&
-        shardIterator == other.shardIterator;
+        shardIterator == other.shardIterator &&
+        limit == other.limit;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, shardIterator.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -50,14 +50,14 @@ class GetRecordsInputBuilder
     implements Builder<GetRecordsInput, GetRecordsInputBuilder> {
   _$GetRecordsInput? _$v;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
-
   String? _shardIterator;
   String? get shardIterator => _$this._shardIterator;
   set shardIterator(String? shardIterator) =>
       _$this._shardIterator = shardIterator;
+
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
 
   GetRecordsInputBuilder() {
     GetRecordsInput._init(this);
@@ -66,8 +66,8 @@ class GetRecordsInputBuilder
   GetRecordsInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _limit = $v.limit;
       _shardIterator = $v.shardIterator;
+      _limit = $v.limit;
       _$v = null;
     }
     return this;
@@ -90,9 +90,9 @@ class GetRecordsInputBuilder
   _$GetRecordsInput _build() {
     final _$result = _$v ??
         new _$GetRecordsInput._(
-            limit: limit,
             shardIterator: BuiltValueNullFieldError.checkNotNull(
-                shardIterator, r'GetRecordsInput', 'shardIterator'));
+                shardIterator, r'GetRecordsInput', 'shardIterator'),
+            limit: limit);
     replace(_$result);
     return _$result;
   }

@@ -8,7 +8,8 @@ import 'dart:io';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 // ignore: invalid_use_of_internal_member,implementation_imports
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
-import 'package:amplify_auth_cognito_dart/src/state/state/credential_store_state.dart';
+// ignore: invalid_use_of_internal_member,implementation_imports
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_common.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -94,7 +95,6 @@ Future<void> buildAndRun(Compiler compiler) async {
           return true;
         }
       });
-      break;
     case Compiler.dart2js:
       final buildProc = await processManager.spawn('webdev', [
         'build',
@@ -104,7 +104,6 @@ Future<void> buildAndRun(Compiler compiler) async {
       if (await buildProc.exitCode != 0) {
         fail('Could not build web app');
       }
-      break;
   }
 
   final mimeResolver = MimeTypeResolver();

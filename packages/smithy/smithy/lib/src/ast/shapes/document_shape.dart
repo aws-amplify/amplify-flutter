@@ -15,8 +15,9 @@ abstract class DocumentShape
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DocumentShapeBuilder b) {
-    b.shapeId = id;
-    b.traits = TraitMap.empty();
+    b
+      ..shapeId = id
+      ..traits = TraitMap.empty();
   }
 
   static const id = ShapeId.core('Document');

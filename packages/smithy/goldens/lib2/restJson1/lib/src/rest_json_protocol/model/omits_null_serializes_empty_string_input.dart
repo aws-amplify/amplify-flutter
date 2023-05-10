@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.omits_null_serializes_empty_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,12 +21,12 @@ abstract class OmitsNullSerializesEmptyStringInput
         _i1.EmptyPayload,
         _i1.HasPayload<OmitsNullSerializesEmptyStringInputPayload> {
   factory OmitsNullSerializesEmptyStringInput({
-    String? emptyString,
     String? nullValue,
+    String? emptyString,
   }) {
     return _$OmitsNullSerializesEmptyStringInput._(
-      emptyString: emptyString,
       nullValue: nullValue,
+      emptyString: emptyString,
     );
   }
 
@@ -55,27 +56,27 @@ abstract class OmitsNullSerializesEmptyStringInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OmitsNullSerializesEmptyStringInputBuilder b) {}
-  String? get emptyString;
   String? get nullValue;
+  String? get emptyString;
   @override
   OmitsNullSerializesEmptyStringInputPayload getPayload() =>
       OmitsNullSerializesEmptyStringInputPayload();
   @override
   List<Object?> get props => [
-        emptyString,
         nullValue,
+        emptyString,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('OmitsNullSerializesEmptyStringInput');
     helper.add(
-      'emptyString',
-      emptyString,
-    );
-    helper.add(
       'nullValue',
       nullValue,
+    );
+    helper.add(
+      'emptyString',
+      emptyString,
     );
     return helper.toString();
   }
@@ -138,7 +139,7 @@ class OmitsNullSerializesEmptyStringInputRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OmitsNullSerializesEmptyStringInputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

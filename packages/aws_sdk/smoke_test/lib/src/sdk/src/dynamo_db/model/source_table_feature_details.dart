@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.source_table_feature_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,15 +9,15 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i8;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index_info.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/local_secondary_index_info.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/local_secondary_index_info.dart'
+    as _i2;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_description.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/stream_specification.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/time_to_live_description.dart'
     as _i6;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/stream_specification.dart'
+    as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/time_to_live_description.dart'
+    as _i5;
 
 part 'source_table_feature_details.g.dart';
 
@@ -27,22 +28,22 @@ abstract class SourceTableFeatureDetails
         Built<SourceTableFeatureDetails, SourceTableFeatureDetailsBuilder> {
   /// Contains the details of the features enabled on the table when the backup was created. For example, LSIs, GSIs, streams, TTL.
   factory SourceTableFeatureDetails({
-    List<_i2.GlobalSecondaryIndexInfo>? globalSecondaryIndexes,
-    List<_i3.LocalSecondaryIndexInfo>? localSecondaryIndexes,
-    _i4.SseDescription? sseDescription,
-    _i5.StreamSpecification? streamDescription,
-    _i6.TimeToLiveDescription? timeToLiveDescription,
+    List<_i2.LocalSecondaryIndexInfo>? localSecondaryIndexes,
+    List<_i3.GlobalSecondaryIndexInfo>? globalSecondaryIndexes,
+    _i4.StreamSpecification? streamDescription,
+    _i5.TimeToLiveDescription? timeToLiveDescription,
+    _i6.SseDescription? sseDescription,
   }) {
     return _$SourceTableFeatureDetails._(
-      globalSecondaryIndexes: globalSecondaryIndexes == null
-          ? null
-          : _i7.BuiltList(globalSecondaryIndexes),
       localSecondaryIndexes: localSecondaryIndexes == null
           ? null
           : _i7.BuiltList(localSecondaryIndexes),
-      sseDescription: sseDescription,
+      globalSecondaryIndexes: globalSecondaryIndexes == null
+          ? null
+          : _i7.BuiltList(globalSecondaryIndexes),
       streamDescription: streamDescription,
       timeToLiveDescription: timeToLiveDescription,
+      sseDescription: sseDescription,
     );
   }
 
@@ -60,42 +61,38 @@ abstract class SourceTableFeatureDetails
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SourceTableFeatureDetailsBuilder b) {}
 
-  /// Represents the GSI properties for the table when the backup was created. It includes the IndexName, KeySchema, Projection, and ProvisionedThroughput for the GSIs on the table at the time of backup.
-  _i7.BuiltList<_i2.GlobalSecondaryIndexInfo>? get globalSecondaryIndexes;
-
   /// Represents the LSI properties for the table when the backup was created. It includes the IndexName, KeySchema and Projection for the LSIs on the table at the time of backup.
-  _i7.BuiltList<_i3.LocalSecondaryIndexInfo>? get localSecondaryIndexes;
+  _i7.BuiltList<_i2.LocalSecondaryIndexInfo>? get localSecondaryIndexes;
 
-  /// The description of the server-side encryption status on the table when the backup was created.
-  _i4.SseDescription? get sseDescription;
+  /// Represents the GSI properties for the table when the backup was created. It includes the IndexName, KeySchema, Projection, and ProvisionedThroughput for the GSIs on the table at the time of backup.
+  _i7.BuiltList<_i3.GlobalSecondaryIndexInfo>? get globalSecondaryIndexes;
 
   /// Stream settings on the table when the backup was created.
-  _i5.StreamSpecification? get streamDescription;
+  _i4.StreamSpecification? get streamDescription;
 
   /// Time to Live settings on the table when the backup was created.
-  _i6.TimeToLiveDescription? get timeToLiveDescription;
+  _i5.TimeToLiveDescription? get timeToLiveDescription;
+
+  /// The description of the server-side encryption status on the table when the backup was created.
+  _i6.SseDescription? get sseDescription;
   @override
   List<Object?> get props => [
-        globalSecondaryIndexes,
         localSecondaryIndexes,
-        sseDescription,
+        globalSecondaryIndexes,
         streamDescription,
         timeToLiveDescription,
+        sseDescription,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SourceTableFeatureDetails');
     helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
-    helper.add(
       'localSecondaryIndexes',
       localSecondaryIndexes,
     );
     helper.add(
-      'sseDescription',
-      sseDescription,
+      'globalSecondaryIndexes',
+      globalSecondaryIndexes,
     );
     helper.add(
       'streamDescription',
@@ -104,6 +101,10 @@ abstract class SourceTableFeatureDetails
     helper.add(
       'timeToLiveDescription',
       timeToLiveDescription,
+    );
+    helper.add(
+      'sseDescription',
+      sseDescription,
     );
     return helper.toString();
   }
@@ -138,53 +139,41 @@ class SourceTableFeatureDetailsAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'GlobalSecondaryIndexes':
-          if (value != null) {
-            result.globalSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i2.GlobalSecondaryIndexInfo)],
-              ),
-            ) as _i7.BuiltList<_i2.GlobalSecondaryIndexInfo>));
-          }
-          break;
         case 'LocalSecondaryIndexes':
-          if (value != null) {
-            result.localSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i3.LocalSecondaryIndexInfo)],
-              ),
-            ) as _i7.BuiltList<_i3.LocalSecondaryIndexInfo>));
-          }
-          break;
-        case 'SSEDescription':
-          if (value != null) {
-            result.sseDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.SseDescription),
-            ) as _i4.SseDescription));
-          }
-          break;
+          result.localSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(_i2.LocalSecondaryIndexInfo)],
+            ),
+          ) as _i7.BuiltList<_i2.LocalSecondaryIndexInfo>));
+        case 'GlobalSecondaryIndexes':
+          result.globalSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(_i3.GlobalSecondaryIndexInfo)],
+            ),
+          ) as _i7.BuiltList<_i3.GlobalSecondaryIndexInfo>));
         case 'StreamDescription':
-          if (value != null) {
-            result.streamDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.StreamSpecification),
-            ) as _i5.StreamSpecification));
-          }
-          break;
+          result.streamDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.StreamSpecification),
+          ) as _i4.StreamSpecification));
         case 'TimeToLiveDescription':
-          if (value != null) {
-            result.timeToLiveDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.TimeToLiveDescription),
-            ) as _i6.TimeToLiveDescription));
-          }
-          break;
+          result.timeToLiveDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.TimeToLiveDescription),
+          ) as _i5.TimeToLiveDescription));
+        case 'SSEDescription':
+          result.sseDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.SseDescription),
+          ) as _i6.SseDescription));
       }
     }
 
@@ -194,57 +183,63 @@ class SourceTableFeatureDetailsAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SourceTableFeatureDetails object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SourceTableFeatureDetails);
-    final result = <Object?>[];
-    if (payload.globalSecondaryIndexes != null) {
-      result
-        ..add('GlobalSecondaryIndexes')
-        ..add(serializers.serialize(
-          payload.globalSecondaryIndexes!,
-          specifiedType: const FullType(
-            _i7.BuiltList,
-            [FullType(_i2.GlobalSecondaryIndexInfo)],
-          ),
-        ));
-    }
-    if (payload.localSecondaryIndexes != null) {
-      result
+    final result$ = <Object?>[];
+    final SourceTableFeatureDetails(
+      :localSecondaryIndexes,
+      :globalSecondaryIndexes,
+      :streamDescription,
+      :timeToLiveDescription,
+      :sseDescription
+    ) = object;
+    if (localSecondaryIndexes != null) {
+      result$
         ..add('LocalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.localSecondaryIndexes!,
+          localSecondaryIndexes,
           specifiedType: const FullType(
             _i7.BuiltList,
-            [FullType(_i3.LocalSecondaryIndexInfo)],
+            [FullType(_i2.LocalSecondaryIndexInfo)],
           ),
         ));
     }
-    if (payload.sseDescription != null) {
-      result
-        ..add('SSEDescription')
+    if (globalSecondaryIndexes != null) {
+      result$
+        ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.sseDescription!,
-          specifiedType: const FullType(_i4.SseDescription),
+          globalSecondaryIndexes,
+          specifiedType: const FullType(
+            _i7.BuiltList,
+            [FullType(_i3.GlobalSecondaryIndexInfo)],
+          ),
         ));
     }
-    if (payload.streamDescription != null) {
-      result
+    if (streamDescription != null) {
+      result$
         ..add('StreamDescription')
         ..add(serializers.serialize(
-          payload.streamDescription!,
-          specifiedType: const FullType(_i5.StreamSpecification),
+          streamDescription,
+          specifiedType: const FullType(_i4.StreamSpecification),
         ));
     }
-    if (payload.timeToLiveDescription != null) {
-      result
+    if (timeToLiveDescription != null) {
+      result$
         ..add('TimeToLiveDescription')
         ..add(serializers.serialize(
-          payload.timeToLiveDescription!,
-          specifiedType: const FullType(_i6.TimeToLiveDescription),
+          timeToLiveDescription,
+          specifiedType: const FullType(_i5.TimeToLiveDescription),
         ));
     }
-    return result;
+    if (sseDescription != null) {
+      result$
+        ..add('SSEDescription')
+        ..add(serializers.serialize(
+          sseDescription,
+          specifiedType: const FullType(_i6.SseDescription),
+        ));
+    }
+    return result$;
   }
 }

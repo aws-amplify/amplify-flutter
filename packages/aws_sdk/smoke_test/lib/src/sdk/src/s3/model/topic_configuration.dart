@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.topic_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,16 +20,16 @@ abstract class TopicConfiguration
     implements Built<TopicConfiguration, TopicConfigurationBuilder> {
   /// A container for specifying the configuration for publication of messages to an Amazon Simple Notification Service (Amazon SNS) topic when Amazon S3 detects specified events.
   factory TopicConfiguration({
-    required List<_i2.Event> events,
-    _i3.NotificationConfigurationFilter? filter,
     String? id,
     required String topicArn,
+    required List<_i2.Event> events,
+    _i3.NotificationConfigurationFilter? filter,
   }) {
     return _$TopicConfiguration._(
-      events: _i4.BuiltList(events),
-      filter: filter,
       id: id,
       topicArn: topicArn,
+      events: _i4.BuiltList(events),
+      filter: filter,
     );
   }
 
@@ -46,35 +47,27 @@ abstract class TopicConfiguration
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TopicConfigurationBuilder b) {}
 
-  /// The Amazon S3 bucket event about which to send notifications. For more information, see [Supported Event Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
-  _i4.BuiltList<_i2.Event> get events;
-
-  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
-  _i3.NotificationConfigurationFilter? get filter;
-
   /// An optional unique identifier for configurations in a notification configuration. If you don't provide one, Amazon S3 will assign an ID.
   String? get id;
 
   /// The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon S3 publishes a message when it detects events of the specified type.
   String get topicArn;
+
+  /// The Amazon S3 bucket event about which to send notifications. For more information, see [Supported Event Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
+  _i4.BuiltList<_i2.Event> get events;
+
+  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
+  _i3.NotificationConfigurationFilter? get filter;
   @override
   List<Object?> get props => [
-        events,
-        filter,
         id,
         topicArn,
+        events,
+        filter,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TopicConfiguration');
-    helper.add(
-      'events',
-      events,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
     helper.add(
       'id',
       id,
@@ -82,6 +75,14 @@ abstract class TopicConfiguration
     helper.add(
       'topicArn',
       topicArn,
+    );
+    helper.add(
+      'events',
+      events,
+    );
+    helper.add(
+      'filter',
+      filter,
     );
     return helper.toString();
   }
@@ -112,39 +113,33 @@ class TopicConfigurationRestXmlSerializer
     final result = TopicConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Event':
           result.events.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.Event),
           ) as _i2.Event));
-          break;
         case 'Filter':
-          if (value != null) {
-            result.filter.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.NotificationConfigurationFilter),
-            ) as _i3.NotificationConfigurationFilter));
-          }
-          break;
+          result.filter.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.NotificationConfigurationFilter),
+          ) as _i3.NotificationConfigurationFilter));
         case 'Id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Topic':
-          result.topicArn = (serializers.deserialize(
-            value!,
+          result.id = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'Topic':
+          result.topicArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -154,47 +149,47 @@ class TopicConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TopicConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TopicConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'TopicConfiguration',
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
+    final TopicConfiguration(:events, :filter, :id, :topicArn) = object;
+    result$
         .addAll(const _i5.XmlBuiltListSerializer(memberName: 'Event').serialize(
       serializers,
-      payload.events,
+      events,
       specifiedType: const FullType.nullable(
         _i4.BuiltList,
         [FullType(_i2.Event)],
       ),
     ));
-    if (payload.filter != null) {
-      result
+    if (filter != null) {
+      result$
         ..add(const _i5.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i3.NotificationConfigurationFilter),
         ));
     }
-    if (payload.id != null) {
-      result
+    if (id != null) {
+      result$
         ..add(const _i5.XmlElementName('Id'))
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i5.XmlElementName('Topic'))
       ..add(serializers.serialize(
-        payload.topicArn,
+        topicArn,
         specifiedType: const FullType(String),
       ));
-    return result;
+    return result$;
   }
 }

@@ -10,13 +10,13 @@ class _$ReplicaSettingsUpdate extends ReplicaSettingsUpdate {
   @override
   final String regionName;
   @override
-  final _i6.BuiltList<_i2.ReplicaGlobalSecondaryIndexSettingsUpdate>?
-      replicaGlobalSecondaryIndexSettingsUpdate;
+  final _i2.Int64? replicaProvisionedReadCapacityUnits;
   @override
   final _i3.AutoScalingSettingsUpdate?
       replicaProvisionedReadCapacityAutoScalingSettingsUpdate;
   @override
-  final _i4.Int64? replicaProvisionedReadCapacityUnits;
+  final _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>?
+      replicaGlobalSecondaryIndexSettingsUpdate;
   @override
   final _i5.TableClass? replicaTableClass;
 
@@ -26,9 +26,9 @@ class _$ReplicaSettingsUpdate extends ReplicaSettingsUpdate {
 
   _$ReplicaSettingsUpdate._(
       {required this.regionName,
-      this.replicaGlobalSecondaryIndexSettingsUpdate,
-      this.replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
       this.replicaProvisionedReadCapacityUnits,
+      this.replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
+      this.replicaGlobalSecondaryIndexSettingsUpdate,
       this.replicaTableClass})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -49,12 +49,12 @@ class _$ReplicaSettingsUpdate extends ReplicaSettingsUpdate {
     if (identical(other, this)) return true;
     return other is ReplicaSettingsUpdate &&
         regionName == other.regionName &&
-        replicaGlobalSecondaryIndexSettingsUpdate ==
-            other.replicaGlobalSecondaryIndexSettingsUpdate &&
-        replicaProvisionedReadCapacityAutoScalingSettingsUpdate ==
-            other.replicaProvisionedReadCapacityAutoScalingSettingsUpdate &&
         replicaProvisionedReadCapacityUnits ==
             other.replicaProvisionedReadCapacityUnits &&
+        replicaProvisionedReadCapacityAutoScalingSettingsUpdate ==
+            other.replicaProvisionedReadCapacityAutoScalingSettingsUpdate &&
+        replicaGlobalSecondaryIndexSettingsUpdate ==
+            other.replicaGlobalSecondaryIndexSettingsUpdate &&
         replicaTableClass == other.replicaTableClass;
   }
 
@@ -62,10 +62,10 @@ class _$ReplicaSettingsUpdate extends ReplicaSettingsUpdate {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, regionName.hashCode);
-    _$hash = $jc(_$hash, replicaGlobalSecondaryIndexSettingsUpdate.hashCode);
+    _$hash = $jc(_$hash, replicaProvisionedReadCapacityUnits.hashCode);
     _$hash = $jc(_$hash,
         replicaProvisionedReadCapacityAutoScalingSettingsUpdate.hashCode);
-    _$hash = $jc(_$hash, replicaProvisionedReadCapacityUnits.hashCode);
+    _$hash = $jc(_$hash, replicaGlobalSecondaryIndexSettingsUpdate.hashCode);
     _$hash = $jc(_$hash, replicaTableClass.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -80,17 +80,13 @@ class ReplicaSettingsUpdateBuilder
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  _i6.ListBuilder<_i2.ReplicaGlobalSecondaryIndexSettingsUpdate>?
-      _replicaGlobalSecondaryIndexSettingsUpdate;
-  _i6.ListBuilder<_i2.ReplicaGlobalSecondaryIndexSettingsUpdate>
-      get replicaGlobalSecondaryIndexSettingsUpdate => _$this
-              ._replicaGlobalSecondaryIndexSettingsUpdate ??=
-          new _i6.ListBuilder<_i2.ReplicaGlobalSecondaryIndexSettingsUpdate>();
-  set replicaGlobalSecondaryIndexSettingsUpdate(
-          _i6.ListBuilder<_i2.ReplicaGlobalSecondaryIndexSettingsUpdate>?
-              replicaGlobalSecondaryIndexSettingsUpdate) =>
-      _$this._replicaGlobalSecondaryIndexSettingsUpdate =
-          replicaGlobalSecondaryIndexSettingsUpdate;
+  _i2.Int64? _replicaProvisionedReadCapacityUnits;
+  _i2.Int64? get replicaProvisionedReadCapacityUnits =>
+      _$this._replicaProvisionedReadCapacityUnits;
+  set replicaProvisionedReadCapacityUnits(
+          _i2.Int64? replicaProvisionedReadCapacityUnits) =>
+      _$this._replicaProvisionedReadCapacityUnits =
+          replicaProvisionedReadCapacityUnits;
 
   _i3.AutoScalingSettingsUpdateBuilder?
       _replicaProvisionedReadCapacityAutoScalingSettingsUpdate;
@@ -104,13 +100,17 @@ class ReplicaSettingsUpdateBuilder
       _$this._replicaProvisionedReadCapacityAutoScalingSettingsUpdate =
           replicaProvisionedReadCapacityAutoScalingSettingsUpdate;
 
-  _i4.Int64? _replicaProvisionedReadCapacityUnits;
-  _i4.Int64? get replicaProvisionedReadCapacityUnits =>
-      _$this._replicaProvisionedReadCapacityUnits;
-  set replicaProvisionedReadCapacityUnits(
-          _i4.Int64? replicaProvisionedReadCapacityUnits) =>
-      _$this._replicaProvisionedReadCapacityUnits =
-          replicaProvisionedReadCapacityUnits;
+  _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>?
+      _replicaGlobalSecondaryIndexSettingsUpdate;
+  _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>
+      get replicaGlobalSecondaryIndexSettingsUpdate => _$this
+              ._replicaGlobalSecondaryIndexSettingsUpdate ??=
+          new _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>();
+  set replicaGlobalSecondaryIndexSettingsUpdate(
+          _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>?
+              replicaGlobalSecondaryIndexSettingsUpdate) =>
+      _$this._replicaGlobalSecondaryIndexSettingsUpdate =
+          replicaGlobalSecondaryIndexSettingsUpdate;
 
   _i5.TableClass? _replicaTableClass;
   _i5.TableClass? get replicaTableClass => _$this._replicaTableClass;
@@ -125,13 +125,13 @@ class ReplicaSettingsUpdateBuilder
     final $v = _$v;
     if ($v != null) {
       _regionName = $v.regionName;
-      _replicaGlobalSecondaryIndexSettingsUpdate =
-          $v.replicaGlobalSecondaryIndexSettingsUpdate?.toBuilder();
+      _replicaProvisionedReadCapacityUnits =
+          $v.replicaProvisionedReadCapacityUnits;
       _replicaProvisionedReadCapacityAutoScalingSettingsUpdate = $v
           .replicaProvisionedReadCapacityAutoScalingSettingsUpdate
           ?.toBuilder();
-      _replicaProvisionedReadCapacityUnits =
-          $v.replicaProvisionedReadCapacityUnits;
+      _replicaGlobalSecondaryIndexSettingsUpdate =
+          $v.replicaGlobalSecondaryIndexSettingsUpdate?.toBuilder();
       _replicaTableClass = $v.replicaTableClass;
       _$v = null;
     }
@@ -159,22 +159,22 @@ class ReplicaSettingsUpdateBuilder
           new _$ReplicaSettingsUpdate._(
               regionName: BuiltValueNullFieldError.checkNotNull(
                   regionName, r'ReplicaSettingsUpdate', 'regionName'),
-              replicaGlobalSecondaryIndexSettingsUpdate:
-                  _replicaGlobalSecondaryIndexSettingsUpdate?.build(),
+              replicaProvisionedReadCapacityUnits:
+                  replicaProvisionedReadCapacityUnits,
               replicaProvisionedReadCapacityAutoScalingSettingsUpdate:
                   _replicaProvisionedReadCapacityAutoScalingSettingsUpdate
                       ?.build(),
-              replicaProvisionedReadCapacityUnits:
-                  replicaProvisionedReadCapacityUnits,
+              replicaGlobalSecondaryIndexSettingsUpdate:
+                  _replicaGlobalSecondaryIndexSettingsUpdate?.build(),
               replicaTableClass: replicaTableClass);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'replicaGlobalSecondaryIndexSettingsUpdate';
-        _replicaGlobalSecondaryIndexSettingsUpdate?.build();
         _$failedField =
             'replicaProvisionedReadCapacityAutoScalingSettingsUpdate';
         _replicaProvisionedReadCapacityAutoScalingSettingsUpdate?.build();
+        _$failedField = 'replicaGlobalSecondaryIndexSettingsUpdate';
+        _replicaGlobalSecondaryIndexSettingsUpdate?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ReplicaSettingsUpdate', _$failedField, e.toString());

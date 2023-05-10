@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.list_bucket_metrics_configurations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,18 +20,18 @@ abstract class ListBucketMetricsConfigurationsOutput
         Built<ListBucketMetricsConfigurationsOutput,
             ListBucketMetricsConfigurationsOutputBuilder> {
   factory ListBucketMetricsConfigurationsOutput({
-    String? continuationToken,
     bool? isTruncated,
-    List<_i2.MetricsConfiguration>? metricsConfigurationList,
+    String? continuationToken,
     String? nextContinuationToken,
+    List<_i2.MetricsConfiguration>? metricsConfigurationList,
   }) {
     return _$ListBucketMetricsConfigurationsOutput._(
-      continuationToken: continuationToken,
       isTruncated: isTruncated,
+      continuationToken: continuationToken,
+      nextContinuationToken: nextContinuationToken,
       metricsConfigurationList: metricsConfigurationList == null
           ? null
           : _i3.BuiltList(metricsConfigurationList),
-      nextContinuationToken: nextContinuationToken,
     );
   }
 
@@ -54,43 +55,43 @@ abstract class ListBucketMetricsConfigurationsOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListBucketMetricsConfigurationsOutputBuilder b) {}
 
-  /// The marker that is used as a starting point for this metrics configuration list response. This value is present if it was sent in the request.
-  String? get continuationToken;
-
   /// Indicates whether the returned list of metrics configurations is complete. A value of true indicates that the list is not complete and the NextContinuationToken will be provided for a subsequent request.
   bool? get isTruncated;
 
-  /// The list of metrics configurations for a bucket.
-  _i3.BuiltList<_i2.MetricsConfiguration>? get metricsConfigurationList;
+  /// The marker that is used as a starting point for this metrics configuration list response. This value is present if it was sent in the request.
+  String? get continuationToken;
 
   /// The marker used to continue a metrics configuration listing that has been truncated. Use the `NextContinuationToken` from a previously truncated list response to continue the listing. The continuation token is an opaque value that Amazon S3 understands.
   String? get nextContinuationToken;
+
+  /// The list of metrics configurations for a bucket.
+  _i3.BuiltList<_i2.MetricsConfiguration>? get metricsConfigurationList;
   @override
   List<Object?> get props => [
-        continuationToken,
         isTruncated,
-        metricsConfigurationList,
+        continuationToken,
         nextContinuationToken,
+        metricsConfigurationList,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ListBucketMetricsConfigurationsOutput');
     helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
       'isTruncated',
       isTruncated,
     );
     helper.add(
-      'metricsConfigurationList',
-      metricsConfigurationList,
+      'continuationToken',
+      continuationToken,
     );
     helper.add(
       'nextContinuationToken',
       nextContinuationToken,
+    );
+    helper.add(
+      'metricsConfigurationList',
+      metricsConfigurationList,
     );
     return helper.toString();
   }
@@ -122,42 +123,33 @@ class ListBucketMetricsConfigurationsOutputRestXmlSerializer extends _i4
     final result = ListBucketMetricsConfigurationsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ContinuationToken':
-          if (value != null) {
-            result.continuationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.continuationToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'MetricsConfiguration':
-          if (value != null) {
-            result.metricsConfigurationList.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.MetricsConfiguration),
-            ) as _i2.MetricsConfiguration));
-          }
-          break;
+          result.metricsConfigurationList.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.MetricsConfiguration),
+          ) as _i2.MetricsConfiguration));
         case 'NextContinuationToken':
-          if (value != null) {
-            result.nextContinuationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextContinuationToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -167,52 +159,57 @@ class ListBucketMetricsConfigurationsOutputRestXmlSerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListBucketMetricsConfigurationsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListBucketMetricsConfigurationsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ListMetricsConfigurationsResult',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.continuationToken != null) {
-      result
+    final ListBucketMetricsConfigurationsOutput(
+      :continuationToken,
+      :isTruncated,
+      :metricsConfigurationList,
+      :nextContinuationToken
+    ) = object;
+    if (continuationToken != null) {
+      result$
         ..add(const _i4.XmlElementName('ContinuationToken'))
         ..add(serializers.serialize(
-          payload.continuationToken!,
+          continuationToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.isTruncated != null) {
-      result
+    if (isTruncated != null) {
+      result$
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.metricsConfigurationList != null) {
-      result.addAll(
+    if (metricsConfigurationList != null) {
+      result$.addAll(
           const _i4.XmlBuiltListSerializer(memberName: 'MetricsConfiguration')
               .serialize(
         serializers,
-        payload.metricsConfigurationList!,
+        metricsConfigurationList,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.MetricsConfiguration)],
         ),
       ));
     }
-    if (payload.nextContinuationToken != null) {
-      result
+    if (nextContinuationToken != null) {
+      result$
         ..add(const _i4.XmlElementName('NextContinuationToken'))
         ..add(serializers.serialize(
-          payload.nextContinuationToken!,
+          nextContinuationToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

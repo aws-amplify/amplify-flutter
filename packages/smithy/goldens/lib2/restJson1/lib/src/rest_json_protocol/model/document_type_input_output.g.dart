@@ -8,15 +8,15 @@ part of rest_json1_v2.rest_json_protocol.model.document_type_input_output;
 
 class _$DocumentTypeInputOutput extends DocumentTypeInputOutput {
   @override
-  final _i3.JsonObject? documentValue;
-  @override
   final String? stringValue;
+  @override
+  final _i3.JsonObject? documentValue;
 
   factory _$DocumentTypeInputOutput(
           [void Function(DocumentTypeInputOutputBuilder)? updates]) =>
       (new DocumentTypeInputOutputBuilder()..update(updates))._build();
 
-  _$DocumentTypeInputOutput._({this.documentValue, this.stringValue})
+  _$DocumentTypeInputOutput._({this.stringValue, this.documentValue})
       : super._();
 
   @override
@@ -32,15 +32,15 @@ class _$DocumentTypeInputOutput extends DocumentTypeInputOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DocumentTypeInputOutput &&
-        documentValue == other.documentValue &&
-        stringValue == other.stringValue;
+        stringValue == other.stringValue &&
+        documentValue == other.documentValue;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, documentValue.hashCode);
     _$hash = $jc(_$hash, stringValue.hashCode);
+    _$hash = $jc(_$hash, documentValue.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -51,14 +51,14 @@ class DocumentTypeInputOutputBuilder
         Builder<DocumentTypeInputOutput, DocumentTypeInputOutputBuilder> {
   _$DocumentTypeInputOutput? _$v;
 
+  String? _stringValue;
+  String? get stringValue => _$this._stringValue;
+  set stringValue(String? stringValue) => _$this._stringValue = stringValue;
+
   _i3.JsonObject? _documentValue;
   _i3.JsonObject? get documentValue => _$this._documentValue;
   set documentValue(_i3.JsonObject? documentValue) =>
       _$this._documentValue = documentValue;
-
-  String? _stringValue;
-  String? get stringValue => _$this._stringValue;
-  set stringValue(String? stringValue) => _$this._stringValue = stringValue;
 
   DocumentTypeInputOutputBuilder() {
     DocumentTypeInputOutput._init(this);
@@ -67,8 +67,8 @@ class DocumentTypeInputOutputBuilder
   DocumentTypeInputOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _documentValue = $v.documentValue;
       _stringValue = $v.stringValue;
+      _documentValue = $v.documentValue;
       _$v = null;
     }
     return this;
@@ -91,7 +91,7 @@ class DocumentTypeInputOutputBuilder
   _$DocumentTypeInputOutput _build() {
     final _$result = _$v ??
         new _$DocumentTypeInputOutput._(
-            documentValue: documentValue, stringValue: stringValue);
+            stringValue: stringValue, documentValue: documentValue);
     replace(_$result);
     return _$result;
   }

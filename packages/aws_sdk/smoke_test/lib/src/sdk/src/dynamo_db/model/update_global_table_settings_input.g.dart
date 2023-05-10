@@ -8,17 +8,17 @@ part of smoke_test.dynamo_db.model.update_global_table_settings_input;
 
 class _$UpdateGlobalTableSettingsInput extends UpdateGlobalTableSettingsInput {
   @override
+  final String globalTableName;
+  @override
   final _i3.BillingMode? globalTableBillingMode;
   @override
-  final _i8.BuiltList<_i4.GlobalTableGlobalSecondaryIndexSettingsUpdate>?
-      globalTableGlobalSecondaryIndexSettingsUpdate;
-  @override
-  final String globalTableName;
+  final _i4.Int64? globalTableProvisionedWriteCapacityUnits;
   @override
   final _i5.AutoScalingSettingsUpdate?
       globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate;
   @override
-  final _i6.Int64? globalTableProvisionedWriteCapacityUnits;
+  final _i8.BuiltList<_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate>?
+      globalTableGlobalSecondaryIndexSettingsUpdate;
   @override
   final _i8.BuiltList<_i7.ReplicaSettingsUpdate>? replicaSettingsUpdate;
 
@@ -27,11 +27,11 @@ class _$UpdateGlobalTableSettingsInput extends UpdateGlobalTableSettingsInput {
       (new UpdateGlobalTableSettingsInputBuilder()..update(updates))._build();
 
   _$UpdateGlobalTableSettingsInput._(
-      {this.globalTableBillingMode,
-      this.globalTableGlobalSecondaryIndexSettingsUpdate,
-      required this.globalTableName,
-      this.globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
+      {required this.globalTableName,
+      this.globalTableBillingMode,
       this.globalTableProvisionedWriteCapacityUnits,
+      this.globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
+      this.globalTableGlobalSecondaryIndexSettingsUpdate,
       this.replicaSettingsUpdate})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -51,28 +51,28 @@ class _$UpdateGlobalTableSettingsInput extends UpdateGlobalTableSettingsInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateGlobalTableSettingsInput &&
-        globalTableBillingMode == other.globalTableBillingMode &&
-        globalTableGlobalSecondaryIndexSettingsUpdate ==
-            other.globalTableGlobalSecondaryIndexSettingsUpdate &&
         globalTableName == other.globalTableName &&
+        globalTableBillingMode == other.globalTableBillingMode &&
+        globalTableProvisionedWriteCapacityUnits ==
+            other.globalTableProvisionedWriteCapacityUnits &&
         globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate ==
             other
                 .globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate &&
-        globalTableProvisionedWriteCapacityUnits ==
-            other.globalTableProvisionedWriteCapacityUnits &&
+        globalTableGlobalSecondaryIndexSettingsUpdate ==
+            other.globalTableGlobalSecondaryIndexSettingsUpdate &&
         replicaSettingsUpdate == other.replicaSettingsUpdate;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, globalTableBillingMode.hashCode);
-    _$hash =
-        $jc(_$hash, globalTableGlobalSecondaryIndexSettingsUpdate.hashCode);
     _$hash = $jc(_$hash, globalTableName.hashCode);
+    _$hash = $jc(_$hash, globalTableBillingMode.hashCode);
+    _$hash = $jc(_$hash, globalTableProvisionedWriteCapacityUnits.hashCode);
     _$hash = $jc(_$hash,
         globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate.hashCode);
-    _$hash = $jc(_$hash, globalTableProvisionedWriteCapacityUnits.hashCode);
+    _$hash =
+        $jc(_$hash, globalTableGlobalSecondaryIndexSettingsUpdate.hashCode);
     _$hash = $jc(_$hash, replicaSettingsUpdate.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -85,27 +85,23 @@ class UpdateGlobalTableSettingsInputBuilder
             UpdateGlobalTableSettingsInputBuilder> {
   _$UpdateGlobalTableSettingsInput? _$v;
 
+  String? _globalTableName;
+  String? get globalTableName => _$this._globalTableName;
+  set globalTableName(String? globalTableName) =>
+      _$this._globalTableName = globalTableName;
+
   _i3.BillingMode? _globalTableBillingMode;
   _i3.BillingMode? get globalTableBillingMode => _$this._globalTableBillingMode;
   set globalTableBillingMode(_i3.BillingMode? globalTableBillingMode) =>
       _$this._globalTableBillingMode = globalTableBillingMode;
 
-  _i8.ListBuilder<_i4.GlobalTableGlobalSecondaryIndexSettingsUpdate>?
-      _globalTableGlobalSecondaryIndexSettingsUpdate;
-  _i8.ListBuilder<_i4.GlobalTableGlobalSecondaryIndexSettingsUpdate>
-      get globalTableGlobalSecondaryIndexSettingsUpdate =>
-          _$this._globalTableGlobalSecondaryIndexSettingsUpdate ??= new _i8
-              .ListBuilder<_i4.GlobalTableGlobalSecondaryIndexSettingsUpdate>();
-  set globalTableGlobalSecondaryIndexSettingsUpdate(
-          _i8.ListBuilder<_i4.GlobalTableGlobalSecondaryIndexSettingsUpdate>?
-              globalTableGlobalSecondaryIndexSettingsUpdate) =>
-      _$this._globalTableGlobalSecondaryIndexSettingsUpdate =
-          globalTableGlobalSecondaryIndexSettingsUpdate;
-
-  String? _globalTableName;
-  String? get globalTableName => _$this._globalTableName;
-  set globalTableName(String? globalTableName) =>
-      _$this._globalTableName = globalTableName;
+  _i4.Int64? _globalTableProvisionedWriteCapacityUnits;
+  _i4.Int64? get globalTableProvisionedWriteCapacityUnits =>
+      _$this._globalTableProvisionedWriteCapacityUnits;
+  set globalTableProvisionedWriteCapacityUnits(
+          _i4.Int64? globalTableProvisionedWriteCapacityUnits) =>
+      _$this._globalTableProvisionedWriteCapacityUnits =
+          globalTableProvisionedWriteCapacityUnits;
 
   _i5.AutoScalingSettingsUpdateBuilder?
       _globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate;
@@ -119,13 +115,17 @@ class UpdateGlobalTableSettingsInputBuilder
       _$this._globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate =
           globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate;
 
-  _i6.Int64? _globalTableProvisionedWriteCapacityUnits;
-  _i6.Int64? get globalTableProvisionedWriteCapacityUnits =>
-      _$this._globalTableProvisionedWriteCapacityUnits;
-  set globalTableProvisionedWriteCapacityUnits(
-          _i6.Int64? globalTableProvisionedWriteCapacityUnits) =>
-      _$this._globalTableProvisionedWriteCapacityUnits =
-          globalTableProvisionedWriteCapacityUnits;
+  _i8.ListBuilder<_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate>?
+      _globalTableGlobalSecondaryIndexSettingsUpdate;
+  _i8.ListBuilder<_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate>
+      get globalTableGlobalSecondaryIndexSettingsUpdate =>
+          _$this._globalTableGlobalSecondaryIndexSettingsUpdate ??= new _i8
+              .ListBuilder<_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate>();
+  set globalTableGlobalSecondaryIndexSettingsUpdate(
+          _i8.ListBuilder<_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate>?
+              globalTableGlobalSecondaryIndexSettingsUpdate) =>
+      _$this._globalTableGlobalSecondaryIndexSettingsUpdate =
+          globalTableGlobalSecondaryIndexSettingsUpdate;
 
   _i8.ListBuilder<_i7.ReplicaSettingsUpdate>? _replicaSettingsUpdate;
   _i8.ListBuilder<_i7.ReplicaSettingsUpdate> get replicaSettingsUpdate =>
@@ -142,15 +142,15 @@ class UpdateGlobalTableSettingsInputBuilder
   UpdateGlobalTableSettingsInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _globalTableBillingMode = $v.globalTableBillingMode;
-      _globalTableGlobalSecondaryIndexSettingsUpdate =
-          $v.globalTableGlobalSecondaryIndexSettingsUpdate?.toBuilder();
       _globalTableName = $v.globalTableName;
+      _globalTableBillingMode = $v.globalTableBillingMode;
+      _globalTableProvisionedWriteCapacityUnits =
+          $v.globalTableProvisionedWriteCapacityUnits;
       _globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate = $v
           .globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate
           ?.toBuilder();
-      _globalTableProvisionedWriteCapacityUnits =
-          $v.globalTableProvisionedWriteCapacityUnits;
+      _globalTableGlobalSecondaryIndexSettingsUpdate =
+          $v.globalTableGlobalSecondaryIndexSettingsUpdate?.toBuilder();
       _replicaSettingsUpdate = $v.replicaSettingsUpdate?.toBuilder();
       _$v = null;
     }
@@ -176,29 +176,27 @@ class UpdateGlobalTableSettingsInputBuilder
     try {
       _$result = _$v ??
           new _$UpdateGlobalTableSettingsInput._(
-              globalTableBillingMode: globalTableBillingMode,
-              globalTableGlobalSecondaryIndexSettingsUpdate:
-                  _globalTableGlobalSecondaryIndexSettingsUpdate?.build(),
               globalTableName: BuiltValueNullFieldError.checkNotNull(
                   globalTableName,
                   r'UpdateGlobalTableSettingsInput',
                   'globalTableName'),
+              globalTableBillingMode: globalTableBillingMode,
+              globalTableProvisionedWriteCapacityUnits:
+                  globalTableProvisionedWriteCapacityUnits,
               globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate:
                   _globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate
                       ?.build(),
-              globalTableProvisionedWriteCapacityUnits:
-                  globalTableProvisionedWriteCapacityUnits,
+              globalTableGlobalSecondaryIndexSettingsUpdate:
+                  _globalTableGlobalSecondaryIndexSettingsUpdate?.build(),
               replicaSettingsUpdate: _replicaSettingsUpdate?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'globalTableGlobalSecondaryIndexSettingsUpdate';
-        _globalTableGlobalSecondaryIndexSettingsUpdate?.build();
-
         _$failedField =
             'globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate';
         _globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate?.build();
-
+        _$failedField = 'globalTableGlobalSecondaryIndexSettingsUpdate';
+        _globalTableGlobalSecondaryIndexSettingsUpdate?.build();
         _$failedField = 'replicaSettingsUpdate';
         _replicaSettingsUpdate?.build();
       } catch (e) {

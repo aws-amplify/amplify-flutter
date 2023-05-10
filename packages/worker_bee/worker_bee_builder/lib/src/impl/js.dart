@@ -114,26 +114,32 @@ return ${allocate(DartTypes.awsCommon.zDebugMode)} ? '$_workersJsPath' : '$_mini
           ..docs.add('/// The JS implementation of [${workerType.symbol}].')
           ..extend = workerType
           ..methods.addAll([
-            Method((m) => m
-              ..annotations.add(DartTypes.core.override)
-              ..returns = DartTypes.core.string
-              ..type = MethodType.getter
-              ..name = 'name'
-              ..body = literalString(workerName).code),
-            if (!declaresJsEntrypoint)
-              Method((m) => m
+            Method(
+              (m) => m
                 ..annotations.add(DartTypes.core.override)
                 ..returns = DartTypes.core.string
                 ..type = MethodType.getter
-                ..name = 'jsEntrypoint'
-                ..body = _jsEntrypoint),
+                ..name = 'name'
+                ..body = literalString(workerName).code,
+            ),
+            if (!declaresJsEntrypoint)
+              Method(
+                (m) => m
+                  ..annotations.add(DartTypes.core.override)
+                  ..returns = DartTypes.core.string
+                  ..type = MethodType.getter
+                  ..name = 'jsEntrypoint'
+                  ..body = _jsEntrypoint,
+              ),
             if (!declaresFallbackUrls)
-              Method((m) => m
-                ..annotations.add(DartTypes.core.override)
-                ..returns = DartTypes.core.list(DartTypes.core.string)
-                ..type = MethodType.getter
-                ..name = 'fallbackUrls'
-                ..body = _fallbackUrls),
+              Method(
+                (m) => m
+                  ..annotations.add(DartTypes.core.override)
+                  ..returns = DartTypes.core.list(DartTypes.core.string)
+                  ..type = MethodType.getter
+                  ..name = 'fallbackUrls'
+                  ..body = _fallbackUrls,
+              ),
           ]),
       );
 }

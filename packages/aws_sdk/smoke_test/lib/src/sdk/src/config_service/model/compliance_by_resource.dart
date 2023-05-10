@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.compliance_by_resource; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,14 +18,14 @@ abstract class ComplianceByResource
     implements Built<ComplianceByResource, ComplianceByResourceBuilder> {
   /// Indicates whether an Amazon Web Services resource that is evaluated according to one or more Config rules is compliant. A resource is compliant if it complies with all of the rules that evaluate it. A resource is noncompliant if it does not comply with one or more of these rules.
   factory ComplianceByResource({
-    _i2.Compliance? compliance,
-    String? resourceId,
     String? resourceType,
+    String? resourceId,
+    _i2.Compliance? compliance,
   }) {
     return _$ComplianceByResource._(
-      compliance: compliance,
-      resourceId: resourceId,
       resourceType: resourceType,
+      resourceId: resourceId,
+      compliance: compliance,
     );
   }
 
@@ -42,34 +43,34 @@ abstract class ComplianceByResource
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplianceByResourceBuilder b) {}
 
-  /// Indicates whether the Amazon Web Services resource complies with all of the Config rules that evaluated it.
-  _i2.Compliance? get compliance;
+  /// The type of the Amazon Web Services resource that was evaluated.
+  String? get resourceType;
 
   /// The ID of the Amazon Web Services resource that was evaluated.
   String? get resourceId;
 
-  /// The type of the Amazon Web Services resource that was evaluated.
-  String? get resourceType;
+  /// Indicates whether the Amazon Web Services resource complies with all of the Config rules that evaluated it.
+  _i2.Compliance? get compliance;
   @override
   List<Object?> get props => [
-        compliance,
-        resourceId,
         resourceType,
+        resourceId,
+        compliance,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplianceByResource');
     helper.add(
-      'compliance',
-      compliance,
+      'resourceType',
+      resourceType,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'resourceType',
-      resourceType,
+      'compliance',
+      compliance,
     );
     return helper.toString();
   }
@@ -104,31 +105,25 @@ class ComplianceByResourceAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Compliance':
-          if (value != null) {
-            result.compliance.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Compliance),
-            ) as _i2.Compliance));
-          }
-          break;
-        case 'ResourceId':
-          if (value != null) {
-            result.resourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ResourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ResourceId':
+          result.resourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'Compliance':
+          result.compliance.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Compliance),
+          ) as _i2.Compliance));
       }
     }
 
@@ -138,35 +133,36 @@ class ComplianceByResourceAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ComplianceByResource object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ComplianceByResource);
-    final result = <Object?>[];
-    if (payload.compliance != null) {
-      result
+    final result$ = <Object?>[];
+    final ComplianceByResource(:resourceType, :resourceId, :compliance) =
+        object;
+    if (resourceType != null) {
+      result$
+        ..add('ResourceType')
+        ..add(serializers.serialize(
+          resourceType,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (resourceId != null) {
+      result$
+        ..add('ResourceId')
+        ..add(serializers.serialize(
+          resourceId,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (compliance != null) {
+      result$
         ..add('Compliance')
         ..add(serializers.serialize(
-          payload.compliance!,
+          compliance,
           specifiedType: const FullType(_i2.Compliance),
         ));
     }
-    if (payload.resourceId != null) {
-      result
-        ..add('ResourceId')
-        ..add(serializers.serialize(
-          payload.resourceId!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceType != null) {
-      result
-        ..add('ResourceType')
-        ..add(serializers.serialize(
-          payload.resourceType!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

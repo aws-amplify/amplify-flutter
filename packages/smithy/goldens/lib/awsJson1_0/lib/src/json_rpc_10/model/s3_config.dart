@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_0_v1.json_rpc_10.model.s3_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -97,31 +98,25 @@ class S3ConfigAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'addressing_style':
-          if (value != null) {
-            result.addressingStyle = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.S3AddressingStyle),
-            ) as _i2.S3AddressingStyle);
-          }
-          break;
+          result.addressingStyle = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.S3AddressingStyle),
+          ) as _i2.S3AddressingStyle);
         case 'use_accelerate_endpoint':
-          if (value != null) {
-            result.useAccelerateEndpoint = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.useAccelerateEndpoint = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'use_dualstack_endpoint':
-          if (value != null) {
-            result.useDualstackEndpoint = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.useDualstackEndpoint = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -131,35 +126,39 @@ class S3ConfigAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    S3Config object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as S3Config);
-    final result = <Object?>[];
-    if (payload.addressingStyle != null) {
-      result
+    final result$ = <Object?>[];
+    final S3Config(
+      :addressingStyle,
+      :useAccelerateEndpoint,
+      :useDualstackEndpoint
+    ) = object;
+    if (addressingStyle != null) {
+      result$
         ..add('addressing_style')
         ..add(serializers.serialize(
-          payload.addressingStyle!,
+          addressingStyle,
           specifiedType: const FullType(_i2.S3AddressingStyle),
         ));
     }
-    if (payload.useAccelerateEndpoint != null) {
-      result
+    if (useAccelerateEndpoint != null) {
+      result$
         ..add('use_accelerate_endpoint')
         ..add(serializers.serialize(
-          payload.useAccelerateEndpoint!,
+          useAccelerateEndpoint,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.useDualstackEndpoint != null) {
-      result
+    if (useDualstackEndpoint != null) {
+      result$
         ..add('use_dualstack_endpoint')
         ..add(serializers.serialize(
-          payload.useDualstackEndpoint!,
+          useDualstackEndpoint,
           specifiedType: const FullType(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

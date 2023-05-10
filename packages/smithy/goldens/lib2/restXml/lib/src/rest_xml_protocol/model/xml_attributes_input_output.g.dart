@@ -8,15 +8,15 @@ part of rest_xml_v2.rest_xml_protocol.model.xml_attributes_input_output;
 
 class _$XmlAttributesInputOutput extends XmlAttributesInputOutput {
   @override
-  final String? attr;
-  @override
   final String? foo;
+  @override
+  final String? attr;
 
   factory _$XmlAttributesInputOutput(
           [void Function(XmlAttributesInputOutputBuilder)? updates]) =>
       (new XmlAttributesInputOutputBuilder()..update(updates))._build();
 
-  _$XmlAttributesInputOutput._({this.attr, this.foo}) : super._();
+  _$XmlAttributesInputOutput._({this.foo, this.attr}) : super._();
 
   @override
   XmlAttributesInputOutput rebuild(
@@ -31,15 +31,15 @@ class _$XmlAttributesInputOutput extends XmlAttributesInputOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is XmlAttributesInputOutput &&
-        attr == other.attr &&
-        foo == other.foo;
+        foo == other.foo &&
+        attr == other.attr;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, attr.hashCode);
     _$hash = $jc(_$hash, foo.hashCode);
+    _$hash = $jc(_$hash, attr.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -50,13 +50,13 @@ class XmlAttributesInputOutputBuilder
         Builder<XmlAttributesInputOutput, XmlAttributesInputOutputBuilder> {
   _$XmlAttributesInputOutput? _$v;
 
-  String? _attr;
-  String? get attr => _$this._attr;
-  set attr(String? attr) => _$this._attr = attr;
-
   String? _foo;
   String? get foo => _$this._foo;
   set foo(String? foo) => _$this._foo = foo;
+
+  String? _attr;
+  String? get attr => _$this._attr;
+  set attr(String? attr) => _$this._attr = attr;
 
   XmlAttributesInputOutputBuilder() {
     XmlAttributesInputOutput._init(this);
@@ -65,8 +65,8 @@ class XmlAttributesInputOutputBuilder
   XmlAttributesInputOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _attr = $v.attr;
       _foo = $v.foo;
+      _attr = $v.attr;
       _$v = null;
     }
     return this;
@@ -88,7 +88,7 @@ class XmlAttributesInputOutputBuilder
 
   _$XmlAttributesInputOutput _build() {
     final _$result =
-        _$v ?? new _$XmlAttributesInputOutput._(attr: attr, foo: foo);
+        _$v ?? new _$XmlAttributesInputOutput._(foo: foo, attr: attr);
     replace(_$result);
     return _$result;
   }

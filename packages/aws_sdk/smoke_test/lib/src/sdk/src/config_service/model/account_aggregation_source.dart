@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.account_aggregation_source; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -104,6 +105,9 @@ class AccountAggregationSourceAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AccountIds':
           result.accountIds.replace((serializers.deserialize(
@@ -113,26 +117,19 @@ class AccountAggregationSourceAwsJson11Serializer
               [FullType(String)],
             ),
           ) as _i2.BuiltList<String>));
-          break;
         case 'AllAwsRegions':
-          if (value != null) {
-            result.allAwsRegions = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.allAwsRegions = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'AwsRegions':
-          if (value != null) {
-            result.awsRegions.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.awsRegions.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -142,39 +139,41 @@ class AccountAggregationSourceAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AccountAggregationSource object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AccountAggregationSource);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final AccountAggregationSource(:accountIds, :allAwsRegions, :awsRegions) =
+        object;
+    result$.addAll([
       'AccountIds',
       serializers.serialize(
-        payload.accountIds,
+        accountIds,
         specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(String)],
         ),
       ),
-    ];
-    if (payload.allAwsRegions != null) {
-      result
+    ]);
+    if (allAwsRegions != null) {
+      result$
         ..add('AllAwsRegions')
         ..add(serializers.serialize(
-          payload.allAwsRegions!,
+          allAwsRegions,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.awsRegions != null) {
-      result
+    if (awsRegions != null) {
+      result$
         ..add('AwsRegions')
         ..add(serializers.serialize(
-          payload.awsRegions!,
+          awsRegions,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

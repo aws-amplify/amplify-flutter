@@ -8,11 +8,11 @@ part of smoke_test.s3.model.select_parameters;
 
 class _$SelectParameters extends SelectParameters {
   @override
+  final _i2.InputSerialization inputSerialization;
+  @override
+  final _i3.ExpressionType expressionType;
+  @override
   final String expression;
-  @override
-  final _i2.ExpressionType expressionType;
-  @override
-  final _i3.InputSerialization inputSerialization;
   @override
   final _i4.OutputSerialization outputSerialization;
 
@@ -21,17 +21,17 @@ class _$SelectParameters extends SelectParameters {
       (new SelectParametersBuilder()..update(updates))._build();
 
   _$SelectParameters._(
-      {required this.expression,
+      {required this.inputSerialization,
       required this.expressionType,
-      required this.inputSerialization,
+      required this.expression,
       required this.outputSerialization})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        expression, r'SelectParameters', 'expression');
+        inputSerialization, r'SelectParameters', 'inputSerialization');
     BuiltValueNullFieldError.checkNotNull(
         expressionType, r'SelectParameters', 'expressionType');
     BuiltValueNullFieldError.checkNotNull(
-        inputSerialization, r'SelectParameters', 'inputSerialization');
+        expression, r'SelectParameters', 'expression');
     BuiltValueNullFieldError.checkNotNull(
         outputSerialization, r'SelectParameters', 'outputSerialization');
   }
@@ -48,18 +48,18 @@ class _$SelectParameters extends SelectParameters {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SelectParameters &&
-        expression == other.expression &&
-        expressionType == other.expressionType &&
         inputSerialization == other.inputSerialization &&
+        expressionType == other.expressionType &&
+        expression == other.expression &&
         outputSerialization == other.outputSerialization;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, expression.hashCode);
-    _$hash = $jc(_$hash, expressionType.hashCode);
     _$hash = $jc(_$hash, inputSerialization.hashCode);
+    _$hash = $jc(_$hash, expressionType.hashCode);
+    _$hash = $jc(_$hash, expression.hashCode);
     _$hash = $jc(_$hash, outputSerialization.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -70,20 +70,20 @@ class SelectParametersBuilder
     implements Builder<SelectParameters, SelectParametersBuilder> {
   _$SelectParameters? _$v;
 
+  _i2.InputSerializationBuilder? _inputSerialization;
+  _i2.InputSerializationBuilder get inputSerialization =>
+      _$this._inputSerialization ??= new _i2.InputSerializationBuilder();
+  set inputSerialization(_i2.InputSerializationBuilder? inputSerialization) =>
+      _$this._inputSerialization = inputSerialization;
+
+  _i3.ExpressionType? _expressionType;
+  _i3.ExpressionType? get expressionType => _$this._expressionType;
+  set expressionType(_i3.ExpressionType? expressionType) =>
+      _$this._expressionType = expressionType;
+
   String? _expression;
   String? get expression => _$this._expression;
   set expression(String? expression) => _$this._expression = expression;
-
-  _i2.ExpressionType? _expressionType;
-  _i2.ExpressionType? get expressionType => _$this._expressionType;
-  set expressionType(_i2.ExpressionType? expressionType) =>
-      _$this._expressionType = expressionType;
-
-  _i3.InputSerializationBuilder? _inputSerialization;
-  _i3.InputSerializationBuilder get inputSerialization =>
-      _$this._inputSerialization ??= new _i3.InputSerializationBuilder();
-  set inputSerialization(_i3.InputSerializationBuilder? inputSerialization) =>
-      _$this._inputSerialization = inputSerialization;
 
   _i4.OutputSerializationBuilder? _outputSerialization;
   _i4.OutputSerializationBuilder get outputSerialization =>
@@ -99,9 +99,9 @@ class SelectParametersBuilder
   SelectParametersBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _expression = $v.expression;
-      _expressionType = $v.expressionType;
       _inputSerialization = $v.inputSerialization.toBuilder();
+      _expressionType = $v.expressionType;
+      _expression = $v.expression;
       _outputSerialization = $v.outputSerialization.toBuilder();
       _$v = null;
     }
@@ -127,17 +127,18 @@ class SelectParametersBuilder
     try {
       _$result = _$v ??
           new _$SelectParameters._(
-              expression: BuiltValueNullFieldError.checkNotNull(
-                  expression, r'SelectParameters', 'expression'),
+              inputSerialization: inputSerialization.build(),
               expressionType: BuiltValueNullFieldError.checkNotNull(
                   expressionType, r'SelectParameters', 'expressionType'),
-              inputSerialization: inputSerialization.build(),
+              expression: BuiltValueNullFieldError.checkNotNull(
+                  expression, r'SelectParameters', 'expression'),
               outputSerialization: outputSerialization.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'inputSerialization';
         inputSerialization.build();
+
         _$failedField = 'outputSerialization';
         outputSerialization.build();
       } catch (e) {

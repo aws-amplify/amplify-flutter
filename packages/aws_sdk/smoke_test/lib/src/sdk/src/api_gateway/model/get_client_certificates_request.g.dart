@@ -8,15 +8,15 @@ part of smoke_test.api_gateway.model.get_client_certificates_request;
 
 class _$GetClientCertificatesRequest extends GetClientCertificatesRequest {
   @override
-  final int? limit;
-  @override
   final String? position;
+  @override
+  final int? limit;
 
   factory _$GetClientCertificatesRequest(
           [void Function(GetClientCertificatesRequestBuilder)? updates]) =>
       (new GetClientCertificatesRequestBuilder()..update(updates))._build();
 
-  _$GetClientCertificatesRequest._({this.limit, this.position}) : super._();
+  _$GetClientCertificatesRequest._({this.position, this.limit}) : super._();
 
   @override
   GetClientCertificatesRequest rebuild(
@@ -31,15 +31,15 @@ class _$GetClientCertificatesRequest extends GetClientCertificatesRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetClientCertificatesRequest &&
-        limit == other.limit &&
-        position == other.position;
+        position == other.position &&
+        limit == other.limit;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, position.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -51,13 +51,13 @@ class GetClientCertificatesRequestBuilder
             GetClientCertificatesRequestBuilder> {
   _$GetClientCertificatesRequest? _$v;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
-
   String? _position;
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
+
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
 
   GetClientCertificatesRequestBuilder() {
     GetClientCertificatesRequest._init(this);
@@ -66,8 +66,8 @@ class GetClientCertificatesRequestBuilder
   GetClientCertificatesRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _limit = $v.limit;
       _position = $v.position;
+      _limit = $v.limit;
       _$v = null;
     }
     return this;
@@ -89,7 +89,7 @@ class GetClientCertificatesRequestBuilder
 
   _$GetClientCertificatesRequest _build() {
     final _$result = _$v ??
-        new _$GetClientCertificatesRequest._(limit: limit, position: position);
+        new _$GetClientCertificatesRequest._(position: position, limit: limit);
     replace(_$result);
     return _$result;
   }

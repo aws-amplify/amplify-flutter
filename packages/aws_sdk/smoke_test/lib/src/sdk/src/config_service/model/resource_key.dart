@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.resource_key; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,12 +18,12 @@ abstract class ResourceKey
     implements Built<ResourceKey, ResourceKeyBuilder> {
   /// The details that identify a resource within Config, including the resource type and resource ID.
   factory ResourceKey({
-    required String resourceId,
     required _i2.ResourceType resourceType,
+    required String resourceId,
   }) {
     return _$ResourceKey._(
-      resourceId: resourceId,
       resourceType: resourceType,
+      resourceId: resourceId,
     );
   }
 
@@ -39,26 +40,26 @@ abstract class ResourceKey
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceKeyBuilder b) {}
 
-  /// The ID of the resource (for example., sg-xxxxxx).
-  String get resourceId;
-
   /// The resource type.
   _i2.ResourceType get resourceType;
+
+  /// The ID of the resource (for example., sg-xxxxxx).
+  String get resourceId;
   @override
   List<Object?> get props => [
-        resourceId,
         resourceType,
+        resourceId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResourceKey');
     helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
       'resourceType',
       resourceType,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
     );
     return helper.toString();
   }
@@ -92,19 +93,20 @@ class ResourceKeyAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'resourceId':
-          result.resourceId = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'resourceType':
           result.resourceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ResourceType),
           ) as _i2.ResourceType);
-          break;
+        case 'resourceId':
+          result.resourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -114,22 +116,23 @@ class ResourceKeyAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ResourceKey object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ResourceKey);
-    final result = <Object?>[
-      'resourceId',
-      serializers.serialize(
-        payload.resourceId,
-        specifiedType: const FullType(String),
-      ),
+    final result$ = <Object?>[];
+    final ResourceKey(:resourceType, :resourceId) = object;
+    result$.addAll([
       'resourceType',
       serializers.serialize(
-        payload.resourceType,
+        resourceType,
         specifiedType: const FullType(_i2.ResourceType),
       ),
-    ];
-    return result;
+      'resourceId',
+      serializers.serialize(
+        resourceId,
+        specifiedType: const FullType(String),
+      ),
+    ]);
+    return result$;
   }
 }

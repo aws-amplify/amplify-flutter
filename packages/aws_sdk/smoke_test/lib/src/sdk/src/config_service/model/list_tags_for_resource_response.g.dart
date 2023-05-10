@@ -8,15 +8,15 @@ part of smoke_test.config_service.model.list_tags_for_resource_response;
 
 class _$ListTagsForResourceResponse extends ListTagsForResourceResponse {
   @override
-  final String? nextToken;
-  @override
   final _i3.BuiltList<_i2.Tag>? tags;
+  @override
+  final String? nextToken;
 
   factory _$ListTagsForResourceResponse(
           [void Function(ListTagsForResourceResponseBuilder)? updates]) =>
       (new ListTagsForResourceResponseBuilder()..update(updates))._build();
 
-  _$ListTagsForResourceResponse._({this.nextToken, this.tags}) : super._();
+  _$ListTagsForResourceResponse._({this.tags, this.nextToken}) : super._();
 
   @override
   ListTagsForResourceResponse rebuild(
@@ -31,15 +31,15 @@ class _$ListTagsForResourceResponse extends ListTagsForResourceResponse {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListTagsForResourceResponse &&
-        nextToken == other.nextToken &&
-        tags == other.tags;
+        tags == other.tags &&
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, tags.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -51,14 +51,14 @@ class ListTagsForResourceResponseBuilder
             ListTagsForResourceResponseBuilder> {
   _$ListTagsForResourceResponse? _$v;
 
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
   _i3.ListBuilder<_i2.Tag>? _tags;
   _i3.ListBuilder<_i2.Tag> get tags =>
       _$this._tags ??= new _i3.ListBuilder<_i2.Tag>();
   set tags(_i3.ListBuilder<_i2.Tag>? tags) => _$this._tags = tags;
+
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
   ListTagsForResourceResponseBuilder() {
     ListTagsForResourceResponse._init(this);
@@ -67,8 +67,8 @@ class ListTagsForResourceResponseBuilder
   ListTagsForResourceResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
       _tags = $v.tags?.toBuilder();
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -93,7 +93,7 @@ class ListTagsForResourceResponseBuilder
     try {
       _$result = _$v ??
           new _$ListTagsForResourceResponse._(
-              nextToken: nextToken, tags: _tags?.build());
+              tags: _tags?.build(), nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

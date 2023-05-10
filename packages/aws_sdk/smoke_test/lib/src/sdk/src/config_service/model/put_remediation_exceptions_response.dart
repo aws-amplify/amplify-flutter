@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_remediation_exceptions_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -90,18 +91,18 @@ class PutRemediationExceptionsResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'FailedBatches':
-          if (value != null) {
-            result.failedBatches.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.FailedRemediationExceptionBatch)],
-              ),
-            ) as _i3.BuiltList<_i2.FailedRemediationExceptionBatch>));
-          }
-          break;
+          result.failedBatches.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.FailedRemediationExceptionBatch)],
+            ),
+          ) as _i3.BuiltList<_i2.FailedRemediationExceptionBatch>));
       }
     }
 
@@ -111,22 +112,22 @@ class PutRemediationExceptionsResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutRemediationExceptionsResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutRemediationExceptionsResponse);
-    final result = <Object?>[];
-    if (payload.failedBatches != null) {
-      result
+    final result$ = <Object?>[];
+    final PutRemediationExceptionsResponse(:failedBatches) = object;
+    if (failedBatches != null) {
+      result$
         ..add('FailedBatches')
         ..add(serializers.serialize(
-          payload.failedBatches!,
+          failedBatches,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.FailedRemediationExceptionBatch)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_protocol.test.query_params_as_string_list_map_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -94,29 +95,26 @@ class QueryParamsAsStringListMapInputRestJson1Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'foo':
-          if (value != null) {
-            result.foo.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltListMultimap<String, String>));
-          }
-          break;
         case 'qux':
-          if (value != null) {
-            result.qux = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.qux = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'foo':
+          result.foo.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltListMultimap<String, String>));
       }
     }
 
@@ -126,7 +124,7 @@ class QueryParamsAsStringListMapInputRestJson1Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.QueryParamsAsStringListMapInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

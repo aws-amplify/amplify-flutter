@@ -10,17 +10,17 @@ class _$ResourceFilters extends ResourceFilters {
   @override
   final String? accountId;
   @override
-  final String? region;
-  @override
   final String? resourceId;
   @override
   final String? resourceName;
+  @override
+  final String? region;
 
   factory _$ResourceFilters([void Function(ResourceFiltersBuilder)? updates]) =>
       (new ResourceFiltersBuilder()..update(updates))._build();
 
   _$ResourceFilters._(
-      {this.accountId, this.region, this.resourceId, this.resourceName})
+      {this.accountId, this.resourceId, this.resourceName, this.region})
       : super._();
 
   @override
@@ -36,18 +36,18 @@ class _$ResourceFilters extends ResourceFilters {
     if (identical(other, this)) return true;
     return other is ResourceFilters &&
         accountId == other.accountId &&
-        region == other.region &&
         resourceId == other.resourceId &&
-        resourceName == other.resourceName;
+        resourceName == other.resourceName &&
+        region == other.region;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, accountId.hashCode);
-    _$hash = $jc(_$hash, region.hashCode);
     _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jc(_$hash, resourceName.hashCode);
+    _$hash = $jc(_$hash, region.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -61,10 +61,6 @@ class ResourceFiltersBuilder
   String? get accountId => _$this._accountId;
   set accountId(String? accountId) => _$this._accountId = accountId;
 
-  String? _region;
-  String? get region => _$this._region;
-  set region(String? region) => _$this._region = region;
-
   String? _resourceId;
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
@@ -72,6 +68,10 @@ class ResourceFiltersBuilder
   String? _resourceName;
   String? get resourceName => _$this._resourceName;
   set resourceName(String? resourceName) => _$this._resourceName = resourceName;
+
+  String? _region;
+  String? get region => _$this._region;
+  set region(String? region) => _$this._region = region;
 
   ResourceFiltersBuilder() {
     ResourceFilters._init(this);
@@ -81,9 +81,9 @@ class ResourceFiltersBuilder
     final $v = _$v;
     if ($v != null) {
       _accountId = $v.accountId;
-      _region = $v.region;
       _resourceId = $v.resourceId;
       _resourceName = $v.resourceName;
+      _region = $v.region;
       _$v = null;
     }
     return this;
@@ -107,9 +107,9 @@ class ResourceFiltersBuilder
     final _$result = _$v ??
         new _$ResourceFilters._(
             accountId: accountId,
-            region: region,
             resourceId: resourceId,
-            resourceName: resourceName);
+            resourceName: resourceName,
+            region: region);
     replace(_$result);
     return _$result;
   }

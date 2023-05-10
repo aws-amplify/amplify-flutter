@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.organization_config_rule_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,18 +21,18 @@ abstract class OrganizationConfigRuleStatus
             OrganizationConfigRuleStatusBuilder> {
   /// Returns the status for an organization Config rule in an organization.
   factory OrganizationConfigRuleStatus({
+    required String organizationConfigRuleName,
+    required _i2.OrganizationRuleStatus organizationRuleStatus,
     String? errorCode,
     String? errorMessage,
     DateTime? lastUpdateTime,
-    required String organizationConfigRuleName,
-    required _i2.OrganizationRuleStatus organizationRuleStatus,
   }) {
     return _$OrganizationConfigRuleStatus._(
+      organizationConfigRuleName: organizationConfigRuleName,
+      organizationRuleStatus: organizationRuleStatus,
       errorCode: errorCode,
       errorMessage: errorMessage,
       lastUpdateTime: lastUpdateTime,
-      organizationConfigRuleName: organizationConfigRuleName,
-      organizationRuleStatus: organizationRuleStatus,
     );
   }
 
@@ -48,15 +49,6 @@ abstract class OrganizationConfigRuleStatus
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationConfigRuleStatusBuilder b) {}
-
-  /// An error code that is returned when organization Config rule creation or deletion has failed.
-  String? get errorCode;
-
-  /// An error message indicating that organization Config rule creation or deletion failed due to an error.
-  String? get errorMessage;
-
-  /// The timestamp of the last update.
-  DateTime? get lastUpdateTime;
 
   /// The name that you assign to organization Config rule.
   String get organizationConfigRuleName;
@@ -83,17 +75,34 @@ abstract class OrganizationConfigRuleStatus
   ///
   /// *   `UPDATE_FAILED` when an organization Config rule update failed in one or more member accounts within that organization.
   _i2.OrganizationRuleStatus get organizationRuleStatus;
+
+  /// An error code that is returned when organization Config rule creation or deletion has failed.
+  String? get errorCode;
+
+  /// An error message indicating that organization Config rule creation or deletion failed due to an error.
+  String? get errorMessage;
+
+  /// The timestamp of the last update.
+  DateTime? get lastUpdateTime;
   @override
   List<Object?> get props => [
+        organizationConfigRuleName,
+        organizationRuleStatus,
         errorCode,
         errorMessage,
         lastUpdateTime,
-        organizationConfigRuleName,
-        organizationRuleStatus,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('OrganizationConfigRuleStatus');
+    helper.add(
+      'organizationConfigRuleName',
+      organizationConfigRuleName,
+    );
+    helper.add(
+      'organizationRuleStatus',
+      organizationRuleStatus,
+    );
     helper.add(
       'errorCode',
       errorCode,
@@ -105,14 +114,6 @@ abstract class OrganizationConfigRuleStatus
     helper.add(
       'lastUpdateTime',
       lastUpdateTime,
-    );
-    helper.add(
-      'organizationConfigRuleName',
-      organizationConfigRuleName,
-    );
-    helper.add(
-      'organizationRuleStatus',
-      organizationRuleStatus,
     );
     return helper.toString();
   }
@@ -147,43 +148,35 @@ class OrganizationConfigRuleStatusAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ErrorCode':
-          if (value != null) {
-            result.errorCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ErrorMessage':
-          if (value != null) {
-            result.errorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'LastUpdateTime':
-          if (value != null) {
-            result.lastUpdateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'OrganizationConfigRuleName':
           result.organizationConfigRuleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'OrganizationRuleStatus':
           result.organizationRuleStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.OrganizationRuleStatus),
           ) as _i2.OrganizationRuleStatus);
-          break;
+        case 'ErrorCode':
+          result.errorCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ErrorMessage':
+          result.errorMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'LastUpdateTime':
+          result.lastUpdateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -193,46 +186,53 @@ class OrganizationConfigRuleStatusAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OrganizationConfigRuleStatus object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OrganizationConfigRuleStatus);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final OrganizationConfigRuleStatus(
+      :organizationConfigRuleName,
+      :organizationRuleStatus,
+      :errorCode,
+      :errorMessage,
+      :lastUpdateTime
+    ) = object;
+    result$.addAll([
       'OrganizationConfigRuleName',
       serializers.serialize(
-        payload.organizationConfigRuleName,
+        organizationConfigRuleName,
         specifiedType: const FullType(String),
       ),
       'OrganizationRuleStatus',
       serializers.serialize(
-        payload.organizationRuleStatus,
+        organizationRuleStatus,
         specifiedType: const FullType(_i2.OrganizationRuleStatus),
       ),
-    ];
-    if (payload.errorCode != null) {
-      result
+    ]);
+    if (errorCode != null) {
+      result$
         ..add('ErrorCode')
         ..add(serializers.serialize(
-          payload.errorCode!,
+          errorCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.errorMessage != null) {
-      result
+    if (errorMessage != null) {
+      result$
         ..add('ErrorMessage')
         ..add(serializers.serialize(
-          payload.errorMessage!,
+          errorMessage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastUpdateTime != null) {
-      result
+    if (lastUpdateTime != null) {
+      result$
         ..add('LastUpdateTime')
         ..add(serializers.serialize(
-          payload.lastUpdateTime!,
+          lastUpdateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

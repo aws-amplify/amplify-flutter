@@ -9,9 +9,9 @@ part of smoke_test.config_service.model.get_compliance_details_by_config_rule_re
 class _$GetComplianceDetailsByConfigRuleRequest
     extends GetComplianceDetailsByConfigRuleRequest {
   @override
-  final _i4.BuiltList<_i3.ComplianceType>? complianceTypes;
-  @override
   final String configRuleName;
+  @override
+  final _i4.BuiltList<_i3.ComplianceType>? complianceTypes;
   @override
   final int? limit;
   @override
@@ -24,8 +24,8 @@ class _$GetComplianceDetailsByConfigRuleRequest
           ._build();
 
   _$GetComplianceDetailsByConfigRuleRequest._(
-      {this.complianceTypes,
-      required this.configRuleName,
+      {required this.configRuleName,
+      this.complianceTypes,
       this.limit,
       this.nextToken})
       : super._() {
@@ -47,8 +47,8 @@ class _$GetComplianceDetailsByConfigRuleRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetComplianceDetailsByConfigRuleRequest &&
-        complianceTypes == other.complianceTypes &&
         configRuleName == other.configRuleName &&
+        complianceTypes == other.complianceTypes &&
         limit == other.limit &&
         nextToken == other.nextToken;
   }
@@ -56,8 +56,8 @@ class _$GetComplianceDetailsByConfigRuleRequest
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, complianceTypes.hashCode);
     _$hash = $jc(_$hash, configRuleName.hashCode);
+    _$hash = $jc(_$hash, complianceTypes.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
@@ -71,16 +71,16 @@ class GetComplianceDetailsByConfigRuleRequestBuilder
             GetComplianceDetailsByConfigRuleRequestBuilder> {
   _$GetComplianceDetailsByConfigRuleRequest? _$v;
 
+  String? _configRuleName;
+  String? get configRuleName => _$this._configRuleName;
+  set configRuleName(String? configRuleName) =>
+      _$this._configRuleName = configRuleName;
+
   _i4.ListBuilder<_i3.ComplianceType>? _complianceTypes;
   _i4.ListBuilder<_i3.ComplianceType> get complianceTypes =>
       _$this._complianceTypes ??= new _i4.ListBuilder<_i3.ComplianceType>();
   set complianceTypes(_i4.ListBuilder<_i3.ComplianceType>? complianceTypes) =>
       _$this._complianceTypes = complianceTypes;
-
-  String? _configRuleName;
-  String? get configRuleName => _$this._configRuleName;
-  set configRuleName(String? configRuleName) =>
-      _$this._configRuleName = configRuleName;
 
   int? _limit;
   int? get limit => _$this._limit;
@@ -97,8 +97,8 @@ class GetComplianceDetailsByConfigRuleRequestBuilder
   GetComplianceDetailsByConfigRuleRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _complianceTypes = $v.complianceTypes?.toBuilder();
       _configRuleName = $v.configRuleName;
+      _complianceTypes = $v.complianceTypes?.toBuilder();
       _limit = $v.limit;
       _nextToken = $v.nextToken;
       _$v = null;
@@ -126,11 +126,11 @@ class GetComplianceDetailsByConfigRuleRequestBuilder
     try {
       _$result = _$v ??
           new _$GetComplianceDetailsByConfigRuleRequest._(
-              complianceTypes: _complianceTypes?.build(),
               configRuleName: BuiltValueNullFieldError.checkNotNull(
                   configRuleName,
                   r'GetComplianceDetailsByConfigRuleRequest',
                   'configRuleName'),
+              complianceTypes: _complianceTypes?.build(),
               limit: limit,
               nextToken: nextToken);
     } catch (_) {

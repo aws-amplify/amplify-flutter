@@ -8,21 +8,21 @@ part of smoke_test.dynamo_db.model.update_continuous_backups_input;
 
 class _$UpdateContinuousBackupsInput extends UpdateContinuousBackupsInput {
   @override
-  final _i3.PointInTimeRecoverySpecification pointInTimeRecoverySpecification;
-  @override
   final String tableName;
+  @override
+  final _i3.PointInTimeRecoverySpecification pointInTimeRecoverySpecification;
 
   factory _$UpdateContinuousBackupsInput(
           [void Function(UpdateContinuousBackupsInputBuilder)? updates]) =>
       (new UpdateContinuousBackupsInputBuilder()..update(updates))._build();
 
   _$UpdateContinuousBackupsInput._(
-      {required this.pointInTimeRecoverySpecification, required this.tableName})
+      {required this.tableName, required this.pointInTimeRecoverySpecification})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(pointInTimeRecoverySpecification,
-        r'UpdateContinuousBackupsInput', 'pointInTimeRecoverySpecification');
     BuiltValueNullFieldError.checkNotNull(
         tableName, r'UpdateContinuousBackupsInput', 'tableName');
+    BuiltValueNullFieldError.checkNotNull(pointInTimeRecoverySpecification,
+        r'UpdateContinuousBackupsInput', 'pointInTimeRecoverySpecification');
   }
 
   @override
@@ -38,16 +38,16 @@ class _$UpdateContinuousBackupsInput extends UpdateContinuousBackupsInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateContinuousBackupsInput &&
+        tableName == other.tableName &&
         pointInTimeRecoverySpecification ==
-            other.pointInTimeRecoverySpecification &&
-        tableName == other.tableName;
+            other.pointInTimeRecoverySpecification;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, pointInTimeRecoverySpecification.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, pointInTimeRecoverySpecification.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,6 +58,10 @@ class UpdateContinuousBackupsInputBuilder
         Builder<UpdateContinuousBackupsInput,
             UpdateContinuousBackupsInputBuilder> {
   _$UpdateContinuousBackupsInput? _$v;
+
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
 
   _i3.PointInTimeRecoverySpecificationBuilder?
       _pointInTimeRecoverySpecification;
@@ -71,10 +75,6 @@ class UpdateContinuousBackupsInputBuilder
       _$this._pointInTimeRecoverySpecification =
           pointInTimeRecoverySpecification;
 
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
-
   UpdateContinuousBackupsInputBuilder() {
     UpdateContinuousBackupsInput._init(this);
   }
@@ -82,9 +82,9 @@ class UpdateContinuousBackupsInputBuilder
   UpdateContinuousBackupsInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _tableName = $v.tableName;
       _pointInTimeRecoverySpecification =
           $v.pointInTimeRecoverySpecification.toBuilder();
-      _tableName = $v.tableName;
       _$v = null;
     }
     return this;
@@ -109,10 +109,10 @@ class UpdateContinuousBackupsInputBuilder
     try {
       _$result = _$v ??
           new _$UpdateContinuousBackupsInput._(
-              pointInTimeRecoverySpecification:
-                  pointInTimeRecoverySpecification.build(),
               tableName: BuiltValueNullFieldError.checkNotNull(
-                  tableName, r'UpdateContinuousBackupsInput', 'tableName'));
+                  tableName, r'UpdateContinuousBackupsInput', 'tableName'),
+              pointInTimeRecoverySpecification:
+                  pointInTimeRecoverySpecification.build());
     } catch (_) {
       late String _$failedField;
       try {

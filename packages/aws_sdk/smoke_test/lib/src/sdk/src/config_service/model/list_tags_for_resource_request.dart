@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.list_tags_for_resource_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,14 +17,14 @@ abstract class ListTagsForResourceRequest
     implements
         Built<ListTagsForResourceRequest, ListTagsForResourceRequestBuilder> {
   factory ListTagsForResourceRequest({
+    required String resourceArn,
     int? limit,
     String? nextToken,
-    required String resourceArn,
   }) {
     return _$ListTagsForResourceRequest._(
+      resourceArn: resourceArn,
       limit: limit,
       nextToken: nextToken,
-      resourceArn: resourceArn,
     );
   }
 
@@ -47,25 +48,29 @@ abstract class ListTagsForResourceRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListTagsForResourceRequestBuilder b) {}
 
+  /// The Amazon Resource Name (ARN) that identifies the resource for which to list the tags. Currently, the supported resources are `ConfigRule`, `ConfigurationAggregator` and `AggregatorAuthorization`.
+  String get resourceArn;
+
   /// The maximum number of tags returned on each page. The limit maximum is 50. You cannot specify a number greater than 50. If you specify 0, Config uses the default.
   int? get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// The Amazon Resource Name (ARN) that identifies the resource for which to list the tags. Currently, the supported resources are `ConfigRule`, `ConfigurationAggregator` and `AggregatorAuthorization`.
-  String get resourceArn;
   @override
   ListTagsForResourceRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        resourceArn,
         limit,
         nextToken,
-        resourceArn,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListTagsForResourceRequest');
+    helper.add(
+      'resourceArn',
+      resourceArn,
+    );
     helper.add(
       'limit',
       limit,
@@ -73,10 +78,6 @@ abstract class ListTagsForResourceRequest
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'resourceArn',
-      resourceArn,
     );
     return helper.toString();
   }
@@ -111,29 +112,25 @@ class ListTagsForResourceRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ResourceArn':
           result.resourceArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'Limit':
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -143,33 +140,34 @@ class ListTagsForResourceRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListTagsForResourceRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListTagsForResourceRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ListTagsForResourceRequest(:resourceArn, :limit, :nextToken) = object;
+    result$.addAll([
       'ResourceArn',
       serializers.serialize(
-        payload.resourceArn,
+        resourceArn,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.limit != null) {
-      result
+    ]);
+    if (limit != null) {
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
-      result
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -9,9 +9,9 @@ part of smoke_test.config_service.model.describe_retention_configurations_respon
 class _$DescribeRetentionConfigurationsResponse
     extends DescribeRetentionConfigurationsResponse {
   @override
-  final String? nextToken;
-  @override
   final _i3.BuiltList<_i2.RetentionConfiguration>? retentionConfigurations;
+  @override
+  final String? nextToken;
 
   factory _$DescribeRetentionConfigurationsResponse(
           [void Function(DescribeRetentionConfigurationsResponseBuilder)?
@@ -20,7 +20,7 @@ class _$DescribeRetentionConfigurationsResponse
           ._build();
 
   _$DescribeRetentionConfigurationsResponse._(
-      {this.nextToken, this.retentionConfigurations})
+      {this.retentionConfigurations, this.nextToken})
       : super._();
 
   @override
@@ -37,15 +37,15 @@ class _$DescribeRetentionConfigurationsResponse
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DescribeRetentionConfigurationsResponse &&
-        nextToken == other.nextToken &&
-        retentionConfigurations == other.retentionConfigurations;
+        retentionConfigurations == other.retentionConfigurations &&
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, retentionConfigurations.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,10 +57,6 @@ class DescribeRetentionConfigurationsResponseBuilder
             DescribeRetentionConfigurationsResponseBuilder> {
   _$DescribeRetentionConfigurationsResponse? _$v;
 
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
   _i3.ListBuilder<_i2.RetentionConfiguration>? _retentionConfigurations;
   _i3.ListBuilder<_i2.RetentionConfiguration> get retentionConfigurations =>
       _$this._retentionConfigurations ??=
@@ -70,6 +66,10 @@ class DescribeRetentionConfigurationsResponseBuilder
               retentionConfigurations) =>
       _$this._retentionConfigurations = retentionConfigurations;
 
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+
   DescribeRetentionConfigurationsResponseBuilder() {
     DescribeRetentionConfigurationsResponse._init(this);
   }
@@ -77,8 +77,8 @@ class DescribeRetentionConfigurationsResponseBuilder
   DescribeRetentionConfigurationsResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
       _retentionConfigurations = $v.retentionConfigurations?.toBuilder();
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -104,8 +104,8 @@ class DescribeRetentionConfigurationsResponseBuilder
     try {
       _$result = _$v ??
           new _$DescribeRetentionConfigurationsResponse._(
-              nextToken: nextToken,
-              retentionConfigurations: _retentionConfigurations?.build());
+              retentionConfigurations: _retentionConfigurations?.build(),
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

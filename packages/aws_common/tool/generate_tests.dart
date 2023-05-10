@@ -219,34 +219,27 @@ expect(
       );
     } else {
       final credentialsType = test.output.credentialType!;
-      final String expect;
-      switch (credentialsType) {
+      final expect = switch (credentialsType) {
         // TODO(dnys1): Assume role credentials provider
-        case AWSCredentialsType.assumeRole:
-          expect = '''
+        AWSCredentialsType.assumeRole => '''
 isA<AWSCredentialsProvider>(),
 skip: 'Assume role credentials are not supported yet'
-''';
-          break;
-        case AWSCredentialsType.session:
-          expect = '''
+''',
+        AWSCredentialsType.session => '''
 isA<StaticCredentialsProvider>().having(
   (p) => p.retrieve().sessionToken,
   'sessionToken',
   isNotNull,
 )
-''';
-          break;
-        case AWSCredentialsType.basic:
-          expect = '''
+''',
+        AWSCredentialsType.basic => '''
 isA<StaticCredentialsProvider>().having(
   (p) => p.retrieve().sessionToken,
   'sessionToken',
   isNull,
 )
-''';
-          break;
-      }
+''',
+      };
       output.writeln(
         '''
 expect(

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_auto_scaling_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -25,9 +26,9 @@ abstract class ReplicaAutoScalingDescription
             ReplicaAutoScalingDescriptionBuilder> {
   /// Represents the auto scaling settings of the replica.
   factory ReplicaAutoScalingDescription({
+    String? regionName,
     List<_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>?
         globalSecondaryIndexes,
-    String? regionName,
     _i3.AutoScalingSettingsDescription?
         replicaProvisionedReadCapacityAutoScalingSettings,
     _i3.AutoScalingSettingsDescription?
@@ -35,10 +36,10 @@ abstract class ReplicaAutoScalingDescription
     _i4.ReplicaStatus? replicaStatus,
   }) {
     return _$ReplicaAutoScalingDescription._(
+      regionName: regionName,
       globalSecondaryIndexes: globalSecondaryIndexes == null
           ? null
           : _i5.BuiltList(globalSecondaryIndexes),
-      regionName: regionName,
       replicaProvisionedReadCapacityAutoScalingSettings:
           replicaProvisionedReadCapacityAutoScalingSettings,
       replicaProvisionedWriteCapacityAutoScalingSettings:
@@ -61,12 +62,12 @@ abstract class ReplicaAutoScalingDescription
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ReplicaAutoScalingDescriptionBuilder b) {}
 
+  /// The Region where the replica exists.
+  String? get regionName;
+
   /// Replica-specific global secondary index auto scaling settings.
   _i5.BuiltList<_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>?
       get globalSecondaryIndexes;
-
-  /// The Region where the replica exists.
-  String? get regionName;
 
   /// Represents the auto scaling settings for a global table or global secondary index.
   _i3.AutoScalingSettingsDescription?
@@ -88,8 +89,8 @@ abstract class ReplicaAutoScalingDescription
   _i4.ReplicaStatus? get replicaStatus;
   @override
   List<Object?> get props => [
-        globalSecondaryIndexes,
         regionName,
+        globalSecondaryIndexes,
         replicaProvisionedReadCapacityAutoScalingSettings,
         replicaProvisionedWriteCapacityAutoScalingSettings,
         replicaStatus,
@@ -98,12 +99,12 @@ abstract class ReplicaAutoScalingDescription
   String toString() {
     final helper = newBuiltValueToStringHelper('ReplicaAutoScalingDescription');
     helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
-    helper.add(
       'regionName',
       regionName,
+    );
+    helper.add(
+      'globalSecondaryIndexes',
+      globalSecondaryIndexes,
     );
     helper.add(
       'replicaProvisionedReadCapacityAutoScalingSettings',
@@ -150,56 +151,41 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'GlobalSecondaryIndexes':
-          if (value != null) {
-            result.globalSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [
-                  FullType(
-                      _i2.ReplicaGlobalSecondaryIndexAutoScalingDescription)
-                ],
-              ),
-            ) as _i5.BuiltList<
-                _i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>));
-          }
-          break;
         case 'RegionName':
-          if (value != null) {
-            result.regionName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.regionName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'GlobalSecondaryIndexes':
+          result.globalSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription)],
+            ),
+          ) as _i5.BuiltList<
+              _i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>));
         case 'ReplicaProvisionedReadCapacityAutoScalingSettings':
-          if (value != null) {
-            result.replicaProvisionedReadCapacityAutoScalingSettings
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
-            ) as _i3.AutoScalingSettingsDescription));
-          }
-          break;
+          result.replicaProvisionedReadCapacityAutoScalingSettings
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
+          ) as _i3.AutoScalingSettingsDescription));
         case 'ReplicaProvisionedWriteCapacityAutoScalingSettings':
-          if (value != null) {
-            result.replicaProvisionedWriteCapacityAutoScalingSettings
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
-            ) as _i3.AutoScalingSettingsDescription));
-          }
-          break;
+          result.replicaProvisionedWriteCapacityAutoScalingSettings
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
+          ) as _i3.AutoScalingSettingsDescription));
         case 'ReplicaStatus':
-          if (value != null) {
-            result.replicaStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ReplicaStatus),
-            ) as _i4.ReplicaStatus);
-          }
-          break;
+          result.replicaStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ReplicaStatus),
+          ) as _i4.ReplicaStatus);
       }
     }
 
@@ -209,54 +195,60 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaAutoScalingDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaAutoScalingDescription);
-    final result = <Object?>[];
-    if (payload.globalSecondaryIndexes != null) {
-      result
+    final result$ = <Object?>[];
+    final ReplicaAutoScalingDescription(
+      :regionName,
+      :globalSecondaryIndexes,
+      :replicaProvisionedReadCapacityAutoScalingSettings,
+      :replicaProvisionedWriteCapacityAutoScalingSettings,
+      :replicaStatus
+    ) = object;
+    if (regionName != null) {
+      result$
+        ..add('RegionName')
+        ..add(serializers.serialize(
+          regionName,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (globalSecondaryIndexes != null) {
+      result$
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.globalSecondaryIndexes!,
+          globalSecondaryIndexes,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription)],
           ),
         ));
     }
-    if (payload.regionName != null) {
-      result
-        ..add('RegionName')
-        ..add(serializers.serialize(
-          payload.regionName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.replicaProvisionedReadCapacityAutoScalingSettings != null) {
-      result
+    if (replicaProvisionedReadCapacityAutoScalingSettings != null) {
+      result$
         ..add('ReplicaProvisionedReadCapacityAutoScalingSettings')
         ..add(serializers.serialize(
-          payload.replicaProvisionedReadCapacityAutoScalingSettings!,
+          replicaProvisionedReadCapacityAutoScalingSettings,
           specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
         ));
     }
-    if (payload.replicaProvisionedWriteCapacityAutoScalingSettings != null) {
-      result
+    if (replicaProvisionedWriteCapacityAutoScalingSettings != null) {
+      result$
         ..add('ReplicaProvisionedWriteCapacityAutoScalingSettings')
         ..add(serializers.serialize(
-          payload.replicaProvisionedWriteCapacityAutoScalingSettings!,
+          replicaProvisionedWriteCapacityAutoScalingSettings,
           specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
         ));
     }
-    if (payload.replicaStatus != null) {
-      result
+    if (replicaStatus != null) {
+      result$
         ..add('ReplicaStatus')
         ..add(serializers.serialize(
-          payload.replicaStatus!,
+          replicaStatus,
           specifiedType: const FullType(_i4.ReplicaStatus),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -43,7 +43,9 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
     switch (valueShapeType) {
       case ShapeType.list:
         final valueSymbol = context.symbolFor(
-            (valueShape as ListShape).member.target, valueShape);
+          (valueShape as ListShape).member.target,
+          valueShape,
+        );
         final type = DartTypes.builtValue
             .builtListMultimap(keySymbol, valueSymbol)
             .withBoxed(shape.isNullable(context, parent));
@@ -87,7 +89,7 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
   @override
   Reference operationShape(OperationShape shape, [Shape? parent]) {
     final library = shape.smithyLibrary(context);
-    return Reference(shape.dartName, library.libraryUrl);
+    return Reference(shape.dartName(context), library.libraryUrl);
   }
 
   @override
@@ -145,7 +147,7 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
   Reference createSymbol(Shape shape) {
     return TypeReference(
       (t) => t
-        ..symbol = shape.escapedClassName(context)!
+        ..symbol = shape.escapedClassName(context)
         ..url = shape.libraryUrl(context),
     );
   }

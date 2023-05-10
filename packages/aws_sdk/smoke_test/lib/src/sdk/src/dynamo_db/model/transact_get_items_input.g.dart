@@ -8,16 +8,16 @@ part of smoke_test.dynamo_db.model.transact_get_items_input;
 
 class _$TransactGetItemsInput extends TransactGetItemsInput {
   @override
-  final _i3.ReturnConsumedCapacity? returnConsumedCapacity;
+  final _i5.BuiltList<_i3.TransactGetItem> transactItems;
   @override
-  final _i5.BuiltList<_i4.TransactGetItem> transactItems;
+  final _i4.ReturnConsumedCapacity? returnConsumedCapacity;
 
   factory _$TransactGetItemsInput(
           [void Function(TransactGetItemsInputBuilder)? updates]) =>
       (new TransactGetItemsInputBuilder()..update(updates))._build();
 
   _$TransactGetItemsInput._(
-      {this.returnConsumedCapacity, required this.transactItems})
+      {required this.transactItems, this.returnConsumedCapacity})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         transactItems, r'TransactGetItemsInput', 'transactItems');
@@ -36,15 +36,15 @@ class _$TransactGetItemsInput extends TransactGetItemsInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TransactGetItemsInput &&
-        returnConsumedCapacity == other.returnConsumedCapacity &&
-        transactItems == other.transactItems;
+        transactItems == other.transactItems &&
+        returnConsumedCapacity == other.returnConsumedCapacity;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, returnConsumedCapacity.hashCode);
     _$hash = $jc(_$hash, transactItems.hashCode);
+    _$hash = $jc(_$hash, returnConsumedCapacity.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,18 +54,18 @@ class TransactGetItemsInputBuilder
     implements Builder<TransactGetItemsInput, TransactGetItemsInputBuilder> {
   _$TransactGetItemsInput? _$v;
 
-  _i3.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i3.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  _i5.ListBuilder<_i3.TransactGetItem>? _transactItems;
+  _i5.ListBuilder<_i3.TransactGetItem> get transactItems =>
+      _$this._transactItems ??= new _i5.ListBuilder<_i3.TransactGetItem>();
+  set transactItems(_i5.ListBuilder<_i3.TransactGetItem>? transactItems) =>
+      _$this._transactItems = transactItems;
+
+  _i4.ReturnConsumedCapacity? _returnConsumedCapacity;
+  _i4.ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
   set returnConsumedCapacity(
-          _i3.ReturnConsumedCapacity? returnConsumedCapacity) =>
+          _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
-
-  _i5.ListBuilder<_i4.TransactGetItem>? _transactItems;
-  _i5.ListBuilder<_i4.TransactGetItem> get transactItems =>
-      _$this._transactItems ??= new _i5.ListBuilder<_i4.TransactGetItem>();
-  set transactItems(_i5.ListBuilder<_i4.TransactGetItem>? transactItems) =>
-      _$this._transactItems = transactItems;
 
   TransactGetItemsInputBuilder() {
     TransactGetItemsInput._init(this);
@@ -74,8 +74,8 @@ class TransactGetItemsInputBuilder
   TransactGetItemsInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _returnConsumedCapacity = $v.returnConsumedCapacity;
       _transactItems = $v.transactItems.toBuilder();
+      _returnConsumedCapacity = $v.returnConsumedCapacity;
       _$v = null;
     }
     return this;
@@ -100,8 +100,8 @@ class TransactGetItemsInputBuilder
     try {
       _$result = _$v ??
           new _$TransactGetItemsInput._(
-              returnConsumedCapacity: returnConsumedCapacity,
-              transactItems: transactItems.build());
+              transactItems: transactItems.build(),
+              returnConsumedCapacity: returnConsumedCapacity);
     } catch (_) {
       late String _$failedField;
       try {

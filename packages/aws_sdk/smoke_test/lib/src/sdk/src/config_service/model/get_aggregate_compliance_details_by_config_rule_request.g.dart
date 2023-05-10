@@ -9,15 +9,15 @@ part of smoke_test.config_service.model.get_aggregate_compliance_details_by_conf
 class _$GetAggregateComplianceDetailsByConfigRuleRequest
     extends GetAggregateComplianceDetailsByConfigRuleRequest {
   @override
+  final String configurationAggregatorName;
+  @override
+  final String configRuleName;
+  @override
   final String accountId;
   @override
   final String awsRegion;
   @override
   final _i3.ComplianceType? complianceType;
-  @override
-  final String configRuleName;
-  @override
-  final String configurationAggregatorName;
   @override
   final int? limit;
   @override
@@ -32,24 +32,24 @@ class _$GetAggregateComplianceDetailsByConfigRuleRequest
           ._build();
 
   _$GetAggregateComplianceDetailsByConfigRuleRequest._(
-      {required this.accountId,
+      {required this.configurationAggregatorName,
+      required this.configRuleName,
+      required this.accountId,
       required this.awsRegion,
       this.complianceType,
-      required this.configRuleName,
-      required this.configurationAggregatorName,
       this.limit,
       this.nextToken})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(accountId,
-        r'GetAggregateComplianceDetailsByConfigRuleRequest', 'accountId');
-    BuiltValueNullFieldError.checkNotNull(awsRegion,
-        r'GetAggregateComplianceDetailsByConfigRuleRequest', 'awsRegion');
-    BuiltValueNullFieldError.checkNotNull(configRuleName,
-        r'GetAggregateComplianceDetailsByConfigRuleRequest', 'configRuleName');
     BuiltValueNullFieldError.checkNotNull(
         configurationAggregatorName,
         r'GetAggregateComplianceDetailsByConfigRuleRequest',
         'configurationAggregatorName');
+    BuiltValueNullFieldError.checkNotNull(configRuleName,
+        r'GetAggregateComplianceDetailsByConfigRuleRequest', 'configRuleName');
+    BuiltValueNullFieldError.checkNotNull(accountId,
+        r'GetAggregateComplianceDetailsByConfigRuleRequest', 'accountId');
+    BuiltValueNullFieldError.checkNotNull(awsRegion,
+        r'GetAggregateComplianceDetailsByConfigRuleRequest', 'awsRegion');
   }
 
   @override
@@ -67,11 +67,11 @@ class _$GetAggregateComplianceDetailsByConfigRuleRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetAggregateComplianceDetailsByConfigRuleRequest &&
+        configurationAggregatorName == other.configurationAggregatorName &&
+        configRuleName == other.configRuleName &&
         accountId == other.accountId &&
         awsRegion == other.awsRegion &&
         complianceType == other.complianceType &&
-        configRuleName == other.configRuleName &&
-        configurationAggregatorName == other.configurationAggregatorName &&
         limit == other.limit &&
         nextToken == other.nextToken;
   }
@@ -79,11 +79,11 @@ class _$GetAggregateComplianceDetailsByConfigRuleRequest
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, configurationAggregatorName.hashCode);
+    _$hash = $jc(_$hash, configRuleName.hashCode);
     _$hash = $jc(_$hash, accountId.hashCode);
     _$hash = $jc(_$hash, awsRegion.hashCode);
     _$hash = $jc(_$hash, complianceType.hashCode);
-    _$hash = $jc(_$hash, configRuleName.hashCode);
-    _$hash = $jc(_$hash, configurationAggregatorName.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
@@ -97,6 +97,17 @@ class GetAggregateComplianceDetailsByConfigRuleRequestBuilder
             GetAggregateComplianceDetailsByConfigRuleRequestBuilder> {
   _$GetAggregateComplianceDetailsByConfigRuleRequest? _$v;
 
+  String? _configurationAggregatorName;
+  String? get configurationAggregatorName =>
+      _$this._configurationAggregatorName;
+  set configurationAggregatorName(String? configurationAggregatorName) =>
+      _$this._configurationAggregatorName = configurationAggregatorName;
+
+  String? _configRuleName;
+  String? get configRuleName => _$this._configRuleName;
+  set configRuleName(String? configRuleName) =>
+      _$this._configRuleName = configRuleName;
+
   String? _accountId;
   String? get accountId => _$this._accountId;
   set accountId(String? accountId) => _$this._accountId = accountId;
@@ -109,17 +120,6 @@ class GetAggregateComplianceDetailsByConfigRuleRequestBuilder
   _i3.ComplianceType? get complianceType => _$this._complianceType;
   set complianceType(_i3.ComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
-
-  String? _configRuleName;
-  String? get configRuleName => _$this._configRuleName;
-  set configRuleName(String? configRuleName) =>
-      _$this._configRuleName = configRuleName;
-
-  String? _configurationAggregatorName;
-  String? get configurationAggregatorName =>
-      _$this._configurationAggregatorName;
-  set configurationAggregatorName(String? configurationAggregatorName) =>
-      _$this._configurationAggregatorName = configurationAggregatorName;
 
   int? _limit;
   int? get limit => _$this._limit;
@@ -136,11 +136,11 @@ class GetAggregateComplianceDetailsByConfigRuleRequestBuilder
   GetAggregateComplianceDetailsByConfigRuleRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _configurationAggregatorName = $v.configurationAggregatorName;
+      _configRuleName = $v.configRuleName;
       _accountId = $v.accountId;
       _awsRegion = $v.awsRegion;
       _complianceType = $v.complianceType;
-      _configRuleName = $v.configRuleName;
-      _configurationAggregatorName = $v.configurationAggregatorName;
       _limit = $v.limit;
       _nextToken = $v.nextToken;
       _$v = null;
@@ -167,6 +167,14 @@ class GetAggregateComplianceDetailsByConfigRuleRequestBuilder
   _$GetAggregateComplianceDetailsByConfigRuleRequest _build() {
     final _$result = _$v ??
         new _$GetAggregateComplianceDetailsByConfigRuleRequest._(
+            configurationAggregatorName: BuiltValueNullFieldError.checkNotNull(
+                configurationAggregatorName,
+                r'GetAggregateComplianceDetailsByConfigRuleRequest',
+                'configurationAggregatorName'),
+            configRuleName: BuiltValueNullFieldError.checkNotNull(
+                configRuleName,
+                r'GetAggregateComplianceDetailsByConfigRuleRequest',
+                'configRuleName'),
             accountId: BuiltValueNullFieldError.checkNotNull(
                 accountId,
                 r'GetAggregateComplianceDetailsByConfigRuleRequest',
@@ -176,14 +184,6 @@ class GetAggregateComplianceDetailsByConfigRuleRequestBuilder
                 r'GetAggregateComplianceDetailsByConfigRuleRequest',
                 'awsRegion'),
             complianceType: complianceType,
-            configRuleName: BuiltValueNullFieldError.checkNotNull(
-                configRuleName,
-                r'GetAggregateComplianceDetailsByConfigRuleRequest',
-                'configRuleName'),
-            configurationAggregatorName: BuiltValueNullFieldError.checkNotNull(
-                configurationAggregatorName,
-                r'GetAggregateComplianceDetailsByConfigRuleRequest',
-                'configurationAggregatorName'),
             limit: limit,
             nextToken: nextToken);
     replace(_$result);

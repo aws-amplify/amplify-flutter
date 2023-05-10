@@ -9,10 +9,10 @@ part of smoke_test.config_service.model.get_organization_config_rule_detailed_st
 class _$GetOrganizationConfigRuleDetailedStatusResponse
     extends GetOrganizationConfigRuleDetailedStatusResponse {
   @override
-  final String? nextToken;
-  @override
   final _i3.BuiltList<_i2.MemberAccountStatus>?
       organizationConfigRuleDetailedStatus;
+  @override
+  final String? nextToken;
 
   factory _$GetOrganizationConfigRuleDetailedStatusResponse(
           [void Function(
@@ -23,7 +23,7 @@ class _$GetOrganizationConfigRuleDetailedStatusResponse
           ._build();
 
   _$GetOrganizationConfigRuleDetailedStatusResponse._(
-      {this.nextToken, this.organizationConfigRuleDetailedStatus})
+      {this.organizationConfigRuleDetailedStatus, this.nextToken})
       : super._();
 
   @override
@@ -41,16 +41,16 @@ class _$GetOrganizationConfigRuleDetailedStatusResponse
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetOrganizationConfigRuleDetailedStatusResponse &&
-        nextToken == other.nextToken &&
         organizationConfigRuleDetailedStatus ==
-            other.organizationConfigRuleDetailedStatus;
+            other.organizationConfigRuleDetailedStatus &&
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, organizationConfigRuleDetailedStatus.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -61,10 +61,6 @@ class GetOrganizationConfigRuleDetailedStatusResponseBuilder
         Builder<GetOrganizationConfigRuleDetailedStatusResponse,
             GetOrganizationConfigRuleDetailedStatusResponseBuilder> {
   _$GetOrganizationConfigRuleDetailedStatusResponse? _$v;
-
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
   _i3.ListBuilder<_i2.MemberAccountStatus>?
       _organizationConfigRuleDetailedStatus;
@@ -78,6 +74,10 @@ class GetOrganizationConfigRuleDetailedStatusResponseBuilder
       _$this._organizationConfigRuleDetailedStatus =
           organizationConfigRuleDetailedStatus;
 
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+
   GetOrganizationConfigRuleDetailedStatusResponseBuilder() {
     GetOrganizationConfigRuleDetailedStatusResponse._init(this);
   }
@@ -85,9 +85,9 @@ class GetOrganizationConfigRuleDetailedStatusResponseBuilder
   GetOrganizationConfigRuleDetailedStatusResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
       _organizationConfigRuleDetailedStatus =
           $v.organizationConfigRuleDetailedStatus?.toBuilder();
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -114,9 +114,9 @@ class GetOrganizationConfigRuleDetailedStatusResponseBuilder
     try {
       _$result = _$v ??
           new _$GetOrganizationConfigRuleDetailedStatusResponse._(
-              nextToken: nextToken,
               organizationConfigRuleDetailedStatus:
-                  _organizationConfigRuleDetailedStatus?.build());
+                  _organizationConfigRuleDetailedStatus?.build(),
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

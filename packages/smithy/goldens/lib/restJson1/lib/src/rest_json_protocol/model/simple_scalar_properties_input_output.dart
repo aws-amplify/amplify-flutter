@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.simple_scalar_properties_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,28 +21,28 @@ abstract class SimpleScalarPropertiesInputOutput
             SimpleScalarPropertiesInputOutputBuilder>,
         _i1.HasPayload<SimpleScalarPropertiesInputOutputPayload> {
   factory SimpleScalarPropertiesInputOutput({
-    int? byteValue,
-    double? doubleValue,
-    bool? falseBooleanValue,
-    double? floatValue,
     String? foo,
-    int? integerValue,
-    _i3.Int64? longValue,
-    int? shortValue,
     String? stringValue,
     bool? trueBooleanValue,
+    bool? falseBooleanValue,
+    int? byteValue,
+    int? shortValue,
+    int? integerValue,
+    _i3.Int64? longValue,
+    double? floatValue,
+    double? doubleValue,
   }) {
     return _$SimpleScalarPropertiesInputOutput._(
-      byteValue: byteValue,
-      doubleValue: doubleValue,
-      falseBooleanValue: falseBooleanValue,
-      floatValue: floatValue,
       foo: foo,
-      integerValue: integerValue,
-      longValue: longValue,
-      shortValue: shortValue,
       stringValue: stringValue,
       trueBooleanValue: trueBooleanValue,
+      falseBooleanValue: falseBooleanValue,
+      byteValue: byteValue,
+      shortValue: shortValue,
+      integerValue: integerValue,
+      longValue: longValue,
+      floatValue: floatValue,
+      doubleValue: doubleValue,
     );
   }
 
@@ -97,16 +98,16 @@ abstract class SimpleScalarPropertiesInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SimpleScalarPropertiesInputOutputBuilder b) {}
-  int? get byteValue;
-  double? get doubleValue;
-  bool? get falseBooleanValue;
-  double? get floatValue;
   String? get foo;
-  int? get integerValue;
-  _i3.Int64? get longValue;
-  int? get shortValue;
   String? get stringValue;
   bool? get trueBooleanValue;
+  bool? get falseBooleanValue;
+  int? get byteValue;
+  int? get shortValue;
+  int? get integerValue;
+  _i3.Int64? get longValue;
+  double? get floatValue;
+  double? get doubleValue;
   @override
   SimpleScalarPropertiesInputOutputPayload getPayload() =>
       SimpleScalarPropertiesInputOutputPayload((b) {
@@ -122,40 +123,44 @@ abstract class SimpleScalarPropertiesInputOutput
       });
   @override
   List<Object?> get props => [
-        byteValue,
-        doubleValue,
-        falseBooleanValue,
-        floatValue,
         foo,
-        integerValue,
-        longValue,
-        shortValue,
         stringValue,
         trueBooleanValue,
+        falseBooleanValue,
+        byteValue,
+        shortValue,
+        integerValue,
+        longValue,
+        floatValue,
+        doubleValue,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('SimpleScalarPropertiesInputOutput');
     helper.add(
-      'byteValue',
-      byteValue,
+      'foo',
+      foo,
     );
     helper.add(
-      'doubleValue',
-      doubleValue,
+      'stringValue',
+      stringValue,
+    );
+    helper.add(
+      'trueBooleanValue',
+      trueBooleanValue,
     );
     helper.add(
       'falseBooleanValue',
       falseBooleanValue,
     );
     helper.add(
-      'floatValue',
-      floatValue,
+      'byteValue',
+      byteValue,
     );
     helper.add(
-      'foo',
-      foo,
+      'shortValue',
+      shortValue,
     );
     helper.add(
       'integerValue',
@@ -166,16 +171,12 @@ abstract class SimpleScalarPropertiesInputOutput
       longValue,
     );
     helper.add(
-      'shortValue',
-      shortValue,
+      'floatValue',
+      floatValue,
     );
     helper.add(
-      'stringValue',
-      stringValue,
-    );
-    helper.add(
-      'trueBooleanValue',
-      trueBooleanValue,
+      'doubleValue',
+      doubleValue,
     );
     return helper.toString();
   }
@@ -292,79 +293,55 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'byteValue':
-          if (value != null) {
-            result.byteValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.byteValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'DoubleDribble':
-          if (value != null) {
-            result.doubleValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.doubleValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'falseBooleanValue':
-          if (value != null) {
-            result.falseBooleanValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.falseBooleanValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'floatValue':
-          if (value != null) {
-            result.floatValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.floatValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'integerValue':
-          if (value != null) {
-            result.integerValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.integerValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'longValue':
-          if (value != null) {
-            result.longValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
-          }
-          break;
+          result.longValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'shortValue':
-          if (value != null) {
-            result.shortValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.shortValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'stringValue':
-          if (value != null) {
-            result.stringValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stringValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'trueBooleanValue':
-          if (value != null) {
-            result.trueBooleanValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.trueBooleanValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -374,85 +351,93 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SimpleScalarPropertiesInputOutputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is SimpleScalarPropertiesInputOutput
-        ? object.getPayload()
-        : (object as SimpleScalarPropertiesInputOutputPayload);
-    final result = <Object?>[];
-    if (payload.byteValue != null) {
-      result
+    final result$ = <Object?>[];
+    final SimpleScalarPropertiesInputOutputPayload(
+      :byteValue,
+      :doubleValue,
+      :falseBooleanValue,
+      :floatValue,
+      :integerValue,
+      :longValue,
+      :shortValue,
+      :stringValue,
+      :trueBooleanValue
+    ) = object;
+    if (byteValue != null) {
+      result$
         ..add('byteValue')
         ..add(serializers.serialize(
-          payload.byteValue!,
+          byteValue,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.doubleValue != null) {
-      result
+    if (doubleValue != null) {
+      result$
         ..add('DoubleDribble')
         ..add(serializers.serialize(
-          payload.doubleValue!,
+          doubleValue,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.falseBooleanValue != null) {
-      result
+    if (falseBooleanValue != null) {
+      result$
         ..add('falseBooleanValue')
         ..add(serializers.serialize(
-          payload.falseBooleanValue!,
+          falseBooleanValue,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.floatValue != null) {
-      result
+    if (floatValue != null) {
+      result$
         ..add('floatValue')
         ..add(serializers.serialize(
-          payload.floatValue!,
+          floatValue,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.integerValue != null) {
-      result
+    if (integerValue != null) {
+      result$
         ..add('integerValue')
         ..add(serializers.serialize(
-          payload.integerValue!,
+          integerValue,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.longValue != null) {
-      result
+    if (longValue != null) {
+      result$
         ..add('longValue')
         ..add(serializers.serialize(
-          payload.longValue!,
+          longValue,
           specifiedType: const FullType(_i3.Int64),
         ));
     }
-    if (payload.shortValue != null) {
-      result
+    if (shortValue != null) {
+      result$
         ..add('shortValue')
         ..add(serializers.serialize(
-          payload.shortValue!,
+          shortValue,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.stringValue != null) {
-      result
+    if (stringValue != null) {
+      result$
         ..add('stringValue')
         ..add(serializers.serialize(
-          payload.stringValue!,
+          stringValue,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.trueBooleanValue != null) {
-      result
+    if (trueBooleanValue != null) {
+      result$
         ..add('trueBooleanValue')
         ..add(serializers.serialize(
-          payload.trueBooleanValue!,
+          trueBooleanValue,
           specifiedType: const FullType(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

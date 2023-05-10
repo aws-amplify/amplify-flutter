@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.get; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,18 +19,18 @@ abstract class Get
     implements Built<Get, GetBuilder> {
   /// Specifies an item and related attribute values to retrieve in a `TransactGetItem` object.
   factory Get({
-    Map<String, String>? expressionAttributeNames,
     required Map<String, _i2.AttributeValue> key,
-    String? projectionExpression,
     required String tableName,
+    String? projectionExpression,
+    Map<String, String>? expressionAttributeNames,
   }) {
     return _$Get._(
+      key: _i3.BuiltMap(key),
+      tableName: tableName,
+      projectionExpression: projectionExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
           : _i3.BuiltMap(expressionAttributeNames),
-      key: _i3.BuiltMap(key),
-      projectionExpression: projectionExpression,
-      tableName: tableName,
     );
   }
 
@@ -45,42 +46,42 @@ abstract class Get
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBuilder b) {}
 
-  /// One or more substitution tokens for attribute names in the ProjectionExpression parameter.
-  _i3.BuiltMap<String, String>? get expressionAttributeNames;
-
   /// A map of attribute names to `AttributeValue` objects that specifies the primary key of the item to retrieve.
   _i3.BuiltMap<String, _i2.AttributeValue> get key;
+
+  /// The name of the table from which to retrieve the specified item.
+  String get tableName;
 
   /// A string that identifies one or more attributes of the specified item to retrieve from the table. The attributes in the expression must be separated by commas. If no attribute names are specified, then all attributes of the specified item are returned. If any of the requested attributes are not found, they do not appear in the result.
   String? get projectionExpression;
 
-  /// The name of the table from which to retrieve the specified item.
-  String get tableName;
+  /// One or more substitution tokens for attribute names in the ProjectionExpression parameter.
+  _i3.BuiltMap<String, String>? get expressionAttributeNames;
   @override
   List<Object?> get props => [
-        expressionAttributeNames,
         key,
-        projectionExpression,
         tableName,
+        projectionExpression,
+        expressionAttributeNames,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Get');
     helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
       'key',
       key,
+    );
+    helper.add(
+      'tableName',
+      tableName,
     );
     helper.add(
       'projectionExpression',
       projectionExpression,
     );
     helper.add(
-      'tableName',
-      tableName,
+      'expressionAttributeNames',
+      expressionAttributeNames,
     );
     return helper.toString();
   }
@@ -113,21 +114,10 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ExpressionAttributeNames':
-          if (value != null) {
-            result.expressionAttributeNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
         case 'Key':
           result.key.replace((serializers.deserialize(
             value,
@@ -139,21 +129,27 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
               ],
             ),
           ) as _i3.BuiltMap<String, _i2.AttributeValue>));
-          break;
-        case 'ProjectionExpression':
-          if (value != null) {
-            result.projectionExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'ProjectionExpression':
+          result.projectionExpression = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ExpressionAttributeNames':
+          result.expressionAttributeNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -163,14 +159,20 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Get object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Get);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final Get(
+      :key,
+      :tableName,
+      :projectionExpression,
+      :expressionAttributeNames
+    ) = object;
+    result$.addAll([
       'Key',
       serializers.serialize(
-        payload.key,
+        key,
         specifiedType: const FullType(
           _i3.BuiltMap,
           [
@@ -181,15 +183,23 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
       ),
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.expressionAttributeNames != null) {
-      result
+    ]);
+    if (projectionExpression != null) {
+      result$
+        ..add('ProjectionExpression')
+        ..add(serializers.serialize(
+          projectionExpression,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (expressionAttributeNames != null) {
+      result$
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
-          payload.expressionAttributeNames!,
+          expressionAttributeNames,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -199,14 +209,6 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
           ),
         ));
     }
-    if (payload.projectionExpression != null) {
-      result
-        ..add('ProjectionExpression')
-        ..add(serializers.serialize(
-          payload.projectionExpression!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

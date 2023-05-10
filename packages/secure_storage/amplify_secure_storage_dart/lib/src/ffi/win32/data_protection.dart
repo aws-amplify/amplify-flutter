@@ -2,10 +2,15 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:typed_data';
 
-import 'package:amplify_secure_storage_dart/src/ffi/win32/data_protection.bindings.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/win32/utils.dart';
 import 'package:ffi/ffi.dart';
-import 'package:win32/win32.dart' show GetLastError, ERROR_SUCCESS;
+import 'package:win32/win32.dart'
+    show
+        CryptProtectData,
+        CryptUnprotectData,
+        CRYPT_INTEGER_BLOB,
+        GetLastError,
+        ERROR_SUCCESS;
 
 /// Encrypts the provided string as a [Uint8List].
 Uint8List encryptString(String value) {
@@ -23,10 +28,10 @@ String decryptString(Uint8List data) {
 Uint8List encrypt(Uint8List list) {
   return using((Arena arena) {
     final blob = list.allocatePointerWith(arena);
-    final dataPtr = arena<DATA_BLOB>()
+    final dataPtr = arena<CRYPT_INTEGER_BLOB>()
       ..ref.cbData = list.length
       ..ref.pbData = blob;
-    final encryptedPtr = arena<DATA_BLOB>();
+    final encryptedPtr = arena<CRYPT_INTEGER_BLOB>();
     CryptProtectData(
       dataPtr,
       nullptr, // no label
@@ -49,10 +54,10 @@ Uint8List encrypt(Uint8List list) {
 Uint8List decrypt(Uint8List list) {
   return using((Arena arena) {
     final blob = list.allocatePointerWith(arena);
-    final dataPtr = arena<DATA_BLOB>()
+    final dataPtr = arena<CRYPT_INTEGER_BLOB>()
       ..ref.cbData = list.length
       ..ref.pbData = blob;
-    final unencryptedPtr = arena<DATA_BLOB>();
+    final unencryptedPtr = arena<CRYPT_INTEGER_BLOB>();
     CryptUnprotectData(
       dataPtr,
       nullptr, // no label

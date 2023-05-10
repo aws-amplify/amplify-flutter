@@ -1,8 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+part of 'auth_state.dart';
 
 /// {@template amplify_auth_cognito.sign_out_state_type}
 /// Discrete state types of the Sign Out state machine.
@@ -27,7 +26,7 @@ enum SignOutStateType {
 /// {@template amplify_auth_cognito.sign_out_state}
 /// Discrete states of the Sign Out state machine.
 /// {@endtemplate}
-abstract class SignOutState extends AuthState<SignOutStateType> {
+sealed class SignOutState extends AuthState<SignOutStateType> {
   const SignOutState._();
 
   /// {@macro amplify_auth_cognito.sign_out_idle}
@@ -56,7 +55,7 @@ abstract class SignOutState extends AuthState<SignOutStateType> {
 /// {@template amplify_auth_cognito.sign_out_idle}
 /// The state machine is not busy and can initiate a sign out.
 /// {@endtemplate}
-class SignOutIdle extends SignOutState {
+final class SignOutIdle extends SignOutState {
   /// {@macro amplify_auth_cognito.sign_out_idle}
   const SignOutIdle() : super._();
 
@@ -70,7 +69,7 @@ class SignOutIdle extends SignOutState {
 /// {@template amplify_auth_cognito.sign_out_signing_out}
 /// The state machine is busy signing out.
 /// {@endtemplate}
-class SignOutSigningOut extends SignOutState {
+final class SignOutSigningOut extends SignOutState {
   /// {@macro amplify_auth_cognito.sign_out_signing_out}
   const SignOutSigningOut() : super._();
 
@@ -84,7 +83,7 @@ class SignOutSigningOut extends SignOutState {
 /// {@template amplify_auth_cognito.sign_out_partial_failure}
 /// The sign out flow partially failed.
 /// {@endtemplate}
-class SignOutPartialFailure extends SignOutState {
+final class SignOutPartialFailure extends SignOutState {
   /// {@macro amplify_auth_cognito.sign_out_partial_failure}
   const SignOutPartialFailure({
     this.hostedUiException,
@@ -115,7 +114,7 @@ class SignOutPartialFailure extends SignOutState {
 /// {@template amplify_auth_cognito.sign_out_failure}
 /// The sign out flow failed unrecoverably with [exception].
 /// {@endtemplate}
-class SignOutFailure extends SignOutState {
+final class SignOutFailure extends SignOutState {
   /// {@macro amplify_auth_cognito.sign_out_failure}
   const SignOutFailure(this.exception) : super._();
 
@@ -132,7 +131,7 @@ class SignOutFailure extends SignOutState {
 /// {@template amplify_auth_cognito.sign_out_success}
 /// The sign out flow completed successfully.
 /// {@endtemplate}
-class SignOutSuccess extends SignOutState {
+final class SignOutSuccess extends SignOutState {
   /// {@macro amplify_auth_cognito.sign_out_success}
   const SignOutSuccess() : super._();
 

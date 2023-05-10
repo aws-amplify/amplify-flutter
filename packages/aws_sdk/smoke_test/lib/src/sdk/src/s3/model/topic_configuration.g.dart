@@ -8,25 +8,25 @@ part of smoke_test.s3.model.topic_configuration;
 
 class _$TopicConfiguration extends TopicConfiguration {
   @override
-  final _i4.BuiltList<_i2.Event> events;
-  @override
-  final _i3.NotificationConfigurationFilter? filter;
-  @override
   final String? id;
   @override
   final String topicArn;
+  @override
+  final _i4.BuiltList<_i2.Event> events;
+  @override
+  final _i3.NotificationConfigurationFilter? filter;
 
   factory _$TopicConfiguration(
           [void Function(TopicConfigurationBuilder)? updates]) =>
       (new TopicConfigurationBuilder()..update(updates))._build();
 
   _$TopicConfiguration._(
-      {required this.events, this.filter, this.id, required this.topicArn})
+      {this.id, required this.topicArn, required this.events, this.filter})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        events, r'TopicConfiguration', 'events');
-    BuiltValueNullFieldError.checkNotNull(
         topicArn, r'TopicConfiguration', 'topicArn');
+    BuiltValueNullFieldError.checkNotNull(
+        events, r'TopicConfiguration', 'events');
   }
 
   @override
@@ -42,19 +42,19 @@ class _$TopicConfiguration extends TopicConfiguration {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TopicConfiguration &&
-        events == other.events &&
-        filter == other.filter &&
         id == other.id &&
-        topicArn == other.topicArn;
+        topicArn == other.topicArn &&
+        events == other.events &&
+        filter == other.filter;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, events.hashCode);
-    _$hash = $jc(_$hash, filter.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, topicArn.hashCode);
+    _$hash = $jc(_$hash, events.hashCode);
+    _$hash = $jc(_$hash, filter.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -63,6 +63,14 @@ class _$TopicConfiguration extends TopicConfiguration {
 class TopicConfigurationBuilder
     implements Builder<TopicConfiguration, TopicConfigurationBuilder> {
   _$TopicConfiguration? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _topicArn;
+  String? get topicArn => _$this._topicArn;
+  set topicArn(String? topicArn) => _$this._topicArn = topicArn;
 
   _i4.ListBuilder<_i2.Event>? _events;
   _i4.ListBuilder<_i2.Event> get events =>
@@ -75,14 +83,6 @@ class TopicConfigurationBuilder
   set filter(_i3.NotificationConfigurationFilterBuilder? filter) =>
       _$this._filter = filter;
 
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _topicArn;
-  String? get topicArn => _$this._topicArn;
-  set topicArn(String? topicArn) => _$this._topicArn = topicArn;
-
   TopicConfigurationBuilder() {
     TopicConfiguration._init(this);
   }
@@ -90,10 +90,10 @@ class TopicConfigurationBuilder
   TopicConfigurationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _events = $v.events.toBuilder();
-      _filter = $v.filter?.toBuilder();
       _id = $v.id;
       _topicArn = $v.topicArn;
+      _events = $v.events.toBuilder();
+      _filter = $v.filter?.toBuilder();
       _$v = null;
     }
     return this;
@@ -118,11 +118,11 @@ class TopicConfigurationBuilder
     try {
       _$result = _$v ??
           new _$TopicConfiguration._(
-              events: events.build(),
-              filter: _filter?.build(),
               id: id,
               topicArn: BuiltValueNullFieldError.checkNotNull(
-                  topicArn, r'TopicConfiguration', 'topicArn'));
+                  topicArn, r'TopicConfiguration', 'topicArn'),
+              events: events.build(),
+              filter: _filter?.build());
     } catch (_) {
       late String _$failedField;
       try {

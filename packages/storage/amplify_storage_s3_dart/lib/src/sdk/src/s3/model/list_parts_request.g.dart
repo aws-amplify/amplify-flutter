@@ -10,23 +10,23 @@ class _$ListPartsRequest extends ListPartsRequest {
   @override
   final String bucket;
   @override
-  final String? expectedBucketOwner;
-  @override
   final String key;
   @override
   final int? maxParts;
   @override
   final String? partNumberMarker;
   @override
+  final String uploadId;
+  @override
   final _i3.RequestPayer? requestPayer;
+  @override
+  final String? expectedBucketOwner;
   @override
   final String? sseCustomerAlgorithm;
   @override
   final String? sseCustomerKey;
   @override
   final String? sseCustomerKeyMd5;
-  @override
-  final String uploadId;
 
   factory _$ListPartsRequest(
           [void Function(ListPartsRequestBuilder)? updates]) =>
@@ -34,15 +34,15 @@ class _$ListPartsRequest extends ListPartsRequest {
 
   _$ListPartsRequest._(
       {required this.bucket,
-      this.expectedBucketOwner,
       required this.key,
       this.maxParts,
       this.partNumberMarker,
+      required this.uploadId,
       this.requestPayer,
+      this.expectedBucketOwner,
       this.sseCustomerAlgorithm,
       this.sseCustomerKey,
-      this.sseCustomerKeyMd5,
-      required this.uploadId})
+      this.sseCustomerKeyMd5})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'ListPartsRequest', 'bucket');
@@ -64,30 +64,30 @@ class _$ListPartsRequest extends ListPartsRequest {
     if (identical(other, this)) return true;
     return other is ListPartsRequest &&
         bucket == other.bucket &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         key == other.key &&
         maxParts == other.maxParts &&
         partNumberMarker == other.partNumberMarker &&
+        uploadId == other.uploadId &&
         requestPayer == other.requestPayer &&
+        expectedBucketOwner == other.expectedBucketOwner &&
         sseCustomerAlgorithm == other.sseCustomerAlgorithm &&
         sseCustomerKey == other.sseCustomerKey &&
-        sseCustomerKeyMd5 == other.sseCustomerKeyMd5 &&
-        uploadId == other.uploadId;
+        sseCustomerKeyMd5 == other.sseCustomerKeyMd5;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
     _$hash = $jc(_$hash, maxParts.hashCode);
     _$hash = $jc(_$hash, partNumberMarker.hashCode);
+    _$hash = $jc(_$hash, uploadId.hashCode);
     _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, sseCustomerAlgorithm.hashCode);
     _$hash = $jc(_$hash, sseCustomerKey.hashCode);
     _$hash = $jc(_$hash, sseCustomerKeyMd5.hashCode);
-    _$hash = $jc(_$hash, uploadId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -100,11 +100,6 @@ class ListPartsRequestBuilder
   String? _bucket;
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
-
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
 
   String? _key;
   String? get key => _$this._key;
@@ -119,10 +114,19 @@ class ListPartsRequestBuilder
   set partNumberMarker(String? partNumberMarker) =>
       _$this._partNumberMarker = partNumberMarker;
 
+  String? _uploadId;
+  String? get uploadId => _$this._uploadId;
+  set uploadId(String? uploadId) => _$this._uploadId = uploadId;
+
   _i3.RequestPayer? _requestPayer;
   _i3.RequestPayer? get requestPayer => _$this._requestPayer;
   set requestPayer(_i3.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
+
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
 
   String? _sseCustomerAlgorithm;
   String? get sseCustomerAlgorithm => _$this._sseCustomerAlgorithm;
@@ -139,10 +143,6 @@ class ListPartsRequestBuilder
   set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
       _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
 
-  String? _uploadId;
-  String? get uploadId => _$this._uploadId;
-  set uploadId(String? uploadId) => _$this._uploadId = uploadId;
-
   ListPartsRequestBuilder() {
     ListPartsRequest._init(this);
   }
@@ -151,15 +151,15 @@ class ListPartsRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _key = $v.key;
       _maxParts = $v.maxParts;
       _partNumberMarker = $v.partNumberMarker;
+      _uploadId = $v.uploadId;
       _requestPayer = $v.requestPayer;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _sseCustomerAlgorithm = $v.sseCustomerAlgorithm;
       _sseCustomerKey = $v.sseCustomerKey;
       _sseCustomerKeyMd5 = $v.sseCustomerKeyMd5;
-      _uploadId = $v.uploadId;
       _$v = null;
     }
     return this;
@@ -184,17 +184,17 @@ class ListPartsRequestBuilder
         new _$ListPartsRequest._(
             bucket: BuiltValueNullFieldError.checkNotNull(
                 bucket, r'ListPartsRequest', 'bucket'),
-            expectedBucketOwner: expectedBucketOwner,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'ListPartsRequest', 'key'),
             maxParts: maxParts,
             partNumberMarker: partNumberMarker,
+            uploadId: BuiltValueNullFieldError.checkNotNull(
+                uploadId, r'ListPartsRequest', 'uploadId'),
             requestPayer: requestPayer,
+            expectedBucketOwner: expectedBucketOwner,
             sseCustomerAlgorithm: sseCustomerAlgorithm,
             sseCustomerKey: sseCustomerKey,
-            sseCustomerKeyMd5: sseCustomerKeyMd5,
-            uploadId: BuiltValueNullFieldError.checkNotNull(
-                uploadId, r'ListPartsRequest', 'uploadId'));
+            sseCustomerKeyMd5: sseCustomerKeyMd5);
     replace(_$result);
     return _$result;
   }

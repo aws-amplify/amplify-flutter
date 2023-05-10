@@ -14,11 +14,21 @@ class _$PutObjectRequest extends PutObjectRequest {
   @override
   final String bucket;
   @override
-  final bool? bucketKeyEnabled;
-  @override
   final String? cacheControl;
   @override
-  final _i5.ChecksumAlgorithm? checksumAlgorithm;
+  final String? contentDisposition;
+  @override
+  final String? contentEncoding;
+  @override
+  final String? contentLanguage;
+  @override
+  final _i5.Int64? contentLength;
+  @override
+  final String? contentMd5;
+  @override
+  final String? contentType;
+  @override
+  final _i6.ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? checksumCrc32;
   @override
@@ -27,20 +37,6 @@ class _$PutObjectRequest extends PutObjectRequest {
   final String? checksumSha1;
   @override
   final String? checksumSha256;
-  @override
-  final String? contentDisposition;
-  @override
-  final String? contentEncoding;
-  @override
-  final String? contentLanguage;
-  @override
-  final _i6.Int64? contentLength;
-  @override
-  final String? contentMd5;
-  @override
-  final String? contentType;
-  @override
-  final String? expectedBucketOwner;
   @override
   final DateTime? expires;
   @override
@@ -56,15 +52,11 @@ class _$PutObjectRequest extends PutObjectRequest {
   @override
   final _i12.BuiltMap<String, String>? metadata;
   @override
-  final _i7.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
+  final _i7.ServerSideEncryption? serverSideEncryption;
   @override
-  final _i8.ObjectLockMode? objectLockMode;
+  final _i8.StorageClass? storageClass;
   @override
-  final DateTime? objectLockRetainUntilDate;
-  @override
-  final _i9.RequestPayer? requestPayer;
-  @override
-  final _i10.ServerSideEncryption? serverSideEncryption;
+  final String? websiteRedirectLocation;
   @override
   final String? sseCustomerAlgorithm;
   @override
@@ -72,15 +64,23 @@ class _$PutObjectRequest extends PutObjectRequest {
   @override
   final String? sseCustomerKeyMd5;
   @override
-  final String? ssekmsEncryptionContext;
-  @override
   final String? ssekmsKeyId;
   @override
-  final _i11.StorageClass? storageClass;
+  final String? ssekmsEncryptionContext;
+  @override
+  final bool? bucketKeyEnabled;
+  @override
+  final _i9.RequestPayer? requestPayer;
   @override
   final String? tagging;
   @override
-  final String? websiteRedirectLocation;
+  final _i10.ObjectLockMode? objectLockMode;
+  @override
+  final DateTime? objectLockRetainUntilDate;
+  @override
+  final _i11.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$PutObjectRequest(
           [void Function(PutObjectRequestBuilder)? updates]) =>
@@ -90,20 +90,18 @@ class _$PutObjectRequest extends PutObjectRequest {
       {this.acl,
       this.body,
       required this.bucket,
-      this.bucketKeyEnabled,
       this.cacheControl,
-      this.checksumAlgorithm,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
       this.contentDisposition,
       this.contentEncoding,
       this.contentLanguage,
       this.contentLength,
       this.contentMd5,
       this.contentType,
-      this.expectedBucketOwner,
+      this.checksumAlgorithm,
+      this.checksumCrc32,
+      this.checksumCrc32C,
+      this.checksumSha1,
+      this.checksumSha256,
       this.expires,
       this.grantFullControl,
       this.grantRead,
@@ -111,19 +109,21 @@ class _$PutObjectRequest extends PutObjectRequest {
       this.grantWriteAcp,
       required this.key,
       this.metadata,
-      this.objectLockLegalHoldStatus,
-      this.objectLockMode,
-      this.objectLockRetainUntilDate,
-      this.requestPayer,
       this.serverSideEncryption,
+      this.storageClass,
+      this.websiteRedirectLocation,
       this.sseCustomerAlgorithm,
       this.sseCustomerKey,
       this.sseCustomerKeyMd5,
-      this.ssekmsEncryptionContext,
       this.ssekmsKeyId,
-      this.storageClass,
+      this.ssekmsEncryptionContext,
+      this.bucketKeyEnabled,
+      this.requestPayer,
       this.tagging,
-      this.websiteRedirectLocation})
+      this.objectLockMode,
+      this.objectLockRetainUntilDate,
+      this.objectLockLegalHoldStatus,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutObjectRequest', 'bucket');
@@ -145,20 +145,18 @@ class _$PutObjectRequest extends PutObjectRequest {
         acl == other.acl &&
         body == other.body &&
         bucket == other.bucket &&
-        bucketKeyEnabled == other.bucketKeyEnabled &&
         cacheControl == other.cacheControl &&
-        checksumAlgorithm == other.checksumAlgorithm &&
-        checksumCrc32 == other.checksumCrc32 &&
-        checksumCrc32C == other.checksumCrc32C &&
-        checksumSha1 == other.checksumSha1 &&
-        checksumSha256 == other.checksumSha256 &&
         contentDisposition == other.contentDisposition &&
         contentEncoding == other.contentEncoding &&
         contentLanguage == other.contentLanguage &&
         contentLength == other.contentLength &&
         contentMd5 == other.contentMd5 &&
         contentType == other.contentType &&
-        expectedBucketOwner == other.expectedBucketOwner &&
+        checksumAlgorithm == other.checksumAlgorithm &&
+        checksumCrc32 == other.checksumCrc32 &&
+        checksumCrc32C == other.checksumCrc32C &&
+        checksumSha1 == other.checksumSha1 &&
+        checksumSha256 == other.checksumSha256 &&
         expires == other.expires &&
         grantFullControl == other.grantFullControl &&
         grantRead == other.grantRead &&
@@ -166,19 +164,21 @@ class _$PutObjectRequest extends PutObjectRequest {
         grantWriteAcp == other.grantWriteAcp &&
         key == other.key &&
         metadata == other.metadata &&
-        objectLockLegalHoldStatus == other.objectLockLegalHoldStatus &&
-        objectLockMode == other.objectLockMode &&
-        objectLockRetainUntilDate == other.objectLockRetainUntilDate &&
-        requestPayer == other.requestPayer &&
         serverSideEncryption == other.serverSideEncryption &&
+        storageClass == other.storageClass &&
+        websiteRedirectLocation == other.websiteRedirectLocation &&
         sseCustomerAlgorithm == other.sseCustomerAlgorithm &&
         sseCustomerKey == other.sseCustomerKey &&
         sseCustomerKeyMd5 == other.sseCustomerKeyMd5 &&
-        ssekmsEncryptionContext == other.ssekmsEncryptionContext &&
         ssekmsKeyId == other.ssekmsKeyId &&
-        storageClass == other.storageClass &&
+        ssekmsEncryptionContext == other.ssekmsEncryptionContext &&
+        bucketKeyEnabled == other.bucketKeyEnabled &&
+        requestPayer == other.requestPayer &&
         tagging == other.tagging &&
-        websiteRedirectLocation == other.websiteRedirectLocation;
+        objectLockMode == other.objectLockMode &&
+        objectLockRetainUntilDate == other.objectLockRetainUntilDate &&
+        objectLockLegalHoldStatus == other.objectLockLegalHoldStatus &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
@@ -187,20 +187,18 @@ class _$PutObjectRequest extends PutObjectRequest {
     _$hash = $jc(_$hash, acl.hashCode);
     _$hash = $jc(_$hash, body.hashCode);
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, bucketKeyEnabled.hashCode);
     _$hash = $jc(_$hash, cacheControl.hashCode);
-    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
-    _$hash = $jc(_$hash, checksumCrc32.hashCode);
-    _$hash = $jc(_$hash, checksumCrc32C.hashCode);
-    _$hash = $jc(_$hash, checksumSha1.hashCode);
-    _$hash = $jc(_$hash, checksumSha256.hashCode);
     _$hash = $jc(_$hash, contentDisposition.hashCode);
     _$hash = $jc(_$hash, contentEncoding.hashCode);
     _$hash = $jc(_$hash, contentLanguage.hashCode);
     _$hash = $jc(_$hash, contentLength.hashCode);
     _$hash = $jc(_$hash, contentMd5.hashCode);
     _$hash = $jc(_$hash, contentType.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
+    _$hash = $jc(_$hash, checksumCrc32.hashCode);
+    _$hash = $jc(_$hash, checksumCrc32C.hashCode);
+    _$hash = $jc(_$hash, checksumSha1.hashCode);
+    _$hash = $jc(_$hash, checksumSha256.hashCode);
     _$hash = $jc(_$hash, expires.hashCode);
     _$hash = $jc(_$hash, grantFullControl.hashCode);
     _$hash = $jc(_$hash, grantRead.hashCode);
@@ -208,19 +206,21 @@ class _$PutObjectRequest extends PutObjectRequest {
     _$hash = $jc(_$hash, grantWriteAcp.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
     _$hash = $jc(_$hash, metadata.hashCode);
-    _$hash = $jc(_$hash, objectLockLegalHoldStatus.hashCode);
-    _$hash = $jc(_$hash, objectLockMode.hashCode);
-    _$hash = $jc(_$hash, objectLockRetainUntilDate.hashCode);
-    _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jc(_$hash, serverSideEncryption.hashCode);
+    _$hash = $jc(_$hash, storageClass.hashCode);
+    _$hash = $jc(_$hash, websiteRedirectLocation.hashCode);
     _$hash = $jc(_$hash, sseCustomerAlgorithm.hashCode);
     _$hash = $jc(_$hash, sseCustomerKey.hashCode);
     _$hash = $jc(_$hash, sseCustomerKeyMd5.hashCode);
-    _$hash = $jc(_$hash, ssekmsEncryptionContext.hashCode);
     _$hash = $jc(_$hash, ssekmsKeyId.hashCode);
-    _$hash = $jc(_$hash, storageClass.hashCode);
+    _$hash = $jc(_$hash, ssekmsEncryptionContext.hashCode);
+    _$hash = $jc(_$hash, bucketKeyEnabled.hashCode);
+    _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jc(_$hash, tagging.hashCode);
-    _$hash = $jc(_$hash, websiteRedirectLocation.hashCode);
+    _$hash = $jc(_$hash, objectLockMode.hashCode);
+    _$hash = $jc(_$hash, objectLockRetainUntilDate.hashCode);
+    _$hash = $jc(_$hash, objectLockLegalHoldStatus.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -242,18 +242,41 @@ class PutObjectRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  bool? _bucketKeyEnabled;
-  bool? get bucketKeyEnabled => _$this._bucketKeyEnabled;
-  set bucketKeyEnabled(bool? bucketKeyEnabled) =>
-      _$this._bucketKeyEnabled = bucketKeyEnabled;
-
   String? _cacheControl;
   String? get cacheControl => _$this._cacheControl;
   set cacheControl(String? cacheControl) => _$this._cacheControl = cacheControl;
 
-  _i5.ChecksumAlgorithm? _checksumAlgorithm;
-  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+  String? _contentDisposition;
+  String? get contentDisposition => _$this._contentDisposition;
+  set contentDisposition(String? contentDisposition) =>
+      _$this._contentDisposition = contentDisposition;
+
+  String? _contentEncoding;
+  String? get contentEncoding => _$this._contentEncoding;
+  set contentEncoding(String? contentEncoding) =>
+      _$this._contentEncoding = contentEncoding;
+
+  String? _contentLanguage;
+  String? get contentLanguage => _$this._contentLanguage;
+  set contentLanguage(String? contentLanguage) =>
+      _$this._contentLanguage = contentLanguage;
+
+  _i5.Int64? _contentLength;
+  _i5.Int64? get contentLength => _$this._contentLength;
+  set contentLength(_i5.Int64? contentLength) =>
+      _$this._contentLength = contentLength;
+
+  String? _contentMd5;
+  String? get contentMd5 => _$this._contentMd5;
+  set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
+
+  String? _contentType;
+  String? get contentType => _$this._contentType;
+  set contentType(String? contentType) => _$this._contentType = contentType;
+
+  _i6.ChecksumAlgorithm? _checksumAlgorithm;
+  _i6.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(_i6.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _checksumCrc32;
@@ -274,39 +297,6 @@ class PutObjectRequestBuilder
   String? get checksumSha256 => _$this._checksumSha256;
   set checksumSha256(String? checksumSha256) =>
       _$this._checksumSha256 = checksumSha256;
-
-  String? _contentDisposition;
-  String? get contentDisposition => _$this._contentDisposition;
-  set contentDisposition(String? contentDisposition) =>
-      _$this._contentDisposition = contentDisposition;
-
-  String? _contentEncoding;
-  String? get contentEncoding => _$this._contentEncoding;
-  set contentEncoding(String? contentEncoding) =>
-      _$this._contentEncoding = contentEncoding;
-
-  String? _contentLanguage;
-  String? get contentLanguage => _$this._contentLanguage;
-  set contentLanguage(String? contentLanguage) =>
-      _$this._contentLanguage = contentLanguage;
-
-  _i6.Int64? _contentLength;
-  _i6.Int64? get contentLength => _$this._contentLength;
-  set contentLength(_i6.Int64? contentLength) =>
-      _$this._contentLength = contentLength;
-
-  String? _contentMd5;
-  String? get contentMd5 => _$this._contentMd5;
-  set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
-
-  String? _contentType;
-  String? get contentType => _$this._contentType;
-  set contentType(String? contentType) => _$this._contentType = contentType;
-
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
 
   DateTime? _expires;
   DateTime? get expires => _$this._expires;
@@ -340,33 +330,21 @@ class PutObjectRequestBuilder
   set metadata(_i12.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
-  _i7.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
-  _i7.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
-      _$this._objectLockLegalHoldStatus;
-  set objectLockLegalHoldStatus(
-          _i7.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
-      _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
-
-  _i8.ObjectLockMode? _objectLockMode;
-  _i8.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
-  set objectLockMode(_i8.ObjectLockMode? objectLockMode) =>
-      _$this._objectLockMode = objectLockMode;
-
-  DateTime? _objectLockRetainUntilDate;
-  DateTime? get objectLockRetainUntilDate => _$this._objectLockRetainUntilDate;
-  set objectLockRetainUntilDate(DateTime? objectLockRetainUntilDate) =>
-      _$this._objectLockRetainUntilDate = objectLockRetainUntilDate;
-
-  _i9.RequestPayer? _requestPayer;
-  _i9.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i9.RequestPayer? requestPayer) =>
-      _$this._requestPayer = requestPayer;
-
-  _i10.ServerSideEncryption? _serverSideEncryption;
-  _i10.ServerSideEncryption? get serverSideEncryption =>
+  _i7.ServerSideEncryption? _serverSideEncryption;
+  _i7.ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i10.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(_i7.ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
+
+  _i8.StorageClass? _storageClass;
+  _i8.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i8.StorageClass? storageClass) =>
+      _$this._storageClass = storageClass;
+
+  String? _websiteRedirectLocation;
+  String? get websiteRedirectLocation => _$this._websiteRedirectLocation;
+  set websiteRedirectLocation(String? websiteRedirectLocation) =>
+      _$this._websiteRedirectLocation = websiteRedirectLocation;
 
   String? _sseCustomerAlgorithm;
   String? get sseCustomerAlgorithm => _$this._sseCustomerAlgorithm;
@@ -383,28 +361,50 @@ class PutObjectRequestBuilder
   set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
       _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
 
+  String? _ssekmsKeyId;
+  String? get ssekmsKeyId => _$this._ssekmsKeyId;
+  set ssekmsKeyId(String? ssekmsKeyId) => _$this._ssekmsKeyId = ssekmsKeyId;
+
   String? _ssekmsEncryptionContext;
   String? get ssekmsEncryptionContext => _$this._ssekmsEncryptionContext;
   set ssekmsEncryptionContext(String? ssekmsEncryptionContext) =>
       _$this._ssekmsEncryptionContext = ssekmsEncryptionContext;
 
-  String? _ssekmsKeyId;
-  String? get ssekmsKeyId => _$this._ssekmsKeyId;
-  set ssekmsKeyId(String? ssekmsKeyId) => _$this._ssekmsKeyId = ssekmsKeyId;
+  bool? _bucketKeyEnabled;
+  bool? get bucketKeyEnabled => _$this._bucketKeyEnabled;
+  set bucketKeyEnabled(bool? bucketKeyEnabled) =>
+      _$this._bucketKeyEnabled = bucketKeyEnabled;
 
-  _i11.StorageClass? _storageClass;
-  _i11.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i11.StorageClass? storageClass) =>
-      _$this._storageClass = storageClass;
+  _i9.RequestPayer? _requestPayer;
+  _i9.RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(_i9.RequestPayer? requestPayer) =>
+      _$this._requestPayer = requestPayer;
 
   String? _tagging;
   String? get tagging => _$this._tagging;
   set tagging(String? tagging) => _$this._tagging = tagging;
 
-  String? _websiteRedirectLocation;
-  String? get websiteRedirectLocation => _$this._websiteRedirectLocation;
-  set websiteRedirectLocation(String? websiteRedirectLocation) =>
-      _$this._websiteRedirectLocation = websiteRedirectLocation;
+  _i10.ObjectLockMode? _objectLockMode;
+  _i10.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
+  set objectLockMode(_i10.ObjectLockMode? objectLockMode) =>
+      _$this._objectLockMode = objectLockMode;
+
+  DateTime? _objectLockRetainUntilDate;
+  DateTime? get objectLockRetainUntilDate => _$this._objectLockRetainUntilDate;
+  set objectLockRetainUntilDate(DateTime? objectLockRetainUntilDate) =>
+      _$this._objectLockRetainUntilDate = objectLockRetainUntilDate;
+
+  _i11.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
+  _i11.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
+      _$this._objectLockLegalHoldStatus;
+  set objectLockLegalHoldStatus(
+          _i11.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
+      _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
+
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
 
   PutObjectRequestBuilder() {
     PutObjectRequest._init(this);
@@ -416,20 +416,18 @@ class PutObjectRequestBuilder
       _acl = $v.acl;
       _body = $v.body;
       _bucket = $v.bucket;
-      _bucketKeyEnabled = $v.bucketKeyEnabled;
       _cacheControl = $v.cacheControl;
-      _checksumAlgorithm = $v.checksumAlgorithm;
-      _checksumCrc32 = $v.checksumCrc32;
-      _checksumCrc32C = $v.checksumCrc32C;
-      _checksumSha1 = $v.checksumSha1;
-      _checksumSha256 = $v.checksumSha256;
       _contentDisposition = $v.contentDisposition;
       _contentEncoding = $v.contentEncoding;
       _contentLanguage = $v.contentLanguage;
       _contentLength = $v.contentLength;
       _contentMd5 = $v.contentMd5;
       _contentType = $v.contentType;
-      _expectedBucketOwner = $v.expectedBucketOwner;
+      _checksumAlgorithm = $v.checksumAlgorithm;
+      _checksumCrc32 = $v.checksumCrc32;
+      _checksumCrc32C = $v.checksumCrc32C;
+      _checksumSha1 = $v.checksumSha1;
+      _checksumSha256 = $v.checksumSha256;
       _expires = $v.expires;
       _grantFullControl = $v.grantFullControl;
       _grantRead = $v.grantRead;
@@ -437,19 +435,21 @@ class PutObjectRequestBuilder
       _grantWriteAcp = $v.grantWriteAcp;
       _key = $v.key;
       _metadata = $v.metadata?.toBuilder();
-      _objectLockLegalHoldStatus = $v.objectLockLegalHoldStatus;
-      _objectLockMode = $v.objectLockMode;
-      _objectLockRetainUntilDate = $v.objectLockRetainUntilDate;
-      _requestPayer = $v.requestPayer;
       _serverSideEncryption = $v.serverSideEncryption;
+      _storageClass = $v.storageClass;
+      _websiteRedirectLocation = $v.websiteRedirectLocation;
       _sseCustomerAlgorithm = $v.sseCustomerAlgorithm;
       _sseCustomerKey = $v.sseCustomerKey;
       _sseCustomerKeyMd5 = $v.sseCustomerKeyMd5;
-      _ssekmsEncryptionContext = $v.ssekmsEncryptionContext;
       _ssekmsKeyId = $v.ssekmsKeyId;
-      _storageClass = $v.storageClass;
+      _ssekmsEncryptionContext = $v.ssekmsEncryptionContext;
+      _bucketKeyEnabled = $v.bucketKeyEnabled;
+      _requestPayer = $v.requestPayer;
       _tagging = $v.tagging;
-      _websiteRedirectLocation = $v.websiteRedirectLocation;
+      _objectLockMode = $v.objectLockMode;
+      _objectLockRetainUntilDate = $v.objectLockRetainUntilDate;
+      _objectLockLegalHoldStatus = $v.objectLockLegalHoldStatus;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -478,20 +478,18 @@ class PutObjectRequestBuilder
               body: body,
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutObjectRequest', 'bucket'),
-              bucketKeyEnabled: bucketKeyEnabled,
               cacheControl: cacheControl,
-              checksumAlgorithm: checksumAlgorithm,
-              checksumCrc32: checksumCrc32,
-              checksumCrc32C: checksumCrc32C,
-              checksumSha1: checksumSha1,
-              checksumSha256: checksumSha256,
               contentDisposition: contentDisposition,
               contentEncoding: contentEncoding,
               contentLanguage: contentLanguage,
               contentLength: contentLength,
               contentMd5: contentMd5,
               contentType: contentType,
-              expectedBucketOwner: expectedBucketOwner,
+              checksumAlgorithm: checksumAlgorithm,
+              checksumCrc32: checksumCrc32,
+              checksumCrc32C: checksumCrc32C,
+              checksumSha1: checksumSha1,
+              checksumSha256: checksumSha256,
               expires: expires,
               grantFullControl: grantFullControl,
               grantRead: grantRead,
@@ -500,19 +498,21 @@ class PutObjectRequestBuilder
               key: BuiltValueNullFieldError.checkNotNull(
                   key, r'PutObjectRequest', 'key'),
               metadata: _metadata?.build(),
-              objectLockLegalHoldStatus: objectLockLegalHoldStatus,
-              objectLockMode: objectLockMode,
-              objectLockRetainUntilDate: objectLockRetainUntilDate,
-              requestPayer: requestPayer,
               serverSideEncryption: serverSideEncryption,
+              storageClass: storageClass,
+              websiteRedirectLocation: websiteRedirectLocation,
               sseCustomerAlgorithm: sseCustomerAlgorithm,
               sseCustomerKey: sseCustomerKey,
               sseCustomerKeyMd5: sseCustomerKeyMd5,
-              ssekmsEncryptionContext: ssekmsEncryptionContext,
               ssekmsKeyId: ssekmsKeyId,
-              storageClass: storageClass,
+              ssekmsEncryptionContext: ssekmsEncryptionContext,
+              bucketKeyEnabled: bucketKeyEnabled,
+              requestPayer: requestPayer,
               tagging: tagging,
-              websiteRedirectLocation: websiteRedirectLocation);
+              objectLockMode: objectLockMode,
+              objectLockRetainUntilDate: objectLockRetainUntilDate,
+              objectLockLegalHoldStatus: objectLockLegalHoldStatus,
+              expectedBucketOwner: expectedBucketOwner);
     } catch (_) {
       late String _$failedField;
       try {

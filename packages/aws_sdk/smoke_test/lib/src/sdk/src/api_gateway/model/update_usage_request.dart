@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.update_usage_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,15 +24,15 @@ abstract class UpdateUsageRequest
         _i1.HasPayload<UpdateUsageRequestPayload> {
   /// The PATCH request to grant a temporary extension to the remaining quota of a usage plan associated with a specified API key.
   factory UpdateUsageRequest({
+    required String usagePlanId,
     required String keyId,
     List<_i3.PatchOperation>? patchOperations,
-    required String usagePlanId,
   }) {
     return _$UpdateUsageRequest._(
+      usagePlanId: usagePlanId,
       keyId: keyId,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      usagePlanId: usagePlanId,
     );
   }
 
@@ -66,14 +67,14 @@ abstract class UpdateUsageRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateUsageRequestBuilder b) {}
 
+  /// The Id of the usage plan associated with the usage data.
+  String get usagePlanId;
+
   /// The identifier of the API key associated with the usage plan in which a temporary extension is granted to the remaining quota.
   String get keyId;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
-  /// The Id of the usage plan associated with the usage data.
-  String get usagePlanId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -96,13 +97,17 @@ abstract class UpdateUsageRequest
       });
   @override
   List<Object?> get props => [
+        usagePlanId,
         keyId,
         patchOperations,
-        usagePlanId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateUsageRequest');
+    helper.add(
+      'usagePlanId',
+      usagePlanId,
+    );
     helper.add(
       'keyId',
       keyId,
@@ -110,10 +115,6 @@ abstract class UpdateUsageRequest
     helper.add(
       'patchOperations',
       patchOperations,
-    );
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
     );
     return helper.toString();
   }
@@ -178,18 +179,18 @@ class UpdateUsageRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'patchOperations':
-          if (value != null) {
-            result.patchOperations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.PatchOperation)],
-              ),
-            ) as _i4.BuiltList<_i3.PatchOperation>));
-          }
-          break;
+          result.patchOperations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.PatchOperation)],
+            ),
+          ) as _i4.BuiltList<_i3.PatchOperation>));
       }
     }
 
@@ -199,24 +200,22 @@ class UpdateUsageRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateUsageRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UpdateUsageRequest
-        ? object.getPayload()
-        : (object as UpdateUsageRequestPayload);
-    final result = <Object?>[];
-    if (payload.patchOperations != null) {
-      result
+    final result$ = <Object?>[];
+    final UpdateUsageRequestPayload(:patchOperations) = object;
+    if (patchOperations != null) {
+      result$
         ..add('patchOperations')
         ..add(serializers.serialize(
-          payload.patchOperations!,
+          patchOperations,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.PatchOperation)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

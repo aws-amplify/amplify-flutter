@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_object_legal_hold_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -90,18 +91,18 @@ class GetObjectLegalHoldOutputRestXmlSerializer
     final result = _i3.ObjectLockLegalHoldBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ObjectLockLegalHoldStatus),
-            ) as _i4.ObjectLockLegalHoldStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ObjectLockLegalHoldStatus),
+          ) as _i4.ObjectLockLegalHoldStatus);
       }
     }
 
@@ -111,29 +112,24 @@ class GetObjectLegalHoldOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i3.ObjectLockLegalHold object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is GetObjectLegalHoldOutput
-        ? object.getPayload()
-        : (object as _i3.ObjectLockLegalHold?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'ObjectLockLegalHold',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
-    if (payload.status != null) {
-      result
+    final _i3.ObjectLockLegalHold(:status) = object;
+    if (status != null) {
+      result$
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType.nullable(_i4.ObjectLockLegalHoldStatus),
         ));
     }
-    return result;
+    return result$;
   }
 }

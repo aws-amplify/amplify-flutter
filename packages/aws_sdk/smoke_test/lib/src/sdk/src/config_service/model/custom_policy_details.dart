@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.custom_policy_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,14 +16,14 @@ abstract class CustomPolicyDetails
     implements Built<CustomPolicyDetails, CustomPolicyDetailsBuilder> {
   /// Provides the runtime system, policy definition, and whether debug logging enabled. You can specify the following CustomPolicyDetails parameter values only for Config Custom Policy rules.
   factory CustomPolicyDetails({
-    bool? enableDebugLogDelivery,
     required String policyRuntime,
     required String policyText,
+    bool? enableDebugLogDelivery,
   }) {
     return _$CustomPolicyDetails._(
-      enableDebugLogDelivery: enableDebugLogDelivery,
       policyRuntime: policyRuntime,
       policyText: policyText,
+      enableDebugLogDelivery: enableDebugLogDelivery,
     );
   }
 
@@ -40,27 +41,23 @@ abstract class CustomPolicyDetails
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CustomPolicyDetailsBuilder b) {}
 
-  /// The boolean expression for enabling debug logging for your Config Custom Policy rule. The default value is `false`.
-  bool? get enableDebugLogDelivery;
-
   /// The runtime system for your Config Custom Policy rule. Guard is a policy-as-code language that allows you to write policies that are enforced by Config Custom Policy rules. For more information about Guard, see the [Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard).
   String get policyRuntime;
 
   /// The policy definition containing the logic for your Config Custom Policy rule.
   String get policyText;
+
+  /// The boolean expression for enabling debug logging for your Config Custom Policy rule. The default value is `false`.
+  bool? get enableDebugLogDelivery;
   @override
   List<Object?> get props => [
-        enableDebugLogDelivery,
         policyRuntime,
         policyText,
+        enableDebugLogDelivery,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CustomPolicyDetails');
-    helper.add(
-      'enableDebugLogDelivery',
-      enableDebugLogDelivery,
-    );
     helper.add(
       'policyRuntime',
       policyRuntime,
@@ -68,6 +65,10 @@ abstract class CustomPolicyDetails
     helper.add(
       'policyText',
       policyText,
+    );
+    helper.add(
+      'enableDebugLogDelivery',
+      enableDebugLogDelivery,
     );
     return helper.toString();
   }
@@ -101,27 +102,25 @@ class CustomPolicyDetailsAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'EnableDebugLogDelivery':
-          if (value != null) {
-            result.enableDebugLogDelivery = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
         case 'PolicyRuntime':
           result.policyRuntime = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'PolicyText':
           result.policyText = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'EnableDebugLogDelivery':
+          result.enableDebugLogDelivery = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -131,30 +130,35 @@ class CustomPolicyDetailsAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CustomPolicyDetails object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CustomPolicyDetails);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final CustomPolicyDetails(
+      :policyRuntime,
+      :policyText,
+      :enableDebugLogDelivery
+    ) = object;
+    result$.addAll([
       'PolicyRuntime',
       serializers.serialize(
-        payload.policyRuntime,
+        policyRuntime,
         specifiedType: const FullType(String),
       ),
       'PolicyText',
       serializers.serialize(
-        payload.policyText,
+        policyText,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.enableDebugLogDelivery != null) {
-      result
+    ]);
+    if (enableDebugLogDelivery != null) {
+      result$
         ..add('EnableDebugLogDelivery')
         ..add(serializers.serialize(
-          payload.enableDebugLogDelivery!,
+          enableDebugLogDelivery,
           specifiedType: const FullType(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

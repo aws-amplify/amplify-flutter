@@ -52,10 +52,12 @@ class Timestamp {
         final secs =
             timestamp is String ? double.parse(timestamp) : timestamp as num;
         final millisecs = (secs * 1000).truncate();
-        return Timestamp(DateTime.fromMillisecondsSinceEpoch(
-          millisecs,
-          isUtc: true,
-        ));
+        return Timestamp(
+          DateTime.fromMillisecondsSinceEpoch(
+            millisecs,
+            isUtc: true,
+          ),
+        );
       default:
         break;
     }
@@ -73,15 +75,11 @@ class Timestamp {
   String toString() => _isoFormat.format(_timestamp);
 
   Object format([TimestampFormat format = TimestampFormat.dateTime]) {
-    switch (format) {
-      case TimestampFormat.dateTime:
-      case TimestampFormat.unknown:
-        return toString();
-      case TimestampFormat.httpDate:
-        return formatHttpDate(_timestamp);
-      case TimestampFormat.epochSeconds:
-        return _timestamp.millisecondsSinceEpoch ~/ 1000;
-    }
+    return switch (format) {
+      TimestampFormat.dateTime || TimestampFormat.unknown => toString(),
+      TimestampFormat.httpDate => formatHttpDate(_timestamp),
+      TimestampFormat.epochSeconds => _timestamp.millisecondsSinceEpoch ~/ 1000,
+    };
   }
 }
 

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message_button; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -115,39 +116,30 @@ class InAppMessageButtonRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Android':
-          if (value != null) {
-            result.android.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.OverrideButtonConfiguration),
-            ) as _i2.OverrideButtonConfiguration));
-          }
-          break;
+          result.android.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.OverrideButtonConfiguration),
+          ) as _i2.OverrideButtonConfiguration));
         case 'DefaultConfig':
-          if (value != null) {
-            result.defaultConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.DefaultButtonConfiguration),
-            ) as _i3.DefaultButtonConfiguration));
-          }
-          break;
+          result.defaultConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.DefaultButtonConfiguration),
+          ) as _i3.DefaultButtonConfiguration));
         case 'IOS':
-          if (value != null) {
-            result.ios.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.OverrideButtonConfiguration),
-            ) as _i2.OverrideButtonConfiguration));
-          }
-          break;
+          result.ios.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.OverrideButtonConfiguration),
+          ) as _i2.OverrideButtonConfiguration));
         case 'Web':
-          if (value != null) {
-            result.web.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.OverrideButtonConfiguration),
-            ) as _i2.OverrideButtonConfiguration));
-          }
-          break;
+          result.web.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.OverrideButtonConfiguration),
+          ) as _i2.OverrideButtonConfiguration));
       }
     }
 
@@ -157,43 +149,43 @@ class InAppMessageButtonRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InAppMessageButton object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InAppMessageButton);
-    final result = <Object?>[];
-    if (payload.android != null) {
-      result
+    final result$ = <Object?>[];
+    final InAppMessageButton(:android, :defaultConfig, :ios, :web) = object;
+    if (android != null) {
+      result$
         ..add('Android')
         ..add(serializers.serialize(
-          payload.android!,
+          android,
           specifiedType: const FullType(_i2.OverrideButtonConfiguration),
         ));
     }
-    if (payload.defaultConfig != null) {
-      result
+    if (defaultConfig != null) {
+      result$
         ..add('DefaultConfig')
         ..add(serializers.serialize(
-          payload.defaultConfig!,
+          defaultConfig,
           specifiedType: const FullType(_i3.DefaultButtonConfiguration),
         ));
     }
-    if (payload.ios != null) {
-      result
+    if (ios != null) {
+      result$
         ..add('IOS')
         ..add(serializers.serialize(
-          payload.ios!,
+          ios,
           specifiedType: const FullType(_i2.OverrideButtonConfiguration),
         ));
     }
-    if (payload.web != null) {
-      result
+    if (web != null) {
+      result$
         ..add('Web')
         ..add(serializers.serialize(
-          payload.web!,
+          web,
           specifiedType: const FullType(_i2.OverrideButtonConfiguration),
         ));
     }
-    return result;
+    return result$;
   }
 }

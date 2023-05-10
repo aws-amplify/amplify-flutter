@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.tags; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -80,21 +81,21 @@ class TagsRestJson1Serializer extends _i3.StructuredSmithySerializer<Tags> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i2.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i2.BuiltMap<String, String>));
       }
     }
 
@@ -104,16 +105,16 @@ class TagsRestJson1Serializer extends _i3.StructuredSmithySerializer<Tags> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Tags object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Tags);
-    final result = <Object?>[];
-    if (payload.tags != null) {
-      result
+    final result$ = <Object?>[];
+    final Tags(:tags) = object;
+    if (tags != null) {
+      result$
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i2.BuiltMap,
             [
@@ -123,6 +124,6 @@ class TagsRestJson1Serializer extends _i3.StructuredSmithySerializer<Tags> {
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

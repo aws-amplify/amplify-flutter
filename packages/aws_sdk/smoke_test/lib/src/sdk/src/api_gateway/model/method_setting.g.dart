@@ -8,23 +8,23 @@ part of smoke_test.api_gateway.model.method_setting;
 
 class _$MethodSetting extends MethodSetting {
   @override
-  final bool? cacheDataEncrypted;
-  @override
-  final int? cacheTtlInSeconds;
-  @override
-  final bool? cachingEnabled;
-  @override
-  final bool? dataTraceEnabled;
+  final bool? metricsEnabled;
   @override
   final String? loggingLevel;
   @override
-  final bool? metricsEnabled;
-  @override
-  final bool? requireAuthorizationForCacheControl;
+  final bool? dataTraceEnabled;
   @override
   final int? throttlingBurstLimit;
   @override
   final double? throttlingRateLimit;
+  @override
+  final bool? cachingEnabled;
+  @override
+  final int? cacheTtlInSeconds;
+  @override
+  final bool? cacheDataEncrypted;
+  @override
+  final bool? requireAuthorizationForCacheControl;
   @override
   final _i2.UnauthorizedCacheControlHeaderStrategy?
       unauthorizedCacheControlHeaderStrategy;
@@ -33,15 +33,15 @@ class _$MethodSetting extends MethodSetting {
       (new MethodSettingBuilder()..update(updates))._build();
 
   _$MethodSetting._(
-      {this.cacheDataEncrypted,
-      this.cacheTtlInSeconds,
-      this.cachingEnabled,
-      this.dataTraceEnabled,
+      {this.metricsEnabled,
       this.loggingLevel,
-      this.metricsEnabled,
-      this.requireAuthorizationForCacheControl,
+      this.dataTraceEnabled,
       this.throttlingBurstLimit,
       this.throttlingRateLimit,
+      this.cachingEnabled,
+      this.cacheTtlInSeconds,
+      this.cacheDataEncrypted,
+      this.requireAuthorizationForCacheControl,
       this.unauthorizedCacheControlHeaderStrategy})
       : super._();
 
@@ -56,16 +56,16 @@ class _$MethodSetting extends MethodSetting {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is MethodSetting &&
-        cacheDataEncrypted == other.cacheDataEncrypted &&
-        cacheTtlInSeconds == other.cacheTtlInSeconds &&
-        cachingEnabled == other.cachingEnabled &&
-        dataTraceEnabled == other.dataTraceEnabled &&
-        loggingLevel == other.loggingLevel &&
         metricsEnabled == other.metricsEnabled &&
-        requireAuthorizationForCacheControl ==
-            other.requireAuthorizationForCacheControl &&
+        loggingLevel == other.loggingLevel &&
+        dataTraceEnabled == other.dataTraceEnabled &&
         throttlingBurstLimit == other.throttlingBurstLimit &&
         throttlingRateLimit == other.throttlingRateLimit &&
+        cachingEnabled == other.cachingEnabled &&
+        cacheTtlInSeconds == other.cacheTtlInSeconds &&
+        cacheDataEncrypted == other.cacheDataEncrypted &&
+        requireAuthorizationForCacheControl ==
+            other.requireAuthorizationForCacheControl &&
         unauthorizedCacheControlHeaderStrategy ==
             other.unauthorizedCacheControlHeaderStrategy;
   }
@@ -73,15 +73,15 @@ class _$MethodSetting extends MethodSetting {
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, cacheDataEncrypted.hashCode);
-    _$hash = $jc(_$hash, cacheTtlInSeconds.hashCode);
-    _$hash = $jc(_$hash, cachingEnabled.hashCode);
-    _$hash = $jc(_$hash, dataTraceEnabled.hashCode);
-    _$hash = $jc(_$hash, loggingLevel.hashCode);
     _$hash = $jc(_$hash, metricsEnabled.hashCode);
-    _$hash = $jc(_$hash, requireAuthorizationForCacheControl.hashCode);
+    _$hash = $jc(_$hash, loggingLevel.hashCode);
+    _$hash = $jc(_$hash, dataTraceEnabled.hashCode);
     _$hash = $jc(_$hash, throttlingBurstLimit.hashCode);
     _$hash = $jc(_$hash, throttlingRateLimit.hashCode);
+    _$hash = $jc(_$hash, cachingEnabled.hashCode);
+    _$hash = $jc(_$hash, cacheTtlInSeconds.hashCode);
+    _$hash = $jc(_$hash, cacheDataEncrypted.hashCode);
+    _$hash = $jc(_$hash, requireAuthorizationForCacheControl.hashCode);
     _$hash = $jc(_$hash, unauthorizedCacheControlHeaderStrategy.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -92,42 +92,19 @@ class MethodSettingBuilder
     implements Builder<MethodSetting, MethodSettingBuilder> {
   _$MethodSetting? _$v;
 
-  bool? _cacheDataEncrypted;
-  bool? get cacheDataEncrypted => _$this._cacheDataEncrypted;
-  set cacheDataEncrypted(bool? cacheDataEncrypted) =>
-      _$this._cacheDataEncrypted = cacheDataEncrypted;
-
-  int? _cacheTtlInSeconds;
-  int? get cacheTtlInSeconds => _$this._cacheTtlInSeconds;
-  set cacheTtlInSeconds(int? cacheTtlInSeconds) =>
-      _$this._cacheTtlInSeconds = cacheTtlInSeconds;
-
-  bool? _cachingEnabled;
-  bool? get cachingEnabled => _$this._cachingEnabled;
-  set cachingEnabled(bool? cachingEnabled) =>
-      _$this._cachingEnabled = cachingEnabled;
-
-  bool? _dataTraceEnabled;
-  bool? get dataTraceEnabled => _$this._dataTraceEnabled;
-  set dataTraceEnabled(bool? dataTraceEnabled) =>
-      _$this._dataTraceEnabled = dataTraceEnabled;
-
-  String? _loggingLevel;
-  String? get loggingLevel => _$this._loggingLevel;
-  set loggingLevel(String? loggingLevel) => _$this._loggingLevel = loggingLevel;
-
   bool? _metricsEnabled;
   bool? get metricsEnabled => _$this._metricsEnabled;
   set metricsEnabled(bool? metricsEnabled) =>
       _$this._metricsEnabled = metricsEnabled;
 
-  bool? _requireAuthorizationForCacheControl;
-  bool? get requireAuthorizationForCacheControl =>
-      _$this._requireAuthorizationForCacheControl;
-  set requireAuthorizationForCacheControl(
-          bool? requireAuthorizationForCacheControl) =>
-      _$this._requireAuthorizationForCacheControl =
-          requireAuthorizationForCacheControl;
+  String? _loggingLevel;
+  String? get loggingLevel => _$this._loggingLevel;
+  set loggingLevel(String? loggingLevel) => _$this._loggingLevel = loggingLevel;
+
+  bool? _dataTraceEnabled;
+  bool? get dataTraceEnabled => _$this._dataTraceEnabled;
+  set dataTraceEnabled(bool? dataTraceEnabled) =>
+      _$this._dataTraceEnabled = dataTraceEnabled;
 
   int? _throttlingBurstLimit;
   int? get throttlingBurstLimit => _$this._throttlingBurstLimit;
@@ -138,6 +115,29 @@ class MethodSettingBuilder
   double? get throttlingRateLimit => _$this._throttlingRateLimit;
   set throttlingRateLimit(double? throttlingRateLimit) =>
       _$this._throttlingRateLimit = throttlingRateLimit;
+
+  bool? _cachingEnabled;
+  bool? get cachingEnabled => _$this._cachingEnabled;
+  set cachingEnabled(bool? cachingEnabled) =>
+      _$this._cachingEnabled = cachingEnabled;
+
+  int? _cacheTtlInSeconds;
+  int? get cacheTtlInSeconds => _$this._cacheTtlInSeconds;
+  set cacheTtlInSeconds(int? cacheTtlInSeconds) =>
+      _$this._cacheTtlInSeconds = cacheTtlInSeconds;
+
+  bool? _cacheDataEncrypted;
+  bool? get cacheDataEncrypted => _$this._cacheDataEncrypted;
+  set cacheDataEncrypted(bool? cacheDataEncrypted) =>
+      _$this._cacheDataEncrypted = cacheDataEncrypted;
+
+  bool? _requireAuthorizationForCacheControl;
+  bool? get requireAuthorizationForCacheControl =>
+      _$this._requireAuthorizationForCacheControl;
+  set requireAuthorizationForCacheControl(
+          bool? requireAuthorizationForCacheControl) =>
+      _$this._requireAuthorizationForCacheControl =
+          requireAuthorizationForCacheControl;
 
   _i2.UnauthorizedCacheControlHeaderStrategy?
       _unauthorizedCacheControlHeaderStrategy;
@@ -157,16 +157,16 @@ class MethodSettingBuilder
   MethodSettingBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _cacheDataEncrypted = $v.cacheDataEncrypted;
-      _cacheTtlInSeconds = $v.cacheTtlInSeconds;
-      _cachingEnabled = $v.cachingEnabled;
-      _dataTraceEnabled = $v.dataTraceEnabled;
-      _loggingLevel = $v.loggingLevel;
       _metricsEnabled = $v.metricsEnabled;
-      _requireAuthorizationForCacheControl =
-          $v.requireAuthorizationForCacheControl;
+      _loggingLevel = $v.loggingLevel;
+      _dataTraceEnabled = $v.dataTraceEnabled;
       _throttlingBurstLimit = $v.throttlingBurstLimit;
       _throttlingRateLimit = $v.throttlingRateLimit;
+      _cachingEnabled = $v.cachingEnabled;
+      _cacheTtlInSeconds = $v.cacheTtlInSeconds;
+      _cacheDataEncrypted = $v.cacheDataEncrypted;
+      _requireAuthorizationForCacheControl =
+          $v.requireAuthorizationForCacheControl;
       _unauthorizedCacheControlHeaderStrategy =
           $v.unauthorizedCacheControlHeaderStrategy;
       _$v = null;
@@ -191,16 +191,16 @@ class MethodSettingBuilder
   _$MethodSetting _build() {
     final _$result = _$v ??
         new _$MethodSetting._(
-            cacheDataEncrypted: cacheDataEncrypted,
-            cacheTtlInSeconds: cacheTtlInSeconds,
-            cachingEnabled: cachingEnabled,
-            dataTraceEnabled: dataTraceEnabled,
-            loggingLevel: loggingLevel,
             metricsEnabled: metricsEnabled,
-            requireAuthorizationForCacheControl:
-                requireAuthorizationForCacheControl,
+            loggingLevel: loggingLevel,
+            dataTraceEnabled: dataTraceEnabled,
             throttlingBurstLimit: throttlingBurstLimit,
             throttlingRateLimit: throttlingRateLimit,
+            cachingEnabled: cachingEnabled,
+            cacheTtlInSeconds: cacheTtlInSeconds,
+            cacheDataEncrypted: cacheDataEncrypted,
+            requireAuthorizationForCacheControl:
+                requireAuthorizationForCacheControl,
             unauthorizedCacheControlHeaderStrategy:
                 unauthorizedCacheControlHeaderStrategy);
     replace(_$result);

@@ -8,21 +8,21 @@ part of smoke_test.dynamo_db.model.time_to_live_specification;
 
 class _$TimeToLiveSpecification extends TimeToLiveSpecification {
   @override
-  final String attributeName;
-  @override
   final bool enabled;
+  @override
+  final String attributeName;
 
   factory _$TimeToLiveSpecification(
           [void Function(TimeToLiveSpecificationBuilder)? updates]) =>
       (new TimeToLiveSpecificationBuilder()..update(updates))._build();
 
   _$TimeToLiveSpecification._(
-      {required this.attributeName, required this.enabled})
+      {required this.enabled, required this.attributeName})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        attributeName, r'TimeToLiveSpecification', 'attributeName');
-    BuiltValueNullFieldError.checkNotNull(
         enabled, r'TimeToLiveSpecification', 'enabled');
+    BuiltValueNullFieldError.checkNotNull(
+        attributeName, r'TimeToLiveSpecification', 'attributeName');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$TimeToLiveSpecification extends TimeToLiveSpecification {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TimeToLiveSpecification &&
-        attributeName == other.attributeName &&
-        enabled == other.enabled;
+        enabled == other.enabled &&
+        attributeName == other.attributeName;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, attributeName.hashCode);
     _$hash = $jc(_$hash, enabled.hashCode);
+    _$hash = $jc(_$hash, attributeName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,14 +57,14 @@ class TimeToLiveSpecificationBuilder
         Builder<TimeToLiveSpecification, TimeToLiveSpecificationBuilder> {
   _$TimeToLiveSpecification? _$v;
 
+  bool? _enabled;
+  bool? get enabled => _$this._enabled;
+  set enabled(bool? enabled) => _$this._enabled = enabled;
+
   String? _attributeName;
   String? get attributeName => _$this._attributeName;
   set attributeName(String? attributeName) =>
       _$this._attributeName = attributeName;
-
-  bool? _enabled;
-  bool? get enabled => _$this._enabled;
-  set enabled(bool? enabled) => _$this._enabled = enabled;
 
   TimeToLiveSpecificationBuilder() {
     TimeToLiveSpecification._init(this);
@@ -73,8 +73,8 @@ class TimeToLiveSpecificationBuilder
   TimeToLiveSpecificationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _attributeName = $v.attributeName;
       _enabled = $v.enabled;
+      _attributeName = $v.attributeName;
       _$v = null;
     }
     return this;
@@ -97,10 +97,10 @@ class TimeToLiveSpecificationBuilder
   _$TimeToLiveSpecification _build() {
     final _$result = _$v ??
         new _$TimeToLiveSpecification._(
-            attributeName: BuiltValueNullFieldError.checkNotNull(
-                attributeName, r'TimeToLiveSpecification', 'attributeName'),
             enabled: BuiltValueNullFieldError.checkNotNull(
-                enabled, r'TimeToLiveSpecification', 'enabled'));
+                enabled, r'TimeToLiveSpecification', 'enabled'),
+            attributeName: BuiltValueNullFieldError.checkNotNull(
+                attributeName, r'TimeToLiveSpecification', 'attributeName'));
     replace(_$result);
     return _$result;
   }

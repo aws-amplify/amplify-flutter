@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.flattened_xml_map_with_xml_namespace_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -81,32 +82,32 @@ class FlattenedXmlMapWithXmlNamespaceOutputRestXmlSerializer extends _i3
     final result = FlattenedXmlMapWithXmlNamespaceOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'KVP':
-          if (value != null) {
-            result.myMap.addAll(const _i3.XmlBuiltMapSerializer(
-              keyName: 'K',
-              valueName: 'V',
-              flattenedKey: 'KVP',
-            )
-                .deserialize(
-                  serializers,
-                  (value as Iterable<Object?>),
-                  specifiedType: const FullType(
-                    _i2.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(String),
-                    ],
-                  ),
-                )
-                .toMap()
-                .cast());
-          }
-          break;
+          result.myMap.addAll(const _i3.XmlBuiltMapSerializer(
+            keyName: 'K',
+            valueName: 'V',
+            flattenedKey: 'KVP',
+          )
+              .deserialize(
+                serializers,
+                value is String ? const [] : (value as Iterable<Object?>),
+                specifiedType: const FullType(
+                  _i2.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(String),
+                  ],
+                ),
+              )
+              .toMap()
+              .cast());
       }
     }
 
@@ -116,21 +117,21 @@ class FlattenedXmlMapWithXmlNamespaceOutputRestXmlSerializer extends _i3
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    FlattenedXmlMapWithXmlNamespaceOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as FlattenedXmlMapWithXmlNamespaceOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName('FlattenedXmlMapWithXmlNamespaceOutput')
     ];
-    if (payload.myMap != null) {
-      result.addAll(const _i3.XmlBuiltMapSerializer(
+    final FlattenedXmlMapWithXmlNamespaceOutput(:myMap) = object;
+    if (myMap != null) {
+      result$.addAll(const _i3.XmlBuiltMapSerializer(
         keyName: 'K',
         valueName: 'V',
         flattenedKey: 'KVP',
       ).serialize(
         serializers,
-        payload.myMap!,
+        myMap,
         specifiedType: const FullType.nullable(
           _i2.BuiltMap,
           [
@@ -140,6 +141,6 @@ class FlattenedXmlMapWithXmlNamespaceOutputRestXmlSerializer extends _i3
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

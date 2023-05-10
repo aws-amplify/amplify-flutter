@@ -107,7 +107,8 @@ enum HostedUiKey {
 /// Enumerates and iterates over the keys stored in secure storage by
 /// Cognito Identity Pool operations.
 /// {@endtemplate}
-class CognitoIdentityPoolKeys extends CognitoKeys<CognitoIdentityPoolKey> {
+final class CognitoIdentityPoolKeys
+    extends CognitoKeys<CognitoIdentityPoolKey> {
   /// {@macro amplify_auth_cognito.cognito_identity_pool_keys}
   const CognitoIdentityPoolKeys(this.config);
 
@@ -126,7 +127,7 @@ class CognitoIdentityPoolKeys extends CognitoKeys<CognitoIdentityPoolKey> {
 /// Enumerates and iterates over the keys stored in secure storage by
 /// Cognito User Pool operations.
 /// {@endtemplate}
-class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
+final class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
   /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
   const CognitoUserPoolKeys(this.config);
 
@@ -144,7 +145,7 @@ class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
 /// Enumerates and iterates over the keys stored in secure storage by
 /// Cognito User Pool device tracking operations.
 /// {@endtemplate}
-class CognitoDeviceKeys extends CognitoKeys<CognitoDeviceKey> {
+final class CognitoDeviceKeys extends CognitoKeys<CognitoDeviceKey> {
   /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
   const CognitoDeviceKeys(this.config, this.username);
 
@@ -165,7 +166,7 @@ class CognitoDeviceKeys extends CognitoKeys<CognitoDeviceKey> {
 /// Enumerates and iterates over the keys stored in secure storage by
 /// Cognito Hosted UI operations.
 /// {@endtemplate}
-class HostedUiKeys extends CognitoKeys<HostedUiKey> {
+final class HostedUiKeys extends CognitoKeys<HostedUiKey> {
   /// {@macro amplify_auth_cognito.hosted_ui_keys}
   const HostedUiKeys(this.config);
 
@@ -182,7 +183,7 @@ class HostedUiKeys extends CognitoKeys<HostedUiKey> {
 /// {@template amplify_auth_cognito.cognito_keys}
 /// Iterable secure storage keys.
 /// {@endtemplate}
-abstract class CognitoKeys<Key extends Enum> extends IterableBase<String> {
+abstract base class CognitoKeys<Key extends Enum> extends IterableBase<String> {
   /// {@macro amplify_auth_cognito.cognito_keys}
   const CognitoKeys();
 
@@ -199,7 +200,7 @@ abstract class CognitoKeys<Key extends Enum> extends IterableBase<String> {
   Iterator<String> get iterator => _CognitoKeysIterator(this);
 }
 
-class _CognitoKeysIterator<Key extends Enum> implements Iterator<String> {
+final class _CognitoKeysIterator<Key extends Enum> implements Iterator<String> {
   _CognitoKeysIterator(this._keys);
 
   final CognitoKeys<Key> _keys;

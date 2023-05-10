@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.remediation_execution_step; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,17 +19,17 @@ abstract class RemediationExecutionStep
         Built<RemediationExecutionStep, RemediationExecutionStepBuilder> {
   /// Name of the step from the SSM document.
   factory RemediationExecutionStep({
-    String? errorMessage,
     String? name,
-    DateTime? startTime,
     _i2.RemediationExecutionStepState? state,
+    String? errorMessage,
+    DateTime? startTime,
     DateTime? stopTime,
   }) {
     return _$RemediationExecutionStep._(
-      errorMessage: errorMessage,
       name: name,
-      startTime: startTime,
       state: state,
+      errorMessage: errorMessage,
+      startTime: startTime,
       stopTime: stopTime,
     );
   }
@@ -47,46 +48,46 @@ abstract class RemediationExecutionStep
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RemediationExecutionStepBuilder b) {}
 
-  /// An error message if the step was interrupted during execution.
-  String? get errorMessage;
-
   /// The details of the step.
   String? get name;
 
-  /// The time when the step started.
-  DateTime? get startTime;
-
   /// The valid status of the step.
   _i2.RemediationExecutionStepState? get state;
+
+  /// An error message if the step was interrupted during execution.
+  String? get errorMessage;
+
+  /// The time when the step started.
+  DateTime? get startTime;
 
   /// The time when the step stopped.
   DateTime? get stopTime;
   @override
   List<Object?> get props => [
-        errorMessage,
         name,
-        startTime,
         state,
+        errorMessage,
+        startTime,
         stopTime,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RemediationExecutionStep');
     helper.add(
-      'errorMessage',
-      errorMessage,
-    );
-    helper.add(
       'name',
       name,
     );
     helper.add(
-      'startTime',
-      startTime,
-    );
-    helper.add(
       'state',
       state,
+    );
+    helper.add(
+      'errorMessage',
+      errorMessage,
+    );
+    helper.add(
+      'startTime',
+      startTime,
     );
     helper.add(
       'stopTime',
@@ -125,47 +126,35 @@ class RemediationExecutionStepAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ErrorMessage':
-          if (value != null) {
-            result.errorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'Name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'StartTime':
-          if (value != null) {
-            result.startTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'State':
-          if (value != null) {
-            result.state = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RemediationExecutionStepState),
-            ) as _i2.RemediationExecutionStepState);
-          }
-          break;
+          result.state = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.RemediationExecutionStepState),
+          ) as _i2.RemediationExecutionStepState);
+        case 'ErrorMessage':
+          result.errorMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'StartTime':
+          result.startTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'StopTime':
-          if (value != null) {
-            result.stopTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.stopTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -175,51 +164,57 @@ class RemediationExecutionStepAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RemediationExecutionStep object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RemediationExecutionStep);
-    final result = <Object?>[];
-    if (payload.errorMessage != null) {
-      result
-        ..add('ErrorMessage')
-        ..add(serializers.serialize(
-          payload.errorMessage!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.name != null) {
-      result
+    final result$ = <Object?>[];
+    final RemediationExecutionStep(
+      :name,
+      :state,
+      :errorMessage,
+      :startTime,
+      :stopTime
+    ) = object;
+    if (name != null) {
+      result$
         ..add('Name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.startTime != null) {
-      result
-        ..add('StartTime')
-        ..add(serializers.serialize(
-          payload.startTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.state != null) {
-      result
+    if (state != null) {
+      result$
         ..add('State')
         ..add(serializers.serialize(
-          payload.state!,
+          state,
           specifiedType: const FullType(_i2.RemediationExecutionStepState),
         ));
     }
-    if (payload.stopTime != null) {
-      result
-        ..add('StopTime')
+    if (errorMessage != null) {
+      result$
+        ..add('ErrorMessage')
         ..add(serializers.serialize(
-          payload.stopTime!,
+          errorMessage,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (startTime != null) {
+      result$
+        ..add('StartTime')
+        ..add(serializers.serialize(
+          startTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    if (stopTime != null) {
+      result$
+        ..add('StopTime')
+        ..add(serializers.serialize(
+          stopTime,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    return result$;
   }
 }

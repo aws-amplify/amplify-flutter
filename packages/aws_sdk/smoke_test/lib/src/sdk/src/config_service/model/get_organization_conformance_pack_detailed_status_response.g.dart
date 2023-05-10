@@ -9,10 +9,10 @@ part of smoke_test.config_service.model.get_organization_conformance_pack_detail
 class _$GetOrganizationConformancePackDetailedStatusResponse
     extends GetOrganizationConformancePackDetailedStatusResponse {
   @override
-  final String? nextToken;
-  @override
   final _i3.BuiltList<_i2.OrganizationConformancePackDetailedStatus>?
       organizationConformancePackDetailedStatuses;
+  @override
+  final String? nextToken;
 
   factory _$GetOrganizationConformancePackDetailedStatusResponse(
           [void Function(
@@ -23,7 +23,7 @@ class _$GetOrganizationConformancePackDetailedStatusResponse
           ._build();
 
   _$GetOrganizationConformancePackDetailedStatusResponse._(
-      {this.nextToken, this.organizationConformancePackDetailedStatuses})
+      {this.organizationConformancePackDetailedStatuses, this.nextToken})
       : super._();
 
   @override
@@ -42,16 +42,16 @@ class _$GetOrganizationConformancePackDetailedStatusResponse
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetOrganizationConformancePackDetailedStatusResponse &&
-        nextToken == other.nextToken &&
         organizationConformancePackDetailedStatuses ==
-            other.organizationConformancePackDetailedStatuses;
+            other.organizationConformancePackDetailedStatuses &&
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, organizationConformancePackDetailedStatuses.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,10 +62,6 @@ class GetOrganizationConformancePackDetailedStatusResponseBuilder
         Builder<GetOrganizationConformancePackDetailedStatusResponse,
             GetOrganizationConformancePackDetailedStatusResponseBuilder> {
   _$GetOrganizationConformancePackDetailedStatusResponse? _$v;
-
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
   _i3.ListBuilder<_i2.OrganizationConformancePackDetailedStatus>?
       _organizationConformancePackDetailedStatuses;
@@ -79,6 +75,10 @@ class GetOrganizationConformancePackDetailedStatusResponseBuilder
       _$this._organizationConformancePackDetailedStatuses =
           organizationConformancePackDetailedStatuses;
 
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+
   GetOrganizationConformancePackDetailedStatusResponseBuilder() {
     GetOrganizationConformancePackDetailedStatusResponse._init(this);
   }
@@ -86,9 +86,9 @@ class GetOrganizationConformancePackDetailedStatusResponseBuilder
   GetOrganizationConformancePackDetailedStatusResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
       _organizationConformancePackDetailedStatuses =
           $v.organizationConformancePackDetailedStatuses?.toBuilder();
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -116,9 +116,9 @@ class GetOrganizationConformancePackDetailedStatusResponseBuilder
     try {
       _$result = _$v ??
           new _$GetOrganizationConformancePackDetailedStatusResponse._(
-              nextToken: nextToken,
               organizationConformancePackDetailedStatuses:
-                  _organizationConformancePackDetailedStatuses?.build());
+                  _organizationConformancePackDetailedStatuses?.build(),
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

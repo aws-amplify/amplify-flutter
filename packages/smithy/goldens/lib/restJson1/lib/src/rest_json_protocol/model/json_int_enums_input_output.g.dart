@@ -16,9 +16,9 @@ class _$JsonIntEnumsInputOutput extends JsonIntEnumsInputOutput {
   @override
   final _i3.BuiltList<int>? integerEnumList;
   @override
-  final _i3.BuiltMap<String, int>? integerEnumMap;
-  @override
   final _i3.BuiltSet<int>? integerEnumSet;
+  @override
+  final _i3.BuiltMap<String, int>? integerEnumMap;
 
   factory _$JsonIntEnumsInputOutput(
           [void Function(JsonIntEnumsInputOutputBuilder)? updates]) =>
@@ -29,8 +29,8 @@ class _$JsonIntEnumsInputOutput extends JsonIntEnumsInputOutput {
       this.integerEnum2,
       this.integerEnum3,
       this.integerEnumList,
-      this.integerEnumMap,
-      this.integerEnumSet})
+      this.integerEnumSet,
+      this.integerEnumMap})
       : super._();
 
   @override
@@ -50,8 +50,8 @@ class _$JsonIntEnumsInputOutput extends JsonIntEnumsInputOutput {
         integerEnum2 == other.integerEnum2 &&
         integerEnum3 == other.integerEnum3 &&
         integerEnumList == other.integerEnumList &&
-        integerEnumMap == other.integerEnumMap &&
-        integerEnumSet == other.integerEnumSet;
+        integerEnumSet == other.integerEnumSet &&
+        integerEnumMap == other.integerEnumMap;
   }
 
   @override
@@ -61,8 +61,8 @@ class _$JsonIntEnumsInputOutput extends JsonIntEnumsInputOutput {
     _$hash = $jc(_$hash, integerEnum2.hashCode);
     _$hash = $jc(_$hash, integerEnum3.hashCode);
     _$hash = $jc(_$hash, integerEnumList.hashCode);
-    _$hash = $jc(_$hash, integerEnumMap.hashCode);
     _$hash = $jc(_$hash, integerEnumSet.hashCode);
+    _$hash = $jc(_$hash, integerEnumMap.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -91,17 +91,17 @@ class JsonIntEnumsInputOutputBuilder
   set integerEnumList(_i3.ListBuilder<int>? integerEnumList) =>
       _$this._integerEnumList = integerEnumList;
 
-  _i3.MapBuilder<String, int>? _integerEnumMap;
-  _i3.MapBuilder<String, int> get integerEnumMap =>
-      _$this._integerEnumMap ??= new _i3.MapBuilder<String, int>();
-  set integerEnumMap(_i3.MapBuilder<String, int>? integerEnumMap) =>
-      _$this._integerEnumMap = integerEnumMap;
-
   _i3.SetBuilder<int>? _integerEnumSet;
   _i3.SetBuilder<int> get integerEnumSet =>
       _$this._integerEnumSet ??= new _i3.SetBuilder<int>();
   set integerEnumSet(_i3.SetBuilder<int>? integerEnumSet) =>
       _$this._integerEnumSet = integerEnumSet;
+
+  _i3.MapBuilder<String, int>? _integerEnumMap;
+  _i3.MapBuilder<String, int> get integerEnumMap =>
+      _$this._integerEnumMap ??= new _i3.MapBuilder<String, int>();
+  set integerEnumMap(_i3.MapBuilder<String, int>? integerEnumMap) =>
+      _$this._integerEnumMap = integerEnumMap;
 
   JsonIntEnumsInputOutputBuilder() {
     JsonIntEnumsInputOutput._init(this);
@@ -114,8 +114,8 @@ class JsonIntEnumsInputOutputBuilder
       _integerEnum2 = $v.integerEnum2;
       _integerEnum3 = $v.integerEnum3;
       _integerEnumList = $v.integerEnumList?.toBuilder();
-      _integerEnumMap = $v.integerEnumMap?.toBuilder();
       _integerEnumSet = $v.integerEnumSet?.toBuilder();
+      _integerEnumMap = $v.integerEnumMap?.toBuilder();
       _$v = null;
     }
     return this;
@@ -144,17 +144,17 @@ class JsonIntEnumsInputOutputBuilder
               integerEnum2: integerEnum2,
               integerEnum3: integerEnum3,
               integerEnumList: _integerEnumList?.build(),
-              integerEnumMap: _integerEnumMap?.build(),
-              integerEnumSet: _integerEnumSet?.build());
+              integerEnumSet: _integerEnumSet?.build(),
+              integerEnumMap: _integerEnumMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'integerEnumList';
         _integerEnumList?.build();
-        _$failedField = 'integerEnumMap';
-        _integerEnumMap?.build();
         _$failedField = 'integerEnumSet';
         _integerEnumSet?.build();
+        _$failedField = 'integerEnumMap';
+        _integerEnumMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'JsonIntEnumsInputOutput', _$failedField, e.toString());

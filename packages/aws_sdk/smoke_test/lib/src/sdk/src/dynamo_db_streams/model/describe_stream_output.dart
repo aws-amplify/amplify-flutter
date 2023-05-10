@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.describe_stream_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -85,15 +86,15 @@ class DescribeStreamOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StreamDescription':
-          if (value != null) {
-            result.streamDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StreamDescription),
-            ) as _i2.StreamDescription));
-          }
-          break;
+          result.streamDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StreamDescription),
+          ) as _i2.StreamDescription));
       }
     }
 
@@ -103,19 +104,19 @@ class DescribeStreamOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeStreamOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeStreamOutput);
-    final result = <Object?>[];
-    if (payload.streamDescription != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeStreamOutput(:streamDescription) = object;
+    if (streamDescription != null) {
+      result$
         ..add('StreamDescription')
         ..add(serializers.serialize(
-          payload.streamDescription!,
+          streamDescription,
           specifiedType: const FullType(_i2.StreamDescription),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -8,15 +8,15 @@ part of smoke_test.config_service.model.put_resource_config_request;
 
 class _$PutResourceConfigRequest extends PutResourceConfigRequest {
   @override
-  final String configuration;
+  final String resourceType;
+  @override
+  final String schemaVersionId;
   @override
   final String resourceId;
   @override
   final String? resourceName;
   @override
-  final String resourceType;
-  @override
-  final String schemaVersionId;
+  final String configuration;
   @override
   final _i3.BuiltMap<String, String>? tags;
 
@@ -25,21 +25,21 @@ class _$PutResourceConfigRequest extends PutResourceConfigRequest {
       (new PutResourceConfigRequestBuilder()..update(updates))._build();
 
   _$PutResourceConfigRequest._(
-      {required this.configuration,
+      {required this.resourceType,
+      required this.schemaVersionId,
       required this.resourceId,
       this.resourceName,
-      required this.resourceType,
-      required this.schemaVersionId,
+      required this.configuration,
       this.tags})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        configuration, r'PutResourceConfigRequest', 'configuration');
-    BuiltValueNullFieldError.checkNotNull(
-        resourceId, r'PutResourceConfigRequest', 'resourceId');
     BuiltValueNullFieldError.checkNotNull(
         resourceType, r'PutResourceConfigRequest', 'resourceType');
     BuiltValueNullFieldError.checkNotNull(
         schemaVersionId, r'PutResourceConfigRequest', 'schemaVersionId');
+    BuiltValueNullFieldError.checkNotNull(
+        resourceId, r'PutResourceConfigRequest', 'resourceId');
+    BuiltValueNullFieldError.checkNotNull(
+        configuration, r'PutResourceConfigRequest', 'configuration');
   }
 
   @override
@@ -55,22 +55,22 @@ class _$PutResourceConfigRequest extends PutResourceConfigRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PutResourceConfigRequest &&
-        configuration == other.configuration &&
-        resourceId == other.resourceId &&
-        resourceName == other.resourceName &&
         resourceType == other.resourceType &&
         schemaVersionId == other.schemaVersionId &&
+        resourceId == other.resourceId &&
+        resourceName == other.resourceName &&
+        configuration == other.configuration &&
         tags == other.tags;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, configuration.hashCode);
-    _$hash = $jc(_$hash, resourceId.hashCode);
-    _$hash = $jc(_$hash, resourceName.hashCode);
     _$hash = $jc(_$hash, resourceType.hashCode);
     _$hash = $jc(_$hash, schemaVersionId.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
+    _$hash = $jc(_$hash, resourceName.hashCode);
+    _$hash = $jc(_$hash, configuration.hashCode);
     _$hash = $jc(_$hash, tags.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -82,10 +82,14 @@ class PutResourceConfigRequestBuilder
         Builder<PutResourceConfigRequest, PutResourceConfigRequestBuilder> {
   _$PutResourceConfigRequest? _$v;
 
-  String? _configuration;
-  String? get configuration => _$this._configuration;
-  set configuration(String? configuration) =>
-      _$this._configuration = configuration;
+  String? _resourceType;
+  String? get resourceType => _$this._resourceType;
+  set resourceType(String? resourceType) => _$this._resourceType = resourceType;
+
+  String? _schemaVersionId;
+  String? get schemaVersionId => _$this._schemaVersionId;
+  set schemaVersionId(String? schemaVersionId) =>
+      _$this._schemaVersionId = schemaVersionId;
 
   String? _resourceId;
   String? get resourceId => _$this._resourceId;
@@ -95,14 +99,10 @@ class PutResourceConfigRequestBuilder
   String? get resourceName => _$this._resourceName;
   set resourceName(String? resourceName) => _$this._resourceName = resourceName;
 
-  String? _resourceType;
-  String? get resourceType => _$this._resourceType;
-  set resourceType(String? resourceType) => _$this._resourceType = resourceType;
-
-  String? _schemaVersionId;
-  String? get schemaVersionId => _$this._schemaVersionId;
-  set schemaVersionId(String? schemaVersionId) =>
-      _$this._schemaVersionId = schemaVersionId;
+  String? _configuration;
+  String? get configuration => _$this._configuration;
+  set configuration(String? configuration) =>
+      _$this._configuration = configuration;
 
   _i3.MapBuilder<String, String>? _tags;
   _i3.MapBuilder<String, String> get tags =>
@@ -116,11 +116,11 @@ class PutResourceConfigRequestBuilder
   PutResourceConfigRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _configuration = $v.configuration;
-      _resourceId = $v.resourceId;
-      _resourceName = $v.resourceName;
       _resourceType = $v.resourceType;
       _schemaVersionId = $v.schemaVersionId;
+      _resourceId = $v.resourceId;
+      _resourceName = $v.resourceName;
+      _configuration = $v.configuration;
       _tags = $v.tags?.toBuilder();
       _$v = null;
     }
@@ -146,17 +146,17 @@ class PutResourceConfigRequestBuilder
     try {
       _$result = _$v ??
           new _$PutResourceConfigRequest._(
-              configuration: BuiltValueNullFieldError.checkNotNull(
-                  configuration, r'PutResourceConfigRequest', 'configuration'),
-              resourceId: BuiltValueNullFieldError.checkNotNull(
-                  resourceId, r'PutResourceConfigRequest', 'resourceId'),
-              resourceName: resourceName,
               resourceType: BuiltValueNullFieldError.checkNotNull(
                   resourceType, r'PutResourceConfigRequest', 'resourceType'),
               schemaVersionId: BuiltValueNullFieldError.checkNotNull(
                   schemaVersionId,
                   r'PutResourceConfigRequest',
                   'schemaVersionId'),
+              resourceId: BuiltValueNullFieldError.checkNotNull(
+                  resourceId, r'PutResourceConfigRequest', 'resourceId'),
+              resourceName: resourceName,
+              configuration: BuiltValueNullFieldError.checkNotNull(
+                  configuration, r'PutResourceConfigRequest', 'configuration'),
               tags: _tags?.build());
     } catch (_) {
       late String _$failedField;

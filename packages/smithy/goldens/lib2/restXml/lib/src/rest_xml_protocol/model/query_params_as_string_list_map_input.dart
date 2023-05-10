@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.query_params_as_string_list_map_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,12 +22,12 @@ abstract class QueryParamsAsStringListMapInput
         _i1.EmptyPayload,
         _i1.HasPayload<QueryParamsAsStringListMapInputPayload> {
   factory QueryParamsAsStringListMapInput({
-    Map<String, List<String>>? foo,
     String? qux,
+    Map<String, List<String>>? foo,
   }) {
     return _$QueryParamsAsStringListMapInput._(
-      foo: foo == null ? null : _i3.BuiltListMultimap(foo),
       qux: qux,
+      foo: foo == null ? null : _i3.BuiltListMultimap(foo),
     );
   }
 
@@ -53,27 +54,27 @@ abstract class QueryParamsAsStringListMapInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(QueryParamsAsStringListMapInputBuilder b) {}
-  _i3.BuiltListMultimap<String, String>? get foo;
   String? get qux;
+  _i3.BuiltListMultimap<String, String>? get foo;
   @override
   QueryParamsAsStringListMapInputPayload getPayload() =>
       QueryParamsAsStringListMapInputPayload();
   @override
   List<Object?> get props => [
-        foo,
         qux,
+        foo,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('QueryParamsAsStringListMapInput');
     helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
       'qux',
       qux,
+    );
+    helper.add(
+      'foo',
+      foo,
     );
     return helper.toString();
   }
@@ -136,12 +137,13 @@ class QueryParamsAsStringListMapInputRestXmlSerializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    QueryParamsAsStringListMapInputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName('QueryParamsAsStringListMapInput')
     ];
-    return result;
+
+    return result$;
   }
 }

@@ -115,6 +115,7 @@ const structReservedWords = [
   'serializer',
   'replace',
   'toBuilder',
+  'object',
 ];
 
 const reservedTypeNames = [

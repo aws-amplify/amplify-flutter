@@ -12,12 +12,12 @@ class _$UpdateTableReplicaAutoScalingInput
   final _i6.BuiltList<_i3.GlobalSecondaryIndexAutoScalingUpdate>?
       globalSecondaryIndexUpdates;
   @override
+  final String tableName;
+  @override
   final _i4.AutoScalingSettingsUpdate?
       provisionedWriteCapacityAutoScalingUpdate;
   @override
   final _i6.BuiltList<_i5.ReplicaAutoScalingUpdate>? replicaUpdates;
-  @override
-  final String tableName;
 
   factory _$UpdateTableReplicaAutoScalingInput(
           [void Function(UpdateTableReplicaAutoScalingInputBuilder)?
@@ -27,9 +27,9 @@ class _$UpdateTableReplicaAutoScalingInput
 
   _$UpdateTableReplicaAutoScalingInput._(
       {this.globalSecondaryIndexUpdates,
+      required this.tableName,
       this.provisionedWriteCapacityAutoScalingUpdate,
-      this.replicaUpdates,
-      required this.tableName})
+      this.replicaUpdates})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         tableName, r'UpdateTableReplicaAutoScalingInput', 'tableName');
@@ -49,19 +49,19 @@ class _$UpdateTableReplicaAutoScalingInput
     if (identical(other, this)) return true;
     return other is UpdateTableReplicaAutoScalingInput &&
         globalSecondaryIndexUpdates == other.globalSecondaryIndexUpdates &&
+        tableName == other.tableName &&
         provisionedWriteCapacityAutoScalingUpdate ==
             other.provisionedWriteCapacityAutoScalingUpdate &&
-        replicaUpdates == other.replicaUpdates &&
-        tableName == other.tableName;
+        replicaUpdates == other.replicaUpdates;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, globalSecondaryIndexUpdates.hashCode);
+    _$hash = $jc(_$hash, tableName.hashCode);
     _$hash = $jc(_$hash, provisionedWriteCapacityAutoScalingUpdate.hashCode);
     _$hash = $jc(_$hash, replicaUpdates.hashCode);
-    _$hash = $jc(_$hash, tableName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -83,6 +83,10 @@ class UpdateTableReplicaAutoScalingInputBuilder
               globalSecondaryIndexUpdates) =>
       _$this._globalSecondaryIndexUpdates = globalSecondaryIndexUpdates;
 
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
+
   _i4.AutoScalingSettingsUpdateBuilder?
       _provisionedWriteCapacityAutoScalingUpdate;
   _i4.AutoScalingSettingsUpdateBuilder
@@ -103,10 +107,6 @@ class UpdateTableReplicaAutoScalingInputBuilder
           _i6.ListBuilder<_i5.ReplicaAutoScalingUpdate>? replicaUpdates) =>
       _$this._replicaUpdates = replicaUpdates;
 
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
-
   UpdateTableReplicaAutoScalingInputBuilder() {
     UpdateTableReplicaAutoScalingInput._init(this);
   }
@@ -116,10 +116,10 @@ class UpdateTableReplicaAutoScalingInputBuilder
     if ($v != null) {
       _globalSecondaryIndexUpdates =
           $v.globalSecondaryIndexUpdates?.toBuilder();
+      _tableName = $v.tableName;
       _provisionedWriteCapacityAutoScalingUpdate =
           $v.provisionedWriteCapacityAutoScalingUpdate?.toBuilder();
       _replicaUpdates = $v.replicaUpdates?.toBuilder();
-      _tableName = $v.tableName;
       _$v = null;
     }
     return this;
@@ -147,16 +147,17 @@ class UpdateTableReplicaAutoScalingInputBuilder
           new _$UpdateTableReplicaAutoScalingInput._(
               globalSecondaryIndexUpdates:
                   _globalSecondaryIndexUpdates?.build(),
+              tableName: BuiltValueNullFieldError.checkNotNull(tableName,
+                  r'UpdateTableReplicaAutoScalingInput', 'tableName'),
               provisionedWriteCapacityAutoScalingUpdate:
                   _provisionedWriteCapacityAutoScalingUpdate?.build(),
-              replicaUpdates: _replicaUpdates?.build(),
-              tableName: BuiltValueNullFieldError.checkNotNull(tableName,
-                  r'UpdateTableReplicaAutoScalingInput', 'tableName'));
+              replicaUpdates: _replicaUpdates?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'globalSecondaryIndexUpdates';
         _globalSecondaryIndexUpdates?.build();
+
         _$failedField = 'provisionedWriteCapacityAutoScalingUpdate';
         _provisionedWriteCapacityAutoScalingUpdate?.build();
         _$failedField = 'replicaUpdates';

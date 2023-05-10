@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.api_gateway.model.operation_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -75,15 +76,15 @@ class OperationConfigRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 's3':
-          if (value != null) {
-            result.s3.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.S3Config),
-            ) as _i2.S3Config));
-          }
-          break;
+          result.s3.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.S3Config),
+          ) as _i2.S3Config));
       }
     }
 
@@ -93,19 +94,19 @@ class OperationConfigRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    OperationConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as OperationConfig);
-    final result = <Object?>[];
-    if (payload.s3 != null) {
-      result
+    final result$ = <Object?>[];
+    final OperationConfig(:s3) = object;
+    if (s3 != null) {
+      result$
         ..add('s3')
         ..add(serializers.serialize(
-          payload.s3!,
+          s3,
           specifiedType: const FullType(_i2.S3Config),
         ));
     }
-    return result;
+    return result$;
   }
 }

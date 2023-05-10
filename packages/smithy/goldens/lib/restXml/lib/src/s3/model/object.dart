@@ -1,12 +1,13 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.s3.model.object; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/s3/model/object_storage_class.dart' as _i3;
-import 'package:rest_xml_v1/src/s3/model/owner.dart' as _i2;
+import 'package:rest_xml_v1/src/s3/model/object_storage_class.dart' as _i2;
+import 'package:rest_xml_v1/src/s3/model/owner.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i4;
 
 part 'object.g.dart';
@@ -15,20 +16,20 @@ abstract class S3Object
     with _i1.AWSEquatable<S3Object>
     implements Built<S3Object, S3ObjectBuilder> {
   factory S3Object({
-    String? eTag,
     String? key,
     DateTime? lastModified,
-    _i2.Owner? owner,
+    String? eTag,
     int? size,
-    _i3.ObjectStorageClass? storageClass,
+    _i2.ObjectStorageClass? storageClass,
+    _i3.Owner? owner,
   }) {
     return _$S3Object._(
-      eTag: eTag,
       key: key,
       lastModified: lastModified,
-      owner: owner,
+      eTag: eTag,
       size: size,
       storageClass: storageClass,
+      owner: owner,
     );
   }
 
@@ -42,28 +43,24 @@ abstract class S3Object
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(S3ObjectBuilder b) {}
-  String? get eTag;
   String? get key;
   DateTime? get lastModified;
-  _i2.Owner? get owner;
+  String? get eTag;
   int? get size;
-  _i3.ObjectStorageClass? get storageClass;
+  _i2.ObjectStorageClass? get storageClass;
+  _i3.Owner? get owner;
   @override
   List<Object?> get props => [
-        eTag,
         key,
         lastModified,
-        owner,
+        eTag,
         size,
         storageClass,
+        owner,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('S3Object');
-    helper.add(
-      'eTag',
-      eTag,
-    );
     helper.add(
       'key',
       key,
@@ -73,8 +70,8 @@ abstract class S3Object
       lastModified,
     );
     helper.add(
-      'owner',
-      owner,
+      'eTag',
+      eTag,
     );
     helper.add(
       'size',
@@ -83,6 +80,10 @@ abstract class S3Object
     helper.add(
       'storageClass',
       storageClass,
+    );
+    helper.add(
+      'owner',
+      owner,
     );
     return helper.toString();
   }
@@ -112,58 +113,43 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
     final result = S3ObjectBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ETag':
-          if (value != null) {
-            result.eTag = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.eTag = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Key':
-          if (value != null) {
-            result.key = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.key = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastModified':
-          if (value != null) {
-            result.lastModified = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastModified = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Owner':
-          if (value != null) {
-            result.owner.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Owner),
-            ) as _i2.Owner));
-          }
-          break;
+          result.owner.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Owner),
+          ) as _i3.Owner));
         case 'Size':
-          if (value != null) {
-            result.size = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.size = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'StorageClass':
-          if (value != null) {
-            result.storageClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ObjectStorageClass),
-            ) as _i3.ObjectStorageClass);
-          }
-          break;
+          result.storageClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ObjectStorageClass),
+          ) as _i2.ObjectStorageClass);
       }
     }
 
@@ -173,64 +159,65 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    S3Object object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as S3Object);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'Object',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.eTag != null) {
-      result
+    final S3Object(:eTag, :key, :lastModified, :owner, :size, :storageClass) =
+        object;
+    if (eTag != null) {
+      result$
         ..add(const _i4.XmlElementName('ETag'))
         ..add(serializers.serialize(
-          payload.eTag!,
+          eTag,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.key != null) {
-      result
+    if (key != null) {
+      result$
         ..add(const _i4.XmlElementName('Key'))
         ..add(serializers.serialize(
-          payload.key!,
+          key,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastModified != null) {
-      result
+    if (lastModified != null) {
+      result$
         ..add(const _i4.XmlElementName('LastModified'))
         ..add(serializers.serialize(
-          payload.lastModified!,
+          lastModified,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.owner != null) {
-      result
+    if (owner != null) {
+      result$
         ..add(const _i4.XmlElementName('Owner'))
         ..add(serializers.serialize(
-          payload.owner!,
-          specifiedType: const FullType(_i2.Owner),
+          owner,
+          specifiedType: const FullType(_i3.Owner),
         ));
     }
-    if (payload.size != null) {
-      result
+    if (size != null) {
+      result$
         ..add(const _i4.XmlElementName('Size'))
         ..add(serializers.serialize(
-          payload.size!,
+          size,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.storageClass != null) {
-      result
+    if (storageClass != null) {
+      result$
         ..add(const _i4.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
-          payload.storageClass!,
-          specifiedType: const FullType.nullable(_i3.ObjectStorageClass),
+          storageClass,
+          specifiedType: const FullType.nullable(_i2.ObjectStorageClass),
         ));
     }
-    return result;
+    return result$;
   }
 }
