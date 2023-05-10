@@ -15,9 +15,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        channel:
+          - "beta"
+          - "stable"
         flutter-version:
           - "any" # latest
-          - "3.3.0"
+        include:
+          - channel: "stable"
+            flutter-version: "3.10.0"
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
         with:
@@ -26,6 +31,7 @@ jobs:
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
         with:
+          channel: ${{ matrix.channel }}
           flutter-version: ${{ matrix.flutter-version }}
 
       # Flutter requires Java 11 to build android apps with Gradle.
@@ -49,9 +55,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        channel:
+          - "beta"
+          - "stable"
         flutter-version:
           - "any" # latest
-          - "3.3.0"
+        include:
+          - channel: "stable"
+            flutter-version: "3.10.0"
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
         with:
@@ -61,6 +72,7 @@ jobs:
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
         with:
+          channel: ${{ matrix.channel }}
           flutter-version: ${{ matrix.flutter-version }}
 
       # Flutter requires Java 11 to build android apps with Gradle.
@@ -93,9 +105,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        channel:
+          - "beta"
+          - "stable"
         flutter-version:
           - "any" # latest
-          - "3.3.0"
+        include:
+          - channel: "stable"
+            flutter-version: "3.10.0"
         ios-version:
           - "13.7"
           - "16"
