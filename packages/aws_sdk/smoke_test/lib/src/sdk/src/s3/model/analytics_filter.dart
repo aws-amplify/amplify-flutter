@@ -165,17 +165,17 @@ class AnalyticsFilterRestXmlSerializer
       object.name,
       switch (object) {
         AnalyticsFilterPrefix(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         AnalyticsFilterTag(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i2.Tag),
-        ),
+            value,
+            specifiedType: const FullType(_i2.Tag),
+          ),
         AnalyticsFilterAnd(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i3.AnalyticsAndOperator),
-        ),
+            value,
+            specifiedType: const FullType(_i3.AnalyticsAndOperator),
+          ),
         AnalyticsFilterSdkUnknown(:final value) => value,
       },
     ];

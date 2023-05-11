@@ -234,29 +234,29 @@ class SelectObjectContentEventStreamRestXmlSerializer
       switch (object) {
         SelectObjectContentEventStreamRecords(:final value) =>
           serializers.serialize(
-          value,
-          specifiedType: const FullType(_i2.RecordsEvent),
-        ),
+            value,
+            specifiedType: const FullType(_i2.RecordsEvent),
+          ),
         SelectObjectContentEventStreamStats(:final value) =>
           serializers.serialize(
-          value,
-          specifiedType: const FullType(_i3.StatsEvent),
-        ),
+            value,
+            specifiedType: const FullType(_i3.StatsEvent),
+          ),
         SelectObjectContentEventStreamProgress(:final value) =>
           serializers.serialize(
-          value,
-          specifiedType: const FullType(_i4.ProgressEvent),
-        ),
+            value,
+            specifiedType: const FullType(_i4.ProgressEvent),
+          ),
         SelectObjectContentEventStreamCont(:final value) =>
           serializers.serialize(
-          value,
-          specifiedType: const FullType(_i5.ContinuationEvent),
-        ),
+            value,
+            specifiedType: const FullType(_i5.ContinuationEvent),
+          ),
         SelectObjectContentEventStreamEnd(:final value) =>
           serializers.serialize(
-          value,
-          specifiedType: const FullType(_i6.EndEvent),
-        ),
+            value,
+            specifiedType: const FullType(_i6.EndEvent),
+          ),
         SelectObjectContentEventStreamSdkUnknown(:final value) => value,
       },
     ];

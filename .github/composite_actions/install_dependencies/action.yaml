@@ -1,11 +1,10 @@
 name: "Install Non-Platform Dependencies"
 description: "Installs non-platform dependencies: Flutter, aft"
 inputs:
-  flutter-channel:
+  channel:
     required: false
     description: The Flutter channel to user when running tests. Defaults to "stable".
-    # TODO: Update to `stable` with Dart 3
-    default: beta
+    default: stable
   flutter-version:
     required: false
     description: The specific version of Flutter to run tests against.
@@ -16,7 +15,7 @@ runs:
     - uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # 2.8.0
       with:
         cache: true
-        channel: ${{ inputs.flutter-channel }}
+        channel: ${{ inputs.channel }}
         flutter-version: ${{ inputs.flutter-version }}
 
     #  Install aft from path, links packages and runs build runner where needed.
@@ -25,8 +24,5 @@ runs:
       run: |
         git submodule update --init
         dart pub global activate -spath packages/aft
-        if [[ "${{ inputs.flutter-channel }}" == "stable" ]]; then
-          dart pub global run aft --config=aft.legacy.yaml constraints apply
-        fi
         dart pub global run aft link
         dart pub global run aft exec --include="amplify_secure_storage_dart,amplify_auth_cognito_dart" -- dart run build_runner build --delete-conflicting-outputs
