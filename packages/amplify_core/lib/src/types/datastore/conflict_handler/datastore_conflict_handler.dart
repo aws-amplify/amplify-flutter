@@ -17,10 +17,10 @@ class ConflictData {
     Map<String, dynamic> localJson,
     Map<String, dynamic> remoteJson,
   )   : local = modelType.fromJson(
-          (localJson['serializedData'] as Map).cast<String, dynamic>(),
+          localJson,
         ),
         remote = modelType.fromJson(
-          (remoteJson['serializedData'] as Map).cast<String, dynamic>(),
+          remoteJson,
         );
 
   final Model local;

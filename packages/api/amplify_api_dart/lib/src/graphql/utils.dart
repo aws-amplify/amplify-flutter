@@ -3,8 +3,6 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-const _serializedData = 'serializedData';
-
 /// "items", the key name for nested data in AppSync
 const items = 'items';
 
