@@ -24,10 +24,10 @@ import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'utils.dart';
 
-/** This is an auto generated class representing the CustomOwnerField type in your schema. */
+/// This is an auto generated class representing the CustomOwnerField type in your schema.
 @immutable
 class CustomOwnerField extends Model {
-  static const classType = const _CustomOwnerFieldModelType();
+  static const classType = _CustomOwnerFieldModelType();
   final String id;
   final String? _name;
   final List<String>? _owners;
@@ -51,7 +51,7 @@ class CustomOwnerField extends Model {
     try {
       return _name!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -115,7 +115,7 @@ class CustomOwnerField extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("CustomOwnerField {");
     buffer.write("id=" + "$id" + ", ");
@@ -251,16 +251,14 @@ class _CustomOwnerFieldModelType extends ModelType<CustomOwnerField> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [CustomOwnerField] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [CustomOwnerField] in your schema.
 @immutable
 class CustomOwnerFieldModelIdentifier
     implements ModelIdentifier<CustomOwnerField> {
   final String id;
 
-  /** Create an instance of CustomOwnerFieldModelIdentifier using [id] the primary key. */
+  /// Create an instance of CustomOwnerFieldModelIdentifier using [id] the primary key.
   const CustomOwnerFieldModelIdentifier({required this.id});
 
   @override

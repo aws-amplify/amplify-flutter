@@ -24,10 +24,10 @@ import 'package:meta/meta.dart';
 
 import 'MtmModelProvider.dart';
 
-/** This is an auto generated class representing the SecondMtmRelation type in your schema. */
+/// This is an auto generated class representing the SecondMtmRelation type in your schema.
 @immutable
 class SecondMtmRelation extends Model {
-  static const classType = const _SecondMtmRelationModelType();
+  static const classType = _SecondMtmRelationModelType();
   final String id;
   final ManyToManyPrimary? _manyToManyPrimary;
   final ManyToManySecondary? _manyToManySecondary;
@@ -50,7 +50,7 @@ class SecondMtmRelation extends Model {
     try {
       return _manyToManyPrimary!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -63,7 +63,7 @@ class SecondMtmRelation extends Model {
     try {
       return _manyToManySecondary!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -119,7 +119,7 @@ class SecondMtmRelation extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("SecondMtmRelation {");
     buffer.write("id=" + "$id" + ", ");
@@ -154,11 +154,11 @@ class SecondMtmRelation extends Model {
       : id = json['id'],
         _manyToManyPrimary = json['manyToManyPrimary'] != null
             ? ManyToManyPrimary.fromJson(
-                new Map<String, dynamic>.from(json['manyToManyPrimary']))
+                Map<String, dynamic>.from(json['manyToManyPrimary']))
             : null,
         _manyToManySecondary = json['manyToManySecondary'] != null
             ? ManyToManySecondary.fromJson(
-                new Map<String, dynamic>.from(json['manyToManySecondary']))
+                Map<String, dynamic>.from(json['manyToManySecondary']))
             : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
@@ -250,16 +250,14 @@ class _SecondMtmRelationModelType extends ModelType<SecondMtmRelation> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [SecondMtmRelation] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [SecondMtmRelation] in your schema.
 @immutable
 class SecondMtmRelationModelIdentifier
     implements ModelIdentifier<SecondMtmRelation> {
   final String id;
 
-  /** Create an instance of SecondMtmRelationModelIdentifier using [id] the primary key. */
+  /// Create an instance of SecondMtmRelationModelIdentifier using [id] the primary key.
   const SecondMtmRelationModelIdentifier({required this.id});
 
   @override

@@ -24,11 +24,10 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-
-/** This is an auto generated class representing the HasManyParent type in your schema. */
+/// This is an auto generated class representing the HasManyParent type in your schema.
 @immutable
 class HasManyParent extends Model {
-  static const classType = const _HasManyParentModelType();
+  static const classType = _HasManyParentModelType();
   final String id;
   final String? _name;
   final List<HasManyChildImplicit>? _implicitChildren;
@@ -38,217 +37,255 @@ class HasManyParent extends Model {
 
   @override
   getInstanceType() => classType;
-  
-  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-  
+
   HasManyParentModelIdentifier get modelIdentifier {
-      return HasManyParentModelIdentifier(
-        id: id
-      );
+    return HasManyParentModelIdentifier(id: id);
   }
-  
+
   String? get name {
     return _name;
   }
-  
+
   List<HasManyChildImplicit>? get implicitChildren {
     return _implicitChildren;
   }
-  
+
   List<HasManyChildExplicit>? get explicitChildren {
     return _explicitChildren;
   }
-  
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
-  const HasManyParent._internal({required this.id, name, implicitChildren, explicitChildren, createdAt, updatedAt}): _name = name, _implicitChildren = implicitChildren, _explicitChildren = explicitChildren, _createdAt = createdAt, _updatedAt = updatedAt;
-  
-  factory HasManyParent({String? id, String? name, List<HasManyChildImplicit>? implicitChildren, List<HasManyChildExplicit>? explicitChildren}) {
+
+  const HasManyParent._internal(
+      {required this.id,
+      name,
+      implicitChildren,
+      explicitChildren,
+      createdAt,
+      updatedAt})
+      : _name = name,
+        _implicitChildren = implicitChildren,
+        _explicitChildren = explicitChildren,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
+  factory HasManyParent(
+      {String? id,
+      String? name,
+      List<HasManyChildImplicit>? implicitChildren,
+      List<HasManyChildExplicit>? explicitChildren}) {
     return HasManyParent._internal(
-      id: id == null ? UUID.getUUID() : id,
-      name: name,
-      implicitChildren: implicitChildren != null ? List<HasManyChildImplicit>.unmodifiable(implicitChildren) : implicitChildren,
-      explicitChildren: explicitChildren != null ? List<HasManyChildExplicit>.unmodifiable(explicitChildren) : explicitChildren);
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        implicitChildren: implicitChildren != null
+            ? List<HasManyChildImplicit>.unmodifiable(implicitChildren)
+            : implicitChildren,
+        explicitChildren: explicitChildren != null
+            ? List<HasManyChildExplicit>.unmodifiable(explicitChildren)
+            : explicitChildren);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is HasManyParent &&
-      id == other.id &&
-      _name == other._name &&
-      DeepCollectionEquality().equals(_implicitChildren, other._implicitChildren) &&
-      DeepCollectionEquality().equals(_explicitChildren, other._explicitChildren);
+        id == other.id &&
+        _name == other._name &&
+        DeepCollectionEquality()
+            .equals(_implicitChildren, other._implicitChildren) &&
+        DeepCollectionEquality()
+            .equals(_explicitChildren, other._explicitChildren);
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
-    var buffer = new StringBuffer();
-    
+    var buffer = StringBuffer();
+
     buffer.write("HasManyParent {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  HasManyParent copyWith({String? name, List<HasManyChildImplicit>? implicitChildren, List<HasManyChildExplicit>? explicitChildren}) {
-    return HasManyParent._internal(
-      id: id,
-      name: name ?? this.name,
-      implicitChildren: implicitChildren ?? this.implicitChildren,
-      explicitChildren: explicitChildren ?? this.explicitChildren);
-  }
-  
-  HasManyParent.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _name = json['name'],
-      _implicitChildren = json['implicitChildren']  != null
-        ? (json['implicitChildren']['items'] as List)
-          .where((e) => e != null)
-          .map((e) => HasManyChildImplicit.fromJson(new Map<String, dynamic>.from(e)))
-          .toList()
-        : null,
-      _explicitChildren = json['explicitChildren']  != null
-        ? (json['explicitChildren']['items'] as List)
-          .where((e) => e != null)
-          .map((e) => HasManyChildExplicit.fromJson(new Map<String, dynamic>.from(e)))
-          .toList()
-        : null,
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
-  
-  Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'implicitChildren': _implicitChildren?.map((HasManyChildImplicit? e) => e?.toJson()).toList(), 'explicitChildren': _explicitChildren?.map((HasManyChildExplicit? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
-  
-  Map<String, Object?> toMap() => {
-    'id': id, 'name': _name, 'implicitChildren': _implicitChildren, 'explicitChildren': _explicitChildren, 'createdAt': _createdAt, 'updatedAt': _updatedAt
-  };
 
-  static final QueryModelIdentifier<HasManyParentModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<HasManyParentModelIdentifier>();
+  HasManyParent copyWith(
+      {String? name,
+      List<HasManyChildImplicit>? implicitChildren,
+      List<HasManyChildExplicit>? explicitChildren}) {
+    return HasManyParent._internal(
+        id: id,
+        name: name ?? this.name,
+        implicitChildren: implicitChildren ?? this.implicitChildren,
+        explicitChildren: explicitChildren ?? this.explicitChildren);
+  }
+
+  HasManyParent.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _name = json['name'],
+        _implicitChildren = json['implicitChildren'] != null
+            ? (json['implicitChildren']['items'] as List)
+                .where((e) => e != null)
+                .map((e) =>
+                    HasManyChildImplicit.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null,
+        _explicitChildren = json['explicitChildren'] != null
+            ? (json['explicitChildren']['items'] as List)
+                .where((e) => e != null)
+                .map((e) =>
+                    HasManyChildExplicit.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': _name,
+        'implicitChildren': _implicitChildren
+            ?.map((HasManyChildImplicit? e) => e?.toJson())
+            .toList(),
+        'explicitChildren': _explicitChildren
+            ?.map((HasManyChildExplicit? e) => e?.toJson())
+            .toList(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
+
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'implicitChildren': _implicitChildren,
+        'explicitChildren': _explicitChildren,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
+  static final QueryModelIdentifier<HasManyParentModelIdentifier>
+      MODEL_IDENTIFIER = QueryModelIdentifier<HasManyParentModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField IMPLICITCHILDREN = QueryField(
-    fieldName: "implicitChildren",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'HasManyChildImplicit'));
+      fieldName: "implicitChildren",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: 'HasManyChildImplicit'));
   static final QueryField EXPLICITCHILDREN = QueryField(
-    fieldName: "explicitChildren",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'HasManyChildExplicit'));
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+      fieldName: "explicitChildren",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: 'HasManyChildExplicit'));
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasManyParent";
     modelSchemaDefinition.pluralName = "HasManyParents";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: HasManyParent.NAME,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        key: HasManyParent.NAME,
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: HasManyParent.IMPLICITCHILDREN,
-      isRequired: false,
-      ofModelName: 'HasManyChildImplicit',
-      associatedKey: HasManyChildImplicit.HASMANYPARENTIMPLICITCHILDRENID
-    ));
-    
+        key: HasManyParent.IMPLICITCHILDREN,
+        isRequired: false,
+        ofModelName: 'HasManyChildImplicit',
+        associatedKey: HasManyChildImplicit.HASMANYPARENTIMPLICITCHILDRENID));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: HasManyParent.EXPLICITCHILDREN,
-      isRequired: false,
-      ofModelName: 'HasManyChildExplicit',
-      associatedKey: HasManyChildExplicit.HASMANYPARENTID
-    ));
-    
+        key: HasManyParent.EXPLICITCHILDREN,
+        isRequired: false,
+        ofModelName: 'HasManyChildExplicit',
+        associatedKey: HasManyChildExplicit.HASMANYPARENTID));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
 class _HasManyParentModelType extends ModelType<HasManyParent> {
   const _HasManyParentModelType();
-  
+
   @override
   HasManyParent fromJson(Map<String, dynamic> jsonData) {
     return HasManyParent.fromJson(jsonData);
   }
-  
+
   @override
   String modelName() {
     return 'HasManyParent';
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [HasManyParent] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [HasManyParent] in your schema.
 @immutable
 class HasManyParentModelIdentifier implements ModelIdentifier<HasManyParent> {
   final String id;
 
-  /** Create an instance of HasManyParentModelIdentifier using [id] the primary key. */
-  const HasManyParentModelIdentifier({
-    required this.id});
-  
+  /// Create an instance of HasManyParentModelIdentifier using [id] the primary key.
+  const HasManyParentModelIdentifier({required this.id});
+
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id
-  });
-  
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-    .entries
-    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
-    .toList();
-  
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-  
+
   @override
   String toString() => 'HasManyParentModelIdentifier(id: $id)';
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    
-    return other is HasManyParentModelIdentifier &&
-      id == other.id;
+
+    return other is HasManyParentModelIdentifier && id == other.id;
   }
-  
+
   @override
-  int get hashCode =>
-    id.hashCode;
+  int get hashCode => id.hashCode;
 }

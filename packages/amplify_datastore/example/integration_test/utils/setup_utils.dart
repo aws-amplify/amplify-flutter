@@ -11,10 +11,10 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 
 const ENABLE_CLOUD_SYNC =
     bool.fromEnvironment('ENABLE_CLOUD_SYNC', defaultValue: false);
-const DATASTORE_READY_EVENT_TIMEOUT = const Duration(minutes: 2);
-const DELAY_TO_START_DATASTORE = const Duration(milliseconds: 500);
-const DELAY_TO_CLEAR_DATASTORE = const Duration(seconds: 2);
-const DELAY_FOR_OBSERVE = const Duration(milliseconds: 100);
+const DATASTORE_READY_EVENT_TIMEOUT = Duration(minutes: 2);
+const DELAY_TO_START_DATASTORE = Duration(milliseconds: 500);
+const DELAY_TO_CLEAR_DATASTORE = Duration(seconds: 2);
+const DELAY_FOR_OBSERVE = Duration(milliseconds: 100);
 
 /// Configure [AmplifyDataStore] plugin with given [modelProvider].
 /// When [ENABLE_CLOUD_SYNC] environment variable is set to true, it also

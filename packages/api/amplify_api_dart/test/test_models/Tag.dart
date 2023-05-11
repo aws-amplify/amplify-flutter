@@ -25,10 +25,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the Tag type in your schema. */
+/// This is an auto generated class representing the Tag type in your schema.
 @immutable
 class Tag extends Model {
-  static const classType = const _TagModelType();
+  static const classType = _TagModelType();
   final String id;
   final String? _label;
   final List<PostTags>? _posts;
@@ -51,7 +51,7 @@ class Tag extends Model {
     try {
       return _label!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -104,7 +104,7 @@ class Tag extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Tag {");
     buffer.write("id=" + "$id" + ", ");
@@ -130,7 +130,7 @@ class Tag extends Model {
         _posts = json['posts'] != null
             ? (json['posts']['items'] as List)
                 .where((e) => e != null)
-                .map((e) => PostTags.fromJson(new Map<String, dynamic>.from(e)))
+                .map((e) => PostTags.fromJson(Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -210,15 +210,13 @@ class _TagModelType extends ModelType<Tag> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [Tag] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [Tag] in your schema.
 @immutable
 class TagModelIdentifier implements ModelIdentifier<Tag> {
   final String id;
 
-  /** Create an instance of TagModelIdentifier using [id] the primary key. */
+  /// Create an instance of TagModelIdentifier using [id] the primary key.
   const TagModelIdentifier({required this.id});
 
   @override

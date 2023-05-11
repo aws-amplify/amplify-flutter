@@ -5,7 +5,7 @@ import 'dart:async';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 
-const DEFAULT_TIMEOUT = const Duration(seconds: 20);
+const DEFAULT_TIMEOUT = Duration(seconds: 20);
 
 class WaitForExpectedEventFromHub<T extends DataStoreHubEventPayload> {
   final Completer<T> _completer = Completer();

@@ -24,10 +24,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the Comment type in your schema. */
+/// This is an auto generated class representing the Comment type in your schema.
 @immutable
 class Comment extends Model {
-  static const classType = const _CommentModelType();
+  static const classType = _CommentModelType();
   final String id;
   final Post? _post;
   final String? _content;
@@ -54,7 +54,7 @@ class Comment extends Model {
     try {
       return _content!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -101,7 +101,7 @@ class Comment extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Comment {");
     buffer.write("id=" + "$id" + ", ");
@@ -125,7 +125,7 @@ class Comment extends Model {
   Comment.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _post = json['post'] != null
-            ? Post.fromJson(new Map<String, dynamic>.from(json['post']))
+            ? Post.fromJson(Map<String, dynamic>.from(json['post']))
             : null,
         _content = json['content'],
         _createdAt = json['createdAt'] != null
@@ -208,15 +208,13 @@ class _CommentModelType extends ModelType<Comment> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [Comment] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [Comment] in your schema.
 @immutable
 class CommentModelIdentifier implements ModelIdentifier<Comment> {
   final String id;
 
-  /** Create an instance of CommentModelIdentifier using [id] the primary key. */
+  /// Create an instance of CommentModelIdentifier using [id] the primary key.
   const CommentModelIdentifier({required this.id});
 
   @override

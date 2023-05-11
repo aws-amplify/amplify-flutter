@@ -24,10 +24,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the CpkIntPrimaryKey type in your schema. */
+/// This is an auto generated class representing the CpkIntPrimaryKey type in your schema.
 @immutable
 class CpkIntPrimaryKey extends Model {
-  static const classType = const _CpkIntPrimaryKeyModelType();
+  static const classType = _CpkIntPrimaryKeyModelType();
   final int? _intAsId;
   final int? _fieldA;
   final int? _fieldB;
@@ -47,7 +47,7 @@ class CpkIntPrimaryKey extends Model {
       return CpkIntPrimaryKeyModelIdentifier(
           intAsId: _intAsId!, fieldA: _fieldA!, fieldB: _fieldB!);
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -60,7 +60,7 @@ class CpkIntPrimaryKey extends Model {
     try {
       return _intAsId!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -73,7 +73,7 @@ class CpkIntPrimaryKey extends Model {
     try {
       return _fieldA!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -86,7 +86,7 @@ class CpkIntPrimaryKey extends Model {
     try {
       return _fieldB!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -139,7 +139,7 @@ class CpkIntPrimaryKey extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("CpkIntPrimaryKey {");
     buffer.write(
@@ -262,10 +262,8 @@ class _CpkIntPrimaryKeyModelType extends ModelType<CpkIntPrimaryKey> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [CpkIntPrimaryKey] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [CpkIntPrimaryKey] in your schema.
 @immutable
 class CpkIntPrimaryKeyModelIdentifier
     implements ModelIdentifier<CpkIntPrimaryKey> {
@@ -273,10 +271,8 @@ class CpkIntPrimaryKeyModelIdentifier
   final int fieldA;
   final int fieldB;
 
-  /**
-   * Create an instance of CpkIntPrimaryKeyModelIdentifier using [intAsId] the primary key.
-   * And [fieldA], [fieldB] the sort keys.
-   */
+  /// Create an instance of CpkIntPrimaryKeyModelIdentifier using [intAsId] the primary key.
+  /// And [fieldA], [fieldB] the sort keys.
   const CpkIntPrimaryKeyModelIdentifier(
       {required this.intAsId, required this.fieldA, required this.fieldB});
 

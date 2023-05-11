@@ -115,15 +115,61 @@ class ModelProvider implements ModelProviderInterface {
   @override
   String version = "bc8b47d938d0b7deff50ac977653bed7";
   @override
-  List<ModelSchema> modelSchemas = [BelongsToChildExplicit.schema, BelongsToChildImplicit.schema, BelongsToParent.schema, Blog.schema, Comment.schema, CpkHasManyChildBidirectionalExplicit.schema, CpkHasManyChildBidirectionalImplicit.schema, CpkHasManyParentBidirectionalExplicit.schema, CpkHasManyParentBidirectionalImplicit.schema, CpkHasManyUnidirectionalChildExplicit.schema, CpkHasManyUnidirectionalChildImplicit.schema, CpkHasManyUnidirectionalParent.schema, CpkHasOneUnidirectionalChild.schema, CpkHasOneUnidirectionalParent.schema, CpkInventory.schema, CpkManyToManyPost.schema, CpkManyToManyTag.schema, CpkOneToOneBidirectionalChildExplicitCD.schema, CpkOneToOneBidirectionalChildExplicitID.schema, CpkOneToOneBidirectionalChildImplicitCD.schema, CpkOneToOneBidirectionalChildImplicitID.schema, CpkOneToOneBidirectionalParentCD.schema, CpkOneToOneBidirectionalParentID.schema, CpkPostTags.schema, HasManyChildBiDirectionalExplicit.schema, HasManyChildBiDirectionalImplicit.schema, HasManyChildExplicit.schema, HasManyChildImplicit.schema, HasManyParent.schema, HasManyParentBiDirectionalExplicit.schema, HasManyParentBiDirectionalImplicit.schema, HasOneChild.schema, HasOneParent.schema, ModelWithAppsyncScalarTypes.schema, ModelWithCustomType.schema, ModelWithEnum.schema, MultiRelatedAttendee.schema, MultiRelatedMeeting.schema, MultiRelatedRegistration.schema, Post.schema, PostTags.schema, Tag.schema];
+  List<ModelSchema> modelSchemas = [
+    BelongsToChildExplicit.schema,
+    BelongsToChildImplicit.schema,
+    BelongsToParent.schema,
+    Blog.schema,
+    Comment.schema,
+    CpkHasManyChildBidirectionalExplicit.schema,
+    CpkHasManyChildBidirectionalImplicit.schema,
+    CpkHasManyParentBidirectionalExplicit.schema,
+    CpkHasManyParentBidirectionalImplicit.schema,
+    CpkHasManyUnidirectionalChildExplicit.schema,
+    CpkHasManyUnidirectionalChildImplicit.schema,
+    CpkHasManyUnidirectionalParent.schema,
+    CpkHasOneUnidirectionalChild.schema,
+    CpkHasOneUnidirectionalParent.schema,
+    CpkInventory.schema,
+    CpkManyToManyPost.schema,
+    CpkManyToManyTag.schema,
+    CpkOneToOneBidirectionalChildExplicitCD.schema,
+    CpkOneToOneBidirectionalChildExplicitID.schema,
+    CpkOneToOneBidirectionalChildImplicitCD.schema,
+    CpkOneToOneBidirectionalChildImplicitID.schema,
+    CpkOneToOneBidirectionalParentCD.schema,
+    CpkOneToOneBidirectionalParentID.schema,
+    CpkPostTags.schema,
+    HasManyChildBiDirectionalExplicit.schema,
+    HasManyChildBiDirectionalImplicit.schema,
+    HasManyChildExplicit.schema,
+    HasManyChildImplicit.schema,
+    HasManyParent.schema,
+    HasManyParentBiDirectionalExplicit.schema,
+    HasManyParentBiDirectionalImplicit.schema,
+    HasOneChild.schema,
+    HasOneParent.schema,
+    ModelWithAppsyncScalarTypes.schema,
+    ModelWithCustomType.schema,
+    ModelWithEnum.schema,
+    MultiRelatedAttendee.schema,
+    MultiRelatedMeeting.schema,
+    MultiRelatedRegistration.schema,
+    Post.schema,
+    PostTags.schema,
+    Tag.schema
+  ];
   static final ModelProvider _instance = ModelProvider();
   @override
-  List<ModelSchema> customTypeSchemas = [CustomTypeWithAppsyncScalarTypes.schema, SimpleCustomType.schema];
+  List<ModelSchema> customTypeSchemas = [
+    CustomTypeWithAppsyncScalarTypes.schema,
+    SimpleCustomType.schema
+  ];
 
   static ModelProvider get instance => _instance;
-  
+
   ModelType getModelTypeByModelName(String modelName) {
-    switch(modelName) {
+    switch (modelName) {
       case "BelongsToChildExplicit":
         return BelongsToChildExplicit.classType;
       case "BelongsToChildImplicit":
@@ -209,7 +255,9 @@ class ModelProvider implements ModelProviderInterface {
       case "Tag":
         return Tag.classType;
       default:
-        throw Exception("Failed to find model in model provider for model name: " + modelName);
+        throw Exception(
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }

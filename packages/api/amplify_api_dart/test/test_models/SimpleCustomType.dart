@@ -22,7 +22,7 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-/** This is an auto generated class representing the SimpleCustomType type in your schema. */
+/// This is an auto generated class representing the SimpleCustomType type in your schema.
 @immutable
 class SimpleCustomType {
   final String? _foo;
@@ -31,7 +31,7 @@ class SimpleCustomType {
     try {
       return _foo!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -61,7 +61,7 @@ class SimpleCustomType {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("SimpleCustomType {");
     buffer.write("foo=" + "$_foo");

@@ -22,11 +22,10 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-
-/** This is an auto generated class representing the CpkHasManyUnidirectionalChildImplicit type in your schema. */
+/// This is an auto generated class representing the CpkHasManyUnidirectionalChildImplicit type in your schema.
 @immutable
 class CpkHasManyUnidirectionalChildImplicit extends Model {
-  static const classType = const _CpkHasManyUnidirectionalChildImplicitModelType();
+  static const classType = _CpkHasManyUnidirectionalChildImplicitModelType();
   final String id;
   final String? _name;
   final TemporalDateTime? _createdAt;
@@ -36,234 +35,286 @@ class CpkHasManyUnidirectionalChildImplicit extends Model {
 
   @override
   getInstanceType() => classType;
-  
-  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-  
+
   CpkHasManyUnidirectionalChildImplicitModelIdentifier get modelIdentifier {
     try {
       return CpkHasManyUnidirectionalChildImplicitModelIdentifier(
-        id: id,
-        name: _name!
-      );
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
+          id: id, name: _name!);
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   String get name {
     try {
       return _name!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
+
   String? get cpkHasManyUnidirectionalParentImplicitChildrenId {
     return _cpkHasManyUnidirectionalParentImplicitChildrenId;
   }
-  
+
   String? get cpkHasManyUnidirectionalParentImplicitChildrenName {
     return _cpkHasManyUnidirectionalParentImplicitChildrenName;
   }
-  
-  const CpkHasManyUnidirectionalChildImplicit._internal({required this.id, required name, createdAt, updatedAt, cpkHasManyUnidirectionalParentImplicitChildrenId, cpkHasManyUnidirectionalParentImplicitChildrenName}): _name = name, _createdAt = createdAt, _updatedAt = updatedAt, _cpkHasManyUnidirectionalParentImplicitChildrenId = cpkHasManyUnidirectionalParentImplicitChildrenId, _cpkHasManyUnidirectionalParentImplicitChildrenName = cpkHasManyUnidirectionalParentImplicitChildrenName;
-  
-  factory CpkHasManyUnidirectionalChildImplicit({String? id, required String name, String? cpkHasManyUnidirectionalParentImplicitChildrenId, String? cpkHasManyUnidirectionalParentImplicitChildrenName}) {
+
+  const CpkHasManyUnidirectionalChildImplicit._internal(
+      {required this.id,
+      required name,
+      createdAt,
+      updatedAt,
+      cpkHasManyUnidirectionalParentImplicitChildrenId,
+      cpkHasManyUnidirectionalParentImplicitChildrenName})
+      : _name = name,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt,
+        _cpkHasManyUnidirectionalParentImplicitChildrenId =
+            cpkHasManyUnidirectionalParentImplicitChildrenId,
+        _cpkHasManyUnidirectionalParentImplicitChildrenName =
+            cpkHasManyUnidirectionalParentImplicitChildrenName;
+
+  factory CpkHasManyUnidirectionalChildImplicit(
+      {String? id,
+      required String name,
+      String? cpkHasManyUnidirectionalParentImplicitChildrenId,
+      String? cpkHasManyUnidirectionalParentImplicitChildrenName}) {
     return CpkHasManyUnidirectionalChildImplicit._internal(
-      id: id == null ? UUID.getUUID() : id,
-      name: name,
-      cpkHasManyUnidirectionalParentImplicitChildrenId: cpkHasManyUnidirectionalParentImplicitChildrenId,
-      cpkHasManyUnidirectionalParentImplicitChildrenName: cpkHasManyUnidirectionalParentImplicitChildrenName);
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        cpkHasManyUnidirectionalParentImplicitChildrenId:
+            cpkHasManyUnidirectionalParentImplicitChildrenId,
+        cpkHasManyUnidirectionalParentImplicitChildrenName:
+            cpkHasManyUnidirectionalParentImplicitChildrenName);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CpkHasManyUnidirectionalChildImplicit &&
-      id == other.id &&
-      _name == other._name &&
-      _cpkHasManyUnidirectionalParentImplicitChildrenId == other._cpkHasManyUnidirectionalParentImplicitChildrenId &&
-      _cpkHasManyUnidirectionalParentImplicitChildrenName == other._cpkHasManyUnidirectionalParentImplicitChildrenName;
+        id == other.id &&
+        _name == other._name &&
+        _cpkHasManyUnidirectionalParentImplicitChildrenId ==
+            other._cpkHasManyUnidirectionalParentImplicitChildrenId &&
+        _cpkHasManyUnidirectionalParentImplicitChildrenName ==
+            other._cpkHasManyUnidirectionalParentImplicitChildrenName;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
-    var buffer = new StringBuffer();
-    
+    var buffer = StringBuffer();
+
     buffer.write("CpkHasManyUnidirectionalChildImplicit {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null") + ", ");
-    buffer.write("cpkHasManyUnidirectionalParentImplicitChildrenId=" + "$_cpkHasManyUnidirectionalParentImplicitChildrenId" + ", ");
-    buffer.write("cpkHasManyUnidirectionalParentImplicitChildrenName=" + "$_cpkHasManyUnidirectionalParentImplicitChildrenName");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write("updatedAt=" +
+        (_updatedAt != null ? _updatedAt!.format() : "null") +
+        ", ");
+    buffer.write("cpkHasManyUnidirectionalParentImplicitChildrenId=" +
+        "$_cpkHasManyUnidirectionalParentImplicitChildrenId" +
+        ", ");
+    buffer.write("cpkHasManyUnidirectionalParentImplicitChildrenName=" +
+        "$_cpkHasManyUnidirectionalParentImplicitChildrenName");
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  CpkHasManyUnidirectionalChildImplicit copyWith({String? cpkHasManyUnidirectionalParentImplicitChildrenId, String? cpkHasManyUnidirectionalParentImplicitChildrenName}) {
-    return CpkHasManyUnidirectionalChildImplicit._internal(
-      id: id,
-      name: name,
-      cpkHasManyUnidirectionalParentImplicitChildrenId: cpkHasManyUnidirectionalParentImplicitChildrenId ?? this.cpkHasManyUnidirectionalParentImplicitChildrenId,
-      cpkHasManyUnidirectionalParentImplicitChildrenName: cpkHasManyUnidirectionalParentImplicitChildrenName ?? this.cpkHasManyUnidirectionalParentImplicitChildrenName);
-  }
-  
-  CpkHasManyUnidirectionalChildImplicit.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _name = json['name'],
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null,
-      _cpkHasManyUnidirectionalParentImplicitChildrenId = json['cpkHasManyUnidirectionalParentImplicitChildrenId'],
-      _cpkHasManyUnidirectionalParentImplicitChildrenName = json['cpkHasManyUnidirectionalParentImplicitChildrenName'];
-  
-  Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format(), 'cpkHasManyUnidirectionalParentImplicitChildrenId': _cpkHasManyUnidirectionalParentImplicitChildrenId, 'cpkHasManyUnidirectionalParentImplicitChildrenName': _cpkHasManyUnidirectionalParentImplicitChildrenName
-  };
-  
-  Map<String, Object?> toMap() => {
-    'id': id, 'name': _name, 'createdAt': _createdAt, 'updatedAt': _updatedAt, 'cpkHasManyUnidirectionalParentImplicitChildrenId': _cpkHasManyUnidirectionalParentImplicitChildrenId, 'cpkHasManyUnidirectionalParentImplicitChildrenName': _cpkHasManyUnidirectionalParentImplicitChildrenName
-  };
 
-  static final QueryModelIdentifier<CpkHasManyUnidirectionalChildImplicitModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<CpkHasManyUnidirectionalChildImplicitModelIdentifier>();
+  CpkHasManyUnidirectionalChildImplicit copyWith(
+      {String? cpkHasManyUnidirectionalParentImplicitChildrenId,
+      String? cpkHasManyUnidirectionalParentImplicitChildrenName}) {
+    return CpkHasManyUnidirectionalChildImplicit._internal(
+        id: id,
+        name: name,
+        cpkHasManyUnidirectionalParentImplicitChildrenId:
+            cpkHasManyUnidirectionalParentImplicitChildrenId ??
+                this.cpkHasManyUnidirectionalParentImplicitChildrenId,
+        cpkHasManyUnidirectionalParentImplicitChildrenName:
+            cpkHasManyUnidirectionalParentImplicitChildrenName ??
+                this.cpkHasManyUnidirectionalParentImplicitChildrenName);
+  }
+
+  CpkHasManyUnidirectionalChildImplicit.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _name = json['name'],
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null,
+        _cpkHasManyUnidirectionalParentImplicitChildrenId =
+            json['cpkHasManyUnidirectionalParentImplicitChildrenId'],
+        _cpkHasManyUnidirectionalParentImplicitChildrenName =
+            json['cpkHasManyUnidirectionalParentImplicitChildrenName'];
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': _name,
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format(),
+        'cpkHasManyUnidirectionalParentImplicitChildrenId':
+            _cpkHasManyUnidirectionalParentImplicitChildrenId,
+        'cpkHasManyUnidirectionalParentImplicitChildrenName':
+            _cpkHasManyUnidirectionalParentImplicitChildrenName
+      };
+
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt,
+        'cpkHasManyUnidirectionalParentImplicitChildrenId':
+            _cpkHasManyUnidirectionalParentImplicitChildrenId,
+        'cpkHasManyUnidirectionalParentImplicitChildrenName':
+            _cpkHasManyUnidirectionalParentImplicitChildrenName
+      };
+
+  static final QueryModelIdentifier<
+          CpkHasManyUnidirectionalChildImplicitModelIdentifier>
+      MODEL_IDENTIFIER = QueryModelIdentifier<
+          CpkHasManyUnidirectionalChildImplicitModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENID = QueryField(fieldName: "cpkHasManyUnidirectionalParentImplicitChildrenId");
-  static final QueryField CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENNAME = QueryField(fieldName: "cpkHasManyUnidirectionalParentImplicitChildrenName");
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static final QueryField CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENID =
+      QueryField(fieldName: "cpkHasManyUnidirectionalParentImplicitChildrenId");
+  static final QueryField CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENNAME =
+      QueryField(
+          fieldName: "cpkHasManyUnidirectionalParentImplicitChildrenName");
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "CpkHasManyUnidirectionalChildImplicit";
     modelSchemaDefinition.pluralName = "CpkHasManyUnidirectionalChildImplicits";
-    
+
     modelSchemaDefinition.indexes = [
       ModelIndex(fields: const ["id", "name"], name: null)
     ];
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: CpkHasManyUnidirectionalChildImplicit.NAME,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        key: CpkHasManyUnidirectionalChildImplicit.NAME,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: CpkHasManyUnidirectionalChildImplicit.CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENID,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        key: CpkHasManyUnidirectionalChildImplicit
+            .CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENID,
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: CpkHasManyUnidirectionalChildImplicit.CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENNAME,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
+        key: CpkHasManyUnidirectionalChildImplicit
+            .CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENNAME,
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
   });
 }
 
-class _CpkHasManyUnidirectionalChildImplicitModelType extends ModelType<CpkHasManyUnidirectionalChildImplicit> {
+class _CpkHasManyUnidirectionalChildImplicitModelType
+    extends ModelType<CpkHasManyUnidirectionalChildImplicit> {
   const _CpkHasManyUnidirectionalChildImplicitModelType();
-  
+
   @override
-  CpkHasManyUnidirectionalChildImplicit fromJson(Map<String, dynamic> jsonData) {
+  CpkHasManyUnidirectionalChildImplicit fromJson(
+      Map<String, dynamic> jsonData) {
     return CpkHasManyUnidirectionalChildImplicit.fromJson(jsonData);
   }
-  
+
   @override
   String modelName() {
     return 'CpkHasManyUnidirectionalChildImplicit';
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [CpkHasManyUnidirectionalChildImplicit] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [CpkHasManyUnidirectionalChildImplicit] in your schema.
 @immutable
-class CpkHasManyUnidirectionalChildImplicitModelIdentifier implements ModelIdentifier<CpkHasManyUnidirectionalChildImplicit> {
+class CpkHasManyUnidirectionalChildImplicitModelIdentifier
+    implements ModelIdentifier<CpkHasManyUnidirectionalChildImplicit> {
   final String id;
   final String name;
 
-  /**
-   * Create an instance of CpkHasManyUnidirectionalChildImplicitModelIdentifier using [id] the primary key.
-   * And [name] the sort key.
-   */
-  const CpkHasManyUnidirectionalChildImplicitModelIdentifier({
-    required this.id,
-    required this.name});
-  
+  /// Create an instance of CpkHasManyUnidirectionalChildImplicitModelIdentifier using [id] the primary key.
+  /// And [name] the sort key.
+  const CpkHasManyUnidirectionalChildImplicitModelIdentifier(
+      {required this.id, required this.name});
+
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id,
-    'name': name
-  });
-  
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'id': id, 'name': name});
+
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-    .entries
-    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
-    .toList();
-  
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-  
+
   @override
-  String toString() => 'CpkHasManyUnidirectionalChildImplicitModelIdentifier(id: $id, name: $name)';
-  
+  String toString() =>
+      'CpkHasManyUnidirectionalChildImplicitModelIdentifier(id: $id, name: $name)';
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    
+
     return other is CpkHasManyUnidirectionalChildImplicitModelIdentifier &&
-      id == other.id &&
-      name == other.name;
+        id == other.id &&
+        name == other.name;
   }
-  
+
   @override
-  int get hashCode =>
-    id.hashCode ^
-    name.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode;
 }

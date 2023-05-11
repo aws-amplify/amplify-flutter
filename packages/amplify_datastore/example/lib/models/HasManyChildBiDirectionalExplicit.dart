@@ -23,11 +23,10 @@ import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-
-/** This is an auto generated class representing the HasManyChildBiDirectionalExplicit type in your schema. */
+/// This is an auto generated class representing the HasManyChildBiDirectionalExplicit type in your schema.
 @immutable
 class HasManyChildBiDirectionalExplicit extends Model {
-  static const classType = const _HasManyChildBiDirectionalExplicitModelType();
+  static const classType = _HasManyChildBiDirectionalExplicitModelType();
   final String id;
   final String? _name;
   final HasManyParentBiDirectionalExplicit? _hasManyParent;
@@ -36,196 +35,220 @@ class HasManyChildBiDirectionalExplicit extends Model {
 
   @override
   getInstanceType() => classType;
-  
-  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-  
+
   HasManyChildBiDirectionalExplicitModelIdentifier get modelIdentifier {
-      return HasManyChildBiDirectionalExplicitModelIdentifier(
-        id: id
-      );
+    return HasManyChildBiDirectionalExplicitModelIdentifier(id: id);
   }
-  
+
   String? get name {
     return _name;
   }
-  
+
   HasManyParentBiDirectionalExplicit? get hasManyParent {
     return _hasManyParent;
   }
-  
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
-  const HasManyChildBiDirectionalExplicit._internal({required this.id, name, hasManyParent, createdAt, updatedAt}): _name = name, _hasManyParent = hasManyParent, _createdAt = createdAt, _updatedAt = updatedAt;
-  
-  factory HasManyChildBiDirectionalExplicit({String? id, String? name, HasManyParentBiDirectionalExplicit? hasManyParent}) {
+
+  const HasManyChildBiDirectionalExplicit._internal(
+      {required this.id, name, hasManyParent, createdAt, updatedAt})
+      : _name = name,
+        _hasManyParent = hasManyParent,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
+  factory HasManyChildBiDirectionalExplicit(
+      {String? id,
+      String? name,
+      HasManyParentBiDirectionalExplicit? hasManyParent}) {
     return HasManyChildBiDirectionalExplicit._internal(
-      id: id == null ? UUID.getUUID() : id,
-      name: name,
-      hasManyParent: hasManyParent);
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        hasManyParent: hasManyParent);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is HasManyChildBiDirectionalExplicit &&
-      id == other.id &&
-      _name == other._name &&
-      _hasManyParent == other._hasManyParent;
+        id == other.id &&
+        _name == other._name &&
+        _hasManyParent == other._hasManyParent;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
-    var buffer = new StringBuffer();
-    
+    var buffer = StringBuffer();
+
     buffer.write("HasManyChildBiDirectionalExplicit {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("hasManyParent=" + (_hasManyParent != null ? _hasManyParent!.toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("hasManyParent=" +
+        (_hasManyParent != null ? _hasManyParent!.toString() : "null") +
+        ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  HasManyChildBiDirectionalExplicit copyWith({String? name, HasManyParentBiDirectionalExplicit? hasManyParent}) {
-    return HasManyChildBiDirectionalExplicit._internal(
-      id: id,
-      name: name ?? this.name,
-      hasManyParent: hasManyParent ?? this.hasManyParent);
-  }
-  
-  HasManyChildBiDirectionalExplicit.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _name = json['name'],
-      _hasManyParent = json['hasManyParent'] != null
-        ? HasManyParentBiDirectionalExplicit.fromJson(new Map<String, dynamic>.from(json['hasManyParent']))
-        : null,
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
-  
-  Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'hasManyParent': _hasManyParent?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
-  
-  Map<String, Object?> toMap() => {
-    'id': id, 'name': _name, 'hasManyParent': _hasManyParent, 'createdAt': _createdAt, 'updatedAt': _updatedAt
-  };
 
-  static final QueryModelIdentifier<HasManyChildBiDirectionalExplicitModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<HasManyChildBiDirectionalExplicitModelIdentifier>();
+  HasManyChildBiDirectionalExplicit copyWith(
+      {String? name, HasManyParentBiDirectionalExplicit? hasManyParent}) {
+    return HasManyChildBiDirectionalExplicit._internal(
+        id: id,
+        name: name ?? this.name,
+        hasManyParent: hasManyParent ?? this.hasManyParent);
+  }
+
+  HasManyChildBiDirectionalExplicit.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _name = json['name'],
+        _hasManyParent = json['hasManyParent'] != null
+            ? HasManyParentBiDirectionalExplicit.fromJson(
+                Map<String, dynamic>.from(json['hasManyParent']))
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': _name,
+        'hasManyParent': _hasManyParent?.toJson(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
+
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'hasManyParent': _hasManyParent,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
+  static final QueryModelIdentifier<
+          HasManyChildBiDirectionalExplicitModelIdentifier> MODEL_IDENTIFIER =
+      QueryModelIdentifier<HasManyChildBiDirectionalExplicitModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField HASMANYPARENT = QueryField(
-    fieldName: "hasManyParent",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'HasManyParentBiDirectionalExplicit'));
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+      fieldName: "hasManyParent",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: 'HasManyParentBiDirectionalExplicit'));
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasManyChildBiDirectionalExplicit";
     modelSchemaDefinition.pluralName = "HasManyChildBiDirectionalExplicits";
-    
+
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["hasManyParentId", "name"], name: "byHasManyParent")
+      ModelIndex(
+          fields: const ["hasManyParentId", "name"], name: "byHasManyParent")
     ];
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: HasManyChildBiDirectionalExplicit.NAME,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        key: HasManyChildBiDirectionalExplicit.NAME,
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-      key: HasManyChildBiDirectionalExplicit.HASMANYPARENT,
-      isRequired: false,
-      targetNames: ['hasManyParentId'],
-      ofModelName: 'HasManyParentBiDirectionalExplicit'
-    ));
-    
+        key: HasManyChildBiDirectionalExplicit.HASMANYPARENT,
+        isRequired: false,
+        targetNames: ['hasManyParentId'],
+        ofModelName: 'HasManyParentBiDirectionalExplicit'));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
-class _HasManyChildBiDirectionalExplicitModelType extends ModelType<HasManyChildBiDirectionalExplicit> {
+class _HasManyChildBiDirectionalExplicitModelType
+    extends ModelType<HasManyChildBiDirectionalExplicit> {
   const _HasManyChildBiDirectionalExplicitModelType();
-  
+
   @override
   HasManyChildBiDirectionalExplicit fromJson(Map<String, dynamic> jsonData) {
     return HasManyChildBiDirectionalExplicit.fromJson(jsonData);
   }
-  
+
   @override
   String modelName() {
     return 'HasManyChildBiDirectionalExplicit';
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [HasManyChildBiDirectionalExplicit] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [HasManyChildBiDirectionalExplicit] in your schema.
 @immutable
-class HasManyChildBiDirectionalExplicitModelIdentifier implements ModelIdentifier<HasManyChildBiDirectionalExplicit> {
+class HasManyChildBiDirectionalExplicitModelIdentifier
+    implements ModelIdentifier<HasManyChildBiDirectionalExplicit> {
   final String id;
 
-  /** Create an instance of HasManyChildBiDirectionalExplicitModelIdentifier using [id] the primary key. */
-  const HasManyChildBiDirectionalExplicitModelIdentifier({
-    required this.id});
-  
+  /// Create an instance of HasManyChildBiDirectionalExplicitModelIdentifier using [id] the primary key.
+  const HasManyChildBiDirectionalExplicitModelIdentifier({required this.id});
+
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id
-  });
-  
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-    .entries
-    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
-    .toList();
-  
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-  
+
   @override
-  String toString() => 'HasManyChildBiDirectionalExplicitModelIdentifier(id: $id)';
-  
+  String toString() =>
+      'HasManyChildBiDirectionalExplicitModelIdentifier(id: $id)';
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    
+
     return other is HasManyChildBiDirectionalExplicitModelIdentifier &&
-      id == other.id;
+        id == other.id;
   }
-  
+
   @override
-  int get hashCode =>
-    id.hashCode;
+  int get hashCode => id.hashCode;
 }

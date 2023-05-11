@@ -24,10 +24,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the CpkOneToOneBidirectionalParentCD type in your schema. */
+/// This is an auto generated class representing the CpkOneToOneBidirectionalParentCD type in your schema.
 @immutable
 class CpkOneToOneBidirectionalParentCD extends Model {
-  static const classType = const _CpkOneToOneBidirectionalParentCDModelType();
+  static const classType = _CpkOneToOneBidirectionalParentCDModelType();
   final String? _customId;
   final String? _name;
   final CpkOneToOneBidirectionalChildImplicitCD? _implicitChild;
@@ -52,7 +52,7 @@ class CpkOneToOneBidirectionalParentCD extends Model {
       return CpkOneToOneBidirectionalParentCDModelIdentifier(
           customId: _customId!, name: _name!);
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -65,7 +65,7 @@ class CpkOneToOneBidirectionalParentCD extends Model {
     try {
       return _customId!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -78,7 +78,7 @@ class CpkOneToOneBidirectionalParentCD extends Model {
     try {
       return _name!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -196,7 +196,7 @@ class CpkOneToOneBidirectionalParentCD extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("CpkOneToOneBidirectionalParentCD {");
     buffer.write("customId=" + "$_customId" + ", ");
@@ -254,11 +254,11 @@ class CpkOneToOneBidirectionalParentCD extends Model {
         _name = json['name'],
         _implicitChild = json['implicitChild'] != null
             ? CpkOneToOneBidirectionalChildImplicitCD.fromJson(
-                new Map<String, dynamic>.from(json['implicitChild']))
+                Map<String, dynamic>.from(json['implicitChild']))
             : null,
         _explicitChild = json['explicitChild'] != null
             ? CpkOneToOneBidirectionalChildExplicitCD.fromJson(
-                new Map<String, dynamic>.from(json['explicitChild']))
+                Map<String, dynamic>.from(json['explicitChild']))
             : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
@@ -418,20 +418,16 @@ class _CpkOneToOneBidirectionalParentCDModelType
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [CpkOneToOneBidirectionalParentCD] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [CpkOneToOneBidirectionalParentCD] in your schema.
 @immutable
 class CpkOneToOneBidirectionalParentCDModelIdentifier
     implements ModelIdentifier<CpkOneToOneBidirectionalParentCD> {
   final String customId;
   final String name;
 
-  /**
-   * Create an instance of CpkOneToOneBidirectionalParentCDModelIdentifier using [customId] the primary key.
-   * And [name] the sort key.
-   */
+  /// Create an instance of CpkOneToOneBidirectionalParentCDModelIdentifier using [customId] the primary key.
+  /// And [name] the sort key.
   const CpkOneToOneBidirectionalParentCDModelIdentifier(
       {required this.customId, required this.name});
 

@@ -25,10 +25,10 @@ import 'package:meta/meta.dart';
 
 import 'utils.dart';
 
-/** This is an auto generated class representing the ModelWithAppsyncScalarTypes type in your schema. */
+/// This is an auto generated class representing the ModelWithAppsyncScalarTypes type in your schema.
 @immutable
 class ModelWithAppsyncScalarTypes extends Model {
-  static const classType = const _ModelWithAppsyncScalarTypesModelType();
+  static const classType = _ModelWithAppsyncScalarTypesModelType();
   final String id;
   final String? _stringValue;
   final String? _altStringValue;
@@ -401,7 +401,7 @@ class ModelWithAppsyncScalarTypes extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("ModelWithAppsyncScalarTypes {");
     buffer.write("id=" + "$id" + ", ");
@@ -950,16 +950,14 @@ class _ModelWithAppsyncScalarTypesModelType
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [ModelWithAppsyncScalarTypes] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [ModelWithAppsyncScalarTypes] in your schema.
 @immutable
 class ModelWithAppsyncScalarTypesModelIdentifier
     implements ModelIdentifier<ModelWithAppsyncScalarTypes> {
   final String id;
 
-  /** Create an instance of ModelWithAppsyncScalarTypesModelIdentifier using [id] the primary key. */
+  /// Create an instance of ModelWithAppsyncScalarTypesModelIdentifier using [id] the primary key.
   const ModelWithAppsyncScalarTypesModelIdentifier({required this.id});
 
   @override

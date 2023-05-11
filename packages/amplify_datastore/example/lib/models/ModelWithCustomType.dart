@@ -24,11 +24,10 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-
-/** This is an auto generated class representing the ModelWithCustomType type in your schema. */
+/// This is an auto generated class representing the ModelWithCustomType type in your schema.
 @immutable
 class ModelWithCustomType extends Model {
-  static const classType = const _ModelWithCustomTypeModelType();
+  static const classType = _ModelWithCustomTypeModelType();
   final String id;
   final CustomTypeWithAppsyncScalarTypes? _customTypeValue;
   final List<CustomTypeWithAppsyncScalarTypes>? _listOfCustomTypeValue;
@@ -37,195 +36,235 @@ class ModelWithCustomType extends Model {
 
   @override
   getInstanceType() => classType;
-  
-  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-  
+
   ModelWithCustomTypeModelIdentifier get modelIdentifier {
-      return ModelWithCustomTypeModelIdentifier(
-        id: id
-      );
+    return ModelWithCustomTypeModelIdentifier(id: id);
   }
-  
+
   CustomTypeWithAppsyncScalarTypes? get customTypeValue {
     return _customTypeValue;
   }
-  
+
   List<CustomTypeWithAppsyncScalarTypes>? get listOfCustomTypeValue {
     return _listOfCustomTypeValue;
   }
-  
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
-  const ModelWithCustomType._internal({required this.id, customTypeValue, listOfCustomTypeValue, createdAt, updatedAt}): _customTypeValue = customTypeValue, _listOfCustomTypeValue = listOfCustomTypeValue, _createdAt = createdAt, _updatedAt = updatedAt;
-  
-  factory ModelWithCustomType({String? id, CustomTypeWithAppsyncScalarTypes? customTypeValue, List<CustomTypeWithAppsyncScalarTypes>? listOfCustomTypeValue}) {
+
+  const ModelWithCustomType._internal(
+      {required this.id,
+      customTypeValue,
+      listOfCustomTypeValue,
+      createdAt,
+      updatedAt})
+      : _customTypeValue = customTypeValue,
+        _listOfCustomTypeValue = listOfCustomTypeValue,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
+  factory ModelWithCustomType(
+      {String? id,
+      CustomTypeWithAppsyncScalarTypes? customTypeValue,
+      List<CustomTypeWithAppsyncScalarTypes>? listOfCustomTypeValue}) {
     return ModelWithCustomType._internal(
-      id: id == null ? UUID.getUUID() : id,
-      customTypeValue: customTypeValue,
-      listOfCustomTypeValue: listOfCustomTypeValue != null ? List<CustomTypeWithAppsyncScalarTypes>.unmodifiable(listOfCustomTypeValue) : listOfCustomTypeValue);
+        id: id == null ? UUID.getUUID() : id,
+        customTypeValue: customTypeValue,
+        listOfCustomTypeValue: listOfCustomTypeValue != null
+            ? List<CustomTypeWithAppsyncScalarTypes>.unmodifiable(
+                listOfCustomTypeValue)
+            : listOfCustomTypeValue);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ModelWithCustomType &&
-      id == other.id &&
-      _customTypeValue == other._customTypeValue &&
-      DeepCollectionEquality().equals(_listOfCustomTypeValue, other._listOfCustomTypeValue);
+        id == other.id &&
+        _customTypeValue == other._customTypeValue &&
+        DeepCollectionEquality()
+            .equals(_listOfCustomTypeValue, other._listOfCustomTypeValue);
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
-    var buffer = new StringBuffer();
-    
+    var buffer = StringBuffer();
+
     buffer.write("ModelWithCustomType {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("customTypeValue=" + (_customTypeValue != null ? _customTypeValue!.toString() : "null") + ", ");
-    buffer.write("listOfCustomTypeValue=" + (_listOfCustomTypeValue != null ? _listOfCustomTypeValue!.toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("customTypeValue=" +
+        (_customTypeValue != null ? _customTypeValue!.toString() : "null") +
+        ", ");
+    buffer.write("listOfCustomTypeValue=" +
+        (_listOfCustomTypeValue != null
+            ? _listOfCustomTypeValue!.toString()
+            : "null") +
+        ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  ModelWithCustomType copyWith({CustomTypeWithAppsyncScalarTypes? customTypeValue, List<CustomTypeWithAppsyncScalarTypes>? listOfCustomTypeValue}) {
-    return ModelWithCustomType._internal(
-      id: id,
-      customTypeValue: customTypeValue ?? this.customTypeValue,
-      listOfCustomTypeValue: listOfCustomTypeValue ?? this.listOfCustomTypeValue);
-  }
-  
-  ModelWithCustomType.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _customTypeValue = json['customTypeValue'] != null
-        ? CustomTypeWithAppsyncScalarTypes.fromJson(new Map<String, dynamic>.from(json['customTypeValue']))
-        : null,
-      _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
-        ? (json['listOfCustomTypeValue'] as List)
-          .where((e) => e != null)
-          .map((e) => CustomTypeWithAppsyncScalarTypes.fromJson(new Map<String, dynamic>.from(e)))
-          .toList()
-        : null,
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
-  
-  Map<String, dynamic> toJson() => {
-    'id': id, 'customTypeValue': _customTypeValue?.toJson(), 'listOfCustomTypeValue': _listOfCustomTypeValue?.map((CustomTypeWithAppsyncScalarTypes? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
-  
-  Map<String, Object?> toMap() => {
-    'id': id, 'customTypeValue': _customTypeValue, 'listOfCustomTypeValue': _listOfCustomTypeValue, 'createdAt': _createdAt, 'updatedAt': _updatedAt
-  };
 
-  static final QueryModelIdentifier<ModelWithCustomTypeModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>();
+  ModelWithCustomType copyWith(
+      {CustomTypeWithAppsyncScalarTypes? customTypeValue,
+      List<CustomTypeWithAppsyncScalarTypes>? listOfCustomTypeValue}) {
+    return ModelWithCustomType._internal(
+        id: id,
+        customTypeValue: customTypeValue ?? this.customTypeValue,
+        listOfCustomTypeValue:
+            listOfCustomTypeValue ?? this.listOfCustomTypeValue);
+  }
+
+  ModelWithCustomType.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _customTypeValue = json['customTypeValue'] != null
+            ? CustomTypeWithAppsyncScalarTypes.fromJson(
+                Map<String, dynamic>.from(json['customTypeValue']))
+            : null,
+        _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
+            ? (json['listOfCustomTypeValue'] as List)
+                .where((e) => e != null)
+                .map((e) => CustomTypeWithAppsyncScalarTypes.fromJson(
+                    Map<String, dynamic>.from(e)))
+                .toList()
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'customTypeValue': _customTypeValue?.toJson(),
+        'listOfCustomTypeValue': _listOfCustomTypeValue
+            ?.map((CustomTypeWithAppsyncScalarTypes? e) => e?.toJson())
+            .toList(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
+
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'customTypeValue': _customTypeValue,
+        'listOfCustomTypeValue': _listOfCustomTypeValue,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
+  static final QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>
+      MODEL_IDENTIFIER =
+      QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField CUSTOMTYPEVALUE = QueryField(fieldName: "customTypeValue");
-  static final QueryField LISTOFCUSTOMTYPEVALUE = QueryField(fieldName: "listOfCustomTypeValue");
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static final QueryField CUSTOMTYPEVALUE =
+      QueryField(fieldName: "customTypeValue");
+  static final QueryField LISTOFCUSTOMTYPEVALUE =
+      QueryField(fieldName: "listOfCustomTypeValue");
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "ModelWithCustomType";
     modelSchemaDefinition.pluralName = "ModelWithCustomTypes";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
-      fieldName: 'customTypeValue',
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'CustomTypeWithAppsyncScalarTypes')
-    ));
-    
+        fieldName: 'customTypeValue',
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.embedded,
+            ofCustomTypeName: 'CustomTypeWithAppsyncScalarTypes')));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
-      fieldName: 'listOfCustomTypeValue',
-      isRequired: false,
-      isArray: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.embeddedCollection, ofCustomTypeName: 'CustomTypeWithAppsyncScalarTypes')
-    ));
-    
+        fieldName: 'listOfCustomTypeValue',
+        isRequired: false,
+        isArray: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.embeddedCollection,
+            ofCustomTypeName: 'CustomTypeWithAppsyncScalarTypes')));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
 class _ModelWithCustomTypeModelType extends ModelType<ModelWithCustomType> {
   const _ModelWithCustomTypeModelType();
-  
+
   @override
   ModelWithCustomType fromJson(Map<String, dynamic> jsonData) {
     return ModelWithCustomType.fromJson(jsonData);
   }
-  
+
   @override
   String modelName() {
     return 'ModelWithCustomType';
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [ModelWithCustomType] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [ModelWithCustomType] in your schema.
 @immutable
-class ModelWithCustomTypeModelIdentifier implements ModelIdentifier<ModelWithCustomType> {
+class ModelWithCustomTypeModelIdentifier
+    implements ModelIdentifier<ModelWithCustomType> {
   final String id;
 
-  /** Create an instance of ModelWithCustomTypeModelIdentifier using [id] the primary key. */
-  const ModelWithCustomTypeModelIdentifier({
-    required this.id});
-  
+  /// Create an instance of ModelWithCustomTypeModelIdentifier using [id] the primary key.
+  const ModelWithCustomTypeModelIdentifier({required this.id});
+
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id
-  });
-  
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-    .entries
-    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
-    .toList();
-  
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-  
+
   @override
   String toString() => 'ModelWithCustomTypeModelIdentifier(id: $id)';
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    
-    return other is ModelWithCustomTypeModelIdentifier &&
-      id == other.id;
+
+    return other is ModelWithCustomTypeModelIdentifier && id == other.id;
   }
-  
+
   @override
-  int get hashCode =>
-    id.hashCode;
+  int get hashCode => id.hashCode;
 }

@@ -24,11 +24,10 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-
-/** This is an auto generated class representing the Tag type in your schema. */
+/// This is an auto generated class representing the Tag type in your schema.
 @immutable
 class Tag extends Model {
-  static const classType = const _TagModelType();
+  static const classType = _TagModelType();
   final String id;
   final String? _label;
   final List<PostTags>? _posts;
@@ -37,203 +36,212 @@ class Tag extends Model {
 
   @override
   getInstanceType() => classType;
-  
-  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-  
+
   TagModelIdentifier get modelIdentifier {
-      return TagModelIdentifier(
-        id: id
-      );
+    return TagModelIdentifier(id: id);
   }
-  
+
   String get label {
     try {
       return _label!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   List<PostTags>? get posts {
     return _posts;
   }
-  
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
-  const Tag._internal({required this.id, required label, posts, createdAt, updatedAt}): _label = label, _posts = posts, _createdAt = createdAt, _updatedAt = updatedAt;
-  
+
+  const Tag._internal(
+      {required this.id, required label, posts, createdAt, updatedAt})
+      : _label = label,
+        _posts = posts,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
   factory Tag({String? id, required String label, List<PostTags>? posts}) {
     return Tag._internal(
-      id: id == null ? UUID.getUUID() : id,
-      label: label,
-      posts: posts != null ? List<PostTags>.unmodifiable(posts) : posts);
+        id: id == null ? UUID.getUUID() : id,
+        label: label,
+        posts: posts != null ? List<PostTags>.unmodifiable(posts) : posts);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Tag &&
-      id == other.id &&
-      _label == other._label &&
-      DeepCollectionEquality().equals(_posts, other._posts);
+        id == other.id &&
+        _label == other._label &&
+        DeepCollectionEquality().equals(_posts, other._posts);
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
-    var buffer = new StringBuffer();
-    
+    var buffer = StringBuffer();
+
     buffer.write("Tag {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("label=" + "$_label" + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
+
   Tag copyWith({String? label, List<PostTags>? posts}) {
     return Tag._internal(
-      id: id,
-      label: label ?? this.label,
-      posts: posts ?? this.posts);
+        id: id, label: label ?? this.label, posts: posts ?? this.posts);
   }
-  
-  Tag.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _label = json['label'],
-      _posts = json['posts']  != null
-        ? (json['posts']['items'] as List)
-          .where((e) => e != null)
-          .map((e) => PostTags.fromJson(new Map<String, dynamic>.from(e)))
-          .toList()
-        : null,
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
-  
-  Map<String, dynamic> toJson() => {
-    'id': id, 'label': _label, 'posts': _posts?.map((PostTags? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
-  
-  Map<String, Object?> toMap() => {
-    'id': id, 'label': _label, 'posts': _posts, 'createdAt': _createdAt, 'updatedAt': _updatedAt
-  };
 
-  static final QueryModelIdentifier<TagModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<TagModelIdentifier>();
+  Tag.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _label = json['label'],
+        _posts = json['posts'] != null
+            ? (json['posts']['items'] as List)
+                .where((e) => e != null)
+                .map((e) => PostTags.fromJson(Map<String, dynamic>.from(e)))
+                .toList()
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'label': _label,
+        'posts': _posts?.map((PostTags? e) => e?.toJson()).toList(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
+
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'label': _label,
+        'posts': _posts,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
+  static final QueryModelIdentifier<TagModelIdentifier> MODEL_IDENTIFIER =
+      QueryModelIdentifier<TagModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField LABEL = QueryField(fieldName: "label");
   static final QueryField POSTS = QueryField(
-    fieldName: "posts",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'PostTags'));
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+      fieldName: "posts",
+      fieldType:
+          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'PostTags'));
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Tag";
     modelSchemaDefinition.pluralName = "Tags";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Tag.LABEL,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        key: Tag.LABEL,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: Tag.POSTS,
-      isRequired: false,
-      ofModelName: 'PostTags',
-      associatedKey: PostTags.TAG
-    ));
-    
+        key: Tag.POSTS,
+        isRequired: false,
+        ofModelName: 'PostTags',
+        associatedKey: PostTags.TAG));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
 class _TagModelType extends ModelType<Tag> {
   const _TagModelType();
-  
+
   @override
   Tag fromJson(Map<String, dynamic> jsonData) {
     return Tag.fromJson(jsonData);
   }
-  
+
   @override
   String modelName() {
     return 'Tag';
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [Tag] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [Tag] in your schema.
 @immutable
 class TagModelIdentifier implements ModelIdentifier<Tag> {
   final String id;
 
-  /** Create an instance of TagModelIdentifier using [id] the primary key. */
-  const TagModelIdentifier({
-    required this.id});
-  
+  /// Create an instance of TagModelIdentifier using [id] the primary key.
+  const TagModelIdentifier({required this.id});
+
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id
-  });
-  
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-    .entries
-    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
-    .toList();
-  
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-  
+
   @override
   String toString() => 'TagModelIdentifier(id: $id)';
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    
-    return other is TagModelIdentifier &&
-      id == other.id;
+
+    return other is TagModelIdentifier && id == other.id;
   }
-  
+
   @override
-  int get hashCode =>
-    id.hashCode;
+  int get hashCode => id.hashCode;
 }

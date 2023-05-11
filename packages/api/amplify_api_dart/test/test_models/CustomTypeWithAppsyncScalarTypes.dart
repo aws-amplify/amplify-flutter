@@ -26,7 +26,7 @@ import 'package:meta/meta.dart';
 import 'ModelProvider.dart';
 import 'utils.dart';
 
-/** This is an auto generated class representing the CustomTypeWithAppsyncScalarTypes type in your schema. */
+/// This is an auto generated class representing the CustomTypeWithAppsyncScalarTypes type in your schema.
 @immutable
 class CustomTypeWithAppsyncScalarTypes {
   final String? _stringValue;
@@ -396,7 +396,7 @@ class CustomTypeWithAppsyncScalarTypes {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("CustomTypeWithAppsyncScalarTypes {");
     buffer.write("stringValue=" + "$_stringValue" + ", ");
@@ -628,13 +628,13 @@ class CustomTypeWithAppsyncScalarTypes {
             : null,
         _customTypeValue = json['customTypeValue'] != null
             ? SimpleCustomType.fromJson(
-                new Map<String, dynamic>.from(json['customTypeValue']))
+                Map<String, dynamic>.from(json['customTypeValue']))
             : null,
         _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
             ? (json['listOfCustomTypeValue'] as List)
                 .where((e) => e != null)
                 .map((e) =>
-                    SimpleCustomType.fromJson(new Map<String, dynamic>.from(e)))
+                    SimpleCustomType.fromJson(Map<String, dynamic>.from(e)))
                 .toList()
             : null;
 

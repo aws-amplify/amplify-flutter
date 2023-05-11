@@ -57,15 +57,32 @@ class ModelProvider implements ModelProviderInterface {
   @override
   String version = "83bf9177a73379eb13a3becbb8d0fb38";
   @override
-  List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, CpkIntIndexes.schema, CpkIntPrimaryKey.schema, CpkOneToOneBidirectionalChildExplicitCD.schema, CpkOneToOneBidirectionalChildImplicitCD.schema, CpkOneToOneBidirectionalParentCD.schema, CustomOwnerField.schema, ModelWithAppsyncScalarTypes.schema, ModelWithCustomType.schema, Post.schema, PostTags.schema, Tag.schema];
+  List<ModelSchema> modelSchemas = [
+    Blog.schema,
+    Comment.schema,
+    CpkIntIndexes.schema,
+    CpkIntPrimaryKey.schema,
+    CpkOneToOneBidirectionalChildExplicitCD.schema,
+    CpkOneToOneBidirectionalChildImplicitCD.schema,
+    CpkOneToOneBidirectionalParentCD.schema,
+    CustomOwnerField.schema,
+    ModelWithAppsyncScalarTypes.schema,
+    ModelWithCustomType.schema,
+    Post.schema,
+    PostTags.schema,
+    Tag.schema
+  ];
   static final ModelProvider _instance = ModelProvider();
   @override
-  List<ModelSchema> customTypeSchemas = [CustomTypeWithAppsyncScalarTypes.schema, SimpleCustomType.schema];
+  List<ModelSchema> customTypeSchemas = [
+    CustomTypeWithAppsyncScalarTypes.schema,
+    SimpleCustomType.schema
+  ];
 
   static ModelProvider get instance => _instance;
-  
+
   ModelType getModelTypeByModelName(String modelName) {
-    switch(modelName) {
+    switch (modelName) {
       case "Blog":
         return Blog.classType;
       case "Comment":
@@ -93,7 +110,9 @@ class ModelProvider implements ModelProviderInterface {
       case "Tag":
         return Tag.classType;
       default:
-        throw Exception("Failed to find model in model provider for model name: " + modelName);
+        throw Exception(
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }

@@ -15,10 +15,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the Post type in your schema. */
+/// This is an auto generated class representing the Post type in your schema.
 @immutable
 class Post extends Model {
-  static const classType = const _PostModelType();
+  static const classType = _PostModelType();
   final String id;
   final String? _title;
   final int? _rating;
@@ -39,7 +39,7 @@ class Post extends Model {
     try {
       return _title!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -52,7 +52,7 @@ class Post extends Model {
     try {
       return _rating!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -127,7 +127,7 @@ class Post extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Post {");
     buffer.write("id=" + "$id" + ", ");
@@ -165,13 +165,13 @@ class Post extends Model {
         _rating = (json['rating'] as num?)?.toInt(),
         _blog = json['blog']?['serializedData'] != null
             ? Blog.fromJson(
-                new Map<String, dynamic>.from(json['blog']['serializedData']))
+                Map<String, dynamic>.from(json['blog']['serializedData']))
             : null,
         _comments = json['comments'] is List
             ? (json['comments'] as List)
                 .where((e) => e?['serializedData'] != null)
                 .map((e) => Comment.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null

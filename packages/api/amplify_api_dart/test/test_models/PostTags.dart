@@ -24,10 +24,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the PostTags type in your schema. */
+/// This is an auto generated class representing the PostTags type in your schema.
 @immutable
 class PostTags extends Model {
-  static const classType = const _PostTagsModelType();
+  static const classType = _PostTagsModelType();
   final String id;
   final Post? _post;
   final Tag? _tag;
@@ -50,7 +50,7 @@ class PostTags extends Model {
     try {
       return _post!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -63,7 +63,7 @@ class PostTags extends Model {
     try {
       return _tag!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -110,7 +110,7 @@ class PostTags extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("PostTags {");
     buffer.write("id=" + "$id" + ", ");
@@ -134,10 +134,10 @@ class PostTags extends Model {
   PostTags.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _post = json['post'] != null
-            ? Post.fromJson(new Map<String, dynamic>.from(json['post']))
+            ? Post.fromJson(Map<String, dynamic>.from(json['post']))
             : null,
         _tag = json['tag'] != null
-            ? Tag.fromJson(new Map<String, dynamic>.from(json['tag']))
+            ? Tag.fromJson(Map<String, dynamic>.from(json['tag']))
             : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
@@ -223,15 +223,13 @@ class _PostTagsModelType extends ModelType<PostTags> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [PostTags] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [PostTags] in your schema.
 @immutable
 class PostTagsModelIdentifier implements ModelIdentifier<PostTags> {
   final String id;
 
-  /** Create an instance of PostTagsModelIdentifier using [id] the primary key. */
+  /// Create an instance of PostTagsModelIdentifier using [id] the primary key.
   const PostTagsModelIdentifier({required this.id});
 
   @override

@@ -25,10 +25,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the ModelWithCustomType type in your schema. */
+/// This is an auto generated class representing the ModelWithCustomType type in your schema.
 @immutable
 class ModelWithCustomType extends Model {
-  static const classType = const _ModelWithCustomTypeModelType();
+  static const classType = _ModelWithCustomTypeModelType();
   final String id;
   final CustomTypeWithAppsyncScalarTypes? _customTypeValue;
   final List<CustomTypeWithAppsyncScalarTypes>? _listOfCustomTypeValue;
@@ -106,7 +106,7 @@ class ModelWithCustomType extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("ModelWithCustomType {");
     buffer.write("id=" + "$id" + ", ");
@@ -142,13 +142,13 @@ class ModelWithCustomType extends Model {
       : id = json['id'],
         _customTypeValue = json['customTypeValue'] != null
             ? CustomTypeWithAppsyncScalarTypes.fromJson(
-                new Map<String, dynamic>.from(json['customTypeValue']))
+                Map<String, dynamic>.from(json['customTypeValue']))
             : null,
         _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
             ? (json['listOfCustomTypeValue'] as List)
                 .where((e) => e != null)
                 .map((e) => CustomTypeWithAppsyncScalarTypes.fromJson(
-                    new Map<String, dynamic>.from(e)))
+                    Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -232,16 +232,14 @@ class _ModelWithCustomTypeModelType extends ModelType<ModelWithCustomType> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [ModelWithCustomType] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [ModelWithCustomType] in your schema.
 @immutable
 class ModelWithCustomTypeModelIdentifier
     implements ModelIdentifier<ModelWithCustomType> {
   final String id;
 
-  /** Create an instance of ModelWithCustomTypeModelIdentifier using [id] the primary key. */
+  /// Create an instance of ModelWithCustomTypeModelIdentifier using [id] the primary key.
   const ModelWithCustomTypeModelIdentifier({required this.id});
 
   @override

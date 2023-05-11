@@ -25,10 +25,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the Post type in your schema. */
+/// This is an auto generated class representing the Post type in your schema.
 @immutable
 class Post extends Model {
-  static const classType = const _PostModelType();
+  static const classType = _PostModelType();
   final String id;
   final String? _title;
   final int? _rating;
@@ -55,7 +55,7 @@ class Post extends Model {
     try {
       return _title!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -68,7 +68,7 @@ class Post extends Model {
     try {
       return _rating!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -161,7 +161,7 @@ class Post extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Post {");
     buffer.write("id=" + "$id" + ", ");
@@ -206,18 +206,18 @@ class Post extends Model {
             ? TemporalDateTime.fromString(json['created'])
             : null,
         _blog = json['blog'] != null
-            ? Blog.fromJson(new Map<String, dynamic>.from(json['blog']))
+            ? Blog.fromJson(Map<String, dynamic>.from(json['blog']))
             : null,
         _comments = json['comments'] != null
             ? (json['comments']['items'] as List)
                 .where((e) => e != null)
-                .map((e) => Comment.fromJson(new Map<String, dynamic>.from(e)))
+                .map((e) => Comment.fromJson(Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _tags = json['tags'] != null
             ? (json['tags']['items'] as List)
                 .where((e) => e != null)
-                .map((e) => PostTags.fromJson(new Map<String, dynamic>.from(e)))
+                .map((e) => PostTags.fromJson(Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -340,15 +340,13 @@ class _PostModelType extends ModelType<Post> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [Post] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [Post] in your schema.
 @immutable
 class PostModelIdentifier implements ModelIdentifier<Post> {
   final String id;
 
-  /** Create an instance of PostModelIdentifier using [id] the primary key. */
+  /// Create an instance of PostModelIdentifier using [id] the primary key.
   const PostModelIdentifier({required this.id});
 
   @override

@@ -22,8 +22,7 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-
-/** This is an auto generated class representing the SimpleCustomType type in your schema. */
+/// This is an auto generated class representing the SimpleCustomType type in your schema.
 @immutable
 class SimpleCustomType {
   final String? _foo;
@@ -31,72 +30,64 @@ class SimpleCustomType {
   String get foo {
     try {
       return _foo!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
-  const SimpleCustomType._internal({required foo}): _foo = foo;
-  
+
+  const SimpleCustomType._internal({required foo}) : _foo = foo;
+
   factory SimpleCustomType({required String foo}) {
-    return SimpleCustomType._internal(
-      foo: foo);
+    return SimpleCustomType._internal(foo: foo);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is SimpleCustomType &&
-      _foo == other._foo;
+    return other is SimpleCustomType && _foo == other._foo;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
-    var buffer = new StringBuffer();
-    
+    var buffer = StringBuffer();
+
     buffer.write("SimpleCustomType {");
     buffer.write("foo=" + "$_foo");
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  SimpleCustomType copyWith({String? foo}) {
-    return SimpleCustomType._internal(
-      foo: foo ?? this.foo);
-  }
-  
-  SimpleCustomType.fromJson(Map<String, dynamic> json)  
-    : _foo = json['foo'];
-  
-  Map<String, dynamic> toJson() => {
-    'foo': _foo
-  };
-  
-  Map<String, Object?> toMap() => {
-    'foo': _foo
-  };
 
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  SimpleCustomType copyWith({String? foo}) {
+    return SimpleCustomType._internal(foo: foo ?? this.foo);
+  }
+
+  SimpleCustomType.fromJson(Map<String, dynamic> json) : _foo = json['foo'];
+
+  Map<String, dynamic> toJson() => {'foo': _foo};
+
+  Map<String, Object?> toMap() => {'foo': _foo};
+
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "SimpleCustomType";
     modelSchemaDefinition.pluralName = "SimpleCustomTypes";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'foo',
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
+        fieldName: 'foo',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
   });
 }

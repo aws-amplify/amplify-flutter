@@ -24,11 +24,10 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-
-/** This is an auto generated class representing the ModelWithEnum type in your schema. */
+/// This is an auto generated class representing the ModelWithEnum type in your schema.
 @immutable
 class ModelWithEnum extends Model {
-  static const classType = const _ModelWithEnumModelType();
+  static const classType = _ModelWithEnumModelType();
   final String id;
   final EnumField? _enumField;
   final List<EnumField>? _listOfEnumField;
@@ -37,192 +36,217 @@ class ModelWithEnum extends Model {
 
   @override
   getInstanceType() => classType;
-  
-  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-  
+
   ModelWithEnumModelIdentifier get modelIdentifier {
-      return ModelWithEnumModelIdentifier(
-        id: id
-      );
+    return ModelWithEnumModelIdentifier(id: id);
   }
-  
+
   EnumField? get enumField {
     return _enumField;
   }
-  
+
   List<EnumField>? get listOfEnumField {
     return _listOfEnumField;
   }
-  
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
-  const ModelWithEnum._internal({required this.id, enumField, listOfEnumField, createdAt, updatedAt}): _enumField = enumField, _listOfEnumField = listOfEnumField, _createdAt = createdAt, _updatedAt = updatedAt;
-  
-  factory ModelWithEnum({String? id, EnumField? enumField, List<EnumField>? listOfEnumField}) {
+
+  const ModelWithEnum._internal(
+      {required this.id, enumField, listOfEnumField, createdAt, updatedAt})
+      : _enumField = enumField,
+        _listOfEnumField = listOfEnumField,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
+  factory ModelWithEnum(
+      {String? id, EnumField? enumField, List<EnumField>? listOfEnumField}) {
     return ModelWithEnum._internal(
-      id: id == null ? UUID.getUUID() : id,
-      enumField: enumField,
-      listOfEnumField: listOfEnumField != null ? List<EnumField>.unmodifiable(listOfEnumField) : listOfEnumField);
+        id: id == null ? UUID.getUUID() : id,
+        enumField: enumField,
+        listOfEnumField: listOfEnumField != null
+            ? List<EnumField>.unmodifiable(listOfEnumField)
+            : listOfEnumField);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ModelWithEnum &&
-      id == other.id &&
-      _enumField == other._enumField &&
-      DeepCollectionEquality().equals(_listOfEnumField, other._listOfEnumField);
+        id == other.id &&
+        _enumField == other._enumField &&
+        DeepCollectionEquality()
+            .equals(_listOfEnumField, other._listOfEnumField);
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
-    var buffer = new StringBuffer();
-    
+    var buffer = StringBuffer();
+
     buffer.write("ModelWithEnum {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("enumField=" + (_enumField != null ? enumToString(_enumField)! : "null") + ", ");
-    buffer.write("listOfEnumField=" + (_listOfEnumField != null ? _listOfEnumField!.map((e) => enumToString(e)).toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("enumField=" +
+        (_enumField != null ? enumToString(_enumField)! : "null") +
+        ", ");
+    buffer.write("listOfEnumField=" +
+        (_listOfEnumField != null
+            ? _listOfEnumField!.map((e) => enumToString(e)).toString()
+            : "null") +
+        ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  ModelWithEnum copyWith({EnumField? enumField, List<EnumField>? listOfEnumField}) {
-    return ModelWithEnum._internal(
-      id: id,
-      enumField: enumField ?? this.enumField,
-      listOfEnumField: listOfEnumField ?? this.listOfEnumField);
-  }
-  
-  ModelWithEnum.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _enumField = enumFromString<EnumField>(json['enumField'], EnumField.values),
-      _listOfEnumField = json['listOfEnumField'] is List
-        ? (json['listOfEnumField'] as List)
-          .map((e) => enumFromString<EnumField>(e, EnumField.values)!)
-          .toList()
-        : null,
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
-  
-  Map<String, dynamic> toJson() => {
-    'id': id, 'enumField': enumToString(_enumField), 'listOfEnumField': _listOfEnumField?.map((e) => enumToString(e)).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
-  
-  Map<String, Object?> toMap() => {
-    'id': id, 'enumField': _enumField, 'listOfEnumField': _listOfEnumField, 'createdAt': _createdAt, 'updatedAt': _updatedAt
-  };
 
-  static final QueryModelIdentifier<ModelWithEnumModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<ModelWithEnumModelIdentifier>();
+  ModelWithEnum copyWith(
+      {EnumField? enumField, List<EnumField>? listOfEnumField}) {
+    return ModelWithEnum._internal(
+        id: id,
+        enumField: enumField ?? this.enumField,
+        listOfEnumField: listOfEnumField ?? this.listOfEnumField);
+  }
+
+  ModelWithEnum.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _enumField =
+            enumFromString<EnumField>(json['enumField'], EnumField.values),
+        _listOfEnumField = json['listOfEnumField'] is List
+            ? (json['listOfEnumField'] as List)
+                .map((e) => enumFromString<EnumField>(e, EnumField.values)!)
+                .toList()
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'enumField': enumToString(_enumField),
+        'listOfEnumField':
+            _listOfEnumField?.map((e) => enumToString(e)).toList(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
+
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'enumField': _enumField,
+        'listOfEnumField': _listOfEnumField,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
+  static final QueryModelIdentifier<ModelWithEnumModelIdentifier>
+      MODEL_IDENTIFIER = QueryModelIdentifier<ModelWithEnumModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField ENUMFIELD = QueryField(fieldName: "enumField");
-  static final QueryField LISTOFENUMFIELD = QueryField(fieldName: "listOfEnumField");
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static final QueryField LISTOFENUMFIELD =
+      QueryField(fieldName: "listOfEnumField");
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "ModelWithEnum";
     modelSchemaDefinition.pluralName = "ModelWithEnums";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: ModelWithEnum.ENUMFIELD,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
-    ));
-    
+        key: ModelWithEnum.ENUMFIELD,
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: ModelWithEnum.LISTOFENUMFIELD,
-      isRequired: false,
-      isArray: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.collection, ofModelName: describeEnum(ModelFieldTypeEnum.enumeration))
-    ));
-    
+        key: ModelWithEnum.LISTOFENUMFIELD,
+        isRequired: false,
+        isArray: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
+            ofModelName: describeEnum(ModelFieldTypeEnum.enumeration))));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
 class _ModelWithEnumModelType extends ModelType<ModelWithEnum> {
   const _ModelWithEnumModelType();
-  
+
   @override
   ModelWithEnum fromJson(Map<String, dynamic> jsonData) {
     return ModelWithEnum.fromJson(jsonData);
   }
-  
+
   @override
   String modelName() {
     return 'ModelWithEnum';
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [ModelWithEnum] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [ModelWithEnum] in your schema.
 @immutable
 class ModelWithEnumModelIdentifier implements ModelIdentifier<ModelWithEnum> {
   final String id;
 
-  /** Create an instance of ModelWithEnumModelIdentifier using [id] the primary key. */
-  const ModelWithEnumModelIdentifier({
-    required this.id});
-  
+  /// Create an instance of ModelWithEnumModelIdentifier using [id] the primary key.
+  const ModelWithEnumModelIdentifier({required this.id});
+
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id
-  });
-  
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-    .entries
-    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
-    .toList();
-  
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-  
+
   @override
   String toString() => 'ModelWithEnumModelIdentifier(id: $id)';
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    
-    return other is ModelWithEnumModelIdentifier &&
-      id == other.id;
+
+    return other is ModelWithEnumModelIdentifier && id == other.id;
   }
-  
+
   @override
-  int get hashCode =>
-    id.hashCode;
+  int get hashCode => id.hashCode;
 }

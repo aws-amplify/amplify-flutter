@@ -24,11 +24,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the CpkOneToOneBidirectionalChildExplicitCD type in your schema. */
+/// This is an auto generated class representing the CpkOneToOneBidirectionalChildExplicitCD type in your schema.
 @immutable
 class CpkOneToOneBidirectionalChildExplicitCD extends Model {
-  static const classType =
-      const _CpkOneToOneBidirectionalChildExplicitCDModelType();
+  static const classType = _CpkOneToOneBidirectionalChildExplicitCDModelType();
   final String id;
   final String? _name;
   final CpkOneToOneBidirectionalParentCD? _belongsToParent;
@@ -48,7 +47,7 @@ class CpkOneToOneBidirectionalChildExplicitCD extends Model {
       return CpkOneToOneBidirectionalChildExplicitCDModelIdentifier(
           id: id, name: _name!);
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -61,7 +60,7 @@ class CpkOneToOneBidirectionalChildExplicitCD extends Model {
     try {
       return _name!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -117,7 +116,7 @@ class CpkOneToOneBidirectionalChildExplicitCD extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("CpkOneToOneBidirectionalChildExplicitCD {");
     buffer.write("id=" + "$id" + ", ");
@@ -148,7 +147,7 @@ class CpkOneToOneBidirectionalChildExplicitCD extends Model {
         _name = json['name'],
         _belongsToParent = json['belongsToParent'] != null
             ? CpkOneToOneBidirectionalParentCD.fromJson(
-                new Map<String, dynamic>.from(json['belongsToParent']))
+                Map<String, dynamic>.from(json['belongsToParent']))
             : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
@@ -236,20 +235,16 @@ class _CpkOneToOneBidirectionalChildExplicitCDModelType
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [CpkOneToOneBidirectionalChildExplicitCD] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [CpkOneToOneBidirectionalChildExplicitCD] in your schema.
 @immutable
 class CpkOneToOneBidirectionalChildExplicitCDModelIdentifier
     implements ModelIdentifier<CpkOneToOneBidirectionalChildExplicitCD> {
   final String id;
   final String name;
 
-  /**
-   * Create an instance of CpkOneToOneBidirectionalChildExplicitCDModelIdentifier using [id] the primary key.
-   * And [name] the sort key.
-   */
+  /// Create an instance of CpkOneToOneBidirectionalChildExplicitCDModelIdentifier using [id] the primary key.
+  /// And [name] the sort key.
   const CpkOneToOneBidirectionalChildExplicitCDModelIdentifier(
       {required this.id, required this.name});
 

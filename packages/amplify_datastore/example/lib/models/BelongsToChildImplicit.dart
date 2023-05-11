@@ -23,11 +23,10 @@ import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-
-/** This is an auto generated class representing the BelongsToChildImplicit type in your schema. */
+/// This is an auto generated class representing the BelongsToChildImplicit type in your schema.
 @immutable
 class BelongsToChildImplicit extends Model {
-  static const classType = const _BelongsToChildImplicitModelType();
+  static const classType = _BelongsToChildImplicitModelType();
   final String id;
   final String? _name;
   final BelongsToParent? _belongsToParent;
@@ -36,192 +35,211 @@ class BelongsToChildImplicit extends Model {
 
   @override
   getInstanceType() => classType;
-  
-  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-  
+
   BelongsToChildImplicitModelIdentifier get modelIdentifier {
-      return BelongsToChildImplicitModelIdentifier(
-        id: id
-      );
+    return BelongsToChildImplicitModelIdentifier(id: id);
   }
-  
+
   String? get name {
     return _name;
   }
-  
+
   BelongsToParent? get belongsToParent {
     return _belongsToParent;
   }
-  
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
-  const BelongsToChildImplicit._internal({required this.id, name, belongsToParent, createdAt, updatedAt}): _name = name, _belongsToParent = belongsToParent, _createdAt = createdAt, _updatedAt = updatedAt;
-  
-  factory BelongsToChildImplicit({String? id, String? name, BelongsToParent? belongsToParent}) {
+
+  const BelongsToChildImplicit._internal(
+      {required this.id, name, belongsToParent, createdAt, updatedAt})
+      : _name = name,
+        _belongsToParent = belongsToParent,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
+  factory BelongsToChildImplicit(
+      {String? id, String? name, BelongsToParent? belongsToParent}) {
     return BelongsToChildImplicit._internal(
-      id: id == null ? UUID.getUUID() : id,
-      name: name,
-      belongsToParent: belongsToParent);
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        belongsToParent: belongsToParent);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is BelongsToChildImplicit &&
-      id == other.id &&
-      _name == other._name &&
-      _belongsToParent == other._belongsToParent;
+        id == other.id &&
+        _name == other._name &&
+        _belongsToParent == other._belongsToParent;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
-    var buffer = new StringBuffer();
-    
+    var buffer = StringBuffer();
+
     buffer.write("BelongsToChildImplicit {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("belongsToParent=" + (_belongsToParent != null ? _belongsToParent!.toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("belongsToParent=" +
+        (_belongsToParent != null ? _belongsToParent!.toString() : "null") +
+        ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  BelongsToChildImplicit copyWith({String? name, BelongsToParent? belongsToParent}) {
-    return BelongsToChildImplicit._internal(
-      id: id,
-      name: name ?? this.name,
-      belongsToParent: belongsToParent ?? this.belongsToParent);
-  }
-  
-  BelongsToChildImplicit.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _name = json['name'],
-      _belongsToParent = json['belongsToParent'] != null
-        ? BelongsToParent.fromJson(new Map<String, dynamic>.from(json['belongsToParent']))
-        : null,
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
-  
-  Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'belongsToParent': _belongsToParent?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
-  
-  Map<String, Object?> toMap() => {
-    'id': id, 'name': _name, 'belongsToParent': _belongsToParent, 'createdAt': _createdAt, 'updatedAt': _updatedAt
-  };
 
-  static final QueryModelIdentifier<BelongsToChildImplicitModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<BelongsToChildImplicitModelIdentifier>();
+  BelongsToChildImplicit copyWith(
+      {String? name, BelongsToParent? belongsToParent}) {
+    return BelongsToChildImplicit._internal(
+        id: id,
+        name: name ?? this.name,
+        belongsToParent: belongsToParent ?? this.belongsToParent);
+  }
+
+  BelongsToChildImplicit.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _name = json['name'],
+        _belongsToParent = json['belongsToParent'] != null
+            ? BelongsToParent.fromJson(
+                Map<String, dynamic>.from(json['belongsToParent']))
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': _name,
+        'belongsToParent': _belongsToParent?.toJson(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
+
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'belongsToParent': _belongsToParent,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
+  static final QueryModelIdentifier<BelongsToChildImplicitModelIdentifier>
+      MODEL_IDENTIFIER =
+      QueryModelIdentifier<BelongsToChildImplicitModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField BELONGSTOPARENT = QueryField(
-    fieldName: "belongsToParent",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'BelongsToParent'));
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+      fieldName: "belongsToParent",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: 'BelongsToParent'));
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "BelongsToChildImplicit";
     modelSchemaDefinition.pluralName = "BelongsToChildImplicits";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: BelongsToChildImplicit.NAME,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        key: BelongsToChildImplicit.NAME,
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-      key: BelongsToChildImplicit.BELONGSTOPARENT,
-      isRequired: false,
-      targetNames: ['belongsToChildImplicitBelongsToParentId'],
-      ofModelName: 'BelongsToParent'
-    ));
-    
+        key: BelongsToChildImplicit.BELONGSTOPARENT,
+        isRequired: false,
+        targetNames: ['belongsToChildImplicitBelongsToParentId'],
+        ofModelName: 'BelongsToParent'));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
-class _BelongsToChildImplicitModelType extends ModelType<BelongsToChildImplicit> {
+class _BelongsToChildImplicitModelType
+    extends ModelType<BelongsToChildImplicit> {
   const _BelongsToChildImplicitModelType();
-  
+
   @override
   BelongsToChildImplicit fromJson(Map<String, dynamic> jsonData) {
     return BelongsToChildImplicit.fromJson(jsonData);
   }
-  
+
   @override
   String modelName() {
     return 'BelongsToChildImplicit';
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [BelongsToChildImplicit] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [BelongsToChildImplicit] in your schema.
 @immutable
-class BelongsToChildImplicitModelIdentifier implements ModelIdentifier<BelongsToChildImplicit> {
+class BelongsToChildImplicitModelIdentifier
+    implements ModelIdentifier<BelongsToChildImplicit> {
   final String id;
 
-  /** Create an instance of BelongsToChildImplicitModelIdentifier using [id] the primary key. */
-  const BelongsToChildImplicitModelIdentifier({
-    required this.id});
-  
+  /// Create an instance of BelongsToChildImplicitModelIdentifier using [id] the primary key.
+  const BelongsToChildImplicitModelIdentifier({required this.id});
+
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id
-  });
-  
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-    .entries
-    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
-    .toList();
-  
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-  
+
   @override
   String toString() => 'BelongsToChildImplicitModelIdentifier(id: $id)';
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    
-    return other is BelongsToChildImplicitModelIdentifier &&
-      id == other.id;
+
+    return other is BelongsToChildImplicitModelIdentifier && id == other.id;
   }
-  
+
   @override
-  int get hashCode =>
-    id.hashCode;
+  int get hashCode => id.hashCode;
 }

@@ -23,10 +23,10 @@ import 'package:meta/meta.dart';
 
 import 'MtmModelProvider.dart';
 
-/** This is an auto generated class representing the ManyToManyPrimary type in your schema. */
+/// This is an auto generated class representing the ManyToManyPrimary type in your schema.
 @immutable
 class ManyToManyPrimary extends Model {
-  static const classType = const _ManyToManyPrimaryModelType();
+  static const classType = _ManyToManyPrimaryModelType();
   final String id;
   final String? _name;
   final List<FirstMtmRelation>? _firstMtmToSecondary;
@@ -50,7 +50,7 @@ class ManyToManyPrimary extends Model {
     try {
       return _name!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -125,7 +125,7 @@ class ManyToManyPrimary extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("ManyToManyPrimary {");
     buffer.write("id=" + "$id" + ", ");
@@ -159,14 +159,14 @@ class ManyToManyPrimary extends Model {
             ? (json['firstMtmToSecondary']['items'] as List)
                 .where((e) => e != null)
                 .map((e) =>
-                    FirstMtmRelation.fromJson(new Map<String, dynamic>.from(e)))
+                    FirstMtmRelation.fromJson(Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _secondMtmToSecondary = json['secondMtmToSecondary'] != null
             ? (json['secondMtmToSecondary']['items'] as List)
                 .where((e) => e != null)
-                .map((e) => SecondMtmRelation.fromJson(
-                    new Map<String, dynamic>.from(e)))
+                .map((e) =>
+                    SecondMtmRelation.fromJson(Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -263,16 +263,14 @@ class _ManyToManyPrimaryModelType extends ModelType<ManyToManyPrimary> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [ManyToManyPrimary] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [ManyToManyPrimary] in your schema.
 @immutable
 class ManyToManyPrimaryModelIdentifier
     implements ModelIdentifier<ManyToManyPrimary> {
   final String id;
 
-  /** Create an instance of ManyToManyPrimaryModelIdentifier using [id] the primary key. */
+  /// Create an instance of ManyToManyPrimaryModelIdentifier using [id] the primary key.
   const ManyToManyPrimaryModelIdentifier({required this.id});
 
   @override
