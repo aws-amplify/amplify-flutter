@@ -38,9 +38,14 @@ class ModelWithCustomType extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  ModelWithCustomTypeModelIdentifier get modelIdentifier {
+      return ModelWithCustomTypeModelIdentifier(
+        id: id
+      );
   }
   
   CustomTypeWithAppsyncScalarTypes? get customTypeValue {
@@ -99,22 +104,22 @@ class ModelWithCustomType extends Model {
     return buffer.toString();
   }
   
-  ModelWithCustomType copyWith({String? id, CustomTypeWithAppsyncScalarTypes? customTypeValue, List<CustomTypeWithAppsyncScalarTypes>? listOfCustomTypeValue}) {
+  ModelWithCustomType copyWith({CustomTypeWithAppsyncScalarTypes? customTypeValue, List<CustomTypeWithAppsyncScalarTypes>? listOfCustomTypeValue}) {
     return ModelWithCustomType._internal(
-      id: id ?? this.id,
+      id: id,
       customTypeValue: customTypeValue ?? this.customTypeValue,
       listOfCustomTypeValue: listOfCustomTypeValue ?? this.listOfCustomTypeValue);
   }
   
   ModelWithCustomType.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _customTypeValue = json['customTypeValue']?['serializedData'] != null
-        ? CustomTypeWithAppsyncScalarTypes.fromJson(new Map<String, dynamic>.from(json['customTypeValue']['serializedData']))
+      _customTypeValue = json['customTypeValue'] != null
+        ? CustomTypeWithAppsyncScalarTypes.fromJson(new Map<String, dynamic>.from(json['customTypeValue']))
         : null,
       _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
         ? (json['listOfCustomTypeValue'] as List)
           .where((e) => e != null)
-          .map((e) => CustomTypeWithAppsyncScalarTypes.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
+          .map((e) => CustomTypeWithAppsyncScalarTypes.fromJson(new Map<String, dynamic>.from(e)))
           .toList()
         : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
@@ -128,6 +133,7 @@ class ModelWithCustomType extends Model {
     'id': id, 'customTypeValue': _customTypeValue, 'listOfCustomTypeValue': _listOfCustomTypeValue, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
+  static final QueryModelIdentifier<ModelWithCustomTypeModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField CUSTOMTYPEVALUE = QueryField(fieldName: "customTypeValue");
   static final QueryField LISTOFCUSTOMTYPEVALUE = QueryField(fieldName: "listOfCustomTypeValue");
@@ -178,4 +184,48 @@ class _ModelWithCustomTypeModelType extends ModelType<ModelWithCustomType> {
   String modelName() {
     return 'ModelWithCustomType';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [ModelWithCustomType] in your schema.
+ */
+@immutable
+class ModelWithCustomTypeModelIdentifier implements ModelIdentifier<ModelWithCustomType> {
+  final String id;
+
+  /** Create an instance of ModelWithCustomTypeModelIdentifier using [id] the primary key. */
+  const ModelWithCustomTypeModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'ModelWithCustomTypeModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is ModelWithCustomTypeModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

@@ -38,9 +38,14 @@ class HasManyParentBiDirectionalExplicit extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  HasManyParentBiDirectionalExplicitModelIdentifier get modelIdentifier {
+      return HasManyParentBiDirectionalExplicitModelIdentifier(
+        id: id
+      );
   }
   
   String? get name {
@@ -98,9 +103,9 @@ class HasManyParentBiDirectionalExplicit extends Model {
     return buffer.toString();
   }
   
-  HasManyParentBiDirectionalExplicit copyWith({String? id, String? name, List<HasManyChildBiDirectionalExplicit>? biDirectionalExplicitChildren}) {
+  HasManyParentBiDirectionalExplicit copyWith({String? name, List<HasManyChildBiDirectionalExplicit>? biDirectionalExplicitChildren}) {
     return HasManyParentBiDirectionalExplicit._internal(
-      id: id ?? this.id,
+      id: id,
       name: name ?? this.name,
       biDirectionalExplicitChildren: biDirectionalExplicitChildren ?? this.biDirectionalExplicitChildren);
   }
@@ -125,6 +130,7 @@ class HasManyParentBiDirectionalExplicit extends Model {
     'id': id, 'name': _name, 'biDirectionalExplicitChildren': _biDirectionalExplicitChildren, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
+  static final QueryModelIdentifier<HasManyParentBiDirectionalExplicitModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<HasManyParentBiDirectionalExplicitModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField BIDIRECTIONALEXPLICITCHILDREN = QueryField(
@@ -177,4 +183,48 @@ class _HasManyParentBiDirectionalExplicitModelType extends ModelType<HasManyPare
   String modelName() {
     return 'HasManyParentBiDirectionalExplicit';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [HasManyParentBiDirectionalExplicit] in your schema.
+ */
+@immutable
+class HasManyParentBiDirectionalExplicitModelIdentifier implements ModelIdentifier<HasManyParentBiDirectionalExplicit> {
+  final String id;
+
+  /** Create an instance of HasManyParentBiDirectionalExplicitModelIdentifier using [id] the primary key. */
+  const HasManyParentBiDirectionalExplicitModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'HasManyParentBiDirectionalExplicitModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is HasManyParentBiDirectionalExplicitModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

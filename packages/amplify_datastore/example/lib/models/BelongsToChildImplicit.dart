@@ -37,9 +37,14 @@ class BelongsToChildImplicit extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  BelongsToChildImplicitModelIdentifier get modelIdentifier {
+      return BelongsToChildImplicitModelIdentifier(
+        id: id
+      );
   }
   
   String? get name {
@@ -98,9 +103,9 @@ class BelongsToChildImplicit extends Model {
     return buffer.toString();
   }
   
-  BelongsToChildImplicit copyWith({String? id, String? name, BelongsToParent? belongsToParent}) {
+  BelongsToChildImplicit copyWith({String? name, BelongsToParent? belongsToParent}) {
     return BelongsToChildImplicit._internal(
-      id: id ?? this.id,
+      id: id,
       name: name ?? this.name,
       belongsToParent: belongsToParent ?? this.belongsToParent);
   }
@@ -122,6 +127,7 @@ class BelongsToChildImplicit extends Model {
     'id': id, 'name': _name, 'belongsToParent': _belongsToParent, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
+  static final QueryModelIdentifier<BelongsToChildImplicitModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<BelongsToChildImplicitModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField BELONGSTOPARENT = QueryField(
@@ -142,7 +148,7 @@ class BelongsToChildImplicit extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
       key: BelongsToChildImplicit.BELONGSTOPARENT,
       isRequired: false,
-      targetName: 'belongsToChildImplicitBelongsToParentId',
+      targetNames: ['belongsToChildImplicitBelongsToParentId'],
       ofModelName: 'BelongsToParent'
     ));
     
@@ -174,4 +180,48 @@ class _BelongsToChildImplicitModelType extends ModelType<BelongsToChildImplicit>
   String modelName() {
     return 'BelongsToChildImplicit';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [BelongsToChildImplicit] in your schema.
+ */
+@immutable
+class BelongsToChildImplicitModelIdentifier implements ModelIdentifier<BelongsToChildImplicit> {
+  final String id;
+
+  /** Create an instance of BelongsToChildImplicitModelIdentifier using [id] the primary key. */
+  const BelongsToChildImplicitModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'BelongsToChildImplicitModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is BelongsToChildImplicitModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

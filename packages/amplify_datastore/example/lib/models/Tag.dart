@@ -38,9 +38,14 @@ class Tag extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  TagModelIdentifier get modelIdentifier {
+      return TagModelIdentifier(
+        id: id
+      );
   }
   
   String get label {
@@ -107,9 +112,9 @@ class Tag extends Model {
     return buffer.toString();
   }
   
-  Tag copyWith({String? id, String? label, List<PostTags>? posts}) {
+  Tag copyWith({String? label, List<PostTags>? posts}) {
     return Tag._internal(
-      id: id ?? this.id,
+      id: id,
       label: label ?? this.label,
       posts: posts ?? this.posts);
   }
@@ -134,6 +139,7 @@ class Tag extends Model {
     'id': id, 'label': _label, 'posts': _posts, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
+  static final QueryModelIdentifier<TagModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<TagModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField LABEL = QueryField(fieldName: "label");
   static final QueryField POSTS = QueryField(
@@ -186,4 +192,48 @@ class _TagModelType extends ModelType<Tag> {
   String modelName() {
     return 'Tag';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [Tag] in your schema.
+ */
+@immutable
+class TagModelIdentifier implements ModelIdentifier<Tag> {
+  final String id;
+
+  /** Create an instance of TagModelIdentifier using [id] the primary key. */
+  const TagModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'TagModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is TagModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

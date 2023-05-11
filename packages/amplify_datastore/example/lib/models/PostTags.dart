@@ -37,9 +37,14 @@ class PostTags extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  PostTagsModelIdentifier get modelIdentifier {
+      return PostTagsModelIdentifier(
+        id: id
+      );
   }
   
   Post get post {
@@ -116,9 +121,9 @@ class PostTags extends Model {
     return buffer.toString();
   }
   
-  PostTags copyWith({String? id, Post? post, Tag? tag}) {
+  PostTags copyWith({Post? post, Tag? tag}) {
     return PostTags._internal(
-      id: id ?? this.id,
+      id: id,
       post: post ?? this.post,
       tag: tag ?? this.tag);
   }
@@ -142,6 +147,7 @@ class PostTags extends Model {
     'id': id, 'post': _post, 'tag': _tag, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
+  static final QueryModelIdentifier<PostTagsModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<PostTagsModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField POST = QueryField(
     fieldName: "post",
@@ -154,8 +160,8 @@ class PostTags extends Model {
     modelSchemaDefinition.pluralName = "PostTags";
     
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["postID"], name: "byPost"),
-      ModelIndex(fields: const ["tagID"], name: "byTag")
+      ModelIndex(fields: const ["postId"], name: "byPost"),
+      ModelIndex(fields: const ["tagId"], name: "byTag")
     ];
     
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
@@ -163,14 +169,14 @@ class PostTags extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
       key: PostTags.POST,
       isRequired: true,
-      targetName: 'postID',
+      targetNames: ['postId'],
       ofModelName: 'Post'
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
       key: PostTags.TAG,
       isRequired: true,
-      targetName: 'tagID',
+      targetNames: ['tagId'],
       ofModelName: 'Tag'
     ));
     
@@ -202,4 +208,48 @@ class _PostTagsModelType extends ModelType<PostTags> {
   String modelName() {
     return 'PostTags';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [PostTags] in your schema.
+ */
+@immutable
+class PostTagsModelIdentifier implements ModelIdentifier<PostTags> {
+  final String id;
+
+  /** Create an instance of PostTagsModelIdentifier using [id] the primary key. */
+  const PostTagsModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'PostTagsModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is PostTagsModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

@@ -365,13 +365,13 @@ class CustomTypeWithAppsyncScalarTypes {
           .map((e) => enumFromString<EnumField>(e, EnumField.values)!)
           .toList()
         : null,
-      _customTypeValue = json['customTypeValue']?['serializedData'] != null
-        ? SimpleCustomType.fromJson(new Map<String, dynamic>.from(json['customTypeValue']['serializedData']))
+      _customTypeValue = json['customTypeValue'] != null
+        ? SimpleCustomType.fromJson(new Map<String, dynamic>.from(json['customTypeValue']))
         : null,
       _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
         ? (json['listOfCustomTypeValue'] as List)
           .where((e) => e != null)
-          .map((e) => SimpleCustomType.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
+          .map((e) => SimpleCustomType.fromJson(new Map<String, dynamic>.from(e)))
           .toList()
         : null;
   

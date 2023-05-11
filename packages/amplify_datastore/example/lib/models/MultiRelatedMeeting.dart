@@ -38,9 +38,14 @@ class MultiRelatedMeeting extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  MultiRelatedMeetingModelIdentifier get modelIdentifier {
+      return MultiRelatedMeetingModelIdentifier(
+        id: id
+      );
   }
   
   String get title {
@@ -107,9 +112,9 @@ class MultiRelatedMeeting extends Model {
     return buffer.toString();
   }
   
-  MultiRelatedMeeting copyWith({String? id, String? title, List<MultiRelatedRegistration>? attendees}) {
+  MultiRelatedMeeting copyWith({String? title, List<MultiRelatedRegistration>? attendees}) {
     return MultiRelatedMeeting._internal(
-      id: id ?? this.id,
+      id: id,
       title: title ?? this.title,
       attendees: attendees ?? this.attendees);
   }
@@ -134,6 +139,7 @@ class MultiRelatedMeeting extends Model {
     'id': id, 'title': _title, 'attendees': _attendees, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
+  static final QueryModelIdentifier<MultiRelatedMeetingModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<MultiRelatedMeetingModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField ATTENDEES = QueryField(
@@ -190,4 +196,48 @@ class _MultiRelatedMeetingModelType extends ModelType<MultiRelatedMeeting> {
   String modelName() {
     return 'MultiRelatedMeeting';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [MultiRelatedMeeting] in your schema.
+ */
+@immutable
+class MultiRelatedMeetingModelIdentifier implements ModelIdentifier<MultiRelatedMeeting> {
+  final String id;
+
+  /** Create an instance of MultiRelatedMeetingModelIdentifier using [id] the primary key. */
+  const MultiRelatedMeetingModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'MultiRelatedMeetingModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is MultiRelatedMeetingModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

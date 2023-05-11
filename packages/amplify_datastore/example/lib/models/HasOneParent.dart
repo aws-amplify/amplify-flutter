@@ -40,9 +40,14 @@ class HasOneParent extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  HasOneParentModelIdentifier get modelIdentifier {
+      return HasOneParentModelIdentifier(
+        id: id
+      );
   }
   
   String? get name {
@@ -120,9 +125,9 @@ class HasOneParent extends Model {
     return buffer.toString();
   }
   
-  HasOneParent copyWith({String? id, String? name, HasOneChild? implicitChild, String? explicitChildID, HasOneChild? explicitChild, String? hasOneParentImplicitChildId}) {
+  HasOneParent copyWith({String? name, HasOneChild? implicitChild, String? explicitChildID, HasOneChild? explicitChild, String? hasOneParentImplicitChildId}) {
     return HasOneParent._internal(
-      id: id ?? this.id,
+      id: id,
       name: name ?? this.name,
       implicitChild: implicitChild ?? this.implicitChild,
       explicitChildID: explicitChildID ?? this.explicitChildID,
@@ -152,6 +157,7 @@ class HasOneParent extends Model {
     'id': id, 'name': _name, 'implicitChild': _implicitChild, 'explicitChildID': _explicitChildID, 'explicitChild': _explicitChild, 'createdAt': _createdAt, 'updatedAt': _updatedAt, 'hasOneParentImplicitChildId': _hasOneParentImplicitChildId
   };
 
+  static final QueryModelIdentifier<HasOneParentModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<HasOneParentModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField IMPLICITCHILD = QueryField(
@@ -228,4 +234,48 @@ class _HasOneParentModelType extends ModelType<HasOneParent> {
   String modelName() {
     return 'HasOneParent';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [HasOneParent] in your schema.
+ */
+@immutable
+class HasOneParentModelIdentifier implements ModelIdentifier<HasOneParent> {
+  final String id;
+
+  /** Create an instance of HasOneParentModelIdentifier using [id] the primary key. */
+  const HasOneParentModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'HasOneParentModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is HasOneParentModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

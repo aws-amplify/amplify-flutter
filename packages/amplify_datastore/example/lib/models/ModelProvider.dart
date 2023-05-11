@@ -25,6 +25,25 @@ import 'BelongsToChildImplicit.dart';
 import 'BelongsToParent.dart';
 import 'Blog.dart';
 import 'Comment.dart';
+import 'CpkHasManyChildBidirectionalExplicit.dart';
+import 'CpkHasManyChildBidirectionalImplicit.dart';
+import 'CpkHasManyParentBidirectionalExplicit.dart';
+import 'CpkHasManyParentBidirectionalImplicit.dart';
+import 'CpkHasManyUnidirectionalChildExplicit.dart';
+import 'CpkHasManyUnidirectionalChildImplicit.dart';
+import 'CpkHasManyUnidirectionalParent.dart';
+import 'CpkHasOneUnidirectionalChild.dart';
+import 'CpkHasOneUnidirectionalParent.dart';
+import 'CpkInventory.dart';
+import 'CpkManyToManyPost.dart';
+import 'CpkManyToManyTag.dart';
+import 'CpkOneToOneBidirectionalChildExplicitCD.dart';
+import 'CpkOneToOneBidirectionalChildExplicitID.dart';
+import 'CpkOneToOneBidirectionalChildImplicitCD.dart';
+import 'CpkOneToOneBidirectionalChildImplicitID.dart';
+import 'CpkOneToOneBidirectionalParentCD.dart';
+import 'CpkOneToOneBidirectionalParentID.dart';
+import 'CpkPostTags.dart';
 import 'HasManyChildBiDirectionalExplicit.dart';
 import 'HasManyChildBiDirectionalImplicit.dart';
 import 'HasManyChildExplicit.dart';
@@ -51,6 +70,25 @@ export 'BelongsToChildImplicit.dart';
 export 'BelongsToParent.dart';
 export 'Blog.dart';
 export 'Comment.dart';
+export 'CpkHasManyChildBidirectionalExplicit.dart';
+export 'CpkHasManyChildBidirectionalImplicit.dart';
+export 'CpkHasManyParentBidirectionalExplicit.dart';
+export 'CpkHasManyParentBidirectionalImplicit.dart';
+export 'CpkHasManyUnidirectionalChildExplicit.dart';
+export 'CpkHasManyUnidirectionalChildImplicit.dart';
+export 'CpkHasManyUnidirectionalParent.dart';
+export 'CpkHasOneUnidirectionalChild.dart';
+export 'CpkHasOneUnidirectionalParent.dart';
+export 'CpkInventory.dart';
+export 'CpkManyToManyPost.dart';
+export 'CpkManyToManyTag.dart';
+export 'CpkOneToOneBidirectionalChildExplicitCD.dart';
+export 'CpkOneToOneBidirectionalChildExplicitID.dart';
+export 'CpkOneToOneBidirectionalChildImplicitCD.dart';
+export 'CpkOneToOneBidirectionalChildImplicitID.dart';
+export 'CpkOneToOneBidirectionalParentCD.dart';
+export 'CpkOneToOneBidirectionalParentID.dart';
+export 'CpkPostTags.dart';
 export 'CustomTypeWithAppsyncScalarTypes.dart';
 export 'EnumField.dart';
 export 'HasManyChildBiDirectionalExplicit.dart';
@@ -75,9 +113,9 @@ export 'Tag.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "f80fece878bf91a76f44577fe599b120";
+  String version = "bc8b47d938d0b7deff50ac977653bed7";
   @override
-  List<ModelSchema> modelSchemas = [BelongsToChildExplicit.schema, BelongsToChildImplicit.schema, BelongsToParent.schema, Blog.schema, Comment.schema, HasManyChildBiDirectionalExplicit.schema, HasManyChildBiDirectionalImplicit.schema, HasManyChildExplicit.schema, HasManyChildImplicit.schema, HasManyParent.schema, HasManyParentBiDirectionalExplicit.schema, HasManyParentBiDirectionalImplicit.schema, HasOneChild.schema, HasOneParent.schema, ModelWithAppsyncScalarTypes.schema, ModelWithCustomType.schema, ModelWithEnum.schema, MultiRelatedAttendee.schema, MultiRelatedMeeting.schema, MultiRelatedRegistration.schema, Post.schema, PostTags.schema, Tag.schema];
+  List<ModelSchema> modelSchemas = [BelongsToChildExplicit.schema, BelongsToChildImplicit.schema, BelongsToParent.schema, Blog.schema, Comment.schema, CpkHasManyChildBidirectionalExplicit.schema, CpkHasManyChildBidirectionalImplicit.schema, CpkHasManyParentBidirectionalExplicit.schema, CpkHasManyParentBidirectionalImplicit.schema, CpkHasManyUnidirectionalChildExplicit.schema, CpkHasManyUnidirectionalChildImplicit.schema, CpkHasManyUnidirectionalParent.schema, CpkHasOneUnidirectionalChild.schema, CpkHasOneUnidirectionalParent.schema, CpkInventory.schema, CpkManyToManyPost.schema, CpkManyToManyTag.schema, CpkOneToOneBidirectionalChildExplicitCD.schema, CpkOneToOneBidirectionalChildExplicitID.schema, CpkOneToOneBidirectionalChildImplicitCD.schema, CpkOneToOneBidirectionalChildImplicitID.schema, CpkOneToOneBidirectionalParentCD.schema, CpkOneToOneBidirectionalParentID.schema, CpkPostTags.schema, HasManyChildBiDirectionalExplicit.schema, HasManyChildBiDirectionalImplicit.schema, HasManyChildExplicit.schema, HasManyChildImplicit.schema, HasManyParent.schema, HasManyParentBiDirectionalExplicit.schema, HasManyParentBiDirectionalImplicit.schema, HasOneChild.schema, HasOneParent.schema, ModelWithAppsyncScalarTypes.schema, ModelWithCustomType.schema, ModelWithEnum.schema, MultiRelatedAttendee.schema, MultiRelatedMeeting.schema, MultiRelatedRegistration.schema, Post.schema, PostTags.schema, Tag.schema];
   static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [CustomTypeWithAppsyncScalarTypes.schema, SimpleCustomType.schema];
@@ -96,6 +134,44 @@ class ModelProvider implements ModelProviderInterface {
         return Blog.classType;
       case "Comment":
         return Comment.classType;
+      case "CpkHasManyChildBidirectionalExplicit":
+        return CpkHasManyChildBidirectionalExplicit.classType;
+      case "CpkHasManyChildBidirectionalImplicit":
+        return CpkHasManyChildBidirectionalImplicit.classType;
+      case "CpkHasManyParentBidirectionalExplicit":
+        return CpkHasManyParentBidirectionalExplicit.classType;
+      case "CpkHasManyParentBidirectionalImplicit":
+        return CpkHasManyParentBidirectionalImplicit.classType;
+      case "CpkHasManyUnidirectionalChildExplicit":
+        return CpkHasManyUnidirectionalChildExplicit.classType;
+      case "CpkHasManyUnidirectionalChildImplicit":
+        return CpkHasManyUnidirectionalChildImplicit.classType;
+      case "CpkHasManyUnidirectionalParent":
+        return CpkHasManyUnidirectionalParent.classType;
+      case "CpkHasOneUnidirectionalChild":
+        return CpkHasOneUnidirectionalChild.classType;
+      case "CpkHasOneUnidirectionalParent":
+        return CpkHasOneUnidirectionalParent.classType;
+      case "CpkInventory":
+        return CpkInventory.classType;
+      case "CpkManyToManyPost":
+        return CpkManyToManyPost.classType;
+      case "CpkManyToManyTag":
+        return CpkManyToManyTag.classType;
+      case "CpkOneToOneBidirectionalChildExplicitCD":
+        return CpkOneToOneBidirectionalChildExplicitCD.classType;
+      case "CpkOneToOneBidirectionalChildExplicitID":
+        return CpkOneToOneBidirectionalChildExplicitID.classType;
+      case "CpkOneToOneBidirectionalChildImplicitCD":
+        return CpkOneToOneBidirectionalChildImplicitCD.classType;
+      case "CpkOneToOneBidirectionalChildImplicitID":
+        return CpkOneToOneBidirectionalChildImplicitID.classType;
+      case "CpkOneToOneBidirectionalParentCD":
+        return CpkOneToOneBidirectionalParentCD.classType;
+      case "CpkOneToOneBidirectionalParentID":
+        return CpkOneToOneBidirectionalParentID.classType;
+      case "CpkPostTags":
+        return CpkPostTags.classType;
       case "HasManyChildBiDirectionalExplicit":
         return HasManyChildBiDirectionalExplicit.classType;
       case "HasManyChildBiDirectionalImplicit":

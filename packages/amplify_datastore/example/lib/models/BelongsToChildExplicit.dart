@@ -37,9 +37,14 @@ class BelongsToChildExplicit extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  BelongsToChildExplicitModelIdentifier get modelIdentifier {
+      return BelongsToChildExplicitModelIdentifier(
+        id: id
+      );
   }
   
   String? get name {
@@ -98,9 +103,9 @@ class BelongsToChildExplicit extends Model {
     return buffer.toString();
   }
   
-  BelongsToChildExplicit copyWith({String? id, String? name, BelongsToParent? belongsToParent}) {
+  BelongsToChildExplicit copyWith({String? name, BelongsToParent? belongsToParent}) {
     return BelongsToChildExplicit._internal(
-      id: id ?? this.id,
+      id: id,
       name: name ?? this.name,
       belongsToParent: belongsToParent ?? this.belongsToParent);
   }
@@ -122,6 +127,7 @@ class BelongsToChildExplicit extends Model {
     'id': id, 'name': _name, 'belongsToParent': _belongsToParent, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
+  static final QueryModelIdentifier<BelongsToChildExplicitModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<BelongsToChildExplicitModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField BELONGSTOPARENT = QueryField(
@@ -142,7 +148,7 @@ class BelongsToChildExplicit extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
       key: BelongsToChildExplicit.BELONGSTOPARENT,
       isRequired: false,
-      targetName: 'belongsToParentID',
+      targetNames: ['belongsToParentID'],
       ofModelName: 'BelongsToParent'
     ));
     
@@ -174,4 +180,48 @@ class _BelongsToChildExplicitModelType extends ModelType<BelongsToChildExplicit>
   String modelName() {
     return 'BelongsToChildExplicit';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [BelongsToChildExplicit] in your schema.
+ */
+@immutable
+class BelongsToChildExplicitModelIdentifier implements ModelIdentifier<BelongsToChildExplicit> {
+  final String id;
+
+  /** Create an instance of BelongsToChildExplicitModelIdentifier using [id] the primary key. */
+  const BelongsToChildExplicitModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'BelongsToChildExplicitModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is BelongsToChildExplicitModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

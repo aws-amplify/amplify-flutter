@@ -38,9 +38,14 @@ class Blog extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  BlogModelIdentifier get modelIdentifier {
+      return BlogModelIdentifier(
+        id: id
+      );
   }
   
   String get name {
@@ -107,9 +112,9 @@ class Blog extends Model {
     return buffer.toString();
   }
   
-  Blog copyWith({String? id, String? name, List<Post>? posts}) {
+  Blog copyWith({String? name, List<Post>? posts}) {
     return Blog._internal(
-      id: id ?? this.id,
+      id: id,
       name: name ?? this.name,
       posts: posts ?? this.posts);
   }
@@ -134,6 +139,7 @@ class Blog extends Model {
     'id': id, 'name': _name, 'posts': _posts, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
+  static final QueryModelIdentifier<BlogModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<BlogModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField POSTS = QueryField(
@@ -186,4 +192,48 @@ class _BlogModelType extends ModelType<Blog> {
   String modelName() {
     return 'Blog';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [Blog] in your schema.
+ */
+@immutable
+class BlogModelIdentifier implements ModelIdentifier<Blog> {
+  final String id;
+
+  /** Create an instance of BlogModelIdentifier using [id] the primary key. */
+  const BlogModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'BlogModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is BlogModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

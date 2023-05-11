@@ -38,9 +38,14 @@ class ModelWithEnum extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  ModelWithEnumModelIdentifier get modelIdentifier {
+      return ModelWithEnumModelIdentifier(
+        id: id
+      );
   }
   
   EnumField? get enumField {
@@ -99,9 +104,9 @@ class ModelWithEnum extends Model {
     return buffer.toString();
   }
   
-  ModelWithEnum copyWith({String? id, EnumField? enumField, List<EnumField>? listOfEnumField}) {
+  ModelWithEnum copyWith({EnumField? enumField, List<EnumField>? listOfEnumField}) {
     return ModelWithEnum._internal(
-      id: id ?? this.id,
+      id: id,
       enumField: enumField ?? this.enumField,
       listOfEnumField: listOfEnumField ?? this.listOfEnumField);
   }
@@ -125,6 +130,7 @@ class ModelWithEnum extends Model {
     'id': id, 'enumField': _enumField, 'listOfEnumField': _listOfEnumField, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
+  static final QueryModelIdentifier<ModelWithEnumModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<ModelWithEnumModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField ENUMFIELD = QueryField(fieldName: "enumField");
   static final QueryField LISTOFENUMFIELD = QueryField(fieldName: "listOfEnumField");
@@ -175,4 +181,48 @@ class _ModelWithEnumModelType extends ModelType<ModelWithEnum> {
   String modelName() {
     return 'ModelWithEnum';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [ModelWithEnum] in your schema.
+ */
+@immutable
+class ModelWithEnumModelIdentifier implements ModelIdentifier<ModelWithEnum> {
+  final String id;
+
+  /** Create an instance of ModelWithEnumModelIdentifier using [id] the primary key. */
+  const ModelWithEnumModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'ModelWithEnumModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is ModelWithEnumModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

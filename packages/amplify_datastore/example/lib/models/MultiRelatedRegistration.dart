@@ -37,9 +37,14 @@ class MultiRelatedRegistration extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  MultiRelatedRegistrationModelIdentifier get modelIdentifier {
+      return MultiRelatedRegistrationModelIdentifier(
+        id: id
+      );
   }
   
   MultiRelatedMeeting get meeting {
@@ -116,9 +121,9 @@ class MultiRelatedRegistration extends Model {
     return buffer.toString();
   }
   
-  MultiRelatedRegistration copyWith({String? id, MultiRelatedMeeting? meeting, MultiRelatedAttendee? attendee}) {
+  MultiRelatedRegistration copyWith({MultiRelatedMeeting? meeting, MultiRelatedAttendee? attendee}) {
     return MultiRelatedRegistration._internal(
-      id: id ?? this.id,
+      id: id,
       meeting: meeting ?? this.meeting,
       attendee: attendee ?? this.attendee);
   }
@@ -142,6 +147,7 @@ class MultiRelatedRegistration extends Model {
     'id': id, 'meeting': _meeting, 'attendee': _attendee, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
+  static final QueryModelIdentifier<MultiRelatedRegistrationModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<MultiRelatedRegistrationModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField MEETING = QueryField(
     fieldName: "meeting",
@@ -164,14 +170,14 @@ class MultiRelatedRegistration extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
       key: MultiRelatedRegistration.MEETING,
       isRequired: true,
-      targetName: 'meetingId',
+      targetNames: ['meetingId'],
       ofModelName: 'MultiRelatedMeeting'
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
       key: MultiRelatedRegistration.ATTENDEE,
       isRequired: true,
-      targetName: 'attendeeId',
+      targetNames: ['attendeeId'],
       ofModelName: 'MultiRelatedAttendee'
     ));
     
@@ -203,4 +209,48 @@ class _MultiRelatedRegistrationModelType extends ModelType<MultiRelatedRegistrat
   String modelName() {
     return 'MultiRelatedRegistration';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [MultiRelatedRegistration] in your schema.
+ */
+@immutable
+class MultiRelatedRegistrationModelIdentifier implements ModelIdentifier<MultiRelatedRegistration> {
+  final String id;
+
+  /** Create an instance of MultiRelatedRegistrationModelIdentifier using [id] the primary key. */
+  const MultiRelatedRegistrationModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'MultiRelatedRegistrationModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is MultiRelatedRegistrationModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

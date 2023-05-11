@@ -42,9 +42,14 @@ class Post extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  PostModelIdentifier get modelIdentifier {
+      return PostModelIdentifier(
+        id: id
+      );
   }
   
   String get title {
@@ -147,9 +152,9 @@ class Post extends Model {
     return buffer.toString();
   }
   
-  Post copyWith({String? id, String? title, int? rating, TemporalDateTime? created, Blog? blog, List<Comment>? comments, List<PostTags>? tags}) {
+  Post copyWith({String? title, int? rating, TemporalDateTime? created, Blog? blog, List<Comment>? comments, List<PostTags>? tags}) {
     return Post._internal(
-      id: id ?? this.id,
+      id: id,
       title: title ?? this.title,
       rating: rating ?? this.rating,
       created: created ?? this.created,
@@ -189,6 +194,7 @@ class Post extends Model {
     'id': id, 'title': _title, 'rating': _rating, 'created': _created, 'blog': _blog, 'comments': _comments, 'tags': _tags, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
+  static final QueryModelIdentifier<PostModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<PostModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField RATING = QueryField(fieldName: "rating");
@@ -233,7 +239,7 @@ class Post extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
       key: Post.BLOG,
       isRequired: false,
-      targetName: 'blogID',
+      targetNames: ['blogID'],
       ofModelName: 'Blog'
     ));
     
@@ -279,4 +285,48 @@ class _PostModelType extends ModelType<Post> {
   String modelName() {
     return 'Post';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [Post] in your schema.
+ */
+@immutable
+class PostModelIdentifier implements ModelIdentifier<Post> {
+  final String id;
+
+  /** Create an instance of PostModelIdentifier using [id] the primary key. */
+  const PostModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'PostModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is PostModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

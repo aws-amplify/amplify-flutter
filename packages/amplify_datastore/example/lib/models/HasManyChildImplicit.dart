@@ -36,9 +36,14 @@ class HasManyChildImplicit extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  HasManyChildImplicitModelIdentifier get modelIdentifier {
+      return HasManyChildImplicitModelIdentifier(
+        id: id
+      );
   }
   
   String? get name {
@@ -97,9 +102,9 @@ class HasManyChildImplicit extends Model {
     return buffer.toString();
   }
   
-  HasManyChildImplicit copyWith({String? id, String? name, String? hasManyParentImplicitChildrenId}) {
+  HasManyChildImplicit copyWith({String? name, String? hasManyParentImplicitChildrenId}) {
     return HasManyChildImplicit._internal(
-      id: id ?? this.id,
+      id: id,
       name: name ?? this.name,
       hasManyParentImplicitChildrenId: hasManyParentImplicitChildrenId ?? this.hasManyParentImplicitChildrenId);
   }
@@ -119,6 +124,7 @@ class HasManyChildImplicit extends Model {
     'id': id, 'name': _name, 'createdAt': _createdAt, 'updatedAt': _updatedAt, 'hasManyParentImplicitChildrenId': _hasManyParentImplicitChildrenId
   };
 
+  static final QueryModelIdentifier<HasManyChildImplicitModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<HasManyChildImplicitModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField HASMANYPARENTIMPLICITCHILDRENID = QueryField(fieldName: "hasManyParentImplicitChildrenId");
@@ -168,4 +174,48 @@ class _HasManyChildImplicitModelType extends ModelType<HasManyChildImplicit> {
   String modelName() {
     return 'HasManyChildImplicit';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [HasManyChildImplicit] in your schema.
+ */
+@immutable
+class HasManyChildImplicitModelIdentifier implements ModelIdentifier<HasManyChildImplicit> {
+  final String id;
+
+  /** Create an instance of HasManyChildImplicitModelIdentifier using [id] the primary key. */
+  const HasManyChildImplicitModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'HasManyChildImplicitModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is HasManyChildImplicitModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

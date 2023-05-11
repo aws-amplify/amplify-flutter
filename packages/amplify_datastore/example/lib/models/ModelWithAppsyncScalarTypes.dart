@@ -63,9 +63,14 @@ class ModelWithAppsyncScalarTypes extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  ModelWithAppsyncScalarTypesModelIdentifier get modelIdentifier {
+      return ModelWithAppsyncScalarTypesModelIdentifier(
+        id: id
+      );
   }
   
   String? get stringValue {
@@ -306,9 +311,9 @@ class ModelWithAppsyncScalarTypes extends Model {
     return buffer.toString();
   }
   
-  ModelWithAppsyncScalarTypes copyWith({String? id, String? stringValue, String? altStringValue, List<String>? listOfStringValue, int? intValue, int? altIntValue, List<int>? listOfIntValue, double? floatValue, List<double>? listOfFloatValue, bool? booleanValue, List<bool>? listOfBooleanValue, TemporalDate? awsDateValue, List<TemporalDate>? listOfAWSDateValue, TemporalTime? awsTimeValue, List<TemporalTime>? listOfAWSTimeValue, TemporalDateTime? awsDateTimeValue, List<TemporalDateTime>? listOfAWSDateTimeValue, TemporalTimestamp? awsTimestampValue, List<TemporalTimestamp>? listOfAWSTimestampValue, String? awsEmailValue, List<String>? listOfAWSEmailValue, String? awsJsonValue, List<String>? listOfAWSJsonValue, String? awsPhoneValue, List<String>? listOfAWSPhoneValue, String? awsURLValue, List<String>? listOfAWSURLValue, String? awsIPAddressValue, List<String>? listOfAWSIPAddressValue}) {
+  ModelWithAppsyncScalarTypes copyWith({String? stringValue, String? altStringValue, List<String>? listOfStringValue, int? intValue, int? altIntValue, List<int>? listOfIntValue, double? floatValue, List<double>? listOfFloatValue, bool? booleanValue, List<bool>? listOfBooleanValue, TemporalDate? awsDateValue, List<TemporalDate>? listOfAWSDateValue, TemporalTime? awsTimeValue, List<TemporalTime>? listOfAWSTimeValue, TemporalDateTime? awsDateTimeValue, List<TemporalDateTime>? listOfAWSDateTimeValue, TemporalTimestamp? awsTimestampValue, List<TemporalTimestamp>? listOfAWSTimestampValue, String? awsEmailValue, List<String>? listOfAWSEmailValue, String? awsJsonValue, List<String>? listOfAWSJsonValue, String? awsPhoneValue, List<String>? listOfAWSPhoneValue, String? awsURLValue, List<String>? listOfAWSURLValue, String? awsIPAddressValue, List<String>? listOfAWSIPAddressValue}) {
     return ModelWithAppsyncScalarTypes._internal(
-      id: id ?? this.id,
+      id: id,
       stringValue: stringValue ?? this.stringValue,
       altStringValue: altStringValue ?? this.altStringValue,
       listOfStringValue: listOfStringValue ?? this.listOfStringValue,
@@ -380,6 +385,7 @@ class ModelWithAppsyncScalarTypes extends Model {
     'id': id, 'stringValue': _stringValue, 'altStringValue': _altStringValue, 'listOfStringValue': _listOfStringValue, 'intValue': _intValue, 'altIntValue': _altIntValue, 'listOfIntValue': _listOfIntValue, 'floatValue': _floatValue, 'listOfFloatValue': _listOfFloatValue, 'booleanValue': _booleanValue, 'listOfBooleanValue': _listOfBooleanValue, 'awsDateValue': _awsDateValue, 'listOfAWSDateValue': _listOfAWSDateValue, 'awsTimeValue': _awsTimeValue, 'listOfAWSTimeValue': _listOfAWSTimeValue, 'awsDateTimeValue': _awsDateTimeValue, 'listOfAWSDateTimeValue': _listOfAWSDateTimeValue, 'awsTimestampValue': _awsTimestampValue, 'listOfAWSTimestampValue': _listOfAWSTimestampValue, 'awsEmailValue': _awsEmailValue, 'listOfAWSEmailValue': _listOfAWSEmailValue, 'awsJsonValue': _awsJsonValue, 'listOfAWSJsonValue': _listOfAWSJsonValue, 'awsPhoneValue': _awsPhoneValue, 'listOfAWSPhoneValue': _listOfAWSPhoneValue, 'awsURLValue': _awsURLValue, 'listOfAWSURLValue': _listOfAWSURLValue, 'awsIPAddressValue': _awsIPAddressValue, 'listOfAWSIPAddressValue': _listOfAWSIPAddressValue, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
+  static final QueryModelIdentifier<ModelWithAppsyncScalarTypesModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<ModelWithAppsyncScalarTypesModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField STRINGVALUE = QueryField(fieldName: "stringValue");
   static final QueryField ALTSTRINGVALUE = QueryField(fieldName: "altStringValue");
@@ -624,4 +630,48 @@ class _ModelWithAppsyncScalarTypesModelType extends ModelType<ModelWithAppsyncSc
   String modelName() {
     return 'ModelWithAppsyncScalarTypes';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [ModelWithAppsyncScalarTypes] in your schema.
+ */
+@immutable
+class ModelWithAppsyncScalarTypesModelIdentifier implements ModelIdentifier<ModelWithAppsyncScalarTypes> {
+  final String id;
+
+  /** Create an instance of ModelWithAppsyncScalarTypesModelIdentifier using [id] the primary key. */
+  const ModelWithAppsyncScalarTypesModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'ModelWithAppsyncScalarTypesModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is ModelWithAppsyncScalarTypesModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }

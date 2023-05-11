@@ -37,9 +37,14 @@ class Comment extends Model {
   @override
   getInstanceType() => classType;
   
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+  
+  CommentModelIdentifier get modelIdentifier {
+      return CommentModelIdentifier(
+        id: id
+      );
   }
   
   Post? get post {
@@ -107,9 +112,9 @@ class Comment extends Model {
     return buffer.toString();
   }
   
-  Comment copyWith({String? id, Post? post, String? content}) {
+  Comment copyWith({Post? post, String? content}) {
     return Comment._internal(
-      id: id ?? this.id,
+      id: id,
       post: post ?? this.post,
       content: content ?? this.content);
   }
@@ -131,6 +136,7 @@ class Comment extends Model {
     'id': id, 'post': _post, 'content': _content, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
+  static final QueryModelIdentifier<CommentModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<CommentModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField POST = QueryField(
     fieldName: "post",
@@ -149,7 +155,7 @@ class Comment extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
       key: Comment.POST,
       isRequired: false,
-      targetName: 'postID',
+      targetNames: ['postID'],
       ofModelName: 'Post'
     ));
     
@@ -187,4 +193,48 @@ class _CommentModelType extends ModelType<Comment> {
   String modelName() {
     return 'Comment';
   }
+}
+
+/**
+ * This is an auto generated class representing the model identifier
+ * of [Comment] in your schema.
+ */
+@immutable
+class CommentModelIdentifier implements ModelIdentifier<Comment> {
+  final String id;
+
+  /** Create an instance of CommentModelIdentifier using [id] the primary key. */
+  const CommentModelIdentifier({
+    required this.id});
+  
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+  
+  @override
+  String toString() => 'CommentModelIdentifier(id: $id)';
+  
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    
+    return other is CommentModelIdentifier &&
+      id == other.id;
+  }
+  
+  @override
+  int get hashCode =>
+    id.hashCode;
 }
