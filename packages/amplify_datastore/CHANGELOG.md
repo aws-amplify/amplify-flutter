@@ -1,3 +1,11 @@
+## 1.1.0-supports-only-mobile
+
+### Features
+- Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
+
+### Fixes
+- fix(repo): AGP 8.0 compatibility ([#2942](https://github.com/aws-amplify/amplify-flutter/pull/2942))
+
 ## 1.0.0-supports-only-mobile.0
 
 Version 1 of the Amplify libraries have been released to support all the platforms Flutter supports. 
