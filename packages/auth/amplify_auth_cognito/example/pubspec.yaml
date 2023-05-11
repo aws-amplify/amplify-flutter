@@ -4,15 +4,15 @@ version: 0.1.0
 publish_to: none
 
 environment:
-  sdk: ">=3.0.0-0 <4.0.0"
-  flutter: ">=3.10.0-0"
+  sdk: ^3.0.0
+  flutter: ">=3.10.0"
 
 dependencies:
-  amplify_api: ">=1.0.0-next.8 <1.0.0-next.9"
-  amplify_auth_cognito: ">=1.0.0-next.8 <1.0.0-next.9"
-  amplify_authenticator: ">=1.0.0-next.5+1 <1.0.0-next.6"
-  amplify_core: ">=1.0.0-next.8 <1.0.0-next.9"
-  amplify_flutter: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_api: any
+  amplify_auth_cognito: any
+  amplify_authenticator: any
+  amplify_core: any
+  amplify_flutter: any
   amplify_native_legacy_wrapper: ^0.1.0
   flutter:
     sdk: flutter
@@ -23,13 +23,13 @@ dependency_overrides:
   test_api: ^0.5.0
 
 dev_dependencies:
-  amplify_auth_cognito_dart: ">=0.9.0 <0.10.0"
+  amplify_auth_cognito_dart: any
   amplify_auth_cognito_test: any
   amplify_integration_test: any
   amplify_lints:
     path: ../../../amplify_lints
   async: ^2.10.0
-  aws_signature_v4: ">=0.3.1+2 <0.4.0"
+  aws_signature_v4: any
   checks: ^0.2.0
   collection: any
   flutter_driver:

@@ -9,7 +9,7 @@ part of 'waitable_trait.dart';
 WaitableTrait _$WaitableTraitFromJson(Map<String, dynamic> json) =>
     WaitableTrait(
       (json['waiters'] as Map<String, dynamic>).map(
-        (k, e) => MapEntry(k, Waiter.fromJson(e as Object)),
+        (k, e) => MapEntry(k, Waiter.fromJson(e)),
       ),
     );
 

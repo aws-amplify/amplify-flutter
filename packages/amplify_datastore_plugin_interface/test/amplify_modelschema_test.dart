@@ -94,6 +94,7 @@ void main() {
             isArray: false,
             association: ModelAssociation(
                 associationType: ModelAssociationEnum.BelongsTo,
+                // ignore: deprecated_member_use
                 targetName: "postID")));
 
     expect(
@@ -150,6 +151,7 @@ void main() {
             isArray: false,
             association: ModelAssociation(
                 associationType: ModelAssociationEnum.BelongsTo,
+                // ignore: deprecated_member_use
                 targetName: "blogID")));
   });
 

@@ -131,13 +131,13 @@ class SimpleUnionRestJson1Serializer
       object.name,
       switch (object) {
         SimpleUnionInt(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(int),
-        ),
+            value,
+            specifiedType: const FullType(int),
+          ),
         SimpleUnionString(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         SimpleUnionSdkUnknown(:final value) => value,
       },
     ];

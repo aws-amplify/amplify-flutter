@@ -195,7 +195,7 @@ jobs:
   #     - name: Install dependencies
   #       uses: ./.github/composite_actions/install_dependencies
   #       with:
-  #         flutter-channel: stable
+  #         channel: stable
   #         flutter-version: "3.3.10"
 
   #     - name: Fetch Amplify backend configurations

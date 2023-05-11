@@ -408,7 +408,7 @@ class HttpPrefixHeadersBuilder
   }
 }
 
-abstract class HttpTraitsBuilder {
+abstract mixin class HttpTraitsBuilder {
   void replace(HttpTraits other);
   void update(void Function(HttpTraitsBuilder) updates);
   MapBuilder<String, MemberShape> get httpHeaders;

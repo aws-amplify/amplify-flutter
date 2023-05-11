@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Minor bug fixes and improvements
+
 ## 1.0.0
 
 - Stable v1 release

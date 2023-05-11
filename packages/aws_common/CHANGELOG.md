@@ -1,3 +1,8 @@
+## 0.5.0
+
+### Features
+- Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
+
 ## 0.4.2+4
 
 - Minor bug fixes and improvements

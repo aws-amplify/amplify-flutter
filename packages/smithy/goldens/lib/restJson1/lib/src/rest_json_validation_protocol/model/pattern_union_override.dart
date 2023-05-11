@@ -135,13 +135,13 @@ class PatternUnionOverrideRestJson1Serializer
       object.name,
       switch (object) {
         PatternUnionOverrideFirst(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         PatternUnionOverrideSecond(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         PatternUnionOverrideSdkUnknown(:final value) => value,
       },
     ];

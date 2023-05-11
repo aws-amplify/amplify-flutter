@@ -469,6 +469,7 @@ environment:
 
         setUp(() async {
           repo.bumpAllVersions(
+            repo.allPackages,
             changesForPackage: (pkg) => changesForPackage(
               pkg.name,
               baseRef: baseRef,

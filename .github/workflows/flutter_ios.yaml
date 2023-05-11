@@ -25,7 +25,8 @@ jobs:
       # Allows other matrix items to run if one fails
       fail-fast: false
       matrix:
-        sdk:
+        channel:
+          - stable
           - beta
     steps:
       - name: Git Checkout
@@ -38,7 +39,7 @@ jobs:
         uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # 2.8.0
         with:
           cache: true
-          channel: ${{ matrix.sdk }}
+          channel: ${{ matrix.channel }}
 
       - name: Setup aft
         run: flutter pub global activate -spath packages/aft

@@ -137,13 +137,13 @@ class RecursiveUnionOneRestJson1Serializer
       object.name,
       switch (object) {
         RecursiveUnionOneString(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i2.RecursiveEnumString),
-        ),
+            value,
+            specifiedType: const FullType(_i2.RecursiveEnumString),
+          ),
         RecursiveUnionOneUnion(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i3.RecursiveUnionTwo),
-        ),
+            value,
+            specifiedType: const FullType(_i3.RecursiveUnionTwo),
+          ),
         RecursiveUnionOneSdkUnknown(:final value) => value,
       },
     ];

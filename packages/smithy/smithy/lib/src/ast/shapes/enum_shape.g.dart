@@ -110,7 +110,7 @@ class _$IntEnumShapeSerializer implements StructuredSerializer<IntEnumShape> {
   }
 }
 
-abstract class EnumShapeBuilder implements NamedMembersShapeBuilder {
+abstract mixin class EnumShapeBuilder implements NamedMembersShapeBuilder {
   void replace(covariant EnumShape other);
   void update(void Function(EnumShapeBuilder) updates);
   NamedMembersMap? get members;

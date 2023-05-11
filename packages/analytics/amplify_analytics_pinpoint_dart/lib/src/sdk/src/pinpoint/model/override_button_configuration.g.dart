@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_analytics_pinpoint_dart.pinpoint.model.override_button_configuration;
+part of 'override_button_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

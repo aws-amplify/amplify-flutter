@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_analytics_pinpoint_dart.pinpoint.model.payload_too_large_exception;
+part of 'payload_too_large_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

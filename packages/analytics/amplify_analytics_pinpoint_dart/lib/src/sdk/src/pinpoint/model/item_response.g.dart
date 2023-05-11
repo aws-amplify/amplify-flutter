@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_analytics_pinpoint_dart.pinpoint.model.item_response;
+part of 'item_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

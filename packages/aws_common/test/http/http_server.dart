@@ -17,16 +17,14 @@ Future<void> clientHybridMain(
     StreamChannel<Object?> channel,
     HttpRequest request,
     int port,
-  )
-      handleH1,
+  ) handleH1,
   FutureOr<void> Function(
     StreamChannel<Object?> channel,
     ServerTransportStream request,
     Stream<List<int>> body,
     Map<String, String> headers,
     int port,
-  )
-      handleH2,
+  ) handleH2,
 ) async {
   final queue = StreamQueue(channel.stream);
   final protocol = await queue.next as String;

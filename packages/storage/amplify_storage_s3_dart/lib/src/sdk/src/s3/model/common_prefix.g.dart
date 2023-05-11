@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_storage_s3_dart.s3.model.common_prefix;
+part of 'common_prefix.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

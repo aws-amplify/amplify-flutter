@@ -1,3 +1,12 @@
+## 0.10.0
+
+### Features
+- Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
+
+### Fixes
+- fix(auth): Fetch AWS credentials after Hosted UI login ([#2956](https://github.com/aws-amplify/amplify-flutter/pull/2956))
+- fix(auth): Transform network exceptions ([#2967](https://github.com/aws-amplify/amplify-flutter/pull/2967))
+
 ## 0.9.0+2
 
 - Minor bug fixes and improvements

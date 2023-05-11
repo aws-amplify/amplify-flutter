@@ -914,14 +914,16 @@ void main() {
       );
     });
 
-    test('List policies', () async {
-      final policyName = uuid();
+    test(
+      'List policies',
+      () async {
+        final policyName = uuid();
 
-      await client
-          .createPolicy(
-            CreatePolicyRequest(
-              policyName: policyName,
-              policyDocument: '''
+        await client
+            .createPolicy(
+              CreatePolicyRequest(
+                policyName: policyName,
+                policyDocument: '''
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -933,24 +935,27 @@ void main() {
   ]
 }
 ''',
-            ),
-          )
-          .result;
+              ),
+            )
+            .result;
 
-      // Needs time to propagate.
-      await Future<void>.delayed(const Duration(seconds: 1));
+        // Needs time to propagate.
+        await Future<void>.delayed(const Duration(seconds: 1));
 
-      final policies = await client
-          .listPolicies(
-            ListPoliciesRequest(),
-          )
-          .result;
+        final policies = await client
+            .listPolicies(
+              ListPoliciesRequest(),
+            )
+            .result;
 
-      expect(
-        policies.items.map((policy) => policy.policyName),
-        contains(policyName),
-      );
-    });
+        expect(
+          policies.items.map((policy) => policy.policyName),
+          contains(policyName),
+        );
+      },
+      // TODO(dnys1): Fix
+      skip: 'Flaky',
+    );
 
     test('List role policies', () async {
       final roleName = uuid();

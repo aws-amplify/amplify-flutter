@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_storage_s3_dart.s3.model.invalid_object_state;
+part of 'invalid_object_state.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

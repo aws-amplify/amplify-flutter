@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_storage_s3_dart.s3.model.delete_objects_output;
+part of 'delete_objects_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

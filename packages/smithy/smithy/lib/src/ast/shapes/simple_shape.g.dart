@@ -6,7 +6,7 @@ part of 'simple_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-abstract class SimpleShapeBuilder implements ShapeBuilder {
+abstract mixin class SimpleShapeBuilder implements ShapeBuilder {
   void replace(covariant SimpleShape other);
   void update(void Function(SimpleShapeBuilder) updates);
   ShapeId? get shapeId;

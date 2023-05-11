@@ -4,16 +4,16 @@ version: 0.1.0
 publish_to: none
 
 environment:
-  sdk: ">=3.0.0-0 <4.0.0"
-  flutter: ">=3.10.0-0"
+  sdk: ^3.0.0
+  flutter: ">=3.10.0"
 
 dependencies:
-  amplify_auth_cognito: ">=1.0.0-next.8 <1.0.0-next.9"
-  amplify_authenticator: ">=1.0.0-next.5+1 <1.0.0-next.6"
-  amplify_core: ">=1.0.0-next.8 <1.0.0-next.9"
-  amplify_flutter: ">=1.0.0-next.8 <1.0.0-next.9"
-  amplify_secure_storage: ">=0.3.0 <0.4.0"
-  amplify_storage_s3: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_auth_cognito: any
+  amplify_authenticator: any
+  amplify_core: any
+  amplify_flutter: any
+  amplify_secure_storage: any
+  amplify_storage_s3: any
   flutter:
     sdk: flutter
   go_router: ^6.5.7
@@ -22,9 +22,9 @@ dev_dependencies:
   amplify_integration_test: any
   amplify_lints:
     path: ../../../amplify_lints
-  amplify_storage_s3_dart: ">=0.2.0 <0.3.0"
-  aws_common: ">=0.4.0 <0.5.0"
-  drift: ">=2.4.0 <2.7.0"
+  amplify_storage_s3_dart: any
+  aws_common: any
+  drift: ">=2.4.0 <2.9.0"
   flutter_driver:
     sdk: flutter
   flutter_test:

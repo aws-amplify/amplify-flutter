@@ -1,3 +1,8 @@
+## 1.1.0
+
+### Features
+- Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
+
 ## 1.0.0
 
 We are thrilled to release version 1.0 of the Amplify Flutter libraries!

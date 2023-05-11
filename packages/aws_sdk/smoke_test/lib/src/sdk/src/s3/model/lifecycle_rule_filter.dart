@@ -231,27 +231,27 @@ class LifecycleRuleFilterRestXmlSerializer
       object.name,
       switch (object) {
         LifecycleRuleFilterPrefix(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         LifecycleRuleFilterTag(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i2.Tag),
-        ),
+            value,
+            specifiedType: const FullType(_i2.Tag),
+          ),
         LifecycleRuleFilterObjectSizeGreaterThan(:final value) =>
           serializers.serialize(
-          value,
-          specifiedType: const FullType(_i3.Int64),
-        ),
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ),
         LifecycleRuleFilterObjectSizeLessThan(:final value) =>
           serializers.serialize(
-          value,
-          specifiedType: const FullType(_i3.Int64),
-        ),
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ),
         LifecycleRuleFilterAnd(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i4.LifecycleRuleAndOperator),
-        ),
+            value,
+            specifiedType: const FullType(_i4.LifecycleRuleAndOperator),
+          ),
         LifecycleRuleFilterSdkUnknown(:final value) => value,
       },
     ];

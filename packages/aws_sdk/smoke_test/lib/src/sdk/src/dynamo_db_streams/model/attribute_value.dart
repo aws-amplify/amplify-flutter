@@ -406,63 +406,63 @@ class AttributeValueAwsJson10Serializer
       object.name,
       switch (object) {
         AttributeValueS(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         AttributeValueN(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         AttributeValueB(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i2.Uint8List),
-        ),
+            value,
+            specifiedType: const FullType(_i2.Uint8List),
+          ),
         AttributeValueSs(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(String)],
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
           ),
-        ),
         AttributeValueNs(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(String)],
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
           ),
-        ),
         AttributeValueBs(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.Uint8List)],
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.Uint8List)],
+            ),
           ),
-        ),
         AttributeValueM(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
-              FullType(String),
-              FullType(AttributeValue),
-            ],
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(AttributeValue),
+              ],
+            ),
           ),
-        ),
         AttributeValueL(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(AttributeValue)],
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(AttributeValue)],
+            ),
           ),
-        ),
         AttributeValueNull(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(bool),
-        ),
+            value,
+            specifiedType: const FullType(bool),
+          ),
         AttributeValueBool(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(bool),
-        ),
+            value,
+            specifiedType: const FullType(bool),
+          ),
         AttributeValueSdkUnknown(:final value) => value,
       },
     ];

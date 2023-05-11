@@ -1,3 +1,9 @@
+## 0.5.0
+
+### Features
+- Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
+- feat(smithy): `awsQuery` protocol support
+
 ## 0.4.0+7
 
 - Minor bug fixes and improvements

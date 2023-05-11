@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_storage_s3_dart.s3.model.head_object_output;
+part of 'head_object_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

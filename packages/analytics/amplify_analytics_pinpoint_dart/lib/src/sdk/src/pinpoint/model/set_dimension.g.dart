@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_analytics_pinpoint_dart.pinpoint.model.set_dimension;
+part of 'set_dimension.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

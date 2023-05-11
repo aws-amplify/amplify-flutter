@@ -46,8 +46,7 @@ class MockCognitoIdentityProviderClient
     Future<ResendConfirmationCodeResponse> Function()? resendConfirmationCode,
     Future<RespondToAuthChallengeResponse> Function(
       RespondToAuthChallengeRequest,
-    )?
-        respondToAuthChallenge,
+    )? respondToAuthChallenge,
     Future<RevokeTokenResponse> Function()? revokeToken,
     Future<SignUpResponse> Function()? signUp,
     Future<UpdateDeviceStatusResponse> Function()? updateDeviceStatus,

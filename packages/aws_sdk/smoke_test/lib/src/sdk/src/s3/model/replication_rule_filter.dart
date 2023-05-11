@@ -177,17 +177,17 @@ class ReplicationRuleFilterRestXmlSerializer
       object.name,
       switch (object) {
         ReplicationRuleFilterPrefix(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         ReplicationRuleFilterTag(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i2.Tag),
-        ),
+            value,
+            specifiedType: const FullType(_i2.Tag),
+          ),
         ReplicationRuleFilterAnd(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i3.ReplicationRuleAndOperator),
-        ),
+            value,
+            specifiedType: const FullType(_i3.ReplicationRuleAndOperator),
+          ),
         ReplicationRuleFilterSdkUnknown(:final value) => value,
       },
     ];

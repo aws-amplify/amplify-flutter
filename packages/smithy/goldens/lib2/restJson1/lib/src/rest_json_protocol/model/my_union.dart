@@ -366,54 +366,54 @@ class MyUnionRestJson1Serializer
       object.name,
       switch (object) {
         MyUnionStringValue(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ),
+            value,
+            specifiedType: const FullType(String),
+          ),
         MyUnionBooleanValue(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(bool),
-        ),
+            value,
+            specifiedType: const FullType(bool),
+          ),
         MyUnionNumberValue(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(int),
-        ),
+            value,
+            specifiedType: const FullType(int),
+          ),
         MyUnionBlobValue(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i2.Uint8List),
-        ),
+            value,
+            specifiedType: const FullType(_i2.Uint8List),
+          ),
         MyUnionTimestampValue(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(DateTime),
-        ),
+            value,
+            specifiedType: const FullType(DateTime),
+          ),
         MyUnionEnumValue(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i3.FooEnum),
-        ),
+            value,
+            specifiedType: const FullType(_i3.FooEnum),
+          ),
         MyUnionListValue(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(String)],
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
           ),
-        ),
         MyUnionMapValue(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(
-            _i6.BuiltMap,
-            [
-              FullType(String),
-              FullType(String),
-            ],
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
           ),
-        ),
         MyUnionStructureValue(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i4.GreetingStruct),
-        ),
+            value,
+            specifiedType: const FullType(_i4.GreetingStruct),
+          ),
         MyUnionRenamedStructureValue(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i5.RenamedGreeting),
-        ),
+            value,
+            specifiedType: const FullType(_i5.RenamedGreeting),
+          ),
         MyUnionSdkUnknown(:final value) => value,
       },
     ];

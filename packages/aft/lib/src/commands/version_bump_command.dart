@@ -29,6 +29,21 @@ class VersionBumpCommand extends AmplifyCommand
         help: 'Responds "yes" to all prompts',
         defaultsTo: false,
         negatable: false,
+      )
+      ..addFlag(
+        'force-breaking',
+        help: 'Forces a major version bump',
+        negatable: false,
+      )
+      ..addFlag(
+        'force-non-breaking',
+        help: 'Forces a minor version bump',
+        negatable: false,
+      )
+      ..addFlag(
+        'force-patch',
+        help: 'Forces a patch version bump',
+        negatable: false,
       );
   }
 
@@ -43,6 +58,16 @@ class VersionBumpCommand extends AmplifyCommand
 
   late final bool preview = argResults!['preview'] as bool;
 
+  late final VersionBumpType? forcedBumpType = () {
+    final forceBreaking = argResults!['force-breaking'] as bool;
+    if (forceBreaking) return VersionBumpType.breaking;
+    final forceNonBreaking = argResults!['force-non-breaking'] as bool;
+    if (forceNonBreaking) return VersionBumpType.nonBreaking;
+    final forcePatch = argResults!['force-patch'] as bool;
+    if (forcePatch) return VersionBumpType.patch;
+    return null;
+  }();
+
   GitChanges _changesForPackage(PackageInfo package) {
     final baseRef = this.baseRef ?? repo.latestBumpRef(package);
     if (baseRef == null) {
@@ -56,12 +81,14 @@ class VersionBumpCommand extends AmplifyCommand
 
   Future<List<PackageInfo>> _updateVersions() async {
     repo.bumpAllVersions(
+      commandPackages,
       changesForPackage: _changesForPackage,
+      forcedBumpType: forcedBumpType,
     );
     final changelogUpdates = repo.changelogUpdates;
 
     final bumpedPackages = <PackageInfo>[];
-    for (final package in commandPackages.values) {
+    for (final package in repo.publishablePackages()) {
       final edits = package.pubspecInfo.pubspecYamlEditor.edits;
       if (edits.isNotEmpty) {
         bumpedPackages.add(package);
@@ -121,7 +148,7 @@ class VersionBumpCommand extends AmplifyCommand
     logger.info('Version successfully bumped');
     // Stage changes
     final publishableBumpedPackages =
-        bumpedPackages.where((pkg) => pkg.isPublishable).toList();
+        commandPackages.values.where((pkg) => pkg.isPublishable).toList();
     final mergedChangelog = Changelog.empty().makeVersionEntry(
       commits: {
         for (final package in publishableBumpedPackages)

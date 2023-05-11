@@ -106,9 +106,9 @@ class PlayerActionRestJson1Serializer
       object.name,
       switch (object) {
         PlayerActionQuit(:final value) => serializers.serialize(
-          value,
-          specifiedType: const FullType(_i1.Unit),
-        ),
+            value,
+            specifiedType: const FullType(_i1.Unit),
+          ),
         PlayerActionSdkUnknown(:final value) => value,
       },
     ];
