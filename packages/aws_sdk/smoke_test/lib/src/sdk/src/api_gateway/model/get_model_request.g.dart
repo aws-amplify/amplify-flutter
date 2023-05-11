@@ -8,22 +8,22 @@ part of smoke_test.api_gateway.model.get_model_request;
 
 class _$GetModelRequest extends GetModelRequest {
   @override
-  final bool? flatten;
+  final String restApiId;
   @override
   final String modelName;
   @override
-  final String restApiId;
+  final bool? flatten;
 
   factory _$GetModelRequest([void Function(GetModelRequestBuilder)? updates]) =>
       (new GetModelRequestBuilder()..update(updates))._build();
 
   _$GetModelRequest._(
-      {this.flatten, required this.modelName, required this.restApiId})
+      {required this.restApiId, required this.modelName, this.flatten})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        modelName, r'GetModelRequest', 'modelName');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetModelRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        modelName, r'GetModelRequest', 'modelName');
   }
 
   @override
@@ -38,17 +38,17 @@ class _$GetModelRequest extends GetModelRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetModelRequest &&
-        flatten == other.flatten &&
+        restApiId == other.restApiId &&
         modelName == other.modelName &&
-        restApiId == other.restApiId;
+        flatten == other.flatten;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, flatten.hashCode);
-    _$hash = $jc(_$hash, modelName.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, modelName.hashCode);
+    _$hash = $jc(_$hash, flatten.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,17 +58,17 @@ class GetModelRequestBuilder
     implements Builder<GetModelRequest, GetModelRequestBuilder> {
   _$GetModelRequest? _$v;
 
-  bool? _flatten;
-  bool? get flatten => _$this._flatten;
-  set flatten(bool? flatten) => _$this._flatten = flatten;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _modelName;
   String? get modelName => _$this._modelName;
   set modelName(String? modelName) => _$this._modelName = modelName;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  bool? _flatten;
+  bool? get flatten => _$this._flatten;
+  set flatten(bool? flatten) => _$this._flatten = flatten;
 
   GetModelRequestBuilder() {
     GetModelRequest._init(this);
@@ -77,9 +77,9 @@ class GetModelRequestBuilder
   GetModelRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _flatten = $v.flatten;
-      _modelName = $v.modelName;
       _restApiId = $v.restApiId;
+      _modelName = $v.modelName;
+      _flatten = $v.flatten;
       _$v = null;
     }
     return this;
@@ -102,11 +102,11 @@ class GetModelRequestBuilder
   _$GetModelRequest _build() {
     final _$result = _$v ??
         new _$GetModelRequest._(
-            flatten: flatten,
+            restApiId: BuiltValueNullFieldError.checkNotNull(
+                restApiId, r'GetModelRequest', 'restApiId'),
             modelName: BuiltValueNullFieldError.checkNotNull(
                 modelName, r'GetModelRequest', 'modelName'),
-            restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'GetModelRequest', 'restApiId'));
+            flatten: flatten);
     replace(_$result);
     return _$result;
   }

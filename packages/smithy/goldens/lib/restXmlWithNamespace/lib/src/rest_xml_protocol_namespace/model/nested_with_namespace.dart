@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_with_namespace_v1.rest_xml_protocol_namespace.model.nested_with_namespace; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -68,18 +69,18 @@ class NestedWithNamespaceRestXmlSerializer
     final result = NestedWithNamespaceBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'xsi:someName':
-          if (value != null) {
-            result.attrField = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.attrField = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -89,25 +90,25 @@ class NestedWithNamespaceRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    NestedWithNamespace object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as NestedWithNamespace);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'NestedWithNamespace',
         _i2.XmlNamespace('https://example.com'),
       )
     ];
-    if (payload.attrField != null) {
-      result.add(_i3.XmlAttribute(
+    final NestedWithNamespace(:attrField) = object;
+    if (attrField != null) {
+      result$.add(_i3.XmlAttribute(
         _i3.XmlName('xsi:someName'),
         (serializers.serialize(
-          payload.attrField!,
+          attrField,
           specifiedType: const FullType(String),
         ) as String),
       ));
     }
-    return result;
+    return result$;
   }
 }

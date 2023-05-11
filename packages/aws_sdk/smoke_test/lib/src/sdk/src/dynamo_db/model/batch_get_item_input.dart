@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.batch_get_item_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -154,6 +155,9 @@ class BatchGetItemInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RequestItems':
           result.requestItems.replace((serializers.deserialize(
@@ -166,15 +170,11 @@ class BatchGetItemInputAwsJson10Serializer
               ],
             ),
           ) as _i5.BuiltMap<String, _i3.KeysAndAttributes>));
-          break;
         case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-            ) as _i4.ReturnConsumedCapacity);
-          }
-          break;
+          result.returnConsumedCapacity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          ) as _i4.ReturnConsumedCapacity);
       }
     }
 
@@ -184,14 +184,15 @@ class BatchGetItemInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BatchGetItemInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BatchGetItemInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final BatchGetItemInput(:requestItems, :returnConsumedCapacity) = object;
+    result$.addAll([
       'RequestItems',
       serializers.serialize(
-        payload.requestItems,
+        requestItems,
         specifiedType: const FullType(
           _i5.BuiltMap,
           [
@@ -200,15 +201,15 @@ class BatchGetItemInputAwsJson10Serializer
           ],
         ),
       ),
-    ];
-    if (payload.returnConsumedCapacity != null) {
-      result
+    ]);
+    if (returnConsumedCapacity != null) {
+      result$
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
-          payload.returnConsumedCapacity!,
+          returnConsumedCapacity,
           specifiedType: const FullType(_i4.ReturnConsumedCapacity),
         ));
     }
-    return result;
+    return result$;
   }
 }

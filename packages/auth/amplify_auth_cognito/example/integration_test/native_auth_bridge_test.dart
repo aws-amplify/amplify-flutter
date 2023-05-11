@@ -121,9 +121,6 @@ class MockNativeAuthBridge extends Fake implements NativeAuthBridge {
   final SignInOutFn<void>? _signOutWithUrl;
 
   @override
-  Future<void> addPlugin() async {}
-
-  @override
   Future<Map<String?, String?>> signInWithUrl(
     String argUrl,
     String argCallbackurlscheme,

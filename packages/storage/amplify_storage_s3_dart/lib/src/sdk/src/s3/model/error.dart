@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,16 +16,16 @@ abstract class Error
     implements Built<Error, ErrorBuilder> {
   /// Container for all error elements.
   factory Error({
-    String? code,
     String? key,
-    String? message,
     String? versionId,
+    String? code,
+    String? message,
   }) {
     return _$Error._(
-      code: code,
       key: key,
-      message: message,
       versionId: versionId,
+      code: code,
+      message: message,
     );
   }
 
@@ -39,6 +40,12 @@ abstract class Error
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ErrorBuilder b) {}
+
+  /// The error key.
+  String? get key;
+
+  /// The version ID of the error.
+  String? get versionId;
 
   /// The error code is a string that uniquely identifies an error condition. It is meant to be read and understood by programs that detect and handle errors by type.
   ///
@@ -749,39 +756,33 @@ abstract class Error
   ///     *   _SOAP Fault Code Prefix:_ Client
   String? get code;
 
-  /// The error key.
-  String? get key;
-
   /// The error message contains a generic description of the error condition in English. It is intended for a human audience. Simple programs display the message directly to the end user if they encounter an error condition they don't know how or don't care to handle. Sophisticated programs with more exhaustive error handling and proper internationalization are more likely to ignore the error message.
   String? get message;
-
-  /// The version ID of the error.
-  String? get versionId;
   @override
   List<Object?> get props => [
-        code,
         key,
-        message,
         versionId,
+        code,
+        message,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Error');
     helper.add(
-      'code',
-      code,
-    );
-    helper.add(
       'key',
       key,
     );
     helper.add(
-      'message',
-      message,
-    );
-    helper.add(
       'versionId',
       versionId,
+    );
+    helper.add(
+      'code',
+      code,
+    );
+    helper.add(
+      'message',
+      message,
     );
     return helper.toString();
   }
@@ -811,42 +812,33 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
     final result = ErrorBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Code':
-          if (value != null) {
-            result.code = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.code = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Key':
-          if (value != null) {
-            result.key = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.key = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'VersionId':
-          if (value != null) {
-            result.versionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.versionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -856,48 +848,48 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Error object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Error);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'Error',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.code != null) {
-      result
+    final Error(:code, :key, :message, :versionId) = object;
+    if (code != null) {
+      result$
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
-          payload.code!,
+          code,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.key != null) {
-      result
+    if (key != null) {
+      result$
         ..add(const _i2.XmlElementName('Key'))
         ..add(serializers.serialize(
-          payload.key!,
+          key,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.message != null) {
-      result
+    if (message != null) {
+      result$
         ..add(const _i2.XmlElementName('Message'))
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.versionId != null) {
-      result
+    if (versionId != null) {
+      result$
         ..add(const _i2.XmlElementName('VersionId'))
         ..add(serializers.serialize(
-          payload.versionId!,
+          versionId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -14,25 +14,25 @@ class _$CreateMultipartUploadOutput extends CreateMultipartUploadOutput {
   @override
   final String? bucket;
   @override
-  final bool? bucketKeyEnabled;
-  @override
-  final _i3.ChecksumAlgorithm? checksumAlgorithm;
-  @override
   final String? key;
   @override
-  final _i4.RequestCharged? requestCharged;
+  final String? uploadId;
   @override
-  final _i5.ServerSideEncryption? serverSideEncryption;
+  final _i3.ServerSideEncryption? serverSideEncryption;
   @override
   final String? sseCustomerAlgorithm;
   @override
   final String? sseCustomerKeyMd5;
   @override
-  final String? ssekmsEncryptionContext;
-  @override
   final String? ssekmsKeyId;
   @override
-  final String? uploadId;
+  final String? ssekmsEncryptionContext;
+  @override
+  final bool? bucketKeyEnabled;
+  @override
+  final _i4.RequestCharged? requestCharged;
+  @override
+  final _i5.ChecksumAlgorithm? checksumAlgorithm;
 
   factory _$CreateMultipartUploadOutput(
           [void Function(CreateMultipartUploadOutputBuilder)? updates]) =>
@@ -42,16 +42,16 @@ class _$CreateMultipartUploadOutput extends CreateMultipartUploadOutput {
       {this.abortDate,
       this.abortRuleId,
       this.bucket,
-      this.bucketKeyEnabled,
-      this.checksumAlgorithm,
       this.key,
-      this.requestCharged,
+      this.uploadId,
       this.serverSideEncryption,
       this.sseCustomerAlgorithm,
       this.sseCustomerKeyMd5,
-      this.ssekmsEncryptionContext,
       this.ssekmsKeyId,
-      this.uploadId})
+      this.ssekmsEncryptionContext,
+      this.bucketKeyEnabled,
+      this.requestCharged,
+      this.checksumAlgorithm})
       : super._();
 
   @override
@@ -70,16 +70,16 @@ class _$CreateMultipartUploadOutput extends CreateMultipartUploadOutput {
         abortDate == other.abortDate &&
         abortRuleId == other.abortRuleId &&
         bucket == other.bucket &&
-        bucketKeyEnabled == other.bucketKeyEnabled &&
-        checksumAlgorithm == other.checksumAlgorithm &&
         key == other.key &&
-        requestCharged == other.requestCharged &&
+        uploadId == other.uploadId &&
         serverSideEncryption == other.serverSideEncryption &&
         sseCustomerAlgorithm == other.sseCustomerAlgorithm &&
         sseCustomerKeyMd5 == other.sseCustomerKeyMd5 &&
-        ssekmsEncryptionContext == other.ssekmsEncryptionContext &&
         ssekmsKeyId == other.ssekmsKeyId &&
-        uploadId == other.uploadId;
+        ssekmsEncryptionContext == other.ssekmsEncryptionContext &&
+        bucketKeyEnabled == other.bucketKeyEnabled &&
+        requestCharged == other.requestCharged &&
+        checksumAlgorithm == other.checksumAlgorithm;
   }
 
   @override
@@ -88,16 +88,16 @@ class _$CreateMultipartUploadOutput extends CreateMultipartUploadOutput {
     _$hash = $jc(_$hash, abortDate.hashCode);
     _$hash = $jc(_$hash, abortRuleId.hashCode);
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, bucketKeyEnabled.hashCode);
-    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
-    _$hash = $jc(_$hash, requestCharged.hashCode);
+    _$hash = $jc(_$hash, uploadId.hashCode);
     _$hash = $jc(_$hash, serverSideEncryption.hashCode);
     _$hash = $jc(_$hash, sseCustomerAlgorithm.hashCode);
     _$hash = $jc(_$hash, sseCustomerKeyMd5.hashCode);
-    _$hash = $jc(_$hash, ssekmsEncryptionContext.hashCode);
     _$hash = $jc(_$hash, ssekmsKeyId.hashCode);
-    _$hash = $jc(_$hash, uploadId.hashCode);
+    _$hash = $jc(_$hash, ssekmsEncryptionContext.hashCode);
+    _$hash = $jc(_$hash, bucketKeyEnabled.hashCode);
+    _$hash = $jc(_$hash, requestCharged.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -121,29 +121,18 @@ class CreateMultipartUploadOutputBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  bool? _bucketKeyEnabled;
-  bool? get bucketKeyEnabled => _$this._bucketKeyEnabled;
-  set bucketKeyEnabled(bool? bucketKeyEnabled) =>
-      _$this._bucketKeyEnabled = bucketKeyEnabled;
-
-  _i3.ChecksumAlgorithm? _checksumAlgorithm;
-  _i3.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i3.ChecksumAlgorithm? checksumAlgorithm) =>
-      _$this._checksumAlgorithm = checksumAlgorithm;
-
   String? _key;
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
 
-  _i4.RequestCharged? _requestCharged;
-  _i4.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i4.RequestCharged? requestCharged) =>
-      _$this._requestCharged = requestCharged;
+  String? _uploadId;
+  String? get uploadId => _$this._uploadId;
+  set uploadId(String? uploadId) => _$this._uploadId = uploadId;
 
-  _i5.ServerSideEncryption? _serverSideEncryption;
-  _i5.ServerSideEncryption? get serverSideEncryption =>
+  _i3.ServerSideEncryption? _serverSideEncryption;
+  _i3.ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i5.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(_i3.ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
   String? _sseCustomerAlgorithm;
@@ -156,18 +145,29 @@ class CreateMultipartUploadOutputBuilder
   set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
       _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
 
+  String? _ssekmsKeyId;
+  String? get ssekmsKeyId => _$this._ssekmsKeyId;
+  set ssekmsKeyId(String? ssekmsKeyId) => _$this._ssekmsKeyId = ssekmsKeyId;
+
   String? _ssekmsEncryptionContext;
   String? get ssekmsEncryptionContext => _$this._ssekmsEncryptionContext;
   set ssekmsEncryptionContext(String? ssekmsEncryptionContext) =>
       _$this._ssekmsEncryptionContext = ssekmsEncryptionContext;
 
-  String? _ssekmsKeyId;
-  String? get ssekmsKeyId => _$this._ssekmsKeyId;
-  set ssekmsKeyId(String? ssekmsKeyId) => _$this._ssekmsKeyId = ssekmsKeyId;
+  bool? _bucketKeyEnabled;
+  bool? get bucketKeyEnabled => _$this._bucketKeyEnabled;
+  set bucketKeyEnabled(bool? bucketKeyEnabled) =>
+      _$this._bucketKeyEnabled = bucketKeyEnabled;
 
-  String? _uploadId;
-  String? get uploadId => _$this._uploadId;
-  set uploadId(String? uploadId) => _$this._uploadId = uploadId;
+  _i4.RequestCharged? _requestCharged;
+  _i4.RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(_i4.RequestCharged? requestCharged) =>
+      _$this._requestCharged = requestCharged;
+
+  _i5.ChecksumAlgorithm? _checksumAlgorithm;
+  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+      _$this._checksumAlgorithm = checksumAlgorithm;
 
   CreateMultipartUploadOutputBuilder() {
     CreateMultipartUploadOutput._init(this);
@@ -179,16 +179,16 @@ class CreateMultipartUploadOutputBuilder
       _abortDate = $v.abortDate;
       _abortRuleId = $v.abortRuleId;
       _bucket = $v.bucket;
-      _bucketKeyEnabled = $v.bucketKeyEnabled;
-      _checksumAlgorithm = $v.checksumAlgorithm;
       _key = $v.key;
-      _requestCharged = $v.requestCharged;
+      _uploadId = $v.uploadId;
       _serverSideEncryption = $v.serverSideEncryption;
       _sseCustomerAlgorithm = $v.sseCustomerAlgorithm;
       _sseCustomerKeyMd5 = $v.sseCustomerKeyMd5;
-      _ssekmsEncryptionContext = $v.ssekmsEncryptionContext;
       _ssekmsKeyId = $v.ssekmsKeyId;
-      _uploadId = $v.uploadId;
+      _ssekmsEncryptionContext = $v.ssekmsEncryptionContext;
+      _bucketKeyEnabled = $v.bucketKeyEnabled;
+      _requestCharged = $v.requestCharged;
+      _checksumAlgorithm = $v.checksumAlgorithm;
       _$v = null;
     }
     return this;
@@ -214,16 +214,16 @@ class CreateMultipartUploadOutputBuilder
             abortDate: abortDate,
             abortRuleId: abortRuleId,
             bucket: bucket,
-            bucketKeyEnabled: bucketKeyEnabled,
-            checksumAlgorithm: checksumAlgorithm,
             key: key,
-            requestCharged: requestCharged,
+            uploadId: uploadId,
             serverSideEncryption: serverSideEncryption,
             sseCustomerAlgorithm: sseCustomerAlgorithm,
             sseCustomerKeyMd5: sseCustomerKeyMd5,
-            ssekmsEncryptionContext: ssekmsEncryptionContext,
             ssekmsKeyId: ssekmsKeyId,
-            uploadId: uploadId);
+            ssekmsEncryptionContext: ssekmsEncryptionContext,
+            bucketKeyEnabled: bucketKeyEnabled,
+            requestCharged: requestCharged,
+            checksumAlgorithm: checksumAlgorithm);
     replace(_$result);
     return _$result;
   }

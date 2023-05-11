@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_conformance_pack_compliance_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,13 +117,15 @@ class DescribeConformancePackComplianceResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConformancePackName':
           result.conformancePackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ConformancePackRuleComplianceList':
           result.conformancePackRuleComplianceList
               .replace((serializers.deserialize(
@@ -132,15 +135,11 @@ class DescribeConformancePackComplianceResponseAwsJson11Serializer extends _i4
               [FullType(_i2.ConformancePackRuleCompliance)],
             ),
           ) as _i3.BuiltList<_i2.ConformancePackRuleCompliance>));
-          break;
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -150,33 +149,38 @@ class DescribeConformancePackComplianceResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeConformancePackComplianceResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeConformancePackComplianceResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DescribeConformancePackComplianceResponse(
+      :conformancePackName,
+      :conformancePackRuleComplianceList,
+      :nextToken
+    ) = object;
+    result$.addAll([
       'ConformancePackName',
       serializers.serialize(
-        payload.conformancePackName,
+        conformancePackName,
         specifiedType: const FullType(String),
       ),
       'ConformancePackRuleComplianceList',
       serializers.serialize(
-        payload.conformancePackRuleComplianceList,
+        conformancePackRuleComplianceList,
         specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(_i2.ConformancePackRuleCompliance)],
         ),
       ),
-    ];
-    if (payload.nextToken != null) {
-      result
+    ]);
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

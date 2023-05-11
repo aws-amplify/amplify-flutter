@@ -8,30 +8,30 @@ part of smoke_test.api_gateway.model.put_rest_api_request;
 
 class _$PutRestApiRequest extends PutRestApiRequest {
   @override
-  final _i2.Uint8List body;
-  @override
-  final bool? failOnWarnings;
+  final String restApiId;
   @override
   final _i4.PutMode? mode;
   @override
+  final bool? failOnWarnings;
+  @override
   final _i5.BuiltMap<String, String>? parameters;
   @override
-  final String restApiId;
+  final _i2.Uint8List body;
 
   factory _$PutRestApiRequest(
           [void Function(PutRestApiRequestBuilder)? updates]) =>
       (new PutRestApiRequestBuilder()..update(updates))._build();
 
   _$PutRestApiRequest._(
-      {required this.body,
-      this.failOnWarnings,
+      {required this.restApiId,
       this.mode,
+      this.failOnWarnings,
       this.parameters,
-      required this.restApiId})
+      required this.body})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(body, r'PutRestApiRequest', 'body');
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'PutRestApiRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(body, r'PutRestApiRequest', 'body');
   }
 
   @override
@@ -46,21 +46,21 @@ class _$PutRestApiRequest extends PutRestApiRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PutRestApiRequest &&
-        body == other.body &&
-        failOnWarnings == other.failOnWarnings &&
+        restApiId == other.restApiId &&
         mode == other.mode &&
+        failOnWarnings == other.failOnWarnings &&
         parameters == other.parameters &&
-        restApiId == other.restApiId;
+        body == other.body;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, body.hashCode);
-    _$hash = $jc(_$hash, failOnWarnings.hashCode);
-    _$hash = $jc(_$hash, mode.hashCode);
-    _$hash = $jc(_$hash, parameters.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, mode.hashCode);
+    _$hash = $jc(_$hash, failOnWarnings.hashCode);
+    _$hash = $jc(_$hash, parameters.hashCode);
+    _$hash = $jc(_$hash, body.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -70,18 +70,18 @@ class PutRestApiRequestBuilder
     implements Builder<PutRestApiRequest, PutRestApiRequestBuilder> {
   _$PutRestApiRequest? _$v;
 
-  _i2.Uint8List? _body;
-  _i2.Uint8List? get body => _$this._body;
-  set body(_i2.Uint8List? body) => _$this._body = body;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  _i4.PutMode? _mode;
+  _i4.PutMode? get mode => _$this._mode;
+  set mode(_i4.PutMode? mode) => _$this._mode = mode;
 
   bool? _failOnWarnings;
   bool? get failOnWarnings => _$this._failOnWarnings;
   set failOnWarnings(bool? failOnWarnings) =>
       _$this._failOnWarnings = failOnWarnings;
-
-  _i4.PutMode? _mode;
-  _i4.PutMode? get mode => _$this._mode;
-  set mode(_i4.PutMode? mode) => _$this._mode = mode;
 
   _i5.MapBuilder<String, String>? _parameters;
   _i5.MapBuilder<String, String> get parameters =>
@@ -89,9 +89,9 @@ class PutRestApiRequestBuilder
   set parameters(_i5.MapBuilder<String, String>? parameters) =>
       _$this._parameters = parameters;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  _i2.Uint8List? _body;
+  _i2.Uint8List? get body => _$this._body;
+  set body(_i2.Uint8List? body) => _$this._body = body;
 
   PutRestApiRequestBuilder() {
     PutRestApiRequest._init(this);
@@ -100,11 +100,11 @@ class PutRestApiRequestBuilder
   PutRestApiRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _body = $v.body;
-      _failOnWarnings = $v.failOnWarnings;
-      _mode = $v.mode;
-      _parameters = $v.parameters?.toBuilder();
       _restApiId = $v.restApiId;
+      _mode = $v.mode;
+      _failOnWarnings = $v.failOnWarnings;
+      _parameters = $v.parameters?.toBuilder();
+      _body = $v.body;
       _$v = null;
     }
     return this;
@@ -129,13 +129,13 @@ class PutRestApiRequestBuilder
     try {
       _$result = _$v ??
           new _$PutRestApiRequest._(
-              body: BuiltValueNullFieldError.checkNotNull(
-                  body, r'PutRestApiRequest', 'body'),
-              failOnWarnings: failOnWarnings,
-              mode: mode,
-              parameters: _parameters?.build(),
               restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'PutRestApiRequest', 'restApiId'));
+                  restApiId, r'PutRestApiRequest', 'restApiId'),
+              mode: mode,
+              failOnWarnings: failOnWarnings,
+              parameters: _parameters?.build(),
+              body: BuiltValueNullFieldError.checkNotNull(
+                  body, r'PutRestApiRequest', 'body'));
     } catch (_) {
       late String _$failedField;
       try {

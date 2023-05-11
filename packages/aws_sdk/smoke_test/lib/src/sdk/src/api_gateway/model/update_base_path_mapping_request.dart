@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.update_base_path_mapping_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,13 +25,13 @@ abstract class UpdateBasePathMappingRequest
         _i1.HasPayload<UpdateBasePathMappingRequestPayload> {
   /// A request to change information about the BasePathMapping resource.
   factory UpdateBasePathMappingRequest({
-    required String basePath,
     required String domainName,
+    required String basePath,
     List<_i3.PatchOperation>? patchOperations,
   }) {
     return _$UpdateBasePathMappingRequest._(
-      basePath: basePath,
       domainName: domainName,
+      basePath: basePath,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
     );
@@ -67,13 +68,13 @@ abstract class UpdateBasePathMappingRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateBasePathMappingRequestBuilder b) {}
 
+  /// The domain name of the BasePathMapping resource to change.
+  String get domainName;
+
   /// The base path of the BasePathMapping resource to change.
   ///
   /// To specify an empty base path, set this parameter to `'(none)'`.
   String get basePath;
-
-  /// The domain name of the BasePathMapping resource to change.
-  String get domainName;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
@@ -100,20 +101,20 @@ abstract class UpdateBasePathMappingRequest
       });
   @override
   List<Object?> get props => [
-        basePath,
         domainName,
+        basePath,
         patchOperations,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateBasePathMappingRequest');
     helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
       'domainName',
       domainName,
+    );
+    helper.add(
+      'basePath',
+      basePath,
     );
     helper.add(
       'patchOperations',
@@ -186,18 +187,18 @@ class UpdateBasePathMappingRequestRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'patchOperations':
-          if (value != null) {
-            result.patchOperations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.PatchOperation)],
-              ),
-            ) as _i4.BuiltList<_i3.PatchOperation>));
-          }
-          break;
+          result.patchOperations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.PatchOperation)],
+            ),
+          ) as _i4.BuiltList<_i3.PatchOperation>));
       }
     }
 
@@ -207,24 +208,22 @@ class UpdateBasePathMappingRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateBasePathMappingRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UpdateBasePathMappingRequest
-        ? object.getPayload()
-        : (object as UpdateBasePathMappingRequestPayload);
-    final result = <Object?>[];
-    if (payload.patchOperations != null) {
-      result
+    final result$ = <Object?>[];
+    final UpdateBasePathMappingRequestPayload(:patchOperations) = object;
+    if (patchOperations != null) {
+      result$
         ..add('patchOperations')
         ..add(serializers.serialize(
-          payload.patchOperations!,
+          patchOperations,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.PatchOperation)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

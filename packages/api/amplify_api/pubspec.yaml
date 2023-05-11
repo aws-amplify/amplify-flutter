@@ -1,13 +1,13 @@
 name: amplify_api
 description: The Amplify Flutter API category plugin, supporting GraphQL and REST operations.
-version: 1.0.1
+version: 1.1.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/api/amplify_api
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
-  flutter: ">=3.3.0"
+  sdk: ^3.0.0
+  flutter: ">=3.10.0"
 
 # Helps `pana` since we do not use Flutter plugins for most platforms
 platforms:
@@ -19,11 +19,9 @@ platforms:
   web:
 
 dependencies:
-  amplify_api_android: ">=1.0.1 <1.1.0"
-  amplify_api_dart: ">=0.2.0+4 <0.3.0"
-  amplify_api_ios: ">=1.0.1 <1.1.0"
-  amplify_core: ">=1.0.1 <1.1.0"
-  amplify_flutter: ">=1.0.1 <1.1.0"
+  amplify_api_dart: ">=0.3.0 <0.4.0"
+  amplify_core: ">=1.1.0 <1.2.0"
+  amplify_flutter: ">=1.1.0 <1.2.0"
   connectivity_plus: ^3.0.2
   flutter:
     sdk: flutter
@@ -31,21 +29,12 @@ dependencies:
   plugin_platform_interface: ^2.0.0
 
 dev_dependencies:
-  amplify_lints: ">=2.0.3 <2.1.0"
+  amplify_lints: ">=3.0.0 <3.1.0"
   amplify_test:
     path: ../../test/amplify_test
-  build_runner: ^2.0.0
+  build_runner: ^2.4.0
   connectivity_plus_platform_interface: any
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
   pigeon: ^9.2.4
-
-# The following section is specific to Flutter.
-flutter:
-  plugin:
-    platforms:
-      android:
-        default_package: amplify_api_android
-      ios:
-        default_package: amplify_api_ios

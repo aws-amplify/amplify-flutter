@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.delete_base_path_mapping_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,12 +23,12 @@ abstract class DeleteBasePathMappingRequest
         _i1.HasPayload<DeleteBasePathMappingRequestPayload> {
   /// A request to delete the BasePathMapping resource.
   factory DeleteBasePathMappingRequest({
-    required String basePath,
     required String domainName,
+    required String basePath,
   }) {
     return _$DeleteBasePathMappingRequest._(
-      basePath: basePath,
       domainName: domainName,
+      basePath: basePath,
     );
   }
 
@@ -59,13 +60,13 @@ abstract class DeleteBasePathMappingRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteBasePathMappingRequestBuilder b) {}
 
+  /// The domain name of the BasePathMapping resource to delete.
+  String get domainName;
+
   /// The base path name of the BasePathMapping resource to delete.
   ///
   /// To specify an empty base path, set this parameter to `'(none)'`.
   String get basePath;
-
-  /// The domain name of the BasePathMapping resource to delete.
-  String get domainName;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -85,19 +86,19 @@ abstract class DeleteBasePathMappingRequest
       DeleteBasePathMappingRequestPayload();
   @override
   List<Object?> get props => [
-        basePath,
         domainName,
+        basePath,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteBasePathMappingRequest');
     helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
       'domainName',
       domainName,
+    );
+    helper.add(
+      'basePath',
+      basePath,
     );
     return helper.toString();
   }
@@ -160,7 +161,7 @@ class DeleteBasePathMappingRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteBasePathMappingRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

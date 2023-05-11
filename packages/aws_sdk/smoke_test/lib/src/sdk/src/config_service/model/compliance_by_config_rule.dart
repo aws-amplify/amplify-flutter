@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.compliance_by_config_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,12 +18,12 @@ abstract class ComplianceByConfigRule
     implements Built<ComplianceByConfigRule, ComplianceByConfigRuleBuilder> {
   /// Indicates whether an Config rule is compliant. A rule is compliant if all of the resources that the rule evaluated comply with it. A rule is noncompliant if any of these resources do not comply.
   factory ComplianceByConfigRule({
-    _i2.Compliance? compliance,
     String? configRuleName,
+    _i2.Compliance? compliance,
   }) {
     return _$ComplianceByConfigRule._(
-      compliance: compliance,
       configRuleName: configRuleName,
+      compliance: compliance,
     );
   }
 
@@ -40,26 +41,26 @@ abstract class ComplianceByConfigRule
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplianceByConfigRuleBuilder b) {}
 
-  /// Indicates whether the Config rule is compliant.
-  _i2.Compliance? get compliance;
-
   /// The name of the Config rule.
   String? get configRuleName;
+
+  /// Indicates whether the Config rule is compliant.
+  _i2.Compliance? get compliance;
   @override
   List<Object?> get props => [
-        compliance,
         configRuleName,
+        compliance,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplianceByConfigRule');
     helper.add(
-      'compliance',
-      compliance,
-    );
-    helper.add(
       'configRuleName',
       configRuleName,
+    );
+    helper.add(
+      'compliance',
+      compliance,
     );
     return helper.toString();
   }
@@ -94,23 +95,20 @@ class ComplianceByConfigRuleAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Compliance':
-          if (value != null) {
-            result.compliance.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Compliance),
-            ) as _i2.Compliance));
-          }
-          break;
         case 'ConfigRuleName':
-          if (value != null) {
-            result.configRuleName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configRuleName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'Compliance':
+          result.compliance.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Compliance),
+          ) as _i2.Compliance));
       }
     }
 
@@ -120,27 +118,27 @@ class ComplianceByConfigRuleAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ComplianceByConfigRule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ComplianceByConfigRule);
-    final result = <Object?>[];
-    if (payload.compliance != null) {
-      result
-        ..add('Compliance')
-        ..add(serializers.serialize(
-          payload.compliance!,
-          specifiedType: const FullType(_i2.Compliance),
-        ));
-    }
-    if (payload.configRuleName != null) {
-      result
+    final result$ = <Object?>[];
+    final ComplianceByConfigRule(:configRuleName, :compliance) = object;
+    if (configRuleName != null) {
+      result$
         ..add('ConfigRuleName')
         ..add(serializers.serialize(
-          payload.configRuleName!,
+          configRuleName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    if (compliance != null) {
+      result$
+        ..add('Compliance')
+        ..add(serializers.serialize(
+          compliance,
+          specifiedType: const FullType(_i2.Compliance),
+        ));
+    }
+    return result$;
   }
 }

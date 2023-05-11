@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.conformance_pack_compliance_score; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,14 +19,14 @@ abstract class ConformancePackComplianceScore
             ConformancePackComplianceScoreBuilder> {
   /// A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs, and can be used to identify, investigate, and understand the level of compliance in your conformance packs.
   factory ConformancePackComplianceScore({
+    String? score,
     String? conformancePackName,
     DateTime? lastUpdatedTime,
-    String? score,
   }) {
     return _$ConformancePackComplianceScore._(
+      score: score,
       conformancePackName: conformancePackName,
       lastUpdatedTime: lastUpdatedTime,
-      score: score,
     );
   }
 
@@ -43,24 +44,28 @@ abstract class ConformancePackComplianceScore
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackComplianceScoreBuilder b) {}
 
+  /// Compliance score for the conformance pack. Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
+  String? get score;
+
   /// The name of the conformance pack.
   String? get conformancePackName;
 
   /// The time that the conformance pack compliance score was last updated.
   DateTime? get lastUpdatedTime;
-
-  /// Compliance score for the conformance pack. Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
-  String? get score;
   @override
   List<Object?> get props => [
+        score,
         conformancePackName,
         lastUpdatedTime,
-        score,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ConformancePackComplianceScore');
+    helper.add(
+      'score',
+      score,
+    );
     helper.add(
       'conformancePackName',
       conformancePackName,
@@ -68,10 +73,6 @@ abstract class ConformancePackComplianceScore
     helper.add(
       'lastUpdatedTime',
       lastUpdatedTime,
-    );
-    helper.add(
-      'score',
-      score,
     );
     return helper.toString();
   }
@@ -106,31 +107,25 @@ class ConformancePackComplianceScoreAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ConformancePackName':
-          if (value != null) {
-            result.conformancePackName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'LastUpdatedTime':
-          if (value != null) {
-            result.lastUpdatedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'Score':
-          if (value != null) {
-            result.score = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.score = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ConformancePackName':
+          result.conformancePackName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'LastUpdatedTime':
+          result.lastUpdatedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -140,35 +135,39 @@ class ConformancePackComplianceScoreAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConformancePackComplianceScore object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConformancePackComplianceScore);
-    final result = <Object?>[];
-    if (payload.conformancePackName != null) {
-      result
-        ..add('ConformancePackName')
+    final result$ = <Object?>[];
+    final ConformancePackComplianceScore(
+      :score,
+      :conformancePackName,
+      :lastUpdatedTime
+    ) = object;
+    if (score != null) {
+      result$
+        ..add('Score')
         ..add(serializers.serialize(
-          payload.conformancePackName!,
+          score,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastUpdatedTime != null) {
-      result
+    if (conformancePackName != null) {
+      result$
+        ..add('ConformancePackName')
+        ..add(serializers.serialize(
+          conformancePackName,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (lastUpdatedTime != null) {
+      result$
         ..add('LastUpdatedTime')
         ..add(serializers.serialize(
-          payload.lastUpdatedTime!,
+          lastUpdatedTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.score != null) {
-      result
-        ..add('Score')
-        ..add(serializers.serialize(
-          payload.score!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_aggregate_compliance_by_conformance_packs_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -112,27 +113,24 @@ class DescribeAggregateComplianceByConformancePacksResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AggregateComplianceByConformancePacks':
-          if (value != null) {
-            result.aggregateComplianceByConformancePacks
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AggregateComplianceByConformancePack)],
-              ),
-            ) as _i3.BuiltList<_i2.AggregateComplianceByConformancePack>));
-          }
-          break;
+          result.aggregateComplianceByConformancePacks
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AggregateComplianceByConformancePack)],
+            ),
+          ) as _i3.BuiltList<_i2.AggregateComplianceByConformancePack>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -142,31 +140,33 @@ class DescribeAggregateComplianceByConformancePacksResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeAggregateComplianceByConformancePacksResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload =
-        (object as DescribeAggregateComplianceByConformancePacksResponse);
-    final result = <Object?>[];
-    if (payload.aggregateComplianceByConformancePacks != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeAggregateComplianceByConformancePacksResponse(
+      :aggregateComplianceByConformancePacks,
+      :nextToken
+    ) = object;
+    if (aggregateComplianceByConformancePacks != null) {
+      result$
         ..add('AggregateComplianceByConformancePacks')
         ..add(serializers.serialize(
-          payload.aggregateComplianceByConformancePacks!,
+          aggregateComplianceByConformancePacks,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AggregateComplianceByConformancePack)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
-      result
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

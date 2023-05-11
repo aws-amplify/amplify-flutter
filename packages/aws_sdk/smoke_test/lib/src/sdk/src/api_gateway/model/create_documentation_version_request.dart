@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.create_documentation_version_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,16 +22,16 @@ abstract class CreateDocumentationVersionRequest
         _i1.HasPayload<CreateDocumentationVersionRequestPayload> {
   /// Creates a new documentation version of a given API.
   factory CreateDocumentationVersionRequest({
-    String? description,
-    required String documentationVersion,
     required String restApiId,
+    required String documentationVersion,
     String? stageName,
+    String? description,
   }) {
     return _$CreateDocumentationVersionRequest._(
-      description: description,
-      documentationVersion: documentationVersion,
       restApiId: restApiId,
+      documentationVersion: documentationVersion,
       stageName: stageName,
+      description: description,
     );
   }
 
@@ -62,17 +63,17 @@ abstract class CreateDocumentationVersionRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateDocumentationVersionRequestBuilder b) {}
 
-  /// A description about the new documentation snapshot.
-  String? get description;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The version identifier of the new snapshot.
   String get documentationVersion;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
-
   /// The stage name to be associated with the new documentation snapshot.
   String? get stageName;
+
+  /// A description about the new documentation snapshot.
+  String? get description;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -94,30 +95,30 @@ abstract class CreateDocumentationVersionRequest
       });
   @override
   List<Object?> get props => [
-        description,
-        documentationVersion,
         restApiId,
+        documentationVersion,
         stageName,
+        description,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('CreateDocumentationVersionRequest');
     helper.add(
-      'description',
-      description,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'documentationVersion',
       documentationVersion,
     );
     helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
       'stageName',
       stageName,
+    );
+    helper.add(
+      'description',
+      description,
     );
     return helper.toString();
   }
@@ -204,29 +205,25 @@ class CreateDocumentationVersionRequestRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'documentationVersion':
-          result.documentationVersion = (serializers.deserialize(
-            value!,
+          result.description = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'documentationVersion':
+          result.documentationVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'stageName':
-          if (value != null) {
-            result.stageName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stageName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -236,35 +233,38 @@ class CreateDocumentationVersionRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateDocumentationVersionRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is CreateDocumentationVersionRequest
-        ? object.getPayload()
-        : (object as CreateDocumentationVersionRequestPayload);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final CreateDocumentationVersionRequestPayload(
+      :description,
+      :documentationVersion,
+      :stageName
+    ) = object;
+    result$.addAll([
       'documentationVersion',
       serializers.serialize(
-        payload.documentationVersion,
+        documentationVersion,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.description != null) {
-      result
+    ]);
+    if (description != null) {
+      result$
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stageName != null) {
-      result
+    if (stageName != null) {
+      result$
         ..add('stageName')
         ..add(serializers.serialize(
-          payload.stageName!,
+          stageName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

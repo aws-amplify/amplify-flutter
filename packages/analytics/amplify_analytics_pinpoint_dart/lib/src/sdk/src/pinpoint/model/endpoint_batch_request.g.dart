@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_batch_request;
+part of 'endpoint_batch_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

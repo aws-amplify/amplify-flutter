@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.documentation_version; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,14 +16,14 @@ abstract class DocumentationVersion
     implements Built<DocumentationVersion, DocumentationVersionBuilder> {
   /// A snapshot of the documentation of an API.
   factory DocumentationVersion({
+    String? version,
     DateTime? createdDate,
     String? description,
-    String? version,
   }) {
     return _$DocumentationVersion._(
+      version: version,
       createdDate: createdDate,
       description: description,
-      version: version,
     );
   }
 
@@ -47,23 +48,27 @@ abstract class DocumentationVersion
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DocumentationVersionBuilder b) {}
 
+  /// The version identifier of the API documentation snapshot.
+  String? get version;
+
   /// The date when the API documentation snapshot is created.
   DateTime? get createdDate;
 
   /// The description of the API documentation snapshot.
   String? get description;
-
-  /// The version identifier of the API documentation snapshot.
-  String? get version;
   @override
   List<Object?> get props => [
+        version,
         createdDate,
         description,
-        version,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DocumentationVersion');
+    helper.add(
+      'version',
+      version,
+    );
     helper.add(
       'createdDate',
       createdDate,
@@ -71,10 +76,6 @@ abstract class DocumentationVersion
     helper.add(
       'description',
       description,
-    );
-    helper.add(
-      'version',
-      version,
     );
     return helper.toString();
   }
@@ -109,31 +110,25 @@ class DocumentationVersionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'createdDate':
-          if (value != null) {
-            result.createdDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createdDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'version':
-          if (value != null) {
-            result.version = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.version = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -143,35 +138,35 @@ class DocumentationVersionRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DocumentationVersion object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DocumentationVersion);
-    final result = <Object?>[];
-    if (payload.createdDate != null) {
-      result
+    final result$ = <Object?>[];
+    final DocumentationVersion(:createdDate, :description, :version) = object;
+    if (createdDate != null) {
+      result$
         ..add('createdDate')
         ..add(serializers.serialize(
-          payload.createdDate!,
+          createdDate,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.description != null) {
-      result
+    if (description != null) {
+      result$
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.version != null) {
-      result
+    if (version != null) {
+      result$
         ..add('version')
         ..add(serializers.serialize(
-          payload.version!,
+          version,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

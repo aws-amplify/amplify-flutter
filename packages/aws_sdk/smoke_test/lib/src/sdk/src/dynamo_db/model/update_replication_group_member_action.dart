@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.update_replication_group_member_action; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,9 +9,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_override.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_global_secondary_index.dart'
     as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_global_secondary_index.dart'
+    as _i3;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class.dart' as _i4;
 
 part 'update_replication_group_member_action.g.dart';
@@ -24,19 +25,19 @@ abstract class UpdateReplicationGroupMemberAction
             UpdateReplicationGroupMemberActionBuilder> {
   /// Represents a replica to be modified.
   factory UpdateReplicationGroupMemberAction({
-    List<_i2.ReplicaGlobalSecondaryIndex>? globalSecondaryIndexes,
-    String? kmsMasterKeyId,
-    _i3.ProvisionedThroughputOverride? provisionedThroughputOverride,
     required String regionName,
+    String? kmsMasterKeyId,
+    _i2.ProvisionedThroughputOverride? provisionedThroughputOverride,
+    List<_i3.ReplicaGlobalSecondaryIndex>? globalSecondaryIndexes,
     _i4.TableClass? tableClassOverride,
   }) {
     return _$UpdateReplicationGroupMemberAction._(
+      regionName: regionName,
+      kmsMasterKeyId: kmsMasterKeyId,
+      provisionedThroughputOverride: provisionedThroughputOverride,
       globalSecondaryIndexes: globalSecondaryIndexes == null
           ? null
           : _i5.BuiltList(globalSecondaryIndexes),
-      kmsMasterKeyId: kmsMasterKeyId,
-      provisionedThroughputOverride: provisionedThroughputOverride,
-      regionName: regionName,
       tableClassOverride: tableClassOverride,
     );
   }
@@ -55,26 +56,26 @@ abstract class UpdateReplicationGroupMemberAction
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateReplicationGroupMemberActionBuilder b) {}
 
-  /// Replica-specific global secondary index settings.
-  _i5.BuiltList<_i2.ReplicaGlobalSecondaryIndex>? get globalSecondaryIndexes;
+  /// The Region where the replica exists.
+  String get regionName;
 
   /// The KMS key of the replica that should be used for KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB KMS key `alias/aws/dynamodb`.
   String? get kmsMasterKeyId;
 
   /// Replica-specific provisioned throughput. If not specified, uses the source table's provisioned throughput settings.
-  _i3.ProvisionedThroughputOverride? get provisionedThroughputOverride;
+  _i2.ProvisionedThroughputOverride? get provisionedThroughputOverride;
 
-  /// The Region where the replica exists.
-  String get regionName;
+  /// Replica-specific global secondary index settings.
+  _i5.BuiltList<_i3.ReplicaGlobalSecondaryIndex>? get globalSecondaryIndexes;
 
   /// Replica-specific table class. If not specified, uses the source table's table class.
   _i4.TableClass? get tableClassOverride;
   @override
   List<Object?> get props => [
-        globalSecondaryIndexes,
+        regionName,
         kmsMasterKeyId,
         provisionedThroughputOverride,
-        regionName,
+        globalSecondaryIndexes,
         tableClassOverride,
       ];
   @override
@@ -82,8 +83,8 @@ abstract class UpdateReplicationGroupMemberAction
     final helper =
         newBuiltValueToStringHelper('UpdateReplicationGroupMemberAction');
     helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
+      'regionName',
+      regionName,
     );
     helper.add(
       'kmsMasterKeyId',
@@ -94,8 +95,8 @@ abstract class UpdateReplicationGroupMemberAction
       provisionedThroughputOverride,
     );
     helper.add(
-      'regionName',
-      regionName,
+      'globalSecondaryIndexes',
+      globalSecondaryIndexes,
     );
     helper.add(
       'tableClassOverride',
@@ -134,49 +135,38 @@ class UpdateReplicationGroupMemberActionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'GlobalSecondaryIndexes':
-          if (value != null) {
-            result.globalSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i2.ReplicaGlobalSecondaryIndex)],
-              ),
-            ) as _i5.BuiltList<_i2.ReplicaGlobalSecondaryIndex>));
-          }
-          break;
-        case 'KMSMasterKeyId':
-          if (value != null) {
-            result.kmsMasterKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ProvisionedThroughputOverride':
-          if (value != null) {
-            result.provisionedThroughputOverride
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ProvisionedThroughputOverride),
-            ) as _i3.ProvisionedThroughputOverride));
-          }
-          break;
         case 'RegionName':
           result.regionName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'KMSMasterKeyId':
+          result.kmsMasterKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ProvisionedThroughputOverride':
+          result.provisionedThroughputOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
+          ) as _i2.ProvisionedThroughputOverride));
+        case 'GlobalSecondaryIndexes':
+          result.globalSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.ReplicaGlobalSecondaryIndex)],
+            ),
+          ) as _i5.BuiltList<_i3.ReplicaGlobalSecondaryIndex>));
         case 'TableClassOverride':
-          if (value != null) {
-            result.tableClassOverride = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.TableClass),
-            ) as _i4.TableClass);
-          }
-          break;
+          result.tableClassOverride = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.TableClass),
+          ) as _i4.TableClass);
       }
     }
 
@@ -186,52 +176,59 @@ class UpdateReplicationGroupMemberActionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateReplicationGroupMemberAction object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateReplicationGroupMemberAction);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final UpdateReplicationGroupMemberAction(
+      :regionName,
+      :kmsMasterKeyId,
+      :provisionedThroughputOverride,
+      :globalSecondaryIndexes,
+      :tableClassOverride
+    ) = object;
+    result$.addAll([
       'RegionName',
       serializers.serialize(
-        payload.regionName,
+        regionName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.globalSecondaryIndexes != null) {
-      result
-        ..add('GlobalSecondaryIndexes')
-        ..add(serializers.serialize(
-          payload.globalSecondaryIndexes!,
-          specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i2.ReplicaGlobalSecondaryIndex)],
-          ),
-        ));
-    }
-    if (payload.kmsMasterKeyId != null) {
-      result
+    ]);
+    if (kmsMasterKeyId != null) {
+      result$
         ..add('KMSMasterKeyId')
         ..add(serializers.serialize(
-          payload.kmsMasterKeyId!,
+          kmsMasterKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.provisionedThroughputOverride != null) {
-      result
+    if (provisionedThroughputOverride != null) {
+      result$
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
-          payload.provisionedThroughputOverride!,
-          specifiedType: const FullType(_i3.ProvisionedThroughputOverride),
+          provisionedThroughputOverride,
+          specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
         ));
     }
-    if (payload.tableClassOverride != null) {
-      result
+    if (globalSecondaryIndexes != null) {
+      result$
+        ..add('GlobalSecondaryIndexes')
+        ..add(serializers.serialize(
+          globalSecondaryIndexes,
+          specifiedType: const FullType(
+            _i5.BuiltList,
+            [FullType(_i3.ReplicaGlobalSecondaryIndex)],
+          ),
+        ));
+    }
+    if (tableClassOverride != null) {
+      result$
         ..add('TableClassOverride')
         ..add(serializers.serialize(
-          payload.tableClassOverride!,
+          tableClassOverride,
           specifiedType: const FullType(_i4.TableClass),
         ));
     }
-    return result;
+    return result$;
   }
 }

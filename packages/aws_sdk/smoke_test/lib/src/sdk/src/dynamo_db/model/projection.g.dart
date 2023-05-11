@@ -8,14 +8,14 @@ part of smoke_test.dynamo_db.model.projection;
 
 class _$Projection extends Projection {
   @override
-  final _i3.BuiltList<String>? nonKeyAttributes;
-  @override
   final _i2.ProjectionType? projectionType;
+  @override
+  final _i3.BuiltList<String>? nonKeyAttributes;
 
   factory _$Projection([void Function(ProjectionBuilder)? updates]) =>
       (new ProjectionBuilder()..update(updates))._build();
 
-  _$Projection._({this.nonKeyAttributes, this.projectionType}) : super._();
+  _$Projection._({this.projectionType, this.nonKeyAttributes}) : super._();
 
   @override
   Projection rebuild(void Function(ProjectionBuilder) updates) =>
@@ -28,15 +28,15 @@ class _$Projection extends Projection {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Projection &&
-        nonKeyAttributes == other.nonKeyAttributes &&
-        projectionType == other.projectionType;
+        projectionType == other.projectionType &&
+        nonKeyAttributes == other.nonKeyAttributes;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nonKeyAttributes.hashCode);
     _$hash = $jc(_$hash, projectionType.hashCode);
+    _$hash = $jc(_$hash, nonKeyAttributes.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -45,16 +45,16 @@ class _$Projection extends Projection {
 class ProjectionBuilder implements Builder<Projection, ProjectionBuilder> {
   _$Projection? _$v;
 
+  _i2.ProjectionType? _projectionType;
+  _i2.ProjectionType? get projectionType => _$this._projectionType;
+  set projectionType(_i2.ProjectionType? projectionType) =>
+      _$this._projectionType = projectionType;
+
   _i3.ListBuilder<String>? _nonKeyAttributes;
   _i3.ListBuilder<String> get nonKeyAttributes =>
       _$this._nonKeyAttributes ??= new _i3.ListBuilder<String>();
   set nonKeyAttributes(_i3.ListBuilder<String>? nonKeyAttributes) =>
       _$this._nonKeyAttributes = nonKeyAttributes;
-
-  _i2.ProjectionType? _projectionType;
-  _i2.ProjectionType? get projectionType => _$this._projectionType;
-  set projectionType(_i2.ProjectionType? projectionType) =>
-      _$this._projectionType = projectionType;
 
   ProjectionBuilder() {
     Projection._init(this);
@@ -63,8 +63,8 @@ class ProjectionBuilder implements Builder<Projection, ProjectionBuilder> {
   ProjectionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nonKeyAttributes = $v.nonKeyAttributes?.toBuilder();
       _projectionType = $v.projectionType;
+      _nonKeyAttributes = $v.nonKeyAttributes?.toBuilder();
       _$v = null;
     }
     return this;
@@ -89,8 +89,8 @@ class ProjectionBuilder implements Builder<Projection, ProjectionBuilder> {
     try {
       _$result = _$v ??
           new _$Projection._(
-              nonKeyAttributes: _nonKeyAttributes?.build(),
-              projectionType: projectionType);
+              projectionType: projectionType,
+              nonKeyAttributes: _nonKeyAttributes?.build());
     } catch (_) {
       late String _$failedField;
       try {

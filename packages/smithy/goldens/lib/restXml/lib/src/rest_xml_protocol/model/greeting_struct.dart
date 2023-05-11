@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.greeting_struct; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -66,18 +67,18 @@ class GreetingStructRestXmlSerializer
     final result = GreetingStructBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'hi':
-          if (value != null) {
-            result.hi = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.hi = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -87,19 +88,19 @@ class GreetingStructRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GreetingStruct object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GreetingStruct);
-    final result = <Object?>[const _i2.XmlElementName('GreetingStruct')];
-    if (payload.hi != null) {
-      result
+    final result$ = <Object?>[const _i2.XmlElementName('GreetingStruct')];
+    final GreetingStruct(:hi) = object;
+    if (hi != null) {
+      result$
         ..add(const _i2.XmlElementName('hi'))
         ..add(serializers.serialize(
-          payload.hi!,
+          hi,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

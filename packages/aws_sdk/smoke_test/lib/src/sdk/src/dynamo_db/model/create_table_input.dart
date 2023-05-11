@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.create_table_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,22 +11,22 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_definition.dart'
     as _i3;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/local_secondary_index.dart'
     as _i7;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index.dart'
+    as _i6;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart'
+    as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/local_secondary_index.dart'
+    as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart'
     as _i8;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_specification.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/stream_specification.dart'
     as _i10;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/stream_specification.dart'
+    as _i9;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/tag.dart' as _i12;
+    as _i12;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/tag.dart' as _i11;
 
 part 'create_table_input.g.dart';
 
@@ -36,33 +37,33 @@ abstract class CreateTableInput
   /// Represents the input of a `CreateTable` operation.
   factory CreateTableInput({
     required List<_i3.AttributeDefinition> attributeDefinitions,
-    _i4.BillingMode? billingMode,
-    List<_i5.GlobalSecondaryIndex>? globalSecondaryIndexes,
-    required List<_i6.KeySchemaElement> keySchema,
-    List<_i7.LocalSecondaryIndex>? localSecondaryIndexes,
-    _i8.ProvisionedThroughput? provisionedThroughput,
-    _i9.SseSpecification? sseSpecification,
-    _i10.StreamSpecification? streamSpecification,
-    _i11.TableClass? tableClass,
     required String tableName,
-    List<_i12.Tag>? tags,
+    required List<_i4.KeySchemaElement> keySchema,
+    List<_i5.LocalSecondaryIndex>? localSecondaryIndexes,
+    List<_i6.GlobalSecondaryIndex>? globalSecondaryIndexes,
+    _i7.BillingMode? billingMode,
+    _i8.ProvisionedThroughput? provisionedThroughput,
+    _i9.StreamSpecification? streamSpecification,
+    _i10.SseSpecification? sseSpecification,
+    List<_i11.Tag>? tags,
+    _i12.TableClass? tableClass,
   }) {
     return _$CreateTableInput._(
       attributeDefinitions: _i13.BuiltList(attributeDefinitions),
-      billingMode: billingMode,
-      globalSecondaryIndexes: globalSecondaryIndexes == null
-          ? null
-          : _i13.BuiltList(globalSecondaryIndexes),
+      tableName: tableName,
       keySchema: _i13.BuiltList(keySchema),
       localSecondaryIndexes: localSecondaryIndexes == null
           ? null
           : _i13.BuiltList(localSecondaryIndexes),
+      globalSecondaryIndexes: globalSecondaryIndexes == null
+          ? null
+          : _i13.BuiltList(globalSecondaryIndexes),
+      billingMode: billingMode,
       provisionedThroughput: provisionedThroughput,
-      sseSpecification: sseSpecification,
       streamSpecification: streamSpecification,
-      tableClass: tableClass,
-      tableName: tableName,
+      sseSpecification: sseSpecification,
       tags: tags == null ? null : _i13.BuiltList(tags),
+      tableClass: tableClass,
     );
   }
 
@@ -89,33 +90,8 @@ abstract class CreateTableInput
   /// An array of attributes that describe the key schema for the table and indexes.
   _i13.BuiltList<_i3.AttributeDefinition> get attributeDefinitions;
 
-  /// Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed later.
-  ///
-  /// *   `PROVISIONED` \- We recommend using `PROVISIONED` for predictable workloads. `PROVISIONED` sets the billing mode to [Provisioned Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.ProvisionedThroughput.Manual).
-  ///
-  /// *   `PAY\_PER\_REQUEST` \- We recommend using `PAY\_PER\_REQUEST` for unpredictable workloads. `PAY\_PER\_REQUEST` sets the billing mode to [On-Demand Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.OnDemand).
-  _i4.BillingMode? get billingMode;
-
-  /// One or more global secondary indexes (the maximum is 20) to be created on the table. Each global secondary index in the array includes the following:
-  ///
-  /// *   `IndexName` \- The name of the global secondary index. Must be unique only for this table.
-  ///
-  /// *   `KeySchema` \- Specifies the key schema for the global secondary index.
-  ///
-  /// *   `Projection` \- Specifies attributes that are copied (projected) from the table into the index. These are in addition to the primary key attributes and index key attributes, which are automatically projected. Each attribute specification is composed of:
-  ///
-  ///     *   `ProjectionType` \- One of the following:
-  ///
-  ///         *   `KEYS_ONLY` \- Only the index and primary keys are projected into the index.
-  ///
-  ///         *   `INCLUDE` \- Only the specified table attributes are projected into the index. The list of projected attributes is in `NonKeyAttributes`.
-  ///
-  ///         *   `ALL` \- All of the table attributes are projected into the index.
-  ///
-  ///     *   `NonKeyAttributes` \- A list of one or more non-key attribute names that are projected into the secondary index. The total count of attributes provided in `NonKeyAttributes`, summed across all of the secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.
-  ///
-  /// *   `ProvisionedThroughput` \- The provisioned throughput settings for the global secondary index, consisting of read and write capacity units.
-  _i13.BuiltList<_i5.GlobalSecondaryIndex>? get globalSecondaryIndexes;
+  /// The name of the table to create.
+  String get tableName;
 
   /// Specifies the attributes that make up the primary key for a table or an index. The attributes in `KeySchema` must also be defined in the `AttributeDefinitions` array. For more information, see [Data Model](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html) in the _Amazon DynamoDB Developer Guide_.
   ///
@@ -139,7 +115,7 @@ abstract class CreateTableInput
   /// For a composite primary key (partition key and sort key), you must provide exactly two elements, in this order: The first element must have a `KeyType` of `HASH`, and the second element must have a `KeyType` of `RANGE`.
   ///
   /// For more information, see [Working with Tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#WorkingWithTables.primary.key) in the _Amazon DynamoDB Developer Guide_.
-  _i13.BuiltList<_i6.KeySchemaElement> get keySchema;
+  _i13.BuiltList<_i4.KeySchemaElement> get keySchema;
 
   /// One or more local secondary indexes (the maximum is 5) to be created on the table. Each index is scoped to a given partition key value. There is a 10 GB size limit per partition key value; otherwise, the size of a local secondary index is unconstrained.
   ///
@@ -160,7 +136,35 @@ abstract class CreateTableInput
   ///         *   `ALL` \- All of the table attributes are projected into the index.
   ///
   ///     *   `NonKeyAttributes` \- A list of one or more non-key attribute names that are projected into the secondary index. The total count of attributes provided in `NonKeyAttributes`, summed across all of the secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.
-  _i13.BuiltList<_i7.LocalSecondaryIndex>? get localSecondaryIndexes;
+  _i13.BuiltList<_i5.LocalSecondaryIndex>? get localSecondaryIndexes;
+
+  /// One or more global secondary indexes (the maximum is 20) to be created on the table. Each global secondary index in the array includes the following:
+  ///
+  /// *   `IndexName` \- The name of the global secondary index. Must be unique only for this table.
+  ///
+  /// *   `KeySchema` \- Specifies the key schema for the global secondary index.
+  ///
+  /// *   `Projection` \- Specifies attributes that are copied (projected) from the table into the index. These are in addition to the primary key attributes and index key attributes, which are automatically projected. Each attribute specification is composed of:
+  ///
+  ///     *   `ProjectionType` \- One of the following:
+  ///
+  ///         *   `KEYS_ONLY` \- Only the index and primary keys are projected into the index.
+  ///
+  ///         *   `INCLUDE` \- Only the specified table attributes are projected into the index. The list of projected attributes is in `NonKeyAttributes`.
+  ///
+  ///         *   `ALL` \- All of the table attributes are projected into the index.
+  ///
+  ///     *   `NonKeyAttributes` \- A list of one or more non-key attribute names that are projected into the secondary index. The total count of attributes provided in `NonKeyAttributes`, summed across all of the secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.
+  ///
+  /// *   `ProvisionedThroughput` \- The provisioned throughput settings for the global secondary index, consisting of read and write capacity units.
+  _i13.BuiltList<_i6.GlobalSecondaryIndex>? get globalSecondaryIndexes;
+
+  /// Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed later.
+  ///
+  /// *   `PROVISIONED` \- We recommend using `PROVISIONED` for predictable workloads. `PROVISIONED` sets the billing mode to [Provisioned Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.ProvisionedThroughput.Manual).
+  ///
+  /// *   `PAY\_PER\_REQUEST` \- We recommend using `PAY\_PER\_REQUEST` for unpredictable workloads. `PAY\_PER\_REQUEST` sets the billing mode to [On-Demand Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.OnDemand).
+  _i7.BillingMode? get billingMode;
 
   /// Represents the provisioned throughput settings for a specified table or index. The settings can be modified using the `UpdateTable` operation.
   ///
@@ -168,9 +172,6 @@ abstract class CreateTableInput
   ///
   /// For current minimum and maximum provisioned throughput values, see [Service, Account, and Table Quotas](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html) in the _Amazon DynamoDB Developer Guide_.
   _i8.ProvisionedThroughput? get provisionedThroughput;
-
-  /// Represents the settings used to enable server-side encryption.
-  _i9.SseSpecification? get sseSpecification;
 
   /// The settings for DynamoDB Streams on the table. These settings consist of:
   ///
@@ -185,31 +186,31 @@ abstract class CreateTableInput
   ///     *   `OLD_IMAGE` \- The entire item, as it appeared before it was modified, is written to the stream.
   ///
   ///     *   `NEW\_AND\_OLD_IMAGES` \- Both the new and the old item images of the item are written to the stream.
-  _i10.StreamSpecification? get streamSpecification;
+  _i9.StreamSpecification? get streamSpecification;
 
-  /// The table class of the new table. Valid values are `STANDARD` and `STANDARD\_INFREQUENT\_ACCESS`.
-  _i11.TableClass? get tableClass;
-
-  /// The name of the table to create.
-  String get tableName;
+  /// Represents the settings used to enable server-side encryption.
+  _i10.SseSpecification? get sseSpecification;
 
   /// A list of key-value pairs to label the table. For more information, see [Tagging for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html).
-  _i13.BuiltList<_i12.Tag>? get tags;
+  _i13.BuiltList<_i11.Tag>? get tags;
+
+  /// The table class of the new table. Valid values are `STANDARD` and `STANDARD\_INFREQUENT\_ACCESS`.
+  _i12.TableClass? get tableClass;
   @override
   CreateTableInput getPayload() => this;
   @override
   List<Object?> get props => [
         attributeDefinitions,
-        billingMode,
-        globalSecondaryIndexes,
+        tableName,
         keySchema,
         localSecondaryIndexes,
+        globalSecondaryIndexes,
+        billingMode,
         provisionedThroughput,
-        sseSpecification,
         streamSpecification,
-        tableClass,
-        tableName,
+        sseSpecification,
         tags,
+        tableClass,
       ];
   @override
   String toString() {
@@ -219,12 +220,8 @@ abstract class CreateTableInput
       attributeDefinitions,
     );
     helper.add(
-      'billingMode',
-      billingMode,
-    );
-    helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
+      'tableName',
+      tableName,
     );
     helper.add(
       'keySchema',
@@ -235,28 +232,32 @@ abstract class CreateTableInput
       localSecondaryIndexes,
     );
     helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
+      'globalSecondaryIndexes',
+      globalSecondaryIndexes,
     );
     helper.add(
-      'sseSpecification',
-      sseSpecification,
+      'billingMode',
+      billingMode,
+    );
+    helper.add(
+      'provisionedThroughput',
+      provisionedThroughput,
     );
     helper.add(
       'streamSpecification',
       streamSpecification,
     );
     helper.add(
-      'tableClass',
-      tableClass,
-    );
-    helper.add(
-      'tableName',
-      tableName,
+      'sseSpecification',
+      sseSpecification,
     );
     helper.add(
       'tags',
       tags,
+    );
+    helper.add(
+      'tableClass',
+      tableClass,
     );
     return helper.toString();
   }
@@ -290,6 +291,9 @@ class CreateTableInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AttributeDefinitions':
           result.attributeDefinitions.replace((serializers.deserialize(
@@ -299,95 +303,68 @@ class CreateTableInputAwsJson10Serializer
               [FullType(_i3.AttributeDefinition)],
             ),
           ) as _i13.BuiltList<_i3.AttributeDefinition>));
-          break;
-        case 'BillingMode':
-          if (value != null) {
-            result.billingMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.BillingMode),
-            ) as _i4.BillingMode);
-          }
-          break;
-        case 'GlobalSecondaryIndexes':
-          if (value != null) {
-            result.globalSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i13.BuiltList,
-                [FullType(_i5.GlobalSecondaryIndex)],
-              ),
-            ) as _i13.BuiltList<_i5.GlobalSecondaryIndex>));
-          }
-          break;
+        case 'TableName':
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'KeySchema':
           result.keySchema.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
               _i13.BuiltList,
-              [FullType(_i6.KeySchemaElement)],
+              [FullType(_i4.KeySchemaElement)],
             ),
-          ) as _i13.BuiltList<_i6.KeySchemaElement>));
-          break;
+          ) as _i13.BuiltList<_i4.KeySchemaElement>));
         case 'LocalSecondaryIndexes':
-          if (value != null) {
-            result.localSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i13.BuiltList,
-                [FullType(_i7.LocalSecondaryIndex)],
-              ),
-            ) as _i13.BuiltList<_i7.LocalSecondaryIndex>));
-          }
-          break;
+          result.localSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i13.BuiltList,
+              [FullType(_i5.LocalSecondaryIndex)],
+            ),
+          ) as _i13.BuiltList<_i5.LocalSecondaryIndex>));
+        case 'GlobalSecondaryIndexes':
+          result.globalSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i13.BuiltList,
+              [FullType(_i6.GlobalSecondaryIndex)],
+            ),
+          ) as _i13.BuiltList<_i6.GlobalSecondaryIndex>));
+        case 'BillingMode':
+          result.billingMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.BillingMode),
+          ) as _i7.BillingMode);
         case 'ProvisionedThroughput':
-          if (value != null) {
-            result.provisionedThroughput.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.ProvisionedThroughput),
-            ) as _i8.ProvisionedThroughput));
-          }
-          break;
-        case 'SSESpecification':
-          if (value != null) {
-            result.sseSpecification.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i9.SseSpecification),
-            ) as _i9.SseSpecification));
-          }
-          break;
+          result.provisionedThroughput.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.ProvisionedThroughput),
+          ) as _i8.ProvisionedThroughput));
         case 'StreamSpecification':
-          if (value != null) {
-            result.streamSpecification.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i10.StreamSpecification),
-            ) as _i10.StreamSpecification));
-          }
-          break;
-        case 'TableClass':
-          if (value != null) {
-            result.tableClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i11.TableClass),
-            ) as _i11.TableClass);
-          }
-          break;
-        case 'TableName':
-          result.tableName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
+          result.streamSpecification.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i9.StreamSpecification),
+          ) as _i9.StreamSpecification));
+        case 'SSESpecification':
+          result.sseSpecification.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i10.SseSpecification),
+          ) as _i10.SseSpecification));
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i13.BuiltList,
-                [FullType(_i12.Tag)],
-              ),
-            ) as _i13.BuiltList<_i12.Tag>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i13.BuiltList,
+              [FullType(_i11.Tag)],
+            ),
+          ) as _i13.BuiltList<_i11.Tag>));
+        case 'TableClass':
+          result.tableClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i12.TableClass),
+          ) as _i12.TableClass);
       }
     }
 
@@ -397,106 +374,119 @@ class CreateTableInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateTableInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateTableInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final CreateTableInput(
+      :attributeDefinitions,
+      :tableName,
+      :keySchema,
+      :localSecondaryIndexes,
+      :globalSecondaryIndexes,
+      :billingMode,
+      :provisionedThroughput,
+      :streamSpecification,
+      :sseSpecification,
+      :tags,
+      :tableClass
+    ) = object;
+    result$.addAll([
       'AttributeDefinitions',
       serializers.serialize(
-        payload.attributeDefinitions,
+        attributeDefinitions,
         specifiedType: const FullType(
           _i13.BuiltList,
           [FullType(_i3.AttributeDefinition)],
         ),
       ),
-      'KeySchema',
-      serializers.serialize(
-        payload.keySchema,
-        specifiedType: const FullType(
-          _i13.BuiltList,
-          [FullType(_i6.KeySchemaElement)],
-        ),
-      ),
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.billingMode != null) {
-      result
-        ..add('BillingMode')
-        ..add(serializers.serialize(
-          payload.billingMode!,
-          specifiedType: const FullType(_i4.BillingMode),
-        ));
-    }
-    if (payload.globalSecondaryIndexes != null) {
-      result
-        ..add('GlobalSecondaryIndexes')
-        ..add(serializers.serialize(
-          payload.globalSecondaryIndexes!,
-          specifiedType: const FullType(
-            _i13.BuiltList,
-            [FullType(_i5.GlobalSecondaryIndex)],
-          ),
-        ));
-    }
-    if (payload.localSecondaryIndexes != null) {
-      result
+      'KeySchema',
+      serializers.serialize(
+        keySchema,
+        specifiedType: const FullType(
+          _i13.BuiltList,
+          [FullType(_i4.KeySchemaElement)],
+        ),
+      ),
+    ]);
+    if (localSecondaryIndexes != null) {
+      result$
         ..add('LocalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.localSecondaryIndexes!,
+          localSecondaryIndexes,
           specifiedType: const FullType(
             _i13.BuiltList,
-            [FullType(_i7.LocalSecondaryIndex)],
+            [FullType(_i5.LocalSecondaryIndex)],
           ),
         ));
     }
-    if (payload.provisionedThroughput != null) {
-      result
+    if (globalSecondaryIndexes != null) {
+      result$
+        ..add('GlobalSecondaryIndexes')
+        ..add(serializers.serialize(
+          globalSecondaryIndexes,
+          specifiedType: const FullType(
+            _i13.BuiltList,
+            [FullType(_i6.GlobalSecondaryIndex)],
+          ),
+        ));
+    }
+    if (billingMode != null) {
+      result$
+        ..add('BillingMode')
+        ..add(serializers.serialize(
+          billingMode,
+          specifiedType: const FullType(_i7.BillingMode),
+        ));
+    }
+    if (provisionedThroughput != null) {
+      result$
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
-          payload.provisionedThroughput!,
+          provisionedThroughput,
           specifiedType: const FullType(_i8.ProvisionedThroughput),
         ));
     }
-    if (payload.sseSpecification != null) {
-      result
-        ..add('SSESpecification')
-        ..add(serializers.serialize(
-          payload.sseSpecification!,
-          specifiedType: const FullType(_i9.SseSpecification),
-        ));
-    }
-    if (payload.streamSpecification != null) {
-      result
+    if (streamSpecification != null) {
+      result$
         ..add('StreamSpecification')
         ..add(serializers.serialize(
-          payload.streamSpecification!,
-          specifiedType: const FullType(_i10.StreamSpecification),
+          streamSpecification,
+          specifiedType: const FullType(_i9.StreamSpecification),
         ));
     }
-    if (payload.tableClass != null) {
-      result
-        ..add('TableClass')
+    if (sseSpecification != null) {
+      result$
+        ..add('SSESpecification')
         ..add(serializers.serialize(
-          payload.tableClass!,
-          specifiedType: const FullType(_i11.TableClass),
+          sseSpecification,
+          specifiedType: const FullType(_i10.SseSpecification),
         ));
     }
-    if (payload.tags != null) {
-      result
+    if (tags != null) {
+      result$
         ..add('Tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i13.BuiltList,
-            [FullType(_i12.Tag)],
+            [FullType(_i11.Tag)],
           ),
         ));
     }
-    return result;
+    if (tableClass != null) {
+      result$
+        ..add('TableClass')
+        ..add(serializers.serialize(
+          tableClass,
+          specifiedType: const FullType(_i12.TableClass),
+        ));
+    }
+    return result$;
   }
 }

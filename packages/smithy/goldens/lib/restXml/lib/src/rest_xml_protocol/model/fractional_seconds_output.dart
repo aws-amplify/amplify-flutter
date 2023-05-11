@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.fractional_seconds_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -89,26 +90,23 @@ class FractionalSecondsOutputRestXmlSerializer
     final result = FractionalSecondsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'datetime':
-          if (value != null) {
-            result.datetime = _i2.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.datetime = _i2.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
         case 'httpdate':
-          if (value != null) {
-            result.httpdate = _i2.TimestampSerializer.httpDate.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.httpdate = _i2.TimestampSerializer.httpDate.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -118,29 +116,29 @@ class FractionalSecondsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    FractionalSecondsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as FractionalSecondsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName('FractionalSecondsOutput')
     ];
-    if (payload.datetime != null) {
-      result
+    final FractionalSecondsOutput(:datetime, :httpdate) = object;
+    if (datetime != null) {
+      result$
         ..add(const _i2.XmlElementName('datetime'))
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.datetime!,
+          datetime,
         ));
     }
-    if (payload.httpdate != null) {
-      result
+    if (httpdate != null) {
+      result$
         ..add(const _i2.XmlElementName('httpdate'))
         ..add(_i2.TimestampSerializer.httpDate.serialize(
           serializers,
-          payload.httpdate!,
+          httpdate,
         ));
     }
-    return result;
+    return result$;
   }
 }

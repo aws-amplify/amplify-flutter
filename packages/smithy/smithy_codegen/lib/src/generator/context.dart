@@ -50,13 +50,15 @@ class CodegenContext {
   final Set<ShapeId> _additionalShapes;
 
   /// The service closure's shape map.
-  late final ShapeMap shapes = ShapeMap(Map.fromEntries(
-    _shapes.entries.where((entry) {
-      return serviceShapeId == null ||
-          entry.key.namespace == serviceShapeId!.namespace ||
-          _additionalShapes.contains(entry.key);
-    }),
-  ));
+  late final ShapeMap shapes = ShapeMap(
+    Map.fromEntries(
+      _shapes.entries.where((entry) {
+        return serviceShapeId == null ||
+            entry.key.namespace == serviceShapeId!.namespace ||
+            _additionalShapes.contains(entry.key);
+      }),
+    ),
+  );
 
   /// Tracks the service's generated types and the private symbols to hide.
   ///

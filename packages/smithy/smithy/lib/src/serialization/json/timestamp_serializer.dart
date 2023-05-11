@@ -6,6 +6,8 @@ import 'package:smithy/smithy.dart';
 
 /// A class which handles serialization/deserialization of [Timestamp] objects
 /// using the predefined formats specified by [TimestampFormat].
+// TODO(dnys1): Remove when doing so wouldn't crash DDC
+// ignore: use_enums
 class TimestampSerializer implements PrimitiveSerializer<DateTime> {
   const TimestampSerializer._(this.format);
 
@@ -26,14 +28,20 @@ class TimestampSerializer implements PrimitiveSerializer<DateTime> {
   static const unknown = TimestampSerializer._(TimestampFormat.unknown);
 
   @override
-  DateTime deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  DateTime deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return Timestamp.parse(serialized, format: format).asDateTime;
   }
 
   @override
-  Object serialize(Serializers serializers, DateTime object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    DateTime object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return Timestamp(object).format(format);
   }
 

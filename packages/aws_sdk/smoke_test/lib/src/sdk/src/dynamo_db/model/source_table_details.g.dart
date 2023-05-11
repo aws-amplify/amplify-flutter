@@ -8,49 +8,49 @@ part of smoke_test.dynamo_db.model.source_table_details;
 
 class _$SourceTableDetails extends SourceTableDetails {
   @override
-  final _i2.BillingMode? billingMode;
-  @override
-  final _i3.Int64? itemCount;
-  @override
-  final _i6.BuiltList<_i4.KeySchemaElement> keySchema;
-  @override
-  final _i5.ProvisionedThroughput provisionedThroughput;
-  @override
-  final String? tableArn;
-  @override
-  final DateTime tableCreationDateTime;
+  final String tableName;
   @override
   final String tableId;
   @override
-  final String tableName;
+  final String? tableArn;
   @override
-  final _i3.Int64? tableSizeBytes;
+  final _i2.Int64? tableSizeBytes;
+  @override
+  final _i6.BuiltList<_i3.KeySchemaElement> keySchema;
+  @override
+  final DateTime tableCreationDateTime;
+  @override
+  final _i4.ProvisionedThroughput provisionedThroughput;
+  @override
+  final _i2.Int64? itemCount;
+  @override
+  final _i5.BillingMode? billingMode;
 
   factory _$SourceTableDetails(
           [void Function(SourceTableDetailsBuilder)? updates]) =>
       (new SourceTableDetailsBuilder()..update(updates))._build();
 
   _$SourceTableDetails._(
-      {this.billingMode,
-      this.itemCount,
-      required this.keySchema,
-      required this.provisionedThroughput,
-      this.tableArn,
-      required this.tableCreationDateTime,
+      {required this.tableName,
       required this.tableId,
-      required this.tableName,
-      this.tableSizeBytes})
+      this.tableArn,
+      this.tableSizeBytes,
+      required this.keySchema,
+      required this.tableCreationDateTime,
+      required this.provisionedThroughput,
+      this.itemCount,
+      this.billingMode})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        keySchema, r'SourceTableDetails', 'keySchema');
-    BuiltValueNullFieldError.checkNotNull(
-        provisionedThroughput, r'SourceTableDetails', 'provisionedThroughput');
-    BuiltValueNullFieldError.checkNotNull(
-        tableCreationDateTime, r'SourceTableDetails', 'tableCreationDateTime');
+        tableName, r'SourceTableDetails', 'tableName');
     BuiltValueNullFieldError.checkNotNull(
         tableId, r'SourceTableDetails', 'tableId');
     BuiltValueNullFieldError.checkNotNull(
-        tableName, r'SourceTableDetails', 'tableName');
+        keySchema, r'SourceTableDetails', 'keySchema');
+    BuiltValueNullFieldError.checkNotNull(
+        tableCreationDateTime, r'SourceTableDetails', 'tableCreationDateTime');
+    BuiltValueNullFieldError.checkNotNull(
+        provisionedThroughput, r'SourceTableDetails', 'provisionedThroughput');
   }
 
   @override
@@ -66,29 +66,29 @@ class _$SourceTableDetails extends SourceTableDetails {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SourceTableDetails &&
-        billingMode == other.billingMode &&
-        itemCount == other.itemCount &&
-        keySchema == other.keySchema &&
-        provisionedThroughput == other.provisionedThroughput &&
-        tableArn == other.tableArn &&
-        tableCreationDateTime == other.tableCreationDateTime &&
-        tableId == other.tableId &&
         tableName == other.tableName &&
-        tableSizeBytes == other.tableSizeBytes;
+        tableId == other.tableId &&
+        tableArn == other.tableArn &&
+        tableSizeBytes == other.tableSizeBytes &&
+        keySchema == other.keySchema &&
+        tableCreationDateTime == other.tableCreationDateTime &&
+        provisionedThroughput == other.provisionedThroughput &&
+        itemCount == other.itemCount &&
+        billingMode == other.billingMode;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, billingMode.hashCode);
-    _$hash = $jc(_$hash, itemCount.hashCode);
-    _$hash = $jc(_$hash, keySchema.hashCode);
-    _$hash = $jc(_$hash, provisionedThroughput.hashCode);
-    _$hash = $jc(_$hash, tableArn.hashCode);
-    _$hash = $jc(_$hash, tableCreationDateTime.hashCode);
-    _$hash = $jc(_$hash, tableId.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, tableId.hashCode);
+    _$hash = $jc(_$hash, tableArn.hashCode);
     _$hash = $jc(_$hash, tableSizeBytes.hashCode);
+    _$hash = $jc(_$hash, keySchema.hashCode);
+    _$hash = $jc(_$hash, tableCreationDateTime.hashCode);
+    _$hash = $jc(_$hash, provisionedThroughput.hashCode);
+    _$hash = $jc(_$hash, itemCount.hashCode);
+    _$hash = $jc(_$hash, billingMode.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -98,49 +98,49 @@ class SourceTableDetailsBuilder
     implements Builder<SourceTableDetails, SourceTableDetailsBuilder> {
   _$SourceTableDetails? _$v;
 
-  _i2.BillingMode? _billingMode;
-  _i2.BillingMode? get billingMode => _$this._billingMode;
-  set billingMode(_i2.BillingMode? billingMode) =>
-      _$this._billingMode = billingMode;
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i3.Int64? _itemCount;
-  _i3.Int64? get itemCount => _$this._itemCount;
-  set itemCount(_i3.Int64? itemCount) => _$this._itemCount = itemCount;
-
-  _i6.ListBuilder<_i4.KeySchemaElement>? _keySchema;
-  _i6.ListBuilder<_i4.KeySchemaElement> get keySchema =>
-      _$this._keySchema ??= new _i6.ListBuilder<_i4.KeySchemaElement>();
-  set keySchema(_i6.ListBuilder<_i4.KeySchemaElement>? keySchema) =>
-      _$this._keySchema = keySchema;
-
-  _i5.ProvisionedThroughputBuilder? _provisionedThroughput;
-  _i5.ProvisionedThroughputBuilder get provisionedThroughput =>
-      _$this._provisionedThroughput ??= new _i5.ProvisionedThroughputBuilder();
-  set provisionedThroughput(
-          _i5.ProvisionedThroughputBuilder? provisionedThroughput) =>
-      _$this._provisionedThroughput = provisionedThroughput;
+  String? _tableId;
+  String? get tableId => _$this._tableId;
+  set tableId(String? tableId) => _$this._tableId = tableId;
 
   String? _tableArn;
   String? get tableArn => _$this._tableArn;
   set tableArn(String? tableArn) => _$this._tableArn = tableArn;
+
+  _i2.Int64? _tableSizeBytes;
+  _i2.Int64? get tableSizeBytes => _$this._tableSizeBytes;
+  set tableSizeBytes(_i2.Int64? tableSizeBytes) =>
+      _$this._tableSizeBytes = tableSizeBytes;
+
+  _i6.ListBuilder<_i3.KeySchemaElement>? _keySchema;
+  _i6.ListBuilder<_i3.KeySchemaElement> get keySchema =>
+      _$this._keySchema ??= new _i6.ListBuilder<_i3.KeySchemaElement>();
+  set keySchema(_i6.ListBuilder<_i3.KeySchemaElement>? keySchema) =>
+      _$this._keySchema = keySchema;
 
   DateTime? _tableCreationDateTime;
   DateTime? get tableCreationDateTime => _$this._tableCreationDateTime;
   set tableCreationDateTime(DateTime? tableCreationDateTime) =>
       _$this._tableCreationDateTime = tableCreationDateTime;
 
-  String? _tableId;
-  String? get tableId => _$this._tableId;
-  set tableId(String? tableId) => _$this._tableId = tableId;
+  _i4.ProvisionedThroughputBuilder? _provisionedThroughput;
+  _i4.ProvisionedThroughputBuilder get provisionedThroughput =>
+      _$this._provisionedThroughput ??= new _i4.ProvisionedThroughputBuilder();
+  set provisionedThroughput(
+          _i4.ProvisionedThroughputBuilder? provisionedThroughput) =>
+      _$this._provisionedThroughput = provisionedThroughput;
 
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
+  _i2.Int64? _itemCount;
+  _i2.Int64? get itemCount => _$this._itemCount;
+  set itemCount(_i2.Int64? itemCount) => _$this._itemCount = itemCount;
 
-  _i3.Int64? _tableSizeBytes;
-  _i3.Int64? get tableSizeBytes => _$this._tableSizeBytes;
-  set tableSizeBytes(_i3.Int64? tableSizeBytes) =>
-      _$this._tableSizeBytes = tableSizeBytes;
+  _i5.BillingMode? _billingMode;
+  _i5.BillingMode? get billingMode => _$this._billingMode;
+  set billingMode(_i5.BillingMode? billingMode) =>
+      _$this._billingMode = billingMode;
 
   SourceTableDetailsBuilder() {
     SourceTableDetails._init(this);
@@ -149,15 +149,15 @@ class SourceTableDetailsBuilder
   SourceTableDetailsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _billingMode = $v.billingMode;
-      _itemCount = $v.itemCount;
-      _keySchema = $v.keySchema.toBuilder();
-      _provisionedThroughput = $v.provisionedThroughput.toBuilder();
-      _tableArn = $v.tableArn;
-      _tableCreationDateTime = $v.tableCreationDateTime;
-      _tableId = $v.tableId;
       _tableName = $v.tableName;
+      _tableId = $v.tableId;
+      _tableArn = $v.tableArn;
       _tableSizeBytes = $v.tableSizeBytes;
+      _keySchema = $v.keySchema.toBuilder();
+      _tableCreationDateTime = $v.tableCreationDateTime;
+      _provisionedThroughput = $v.provisionedThroughput.toBuilder();
+      _itemCount = $v.itemCount;
+      _billingMode = $v.billingMode;
       _$v = null;
     }
     return this;
@@ -182,25 +182,26 @@ class SourceTableDetailsBuilder
     try {
       _$result = _$v ??
           new _$SourceTableDetails._(
-              billingMode: billingMode,
-              itemCount: itemCount,
-              keySchema: keySchema.build(),
-              provisionedThroughput: provisionedThroughput.build(),
+              tableName: BuiltValueNullFieldError.checkNotNull(
+                  tableName, r'SourceTableDetails', 'tableName'),
+              tableId: BuiltValueNullFieldError.checkNotNull(
+                  tableId, r'SourceTableDetails', 'tableId'),
               tableArn: tableArn,
+              tableSizeBytes: tableSizeBytes,
+              keySchema: keySchema.build(),
               tableCreationDateTime: BuiltValueNullFieldError.checkNotNull(
                   tableCreationDateTime,
                   r'SourceTableDetails',
                   'tableCreationDateTime'),
-              tableId: BuiltValueNullFieldError.checkNotNull(
-                  tableId, r'SourceTableDetails', 'tableId'),
-              tableName: BuiltValueNullFieldError.checkNotNull(
-                  tableName, r'SourceTableDetails', 'tableName'),
-              tableSizeBytes: tableSizeBytes);
+              provisionedThroughput: provisionedThroughput.build(),
+              itemCount: itemCount,
+              billingMode: billingMode);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'keySchema';
         keySchema.build();
+
         _$failedField = 'provisionedThroughput';
         provisionedThroughput.build();
       } catch (e) {

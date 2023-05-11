@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.put_bucket_intelligent_tiering_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -142,36 +143,33 @@ class PutBucketIntelligentTieringConfigurationRequestRestXmlSerializer
     final result = _i2.IntelligentTieringConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Id':
           result.id = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Filter':
-          if (value != null) {
-            result.filter.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.IntelligentTieringFilter),
-            ) as _i4.IntelligentTieringFilter));
-          }
-          break;
+          result.filter.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.IntelligentTieringFilter),
+          ) as _i4.IntelligentTieringFilter));
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i5.IntelligentTieringStatus),
           ) as _i5.IntelligentTieringStatus);
-          break;
         case 'Tiering':
           result.tierings.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i6.Tiering),
           ) as _i6.Tiering));
-          break;
       }
     }
 
@@ -181,47 +179,50 @@ class PutBucketIntelligentTieringConfigurationRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.IntelligentTieringConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutBucketIntelligentTieringConfigurationRequest
-        ? object.getPayload()
-        : (object as _i2.IntelligentTieringConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'IntelligentTieringConfiguration',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
+    final _i2.IntelligentTieringConfiguration(
+      :id,
+      :filter,
+      :status,
+      :tierings
+    ) = object;
+    result$
       ..add(const _i1.XmlElementName('Id'))
       ..add(serializers.serialize(
-        payload.id,
+        id,
         specifiedType: const FullType(String),
       ));
-    if (payload.filter != null) {
-      result
+    if (filter != null) {
+      result$
         ..add(const _i1.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i4.IntelligentTieringFilter),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType.nullable(_i5.IntelligentTieringStatus),
       ));
-    result.addAll(
+    result$.addAll(
         const _i1.XmlBuiltListSerializer(memberName: 'Tiering').serialize(
       serializers,
-      payload.tierings,
+      tierings,
       specifiedType: const FullType.nullable(
         _i7.BuiltList,
         [FullType(_i6.Tiering)],
       ),
     ));
-    return result;
+    return result$;
   }
 }

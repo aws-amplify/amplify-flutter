@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.list_discovered_resources_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,14 +20,14 @@ abstract class ListDiscoveredResourcesResponse
         Built<ListDiscoveredResourcesResponse,
             ListDiscoveredResourcesResponseBuilder> {
   factory ListDiscoveredResourcesResponse({
-    String? nextToken,
     List<_i2.ResourceIdentifier>? resourceIdentifiers,
+    String? nextToken,
   }) {
     return _$ListDiscoveredResourcesResponse._(
-      nextToken: nextToken,
       resourceIdentifiers: resourceIdentifiers == null
           ? null
           : _i3.BuiltList(resourceIdentifiers),
+      nextToken: nextToken,
     );
   }
 
@@ -50,27 +51,27 @@ abstract class ListDiscoveredResourcesResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListDiscoveredResourcesResponseBuilder b) {}
 
-  /// The string that you use in a subsequent request to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// The details that identify a resource that is discovered by Config, including the resource type, ID, and (if available) the custom resource name.
   _i3.BuiltList<_i2.ResourceIdentifier>? get resourceIdentifiers;
+
+  /// The string that you use in a subsequent request to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         resourceIdentifiers,
+        nextToken,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ListDiscoveredResourcesResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'resourceIdentifiers',
       resourceIdentifiers,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -105,26 +106,23 @@ class ListDiscoveredResourcesResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'nextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'resourceIdentifiers':
-          if (value != null) {
-            result.resourceIdentifiers.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ResourceIdentifier)],
-              ),
-            ) as _i3.BuiltList<_i2.ResourceIdentifier>));
-          }
-          break;
+          result.resourceIdentifiers.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ResourceIdentifier)],
+            ),
+          ) as _i3.BuiltList<_i2.ResourceIdentifier>));
+        case 'nextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -134,30 +132,31 @@ class ListDiscoveredResourcesResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListDiscoveredResourcesResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListDiscoveredResourcesResponse);
-    final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('nextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceIdentifiers != null) {
-      result
+    final result$ = <Object?>[];
+    final ListDiscoveredResourcesResponse(:resourceIdentifiers, :nextToken) =
+        object;
+    if (resourceIdentifiers != null) {
+      result$
         ..add('resourceIdentifiers')
         ..add(serializers.serialize(
-          payload.resourceIdentifiers!,
+          resourceIdentifiers,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ResourceIdentifier)],
           ),
         ));
     }
-    return result;
+    if (nextToken != null) {
+      result$
+        ..add('nextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

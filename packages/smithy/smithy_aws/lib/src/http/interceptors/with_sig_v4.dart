@@ -41,7 +41,7 @@ class WithSigV4 extends HttpRequestInterceptor {
       }
       rethrow;
     }
-    final AWSSigV4Signer signer = AWSSigV4Signer(
+    final signer = AWSSigV4Signer(
       credentialsProvider: credentialsProvider,
       algorithm: algorithm,
     );

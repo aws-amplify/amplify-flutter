@@ -9,9 +9,10 @@ import Combine
 @testable import amplify_datastore
 
 let testHubSchema: ModelSchema = SchemaData.PostSchema
+let binaryMessenger = MockBinaryMessenger(isSignedIn: true)
 
 class DataStoreHubEventStreamHandlerTests: XCTestCase {
-    var pluginUnderTest: SwiftAmplifyDataStorePlugin = .init()
+    var pluginUnderTest: SwiftAmplifyDataStorePlugin = .init(binaryMessenger: binaryMessenger)
     var modelSchemaRegistry = FlutterSchemaRegistry()
     var customTypeSchemaRegistry = FlutterSchemaRegistry()
 

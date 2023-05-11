@@ -82,7 +82,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
       if (completer.isCanceled) return;
       final resp = await fetch(
         request.uri.toString(),
-        createRequestInit(
+        RequestInit(
           method: request.method,
           headers: request.headers,
           body: body,

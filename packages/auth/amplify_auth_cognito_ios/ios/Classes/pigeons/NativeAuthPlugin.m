@@ -24,166 +24,10 @@ static id GetNullableObjectAtIndex(NSArray *array, NSInteger key) {
   return (result == [NSNull null]) ? nil : result;
 }
 
-@interface NativeAuthSession ()
-+ (NativeAuthSession *)fromList:(NSArray *)list;
-+ (nullable NativeAuthSession *)nullableFromList:(NSArray *)list;
-- (NSArray *)toList;
-@end
-
-@interface NativeAuthUser ()
-+ (NativeAuthUser *)fromList:(NSArray *)list;
-+ (nullable NativeAuthUser *)nullableFromList:(NSArray *)list;
-- (NSArray *)toList;
-@end
-
-@interface NativeUserPoolTokens ()
-+ (NativeUserPoolTokens *)fromList:(NSArray *)list;
-+ (nullable NativeUserPoolTokens *)nullableFromList:(NSArray *)list;
-- (NSArray *)toList;
-@end
-
-@interface NativeAWSCredentials ()
-+ (NativeAWSCredentials *)fromList:(NSArray *)list;
-+ (nullable NativeAWSCredentials *)nullableFromList:(NSArray *)list;
-- (NSArray *)toList;
-@end
-
 @interface LegacyCredentialStoreData ()
 + (LegacyCredentialStoreData *)fromList:(NSArray *)list;
 + (nullable LegacyCredentialStoreData *)nullableFromList:(NSArray *)list;
 - (NSArray *)toList;
-@end
-
-@implementation NativeAuthSession
-+ (instancetype)makeWithIsSignedIn:(NSNumber *)isSignedIn
-    userSub:(nullable NSString *)userSub
-    userPoolTokens:(nullable NativeUserPoolTokens *)userPoolTokens
-    identityId:(nullable NSString *)identityId
-    awsCredentials:(nullable NativeAWSCredentials *)awsCredentials {
-  NativeAuthSession* pigeonResult = [[NativeAuthSession alloc] init];
-  pigeonResult.isSignedIn = isSignedIn;
-  pigeonResult.userSub = userSub;
-  pigeonResult.userPoolTokens = userPoolTokens;
-  pigeonResult.identityId = identityId;
-  pigeonResult.awsCredentials = awsCredentials;
-  return pigeonResult;
-}
-+ (NativeAuthSession *)fromList:(NSArray *)list {
-  NativeAuthSession *pigeonResult = [[NativeAuthSession alloc] init];
-  pigeonResult.isSignedIn = GetNullableObjectAtIndex(list, 0);
-  NSAssert(pigeonResult.isSignedIn != nil, @"");
-  pigeonResult.userSub = GetNullableObjectAtIndex(list, 1);
-  pigeonResult.userPoolTokens = [NativeUserPoolTokens nullableFromList:(GetNullableObjectAtIndex(list, 2))];
-  pigeonResult.identityId = GetNullableObjectAtIndex(list, 3);
-  pigeonResult.awsCredentials = [NativeAWSCredentials nullableFromList:(GetNullableObjectAtIndex(list, 4))];
-  return pigeonResult;
-}
-+ (nullable NativeAuthSession *)nullableFromList:(NSArray *)list {
-  return (list) ? [NativeAuthSession fromList:list] : nil;
-}
-- (NSArray *)toList {
-  return @[
-    (self.isSignedIn ?: [NSNull null]),
-    (self.userSub ?: [NSNull null]),
-    (self.userPoolTokens ? [self.userPoolTokens toList] : [NSNull null]),
-    (self.identityId ?: [NSNull null]),
-    (self.awsCredentials ? [self.awsCredentials toList] : [NSNull null]),
-  ];
-}
-@end
-
-@implementation NativeAuthUser
-+ (instancetype)makeWithUserId:(NSString *)userId
-    username:(NSString *)username {
-  NativeAuthUser* pigeonResult = [[NativeAuthUser alloc] init];
-  pigeonResult.userId = userId;
-  pigeonResult.username = username;
-  return pigeonResult;
-}
-+ (NativeAuthUser *)fromList:(NSArray *)list {
-  NativeAuthUser *pigeonResult = [[NativeAuthUser alloc] init];
-  pigeonResult.userId = GetNullableObjectAtIndex(list, 0);
-  NSAssert(pigeonResult.userId != nil, @"");
-  pigeonResult.username = GetNullableObjectAtIndex(list, 1);
-  NSAssert(pigeonResult.username != nil, @"");
-  return pigeonResult;
-}
-+ (nullable NativeAuthUser *)nullableFromList:(NSArray *)list {
-  return (list) ? [NativeAuthUser fromList:list] : nil;
-}
-- (NSArray *)toList {
-  return @[
-    (self.userId ?: [NSNull null]),
-    (self.username ?: [NSNull null]),
-  ];
-}
-@end
-
-@implementation NativeUserPoolTokens
-+ (instancetype)makeWithAccessToken:(NSString *)accessToken
-    refreshToken:(NSString *)refreshToken
-    idToken:(NSString *)idToken {
-  NativeUserPoolTokens* pigeonResult = [[NativeUserPoolTokens alloc] init];
-  pigeonResult.accessToken = accessToken;
-  pigeonResult.refreshToken = refreshToken;
-  pigeonResult.idToken = idToken;
-  return pigeonResult;
-}
-+ (NativeUserPoolTokens *)fromList:(NSArray *)list {
-  NativeUserPoolTokens *pigeonResult = [[NativeUserPoolTokens alloc] init];
-  pigeonResult.accessToken = GetNullableObjectAtIndex(list, 0);
-  NSAssert(pigeonResult.accessToken != nil, @"");
-  pigeonResult.refreshToken = GetNullableObjectAtIndex(list, 1);
-  NSAssert(pigeonResult.refreshToken != nil, @"");
-  pigeonResult.idToken = GetNullableObjectAtIndex(list, 2);
-  NSAssert(pigeonResult.idToken != nil, @"");
-  return pigeonResult;
-}
-+ (nullable NativeUserPoolTokens *)nullableFromList:(NSArray *)list {
-  return (list) ? [NativeUserPoolTokens fromList:list] : nil;
-}
-- (NSArray *)toList {
-  return @[
-    (self.accessToken ?: [NSNull null]),
-    (self.refreshToken ?: [NSNull null]),
-    (self.idToken ?: [NSNull null]),
-  ];
-}
-@end
-
-@implementation NativeAWSCredentials
-+ (instancetype)makeWithAccessKeyId:(NSString *)accessKeyId
-    secretAccessKey:(NSString *)secretAccessKey
-    sessionToken:(nullable NSString *)sessionToken
-    expirationIso8601Utc:(nullable NSString *)expirationIso8601Utc {
-  NativeAWSCredentials* pigeonResult = [[NativeAWSCredentials alloc] init];
-  pigeonResult.accessKeyId = accessKeyId;
-  pigeonResult.secretAccessKey = secretAccessKey;
-  pigeonResult.sessionToken = sessionToken;
-  pigeonResult.expirationIso8601Utc = expirationIso8601Utc;
-  return pigeonResult;
-}
-+ (NativeAWSCredentials *)fromList:(NSArray *)list {
-  NativeAWSCredentials *pigeonResult = [[NativeAWSCredentials alloc] init];
-  pigeonResult.accessKeyId = GetNullableObjectAtIndex(list, 0);
-  NSAssert(pigeonResult.accessKeyId != nil, @"");
-  pigeonResult.secretAccessKey = GetNullableObjectAtIndex(list, 1);
-  NSAssert(pigeonResult.secretAccessKey != nil, @"");
-  pigeonResult.sessionToken = GetNullableObjectAtIndex(list, 2);
-  pigeonResult.expirationIso8601Utc = GetNullableObjectAtIndex(list, 3);
-  return pigeonResult;
-}
-+ (nullable NativeAWSCredentials *)nullableFromList:(NSArray *)list {
-  return (list) ? [NativeAWSCredentials fromList:list] : nil;
-}
-- (NSArray *)toList {
-  return @[
-    (self.accessKeyId ?: [NSNull null]),
-    (self.secretAccessKey ?: [NSNull null]),
-    (self.sessionToken ?: [NSNull null]),
-    (self.expirationIso8601Utc ?: [NSNull null]),
-  ];
-}
 @end
 
 @implementation LegacyCredentialStoreData
@@ -235,60 +79,9 @@ static id GetNullableObjectAtIndex(NSArray *array, NSInteger key) {
 }
 @end
 
-@interface NativeAuthPluginCodecReader : FlutterStandardReader
-@end
-@implementation NativeAuthPluginCodecReader
-- (nullable id)readValueOfType:(UInt8)type {
-  switch (type) {
-    case 128: 
-      return [NativeAWSCredentials fromList:[self readValue]];
-    case 129: 
-      return [NativeAuthSession fromList:[self readValue]];
-    case 130: 
-      return [NativeUserPoolTokens fromList:[self readValue]];
-    default:
-      return [super readValueOfType:type];
-  }
-}
-@end
-
-@interface NativeAuthPluginCodecWriter : FlutterStandardWriter
-@end
-@implementation NativeAuthPluginCodecWriter
-- (void)writeValue:(id)value {
-  if ([value isKindOfClass:[NativeAWSCredentials class]]) {
-    [self writeByte:128];
-    [self writeValue:[value toList]];
-  } else if ([value isKindOfClass:[NativeAuthSession class]]) {
-    [self writeByte:129];
-    [self writeValue:[value toList]];
-  } else if ([value isKindOfClass:[NativeUserPoolTokens class]]) {
-    [self writeByte:130];
-    [self writeValue:[value toList]];
-  } else {
-    [super writeValue:value];
-  }
-}
-@end
-
-@interface NativeAuthPluginCodecReaderWriter : FlutterStandardReaderWriter
-@end
-@implementation NativeAuthPluginCodecReaderWriter
-- (FlutterStandardWriter *)writerWithData:(NSMutableData *)data {
-  return [[NativeAuthPluginCodecWriter alloc] initWithData:data];
-}
-- (FlutterStandardReader *)readerWithData:(NSData *)data {
-  return [[NativeAuthPluginCodecReader alloc] initWithData:data];
-}
-@end
-
 NSObject<FlutterMessageCodec> *NativeAuthPluginGetCodec(void) {
   static FlutterStandardMessageCodec *sSharedObject = nil;
-  static dispatch_once_t sPred = 0;
-  dispatch_once(&sPred, ^{
-    NativeAuthPluginCodecReaderWriter *readerWriter = [[NativeAuthPluginCodecReaderWriter alloc] init];
-    sSharedObject = [FlutterStandardMessageCodec codecWithReaderWriter:readerWriter];
-  });
+  sSharedObject = [FlutterStandardMessageCodec sharedInstance];
   return sSharedObject;
 }
 
@@ -315,17 +108,6 @@ NSObject<FlutterMessageCodec> *NativeAuthPluginGetCodec(void) {
     completion(nil);
   }];
 }
-- (void)fetchAuthSessionWithCompletion:(void (^)(NativeAuthSession *_Nullable, FlutterError *_Nullable))completion {
-  FlutterBasicMessageChannel *channel =
-    [FlutterBasicMessageChannel
-      messageChannelWithName:@"dev.flutter.pigeon.NativeAuthPlugin.fetchAuthSession"
-      binaryMessenger:self.binaryMessenger
-      codec:NativeAuthPluginGetCodec()];
-  [channel sendMessage:nil reply:^(id reply) {
-    NativeAuthSession *output = reply;
-    completion(output, nil);
-  }];
-}
 @end
 
 @interface NativeAuthBridgeCodecReader : FlutterStandardReader
@@ -335,8 +117,6 @@ NSObject<FlutterMessageCodec> *NativeAuthPluginGetCodec(void) {
   switch (type) {
     case 128: 
       return [LegacyCredentialStoreData fromList:[self readValue]];
-    case 129: 
-      return [NativeAuthUser fromList:[self readValue]];
     default:
       return [super readValueOfType:type];
   }
@@ -349,9 +129,6 @@ NSObject<FlutterMessageCodec> *NativeAuthPluginGetCodec(void) {
 - (void)writeValue:(id)value {
   if ([value isKindOfClass:[LegacyCredentialStoreData class]]) {
     [self writeByte:128];
-    [self writeValue:[value toList]];
-  } else if ([value isKindOfClass:[NativeAuthUser class]]) {
-    [self writeByte:129];
     [self writeValue:[value toList]];
   } else {
     [super writeValue:value];
@@ -381,27 +158,6 @@ NSObject<FlutterMessageCodec> *NativeAuthBridgeGetCodec(void) {
 }
 
 void NativeAuthBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<NativeAuthBridge> *api) {
-  /// Adds the native platform/plugin.
-  ///
-  /// On iOS/Android, this calls `Amplify.addPlugin` with the [NativeAuthPlugin]
-  /// implementation.
-  {
-    FlutterBasicMessageChannel *channel =
-      [[FlutterBasicMessageChannel alloc]
-        initWithName:@"dev.flutter.pigeon.NativeAuthBridge.addPlugin"
-        binaryMessenger:binaryMessenger
-        codec:NativeAuthBridgeGetCodec()];
-    if (api) {
-      NSCAssert([api respondsToSelector:@selector(addPluginWithCompletion:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(addPluginWithCompletion:)", api);
-      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
-        [api addPluginWithCompletion:^(FlutterError *_Nullable error) {
-          callback(wrapResult(nil, error));
-        }];
-      }];
-    } else {
-      [channel setMessageHandler:nil];
-    }
-  }
   /// Sign in by presenting [url] and waiting for a response to a URL with
   /// [callbackUrlScheme].
   ///
@@ -482,26 +238,6 @@ void NativeAuthBridgeSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<
         FlutterError *error;
         NSString *output = [api getBundleIdWithError:&error];
         callback(wrapResult(output, error));
-      }];
-    } else {
-      [channel setMessageHandler:nil];
-    }
-  }
-  /// Updates the native cache of the current user.
-  {
-    FlutterBasicMessageChannel *channel =
-      [[FlutterBasicMessageChannel alloc]
-        initWithName:@"dev.flutter.pigeon.NativeAuthBridge.updateCurrentUser"
-        binaryMessenger:binaryMessenger
-        codec:NativeAuthBridgeGetCodec()];
-    if (api) {
-      NSCAssert([api respondsToSelector:@selector(updateCurrentUserUser:error:)], @"NativeAuthBridge api (%@) doesn't respond to @selector(updateCurrentUserUser:error:)", api);
-      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
-        NSArray *args = message;
-        NativeAuthUser *arg_user = GetNullableObjectAtIndex(args, 0);
-        FlutterError *error;
-        [api updateCurrentUserUser:arg_user error:&error];
-        callback(wrapResult(nil, error));
       }];
     } else {
       [channel setMessageHandler:nil];

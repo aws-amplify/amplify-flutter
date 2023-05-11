@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.http_request_with_greedy_label_in_path_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,12 +21,12 @@ abstract class HttpRequestWithGreedyLabelInPathInput
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithGreedyLabelInPathInputPayload> {
   factory HttpRequestWithGreedyLabelInPathInput({
-    required String baz,
     required String foo,
+    required String baz,
   }) {
     return _$HttpRequestWithGreedyLabelInPathInput._(
-      baz: baz,
       foo: foo,
+      baz: baz,
     );
   }
 
@@ -55,8 +56,8 @@ abstract class HttpRequestWithGreedyLabelInPathInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpRequestWithGreedyLabelInPathInputBuilder b) {}
-  String get baz;
   String get foo;
+  String get baz;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -76,20 +77,20 @@ abstract class HttpRequestWithGreedyLabelInPathInput
       HttpRequestWithGreedyLabelInPathInputPayload();
   @override
   List<Object?> get props => [
-        baz,
         foo,
+        baz,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('HttpRequestWithGreedyLabelInPathInput');
     helper.add(
-      'baz',
-      baz,
-    );
-    helper.add(
       'foo',
       foo,
+    );
+    helper.add(
+      'baz',
+      baz,
     );
     return helper.toString();
   }
@@ -152,7 +153,7 @@ class HttpRequestWithGreedyLabelInPathInputRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    HttpRequestWithGreedyLabelInPathInputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

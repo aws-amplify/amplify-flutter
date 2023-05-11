@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.operation.write_get_object_response_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -303,7 +304,7 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
         if (input.metadata != null) {
           for (var entry in input.metadata!.toMap().entries) {
             if (entry.value.isNotEmpty) {
-              b.headers['x-amz-meta-' + entry.key] = entry.value;
+              b.headers['x-amz-meta-${entry.key}'] = entry.value;
             }
           }
         }

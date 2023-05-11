@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.access_control_policy; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -91,32 +92,29 @@ class AccessControlPolicyRestXmlSerializer
     final result = AccessControlPolicyBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AccessControlList':
-          if (value != null) {
-            result.grants.replace(
-                (const _i5.XmlBuiltListSerializer(memberName: 'Grant')
-                    .deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.Grant)],
-              ),
-            ) as _i4.BuiltList<_i2.Grant>));
-          }
-          break;
+          result.grants.replace(
+              (const _i5.XmlBuiltListSerializer(memberName: 'Grant')
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.Grant)],
+            ),
+          ) as _i4.BuiltList<_i2.Grant>));
         case 'Owner':
-          if (value != null) {
-            result.owner.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Owner),
-            ) as _i3.Owner));
-          }
-          break;
+          result.owner.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Owner),
+          ) as _i3.Owner));
       }
     }
 
@@ -126,36 +124,36 @@ class AccessControlPolicyRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AccessControlPolicy object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AccessControlPolicy);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'AccessControlPolicy',
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.grants != null) {
-      result
+    final AccessControlPolicy(:grants, :owner) = object;
+    if (grants != null) {
+      result$
         ..add(const _i5.XmlElementName('AccessControlList'))
         ..add(const _i5.XmlBuiltListSerializer(memberName: 'Grant').serialize(
           serializers,
-          payload.grants!,
+          grants,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i2.Grant)],
           ),
         ));
     }
-    if (payload.owner != null) {
-      result
+    if (owner != null) {
+      result$
         ..add(const _i5.XmlElementName('Owner'))
         ..add(serializers.serialize(
-          payload.owner!,
+          owner,
           specifiedType: const FullType(_i3.Owner),
         ));
     }
-    return result;
+    return result$;
   }
 }

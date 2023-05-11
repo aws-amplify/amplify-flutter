@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.checksum; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -106,42 +107,33 @@ class ChecksumRestXmlSerializer
     final result = ChecksumBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ChecksumCRC32':
-          if (value != null) {
-            result.checksumCrc32 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.checksumCrc32 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChecksumCRC32C':
-          if (value != null) {
-            result.checksumCrc32C = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.checksumCrc32C = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChecksumSHA1':
-          if (value != null) {
-            result.checksumSha1 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.checksumSha1 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChecksumSHA256':
-          if (value != null) {
-            result.checksumSha256 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.checksumSha256 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -151,48 +143,53 @@ class ChecksumRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Checksum object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Checksum);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'Checksum',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.checksumCrc32 != null) {
-      result
+    final Checksum(
+      :checksumCrc32,
+      :checksumCrc32C,
+      :checksumSha1,
+      :checksumSha256
+    ) = object;
+    if (checksumCrc32 != null) {
+      result$
         ..add(const _i2.XmlElementName('ChecksumCRC32'))
         ..add(serializers.serialize(
-          payload.checksumCrc32!,
+          checksumCrc32,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.checksumCrc32C != null) {
-      result
+    if (checksumCrc32C != null) {
+      result$
         ..add(const _i2.XmlElementName('ChecksumCRC32C'))
         ..add(serializers.serialize(
-          payload.checksumCrc32C!,
+          checksumCrc32C,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.checksumSha1 != null) {
-      result
+    if (checksumSha1 != null) {
+      result$
         ..add(const _i2.XmlElementName('ChecksumSHA1'))
         ..add(serializers.serialize(
-          payload.checksumSha1!,
+          checksumSha1,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.checksumSha256 != null) {
-      result
+    if (checksumSha256 != null) {
+      result$
         ..add(const _i2.XmlElementName('ChecksumSHA256'))
         ..add(serializers.serialize(
-          payload.checksumSha256!,
+          checksumSha256,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

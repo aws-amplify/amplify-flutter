@@ -8,32 +8,32 @@ part of smoke_test.api_gateway.model.test_invoke_authorizer_response;
 
 class _$TestInvokeAuthorizerResponse extends TestInvokeAuthorizerResponse {
   @override
-  final _i3.BuiltListMultimap<String, String>? authorization;
-  @override
-  final _i3.BuiltMap<String, String>? claims;
-  @override
   final int? clientStatus;
-  @override
-  final _i2.Int64? latency;
   @override
   final String? log;
   @override
-  final String? policy;
+  final _i2.Int64? latency;
   @override
   final String? principalId;
+  @override
+  final String? policy;
+  @override
+  final _i3.BuiltListMultimap<String, String>? authorization;
+  @override
+  final _i3.BuiltMap<String, String>? claims;
 
   factory _$TestInvokeAuthorizerResponse(
           [void Function(TestInvokeAuthorizerResponseBuilder)? updates]) =>
       (new TestInvokeAuthorizerResponseBuilder()..update(updates))._build();
 
   _$TestInvokeAuthorizerResponse._(
-      {this.authorization,
-      this.claims,
-      this.clientStatus,
-      this.latency,
+      {this.clientStatus,
       this.log,
+      this.latency,
+      this.principalId,
       this.policy,
-      this.principalId})
+      this.authorization,
+      this.claims})
       : super._();
 
   @override
@@ -49,25 +49,25 @@ class _$TestInvokeAuthorizerResponse extends TestInvokeAuthorizerResponse {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TestInvokeAuthorizerResponse &&
-        authorization == other.authorization &&
-        claims == other.claims &&
         clientStatus == other.clientStatus &&
-        latency == other.latency &&
         log == other.log &&
+        latency == other.latency &&
+        principalId == other.principalId &&
         policy == other.policy &&
-        principalId == other.principalId;
+        authorization == other.authorization &&
+        claims == other.claims;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, clientStatus.hashCode);
+    _$hash = $jc(_$hash, log.hashCode);
+    _$hash = $jc(_$hash, latency.hashCode);
+    _$hash = $jc(_$hash, principalId.hashCode);
+    _$hash = $jc(_$hash, policy.hashCode);
     _$hash = $jc(_$hash, authorization.hashCode);
     _$hash = $jc(_$hash, claims.hashCode);
-    _$hash = $jc(_$hash, clientStatus.hashCode);
-    _$hash = $jc(_$hash, latency.hashCode);
-    _$hash = $jc(_$hash, log.hashCode);
-    _$hash = $jc(_$hash, policy.hashCode);
-    _$hash = $jc(_$hash, principalId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -78,6 +78,26 @@ class TestInvokeAuthorizerResponseBuilder
         Builder<TestInvokeAuthorizerResponse,
             TestInvokeAuthorizerResponseBuilder> {
   _$TestInvokeAuthorizerResponse? _$v;
+
+  int? _clientStatus;
+  int? get clientStatus => _$this._clientStatus;
+  set clientStatus(int? clientStatus) => _$this._clientStatus = clientStatus;
+
+  String? _log;
+  String? get log => _$this._log;
+  set log(String? log) => _$this._log = log;
+
+  _i2.Int64? _latency;
+  _i2.Int64? get latency => _$this._latency;
+  set latency(_i2.Int64? latency) => _$this._latency = latency;
+
+  String? _principalId;
+  String? get principalId => _$this._principalId;
+  set principalId(String? principalId) => _$this._principalId = principalId;
+
+  String? _policy;
+  String? get policy => _$this._policy;
+  set policy(String? policy) => _$this._policy = policy;
 
   _i3.ListMultimapBuilder<String, String>? _authorization;
   _i3.ListMultimapBuilder<String, String> get authorization =>
@@ -90,26 +110,6 @@ class TestInvokeAuthorizerResponseBuilder
       _$this._claims ??= new _i3.MapBuilder<String, String>();
   set claims(_i3.MapBuilder<String, String>? claims) => _$this._claims = claims;
 
-  int? _clientStatus;
-  int? get clientStatus => _$this._clientStatus;
-  set clientStatus(int? clientStatus) => _$this._clientStatus = clientStatus;
-
-  _i2.Int64? _latency;
-  _i2.Int64? get latency => _$this._latency;
-  set latency(_i2.Int64? latency) => _$this._latency = latency;
-
-  String? _log;
-  String? get log => _$this._log;
-  set log(String? log) => _$this._log = log;
-
-  String? _policy;
-  String? get policy => _$this._policy;
-  set policy(String? policy) => _$this._policy = policy;
-
-  String? _principalId;
-  String? get principalId => _$this._principalId;
-  set principalId(String? principalId) => _$this._principalId = principalId;
-
   TestInvokeAuthorizerResponseBuilder() {
     TestInvokeAuthorizerResponse._init(this);
   }
@@ -117,13 +117,13 @@ class TestInvokeAuthorizerResponseBuilder
   TestInvokeAuthorizerResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _clientStatus = $v.clientStatus;
+      _log = $v.log;
+      _latency = $v.latency;
+      _principalId = $v.principalId;
+      _policy = $v.policy;
       _authorization = $v.authorization?.toBuilder();
       _claims = $v.claims?.toBuilder();
-      _clientStatus = $v.clientStatus;
-      _latency = $v.latency;
-      _log = $v.log;
-      _policy = $v.policy;
-      _principalId = $v.principalId;
       _$v = null;
     }
     return this;
@@ -148,13 +148,13 @@ class TestInvokeAuthorizerResponseBuilder
     try {
       _$result = _$v ??
           new _$TestInvokeAuthorizerResponse._(
-              authorization: _authorization?.build(),
-              claims: _claims?.build(),
               clientStatus: clientStatus,
-              latency: latency,
               log: log,
+              latency: latency,
+              principalId: principalId,
               policy: policy,
-              principalId: principalId);
+              authorization: _authorization?.build(),
+              claims: _claims?.build());
     } catch (_) {
       late String _$failedField;
       try {

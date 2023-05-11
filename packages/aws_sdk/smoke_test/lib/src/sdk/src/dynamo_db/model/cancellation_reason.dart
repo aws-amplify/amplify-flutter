@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.cancellation_reason; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,13 +19,13 @@ abstract class CancellationReason
     implements Built<CancellationReason, CancellationReasonBuilder> {
   /// An ordered list of errors for each item in the request which caused the transaction to get cancelled. The values of the list are ordered according to the ordering of the `TransactWriteItems` request parameter. If no error occurred for the associated item an error with a Null code and Null message will be present.
   factory CancellationReason({
-    String? code,
     Map<String, _i2.AttributeValue>? item,
+    String? code,
     String? message,
   }) {
     return _$CancellationReason._(
-      code: code,
       item: item == null ? null : _i3.BuiltMap(item),
+      code: code,
       message: message,
     );
   }
@@ -43,30 +44,30 @@ abstract class CancellationReason
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CancellationReasonBuilder b) {}
 
-  /// Status code for the result of the cancelled transaction.
-  String? get code;
-
   /// Item in the request which caused the transaction to get cancelled.
   _i3.BuiltMap<String, _i2.AttributeValue>? get item;
+
+  /// Status code for the result of the cancelled transaction.
+  String? get code;
 
   /// Cancellation reason message description.
   String? get message;
   @override
   List<Object?> get props => [
-        code,
         item,
+        code,
         message,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CancellationReason');
     helper.add(
-      'code',
-      code,
-    );
-    helper.add(
       'item',
       item,
+    );
+    helper.add(
+      'code',
+      code,
     );
     helper.add(
       'message',
@@ -104,37 +105,31 @@ class CancellationReasonAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Code':
-          if (value != null) {
-            result.code = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'Item':
-          if (value != null) {
-            result.item.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeValue),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, _i2.AttributeValue>));
-          }
-          break;
+          result.item.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, _i2.AttributeValue>));
+        case 'Code':
+          result.code = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -144,24 +139,16 @@ class CancellationReasonAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CancellationReason object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CancellationReason);
-    final result = <Object?>[];
-    if (payload.code != null) {
-      result
-        ..add('Code')
-        ..add(serializers.serialize(
-          payload.code!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.item != null) {
-      result
+    final result$ = <Object?>[];
+    final CancellationReason(:item, :code, :message) = object;
+    if (item != null) {
+      result$
         ..add('Item')
         ..add(serializers.serialize(
-          payload.item!,
+          item,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -171,14 +158,22 @@ class CancellationReasonAwsJson10Serializer
           ),
         ));
     }
-    if (payload.message != null) {
-      result
-        ..add('Message')
+    if (code != null) {
+      result$
+        ..add('Code')
         ..add(serializers.serialize(
-          payload.message!,
+          code,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    if (message != null) {
+      result$
+        ..add('Message')
+        ..add(serializers.serialize(
+          message,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

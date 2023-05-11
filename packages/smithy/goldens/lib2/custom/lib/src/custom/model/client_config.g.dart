@@ -10,29 +10,29 @@ class _$ClientConfig extends ClientConfig {
   @override
   final String? awsAccessKeyId;
   @override
-  final String? awsProfile;
-  @override
   final String? awsSecretAccessKey;
   @override
   final String? awsSessionToken;
   @override
   final String? region;
   @override
-  final _i2.RetryConfig? retryConfig;
+  final _i2.S3Config? s3;
   @override
-  final _i3.S3Config? s3;
+  final _i3.RetryConfig? retryConfig;
+  @override
+  final String? awsProfile;
 
   factory _$ClientConfig([void Function(ClientConfigBuilder)? updates]) =>
       (new ClientConfigBuilder()..update(updates))._build();
 
   _$ClientConfig._(
       {this.awsAccessKeyId,
-      this.awsProfile,
       this.awsSecretAccessKey,
       this.awsSessionToken,
       this.region,
+      this.s3,
       this.retryConfig,
-      this.s3})
+      this.awsProfile})
       : super._();
 
   @override
@@ -47,24 +47,24 @@ class _$ClientConfig extends ClientConfig {
     if (identical(other, this)) return true;
     return other is ClientConfig &&
         awsAccessKeyId == other.awsAccessKeyId &&
-        awsProfile == other.awsProfile &&
         awsSecretAccessKey == other.awsSecretAccessKey &&
         awsSessionToken == other.awsSessionToken &&
         region == other.region &&
+        s3 == other.s3 &&
         retryConfig == other.retryConfig &&
-        s3 == other.s3;
+        awsProfile == other.awsProfile;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, awsAccessKeyId.hashCode);
-    _$hash = $jc(_$hash, awsProfile.hashCode);
     _$hash = $jc(_$hash, awsSecretAccessKey.hashCode);
     _$hash = $jc(_$hash, awsSessionToken.hashCode);
     _$hash = $jc(_$hash, region.hashCode);
-    _$hash = $jc(_$hash, retryConfig.hashCode);
     _$hash = $jc(_$hash, s3.hashCode);
+    _$hash = $jc(_$hash, retryConfig.hashCode);
+    _$hash = $jc(_$hash, awsProfile.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -78,10 +78,6 @@ class ClientConfigBuilder
   String? get awsAccessKeyId => _$this._awsAccessKeyId;
   set awsAccessKeyId(String? awsAccessKeyId) =>
       _$this._awsAccessKeyId = awsAccessKeyId;
-
-  String? _awsProfile;
-  String? get awsProfile => _$this._awsProfile;
-  set awsProfile(String? awsProfile) => _$this._awsProfile = awsProfile;
 
   String? _awsSecretAccessKey;
   String? get awsSecretAccessKey => _$this._awsSecretAccessKey;
@@ -97,15 +93,19 @@ class ClientConfigBuilder
   String? get region => _$this._region;
   set region(String? region) => _$this._region = region;
 
-  _i2.RetryConfigBuilder? _retryConfig;
-  _i2.RetryConfigBuilder get retryConfig =>
-      _$this._retryConfig ??= new _i2.RetryConfigBuilder();
-  set retryConfig(_i2.RetryConfigBuilder? retryConfig) =>
+  _i2.S3ConfigBuilder? _s3;
+  _i2.S3ConfigBuilder get s3 => _$this._s3 ??= new _i2.S3ConfigBuilder();
+  set s3(_i2.S3ConfigBuilder? s3) => _$this._s3 = s3;
+
+  _i3.RetryConfigBuilder? _retryConfig;
+  _i3.RetryConfigBuilder get retryConfig =>
+      _$this._retryConfig ??= new _i3.RetryConfigBuilder();
+  set retryConfig(_i3.RetryConfigBuilder? retryConfig) =>
       _$this._retryConfig = retryConfig;
 
-  _i3.S3ConfigBuilder? _s3;
-  _i3.S3ConfigBuilder get s3 => _$this._s3 ??= new _i3.S3ConfigBuilder();
-  set s3(_i3.S3ConfigBuilder? s3) => _$this._s3 = s3;
+  String? _awsProfile;
+  String? get awsProfile => _$this._awsProfile;
+  set awsProfile(String? awsProfile) => _$this._awsProfile = awsProfile;
 
   ClientConfigBuilder() {
     ClientConfig._init(this);
@@ -115,12 +115,12 @@ class ClientConfigBuilder
     final $v = _$v;
     if ($v != null) {
       _awsAccessKeyId = $v.awsAccessKeyId;
-      _awsProfile = $v.awsProfile;
       _awsSecretAccessKey = $v.awsSecretAccessKey;
       _awsSessionToken = $v.awsSessionToken;
       _region = $v.region;
-      _retryConfig = $v.retryConfig?.toBuilder();
       _s3 = $v.s3?.toBuilder();
+      _retryConfig = $v.retryConfig?.toBuilder();
+      _awsProfile = $v.awsProfile;
       _$v = null;
     }
     return this;
@@ -146,19 +146,19 @@ class ClientConfigBuilder
       _$result = _$v ??
           new _$ClientConfig._(
               awsAccessKeyId: awsAccessKeyId,
-              awsProfile: awsProfile,
               awsSecretAccessKey: awsSecretAccessKey,
               awsSessionToken: awsSessionToken,
               region: region,
+              s3: _s3?.build(),
               retryConfig: _retryConfig?.build(),
-              s3: _s3?.build());
+              awsProfile: awsProfile);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'retryConfig';
-        _retryConfig?.build();
         _$failedField = 's3';
         _s3?.build();
+        _$failedField = 'retryConfig';
+        _retryConfig?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ClientConfig', _$failedField, e.toString());

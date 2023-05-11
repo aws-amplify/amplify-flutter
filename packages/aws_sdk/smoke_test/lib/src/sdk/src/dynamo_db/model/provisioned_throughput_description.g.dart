@@ -9,9 +9,9 @@ part of smoke_test.dynamo_db.model.provisioned_throughput_description;
 class _$ProvisionedThroughputDescription
     extends ProvisionedThroughputDescription {
   @override
-  final DateTime? lastDecreaseDateTime;
-  @override
   final DateTime? lastIncreaseDateTime;
+  @override
+  final DateTime? lastDecreaseDateTime;
   @override
   final _i2.Int64? numberOfDecreasesToday;
   @override
@@ -24,8 +24,8 @@ class _$ProvisionedThroughputDescription
       (new ProvisionedThroughputDescriptionBuilder()..update(updates))._build();
 
   _$ProvisionedThroughputDescription._(
-      {this.lastDecreaseDateTime,
-      this.lastIncreaseDateTime,
+      {this.lastIncreaseDateTime,
+      this.lastDecreaseDateTime,
       this.numberOfDecreasesToday,
       this.readCapacityUnits,
       this.writeCapacityUnits})
@@ -44,8 +44,8 @@ class _$ProvisionedThroughputDescription
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ProvisionedThroughputDescription &&
-        lastDecreaseDateTime == other.lastDecreaseDateTime &&
         lastIncreaseDateTime == other.lastIncreaseDateTime &&
+        lastDecreaseDateTime == other.lastDecreaseDateTime &&
         numberOfDecreasesToday == other.numberOfDecreasesToday &&
         readCapacityUnits == other.readCapacityUnits &&
         writeCapacityUnits == other.writeCapacityUnits;
@@ -54,8 +54,8 @@ class _$ProvisionedThroughputDescription
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, lastDecreaseDateTime.hashCode);
     _$hash = $jc(_$hash, lastIncreaseDateTime.hashCode);
+    _$hash = $jc(_$hash, lastDecreaseDateTime.hashCode);
     _$hash = $jc(_$hash, numberOfDecreasesToday.hashCode);
     _$hash = $jc(_$hash, readCapacityUnits.hashCode);
     _$hash = $jc(_$hash, writeCapacityUnits.hashCode);
@@ -70,15 +70,15 @@ class ProvisionedThroughputDescriptionBuilder
             ProvisionedThroughputDescriptionBuilder> {
   _$ProvisionedThroughputDescription? _$v;
 
-  DateTime? _lastDecreaseDateTime;
-  DateTime? get lastDecreaseDateTime => _$this._lastDecreaseDateTime;
-  set lastDecreaseDateTime(DateTime? lastDecreaseDateTime) =>
-      _$this._lastDecreaseDateTime = lastDecreaseDateTime;
-
   DateTime? _lastIncreaseDateTime;
   DateTime? get lastIncreaseDateTime => _$this._lastIncreaseDateTime;
   set lastIncreaseDateTime(DateTime? lastIncreaseDateTime) =>
       _$this._lastIncreaseDateTime = lastIncreaseDateTime;
+
+  DateTime? _lastDecreaseDateTime;
+  DateTime? get lastDecreaseDateTime => _$this._lastDecreaseDateTime;
+  set lastDecreaseDateTime(DateTime? lastDecreaseDateTime) =>
+      _$this._lastDecreaseDateTime = lastDecreaseDateTime;
 
   _i2.Int64? _numberOfDecreasesToday;
   _i2.Int64? get numberOfDecreasesToday => _$this._numberOfDecreasesToday;
@@ -102,8 +102,8 @@ class ProvisionedThroughputDescriptionBuilder
   ProvisionedThroughputDescriptionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _lastDecreaseDateTime = $v.lastDecreaseDateTime;
       _lastIncreaseDateTime = $v.lastIncreaseDateTime;
+      _lastDecreaseDateTime = $v.lastDecreaseDateTime;
       _numberOfDecreasesToday = $v.numberOfDecreasesToday;
       _readCapacityUnits = $v.readCapacityUnits;
       _writeCapacityUnits = $v.writeCapacityUnits;
@@ -129,8 +129,8 @@ class ProvisionedThroughputDescriptionBuilder
   _$ProvisionedThroughputDescription _build() {
     final _$result = _$v ??
         new _$ProvisionedThroughputDescription._(
-            lastDecreaseDateTime: lastDecreaseDateTime,
             lastIncreaseDateTime: lastIncreaseDateTime,
+            lastDecreaseDateTime: lastDecreaseDateTime,
             numberOfDecreasesToday: numberOfDecreasesToday,
             readCapacityUnits: readCapacityUnits,
             writeCapacityUnits: writeCapacityUnits);

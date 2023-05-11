@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.machine_learning.machine_learning_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -74,8 +75,8 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _predictProtocol.contentType;
     try {
-      final payload = (await _predictProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _predictProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i6.PredictInput),
       ) as _i6.PredictInput);
       final input = _i6.PredictInput.fromRequest(
@@ -88,7 +89,7 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _predictProtocol.serialize(
+      final body = await _predictProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i5.PredictOutput,
@@ -101,7 +102,7 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on _i8.InternalServerException catch (e) {
-      final body = _predictProtocol.serialize(
+      final body = _predictProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i8.InternalServerException,
@@ -115,7 +116,7 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on _i9.InvalidInputException catch (e) {
-      final body = _predictProtocol.serialize(
+      final body = _predictProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i9.InvalidInputException,
@@ -129,7 +130,7 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on _i10.LimitExceededException catch (e) {
-      final body = _predictProtocol.serialize(
+      final body = _predictProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i10.LimitExceededException,
@@ -143,7 +144,7 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on _i11.PredictorNotMountedException catch (e) {
-      final body = _predictProtocol.serialize(
+      final body = _predictProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i11.PredictorNotMountedException,
@@ -157,7 +158,7 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on _i12.ResourceNotFoundException catch (e) {
-      final body = _predictProtocol.serialize(
+      final body = _predictProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i12.ResourceNotFoundException,

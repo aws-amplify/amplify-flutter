@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.malformed_accept_with_generic_string_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -90,15 +91,12 @@ class MalformedAcceptWithGenericStringOutputRestJson1Serializer
   @override
   Object serialize(
     Serializers serializers,
-    Object? object, {
+    String object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is MalformedAcceptWithGenericStringOutput
-        ? object.getPayload()
-        : (object as String?);
-    return (serializers.serialize(
-      payload!,
+    return serializers.serialize(
+      object,
       specifiedType: const FullType(String),
-    ) as Object);
+    )!;
   }
 }

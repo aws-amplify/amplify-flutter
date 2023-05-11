@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.inventory_s3_bucket_destination; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -7,8 +8,8 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/s3/model/inventory_encryption.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/inventory_format.dart' as _i3;
+    as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/inventory_format.dart' as _i2;
 
 part 'inventory_s3_bucket_destination.g.dart';
 
@@ -23,16 +24,16 @@ abstract class InventoryS3BucketDestination
   factory InventoryS3BucketDestination({
     String? accountId,
     required String bucket,
-    _i2.InventoryEncryption? encryption,
-    required _i3.InventoryFormat format,
+    required _i2.InventoryFormat format,
     String? prefix,
+    _i3.InventoryEncryption? encryption,
   }) {
     return _$InventoryS3BucketDestination._(
       accountId: accountId,
       bucket: bucket,
-      encryption: encryption,
       format: format,
       prefix: prefix,
+      encryption: encryption,
     );
   }
 
@@ -58,21 +59,21 @@ abstract class InventoryS3BucketDestination
   /// The Amazon Resource Name (ARN) of the bucket where inventory results will be published.
   String get bucket;
 
-  /// Contains the type of server-side encryption used to encrypt the inventory results.
-  _i2.InventoryEncryption? get encryption;
-
   /// Specifies the output format of the inventory results.
-  _i3.InventoryFormat get format;
+  _i2.InventoryFormat get format;
 
   /// The prefix that is prepended to all inventory results.
   String? get prefix;
+
+  /// Contains the type of server-side encryption used to encrypt the inventory results.
+  _i3.InventoryEncryption? get encryption;
   @override
   List<Object?> get props => [
         accountId,
         bucket,
-        encryption,
         format,
         prefix,
+        encryption,
       ];
   @override
   String toString() {
@@ -86,16 +87,16 @@ abstract class InventoryS3BucketDestination
       bucket,
     );
     helper.add(
-      'encryption',
-      encryption,
-    );
-    helper.add(
       'format',
       format,
     );
     helper.add(
       'prefix',
       prefix,
+    );
+    helper.add(
+      'encryption',
+      encryption,
     );
     return helper.toString();
   }
@@ -127,46 +128,38 @@ class InventoryS3BucketDestinationRestXmlSerializer
     final result = InventoryS3BucketDestinationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AccountId':
-          if (value != null) {
-            result.accountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Bucket':
-          result.bucket = (serializers.deserialize(
-            value!,
+          result.accountId = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'Bucket':
+          result.bucket = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Encryption':
-          if (value != null) {
-            result.encryption.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.InventoryEncryption),
-            ) as _i2.InventoryEncryption));
-          }
-          break;
+          result.encryption.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.InventoryEncryption),
+          ) as _i3.InventoryEncryption));
         case 'Format':
           result.format = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i3.InventoryFormat),
-          ) as _i3.InventoryFormat);
-          break;
+            value,
+            specifiedType: const FullType(_i2.InventoryFormat),
+          ) as _i2.InventoryFormat);
         case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -176,52 +169,58 @@ class InventoryS3BucketDestinationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InventoryS3BucketDestination object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InventoryS3BucketDestination);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'InventoryS3BucketDestination',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.accountId != null) {
-      result
+    final InventoryS3BucketDestination(
+      :accountId,
+      :bucket,
+      :encryption,
+      :format,
+      :prefix
+    ) = object;
+    if (accountId != null) {
+      result$
         ..add(const _i4.XmlElementName('AccountId'))
         ..add(serializers.serialize(
-          payload.accountId!,
+          accountId,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i4.XmlElementName('Bucket'))
       ..add(serializers.serialize(
-        payload.bucket,
+        bucket,
         specifiedType: const FullType(String),
       ));
-    if (payload.encryption != null) {
-      result
+    if (encryption != null) {
+      result$
         ..add(const _i4.XmlElementName('Encryption'))
         ..add(serializers.serialize(
-          payload.encryption!,
-          specifiedType: const FullType(_i2.InventoryEncryption),
+          encryption,
+          specifiedType: const FullType(_i3.InventoryEncryption),
         ));
     }
-    result
+    result$
       ..add(const _i4.XmlElementName('Format'))
       ..add(serializers.serialize(
-        payload.format,
-        specifiedType: const FullType.nullable(_i3.InventoryFormat),
+        format,
+        specifiedType: const FullType.nullable(_i2.InventoryFormat),
       ));
-    if (payload.prefix != null) {
-      result
+    if (prefix != null) {
+      result$
         ..add(const _i4.XmlElementName('Prefix'))
         ..add(serializers.serialize(
-          payload.prefix!,
+          prefix,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

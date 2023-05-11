@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_remediation_configurations_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -90,6 +91,9 @@ class DescribeRemediationConfigurationsRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleNames':
           result.configRuleNames.replace((serializers.deserialize(
@@ -99,7 +103,6 @@ class DescribeRemediationConfigurationsRequestAwsJson11Serializer extends _i1
               [FullType(String)],
             ),
           ) as _i3.BuiltList<String>));
-          break;
       }
     }
 
@@ -109,20 +112,21 @@ class DescribeRemediationConfigurationsRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeRemediationConfigurationsRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeRemediationConfigurationsRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DescribeRemediationConfigurationsRequest(:configRuleNames) = object;
+    result$.addAll([
       'ConfigRuleNames',
       serializers.serialize(
-        payload.configRuleNames,
+        configRuleNames,
         specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

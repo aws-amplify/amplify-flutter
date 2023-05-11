@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.delete_resource_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,12 +22,12 @@ abstract class DeleteResourceRequest
         _i1.HasPayload<DeleteResourceRequestPayload> {
   /// Request to delete a Resource.
   factory DeleteResourceRequest({
-    required String resourceId,
     required String restApiId,
+    required String resourceId,
   }) {
     return _$DeleteResourceRequest._(
-      resourceId: resourceId,
       restApiId: restApiId,
+      resourceId: resourceId,
     );
   }
 
@@ -58,11 +59,11 @@ abstract class DeleteResourceRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteResourceRequestBuilder b) {}
 
-  /// The identifier of the Resource resource.
-  String get resourceId;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The identifier of the Resource resource.
+  String get resourceId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -81,19 +82,19 @@ abstract class DeleteResourceRequest
   DeleteResourceRequestPayload getPayload() => DeleteResourceRequestPayload();
   @override
   List<Object?> get props => [
-        resourceId,
         restApiId,
+        resourceId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteResourceRequest');
     helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
     );
     return helper.toString();
   }
@@ -155,7 +156,7 @@ class DeleteResourceRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteResourceRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

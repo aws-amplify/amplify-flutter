@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.get_request_validator_request;
 
 class _$GetRequestValidatorRequest extends GetRequestValidatorRequest {
   @override
-  final String requestValidatorId;
-  @override
   final String restApiId;
+  @override
+  final String requestValidatorId;
 
   factory _$GetRequestValidatorRequest(
           [void Function(GetRequestValidatorRequestBuilder)? updates]) =>
       (new GetRequestValidatorRequestBuilder()..update(updates))._build();
 
   _$GetRequestValidatorRequest._(
-      {required this.requestValidatorId, required this.restApiId})
+      {required this.restApiId, required this.requestValidatorId})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(requestValidatorId,
-        r'GetRequestValidatorRequest', 'requestValidatorId');
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetRequestValidatorRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(requestValidatorId,
+        r'GetRequestValidatorRequest', 'requestValidatorId');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$GetRequestValidatorRequest extends GetRequestValidatorRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetRequestValidatorRequest &&
-        requestValidatorId == other.requestValidatorId &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        requestValidatorId == other.requestValidatorId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, requestValidatorId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, requestValidatorId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,14 +57,14 @@ class GetRequestValidatorRequestBuilder
         Builder<GetRequestValidatorRequest, GetRequestValidatorRequestBuilder> {
   _$GetRequestValidatorRequest? _$v;
 
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
   String? _requestValidatorId;
   String? get requestValidatorId => _$this._requestValidatorId;
   set requestValidatorId(String? requestValidatorId) =>
       _$this._requestValidatorId = requestValidatorId;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   GetRequestValidatorRequestBuilder() {
     GetRequestValidatorRequest._init(this);
@@ -73,8 +73,8 @@ class GetRequestValidatorRequestBuilder
   GetRequestValidatorRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _requestValidatorId = $v.requestValidatorId;
       _restApiId = $v.restApiId;
+      _requestValidatorId = $v.requestValidatorId;
       _$v = null;
     }
     return this;
@@ -97,12 +97,12 @@ class GetRequestValidatorRequestBuilder
   _$GetRequestValidatorRequest _build() {
     final _$result = _$v ??
         new _$GetRequestValidatorRequest._(
+            restApiId: BuiltValueNullFieldError.checkNotNull(
+                restApiId, r'GetRequestValidatorRequest', 'restApiId'),
             requestValidatorId: BuiltValueNullFieldError.checkNotNull(
                 requestValidatorId,
                 r'GetRequestValidatorRequest',
-                'requestValidatorId'),
-            restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'GetRequestValidatorRequest', 'restApiId'));
+                'requestValidatorId'));
     replace(_$result);
     return _$result;
   }

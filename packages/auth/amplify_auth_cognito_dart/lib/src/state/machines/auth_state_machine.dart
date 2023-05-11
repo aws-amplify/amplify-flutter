@@ -9,7 +9,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_auth_cognito_dart.state.auth_state_machine}
 /// Base class for state machines under a [CognitoAuthStateMachine].
 /// {@endtemplate}
-abstract class AuthStateMachine<Event extends AuthEvent,
+abstract base class AuthStateMachine<Event extends AuthEvent,
         State extends AuthState>
     extends StateMachine<Event, State, AuthEvent, AuthState,
         CognitoAuthStateMachine> {

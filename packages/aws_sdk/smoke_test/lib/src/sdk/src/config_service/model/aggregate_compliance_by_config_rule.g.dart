@@ -9,20 +9,20 @@ part of smoke_test.config_service.model.aggregate_compliance_by_config_rule;
 class _$AggregateComplianceByConfigRule
     extends AggregateComplianceByConfigRule {
   @override
-  final String? accountId;
-  @override
-  final String? awsRegion;
+  final String? configRuleName;
   @override
   final _i2.Compliance? compliance;
   @override
-  final String? configRuleName;
+  final String? accountId;
+  @override
+  final String? awsRegion;
 
   factory _$AggregateComplianceByConfigRule(
           [void Function(AggregateComplianceByConfigRuleBuilder)? updates]) =>
       (new AggregateComplianceByConfigRuleBuilder()..update(updates))._build();
 
   _$AggregateComplianceByConfigRule._(
-      {this.accountId, this.awsRegion, this.compliance, this.configRuleName})
+      {this.configRuleName, this.compliance, this.accountId, this.awsRegion})
       : super._();
 
   @override
@@ -38,19 +38,19 @@ class _$AggregateComplianceByConfigRule
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AggregateComplianceByConfigRule &&
-        accountId == other.accountId &&
-        awsRegion == other.awsRegion &&
+        configRuleName == other.configRuleName &&
         compliance == other.compliance &&
-        configRuleName == other.configRuleName;
+        accountId == other.accountId &&
+        awsRegion == other.awsRegion;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, configRuleName.hashCode);
+    _$hash = $jc(_$hash, compliance.hashCode);
     _$hash = $jc(_$hash, accountId.hashCode);
     _$hash = $jc(_$hash, awsRegion.hashCode);
-    _$hash = $jc(_$hash, compliance.hashCode);
-    _$hash = $jc(_$hash, configRuleName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,6 +62,17 @@ class AggregateComplianceByConfigRuleBuilder
             AggregateComplianceByConfigRuleBuilder> {
   _$AggregateComplianceByConfigRule? _$v;
 
+  String? _configRuleName;
+  String? get configRuleName => _$this._configRuleName;
+  set configRuleName(String? configRuleName) =>
+      _$this._configRuleName = configRuleName;
+
+  _i2.ComplianceBuilder? _compliance;
+  _i2.ComplianceBuilder get compliance =>
+      _$this._compliance ??= new _i2.ComplianceBuilder();
+  set compliance(_i2.ComplianceBuilder? compliance) =>
+      _$this._compliance = compliance;
+
   String? _accountId;
   String? get accountId => _$this._accountId;
   set accountId(String? accountId) => _$this._accountId = accountId;
@@ -70,17 +81,6 @@ class AggregateComplianceByConfigRuleBuilder
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  _i2.ComplianceBuilder? _compliance;
-  _i2.ComplianceBuilder get compliance =>
-      _$this._compliance ??= new _i2.ComplianceBuilder();
-  set compliance(_i2.ComplianceBuilder? compliance) =>
-      _$this._compliance = compliance;
-
-  String? _configRuleName;
-  String? get configRuleName => _$this._configRuleName;
-  set configRuleName(String? configRuleName) =>
-      _$this._configRuleName = configRuleName;
-
   AggregateComplianceByConfigRuleBuilder() {
     AggregateComplianceByConfigRule._init(this);
   }
@@ -88,10 +88,10 @@ class AggregateComplianceByConfigRuleBuilder
   AggregateComplianceByConfigRuleBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _configRuleName = $v.configRuleName;
+      _compliance = $v.compliance?.toBuilder();
       _accountId = $v.accountId;
       _awsRegion = $v.awsRegion;
-      _compliance = $v.compliance?.toBuilder();
-      _configRuleName = $v.configRuleName;
       _$v = null;
     }
     return this;
@@ -116,10 +116,10 @@ class AggregateComplianceByConfigRuleBuilder
     try {
       _$result = _$v ??
           new _$AggregateComplianceByConfigRule._(
-              accountId: accountId,
-              awsRegion: awsRegion,
+              configRuleName: configRuleName,
               compliance: _compliance?.build(),
-              configRuleName: configRuleName);
+              accountId: accountId,
+              awsRegion: awsRegion);
     } catch (_) {
       late String _$failedField;
       try {

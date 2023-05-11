@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_protocol.test.json_timestamps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -569,67 +570,49 @@ class JsonTimestampsInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'dateTime':
-          if (value != null) {
-            result.dateTime = _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
-        case 'dateTimeOnTarget':
-          if (value != null) {
-            result.dateTimeOnTarget =
-                _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
-        case 'epochSeconds':
-          if (value != null) {
-            result.epochSeconds =
-                _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
-        case 'epochSecondsOnTarget':
-          if (value != null) {
-            result.epochSecondsOnTarget =
-                _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
-        case 'httpDate':
-          if (value != null) {
-            result.httpDate = _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
-        case 'httpDateOnTarget':
-          if (value != null) {
-            result.httpDateOnTarget =
-                _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
         case 'normal':
-          if (value != null) {
-            result.normal = _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.normal = _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
+        case 'dateTime':
+          result.dateTime = _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
+        case 'dateTimeOnTarget':
+          result.dateTimeOnTarget =
+              _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
+        case 'epochSeconds':
+          result.epochSeconds =
+              _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
+        case 'epochSecondsOnTarget':
+          result.epochSecondsOnTarget =
+              _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
+        case 'httpDate':
+          result.httpDate = _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
+        case 'httpDateOnTarget':
+          result.httpDateOnTarget =
+              _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -639,7 +622,7 @@ class JsonTimestampsInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.JsonTimestampsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

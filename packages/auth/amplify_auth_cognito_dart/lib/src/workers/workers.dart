@@ -7,6 +7,7 @@
   SrpDevicePasswordVerifierWorker,
   ConfirmDeviceWorker,
 ])
+library;
 
 import 'package:amplify_auth_cognito_dart/src/flows/device/confirm_device_worker.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_device_password_verifier_worker.dart';

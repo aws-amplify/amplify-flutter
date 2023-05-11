@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v2.json_protocol.model.json_int_enums_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,16 +23,16 @@ abstract class JsonIntEnumsInputOutput
     _i3.IntegerEnum? intEnum2,
     _i3.IntegerEnum? intEnum3,
     List<_i3.IntegerEnum>? intEnumList,
-    Map<String, _i3.IntegerEnum>? intEnumMap,
     Set<_i3.IntegerEnum>? intEnumSet,
+    Map<String, _i3.IntegerEnum>? intEnumMap,
   }) {
     return _$JsonIntEnumsInputOutput._(
       intEnum1: intEnum1,
       intEnum2: intEnum2,
       intEnum3: intEnum3,
       intEnumList: intEnumList == null ? null : _i4.BuiltList(intEnumList),
-      intEnumMap: intEnumMap == null ? null : _i4.BuiltMap(intEnumMap),
       intEnumSet: intEnumSet == null ? null : _i4.BuiltSet(intEnumSet),
+      intEnumMap: intEnumMap == null ? null : _i4.BuiltMap(intEnumMap),
     );
   }
 
@@ -65,8 +66,8 @@ abstract class JsonIntEnumsInputOutput
   _i3.IntegerEnum? get intEnum2;
   _i3.IntegerEnum? get intEnum3;
   _i4.BuiltList<_i3.IntegerEnum>? get intEnumList;
-  _i4.BuiltMap<String, _i3.IntegerEnum>? get intEnumMap;
   _i4.BuiltSet<_i3.IntegerEnum>? get intEnumSet;
+  _i4.BuiltMap<String, _i3.IntegerEnum>? get intEnumMap;
   @override
   JsonIntEnumsInputOutput getPayload() => this;
   @override
@@ -75,8 +76,8 @@ abstract class JsonIntEnumsInputOutput
         intEnum2,
         intEnum3,
         intEnumList,
-        intEnumMap,
         intEnumSet,
+        intEnumMap,
       ];
   @override
   String toString() {
@@ -98,12 +99,12 @@ abstract class JsonIntEnumsInputOutput
       intEnumList,
     );
     helper.add(
-      'intEnumMap',
-      intEnumMap,
-    );
-    helper.add(
       'intEnumSet',
       intEnumSet,
+    );
+    helper.add(
+      'intEnumMap',
+      intEnumMap,
     );
     return helper.toString();
   }
@@ -138,67 +139,52 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'intEnum1':
-          if (value != null) {
-            result.intEnum1 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.IntegerEnum),
-            ) as _i3.IntegerEnum);
-          }
-          break;
+          result.intEnum1 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.IntegerEnum),
+          ) as _i3.IntegerEnum);
         case 'intEnum2':
-          if (value != null) {
-            result.intEnum2 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.IntegerEnum),
-            ) as _i3.IntegerEnum);
-          }
-          break;
+          result.intEnum2 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.IntegerEnum),
+          ) as _i3.IntegerEnum);
         case 'intEnum3':
-          if (value != null) {
-            result.intEnum3 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.IntegerEnum),
-            ) as _i3.IntegerEnum);
-          }
-          break;
+          result.intEnum3 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.IntegerEnum),
+          ) as _i3.IntegerEnum);
         case 'intEnumList':
-          if (value != null) {
-            result.intEnumList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.IntegerEnum)],
-              ),
-            ) as _i4.BuiltList<_i3.IntegerEnum>));
-          }
-          break;
-        case 'intEnumMap':
-          if (value != null) {
-            result.intEnumMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.IntegerEnum),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, _i3.IntegerEnum>));
-          }
-          break;
+          result.intEnumList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.IntegerEnum)],
+            ),
+          ) as _i4.BuiltList<_i3.IntegerEnum>));
         case 'intEnumSet':
-          if (value != null) {
-            result.intEnumSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltSet,
-                [FullType(_i3.IntegerEnum)],
-              ),
-            ) as _i4.BuiltSet<_i3.IntegerEnum>));
-          }
-          break;
+          result.intEnumSet.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltSet,
+              [FullType(_i3.IntegerEnum)],
+            ),
+          ) as _i4.BuiltSet<_i3.IntegerEnum>));
+        case 'intEnumMap':
+          result.intEnumMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.IntegerEnum),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i3.IntegerEnum>));
       }
     }
 
@@ -208,51 +194,69 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    JsonIntEnumsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as JsonIntEnumsInputOutput);
-    final result = <Object?>[];
-    if (payload.intEnum1 != null) {
-      result
+    final result$ = <Object?>[];
+    final JsonIntEnumsInputOutput(
+      :intEnum1,
+      :intEnum2,
+      :intEnum3,
+      :intEnumList,
+      :intEnumSet,
+      :intEnumMap
+    ) = object;
+    if (intEnum1 != null) {
+      result$
         ..add('intEnum1')
         ..add(serializers.serialize(
-          payload.intEnum1!,
+          intEnum1,
           specifiedType: const FullType(_i3.IntegerEnum),
         ));
     }
-    if (payload.intEnum2 != null) {
-      result
+    if (intEnum2 != null) {
+      result$
         ..add('intEnum2')
         ..add(serializers.serialize(
-          payload.intEnum2!,
+          intEnum2,
           specifiedType: const FullType(_i3.IntegerEnum),
         ));
     }
-    if (payload.intEnum3 != null) {
-      result
+    if (intEnum3 != null) {
+      result$
         ..add('intEnum3')
         ..add(serializers.serialize(
-          payload.intEnum3!,
+          intEnum3,
           specifiedType: const FullType(_i3.IntegerEnum),
         ));
     }
-    if (payload.intEnumList != null) {
-      result
+    if (intEnumList != null) {
+      result$
         ..add('intEnumList')
         ..add(serializers.serialize(
-          payload.intEnumList!,
+          intEnumList,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.IntegerEnum)],
           ),
         ));
     }
-    if (payload.intEnumMap != null) {
-      result
+    if (intEnumSet != null) {
+      result$
+        ..add('intEnumSet')
+        ..add(serializers.serialize(
+          intEnumSet,
+          specifiedType: const FullType(
+            _i4.BuiltSet,
+            [FullType(_i3.IntegerEnum)],
+          ),
+        ));
+    }
+    if (intEnumMap != null) {
+      result$
         ..add('intEnumMap')
         ..add(serializers.serialize(
-          payload.intEnumMap!,
+          intEnumMap,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -262,17 +266,6 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
           ),
         ));
     }
-    if (payload.intEnumSet != null) {
-      result
-        ..add('intEnumSet')
-        ..add(serializers.serialize(
-          payload.intEnumSet!,
-          specifiedType: const FullType(
-            _i4.BuiltSet,
-            [FullType(_i3.IntegerEnum)],
-          ),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

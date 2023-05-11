@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.document_type_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,13 +17,13 @@ abstract class DocumentTypeInputOutput
         _i2.AWSEquatable<DocumentTypeInputOutput>
     implements Built<DocumentTypeInputOutput, DocumentTypeInputOutputBuilder> {
   factory DocumentTypeInputOutput({
-    Object? documentValue,
     String? stringValue,
+    Object? documentValue,
   }) {
     return _$DocumentTypeInputOutput._(
+      stringValue: stringValue,
       documentValue:
           documentValue == null ? null : _i3.JsonObject(documentValue),
-      stringValue: stringValue,
     );
   }
 
@@ -52,25 +53,25 @@ abstract class DocumentTypeInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DocumentTypeInputOutputBuilder b) {}
-  _i3.JsonObject? get documentValue;
   String? get stringValue;
+  _i3.JsonObject? get documentValue;
   @override
   DocumentTypeInputOutput getPayload() => this;
   @override
   List<Object?> get props => [
-        documentValue,
         stringValue,
+        documentValue,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DocumentTypeInputOutput');
     helper.add(
-      'documentValue',
-      documentValue,
-    );
-    helper.add(
       'stringValue',
       stringValue,
+    );
+    helper.add(
+      'documentValue',
+      documentValue,
     );
     return helper.toString();
   }
@@ -105,23 +106,20 @@ class DocumentTypeInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'documentValue':
-          if (value != null) {
-            result.documentValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.JsonObject),
-            ) as _i3.JsonObject);
-          }
-          break;
+          result.documentValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.JsonObject),
+          ) as _i3.JsonObject);
         case 'stringValue':
-          if (value != null) {
-            result.stringValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stringValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -131,27 +129,27 @@ class DocumentTypeInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DocumentTypeInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DocumentTypeInputOutput);
-    final result = <Object?>[];
-    if (payload.documentValue != null) {
-      result
+    final result$ = <Object?>[];
+    final DocumentTypeInputOutput(:documentValue, :stringValue) = object;
+    if (documentValue != null) {
+      result$
         ..add('documentValue')
         ..add(serializers.serialize(
-          payload.documentValue!,
+          documentValue,
           specifiedType: const FullType(_i3.JsonObject),
         ));
     }
-    if (payload.stringValue != null) {
-      result
+    if (stringValue != null) {
+      result$
         ..add('stringValue')
         ..add(serializers.serialize(
-          payload.stringValue!,
+          stringValue,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

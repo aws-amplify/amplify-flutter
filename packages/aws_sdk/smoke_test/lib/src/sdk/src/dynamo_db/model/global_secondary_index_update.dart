@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.global_secondary_index_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -7,11 +8,11 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_global_secondary_index_action.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_global_secondary_index_action.dart'
     as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_global_secondary_index_action.dart'
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_global_secondary_index_action.dart'
     as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_global_secondary_index_action.dart'
+    as _i2;
 
 part 'global_secondary_index_update.g.dart';
 
@@ -34,14 +35,14 @@ abstract class GlobalSecondaryIndexUpdate
   ///
   /// *   An existing global secondary index to be removed from an existing table.
   factory GlobalSecondaryIndexUpdate({
-    _i2.CreateGlobalSecondaryIndexAction? create,
-    _i3.DeleteGlobalSecondaryIndexAction? delete,
-    _i4.UpdateGlobalSecondaryIndexAction? update_,
+    _i2.UpdateGlobalSecondaryIndexAction? update_,
+    _i3.CreateGlobalSecondaryIndexAction? create,
+    _i4.DeleteGlobalSecondaryIndexAction? delete,
   }) {
     return _$GlobalSecondaryIndexUpdate._(
+      update_: update_,
       create: create,
       delete: delete,
-      update_: update_,
     );
   }
 
@@ -65,6 +66,9 @@ abstract class GlobalSecondaryIndexUpdate
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GlobalSecondaryIndexUpdateBuilder b) {}
 
+  /// The name of an existing global secondary index, along with new provisioned throughput settings to be applied to that index.
+  _i2.UpdateGlobalSecondaryIndexAction? get update_;
+
   /// The parameters required for creating a global secondary index on an existing table:
   ///
   /// *   `IndexName`
@@ -76,22 +80,23 @@ abstract class GlobalSecondaryIndexUpdate
   /// *   `Projection`
   ///
   /// *   `ProvisionedThroughput`
-  _i2.CreateGlobalSecondaryIndexAction? get create;
+  _i3.CreateGlobalSecondaryIndexAction? get create;
 
   /// The name of an existing global secondary index to be removed.
-  _i3.DeleteGlobalSecondaryIndexAction? get delete;
-
-  /// The name of an existing global secondary index, along with new provisioned throughput settings to be applied to that index.
-  _i4.UpdateGlobalSecondaryIndexAction? get update_;
+  _i4.DeleteGlobalSecondaryIndexAction? get delete;
   @override
   List<Object?> get props => [
+        update_,
         create,
         delete,
-        update_,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GlobalSecondaryIndexUpdate');
+    helper.add(
+      'update_',
+      update_,
+    );
     helper.add(
       'create',
       create,
@@ -99,10 +104,6 @@ abstract class GlobalSecondaryIndexUpdate
     helper.add(
       'delete',
       delete,
-    );
-    helper.add(
-      'update_',
-      update_,
     );
     return helper.toString();
   }
@@ -137,34 +138,25 @@ class GlobalSecondaryIndexUpdateAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Create':
-          if (value != null) {
-            result.create.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.CreateGlobalSecondaryIndexAction),
-            ) as _i2.CreateGlobalSecondaryIndexAction));
-          }
-          break;
-        case 'Delete':
-          if (value != null) {
-            result.delete.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.DeleteGlobalSecondaryIndexAction),
-            ) as _i3.DeleteGlobalSecondaryIndexAction));
-          }
-          break;
         case 'Update':
-          if (value != null) {
-            result.update_.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i4.UpdateGlobalSecondaryIndexAction),
-            ) as _i4.UpdateGlobalSecondaryIndexAction));
-          }
-          break;
+          result.update_.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.UpdateGlobalSecondaryIndexAction),
+          ) as _i2.UpdateGlobalSecondaryIndexAction));
+        case 'Create':
+          result.create.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.CreateGlobalSecondaryIndexAction),
+          ) as _i3.CreateGlobalSecondaryIndexAction));
+        case 'Delete':
+          result.delete.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.DeleteGlobalSecondaryIndexAction),
+          ) as _i4.DeleteGlobalSecondaryIndexAction));
       }
     }
 
@@ -174,35 +166,35 @@ class GlobalSecondaryIndexUpdateAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GlobalSecondaryIndexUpdate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GlobalSecondaryIndexUpdate);
-    final result = <Object?>[];
-    if (payload.create != null) {
-      result
-        ..add('Create')
-        ..add(serializers.serialize(
-          payload.create!,
-          specifiedType: const FullType(_i2.CreateGlobalSecondaryIndexAction),
-        ));
-    }
-    if (payload.delete != null) {
-      result
-        ..add('Delete')
-        ..add(serializers.serialize(
-          payload.delete!,
-          specifiedType: const FullType(_i3.DeleteGlobalSecondaryIndexAction),
-        ));
-    }
-    if (payload.update_ != null) {
-      result
+    final result$ = <Object?>[];
+    final GlobalSecondaryIndexUpdate(:update_, :create, :delete) = object;
+    if (update_ != null) {
+      result$
         ..add('Update')
         ..add(serializers.serialize(
-          payload.update_!,
-          specifiedType: const FullType(_i4.UpdateGlobalSecondaryIndexAction),
+          update_,
+          specifiedType: const FullType(_i2.UpdateGlobalSecondaryIndexAction),
         ));
     }
-    return result;
+    if (create != null) {
+      result$
+        ..add('Create')
+        ..add(serializers.serialize(
+          create,
+          specifiedType: const FullType(_i3.CreateGlobalSecondaryIndexAction),
+        ));
+    }
+    if (delete != null) {
+      result$
+        ..add('Delete')
+        ..add(serializers.serialize(
+          delete,
+          specifiedType: const FullType(_i4.DeleteGlobalSecondaryIndexAction),
+        ));
+    }
+    return result$;
   }
 }

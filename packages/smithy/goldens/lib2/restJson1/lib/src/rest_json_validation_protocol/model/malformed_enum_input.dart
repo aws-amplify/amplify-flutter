@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_validation_protocol.model.malformed_enum_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,15 +19,15 @@ abstract class MalformedEnumInput
     with _i1.HttpInput<MalformedEnumInput>, _i2.AWSEquatable<MalformedEnumInput>
     implements Built<MalformedEnumInput, MalformedEnumInputBuilder> {
   factory MalformedEnumInput({
+    _i3.EnumString? string,
     List<_i3.EnumString>? list,
     Map<_i3.EnumString, _i3.EnumString>? map,
-    _i3.EnumString? string,
     _i4.EnumUnion? union,
   }) {
     return _$MalformedEnumInput._(
+      string: string,
       list: list == null ? null : _i5.BuiltList(list),
       map: map == null ? null : _i5.BuiltMap(map),
-      string: string,
       union: union,
     );
   }
@@ -50,22 +51,26 @@ abstract class MalformedEnumInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedEnumInputBuilder b) {}
+  _i3.EnumString? get string;
   _i5.BuiltList<_i3.EnumString>? get list;
   _i5.BuiltMap<_i3.EnumString, _i3.EnumString>? get map;
-  _i3.EnumString? get string;
   _i4.EnumUnion? get union;
   @override
   MalformedEnumInput getPayload() => this;
   @override
   List<Object?> get props => [
+        string,
         list,
         map,
-        string,
         union,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedEnumInput');
+    helper.add(
+      'string',
+      string,
+    );
     helper.add(
       'list',
       list,
@@ -73,10 +78,6 @@ abstract class MalformedEnumInput
     helper.add(
       'map',
       map,
-    );
-    helper.add(
-      'string',
-      string,
     );
     helper.add(
       'union',
@@ -114,48 +115,39 @@ class MalformedEnumInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'list':
-          if (value != null) {
-            result.list.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.EnumString)],
-              ),
-            ) as _i5.BuiltList<_i3.EnumString>));
-          }
-          break;
+          result.list.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.EnumString)],
+            ),
+          ) as _i5.BuiltList<_i3.EnumString>));
         case 'map':
-          if (value != null) {
-            result.map.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(_i3.EnumString),
-                  FullType(_i3.EnumString),
-                ],
-              ),
-            ) as _i5.BuiltMap<_i3.EnumString, _i3.EnumString>));
-          }
-          break;
+          result.map.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(_i3.EnumString),
+                FullType(_i3.EnumString),
+              ],
+            ),
+          ) as _i5.BuiltMap<_i3.EnumString, _i3.EnumString>));
         case 'string':
-          if (value != null) {
-            result.string = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.EnumString),
-            ) as _i3.EnumString);
-          }
-          break;
+          result.string = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.EnumString),
+          ) as _i3.EnumString);
         case 'union':
-          if (value != null) {
-            result.union = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.EnumUnion),
-            ) as _i4.EnumUnion);
-          }
-          break;
+          result.union = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.EnumUnion),
+          ) as _i4.EnumUnion);
       }
     }
 
@@ -165,27 +157,27 @@ class MalformedEnumInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedEnumInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MalformedEnumInput);
-    final result = <Object?>[];
-    if (payload.list != null) {
-      result
+    final result$ = <Object?>[];
+    final MalformedEnumInput(:list, :map, :string, :union) = object;
+    if (list != null) {
+      result$
         ..add('list')
         ..add(serializers.serialize(
-          payload.list!,
+          list,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i3.EnumString)],
           ),
         ));
     }
-    if (payload.map != null) {
-      result
+    if (map != null) {
+      result$
         ..add('map')
         ..add(serializers.serialize(
-          payload.map!,
+          map,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -195,22 +187,22 @@ class MalformedEnumInputRestJson1Serializer
           ),
         ));
     }
-    if (payload.string != null) {
-      result
+    if (string != null) {
+      result$
         ..add('string')
         ..add(serializers.serialize(
-          payload.string!,
+          string,
           specifiedType: const FullType(_i3.EnumString),
         ));
     }
-    if (payload.union != null) {
-      result
+    if (union != null) {
+      result$
         ..add('union')
         ..add(serializers.serialize(
-          payload.union!,
+          union,
           specifiedType: const FullType(_i4.EnumUnion),
         ));
     }
-    return result;
+    return result$;
   }
 }

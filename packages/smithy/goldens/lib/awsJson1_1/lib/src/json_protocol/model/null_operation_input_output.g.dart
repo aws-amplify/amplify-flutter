@@ -8,18 +8,18 @@ part of aws_json1_1_v1.json_protocol.model.null_operation_input_output;
 
 class _$NullOperationInputOutput extends NullOperationInputOutput {
   @override
+  final String? string;
+  @override
   final _i3.BuiltList<String?>? sparseStringList;
   @override
   final _i3.BuiltMap<String, String?>? sparseStringMap;
-  @override
-  final String? string;
 
   factory _$NullOperationInputOutput(
           [void Function(NullOperationInputOutputBuilder)? updates]) =>
       (new NullOperationInputOutputBuilder()..update(updates))._build();
 
   _$NullOperationInputOutput._(
-      {this.sparseStringList, this.sparseStringMap, this.string})
+      {this.string, this.sparseStringList, this.sparseStringMap})
       : super._();
 
   @override
@@ -35,17 +35,17 @@ class _$NullOperationInputOutput extends NullOperationInputOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is NullOperationInputOutput &&
+        string == other.string &&
         sparseStringList == other.sparseStringList &&
-        sparseStringMap == other.sparseStringMap &&
-        string == other.string;
+        sparseStringMap == other.sparseStringMap;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, string.hashCode);
     _$hash = $jc(_$hash, sparseStringList.hashCode);
     _$hash = $jc(_$hash, sparseStringMap.hashCode);
-    _$hash = $jc(_$hash, string.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -55,6 +55,10 @@ class NullOperationInputOutputBuilder
     implements
         Builder<NullOperationInputOutput, NullOperationInputOutputBuilder> {
   _$NullOperationInputOutput? _$v;
+
+  String? _string;
+  String? get string => _$this._string;
+  set string(String? string) => _$this._string = string;
 
   _i3.ListBuilder<String?>? _sparseStringList;
   _i3.ListBuilder<String?> get sparseStringList =>
@@ -68,10 +72,6 @@ class NullOperationInputOutputBuilder
   set sparseStringMap(_i3.MapBuilder<String, String?>? sparseStringMap) =>
       _$this._sparseStringMap = sparseStringMap;
 
-  String? _string;
-  String? get string => _$this._string;
-  set string(String? string) => _$this._string = string;
-
   NullOperationInputOutputBuilder() {
     NullOperationInputOutput._init(this);
   }
@@ -79,9 +79,9 @@ class NullOperationInputOutputBuilder
   NullOperationInputOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _string = $v.string;
       _sparseStringList = $v.sparseStringList?.toBuilder();
       _sparseStringMap = $v.sparseStringMap?.toBuilder();
-      _string = $v.string;
       _$v = null;
     }
     return this;
@@ -106,9 +106,9 @@ class NullOperationInputOutputBuilder
     try {
       _$result = _$v ??
           new _$NullOperationInputOutput._(
+              string: string,
               sparseStringList: _sparseStringList?.build(),
-              sparseStringMap: _sparseStringMap?.build(),
-              string: string);
+              sparseStringMap: _sparseStringMap?.build());
     } catch (_) {
       late String _$failedField;
       try {

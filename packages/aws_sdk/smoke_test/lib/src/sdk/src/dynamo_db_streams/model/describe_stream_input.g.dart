@@ -8,18 +8,18 @@ part of smoke_test.dynamo_db_streams.model.describe_stream_input;
 
 class _$DescribeStreamInput extends DescribeStreamInput {
   @override
-  final String? exclusiveStartShardId;
+  final String streamArn;
   @override
   final int? limit;
   @override
-  final String streamArn;
+  final String? exclusiveStartShardId;
 
   factory _$DescribeStreamInput(
           [void Function(DescribeStreamInputBuilder)? updates]) =>
       (new DescribeStreamInputBuilder()..update(updates))._build();
 
   _$DescribeStreamInput._(
-      {this.exclusiveStartShardId, this.limit, required this.streamArn})
+      {required this.streamArn, this.limit, this.exclusiveStartShardId})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         streamArn, r'DescribeStreamInput', 'streamArn');
@@ -38,17 +38,17 @@ class _$DescribeStreamInput extends DescribeStreamInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DescribeStreamInput &&
-        exclusiveStartShardId == other.exclusiveStartShardId &&
+        streamArn == other.streamArn &&
         limit == other.limit &&
-        streamArn == other.streamArn;
+        exclusiveStartShardId == other.exclusiveStartShardId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, exclusiveStartShardId.hashCode);
-    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, streamArn.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
+    _$hash = $jc(_$hash, exclusiveStartShardId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,18 +58,18 @@ class DescribeStreamInputBuilder
     implements Builder<DescribeStreamInput, DescribeStreamInputBuilder> {
   _$DescribeStreamInput? _$v;
 
-  String? _exclusiveStartShardId;
-  String? get exclusiveStartShardId => _$this._exclusiveStartShardId;
-  set exclusiveStartShardId(String? exclusiveStartShardId) =>
-      _$this._exclusiveStartShardId = exclusiveStartShardId;
+  String? _streamArn;
+  String? get streamArn => _$this._streamArn;
+  set streamArn(String? streamArn) => _$this._streamArn = streamArn;
 
   int? _limit;
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  String? _streamArn;
-  String? get streamArn => _$this._streamArn;
-  set streamArn(String? streamArn) => _$this._streamArn = streamArn;
+  String? _exclusiveStartShardId;
+  String? get exclusiveStartShardId => _$this._exclusiveStartShardId;
+  set exclusiveStartShardId(String? exclusiveStartShardId) =>
+      _$this._exclusiveStartShardId = exclusiveStartShardId;
 
   DescribeStreamInputBuilder() {
     DescribeStreamInput._init(this);
@@ -78,9 +78,9 @@ class DescribeStreamInputBuilder
   DescribeStreamInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _exclusiveStartShardId = $v.exclusiveStartShardId;
-      _limit = $v.limit;
       _streamArn = $v.streamArn;
+      _limit = $v.limit;
+      _exclusiveStartShardId = $v.exclusiveStartShardId;
       _$v = null;
     }
     return this;
@@ -103,10 +103,10 @@ class DescribeStreamInputBuilder
   _$DescribeStreamInput _build() {
     final _$result = _$v ??
         new _$DescribeStreamInput._(
-            exclusiveStartShardId: exclusiveStartShardId,
-            limit: limit,
             streamArn: BuiltValueNullFieldError.checkNotNull(
-                streamArn, r'DescribeStreamInput', 'streamArn'));
+                streamArn, r'DescribeStreamInput', 'streamArn'),
+            limit: limit,
+            exclusiveStartShardId: exclusiveStartShardId);
     replace(_$result);
     return _$result;
   }

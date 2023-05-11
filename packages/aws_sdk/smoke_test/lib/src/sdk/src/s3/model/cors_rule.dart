@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.cors_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,21 +17,21 @@ abstract class CorsRule
     implements Built<CorsRule, CorsRuleBuilder> {
   /// Specifies a cross-origin access rule for an Amazon S3 bucket.
   factory CorsRule({
+    String? id,
     List<String>? allowedHeaders,
     required List<String> allowedMethods,
     required List<String> allowedOrigins,
     List<String>? exposeHeaders,
-    String? id,
     int? maxAgeSeconds,
   }) {
     return _$CorsRule._(
+      id: id,
       allowedHeaders:
           allowedHeaders == null ? null : _i2.BuiltList(allowedHeaders),
       allowedMethods: _i2.BuiltList(allowedMethods),
       allowedOrigins: _i2.BuiltList(allowedOrigins),
       exposeHeaders:
           exposeHeaders == null ? null : _i2.BuiltList(exposeHeaders),
-      id: id,
       maxAgeSeconds: maxAgeSeconds,
     );
   }
@@ -47,6 +48,9 @@ abstract class CorsRule
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CorsRuleBuilder b) {}
 
+  /// Unique identifier for the rule. The value cannot be longer than 255 characters.
+  String? get id;
+
   /// Headers that are specified in the `Access-Control-Request-Headers` header. These headers are allowed in a preflight OPTIONS request. In response to any preflight OPTIONS request, Amazon S3 returns any requested headers that are allowed.
   _i2.BuiltList<String>? get allowedHeaders;
 
@@ -59,23 +63,24 @@ abstract class CorsRule
   /// One or more headers in the response that you want customers to be able to access from their applications (for example, from a JavaScript `XMLHttpRequest` object).
   _i2.BuiltList<String>? get exposeHeaders;
 
-  /// Unique identifier for the rule. The value cannot be longer than 255 characters.
-  String? get id;
-
   /// The time in seconds that your browser is to cache the preflight response for the specified resource.
   int? get maxAgeSeconds;
   @override
   List<Object?> get props => [
+        id,
         allowedHeaders,
         allowedMethods,
         allowedOrigins,
         exposeHeaders,
-        id,
         maxAgeSeconds,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CorsRule');
+    helper.add(
+      'id',
+      id,
+    );
     helper.add(
       'allowedHeaders',
       allowedHeaders,
@@ -91,10 +96,6 @@ abstract class CorsRule
     helper.add(
       'exposeHeaders',
       exposeHeaders,
-    );
-    helper.add(
-      'id',
-      id,
     );
     helper.add(
       'maxAgeSeconds',
@@ -129,54 +130,43 @@ class CorsRuleRestXmlSerializer
     final result = CorsRuleBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AllowedHeader':
-          if (value != null) {
-            result.allowedHeaders.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String));
-          }
-          break;
+          result.allowedHeaders.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String));
         case 'AllowedMethod':
           result.allowedMethods.add((serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String));
-          break;
         case 'AllowedOrigin':
           result.allowedOrigins.add((serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String));
-          break;
         case 'ExposeHeader':
-          if (value != null) {
-            result.exposeHeaders.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String));
-          }
-          break;
+          result.exposeHeaders.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String));
         case 'ID':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxAgeSeconds':
-          if (value != null) {
-            result.maxAgeSeconds = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxAgeSeconds = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -186,73 +176,81 @@ class CorsRuleRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CorsRule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CorsRule);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'CorsRule',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.allowedHeaders != null) {
-      result.addAll(
+    final CorsRule(
+      :allowedHeaders,
+      :allowedMethods,
+      :allowedOrigins,
+      :exposeHeaders,
+      :id,
+      :maxAgeSeconds
+    ) = object;
+    if (allowedHeaders != null) {
+      result$.addAll(
           const _i3.XmlBuiltListSerializer(memberName: 'AllowedHeader')
               .serialize(
         serializers,
-        payload.allowedHeaders!,
+        allowedHeaders,
         specifiedType: const FullType.nullable(
           _i2.BuiltList,
           [FullType(String)],
         ),
       ));
     }
-    result.addAll(
+    result$.addAll(
         const _i3.XmlBuiltListSerializer(memberName: 'AllowedMethod').serialize(
       serializers,
-      payload.allowedMethods,
+      allowedMethods,
       specifiedType: const FullType.nullable(
         _i2.BuiltList,
         [FullType(String)],
       ),
     ));
-    result.addAll(
+    result$.addAll(
         const _i3.XmlBuiltListSerializer(memberName: 'AllowedOrigin').serialize(
       serializers,
-      payload.allowedOrigins,
+      allowedOrigins,
       specifiedType: const FullType.nullable(
         _i2.BuiltList,
         [FullType(String)],
       ),
     ));
-    if (payload.exposeHeaders != null) {
-      result.addAll(const _i3.XmlBuiltListSerializer(memberName: 'ExposeHeader')
-          .serialize(
+    if (exposeHeaders != null) {
+      result$.addAll(
+          const _i3.XmlBuiltListSerializer(memberName: 'ExposeHeader')
+              .serialize(
         serializers,
-        payload.exposeHeaders!,
+        exposeHeaders,
         specifiedType: const FullType.nullable(
           _i2.BuiltList,
           [FullType(String)],
         ),
       ));
     }
-    if (payload.id != null) {
-      result
+    if (id != null) {
+      result$
         ..add(const _i3.XmlElementName('ID'))
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxAgeSeconds != null) {
-      result
+    if (maxAgeSeconds != null) {
+      result$
         ..add(const _i3.XmlElementName('MaxAgeSeconds'))
         ..add(serializers.serialize(
-          payload.maxAgeSeconds!,
+          maxAgeSeconds,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

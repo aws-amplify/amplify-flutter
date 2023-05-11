@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.tls_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -76,15 +77,15 @@ class TlsConfigRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'insecureSkipVerification':
-          if (value != null) {
-            result.insecureSkipVerification = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.insecureSkipVerification = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -94,19 +95,19 @@ class TlsConfigRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TlsConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TlsConfig);
-    final result = <Object?>[];
-    if (payload.insecureSkipVerification != null) {
-      result
+    final result$ = <Object?>[];
+    final TlsConfig(:insecureSkipVerification) = object;
+    if (insecureSkipVerification != null) {
+      result$
         ..add('insecureSkipVerification')
         ..add(serializers.serialize(
-          payload.insecureSkipVerification!,
+          insecureSkipVerification,
           specifiedType: const FullType(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

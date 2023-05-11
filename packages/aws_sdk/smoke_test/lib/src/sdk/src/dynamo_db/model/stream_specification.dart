@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.stream_specification; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -104,21 +105,20 @@ class StreamSpecificationAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StreamEnabled':
           result.streamEnabled = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(bool),
           ) as bool);
-          break;
         case 'StreamViewType':
-          if (value != null) {
-            result.streamViewType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StreamViewType),
-            ) as _i2.StreamViewType);
-          }
-          break;
+          result.streamViewType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StreamViewType),
+          ) as _i2.StreamViewType);
       }
     }
 
@@ -128,25 +128,26 @@ class StreamSpecificationAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    StreamSpecification object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as StreamSpecification);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final StreamSpecification(:streamEnabled, :streamViewType) = object;
+    result$.addAll([
       'StreamEnabled',
       serializers.serialize(
-        payload.streamEnabled,
+        streamEnabled,
         specifiedType: const FullType(bool),
       ),
-    ];
-    if (payload.streamViewType != null) {
-      result
+    ]);
+    if (streamViewType != null) {
+      result$
         ..add('StreamViewType')
         ..add(serializers.serialize(
-          payload.streamViewType!,
+          streamViewType,
           specifiedType: const FullType(_i2.StreamViewType),
         ));
     }
-    return result;
+    return result$;
   }
 }

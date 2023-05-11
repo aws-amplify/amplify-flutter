@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.analytics_and_operator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -90,26 +91,23 @@ class AnalyticsAndOperatorRestXmlSerializer
     final result = AnalyticsAndOperatorBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Tag':
-          if (value != null) {
-            result.tags.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Tag),
-            ) as _i2.Tag));
-          }
-          break;
+          result.tags.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Tag),
+          ) as _i2.Tag));
       }
     }
 
@@ -119,35 +117,35 @@ class AnalyticsAndOperatorRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AnalyticsAndOperator object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AnalyticsAndOperator);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'AnalyticsAndOperator',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.prefix != null) {
-      result
+    final AnalyticsAndOperator(:prefix, :tags) = object;
+    if (prefix != null) {
+      result$
         ..add(const _i4.XmlElementName('Prefix'))
         ..add(serializers.serialize(
-          payload.prefix!,
+          prefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
-      result
+    if (tags != null) {
+      result$
           .addAll(const _i4.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
-        payload.tags!,
+        tags,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.Tag)],
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

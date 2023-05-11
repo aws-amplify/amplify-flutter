@@ -7,8 +7,8 @@ on:
       - stable
   pull_request:
     paths:
-      - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/amplify_lints.yaml'
+      - '.github/workflows/dart_vm.yaml'
       - 'packages/amplify_lints/**/*.dart'
       - 'packages/amplify_lints/**/*.yaml'
       - 'packages/amplify_lints/lib/**/*'

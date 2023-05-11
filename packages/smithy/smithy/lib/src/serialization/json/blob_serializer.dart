@@ -22,33 +22,35 @@ class BlobSerializer extends PrimitiveSmithySerializer<Uint8List> {
       ];
 
   @override
-  Uint8List deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  Uint8List deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     if (serialized is Uint8List) {
       return serialized;
     } else if (serialized is List) {
       return Uint8List.fromList(serialized.cast());
     }
     serialized as String;
-    switch (mediaType) {
-      case 'text/plain':
-      case 'application/octet-stream':
-        return Uint8List.fromList(utf8.encode(serialized));
-      default:
-        return base64Decode(serialized);
-    }
+    return switch (mediaType) {
+      'text/plain' ||
+      'application/octet-stream' =>
+        Uint8List.fromList(utf8.encode(serialized)),
+      _ => base64Decode(serialized),
+    };
   }
 
   @override
-  Object serialize(Serializers serializers, Uint8List object,
-      {FullType specifiedType = FullType.unspecified}) {
-    switch (mediaType) {
-      case 'text/plain':
-        return utf8.decode(object);
-      case 'application/octet-stream':
-        return object;
-      default:
-        return base64Encode(object);
-    }
+  Object serialize(
+    Serializers serializers,
+    Uint8List object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return switch (mediaType) {
+      'text/plain' => utf8.decode(object),
+      'application/octet-stream' => object,
+      _ => base64Encode(object),
+    };
   }
 }

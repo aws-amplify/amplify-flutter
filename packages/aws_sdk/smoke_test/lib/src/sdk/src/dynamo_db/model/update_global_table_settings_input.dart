@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.update_global_table_settings_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -6,14 +7,14 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i8;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i6;
+import 'package:fixnum/fixnum.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_update.dart'
     as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart'
     as _i3;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_table_global_secondary_index_settings_update.dart'
-    as _i4;
+    as _i6;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_settings_update.dart'
     as _i7;
 
@@ -27,26 +28,26 @@ abstract class UpdateGlobalTableSettingsInput
         Built<UpdateGlobalTableSettingsInput,
             UpdateGlobalTableSettingsInputBuilder> {
   factory UpdateGlobalTableSettingsInput({
-    _i3.BillingMode? globalTableBillingMode,
-    List<_i4.GlobalTableGlobalSecondaryIndexSettingsUpdate>?
-        globalTableGlobalSecondaryIndexSettingsUpdate,
     required String globalTableName,
+    _i3.BillingMode? globalTableBillingMode,
+    _i4.Int64? globalTableProvisionedWriteCapacityUnits,
     _i5.AutoScalingSettingsUpdate?
         globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
-    _i6.Int64? globalTableProvisionedWriteCapacityUnits,
+    List<_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate>?
+        globalTableGlobalSecondaryIndexSettingsUpdate,
     List<_i7.ReplicaSettingsUpdate>? replicaSettingsUpdate,
   }) {
     return _$UpdateGlobalTableSettingsInput._(
+      globalTableName: globalTableName,
       globalTableBillingMode: globalTableBillingMode,
+      globalTableProvisionedWriteCapacityUnits:
+          globalTableProvisionedWriteCapacityUnits,
+      globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate:
+          globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
       globalTableGlobalSecondaryIndexSettingsUpdate:
           globalTableGlobalSecondaryIndexSettingsUpdate == null
               ? null
               : _i8.BuiltList(globalTableGlobalSecondaryIndexSettingsUpdate),
-      globalTableName: globalTableName,
-      globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate:
-          globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
-      globalTableProvisionedWriteCapacityUnits:
-          globalTableProvisionedWriteCapacityUnits,
       replicaSettingsUpdate: replicaSettingsUpdate == null
           ? null
           : _i8.BuiltList(replicaSettingsUpdate),
@@ -73,6 +74,9 @@ abstract class UpdateGlobalTableSettingsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateGlobalTableSettingsInputBuilder b) {}
 
+  /// The name of the global table
+  String get globalTableName;
+
   /// The billing mode of the global table. If `GlobalTableBillingMode` is not specified, the global table defaults to `PROVISIONED` capacity billing mode.
   ///
   /// *   `PROVISIONED` \- We recommend using `PROVISIONED` for predictable workloads. `PROVISIONED` sets the billing mode to [Provisioned Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.ProvisionedThroughput.Manual).
@@ -80,19 +84,16 @@ abstract class UpdateGlobalTableSettingsInput
   /// *   `PAY\_PER\_REQUEST` \- We recommend using `PAY\_PER\_REQUEST` for unpredictable workloads. `PAY\_PER\_REQUEST` sets the billing mode to [On-Demand Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.OnDemand).
   _i3.BillingMode? get globalTableBillingMode;
 
-  /// Represents the settings of a global secondary index for a global table that will be modified.
-  _i8.BuiltList<_i4.GlobalTableGlobalSecondaryIndexSettingsUpdate>?
-      get globalTableGlobalSecondaryIndexSettingsUpdate;
-
-  /// The name of the global table
-  String get globalTableName;
+  /// The maximum number of writes consumed per second before DynamoDB returns a `ThrottlingException.`
+  _i4.Int64? get globalTableProvisionedWriteCapacityUnits;
 
   /// Auto scaling settings for managing provisioned write capacity for the global table.
   _i5.AutoScalingSettingsUpdate?
       get globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate;
 
-  /// The maximum number of writes consumed per second before DynamoDB returns a `ThrottlingException.`
-  _i6.Int64? get globalTableProvisionedWriteCapacityUnits;
+  /// Represents the settings of a global secondary index for a global table that will be modified.
+  _i8.BuiltList<_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate>?
+      get globalTableGlobalSecondaryIndexSettingsUpdate;
 
   /// Represents the settings for a global table in a Region that will be modified.
   _i8.BuiltList<_i7.ReplicaSettingsUpdate>? get replicaSettingsUpdate;
@@ -100,11 +101,11 @@ abstract class UpdateGlobalTableSettingsInput
   UpdateGlobalTableSettingsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        globalTableBillingMode,
-        globalTableGlobalSecondaryIndexSettingsUpdate,
         globalTableName,
-        globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
+        globalTableBillingMode,
         globalTableProvisionedWriteCapacityUnits,
+        globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
+        globalTableGlobalSecondaryIndexSettingsUpdate,
         replicaSettingsUpdate,
       ];
   @override
@@ -112,24 +113,24 @@ abstract class UpdateGlobalTableSettingsInput
     final helper =
         newBuiltValueToStringHelper('UpdateGlobalTableSettingsInput');
     helper.add(
+      'globalTableName',
+      globalTableName,
+    );
+    helper.add(
       'globalTableBillingMode',
       globalTableBillingMode,
     );
     helper.add(
-      'globalTableGlobalSecondaryIndexSettingsUpdate',
-      globalTableGlobalSecondaryIndexSettingsUpdate,
-    );
-    helper.add(
-      'globalTableName',
-      globalTableName,
+      'globalTableProvisionedWriteCapacityUnits',
+      globalTableProvisionedWriteCapacityUnits,
     );
     helper.add(
       'globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate',
       globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
     );
     helper.add(
-      'globalTableProvisionedWriteCapacityUnits',
-      globalTableProvisionedWriteCapacityUnits,
+      'globalTableGlobalSecondaryIndexSettingsUpdate',
+      globalTableGlobalSecondaryIndexSettingsUpdate,
     );
     helper.add(
       'replicaSettingsUpdate',
@@ -168,63 +169,50 @@ class UpdateGlobalTableSettingsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'GlobalTableBillingMode':
-          if (value != null) {
-            result.globalTableBillingMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.BillingMode),
-            ) as _i3.BillingMode);
-          }
-          break;
-        case 'GlobalTableGlobalSecondaryIndexSettingsUpdate':
-          if (value != null) {
-            result.globalTableGlobalSecondaryIndexSettingsUpdate.replace(
-                (serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i4.GlobalTableGlobalSecondaryIndexSettingsUpdate)],
-              ),
-            ) as _i8.BuiltList<
-                    _i4.GlobalTableGlobalSecondaryIndexSettingsUpdate>));
-          }
-          break;
         case 'GlobalTableName':
           result.globalTableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
-        case 'GlobalTableProvisionedWriteCapacityAutoScalingSettingsUpdate':
-          if (value != null) {
-            result.globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.AutoScalingSettingsUpdate),
-            ) as _i5.AutoScalingSettingsUpdate));
-          }
-          break;
+        case 'GlobalTableBillingMode':
+          result.globalTableBillingMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.BillingMode),
+          ) as _i3.BillingMode);
         case 'GlobalTableProvisionedWriteCapacityUnits':
-          if (value != null) {
-            result.globalTableProvisionedWriteCapacityUnits =
-                (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.Int64),
-            ) as _i6.Int64);
-          }
-          break;
+          result.globalTableProvisionedWriteCapacityUnits =
+              (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
+        case 'GlobalTableProvisionedWriteCapacityAutoScalingSettingsUpdate':
+          result.globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.AutoScalingSettingsUpdate),
+          ) as _i5.AutoScalingSettingsUpdate));
+        case 'GlobalTableGlobalSecondaryIndexSettingsUpdate':
+          result.globalTableGlobalSecondaryIndexSettingsUpdate.replace(
+              (serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate)],
+            ),
+          ) as _i8.BuiltList<
+                  _i6.GlobalTableGlobalSecondaryIndexSettingsUpdate>));
         case 'ReplicaSettingsUpdate':
-          if (value != null) {
-            result.replicaSettingsUpdate.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i7.ReplicaSettingsUpdate)],
-              ),
-            ) as _i8.BuiltList<_i7.ReplicaSettingsUpdate>));
-          }
-          break;
+          result.replicaSettingsUpdate.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i7.ReplicaSettingsUpdate)],
+            ),
+          ) as _i8.BuiltList<_i7.ReplicaSettingsUpdate>));
       }
     }
 
@@ -234,64 +222,71 @@ class UpdateGlobalTableSettingsInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateGlobalTableSettingsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateGlobalTableSettingsInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final UpdateGlobalTableSettingsInput(
+      :globalTableName,
+      :globalTableBillingMode,
+      :globalTableProvisionedWriteCapacityUnits,
+      :globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
+      :globalTableGlobalSecondaryIndexSettingsUpdate,
+      :replicaSettingsUpdate
+    ) = object;
+    result$.addAll([
       'GlobalTableName',
       serializers.serialize(
-        payload.globalTableName,
+        globalTableName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.globalTableBillingMode != null) {
-      result
+    ]);
+    if (globalTableBillingMode != null) {
+      result$
         ..add('GlobalTableBillingMode')
         ..add(serializers.serialize(
-          payload.globalTableBillingMode!,
+          globalTableBillingMode,
           specifiedType: const FullType(_i3.BillingMode),
         ));
     }
-    if (payload.globalTableGlobalSecondaryIndexSettingsUpdate != null) {
-      result
-        ..add('GlobalTableGlobalSecondaryIndexSettingsUpdate')
+    if (globalTableProvisionedWriteCapacityUnits != null) {
+      result$
+        ..add('GlobalTableProvisionedWriteCapacityUnits')
         ..add(serializers.serialize(
-          payload.globalTableGlobalSecondaryIndexSettingsUpdate!,
-          specifiedType: const FullType(
-            _i8.BuiltList,
-            [FullType(_i4.GlobalTableGlobalSecondaryIndexSettingsUpdate)],
-          ),
+          globalTableProvisionedWriteCapacityUnits,
+          specifiedType: const FullType(_i4.Int64),
         ));
     }
-    if (payload.globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate !=
-        null) {
-      result
+    if (globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate != null) {
+      result$
         ..add('GlobalTableProvisionedWriteCapacityAutoScalingSettingsUpdate')
         ..add(serializers.serialize(
-          payload.globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate!,
+          globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
           specifiedType: const FullType(_i5.AutoScalingSettingsUpdate),
         ));
     }
-    if (payload.globalTableProvisionedWriteCapacityUnits != null) {
-      result
-        ..add('GlobalTableProvisionedWriteCapacityUnits')
+    if (globalTableGlobalSecondaryIndexSettingsUpdate != null) {
+      result$
+        ..add('GlobalTableGlobalSecondaryIndexSettingsUpdate')
         ..add(serializers.serialize(
-          payload.globalTableProvisionedWriteCapacityUnits!,
-          specifiedType: const FullType(_i6.Int64),
+          globalTableGlobalSecondaryIndexSettingsUpdate,
+          specifiedType: const FullType(
+            _i8.BuiltList,
+            [FullType(_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate)],
+          ),
         ));
     }
-    if (payload.replicaSettingsUpdate != null) {
-      result
+    if (replicaSettingsUpdate != null) {
+      result$
         ..add('ReplicaSettingsUpdate')
         ..add(serializers.serialize(
-          payload.replicaSettingsUpdate!,
+          replicaSettingsUpdate,
           specifiedType: const FullType(
             _i8.BuiltList,
             [FullType(_i7.ReplicaSettingsUpdate)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

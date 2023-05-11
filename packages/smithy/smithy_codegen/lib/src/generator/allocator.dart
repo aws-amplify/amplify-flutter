@@ -55,7 +55,7 @@ class SmithyAllocator implements Allocator {
   @override
   String allocate(Reference reference) {
     final symbol = reference.symbol;
-    var url = reference.url;
+    final url = reference.url;
     final thisLibrary = libraryUrl;
     if (url == null || url == thisLibrary) {
       return symbol!;

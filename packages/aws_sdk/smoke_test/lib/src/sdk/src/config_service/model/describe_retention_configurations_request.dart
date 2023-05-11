@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_retention_configurations_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,14 +19,14 @@ abstract class DescribeRetentionConfigurationsRequest
         Built<DescribeRetentionConfigurationsRequest,
             DescribeRetentionConfigurationsRequestBuilder> {
   factory DescribeRetentionConfigurationsRequest({
-    String? nextToken,
     List<String>? retentionConfigurationNames,
+    String? nextToken,
   }) {
     return _$DescribeRetentionConfigurationsRequest._(
-      nextToken: nextToken,
       retentionConfigurationNames: retentionConfigurationNames == null
           ? null
           : _i3.BuiltList(retentionConfigurationNames),
+      nextToken: nextToken,
     );
   }
 
@@ -49,31 +50,31 @@ abstract class DescribeRetentionConfigurationsRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeRetentionConfigurationsRequestBuilder b) {}
 
-  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// A list of names of retention configurations for which you want details. If you do not specify a name, Config returns details for all the retention configurations for that account.
   ///
   /// Currently, Config supports only one retention configuration per region in your account.
   _i3.BuiltList<String>? get retentionConfigurationNames;
+
+  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   DescribeRetentionConfigurationsRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        nextToken,
         retentionConfigurationNames,
+        nextToken,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DescribeRetentionConfigurationsRequest');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'retentionConfigurationNames',
       retentionConfigurationNames,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -108,26 +109,23 @@ class DescribeRetentionConfigurationsRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'RetentionConfigurationNames':
-          if (value != null) {
-            result.retentionConfigurationNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.retentionConfigurationNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -137,30 +135,33 @@ class DescribeRetentionConfigurationsRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeRetentionConfigurationsRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeRetentionConfigurationsRequest);
-    final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.retentionConfigurationNames != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeRetentionConfigurationsRequest(
+      :retentionConfigurationNames,
+      :nextToken
+    ) = object;
+    if (retentionConfigurationNames != null) {
+      result$
         ..add('RetentionConfigurationNames')
         ..add(serializers.serialize(
-          payload.retentionConfigurationNames!,
+          retentionConfigurationNames,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.restore_table_to_point_in_time_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,18 +29,23 @@ abstract class RestoreTableToPointInTimeInput
         Built<RestoreTableToPointInTimeInput,
             RestoreTableToPointInTimeInputBuilder> {
   factory RestoreTableToPointInTimeInput({
+    String? sourceTableArn,
+    String? sourceTableName,
+    required String targetTableName,
+    bool? useLatestRestorableTime,
+    DateTime? restoreDateTime,
     _i3.BillingMode? billingModeOverride,
     List<_i4.GlobalSecondaryIndex>? globalSecondaryIndexOverride,
     List<_i5.LocalSecondaryIndex>? localSecondaryIndexOverride,
     _i6.ProvisionedThroughput? provisionedThroughputOverride,
-    DateTime? restoreDateTime,
-    String? sourceTableArn,
-    String? sourceTableName,
     _i7.SseSpecification? sseSpecificationOverride,
-    required String targetTableName,
-    bool? useLatestRestorableTime,
   }) {
     return _$RestoreTableToPointInTimeInput._(
+      sourceTableArn: sourceTableArn,
+      sourceTableName: sourceTableName,
+      targetTableName: targetTableName,
+      useLatestRestorableTime: useLatestRestorableTime,
+      restoreDateTime: restoreDateTime,
       billingModeOverride: billingModeOverride,
       globalSecondaryIndexOverride: globalSecondaryIndexOverride == null
           ? null
@@ -48,12 +54,7 @@ abstract class RestoreTableToPointInTimeInput
           ? null
           : _i8.BuiltList(localSecondaryIndexOverride),
       provisionedThroughputOverride: provisionedThroughputOverride,
-      restoreDateTime: restoreDateTime,
-      sourceTableArn: sourceTableArn,
-      sourceTableName: sourceTableName,
       sseSpecificationOverride: sseSpecificationOverride,
-      targetTableName: targetTableName,
-      useLatestRestorableTime: useLatestRestorableTime,
     );
   }
 
@@ -77,6 +78,21 @@ abstract class RestoreTableToPointInTimeInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RestoreTableToPointInTimeInputBuilder b) {}
 
+  /// The DynamoDB table that will be restored. This value is an Amazon Resource Name (ARN).
+  String? get sourceTableArn;
+
+  /// Name of the source table that is being restored.
+  String? get sourceTableName;
+
+  /// The name of the new table to which it must be restored to.
+  String get targetTableName;
+
+  /// Restore the table to the latest possible time. `LatestRestorableDateTime` is typically 5 minutes before the current time.
+  bool? get useLatestRestorableTime;
+
+  /// Time in the past to restore the table to.
+  DateTime? get restoreDateTime;
+
   /// The billing mode of the restored table.
   _i3.BillingMode? get billingModeOverride;
 
@@ -89,42 +105,47 @@ abstract class RestoreTableToPointInTimeInput
   /// Provisioned throughput settings for the restored table.
   _i6.ProvisionedThroughput? get provisionedThroughputOverride;
 
-  /// Time in the past to restore the table to.
-  DateTime? get restoreDateTime;
-
-  /// The DynamoDB table that will be restored. This value is an Amazon Resource Name (ARN).
-  String? get sourceTableArn;
-
-  /// Name of the source table that is being restored.
-  String? get sourceTableName;
-
   /// The new server-side encryption settings for the restored table.
   _i7.SseSpecification? get sseSpecificationOverride;
-
-  /// The name of the new table to which it must be restored to.
-  String get targetTableName;
-
-  /// Restore the table to the latest possible time. `LatestRestorableDateTime` is typically 5 minutes before the current time.
-  bool? get useLatestRestorableTime;
   @override
   RestoreTableToPointInTimeInput getPayload() => this;
   @override
   List<Object?> get props => [
+        sourceTableArn,
+        sourceTableName,
+        targetTableName,
+        useLatestRestorableTime,
+        restoreDateTime,
         billingModeOverride,
         globalSecondaryIndexOverride,
         localSecondaryIndexOverride,
         provisionedThroughputOverride,
-        restoreDateTime,
-        sourceTableArn,
-        sourceTableName,
         sseSpecificationOverride,
-        targetTableName,
-        useLatestRestorableTime,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('RestoreTableToPointInTimeInput');
+    helper.add(
+      'sourceTableArn',
+      sourceTableArn,
+    );
+    helper.add(
+      'sourceTableName',
+      sourceTableName,
+    );
+    helper.add(
+      'targetTableName',
+      targetTableName,
+    );
+    helper.add(
+      'useLatestRestorableTime',
+      useLatestRestorableTime,
+    );
+    helper.add(
+      'restoreDateTime',
+      restoreDateTime,
+    );
     helper.add(
       'billingModeOverride',
       billingModeOverride,
@@ -142,28 +163,8 @@ abstract class RestoreTableToPointInTimeInput
       provisionedThroughputOverride,
     );
     helper.add(
-      'restoreDateTime',
-      restoreDateTime,
-    );
-    helper.add(
-      'sourceTableArn',
-      sourceTableArn,
-    );
-    helper.add(
-      'sourceTableName',
-      sourceTableName,
-    );
-    helper.add(
       'sseSpecificationOverride',
       sseSpecificationOverride,
-    );
-    helper.add(
-      'targetTableName',
-      targetTableName,
-    );
-    helper.add(
-      'useLatestRestorableTime',
-      useLatestRestorableTime,
     );
     return helper.toString();
   }
@@ -198,93 +199,66 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'BillingModeOverride':
-          if (value != null) {
-            result.billingModeOverride = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.BillingMode),
-            ) as _i3.BillingMode);
-          }
-          break;
-        case 'GlobalSecondaryIndexOverride':
-          if (value != null) {
-            result.globalSecondaryIndexOverride
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i4.GlobalSecondaryIndex)],
-              ),
-            ) as _i8.BuiltList<_i4.GlobalSecondaryIndex>));
-          }
-          break;
-        case 'LocalSecondaryIndexOverride':
-          if (value != null) {
-            result.localSecondaryIndexOverride.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i5.LocalSecondaryIndex)],
-              ),
-            ) as _i8.BuiltList<_i5.LocalSecondaryIndex>));
-          }
-          break;
-        case 'ProvisionedThroughputOverride':
-          if (value != null) {
-            result.provisionedThroughputOverride
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.ProvisionedThroughput),
-            ) as _i6.ProvisionedThroughput));
-          }
-          break;
-        case 'RestoreDateTime':
-          if (value != null) {
-            result.restoreDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'SourceTableArn':
-          if (value != null) {
-            result.sourceTableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'SourceTableName':
-          if (value != null) {
-            result.sourceTableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'SSESpecificationOverride':
-          if (value != null) {
-            result.sseSpecificationOverride.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.SseSpecification),
-            ) as _i7.SseSpecification));
-          }
-          break;
-        case 'TargetTableName':
-          result.targetTableName = (serializers.deserialize(
-            value!,
+          result.sourceTableArn = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'SourceTableName':
+          result.sourceTableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'TargetTableName':
+          result.targetTableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'UseLatestRestorableTime':
-          if (value != null) {
-            result.useLatestRestorableTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.useLatestRestorableTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
+        case 'RestoreDateTime':
+          result.restoreDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
+        case 'BillingModeOverride':
+          result.billingModeOverride = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.BillingMode),
+          ) as _i3.BillingMode);
+        case 'GlobalSecondaryIndexOverride':
+          result.globalSecondaryIndexOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i4.GlobalSecondaryIndex)],
+            ),
+          ) as _i8.BuiltList<_i4.GlobalSecondaryIndex>));
+        case 'LocalSecondaryIndexOverride':
+          result.localSecondaryIndexOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i5.LocalSecondaryIndex)],
+            ),
+          ) as _i8.BuiltList<_i5.LocalSecondaryIndex>));
+        case 'ProvisionedThroughputOverride':
+          result.provisionedThroughputOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.ProvisionedThroughput),
+          ) as _i6.ProvisionedThroughput));
+        case 'SSESpecificationOverride':
+          result.sseSpecificationOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.SseSpecification),
+          ) as _i7.SseSpecification));
       }
     }
 
@@ -294,95 +268,107 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RestoreTableToPointInTimeInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RestoreTableToPointInTimeInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final RestoreTableToPointInTimeInput(
+      :sourceTableArn,
+      :sourceTableName,
+      :targetTableName,
+      :useLatestRestorableTime,
+      :restoreDateTime,
+      :billingModeOverride,
+      :globalSecondaryIndexOverride,
+      :localSecondaryIndexOverride,
+      :provisionedThroughputOverride,
+      :sseSpecificationOverride
+    ) = object;
+    result$.addAll([
       'TargetTableName',
       serializers.serialize(
-        payload.targetTableName,
+        targetTableName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.billingModeOverride != null) {
-      result
+    ]);
+    if (sourceTableArn != null) {
+      result$
+        ..add('SourceTableArn')
+        ..add(serializers.serialize(
+          sourceTableArn,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (sourceTableName != null) {
+      result$
+        ..add('SourceTableName')
+        ..add(serializers.serialize(
+          sourceTableName,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (useLatestRestorableTime != null) {
+      result$
+        ..add('UseLatestRestorableTime')
+        ..add(serializers.serialize(
+          useLatestRestorableTime,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    if (restoreDateTime != null) {
+      result$
+        ..add('RestoreDateTime')
+        ..add(serializers.serialize(
+          restoreDateTime,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (billingModeOverride != null) {
+      result$
         ..add('BillingModeOverride')
         ..add(serializers.serialize(
-          payload.billingModeOverride!,
+          billingModeOverride,
           specifiedType: const FullType(_i3.BillingMode),
         ));
     }
-    if (payload.globalSecondaryIndexOverride != null) {
-      result
+    if (globalSecondaryIndexOverride != null) {
+      result$
         ..add('GlobalSecondaryIndexOverride')
         ..add(serializers.serialize(
-          payload.globalSecondaryIndexOverride!,
+          globalSecondaryIndexOverride,
           specifiedType: const FullType(
             _i8.BuiltList,
             [FullType(_i4.GlobalSecondaryIndex)],
           ),
         ));
     }
-    if (payload.localSecondaryIndexOverride != null) {
-      result
+    if (localSecondaryIndexOverride != null) {
+      result$
         ..add('LocalSecondaryIndexOverride')
         ..add(serializers.serialize(
-          payload.localSecondaryIndexOverride!,
+          localSecondaryIndexOverride,
           specifiedType: const FullType(
             _i8.BuiltList,
             [FullType(_i5.LocalSecondaryIndex)],
           ),
         ));
     }
-    if (payload.provisionedThroughputOverride != null) {
-      result
+    if (provisionedThroughputOverride != null) {
+      result$
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
-          payload.provisionedThroughputOverride!,
+          provisionedThroughputOverride,
           specifiedType: const FullType(_i6.ProvisionedThroughput),
         ));
     }
-    if (payload.restoreDateTime != null) {
-      result
-        ..add('RestoreDateTime')
-        ..add(serializers.serialize(
-          payload.restoreDateTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.sourceTableArn != null) {
-      result
-        ..add('SourceTableArn')
-        ..add(serializers.serialize(
-          payload.sourceTableArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.sourceTableName != null) {
-      result
-        ..add('SourceTableName')
-        ..add(serializers.serialize(
-          payload.sourceTableName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.sseSpecificationOverride != null) {
-      result
+    if (sseSpecificationOverride != null) {
+      result$
         ..add('SSESpecificationOverride')
         ..add(serializers.serialize(
-          payload.sseSpecificationOverride!,
+          sseSpecificationOverride,
           specifiedType: const FullType(_i7.SseSpecification),
         ));
     }
-    if (payload.useLatestRestorableTime != null) {
-      result
-        ..add('UseLatestRestorableTime')
-        ..add(serializers.serialize(
-          payload.useLatestRestorableTime!,
-          specifiedType: const FullType(bool),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

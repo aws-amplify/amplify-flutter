@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.aggregate_conformance_pack_compliance_count; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -96,23 +97,20 @@ class AggregateConformancePackComplianceCountAwsJson11Serializer extends _i2
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'CompliantConformancePackCount':
-          if (value != null) {
-            result.compliantConformancePackCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.compliantConformancePackCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NonCompliantConformancePackCount':
-          if (value != null) {
-            result.nonCompliantConformancePackCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.nonCompliantConformancePackCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -122,27 +120,30 @@ class AggregateConformancePackComplianceCountAwsJson11Serializer extends _i2
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AggregateConformancePackComplianceCount object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AggregateConformancePackComplianceCount);
-    final result = <Object?>[];
-    if (payload.compliantConformancePackCount != null) {
-      result
+    final result$ = <Object?>[];
+    final AggregateConformancePackComplianceCount(
+      :compliantConformancePackCount,
+      :nonCompliantConformancePackCount
+    ) = object;
+    if (compliantConformancePackCount != null) {
+      result$
         ..add('CompliantConformancePackCount')
         ..add(serializers.serialize(
-          payload.compliantConformancePackCount!,
+          compliantConformancePackCount,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nonCompliantConformancePackCount != null) {
-      result
+    if (nonCompliantConformancePackCount != null) {
+      result$
         ..add('NonCompliantConformancePackCount')
         ..add(serializers.serialize(
-          payload.nonCompliantConformancePackCount!,
+          nonCompliantConformancePackCount,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

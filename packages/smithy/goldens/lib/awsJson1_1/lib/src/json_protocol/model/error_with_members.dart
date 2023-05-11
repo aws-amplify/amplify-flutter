@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.json_protocol.model.error_with_members; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -156,72 +157,54 @@ class ErrorWithMembersAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Code':
-          if (value != null) {
-            result.code = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.code = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ComplexData':
-          if (value != null) {
-            result.complexData.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.KitchenSink),
-            ) as _i3.KitchenSink));
-          }
-          break;
+          result.complexData.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.KitchenSink),
+          ) as _i3.KitchenSink));
         case 'IntegerField':
-          if (value != null) {
-            result.integerField = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.integerField = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'ListField':
-          if (value != null) {
-            result.listField.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.listField.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'MapField':
-          if (value != null) {
-            result.mapField.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.mapField.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StringField':
-          if (value != null) {
-            result.stringField = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stringField = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -231,51 +214,59 @@ class ErrorWithMembersAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ErrorWithMembers object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ErrorWithMembers);
-    final result = <Object?>[];
-    if (payload.code != null) {
-      result
+    final result$ = <Object?>[];
+    final ErrorWithMembers(
+      :code,
+      :complexData,
+      :integerField,
+      :listField,
+      :mapField,
+      :message,
+      :stringField
+    ) = object;
+    if (code != null) {
+      result$
         ..add('Code')
         ..add(serializers.serialize(
-          payload.code!,
+          code,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.complexData != null) {
-      result
+    if (complexData != null) {
+      result$
         ..add('ComplexData')
         ..add(serializers.serialize(
-          payload.complexData!,
+          complexData,
           specifiedType: const FullType(_i3.KitchenSink),
         ));
     }
-    if (payload.integerField != null) {
-      result
+    if (integerField != null) {
+      result$
         ..add('IntegerField')
         ..add(serializers.serialize(
-          payload.integerField!,
+          integerField,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.listField != null) {
-      result
+    if (listField != null) {
+      result$
         ..add('ListField')
         ..add(serializers.serialize(
-          payload.listField!,
+          listField,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.mapField != null) {
-      result
+    if (mapField != null) {
+      result$
         ..add('MapField')
         ..add(serializers.serialize(
-          payload.mapField!,
+          mapField,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -285,22 +276,22 @@ class ErrorWithMembersAwsJson11Serializer
           ),
         ));
     }
-    if (payload.message != null) {
-      result
+    if (message != null) {
+      result$
         ..add('Message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stringField != null) {
-      result
+    if (stringField != null) {
+      result$
         ..add('StringField')
         ..add(serializers.serialize(
-          payload.stringField!,
+          stringField,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

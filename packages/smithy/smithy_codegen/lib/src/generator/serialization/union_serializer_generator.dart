@@ -3,25 +3,22 @@
 
 import 'package:code_builder/code_builder.dart';
 import 'package:smithy/ast.dart';
-import 'package:smithy_codegen/smithy_codegen.dart';
 import 'package:smithy_codegen/src/generator/generation_context.dart';
 import 'package:smithy_codegen/src/generator/serialization/protocol_traits.dart';
-import 'package:smithy_codegen/src/generator/serialization/serializer_config.dart';
 import 'package:smithy_codegen/src/generator/serialization/serializer_generator.dart';
 import 'package:smithy_codegen/src/generator/types.dart';
 import 'package:smithy_codegen/src/util/protocol_ext.dart';
-import 'package:smithy_codegen/src/util/shape_ext.dart';
 import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 /// Generates a serializer class for [shape] and [protocol].
 class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
     with NamedMembersGenerationContext, UnionGenerationContext {
   UnionSerializerGenerator(
-    UnionShape shape,
-    CodegenContext context,
-    ProtocolDefinitionTrait protocol, {
-    SerializerConfig? config,
-  }) : super(shape, context, protocol, config: config);
+    super.shape,
+    super.context,
+    super.protocol, {
+    super.config,
+  });
 
   @override
   Reference get serializedSymbol => symbol;
@@ -74,7 +71,7 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
           ..body = literalConstList([
             symbol,
             // Variant class types
-            ...sortedMembers.map(
+            ...members.map(
               (member) => refer(variantClassName(member)),
             ),
           ]).code,
@@ -83,16 +80,16 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
   @override
   Code get deserializeCode {
     final builder = BlockBuilder();
-    builder.statements.add(Code.scope((allocate) => '''
-    final iterator = serialized.iterator;
-    iterator.moveNext();
-    final key = iterator.current as ${allocate(DartTypes.core.string)};
-    iterator.moveNext();
-    final value = iterator.current as ${allocate(DartTypes.core.object)};
+    builder.statements.add(
+      Code.scope(
+        (allocate) => '''
+    final [key as String, value as Object] = serialized.toList();
     switch (key) {
-    '''));
+    ''',
+      ),
+    );
 
-    for (final member in sortedMembers) {
+    for (final member in members) {
       final memberSymbol = memberSymbols[member]!.unboxed;
       final memberWireName =
           protocolTraits.memberWireNames[member] ?? member.memberName;
@@ -138,21 +135,15 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
 
     final object = refer('object');
     final branches = <String, Expression>{};
-    for (final member in sortedMembers) {
-      final memberName = member.dartName(ShapeType.union);
-      branches[memberName] = Method(
-        (m) => m
-          ..requiredParameters.add(Parameter((p) => p
-            ..type = memberSymbols[member]!.unboxed
-            ..name = memberName))
-          ..lambda = true
-          ..body = serializerFor(
-            member,
-            refer(memberName),
-            memberSymbol: memberSymbols[member]!.unboxed,
-          ).code,
-      ).closure;
+    for (final member in members) {
+      final variantClassName = this.variantClassName(member);
+      branches[variantClassName] = serializerFor(
+        member,
+        refer('value'),
+        memberSymbol: memberSymbols[member]!.unboxed,
+      );
     }
+    branches[variantClassName(unknownMember)] = refer('value');
     var hasRenames = false;
     if (protocolTraits.memberWireNames.isNotEmpty) {
       hasRenames = true;
@@ -166,7 +157,6 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
       );
     }
     builder.statements.addAll([
-      object.asA(symbol).statement,
       literalList([
         if (hasRenames)
           refer('renames')
@@ -174,29 +164,17 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
               .ifNullThen(object.property('name'))
         else
           object.property('name'),
-        object.property('when').call([], {
-          ...branches,
-
-          // Do not try to serialize the unknown type since
-          // we have no information about it and it could fail.
-          // We could try/catch the serialization, but that would
-          // be inconsistent with the deserialize code.
-          sdkUnknown: Method(
-            (m) => m
-              ..requiredParameters.addAll([
-                Parameter((p) => p
-                  ..type = DartTypes.core.string
-                  ..name = '_'),
-                Parameter((p) => p
-                  ..type = unknownMemberSymbol
-                  ..name = sdkUnknown),
-              ])
-              ..lambda = true
-              ..body = refer(sdkUnknown).code,
-          ).closure,
-        }, [
-          DartTypes.core.object.boxed
-        ]).nullChecked
+        Block((b) {
+          b.statements.add(Code.scope((ref) => 'switch (${ref(object)}) {'));
+          for (final entry in branches.entries) {
+            final MapEntry(key: variantClassName, :value) = entry;
+            b.statements
+              ..add(Code('$variantClassName(:final value) => '))
+              ..add(value.code)
+              ..add(const Code(','));
+          }
+          b.statements.add(const Code('}'));
+        }),
       ]).returned.statement,
     ]);
 

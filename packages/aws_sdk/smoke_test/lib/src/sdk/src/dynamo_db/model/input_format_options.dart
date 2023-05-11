@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.input_format_options; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -76,15 +77,15 @@ class InputFormatOptionsAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Csv':
-          if (value != null) {
-            result.csv.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CsvOptions),
-            ) as _i2.CsvOptions));
-          }
-          break;
+          result.csv.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CsvOptions),
+          ) as _i2.CsvOptions));
       }
     }
 
@@ -94,19 +95,19 @@ class InputFormatOptionsAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InputFormatOptions object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InputFormatOptions);
-    final result = <Object?>[];
-    if (payload.csv != null) {
-      result
+    final result$ = <Object?>[];
+    final InputFormatOptions(:csv) = object;
+    if (csv != null) {
+      result$
         ..add('Csv')
         ..add(serializers.serialize(
-          payload.csv!,
+          csv,
           specifiedType: const FullType(_i2.CsvOptions),
         ));
     }
-    return result;
+    return result$;
   }
 }

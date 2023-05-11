@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.delete_bucket_analytics_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,13 +22,13 @@ abstract class DeleteBucketAnalyticsConfigurationRequest
         _i1.HasPayload<DeleteBucketAnalyticsConfigurationRequestPayload> {
   factory DeleteBucketAnalyticsConfigurationRequest({
     required String bucket,
-    String? expectedBucketOwner,
     required String id,
+    String? expectedBucketOwner,
   }) {
     return _$DeleteBucketAnalyticsConfigurationRequest._(
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
       id: id,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -65,11 +66,11 @@ abstract class DeleteBucketAnalyticsConfigurationRequest
   /// The name of the bucket from which an analytics configuration is deleted.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// The ID that identifies the analytics configuration.
   String get id;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -88,8 +89,8 @@ abstract class DeleteBucketAnalyticsConfigurationRequest
   @override
   List<Object?> get props => [
         bucket,
-        expectedBucketOwner,
         id,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -100,12 +101,12 @@ abstract class DeleteBucketAnalyticsConfigurationRequest
       bucket,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'id',
       id,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }
@@ -170,15 +171,16 @@ class DeleteBucketAnalyticsConfigurationRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteBucketAnalyticsConfigurationRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'DeleteBucketAnalyticsConfigurationRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    return result;
+
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_bucket_replication_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -91,22 +92,23 @@ class GetBucketReplicationOutputRestXmlSerializer
     final result = _i3.ReplicationConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Role':
           result.role = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i4.ReplicationRule),
           ) as _i4.ReplicationRule));
-          break;
       }
     }
 
@@ -116,36 +118,31 @@ class GetBucketReplicationOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i3.ReplicationConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is GetBucketReplicationOutput
-        ? object.getPayload()
-        : (object as _i3.ReplicationConfiguration?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'ReplicationConfiguration',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
-    result
+    final _i3.ReplicationConfiguration(:role, :rules) = object;
+    result$
       ..add(const _i2.XmlElementName('Role'))
       ..add(serializers.serialize(
-        payload.role,
+        role,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
         .addAll(const _i2.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
-      payload.rules,
+      rules,
       specifiedType: const FullType.nullable(
         _i5.BuiltList,
         [FullType(_i4.ReplicationRule)],
       ),
     ));
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.list_contributor_insights_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,14 +18,14 @@ abstract class ListContributorInsightsInput
         Built<ListContributorInsightsInput,
             ListContributorInsightsInputBuilder> {
   factory ListContributorInsightsInput({
-    int? maxResults,
-    String? nextToken,
     String? tableName,
+    String? nextToken,
+    int? maxResults,
   }) {
     return _$ListContributorInsightsInput._(
-      maxResults: maxResults,
-      nextToken: nextToken,
       tableName: tableName,
+      nextToken: nextToken,
+      maxResults: maxResults,
     );
   }
 
@@ -48,36 +49,36 @@ abstract class ListContributorInsightsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListContributorInsightsInputBuilder b) {}
 
-  /// Maximum number of results to return per page.
-  int? get maxResults;
+  /// The name of the table.
+  String? get tableName;
 
   /// A token to for the desired page, if there is one.
   String? get nextToken;
 
-  /// The name of the table.
-  String? get tableName;
+  /// Maximum number of results to return per page.
+  int? get maxResults;
   @override
   ListContributorInsightsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        maxResults,
-        nextToken,
         tableName,
+        nextToken,
+        maxResults,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListContributorInsightsInput');
     helper.add(
-      'maxResults',
-      maxResults,
+      'tableName',
+      tableName,
     );
     helper.add(
       'nextToken',
       nextToken,
     );
     helper.add(
-      'tableName',
-      tableName,
+      'maxResults',
+      maxResults,
     );
     return helper.toString();
   }
@@ -112,31 +113,25 @@ class ListContributorInsightsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'MaxResults':
-          if (value != null) {
-            result.maxResults = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'MaxResults':
+          result.maxResults = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -146,35 +141,36 @@ class ListContributorInsightsInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListContributorInsightsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListContributorInsightsInput);
-    final result = <Object?>[];
-    if (payload.maxResults != null) {
-      result
+    final result$ = <Object?>[];
+    final ListContributorInsightsInput(:tableName, :nextToken, :maxResults) =
+        object;
+    if (tableName != null) {
+      result$
+        ..add('TableName')
+        ..add(serializers.serialize(
+          tableName,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (maxResults != null) {
+      result$
         ..add('MaxResults')
         ..add(serializers.serialize(
-          payload.maxResults!,
+          maxResults,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.tableName != null) {
-      result
-        ..add('TableName')
-        ..add(serializers.serialize(
-          payload.tableName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.public_access_block_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,14 +20,14 @@ abstract class PublicAccessBlockConfiguration
   /// The PublicAccessBlock configuration that you want to apply to this Amazon S3 bucket. You can enable the configuration options in any combination. For more information about when Amazon S3 considers a bucket or object public, see [The Meaning of "Public"](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status) in the _Amazon S3 User Guide_.
   factory PublicAccessBlockConfiguration({
     bool? blockPublicAcls,
-    bool? blockPublicPolicy,
     bool? ignorePublicAcls,
+    bool? blockPublicPolicy,
     bool? restrictPublicBuckets,
   }) {
     return _$PublicAccessBlockConfiguration._(
       blockPublicAcls: blockPublicAcls,
-      blockPublicPolicy: blockPublicPolicy,
       ignorePublicAcls: ignorePublicAcls,
+      blockPublicPolicy: blockPublicPolicy,
       restrictPublicBuckets: restrictPublicBuckets,
     );
   }
@@ -57,15 +58,15 @@ abstract class PublicAccessBlockConfiguration
   /// Enabling this setting doesn't affect existing policies or ACLs.
   bool? get blockPublicAcls;
 
-  /// Specifies whether Amazon S3 should block public bucket policies for this bucket. Setting this element to `TRUE` causes Amazon S3 to reject calls to PUT Bucket policy if the specified bucket policy allows public access.
-  ///
-  /// Enabling this setting doesn't affect existing bucket policies.
-  bool? get blockPublicPolicy;
-
   /// Specifies whether Amazon S3 should ignore public ACLs for this bucket and objects in this bucket. Setting this element to `TRUE` causes Amazon S3 to ignore all public ACLs on this bucket and objects in this bucket.
   ///
   /// Enabling this setting doesn't affect the persistence of any existing ACLs and doesn't prevent new public ACLs from being set.
   bool? get ignorePublicAcls;
+
+  /// Specifies whether Amazon S3 should block public bucket policies for this bucket. Setting this element to `TRUE` causes Amazon S3 to reject calls to PUT Bucket policy if the specified bucket policy allows public access.
+  ///
+  /// Enabling this setting doesn't affect existing bucket policies.
+  bool? get blockPublicPolicy;
 
   /// Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to `TRUE` restricts access to this bucket to only Amazon Web Service principals and authorized users within this account if the bucket has a public policy.
   ///
@@ -74,8 +75,8 @@ abstract class PublicAccessBlockConfiguration
   @override
   List<Object?> get props => [
         blockPublicAcls,
-        blockPublicPolicy,
         ignorePublicAcls,
+        blockPublicPolicy,
         restrictPublicBuckets,
       ];
   @override
@@ -87,12 +88,12 @@ abstract class PublicAccessBlockConfiguration
       blockPublicAcls,
     );
     helper.add(
-      'blockPublicPolicy',
-      blockPublicPolicy,
-    );
-    helper.add(
       'ignorePublicAcls',
       ignorePublicAcls,
+    );
+    helper.add(
+      'blockPublicPolicy',
+      blockPublicPolicy,
     );
     helper.add(
       'restrictPublicBuckets',
@@ -128,42 +129,33 @@ class PublicAccessBlockConfigurationRestXmlSerializer
     final result = PublicAccessBlockConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'BlockPublicAcls':
-          if (value != null) {
-            result.blockPublicAcls = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.blockPublicAcls = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'BlockPublicPolicy':
-          if (value != null) {
-            result.blockPublicPolicy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.blockPublicPolicy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'IgnorePublicAcls':
-          if (value != null) {
-            result.ignorePublicAcls = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.ignorePublicAcls = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'RestrictPublicBuckets':
-          if (value != null) {
-            result.restrictPublicBuckets = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.restrictPublicBuckets = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -173,48 +165,53 @@ class PublicAccessBlockConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PublicAccessBlockConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PublicAccessBlockConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'PublicAccessBlockConfiguration',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.blockPublicAcls != null) {
-      result
+    final PublicAccessBlockConfiguration(
+      :blockPublicAcls,
+      :blockPublicPolicy,
+      :ignorePublicAcls,
+      :restrictPublicBuckets
+    ) = object;
+    if (blockPublicAcls != null) {
+      result$
         ..add(const _i2.XmlElementName('BlockPublicAcls'))
         ..add(serializers.serialize(
-          payload.blockPublicAcls!,
+          blockPublicAcls,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.blockPublicPolicy != null) {
-      result
+    if (blockPublicPolicy != null) {
+      result$
         ..add(const _i2.XmlElementName('BlockPublicPolicy'))
         ..add(serializers.serialize(
-          payload.blockPublicPolicy!,
+          blockPublicPolicy,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.ignorePublicAcls != null) {
-      result
+    if (ignorePublicAcls != null) {
+      result$
         ..add(const _i2.XmlElementName('IgnorePublicAcls'))
         ..add(serializers.serialize(
-          payload.ignorePublicAcls!,
+          ignorePublicAcls,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.restrictPublicBuckets != null) {
-      result
+    if (restrictPublicBuckets != null) {
+      result$
         ..add(const _i2.XmlElementName('RestrictPublicBuckets'))
         ..add(serializers.serialize(
-          payload.restrictPublicBuckets!,
+          restrictPublicBuckets,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

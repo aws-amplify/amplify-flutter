@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_validation_protocol.model.recursive_union_one; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,25 +11,7 @@ import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/recursive_
     as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 
-/// The discrete values of [RecursiveUnionOne].
-enum RecursiveUnionOneType<T extends RecursiveUnionOne> {
-  /// The type for [RecursiveUnionOneString].
-  string<RecursiveUnionOneString>(r'string'),
-
-  /// The type for [RecursiveUnionOneUnion].
-  union<RecursiveUnionOneUnion>(r'union'),
-
-  /// The type for an unknown value.
-  sdkUnknown<RecursiveUnionOneSdkUnknown>('sdkUnknown');
-
-  /// The discrete values of [RecursiveUnionOne].
-  const RecursiveUnionOneType(this.value);
-
-  /// The Smithy value.
-  final String value;
-}
-
-abstract class RecursiveUnionOne extends _i1.SmithyUnion<RecursiveUnionOne> {
+sealed class RecursiveUnionOne extends _i1.SmithyUnion<RecursiveUnionOne> {
   const RecursiveUnionOne._();
 
   const factory RecursiveUnionOne.string(_i2.RecursiveEnumString string) =
@@ -48,31 +31,8 @@ abstract class RecursiveUnionOne extends _i1.SmithyUnion<RecursiveUnionOne> {
 
   _i2.RecursiveEnumString? get string => null;
   _i3.RecursiveUnionTwo? get union => null;
-  RecursiveUnionOneType get type;
   @override
   Object get value => (string ?? union)!;
-  @override
-  T? when<T>({
-    T Function(_i2.RecursiveEnumString)? string,
-    T Function(_i3.RecursiveUnionTwo)? union,
-    T Function(
-      String,
-      Object,
-    )?
-        sdkUnknown,
-  }) {
-    if (this is RecursiveUnionOneString) {
-      return string?.call((this as RecursiveUnionOneString).string);
-    }
-    if (this is RecursiveUnionOneUnion) {
-      return union?.call((this as RecursiveUnionOneUnion).union);
-    }
-    return sdkUnknown?.call(
-      name,
-      value,
-    );
-  }
-
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'RecursiveUnionOne');
@@ -92,31 +52,27 @@ abstract class RecursiveUnionOne extends _i1.SmithyUnion<RecursiveUnionOne> {
   }
 }
 
-class RecursiveUnionOneString extends RecursiveUnionOne {
+final class RecursiveUnionOneString extends RecursiveUnionOne {
   const RecursiveUnionOneString(this.string) : super._();
 
   @override
   final _i2.RecursiveEnumString string;
 
   @override
-  RecursiveUnionOneType get type => RecursiveUnionOneType.string;
-  @override
   String get name => 'string';
 }
 
-class RecursiveUnionOneUnion extends RecursiveUnionOne {
+final class RecursiveUnionOneUnion extends RecursiveUnionOne {
   const RecursiveUnionOneUnion(this.union) : super._();
 
   @override
   final _i3.RecursiveUnionTwo union;
 
   @override
-  RecursiveUnionOneType get type => RecursiveUnionOneType.union;
-  @override
   String get name => 'union';
 }
 
-class RecursiveUnionOneSdkUnknown extends RecursiveUnionOne {
+final class RecursiveUnionOneSdkUnknown extends RecursiveUnionOne {
   const RecursiveUnionOneSdkUnknown(
     this.name,
     this.value,
@@ -127,9 +83,6 @@ class RecursiveUnionOneSdkUnknown extends RecursiveUnionOne {
 
   @override
   final Object value;
-
-  @override
-  RecursiveUnionOneType get type => RecursiveUnionOneType.sdkUnknown;
 }
 
 class RecursiveUnionOneRestJson1Serializer
@@ -155,11 +108,7 @@ class RecursiveUnionOneRestJson1Serializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final iterator = serialized.iterator;
-    iterator.moveNext();
-    final key = iterator.current as String;
-    iterator.moveNext();
-    final value = iterator.current as Object;
+    final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'string':
         return RecursiveUnionOneString((serializers.deserialize(
@@ -181,27 +130,22 @@ class RecursiveUnionOneRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RecursiveUnionOne object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    (object as RecursiveUnionOne);
     return [
       object.name,
-      object.when<Object?>(
-        string: (_i2.RecursiveEnumString string) => serializers.serialize(
-          string,
-          specifiedType: const FullType(_i2.RecursiveEnumString),
-        ),
-        union: (_i3.RecursiveUnionTwo union) => serializers.serialize(
-          union,
-          specifiedType: const FullType(_i3.RecursiveUnionTwo),
-        ),
-        sdkUnknown: (
-          String _,
-          Object sdkUnknown,
-        ) =>
-            sdkUnknown,
-      )!,
+      switch (object) {
+        RecursiveUnionOneString(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(_i2.RecursiveEnumString),
+          ),
+        RecursiveUnionOneUnion(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(_i3.RecursiveUnionTwo),
+          ),
+        RecursiveUnionOneSdkUnknown(:final value) => value,
+      },
     ];
   }
 }

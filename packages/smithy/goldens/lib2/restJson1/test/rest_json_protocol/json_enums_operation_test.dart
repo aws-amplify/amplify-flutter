@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_protocol.test.json_enums_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -148,67 +149,52 @@ class JsonEnumsInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'fooEnum1':
-          if (value != null) {
-            result.fooEnum1 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.FooEnum),
-            ) as _i6.FooEnum);
-          }
-          break;
+          result.fooEnum1 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.FooEnum),
+          ) as _i6.FooEnum);
         case 'fooEnum2':
-          if (value != null) {
-            result.fooEnum2 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.FooEnum),
-            ) as _i6.FooEnum);
-          }
-          break;
+          result.fooEnum2 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.FooEnum),
+          ) as _i6.FooEnum);
         case 'fooEnum3':
-          if (value != null) {
-            result.fooEnum3 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.FooEnum),
-            ) as _i6.FooEnum);
-          }
-          break;
+          result.fooEnum3 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.FooEnum),
+          ) as _i6.FooEnum);
         case 'fooEnumList':
-          if (value != null) {
-            result.fooEnumList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i6.FooEnum)],
-              ),
-            ) as _i7.BuiltList<_i6.FooEnum>));
-          }
-          break;
-        case 'fooEnumMap':
-          if (value != null) {
-            result.fooEnumMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i6.FooEnum),
-                ],
-              ),
-            ) as _i7.BuiltMap<String, _i6.FooEnum>));
-          }
-          break;
+          result.fooEnumList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(_i6.FooEnum)],
+            ),
+          ) as _i7.BuiltList<_i6.FooEnum>));
         case 'fooEnumSet':
-          if (value != null) {
-            result.fooEnumSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltSet,
-                [FullType(_i6.FooEnum)],
-              ),
-            ) as _i7.BuiltSet<_i6.FooEnum>));
-          }
-          break;
+          result.fooEnumSet.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltSet,
+              [FullType(_i6.FooEnum)],
+            ),
+          ) as _i7.BuiltSet<_i6.FooEnum>));
+        case 'fooEnumMap':
+          result.fooEnumMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i6.FooEnum),
+              ],
+            ),
+          ) as _i7.BuiltMap<String, _i6.FooEnum>));
       }
     }
 
@@ -218,7 +204,7 @@ class JsonEnumsInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.JsonEnumsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

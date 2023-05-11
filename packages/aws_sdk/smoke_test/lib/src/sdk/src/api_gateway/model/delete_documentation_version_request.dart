@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.delete_documentation_version_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,12 +23,12 @@ abstract class DeleteDocumentationVersionRequest
         _i1.HasPayload<DeleteDocumentationVersionRequestPayload> {
   /// Deletes an existing documentation version of an API.
   factory DeleteDocumentationVersionRequest({
-    required String documentationVersion,
     required String restApiId,
+    required String documentationVersion,
   }) {
     return _$DeleteDocumentationVersionRequest._(
-      documentationVersion: documentationVersion,
       restApiId: restApiId,
+      documentationVersion: documentationVersion,
     );
   }
 
@@ -59,11 +60,11 @@ abstract class DeleteDocumentationVersionRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteDocumentationVersionRequestBuilder b) {}
 
-  /// The version identifier of a to-be-deleted documentation snapshot.
-  String get documentationVersion;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The version identifier of a to-be-deleted documentation snapshot.
+  String get documentationVersion;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -83,20 +84,20 @@ abstract class DeleteDocumentationVersionRequest
       DeleteDocumentationVersionRequestPayload();
   @override
   List<Object?> get props => [
-        documentationVersion,
         restApiId,
+        documentationVersion,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DeleteDocumentationVersionRequest');
     helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'documentationVersion',
+      documentationVersion,
     );
     return helper.toString();
   }
@@ -159,7 +160,7 @@ class DeleteDocumentationVersionRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteDocumentationVersionRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

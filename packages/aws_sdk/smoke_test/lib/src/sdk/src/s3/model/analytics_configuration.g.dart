@@ -8,9 +8,9 @@ part of smoke_test.s3.model.analytics_configuration;
 
 class _$AnalyticsConfiguration extends AnalyticsConfiguration {
   @override
-  final _i2.AnalyticsFilter? filter;
-  @override
   final String id;
+  @override
+  final _i2.AnalyticsFilter? filter;
   @override
   final _i3.StorageClassAnalysis storageClassAnalysis;
 
@@ -19,7 +19,7 @@ class _$AnalyticsConfiguration extends AnalyticsConfiguration {
       (new AnalyticsConfigurationBuilder()..update(updates))._build();
 
   _$AnalyticsConfiguration._(
-      {this.filter, required this.id, required this.storageClassAnalysis})
+      {required this.id, this.filter, required this.storageClassAnalysis})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'AnalyticsConfiguration', 'id');
     BuiltValueNullFieldError.checkNotNull(storageClassAnalysis,
@@ -39,16 +39,16 @@ class _$AnalyticsConfiguration extends AnalyticsConfiguration {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AnalyticsConfiguration &&
-        filter == other.filter &&
         id == other.id &&
+        filter == other.filter &&
         storageClassAnalysis == other.storageClassAnalysis;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, filter.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, filter.hashCode);
     _$hash = $jc(_$hash, storageClassAnalysis.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -59,13 +59,13 @@ class AnalyticsConfigurationBuilder
     implements Builder<AnalyticsConfiguration, AnalyticsConfigurationBuilder> {
   _$AnalyticsConfiguration? _$v;
 
-  _i2.AnalyticsFilter? _filter;
-  _i2.AnalyticsFilter? get filter => _$this._filter;
-  set filter(_i2.AnalyticsFilter? filter) => _$this._filter = filter;
-
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
+
+  _i2.AnalyticsFilter? _filter;
+  _i2.AnalyticsFilter? get filter => _$this._filter;
+  set filter(_i2.AnalyticsFilter? filter) => _$this._filter = filter;
 
   _i3.StorageClassAnalysisBuilder? _storageClassAnalysis;
   _i3.StorageClassAnalysisBuilder get storageClassAnalysis =>
@@ -81,8 +81,8 @@ class AnalyticsConfigurationBuilder
   AnalyticsConfigurationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _filter = $v.filter;
       _id = $v.id;
+      _filter = $v.filter;
       _storageClassAnalysis = $v.storageClassAnalysis.toBuilder();
       _$v = null;
     }
@@ -108,9 +108,9 @@ class AnalyticsConfigurationBuilder
     try {
       _$result = _$v ??
           new _$AnalyticsConfiguration._(
-              filter: filter,
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'AnalyticsConfiguration', 'id'),
+              filter: filter,
               storageClassAnalysis: storageClassAnalysis.build());
     } catch (_) {
       late String _$failedField;

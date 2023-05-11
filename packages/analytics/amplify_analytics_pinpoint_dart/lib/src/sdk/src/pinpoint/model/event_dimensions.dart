@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.event_dimensions; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -107,43 +108,37 @@ class EventDimensionsRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Attributes':
-          if (value != null) {
-            result.attributes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeDimension),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, _i2.AttributeDimension>));
-          }
-          break;
+          result.attributes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeDimension),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, _i2.AttributeDimension>));
         case 'EventType':
-          if (value != null) {
-            result.eventType.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.SetDimension),
-            ) as _i3.SetDimension));
-          }
-          break;
+          result.eventType.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.SetDimension),
+          ) as _i3.SetDimension));
         case 'Metrics':
-          if (value != null) {
-            result.metrics.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i4.MetricDimension),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, _i4.MetricDimension>));
-          }
-          break;
+          result.metrics.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i4.MetricDimension),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, _i4.MetricDimension>));
       }
     }
 
@@ -153,16 +148,16 @@ class EventDimensionsRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EventDimensions object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EventDimensions);
-    final result = <Object?>[];
-    if (payload.attributes != null) {
-      result
+    final result$ = <Object?>[];
+    final EventDimensions(:attributes, :eventType, :metrics) = object;
+    if (attributes != null) {
+      result$
         ..add('Attributes')
         ..add(serializers.serialize(
-          payload.attributes!,
+          attributes,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -172,19 +167,19 @@ class EventDimensionsRestJson1Serializer
           ),
         ));
     }
-    if (payload.eventType != null) {
-      result
+    if (eventType != null) {
+      result$
         ..add('EventType')
         ..add(serializers.serialize(
-          payload.eventType!,
+          eventType,
           specifiedType: const FullType(_i3.SetDimension),
         ));
     }
-    if (payload.metrics != null) {
-      result
+    if (metrics != null) {
+      result$
         ..add('Metrics')
         ..add(serializers.serialize(
-          payload.metrics!,
+          metrics,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -194,6 +189,6 @@ class EventDimensionsRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

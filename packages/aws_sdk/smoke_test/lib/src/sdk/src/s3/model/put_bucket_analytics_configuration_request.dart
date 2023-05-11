@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.put_bucket_analytics_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,16 +24,16 @@ abstract class PutBucketAnalyticsConfigurationRequest
             PutBucketAnalyticsConfigurationRequestBuilder>,
         _i1.HasPayload<_i2.AnalyticsConfiguration> {
   factory PutBucketAnalyticsConfigurationRequest({
-    required _i2.AnalyticsConfiguration analyticsConfiguration,
     required String bucket,
-    String? expectedBucketOwner,
     required String id,
+    required _i2.AnalyticsConfiguration analyticsConfiguration,
+    String? expectedBucketOwner,
   }) {
     return _$PutBucketAnalyticsConfigurationRequest._(
-      analyticsConfiguration: analyticsConfiguration,
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
       id: id,
+      analyticsConfiguration: analyticsConfiguration,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -68,17 +69,17 @@ abstract class PutBucketAnalyticsConfigurationRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutBucketAnalyticsConfigurationRequestBuilder b) {}
 
-  /// The configuration and any analyses for the analytics filter.
-  _i2.AnalyticsConfiguration get analyticsConfiguration;
-
   /// The name of the bucket to which an analytics configuration is stored.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// The ID that identifies the analytics configuration.
   String get id;
+
+  /// The configuration and any analyses for the analytics filter.
+  _i2.AnalyticsConfiguration get analyticsConfiguration;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -95,30 +96,30 @@ abstract class PutBucketAnalyticsConfigurationRequest
   _i2.AnalyticsConfiguration getPayload() => analyticsConfiguration;
   @override
   List<Object?> get props => [
-        analyticsConfiguration,
         bucket,
-        expectedBucketOwner,
         id,
+        analyticsConfiguration,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('PutBucketAnalyticsConfigurationRequest');
     helper.add(
-      'analyticsConfiguration',
-      analyticsConfiguration,
-    );
-    helper.add(
       'bucket',
       bucket,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'id',
       id,
+    );
+    helper.add(
+      'analyticsConfiguration',
+      analyticsConfiguration,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }
@@ -150,30 +151,28 @@ class PutBucketAnalyticsConfigurationRequestRestXmlSerializer
     final result = _i2.AnalyticsConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Id':
           result.id = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Filter':
-          if (value != null) {
-            result.filter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.AnalyticsFilter),
-            ) as _i4.AnalyticsFilter);
-          }
-          break;
+          result.filter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.AnalyticsFilter),
+          ) as _i4.AnalyticsFilter);
         case 'StorageClassAnalysis':
           result.storageClassAnalysis.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i5.StorageClassAnalysis),
           ) as _i5.StorageClassAnalysis));
-          break;
       }
     }
 
@@ -183,38 +182,37 @@ class PutBucketAnalyticsConfigurationRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.AnalyticsConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutBucketAnalyticsConfigurationRequest
-        ? object.getPayload()
-        : (object as _i2.AnalyticsConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'AnalyticsConfiguration',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
+    final _i2.AnalyticsConfiguration(:id, :filter, :storageClassAnalysis) =
+        object;
+    result$
       ..add(const _i1.XmlElementName('Id'))
       ..add(serializers.serialize(
-        payload.id,
+        id,
         specifiedType: const FullType(String),
       ));
-    if (payload.filter != null) {
-      result
+    if (filter != null) {
+      result$
         ..add(const _i1.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i4.AnalyticsFilter),
         ));
     }
-    result
+    result$
       ..add(const _i1.XmlElementName('StorageClassAnalysis'))
       ..add(serializers.serialize(
-        payload.storageClassAnalysis,
+        storageClassAnalysis,
         specifiedType: const FullType(_i5.StorageClassAnalysis),
       ));
-    return result;
+    return result$;
   }
 }

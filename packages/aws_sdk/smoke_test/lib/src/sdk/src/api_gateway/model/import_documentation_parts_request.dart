@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.import_documentation_parts_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,16 +24,16 @@ abstract class ImportDocumentationPartsRequest
         _i1.HasPayload<_i2.Uint8List> {
   /// Import documentation parts from an external (e.g., OpenAPI) definition file.
   factory ImportDocumentationPartsRequest({
-    required _i2.Uint8List body,
-    bool? failOnWarnings,
-    _i4.PutMode? mode,
     required String restApiId,
+    _i4.PutMode? mode,
+    bool? failOnWarnings,
+    required _i2.Uint8List body,
   }) {
     return _$ImportDocumentationPartsRequest._(
-      body: body,
-      failOnWarnings: failOnWarnings,
-      mode: mode,
       restApiId: restApiId,
+      mode: mode,
+      failOnWarnings: failOnWarnings,
+      body: body,
     );
   }
 
@@ -69,17 +70,17 @@ abstract class ImportDocumentationPartsRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ImportDocumentationPartsRequestBuilder b) {}
 
-  /// Raw byte array representing the to-be-imported documentation parts. To import from an OpenAPI file, this is a JSON object.
-  _i2.Uint8List get body;
-
-  /// A query parameter to specify whether to rollback the documentation importation (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
-  bool? get failOnWarnings;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// A query parameter to indicate whether to overwrite (`OVERWRITE`) any existing DocumentationParts definition or to merge (`MERGE`) the new definition into the existing one. The default value is `MERGE`.
   _i4.PutMode? get mode;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// A query parameter to specify whether to rollback the documentation importation (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
+  bool? get failOnWarnings;
+
+  /// Raw byte array representing the to-be-imported documentation parts. To import from an OpenAPI file, this is a JSON object.
+  _i2.Uint8List get body;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -96,30 +97,30 @@ abstract class ImportDocumentationPartsRequest
   _i2.Uint8List getPayload() => body;
   @override
   List<Object?> get props => [
-        body,
-        failOnWarnings,
-        mode,
         restApiId,
+        mode,
+        failOnWarnings,
+        body,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ImportDocumentationPartsRequest');
     helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'failOnWarnings',
-      failOnWarnings,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'mode',
       mode,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'failOnWarnings',
+      failOnWarnings,
+    );
+    helper.add(
+      'body',
+      body,
     );
     return helper.toString();
   }
@@ -157,15 +158,12 @@ class ImportDocumentationPartsRequestRestJson1Serializer
   @override
   Object serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.Uint8List object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is ImportDocumentationPartsRequest
-        ? object.getPayload()
-        : (object as _i2.Uint8List);
-    return (serializers.serialize(
-      payload,
+    return serializers.serialize(
+      object,
       specifiedType: const FullType(_i2.Uint8List),
-    ) as Object);
+    )!;
   }
 }

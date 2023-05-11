@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.streaming_traits_require_length_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,13 +21,13 @@ abstract class StreamingTraitsRequireLengthInput
             StreamingTraitsRequireLengthInputBuilder>,
         _i1.HasPayload<_i2.Stream<List<int>>> {
   factory StreamingTraitsRequireLengthInput({
-    _i2.Stream<List<int>>? blob,
     String? foo,
+    _i2.Stream<List<int>>? blob,
   }) {
     blob ??= const _i2.Stream.empty();
     return _$StreamingTraitsRequireLengthInput._(
-      blob: blob,
       foo: foo,
+      blob: blob,
     );
   }
 
@@ -57,26 +58,26 @@ abstract class StreamingTraitsRequireLengthInput
     b.blob = const _i2.Stream.empty();
   }
 
-  _i2.Stream<List<int>>? get blob;
   String? get foo;
+  _i2.Stream<List<int>>? get blob;
   @override
   _i2.Stream<List<int>>? getPayload() => blob;
   @override
   List<Object?> get props => [
-        blob,
         foo,
+        blob,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('StreamingTraitsRequireLengthInput');
     helper.add(
-      'blob',
-      blob,
-    );
-    helper.add(
       'foo',
       foo,
+    );
+    helper.add(
+      'blob',
+      blob,
     );
     return helper.toString();
   }
@@ -122,14 +123,11 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer
   @override
   Object serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.Stream<List<int>> object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is StreamingTraitsRequireLengthInput
-        ? object.getPayload()
-        : (object as _i2.Stream<List<int>>?);
-    return (serializers.serialize(
-      payload!,
+    return serializers.serialize(
+      object,
       specifiedType: const FullType(
         _i2.Stream,
         [
@@ -139,6 +137,6 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer
           )
         ],
       ),
-    ) as Object);
+    )!;
   }
 }

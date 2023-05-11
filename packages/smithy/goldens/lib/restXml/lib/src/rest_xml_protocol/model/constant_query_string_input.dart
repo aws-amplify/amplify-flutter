@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.constant_query_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -131,12 +132,13 @@ class ConstantQueryStringInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConstantQueryStringInputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName('ConstantQueryStringInput')
     ];
-    return result;
+
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_protocol.test.document_type_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -449,23 +450,20 @@ class DocumentTypeInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'documentValue':
-          if (value != null) {
-            result.documentValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.JsonObject),
-            ) as _i6.JsonObject);
-          }
-          break;
         case 'stringValue':
-          if (value != null) {
-            result.stringValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stringValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'documentValue':
+          result.documentValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.JsonObject),
+          ) as _i6.JsonObject);
       }
     }
 
@@ -475,7 +473,7 @@ class DocumentTypeInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.DocumentTypeInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

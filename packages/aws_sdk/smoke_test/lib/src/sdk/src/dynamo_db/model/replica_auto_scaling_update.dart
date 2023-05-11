@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_auto_scaling_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,35 +117,31 @@ class ReplicaAutoScalingUpdateAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RegionName':
           result.regionName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ReplicaGlobalSecondaryIndexUpdates':
-          if (value != null) {
-            result.replicaGlobalSecondaryIndexUpdates.replace((serializers
-                .deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate)],
-              ),
-            ) as _i4
-                .BuiltList<_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate>));
-          }
-          break;
+          result.replicaGlobalSecondaryIndexUpdates.replace((serializers
+              .deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate)],
+            ),
+          ) as _i4
+              .BuiltList<_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate>));
         case 'ReplicaProvisionedReadCapacityAutoScalingUpdate':
-          if (value != null) {
-            result.replicaProvisionedReadCapacityAutoScalingUpdate
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
-            ) as _i3.AutoScalingSettingsUpdate));
-          }
-          break;
+          result.replicaProvisionedReadCapacityAutoScalingUpdate
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
+          ) as _i3.AutoScalingSettingsUpdate));
       }
     }
 
@@ -154,36 +151,41 @@ class ReplicaAutoScalingUpdateAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaAutoScalingUpdate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaAutoScalingUpdate);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ReplicaAutoScalingUpdate(
+      :regionName,
+      :replicaGlobalSecondaryIndexUpdates,
+      :replicaProvisionedReadCapacityAutoScalingUpdate
+    ) = object;
+    result$.addAll([
       'RegionName',
       serializers.serialize(
-        payload.regionName,
+        regionName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.replicaGlobalSecondaryIndexUpdates != null) {
-      result
+    ]);
+    if (replicaGlobalSecondaryIndexUpdates != null) {
+      result$
         ..add('ReplicaGlobalSecondaryIndexUpdates')
         ..add(serializers.serialize(
-          payload.replicaGlobalSecondaryIndexUpdates!,
+          replicaGlobalSecondaryIndexUpdates,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate)],
           ),
         ));
     }
-    if (payload.replicaProvisionedReadCapacityAutoScalingUpdate != null) {
-      result
+    if (replicaProvisionedReadCapacityAutoScalingUpdate != null) {
+      result$
         ..add('ReplicaProvisionedReadCapacityAutoScalingUpdate')
         ..add(serializers.serialize(
-          payload.replicaProvisionedReadCapacityAutoScalingUpdate!,
+          replicaProvisionedReadCapacityAutoScalingUpdate,
           specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
         ));
     }
-    return result;
+    return result$;
   }
 }

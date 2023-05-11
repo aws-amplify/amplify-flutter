@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.json_protocol.model.complex_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,12 +20,12 @@ abstract class ComplexError
         _i2.SmithyHttpException {
   /// This error is thrown when a request is invalid.
   factory ComplexError({
-    _i3.ComplexNestedErrorData? nested,
     String? topLevel,
+    _i3.ComplexNestedErrorData? nested,
   }) {
     return _$ComplexError._(
-      nested: nested,
       topLevel: topLevel,
+      nested: nested,
     );
   }
 
@@ -50,8 +51,8 @@ abstract class ComplexError
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplexErrorBuilder b) {}
-  _i3.ComplexNestedErrorData? get nested;
   String? get topLevel;
+  _i3.ComplexNestedErrorData? get nested;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'aws.protocoltests.json',
@@ -71,19 +72,19 @@ abstract class ComplexError
   Exception? get underlyingException => null;
   @override
   List<Object?> get props => [
-        nested,
         topLevel,
+        nested,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplexError');
     helper.add(
-      'nested',
-      nested,
-    );
-    helper.add(
       'topLevel',
       topLevel,
+    );
+    helper.add(
+      'nested',
+      nested,
     );
     return helper.toString();
   }
@@ -117,23 +118,20 @@ class ComplexErrorAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ComplexNestedErrorData),
-            ) as _i3.ComplexNestedErrorData));
-          }
-          break;
         case 'TopLevel':
-          if (value != null) {
-            result.topLevel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.topLevel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'Nested':
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ComplexNestedErrorData),
+          ) as _i3.ComplexNestedErrorData));
       }
     }
 
@@ -143,27 +141,27 @@ class ComplexErrorAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ComplexError object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ComplexError);
-    final result = <Object?>[];
-    if (payload.nested != null) {
-      result
-        ..add('Nested')
-        ..add(serializers.serialize(
-          payload.nested!,
-          specifiedType: const FullType(_i3.ComplexNestedErrorData),
-        ));
-    }
-    if (payload.topLevel != null) {
-      result
+    final result$ = <Object?>[];
+    final ComplexError(:topLevel, :nested) = object;
+    if (topLevel != null) {
+      result$
         ..add('TopLevel')
         ..add(serializers.serialize(
-          payload.topLevel!,
+          topLevel,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    if (nested != null) {
+      result$
+        ..add('Nested')
+        ..add(serializers.serialize(
+          nested,
+          specifiedType: const FullType(_i3.ComplexNestedErrorData),
+        ));
+    }
+    return result$;
   }
 }

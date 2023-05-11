@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.list_tags_of_resource_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,12 +17,12 @@ abstract class ListTagsOfResourceOutput
     implements
         Built<ListTagsOfResourceOutput, ListTagsOfResourceOutputBuilder> {
   factory ListTagsOfResourceOutput({
-    String? nextToken,
     List<_i2.Tag>? tags,
+    String? nextToken,
   }) {
     return _$ListTagsOfResourceOutput._(
-      nextToken: nextToken,
       tags: tags == null ? null : _i3.BuiltList(tags),
+      nextToken: nextToken,
     );
   }
 
@@ -45,26 +46,26 @@ abstract class ListTagsOfResourceOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListTagsOfResourceOutputBuilder b) {}
 
-  /// If this value is returned, there are additional results to be displayed. To retrieve them, call ListTagsOfResource again, with NextToken set to this value.
-  String? get nextToken;
-
   /// The tags currently associated with the Amazon DynamoDB resource.
   _i3.BuiltList<_i2.Tag>? get tags;
+
+  /// If this value is returned, there are additional results to be displayed. To retrieve them, call ListTagsOfResource again, with NextToken set to this value.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         tags,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListTagsOfResourceOutput');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'tags',
       tags,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -99,26 +100,23 @@ class ListTagsOfResourceOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.Tag)],
-              ),
-            ) as _i3.BuiltList<_i2.Tag>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.Tag)],
+            ),
+          ) as _i3.BuiltList<_i2.Tag>));
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -128,30 +126,30 @@ class ListTagsOfResourceOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListTagsOfResourceOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListTagsOfResourceOutput);
-    final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.tags != null) {
-      result
+    final result$ = <Object?>[];
+    final ListTagsOfResourceOutput(:tags, :nextToken) = object;
+    if (tags != null) {
+      result$
         ..add('Tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.Tag)],
           ),
         ));
     }
-    return result;
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

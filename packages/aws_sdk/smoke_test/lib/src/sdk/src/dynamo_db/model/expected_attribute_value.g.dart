@@ -8,23 +8,23 @@ part of smoke_test.dynamo_db.model.expected_attribute_value;
 
 class _$ExpectedAttributeValue extends ExpectedAttributeValue {
   @override
-  final _i4.BuiltList<_i2.AttributeValue>? attributeValueList;
-  @override
-  final _i3.ComparisonOperator? comparisonOperator;
+  final _i2.AttributeValue? value;
   @override
   final bool? exists;
   @override
-  final _i2.AttributeValue? value;
+  final _i3.ComparisonOperator? comparisonOperator;
+  @override
+  final _i4.BuiltList<_i2.AttributeValue>? attributeValueList;
 
   factory _$ExpectedAttributeValue(
           [void Function(ExpectedAttributeValueBuilder)? updates]) =>
       (new ExpectedAttributeValueBuilder()..update(updates))._build();
 
   _$ExpectedAttributeValue._(
-      {this.attributeValueList,
-      this.comparisonOperator,
+      {this.value,
       this.exists,
-      this.value})
+      this.comparisonOperator,
+      this.attributeValueList})
       : super._();
 
   @override
@@ -40,19 +40,19 @@ class _$ExpectedAttributeValue extends ExpectedAttributeValue {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ExpectedAttributeValue &&
-        attributeValueList == other.attributeValueList &&
-        comparisonOperator == other.comparisonOperator &&
+        value == other.value &&
         exists == other.exists &&
-        value == other.value;
+        comparisonOperator == other.comparisonOperator &&
+        attributeValueList == other.attributeValueList;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, attributeValueList.hashCode);
-    _$hash = $jc(_$hash, comparisonOperator.hashCode);
-    _$hash = $jc(_$hash, exists.hashCode);
     _$hash = $jc(_$hash, value.hashCode);
+    _$hash = $jc(_$hash, exists.hashCode);
+    _$hash = $jc(_$hash, comparisonOperator.hashCode);
+    _$hash = $jc(_$hash, attributeValueList.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,25 +62,25 @@ class ExpectedAttributeValueBuilder
     implements Builder<ExpectedAttributeValue, ExpectedAttributeValueBuilder> {
   _$ExpectedAttributeValue? _$v;
 
-  _i4.ListBuilder<_i2.AttributeValue>? _attributeValueList;
-  _i4.ListBuilder<_i2.AttributeValue> get attributeValueList =>
-      _$this._attributeValueList ??= new _i4.ListBuilder<_i2.AttributeValue>();
-  set attributeValueList(
-          _i4.ListBuilder<_i2.AttributeValue>? attributeValueList) =>
-      _$this._attributeValueList = attributeValueList;
+  _i2.AttributeValue? _value;
+  _i2.AttributeValue? get value => _$this._value;
+  set value(_i2.AttributeValue? value) => _$this._value = value;
+
+  bool? _exists;
+  bool? get exists => _$this._exists;
+  set exists(bool? exists) => _$this._exists = exists;
 
   _i3.ComparisonOperator? _comparisonOperator;
   _i3.ComparisonOperator? get comparisonOperator => _$this._comparisonOperator;
   set comparisonOperator(_i3.ComparisonOperator? comparisonOperator) =>
       _$this._comparisonOperator = comparisonOperator;
 
-  bool? _exists;
-  bool? get exists => _$this._exists;
-  set exists(bool? exists) => _$this._exists = exists;
-
-  _i2.AttributeValue? _value;
-  _i2.AttributeValue? get value => _$this._value;
-  set value(_i2.AttributeValue? value) => _$this._value = value;
+  _i4.ListBuilder<_i2.AttributeValue>? _attributeValueList;
+  _i4.ListBuilder<_i2.AttributeValue> get attributeValueList =>
+      _$this._attributeValueList ??= new _i4.ListBuilder<_i2.AttributeValue>();
+  set attributeValueList(
+          _i4.ListBuilder<_i2.AttributeValue>? attributeValueList) =>
+      _$this._attributeValueList = attributeValueList;
 
   ExpectedAttributeValueBuilder() {
     ExpectedAttributeValue._init(this);
@@ -89,10 +89,10 @@ class ExpectedAttributeValueBuilder
   ExpectedAttributeValueBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _attributeValueList = $v.attributeValueList?.toBuilder();
-      _comparisonOperator = $v.comparisonOperator;
-      _exists = $v.exists;
       _value = $v.value;
+      _exists = $v.exists;
+      _comparisonOperator = $v.comparisonOperator;
+      _attributeValueList = $v.attributeValueList?.toBuilder();
       _$v = null;
     }
     return this;
@@ -117,10 +117,10 @@ class ExpectedAttributeValueBuilder
     try {
       _$result = _$v ??
           new _$ExpectedAttributeValue._(
-              attributeValueList: _attributeValueList?.build(),
-              comparisonOperator: comparisonOperator,
+              value: value,
               exists: exists,
-              value: value);
+              comparisonOperator: comparisonOperator,
+              attributeValueList: _attributeValueList?.build());
     } catch (_) {
       late String _$failedField;
       try {

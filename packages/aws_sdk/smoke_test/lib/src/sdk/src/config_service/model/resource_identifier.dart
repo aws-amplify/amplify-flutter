@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.resource_identifier; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,16 +18,16 @@ abstract class ResourceIdentifier
     implements Built<ResourceIdentifier, ResourceIdentifierBuilder> {
   /// The details that identify a resource that is discovered by Config, including the resource type, ID, and (if available) the custom resource name.
   factory ResourceIdentifier({
-    DateTime? resourceDeletionTime,
+    _i2.ResourceType? resourceType,
     String? resourceId,
     String? resourceName,
-    _i2.ResourceType? resourceType,
+    DateTime? resourceDeletionTime,
   }) {
     return _$ResourceIdentifier._(
-      resourceDeletionTime: resourceDeletionTime,
+      resourceType: resourceType,
       resourceId: resourceId,
       resourceName: resourceName,
-      resourceType: resourceType,
+      resourceDeletionTime: resourceDeletionTime,
     );
   }
 
@@ -44,8 +45,8 @@ abstract class ResourceIdentifier
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceIdentifierBuilder b) {}
 
-  /// The time that the resource was deleted.
-  DateTime? get resourceDeletionTime;
+  /// The type of resource.
+  _i2.ResourceType? get resourceType;
 
   /// The ID of the resource (for example, `sg-xxxxxx`).
   String? get resourceId;
@@ -53,21 +54,21 @@ abstract class ResourceIdentifier
   /// The custom name of the resource (if available).
   String? get resourceName;
 
-  /// The type of resource.
-  _i2.ResourceType? get resourceType;
+  /// The time that the resource was deleted.
+  DateTime? get resourceDeletionTime;
   @override
   List<Object?> get props => [
-        resourceDeletionTime,
+        resourceType,
         resourceId,
         resourceName,
-        resourceType,
+        resourceDeletionTime,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResourceIdentifier');
     helper.add(
-      'resourceDeletionTime',
-      resourceDeletionTime,
+      'resourceType',
+      resourceType,
     );
     helper.add(
       'resourceId',
@@ -78,8 +79,8 @@ abstract class ResourceIdentifier
       resourceName,
     );
     helper.add(
-      'resourceType',
-      resourceType,
+      'resourceDeletionTime',
+      resourceDeletionTime,
     );
     return helper.toString();
   }
@@ -113,39 +114,30 @@ class ResourceIdentifierAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'resourceDeletionTime':
-          if (value != null) {
-            result.resourceDeletionTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'resourceId':
-          if (value != null) {
-            result.resourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'resourceName':
-          if (value != null) {
-            result.resourceName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'resourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ResourceType),
-            ) as _i2.ResourceType);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ResourceType),
+          ) as _i2.ResourceType);
+        case 'resourceId':
+          result.resourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'resourceName':
+          result.resourceName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'resourceDeletionTime':
+          result.resourceDeletionTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -155,43 +147,48 @@ class ResourceIdentifierAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ResourceIdentifier object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ResourceIdentifier);
-    final result = <Object?>[];
-    if (payload.resourceDeletionTime != null) {
-      result
-        ..add('resourceDeletionTime')
-        ..add(serializers.serialize(
-          payload.resourceDeletionTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.resourceId != null) {
-      result
-        ..add('resourceId')
-        ..add(serializers.serialize(
-          payload.resourceId!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceName != null) {
-      result
-        ..add('resourceName')
-        ..add(serializers.serialize(
-          payload.resourceName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceType != null) {
-      result
+    final result$ = <Object?>[];
+    final ResourceIdentifier(
+      :resourceType,
+      :resourceId,
+      :resourceName,
+      :resourceDeletionTime
+    ) = object;
+    if (resourceType != null) {
+      result$
         ..add('resourceType')
         ..add(serializers.serialize(
-          payload.resourceType!,
+          resourceType,
           specifiedType: const FullType(_i2.ResourceType),
         ));
     }
-    return result;
+    if (resourceId != null) {
+      result$
+        ..add('resourceId')
+        ..add(serializers.serialize(
+          resourceId,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (resourceName != null) {
+      result$
+        ..add('resourceName')
+        ..add(serializers.serialize(
+          resourceName,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (resourceDeletionTime != null) {
+      result$
+        ..add('resourceDeletionTime')
+        ..add(serializers.serialize(
+          resourceDeletionTime,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    return result$;
   }
 }

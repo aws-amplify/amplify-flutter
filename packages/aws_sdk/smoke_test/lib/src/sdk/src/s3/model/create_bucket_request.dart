@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.create_bucket_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -239,18 +240,18 @@ class CreateBucketRequestRestXmlSerializer
     final result = _i2.CreateBucketConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'LocationConstraint':
-          if (value != null) {
-            result.locationConstraint = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.BucketLocationConstraint),
-            ) as _i6.BucketLocationConstraint);
-          }
-          break;
+          result.locationConstraint = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.BucketLocationConstraint),
+          ) as _i6.BucketLocationConstraint);
       }
     }
 
@@ -260,29 +261,24 @@ class CreateBucketRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.CreateBucketConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is CreateBucketRequest
-        ? object.getPayload()
-        : (object as _i2.CreateBucketConfiguration?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'CreateBucketConfiguration',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
-    if (payload.locationConstraint != null) {
-      result
+    final _i2.CreateBucketConfiguration(:locationConstraint) = object;
+    if (locationConstraint != null) {
+      result$
         ..add(const _i1.XmlElementName('LocationConstraint'))
         ..add(serializers.serialize(
-          payload.locationConstraint!,
+          locationConstraint,
           specifiedType: const FullType.nullable(_i6.BucketLocationConstraint),
         ));
     }
-    return result;
+    return result$;
   }
 }

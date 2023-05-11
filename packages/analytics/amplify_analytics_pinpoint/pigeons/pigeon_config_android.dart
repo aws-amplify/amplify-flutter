@@ -10,11 +10,10 @@ import 'package:pigeon/pigeon.dart';
     dartOut:
         'lib/src/legacy_native_data_provider/pigeon_legacy_data_provider.android.g.dart',
     javaOut:
-        'android/src/main/java/com/amazonaws/amplify/amplify_analytics_pinpoint/amplify_analytics_pinpoint/Messages.java',
+        'android/src/main/java/com/amazonaws/amplify/amplify_analytics_pinpoint/Messages.java',
     javaOptions: JavaOptions(
       className: 'Messages',
-      package:
-          'com.amazonaws.amplify.amplify_analytics_pinpoint.amplify_analytics_pinpoint',
+      package: 'com.amazonaws.amplify.amplify_analytics_pinpoint',
     ),
     copyrightHeader: 'pigeons/copyright.txt',
   ),

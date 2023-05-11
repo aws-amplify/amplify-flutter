@@ -9,13 +9,13 @@ part of smoke_test.s3.model.put_bucket_accelerate_configuration_request;
 class _$PutBucketAccelerateConfigurationRequest
     extends PutBucketAccelerateConfigurationRequest {
   @override
-  final _i2.AccelerateConfiguration accelerateConfiguration;
-  @override
   final String bucket;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final _i2.AccelerateConfiguration accelerateConfiguration;
   @override
   final String? expectedBucketOwner;
+  @override
+  final _i4.ChecksumAlgorithm? checksumAlgorithm;
 
   factory _$PutBucketAccelerateConfigurationRequest(
           [void Function(PutBucketAccelerateConfigurationRequestBuilder)?
@@ -24,15 +24,15 @@ class _$PutBucketAccelerateConfigurationRequest
           ._build();
 
   _$PutBucketAccelerateConfigurationRequest._(
-      {required this.accelerateConfiguration,
-      required this.bucket,
-      this.checksumAlgorithm,
-      this.expectedBucketOwner})
+      {required this.bucket,
+      required this.accelerateConfiguration,
+      this.expectedBucketOwner,
+      this.checksumAlgorithm})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(accelerateConfiguration,
-        r'PutBucketAccelerateConfigurationRequest', 'accelerateConfiguration');
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutBucketAccelerateConfigurationRequest', 'bucket');
+    BuiltValueNullFieldError.checkNotNull(accelerateConfiguration,
+        r'PutBucketAccelerateConfigurationRequest', 'accelerateConfiguration');
   }
 
   @override
@@ -49,19 +49,19 @@ class _$PutBucketAccelerateConfigurationRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PutBucketAccelerateConfigurationRequest &&
-        accelerateConfiguration == other.accelerateConfiguration &&
         bucket == other.bucket &&
-        checksumAlgorithm == other.checksumAlgorithm &&
-        expectedBucketOwner == other.expectedBucketOwner;
+        accelerateConfiguration == other.accelerateConfiguration &&
+        expectedBucketOwner == other.expectedBucketOwner &&
+        checksumAlgorithm == other.checksumAlgorithm;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, accelerateConfiguration.hashCode);
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
+    _$hash = $jc(_$hash, accelerateConfiguration.hashCode);
     _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -73,6 +73,10 @@ class PutBucketAccelerateConfigurationRequestBuilder
             PutBucketAccelerateConfigurationRequestBuilder> {
   _$PutBucketAccelerateConfigurationRequest? _$v;
 
+  String? _bucket;
+  String? get bucket => _$this._bucket;
+  set bucket(String? bucket) => _$this._bucket = bucket;
+
   _i2.AccelerateConfigurationBuilder? _accelerateConfiguration;
   _i2.AccelerateConfigurationBuilder get accelerateConfiguration =>
       _$this._accelerateConfiguration ??=
@@ -81,19 +85,15 @@ class PutBucketAccelerateConfigurationRequestBuilder
           _i2.AccelerateConfigurationBuilder? accelerateConfiguration) =>
       _$this._accelerateConfiguration = accelerateConfiguration;
 
-  String? _bucket;
-  String? get bucket => _$this._bucket;
-  set bucket(String? bucket) => _$this._bucket = bucket;
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
 
   _i4.ChecksumAlgorithm? _checksumAlgorithm;
   _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
   set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
-
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
 
   PutBucketAccelerateConfigurationRequestBuilder() {
     PutBucketAccelerateConfigurationRequest._init(this);
@@ -102,10 +102,10 @@ class PutBucketAccelerateConfigurationRequestBuilder
   PutBucketAccelerateConfigurationRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _accelerateConfiguration = $v.accelerateConfiguration.toBuilder();
       _bucket = $v.bucket;
-      _checksumAlgorithm = $v.checksumAlgorithm;
+      _accelerateConfiguration = $v.accelerateConfiguration.toBuilder();
       _expectedBucketOwner = $v.expectedBucketOwner;
+      _checksumAlgorithm = $v.checksumAlgorithm;
       _$v = null;
     }
     return this;
@@ -131,11 +131,11 @@ class PutBucketAccelerateConfigurationRequestBuilder
     try {
       _$result = _$v ??
           new _$PutBucketAccelerateConfigurationRequest._(
-              accelerateConfiguration: accelerateConfiguration.build(),
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutBucketAccelerateConfigurationRequest', 'bucket'),
-              checksumAlgorithm: checksumAlgorithm,
-              expectedBucketOwner: expectedBucketOwner);
+              accelerateConfiguration: accelerateConfiguration.build(),
+              expectedBucketOwner: expectedBucketOwner,
+              checksumAlgorithm: checksumAlgorithm);
     } catch (_) {
       late String _$failedField;
       try {

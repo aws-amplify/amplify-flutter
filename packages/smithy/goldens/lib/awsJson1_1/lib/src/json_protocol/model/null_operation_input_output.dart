@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.json_protocol.model.null_operation_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,16 +18,16 @@ abstract class NullOperationInputOutput
     implements
         Built<NullOperationInputOutput, NullOperationInputOutputBuilder> {
   factory NullOperationInputOutput({
+    String? string,
     List<String?>? sparseStringList,
     Map<String, String?>? sparseStringMap,
-    String? string,
   }) {
     return _$NullOperationInputOutput._(
+      string: string,
       sparseStringList:
           sparseStringList == null ? null : _i3.BuiltList(sparseStringList),
       sparseStringMap:
           sparseStringMap == null ? null : _i3.BuiltMap(sparseStringMap),
-      string: string,
     );
   }
 
@@ -56,20 +57,24 @@ abstract class NullOperationInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NullOperationInputOutputBuilder b) {}
+  String? get string;
   _i3.BuiltList<String?>? get sparseStringList;
   _i3.BuiltMap<String, String?>? get sparseStringMap;
-  String? get string;
   @override
   NullOperationInputOutput getPayload() => this;
   @override
   List<Object?> get props => [
+        string,
         sparseStringList,
         sparseStringMap,
-        string,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NullOperationInputOutput');
+    helper.add(
+      'string',
+      string,
+    );
     helper.add(
       'sparseStringList',
       sparseStringList,
@@ -77,10 +82,6 @@ abstract class NullOperationInputOutput
     helper.add(
       'sparseStringMap',
       sparseStringMap,
-    );
-    helper.add(
-      'string',
-      string,
     );
     return helper.toString();
   }
@@ -115,40 +116,34 @@ class NullOperationInputOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'sparseStringList':
-          if (value != null) {
-            result.sparseStringList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType.nullable(String)],
-              ),
-            ) as _i3.BuiltList<String?>));
-          }
-          break;
-        case 'sparseStringMap':
-          if (value != null) {
-            result.sparseStringMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType.nullable(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String?>));
-          }
-          break;
         case 'string':
-          if (value != null) {
-            result.string = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.string = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'sparseStringList':
+          result.sparseStringList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType.nullable(String)],
+            ),
+          ) as _i3.BuiltList<String?>));
+        case 'sparseStringMap':
+          result.sparseStringMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType.nullable(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String?>));
       }
     }
 
@@ -158,27 +153,39 @@ class NullOperationInputOutputAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    NullOperationInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as NullOperationInputOutput);
-    final result = <Object?>[];
-    if (payload.sparseStringList != null) {
-      result
+    final result$ = <Object?>[];
+    final NullOperationInputOutput(
+      :string,
+      :sparseStringList,
+      :sparseStringMap
+    ) = object;
+    if (string != null) {
+      result$
+        ..add('string')
+        ..add(serializers.serialize(
+          string,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (sparseStringList != null) {
+      result$
         ..add('sparseStringList')
         ..add(serializers.serialize(
-          payload.sparseStringList!,
+          sparseStringList,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType.nullable(String)],
           ),
         ));
     }
-    if (payload.sparseStringMap != null) {
-      result
+    if (sparseStringMap != null) {
+      result$
         ..add('sparseStringMap')
         ..add(serializers.serialize(
-          payload.sparseStringMap!,
+          sparseStringMap,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -188,14 +195,6 @@ class NullOperationInputOutputAwsJson11Serializer
           ),
         ));
     }
-    if (payload.string != null) {
-      result
-        ..add('string')
-        ..add(serializers.serialize(
-          payload.string!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

@@ -9,15 +9,15 @@ part of rest_json1_v2.rest_json_protocol.model.test_payload_structure_input_outp
 class _$TestPayloadStructureInputOutput
     extends TestPayloadStructureInputOutput {
   @override
-  final _i2.PayloadConfig? payloadConfig;
-  @override
   final String? testId;
+  @override
+  final _i2.PayloadConfig? payloadConfig;
 
   factory _$TestPayloadStructureInputOutput(
           [void Function(TestPayloadStructureInputOutputBuilder)? updates]) =>
       (new TestPayloadStructureInputOutputBuilder()..update(updates))._build();
 
-  _$TestPayloadStructureInputOutput._({this.payloadConfig, this.testId})
+  _$TestPayloadStructureInputOutput._({this.testId, this.payloadConfig})
       : super._();
 
   @override
@@ -33,15 +33,15 @@ class _$TestPayloadStructureInputOutput
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TestPayloadStructureInputOutput &&
-        payloadConfig == other.payloadConfig &&
-        testId == other.testId;
+        testId == other.testId &&
+        payloadConfig == other.payloadConfig;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, payloadConfig.hashCode);
     _$hash = $jc(_$hash, testId.hashCode);
+    _$hash = $jc(_$hash, payloadConfig.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,15 +53,15 @@ class TestPayloadStructureInputOutputBuilder
             TestPayloadStructureInputOutputBuilder> {
   _$TestPayloadStructureInputOutput? _$v;
 
+  String? _testId;
+  String? get testId => _$this._testId;
+  set testId(String? testId) => _$this._testId = testId;
+
   _i2.PayloadConfigBuilder? _payloadConfig;
   _i2.PayloadConfigBuilder get payloadConfig =>
       _$this._payloadConfig ??= new _i2.PayloadConfigBuilder();
   set payloadConfig(_i2.PayloadConfigBuilder? payloadConfig) =>
       _$this._payloadConfig = payloadConfig;
-
-  String? _testId;
-  String? get testId => _$this._testId;
-  set testId(String? testId) => _$this._testId = testId;
 
   TestPayloadStructureInputOutputBuilder() {
     TestPayloadStructureInputOutput._init(this);
@@ -70,8 +70,8 @@ class TestPayloadStructureInputOutputBuilder
   TestPayloadStructureInputOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _payloadConfig = $v.payloadConfig?.toBuilder();
       _testId = $v.testId;
+      _payloadConfig = $v.payloadConfig?.toBuilder();
       _$v = null;
     }
     return this;
@@ -96,7 +96,7 @@ class TestPayloadStructureInputOutputBuilder
     try {
       _$result = _$v ??
           new _$TestPayloadStructureInputOutput._(
-              payloadConfig: _payloadConfig?.build(), testId: testId);
+              testId: testId, payloadConfig: _payloadConfig?.build());
     } catch (_) {
       late String _$failedField;
       try {

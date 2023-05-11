@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.encryption_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -73,18 +74,18 @@ class EncryptionConfigurationRestXmlSerializer
     final result = EncryptionConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ReplicaKmsKeyID':
-          if (value != null) {
-            result.replicaKmsKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.replicaKmsKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -94,24 +95,24 @@ class EncryptionConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EncryptionConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EncryptionConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'EncryptionConfiguration',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.replicaKmsKeyId != null) {
-      result
+    final EncryptionConfiguration(:replicaKmsKeyId) = object;
+    if (replicaKmsKeyId != null) {
+      result$
         ..add(const _i2.XmlElementName('ReplicaKmsKeyID'))
         ..add(serializers.serialize(
-          payload.replicaKmsKeyId!,
+          replicaKmsKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

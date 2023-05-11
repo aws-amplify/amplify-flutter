@@ -206,7 +206,14 @@ class PackageInfo
 
   /// Whether the package is an example package.
   bool get isExample {
-    return p.basename(path) == 'example' || name == 'doc';
+    return p.basename(path) == 'example' ||
+        name == 'doc' ||
+        p.basename(path) == 'canaries';
+  }
+
+  /// Whether the package is a linting package only.
+  bool get isLintsPackage {
+    return name == 'amplify_lints';
   }
 
   /// Whether the package is a test package.

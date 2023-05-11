@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_organization_config_rule_detailed_status_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,16 +20,16 @@ abstract class GetOrganizationConfigRuleDetailedStatusRequest
         Built<GetOrganizationConfigRuleDetailedStatusRequest,
             GetOrganizationConfigRuleDetailedStatusRequestBuilder> {
   factory GetOrganizationConfigRuleDetailedStatusRequest({
+    required String organizationConfigRuleName,
     _i3.StatusDetailFilters? filters,
     int? limit,
     String? nextToken,
-    required String organizationConfigRuleName,
   }) {
     return _$GetOrganizationConfigRuleDetailedStatusRequest._(
+      organizationConfigRuleName: organizationConfigRuleName,
       filters: filters,
       limit: limit,
       nextToken: nextToken,
-      organizationConfigRuleName: organizationConfigRuleName,
     );
   }
 
@@ -52,6 +53,9 @@ abstract class GetOrganizationConfigRuleDetailedStatusRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetOrganizationConfigRuleDetailedStatusRequestBuilder b) {}
 
+  /// The name of your organization Config rule for which you want status details for member accounts.
+  String get organizationConfigRuleName;
+
   /// A `StatusDetailFilters` object.
   _i3.StatusDetailFilters? get filters;
 
@@ -60,22 +64,23 @@ abstract class GetOrganizationConfigRuleDetailedStatusRequest
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// The name of your organization Config rule for which you want status details for member accounts.
-  String get organizationConfigRuleName;
   @override
   GetOrganizationConfigRuleDetailedStatusRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        organizationConfigRuleName,
         filters,
         limit,
         nextToken,
-        organizationConfigRuleName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'GetOrganizationConfigRuleDetailedStatusRequest');
+    helper.add(
+      'organizationConfigRuleName',
+      organizationConfigRuleName,
+    );
     helper.add(
       'filters',
       filters,
@@ -87,10 +92,6 @@ abstract class GetOrganizationConfigRuleDetailedStatusRequest
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'organizationConfigRuleName',
-      organizationConfigRuleName,
     );
     return helper.toString();
   }
@@ -126,37 +127,30 @@ class GetOrganizationConfigRuleDetailedStatusRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Filters':
-          if (value != null) {
-            result.filters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.StatusDetailFilters),
-            ) as _i3.StatusDetailFilters));
-          }
-          break;
-        case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'OrganizationConfigRuleName':
           result.organizationConfigRuleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'Filters':
+          result.filters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.StatusDetailFilters),
+          ) as _i3.StatusDetailFilters));
+        case 'Limit':
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -166,41 +160,47 @@ class GetOrganizationConfigRuleDetailedStatusRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetOrganizationConfigRuleDetailedStatusRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetOrganizationConfigRuleDetailedStatusRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GetOrganizationConfigRuleDetailedStatusRequest(
+      :organizationConfigRuleName,
+      :filters,
+      :limit,
+      :nextToken
+    ) = object;
+    result$.addAll([
       'OrganizationConfigRuleName',
       serializers.serialize(
-        payload.organizationConfigRuleName,
+        organizationConfigRuleName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.filters != null) {
-      result
+    ]);
+    if (filters != null) {
+      result$
         ..add('Filters')
         ..add(serializers.serialize(
-          payload.filters!,
+          filters,
           specifiedType: const FullType(_i3.StatusDetailFilters),
         ));
     }
-    if (payload.limit != null) {
-      result
+    if (limit != null) {
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
-      result
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

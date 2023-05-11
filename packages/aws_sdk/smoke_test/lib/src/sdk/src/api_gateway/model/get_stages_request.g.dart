@@ -8,15 +8,15 @@ part of smoke_test.api_gateway.model.get_stages_request;
 
 class _$GetStagesRequest extends GetStagesRequest {
   @override
-  final String? deploymentId;
-  @override
   final String restApiId;
+  @override
+  final String? deploymentId;
 
   factory _$GetStagesRequest(
           [void Function(GetStagesRequestBuilder)? updates]) =>
       (new GetStagesRequestBuilder()..update(updates))._build();
 
-  _$GetStagesRequest._({this.deploymentId, required this.restApiId})
+  _$GetStagesRequest._({required this.restApiId, this.deploymentId})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetStagesRequest', 'restApiId');
@@ -34,15 +34,15 @@ class _$GetStagesRequest extends GetStagesRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetStagesRequest &&
-        deploymentId == other.deploymentId &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        deploymentId == other.deploymentId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, deploymentId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, deploymentId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -52,13 +52,13 @@ class GetStagesRequestBuilder
     implements Builder<GetStagesRequest, GetStagesRequestBuilder> {
   _$GetStagesRequest? _$v;
 
-  String? _deploymentId;
-  String? get deploymentId => _$this._deploymentId;
-  set deploymentId(String? deploymentId) => _$this._deploymentId = deploymentId;
-
   String? _restApiId;
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  String? _deploymentId;
+  String? get deploymentId => _$this._deploymentId;
+  set deploymentId(String? deploymentId) => _$this._deploymentId = deploymentId;
 
   GetStagesRequestBuilder() {
     GetStagesRequest._init(this);
@@ -67,8 +67,8 @@ class GetStagesRequestBuilder
   GetStagesRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _deploymentId = $v.deploymentId;
       _restApiId = $v.restApiId;
+      _deploymentId = $v.deploymentId;
       _$v = null;
     }
     return this;
@@ -91,9 +91,9 @@ class GetStagesRequestBuilder
   _$GetStagesRequest _build() {
     final _$result = _$v ??
         new _$GetStagesRequest._(
-            deploymentId: deploymentId,
             restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'GetStagesRequest', 'restApiId'));
+                restApiId, r'GetStagesRequest', 'restApiId'),
+            deploymentId: deploymentId);
     replace(_$result);
     return _$result;
   }

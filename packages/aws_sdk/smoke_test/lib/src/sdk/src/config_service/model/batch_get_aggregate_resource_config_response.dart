@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.batch_get_aggregate_resource_config_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -110,30 +111,27 @@ class BatchGetAggregateResourceConfigResponseAwsJson11Serializer extends _i5
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BaseConfigurationItems':
-          if (value != null) {
-            result.baseConfigurationItems.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.BaseConfigurationItem)],
-              ),
-            ) as _i4.BuiltList<_i2.BaseConfigurationItem>));
-          }
-          break;
+          result.baseConfigurationItems.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.BaseConfigurationItem)],
+            ),
+          ) as _i4.BuiltList<_i2.BaseConfigurationItem>));
         case 'UnprocessedResourceIdentifiers':
-          if (value != null) {
-            result.unprocessedResourceIdentifiers
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.AggregateResourceIdentifier)],
-              ),
-            ) as _i4.BuiltList<_i3.AggregateResourceIdentifier>));
-          }
-          break;
+          result.unprocessedResourceIdentifiers
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.AggregateResourceIdentifier)],
+            ),
+          ) as _i4.BuiltList<_i3.AggregateResourceIdentifier>));
       }
     }
 
@@ -143,33 +141,36 @@ class BatchGetAggregateResourceConfigResponseAwsJson11Serializer extends _i5
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BatchGetAggregateResourceConfigResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BatchGetAggregateResourceConfigResponse);
-    final result = <Object?>[];
-    if (payload.baseConfigurationItems != null) {
-      result
+    final result$ = <Object?>[];
+    final BatchGetAggregateResourceConfigResponse(
+      :baseConfigurationItems,
+      :unprocessedResourceIdentifiers
+    ) = object;
+    if (baseConfigurationItems != null) {
+      result$
         ..add('BaseConfigurationItems')
         ..add(serializers.serialize(
-          payload.baseConfigurationItems!,
+          baseConfigurationItems,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.BaseConfigurationItem)],
           ),
         ));
     }
-    if (payload.unprocessedResourceIdentifiers != null) {
-      result
+    if (unprocessedResourceIdentifiers != null) {
+      result$
         ..add('UnprocessedResourceIdentifiers')
         ..add(serializers.serialize(
-          payload.unprocessedResourceIdentifiers!,
+          unprocessedResourceIdentifiers,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.AggregateResourceIdentifier)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

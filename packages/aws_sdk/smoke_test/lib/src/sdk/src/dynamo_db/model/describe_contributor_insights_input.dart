@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.describe_contributor_insights_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,12 +18,12 @@ abstract class DescribeContributorInsightsInput
         Built<DescribeContributorInsightsInput,
             DescribeContributorInsightsInputBuilder> {
   factory DescribeContributorInsightsInput({
-    String? indexName,
     required String tableName,
+    String? indexName,
   }) {
     return _$DescribeContributorInsightsInput._(
-      indexName: indexName,
       tableName: tableName,
+      indexName: indexName,
     );
   }
 
@@ -46,29 +47,29 @@ abstract class DescribeContributorInsightsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeContributorInsightsInputBuilder b) {}
 
-  /// The name of the global secondary index to describe, if applicable.
-  String? get indexName;
-
   /// The name of the table to describe.
   String get tableName;
+
+  /// The name of the global secondary index to describe, if applicable.
+  String? get indexName;
   @override
   DescribeContributorInsightsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        indexName,
         tableName,
+        indexName,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DescribeContributorInsightsInput');
     helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
       'tableName',
       tableName,
+    );
+    helper.add(
+      'indexName',
+      indexName,
     );
     return helper.toString();
   }
@@ -103,21 +104,20 @@ class DescribeContributorInsightsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'IndexName':
-          if (value != null) {
-            result.indexName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'IndexName':
+          result.indexName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -127,25 +127,26 @@ class DescribeContributorInsightsInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeContributorInsightsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeContributorInsightsInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DescribeContributorInsightsInput(:tableName, :indexName) = object;
+    result$.addAll([
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.indexName != null) {
-      result
+    ]);
+    if (indexName != null) {
+      result$
         ..add('IndexName')
         ..add(serializers.serialize(
-          payload.indexName!,
+          indexName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

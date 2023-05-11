@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.update_documentation_part_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,15 +25,15 @@ abstract class UpdateDocumentationPartRequest
         _i1.HasPayload<UpdateDocumentationPartRequestPayload> {
   /// Updates an existing documentation part of a given API.
   factory UpdateDocumentationPartRequest({
+    required String restApiId,
     required String documentationPartId,
     List<_i3.PatchOperation>? patchOperations,
-    required String restApiId,
   }) {
     return _$UpdateDocumentationPartRequest._(
+      restApiId: restApiId,
       documentationPartId: documentationPartId,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      restApiId: restApiId,
     );
   }
 
@@ -67,14 +68,14 @@ abstract class UpdateDocumentationPartRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateDocumentationPartRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
   /// The identifier of the to-be-updated documentation part.
   String get documentationPartId;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -98,14 +99,18 @@ abstract class UpdateDocumentationPartRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
         documentationPartId,
         patchOperations,
-        restApiId,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('UpdateDocumentationPartRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
     helper.add(
       'documentationPartId',
       documentationPartId,
@@ -113,10 +118,6 @@ abstract class UpdateDocumentationPartRequest
     helper.add(
       'patchOperations',
       patchOperations,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
     );
     return helper.toString();
   }
@@ -185,18 +186,18 @@ class UpdateDocumentationPartRequestRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'patchOperations':
-          if (value != null) {
-            result.patchOperations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.PatchOperation)],
-              ),
-            ) as _i4.BuiltList<_i3.PatchOperation>));
-          }
-          break;
+          result.patchOperations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.PatchOperation)],
+            ),
+          ) as _i4.BuiltList<_i3.PatchOperation>));
       }
     }
 
@@ -206,24 +207,22 @@ class UpdateDocumentationPartRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateDocumentationPartRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UpdateDocumentationPartRequest
-        ? object.getPayload()
-        : (object as UpdateDocumentationPartRequestPayload);
-    final result = <Object?>[];
-    if (payload.patchOperations != null) {
-      result
+    final result$ = <Object?>[];
+    final UpdateDocumentationPartRequestPayload(:patchOperations) = object;
+    if (patchOperations != null) {
+      result$
         ..add('patchOperations')
         ..add(serializers.serialize(
-          payload.patchOperations!,
+          patchOperations,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.PatchOperation)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

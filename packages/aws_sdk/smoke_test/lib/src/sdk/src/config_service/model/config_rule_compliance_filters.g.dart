@@ -8,23 +8,23 @@ part of smoke_test.config_service.model.config_rule_compliance_filters;
 
 class _$ConfigRuleComplianceFilters extends ConfigRuleComplianceFilters {
   @override
-  final String? accountId;
-  @override
-  final String? awsRegion;
+  final String? configRuleName;
   @override
   final _i2.ComplianceType? complianceType;
   @override
-  final String? configRuleName;
+  final String? accountId;
+  @override
+  final String? awsRegion;
 
   factory _$ConfigRuleComplianceFilters(
           [void Function(ConfigRuleComplianceFiltersBuilder)? updates]) =>
       (new ConfigRuleComplianceFiltersBuilder()..update(updates))._build();
 
   _$ConfigRuleComplianceFilters._(
-      {this.accountId,
-      this.awsRegion,
+      {this.configRuleName,
       this.complianceType,
-      this.configRuleName})
+      this.accountId,
+      this.awsRegion})
       : super._();
 
   @override
@@ -40,19 +40,19 @@ class _$ConfigRuleComplianceFilters extends ConfigRuleComplianceFilters {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ConfigRuleComplianceFilters &&
-        accountId == other.accountId &&
-        awsRegion == other.awsRegion &&
+        configRuleName == other.configRuleName &&
         complianceType == other.complianceType &&
-        configRuleName == other.configRuleName;
+        accountId == other.accountId &&
+        awsRegion == other.awsRegion;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, configRuleName.hashCode);
+    _$hash = $jc(_$hash, complianceType.hashCode);
     _$hash = $jc(_$hash, accountId.hashCode);
     _$hash = $jc(_$hash, awsRegion.hashCode);
-    _$hash = $jc(_$hash, complianceType.hashCode);
-    _$hash = $jc(_$hash, configRuleName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -64,6 +64,16 @@ class ConfigRuleComplianceFiltersBuilder
             ConfigRuleComplianceFiltersBuilder> {
   _$ConfigRuleComplianceFilters? _$v;
 
+  String? _configRuleName;
+  String? get configRuleName => _$this._configRuleName;
+  set configRuleName(String? configRuleName) =>
+      _$this._configRuleName = configRuleName;
+
+  _i2.ComplianceType? _complianceType;
+  _i2.ComplianceType? get complianceType => _$this._complianceType;
+  set complianceType(_i2.ComplianceType? complianceType) =>
+      _$this._complianceType = complianceType;
+
   String? _accountId;
   String? get accountId => _$this._accountId;
   set accountId(String? accountId) => _$this._accountId = accountId;
@@ -72,16 +82,6 @@ class ConfigRuleComplianceFiltersBuilder
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  _i2.ComplianceType? _complianceType;
-  _i2.ComplianceType? get complianceType => _$this._complianceType;
-  set complianceType(_i2.ComplianceType? complianceType) =>
-      _$this._complianceType = complianceType;
-
-  String? _configRuleName;
-  String? get configRuleName => _$this._configRuleName;
-  set configRuleName(String? configRuleName) =>
-      _$this._configRuleName = configRuleName;
-
   ConfigRuleComplianceFiltersBuilder() {
     ConfigRuleComplianceFilters._init(this);
   }
@@ -89,10 +89,10 @@ class ConfigRuleComplianceFiltersBuilder
   ConfigRuleComplianceFiltersBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _configRuleName = $v.configRuleName;
+      _complianceType = $v.complianceType;
       _accountId = $v.accountId;
       _awsRegion = $v.awsRegion;
-      _complianceType = $v.complianceType;
-      _configRuleName = $v.configRuleName;
       _$v = null;
     }
     return this;
@@ -115,10 +115,10 @@ class ConfigRuleComplianceFiltersBuilder
   _$ConfigRuleComplianceFilters _build() {
     final _$result = _$v ??
         new _$ConfigRuleComplianceFilters._(
-            accountId: accountId,
-            awsRegion: awsRegion,
+            configRuleName: configRuleName,
             complianceType: complianceType,
-            configRuleName: configRuleName);
+            accountId: accountId,
+            awsRegion: awsRegion);
     replace(_$result);
     return _$result;
   }

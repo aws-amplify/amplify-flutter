@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.json_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -73,18 +74,18 @@ class JsonInputRestXmlSerializer
     final result = JsonInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.JsonType),
-            ) as _i2.JsonType);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.JsonType),
+          ) as _i2.JsonType);
       }
     }
 
@@ -94,24 +95,24 @@ class JsonInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    JsonInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as JsonInput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'JsonInput',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.type != null) {
-      result
+    final JsonInput(:type) = object;
+    if (type != null) {
+      result$
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType.nullable(_i2.JsonType),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -9,11 +9,11 @@ part of smoke_test.config_service.model.get_discovered_resource_counts_request;
 class _$GetDiscoveredResourceCountsRequest
     extends GetDiscoveredResourceCountsRequest {
   @override
+  final _i3.BuiltList<String>? resourceTypes;
+  @override
   final int? limit;
   @override
   final String? nextToken;
-  @override
-  final _i3.BuiltList<String>? resourceTypes;
 
   factory _$GetDiscoveredResourceCountsRequest(
           [void Function(GetDiscoveredResourceCountsRequestBuilder)?
@@ -22,7 +22,7 @@ class _$GetDiscoveredResourceCountsRequest
           ._build();
 
   _$GetDiscoveredResourceCountsRequest._(
-      {this.limit, this.nextToken, this.resourceTypes})
+      {this.resourceTypes, this.limit, this.nextToken})
       : super._();
 
   @override
@@ -38,17 +38,17 @@ class _$GetDiscoveredResourceCountsRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetDiscoveredResourceCountsRequest &&
+        resourceTypes == other.resourceTypes &&
         limit == other.limit &&
-        nextToken == other.nextToken &&
-        resourceTypes == other.resourceTypes;
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, resourceTypes.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, resourceTypes.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -60,6 +60,12 @@ class GetDiscoveredResourceCountsRequestBuilder
             GetDiscoveredResourceCountsRequestBuilder> {
   _$GetDiscoveredResourceCountsRequest? _$v;
 
+  _i3.ListBuilder<String>? _resourceTypes;
+  _i3.ListBuilder<String> get resourceTypes =>
+      _$this._resourceTypes ??= new _i3.ListBuilder<String>();
+  set resourceTypes(_i3.ListBuilder<String>? resourceTypes) =>
+      _$this._resourceTypes = resourceTypes;
+
   int? _limit;
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
@@ -68,12 +74,6 @@ class GetDiscoveredResourceCountsRequestBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  _i3.ListBuilder<String>? _resourceTypes;
-  _i3.ListBuilder<String> get resourceTypes =>
-      _$this._resourceTypes ??= new _i3.ListBuilder<String>();
-  set resourceTypes(_i3.ListBuilder<String>? resourceTypes) =>
-      _$this._resourceTypes = resourceTypes;
-
   GetDiscoveredResourceCountsRequestBuilder() {
     GetDiscoveredResourceCountsRequest._init(this);
   }
@@ -81,9 +81,9 @@ class GetDiscoveredResourceCountsRequestBuilder
   GetDiscoveredResourceCountsRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _resourceTypes = $v.resourceTypes?.toBuilder();
       _limit = $v.limit;
       _nextToken = $v.nextToken;
-      _resourceTypes = $v.resourceTypes?.toBuilder();
       _$v = null;
     }
     return this;
@@ -109,9 +109,9 @@ class GetDiscoveredResourceCountsRequestBuilder
     try {
       _$result = _$v ??
           new _$GetDiscoveredResourceCountsRequest._(
+              resourceTypes: _resourceTypes?.build(),
               limit: limit,
-              nextToken: nextToken,
-              resourceTypes: _resourceTypes?.build());
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

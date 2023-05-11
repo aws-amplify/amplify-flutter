@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.get_bucket_cors_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -79,18 +80,18 @@ class GetBucketCorsOutputRestXmlSerializer
     final result = GetBucketCorsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'CORSRule':
-          if (value != null) {
-            result.corsRules.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CorsRule),
-            ) as _i2.CorsRule));
-          }
-          break;
+          result.corsRules.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CorsRule),
+          ) as _i2.CorsRule));
       }
     }
 
@@ -100,27 +101,27 @@ class GetBucketCorsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetBucketCorsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetBucketCorsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'CORSConfiguration',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.corsRules != null) {
-      result.addAll(
+    final GetBucketCorsOutput(:corsRules) = object;
+    if (corsRules != null) {
+      result$.addAll(
           const _i4.XmlBuiltListSerializer(memberName: 'CORSRule').serialize(
         serializers,
-        payload.corsRules!,
+        corsRules,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.CorsRule)],
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

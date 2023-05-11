@@ -8,9 +8,9 @@ part of smoke_test.api_gateway.model.limit_exceeded_exception;
 
 class _$LimitExceededException extends LimitExceededException {
   @override
-  final String? message;
-  @override
   final String? retryAfterSeconds;
+  @override
+  final String? message;
   @override
   final Map<String, String>? headers;
 
@@ -19,7 +19,7 @@ class _$LimitExceededException extends LimitExceededException {
       (new LimitExceededExceptionBuilder()..update(updates))._build();
 
   _$LimitExceededException._(
-      {this.message, this.retryAfterSeconds, this.headers})
+      {this.retryAfterSeconds, this.message, this.headers})
       : super._();
 
   @override
@@ -35,15 +35,15 @@ class _$LimitExceededException extends LimitExceededException {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is LimitExceededException &&
-        message == other.message &&
-        retryAfterSeconds == other.retryAfterSeconds;
+        retryAfterSeconds == other.retryAfterSeconds &&
+        message == other.message;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, message.hashCode);
     _$hash = $jc(_$hash, retryAfterSeconds.hashCode);
+    _$hash = $jc(_$hash, message.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,14 +53,14 @@ class LimitExceededExceptionBuilder
     implements Builder<LimitExceededException, LimitExceededExceptionBuilder> {
   _$LimitExceededException? _$v;
 
-  String? _message;
-  String? get message => _$this._message;
-  set message(String? message) => _$this._message = message;
-
   String? _retryAfterSeconds;
   String? get retryAfterSeconds => _$this._retryAfterSeconds;
   set retryAfterSeconds(String? retryAfterSeconds) =>
       _$this._retryAfterSeconds = retryAfterSeconds;
+
+  String? _message;
+  String? get message => _$this._message;
+  set message(String? message) => _$this._message = message;
 
   Map<String, String>? _headers;
   Map<String, String>? get headers => _$this._headers;
@@ -73,8 +73,8 @@ class LimitExceededExceptionBuilder
   LimitExceededExceptionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _message = $v.message;
       _retryAfterSeconds = $v.retryAfterSeconds;
+      _message = $v.message;
       _headers = $v.headers;
       _$v = null;
     }
@@ -98,8 +98,8 @@ class LimitExceededExceptionBuilder
   _$LimitExceededException _build() {
     final _$result = _$v ??
         new _$LimitExceededException._(
-            message: message,
             retryAfterSeconds: retryAfterSeconds,
+            message: message,
             headers: headers);
     replace(_$result);
     return _$result;

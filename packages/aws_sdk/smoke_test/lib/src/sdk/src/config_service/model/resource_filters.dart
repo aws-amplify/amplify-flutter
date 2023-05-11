@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.resource_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,15 +17,15 @@ abstract class ResourceFilters
   /// Filters the results by resource account ID, region, resource ID, and resource name.
   factory ResourceFilters({
     String? accountId,
-    String? region,
     String? resourceId,
     String? resourceName,
+    String? region,
   }) {
     return _$ResourceFilters._(
       accountId: accountId,
-      region: region,
       resourceId: resourceId,
       resourceName: resourceName,
+      region: region,
     );
   }
 
@@ -44,20 +45,20 @@ abstract class ResourceFilters
   /// The 12-digit source account ID.
   String? get accountId;
 
-  /// The source region.
-  String? get region;
-
   /// The ID of the resource.
   String? get resourceId;
 
   /// The name of the resource.
   String? get resourceName;
+
+  /// The source region.
+  String? get region;
   @override
   List<Object?> get props => [
         accountId,
-        region,
         resourceId,
         resourceName,
+        region,
       ];
   @override
   String toString() {
@@ -67,16 +68,16 @@ abstract class ResourceFilters
       accountId,
     );
     helper.add(
-      'region',
-      region,
-    );
-    helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
       'resourceName',
       resourceName,
+    );
+    helper.add(
+      'region',
+      region,
     );
     return helper.toString();
   }
@@ -110,39 +111,30 @@ class ResourceFiltersAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AccountId':
-          if (value != null) {
-            result.accountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Region':
-          if (value != null) {
-            result.region = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.accountId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResourceId':
-          if (value != null) {
-            result.resourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResourceName':
-          if (value != null) {
-            result.resourceName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'Region':
+          result.region = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -152,43 +144,44 @@ class ResourceFiltersAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ResourceFilters object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ResourceFilters);
-    final result = <Object?>[];
-    if (payload.accountId != null) {
-      result
+    final result$ = <Object?>[];
+    final ResourceFilters(:accountId, :resourceId, :resourceName, :region) =
+        object;
+    if (accountId != null) {
+      result$
         ..add('AccountId')
         ..add(serializers.serialize(
-          payload.accountId!,
+          accountId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.region != null) {
-      result
-        ..add('Region')
-        ..add(serializers.serialize(
-          payload.region!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceId != null) {
-      result
+    if (resourceId != null) {
+      result$
         ..add('ResourceId')
         ..add(serializers.serialize(
-          payload.resourceId!,
+          resourceId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceName != null) {
-      result
+    if (resourceName != null) {
+      result$
         ..add('ResourceName')
         ..add(serializers.serialize(
-          payload.resourceName!,
+          resourceName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    if (region != null) {
+      result$
+        ..add('Region')
+        ..add(serializers.serialize(
+          region,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

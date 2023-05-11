@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.scan_range; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,12 +17,12 @@ abstract class ScanRange
     implements Built<ScanRange, ScanRangeBuilder> {
   /// Specifies the byte range of the object to get the records from. A record is processed when its first byte is contained by the range. This parameter is optional, but when specified, it must not be empty. See RFC 2616, Section 14.35.1 about how to specify the start and end of the range.
   factory ScanRange({
-    _i2.Int64? end,
     _i2.Int64? start,
+    _i2.Int64? end,
   }) {
     return _$ScanRange._(
-      end: end,
       start: start,
+      end: end,
     );
   }
 
@@ -38,26 +39,26 @@ abstract class ScanRange
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ScanRangeBuilder b) {}
 
-  /// Specifies the end of the byte range. This parameter is optional. Valid values: non-negative integers. The default value is one less than the size of the object being queried. If only the End parameter is supplied, it is interpreted to mean scan the last N bytes of the file. For example, `50` means scan the last 50 bytes.
-  _i2.Int64? get end;
-
   /// Specifies the start of the byte range. This parameter is optional. Valid values: non-negative integers. The default value is 0. If only `start` is supplied, it means scan from that point to the end of the file. For example, `50` means scan from byte 50 until the end of the file.
   _i2.Int64? get start;
+
+  /// Specifies the end of the byte range. This parameter is optional. Valid values: non-negative integers. The default value is one less than the size of the object being queried. If only the End parameter is supplied, it is interpreted to mean scan the last N bytes of the file. For example, `50` means scan the last 50 bytes.
+  _i2.Int64? get end;
   @override
   List<Object?> get props => [
-        end,
         start,
+        end,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ScanRange');
     helper.add(
-      'end',
-      end,
-    );
-    helper.add(
       'start',
       start,
+    );
+    helper.add(
+      'end',
+      end,
     );
     return helper.toString();
   }
@@ -88,26 +89,23 @@ class ScanRangeRestXmlSerializer
     final result = ScanRangeBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'End':
-          if (value != null) {
-            result.end = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.end = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'Start':
-          if (value != null) {
-            result.start = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.start = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
       }
     }
 
@@ -117,32 +115,32 @@ class ScanRangeRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ScanRange object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ScanRange);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ScanRange',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.end != null) {
-      result
+    final ScanRange(:end, :start) = object;
+    if (end != null) {
+      result$
         ..add(const _i3.XmlElementName('End'))
         ..add(serializers.serialize(
-          payload.end!,
+          end,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
-    if (payload.start != null) {
-      result
+    if (start != null) {
+      result$
         ..add(const _i3.XmlElementName('Start'))
         ..add(serializers.serialize(
-          payload.start!,
+          start,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
-    return result;
+    return result$;
   }
 }

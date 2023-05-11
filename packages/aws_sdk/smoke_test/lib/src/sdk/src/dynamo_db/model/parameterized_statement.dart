@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.parameterized_statement; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,12 +19,12 @@ abstract class ParameterizedStatement
     implements Built<ParameterizedStatement, ParameterizedStatementBuilder> {
   /// Represents a PartiQL statment that uses parameters.
   factory ParameterizedStatement({
-    List<_i2.AttributeValue>? parameters,
     required String statement,
+    List<_i2.AttributeValue>? parameters,
   }) {
     return _$ParameterizedStatement._(
-      parameters: parameters == null ? null : _i3.BuiltList(parameters),
       statement: statement,
+      parameters: parameters == null ? null : _i3.BuiltList(parameters),
     );
   }
 
@@ -41,26 +42,26 @@ abstract class ParameterizedStatement
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ParameterizedStatementBuilder b) {}
 
-  /// The parameter values.
-  _i3.BuiltList<_i2.AttributeValue>? get parameters;
-
   /// A PartiQL statment that uses parameters.
   String get statement;
+
+  /// The parameter values.
+  _i3.BuiltList<_i2.AttributeValue>? get parameters;
   @override
   List<Object?> get props => [
-        parameters,
         statement,
+        parameters,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ParameterizedStatement');
     helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
       'statement',
       statement,
+    );
+    helper.add(
+      'parameters',
+      parameters,
     );
     return helper.toString();
   }
@@ -95,24 +96,23 @@ class ParameterizedStatementAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Parameters':
-          if (value != null) {
-            result.parameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AttributeValue)],
-              ),
-            ) as _i3.BuiltList<_i2.AttributeValue>));
-          }
-          break;
         case 'Statement':
           result.statement = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'Parameters':
+          result.parameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AttributeValue)],
+            ),
+          ) as _i3.BuiltList<_i2.AttributeValue>));
       }
     }
 
@@ -122,28 +122,29 @@ class ParameterizedStatementAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ParameterizedStatement object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ParameterizedStatement);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ParameterizedStatement(:statement, :parameters) = object;
+    result$.addAll([
       'Statement',
       serializers.serialize(
-        payload.statement,
+        statement,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.parameters != null) {
-      result
+    ]);
+    if (parameters != null) {
+      result$
         ..add('Parameters')
         ..add(serializers.serialize(
-          payload.parameters!,
+          parameters,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AttributeValue)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

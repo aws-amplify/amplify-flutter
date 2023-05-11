@@ -8,9 +8,8 @@ import AmplifyPlugins
 import AWSPluginsCore
 import AWSCore
 import Combine
-import amplify_flutter_ios
 
-public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
+public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplifyBridge, NativeAuthBridge, NativeApiBridge {
     private let bridge: DataStoreBridge
     private let modelSchemaRegistry: FlutterSchemaRegistry
     private let customTypeSchemaRegistry: FlutterSchemaRegistry
@@ -18,28 +17,191 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     private let dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler?
     private var channel: FlutterMethodChannel?
     private var observeSubscription: AnyCancellable?
+    private let nativeAuthPlugin: NativeAuthPlugin
+    private let nativeApiPlugin: NativeApiPlugin
+    private let cognitoPlugin: CognitoPlugin
+    
 
     init(bridge: DataStoreBridge = DataStoreBridge(),
          modelSchemaRegistry: FlutterSchemaRegistry = FlutterSchemaRegistry(),
          customTypeSchemasRegistry: FlutterSchemaRegistry = FlutterSchemaRegistry(),
          dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler(),
-         dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler = DataStoreHubEventStreamHandler())
+         dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler = DataStoreHubEventStreamHandler(),
+         binaryMessenger: FlutterBinaryMessenger)
     {
         self.bridge = bridge
         self.modelSchemaRegistry = modelSchemaRegistry
         self.customTypeSchemaRegistry = customTypeSchemasRegistry
         self.dataStoreObserveEventStreamHandler = dataStoreObserveEventStreamHandler
         self.dataStoreHubEventStreamHandler = dataStoreHubEventStreamHandler
+        nativeAuthPlugin = NativeAuthPlugin(binaryMessenger: binaryMessenger)
+        cognitoPlugin = CognitoPlugin(nativeAuthPlugin: nativeAuthPlugin)
+        nativeApiPlugin = NativeApiPlugin(binaryMessenger: binaryMessenger)
     }
 
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let instance = SwiftAmplifyDataStorePlugin()
-        let observeChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_observe_events", binaryMessenger: registrar.messenger())
-        let hubChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_hub_events", binaryMessenger: registrar.messenger())
-        instance.channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: registrar.messenger())
+        let binaryMessenger = registrar.messenger()
+        let instance = SwiftAmplifyDataStorePlugin(binaryMessenger: binaryMessenger)
+        let observeChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_observe_events", binaryMessenger: binaryMessenger)
+        let hubChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_hub_events", binaryMessenger: binaryMessenger)
+        instance.channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: binaryMessenger)
         observeChannel.setStreamHandler(instance.dataStoreObserveEventStreamHandler)
         hubChannel.setStreamHandler(instance.dataStoreHubEventStreamHandler)
         registrar.addMethodCallDelegate(instance, channel: instance.channel!)
+        NativeAuthBridgeSetup.setUp(binaryMessenger: binaryMessenger, api: instance)
+        NativeApiBridgeSetup.setUp(binaryMessenger: binaryMessenger, api: instance)
+        NativeAmplifyBridgeSetup.setUp(binaryMessenger: binaryMessenger, api: instance)
+    }
+    
+    func addAuthPlugin(completion: @escaping (Result<Void, Error>) -> Void) {
+        do {
+            
+            try Amplify.add(plugin: cognitoPlugin)
+            return completion(.success(()))
+        } catch let configError as ConfigurationError {
+            var errorCode = "AuthException"
+            if case .amplifyAlreadyConfigured = configError {
+                errorCode = "AmplifyAlreadyConfiguredException"
+            }
+            let flutterError = FlutterError(
+                code: errorCode,
+                message: configError.localizedDescription,
+                details: [
+                    "message": configError.errorDescription,
+                    "recoverySuggestion": configError.recoverySuggestion,
+                    "underlyingError": configError.underlyingError?.localizedDescription ?? ""
+                ]
+            )
+            return completion(.failure(flutterError))
+        } catch {
+            let flutterError = FlutterError(
+                code: "UNKNOWN",
+                message: error.localizedDescription,
+                details: nil
+            )
+            return completion(.failure(flutterError))
+        }
+    }
+    
+    func addApiPlugin(authProvidersList: [String], completion: @escaping (Result<Void, Error>) -> Void) {
+        do {
+            let authProviders = authProvidersList.compactMap {
+                AWSAuthorizationType(rawValue: $0)
+            }
+            try Amplify.add(
+                plugin: AWSAPIPlugin(
+                    apiAuthProviderFactory: FlutterAuthProviders(
+                        authProviders: authProviders,
+                        nativeApiPlugin: nativeApiPlugin
+                    )
+                )
+            )
+            return completion(.success(()))
+        } catch let apiError as APIError {
+            let flutterError = FlutterError(
+                code: "APIException",
+                message: apiError.localizedDescription,
+                details: [
+                    "message": apiError.errorDescription,
+                    "recoverySuggestion": apiError.recoverySuggestion,
+                    "underlyingError": apiError.underlyingError?.localizedDescription ?? ""
+                ]
+            )
+            return completion(.failure(flutterError))
+
+        } catch let configError as ConfigurationError {
+            var errorCode = "APIException"
+            if case .amplifyAlreadyConfigured = configError {
+                errorCode = "AmplifyAlreadyConfiguredException"
+            }
+            let flutterError = FlutterError(
+                code: errorCode,
+                message: configError.localizedDescription,
+                details: [
+                    "message": configError.errorDescription,
+                    "recoverySuggestion": configError.recoverySuggestion,
+                    "underlyingError": configError.underlyingError?.localizedDescription ?? ""
+                ]
+            )
+            return completion(.failure(flutterError))
+
+        } catch let e {
+            let flutterError = FlutterError(
+                code: "UNKNOWN",
+                message: e.localizedDescription,
+                details: nil
+            )
+            return completion(.failure(flutterError))
+        }
+    }
+    
+    func configure(version: String, config: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        do {
+            guard let data = config.data(using: .utf8) else {
+                throw ConfigurationError.unableToDecode(
+                    "Invalid UTF-8",
+                    "Please check the encoding of your configuration",
+                    nil
+                )
+            }
+            let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self,
+                                                                from: data)
+            AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
+            try Amplify.configure(amplifyConfiguration)
+            return completion(.success(()))
+        } catch let error as ConfigurationError {
+            switch error {
+            case .amplifyAlreadyConfigured:
+                let flutterError = FlutterError(
+                    code: "AmplifyAlreadyConfiguredException",
+                    message: error.localizedDescription,
+                    details: nil
+                )
+                return completion(.failure(flutterError))
+            default:
+                let flutterError = FlutterError(
+                    code: "AmplifyException",
+                    message: error.localizedDescription,
+                    details: nil
+                )
+                return completion(.failure(flutterError))
+            }
+        } catch let error as PluginError {
+            switch error {
+            case .pluginConfigurationError(let errorDescription, _, _):
+                let flutterError = FlutterError(
+                    code: "AmplifyException",
+                    message: """
+                    Please check your pubspec.yaml if you are depending on \
+                    an amplify plugin and not using in your app. \
+                    Underlying error message: \(errorDescription). \
+                                        
+                    Remove amplify plugins from your pubspec.yaml that you are not using in your app.
+                    """,
+                    details: nil
+                )
+                return completion(.failure(flutterError))
+            default:
+                let flutterError = FlutterError(
+                    code: "AmplifyException",
+                    message: error.localizedDescription,
+                    details: nil
+                )
+                return completion(.failure(flutterError))
+            }
+        } catch {
+            let flutterError = FlutterError(
+                code: "AmplifyException",
+                message: "Failed to parse the configuration.",
+                details: nil
+            )
+            return completion(.failure(flutterError))
+        }
+    }
+    
+
+    func updateCurrentUser(user: NativeAuthUser?) throws {
+        cognitoPlugin.currentUser = user
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {

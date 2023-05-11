@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.get_method_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,15 +22,15 @@ abstract class GetMethodResponseRequest
         _i1.HasPayload<GetMethodResponseRequestPayload> {
   /// Request to describe a MethodResponse resource.
   factory GetMethodResponseRequest({
-    required String httpMethod,
-    required String resourceId,
     required String restApiId,
+    required String resourceId,
+    required String httpMethod,
     required String statusCode,
   }) {
     return _$GetMethodResponseRequest._(
-      httpMethod: httpMethod,
-      resourceId: resourceId,
       restApiId: restApiId,
+      resourceId: resourceId,
+      httpMethod: httpMethod,
       statusCode: statusCode,
     );
   }
@@ -68,14 +69,14 @@ abstract class GetMethodResponseRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetMethodResponseRequestBuilder b) {}
 
-  /// The HTTP verb of the Method resource.
-  String get httpMethod;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The Resource identifier for the MethodResponse resource.
   String get resourceId;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// The HTTP verb of the Method resource.
+  String get httpMethod;
 
   /// The status code for the MethodResponse resource.
   String get statusCode;
@@ -102,25 +103,25 @@ abstract class GetMethodResponseRequest
       GetMethodResponseRequestPayload();
   @override
   List<Object?> get props => [
-        httpMethod,
-        resourceId,
         restApiId,
+        resourceId,
+        httpMethod,
         statusCode,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetMethodResponseRequest');
     helper.add(
-      'httpMethod',
-      httpMethod,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'httpMethod',
+      httpMethod,
     );
     helper.add(
       'statusCode',
@@ -187,7 +188,7 @@ class GetMethodResponseRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetMethodResponseRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

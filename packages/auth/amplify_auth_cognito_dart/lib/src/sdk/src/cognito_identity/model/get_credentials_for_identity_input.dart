@@ -20,14 +20,14 @@ abstract class GetCredentialsForIdentityInput
             GetCredentialsForIdentityInputBuilder> {
   /// Input to the `GetCredentialsForIdentity` action.
   factory GetCredentialsForIdentityInput({
-    String? customRoleArn,
     required String identityId,
     Map<String, String>? logins,
+    String? customRoleArn,
   }) {
     return _$GetCredentialsForIdentityInput._(
-      customRoleArn: customRoleArn,
       identityId: identityId,
       logins: logins == null ? null : _i3.BuiltMap(logins),
+      customRoleArn: customRoleArn,
     );
   }
 
@@ -52,9 +52,6 @@ abstract class GetCredentialsForIdentityInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetCredentialsForIdentityInputBuilder b) {}
 
-  /// The Amazon Resource Name (ARN) of the role to be assumed when multiple roles were received in the token from the identity provider. For example, a SAML-based identity provider. This parameter is optional for identity providers that do not support role customization.
-  String? get customRoleArn;
-
   /// A unique identifier in the format REGION:GUID.
   String get identityId;
 
@@ -64,22 +61,21 @@ abstract class GetCredentialsForIdentityInput
   ///
   /// The Logins parameter is required when using identities associated with external identity providers such as Facebook. For examples of `Logins` maps, see the code examples in the [External Identity Providers](https://docs.aws.amazon.com/cognito/latest/developerguide/external-identity-providers.html) section of the Amazon Cognito Developer Guide.
   _i3.BuiltMap<String, String>? get logins;
+
+  /// The Amazon Resource Name (ARN) of the role to be assumed when multiple roles were received in the token from the identity provider. For example, a SAML-based identity provider. This parameter is optional for identity providers that do not support role customization.
+  String? get customRoleArn;
   @override
   GetCredentialsForIdentityInput getPayload() => this;
   @override
   List<Object?> get props => [
-        customRoleArn,
         identityId,
         logins,
+        customRoleArn,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('GetCredentialsForIdentityInput');
-    helper.add(
-      'customRoleArn',
-      customRoleArn,
-    );
     helper.add(
       'identityId',
       identityId,
@@ -87,6 +83,10 @@ abstract class GetCredentialsForIdentityInput
     helper.add(
       'logins',
       logins,
+    );
+    helper.add(
+      'customRoleArn',
+      customRoleArn,
     );
     return helper.toString();
   }
@@ -122,14 +122,6 @@ class GetCredentialsForIdentityInputAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'CustomRoleArn':
-          if (value != null) {
-            result.customRoleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'IdentityId':
           result.identityId = (serializers.deserialize(
             value!,
@@ -148,6 +140,14 @@ class GetCredentialsForIdentityInputAwsJson11Serializer
                 ],
               ),
             ) as _i3.BuiltMap<String, String>));
+          }
+          break;
+        case 'CustomRoleArn':
+          if (value != null) {
+            result.customRoleArn = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -170,14 +170,6 @@ class GetCredentialsForIdentityInputAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.customRoleArn != null) {
-      result
-        ..add('CustomRoleArn')
-        ..add(serializers.serialize(
-          payload.customRoleArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.logins != null) {
       result
         ..add('Logins')
@@ -190,6 +182,14 @@ class GetCredentialsForIdentityInputAwsJson11Serializer
               FullType(String),
             ],
           ),
+        ));
+    }
+    if (payload.customRoleArn != null) {
+      result
+        ..add('CustomRoleArn')
+        ..add(serializers.serialize(
+          payload.customRoleArn!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

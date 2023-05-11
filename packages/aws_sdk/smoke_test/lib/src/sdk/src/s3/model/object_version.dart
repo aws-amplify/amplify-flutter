@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.object_version; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -6,12 +7,12 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i4;
+import 'package:fixnum/fixnum.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i7;
 import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/object_version_storage_class.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i3;
+    as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i5;
 
 part 'object_version.g.dart';
 
@@ -21,27 +22,27 @@ abstract class ObjectVersion
     implements Built<ObjectVersion, ObjectVersionBuilder> {
   /// The version of an object.
   factory ObjectVersion({
-    List<_i2.ChecksumAlgorithm>? checksumAlgorithm,
     String? eTag,
-    bool? isLatest,
+    List<_i2.ChecksumAlgorithm>? checksumAlgorithm,
+    _i3.Int64? size,
+    _i4.ObjectVersionStorageClass? storageClass,
     String? key,
-    DateTime? lastModified,
-    _i3.Owner? owner,
-    _i4.Int64? size,
-    _i5.ObjectVersionStorageClass? storageClass,
     String? versionId,
+    bool? isLatest,
+    DateTime? lastModified,
+    _i5.Owner? owner,
   }) {
     return _$ObjectVersion._(
+      eTag: eTag,
       checksumAlgorithm:
           checksumAlgorithm == null ? null : _i6.BuiltList(checksumAlgorithm),
-      eTag: eTag,
-      isLatest: isLatest,
-      key: key,
-      lastModified: lastModified,
-      owner: owner,
       size: size,
       storageClass: storageClass,
+      key: key,
       versionId: versionId,
+      isLatest: isLatest,
+      lastModified: lastModified,
+      owner: owner,
     );
   }
 
@@ -58,70 +59,54 @@ abstract class ObjectVersion
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ObjectVersionBuilder b) {}
 
-  /// The algorithm that was used to create a checksum of the object.
-  _i6.BuiltList<_i2.ChecksumAlgorithm>? get checksumAlgorithm;
-
   /// The entity tag is an MD5 hash of that version of the object.
   String? get eTag;
 
-  /// Specifies whether the object is (true) or is not (false) the latest version of an object.
-  bool? get isLatest;
+  /// The algorithm that was used to create a checksum of the object.
+  _i6.BuiltList<_i2.ChecksumAlgorithm>? get checksumAlgorithm;
+
+  /// Size in bytes of the object.
+  _i3.Int64? get size;
+
+  /// The class of storage used to store the object.
+  _i4.ObjectVersionStorageClass? get storageClass;
 
   /// The object key.
   String? get key;
+
+  /// Version ID of an object.
+  String? get versionId;
+
+  /// Specifies whether the object is (true) or is not (false) the latest version of an object.
+  bool? get isLatest;
 
   /// Date and time the object was last modified.
   DateTime? get lastModified;
 
   /// Specifies the owner of the object.
-  _i3.Owner? get owner;
-
-  /// Size in bytes of the object.
-  _i4.Int64? get size;
-
-  /// The class of storage used to store the object.
-  _i5.ObjectVersionStorageClass? get storageClass;
-
-  /// Version ID of an object.
-  String? get versionId;
+  _i5.Owner? get owner;
   @override
   List<Object?> get props => [
-        checksumAlgorithm,
         eTag,
-        isLatest,
-        key,
-        lastModified,
-        owner,
+        checksumAlgorithm,
         size,
         storageClass,
+        key,
         versionId,
+        isLatest,
+        lastModified,
+        owner,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ObjectVersion');
     helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
       'eTag',
       eTag,
     );
     helper.add(
-      'isLatest',
-      isLatest,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'owner',
-      owner,
+      'checksumAlgorithm',
+      checksumAlgorithm,
     );
     helper.add(
       'size',
@@ -132,8 +117,24 @@ abstract class ObjectVersion
       storageClass,
     );
     helper.add(
+      'key',
+      key,
+    );
+    helper.add(
       'versionId',
       versionId,
+    );
+    helper.add(
+      'isLatest',
+      isLatest,
+    );
+    helper.add(
+      'lastModified',
+      lastModified,
+    );
+    helper.add(
+      'owner',
+      owner,
     );
     return helper.toString();
   }
@@ -164,82 +165,58 @@ class ObjectVersionRestXmlSerializer
     final result = ObjectVersionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ChecksumAlgorithm':
-          if (value != null) {
-            result.checksumAlgorithm.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ChecksumAlgorithm),
-            ) as _i2.ChecksumAlgorithm));
-          }
-          break;
+          result.checksumAlgorithm.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ChecksumAlgorithm),
+          ) as _i2.ChecksumAlgorithm));
         case 'ETag':
-          if (value != null) {
-            result.eTag = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.eTag = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IsLatest':
-          if (value != null) {
-            result.isLatest = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isLatest = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Key':
-          if (value != null) {
-            result.key = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.key = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastModified':
-          if (value != null) {
-            result.lastModified = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastModified = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Owner':
-          if (value != null) {
-            result.owner.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Owner),
-            ) as _i3.Owner));
-          }
-          break;
+          result.owner.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.Owner),
+          ) as _i5.Owner));
         case 'Size':
-          if (value != null) {
-            result.size = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Int64),
-            ) as _i4.Int64);
-          }
-          break;
+          result.size = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'StorageClass':
-          if (value != null) {
-            result.storageClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ObjectVersionStorageClass),
-            ) as _i5.ObjectVersionStorageClass);
-          }
-          break;
+          result.storageClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ObjectVersionStorageClass),
+          ) as _i4.ObjectVersionStorageClass);
         case 'VersionId':
-          if (value != null) {
-            result.versionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.versionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -249,92 +226,102 @@ class ObjectVersionRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ObjectVersion object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ObjectVersion);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i7.XmlElementName(
         'ObjectVersion',
         _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.checksumAlgorithm != null) {
-      result.addAll(
+    final ObjectVersion(
+      :checksumAlgorithm,
+      :eTag,
+      :isLatest,
+      :key,
+      :lastModified,
+      :owner,
+      :size,
+      :storageClass,
+      :versionId
+    ) = object;
+    if (checksumAlgorithm != null) {
+      result$.addAll(
           const _i7.XmlBuiltListSerializer(memberName: 'ChecksumAlgorithm')
               .serialize(
         serializers,
-        payload.checksumAlgorithm!,
+        checksumAlgorithm,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(_i2.ChecksumAlgorithm)],
         ),
       ));
     }
-    if (payload.eTag != null) {
-      result
+    if (eTag != null) {
+      result$
         ..add(const _i7.XmlElementName('ETag'))
         ..add(serializers.serialize(
-          payload.eTag!,
+          eTag,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.isLatest != null) {
-      result
+    if (isLatest != null) {
+      result$
         ..add(const _i7.XmlElementName('IsLatest'))
         ..add(serializers.serialize(
-          payload.isLatest!,
+          isLatest,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.key != null) {
-      result
+    if (key != null) {
+      result$
         ..add(const _i7.XmlElementName('Key'))
         ..add(serializers.serialize(
-          payload.key!,
+          key,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastModified != null) {
-      result
+    if (lastModified != null) {
+      result$
         ..add(const _i7.XmlElementName('LastModified'))
         ..add(serializers.serialize(
-          payload.lastModified!,
+          lastModified,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.owner != null) {
-      result
+    if (owner != null) {
+      result$
         ..add(const _i7.XmlElementName('Owner'))
         ..add(serializers.serialize(
-          payload.owner!,
-          specifiedType: const FullType(_i3.Owner),
+          owner,
+          specifiedType: const FullType(_i5.Owner),
         ));
     }
-    if (payload.size != null) {
-      result
+    if (size != null) {
+      result$
         ..add(const _i7.XmlElementName('Size'))
         ..add(serializers.serialize(
-          payload.size!,
-          specifiedType: const FullType.nullable(_i4.Int64),
+          size,
+          specifiedType: const FullType.nullable(_i3.Int64),
         ));
     }
-    if (payload.storageClass != null) {
-      result
+    if (storageClass != null) {
+      result$
         ..add(const _i7.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
-          payload.storageClass!,
-          specifiedType: const FullType.nullable(_i5.ObjectVersionStorageClass),
+          storageClass,
+          specifiedType: const FullType.nullable(_i4.ObjectVersionStorageClass),
         ));
     }
-    if (payload.versionId != null) {
-      result
+    if (versionId != null) {
+      result$
         ..add(const _i7.XmlElementName('VersionId'))
         ..add(serializers.serialize(
-          payload.versionId!,
+          versionId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

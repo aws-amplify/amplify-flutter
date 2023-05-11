@@ -8,29 +8,29 @@ part of smoke_test.api_gateway.model.create_usage_plan_request;
 
 class _$CreateUsagePlanRequest extends CreateUsagePlanRequest {
   @override
-  final _i6.BuiltList<_i3.ApiStage>? apiStages;
+  final String name;
   @override
   final String? description;
   @override
-  final String name;
+  final _i6.BuiltList<_i3.ApiStage>? apiStages;
   @override
-  final _i4.QuotaSettings? quota;
+  final _i4.ThrottleSettings? throttle;
+  @override
+  final _i5.QuotaSettings? quota;
   @override
   final _i6.BuiltMap<String, String>? tags;
-  @override
-  final _i5.ThrottleSettings? throttle;
 
   factory _$CreateUsagePlanRequest(
           [void Function(CreateUsagePlanRequestBuilder)? updates]) =>
       (new CreateUsagePlanRequestBuilder()..update(updates))._build();
 
   _$CreateUsagePlanRequest._(
-      {this.apiStages,
+      {required this.name,
       this.description,
-      required this.name,
+      this.apiStages,
+      this.throttle,
       this.quota,
-      this.tags,
-      this.throttle})
+      this.tags})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         name, r'CreateUsagePlanRequest', 'name');
@@ -49,23 +49,23 @@ class _$CreateUsagePlanRequest extends CreateUsagePlanRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CreateUsagePlanRequest &&
-        apiStages == other.apiStages &&
-        description == other.description &&
         name == other.name &&
+        description == other.description &&
+        apiStages == other.apiStages &&
+        throttle == other.throttle &&
         quota == other.quota &&
-        tags == other.tags &&
-        throttle == other.throttle;
+        tags == other.tags;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, apiStages.hashCode);
-    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, apiStages.hashCode);
+    _$hash = $jc(_$hash, throttle.hashCode);
     _$hash = $jc(_$hash, quota.hashCode);
     _$hash = $jc(_$hash, tags.hashCode);
-    _$hash = $jc(_$hash, throttle.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -75,35 +75,35 @@ class CreateUsagePlanRequestBuilder
     implements Builder<CreateUsagePlanRequest, CreateUsagePlanRequestBuilder> {
   _$CreateUsagePlanRequest? _$v;
 
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
+
   _i6.ListBuilder<_i3.ApiStage>? _apiStages;
   _i6.ListBuilder<_i3.ApiStage> get apiStages =>
       _$this._apiStages ??= new _i6.ListBuilder<_i3.ApiStage>();
   set apiStages(_i6.ListBuilder<_i3.ApiStage>? apiStages) =>
       _$this._apiStages = apiStages;
 
-  String? _description;
-  String? get description => _$this._description;
-  set description(String? description) => _$this._description = description;
+  _i4.ThrottleSettingsBuilder? _throttle;
+  _i4.ThrottleSettingsBuilder get throttle =>
+      _$this._throttle ??= new _i4.ThrottleSettingsBuilder();
+  set throttle(_i4.ThrottleSettingsBuilder? throttle) =>
+      _$this._throttle = throttle;
 
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
-
-  _i4.QuotaSettingsBuilder? _quota;
-  _i4.QuotaSettingsBuilder get quota =>
-      _$this._quota ??= new _i4.QuotaSettingsBuilder();
-  set quota(_i4.QuotaSettingsBuilder? quota) => _$this._quota = quota;
+  _i5.QuotaSettingsBuilder? _quota;
+  _i5.QuotaSettingsBuilder get quota =>
+      _$this._quota ??= new _i5.QuotaSettingsBuilder();
+  set quota(_i5.QuotaSettingsBuilder? quota) => _$this._quota = quota;
 
   _i6.MapBuilder<String, String>? _tags;
   _i6.MapBuilder<String, String> get tags =>
       _$this._tags ??= new _i6.MapBuilder<String, String>();
   set tags(_i6.MapBuilder<String, String>? tags) => _$this._tags = tags;
-
-  _i5.ThrottleSettingsBuilder? _throttle;
-  _i5.ThrottleSettingsBuilder get throttle =>
-      _$this._throttle ??= new _i5.ThrottleSettingsBuilder();
-  set throttle(_i5.ThrottleSettingsBuilder? throttle) =>
-      _$this._throttle = throttle;
 
   CreateUsagePlanRequestBuilder() {
     CreateUsagePlanRequest._init(this);
@@ -112,12 +112,12 @@ class CreateUsagePlanRequestBuilder
   CreateUsagePlanRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _apiStages = $v.apiStages?.toBuilder();
-      _description = $v.description;
       _name = $v.name;
+      _description = $v.description;
+      _apiStages = $v.apiStages?.toBuilder();
+      _throttle = $v.throttle?.toBuilder();
       _quota = $v.quota?.toBuilder();
       _tags = $v.tags?.toBuilder();
-      _throttle = $v.throttle?.toBuilder();
       _$v = null;
     }
     return this;
@@ -142,25 +142,24 @@ class CreateUsagePlanRequestBuilder
     try {
       _$result = _$v ??
           new _$CreateUsagePlanRequest._(
-              apiStages: _apiStages?.build(),
-              description: description,
               name: BuiltValueNullFieldError.checkNotNull(
                   name, r'CreateUsagePlanRequest', 'name'),
+              description: description,
+              apiStages: _apiStages?.build(),
+              throttle: _throttle?.build(),
               quota: _quota?.build(),
-              tags: _tags?.build(),
-              throttle: _throttle?.build());
+              tags: _tags?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'apiStages';
         _apiStages?.build();
-
+        _$failedField = 'throttle';
+        _throttle?.build();
         _$failedField = 'quota';
         _quota?.build();
         _$failedField = 'tags';
         _tags?.build();
-        _$failedField = 'throttle';
-        _throttle?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'CreateUsagePlanRequest', _$failedField, e.toString());

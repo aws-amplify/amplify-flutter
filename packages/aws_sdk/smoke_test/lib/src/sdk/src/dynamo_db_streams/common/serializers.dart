@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,12 +103,12 @@ final Map<FullType, Function> builderFactories = {
   ): _i29.ListBuilder<_i8.Shard>.new,
   const FullType(
     _i29.BuiltList,
-    [FullType(_i30.Uint8List)],
-  ): _i29.ListBuilder<_i30.Uint8List>.new,
+    [FullType(String)],
+  ): _i29.ListBuilder<String>.new,
   const FullType(
     _i29.BuiltList,
-    [FullType(_i15.AttributeValue)],
-  ): _i29.ListBuilder<_i15.AttributeValue>.new,
+    [FullType(_i30.Uint8List)],
+  ): _i29.ListBuilder<_i30.Uint8List>.new,
   const FullType(
     _i29.BuiltMap,
     [
@@ -117,8 +118,8 @@ final Map<FullType, Function> builderFactories = {
   ): _i29.MapBuilder<String, _i15.AttributeValue>.new,
   const FullType(
     _i29.BuiltList,
-    [FullType(String)],
-  ): _i29.ListBuilder<String>.new,
+    [FullType(_i15.AttributeValue)],
+  ): _i29.ListBuilder<_i15.AttributeValue>.new,
   const FullType(
     _i29.BuiltList,
     [FullType(_i18.Record)],

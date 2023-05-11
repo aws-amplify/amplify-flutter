@@ -75,9 +75,8 @@ extension ReferenceHelpers on Reference {
   /// Constructs a `built_value` FullType reference for this.
   Expression fullType([Iterable<Reference>? parameters]) {
     final typeRef = this.typeRef;
-    final Expression Function(Iterable<Expression>) ctor = typeRef.isNullable ??
-            false
-        ? (args) =>
+    final ctor = typeRef.isNullable ?? false
+        ? (Iterable<Expression> args) =>
             DartTypes.builtValue.fullType.constInstanceNamed('nullable', args)
         : DartTypes.builtValue.fullType.constInstance;
     if (typeRef.types.isEmpty && (parameters == null || parameters.isEmpty)) {
@@ -165,7 +164,6 @@ extension ReferenceHelpers on Reference {
             ).closure,
           ]);
         }
-        break;
       case 'BuiltMap':
         final valueSymbol = types[1];
         if (valueSymbol.requiresConstructorTransformation) {
@@ -184,7 +182,6 @@ extension ReferenceHelpers on Reference {
             ).closure,
           ]);
         }
-        break;
       case 'BuiltListMultimap':
       case 'BuiltSetMultimap':
         final valueSymbol = types[1];
@@ -211,7 +208,6 @@ extension ReferenceHelpers on Reference {
             ).closure,
           ]);
         }
-        break;
     }
     ref = refer(symbol!, url).newInstance([ref]);
     return isNullable
@@ -227,44 +223,30 @@ extension ReferenceHelpers on Reference {
     if (!requiresConstructorTransformation) {
       return this;
     }
-    final Reference transformed;
-    switch (symbol!) {
-      case 'JsonObject':
-        transformed = DartTypes.core.object;
-        break;
-      case 'BuiltList':
-        transformed = DartTypes.core.list(
+    final transformed = switch (symbol!) {
+      'JsonObject' => DartTypes.core.object,
+      'BuiltList' => DartTypes.core.list(
           typeRef.types.single.transformFromInternal(),
-        );
-        break;
-      case 'BuiltSet':
-        transformed = DartTypes.core.set(
+        ),
+      'BuiltSet' => DartTypes.core.set(
           typeRef.types.single.transformFromInternal(),
-        );
-        break;
-      case 'BuiltMap':
-        transformed = DartTypes.core.map(
+        ),
+      'BuiltMap' => DartTypes.core.map(
           typeRef.types[0].transformFromInternal(),
           typeRef.types[1].transformFromInternal(),
-        );
-        break;
-      case 'BuiltListMultimap':
-        transformed = DartTypes.core.map(
+        ),
+      'BuiltListMultimap' => DartTypes.core.map(
           typeRef.types[0].transformFromInternal(),
           DartTypes.core.list(typeRef.types[1].transformFromInternal()),
-        );
-        break;
-      case 'BuiltSetMultimap':
-        transformed = DartTypes.core.map(
+        ),
+      'BuiltSetMultimap' => DartTypes.core.map(
           typeRef.types[0].transformFromInternal(),
           DartTypes.core.set(typeRef.types[1].transformFromInternal()),
-        );
-        break;
-      default:
-        throw ArgumentError('Bad type: $symbol');
-    }
+        ),
+      _ => throw ArgumentError('Bad type: $symbol'),
+    };
     return transformed.typeRef.rebuild(
-      (t) => t.isNullable = typeRef.isNullable!,
+      (t) => t.isNullable = typeRef.isNullable,
     );
   }
 }

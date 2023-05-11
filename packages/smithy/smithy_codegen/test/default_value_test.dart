@@ -29,14 +29,16 @@ void main() {
         (b) => b
           ..shapeId = const ShapeId(namespace: 'example', shape: 'MyStruct')
           ..members = NamedMembersMap({
-            'defaultValue': MemberShape((b) => b
-              ..memberName = 'defaultValue'
-              ..shapeId = const ShapeId(
-                namespace: 'example',
-                shape: 'MyStruct',
-                member: 'defaultValue',
-              )
-              ..target = primitiveId),
+            'defaultValue': MemberShape(
+              (b) => b
+                ..memberName = 'defaultValue'
+                ..shapeId = const ShapeId(
+                  namespace: 'example',
+                  shape: 'MyStruct',
+                  member: 'defaultValue',
+                )
+                ..target = primitiveId,
+            ),
           })
           ..traits = TraitMap.fromTraits(const [InputTrait()]),
       );

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.glacier.glacier_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -98,8 +99,8 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     context.response.headers['Content-Type'] =
         _uploadArchiveProtocol.contentType;
     try {
-      final payload = (await _uploadArchiveProtocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _uploadArchiveProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(
           _i4.Stream,
           [
@@ -123,7 +124,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
         context,
       );
       const statusCode = 201;
-      final body = _uploadArchiveProtocol.serialize(
+      final body = await _uploadArchiveProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i5.ArchiveCreationOutput,
@@ -138,7 +139,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     } on _i10.InvalidParameterValueException catch (e) {
       context.response.headers['X-Amzn-Errortype'] =
           'InvalidParameterValueException';
-      final body = _uploadArchiveProtocol.serialize(
+      final body = _uploadArchiveProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i10.InvalidParameterValueException,
@@ -154,7 +155,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     } on _i11.MissingParameterValueException catch (e) {
       context.response.headers['X-Amzn-Errortype'] =
           'MissingParameterValueException';
-      final body = _uploadArchiveProtocol.serialize(
+      final body = _uploadArchiveProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i11.MissingParameterValueException,
@@ -169,7 +170,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
       );
     } on _i12.RequestTimeoutException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'RequestTimeoutException';
-      final body = _uploadArchiveProtocol.serialize(
+      final body = _uploadArchiveProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i12.RequestTimeoutException,
@@ -185,7 +186,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     } on _i13.ResourceNotFoundException catch (e) {
       context.response.headers['X-Amzn-Errortype'] =
           'ResourceNotFoundException';
-      final body = _uploadArchiveProtocol.serialize(
+      final body = _uploadArchiveProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i13.ResourceNotFoundException,
@@ -201,7 +202,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     } on _i14.ServiceUnavailableException catch (e) {
       context.response.headers['X-Amzn-Errortype'] =
           'ServiceUnavailableException';
-      final body = _uploadArchiveProtocol.serialize(
+      final body = _uploadArchiveProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i14.ServiceUnavailableException,
@@ -233,8 +234,9 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     context.response.headers['Content-Type'] =
         _uploadMultipartPartProtocol.contentType;
     try {
-      final payload = (await _uploadMultipartPartProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _uploadMultipartPartProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType.nullable(
           _i4.Stream,
           [
@@ -259,7 +261,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
         context,
       );
       const statusCode = 204;
-      final body = _uploadMultipartPartProtocol.serialize(
+      final body = await _uploadMultipartPartProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i7.UploadMultipartPartOutput,
@@ -274,7 +276,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     } on _i10.InvalidParameterValueException catch (e) {
       context.response.headers['X-Amzn-Errortype'] =
           'InvalidParameterValueException';
-      final body = _uploadMultipartPartProtocol.serialize(
+      final body = _uploadMultipartPartProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i10.InvalidParameterValueException,
@@ -290,7 +292,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     } on _i11.MissingParameterValueException catch (e) {
       context.response.headers['X-Amzn-Errortype'] =
           'MissingParameterValueException';
-      final body = _uploadMultipartPartProtocol.serialize(
+      final body = _uploadMultipartPartProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i11.MissingParameterValueException,
@@ -305,7 +307,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
       );
     } on _i12.RequestTimeoutException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'RequestTimeoutException';
-      final body = _uploadMultipartPartProtocol.serialize(
+      final body = _uploadMultipartPartProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i12.RequestTimeoutException,
@@ -321,7 +323,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     } on _i13.ResourceNotFoundException catch (e) {
       context.response.headers['X-Amzn-Errortype'] =
           'ResourceNotFoundException';
-      final body = _uploadMultipartPartProtocol.serialize(
+      final body = _uploadMultipartPartProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i13.ResourceNotFoundException,
@@ -337,7 +339,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     } on _i14.ServiceUnavailableException catch (e) {
       context.response.headers['X-Amzn-Errortype'] =
           'ServiceUnavailableException';
-      final body = _uploadMultipartPartProtocol.serialize(
+      final body = _uploadMultipartPartProtocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i14.ServiceUnavailableException,

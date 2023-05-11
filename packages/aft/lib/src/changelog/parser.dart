@@ -33,7 +33,6 @@ class _ChangelogParser implements NodeVisitor {
           break;
         }
         _currentVersion = Version.parse(versionMatch);
-        break;
       default:
         break;
     }

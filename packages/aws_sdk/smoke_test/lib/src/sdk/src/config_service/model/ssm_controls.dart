@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.ssm_controls; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -90,23 +91,20 @@ class SsmControlsAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConcurrentExecutionRatePercentage':
-          if (value != null) {
-            result.concurrentExecutionRatePercentage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.concurrentExecutionRatePercentage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'ErrorPercentage':
-          if (value != null) {
-            result.errorPercentage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.errorPercentage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -116,27 +114,28 @@ class SsmControlsAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SsmControls object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SsmControls);
-    final result = <Object?>[];
-    if (payload.concurrentExecutionRatePercentage != null) {
-      result
+    final result$ = <Object?>[];
+    final SsmControls(:concurrentExecutionRatePercentage, :errorPercentage) =
+        object;
+    if (concurrentExecutionRatePercentage != null) {
+      result$
         ..add('ConcurrentExecutionRatePercentage')
         ..add(serializers.serialize(
-          payload.concurrentExecutionRatePercentage!,
+          concurrentExecutionRatePercentage,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.errorPercentage != null) {
-      result
+    if (errorPercentage != null) {
+      result$
         ..add('ErrorPercentage')
         ..add(serializers.serialize(
-          payload.errorPercentage!,
+          errorPercentage,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.access_log_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,12 +16,12 @@ abstract class AccessLogSettings
     implements Built<AccessLogSettings, AccessLogSettingsBuilder> {
   /// Access log settings, including the access log format and access log destination ARN.
   factory AccessLogSettings({
-    String? destinationArn,
     String? format,
+    String? destinationArn,
   }) {
     return _$AccessLogSettings._(
-      destinationArn: destinationArn,
       format: format,
+      destinationArn: destinationArn,
     );
   }
 
@@ -37,26 +38,26 @@ abstract class AccessLogSettings
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AccessLogSettingsBuilder b) {}
 
-  /// The Amazon Resource Name (ARN) of the CloudWatch Logs log group or Kinesis Data Firehose delivery stream to receive access logs. If you specify a Kinesis Data Firehose delivery stream, the stream name must begin with `amazon-apigateway-`.
-  String? get destinationArn;
-
   /// A single line format of the access logs of data, as specified by selected $context variables. The format must include at least `$context.requestId`.
   String? get format;
+
+  /// The Amazon Resource Name (ARN) of the CloudWatch Logs log group or Kinesis Data Firehose delivery stream to receive access logs. If you specify a Kinesis Data Firehose delivery stream, the stream name must begin with `amazon-apigateway-`.
+  String? get destinationArn;
   @override
   List<Object?> get props => [
-        destinationArn,
         format,
+        destinationArn,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AccessLogSettings');
     helper.add(
-      'destinationArn',
-      destinationArn,
-    );
-    helper.add(
       'format',
       format,
+    );
+    helper.add(
+      'destinationArn',
+      destinationArn,
     );
     return helper.toString();
   }
@@ -90,23 +91,20 @@ class AccessLogSettingsRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'destinationArn':
-          if (value != null) {
-            result.destinationArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.destinationArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'format':
-          if (value != null) {
-            result.format = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.format = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -116,27 +114,27 @@ class AccessLogSettingsRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AccessLogSettings object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AccessLogSettings);
-    final result = <Object?>[];
-    if (payload.destinationArn != null) {
-      result
+    final result$ = <Object?>[];
+    final AccessLogSettings(:destinationArn, :format) = object;
+    if (destinationArn != null) {
+      result$
         ..add('destinationArn')
         ..add(serializers.serialize(
-          payload.destinationArn!,
+          destinationArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.format != null) {
-      result
+    if (format != null) {
+      result$
         ..add('format')
         ..add(serializers.serialize(
-          payload.format!,
+          format,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

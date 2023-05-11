@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message_content; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -137,55 +138,40 @@ class InAppMessageContentRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BackgroundColor':
-          if (value != null) {
-            result.backgroundColor = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.backgroundColor = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'BodyConfig':
-          if (value != null) {
-            result.bodyConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.InAppMessageBodyConfig),
-            ) as _i2.InAppMessageBodyConfig));
-          }
-          break;
+          result.bodyConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.InAppMessageBodyConfig),
+          ) as _i2.InAppMessageBodyConfig));
         case 'HeaderConfig':
-          if (value != null) {
-            result.headerConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.InAppMessageHeaderConfig),
-            ) as _i3.InAppMessageHeaderConfig));
-          }
-          break;
+          result.headerConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.InAppMessageHeaderConfig),
+          ) as _i3.InAppMessageHeaderConfig));
         case 'ImageUrl':
-          if (value != null) {
-            result.imageUrl = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.imageUrl = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PrimaryBtn':
-          if (value != null) {
-            result.primaryBtn.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.InAppMessageButton),
-            ) as _i4.InAppMessageButton));
-          }
-          break;
+          result.primaryBtn.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.InAppMessageButton),
+          ) as _i4.InAppMessageButton));
         case 'SecondaryBtn':
-          if (value != null) {
-            result.secondaryBtn.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.InAppMessageButton),
-            ) as _i4.InAppMessageButton));
-          }
-          break;
+          result.secondaryBtn.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.InAppMessageButton),
+          ) as _i4.InAppMessageButton));
       }
     }
 
@@ -195,59 +181,66 @@ class InAppMessageContentRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InAppMessageContent object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InAppMessageContent);
-    final result = <Object?>[];
-    if (payload.backgroundColor != null) {
-      result
+    final result$ = <Object?>[];
+    final InAppMessageContent(
+      :backgroundColor,
+      :bodyConfig,
+      :headerConfig,
+      :imageUrl,
+      :primaryBtn,
+      :secondaryBtn
+    ) = object;
+    if (backgroundColor != null) {
+      result$
         ..add('BackgroundColor')
         ..add(serializers.serialize(
-          payload.backgroundColor!,
+          backgroundColor,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.bodyConfig != null) {
-      result
+    if (bodyConfig != null) {
+      result$
         ..add('BodyConfig')
         ..add(serializers.serialize(
-          payload.bodyConfig!,
+          bodyConfig,
           specifiedType: const FullType(_i2.InAppMessageBodyConfig),
         ));
     }
-    if (payload.headerConfig != null) {
-      result
+    if (headerConfig != null) {
+      result$
         ..add('HeaderConfig')
         ..add(serializers.serialize(
-          payload.headerConfig!,
+          headerConfig,
           specifiedType: const FullType(_i3.InAppMessageHeaderConfig),
         ));
     }
-    if (payload.imageUrl != null) {
-      result
+    if (imageUrl != null) {
+      result$
         ..add('ImageUrl')
         ..add(serializers.serialize(
-          payload.imageUrl!,
+          imageUrl,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.primaryBtn != null) {
-      result
+    if (primaryBtn != null) {
+      result$
         ..add('PrimaryBtn')
         ..add(serializers.serialize(
-          payload.primaryBtn!,
+          primaryBtn,
           specifiedType: const FullType(_i4.InAppMessageButton),
         ));
     }
-    if (payload.secondaryBtn != null) {
-      result
+    if (secondaryBtn != null) {
+      result$
         ..add('SecondaryBtn')
         ..add(serializers.serialize(
-          payload.secondaryBtn!,
+          secondaryBtn,
           specifiedType: const FullType(_i4.InAppMessageButton),
         ));
     }
-    return result;
+    return result$;
   }
 }

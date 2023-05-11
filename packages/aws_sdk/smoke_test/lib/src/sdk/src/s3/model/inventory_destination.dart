@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.inventory_destination; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -75,16 +76,18 @@ class InventoryDestinationRestXmlSerializer
     final result = InventoryDestinationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'S3BucketDestination':
           result.s3BucketDestination.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.InventoryS3BucketDestination),
           ) as _i2.InventoryS3BucketDestination));
-          break;
       }
     }
 
@@ -94,22 +97,22 @@ class InventoryDestinationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InventoryDestination object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InventoryDestination);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'InventoryDestination',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
+    final InventoryDestination(:s3BucketDestination) = object;
+    result$
       ..add(const _i3.XmlElementName('S3BucketDestination'))
       ..add(serializers.serialize(
-        payload.s3BucketDestination,
+        s3BucketDestination,
         specifiedType: const FullType(_i2.InventoryS3BucketDestination),
       ));
-    return result;
+    return result$;
   }
 }

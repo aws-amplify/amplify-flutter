@@ -14,22 +14,27 @@ void main() {
   AmplifyDataStore dataStore =
       AmplifyDataStore(modelProvider: ModelProvider.instance);
 
-  TestWidgetsFlutterBinding.ensureInitialized();
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
   tearDown(() {
-    dataStoreChannel.setMockMethodCallHandler(null);
+    binding.defaultBinaryMessenger
+        .setMockMethodCallHandler(dataStoreChannel, null);
   });
 
   test('Saving a model without predicate executes successfully', () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "save") {
-        expect(
-          methodCall.arguments,
-          await getJsonFromFile(
-              'save_api/request/instance_without_predicate.json'),
-        );
-      }
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        if (methodCall.method == "save") {
+          expect(
+            methodCall.arguments,
+            await getJsonFromFile(
+                'save_api/request/instance_without_predicate.json'),
+          );
+        }
+        return null;
+      },
+    );
     Post post = Post(
         id: '9fc5fab4-37ff-4566-97e5-19c5d58a4c22',
         title: 'New Post being saved',
@@ -41,13 +46,16 @@ void main() {
   test(
       'A PlatformException for malformed request results in the corresponding DataStoreError',
       () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      throw PlatformException(code: 'DataStoreException', details: {
-        'message': 'Save failed for whatever known reason',
-        'recoverySuggestion': 'some insightful suggestion',
-        'underlyingException': 'Act of God'
-      });
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async {
+        throw PlatformException(code: 'DataStoreException', details: {
+          'message': 'Save failed for whatever known reason',
+          'recoverySuggestion': 'some insightful suggestion',
+          'underlyingException': 'Act of God'
+        });
+      },
+    );
     expect(
         () => dataStore.save(Post(
             title: 'Test Post',

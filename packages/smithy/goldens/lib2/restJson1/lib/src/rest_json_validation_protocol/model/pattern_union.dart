@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_validation_protocol.model.pattern_union; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -6,25 +7,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
-/// The discrete values of [PatternUnion].
-enum PatternUnionType<T extends PatternUnion> {
-  /// The type for [PatternUnionFirst].
-  first<PatternUnionFirst>(r'first'),
-
-  /// The type for [PatternUnionSecond].
-  second<PatternUnionSecond>(r'second'),
-
-  /// The type for an unknown value.
-  sdkUnknown<PatternUnionSdkUnknown>('sdkUnknown');
-
-  /// The discrete values of [PatternUnion].
-  const PatternUnionType(this.value);
-
-  /// The Smithy value.
-  final String value;
-}
-
-abstract class PatternUnion extends _i1.SmithyUnion<PatternUnion> {
+sealed class PatternUnion extends _i1.SmithyUnion<PatternUnion> {
   const PatternUnion._();
 
   const factory PatternUnion.first(String first) = PatternUnionFirst;
@@ -42,31 +25,8 @@ abstract class PatternUnion extends _i1.SmithyUnion<PatternUnion> {
 
   String? get first => null;
   String? get second => null;
-  PatternUnionType get type;
   @override
   Object get value => (first ?? second)!;
-  @override
-  T? when<T>({
-    T Function(String)? first,
-    T Function(String)? second,
-    T Function(
-      String,
-      Object,
-    )?
-        sdkUnknown,
-  }) {
-    if (this is PatternUnionFirst) {
-      return first?.call((this as PatternUnionFirst).first);
-    }
-    if (this is PatternUnionSecond) {
-      return second?.call((this as PatternUnionSecond).second);
-    }
-    return sdkUnknown?.call(
-      name,
-      value,
-    );
-  }
-
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'PatternUnion');
@@ -86,31 +46,27 @@ abstract class PatternUnion extends _i1.SmithyUnion<PatternUnion> {
   }
 }
 
-class PatternUnionFirst extends PatternUnion {
+final class PatternUnionFirst extends PatternUnion {
   const PatternUnionFirst(this.first) : super._();
 
   @override
   final String first;
 
   @override
-  PatternUnionType get type => PatternUnionType.first;
-  @override
   String get name => 'first';
 }
 
-class PatternUnionSecond extends PatternUnion {
+final class PatternUnionSecond extends PatternUnion {
   const PatternUnionSecond(this.second) : super._();
 
   @override
   final String second;
 
   @override
-  PatternUnionType get type => PatternUnionType.second;
-  @override
   String get name => 'second';
 }
 
-class PatternUnionSdkUnknown extends PatternUnion {
+final class PatternUnionSdkUnknown extends PatternUnion {
   const PatternUnionSdkUnknown(
     this.name,
     this.value,
@@ -121,9 +77,6 @@ class PatternUnionSdkUnknown extends PatternUnion {
 
   @override
   final Object value;
-
-  @override
-  PatternUnionType get type => PatternUnionType.sdkUnknown;
 }
 
 class PatternUnionRestJson1Serializer
@@ -149,11 +102,7 @@ class PatternUnionRestJson1Serializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final iterator = serialized.iterator;
-    iterator.moveNext();
-    final key = iterator.current as String;
-    iterator.moveNext();
-    final value = iterator.current as Object;
+    final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'first':
         return PatternUnionFirst((serializers.deserialize(
@@ -175,27 +124,22 @@ class PatternUnionRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PatternUnion object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    (object as PatternUnion);
     return [
       object.name,
-      object.when<Object?>(
-        first: (String first) => serializers.serialize(
-          first,
-          specifiedType: const FullType(String),
-        ),
-        second: (String second) => serializers.serialize(
-          second,
-          specifiedType: const FullType(String),
-        ),
-        sdkUnknown: (
-          String _,
-          Object sdkUnknown,
-        ) =>
-            sdkUnknown,
-      )!,
+      switch (object) {
+        PatternUnionFirst(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        PatternUnionSecond(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        PatternUnionSdkUnknown(:final value) => value,
+      },
     ];
   }
 }

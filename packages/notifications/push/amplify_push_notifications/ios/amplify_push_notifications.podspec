@@ -17,7 +17,6 @@ The iOS native module for amplify_push_notifications.
   s.platform         = :ios, '13.0'
 
   s.dependency 'Flutter'
-  s.dependency 'amplify_flutter_ios'
   s.dependency 'AmplifyUtilsNotifications'
 
   # Flutter.framework does not contain a i386 slice.

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_config_rule_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -104,24 +105,23 @@ class PutConfigRuleRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRule':
           result.configRule.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.ConfigRule),
           ) as _i3.ConfigRule));
-          break;
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.Tag)],
-              ),
-            ) as _i5.BuiltList<_i4.Tag>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.Tag)],
+            ),
+          ) as _i5.BuiltList<_i4.Tag>));
       }
     }
 
@@ -131,28 +131,29 @@ class PutConfigRuleRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutConfigRuleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutConfigRuleRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutConfigRuleRequest(:configRule, :tags) = object;
+    result$.addAll([
       'ConfigRule',
       serializers.serialize(
-        payload.configRule,
+        configRule,
         specifiedType: const FullType(_i3.ConfigRule),
       ),
-    ];
-    if (payload.tags != null) {
-      result
+    ]);
+    if (tags != null) {
+      result$
         ..add('Tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i4.Tag)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

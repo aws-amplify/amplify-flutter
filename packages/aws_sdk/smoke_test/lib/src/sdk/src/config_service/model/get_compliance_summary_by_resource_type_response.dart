@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_compliance_summary_by_resource_type_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -94,19 +95,19 @@ class GetComplianceSummaryByResourceTypeResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ComplianceSummariesByResourceType':
-          if (value != null) {
-            result.complianceSummariesByResourceType
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ComplianceSummaryByResourceType)],
-              ),
-            ) as _i3.BuiltList<_i2.ComplianceSummaryByResourceType>));
-          }
-          break;
+          result.complianceSummariesByResourceType
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ComplianceSummaryByResourceType)],
+            ),
+          ) as _i3.BuiltList<_i2.ComplianceSummaryByResourceType>));
       }
     }
 
@@ -116,22 +117,24 @@ class GetComplianceSummaryByResourceTypeResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetComplianceSummaryByResourceTypeResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetComplianceSummaryByResourceTypeResponse);
-    final result = <Object?>[];
-    if (payload.complianceSummariesByResourceType != null) {
-      result
+    final result$ = <Object?>[];
+    final GetComplianceSummaryByResourceTypeResponse(
+      :complianceSummariesByResourceType
+    ) = object;
+    if (complianceSummariesByResourceType != null) {
+      result$
         ..add('ComplianceSummariesByResourceType')
         ..add(serializers.serialize(
-          payload.complianceSummariesByResourceType!,
+          complianceSummariesByResourceType,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ComplianceSummaryByResourceType)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

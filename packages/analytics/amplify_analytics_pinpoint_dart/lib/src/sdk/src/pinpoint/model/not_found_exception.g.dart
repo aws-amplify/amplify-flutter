@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_analytics_pinpoint_dart.pinpoint.model.not_found_exception;
+part of 'not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

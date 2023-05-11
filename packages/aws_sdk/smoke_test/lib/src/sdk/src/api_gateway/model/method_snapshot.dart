@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.method_snapshot; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,12 +16,12 @@ abstract class MethodSnapshot
     implements Built<MethodSnapshot, MethodSnapshotBuilder> {
   /// Represents a summary of a Method resource, given a particular date and time.
   factory MethodSnapshot({
-    bool? apiKeyRequired,
     String? authorizationType,
+    bool? apiKeyRequired,
   }) {
     return _$MethodSnapshot._(
-      apiKeyRequired: apiKeyRequired,
       authorizationType: authorizationType,
+      apiKeyRequired: apiKeyRequired,
     );
   }
 
@@ -37,26 +38,26 @@ abstract class MethodSnapshot
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MethodSnapshotBuilder b) {}
 
-  /// Specifies whether the method requires a valid ApiKey.
-  bool? get apiKeyRequired;
-
   /// The method's authorization type. Valid values are `NONE` for open access, `AWS_IAM` for using AWS IAM permissions, `CUSTOM` for using a custom authorizer, or `COGNITO\_USER\_POOLS` for using a Cognito user pool.
   String? get authorizationType;
+
+  /// Specifies whether the method requires a valid ApiKey.
+  bool? get apiKeyRequired;
   @override
   List<Object?> get props => [
-        apiKeyRequired,
         authorizationType,
+        apiKeyRequired,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MethodSnapshot');
     helper.add(
-      'apiKeyRequired',
-      apiKeyRequired,
-    );
-    helper.add(
       'authorizationType',
       authorizationType,
+    );
+    helper.add(
+      'apiKeyRequired',
+      apiKeyRequired,
     );
     return helper.toString();
   }
@@ -90,23 +91,20 @@ class MethodSnapshotRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'apiKeyRequired':
-          if (value != null) {
-            result.apiKeyRequired = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.apiKeyRequired = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'authorizationType':
-          if (value != null) {
-            result.authorizationType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.authorizationType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -116,27 +114,27 @@ class MethodSnapshotRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MethodSnapshot object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MethodSnapshot);
-    final result = <Object?>[];
-    if (payload.apiKeyRequired != null) {
-      result
+    final result$ = <Object?>[];
+    final MethodSnapshot(:apiKeyRequired, :authorizationType) = object;
+    if (apiKeyRequired != null) {
+      result$
         ..add('apiKeyRequired')
         ..add(serializers.serialize(
-          payload.apiKeyRequired!,
+          apiKeyRequired,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.authorizationType != null) {
-      result
+    if (authorizationType != null) {
+      result$
         ..add('authorizationType')
         ..add(serializers.serialize(
-          payload.authorizationType!,
+          authorizationType,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

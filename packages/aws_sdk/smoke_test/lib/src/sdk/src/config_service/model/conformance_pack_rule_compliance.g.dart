@@ -8,9 +8,9 @@ part of smoke_test.config_service.model.conformance_pack_rule_compliance;
 
 class _$ConformancePackRuleCompliance extends ConformancePackRuleCompliance {
   @override
-  final _i2.ConformancePackComplianceType? complianceType;
-  @override
   final String? configRuleName;
+  @override
+  final _i2.ConformancePackComplianceType? complianceType;
   @override
   final _i3.BuiltList<String>? controls;
 
@@ -19,7 +19,7 @@ class _$ConformancePackRuleCompliance extends ConformancePackRuleCompliance {
       (new ConformancePackRuleComplianceBuilder()..update(updates))._build();
 
   _$ConformancePackRuleCompliance._(
-      {this.complianceType, this.configRuleName, this.controls})
+      {this.configRuleName, this.complianceType, this.controls})
       : super._();
 
   @override
@@ -35,16 +35,16 @@ class _$ConformancePackRuleCompliance extends ConformancePackRuleCompliance {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ConformancePackRuleCompliance &&
-        complianceType == other.complianceType &&
         configRuleName == other.configRuleName &&
+        complianceType == other.complianceType &&
         controls == other.controls;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, complianceType.hashCode);
     _$hash = $jc(_$hash, configRuleName.hashCode);
+    _$hash = $jc(_$hash, complianceType.hashCode);
     _$hash = $jc(_$hash, controls.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -57,16 +57,16 @@ class ConformancePackRuleComplianceBuilder
             ConformancePackRuleComplianceBuilder> {
   _$ConformancePackRuleCompliance? _$v;
 
+  String? _configRuleName;
+  String? get configRuleName => _$this._configRuleName;
+  set configRuleName(String? configRuleName) =>
+      _$this._configRuleName = configRuleName;
+
   _i2.ConformancePackComplianceType? _complianceType;
   _i2.ConformancePackComplianceType? get complianceType =>
       _$this._complianceType;
   set complianceType(_i2.ConformancePackComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
-
-  String? _configRuleName;
-  String? get configRuleName => _$this._configRuleName;
-  set configRuleName(String? configRuleName) =>
-      _$this._configRuleName = configRuleName;
 
   _i3.ListBuilder<String>? _controls;
   _i3.ListBuilder<String> get controls =>
@@ -81,8 +81,8 @@ class ConformancePackRuleComplianceBuilder
   ConformancePackRuleComplianceBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _complianceType = $v.complianceType;
       _configRuleName = $v.configRuleName;
+      _complianceType = $v.complianceType;
       _controls = $v.controls?.toBuilder();
       _$v = null;
     }
@@ -108,8 +108,8 @@ class ConformancePackRuleComplianceBuilder
     try {
       _$result = _$v ??
           new _$ConformancePackRuleCompliance._(
-              complianceType: complianceType,
               configRuleName: configRuleName,
+              complianceType: complianceType,
               controls: _controls?.build());
     } catch (_) {
       late String _$failedField;

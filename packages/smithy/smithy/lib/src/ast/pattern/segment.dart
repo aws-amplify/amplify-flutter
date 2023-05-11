@@ -19,21 +19,6 @@ class Segment with AWSEquatable<Segment> {
     _checkForInvalidContents();
   }
 
-  void _checkForInvalidContents() {
-    if (type == SegmentType.literal) {
-      if (content.isEmpty) {
-        throw InvalidPatternError('Segments must not be empty');
-      } else if (content.contains('{') || content.contains('}')) {
-        throw InvalidPatternError(
-          'Literal segments must not contain `{` or `}` characters. '
-          'Found segment `$content`',
-        );
-      }
-    } else if (content.isEmpty) {
-      throw InvalidPatternError('Empty label declaration in pattern.');
-    }
-  }
-
   factory Segment.parse(String content) {
     if (content.length >= 2 &&
         content[0] == '{' &&
@@ -53,6 +38,21 @@ class Segment with AWSEquatable<Segment> {
   factory Segment.fromJson(Map<String, Object?> json) =>
       _$SegmentFromJson(json);
 
+  void _checkForInvalidContents() {
+    if (type == SegmentType.literal) {
+      if (content.isEmpty) {
+        throw InvalidPatternError('Segments must not be empty');
+      } else if (content.contains('{') || content.contains('}')) {
+        throw InvalidPatternError(
+          'Literal segments must not contain `{` or `}` characters. '
+          'Found segment `$content`',
+        );
+      }
+    } else if (content.isEmpty) {
+      throw InvalidPatternError('Empty label declaration in pattern.');
+    }
+  }
+
   final String content;
 
   @JsonKey(name: 'segmentType')
@@ -61,16 +61,11 @@ class Segment with AWSEquatable<Segment> {
   @override
   List<Object> get props => [content, type];
 
-  String get asString {
-    switch (type) {
-      case SegmentType.literal:
-        return content;
-      case SegmentType.label:
-        return '{$content}';
-      case SegmentType.greedyLabel:
-        return '{$content+}';
-    }
-  }
+  String get asString => switch (type) {
+        SegmentType.literal => content,
+        SegmentType.label => '{$content}',
+        SegmentType.greedyLabel => '{$content+}',
+      };
 
   bool get isLabel => type != SegmentType.literal;
 

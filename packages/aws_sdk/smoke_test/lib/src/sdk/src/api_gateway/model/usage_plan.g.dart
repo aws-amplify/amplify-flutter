@@ -8,34 +8,34 @@ part of smoke_test.api_gateway.model.usage_plan;
 
 class _$UsagePlan extends UsagePlan {
   @override
-  final _i5.BuiltList<_i2.ApiStage>? apiStages;
-  @override
-  final String? description;
-  @override
   final String? id;
   @override
   final String? name;
   @override
+  final String? description;
+  @override
+  final _i5.BuiltList<_i2.ApiStage>? apiStages;
+  @override
+  final _i3.ThrottleSettings? throttle;
+  @override
+  final _i4.QuotaSettings? quota;
+  @override
   final String? productCode;
   @override
-  final _i3.QuotaSettings? quota;
-  @override
   final _i5.BuiltMap<String, String>? tags;
-  @override
-  final _i4.ThrottleSettings? throttle;
 
   factory _$UsagePlan([void Function(UsagePlanBuilder)? updates]) =>
       (new UsagePlanBuilder()..update(updates))._build();
 
   _$UsagePlan._(
-      {this.apiStages,
-      this.description,
-      this.id,
+      {this.id,
       this.name,
-      this.productCode,
+      this.description,
+      this.apiStages,
+      this.throttle,
       this.quota,
-      this.tags,
-      this.throttle})
+      this.productCode,
+      this.tags})
       : super._();
 
   @override
@@ -49,27 +49,27 @@ class _$UsagePlan extends UsagePlan {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UsagePlan &&
-        apiStages == other.apiStages &&
-        description == other.description &&
         id == other.id &&
         name == other.name &&
-        productCode == other.productCode &&
+        description == other.description &&
+        apiStages == other.apiStages &&
+        throttle == other.throttle &&
         quota == other.quota &&
-        tags == other.tags &&
-        throttle == other.throttle;
+        productCode == other.productCode &&
+        tags == other.tags;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, apiStages.hashCode);
-    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, productCode.hashCode);
-    _$hash = $jc(_$hash, quota.hashCode);
-    _$hash = $jc(_$hash, tags.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, apiStages.hashCode);
     _$hash = $jc(_$hash, throttle.hashCode);
+    _$hash = $jc(_$hash, quota.hashCode);
+    _$hash = $jc(_$hash, productCode.hashCode);
+    _$hash = $jc(_$hash, tags.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -77,16 +77,6 @@ class _$UsagePlan extends UsagePlan {
 
 class UsagePlanBuilder implements Builder<UsagePlan, UsagePlanBuilder> {
   _$UsagePlan? _$v;
-
-  _i5.ListBuilder<_i2.ApiStage>? _apiStages;
-  _i5.ListBuilder<_i2.ApiStage> get apiStages =>
-      _$this._apiStages ??= new _i5.ListBuilder<_i2.ApiStage>();
-  set apiStages(_i5.ListBuilder<_i2.ApiStage>? apiStages) =>
-      _$this._apiStages = apiStages;
-
-  String? _description;
-  String? get description => _$this._description;
-  set description(String? description) => _$this._description = description;
 
   String? _id;
   String? get id => _$this._id;
@@ -96,25 +86,35 @@ class UsagePlanBuilder implements Builder<UsagePlan, UsagePlanBuilder> {
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
+
+  _i5.ListBuilder<_i2.ApiStage>? _apiStages;
+  _i5.ListBuilder<_i2.ApiStage> get apiStages =>
+      _$this._apiStages ??= new _i5.ListBuilder<_i2.ApiStage>();
+  set apiStages(_i5.ListBuilder<_i2.ApiStage>? apiStages) =>
+      _$this._apiStages = apiStages;
+
+  _i3.ThrottleSettingsBuilder? _throttle;
+  _i3.ThrottleSettingsBuilder get throttle =>
+      _$this._throttle ??= new _i3.ThrottleSettingsBuilder();
+  set throttle(_i3.ThrottleSettingsBuilder? throttle) =>
+      _$this._throttle = throttle;
+
+  _i4.QuotaSettingsBuilder? _quota;
+  _i4.QuotaSettingsBuilder get quota =>
+      _$this._quota ??= new _i4.QuotaSettingsBuilder();
+  set quota(_i4.QuotaSettingsBuilder? quota) => _$this._quota = quota;
+
   String? _productCode;
   String? get productCode => _$this._productCode;
   set productCode(String? productCode) => _$this._productCode = productCode;
-
-  _i3.QuotaSettingsBuilder? _quota;
-  _i3.QuotaSettingsBuilder get quota =>
-      _$this._quota ??= new _i3.QuotaSettingsBuilder();
-  set quota(_i3.QuotaSettingsBuilder? quota) => _$this._quota = quota;
 
   _i5.MapBuilder<String, String>? _tags;
   _i5.MapBuilder<String, String> get tags =>
       _$this._tags ??= new _i5.MapBuilder<String, String>();
   set tags(_i5.MapBuilder<String, String>? tags) => _$this._tags = tags;
-
-  _i4.ThrottleSettingsBuilder? _throttle;
-  _i4.ThrottleSettingsBuilder get throttle =>
-      _$this._throttle ??= new _i4.ThrottleSettingsBuilder();
-  set throttle(_i4.ThrottleSettingsBuilder? throttle) =>
-      _$this._throttle = throttle;
 
   UsagePlanBuilder() {
     UsagePlan._init(this);
@@ -123,14 +123,14 @@ class UsagePlanBuilder implements Builder<UsagePlan, UsagePlanBuilder> {
   UsagePlanBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _apiStages = $v.apiStages?.toBuilder();
-      _description = $v.description;
       _id = $v.id;
       _name = $v.name;
-      _productCode = $v.productCode;
-      _quota = $v.quota?.toBuilder();
-      _tags = $v.tags?.toBuilder();
+      _description = $v.description;
+      _apiStages = $v.apiStages?.toBuilder();
       _throttle = $v.throttle?.toBuilder();
+      _quota = $v.quota?.toBuilder();
+      _productCode = $v.productCode;
+      _tags = $v.tags?.toBuilder();
       _$v = null;
     }
     return this;
@@ -155,26 +155,26 @@ class UsagePlanBuilder implements Builder<UsagePlan, UsagePlanBuilder> {
     try {
       _$result = _$v ??
           new _$UsagePlan._(
-              apiStages: _apiStages?.build(),
-              description: description,
               id: id,
               name: name,
-              productCode: productCode,
+              description: description,
+              apiStages: _apiStages?.build(),
+              throttle: _throttle?.build(),
               quota: _quota?.build(),
-              tags: _tags?.build(),
-              throttle: _throttle?.build());
+              productCode: productCode,
+              tags: _tags?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'apiStages';
         _apiStages?.build();
-
-        _$failedField = 'quota';
-        _quota?.build();
-        _$failedField = 'tags';
-        _tags?.build();
         _$failedField = 'throttle';
         _throttle?.build();
+        _$failedField = 'quota';
+        _quota?.build();
+
+        _$failedField = 'tags';
+        _tags?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'UsagePlan', _$failedField, e.toString());

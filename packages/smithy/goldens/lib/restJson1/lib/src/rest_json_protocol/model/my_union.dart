@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_protocol.model.my_union; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,60 +11,24 @@ import 'package:built_value/serializer.dart';
 import 'package:rest_json1_v1/src/rest_json_protocol/model/foo_enum.dart'
     as _i3;
 import 'package:rest_json1_v1/src/rest_json_protocol/model/greeting_struct.dart'
-    as _i5;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/renamed_greeting.dart'
     as _i4;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/renamed_greeting.dart'
+    as _i5;
 import 'package:smithy/smithy.dart' as _i1;
 
-/// The discrete values of [MyUnion].
-enum MyUnionType<T extends MyUnion> {
-  /// The type for [MyUnionBlobValue].
-  blobValue<MyUnionBlobValue>(r'blobValue'),
-
-  /// The type for [MyUnionBooleanValue].
-  booleanValue<MyUnionBooleanValue>(r'booleanValue'),
-
-  /// The type for [MyUnionEnumValue].
-  enumValue<MyUnionEnumValue>(r'enumValue'),
-
-  /// The type for [MyUnionListValue].
-  listValue<MyUnionListValue>(r'listValue'),
-
-  /// The type for [MyUnionMapValue].
-  mapValue<MyUnionMapValue>(r'mapValue'),
-
-  /// The type for [MyUnionNumberValue].
-  numberValue<MyUnionNumberValue>(r'numberValue'),
-
-  /// The type for [MyUnionRenamedStructureValue].
-  renamedStructureValue<MyUnionRenamedStructureValue>(r'renamedStructureValue'),
-
-  /// The type for [MyUnionStringValue].
-  stringValue<MyUnionStringValue>(r'stringValue'),
-
-  /// The type for [MyUnionStructureValue].
-  structureValue<MyUnionStructureValue>(r'structureValue'),
-
-  /// The type for [MyUnionTimestampValue].
-  timestampValue<MyUnionTimestampValue>(r'timestampValue'),
-
-  /// The type for an unknown value.
-  sdkUnknown<MyUnionSdkUnknown>('sdkUnknown');
-
-  /// The discrete values of [MyUnion].
-  const MyUnionType(this.value);
-
-  /// The Smithy value.
-  final String value;
-}
-
-/// A union with a representative set of types for members.
-abstract class MyUnion extends _i1.SmithyUnion<MyUnion> {
+sealed class MyUnion extends _i1.SmithyUnion<MyUnion> {
   const MyUnion._();
+
+  const factory MyUnion.stringValue(String stringValue) = MyUnionStringValue;
+
+  const factory MyUnion.booleanValue(bool booleanValue) = MyUnionBooleanValue;
+
+  const factory MyUnion.numberValue(int numberValue) = MyUnionNumberValue;
 
   const factory MyUnion.blobValue(_i2.Uint8List blobValue) = MyUnionBlobValue;
 
-  const factory MyUnion.booleanValue(bool booleanValue) = MyUnionBooleanValue;
+  const factory MyUnion.timestampValue(DateTime timestampValue) =
+      MyUnionTimestampValue;
 
   const factory MyUnion.enumValue(_i3.FooEnum enumValue) = MyUnionEnumValue;
 
@@ -71,18 +36,11 @@ abstract class MyUnion extends _i1.SmithyUnion<MyUnion> {
 
   factory MyUnion.mapValue(Map<String, String> mapValue) = MyUnionMapValue;
 
-  const factory MyUnion.numberValue(int numberValue) = MyUnionNumberValue;
-
-  const factory MyUnion.renamedStructureValue(
-      _i4.RenamedGreeting renamedStructureValue) = MyUnionRenamedStructureValue;
-
-  const factory MyUnion.stringValue(String stringValue) = MyUnionStringValue;
-
-  const factory MyUnion.structureValue(_i5.GreetingStruct structureValue) =
+  const factory MyUnion.structureValue(_i4.GreetingStruct structureValue) =
       MyUnionStructureValue;
 
-  const factory MyUnion.timestampValue(DateTime timestampValue) =
-      MyUnionTimestampValue;
+  const factory MyUnion.renamedStructureValue(
+      _i5.RenamedGreeting renamedStructureValue) = MyUnionRenamedStructureValue;
 
   const factory MyUnion.sdkUnknown(
     String name,
@@ -93,98 +51,58 @@ abstract class MyUnion extends _i1.SmithyUnion<MyUnion> {
     MyUnionRestJson1Serializer()
   ];
 
-  _i2.Uint8List? get blobValue => null;
+  String? get stringValue => null;
   bool? get booleanValue => null;
+  int? get numberValue => null;
+  _i2.Uint8List? get blobValue => null;
+  DateTime? get timestampValue => null;
   _i3.FooEnum? get enumValue => null;
   _i6.BuiltList<String>? get listValue => null;
   _i6.BuiltMap<String, String>? get mapValue => null;
-  int? get numberValue => null;
-  _i4.RenamedGreeting? get renamedStructureValue => null;
-  String? get stringValue => null;
-  _i5.GreetingStruct? get structureValue => null;
-  DateTime? get timestampValue => null;
-  MyUnionType get type;
+  _i4.GreetingStruct? get structureValue => null;
+  _i5.RenamedGreeting? get renamedStructureValue => null;
   @override
-  Object get value => (blobValue ??
+  Object get value => (stringValue ??
       booleanValue ??
+      numberValue ??
+      blobValue ??
+      timestampValue ??
       enumValue ??
       listValue ??
       mapValue ??
-      numberValue ??
-      renamedStructureValue ??
-      stringValue ??
       structureValue ??
-      timestampValue)!;
-  @override
-  T? when<T>({
-    T Function(_i2.Uint8List)? blobValue,
-    T Function(bool)? booleanValue,
-    T Function(_i3.FooEnum)? enumValue,
-    T Function(_i6.BuiltList<String>)? listValue,
-    T Function(_i6.BuiltMap<String, String>)? mapValue,
-    T Function(int)? numberValue,
-    T Function(_i4.RenamedGreeting)? renamedStructureValue,
-    T Function(String)? stringValue,
-    T Function(_i5.GreetingStruct)? structureValue,
-    T Function(DateTime)? timestampValue,
-    T Function(
-      String,
-      Object,
-    )?
-        sdkUnknown,
-  }) {
-    if (this is MyUnionBlobValue) {
-      return blobValue?.call((this as MyUnionBlobValue).blobValue);
-    }
-    if (this is MyUnionBooleanValue) {
-      return booleanValue?.call((this as MyUnionBooleanValue).booleanValue);
-    }
-    if (this is MyUnionEnumValue) {
-      return enumValue?.call((this as MyUnionEnumValue).enumValue);
-    }
-    if (this is MyUnionListValue) {
-      return listValue?.call((this as MyUnionListValue).listValue);
-    }
-    if (this is MyUnionMapValue) {
-      return mapValue?.call((this as MyUnionMapValue).mapValue);
-    }
-    if (this is MyUnionNumberValue) {
-      return numberValue?.call((this as MyUnionNumberValue).numberValue);
-    }
-    if (this is MyUnionRenamedStructureValue) {
-      return renamedStructureValue
-          ?.call((this as MyUnionRenamedStructureValue).renamedStructureValue);
-    }
-    if (this is MyUnionStringValue) {
-      return stringValue?.call((this as MyUnionStringValue).stringValue);
-    }
-    if (this is MyUnionStructureValue) {
-      return structureValue
-          ?.call((this as MyUnionStructureValue).structureValue);
-    }
-    if (this is MyUnionTimestampValue) {
-      return timestampValue
-          ?.call((this as MyUnionTimestampValue).timestampValue);
-    }
-    return sdkUnknown?.call(
-      name,
-      value,
-    );
-  }
-
+      renamedStructureValue)!;
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'MyUnion');
-    if (blobValue != null) {
+    if (stringValue != null) {
       helper.add(
-        r'blobValue',
-        blobValue,
+        r'stringValue',
+        stringValue,
       );
     }
     if (booleanValue != null) {
       helper.add(
         r'booleanValue',
         booleanValue,
+      );
+    }
+    if (numberValue != null) {
+      helper.add(
+        r'numberValue',
+        numberValue,
+      );
+    }
+    if (blobValue != null) {
+      helper.add(
+        r'blobValue',
+        blobValue,
+      );
+    }
+    if (timestampValue != null) {
+      helper.add(
+        r'timestampValue',
+        timestampValue,
       );
     }
     if (enumValue != null) {
@@ -205,10 +123,10 @@ abstract class MyUnion extends _i1.SmithyUnion<MyUnion> {
         mapValue,
       );
     }
-    if (numberValue != null) {
+    if (structureValue != null) {
       helper.add(
-        r'numberValue',
-        numberValue,
+        r'structureValue',
+        structureValue,
       );
     }
     if (renamedStructureValue != null) {
@@ -217,65 +135,71 @@ abstract class MyUnion extends _i1.SmithyUnion<MyUnion> {
         renamedStructureValue,
       );
     }
-    if (stringValue != null) {
-      helper.add(
-        r'stringValue',
-        stringValue,
-      );
-    }
-    if (structureValue != null) {
-      helper.add(
-        r'structureValue',
-        structureValue,
-      );
-    }
-    if (timestampValue != null) {
-      helper.add(
-        r'timestampValue',
-        timestampValue,
-      );
-    }
     return helper.toString();
   }
 }
 
-class MyUnionBlobValue extends MyUnion {
-  const MyUnionBlobValue(this.blobValue) : super._();
+final class MyUnionStringValue extends MyUnion {
+  const MyUnionStringValue(this.stringValue) : super._();
 
   @override
-  final _i2.Uint8List blobValue;
+  final String stringValue;
 
   @override
-  MyUnionType get type => MyUnionType.blobValue;
-  @override
-  String get name => 'blobValue';
+  String get name => 'stringValue';
 }
 
-class MyUnionBooleanValue extends MyUnion {
+final class MyUnionBooleanValue extends MyUnion {
   const MyUnionBooleanValue(this.booleanValue) : super._();
 
   @override
   final bool booleanValue;
 
   @override
-  MyUnionType get type => MyUnionType.booleanValue;
-  @override
   String get name => 'booleanValue';
 }
 
-class MyUnionEnumValue extends MyUnion {
+final class MyUnionNumberValue extends MyUnion {
+  const MyUnionNumberValue(this.numberValue) : super._();
+
+  @override
+  final int numberValue;
+
+  @override
+  String get name => 'numberValue';
+}
+
+final class MyUnionBlobValue extends MyUnion {
+  const MyUnionBlobValue(this.blobValue) : super._();
+
+  @override
+  final _i2.Uint8List blobValue;
+
+  @override
+  String get name => 'blobValue';
+}
+
+final class MyUnionTimestampValue extends MyUnion {
+  const MyUnionTimestampValue(this.timestampValue) : super._();
+
+  @override
+  final DateTime timestampValue;
+
+  @override
+  String get name => 'timestampValue';
+}
+
+final class MyUnionEnumValue extends MyUnion {
   const MyUnionEnumValue(this.enumValue) : super._();
 
   @override
   final _i3.FooEnum enumValue;
 
   @override
-  MyUnionType get type => MyUnionType.enumValue;
-  @override
   String get name => 'enumValue';
 }
 
-class MyUnionListValue extends MyUnion {
+final class MyUnionListValue extends MyUnion {
   MyUnionListValue(List<String> listValue) : this._(_i6.BuiltList(listValue));
 
   const MyUnionListValue._(this.listValue) : super._();
@@ -284,12 +208,10 @@ class MyUnionListValue extends MyUnion {
   final _i6.BuiltList<String> listValue;
 
   @override
-  MyUnionType get type => MyUnionType.listValue;
-  @override
   String get name => 'listValue';
 }
 
-class MyUnionMapValue extends MyUnion {
+final class MyUnionMapValue extends MyUnion {
   MyUnionMapValue(Map<String, String> mapValue)
       : this._(_i6.BuiltMap(mapValue));
 
@@ -299,72 +221,30 @@ class MyUnionMapValue extends MyUnion {
   final _i6.BuiltMap<String, String> mapValue;
 
   @override
-  MyUnionType get type => MyUnionType.mapValue;
-  @override
   String get name => 'mapValue';
 }
 
-class MyUnionNumberValue extends MyUnion {
-  const MyUnionNumberValue(this.numberValue) : super._();
-
-  @override
-  final int numberValue;
-
-  @override
-  MyUnionType get type => MyUnionType.numberValue;
-  @override
-  String get name => 'numberValue';
-}
-
-class MyUnionRenamedStructureValue extends MyUnion {
-  const MyUnionRenamedStructureValue(this.renamedStructureValue) : super._();
-
-  @override
-  final _i4.RenamedGreeting renamedStructureValue;
-
-  @override
-  MyUnionType get type => MyUnionType.renamedStructureValue;
-  @override
-  String get name => 'renamedStructureValue';
-}
-
-class MyUnionStringValue extends MyUnion {
-  const MyUnionStringValue(this.stringValue) : super._();
-
-  @override
-  final String stringValue;
-
-  @override
-  MyUnionType get type => MyUnionType.stringValue;
-  @override
-  String get name => 'stringValue';
-}
-
-class MyUnionStructureValue extends MyUnion {
+final class MyUnionStructureValue extends MyUnion {
   const MyUnionStructureValue(this.structureValue) : super._();
 
   @override
-  final _i5.GreetingStruct structureValue;
+  final _i4.GreetingStruct structureValue;
 
-  @override
-  MyUnionType get type => MyUnionType.structureValue;
   @override
   String get name => 'structureValue';
 }
 
-class MyUnionTimestampValue extends MyUnion {
-  const MyUnionTimestampValue(this.timestampValue) : super._();
+final class MyUnionRenamedStructureValue extends MyUnion {
+  const MyUnionRenamedStructureValue(this.renamedStructureValue) : super._();
 
   @override
-  final DateTime timestampValue;
+  final _i5.RenamedGreeting renamedStructureValue;
 
   @override
-  MyUnionType get type => MyUnionType.timestampValue;
-  @override
-  String get name => 'timestampValue';
+  String get name => 'renamedStructureValue';
 }
 
-class MyUnionSdkUnknown extends MyUnion {
+final class MyUnionSdkUnknown extends MyUnion {
   const MyUnionSdkUnknown(
     this.name,
     this.value,
@@ -375,9 +255,6 @@ class MyUnionSdkUnknown extends MyUnion {
 
   @override
   final Object value;
-
-  @override
-  MyUnionType get type => MyUnionType.sdkUnknown;
 }
 
 class MyUnionRestJson1Serializer
@@ -387,16 +264,16 @@ class MyUnionRestJson1Serializer
   @override
   Iterable<Type> get types => const [
         MyUnion,
-        MyUnionBlobValue,
+        MyUnionStringValue,
         MyUnionBooleanValue,
+        MyUnionNumberValue,
+        MyUnionBlobValue,
+        MyUnionTimestampValue,
         MyUnionEnumValue,
         MyUnionListValue,
         MyUnionMapValue,
-        MyUnionNumberValue,
-        MyUnionRenamedStructureValue,
-        MyUnionStringValue,
         MyUnionStructureValue,
-        MyUnionTimestampValue,
+        MyUnionRenamedStructureValue,
       ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
@@ -411,22 +288,33 @@ class MyUnionRestJson1Serializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final iterator = serialized.iterator;
-    iterator.moveNext();
-    final key = iterator.current as String;
-    iterator.moveNext();
-    final value = iterator.current as Object;
+    final [key as String, value as Object] = serialized.toList();
     switch (key) {
-      case 'blobValue':
-        return MyUnionBlobValue((serializers.deserialize(
+      case 'stringValue':
+        return MyUnionStringValue((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i2.Uint8List),
-        ) as _i2.Uint8List));
+          specifiedType: const FullType(String),
+        ) as String));
       case 'booleanValue':
         return MyUnionBooleanValue((serializers.deserialize(
           value,
           specifiedType: const FullType(bool),
         ) as bool));
+      case 'numberValue':
+        return MyUnionNumberValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(int),
+        ) as int));
+      case 'blobValue':
+        return MyUnionBlobValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(_i2.Uint8List),
+        ) as _i2.Uint8List));
+      case 'timestampValue':
+        return MyUnionTimestampValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(DateTime),
+        ) as DateTime));
       case 'enumValue':
         return MyUnionEnumValue((serializers.deserialize(
           value,
@@ -451,31 +339,16 @@ class MyUnionRestJson1Serializer
             ],
           ),
         ) as _i6.BuiltMap<String, String>));
-      case 'numberValue':
-        return MyUnionNumberValue((serializers.deserialize(
-          value,
-          specifiedType: const FullType(int),
-        ) as int));
-      case 'renamedStructureValue':
-        return MyUnionRenamedStructureValue((serializers.deserialize(
-          value,
-          specifiedType: const FullType(_i4.RenamedGreeting),
-        ) as _i4.RenamedGreeting));
-      case 'stringValue':
-        return MyUnionStringValue((serializers.deserialize(
-          value,
-          specifiedType: const FullType(String),
-        ) as String));
       case 'structureValue':
         return MyUnionStructureValue((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i5.GreetingStruct),
-        ) as _i5.GreetingStruct));
-      case 'timestampValue':
-        return MyUnionTimestampValue((serializers.deserialize(
+          specifiedType: const FullType(_i4.GreetingStruct),
+        ) as _i4.GreetingStruct));
+      case 'renamedStructureValue':
+        return MyUnionRenamedStructureValue((serializers.deserialize(
           value,
-          specifiedType: const FullType(DateTime),
-        ) as DateTime));
+          specifiedType: const FullType(_i5.RenamedGreeting),
+        ) as _i5.RenamedGreeting));
     }
     return MyUnion.sdkUnknown(
       key,
@@ -486,71 +359,63 @@ class MyUnionRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MyUnion object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    (object as MyUnion);
     return [
       object.name,
-      object.when<Object?>(
-        blobValue: (_i2.Uint8List blobValue) => serializers.serialize(
-          blobValue,
-          specifiedType: const FullType(_i2.Uint8List),
-        ),
-        booleanValue: (bool booleanValue) => serializers.serialize(
-          booleanValue,
-          specifiedType: const FullType(bool),
-        ),
-        enumValue: (_i3.FooEnum enumValue) => serializers.serialize(
-          enumValue,
-          specifiedType: const FullType(_i3.FooEnum),
-        ),
-        listValue: (_i6.BuiltList<String> listValue) => serializers.serialize(
-          listValue,
-          specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(String)],
+      switch (object) {
+        MyUnionStringValue(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
           ),
-        ),
-        mapValue: (_i6.BuiltMap<String, String> mapValue) =>
-            serializers.serialize(
-          mapValue,
-          specifiedType: const FullType(
-            _i6.BuiltMap,
-            [
-              FullType(String),
-              FullType(String),
-            ],
+        MyUnionBooleanValue(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(bool),
           ),
-        ),
-        numberValue: (int numberValue) => serializers.serialize(
-          numberValue,
-          specifiedType: const FullType(int),
-        ),
-        renamedStructureValue: (_i4.RenamedGreeting renamedStructureValue) =>
-            serializers.serialize(
-          renamedStructureValue,
-          specifiedType: const FullType(_i4.RenamedGreeting),
-        ),
-        stringValue: (String stringValue) => serializers.serialize(
-          stringValue,
-          specifiedType: const FullType(String),
-        ),
-        structureValue: (_i5.GreetingStruct structureValue) =>
-            serializers.serialize(
-          structureValue,
-          specifiedType: const FullType(_i5.GreetingStruct),
-        ),
-        timestampValue: (DateTime timestampValue) => serializers.serialize(
-          timestampValue,
-          specifiedType: const FullType(DateTime),
-        ),
-        sdkUnknown: (
-          String _,
-          Object sdkUnknown,
-        ) =>
-            sdkUnknown,
-      )!,
+        MyUnionNumberValue(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(int),
+          ),
+        MyUnionBlobValue(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(_i2.Uint8List),
+          ),
+        MyUnionTimestampValue(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ),
+        MyUnionEnumValue(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(_i3.FooEnum),
+          ),
+        MyUnionListValue(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ),
+        MyUnionMapValue(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ),
+        MyUnionStructureValue(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(_i4.GreetingStruct),
+          ),
+        MyUnionRenamedStructureValue(:final value) => serializers.serialize(
+            value,
+            specifiedType: const FullType(_i5.RenamedGreeting),
+          ),
+        MyUnionSdkUnknown(:final value) => value,
+      },
     ];
   }
 }

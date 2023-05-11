@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.update_integration_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,19 +25,19 @@ abstract class UpdateIntegrationResponseRequest
         _i1.HasPayload<UpdateIntegrationResponseRequestPayload> {
   /// Represents an update integration response request.
   factory UpdateIntegrationResponseRequest({
-    required String httpMethod,
-    List<_i3.PatchOperation>? patchOperations,
-    required String resourceId,
     required String restApiId,
+    required String resourceId,
+    required String httpMethod,
     required String statusCode,
+    List<_i3.PatchOperation>? patchOperations,
   }) {
     return _$UpdateIntegrationResponseRequest._(
+      restApiId: restApiId,
+      resourceId: resourceId,
       httpMethod: httpMethod,
+      statusCode: statusCode,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      resourceId: resourceId,
-      restApiId: restApiId,
-      statusCode: statusCode,
     );
   }
 
@@ -77,20 +78,20 @@ abstract class UpdateIntegrationResponseRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateIntegrationResponseRequestBuilder b) {}
 
-  /// Specifies an update integration response request's HTTP method.
-  String get httpMethod;
-
-  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// Specifies an update integration response request's resource identifier.
   String get resourceId;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// Specifies an update integration response request's HTTP method.
+  String get httpMethod;
 
   /// Specifies an update integration response request's status code.
   String get statusCode;
+
+  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
+  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -118,35 +119,35 @@ abstract class UpdateIntegrationResponseRequest
       });
   @override
   List<Object?> get props => [
-        httpMethod,
-        patchOperations,
-        resourceId,
         restApiId,
+        resourceId,
+        httpMethod,
         statusCode,
+        patchOperations,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('UpdateIntegrationResponseRequest');
     helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'httpMethod',
+      httpMethod,
     );
     helper.add(
       'statusCode',
       statusCode,
+    );
+    helper.add(
+      'patchOperations',
+      patchOperations,
     );
     return helper.toString();
   }
@@ -215,18 +216,18 @@ class UpdateIntegrationResponseRequestRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'patchOperations':
-          if (value != null) {
-            result.patchOperations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.PatchOperation)],
-              ),
-            ) as _i4.BuiltList<_i3.PatchOperation>));
-          }
-          break;
+          result.patchOperations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.PatchOperation)],
+            ),
+          ) as _i4.BuiltList<_i3.PatchOperation>));
       }
     }
 
@@ -236,24 +237,22 @@ class UpdateIntegrationResponseRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateIntegrationResponseRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is UpdateIntegrationResponseRequest
-        ? object.getPayload()
-        : (object as UpdateIntegrationResponseRequestPayload);
-    final result = <Object?>[];
-    if (payload.patchOperations != null) {
-      result
+    final result$ = <Object?>[];
+    final UpdateIntegrationResponseRequestPayload(:patchOperations) = object;
+    if (patchOperations != null) {
+      result$
         ..add('patchOperations')
         ..add(serializers.serialize(
-          payload.patchOperations!,
+          patchOperations,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.PatchOperation)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

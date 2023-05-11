@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.list_multipart_uploads_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -7,9 +8,9 @@ import 'package:built_collection/built_collection.dart' as _i5;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/common_prefix.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/multipart_upload.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/common_prefix.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/multipart_upload.dart' as _i2;
 
 part 'list_multipart_uploads_output.g.dart';
 
@@ -19,32 +20,32 @@ abstract class ListMultipartUploadsOutput
         Built<ListMultipartUploadsOutput, ListMultipartUploadsOutputBuilder> {
   factory ListMultipartUploadsOutput({
     String? bucket,
-    List<_i2.CommonPrefix>? commonPrefixes,
-    String? delimiter,
-    _i3.EncodingType? encodingType,
-    bool? isTruncated,
     String? keyMarker,
-    int? maxUploads,
-    String? nextKeyMarker,
-    String? nextUploadIdMarker,
-    String? prefix,
     String? uploadIdMarker,
-    List<_i4.MultipartUpload>? uploads,
+    String? nextKeyMarker,
+    String? prefix,
+    String? delimiter,
+    String? nextUploadIdMarker,
+    int? maxUploads,
+    bool? isTruncated,
+    List<_i2.MultipartUpload>? uploads,
+    List<_i3.CommonPrefix>? commonPrefixes,
+    _i4.EncodingType? encodingType,
   }) {
     return _$ListMultipartUploadsOutput._(
       bucket: bucket,
+      keyMarker: keyMarker,
+      uploadIdMarker: uploadIdMarker,
+      nextKeyMarker: nextKeyMarker,
+      prefix: prefix,
+      delimiter: delimiter,
+      nextUploadIdMarker: nextUploadIdMarker,
+      maxUploads: maxUploads,
+      isTruncated: isTruncated,
+      uploads: uploads == null ? null : _i5.BuiltList(uploads),
       commonPrefixes:
           commonPrefixes == null ? null : _i5.BuiltList(commonPrefixes),
-      delimiter: delimiter,
       encodingType: encodingType,
-      isTruncated: isTruncated,
-      keyMarker: keyMarker,
-      maxUploads: maxUploads,
-      nextKeyMarker: nextKeyMarker,
-      nextUploadIdMarker: nextUploadIdMarker,
-      prefix: prefix,
-      uploadIdMarker: uploadIdMarker,
-      uploads: uploads == null ? null : _i5.BuiltList(uploads),
     );
   }
 
@@ -71,56 +72,56 @@ abstract class ListMultipartUploadsOutput
   /// The name of the bucket to which the multipart upload was initiated. Does not return the access point ARN or access point alias if used.
   String? get bucket;
 
-  /// If you specify a delimiter in the request, then the result returns each distinct key prefix containing the delimiter in a `CommonPrefixes` element. The distinct key prefixes are returned in the `Prefix` child element.
-  _i5.BuiltList<_i2.CommonPrefix>? get commonPrefixes;
+  /// The key at or after which the listing began.
+  String? get keyMarker;
+
+  /// Upload ID after which listing began.
+  String? get uploadIdMarker;
+
+  /// When a list is truncated, this element specifies the value that should be used for the key-marker request parameter in a subsequent request.
+  String? get nextKeyMarker;
+
+  /// When a prefix is provided in the request, this field contains the specified prefix. The result contains only keys starting with the specified prefix.
+  String? get prefix;
 
   /// Contains the delimiter you specified in the request. If you don't specify a delimiter in your request, this element is absent from the response.
   String? get delimiter;
+
+  /// When a list is truncated, this element specifies the value that should be used for the `upload-id-marker` request parameter in a subsequent request.
+  String? get nextUploadIdMarker;
+
+  /// Maximum number of multipart uploads that could have been included in the response.
+  int? get maxUploads;
+
+  /// Indicates whether the returned list of multipart uploads is truncated. A value of true indicates that the list was truncated. The list can be truncated if the number of multipart uploads exceeds the limit allowed or specified by max uploads.
+  bool? get isTruncated;
+
+  /// Container for elements related to a particular multipart upload. A response can contain zero or more `Upload` elements.
+  _i5.BuiltList<_i2.MultipartUpload>? get uploads;
+
+  /// If you specify a delimiter in the request, then the result returns each distinct key prefix containing the delimiter in a `CommonPrefixes` element. The distinct key prefixes are returned in the `Prefix` child element.
+  _i5.BuiltList<_i3.CommonPrefix>? get commonPrefixes;
 
   /// Encoding type used by Amazon S3 to encode object keys in the response.
   ///
   /// If you specify `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
   ///
   /// `Delimiter`, `KeyMarker`, `Prefix`, `NextKeyMarker`, `Key`.
-  _i3.EncodingType? get encodingType;
-
-  /// Indicates whether the returned list of multipart uploads is truncated. A value of true indicates that the list was truncated. The list can be truncated if the number of multipart uploads exceeds the limit allowed or specified by max uploads.
-  bool? get isTruncated;
-
-  /// The key at or after which the listing began.
-  String? get keyMarker;
-
-  /// Maximum number of multipart uploads that could have been included in the response.
-  int? get maxUploads;
-
-  /// When a list is truncated, this element specifies the value that should be used for the key-marker request parameter in a subsequent request.
-  String? get nextKeyMarker;
-
-  /// When a list is truncated, this element specifies the value that should be used for the `upload-id-marker` request parameter in a subsequent request.
-  String? get nextUploadIdMarker;
-
-  /// When a prefix is provided in the request, this field contains the specified prefix. The result contains only keys starting with the specified prefix.
-  String? get prefix;
-
-  /// Upload ID after which listing began.
-  String? get uploadIdMarker;
-
-  /// Container for elements related to a particular multipart upload. A response can contain zero or more `Upload` elements.
-  _i5.BuiltList<_i4.MultipartUpload>? get uploads;
+  _i4.EncodingType? get encodingType;
   @override
   List<Object?> get props => [
         bucket,
-        commonPrefixes,
-        delimiter,
-        encodingType,
-        isTruncated,
         keyMarker,
-        maxUploads,
-        nextKeyMarker,
-        nextUploadIdMarker,
-        prefix,
         uploadIdMarker,
+        nextKeyMarker,
+        prefix,
+        delimiter,
+        nextUploadIdMarker,
+        maxUploads,
+        isTruncated,
         uploads,
+        commonPrefixes,
+        encodingType,
       ];
   @override
   String toString() {
@@ -130,48 +131,48 @@ abstract class ListMultipartUploadsOutput
       bucket,
     );
     helper.add(
-      'commonPrefixes',
-      commonPrefixes,
-    );
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'encodingType',
-      encodingType,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
       'keyMarker',
       keyMarker,
-    );
-    helper.add(
-      'maxUploads',
-      maxUploads,
-    );
-    helper.add(
-      'nextKeyMarker',
-      nextKeyMarker,
-    );
-    helper.add(
-      'nextUploadIdMarker',
-      nextUploadIdMarker,
-    );
-    helper.add(
-      'prefix',
-      prefix,
     );
     helper.add(
       'uploadIdMarker',
       uploadIdMarker,
     );
     helper.add(
+      'nextKeyMarker',
+      nextKeyMarker,
+    );
+    helper.add(
+      'prefix',
+      prefix,
+    );
+    helper.add(
+      'delimiter',
+      delimiter,
+    );
+    helper.add(
+      'nextUploadIdMarker',
+      nextUploadIdMarker,
+    );
+    helper.add(
+      'maxUploads',
+      maxUploads,
+    );
+    helper.add(
+      'isTruncated',
+      isTruncated,
+    );
+    helper.add(
       'uploads',
       uploads,
+    );
+    helper.add(
+      'commonPrefixes',
+      commonPrefixes,
+    );
+    helper.add(
+      'encodingType',
+      encodingType,
     );
     return helper.toString();
   }
@@ -203,106 +204,73 @@ class ListMultipartUploadsOutputRestXmlSerializer
     final result = ListMultipartUploadsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Bucket':
-          if (value != null) {
-            result.bucket = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.bucket = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CommonPrefixes':
-          if (value != null) {
-            result.commonPrefixes.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CommonPrefix),
-            ) as _i2.CommonPrefix));
-          }
-          break;
+          result.commonPrefixes.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.CommonPrefix),
+          ) as _i3.CommonPrefix));
         case 'Delimiter':
-          if (value != null) {
-            result.delimiter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.delimiter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'EncodingType':
-          if (value != null) {
-            result.encodingType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.EncodingType),
-            ) as _i3.EncodingType);
-          }
-          break;
+          result.encodingType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.EncodingType),
+          ) as _i4.EncodingType);
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'KeyMarker':
-          if (value != null) {
-            result.keyMarker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.keyMarker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxUploads':
-          if (value != null) {
-            result.maxUploads = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxUploads = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NextKeyMarker':
-          if (value != null) {
-            result.nextKeyMarker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextKeyMarker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'NextUploadIdMarker':
-          if (value != null) {
-            result.nextUploadIdMarker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextUploadIdMarker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'UploadIdMarker':
-          if (value != null) {
-            result.uploadIdMarker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.uploadIdMarker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Upload':
-          if (value != null) {
-            result.uploads.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.MultipartUpload),
-            ) as _i4.MultipartUpload));
-          }
-          break;
+          result.uploads.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.MultipartUpload),
+          ) as _i2.MultipartUpload));
       }
     }
 
@@ -312,119 +280,132 @@ class ListMultipartUploadsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListMultipartUploadsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListMultipartUploadsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i6.XmlElementName(
         'ListMultipartUploadsResult',
         _i6.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.bucket != null) {
-      result
+    final ListMultipartUploadsOutput(
+      :bucket,
+      :commonPrefixes,
+      :delimiter,
+      :encodingType,
+      :isTruncated,
+      :keyMarker,
+      :maxUploads,
+      :nextKeyMarker,
+      :nextUploadIdMarker,
+      :prefix,
+      :uploadIdMarker,
+      :uploads
+    ) = object;
+    if (bucket != null) {
+      result$
         ..add(const _i6.XmlElementName('Bucket'))
         ..add(serializers.serialize(
-          payload.bucket!,
+          bucket,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.commonPrefixes != null) {
-      result.addAll(
+    if (commonPrefixes != null) {
+      result$.addAll(
           const _i6.XmlBuiltListSerializer(memberName: 'CommonPrefixes')
               .serialize(
         serializers,
-        payload.commonPrefixes!,
+        commonPrefixes,
         specifiedType: const FullType.nullable(
           _i5.BuiltList,
-          [FullType(_i2.CommonPrefix)],
+          [FullType(_i3.CommonPrefix)],
         ),
       ));
     }
-    if (payload.delimiter != null) {
-      result
+    if (delimiter != null) {
+      result$
         ..add(const _i6.XmlElementName('Delimiter'))
         ..add(serializers.serialize(
-          payload.delimiter!,
+          delimiter,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.encodingType != null) {
-      result
+    if (encodingType != null) {
+      result$
         ..add(const _i6.XmlElementName('EncodingType'))
         ..add(serializers.serialize(
-          payload.encodingType!,
-          specifiedType: const FullType.nullable(_i3.EncodingType),
+          encodingType,
+          specifiedType: const FullType.nullable(_i4.EncodingType),
         ));
     }
-    if (payload.isTruncated != null) {
-      result
+    if (isTruncated != null) {
+      result$
         ..add(const _i6.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.keyMarker != null) {
-      result
+    if (keyMarker != null) {
+      result$
         ..add(const _i6.XmlElementName('KeyMarker'))
         ..add(serializers.serialize(
-          payload.keyMarker!,
+          keyMarker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxUploads != null) {
-      result
+    if (maxUploads != null) {
+      result$
         ..add(const _i6.XmlElementName('MaxUploads'))
         ..add(serializers.serialize(
-          payload.maxUploads!,
+          maxUploads,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.nextKeyMarker != null) {
-      result
+    if (nextKeyMarker != null) {
+      result$
         ..add(const _i6.XmlElementName('NextKeyMarker'))
         ..add(serializers.serialize(
-          payload.nextKeyMarker!,
+          nextKeyMarker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.nextUploadIdMarker != null) {
-      result
+    if (nextUploadIdMarker != null) {
+      result$
         ..add(const _i6.XmlElementName('NextUploadIdMarker'))
         ..add(serializers.serialize(
-          payload.nextUploadIdMarker!,
+          nextUploadIdMarker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.prefix != null) {
-      result
+    if (prefix != null) {
+      result$
         ..add(const _i6.XmlElementName('Prefix'))
         ..add(serializers.serialize(
-          payload.prefix!,
+          prefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.uploadIdMarker != null) {
-      result
+    if (uploadIdMarker != null) {
+      result$
         ..add(const _i6.XmlElementName('UploadIdMarker'))
         ..add(serializers.serialize(
-          payload.uploadIdMarker!,
+          uploadIdMarker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.uploads != null) {
-      result.addAll(
+    if (uploads != null) {
+      result$.addAll(
           const _i6.XmlBuiltListSerializer(memberName: 'Upload').serialize(
         serializers,
-        payload.uploads!,
+        uploads,
         specifiedType: const FullType.nullable(
           _i5.BuiltList,
-          [FullType(_i4.MultipartUpload)],
+          [FullType(_i2.MultipartUpload)],
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

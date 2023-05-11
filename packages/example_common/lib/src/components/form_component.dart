@@ -3,7 +3,7 @@
 
 import 'dart:html';
 
-import 'component.dart';
+import 'package:example_common/src/components/component.dart';
 
 /// {@template example_common.form_component}
 /// a component that displays a form
@@ -22,7 +22,7 @@ class FormComponent extends Component {
   Component render() {
     final formElement = FormElement();
     if (id != null) formElement.id = id!;
-    for (var child in children) {
+    for (final child in children) {
       formElement.appendComponent(child);
     }
     return Component.fromElement(formElement);

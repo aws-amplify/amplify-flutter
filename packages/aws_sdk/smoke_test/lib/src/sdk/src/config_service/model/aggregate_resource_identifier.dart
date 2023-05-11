@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.aggregate_resource_identifier; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,18 +19,18 @@ abstract class AggregateResourceIdentifier
         Built<AggregateResourceIdentifier, AggregateResourceIdentifierBuilder> {
   /// The details that identify a resource that is collected by Config aggregator, including the resource type, ID, (if available) the custom resource name, the source account, and source region.
   factory AggregateResourceIdentifier({
-    required String resourceId,
-    String? resourceName,
-    required _i2.ResourceType resourceType,
     required String sourceAccountId,
     required String sourceRegion,
+    required String resourceId,
+    required _i2.ResourceType resourceType,
+    String? resourceName,
   }) {
     return _$AggregateResourceIdentifier._(
-      resourceId: resourceId,
-      resourceName: resourceName,
-      resourceType: resourceType,
       sourceAccountId: sourceAccountId,
       sourceRegion: sourceRegion,
+      resourceId: resourceId,
+      resourceType: resourceType,
+      resourceName: resourceName,
     );
   }
 
@@ -47,43 +48,31 @@ abstract class AggregateResourceIdentifier
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AggregateResourceIdentifierBuilder b) {}
 
-  /// The ID of the Amazon Web Services resource.
-  String get resourceId;
-
-  /// The name of the Amazon Web Services resource.
-  String? get resourceName;
-
-  /// The type of the Amazon Web Services resource.
-  _i2.ResourceType get resourceType;
-
   /// The 12-digit account ID of the source account.
   String get sourceAccountId;
 
   /// The source region where data is aggregated.
   String get sourceRegion;
+
+  /// The ID of the Amazon Web Services resource.
+  String get resourceId;
+
+  /// The type of the Amazon Web Services resource.
+  _i2.ResourceType get resourceType;
+
+  /// The name of the Amazon Web Services resource.
+  String? get resourceName;
   @override
   List<Object?> get props => [
-        resourceId,
-        resourceName,
-        resourceType,
         sourceAccountId,
         sourceRegion,
+        resourceId,
+        resourceType,
+        resourceName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AggregateResourceIdentifier');
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'resourceName',
-      resourceName,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
     helper.add(
       'sourceAccountId',
       sourceAccountId,
@@ -91,6 +80,18 @@ abstract class AggregateResourceIdentifier
     helper.add(
       'sourceRegion',
       sourceRegion,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
+    );
+    helper.add(
+      'resourceType',
+      resourceType,
+    );
+    helper.add(
+      'resourceName',
+      resourceName,
     );
     return helper.toString();
   }
@@ -125,39 +126,35 @@ class AggregateResourceIdentifierAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ResourceId':
-          result.resourceId = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
-        case 'ResourceName':
-          if (value != null) {
-            result.resourceName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ResourceType':
-          result.resourceType = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.ResourceType),
-          ) as _i2.ResourceType);
-          break;
         case 'SourceAccountId':
           result.sourceAccountId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SourceRegion':
           result.sourceRegion = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'ResourceId':
+          result.resourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ResourceType':
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ResourceType),
+          ) as _i2.ResourceType);
+        case 'ResourceName':
+          result.resourceName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -167,40 +164,47 @@ class AggregateResourceIdentifierAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AggregateResourceIdentifier object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AggregateResourceIdentifier);
-    final result = <Object?>[
-      'ResourceId',
-      serializers.serialize(
-        payload.resourceId,
-        specifiedType: const FullType(String),
-      ),
-      'ResourceType',
-      serializers.serialize(
-        payload.resourceType,
-        specifiedType: const FullType(_i2.ResourceType),
-      ),
+    final result$ = <Object?>[];
+    final AggregateResourceIdentifier(
+      :sourceAccountId,
+      :sourceRegion,
+      :resourceId,
+      :resourceType,
+      :resourceName
+    ) = object;
+    result$.addAll([
       'SourceAccountId',
       serializers.serialize(
-        payload.sourceAccountId,
+        sourceAccountId,
         specifiedType: const FullType(String),
       ),
       'SourceRegion',
       serializers.serialize(
-        payload.sourceRegion,
+        sourceRegion,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.resourceName != null) {
-      result
+      'ResourceId',
+      serializers.serialize(
+        resourceId,
+        specifiedType: const FullType(String),
+      ),
+      'ResourceType',
+      serializers.serialize(
+        resourceType,
+        specifiedType: const FullType(_i2.ResourceType),
+      ),
+    ]);
+    if (resourceName != null) {
+      result$
         ..add('ResourceName')
         ..add(serializers.serialize(
-          payload.resourceName!,
+          resourceName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

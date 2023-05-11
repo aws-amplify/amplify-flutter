@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.backup_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -106,31 +107,25 @@ class BackupDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BackupDetails':
-          if (value != null) {
-            result.backupDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BackupDetails),
-            ) as _i2.BackupDetails));
-          }
-          break;
+          result.backupDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.BackupDetails),
+          ) as _i2.BackupDetails));
         case 'SourceTableDetails':
-          if (value != null) {
-            result.sourceTableDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.SourceTableDetails),
-            ) as _i3.SourceTableDetails));
-          }
-          break;
+          result.sourceTableDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.SourceTableDetails),
+          ) as _i3.SourceTableDetails));
         case 'SourceTableFeatureDetails':
-          if (value != null) {
-            result.sourceTableFeatureDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.SourceTableFeatureDetails),
-            ) as _i4.SourceTableFeatureDetails));
-          }
-          break;
+          result.sourceTableFeatureDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.SourceTableFeatureDetails),
+          ) as _i4.SourceTableFeatureDetails));
       }
     }
 
@@ -140,35 +135,39 @@ class BackupDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    BackupDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as BackupDescription);
-    final result = <Object?>[];
-    if (payload.backupDetails != null) {
-      result
+    final result$ = <Object?>[];
+    final BackupDescription(
+      :backupDetails,
+      :sourceTableDetails,
+      :sourceTableFeatureDetails
+    ) = object;
+    if (backupDetails != null) {
+      result$
         ..add('BackupDetails')
         ..add(serializers.serialize(
-          payload.backupDetails!,
+          backupDetails,
           specifiedType: const FullType(_i2.BackupDetails),
         ));
     }
-    if (payload.sourceTableDetails != null) {
-      result
+    if (sourceTableDetails != null) {
+      result$
         ..add('SourceTableDetails')
         ..add(serializers.serialize(
-          payload.sourceTableDetails!,
+          sourceTableDetails,
           specifiedType: const FullType(_i3.SourceTableDetails),
         ));
     }
-    if (payload.sourceTableFeatureDetails != null) {
-      result
+    if (sourceTableFeatureDetails != null) {
+      result$
         ..add('SourceTableFeatureDetails')
         ..add(serializers.serialize(
-          payload.sourceTableFeatureDetails!,
+          sourceTableFeatureDetails,
           specifiedType: const FullType(_i4.SourceTableFeatureDetails),
         ));
     }
-    return result;
+    return result$;
   }
 }

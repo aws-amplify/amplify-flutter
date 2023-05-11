@@ -14,13 +14,15 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
   /// {@macro amplify_flutter.amplify_hybrid_impl}
   AmplifyHybridImpl() : super.protected();
 
-  final _methodChannelAmplify = MethodChannelAmplify();
+  final _addPluginFutures = <Future<void>>[];
 
   @override
   Future<void> configurePlatform(String config) async {
     final amplifyConfig = AmplifyConfig.fromJson(
       (jsonDecode(config) as Map<Object?, Object?>).cast(),
     );
+    await Future.wait(_addPluginFutures);
+    _addPluginFutures.clear();
     await Future.wait(
       [
         ...API.plugins,
@@ -37,11 +39,16 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
       ),
       eagerError: true,
     );
-    await _methodChannelAmplify.configurePlatform(config);
   }
 
   @override
-  Future<void> addPlugin(AmplifyPluginInterface plugin) async {
+  Future<void> addPlugin(AmplifyPluginInterface plugin) {
+    final future = _addPlugin(plugin);
+    _addPluginFutures.add(future);
+    return future;
+  }
+
+  Future<void> _addPlugin(AmplifyPluginInterface plugin) async {
     if (isConfigured) {
       throw const AmplifyAlreadyConfiguredException(
         'Amplify has already been configured and adding plugins after configure is not supported.',

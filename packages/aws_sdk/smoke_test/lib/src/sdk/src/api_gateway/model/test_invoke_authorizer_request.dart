@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.test_invoke_authorizer_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,28 +22,28 @@ abstract class TestInvokeAuthorizerRequest
         _i1.HasPayload<TestInvokeAuthorizerRequestPayload> {
   /// Make a request to simulate the invocation of an Authorizer.
   factory TestInvokeAuthorizerRequest({
-    Map<String, String>? additionalContext,
+    required String restApiId,
     required String authorizerId,
-    String? body,
     Map<String, String>? headers,
     Map<String, List<String>>? multiValueHeaders,
     String? pathWithQueryString,
-    required String restApiId,
+    String? body,
     Map<String, String>? stageVariables,
+    Map<String, String>? additionalContext,
   }) {
     return _$TestInvokeAuthorizerRequest._(
-      additionalContext:
-          additionalContext == null ? null : _i3.BuiltMap(additionalContext),
+      restApiId: restApiId,
       authorizerId: authorizerId,
-      body: body,
       headers: headers == null ? null : _i3.BuiltMap(headers),
       multiValueHeaders: multiValueHeaders == null
           ? null
           : _i3.BuiltListMultimap(multiValueHeaders),
       pathWithQueryString: pathWithQueryString,
-      restApiId: restApiId,
+      body: body,
       stageVariables:
           stageVariables == null ? null : _i3.BuiltMap(stageVariables),
+      additionalContext:
+          additionalContext == null ? null : _i3.BuiltMap(additionalContext),
     );
   }
 
@@ -88,14 +89,11 @@ abstract class TestInvokeAuthorizerRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestInvokeAuthorizerRequestBuilder b) {}
 
-  /// A key-value map of additional context variables.
-  _i3.BuiltMap<String, String>? get additionalContext;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// Specifies a test invoke authorizer request's Authorizer ID.
   String get authorizerId;
-
-  /// The simulated request body of an incoming invocation request.
-  String? get body;
 
   /// A key-value map of headers to simulate an incoming invocation request. This is where the incoming authorization token, or identity source, should be specified.
   _i3.BuiltMap<String, String>? get headers;
@@ -106,11 +104,14 @@ abstract class TestInvokeAuthorizerRequest
   /// The URI path, including query string, of the simulated invocation request. Use this to specify path parameters and query string parameters.
   String? get pathWithQueryString;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// The simulated request body of an incoming invocation request.
+  String? get body;
 
   /// A key-value map of stage variables to simulate an invocation on a deployed Stage.
   _i3.BuiltMap<String, String>? get stageVariables;
+
+  /// A key-value map of additional context variables.
+  _i3.BuiltMap<String, String>? get additionalContext;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -145,29 +146,25 @@ abstract class TestInvokeAuthorizerRequest
       });
   @override
   List<Object?> get props => [
-        additionalContext,
+        restApiId,
         authorizerId,
-        body,
         headers,
         multiValueHeaders,
         pathWithQueryString,
-        restApiId,
+        body,
         stageVariables,
+        additionalContext,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TestInvokeAuthorizerRequest');
     helper.add(
-      'additionalContext',
-      additionalContext,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'authorizerId',
       authorizerId,
-    );
-    helper.add(
-      'body',
-      body,
     );
     helper.add(
       'headers',
@@ -182,12 +179,16 @@ abstract class TestInvokeAuthorizerRequest
       pathWithQueryString,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'body',
+      body,
     );
     helper.add(
       'stageVariables',
       stageVariables,
+    );
+    helper.add(
+      'additionalContext',
+      additionalContext,
     );
     return helper.toString();
   }
@@ -298,79 +299,64 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'additionalContext':
-          if (value != null) {
-            result.additionalContext.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.additionalContext.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'body':
-          if (value != null) {
-            result.body = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.body = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'headers':
-          if (value != null) {
-            result.headers.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.headers.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'multiValueHeaders':
-          if (value != null) {
-            result.multiValueHeaders.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltListMultimap<String, String>));
-          }
-          break;
+          result.multiValueHeaders.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltListMultimap<String, String>));
         case 'pathWithQueryString':
-          if (value != null) {
-            result.pathWithQueryString = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.pathWithQueryString = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'stageVariables':
-          if (value != null) {
-            result.stageVariables.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.stageVariables.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -380,18 +366,23 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TestInvokeAuthorizerRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is TestInvokeAuthorizerRequest
-        ? object.getPayload()
-        : (object as TestInvokeAuthorizerRequestPayload);
-    final result = <Object?>[];
-    if (payload.additionalContext != null) {
-      result
+    final result$ = <Object?>[];
+    final TestInvokeAuthorizerRequestPayload(
+      :additionalContext,
+      :body,
+      :headers,
+      :multiValueHeaders,
+      :pathWithQueryString,
+      :stageVariables
+    ) = object;
+    if (additionalContext != null) {
+      result$
         ..add('additionalContext')
         ..add(serializers.serialize(
-          payload.additionalContext!,
+          additionalContext,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -401,19 +392,19 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.body != null) {
-      result
+    if (body != null) {
+      result$
         ..add('body')
         ..add(serializers.serialize(
-          payload.body!,
+          body,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.headers != null) {
-      result
+    if (headers != null) {
+      result$
         ..add('headers')
         ..add(serializers.serialize(
-          payload.headers!,
+          headers,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -423,11 +414,11 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.multiValueHeaders != null) {
-      result
+    if (multiValueHeaders != null) {
+      result$
         ..add('multiValueHeaders')
         ..add(serializers.serialize(
-          payload.multiValueHeaders!,
+          multiValueHeaders,
           specifiedType: const FullType(
             _i3.BuiltListMultimap,
             [
@@ -437,19 +428,19 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.pathWithQueryString != null) {
-      result
+    if (pathWithQueryString != null) {
+      result$
         ..add('pathWithQueryString')
         ..add(serializers.serialize(
-          payload.pathWithQueryString!,
+          pathWithQueryString,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stageVariables != null) {
-      result
+    if (stageVariables != null) {
+      result$
         ..add('stageVariables')
         ..add(serializers.serialize(
-          payload.stageVariables!,
+          stageVariables,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -459,6 +450,6 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

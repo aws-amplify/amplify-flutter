@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_0_v1.json_rpc_10.model.greeting_with_errors_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -79,15 +80,15 @@ class GreetingWithErrorsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'greeting':
-          if (value != null) {
-            result.greeting = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.greeting = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -97,19 +98,19 @@ class GreetingWithErrorsOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GreetingWithErrorsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GreetingWithErrorsOutput);
-    final result = <Object?>[];
-    if (payload.greeting != null) {
-      result
+    final result$ = <Object?>[];
+    final GreetingWithErrorsOutput(:greeting) = object;
+    if (greeting != null) {
+      result$
         ..add('greeting')
         ..add(serializers.serialize(
-          payload.greeting!,
+          greeting,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

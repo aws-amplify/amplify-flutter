@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.compliance_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,14 +18,14 @@ abstract class ComplianceSummary
     implements Built<ComplianceSummary, ComplianceSummaryBuilder> {
   /// The number of Config rules or Amazon Web Services resources that are compliant and noncompliant.
   factory ComplianceSummary({
-    DateTime? complianceSummaryTimestamp,
     _i2.ComplianceContributorCount? compliantResourceCount,
     _i2.ComplianceContributorCount? nonCompliantResourceCount,
+    DateTime? complianceSummaryTimestamp,
   }) {
     return _$ComplianceSummary._(
-      complianceSummaryTimestamp: complianceSummaryTimestamp,
       compliantResourceCount: compliantResourceCount,
       nonCompliantResourceCount: nonCompliantResourceCount,
+      complianceSummaryTimestamp: complianceSummaryTimestamp,
     );
   }
 
@@ -41,27 +42,23 @@ abstract class ComplianceSummary
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplianceSummaryBuilder b) {}
 
-  /// The time that Config created the compliance summary.
-  DateTime? get complianceSummaryTimestamp;
-
   /// The number of Config rules or Amazon Web Services resources that are compliant, up to a maximum of 25 for rules and 100 for resources.
   _i2.ComplianceContributorCount? get compliantResourceCount;
 
   /// The number of Config rules or Amazon Web Services resources that are noncompliant, up to a maximum of 25 for rules and 100 for resources.
   _i2.ComplianceContributorCount? get nonCompliantResourceCount;
+
+  /// The time that Config created the compliance summary.
+  DateTime? get complianceSummaryTimestamp;
   @override
   List<Object?> get props => [
-        complianceSummaryTimestamp,
         compliantResourceCount,
         nonCompliantResourceCount,
+        complianceSummaryTimestamp,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplianceSummary');
-    helper.add(
-      'complianceSummaryTimestamp',
-      complianceSummaryTimestamp,
-    );
     helper.add(
       'compliantResourceCount',
       compliantResourceCount,
@@ -69,6 +66,10 @@ abstract class ComplianceSummary
     helper.add(
       'nonCompliantResourceCount',
       nonCompliantResourceCount,
+    );
+    helper.add(
+      'complianceSummaryTimestamp',
+      complianceSummaryTimestamp,
     );
     return helper.toString();
   }
@@ -102,31 +103,25 @@ class ComplianceSummaryAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ComplianceSummaryTimestamp':
-          if (value != null) {
-            result.complianceSummaryTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'CompliantResourceCount':
-          if (value != null) {
-            result.compliantResourceCount.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ComplianceContributorCount),
-            ) as _i2.ComplianceContributorCount));
-          }
-          break;
+          result.compliantResourceCount.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ComplianceContributorCount),
+          ) as _i2.ComplianceContributorCount));
         case 'NonCompliantResourceCount':
-          if (value != null) {
-            result.nonCompliantResourceCount.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ComplianceContributorCount),
-            ) as _i2.ComplianceContributorCount));
-          }
-          break;
+          result.nonCompliantResourceCount.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ComplianceContributorCount),
+          ) as _i2.ComplianceContributorCount));
+        case 'ComplianceSummaryTimestamp':
+          result.complianceSummaryTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -136,35 +131,39 @@ class ComplianceSummaryAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ComplianceSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ComplianceSummary);
-    final result = <Object?>[];
-    if (payload.complianceSummaryTimestamp != null) {
-      result
+    final result$ = <Object?>[];
+    final ComplianceSummary(
+      :compliantResourceCount,
+      :nonCompliantResourceCount,
+      :complianceSummaryTimestamp
+    ) = object;
+    if (compliantResourceCount != null) {
+      result$
+        ..add('CompliantResourceCount')
+        ..add(serializers.serialize(
+          compliantResourceCount,
+          specifiedType: const FullType(_i2.ComplianceContributorCount),
+        ));
+    }
+    if (nonCompliantResourceCount != null) {
+      result$
+        ..add('NonCompliantResourceCount')
+        ..add(serializers.serialize(
+          nonCompliantResourceCount,
+          specifiedType: const FullType(_i2.ComplianceContributorCount),
+        ));
+    }
+    if (complianceSummaryTimestamp != null) {
+      result$
         ..add('ComplianceSummaryTimestamp')
         ..add(serializers.serialize(
-          payload.complianceSummaryTimestamp!,
+          complianceSummaryTimestamp,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.compliantResourceCount != null) {
-      result
-        ..add('CompliantResourceCount')
-        ..add(serializers.serialize(
-          payload.compliantResourceCount!,
-          specifiedType: const FullType(_i2.ComplianceContributorCount),
-        ));
-    }
-    if (payload.nonCompliantResourceCount != null) {
-      result
-        ..add('NonCompliantResourceCount')
-        ..add(serializers.serialize(
-          payload.nonCompliantResourceCount!,
-          specifiedType: const FullType(_i2.ComplianceContributorCount),
-        ));
-    }
-    return result;
+    return result$;
   }
 }

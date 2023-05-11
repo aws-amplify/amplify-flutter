@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.s3.s3_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -90,8 +91,9 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
     context.response.headers['Content-Type'] =
         _getBucketLocationProtocol.contentType;
     try {
-      final payload = (await _getBucketLocationProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _getBucketLocationProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i6.GetBucketLocationRequestPayload),
       ) as _i6.GetBucketLocationRequestPayload);
       final input = _i6.GetBucketLocationRequest.fromRequest(
@@ -104,7 +106,7 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _getBucketLocationProtocol.serialize(
+      final body = await _getBucketLocationProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i5.GetBucketLocationOutput,
@@ -133,8 +135,8 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
     context.response.headers['Content-Type'] =
         _listObjectsV2Protocol.contentType;
     try {
-      final payload = (await _listObjectsV2Protocol.deserialize(
-        awsRequest.split(),
+      final payload = (await _listObjectsV2Protocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType: const FullType(_i8.ListObjectsV2RequestPayload),
       ) as _i8.ListObjectsV2RequestPayload);
       final input = _i8.ListObjectsV2Request.fromRequest(
@@ -147,7 +149,7 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
         context,
       );
       const statusCode = 200;
-      final body = _listObjectsV2Protocol.serialize(
+      final body = await _listObjectsV2Protocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i7.ListObjectsV2Output,
@@ -161,7 +163,7 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
       );
     } on _i11.NoSuchBucket catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'NoSuchBucket';
-      final body = _listObjectsV2Protocol.serialize(
+      final body = _listObjectsV2Protocol.wireSerializer.serialize(
         e,
         specifiedType: const FullType(
           _i11.NoSuchBucket,

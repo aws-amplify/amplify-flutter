@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.put_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -77,6 +78,9 @@ class PutRequestAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Item':
           result.item.replace((serializers.deserialize(
@@ -89,7 +93,6 @@ class PutRequestAwsJson10Serializer
               ],
             ),
           ) as _i3.BuiltMap<String, _i2.AttributeValue>));
-          break;
       }
     }
 
@@ -99,14 +102,15 @@ class PutRequestAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutRequest(:item) = object;
+    result$.addAll([
       'Item',
       serializers.serialize(
-        payload.item,
+        item,
         specifiedType: const FullType(
           _i3.BuiltMap,
           [
@@ -115,7 +119,7 @@ class PutRequestAwsJson10Serializer
           ],
         ),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

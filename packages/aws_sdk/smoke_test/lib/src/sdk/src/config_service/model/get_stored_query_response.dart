@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_stored_query_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -82,15 +83,15 @@ class GetStoredQueryResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StoredQuery':
-          if (value != null) {
-            result.storedQuery.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StoredQuery),
-            ) as _i2.StoredQuery));
-          }
-          break;
+          result.storedQuery.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StoredQuery),
+          ) as _i2.StoredQuery));
       }
     }
 
@@ -100,19 +101,19 @@ class GetStoredQueryResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetStoredQueryResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetStoredQueryResponse);
-    final result = <Object?>[];
-    if (payload.storedQuery != null) {
-      result
+    final result$ = <Object?>[];
+    final GetStoredQueryResponse(:storedQuery) = object;
+    if (storedQuery != null) {
+      result$
         ..add('StoredQuery')
         ..add(serializers.serialize(
-          payload.storedQuery!,
+          storedQuery,
           specifiedType: const FullType(_i2.StoredQuery),
         ));
     }
-    return result;
+    return result$;
   }
 }

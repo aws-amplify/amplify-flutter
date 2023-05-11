@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.usage; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,13 +18,15 @@ abstract class Usage
     implements Built<Usage, UsageBuilder> {
   /// Represents the usage data of a usage plan.
   factory Usage({
+    String? usagePlanId,
+    String? startDate,
     String? endDate,
     Map<String, List<List<_i2.Int64>>>? items,
     String? position,
-    String? startDate,
-    String? usagePlanId,
   }) {
     return _$Usage._(
+      usagePlanId: usagePlanId,
+      startDate: startDate,
       endDate: endDate,
       items: items == null
           ? null
@@ -36,8 +39,6 @@ abstract class Usage
                 value.map((el) => _i3.BuiltList(el)),
               ))),
       position: position,
-      startDate: startDate,
-      usagePlanId: usagePlanId,
     );
   }
 
@@ -60,6 +61,12 @@ abstract class Usage
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UsageBuilder b) {}
 
+  /// The plan Id associated with this usage data.
+  String? get usagePlanId;
+
+  /// The starting date of the usage data.
+  String? get startDate;
+
   /// The ending date of the usage data.
   String? get endDate;
 
@@ -68,23 +75,25 @@ abstract class Usage
 
   /// The current pagination position in the paged result set.
   String? get position;
-
-  /// The starting date of the usage data.
-  String? get startDate;
-
-  /// The plan Id associated with this usage data.
-  String? get usagePlanId;
   @override
   List<Object?> get props => [
+        usagePlanId,
+        startDate,
         endDate,
         items,
         position,
-        startDate,
-        usagePlanId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Usage');
+    helper.add(
+      'usagePlanId',
+      usagePlanId,
+    );
+    helper.add(
+      'startDate',
+      startDate,
+    );
     helper.add(
       'endDate',
       endDate,
@@ -96,14 +105,6 @@ abstract class Usage
     helper.add(
       'position',
       position,
-    );
-    helper.add(
-      'startDate',
-      startDate,
-    );
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
     );
     return helper.toString();
   }
@@ -136,56 +137,44 @@ class UsageRestJson1Serializer extends _i4.StructuredSmithySerializer<Usage> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'endDate':
-          if (value != null) {
-            result.endDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.endDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'values':
-          if (value != null) {
-            result.items.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(
-                    _i3.BuiltList,
-                    [FullType(_i2.Int64)],
-                  ),
-                ],
-              ),
-            ) as _i3.BuiltListMultimap<String, _i3.BuiltList<_i2.Int64>>));
-          }
-          break;
+          result.items.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(
+                  _i3.BuiltList,
+                  [FullType(_i2.Int64)],
+                ),
+              ],
+            ),
+          ) as _i3.BuiltListMultimap<String, _i3.BuiltList<_i2.Int64>>));
         case 'position':
-          if (value != null) {
-            result.position = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.position = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'startDate':
-          if (value != null) {
-            result.startDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.startDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'usagePlanId':
-          if (value != null) {
-            result.usagePlanId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.usagePlanId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -195,24 +184,24 @@ class UsageRestJson1Serializer extends _i4.StructuredSmithySerializer<Usage> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Usage object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Usage);
-    final result = <Object?>[];
-    if (payload.endDate != null) {
-      result
+    final result$ = <Object?>[];
+    final Usage(:endDate, :items, :position, :startDate, :usagePlanId) = object;
+    if (endDate != null) {
+      result$
         ..add('endDate')
         ..add(serializers.serialize(
-          payload.endDate!,
+          endDate,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.items != null) {
-      result
+    if (items != null) {
+      result$
         ..add('values')
         ..add(serializers.serialize(
-          payload.items!,
+          items,
           specifiedType: const FullType(
             _i3.BuiltListMultimap,
             [
@@ -225,30 +214,30 @@ class UsageRestJson1Serializer extends _i4.StructuredSmithySerializer<Usage> {
           ),
         ));
     }
-    if (payload.position != null) {
-      result
+    if (position != null) {
+      result$
         ..add('position')
         ..add(serializers.serialize(
-          payload.position!,
+          position,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.startDate != null) {
-      result
+    if (startDate != null) {
+      result$
         ..add('startDate')
         ..add(serializers.serialize(
-          payload.startDate!,
+          startDate,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.usagePlanId != null) {
-      result
+    if (usagePlanId != null) {
+      result$
         ..add('usagePlanId')
         ..add(serializers.serialize(
-          payload.usagePlanId!,
+          usagePlanId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

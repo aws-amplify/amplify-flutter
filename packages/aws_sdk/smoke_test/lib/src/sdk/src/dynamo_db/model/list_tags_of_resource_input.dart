@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.list_tags_of_resource_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,12 +16,12 @@ abstract class ListTagsOfResourceInput
         _i2.AWSEquatable<ListTagsOfResourceInput>
     implements Built<ListTagsOfResourceInput, ListTagsOfResourceInputBuilder> {
   factory ListTagsOfResourceInput({
-    String? nextToken,
     required String resourceArn,
+    String? nextToken,
   }) {
     return _$ListTagsOfResourceInput._(
-      nextToken: nextToken,
       resourceArn: resourceArn,
+      nextToken: nextToken,
     );
   }
 
@@ -44,28 +45,28 @@ abstract class ListTagsOfResourceInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListTagsOfResourceInputBuilder b) {}
 
-  /// An optional string that, if supplied, must be copied from the output of a previous call to ListTagOfResource. When provided in this manner, this API fetches the next page of results.
-  String? get nextToken;
-
   /// The Amazon DynamoDB resource with tags to be listed. This value is an Amazon Resource Name (ARN).
   String get resourceArn;
+
+  /// An optional string that, if supplied, must be copied from the output of a previous call to ListTagOfResource. When provided in this manner, this API fetches the next page of results.
+  String? get nextToken;
   @override
   ListTagsOfResourceInput getPayload() => this;
   @override
   List<Object?> get props => [
-        nextToken,
         resourceArn,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListTagsOfResourceInput');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'resourceArn',
       resourceArn,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -100,21 +101,20 @@ class ListTagsOfResourceInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ResourceArn':
           result.resourceArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -124,25 +124,26 @@ class ListTagsOfResourceInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListTagsOfResourceInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListTagsOfResourceInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ListTagsOfResourceInput(:resourceArn, :nextToken) = object;
+    result$.addAll([
       'ResourceArn',
       serializers.serialize(
-        payload.resourceArn,
+        resourceArn,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.nextToken != null) {
-      result
+    ]);
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

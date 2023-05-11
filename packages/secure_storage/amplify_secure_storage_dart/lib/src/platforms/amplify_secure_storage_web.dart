@@ -77,14 +77,12 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
   /// Reference: https://www.w3.org/TR/IndexedDB/#object-store-name
   final storeName = 'default.store';
 
-  late final Future<void> _databaseOpenEvent = _openDatabase();
-
-  late final IDBDatabase _database;
+  late final Future<IDBDatabase> _databaseFuture = _openDatabase();
 
   /// Checks for IDB availability and attempts to open the database.
   ///
   /// Will throw a [NotAvailableException] if IndexedDB is not available.
-  Future<void> _openDatabase() async {
+  Future<IDBDatabase> _openDatabase() async {
     if (indexedDB == null) {
       throw const NotAvailableException(
         'IndexedDB is not supported.',
@@ -99,31 +97,17 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
           database.createObjectStore(storeName);
         }
       };
-    // TODO(Jordan-Nelson): update once https://github.com/dart-lang/sdk/issues/48835
-    // is resolved in a stable version. setting _database instead of returning
-    // it is a work around.
     try {
-      _database = await openRequest.future;
+      return await openRequest.future;
     } on Object catch (e) {
       throw SecureStorageException(e.toString());
     }
   }
 
-  /// Returns a new [IDBObjectStore] instance after waiting for initialization
-  /// to complete.
-  IDBObjectStore _getObjectStore() {
-    final transaction = _database.transaction(
-      storeName,
-      mode: IDBTransactionMode.readwrite,
-    );
-    final store = transaction.objectStore(storeName);
-    return store;
-  }
-
   @override
   Future<void> write({required String key, required String value}) async {
-    await _databaseOpenEvent;
-    final store = _getObjectStore();
+    final database = await _databaseFuture;
+    final store = database.getObjectStore(storeName);
     try {
       await store.put(value, key).future;
     } on Object catch (e) {
@@ -133,8 +117,8 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
 
   @override
   Future<String?> read({required String key}) async {
-    await _databaseOpenEvent;
-    final store = _getObjectStore();
+    final database = await _databaseFuture;
+    final store = database.getObjectStore(storeName);
     try {
       final value = await store.getObject(key).future;
       return value;
@@ -145,8 +129,8 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
 
   @override
   Future<void> delete({required String key}) async {
-    await _databaseOpenEvent;
-    final store = _getObjectStore();
+    final database = await _databaseFuture;
+    final store = database.getObjectStore(storeName);
     try {
       await store.delete(key).future;
     } on Object catch (e) {

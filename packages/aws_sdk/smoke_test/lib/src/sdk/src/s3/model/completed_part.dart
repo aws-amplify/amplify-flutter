@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.completed_part; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,19 +16,19 @@ abstract class CompletedPart
     implements Built<CompletedPart, CompletedPartBuilder> {
   /// Details of the parts that were uploaded.
   factory CompletedPart({
+    String? eTag,
     String? checksumCrc32,
     String? checksumCrc32C,
     String? checksumSha1,
     String? checksumSha256,
-    String? eTag,
     int? partNumber,
   }) {
     return _$CompletedPart._(
+      eTag: eTag,
       checksumCrc32: checksumCrc32,
       checksumCrc32C: checksumCrc32C,
       checksumSha1: checksumSha1,
       checksumSha256: checksumSha256,
-      eTag: eTag,
       partNumber: partNumber,
     );
   }
@@ -45,6 +46,9 @@ abstract class CompletedPart
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CompletedPartBuilder b) {}
 
+  /// Entity tag returned when the part was uploaded.
+  String? get eTag;
+
   /// The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumCrc32;
 
@@ -57,23 +61,24 @@ abstract class CompletedPart
   /// The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumSha256;
 
-  /// Entity tag returned when the part was uploaded.
-  String? get eTag;
-
   /// Part number that identifies the part. This is a positive integer between 1 and 10,000.
   int? get partNumber;
   @override
   List<Object?> get props => [
+        eTag,
         checksumCrc32,
         checksumCrc32C,
         checksumSha1,
         checksumSha256,
-        eTag,
         partNumber,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CompletedPart');
+    helper.add(
+      'eTag',
+      eTag,
+    );
     helper.add(
       'checksumCrc32',
       checksumCrc32,
@@ -89,10 +94,6 @@ abstract class CompletedPart
     helper.add(
       'checksumSha256',
       checksumSha256,
-    );
-    helper.add(
-      'eTag',
-      eTag,
     );
     helper.add(
       'partNumber',
@@ -127,58 +128,43 @@ class CompletedPartRestXmlSerializer
     final result = CompletedPartBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ChecksumCRC32':
-          if (value != null) {
-            result.checksumCrc32 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.checksumCrc32 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChecksumCRC32C':
-          if (value != null) {
-            result.checksumCrc32C = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.checksumCrc32C = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChecksumSHA1':
-          if (value != null) {
-            result.checksumSha1 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.checksumSha1 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChecksumSHA256':
-          if (value != null) {
-            result.checksumSha256 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.checksumSha256 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ETag':
-          if (value != null) {
-            result.eTag = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.eTag = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PartNumber':
-          if (value != null) {
-            result.partNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.partNumber = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -188,64 +174,71 @@ class CompletedPartRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CompletedPart object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CompletedPart);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'CompletedPart',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.checksumCrc32 != null) {
-      result
+    final CompletedPart(
+      :checksumCrc32,
+      :checksumCrc32C,
+      :checksumSha1,
+      :checksumSha256,
+      :eTag,
+      :partNumber
+    ) = object;
+    if (checksumCrc32 != null) {
+      result$
         ..add(const _i2.XmlElementName('ChecksumCRC32'))
         ..add(serializers.serialize(
-          payload.checksumCrc32!,
+          checksumCrc32,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.checksumCrc32C != null) {
-      result
+    if (checksumCrc32C != null) {
+      result$
         ..add(const _i2.XmlElementName('ChecksumCRC32C'))
         ..add(serializers.serialize(
-          payload.checksumCrc32C!,
+          checksumCrc32C,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.checksumSha1 != null) {
-      result
+    if (checksumSha1 != null) {
+      result$
         ..add(const _i2.XmlElementName('ChecksumSHA1'))
         ..add(serializers.serialize(
-          payload.checksumSha1!,
+          checksumSha1,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.checksumSha256 != null) {
-      result
+    if (checksumSha256 != null) {
+      result$
         ..add(const _i2.XmlElementName('ChecksumSHA256'))
         ..add(serializers.serialize(
-          payload.checksumSha256!,
+          checksumSha256,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.eTag != null) {
-      result
+    if (eTag != null) {
+      result$
         ..add(const _i2.XmlElementName('ETag'))
         ..add(serializers.serialize(
-          payload.eTag!,
+          eTag,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.partNumber != null) {
-      result
+    if (partNumber != null) {
+      result$
         ..add(const _i2.XmlElementName('PartNumber'))
         ..add(serializers.serialize(
-          payload.partNumber!,
+          partNumber,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.get_models_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,14 +22,14 @@ abstract class GetModelsRequest
         _i1.HasPayload<GetModelsRequestPayload> {
   /// Request to list existing Models defined for a RestApi resource.
   factory GetModelsRequest({
-    int? limit,
-    String? position,
     required String restApiId,
+    String? position,
+    int? limit,
   }) {
     return _$GetModelsRequest._(
-      limit: limit,
-      position: position,
       restApiId: restApiId,
+      position: position,
+      limit: limit,
     );
   }
 
@@ -62,14 +63,14 @@ abstract class GetModelsRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetModelsRequestBuilder b) {}
 
-  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-  int? get limit;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The current pagination position in the paged result set.
   String? get position;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+  int? get limit;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -86,24 +87,24 @@ abstract class GetModelsRequest
   GetModelsRequestPayload getPayload() => GetModelsRequestPayload();
   @override
   List<Object?> get props => [
-        limit,
-        position,
         restApiId,
+        position,
+        limit,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetModelsRequest');
     helper.add(
-      'limit',
-      limit,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'position',
       position,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'limit',
+      limit,
     );
     return helper.toString();
   }
@@ -162,7 +163,7 @@ class GetModelsRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetModelsRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

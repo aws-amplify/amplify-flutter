@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.aggregation_authorization; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -113,39 +114,30 @@ class AggregationAuthorizationAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AggregationAuthorizationArn':
-          if (value != null) {
-            result.aggregationAuthorizationArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.aggregationAuthorizationArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AuthorizedAccountId':
-          if (value != null) {
-            result.authorizedAccountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.authorizedAccountId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AuthorizedAwsRegion':
-          if (value != null) {
-            result.authorizedAwsRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.authorizedAwsRegion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CreationTime':
-          if (value != null) {
-            result.creationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.creationTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -155,43 +147,48 @@ class AggregationAuthorizationAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AggregationAuthorization object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AggregationAuthorization);
-    final result = <Object?>[];
-    if (payload.aggregationAuthorizationArn != null) {
-      result
+    final result$ = <Object?>[];
+    final AggregationAuthorization(
+      :aggregationAuthorizationArn,
+      :authorizedAccountId,
+      :authorizedAwsRegion,
+      :creationTime
+    ) = object;
+    if (aggregationAuthorizationArn != null) {
+      result$
         ..add('AggregationAuthorizationArn')
         ..add(serializers.serialize(
-          payload.aggregationAuthorizationArn!,
+          aggregationAuthorizationArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.authorizedAccountId != null) {
-      result
+    if (authorizedAccountId != null) {
+      result$
         ..add('AuthorizedAccountId')
         ..add(serializers.serialize(
-          payload.authorizedAccountId!,
+          authorizedAccountId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.authorizedAwsRegion != null) {
-      result
+    if (authorizedAwsRegion != null) {
+      result$
         ..add('AuthorizedAwsRegion')
         ..add(serializers.serialize(
-          payload.authorizedAwsRegion!,
+          authorizedAwsRegion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.creationTime != null) {
-      result
+    if (creationTime != null) {
+      result$
         ..add('CreationTime')
         ..add(serializers.serialize(
-          payload.creationTime!,
+          creationTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

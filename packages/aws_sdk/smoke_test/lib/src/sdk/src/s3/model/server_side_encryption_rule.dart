@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.server_side_encryption_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -94,27 +95,24 @@ class ServerSideEncryptionRuleRestXmlSerializer
     final result = ServerSideEncryptionRuleBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ApplyServerSideEncryptionByDefault':
-          if (value != null) {
-            result.applyServerSideEncryptionByDefault
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ServerSideEncryptionByDefault),
-            ) as _i2.ServerSideEncryptionByDefault));
-          }
-          break;
+          result.applyServerSideEncryptionByDefault
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ServerSideEncryptionByDefault),
+          ) as _i2.ServerSideEncryptionByDefault));
         case 'BucketKeyEnabled':
-          if (value != null) {
-            result.bucketKeyEnabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.bucketKeyEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -124,32 +122,35 @@ class ServerSideEncryptionRuleRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ServerSideEncryptionRule object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ServerSideEncryptionRule);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ServerSideEncryptionRule',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.applyServerSideEncryptionByDefault != null) {
-      result
+    final ServerSideEncryptionRule(
+      :applyServerSideEncryptionByDefault,
+      :bucketKeyEnabled
+    ) = object;
+    if (applyServerSideEncryptionByDefault != null) {
+      result$
         ..add(const _i3.XmlElementName('ApplyServerSideEncryptionByDefault'))
         ..add(serializers.serialize(
-          payload.applyServerSideEncryptionByDefault!,
+          applyServerSideEncryptionByDefault,
           specifiedType: const FullType(_i2.ServerSideEncryptionByDefault),
         ));
     }
-    if (payload.bucketKeyEnabled != null) {
-      result
+    if (bucketKeyEnabled != null) {
+      result$
         ..add(const _i3.XmlElementName('BucketKeyEnabled'))
         ..add(serializers.serialize(
-          payload.bucketKeyEnabled!,
+          bucketKeyEnabled,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_compliance_by_config_rule_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,15 +21,15 @@ abstract class DescribeComplianceByConfigRuleRequest
         Built<DescribeComplianceByConfigRuleRequest,
             DescribeComplianceByConfigRuleRequestBuilder> {
   factory DescribeComplianceByConfigRuleRequest({
-    List<_i3.ComplianceType>? complianceTypes,
     List<String>? configRuleNames,
+    List<_i3.ComplianceType>? complianceTypes,
     String? nextToken,
   }) {
     return _$DescribeComplianceByConfigRuleRequest._(
-      complianceTypes:
-          complianceTypes == null ? null : _i4.BuiltList(complianceTypes),
       configRuleNames:
           configRuleNames == null ? null : _i4.BuiltList(configRuleNames),
+      complianceTypes:
+          complianceTypes == null ? null : _i4.BuiltList(complianceTypes),
       nextToken: nextToken,
     );
   }
@@ -53,13 +54,13 @@ abstract class DescribeComplianceByConfigRuleRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeComplianceByConfigRuleRequestBuilder b) {}
 
+  /// Specify one or more Config rule names to filter the results by rule.
+  _i4.BuiltList<String>? get configRuleNames;
+
   /// Filters the results by compliance.
   ///
   /// The allowed values are `COMPLIANT` and `NON_COMPLIANT`.
   _i4.BuiltList<_i3.ComplianceType>? get complianceTypes;
-
-  /// Specify one or more Config rule names to filter the results by rule.
-  _i4.BuiltList<String>? get configRuleNames;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -67,8 +68,8 @@ abstract class DescribeComplianceByConfigRuleRequest
   DescribeComplianceByConfigRuleRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        complianceTypes,
         configRuleNames,
+        complianceTypes,
         nextToken,
       ];
   @override
@@ -76,12 +77,12 @@ abstract class DescribeComplianceByConfigRuleRequest
     final helper =
         newBuiltValueToStringHelper('DescribeComplianceByConfigRuleRequest');
     helper.add(
-      'complianceTypes',
-      complianceTypes,
-    );
-    helper.add(
       'configRuleNames',
       configRuleNames,
+    );
+    helper.add(
+      'complianceTypes',
+      complianceTypes,
     );
     helper.add(
       'nextToken',
@@ -120,37 +121,31 @@ class DescribeComplianceByConfigRuleRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ComplianceTypes':
-          if (value != null) {
-            result.complianceTypes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ComplianceType)],
-              ),
-            ) as _i4.BuiltList<_i3.ComplianceType>));
-          }
-          break;
         case 'ConfigRuleNames':
-          if (value != null) {
-            result.configRuleNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.configRuleNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
+        case 'ComplianceTypes':
+          result.complianceTypes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.ComplianceType)],
+            ),
+          ) as _i4.BuiltList<_i3.ComplianceType>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -160,41 +155,45 @@ class DescribeComplianceByConfigRuleRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeComplianceByConfigRuleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeComplianceByConfigRuleRequest);
-    final result = <Object?>[];
-    if (payload.complianceTypes != null) {
-      result
-        ..add('ComplianceTypes')
-        ..add(serializers.serialize(
-          payload.complianceTypes!,
-          specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ComplianceType)],
-          ),
-        ));
-    }
-    if (payload.configRuleNames != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeComplianceByConfigRuleRequest(
+      :configRuleNames,
+      :complianceTypes,
+      :nextToken
+    ) = object;
+    if (configRuleNames != null) {
+      result$
         ..add('ConfigRuleNames')
         ..add(serializers.serialize(
-          payload.configRuleNames!,
+          configRuleNames,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
-      result
+    if (complianceTypes != null) {
+      result$
+        ..add('ComplianceTypes')
+        ..add(serializers.serialize(
+          complianceTypes,
+          specifiedType: const FullType(
+            _i4.BuiltList,
+            [FullType(_i3.ComplianceType)],
+          ),
+        ));
+    }
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

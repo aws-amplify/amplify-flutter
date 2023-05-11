@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.select_aggregate_resource_config_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,15 +18,15 @@ abstract class SelectAggregateResourceConfigRequest
         Built<SelectAggregateResourceConfigRequest,
             SelectAggregateResourceConfigRequestBuilder> {
   factory SelectAggregateResourceConfigRequest({
-    required String configurationAggregatorName,
     required String expression,
+    required String configurationAggregatorName,
     int? limit,
     int? maxResults,
     String? nextToken,
   }) {
     return _$SelectAggregateResourceConfigRequest._(
-      configurationAggregatorName: configurationAggregatorName,
       expression: expression,
+      configurationAggregatorName: configurationAggregatorName,
       limit: limit,
       maxResults: maxResults,
       nextToken: nextToken,
@@ -52,11 +53,11 @@ abstract class SelectAggregateResourceConfigRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SelectAggregateResourceConfigRequestBuilder b) {}
 
-  /// The name of the configuration aggregator.
-  String get configurationAggregatorName;
-
   /// The SQL query SELECT command.
   String get expression;
+
+  /// The name of the configuration aggregator.
+  String get configurationAggregatorName;
 
   /// The maximum number of query results returned on each page.
   int? get limit;
@@ -70,8 +71,8 @@ abstract class SelectAggregateResourceConfigRequest
   SelectAggregateResourceConfigRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        configurationAggregatorName,
         expression,
+        configurationAggregatorName,
         limit,
         maxResults,
         nextToken,
@@ -81,12 +82,12 @@ abstract class SelectAggregateResourceConfigRequest
     final helper =
         newBuiltValueToStringHelper('SelectAggregateResourceConfigRequest');
     helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
-    helper.add(
       'expression',
       expression,
+    );
+    helper.add(
+      'configurationAggregatorName',
+      configurationAggregatorName,
     );
     helper.add(
       'limit',
@@ -133,43 +134,35 @@ class SelectAggregateResourceConfigRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ConfigurationAggregatorName':
-          result.configurationAggregatorName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'Expression':
           result.expression = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'ConfigurationAggregatorName':
+          result.configurationAggregatorName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'MaxResults':
-          if (value != null) {
-            result.maxResults = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxResults = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -179,46 +172,53 @@ class SelectAggregateResourceConfigRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SelectAggregateResourceConfigRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SelectAggregateResourceConfigRequest);
-    final result = <Object?>[
-      'ConfigurationAggregatorName',
-      serializers.serialize(
-        payload.configurationAggregatorName,
-        specifiedType: const FullType(String),
-      ),
+    final result$ = <Object?>[];
+    final SelectAggregateResourceConfigRequest(
+      :expression,
+      :configurationAggregatorName,
+      :limit,
+      :maxResults,
+      :nextToken
+    ) = object;
+    result$.addAll([
       'Expression',
       serializers.serialize(
-        payload.expression,
+        expression,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.limit != null) {
-      result
+      'ConfigurationAggregatorName',
+      serializers.serialize(
+        configurationAggregatorName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
+    if (limit != null) {
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.maxResults != null) {
-      result
+    if (maxResults != null) {
+      result$
         ..add('MaxResults')
         ..add(serializers.serialize(
-          payload.maxResults!,
+          maxResults,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
-      result
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

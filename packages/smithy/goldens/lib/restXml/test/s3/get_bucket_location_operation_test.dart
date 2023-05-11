@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_xml_v1.s3.test.get_bucket_location_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -88,13 +89,15 @@ class GetBucketLocationRequestRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Bucket':
           result.bucket = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -104,7 +107,7 @@ class GetBucketLocationRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i7.GetBucketLocationRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -137,15 +140,15 @@ class GetBucketLocationOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'LocationConstraint':
-          if (value != null) {
-            result.locationConstraint = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i9.BucketLocationConstraint),
-            ) as _i9.BucketLocationConstraint);
-          }
-          break;
+          result.locationConstraint = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i9.BucketLocationConstraint),
+          ) as _i9.BucketLocationConstraint);
       }
     }
 
@@ -155,7 +158,7 @@ class GetBucketLocationOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i8.GetBucketLocationOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

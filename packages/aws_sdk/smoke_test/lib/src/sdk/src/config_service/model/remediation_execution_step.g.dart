@@ -8,13 +8,13 @@ part of smoke_test.config_service.model.remediation_execution_step;
 
 class _$RemediationExecutionStep extends RemediationExecutionStep {
   @override
-  final String? errorMessage;
-  @override
   final String? name;
   @override
-  final DateTime? startTime;
-  @override
   final _i2.RemediationExecutionStepState? state;
+  @override
+  final String? errorMessage;
+  @override
+  final DateTime? startTime;
   @override
   final DateTime? stopTime;
 
@@ -23,7 +23,7 @@ class _$RemediationExecutionStep extends RemediationExecutionStep {
       (new RemediationExecutionStepBuilder()..update(updates))._build();
 
   _$RemediationExecutionStep._(
-      {this.errorMessage, this.name, this.startTime, this.state, this.stopTime})
+      {this.name, this.state, this.errorMessage, this.startTime, this.stopTime})
       : super._();
 
   @override
@@ -39,20 +39,20 @@ class _$RemediationExecutionStep extends RemediationExecutionStep {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is RemediationExecutionStep &&
-        errorMessage == other.errorMessage &&
         name == other.name &&
-        startTime == other.startTime &&
         state == other.state &&
+        errorMessage == other.errorMessage &&
+        startTime == other.startTime &&
         stopTime == other.stopTime;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, errorMessage.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, startTime.hashCode);
     _$hash = $jc(_$hash, state.hashCode);
+    _$hash = $jc(_$hash, errorMessage.hashCode);
+    _$hash = $jc(_$hash, startTime.hashCode);
     _$hash = $jc(_$hash, stopTime.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -64,21 +64,21 @@ class RemediationExecutionStepBuilder
         Builder<RemediationExecutionStep, RemediationExecutionStepBuilder> {
   _$RemediationExecutionStep? _$v;
 
-  String? _errorMessage;
-  String? get errorMessage => _$this._errorMessage;
-  set errorMessage(String? errorMessage) => _$this._errorMessage = errorMessage;
-
   String? _name;
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  DateTime? _startTime;
-  DateTime? get startTime => _$this._startTime;
-  set startTime(DateTime? startTime) => _$this._startTime = startTime;
-
   _i2.RemediationExecutionStepState? _state;
   _i2.RemediationExecutionStepState? get state => _$this._state;
   set state(_i2.RemediationExecutionStepState? state) => _$this._state = state;
+
+  String? _errorMessage;
+  String? get errorMessage => _$this._errorMessage;
+  set errorMessage(String? errorMessage) => _$this._errorMessage = errorMessage;
+
+  DateTime? _startTime;
+  DateTime? get startTime => _$this._startTime;
+  set startTime(DateTime? startTime) => _$this._startTime = startTime;
 
   DateTime? _stopTime;
   DateTime? get stopTime => _$this._stopTime;
@@ -91,10 +91,10 @@ class RemediationExecutionStepBuilder
   RemediationExecutionStepBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _errorMessage = $v.errorMessage;
       _name = $v.name;
-      _startTime = $v.startTime;
       _state = $v.state;
+      _errorMessage = $v.errorMessage;
+      _startTime = $v.startTime;
       _stopTime = $v.stopTime;
       _$v = null;
     }
@@ -118,10 +118,10 @@ class RemediationExecutionStepBuilder
   _$RemediationExecutionStep _build() {
     final _$result = _$v ??
         new _$RemediationExecutionStep._(
-            errorMessage: errorMessage,
             name: name,
-            startTime: startTime,
             state: state,
+            errorMessage: errorMessage,
+            startTime: startTime,
             stopTime: stopTime);
     replace(_$result);
     return _$result;

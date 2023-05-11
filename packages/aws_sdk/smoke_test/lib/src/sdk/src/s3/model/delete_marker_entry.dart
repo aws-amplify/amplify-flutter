@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.delete_marker_entry; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,18 +17,18 @@ abstract class DeleteMarkerEntry
     implements Built<DeleteMarkerEntry, DeleteMarkerEntryBuilder> {
   /// Information about the delete marker.
   factory DeleteMarkerEntry({
-    bool? isLatest,
-    String? key,
-    DateTime? lastModified,
     _i2.Owner? owner,
+    String? key,
     String? versionId,
+    bool? isLatest,
+    DateTime? lastModified,
   }) {
     return _$DeleteMarkerEntry._(
-      isLatest: isLatest,
-      key: key,
-      lastModified: lastModified,
       owner: owner,
+      key: key,
       versionId: versionId,
+      isLatest: isLatest,
+      lastModified: lastModified,
     );
   }
 
@@ -44,50 +45,50 @@ abstract class DeleteMarkerEntry
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteMarkerEntryBuilder b) {}
 
-  /// Specifies whether the object is (true) or is not (false) the latest version of an object.
-  bool? get isLatest;
+  /// The account that created the delete marker.>
+  _i2.Owner? get owner;
 
   /// The object key.
   String? get key;
 
-  /// Date and time the object was last modified.
-  DateTime? get lastModified;
-
-  /// The account that created the delete marker.>
-  _i2.Owner? get owner;
-
   /// Version ID of an object.
   String? get versionId;
+
+  /// Specifies whether the object is (true) or is not (false) the latest version of an object.
+  bool? get isLatest;
+
+  /// Date and time the object was last modified.
+  DateTime? get lastModified;
   @override
   List<Object?> get props => [
-        isLatest,
-        key,
-        lastModified,
         owner,
+        key,
         versionId,
+        isLatest,
+        lastModified,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteMarkerEntry');
     helper.add(
-      'isLatest',
-      isLatest,
+      'owner',
+      owner,
     );
     helper.add(
       'key',
       key,
     );
     helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
       'versionId',
       versionId,
+    );
+    helper.add(
+      'isLatest',
+      isLatest,
+    );
+    helper.add(
+      'lastModified',
+      lastModified,
     );
     return helper.toString();
   }
@@ -118,50 +119,38 @@ class DeleteMarkerEntryRestXmlSerializer
     final result = DeleteMarkerEntryBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'IsLatest':
-          if (value != null) {
-            result.isLatest = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isLatest = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Key':
-          if (value != null) {
-            result.key = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.key = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastModified':
-          if (value != null) {
-            result.lastModified = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastModified = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Owner':
-          if (value != null) {
-            result.owner.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Owner),
-            ) as _i2.Owner));
-          }
-          break;
+          result.owner.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Owner),
+          ) as _i2.Owner));
         case 'VersionId':
-          if (value != null) {
-            result.versionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.versionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -171,56 +160,62 @@ class DeleteMarkerEntryRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteMarkerEntry object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeleteMarkerEntry);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'DeleteMarkerEntry',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.isLatest != null) {
-      result
+    final DeleteMarkerEntry(
+      :isLatest,
+      :key,
+      :lastModified,
+      :owner,
+      :versionId
+    ) = object;
+    if (isLatest != null) {
+      result$
         ..add(const _i3.XmlElementName('IsLatest'))
         ..add(serializers.serialize(
-          payload.isLatest!,
+          isLatest,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.key != null) {
-      result
+    if (key != null) {
+      result$
         ..add(const _i3.XmlElementName('Key'))
         ..add(serializers.serialize(
-          payload.key!,
+          key,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastModified != null) {
-      result
+    if (lastModified != null) {
+      result$
         ..add(const _i3.XmlElementName('LastModified'))
         ..add(serializers.serialize(
-          payload.lastModified!,
+          lastModified,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.owner != null) {
-      result
+    if (owner != null) {
+      result$
         ..add(const _i3.XmlElementName('Owner'))
         ..add(serializers.serialize(
-          payload.owner!,
+          owner,
           specifiedType: const FullType(_i2.Owner),
         ));
     }
-    if (payload.versionId != null) {
-      result
+    if (versionId != null) {
+      result$
         ..add(const _i3.XmlElementName('VersionId'))
         ..add(serializers.serialize(
-          payload.versionId!,
+          versionId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

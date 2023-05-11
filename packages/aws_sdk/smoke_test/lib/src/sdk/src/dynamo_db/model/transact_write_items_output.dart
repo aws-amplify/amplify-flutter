@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.transact_write_items_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -106,32 +107,29 @@ class TransactWriteItemsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConsumedCapacity':
-          if (value != null) {
-            result.consumedCapacity.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.ConsumedCapacity)],
-              ),
-            ) as _i4.BuiltList<_i2.ConsumedCapacity>));
-          }
-          break;
+          result.consumedCapacity.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.ConsumedCapacity)],
+            ),
+          ) as _i4.BuiltList<_i2.ConsumedCapacity>));
         case 'ItemCollectionMetrics':
-          if (value != null) {
-            result.itemCollectionMetrics.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(_i3.ItemCollectionMetrics),
-                ],
-              ),
-            ) as _i4.BuiltListMultimap<String, _i3.ItemCollectionMetrics>));
-          }
-          break;
+          result.itemCollectionMetrics.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(_i3.ItemCollectionMetrics),
+              ],
+            ),
+          ) as _i4.BuiltListMultimap<String, _i3.ItemCollectionMetrics>));
       }
     }
 
@@ -141,27 +139,28 @@ class TransactWriteItemsOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TransactWriteItemsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TransactWriteItemsOutput);
-    final result = <Object?>[];
-    if (payload.consumedCapacity != null) {
-      result
+    final result$ = <Object?>[];
+    final TransactWriteItemsOutput(:consumedCapacity, :itemCollectionMetrics) =
+        object;
+    if (consumedCapacity != null) {
+      result$
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
-          payload.consumedCapacity!,
+          consumedCapacity,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.ConsumedCapacity)],
           ),
         ));
     }
-    if (payload.itemCollectionMetrics != null) {
-      result
+    if (itemCollectionMetrics != null) {
+      result$
         ..add('ItemCollectionMetrics')
         ..add(serializers.serialize(
-          payload.itemCollectionMetrics!,
+          itemCollectionMetrics,
           specifiedType: const FullType(
             _i4.BuiltListMultimap,
             [
@@ -171,6 +170,6 @@ class TransactWriteItemsOutputAwsJson10Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

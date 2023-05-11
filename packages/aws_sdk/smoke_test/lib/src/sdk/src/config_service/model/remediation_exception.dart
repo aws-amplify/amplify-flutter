@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.remediation_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,17 +17,17 @@ abstract class RemediationException
   /// An object that represents the details about the remediation exception. The details include the rule name, an explanation of an exception, the time when the exception will be deleted, the resource ID, and resource type.
   factory RemediationException({
     required String configRuleName,
-    DateTime? expirationTime,
-    String? message,
-    required String resourceId,
     required String resourceType,
+    required String resourceId,
+    String? message,
+    DateTime? expirationTime,
   }) {
     return _$RemediationException._(
       configRuleName: configRuleName,
-      expirationTime: expirationTime,
-      message: message,
-      resourceId: resourceId,
       resourceType: resourceType,
+      resourceId: resourceId,
+      message: message,
+      expirationTime: expirationTime,
     );
   }
 
@@ -47,24 +48,24 @@ abstract class RemediationException
   /// The name of the Config rule.
   String get configRuleName;
 
-  /// The time when the remediation exception will be deleted.
-  DateTime? get expirationTime;
-
-  /// An explanation of an remediation exception.
-  String? get message;
+  /// The type of a resource.
+  String get resourceType;
 
   /// The ID of the resource (for example., sg-xxxxxx).
   String get resourceId;
 
-  /// The type of a resource.
-  String get resourceType;
+  /// An explanation of an remediation exception.
+  String? get message;
+
+  /// The time when the remediation exception will be deleted.
+  DateTime? get expirationTime;
   @override
   List<Object?> get props => [
         configRuleName,
-        expirationTime,
-        message,
-        resourceId,
         resourceType,
+        resourceId,
+        message,
+        expirationTime,
       ];
   @override
   String toString() {
@@ -74,20 +75,20 @@ abstract class RemediationException
       configRuleName,
     );
     helper.add(
-      'expirationTime',
-      expirationTime,
-    );
-    helper.add(
-      'message',
-      message,
+      'resourceType',
+      resourceType,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'resourceType',
-      resourceType,
+      'message',
+      message,
+    );
+    helper.add(
+      'expirationTime',
+      expirationTime,
     );
     return helper.toString();
   }
@@ -122,41 +123,35 @@ class RemediationExceptionAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleName':
           result.configRuleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
-        case 'ExpirationTime':
-          if (value != null) {
-            result.expirationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ResourceId':
-          result.resourceId = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'ResourceId':
+          result.resourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'Message':
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ExpirationTime':
+          result.expirationTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -166,43 +161,50 @@ class RemediationExceptionAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RemediationException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RemediationException);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final RemediationException(
+      :configRuleName,
+      :resourceType,
+      :resourceId,
+      :message,
+      :expirationTime
+    ) = object;
+    result$.addAll([
       'ConfigRuleName',
       serializers.serialize(
-        payload.configRuleName,
-        specifiedType: const FullType(String),
-      ),
-      'ResourceId',
-      serializers.serialize(
-        payload.resourceId,
+        configRuleName,
         specifiedType: const FullType(String),
       ),
       'ResourceType',
       serializers.serialize(
-        payload.resourceType,
+        resourceType,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.expirationTime != null) {
-      result
-        ..add('ExpirationTime')
-        ..add(serializers.serialize(
-          payload.expirationTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.message != null) {
-      result
+      'ResourceId',
+      serializers.serialize(
+        resourceId,
+        specifiedType: const FullType(String),
+      ),
+    ]);
+    if (message != null) {
+      result$
         ..add('Message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    if (expirationTime != null) {
+      result$
+        ..add('ExpirationTime')
+        ..add(serializers.serialize(
+          expirationTime,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    return result$;
   }
 }
