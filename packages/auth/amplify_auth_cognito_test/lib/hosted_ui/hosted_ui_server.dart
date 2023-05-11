@@ -153,10 +153,12 @@ class HostedUiServer implements Closeable {
 
   @override
   Future<void> close() async {
+    _logger.debug('Closing server...');
     // ignore: invalid_use_of_visible_for_testing_member
     await Amplify.reset();
     await _rpcServer.close();
     await _server.close(force: true);
+    _logger.debug('Closed server');
   }
 }
 
