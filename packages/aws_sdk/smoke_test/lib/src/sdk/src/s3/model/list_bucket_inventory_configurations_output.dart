@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.list_bucket_inventory_configurations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -122,42 +123,33 @@ class ListBucketInventoryConfigurationsOutputRestXmlSerializer extends _i4
     final result = ListBucketInventoryConfigurationsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ContinuationToken':
-          if (value != null) {
-            result.continuationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.continuationToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'InventoryConfiguration':
-          if (value != null) {
-            result.inventoryConfigurationList.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.InventoryConfiguration),
-            ) as _i2.InventoryConfiguration));
-          }
-          break;
+          result.inventoryConfigurationList.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.InventoryConfiguration),
+          ) as _i2.InventoryConfiguration));
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'NextContinuationToken':
-          if (value != null) {
-            result.nextContinuationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextContinuationToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -167,52 +159,57 @@ class ListBucketInventoryConfigurationsOutputRestXmlSerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListBucketInventoryConfigurationsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListBucketInventoryConfigurationsOutput);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ListInventoryConfigurationsResult',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.continuationToken != null) {
-      result
+    final ListBucketInventoryConfigurationsOutput(
+      :continuationToken,
+      :inventoryConfigurationList,
+      :isTruncated,
+      :nextContinuationToken
+    ) = object;
+    if (continuationToken != null) {
+      result$
         ..add(const _i4.XmlElementName('ContinuationToken'))
         ..add(serializers.serialize(
-          payload.continuationToken!,
+          continuationToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.inventoryConfigurationList != null) {
-      result.addAll(
+    if (inventoryConfigurationList != null) {
+      result$.addAll(
           const _i4.XmlBuiltListSerializer(memberName: 'InventoryConfiguration')
               .serialize(
         serializers,
-        payload.inventoryConfigurationList!,
+        inventoryConfigurationList,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.InventoryConfiguration)],
         ),
       ));
     }
-    if (payload.isTruncated != null) {
-      result
+    if (isTruncated != null) {
+      result$
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.nextContinuationToken != null) {
-      result
+    if (nextContinuationToken != null) {
+      result$
         ..add(const _i4.XmlElementName('NextContinuationToken'))
         ..add(serializers.serialize(
-          payload.nextContinuationToken!,
+          nextContinuationToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -87,7 +87,6 @@ class JsonWebKey with AWSEquatable<JsonWebKey>, AWSSerializable {
         if (y == null) {
           throw const MissingParameterException('y');
         }
-        break;
       case KeyType.rsa:
         if (n == null) {
           throw const MissingParameterException('n');
@@ -95,7 +94,6 @@ class JsonWebKey with AWSEquatable<JsonWebKey>, AWSSerializable {
         if (e == null) {
           throw const MissingParameterException('e');
         }
-        break;
       case KeyType.octet:
         if (k == null) {
           throw const MissingParameterException('k');
@@ -391,7 +389,6 @@ class JsonWebKey with AWSEquatable<JsonWebKey>, AWSSerializable {
       switch (ellipticCurve!) {
         case EllipticCurve.p521:
           length = 66;
-          break;
         case EllipticCurve.p256:
         case EllipticCurve.p384:
           break;

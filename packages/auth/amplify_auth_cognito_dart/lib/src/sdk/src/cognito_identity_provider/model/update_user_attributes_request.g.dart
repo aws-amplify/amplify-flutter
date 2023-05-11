@@ -8,25 +8,25 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.update_user_at
 
 class _$UpdateUserAttributesRequest extends UpdateUserAttributesRequest {
   @override
+  final _i4.BuiltList<_i3.AttributeType> userAttributes;
+  @override
   final String accessToken;
   @override
   final _i4.BuiltMap<String, String>? clientMetadata;
-  @override
-  final _i4.BuiltList<_i3.AttributeType> userAttributes;
 
   factory _$UpdateUserAttributesRequest(
           [void Function(UpdateUserAttributesRequestBuilder)? updates]) =>
       (new UpdateUserAttributesRequestBuilder()..update(updates))._build();
 
   _$UpdateUserAttributesRequest._(
-      {required this.accessToken,
-      this.clientMetadata,
-      required this.userAttributes})
+      {required this.userAttributes,
+      required this.accessToken,
+      this.clientMetadata})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'UpdateUserAttributesRequest', 'accessToken');
-    BuiltValueNullFieldError.checkNotNull(
         userAttributes, r'UpdateUserAttributesRequest', 'userAttributes');
+    BuiltValueNullFieldError.checkNotNull(
+        accessToken, r'UpdateUserAttributesRequest', 'accessToken');
   }
 
   @override
@@ -42,17 +42,17 @@ class _$UpdateUserAttributesRequest extends UpdateUserAttributesRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateUserAttributesRequest &&
+        userAttributes == other.userAttributes &&
         accessToken == other.accessToken &&
-        clientMetadata == other.clientMetadata &&
-        userAttributes == other.userAttributes;
+        clientMetadata == other.clientMetadata;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, userAttributes.hashCode);
     _$hash = $jc(_$hash, accessToken.hashCode);
     _$hash = $jc(_$hash, clientMetadata.hashCode);
-    _$hash = $jc(_$hash, userAttributes.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -64,6 +64,12 @@ class UpdateUserAttributesRequestBuilder
             UpdateUserAttributesRequestBuilder> {
   _$UpdateUserAttributesRequest? _$v;
 
+  _i4.ListBuilder<_i3.AttributeType>? _userAttributes;
+  _i4.ListBuilder<_i3.AttributeType> get userAttributes =>
+      _$this._userAttributes ??= new _i4.ListBuilder<_i3.AttributeType>();
+  set userAttributes(_i4.ListBuilder<_i3.AttributeType>? userAttributes) =>
+      _$this._userAttributes = userAttributes;
+
   String? _accessToken;
   String? get accessToken => _$this._accessToken;
   set accessToken(String? accessToken) => _$this._accessToken = accessToken;
@@ -74,12 +80,6 @@ class UpdateUserAttributesRequestBuilder
   set clientMetadata(_i4.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
-  _i4.ListBuilder<_i3.AttributeType>? _userAttributes;
-  _i4.ListBuilder<_i3.AttributeType> get userAttributes =>
-      _$this._userAttributes ??= new _i4.ListBuilder<_i3.AttributeType>();
-  set userAttributes(_i4.ListBuilder<_i3.AttributeType>? userAttributes) =>
-      _$this._userAttributes = userAttributes;
-
   UpdateUserAttributesRequestBuilder() {
     UpdateUserAttributesRequest._init(this);
   }
@@ -87,9 +87,9 @@ class UpdateUserAttributesRequestBuilder
   UpdateUserAttributesRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _userAttributes = $v.userAttributes.toBuilder();
       _accessToken = $v.accessToken;
       _clientMetadata = $v.clientMetadata?.toBuilder();
-      _userAttributes = $v.userAttributes.toBuilder();
       _$v = null;
     }
     return this;
@@ -114,17 +114,18 @@ class UpdateUserAttributesRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateUserAttributesRequest._(
+              userAttributes: userAttributes.build(),
               accessToken: BuiltValueNullFieldError.checkNotNull(
                   accessToken, r'UpdateUserAttributesRequest', 'accessToken'),
-              clientMetadata: _clientMetadata?.build(),
-              userAttributes: userAttributes.build());
+              clientMetadata: _clientMetadata?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'clientMetadata';
-        _clientMetadata?.build();
         _$failedField = 'userAttributes';
         userAttributes.build();
+
+        _$failedField = 'clientMetadata';
+        _clientMetadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'UpdateUserAttributesRequest', _$failedField, e.toString());

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.progress_event; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -73,18 +74,18 @@ class ProgressEventRestXmlSerializer
     final result = ProgressEventBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Details':
-          if (value != null) {
-            result.details.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Progress),
-            ) as _i2.Progress));
-          }
-          break;
+          result.details.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Progress),
+          ) as _i2.Progress));
       }
     }
 
@@ -94,24 +95,24 @@ class ProgressEventRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ProgressEvent object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ProgressEvent);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'ProgressEvent',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.details != null) {
-      result
+    final ProgressEvent(:details) = object;
+    if (details != null) {
+      result$
         ..add(const _i3.XmlElementName('Details'))
         ..add(serializers.serialize(
-          payload.details!,
+          details,
           specifiedType: const FullType(_i2.Progress),
         ));
     }
-    return result;
+    return result$;
   }
 }

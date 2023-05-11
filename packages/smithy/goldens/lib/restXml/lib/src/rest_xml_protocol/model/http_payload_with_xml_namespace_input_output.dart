@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.http_payload_with_xml_namespace_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,18 +103,18 @@ class HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer
     final result = _i2.PayloadWithXmlNamespaceBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -123,29 +124,24 @@ class HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.PayloadWithXmlNamespace object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is HttpPayloadWithXmlNamespaceInputOutput
-        ? object.getPayload()
-        : (object as _i2.PayloadWithXmlNamespace?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'PayloadWithXmlNamespace',
         _i1.XmlNamespace('http://foo.com'),
       )
     ];
-    if (payload == null) {
-      return result;
-    }
-    if (payload.name != null) {
-      result
+    final _i2.PayloadWithXmlNamespace(:name) = object;
+    if (name != null) {
+      result$
         ..add(const _i1.XmlElementName('name'))
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,4 @@
-group 'com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage'
+group 'com.amazonaws.amplify.amplify_secure_storage'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -45,6 +45,8 @@ android {
     }
 
     testOptions.unitTests.includeAndroidResources = true
+
+    namespace 'com.amazonaws.amplify.amplify_secure_storage'
 }
 
 dependencies {

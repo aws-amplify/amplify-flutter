@@ -8,21 +8,21 @@ part of smoke_test.s3.model.write_get_object_response_request;
 
 class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   @override
-  final String? acceptRanges;
+  final String requestRoute;
+  @override
+  final String requestToken;
   @override
   final _i2.Stream<List<int>>? body;
   @override
-  final bool? bucketKeyEnabled;
+  final int? statusCode;
+  @override
+  final String? errorCode;
+  @override
+  final String? errorMessage;
+  @override
+  final String? acceptRanges;
   @override
   final String? cacheControl;
-  @override
-  final String? checksumCrc32;
-  @override
-  final String? checksumCrc32C;
-  @override
-  final String? checksumSha1;
-  @override
-  final String? checksumSha256;
   @override
   final String? contentDisposition;
   @override
@@ -36,27 +36,31 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   @override
   final String? contentType;
   @override
+  final String? checksumCrc32;
+  @override
+  final String? checksumCrc32C;
+  @override
+  final String? checksumSha1;
+  @override
+  final String? checksumSha256;
+  @override
   final bool? deleteMarker;
   @override
   final String? eTag;
   @override
-  final String? errorCode;
-  @override
-  final String? errorMessage;
+  final DateTime? expires;
   @override
   final String? expiration;
   @override
-  final DateTime? expires;
-  @override
   final DateTime? lastModified;
-  @override
-  final _i11.BuiltMap<String, String>? metadata;
   @override
   final int? missingMeta;
   @override
-  final _i5.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
+  final _i11.BuiltMap<String, String>? metadata;
   @override
-  final _i6.ObjectLockMode? objectLockMode;
+  final _i5.ObjectLockMode? objectLockMode;
+  @override
+  final _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
   @override
   final DateTime? objectLockRetainUntilDate;
   @override
@@ -66,73 +70,69 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   @override
   final _i8.RequestCharged? requestCharged;
   @override
-  final String requestRoute;
-  @override
-  final String requestToken;
-  @override
   final String? restore;
   @override
   final _i9.ServerSideEncryption? serverSideEncryption;
   @override
   final String? sseCustomerAlgorithm;
   @override
-  final String? sseCustomerKeyMd5;
-  @override
   final String? ssekmsKeyId;
   @override
-  final int? statusCode;
+  final String? sseCustomerKeyMd5;
   @override
   final _i10.StorageClass? storageClass;
   @override
   final int? tagCount;
   @override
   final String? versionId;
+  @override
+  final bool? bucketKeyEnabled;
 
   factory _$WriteGetObjectResponseRequest(
           [void Function(WriteGetObjectResponseRequestBuilder)? updates]) =>
       (new WriteGetObjectResponseRequestBuilder()..update(updates))._build();
 
   _$WriteGetObjectResponseRequest._(
-      {this.acceptRanges,
+      {required this.requestRoute,
+      required this.requestToken,
       this.body,
-      this.bucketKeyEnabled,
+      this.statusCode,
+      this.errorCode,
+      this.errorMessage,
+      this.acceptRanges,
       this.cacheControl,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
       this.contentDisposition,
       this.contentEncoding,
       this.contentLanguage,
       this.contentLength,
       this.contentRange,
       this.contentType,
+      this.checksumCrc32,
+      this.checksumCrc32C,
+      this.checksumSha1,
+      this.checksumSha256,
       this.deleteMarker,
       this.eTag,
-      this.errorCode,
-      this.errorMessage,
-      this.expiration,
       this.expires,
+      this.expiration,
       this.lastModified,
-      this.metadata,
       this.missingMeta,
-      this.objectLockLegalHoldStatus,
+      this.metadata,
       this.objectLockMode,
+      this.objectLockLegalHoldStatus,
       this.objectLockRetainUntilDate,
       this.partsCount,
       this.replicationStatus,
       this.requestCharged,
-      required this.requestRoute,
-      required this.requestToken,
       this.restore,
       this.serverSideEncryption,
       this.sseCustomerAlgorithm,
-      this.sseCustomerKeyMd5,
       this.ssekmsKeyId,
-      this.statusCode,
+      this.sseCustomerKeyMd5,
       this.storageClass,
       this.tagCount,
-      this.versionId})
+      this.versionId,
+      this.bucketKeyEnabled})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         requestRoute, r'WriteGetObjectResponseRequest', 'requestRoute');
@@ -153,91 +153,91 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is WriteGetObjectResponseRequest &&
-        acceptRanges == other.acceptRanges &&
+        requestRoute == other.requestRoute &&
+        requestToken == other.requestToken &&
         body == other.body &&
-        bucketKeyEnabled == other.bucketKeyEnabled &&
+        statusCode == other.statusCode &&
+        errorCode == other.errorCode &&
+        errorMessage == other.errorMessage &&
+        acceptRanges == other.acceptRanges &&
         cacheControl == other.cacheControl &&
-        checksumCrc32 == other.checksumCrc32 &&
-        checksumCrc32C == other.checksumCrc32C &&
-        checksumSha1 == other.checksumSha1 &&
-        checksumSha256 == other.checksumSha256 &&
         contentDisposition == other.contentDisposition &&
         contentEncoding == other.contentEncoding &&
         contentLanguage == other.contentLanguage &&
         contentLength == other.contentLength &&
         contentRange == other.contentRange &&
         contentType == other.contentType &&
+        checksumCrc32 == other.checksumCrc32 &&
+        checksumCrc32C == other.checksumCrc32C &&
+        checksumSha1 == other.checksumSha1 &&
+        checksumSha256 == other.checksumSha256 &&
         deleteMarker == other.deleteMarker &&
         eTag == other.eTag &&
-        errorCode == other.errorCode &&
-        errorMessage == other.errorMessage &&
-        expiration == other.expiration &&
         expires == other.expires &&
+        expiration == other.expiration &&
         lastModified == other.lastModified &&
-        metadata == other.metadata &&
         missingMeta == other.missingMeta &&
-        objectLockLegalHoldStatus == other.objectLockLegalHoldStatus &&
+        metadata == other.metadata &&
         objectLockMode == other.objectLockMode &&
+        objectLockLegalHoldStatus == other.objectLockLegalHoldStatus &&
         objectLockRetainUntilDate == other.objectLockRetainUntilDate &&
         partsCount == other.partsCount &&
         replicationStatus == other.replicationStatus &&
         requestCharged == other.requestCharged &&
-        requestRoute == other.requestRoute &&
-        requestToken == other.requestToken &&
         restore == other.restore &&
         serverSideEncryption == other.serverSideEncryption &&
         sseCustomerAlgorithm == other.sseCustomerAlgorithm &&
-        sseCustomerKeyMd5 == other.sseCustomerKeyMd5 &&
         ssekmsKeyId == other.ssekmsKeyId &&
-        statusCode == other.statusCode &&
+        sseCustomerKeyMd5 == other.sseCustomerKeyMd5 &&
         storageClass == other.storageClass &&
         tagCount == other.tagCount &&
-        versionId == other.versionId;
+        versionId == other.versionId &&
+        bucketKeyEnabled == other.bucketKeyEnabled;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, acceptRanges.hashCode);
+    _$hash = $jc(_$hash, requestRoute.hashCode);
+    _$hash = $jc(_$hash, requestToken.hashCode);
     _$hash = $jc(_$hash, body.hashCode);
-    _$hash = $jc(_$hash, bucketKeyEnabled.hashCode);
+    _$hash = $jc(_$hash, statusCode.hashCode);
+    _$hash = $jc(_$hash, errorCode.hashCode);
+    _$hash = $jc(_$hash, errorMessage.hashCode);
+    _$hash = $jc(_$hash, acceptRanges.hashCode);
     _$hash = $jc(_$hash, cacheControl.hashCode);
-    _$hash = $jc(_$hash, checksumCrc32.hashCode);
-    _$hash = $jc(_$hash, checksumCrc32C.hashCode);
-    _$hash = $jc(_$hash, checksumSha1.hashCode);
-    _$hash = $jc(_$hash, checksumSha256.hashCode);
     _$hash = $jc(_$hash, contentDisposition.hashCode);
     _$hash = $jc(_$hash, contentEncoding.hashCode);
     _$hash = $jc(_$hash, contentLanguage.hashCode);
     _$hash = $jc(_$hash, contentLength.hashCode);
     _$hash = $jc(_$hash, contentRange.hashCode);
     _$hash = $jc(_$hash, contentType.hashCode);
+    _$hash = $jc(_$hash, checksumCrc32.hashCode);
+    _$hash = $jc(_$hash, checksumCrc32C.hashCode);
+    _$hash = $jc(_$hash, checksumSha1.hashCode);
+    _$hash = $jc(_$hash, checksumSha256.hashCode);
     _$hash = $jc(_$hash, deleteMarker.hashCode);
     _$hash = $jc(_$hash, eTag.hashCode);
-    _$hash = $jc(_$hash, errorCode.hashCode);
-    _$hash = $jc(_$hash, errorMessage.hashCode);
-    _$hash = $jc(_$hash, expiration.hashCode);
     _$hash = $jc(_$hash, expires.hashCode);
+    _$hash = $jc(_$hash, expiration.hashCode);
     _$hash = $jc(_$hash, lastModified.hashCode);
-    _$hash = $jc(_$hash, metadata.hashCode);
     _$hash = $jc(_$hash, missingMeta.hashCode);
-    _$hash = $jc(_$hash, objectLockLegalHoldStatus.hashCode);
+    _$hash = $jc(_$hash, metadata.hashCode);
     _$hash = $jc(_$hash, objectLockMode.hashCode);
+    _$hash = $jc(_$hash, objectLockLegalHoldStatus.hashCode);
     _$hash = $jc(_$hash, objectLockRetainUntilDate.hashCode);
     _$hash = $jc(_$hash, partsCount.hashCode);
     _$hash = $jc(_$hash, replicationStatus.hashCode);
     _$hash = $jc(_$hash, requestCharged.hashCode);
-    _$hash = $jc(_$hash, requestRoute.hashCode);
-    _$hash = $jc(_$hash, requestToken.hashCode);
     _$hash = $jc(_$hash, restore.hashCode);
     _$hash = $jc(_$hash, serverSideEncryption.hashCode);
     _$hash = $jc(_$hash, sseCustomerAlgorithm.hashCode);
-    _$hash = $jc(_$hash, sseCustomerKeyMd5.hashCode);
     _$hash = $jc(_$hash, ssekmsKeyId.hashCode);
-    _$hash = $jc(_$hash, statusCode.hashCode);
+    _$hash = $jc(_$hash, sseCustomerKeyMd5.hashCode);
     _$hash = $jc(_$hash, storageClass.hashCode);
     _$hash = $jc(_$hash, tagCount.hashCode);
     _$hash = $jc(_$hash, versionId.hashCode);
+    _$hash = $jc(_$hash, bucketKeyEnabled.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -249,41 +249,37 @@ class WriteGetObjectResponseRequestBuilder
             WriteGetObjectResponseRequestBuilder> {
   _$WriteGetObjectResponseRequest? _$v;
 
-  String? _acceptRanges;
-  String? get acceptRanges => _$this._acceptRanges;
-  set acceptRanges(String? acceptRanges) => _$this._acceptRanges = acceptRanges;
+  String? _requestRoute;
+  String? get requestRoute => _$this._requestRoute;
+  set requestRoute(String? requestRoute) => _$this._requestRoute = requestRoute;
+
+  String? _requestToken;
+  String? get requestToken => _$this._requestToken;
+  set requestToken(String? requestToken) => _$this._requestToken = requestToken;
 
   _i2.Stream<List<int>>? _body;
   _i2.Stream<List<int>>? get body => _$this._body;
   set body(_i2.Stream<List<int>>? body) => _$this._body = body;
 
-  bool? _bucketKeyEnabled;
-  bool? get bucketKeyEnabled => _$this._bucketKeyEnabled;
-  set bucketKeyEnabled(bool? bucketKeyEnabled) =>
-      _$this._bucketKeyEnabled = bucketKeyEnabled;
+  int? _statusCode;
+  int? get statusCode => _$this._statusCode;
+  set statusCode(int? statusCode) => _$this._statusCode = statusCode;
+
+  String? _errorCode;
+  String? get errorCode => _$this._errorCode;
+  set errorCode(String? errorCode) => _$this._errorCode = errorCode;
+
+  String? _errorMessage;
+  String? get errorMessage => _$this._errorMessage;
+  set errorMessage(String? errorMessage) => _$this._errorMessage = errorMessage;
+
+  String? _acceptRanges;
+  String? get acceptRanges => _$this._acceptRanges;
+  set acceptRanges(String? acceptRanges) => _$this._acceptRanges = acceptRanges;
 
   String? _cacheControl;
   String? get cacheControl => _$this._cacheControl;
   set cacheControl(String? cacheControl) => _$this._cacheControl = cacheControl;
-
-  String? _checksumCrc32;
-  String? get checksumCrc32 => _$this._checksumCrc32;
-  set checksumCrc32(String? checksumCrc32) =>
-      _$this._checksumCrc32 = checksumCrc32;
-
-  String? _checksumCrc32C;
-  String? get checksumCrc32C => _$this._checksumCrc32C;
-  set checksumCrc32C(String? checksumCrc32C) =>
-      _$this._checksumCrc32C = checksumCrc32C;
-
-  String? _checksumSha1;
-  String? get checksumSha1 => _$this._checksumSha1;
-  set checksumSha1(String? checksumSha1) => _$this._checksumSha1 = checksumSha1;
-
-  String? _checksumSha256;
-  String? get checksumSha256 => _$this._checksumSha256;
-  set checksumSha256(String? checksumSha256) =>
-      _$this._checksumSha256 = checksumSha256;
 
   String? _contentDisposition;
   String? get contentDisposition => _$this._contentDisposition;
@@ -313,6 +309,25 @@ class WriteGetObjectResponseRequestBuilder
   String? get contentType => _$this._contentType;
   set contentType(String? contentType) => _$this._contentType = contentType;
 
+  String? _checksumCrc32;
+  String? get checksumCrc32 => _$this._checksumCrc32;
+  set checksumCrc32(String? checksumCrc32) =>
+      _$this._checksumCrc32 = checksumCrc32;
+
+  String? _checksumCrc32C;
+  String? get checksumCrc32C => _$this._checksumCrc32C;
+  set checksumCrc32C(String? checksumCrc32C) =>
+      _$this._checksumCrc32C = checksumCrc32C;
+
+  String? _checksumSha1;
+  String? get checksumSha1 => _$this._checksumSha1;
+  set checksumSha1(String? checksumSha1) => _$this._checksumSha1 = checksumSha1;
+
+  String? _checksumSha256;
+  String? get checksumSha256 => _$this._checksumSha256;
+  set checksumSha256(String? checksumSha256) =>
+      _$this._checksumSha256 = checksumSha256;
+
   bool? _deleteMarker;
   bool? get deleteMarker => _$this._deleteMarker;
   set deleteMarker(bool? deleteMarker) => _$this._deleteMarker = deleteMarker;
@@ -321,26 +336,22 @@ class WriteGetObjectResponseRequestBuilder
   String? get eTag => _$this._eTag;
   set eTag(String? eTag) => _$this._eTag = eTag;
 
-  String? _errorCode;
-  String? get errorCode => _$this._errorCode;
-  set errorCode(String? errorCode) => _$this._errorCode = errorCode;
-
-  String? _errorMessage;
-  String? get errorMessage => _$this._errorMessage;
-  set errorMessage(String? errorMessage) => _$this._errorMessage = errorMessage;
+  DateTime? _expires;
+  DateTime? get expires => _$this._expires;
+  set expires(DateTime? expires) => _$this._expires = expires;
 
   String? _expiration;
   String? get expiration => _$this._expiration;
   set expiration(String? expiration) => _$this._expiration = expiration;
 
-  DateTime? _expires;
-  DateTime? get expires => _$this._expires;
-  set expires(DateTime? expires) => _$this._expires = expires;
-
   DateTime? _lastModified;
   DateTime? get lastModified => _$this._lastModified;
   set lastModified(DateTime? lastModified) =>
       _$this._lastModified = lastModified;
+
+  int? _missingMeta;
+  int? get missingMeta => _$this._missingMeta;
+  set missingMeta(int? missingMeta) => _$this._missingMeta = missingMeta;
 
   _i11.MapBuilder<String, String>? _metadata;
   _i11.MapBuilder<String, String> get metadata =>
@@ -348,21 +359,17 @@ class WriteGetObjectResponseRequestBuilder
   set metadata(_i11.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
-  int? _missingMeta;
-  int? get missingMeta => _$this._missingMeta;
-  set missingMeta(int? missingMeta) => _$this._missingMeta = missingMeta;
+  _i5.ObjectLockMode? _objectLockMode;
+  _i5.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
+  set objectLockMode(_i5.ObjectLockMode? objectLockMode) =>
+      _$this._objectLockMode = objectLockMode;
 
-  _i5.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
-  _i5.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
+  _i6.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
+  _i6.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          _i5.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
+          _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
       _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
-
-  _i6.ObjectLockMode? _objectLockMode;
-  _i6.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
-  set objectLockMode(_i6.ObjectLockMode? objectLockMode) =>
-      _$this._objectLockMode = objectLockMode;
 
   DateTime? _objectLockRetainUntilDate;
   DateTime? get objectLockRetainUntilDate => _$this._objectLockRetainUntilDate;
@@ -383,14 +390,6 @@ class WriteGetObjectResponseRequestBuilder
   set requestCharged(_i8.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  String? _requestRoute;
-  String? get requestRoute => _$this._requestRoute;
-  set requestRoute(String? requestRoute) => _$this._requestRoute = requestRoute;
-
-  String? _requestToken;
-  String? get requestToken => _$this._requestToken;
-  set requestToken(String? requestToken) => _$this._requestToken = requestToken;
-
   String? _restore;
   String? get restore => _$this._restore;
   set restore(String? restore) => _$this._restore = restore;
@@ -406,18 +405,14 @@ class WriteGetObjectResponseRequestBuilder
   set sseCustomerAlgorithm(String? sseCustomerAlgorithm) =>
       _$this._sseCustomerAlgorithm = sseCustomerAlgorithm;
 
-  String? _sseCustomerKeyMd5;
-  String? get sseCustomerKeyMd5 => _$this._sseCustomerKeyMd5;
-  set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
-      _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
-
   String? _ssekmsKeyId;
   String? get ssekmsKeyId => _$this._ssekmsKeyId;
   set ssekmsKeyId(String? ssekmsKeyId) => _$this._ssekmsKeyId = ssekmsKeyId;
 
-  int? _statusCode;
-  int? get statusCode => _$this._statusCode;
-  set statusCode(int? statusCode) => _$this._statusCode = statusCode;
+  String? _sseCustomerKeyMd5;
+  String? get sseCustomerKeyMd5 => _$this._sseCustomerKeyMd5;
+  set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
+      _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
 
   _i10.StorageClass? _storageClass;
   _i10.StorageClass? get storageClass => _$this._storageClass;
@@ -432,6 +427,11 @@ class WriteGetObjectResponseRequestBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
+  bool? _bucketKeyEnabled;
+  bool? get bucketKeyEnabled => _$this._bucketKeyEnabled;
+  set bucketKeyEnabled(bool? bucketKeyEnabled) =>
+      _$this._bucketKeyEnabled = bucketKeyEnabled;
+
   WriteGetObjectResponseRequestBuilder() {
     WriteGetObjectResponseRequest._init(this);
   }
@@ -439,46 +439,46 @@ class WriteGetObjectResponseRequestBuilder
   WriteGetObjectResponseRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _acceptRanges = $v.acceptRanges;
+      _requestRoute = $v.requestRoute;
+      _requestToken = $v.requestToken;
       _body = $v.body;
-      _bucketKeyEnabled = $v.bucketKeyEnabled;
+      _statusCode = $v.statusCode;
+      _errorCode = $v.errorCode;
+      _errorMessage = $v.errorMessage;
+      _acceptRanges = $v.acceptRanges;
       _cacheControl = $v.cacheControl;
-      _checksumCrc32 = $v.checksumCrc32;
-      _checksumCrc32C = $v.checksumCrc32C;
-      _checksumSha1 = $v.checksumSha1;
-      _checksumSha256 = $v.checksumSha256;
       _contentDisposition = $v.contentDisposition;
       _contentEncoding = $v.contentEncoding;
       _contentLanguage = $v.contentLanguage;
       _contentLength = $v.contentLength;
       _contentRange = $v.contentRange;
       _contentType = $v.contentType;
+      _checksumCrc32 = $v.checksumCrc32;
+      _checksumCrc32C = $v.checksumCrc32C;
+      _checksumSha1 = $v.checksumSha1;
+      _checksumSha256 = $v.checksumSha256;
       _deleteMarker = $v.deleteMarker;
       _eTag = $v.eTag;
-      _errorCode = $v.errorCode;
-      _errorMessage = $v.errorMessage;
-      _expiration = $v.expiration;
       _expires = $v.expires;
+      _expiration = $v.expiration;
       _lastModified = $v.lastModified;
-      _metadata = $v.metadata?.toBuilder();
       _missingMeta = $v.missingMeta;
-      _objectLockLegalHoldStatus = $v.objectLockLegalHoldStatus;
+      _metadata = $v.metadata?.toBuilder();
       _objectLockMode = $v.objectLockMode;
+      _objectLockLegalHoldStatus = $v.objectLockLegalHoldStatus;
       _objectLockRetainUntilDate = $v.objectLockRetainUntilDate;
       _partsCount = $v.partsCount;
       _replicationStatus = $v.replicationStatus;
       _requestCharged = $v.requestCharged;
-      _requestRoute = $v.requestRoute;
-      _requestToken = $v.requestToken;
       _restore = $v.restore;
       _serverSideEncryption = $v.serverSideEncryption;
       _sseCustomerAlgorithm = $v.sseCustomerAlgorithm;
-      _sseCustomerKeyMd5 = $v.sseCustomerKeyMd5;
       _ssekmsKeyId = $v.ssekmsKeyId;
-      _statusCode = $v.statusCode;
+      _sseCustomerKeyMd5 = $v.sseCustomerKeyMd5;
       _storageClass = $v.storageClass;
       _tagCount = $v.tagCount;
       _versionId = $v.versionId;
+      _bucketKeyEnabled = $v.bucketKeyEnabled;
       _$v = null;
     }
     return this;
@@ -503,48 +503,48 @@ class WriteGetObjectResponseRequestBuilder
     try {
       _$result = _$v ??
           new _$WriteGetObjectResponseRequest._(
-              acceptRanges: acceptRanges,
+              requestRoute: BuiltValueNullFieldError.checkNotNull(requestRoute,
+                  r'WriteGetObjectResponseRequest', 'requestRoute'),
+              requestToken: BuiltValueNullFieldError.checkNotNull(requestToken,
+                  r'WriteGetObjectResponseRequest', 'requestToken'),
               body: body,
-              bucketKeyEnabled: bucketKeyEnabled,
+              statusCode: statusCode,
+              errorCode: errorCode,
+              errorMessage: errorMessage,
+              acceptRanges: acceptRanges,
               cacheControl: cacheControl,
-              checksumCrc32: checksumCrc32,
-              checksumCrc32C: checksumCrc32C,
-              checksumSha1: checksumSha1,
-              checksumSha256: checksumSha256,
               contentDisposition: contentDisposition,
               contentEncoding: contentEncoding,
               contentLanguage: contentLanguage,
               contentLength: contentLength,
               contentRange: contentRange,
               contentType: contentType,
+              checksumCrc32: checksumCrc32,
+              checksumCrc32C: checksumCrc32C,
+              checksumSha1: checksumSha1,
+              checksumSha256: checksumSha256,
               deleteMarker: deleteMarker,
               eTag: eTag,
-              errorCode: errorCode,
-              errorMessage: errorMessage,
-              expiration: expiration,
               expires: expires,
+              expiration: expiration,
               lastModified: lastModified,
-              metadata: _metadata?.build(),
               missingMeta: missingMeta,
-              objectLockLegalHoldStatus: objectLockLegalHoldStatus,
+              metadata: _metadata?.build(),
               objectLockMode: objectLockMode,
+              objectLockLegalHoldStatus: objectLockLegalHoldStatus,
               objectLockRetainUntilDate: objectLockRetainUntilDate,
               partsCount: partsCount,
               replicationStatus: replicationStatus,
               requestCharged: requestCharged,
-              requestRoute: BuiltValueNullFieldError.checkNotNull(requestRoute,
-                  r'WriteGetObjectResponseRequest', 'requestRoute'),
-              requestToken: BuiltValueNullFieldError.checkNotNull(requestToken,
-                  r'WriteGetObjectResponseRequest', 'requestToken'),
               restore: restore,
               serverSideEncryption: serverSideEncryption,
               sseCustomerAlgorithm: sseCustomerAlgorithm,
-              sseCustomerKeyMd5: sseCustomerKeyMd5,
               ssekmsKeyId: ssekmsKeyId,
-              statusCode: statusCode,
+              sseCustomerKeyMd5: sseCustomerKeyMd5,
               storageClass: storageClass,
               tagCount: tagCount,
-              versionId: versionId);
+              versionId: versionId,
+              bucketKeyEnabled: bucketKeyEnabled);
     } catch (_) {
       late String _$failedField;
       try {

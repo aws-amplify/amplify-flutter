@@ -16,16 +16,11 @@ class RestOperation extends AWSHttpOperation<AWSHttpResponse> {
   /// Takes [AWSHttpOperation] and ensures response not streamed.
   factory RestOperation.fromHttpOperation(AWSHttpOperation httpOperation) {
     final cancelOp = httpOperation.operation.then<AWSHttpResponse>(
-      (response) {
-        if (response is AWSStreamedHttpResponse) {
-          return response.read();
-        } else if (response is AWSHttpResponse) {
-          return response;
-        }
-        // In case other response types ever added.
-        throw StateError(
-          'Unable to convert to AWSHttpResponse',
-        );
+      (response) async {
+        return switch (response) {
+          AWSStreamedHttpResponse _ => await response.read(),
+          AWSHttpResponse _ => response,
+        };
       },
     );
     return RestOperation._(

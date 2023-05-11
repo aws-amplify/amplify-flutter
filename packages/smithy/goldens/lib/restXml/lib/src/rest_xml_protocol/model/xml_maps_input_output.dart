@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.xml_maps_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -87,25 +88,25 @@ class XmlMapsInputOutputRestXmlSerializer
     final result = XmlMapsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'myMap':
-          if (value != null) {
-            result.myMap.replace(const _i1.XmlBuiltMapSerializer().deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.GreetingStruct),
-                ],
-              ),
-            ));
-          }
-          break;
+          result.myMap.replace(const _i1.XmlBuiltMapSerializer().deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.GreetingStruct),
+              ],
+            ),
+          ));
       }
     }
 
@@ -115,17 +116,17 @@ class XmlMapsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlMapsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlMapsInputOutput);
-    final result = <Object?>[const _i1.XmlElementName('XmlMapsInputOutput')];
-    if (payload.myMap != null) {
-      result
+    final result$ = <Object?>[const _i1.XmlElementName('XmlMapsInputOutput')];
+    final XmlMapsInputOutput(:myMap) = object;
+    if (myMap != null) {
+      result$
         ..add(const _i1.XmlElementName('myMap'))
         ..add(const _i1.XmlBuiltMapSerializer().serialize(
           serializers,
-          payload.myMap!,
+          myMap,
           specifiedType: const FullType.nullable(
             _i4.BuiltMap,
             [
@@ -135,6 +136,6 @@ class XmlMapsInputOutputRestXmlSerializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -23,8 +23,4 @@ class AmplifyLifecycleObserver : DefaultLifecycleObserver {
         isAppLaunch = false
         super.onResume(owner)
     }
-    override fun onCreate(owner: LifecycleOwner) {
-        refreshToken()
-        super.onCreate(owner)
-    }
 }

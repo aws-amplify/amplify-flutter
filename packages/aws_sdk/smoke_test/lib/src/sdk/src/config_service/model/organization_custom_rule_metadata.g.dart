@@ -10,18 +10,18 @@ class _$OrganizationCustomRuleMetadata extends OrganizationCustomRuleMetadata {
   @override
   final String? description;
   @override
-  final String? inputParameters;
-  @override
   final String lambdaFunctionArn;
   @override
-  final _i2.MaximumExecutionFrequency? maximumExecutionFrequency;
-  @override
-  final _i4.BuiltList<_i3.OrganizationConfigRuleTriggerType>
+  final _i4.BuiltList<_i2.OrganizationConfigRuleTriggerType>
       organizationConfigRuleTriggerTypes;
   @override
-  final String? resourceIdScope;
+  final String? inputParameters;
+  @override
+  final _i3.MaximumExecutionFrequency? maximumExecutionFrequency;
   @override
   final _i4.BuiltList<String>? resourceTypesScope;
+  @override
+  final String? resourceIdScope;
   @override
   final String? tagKeyScope;
   @override
@@ -33,12 +33,12 @@ class _$OrganizationCustomRuleMetadata extends OrganizationCustomRuleMetadata {
 
   _$OrganizationCustomRuleMetadata._(
       {this.description,
-      this.inputParameters,
       required this.lambdaFunctionArn,
-      this.maximumExecutionFrequency,
       required this.organizationConfigRuleTriggerTypes,
-      this.resourceIdScope,
+      this.inputParameters,
+      this.maximumExecutionFrequency,
       this.resourceTypesScope,
+      this.resourceIdScope,
       this.tagKeyScope,
       this.tagValueScope})
       : super._() {
@@ -64,13 +64,13 @@ class _$OrganizationCustomRuleMetadata extends OrganizationCustomRuleMetadata {
     if (identical(other, this)) return true;
     return other is OrganizationCustomRuleMetadata &&
         description == other.description &&
-        inputParameters == other.inputParameters &&
         lambdaFunctionArn == other.lambdaFunctionArn &&
-        maximumExecutionFrequency == other.maximumExecutionFrequency &&
         organizationConfigRuleTriggerTypes ==
             other.organizationConfigRuleTriggerTypes &&
-        resourceIdScope == other.resourceIdScope &&
+        inputParameters == other.inputParameters &&
+        maximumExecutionFrequency == other.maximumExecutionFrequency &&
         resourceTypesScope == other.resourceTypesScope &&
+        resourceIdScope == other.resourceIdScope &&
         tagKeyScope == other.tagKeyScope &&
         tagValueScope == other.tagValueScope;
   }
@@ -79,12 +79,12 @@ class _$OrganizationCustomRuleMetadata extends OrganizationCustomRuleMetadata {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, description.hashCode);
-    _$hash = $jc(_$hash, inputParameters.hashCode);
     _$hash = $jc(_$hash, lambdaFunctionArn.hashCode);
-    _$hash = $jc(_$hash, maximumExecutionFrequency.hashCode);
     _$hash = $jc(_$hash, organizationConfigRuleTriggerTypes.hashCode);
-    _$hash = $jc(_$hash, resourceIdScope.hashCode);
+    _$hash = $jc(_$hash, inputParameters.hashCode);
+    _$hash = $jc(_$hash, maximumExecutionFrequency.hashCode);
     _$hash = $jc(_$hash, resourceTypesScope.hashCode);
+    _$hash = $jc(_$hash, resourceIdScope.hashCode);
     _$hash = $jc(_$hash, tagKeyScope.hashCode);
     _$hash = $jc(_$hash, tagValueScope.hashCode);
     _$hash = $jf(_$hash);
@@ -102,45 +102,45 @@ class OrganizationCustomRuleMetadataBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  String? _inputParameters;
-  String? get inputParameters => _$this._inputParameters;
-  set inputParameters(String? inputParameters) =>
-      _$this._inputParameters = inputParameters;
-
   String? _lambdaFunctionArn;
   String? get lambdaFunctionArn => _$this._lambdaFunctionArn;
   set lambdaFunctionArn(String? lambdaFunctionArn) =>
       _$this._lambdaFunctionArn = lambdaFunctionArn;
 
-  _i2.MaximumExecutionFrequency? _maximumExecutionFrequency;
-  _i2.MaximumExecutionFrequency? get maximumExecutionFrequency =>
-      _$this._maximumExecutionFrequency;
-  set maximumExecutionFrequency(
-          _i2.MaximumExecutionFrequency? maximumExecutionFrequency) =>
-      _$this._maximumExecutionFrequency = maximumExecutionFrequency;
-
-  _i4.ListBuilder<_i3.OrganizationConfigRuleTriggerType>?
+  _i4.ListBuilder<_i2.OrganizationConfigRuleTriggerType>?
       _organizationConfigRuleTriggerTypes;
-  _i4.ListBuilder<_i3.OrganizationConfigRuleTriggerType>
+  _i4.ListBuilder<_i2.OrganizationConfigRuleTriggerType>
       get organizationConfigRuleTriggerTypes =>
           _$this._organizationConfigRuleTriggerTypes ??=
-              new _i4.ListBuilder<_i3.OrganizationConfigRuleTriggerType>();
+              new _i4.ListBuilder<_i2.OrganizationConfigRuleTriggerType>();
   set organizationConfigRuleTriggerTypes(
-          _i4.ListBuilder<_i3.OrganizationConfigRuleTriggerType>?
+          _i4.ListBuilder<_i2.OrganizationConfigRuleTriggerType>?
               organizationConfigRuleTriggerTypes) =>
       _$this._organizationConfigRuleTriggerTypes =
           organizationConfigRuleTriggerTypes;
 
-  String? _resourceIdScope;
-  String? get resourceIdScope => _$this._resourceIdScope;
-  set resourceIdScope(String? resourceIdScope) =>
-      _$this._resourceIdScope = resourceIdScope;
+  String? _inputParameters;
+  String? get inputParameters => _$this._inputParameters;
+  set inputParameters(String? inputParameters) =>
+      _$this._inputParameters = inputParameters;
+
+  _i3.MaximumExecutionFrequency? _maximumExecutionFrequency;
+  _i3.MaximumExecutionFrequency? get maximumExecutionFrequency =>
+      _$this._maximumExecutionFrequency;
+  set maximumExecutionFrequency(
+          _i3.MaximumExecutionFrequency? maximumExecutionFrequency) =>
+      _$this._maximumExecutionFrequency = maximumExecutionFrequency;
 
   _i4.ListBuilder<String>? _resourceTypesScope;
   _i4.ListBuilder<String> get resourceTypesScope =>
       _$this._resourceTypesScope ??= new _i4.ListBuilder<String>();
   set resourceTypesScope(_i4.ListBuilder<String>? resourceTypesScope) =>
       _$this._resourceTypesScope = resourceTypesScope;
+
+  String? _resourceIdScope;
+  String? get resourceIdScope => _$this._resourceIdScope;
+  set resourceIdScope(String? resourceIdScope) =>
+      _$this._resourceIdScope = resourceIdScope;
 
   String? _tagKeyScope;
   String? get tagKeyScope => _$this._tagKeyScope;
@@ -159,13 +159,13 @@ class OrganizationCustomRuleMetadataBuilder
     final $v = _$v;
     if ($v != null) {
       _description = $v.description;
-      _inputParameters = $v.inputParameters;
       _lambdaFunctionArn = $v.lambdaFunctionArn;
-      _maximumExecutionFrequency = $v.maximumExecutionFrequency;
       _organizationConfigRuleTriggerTypes =
           $v.organizationConfigRuleTriggerTypes.toBuilder();
-      _resourceIdScope = $v.resourceIdScope;
+      _inputParameters = $v.inputParameters;
+      _maximumExecutionFrequency = $v.maximumExecutionFrequency;
       _resourceTypesScope = $v.resourceTypesScope?.toBuilder();
+      _resourceIdScope = $v.resourceIdScope;
       _tagKeyScope = $v.tagKeyScope;
       _tagValueScope = $v.tagValueScope;
       _$v = null;
@@ -193,16 +193,16 @@ class OrganizationCustomRuleMetadataBuilder
       _$result = _$v ??
           new _$OrganizationCustomRuleMetadata._(
               description: description,
-              inputParameters: inputParameters,
               lambdaFunctionArn: BuiltValueNullFieldError.checkNotNull(
                   lambdaFunctionArn,
                   r'OrganizationCustomRuleMetadata',
                   'lambdaFunctionArn'),
-              maximumExecutionFrequency: maximumExecutionFrequency,
               organizationConfigRuleTriggerTypes:
                   organizationConfigRuleTriggerTypes.build(),
-              resourceIdScope: resourceIdScope,
+              inputParameters: inputParameters,
+              maximumExecutionFrequency: maximumExecutionFrequency,
               resourceTypesScope: _resourceTypesScope?.build(),
+              resourceIdScope: resourceIdScope,
               tagKeyScope: tagKeyScope,
               tagValueScope: tagValueScope);
     } catch (_) {

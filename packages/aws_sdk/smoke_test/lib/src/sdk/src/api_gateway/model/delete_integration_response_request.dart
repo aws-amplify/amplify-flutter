@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.delete_integration_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,15 +23,15 @@ abstract class DeleteIntegrationResponseRequest
         _i1.HasPayload<DeleteIntegrationResponseRequestPayload> {
   /// Represents a delete integration response request.
   factory DeleteIntegrationResponseRequest({
-    required String httpMethod,
-    required String resourceId,
     required String restApiId,
+    required String resourceId,
+    required String httpMethod,
     required String statusCode,
   }) {
     return _$DeleteIntegrationResponseRequest._(
-      httpMethod: httpMethod,
-      resourceId: resourceId,
       restApiId: restApiId,
+      resourceId: resourceId,
+      httpMethod: httpMethod,
       statusCode: statusCode,
     );
   }
@@ -69,14 +70,14 @@ abstract class DeleteIntegrationResponseRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteIntegrationResponseRequestBuilder b) {}
 
-  /// Specifies a delete integration response request's HTTP method.
-  String get httpMethod;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// Specifies a delete integration response request's resource identifier.
   String get resourceId;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// Specifies a delete integration response request's HTTP method.
+  String get httpMethod;
 
   /// Specifies a delete integration response request's status code.
   String get statusCode;
@@ -103,9 +104,9 @@ abstract class DeleteIntegrationResponseRequest
       DeleteIntegrationResponseRequestPayload();
   @override
   List<Object?> get props => [
-        httpMethod,
-        resourceId,
         restApiId,
+        resourceId,
+        httpMethod,
         statusCode,
       ];
   @override
@@ -113,16 +114,16 @@ abstract class DeleteIntegrationResponseRequest
     final helper =
         newBuiltValueToStringHelper('DeleteIntegrationResponseRequest');
     helper.add(
-      'httpMethod',
-      httpMethod,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'httpMethod',
+      httpMethod,
     );
     helper.add(
       'statusCode',
@@ -189,7 +190,7 @@ class DeleteIntegrationResponseRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteIntegrationResponseRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

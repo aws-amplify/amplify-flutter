@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_stored_query_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -106,24 +107,23 @@ class PutStoredQueryRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StoredQuery':
           result.storedQuery.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.StoredQuery),
           ) as _i3.StoredQuery));
-          break;
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.Tag)],
-              ),
-            ) as _i5.BuiltList<_i4.Tag>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.Tag)],
+            ),
+          ) as _i5.BuiltList<_i4.Tag>));
       }
     }
 
@@ -133,28 +133,29 @@ class PutStoredQueryRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutStoredQueryRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutStoredQueryRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PutStoredQueryRequest(:storedQuery, :tags) = object;
+    result$.addAll([
       'StoredQuery',
       serializers.serialize(
-        payload.storedQuery,
+        storedQuery,
         specifiedType: const FullType(_i3.StoredQuery),
       ),
-    ];
-    if (payload.tags != null) {
-      result
+    ]);
+    if (tags != null) {
+      result$
         ..add('Tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i4.Tag)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.encryption; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,13 +19,13 @@ abstract class Encryption
   /// Contains the type of server-side encryption used.
   factory Encryption({
     required _i2.ServerSideEncryption encryptionType,
-    String? kmsContext,
     String? kmsKeyId,
+    String? kmsContext,
   }) {
     return _$Encryption._(
       encryptionType: encryptionType,
-      kmsContext: kmsContext,
       kmsKeyId: kmsKeyId,
+      kmsContext: kmsContext,
     );
   }
 
@@ -44,16 +45,16 @@ abstract class Encryption
   /// The server-side encryption algorithm used when storing job results in Amazon S3 (for example, AES256, aws:kms).
   _i2.ServerSideEncryption get encryptionType;
 
-  /// If the encryption type is `aws:kms`, this optional value can be used to specify the encryption context for the restore results.
-  String? get kmsContext;
-
   /// If the encryption type is `aws:kms`, this optional value specifies the ID of the symmetric customer managed key to use for encryption of job results. Amazon S3 only supports symmetric keys. For more information, see [Using symmetric and asymmetric keys](https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html) in the _Amazon Web Services Key Management Service Developer Guide_.
   String? get kmsKeyId;
+
+  /// If the encryption type is `aws:kms`, this optional value can be used to specify the encryption context for the restore results.
+  String? get kmsContext;
   @override
   List<Object?> get props => [
         encryptionType,
-        kmsContext,
         kmsKeyId,
+        kmsContext,
       ];
   @override
   String toString() {
@@ -63,12 +64,12 @@ abstract class Encryption
       encryptionType,
     );
     helper.add(
-      'kmsContext',
-      kmsContext,
-    );
-    helper.add(
       'kmsKeyId',
       '***SENSITIVE***',
+    );
+    helper.add(
+      'kmsContext',
+      kmsContext,
     );
     return helper.toString();
   }
@@ -99,32 +100,28 @@ class EncryptionRestXmlSerializer
     final result = EncryptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'EncryptionType':
           result.encryptionType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ServerSideEncryption),
           ) as _i2.ServerSideEncryption);
-          break;
         case 'KMSContext':
-          if (value != null) {
-            result.kmsContext = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.kmsContext = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'KMSKeyId':
-          if (value != null) {
-            result.kmsKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.kmsKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -134,38 +131,38 @@ class EncryptionRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Encryption object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Encryption);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'Encryption',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
+    final Encryption(:encryptionType, :kmsContext, :kmsKeyId) = object;
+    result$
       ..add(const _i3.XmlElementName('EncryptionType'))
       ..add(serializers.serialize(
-        payload.encryptionType,
+        encryptionType,
         specifiedType: const FullType.nullable(_i2.ServerSideEncryption),
       ));
-    if (payload.kmsContext != null) {
-      result
+    if (kmsContext != null) {
+      result$
         ..add(const _i3.XmlElementName('KMSContext'))
         ..add(serializers.serialize(
-          payload.kmsContext!,
+          kmsContext,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.kmsKeyId != null) {
-      result
+    if (kmsKeyId != null) {
+      result$
         ..add(const _i3.XmlElementName('KMSKeyId'))
         ..add(serializers.serialize(
-          payload.kmsKeyId!,
+          kmsKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

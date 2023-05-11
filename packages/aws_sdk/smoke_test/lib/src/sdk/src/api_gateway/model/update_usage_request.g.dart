@@ -8,23 +8,23 @@ part of smoke_test.api_gateway.model.update_usage_request;
 
 class _$UpdateUsageRequest extends UpdateUsageRequest {
   @override
+  final String usagePlanId;
+  @override
   final String keyId;
   @override
   final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
-  @override
-  final String usagePlanId;
 
   factory _$UpdateUsageRequest(
           [void Function(UpdateUsageRequestBuilder)? updates]) =>
       (new UpdateUsageRequestBuilder()..update(updates))._build();
 
   _$UpdateUsageRequest._(
-      {required this.keyId, this.patchOperations, required this.usagePlanId})
+      {required this.usagePlanId, required this.keyId, this.patchOperations})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        keyId, r'UpdateUsageRequest', 'keyId');
-    BuiltValueNullFieldError.checkNotNull(
         usagePlanId, r'UpdateUsageRequest', 'usagePlanId');
+    BuiltValueNullFieldError.checkNotNull(
+        keyId, r'UpdateUsageRequest', 'keyId');
   }
 
   @override
@@ -40,17 +40,17 @@ class _$UpdateUsageRequest extends UpdateUsageRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateUsageRequest &&
+        usagePlanId == other.usagePlanId &&
         keyId == other.keyId &&
-        patchOperations == other.patchOperations &&
-        usagePlanId == other.usagePlanId;
+        patchOperations == other.patchOperations;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, usagePlanId.hashCode);
     _$hash = $jc(_$hash, keyId.hashCode);
     _$hash = $jc(_$hash, patchOperations.hashCode);
-    _$hash = $jc(_$hash, usagePlanId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -59,6 +59,10 @@ class _$UpdateUsageRequest extends UpdateUsageRequest {
 class UpdateUsageRequestBuilder
     implements Builder<UpdateUsageRequest, UpdateUsageRequestBuilder> {
   _$UpdateUsageRequest? _$v;
+
+  String? _usagePlanId;
+  String? get usagePlanId => _$this._usagePlanId;
+  set usagePlanId(String? usagePlanId) => _$this._usagePlanId = usagePlanId;
 
   String? _keyId;
   String? get keyId => _$this._keyId;
@@ -70,10 +74,6 @@ class UpdateUsageRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  String? _usagePlanId;
-  String? get usagePlanId => _$this._usagePlanId;
-  set usagePlanId(String? usagePlanId) => _$this._usagePlanId = usagePlanId;
-
   UpdateUsageRequestBuilder() {
     UpdateUsageRequest._init(this);
   }
@@ -81,9 +81,9 @@ class UpdateUsageRequestBuilder
   UpdateUsageRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _usagePlanId = $v.usagePlanId;
       _keyId = $v.keyId;
       _patchOperations = $v.patchOperations?.toBuilder();
-      _usagePlanId = $v.usagePlanId;
       _$v = null;
     }
     return this;
@@ -108,11 +108,11 @@ class UpdateUsageRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateUsageRequest._(
+              usagePlanId: BuiltValueNullFieldError.checkNotNull(
+                  usagePlanId, r'UpdateUsageRequest', 'usagePlanId'),
               keyId: BuiltValueNullFieldError.checkNotNull(
                   keyId, r'UpdateUsageRequest', 'keyId'),
-              patchOperations: _patchOperations?.build(),
-              usagePlanId: BuiltValueNullFieldError.checkNotNull(
-                  usagePlanId, r'UpdateUsageRequest', 'usagePlanId'));
+              patchOperations: _patchOperations?.build());
     } catch (_) {
       late String _$failedField;
       try {

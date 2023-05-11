@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.delete_model_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,12 +22,12 @@ abstract class DeleteModelRequest
         _i1.HasPayload<DeleteModelRequestPayload> {
   /// Request to delete an existing model in an existing RestApi resource.
   factory DeleteModelRequest({
-    required String modelName,
     required String restApiId,
+    required String modelName,
   }) {
     return _$DeleteModelRequest._(
-      modelName: modelName,
       restApiId: restApiId,
+      modelName: modelName,
     );
   }
 
@@ -58,11 +59,11 @@ abstract class DeleteModelRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteModelRequestBuilder b) {}
 
-  /// The name of the model to delete.
-  String get modelName;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The name of the model to delete.
+  String get modelName;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -81,19 +82,19 @@ abstract class DeleteModelRequest
   DeleteModelRequestPayload getPayload() => DeleteModelRequestPayload();
   @override
   List<Object?> get props => [
-        modelName,
         restApiId,
+        modelName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteModelRequest');
     helper.add(
-      'modelName',
-      modelName,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'modelName',
+      modelName,
     );
     return helper.toString();
   }
@@ -152,7 +153,7 @@ class DeleteModelRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteModelRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

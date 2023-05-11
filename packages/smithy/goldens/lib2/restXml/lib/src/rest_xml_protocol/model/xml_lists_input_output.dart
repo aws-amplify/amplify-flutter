@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.xml_lists_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,9 +9,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/foo_enum.dart' as _i3;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/integer_enum.dart'
-    as _i5;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/structure_list_member.dart'
     as _i4;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/structure_list_member.dart'
+    as _i5;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'xml_lists_input_output.g.dart';
@@ -21,25 +22,36 @@ abstract class XmlListsInputOutput
         _i2.AWSEquatable<XmlListsInputOutput>
     implements Built<XmlListsInputOutput, XmlListsInputOutputBuilder> {
   factory XmlListsInputOutput({
+    List<String>? stringList,
+    Set<String>? stringSet,
+    List<int>? integerList,
     List<bool>? booleanList,
+    List<DateTime>? timestampList,
     List<_i3.FooEnum>? enumList,
+    List<_i4.IntegerEnum>? intEnumList,
+    List<List<String>>? nestedStringList,
+    List<String>? renamedListMembers,
     List<String>? flattenedList,
     List<String>? flattenedList2,
     List<String>? flattenedListWithMemberNamespace,
     List<String>? flattenedListWithNamespace,
-    List<_i4.StructureListMember>? flattenedStructureList,
-    List<_i5.IntegerEnum>? intEnumList,
-    List<int>? integerList,
-    List<List<String>>? nestedStringList,
-    List<String>? renamedListMembers,
-    List<String>? stringList,
-    Set<String>? stringSet,
-    List<_i4.StructureListMember>? structureList,
-    List<DateTime>? timestampList,
+    List<_i5.StructureListMember>? structureList,
+    List<_i5.StructureListMember>? flattenedStructureList,
   }) {
     return _$XmlListsInputOutput._(
+      stringList: stringList == null ? null : _i6.BuiltList(stringList),
+      stringSet: stringSet == null ? null : _i6.BuiltSet(stringSet),
+      integerList: integerList == null ? null : _i6.BuiltList(integerList),
       booleanList: booleanList == null ? null : _i6.BuiltList(booleanList),
+      timestampList:
+          timestampList == null ? null : _i6.BuiltList(timestampList),
       enumList: enumList == null ? null : _i6.BuiltList(enumList),
+      intEnumList: intEnumList == null ? null : _i6.BuiltList(intEnumList),
+      nestedStringList: nestedStringList == null
+          ? null
+          : _i6.BuiltList(nestedStringList.map((el) => _i6.BuiltList(el))),
+      renamedListMembers:
+          renamedListMembers == null ? null : _i6.BuiltList(renamedListMembers),
       flattenedList:
           flattenedList == null ? null : _i6.BuiltList(flattenedList),
       flattenedList2:
@@ -50,22 +62,11 @@ abstract class XmlListsInputOutput
       flattenedListWithNamespace: flattenedListWithNamespace == null
           ? null
           : _i6.BuiltList(flattenedListWithNamespace),
+      structureList:
+          structureList == null ? null : _i6.BuiltList(structureList),
       flattenedStructureList: flattenedStructureList == null
           ? null
           : _i6.BuiltList(flattenedStructureList),
-      intEnumList: intEnumList == null ? null : _i6.BuiltList(intEnumList),
-      integerList: integerList == null ? null : _i6.BuiltList(integerList),
-      nestedStringList: nestedStringList == null
-          ? null
-          : _i6.BuiltList(nestedStringList.map((el) => _i6.BuiltList(el))),
-      renamedListMembers:
-          renamedListMembers == null ? null : _i6.BuiltList(renamedListMembers),
-      stringList: stringList == null ? null : _i6.BuiltList(stringList),
-      stringSet: stringSet == null ? null : _i6.BuiltSet(stringSet),
-      structureList:
-          structureList == null ? null : _i6.BuiltList(structureList),
-      timestampList:
-          timestampList == null ? null : _i6.BuiltList(timestampList),
     );
   }
 
@@ -95,53 +96,81 @@ abstract class XmlListsInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(XmlListsInputOutputBuilder b) {}
-  _i6.BuiltList<bool>? get booleanList;
-  _i6.BuiltList<_i3.FooEnum>? get enumList;
-  _i6.BuiltList<String>? get flattenedList;
-  _i6.BuiltList<String>? get flattenedList2;
-  _i6.BuiltList<String>? get flattenedListWithMemberNamespace;
-  _i6.BuiltList<String>? get flattenedListWithNamespace;
-  _i6.BuiltList<_i4.StructureListMember>? get flattenedStructureList;
-  _i6.BuiltList<_i5.IntegerEnum>? get intEnumList;
+  _i6.BuiltList<String>? get stringList;
+  _i6.BuiltSet<String>? get stringSet;
   _i6.BuiltList<int>? get integerList;
+  _i6.BuiltList<bool>? get booleanList;
+  _i6.BuiltList<DateTime>? get timestampList;
+  _i6.BuiltList<_i3.FooEnum>? get enumList;
+  _i6.BuiltList<_i4.IntegerEnum>? get intEnumList;
 
   /// A list of lists of strings.
   _i6.BuiltList<_i6.BuiltList<String>>? get nestedStringList;
   _i6.BuiltList<String>? get renamedListMembers;
-  _i6.BuiltList<String>? get stringList;
-  _i6.BuiltSet<String>? get stringSet;
-  _i6.BuiltList<_i4.StructureListMember>? get structureList;
-  _i6.BuiltList<DateTime>? get timestampList;
+  _i6.BuiltList<String>? get flattenedList;
+  _i6.BuiltList<String>? get flattenedList2;
+  _i6.BuiltList<String>? get flattenedListWithMemberNamespace;
+  _i6.BuiltList<String>? get flattenedListWithNamespace;
+  _i6.BuiltList<_i5.StructureListMember>? get structureList;
+  _i6.BuiltList<_i5.StructureListMember>? get flattenedStructureList;
   @override
   XmlListsInputOutput getPayload() => this;
   @override
   List<Object?> get props => [
+        stringList,
+        stringSet,
+        integerList,
         booleanList,
+        timestampList,
         enumList,
+        intEnumList,
+        nestedStringList,
+        renamedListMembers,
         flattenedList,
         flattenedList2,
         flattenedListWithMemberNamespace,
         flattenedListWithNamespace,
-        flattenedStructureList,
-        intEnumList,
-        integerList,
-        nestedStringList,
-        renamedListMembers,
-        stringList,
-        stringSet,
         structureList,
-        timestampList,
+        flattenedStructureList,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlListsInputOutput');
     helper.add(
+      'stringList',
+      stringList,
+    );
+    helper.add(
+      'stringSet',
+      stringSet,
+    );
+    helper.add(
+      'integerList',
+      integerList,
+    );
+    helper.add(
       'booleanList',
       booleanList,
     );
     helper.add(
+      'timestampList',
+      timestampList,
+    );
+    helper.add(
       'enumList',
       enumList,
+    );
+    helper.add(
+      'intEnumList',
+      intEnumList,
+    );
+    helper.add(
+      'nestedStringList',
+      nestedStringList,
+    );
+    helper.add(
+      'renamedListMembers',
+      renamedListMembers,
     );
     helper.add(
       'flattenedList',
@@ -160,40 +189,12 @@ abstract class XmlListsInputOutput
       flattenedListWithNamespace,
     );
     helper.add(
-      'flattenedStructureList',
-      flattenedStructureList,
-    );
-    helper.add(
-      'intEnumList',
-      intEnumList,
-    );
-    helper.add(
-      'integerList',
-      integerList,
-    );
-    helper.add(
-      'nestedStringList',
-      nestedStringList,
-    );
-    helper.add(
-      'renamedListMembers',
-      renamedListMembers,
-    );
-    helper.add(
-      'stringList',
-      stringList,
-    );
-    helper.add(
-      'stringSet',
-      stringSet,
-    );
-    helper.add(
       'structureList',
       structureList,
     );
     helper.add(
-      'timestampList',
-      timestampList,
+      'flattenedStructureList',
+      flattenedStructureList,
     );
     return helper.toString();
   }
@@ -224,188 +225,143 @@ class XmlListsInputOutputRestXmlSerializer
     final result = XmlListsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'booleanList':
-          if (value != null) {
-            result.booleanList
-                .replace((const _i1.XmlBuiltListSerializer().deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(bool)],
-              ),
-            ) as _i6.BuiltList<bool>));
-          }
-          break;
+          result.booleanList
+              .replace((const _i1.XmlBuiltListSerializer().deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(bool)],
+            ),
+          ) as _i6.BuiltList<bool>));
         case 'enumList':
-          if (value != null) {
-            result.enumList
-                .replace((const _i1.XmlBuiltListSerializer().deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i3.FooEnum)],
-              ),
-            ) as _i6.BuiltList<_i3.FooEnum>));
-          }
-          break;
+          result.enumList
+              .replace((const _i1.XmlBuiltListSerializer().deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i3.FooEnum)],
+            ),
+          ) as _i6.BuiltList<_i3.FooEnum>));
         case 'flattenedList':
-          if (value != null) {
-            result.flattenedList.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String));
-          }
-          break;
+          result.flattenedList.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String));
         case 'customName':
-          if (value != null) {
-            result.flattenedList2.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String));
-          }
-          break;
+          result.flattenedList2.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String));
         case 'flattenedListWithMemberNamespace':
-          if (value != null) {
-            result.flattenedListWithMemberNamespace
-                .add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String));
-          }
-          break;
+          result.flattenedListWithMemberNamespace.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String));
         case 'flattenedListWithNamespace':
-          if (value != null) {
-            result.flattenedListWithNamespace.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String));
-          }
-          break;
+          result.flattenedListWithNamespace.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String));
         case 'flattenedStructureList':
-          if (value != null) {
-            result.flattenedStructureList.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.StructureListMember),
-            ) as _i4.StructureListMember));
-          }
-          break;
+          result.flattenedStructureList.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.StructureListMember),
+          ) as _i5.StructureListMember));
         case 'intEnumList':
-          if (value != null) {
-            result.intEnumList
-                .replace((const _i1.XmlBuiltListSerializer().deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i5.IntegerEnum)],
-              ),
-            ) as _i6.BuiltList<_i5.IntegerEnum>));
-          }
-          break;
+          result.intEnumList
+              .replace((const _i1.XmlBuiltListSerializer().deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i4.IntegerEnum)],
+            ),
+          ) as _i6.BuiltList<_i4.IntegerEnum>));
         case 'integerList':
-          if (value != null) {
-            result.integerList
-                .replace((const _i1.XmlBuiltListSerializer().deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(int)],
-              ),
-            ) as _i6.BuiltList<int>));
-          }
-          break;
+          result.integerList
+              .replace((const _i1.XmlBuiltListSerializer().deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(int)],
+            ),
+          ) as _i6.BuiltList<int>));
         case 'nestedStringList':
-          if (value != null) {
-            result.nestedStringList
-                .replace((const _i1.XmlBuiltListSerializer().deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [
-                  FullType(
-                    _i6.BuiltList,
-                    [FullType(String)],
-                  )
-                ],
-              ),
-            ) as _i6.BuiltList<_i6.BuiltList<String>>));
-          }
-          break;
+          result.nestedStringList
+              .replace((const _i1.XmlBuiltListSerializer().deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [
+                FullType(
+                  _i6.BuiltList,
+                  [FullType(String)],
+                )
+              ],
+            ),
+          ) as _i6.BuiltList<_i6.BuiltList<String>>));
         case 'renamed':
-          if (value != null) {
-            result.renamedListMembers.replace(
-                (const _i1.XmlBuiltListSerializer(memberName: 'item')
-                    .deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
+          result.renamedListMembers.replace(
+              (const _i1.XmlBuiltListSerializer(memberName: 'item').deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
         case 'stringList':
-          if (value != null) {
-            result.stringList
-                .replace((const _i1.XmlBuiltListSerializer().deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
+          result.stringList
+              .replace((const _i1.XmlBuiltListSerializer().deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
         case 'stringSet':
-          if (value != null) {
-            result.stringSet
-                .replace((const _i1.XmlBuiltSetSerializer().deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltSet,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltSet<String>));
-          }
-          break;
+          result.stringSet
+              .replace((const _i1.XmlBuiltSetSerializer().deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltSet,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltSet<String>));
         case 'myStructureList':
-          if (value != null) {
-            result.structureList.replace(
-                (const _i1.XmlBuiltListSerializer(memberName: 'item')
-                    .deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i4.StructureListMember)],
-              ),
-            ) as _i6.BuiltList<_i4.StructureListMember>));
-          }
-          break;
+          result.structureList.replace(
+              (const _i1.XmlBuiltListSerializer(memberName: 'item').deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i5.StructureListMember)],
+            ),
+          ) as _i6.BuiltList<_i5.StructureListMember>));
         case 'timestampList':
-          if (value != null) {
-            result.timestampList
-                .replace((const _i1.XmlBuiltListSerializer().deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(DateTime)],
-              ),
-            ) as _i6.BuiltList<DateTime>));
-          }
-          break;
+          result.timestampList
+              .replace((const _i1.XmlBuiltListSerializer().deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(DateTime)],
+            ),
+          ) as _i6.BuiltList<DateTime>));
       }
     }
 
@@ -415,125 +371,141 @@ class XmlListsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlListsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlListsInputOutput);
-    final result = <Object?>[const _i1.XmlElementName('XmlListsInputOutput')];
-    if (payload.booleanList != null) {
-      result
+    final result$ = <Object?>[const _i1.XmlElementName('XmlListsInputOutput')];
+    final XmlListsInputOutput(
+      :booleanList,
+      :enumList,
+      :flattenedList,
+      :flattenedList2,
+      :flattenedListWithMemberNamespace,
+      :flattenedListWithNamespace,
+      :flattenedStructureList,
+      :intEnumList,
+      :integerList,
+      :nestedStringList,
+      :renamedListMembers,
+      :stringList,
+      :stringSet,
+      :structureList,
+      :timestampList
+    ) = object;
+    if (booleanList != null) {
+      result$
         ..add(const _i1.XmlElementName('booleanList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
-          payload.booleanList!,
+          booleanList,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(bool)],
           ),
         ));
     }
-    if (payload.enumList != null) {
-      result
+    if (enumList != null) {
+      result$
         ..add(const _i1.XmlElementName('enumList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
-          payload.enumList!,
+          enumList,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(_i3.FooEnum)],
           ),
         ));
     }
-    if (payload.flattenedList != null) {
-      result.addAll(
+    if (flattenedList != null) {
+      result$.addAll(
           const _i1.XmlBuiltListSerializer(memberName: 'flattenedList')
               .serialize(
         serializers,
-        payload.flattenedList!,
+        flattenedList,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(String)],
         ),
       ));
     }
-    if (payload.flattenedList2 != null) {
-      result.addAll(
+    if (flattenedList2 != null) {
+      result$.addAll(
           const _i1.XmlBuiltListSerializer(memberName: 'customName').serialize(
         serializers,
-        payload.flattenedList2!,
+        flattenedList2,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(String)],
         ),
       ));
     }
-    if (payload.flattenedListWithMemberNamespace != null) {
-      result.addAll(const _i1.XmlBuiltListSerializer(
+    if (flattenedListWithMemberNamespace != null) {
+      result$.addAll(const _i1.XmlBuiltListSerializer(
         memberName: 'flattenedListWithMemberNamespace',
         memberNamespace: _i1.XmlNamespace('https://xml-member.example.com'),
       ).serialize(
         serializers,
-        payload.flattenedListWithMemberNamespace!,
+        flattenedListWithMemberNamespace,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(String)],
         ),
       ));
     }
-    if (payload.flattenedListWithNamespace != null) {
-      result.addAll(const _i1.XmlBuiltListSerializer(
+    if (flattenedListWithNamespace != null) {
+      result$.addAll(const _i1.XmlBuiltListSerializer(
               memberName: 'flattenedListWithNamespace')
           .serialize(
         serializers,
-        payload.flattenedListWithNamespace!,
+        flattenedListWithNamespace,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(String)],
         ),
       ));
     }
-    if (payload.flattenedStructureList != null) {
-      result.addAll(
+    if (flattenedStructureList != null) {
+      result$.addAll(
           const _i1.XmlBuiltListSerializer(memberName: 'flattenedStructureList')
               .serialize(
         serializers,
-        payload.flattenedStructureList!,
+        flattenedStructureList,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
-          [FullType(_i4.StructureListMember)],
+          [FullType(_i5.StructureListMember)],
         ),
       ));
     }
-    if (payload.intEnumList != null) {
-      result
+    if (intEnumList != null) {
+      result$
         ..add(const _i1.XmlElementName('intEnumList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
-          payload.intEnumList!,
+          intEnumList,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
-            [FullType(_i5.IntegerEnum)],
+            [FullType(_i4.IntegerEnum)],
           ),
         ));
     }
-    if (payload.integerList != null) {
-      result
+    if (integerList != null) {
+      result$
         ..add(const _i1.XmlElementName('integerList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
-          payload.integerList!,
+          integerList,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(int)],
           ),
         ));
     }
-    if (payload.nestedStringList != null) {
-      result
+    if (nestedStringList != null) {
+      result$
         ..add(const _i1.XmlElementName('nestedStringList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
-          payload.nestedStringList!,
+          nestedStringList,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [
@@ -545,66 +517,66 @@ class XmlListsInputOutputRestXmlSerializer
           ),
         ));
     }
-    if (payload.renamedListMembers != null) {
-      result
+    if (renamedListMembers != null) {
+      result$
         ..add(const _i1.XmlElementName('renamed'))
         ..add(const _i1.XmlBuiltListSerializer(memberName: 'item').serialize(
           serializers,
-          payload.renamedListMembers!,
+          renamedListMembers,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.stringList != null) {
-      result
+    if (stringList != null) {
+      result$
         ..add(const _i1.XmlElementName('stringList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
-          payload.stringList!,
+          stringList,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.stringSet != null) {
-      result
+    if (stringSet != null) {
+      result$
         ..add(const _i1.XmlElementName('stringSet'))
         ..add(const _i1.XmlBuiltSetSerializer().serialize(
           serializers,
-          payload.stringSet!,
+          stringSet,
           specifiedType: const FullType.nullable(
             _i6.BuiltSet,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.structureList != null) {
-      result
+    if (structureList != null) {
+      result$
         ..add(const _i1.XmlElementName('myStructureList'))
         ..add(const _i1.XmlBuiltListSerializer(memberName: 'item').serialize(
           serializers,
-          payload.structureList!,
+          structureList,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
-            [FullType(_i4.StructureListMember)],
+            [FullType(_i5.StructureListMember)],
           ),
         ));
     }
-    if (payload.timestampList != null) {
-      result
+    if (timestampList != null) {
+      result$
         ..add(const _i1.XmlElementName('timestampList'))
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
-          payload.timestampList!,
+          timestampList,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(DateTime)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

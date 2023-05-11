@@ -14,8 +14,9 @@ abstract class ListShape
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListShapeBuilder b) {
-    b.shapeId = ShapeId.empty;
-    b.traits = TraitMap.empty();
+    b
+      ..shapeId = ShapeId.empty
+      ..traits = TraitMap.empty();
   }
 
   @override

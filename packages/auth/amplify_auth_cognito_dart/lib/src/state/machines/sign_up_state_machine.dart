@@ -11,7 +11,8 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_auth_cognito.sign_up_state_machine}
 /// Manages user sign up with Cognito.
 /// {@endtemplate}
-class SignUpStateMachine extends AuthStateMachine<SignUpEvent, SignUpState> {
+final class SignUpStateMachine
+    extends AuthStateMachine<SignUpEvent, SignUpState> {
   /// {@macro amplify_auth_cognito.sign_up_state_machine}
   SignUpStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 
@@ -43,22 +44,16 @@ class SignUpStateMachine extends AuthStateMachine<SignUpEvent, SignUpState> {
 
   @override
   Future<void> resolve(SignUpEvent event) async {
-    switch (event.type) {
-      case SignUpEventType.initiate:
-        event as SignUpInitiate;
+    switch (event) {
+      case SignUpInitiate _:
         emit(const SignUpState.initiating());
         await onInitiate(event);
-        break;
-      case SignUpEventType.confirm:
-        event as SignUpConfirm;
+      case SignUpConfirm _:
         emit(const SignUpState.confirming());
         await onConfirm(event);
-        break;
-      case SignUpEventType.succeeded:
-        event as SignUpSucceeded;
-        emit(SignUpState.success(userId: event.userId));
+      case SignUpSucceeded(:final userId):
+        emit(SignUpState.success(userId: userId));
         await onSucceeded(event);
-        break;
     }
   }
 

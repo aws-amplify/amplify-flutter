@@ -17,7 +17,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_auth_cognito.configuration_state_machine}
 /// Manages configuration of the Auth category.
 /// {@endtemplate}
-class ConfigurationStateMachine
+final class ConfigurationStateMachine
     extends AuthStateMachine<ConfigurationEvent, ConfigurationState> {
   /// {@macro amplify_auth_cognito.configuration_state_machine}
   ConfigurationStateMachine(CognitoAuthStateMachine manager)
@@ -44,17 +44,13 @@ class ConfigurationStateMachine
 
   @override
   Future<void> resolve(ConfigurationEvent event) async {
-    switch (event.type) {
-      case ConfigurationEventType.configure:
-        final castEvent = event as Configure;
+    switch (event) {
+      case Configure _:
         emit(const ConfigurationState.configuring());
-        await onConfigure(castEvent);
-        return;
-      case ConfigurationEventType.configureSucceeded:
-        final castEvent = event as ConfigureSucceeded;
-        emit(ConfigurationState.configured(event.config));
-        await onConfigureSucceeded(castEvent);
-        return;
+        await onConfigure(event);
+      case ConfigureSucceeded(:final config):
+        emit(ConfigurationState.configured(config));
+        await onConfigureSucceeded(event);
     }
   }
 

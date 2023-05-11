@@ -8,26 +8,26 @@ part of smoke_test.api_gateway.model.get_api_keys_request;
 
 class _$GetApiKeysRequest extends GetApiKeysRequest {
   @override
-  final String? customerId;
-  @override
-  final bool? includeValues;
+  final String? position;
   @override
   final int? limit;
   @override
   final String? nameQuery;
   @override
-  final String? position;
+  final String? customerId;
+  @override
+  final bool? includeValues;
 
   factory _$GetApiKeysRequest(
           [void Function(GetApiKeysRequestBuilder)? updates]) =>
       (new GetApiKeysRequestBuilder()..update(updates))._build();
 
   _$GetApiKeysRequest._(
-      {this.customerId,
-      this.includeValues,
+      {this.position,
       this.limit,
       this.nameQuery,
-      this.position})
+      this.customerId,
+      this.includeValues})
       : super._();
 
   @override
@@ -42,21 +42,21 @@ class _$GetApiKeysRequest extends GetApiKeysRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetApiKeysRequest &&
-        customerId == other.customerId &&
-        includeValues == other.includeValues &&
+        position == other.position &&
         limit == other.limit &&
         nameQuery == other.nameQuery &&
-        position == other.position;
+        customerId == other.customerId &&
+        includeValues == other.includeValues;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, customerId.hashCode);
-    _$hash = $jc(_$hash, includeValues.hashCode);
+    _$hash = $jc(_$hash, position.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nameQuery.hashCode);
-    _$hash = $jc(_$hash, position.hashCode);
+    _$hash = $jc(_$hash, customerId.hashCode);
+    _$hash = $jc(_$hash, includeValues.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -65,6 +65,18 @@ class _$GetApiKeysRequest extends GetApiKeysRequest {
 class GetApiKeysRequestBuilder
     implements Builder<GetApiKeysRequest, GetApiKeysRequestBuilder> {
   _$GetApiKeysRequest? _$v;
+
+  String? _position;
+  String? get position => _$this._position;
+  set position(String? position) => _$this._position = position;
+
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
+
+  String? _nameQuery;
+  String? get nameQuery => _$this._nameQuery;
+  set nameQuery(String? nameQuery) => _$this._nameQuery = nameQuery;
 
   String? _customerId;
   String? get customerId => _$this._customerId;
@@ -75,18 +87,6 @@ class GetApiKeysRequestBuilder
   set includeValues(bool? includeValues) =>
       _$this._includeValues = includeValues;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
-
-  String? _nameQuery;
-  String? get nameQuery => _$this._nameQuery;
-  set nameQuery(String? nameQuery) => _$this._nameQuery = nameQuery;
-
-  String? _position;
-  String? get position => _$this._position;
-  set position(String? position) => _$this._position = position;
-
   GetApiKeysRequestBuilder() {
     GetApiKeysRequest._init(this);
   }
@@ -94,11 +94,11 @@ class GetApiKeysRequestBuilder
   GetApiKeysRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _customerId = $v.customerId;
-      _includeValues = $v.includeValues;
+      _position = $v.position;
       _limit = $v.limit;
       _nameQuery = $v.nameQuery;
-      _position = $v.position;
+      _customerId = $v.customerId;
+      _includeValues = $v.includeValues;
       _$v = null;
     }
     return this;
@@ -121,11 +121,11 @@ class GetApiKeysRequestBuilder
   _$GetApiKeysRequest _build() {
     final _$result = _$v ??
         new _$GetApiKeysRequest._(
-            customerId: customerId,
-            includeValues: includeValues,
+            position: position,
             limit: limit,
             nameQuery: nameQuery,
-            position: position);
+            customerId: customerId,
+            includeValues: includeValues);
     replace(_$result);
     return _$result;
   }

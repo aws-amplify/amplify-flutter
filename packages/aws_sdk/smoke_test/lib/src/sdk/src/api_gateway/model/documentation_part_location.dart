@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.documentation_part_location; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,18 +19,18 @@ abstract class DocumentationPartLocation
         Built<DocumentationPartLocation, DocumentationPartLocationBuilder> {
   /// Specifies the target API entity to which the documentation applies.
   factory DocumentationPartLocation({
-    String? method,
-    String? name,
-    String? path,
-    String? statusCode,
     required _i2.DocumentationPartType type,
+    String? path,
+    String? method,
+    String? statusCode,
+    String? name,
   }) {
     return _$DocumentationPartLocation._(
-      method: method,
-      name: name,
-      path: path,
-      statusCode: statusCode,
       type: type,
+      path: path,
+      method: method,
+      statusCode: statusCode,
+      name: name,
     );
   }
 
@@ -47,50 +48,50 @@ abstract class DocumentationPartLocation
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DocumentationPartLocationBuilder b) {}
 
-  /// The HTTP verb of a method. It is a valid field for the API entity types of `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. The default value is `*` for any method. When an applicable child entity inherits the content of an entity of the same type with more general specifications of the other `location` attributes, the child entity's `method` attribute must match that of the parent entity exactly.
-  String? get method;
-
-  /// The name of the targeted API entity. It is a valid and required field for the API entity types of `AUTHORIZER`, `MODEL`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY` and `RESPONSE_HEADER`. It is an invalid field for any other entity type.
-  String? get name;
+  /// The type of API entity to which the documentation content applies. Valid values are `API`, `AUTHORIZER`, `MODEL`, `RESOURCE`, `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. Content inheritance does not apply to any entity of the `API`, `AUTHORIZER`, `METHOD`, `MODEL`, `REQUEST_BODY`, or `RESOURCE` type.
+  _i2.DocumentationPartType get type;
 
   /// The URL path of the target. It is a valid field for the API entity types of `RESOURCE`, `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. The default value is `/` for the root resource. When an applicable child entity inherits the content of another entity of the same type with more general specifications of the other `location` attributes, the child entity's `path` attribute must match that of the parent entity as a prefix.
   String? get path;
 
+  /// The HTTP verb of a method. It is a valid field for the API entity types of `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. The default value is `*` for any method. When an applicable child entity inherits the content of an entity of the same type with more general specifications of the other `location` attributes, the child entity's `method` attribute must match that of the parent entity exactly.
+  String? get method;
+
   /// The HTTP status code of a response. It is a valid field for the API entity types of `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. The default value is `*` for any status code. When an applicable child entity inherits the content of an entity of the same type with more general specifications of the other `location` attributes, the child entity's `statusCode` attribute must match that of the parent entity exactly.
   String? get statusCode;
 
-  /// The type of API entity to which the documentation content applies. Valid values are `API`, `AUTHORIZER`, `MODEL`, `RESOURCE`, `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. Content inheritance does not apply to any entity of the `API`, `AUTHORIZER`, `METHOD`, `MODEL`, `REQUEST_BODY`, or `RESOURCE` type.
-  _i2.DocumentationPartType get type;
+  /// The name of the targeted API entity. It is a valid and required field for the API entity types of `AUTHORIZER`, `MODEL`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY` and `RESPONSE_HEADER`. It is an invalid field for any other entity type.
+  String? get name;
   @override
   List<Object?> get props => [
-        method,
-        name,
-        path,
-        statusCode,
         type,
+        path,
+        method,
+        statusCode,
+        name,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DocumentationPartLocation');
     helper.add(
-      'method',
-      method,
-    );
-    helper.add(
-      'name',
-      name,
+      'type',
+      type,
     );
     helper.add(
       'path',
       path,
     );
     helper.add(
+      'method',
+      method,
+    );
+    helper.add(
       'statusCode',
       statusCode,
     );
     helper.add(
-      'type',
-      type,
+      'name',
+      name,
     );
     return helper.toString();
   }
@@ -125,45 +126,35 @@ class DocumentationPartLocationRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'method':
-          if (value != null) {
-            result.method = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.method = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'path':
-          if (value != null) {
-            result.path = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.path = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'statusCode':
-          if (value != null) {
-            result.statusCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'type':
           result.type = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.DocumentationPartType),
           ) as _i2.DocumentationPartType);
-          break;
       }
     }
 
@@ -173,49 +164,51 @@ class DocumentationPartLocationRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DocumentationPartLocation object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DocumentationPartLocation);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final DocumentationPartLocation(:method, :name, :path, :statusCode, :type) =
+        object;
+    result$.addAll([
       'type',
       serializers.serialize(
-        payload.type,
+        type,
         specifiedType: const FullType(_i2.DocumentationPartType),
       ),
-    ];
-    if (payload.method != null) {
-      result
+    ]);
+    if (method != null) {
+      result$
         ..add('method')
         ..add(serializers.serialize(
-          payload.method!,
+          method,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.name != null) {
-      result
+    if (name != null) {
+      result$
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.path != null) {
-      result
+    if (path != null) {
+      result$
         ..add('path')
         ..add(serializers.serialize(
-          payload.path!,
+          path,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.statusCode != null) {
-      result
+    if (statusCode != null) {
+      result$
         ..add('statusCode')
         ..add(serializers.serialize(
-          payload.statusCode!,
+          statusCode,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -12,7 +12,7 @@ import 'package:test/test.dart';
 void main() {
   ReadableStream createReadableStream() {
     return ReadableStream(
-      createUnderlyingSource(
+      UnderlyingSource(
         start: (controller) {
           controller
             ..enqueue(Uint8List.fromList([1, 2, 3, 4, 5]))

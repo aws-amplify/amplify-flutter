@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.restore_table_from_backup_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -86,15 +87,15 @@ class RestoreTableFromBackupOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableDescription':
-          if (value != null) {
-            result.tableDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.TableDescription),
-            ) as _i2.TableDescription));
-          }
-          break;
+          result.tableDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.TableDescription),
+          ) as _i2.TableDescription));
       }
     }
 
@@ -104,19 +105,19 @@ class RestoreTableFromBackupOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RestoreTableFromBackupOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RestoreTableFromBackupOutput);
-    final result = <Object?>[];
-    if (payload.tableDescription != null) {
-      result
+    final result$ = <Object?>[];
+    final RestoreTableFromBackupOutput(:tableDescription) = object;
+    if (tableDescription != null) {
+      result$
         ..add('TableDescription')
         ..add(serializers.serialize(
-          payload.tableDescription!,
+          tableDescription,
           specifiedType: const FullType(_i2.TableDescription),
         ));
     }
-    return result;
+    return result$;
   }
 }

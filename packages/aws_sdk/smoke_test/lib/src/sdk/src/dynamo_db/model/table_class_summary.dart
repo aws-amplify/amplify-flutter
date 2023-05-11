@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.table_class_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,12 +17,12 @@ abstract class TableClassSummary
     implements Built<TableClassSummary, TableClassSummaryBuilder> {
   /// Contains details of the table class.
   factory TableClassSummary({
-    DateTime? lastUpdateDateTime,
     _i2.TableClass? tableClass,
+    DateTime? lastUpdateDateTime,
   }) {
     return _$TableClassSummary._(
-      lastUpdateDateTime: lastUpdateDateTime,
       tableClass: tableClass,
+      lastUpdateDateTime: lastUpdateDateTime,
     );
   }
 
@@ -38,26 +39,26 @@ abstract class TableClassSummary
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TableClassSummaryBuilder b) {}
 
-  /// The date and time at which the table class was last updated.
-  DateTime? get lastUpdateDateTime;
-
   /// The table class of the specified table. Valid values are `STANDARD` and `STANDARD\_INFREQUENT\_ACCESS`.
   _i2.TableClass? get tableClass;
+
+  /// The date and time at which the table class was last updated.
+  DateTime? get lastUpdateDateTime;
   @override
   List<Object?> get props => [
-        lastUpdateDateTime,
         tableClass,
+        lastUpdateDateTime,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TableClassSummary');
     helper.add(
-      'lastUpdateDateTime',
-      lastUpdateDateTime,
-    );
-    helper.add(
       'tableClass',
       tableClass,
+    );
+    helper.add(
+      'lastUpdateDateTime',
+      lastUpdateDateTime,
     );
     return helper.toString();
   }
@@ -91,23 +92,20 @@ class TableClassSummaryAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'LastUpdateDateTime':
-          if (value != null) {
-            result.lastUpdateDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'TableClass':
-          if (value != null) {
-            result.tableClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.TableClass),
-            ) as _i2.TableClass);
-          }
-          break;
+          result.tableClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.TableClass),
+          ) as _i2.TableClass);
+        case 'LastUpdateDateTime':
+          result.lastUpdateDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -117,27 +115,27 @@ class TableClassSummaryAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    TableClassSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as TableClassSummary);
-    final result = <Object?>[];
-    if (payload.lastUpdateDateTime != null) {
-      result
-        ..add('LastUpdateDateTime')
-        ..add(serializers.serialize(
-          payload.lastUpdateDateTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.tableClass != null) {
-      result
+    final result$ = <Object?>[];
+    final TableClassSummary(:tableClass, :lastUpdateDateTime) = object;
+    if (tableClass != null) {
+      result$
         ..add('TableClass')
         ..add(serializers.serialize(
-          payload.tableClass!,
+          tableClass,
           specifiedType: const FullType(_i2.TableClass),
         ));
     }
-    return result;
+    if (lastUpdateDateTime != null) {
+      result$
+        ..add('LastUpdateDateTime')
+        ..add(serializers.serialize(
+          lastUpdateDateTime,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    return result$;
   }
 }

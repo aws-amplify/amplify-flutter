@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.documentation_part; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -109,31 +110,25 @@ class DocumentationPartRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'location':
-          if (value != null) {
-            result.location.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.DocumentationPartLocation),
-            ) as _i2.DocumentationPartLocation));
-          }
-          break;
+          result.location.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.DocumentationPartLocation),
+          ) as _i2.DocumentationPartLocation));
         case 'properties':
-          if (value != null) {
-            result.properties = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.properties = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -143,35 +138,35 @@ class DocumentationPartRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DocumentationPart object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DocumentationPart);
-    final result = <Object?>[];
-    if (payload.id != null) {
-      result
+    final result$ = <Object?>[];
+    final DocumentationPart(:id, :location, :properties) = object;
+    if (id != null) {
+      result$
         ..add('id')
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.location != null) {
-      result
+    if (location != null) {
+      result$
         ..add('location')
         ..add(serializers.serialize(
-          payload.location!,
+          location,
           specifiedType: const FullType(_i2.DocumentationPartLocation),
         ));
     }
-    if (payload.properties != null) {
-      result
+    if (properties != null) {
+      result$
         ..add('properties')
         ..add(serializers.serialize(
-          payload.properties!,
+          properties,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

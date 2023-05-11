@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.stage; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,15 +9,15 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i8;
 import 'package:smoke_test/src/sdk/src/api_gateway/model/access_log_settings.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_size.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_status.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/canary_settings.dart'
     as _i5;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/method_setting.dart'
+import 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_size.dart'
+    as _i2;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_status.dart'
+    as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/canary_settings.dart'
     as _i6;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/method_setting.dart'
+    as _i4;
 
 part 'stage.g.dart';
 
@@ -26,43 +27,43 @@ abstract class Stage
     implements Built<Stage, StageBuilder> {
   /// Represents a unique identifier for a version of a deployed RestApi that is callable by users.
   factory Stage({
-    _i2.AccessLogSettings? accessLogSettings,
-    bool? cacheClusterEnabled,
-    _i3.CacheClusterSize? cacheClusterSize,
-    _i4.CacheClusterStatus? cacheClusterStatus,
-    _i5.CanarySettings? canarySettings,
-    String? clientCertificateId,
-    DateTime? createdDate,
     String? deploymentId,
-    String? description,
-    String? documentationVersion,
-    DateTime? lastUpdatedDate,
-    Map<String, _i6.MethodSetting>? methodSettings,
+    String? clientCertificateId,
     String? stageName,
-    Map<String, String>? tags,
-    bool? tracingEnabled,
+    String? description,
+    bool? cacheClusterEnabled,
+    _i2.CacheClusterSize? cacheClusterSize,
+    _i3.CacheClusterStatus? cacheClusterStatus,
+    Map<String, _i4.MethodSetting>? methodSettings,
     Map<String, String>? variables,
+    String? documentationVersion,
+    _i5.AccessLogSettings? accessLogSettings,
+    _i6.CanarySettings? canarySettings,
+    bool? tracingEnabled,
     String? webAclArn,
+    Map<String, String>? tags,
+    DateTime? createdDate,
+    DateTime? lastUpdatedDate,
   }) {
     return _$Stage._(
-      accessLogSettings: accessLogSettings,
+      deploymentId: deploymentId,
+      clientCertificateId: clientCertificateId,
+      stageName: stageName,
+      description: description,
       cacheClusterEnabled: cacheClusterEnabled,
       cacheClusterSize: cacheClusterSize,
       cacheClusterStatus: cacheClusterStatus,
-      canarySettings: canarySettings,
-      clientCertificateId: clientCertificateId,
-      createdDate: createdDate,
-      deploymentId: deploymentId,
-      description: description,
-      documentationVersion: documentationVersion,
-      lastUpdatedDate: lastUpdatedDate,
       methodSettings:
           methodSettings == null ? null : _i7.BuiltMap(methodSettings),
-      stageName: stageName,
-      tags: tags == null ? null : _i7.BuiltMap(tags),
-      tracingEnabled: tracingEnabled,
       variables: variables == null ? null : _i7.BuiltMap(variables),
+      documentationVersion: documentationVersion,
+      accessLogSettings: accessLogSettings,
+      canarySettings: canarySettings,
+      tracingEnabled: tracingEnabled,
       webAclArn: webAclArn,
+      tags: tags == null ? null : _i7.BuiltMap(tags),
+      createdDate: createdDate,
+      lastUpdatedDate: lastUpdatedDate,
     );
   }
 
@@ -85,82 +86,94 @@ abstract class Stage
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StageBuilder b) {}
 
-  /// Settings for logging access in this stage.
-  _i2.AccessLogSettings? get accessLogSettings;
+  /// The identifier of the Deployment that the stage points to.
+  String? get deploymentId;
+
+  /// The identifier of a client certificate for an API stage.
+  String? get clientCertificateId;
+
+  /// The name of the stage is the first path segment in the Uniform Resource Identifier (URI) of a call to API Gateway. Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is 128 characters.
+  String? get stageName;
+
+  /// The stage's description.
+  String? get description;
 
   /// Specifies whether a cache cluster is enabled for the stage.
   bool? get cacheClusterEnabled;
 
   /// The size of the cache cluster for the stage, if enabled.
-  _i3.CacheClusterSize? get cacheClusterSize;
+  _i2.CacheClusterSize? get cacheClusterSize;
 
   /// The status of the cache cluster for the stage, if enabled.
-  _i4.CacheClusterStatus? get cacheClusterStatus;
-
-  /// Settings for the canary deployment in this stage.
-  _i5.CanarySettings? get canarySettings;
-
-  /// The identifier of a client certificate for an API stage.
-  String? get clientCertificateId;
-
-  /// The timestamp when the stage was created.
-  DateTime? get createdDate;
-
-  /// The identifier of the Deployment that the stage points to.
-  String? get deploymentId;
-
-  /// The stage's description.
-  String? get description;
-
-  /// The version of the associated API documentation.
-  String? get documentationVersion;
-
-  /// The timestamp when the stage last updated.
-  DateTime? get lastUpdatedDate;
+  _i3.CacheClusterStatus? get cacheClusterStatus;
 
   /// A map that defines the method settings for a Stage resource. Keys (designated as `/{method\_setting\_key` below) are method paths defined as `{resource\_path}/{http\_method}` for an individual method override, or `/\*/\*` for overriding all methods in the stage.
-  _i7.BuiltMap<String, _i6.MethodSetting>? get methodSettings;
-
-  /// The name of the stage is the first path segment in the Uniform Resource Identifier (URI) of a call to API Gateway. Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is 128 characters.
-  String? get stageName;
-
-  /// The collection of tags. Each tag element is associated with a given resource.
-  _i7.BuiltMap<String, String>? get tags;
-
-  /// Specifies whether active tracing with X-ray is enabled for the Stage.
-  bool? get tracingEnabled;
+  _i7.BuiltMap<String, _i4.MethodSetting>? get methodSettings;
 
   /// A map that defines the stage variables for a Stage resource. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
   _i7.BuiltMap<String, String>? get variables;
 
+  /// The version of the associated API documentation.
+  String? get documentationVersion;
+
+  /// Settings for logging access in this stage.
+  _i5.AccessLogSettings? get accessLogSettings;
+
+  /// Settings for the canary deployment in this stage.
+  _i6.CanarySettings? get canarySettings;
+
+  /// Specifies whether active tracing with X-ray is enabled for the Stage.
+  bool? get tracingEnabled;
+
   /// The ARN of the WebAcl associated with the Stage.
   String? get webAclArn;
+
+  /// The collection of tags. Each tag element is associated with a given resource.
+  _i7.BuiltMap<String, String>? get tags;
+
+  /// The timestamp when the stage was created.
+  DateTime? get createdDate;
+
+  /// The timestamp when the stage last updated.
+  DateTime? get lastUpdatedDate;
   @override
   List<Object?> get props => [
-        accessLogSettings,
+        deploymentId,
+        clientCertificateId,
+        stageName,
+        description,
         cacheClusterEnabled,
         cacheClusterSize,
         cacheClusterStatus,
-        canarySettings,
-        clientCertificateId,
-        createdDate,
-        deploymentId,
-        description,
-        documentationVersion,
-        lastUpdatedDate,
         methodSettings,
-        stageName,
-        tags,
-        tracingEnabled,
         variables,
+        documentationVersion,
+        accessLogSettings,
+        canarySettings,
+        tracingEnabled,
         webAclArn,
+        tags,
+        createdDate,
+        lastUpdatedDate,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Stage');
     helper.add(
-      'accessLogSettings',
-      accessLogSettings,
+      'deploymentId',
+      deploymentId,
+    );
+    helper.add(
+      'clientCertificateId',
+      clientCertificateId,
+    );
+    helper.add(
+      'stageName',
+      stageName,
+    );
+    helper.add(
+      'description',
+      description,
     );
     helper.add(
       'cacheClusterEnabled',
@@ -175,56 +188,44 @@ abstract class Stage
       cacheClusterStatus,
     );
     helper.add(
-      'canarySettings',
-      canarySettings,
-    );
-    helper.add(
-      'clientCertificateId',
-      clientCertificateId,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
-    );
-    helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
-    helper.add(
-      'lastUpdatedDate',
-      lastUpdatedDate,
-    );
-    helper.add(
       'methodSettings',
       methodSettings,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'tracingEnabled',
-      tracingEnabled,
     );
     helper.add(
       'variables',
       variables,
     );
     helper.add(
+      'documentationVersion',
+      documentationVersion,
+    );
+    helper.add(
+      'accessLogSettings',
+      accessLogSettings,
+    );
+    helper.add(
+      'canarySettings',
+      canarySettings,
+    );
+    helper.add(
+      'tracingEnabled',
+      tracingEnabled,
+    );
+    helper.add(
       'webAclArn',
       webAclArn,
+    );
+    helper.add(
+      'tags',
+      tags,
+    );
+    helper.add(
+      'createdDate',
+      createdDate,
+    );
+    helper.add(
+      'lastUpdatedDate',
+      lastUpdatedDate,
     );
     return helper.toString();
   }
@@ -257,161 +258,113 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'accessLogSettings':
-          if (value != null) {
-            result.accessLogSettings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AccessLogSettings),
-            ) as _i2.AccessLogSettings));
-          }
-          break;
+          result.accessLogSettings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.AccessLogSettings),
+          ) as _i5.AccessLogSettings));
         case 'cacheClusterEnabled':
-          if (value != null) {
-            result.cacheClusterEnabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.cacheClusterEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'cacheClusterSize':
-          if (value != null) {
-            result.cacheClusterSize = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.CacheClusterSize),
-            ) as _i3.CacheClusterSize);
-          }
-          break;
+          result.cacheClusterSize = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CacheClusterSize),
+          ) as _i2.CacheClusterSize);
         case 'cacheClusterStatus':
-          if (value != null) {
-            result.cacheClusterStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.CacheClusterStatus),
-            ) as _i4.CacheClusterStatus);
-          }
-          break;
+          result.cacheClusterStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.CacheClusterStatus),
+          ) as _i3.CacheClusterStatus);
         case 'canarySettings':
-          if (value != null) {
-            result.canarySettings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.CanarySettings),
-            ) as _i5.CanarySettings));
-          }
-          break;
+          result.canarySettings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.CanarySettings),
+          ) as _i6.CanarySettings));
         case 'clientCertificateId':
-          if (value != null) {
-            result.clientCertificateId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientCertificateId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'createdDate':
-          if (value != null) {
-            result.createdDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createdDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'deploymentId':
-          if (value != null) {
-            result.deploymentId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.deploymentId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'documentationVersion':
-          if (value != null) {
-            result.documentationVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.documentationVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'lastUpdatedDate':
-          if (value != null) {
-            result.lastUpdatedDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdatedDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'methodSettings':
-          if (value != null) {
-            result.methodSettings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i6.MethodSetting),
-                ],
-              ),
-            ) as _i7.BuiltMap<String, _i6.MethodSetting>));
-          }
-          break;
+          result.methodSettings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i4.MethodSetting),
+              ],
+            ),
+          ) as _i7.BuiltMap<String, _i4.MethodSetting>));
         case 'stageName':
-          if (value != null) {
-            result.stageName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stageName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i7.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i7.BuiltMap<String, String>));
         case 'tracingEnabled':
-          if (value != null) {
-            result.tracingEnabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.tracingEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'variables':
-          if (value != null) {
-            result.variables.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i7.BuiltMap<String, String>));
-          }
-          break;
+          result.variables.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i7.BuiltMap<String, String>));
         case 'webAclArn':
-          if (value != null) {
-            result.webAclArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.webAclArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -421,126 +374,144 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Stage object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Stage);
-    final result = <Object?>[];
-    if (payload.accessLogSettings != null) {
-      result
+    final result$ = <Object?>[];
+    final Stage(
+      :accessLogSettings,
+      :cacheClusterEnabled,
+      :cacheClusterSize,
+      :cacheClusterStatus,
+      :canarySettings,
+      :clientCertificateId,
+      :createdDate,
+      :deploymentId,
+      :description,
+      :documentationVersion,
+      :lastUpdatedDate,
+      :methodSettings,
+      :stageName,
+      :tags,
+      :tracingEnabled,
+      :variables,
+      :webAclArn
+    ) = object;
+    if (accessLogSettings != null) {
+      result$
         ..add('accessLogSettings')
         ..add(serializers.serialize(
-          payload.accessLogSettings!,
-          specifiedType: const FullType(_i2.AccessLogSettings),
+          accessLogSettings,
+          specifiedType: const FullType(_i5.AccessLogSettings),
         ));
     }
-    if (payload.cacheClusterEnabled != null) {
-      result
+    if (cacheClusterEnabled != null) {
+      result$
         ..add('cacheClusterEnabled')
         ..add(serializers.serialize(
-          payload.cacheClusterEnabled!,
+          cacheClusterEnabled,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.cacheClusterSize != null) {
-      result
+    if (cacheClusterSize != null) {
+      result$
         ..add('cacheClusterSize')
         ..add(serializers.serialize(
-          payload.cacheClusterSize!,
-          specifiedType: const FullType(_i3.CacheClusterSize),
+          cacheClusterSize,
+          specifiedType: const FullType(_i2.CacheClusterSize),
         ));
     }
-    if (payload.cacheClusterStatus != null) {
-      result
+    if (cacheClusterStatus != null) {
+      result$
         ..add('cacheClusterStatus')
         ..add(serializers.serialize(
-          payload.cacheClusterStatus!,
-          specifiedType: const FullType(_i4.CacheClusterStatus),
+          cacheClusterStatus,
+          specifiedType: const FullType(_i3.CacheClusterStatus),
         ));
     }
-    if (payload.canarySettings != null) {
-      result
+    if (canarySettings != null) {
+      result$
         ..add('canarySettings')
         ..add(serializers.serialize(
-          payload.canarySettings!,
-          specifiedType: const FullType(_i5.CanarySettings),
+          canarySettings,
+          specifiedType: const FullType(_i6.CanarySettings),
         ));
     }
-    if (payload.clientCertificateId != null) {
-      result
+    if (clientCertificateId != null) {
+      result$
         ..add('clientCertificateId')
         ..add(serializers.serialize(
-          payload.clientCertificateId!,
+          clientCertificateId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.createdDate != null) {
-      result
+    if (createdDate != null) {
+      result$
         ..add('createdDate')
         ..add(serializers.serialize(
-          payload.createdDate!,
+          createdDate,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.deploymentId != null) {
-      result
+    if (deploymentId != null) {
+      result$
         ..add('deploymentId')
         ..add(serializers.serialize(
-          payload.deploymentId!,
+          deploymentId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.description != null) {
-      result
+    if (description != null) {
+      result$
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.documentationVersion != null) {
-      result
+    if (documentationVersion != null) {
+      result$
         ..add('documentationVersion')
         ..add(serializers.serialize(
-          payload.documentationVersion!,
+          documentationVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastUpdatedDate != null) {
-      result
+    if (lastUpdatedDate != null) {
+      result$
         ..add('lastUpdatedDate')
         ..add(serializers.serialize(
-          payload.lastUpdatedDate!,
+          lastUpdatedDate,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.methodSettings != null) {
-      result
+    if (methodSettings != null) {
+      result$
         ..add('methodSettings')
         ..add(serializers.serialize(
-          payload.methodSettings!,
+          methodSettings,
           specifiedType: const FullType(
             _i7.BuiltMap,
             [
               FullType(String),
-              FullType(_i6.MethodSetting),
+              FullType(_i4.MethodSetting),
             ],
           ),
         ));
     }
-    if (payload.stageName != null) {
-      result
+    if (stageName != null) {
+      result$
         ..add('stageName')
         ..add(serializers.serialize(
-          payload.stageName!,
+          stageName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
-      result
+    if (tags != null) {
+      result$
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i7.BuiltMap,
             [
@@ -550,19 +521,19 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
           ),
         ));
     }
-    if (payload.tracingEnabled != null) {
-      result
+    if (tracingEnabled != null) {
+      result$
         ..add('tracingEnabled')
         ..add(serializers.serialize(
-          payload.tracingEnabled!,
+          tracingEnabled,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.variables != null) {
-      result
+    if (variables != null) {
+      result$
         ..add('variables')
         ..add(serializers.serialize(
-          payload.variables!,
+          variables,
           specifiedType: const FullType(
             _i7.BuiltMap,
             [
@@ -572,14 +543,14 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
           ),
         ));
     }
-    if (payload.webAclArn != null) {
-      result
+    if (webAclArn != null) {
+      result$
         ..add('webAclArn')
         ..add(serializers.serialize(
-          payload.webAclArn!,
+          webAclArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

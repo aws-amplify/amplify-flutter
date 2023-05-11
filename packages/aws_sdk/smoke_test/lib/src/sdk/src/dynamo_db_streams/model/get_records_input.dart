@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.get_records_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,12 +16,12 @@ abstract class GetRecordsInput
     implements Built<GetRecordsInput, GetRecordsInputBuilder> {
   /// Represents the input of a `GetRecords` operation.
   factory GetRecordsInput({
-    int? limit,
     required String shardIterator,
+    int? limit,
   }) {
     return _$GetRecordsInput._(
-      limit: limit,
       shardIterator: shardIterator,
+      limit: limit,
     );
   }
 
@@ -44,28 +45,28 @@ abstract class GetRecordsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetRecordsInputBuilder b) {}
 
-  /// The maximum number of records to return from the shard. The upper limit is 1000.
-  int? get limit;
-
   /// A shard iterator that was retrieved from a previous GetShardIterator operation. This iterator can be used to access the stream records in this shard.
   String get shardIterator;
+
+  /// The maximum number of records to return from the shard. The upper limit is 1000.
+  int? get limit;
   @override
   GetRecordsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        limit,
         shardIterator,
+        limit,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetRecordsInput');
     helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
       'shardIterator',
       shardIterator,
+    );
+    helper.add(
+      'limit',
+      limit,
     );
     return helper.toString();
   }
@@ -99,21 +100,20 @@ class GetRecordsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'ShardIterator':
           result.shardIterator = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'Limit':
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -123,25 +123,26 @@ class GetRecordsInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetRecordsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetRecordsInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GetRecordsInput(:shardIterator, :limit) = object;
+    result$.addAll([
       'ShardIterator',
       serializers.serialize(
-        payload.shardIterator,
+        shardIterator,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.limit != null) {
-      result
+    ]);
+    if (limit != null) {
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		119A9D2629F997A6008BD2A8 /* NativeAuthPluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A9D2529F997A6008BD2A8 /* NativeAuthPluginTests.swift */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		3DAAF541FFDF2AF1B80B336C /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8B7F726624D3188AFDAB963 /* Pods_Runner.framework */; };
@@ -75,6 +76,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		119A9D2529F997A6008BD2A8 /* NativeAuthPluginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAuthPluginTests.swift; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		341204343CFBD467B8CEC415 /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				4B4F4F1C2982D0C800204FE6 /* QueryPredicateBuilderUnitTests.swift */,
 				4B4F4F1E2982D0CA00204FE6 /* QuerySortBuilderUnitTests.swift */,
 				4B4F4F162982D0C400204FE6 /* unit_tests-Bridging-Header.h */,
+				119A9D2529F997A6008BD2A8 /* NativeAuthPluginTests.swift */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 				4B4F4F4C2982D1E000204FE6 /* SchemaData.swift in Sources */,
 				4B4F4F502982D1E000204FE6 /* FlutterSerializedModelData.swift in Sources */,
 				4B4F4F282982D0CB00204FE6 /* DataStorePluginUnitTests.swift in Sources */,
+				119A9D2629F997A6008BD2A8 /* NativeAuthPluginTests.swift in Sources */,
 				4B4F4F272982D0CB00204FE6 /* QuerySortBuilderUnitTests.swift in Sources */,
 				4B4F4F202982D0CB00204FE6 /* DataStoreHubEventStreamHandlerTests.swift in Sources */,
 				4B4F4F242982D0CB00204FE6 /* GetJsonFromFileUtil.swift in Sources */,

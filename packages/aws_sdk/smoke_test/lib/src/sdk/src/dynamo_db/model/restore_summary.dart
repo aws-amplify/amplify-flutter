@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.restore_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,17 +16,17 @@ abstract class RestoreSummary
     implements Built<RestoreSummary, RestoreSummaryBuilder> {
   /// Contains details for the restore.
   factory RestoreSummary({
-    required DateTime restoreDateTime,
-    bool? restoreInProgress,
     String? sourceBackupArn,
     String? sourceTableArn,
+    required DateTime restoreDateTime,
+    bool? restoreInProgress,
   }) {
     restoreInProgress ??= false;
     return _$RestoreSummary._(
-      restoreDateTime: restoreDateTime,
-      restoreInProgress: restoreInProgress,
       sourceBackupArn: sourceBackupArn,
       sourceTableArn: sourceTableArn,
+      restoreDateTime: restoreDateTime,
+      restoreInProgress: restoreInProgress,
     );
   }
 
@@ -44,35 +45,27 @@ abstract class RestoreSummary
     b.restoreInProgress = false;
   }
 
-  /// Point in time or source backup time.
-  DateTime get restoreDateTime;
-
-  /// Indicates if a restore is in progress or not.
-  bool get restoreInProgress;
-
   /// The Amazon Resource Name (ARN) of the backup from which the table was restored.
   String? get sourceBackupArn;
 
   /// The ARN of the source table of the backup that is being restored.
   String? get sourceTableArn;
+
+  /// Point in time or source backup time.
+  DateTime get restoreDateTime;
+
+  /// Indicates if a restore is in progress or not.
+  bool get restoreInProgress;
   @override
   List<Object?> get props => [
-        restoreDateTime,
-        restoreInProgress,
         sourceBackupArn,
         sourceTableArn,
+        restoreDateTime,
+        restoreInProgress,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RestoreSummary');
-    helper.add(
-      'restoreDateTime',
-      restoreDateTime,
-    );
-    helper.add(
-      'restoreInProgress',
-      restoreInProgress,
-    );
     helper.add(
       'sourceBackupArn',
       sourceBackupArn,
@@ -80,6 +73,14 @@ abstract class RestoreSummary
     helper.add(
       'sourceTableArn',
       sourceTableArn,
+    );
+    helper.add(
+      'restoreDateTime',
+      restoreDateTime,
+    );
+    helper.add(
+      'restoreInProgress',
+      restoreInProgress,
     );
     return helper.toString();
   }
@@ -113,35 +114,30 @@ class RestoreSummaryAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
+        case 'SourceBackupArn':
+          result.sourceBackupArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'SourceTableArn':
+          result.sourceTableArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RestoreDateTime':
           result.restoreDateTime = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'RestoreInProgress':
           result.restoreInProgress = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(bool),
           ) as bool);
-          break;
-        case 'SourceBackupArn':
-          if (value != null) {
-            result.sourceBackupArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'SourceTableArn':
-          if (value != null) {
-            result.sourceTableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
       }
     }
 
@@ -151,38 +147,44 @@ class RestoreSummaryAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RestoreSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RestoreSummary);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final RestoreSummary(
+      :sourceBackupArn,
+      :sourceTableArn,
+      :restoreDateTime,
+      :restoreInProgress
+    ) = object;
+    result$.addAll([
       'RestoreDateTime',
       serializers.serialize(
-        payload.restoreDateTime,
+        restoreDateTime,
         specifiedType: const FullType(DateTime),
       ),
       'RestoreInProgress',
       serializers.serialize(
-        payload.restoreInProgress,
+        restoreInProgress,
         specifiedType: const FullType(bool),
       ),
-    ];
-    if (payload.sourceBackupArn != null) {
-      result
+    ]);
+    if (sourceBackupArn != null) {
+      result$
         ..add('SourceBackupArn')
         ..add(serializers.serialize(
-          payload.sourceBackupArn!,
+          sourceBackupArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sourceTableArn != null) {
-      result
+    if (sourceTableArn != null) {
+      result$
         ..add('SourceTableArn')
         ..add(serializers.serialize(
-          payload.sourceTableArn!,
+          sourceTableArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

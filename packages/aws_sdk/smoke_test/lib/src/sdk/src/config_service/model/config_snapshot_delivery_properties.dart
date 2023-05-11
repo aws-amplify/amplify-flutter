@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.config_snapshot_delivery_properties; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -150,15 +151,15 @@ class ConfigSnapshotDeliveryPropertiesAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'deliveryFrequency':
-          if (value != null) {
-            result.deliveryFrequency = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.MaximumExecutionFrequency),
-            ) as _i2.MaximumExecutionFrequency);
-          }
-          break;
+          result.deliveryFrequency = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.MaximumExecutionFrequency),
+          ) as _i2.MaximumExecutionFrequency);
       }
     }
 
@@ -168,19 +169,19 @@ class ConfigSnapshotDeliveryPropertiesAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConfigSnapshotDeliveryProperties object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConfigSnapshotDeliveryProperties);
-    final result = <Object?>[];
-    if (payload.deliveryFrequency != null) {
-      result
+    final result$ = <Object?>[];
+    final ConfigSnapshotDeliveryProperties(:deliveryFrequency) = object;
+    if (deliveryFrequency != null) {
+      result$
         ..add('deliveryFrequency')
         ..add(serializers.serialize(
-          payload.deliveryFrequency!,
+          deliveryFrequency,
           specifiedType: const FullType(_i2.MaximumExecutionFrequency),
         ));
     }
-    return result;
+    return result$;
   }
 }

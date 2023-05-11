@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_global_secondary_index_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -98,24 +99,20 @@ class ReplicaGlobalSecondaryIndexDescriptionAwsJson10Serializer extends _i3
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IndexName':
-          if (value != null) {
-            result.indexName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.indexName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ProvisionedThroughputOverride':
-          if (value != null) {
-            result.provisionedThroughputOverride
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
-            ) as _i2.ProvisionedThroughputOverride));
-          }
-          break;
+          result.provisionedThroughputOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
+          ) as _i2.ProvisionedThroughputOverride));
       }
     }
 
@@ -125,27 +122,30 @@ class ReplicaGlobalSecondaryIndexDescriptionAwsJson10Serializer extends _i3
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaGlobalSecondaryIndexDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaGlobalSecondaryIndexDescription);
-    final result = <Object?>[];
-    if (payload.indexName != null) {
-      result
+    final result$ = <Object?>[];
+    final ReplicaGlobalSecondaryIndexDescription(
+      :indexName,
+      :provisionedThroughputOverride
+    ) = object;
+    if (indexName != null) {
+      result$
         ..add('IndexName')
         ..add(serializers.serialize(
-          payload.indexName!,
+          indexName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.provisionedThroughputOverride != null) {
-      result
+    if (provisionedThroughputOverride != null) {
+      result$
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
-          payload.provisionedThroughputOverride!,
+          provisionedThroughputOverride,
           specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
         ));
     }
-    return result;
+    return result$;
   }
 }

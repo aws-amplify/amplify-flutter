@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.provisioned_throughput_override; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -81,15 +82,15 @@ class ProvisionedThroughputOverrideAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ReadCapacityUnits':
-          if (value != null) {
-            result.readCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.readCapacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
       }
     }
 
@@ -99,19 +100,19 @@ class ProvisionedThroughputOverrideAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ProvisionedThroughputOverride object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ProvisionedThroughputOverride);
-    final result = <Object?>[];
-    if (payload.readCapacityUnits != null) {
-      result
+    final result$ = <Object?>[];
+    final ProvisionedThroughputOverride(:readCapacityUnits) = object;
+    if (readCapacityUnits != null) {
+      result$
         ..add('ReadCapacityUnits')
         ..add(serializers.serialize(
-          payload.readCapacityUnits!,
+          readCapacityUnits,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    return result;
+    return result$;
   }
 }

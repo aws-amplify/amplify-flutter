@@ -9,11 +9,11 @@ part of smoke_test.config_service.model.describe_organization_conformance_pack_s
 class _$DescribeOrganizationConformancePackStatusesRequest
     extends DescribeOrganizationConformancePackStatusesRequest {
   @override
+  final _i3.BuiltList<String>? organizationConformancePackNames;
+  @override
   final int? limit;
   @override
   final String? nextToken;
-  @override
-  final _i3.BuiltList<String>? organizationConformancePackNames;
 
   factory _$DescribeOrganizationConformancePackStatusesRequest(
           [void Function(
@@ -24,7 +24,7 @@ class _$DescribeOrganizationConformancePackStatusesRequest
           ._build();
 
   _$DescribeOrganizationConformancePackStatusesRequest._(
-      {this.limit, this.nextToken, this.organizationConformancePackNames})
+      {this.organizationConformancePackNames, this.limit, this.nextToken})
       : super._();
 
   @override
@@ -43,18 +43,18 @@ class _$DescribeOrganizationConformancePackStatusesRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DescribeOrganizationConformancePackStatusesRequest &&
-        limit == other.limit &&
-        nextToken == other.nextToken &&
         organizationConformancePackNames ==
-            other.organizationConformancePackNames;
+            other.organizationConformancePackNames &&
+        limit == other.limit &&
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, organizationConformancePackNames.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, organizationConformancePackNames.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -66,14 +66,6 @@ class DescribeOrganizationConformancePackStatusesRequestBuilder
             DescribeOrganizationConformancePackStatusesRequestBuilder> {
   _$DescribeOrganizationConformancePackStatusesRequest? _$v;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
-
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
   _i3.ListBuilder<String>? _organizationConformancePackNames;
   _i3.ListBuilder<String> get organizationConformancePackNames =>
       _$this._organizationConformancePackNames ??=
@@ -83,6 +75,14 @@ class DescribeOrganizationConformancePackStatusesRequestBuilder
       _$this._organizationConformancePackNames =
           organizationConformancePackNames;
 
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
+
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+
   DescribeOrganizationConformancePackStatusesRequestBuilder() {
     DescribeOrganizationConformancePackStatusesRequest._init(this);
   }
@@ -90,10 +90,10 @@ class DescribeOrganizationConformancePackStatusesRequestBuilder
   DescribeOrganizationConformancePackStatusesRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _limit = $v.limit;
-      _nextToken = $v.nextToken;
       _organizationConformancePackNames =
           $v.organizationConformancePackNames?.toBuilder();
+      _limit = $v.limit;
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -120,10 +120,10 @@ class DescribeOrganizationConformancePackStatusesRequestBuilder
     try {
       _$result = _$v ??
           new _$DescribeOrganizationConformancePackStatusesRequest._(
-              limit: limit,
-              nextToken: nextToken,
               organizationConformancePackNames:
-                  _organizationConformancePackNames?.build());
+                  _organizationConformancePackNames?.build(),
+              limit: limit,
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

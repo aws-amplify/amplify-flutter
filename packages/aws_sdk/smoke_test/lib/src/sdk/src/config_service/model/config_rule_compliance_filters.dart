@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.config_rule_compliance_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,16 +19,16 @@ abstract class ConfigRuleComplianceFilters
         Built<ConfigRuleComplianceFilters, ConfigRuleComplianceFiltersBuilder> {
   /// Filters the compliance results based on account ID, region, compliance type, and rule name.
   factory ConfigRuleComplianceFilters({
+    String? configRuleName,
+    _i2.ComplianceType? complianceType,
     String? accountId,
     String? awsRegion,
-    _i2.ComplianceType? complianceType,
-    String? configRuleName,
   }) {
     return _$ConfigRuleComplianceFilters._(
+      configRuleName: configRuleName,
+      complianceType: complianceType,
       accountId: accountId,
       awsRegion: awsRegion,
-      complianceType: complianceType,
-      configRuleName: configRuleName,
     );
   }
 
@@ -45,29 +46,37 @@ abstract class ConfigRuleComplianceFilters
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigRuleComplianceFiltersBuilder b) {}
 
-  /// The 12-digit account ID of the source account.
-  String? get accountId;
-
-  /// The source region where the data is aggregated.
-  String? get awsRegion;
+  /// The name of the Config rule.
+  String? get configRuleName;
 
   /// The rule compliance status.
   ///
   /// For the `ConfigRuleComplianceFilters` data type, Config supports only `COMPLIANT` and `NON_COMPLIANT`. Config does not support the `NOT_APPLICABLE` and the `INSUFFICIENT_DATA` values.
   _i2.ComplianceType? get complianceType;
 
-  /// The name of the Config rule.
-  String? get configRuleName;
+  /// The 12-digit account ID of the source account.
+  String? get accountId;
+
+  /// The source region where the data is aggregated.
+  String? get awsRegion;
   @override
   List<Object?> get props => [
+        configRuleName,
+        complianceType,
         accountId,
         awsRegion,
-        complianceType,
-        configRuleName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfigRuleComplianceFilters');
+    helper.add(
+      'configRuleName',
+      configRuleName,
+    );
+    helper.add(
+      'complianceType',
+      complianceType,
+    );
     helper.add(
       'accountId',
       accountId,
@@ -75,14 +84,6 @@ abstract class ConfigRuleComplianceFilters
     helper.add(
       'awsRegion',
       awsRegion,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'configRuleName',
-      configRuleName,
     );
     return helper.toString();
   }
@@ -117,39 +118,30 @@ class ConfigRuleComplianceFiltersAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'AccountId':
-          if (value != null) {
-            result.accountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'AwsRegion':
-          if (value != null) {
-            result.awsRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ComplianceType':
-          if (value != null) {
-            result.complianceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ComplianceType),
-            ) as _i2.ComplianceType);
-          }
-          break;
         case 'ConfigRuleName':
-          if (value != null) {
-            result.configRuleName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configRuleName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ComplianceType':
+          result.complianceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ComplianceType),
+          ) as _i2.ComplianceType);
+        case 'AccountId':
+          result.accountId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'AwsRegion':
+          result.awsRegion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -159,43 +151,48 @@ class ConfigRuleComplianceFiltersAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConfigRuleComplianceFilters object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConfigRuleComplianceFilters);
-    final result = <Object?>[];
-    if (payload.accountId != null) {
-      result
-        ..add('AccountId')
+    final result$ = <Object?>[];
+    final ConfigRuleComplianceFilters(
+      :configRuleName,
+      :complianceType,
+      :accountId,
+      :awsRegion
+    ) = object;
+    if (configRuleName != null) {
+      result$
+        ..add('ConfigRuleName')
         ..add(serializers.serialize(
-          payload.accountId!,
+          configRuleName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.awsRegion != null) {
-      result
-        ..add('AwsRegion')
-        ..add(serializers.serialize(
-          payload.awsRegion!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.complianceType != null) {
-      result
+    if (complianceType != null) {
+      result$
         ..add('ComplianceType')
         ..add(serializers.serialize(
-          payload.complianceType!,
+          complianceType,
           specifiedType: const FullType(_i2.ComplianceType),
         ));
     }
-    if (payload.configRuleName != null) {
-      result
-        ..add('ConfigRuleName')
+    if (accountId != null) {
+      result$
+        ..add('AccountId')
         ..add(serializers.serialize(
-          payload.configRuleName!,
+          accountId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    if (awsRegion != null) {
+      result$
+        ..add('AwsRegion')
+        ..add(serializers.serialize(
+          awsRegion,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

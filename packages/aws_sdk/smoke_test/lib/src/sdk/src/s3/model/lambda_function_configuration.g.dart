@@ -8,28 +8,28 @@ part of smoke_test.s3.model.lambda_function_configuration;
 
 class _$LambdaFunctionConfiguration extends LambdaFunctionConfiguration {
   @override
-  final _i4.BuiltList<_i2.Event> events;
-  @override
-  final _i3.NotificationConfigurationFilter? filter;
-  @override
   final String? id;
   @override
   final String lambdaFunctionArn;
+  @override
+  final _i4.BuiltList<_i2.Event> events;
+  @override
+  final _i3.NotificationConfigurationFilter? filter;
 
   factory _$LambdaFunctionConfiguration(
           [void Function(LambdaFunctionConfigurationBuilder)? updates]) =>
       (new LambdaFunctionConfigurationBuilder()..update(updates))._build();
 
   _$LambdaFunctionConfiguration._(
-      {required this.events,
-      this.filter,
-      this.id,
-      required this.lambdaFunctionArn})
+      {this.id,
+      required this.lambdaFunctionArn,
+      required this.events,
+      this.filter})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        events, r'LambdaFunctionConfiguration', 'events');
-    BuiltValueNullFieldError.checkNotNull(
         lambdaFunctionArn, r'LambdaFunctionConfiguration', 'lambdaFunctionArn');
+    BuiltValueNullFieldError.checkNotNull(
+        events, r'LambdaFunctionConfiguration', 'events');
   }
 
   @override
@@ -45,19 +45,19 @@ class _$LambdaFunctionConfiguration extends LambdaFunctionConfiguration {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is LambdaFunctionConfiguration &&
-        events == other.events &&
-        filter == other.filter &&
         id == other.id &&
-        lambdaFunctionArn == other.lambdaFunctionArn;
+        lambdaFunctionArn == other.lambdaFunctionArn &&
+        events == other.events &&
+        filter == other.filter;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, events.hashCode);
-    _$hash = $jc(_$hash, filter.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, lambdaFunctionArn.hashCode);
+    _$hash = $jc(_$hash, events.hashCode);
+    _$hash = $jc(_$hash, filter.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -68,6 +68,15 @@ class LambdaFunctionConfigurationBuilder
         Builder<LambdaFunctionConfiguration,
             LambdaFunctionConfigurationBuilder> {
   _$LambdaFunctionConfiguration? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _lambdaFunctionArn;
+  String? get lambdaFunctionArn => _$this._lambdaFunctionArn;
+  set lambdaFunctionArn(String? lambdaFunctionArn) =>
+      _$this._lambdaFunctionArn = lambdaFunctionArn;
 
   _i4.ListBuilder<_i2.Event>? _events;
   _i4.ListBuilder<_i2.Event> get events =>
@@ -80,15 +89,6 @@ class LambdaFunctionConfigurationBuilder
   set filter(_i3.NotificationConfigurationFilterBuilder? filter) =>
       _$this._filter = filter;
 
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _lambdaFunctionArn;
-  String? get lambdaFunctionArn => _$this._lambdaFunctionArn;
-  set lambdaFunctionArn(String? lambdaFunctionArn) =>
-      _$this._lambdaFunctionArn = lambdaFunctionArn;
-
   LambdaFunctionConfigurationBuilder() {
     LambdaFunctionConfiguration._init(this);
   }
@@ -96,10 +96,10 @@ class LambdaFunctionConfigurationBuilder
   LambdaFunctionConfigurationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _events = $v.events.toBuilder();
-      _filter = $v.filter?.toBuilder();
       _id = $v.id;
       _lambdaFunctionArn = $v.lambdaFunctionArn;
+      _events = $v.events.toBuilder();
+      _filter = $v.filter?.toBuilder();
       _$v = null;
     }
     return this;
@@ -124,13 +124,13 @@ class LambdaFunctionConfigurationBuilder
     try {
       _$result = _$v ??
           new _$LambdaFunctionConfiguration._(
-              events: events.build(),
-              filter: _filter?.build(),
               id: id,
               lambdaFunctionArn: BuiltValueNullFieldError.checkNotNull(
                   lambdaFunctionArn,
                   r'LambdaFunctionConfiguration',
-                  'lambdaFunctionArn'));
+                  'lambdaFunctionArn'),
+              events: events.build(),
+              filter: _filter?.build());
     } catch (_) {
       late String _$failedField;
       try {

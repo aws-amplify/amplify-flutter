@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.delete_deployment_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,12 +22,12 @@ abstract class DeleteDeploymentRequest
         _i1.HasPayload<DeleteDeploymentRequestPayload> {
   /// Requests API Gateway to delete a Deployment resource.
   factory DeleteDeploymentRequest({
-    required String deploymentId,
     required String restApiId,
+    required String deploymentId,
   }) {
     return _$DeleteDeploymentRequest._(
-      deploymentId: deploymentId,
       restApiId: restApiId,
+      deploymentId: deploymentId,
     );
   }
 
@@ -58,11 +59,11 @@ abstract class DeleteDeploymentRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteDeploymentRequestBuilder b) {}
 
-  /// The identifier of the Deployment resource to delete.
-  String get deploymentId;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The identifier of the Deployment resource to delete.
+  String get deploymentId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -82,19 +83,19 @@ abstract class DeleteDeploymentRequest
       DeleteDeploymentRequestPayload();
   @override
   List<Object?> get props => [
-        deploymentId,
         restApiId,
+        deploymentId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteDeploymentRequest');
     helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'deploymentId',
+      deploymentId,
     );
     return helper.toString();
   }
@@ -157,7 +158,7 @@ class DeleteDeploymentRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeleteDeploymentRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

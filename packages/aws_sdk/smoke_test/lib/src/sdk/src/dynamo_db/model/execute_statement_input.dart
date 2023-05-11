@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.execute_statement_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,20 +21,20 @@ abstract class ExecuteStatementInput
         _i2.AWSEquatable<ExecuteStatementInput>
     implements Built<ExecuteStatementInput, ExecuteStatementInputBuilder> {
   factory ExecuteStatementInput({
-    bool? consistentRead,
-    int? limit,
-    String? nextToken,
-    List<_i3.AttributeValue>? parameters,
-    _i4.ReturnConsumedCapacity? returnConsumedCapacity,
     required String statement,
+    List<_i3.AttributeValue>? parameters,
+    bool? consistentRead,
+    String? nextToken,
+    _i4.ReturnConsumedCapacity? returnConsumedCapacity,
+    int? limit,
   }) {
     return _$ExecuteStatementInput._(
-      consistentRead: consistentRead,
-      limit: limit,
-      nextToken: nextToken,
-      parameters: parameters == null ? null : _i5.BuiltList(parameters),
-      returnConsumedCapacity: returnConsumedCapacity,
       statement: statement,
+      parameters: parameters == null ? null : _i5.BuiltList(parameters),
+      consistentRead: consistentRead,
+      nextToken: nextToken,
+      returnConsumedCapacity: returnConsumedCapacity,
+      limit: limit,
     );
   }
 
@@ -57,17 +58,17 @@ abstract class ExecuteStatementInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExecuteStatementInputBuilder b) {}
 
-  /// The consistency of a read operation. If set to `true`, then a strongly consistent read is used; otherwise, an eventually consistent read is used.
-  bool? get consistentRead;
-
-  /// The maximum number of items to evaluate (not necessarily the number of matching items). If DynamoDB processes the number of items up to the limit while processing the results, it stops the operation and returns the matching values up to that point, along with a key in `LastEvaluatedKey` to apply in a subsequent operation so you can pick up where you left off. Also, if the processed dataset size exceeds 1 MB before DynamoDB reaches this limit, it stops the operation and returns the matching values up to the limit, and a key in `LastEvaluatedKey` to apply in a subsequent operation to continue the operation.
-  int? get limit;
-
-  /// Set this value to get remaining results, if `NextToken` was returned in the statement response.
-  String? get nextToken;
+  /// The PartiQL statement representing the operation to run.
+  String get statement;
 
   /// The parameters for the PartiQL statement, if any.
   _i5.BuiltList<_i3.AttributeValue>? get parameters;
+
+  /// The consistency of a read operation. If set to `true`, then a strongly consistent read is used; otherwise, an eventually consistent read is used.
+  bool? get consistentRead;
+
+  /// Set this value to get remaining results, if `NextToken` was returned in the statement response.
+  String? get nextToken;
 
   /// Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response:
   ///
@@ -80,45 +81,45 @@ abstract class ExecuteStatementInput
   /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
   _i4.ReturnConsumedCapacity? get returnConsumedCapacity;
 
-  /// The PartiQL statement representing the operation to run.
-  String get statement;
+  /// The maximum number of items to evaluate (not necessarily the number of matching items). If DynamoDB processes the number of items up to the limit while processing the results, it stops the operation and returns the matching values up to that point, along with a key in `LastEvaluatedKey` to apply in a subsequent operation so you can pick up where you left off. Also, if the processed dataset size exceeds 1 MB before DynamoDB reaches this limit, it stops the operation and returns the matching values up to the limit, and a key in `LastEvaluatedKey` to apply in a subsequent operation to continue the operation.
+  int? get limit;
   @override
   ExecuteStatementInput getPayload() => this;
   @override
   List<Object?> get props => [
-        consistentRead,
-        limit,
-        nextToken,
-        parameters,
-        returnConsumedCapacity,
         statement,
+        parameters,
+        consistentRead,
+        nextToken,
+        returnConsumedCapacity,
+        limit,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ExecuteStatementInput');
     helper.add(
-      'consistentRead',
-      consistentRead,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
+      'statement',
+      statement,
     );
     helper.add(
       'parameters',
       parameters,
     );
     helper.add(
+      'consistentRead',
+      consistentRead,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
+    );
+    helper.add(
       'returnConsumedCapacity',
       returnConsumedCapacity,
     );
     helper.add(
-      'statement',
-      statement,
+      'limit',
+      limit,
     );
     return helper.toString();
   }
@@ -153,56 +154,43 @@ class ExecuteStatementInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ConsistentRead':
-          if (value != null) {
-            result.consistentRead = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
-        case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Parameters':
-          if (value != null) {
-            result.parameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.AttributeValue)],
-              ),
-            ) as _i5.BuiltList<_i3.AttributeValue>));
-          }
-          break;
-        case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-            ) as _i4.ReturnConsumedCapacity);
-          }
-          break;
         case 'Statement':
           result.statement = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'Parameters':
+          result.parameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.AttributeValue)],
+            ),
+          ) as _i5.BuiltList<_i3.AttributeValue>));
+        case 'ConsistentRead':
+          result.consistentRead = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ReturnConsumedCapacity':
+          result.returnConsumedCapacity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          ) as _i4.ReturnConsumedCapacity);
+        case 'Limit':
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -212,60 +200,68 @@ class ExecuteStatementInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ExecuteStatementInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ExecuteStatementInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ExecuteStatementInput(
+      :statement,
+      :parameters,
+      :consistentRead,
+      :nextToken,
+      :returnConsumedCapacity,
+      :limit
+    ) = object;
+    result$.addAll([
       'Statement',
       serializers.serialize(
-        payload.statement,
+        statement,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.consistentRead != null) {
-      result
-        ..add('ConsistentRead')
-        ..add(serializers.serialize(
-          payload.consistentRead!,
-          specifiedType: const FullType(bool),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.parameters != null) {
-      result
+    ]);
+    if (parameters != null) {
+      result$
         ..add('Parameters')
         ..add(serializers.serialize(
-          payload.parameters!,
+          parameters,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i3.AttributeValue)],
           ),
         ));
     }
-    if (payload.returnConsumedCapacity != null) {
-      result
+    if (consistentRead != null) {
+      result$
+        ..add('ConsistentRead')
+        ..add(serializers.serialize(
+          consistentRead,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (returnConsumedCapacity != null) {
+      result$
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
-          payload.returnConsumedCapacity!,
+          returnConsumedCapacity,
           specifiedType: const FullType(_i4.ReturnConsumedCapacity),
         ));
     }
-    return result;
+    if (limit != null) {
+      result$
+        ..add('Limit')
+        ..add(serializers.serialize(
+          limit,
+          specifiedType: const FullType(int),
+        ));
+    }
+    return result$;
   }
 }

@@ -8,41 +8,41 @@ part of rest_json1_v1.rest_json_protocol.model.json_maps_input_output;
 
 class _$JsonMapsInputOutput extends JsonMapsInputOutput {
   @override
-  final _i4.BuiltMap<String, bool>? denseBooleanMap;
+  final _i4.BuiltMap<String, _i3.GreetingStruct>? denseStructMap;
+  @override
+  final _i4.BuiltMap<String, _i3.GreetingStruct?>? sparseStructMap;
   @override
   final _i4.BuiltMap<String, int>? denseNumberMap;
   @override
-  final _i4.BuiltSetMultimap<String, String>? denseSetMap;
+  final _i4.BuiltMap<String, bool>? denseBooleanMap;
   @override
   final _i4.BuiltMap<String, String>? denseStringMap;
   @override
-  final _i4.BuiltMap<String, _i3.GreetingStruct>? denseStructMap;
+  final _i4.BuiltMap<String, int?>? sparseNumberMap;
   @override
   final _i4.BuiltMap<String, bool?>? sparseBooleanMap;
   @override
-  final _i4.BuiltMap<String, int?>? sparseNumberMap;
-  @override
-  final _i4.BuiltSetMultimap<String, String>? sparseSetMap;
-  @override
   final _i4.BuiltMap<String, String?>? sparseStringMap;
   @override
-  final _i4.BuiltMap<String, _i3.GreetingStruct?>? sparseStructMap;
+  final _i4.BuiltSetMultimap<String, String>? denseSetMap;
+  @override
+  final _i4.BuiltSetMultimap<String, String>? sparseSetMap;
 
   factory _$JsonMapsInputOutput(
           [void Function(JsonMapsInputOutputBuilder)? updates]) =>
       (new JsonMapsInputOutputBuilder()..update(updates))._build();
 
   _$JsonMapsInputOutput._(
-      {this.denseBooleanMap,
+      {this.denseStructMap,
+      this.sparseStructMap,
       this.denseNumberMap,
-      this.denseSetMap,
+      this.denseBooleanMap,
       this.denseStringMap,
-      this.denseStructMap,
-      this.sparseBooleanMap,
       this.sparseNumberMap,
-      this.sparseSetMap,
+      this.sparseBooleanMap,
       this.sparseStringMap,
-      this.sparseStructMap})
+      this.denseSetMap,
+      this.sparseSetMap})
       : super._();
 
   @override
@@ -58,31 +58,31 @@ class _$JsonMapsInputOutput extends JsonMapsInputOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is JsonMapsInputOutput &&
-        denseBooleanMap == other.denseBooleanMap &&
-        denseNumberMap == other.denseNumberMap &&
-        denseSetMap == other.denseSetMap &&
-        denseStringMap == other.denseStringMap &&
         denseStructMap == other.denseStructMap &&
-        sparseBooleanMap == other.sparseBooleanMap &&
+        sparseStructMap == other.sparseStructMap &&
+        denseNumberMap == other.denseNumberMap &&
+        denseBooleanMap == other.denseBooleanMap &&
+        denseStringMap == other.denseStringMap &&
         sparseNumberMap == other.sparseNumberMap &&
-        sparseSetMap == other.sparseSetMap &&
+        sparseBooleanMap == other.sparseBooleanMap &&
         sparseStringMap == other.sparseStringMap &&
-        sparseStructMap == other.sparseStructMap;
+        denseSetMap == other.denseSetMap &&
+        sparseSetMap == other.sparseSetMap;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, denseBooleanMap.hashCode);
-    _$hash = $jc(_$hash, denseNumberMap.hashCode);
-    _$hash = $jc(_$hash, denseSetMap.hashCode);
-    _$hash = $jc(_$hash, denseStringMap.hashCode);
     _$hash = $jc(_$hash, denseStructMap.hashCode);
-    _$hash = $jc(_$hash, sparseBooleanMap.hashCode);
-    _$hash = $jc(_$hash, sparseNumberMap.hashCode);
-    _$hash = $jc(_$hash, sparseSetMap.hashCode);
-    _$hash = $jc(_$hash, sparseStringMap.hashCode);
     _$hash = $jc(_$hash, sparseStructMap.hashCode);
+    _$hash = $jc(_$hash, denseNumberMap.hashCode);
+    _$hash = $jc(_$hash, denseBooleanMap.hashCode);
+    _$hash = $jc(_$hash, denseStringMap.hashCode);
+    _$hash = $jc(_$hash, sparseNumberMap.hashCode);
+    _$hash = $jc(_$hash, sparseBooleanMap.hashCode);
+    _$hash = $jc(_$hash, sparseStringMap.hashCode);
+    _$hash = $jc(_$hash, denseSetMap.hashCode);
+    _$hash = $jc(_$hash, sparseSetMap.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -92,30 +92,6 @@ class JsonMapsInputOutputBuilder
     implements Builder<JsonMapsInputOutput, JsonMapsInputOutputBuilder> {
   _$JsonMapsInputOutput? _$v;
 
-  _i4.MapBuilder<String, bool>? _denseBooleanMap;
-  _i4.MapBuilder<String, bool> get denseBooleanMap =>
-      _$this._denseBooleanMap ??= new _i4.MapBuilder<String, bool>();
-  set denseBooleanMap(_i4.MapBuilder<String, bool>? denseBooleanMap) =>
-      _$this._denseBooleanMap = denseBooleanMap;
-
-  _i4.MapBuilder<String, int>? _denseNumberMap;
-  _i4.MapBuilder<String, int> get denseNumberMap =>
-      _$this._denseNumberMap ??= new _i4.MapBuilder<String, int>();
-  set denseNumberMap(_i4.MapBuilder<String, int>? denseNumberMap) =>
-      _$this._denseNumberMap = denseNumberMap;
-
-  _i4.SetMultimapBuilder<String, String>? _denseSetMap;
-  _i4.SetMultimapBuilder<String, String> get denseSetMap =>
-      _$this._denseSetMap ??= new _i4.SetMultimapBuilder<String, String>();
-  set denseSetMap(_i4.SetMultimapBuilder<String, String>? denseSetMap) =>
-      _$this._denseSetMap = denseSetMap;
-
-  _i4.MapBuilder<String, String>? _denseStringMap;
-  _i4.MapBuilder<String, String> get denseStringMap =>
-      _$this._denseStringMap ??= new _i4.MapBuilder<String, String>();
-  set denseStringMap(_i4.MapBuilder<String, String>? denseStringMap) =>
-      _$this._denseStringMap = denseStringMap;
-
   _i4.MapBuilder<String, _i3.GreetingStruct>? _denseStructMap;
   _i4.MapBuilder<String, _i3.GreetingStruct> get denseStructMap =>
       _$this._denseStructMap ??=
@@ -123,30 +99,6 @@ class JsonMapsInputOutputBuilder
   set denseStructMap(
           _i4.MapBuilder<String, _i3.GreetingStruct>? denseStructMap) =>
       _$this._denseStructMap = denseStructMap;
-
-  _i4.MapBuilder<String, bool?>? _sparseBooleanMap;
-  _i4.MapBuilder<String, bool?> get sparseBooleanMap =>
-      _$this._sparseBooleanMap ??= new _i4.MapBuilder<String, bool?>();
-  set sparseBooleanMap(_i4.MapBuilder<String, bool?>? sparseBooleanMap) =>
-      _$this._sparseBooleanMap = sparseBooleanMap;
-
-  _i4.MapBuilder<String, int?>? _sparseNumberMap;
-  _i4.MapBuilder<String, int?> get sparseNumberMap =>
-      _$this._sparseNumberMap ??= new _i4.MapBuilder<String, int?>();
-  set sparseNumberMap(_i4.MapBuilder<String, int?>? sparseNumberMap) =>
-      _$this._sparseNumberMap = sparseNumberMap;
-
-  _i4.SetMultimapBuilder<String, String>? _sparseSetMap;
-  _i4.SetMultimapBuilder<String, String> get sparseSetMap =>
-      _$this._sparseSetMap ??= new _i4.SetMultimapBuilder<String, String>();
-  set sparseSetMap(_i4.SetMultimapBuilder<String, String>? sparseSetMap) =>
-      _$this._sparseSetMap = sparseSetMap;
-
-  _i4.MapBuilder<String, String?>? _sparseStringMap;
-  _i4.MapBuilder<String, String?> get sparseStringMap =>
-      _$this._sparseStringMap ??= new _i4.MapBuilder<String, String?>();
-  set sparseStringMap(_i4.MapBuilder<String, String?>? sparseStringMap) =>
-      _$this._sparseStringMap = sparseStringMap;
 
   _i4.MapBuilder<String, _i3.GreetingStruct?>? _sparseStructMap;
   _i4.MapBuilder<String, _i3.GreetingStruct?> get sparseStructMap =>
@@ -156,6 +108,54 @@ class JsonMapsInputOutputBuilder
           _i4.MapBuilder<String, _i3.GreetingStruct?>? sparseStructMap) =>
       _$this._sparseStructMap = sparseStructMap;
 
+  _i4.MapBuilder<String, int>? _denseNumberMap;
+  _i4.MapBuilder<String, int> get denseNumberMap =>
+      _$this._denseNumberMap ??= new _i4.MapBuilder<String, int>();
+  set denseNumberMap(_i4.MapBuilder<String, int>? denseNumberMap) =>
+      _$this._denseNumberMap = denseNumberMap;
+
+  _i4.MapBuilder<String, bool>? _denseBooleanMap;
+  _i4.MapBuilder<String, bool> get denseBooleanMap =>
+      _$this._denseBooleanMap ??= new _i4.MapBuilder<String, bool>();
+  set denseBooleanMap(_i4.MapBuilder<String, bool>? denseBooleanMap) =>
+      _$this._denseBooleanMap = denseBooleanMap;
+
+  _i4.MapBuilder<String, String>? _denseStringMap;
+  _i4.MapBuilder<String, String> get denseStringMap =>
+      _$this._denseStringMap ??= new _i4.MapBuilder<String, String>();
+  set denseStringMap(_i4.MapBuilder<String, String>? denseStringMap) =>
+      _$this._denseStringMap = denseStringMap;
+
+  _i4.MapBuilder<String, int?>? _sparseNumberMap;
+  _i4.MapBuilder<String, int?> get sparseNumberMap =>
+      _$this._sparseNumberMap ??= new _i4.MapBuilder<String, int?>();
+  set sparseNumberMap(_i4.MapBuilder<String, int?>? sparseNumberMap) =>
+      _$this._sparseNumberMap = sparseNumberMap;
+
+  _i4.MapBuilder<String, bool?>? _sparseBooleanMap;
+  _i4.MapBuilder<String, bool?> get sparseBooleanMap =>
+      _$this._sparseBooleanMap ??= new _i4.MapBuilder<String, bool?>();
+  set sparseBooleanMap(_i4.MapBuilder<String, bool?>? sparseBooleanMap) =>
+      _$this._sparseBooleanMap = sparseBooleanMap;
+
+  _i4.MapBuilder<String, String?>? _sparseStringMap;
+  _i4.MapBuilder<String, String?> get sparseStringMap =>
+      _$this._sparseStringMap ??= new _i4.MapBuilder<String, String?>();
+  set sparseStringMap(_i4.MapBuilder<String, String?>? sparseStringMap) =>
+      _$this._sparseStringMap = sparseStringMap;
+
+  _i4.SetMultimapBuilder<String, String>? _denseSetMap;
+  _i4.SetMultimapBuilder<String, String> get denseSetMap =>
+      _$this._denseSetMap ??= new _i4.SetMultimapBuilder<String, String>();
+  set denseSetMap(_i4.SetMultimapBuilder<String, String>? denseSetMap) =>
+      _$this._denseSetMap = denseSetMap;
+
+  _i4.SetMultimapBuilder<String, String>? _sparseSetMap;
+  _i4.SetMultimapBuilder<String, String> get sparseSetMap =>
+      _$this._sparseSetMap ??= new _i4.SetMultimapBuilder<String, String>();
+  set sparseSetMap(_i4.SetMultimapBuilder<String, String>? sparseSetMap) =>
+      _$this._sparseSetMap = sparseSetMap;
+
   JsonMapsInputOutputBuilder() {
     JsonMapsInputOutput._init(this);
   }
@@ -163,16 +163,16 @@ class JsonMapsInputOutputBuilder
   JsonMapsInputOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _denseBooleanMap = $v.denseBooleanMap?.toBuilder();
-      _denseNumberMap = $v.denseNumberMap?.toBuilder();
-      _denseSetMap = $v.denseSetMap?.toBuilder();
-      _denseStringMap = $v.denseStringMap?.toBuilder();
       _denseStructMap = $v.denseStructMap?.toBuilder();
-      _sparseBooleanMap = $v.sparseBooleanMap?.toBuilder();
-      _sparseNumberMap = $v.sparseNumberMap?.toBuilder();
-      _sparseSetMap = $v.sparseSetMap?.toBuilder();
-      _sparseStringMap = $v.sparseStringMap?.toBuilder();
       _sparseStructMap = $v.sparseStructMap?.toBuilder();
+      _denseNumberMap = $v.denseNumberMap?.toBuilder();
+      _denseBooleanMap = $v.denseBooleanMap?.toBuilder();
+      _denseStringMap = $v.denseStringMap?.toBuilder();
+      _sparseNumberMap = $v.sparseNumberMap?.toBuilder();
+      _sparseBooleanMap = $v.sparseBooleanMap?.toBuilder();
+      _sparseStringMap = $v.sparseStringMap?.toBuilder();
+      _denseSetMap = $v.denseSetMap?.toBuilder();
+      _sparseSetMap = $v.sparseSetMap?.toBuilder();
       _$v = null;
     }
     return this;
@@ -197,39 +197,39 @@ class JsonMapsInputOutputBuilder
     try {
       _$result = _$v ??
           new _$JsonMapsInputOutput._(
-              denseBooleanMap: _denseBooleanMap?.build(),
-              denseNumberMap: _denseNumberMap?.build(),
-              denseSetMap: _denseSetMap?.build(),
-              denseStringMap: _denseStringMap?.build(),
               denseStructMap: _denseStructMap?.build(),
-              sparseBooleanMap: _sparseBooleanMap?.build(),
+              sparseStructMap: _sparseStructMap?.build(),
+              denseNumberMap: _denseNumberMap?.build(),
+              denseBooleanMap: _denseBooleanMap?.build(),
+              denseStringMap: _denseStringMap?.build(),
               sparseNumberMap: _sparseNumberMap?.build(),
-              sparseSetMap: _sparseSetMap?.build(),
+              sparseBooleanMap: _sparseBooleanMap?.build(),
               sparseStringMap: _sparseStringMap?.build(),
-              sparseStructMap: _sparseStructMap?.build());
+              denseSetMap: _denseSetMap?.build(),
+              sparseSetMap: _sparseSetMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'denseBooleanMap';
-        _denseBooleanMap?.build();
-        _$failedField = 'denseNumberMap';
-        _denseNumberMap?.build();
-        _$failedField = 'denseSetMap';
-        _denseSetMap?.build();
-        _$failedField = 'denseStringMap';
-        _denseStringMap?.build();
         _$failedField = 'denseStructMap';
         _denseStructMap?.build();
-        _$failedField = 'sparseBooleanMap';
-        _sparseBooleanMap?.build();
-        _$failedField = 'sparseNumberMap';
-        _sparseNumberMap?.build();
-        _$failedField = 'sparseSetMap';
-        _sparseSetMap?.build();
-        _$failedField = 'sparseStringMap';
-        _sparseStringMap?.build();
         _$failedField = 'sparseStructMap';
         _sparseStructMap?.build();
+        _$failedField = 'denseNumberMap';
+        _denseNumberMap?.build();
+        _$failedField = 'denseBooleanMap';
+        _denseBooleanMap?.build();
+        _$failedField = 'denseStringMap';
+        _denseStringMap?.build();
+        _$failedField = 'sparseNumberMap';
+        _sparseNumberMap?.build();
+        _$failedField = 'sparseBooleanMap';
+        _sparseBooleanMap?.build();
+        _$failedField = 'sparseStringMap';
+        _sparseStringMap?.build();
+        _$failedField = 'denseSetMap';
+        _denseSetMap?.build();
+        _$failedField = 'sparseSetMap';
+        _sparseSetMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'JsonMapsInputOutput', _$failedField, e.toString());

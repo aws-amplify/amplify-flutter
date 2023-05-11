@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.bucket; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,12 +16,12 @@ abstract class Bucket
     implements Built<Bucket, BucketBuilder> {
   /// In terms of implementation, a Bucket is a resource. An Amazon S3 bucket name is globally unique, and the namespace is shared by all Amazon Web Services accounts.
   factory Bucket({
-    DateTime? creationDate,
     String? name,
+    DateTime? creationDate,
   }) {
     return _$Bucket._(
-      creationDate: creationDate,
       name: name,
+      creationDate: creationDate,
     );
   }
 
@@ -36,26 +37,26 @@ abstract class Bucket
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BucketBuilder b) {}
 
-  /// Date the bucket was created. This date can change when making changes to your bucket, such as editing its bucket policy.
-  DateTime? get creationDate;
-
   /// The name of the bucket.
   String? get name;
+
+  /// Date the bucket was created. This date can change when making changes to your bucket, such as editing its bucket policy.
+  DateTime? get creationDate;
   @override
   List<Object?> get props => [
-        creationDate,
         name,
+        creationDate,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Bucket');
     helper.add(
-      'creationDate',
-      creationDate,
-    );
-    helper.add(
       'name',
       name,
+    );
+    helper.add(
+      'creationDate',
+      creationDate,
     );
     return helper.toString();
   }
@@ -85,26 +86,23 @@ class BucketRestXmlSerializer extends _i2.StructuredSmithySerializer<Bucket> {
     final result = BucketBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'CreationDate':
-          if (value != null) {
-            result.creationDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.creationDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -114,32 +112,32 @@ class BucketRestXmlSerializer extends _i2.StructuredSmithySerializer<Bucket> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Bucket object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Bucket);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'Bucket',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.creationDate != null) {
-      result
+    final Bucket(:creationDate, :name) = object;
+    if (creationDate != null) {
+      result$
         ..add(const _i2.XmlElementName('CreationDate'))
         ..add(serializers.serialize(
-          payload.creationDate!,
+          creationDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.name != null) {
-      result
+    if (name != null) {
+      result$
         ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

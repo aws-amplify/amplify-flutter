@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.update_continuous_backups_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,13 +20,13 @@ abstract class UpdateContinuousBackupsInput
         Built<UpdateContinuousBackupsInput,
             UpdateContinuousBackupsInputBuilder> {
   factory UpdateContinuousBackupsInput({
+    required String tableName,
     required _i3.PointInTimeRecoverySpecification
         pointInTimeRecoverySpecification,
-    required String tableName,
   }) {
     return _$UpdateContinuousBackupsInput._(
-      pointInTimeRecoverySpecification: pointInTimeRecoverySpecification,
       tableName: tableName,
+      pointInTimeRecoverySpecification: pointInTimeRecoverySpecification,
     );
   }
 
@@ -49,28 +50,28 @@ abstract class UpdateContinuousBackupsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateContinuousBackupsInputBuilder b) {}
 
-  /// Represents the settings used to enable point in time recovery.
-  _i3.PointInTimeRecoverySpecification get pointInTimeRecoverySpecification;
-
   /// The name of the table.
   String get tableName;
+
+  /// Represents the settings used to enable point in time recovery.
+  _i3.PointInTimeRecoverySpecification get pointInTimeRecoverySpecification;
   @override
   UpdateContinuousBackupsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        pointInTimeRecoverySpecification,
         tableName,
+        pointInTimeRecoverySpecification,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateContinuousBackupsInput');
     helper.add(
-      'pointInTimeRecoverySpecification',
-      pointInTimeRecoverySpecification,
-    );
-    helper.add(
       'tableName',
       tableName,
+    );
+    helper.add(
+      'pointInTimeRecoverySpecification',
+      pointInTimeRecoverySpecification,
     );
     return helper.toString();
   }
@@ -105,20 +106,21 @@ class UpdateContinuousBackupsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
+        case 'TableName':
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PointInTimeRecoverySpecification':
           result.pointInTimeRecoverySpecification
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.PointInTimeRecoverySpecification),
           ) as _i3.PointInTimeRecoverySpecification));
-          break;
-        case 'TableName':
-          result.tableName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
       }
     }
 
@@ -128,22 +130,26 @@ class UpdateContinuousBackupsInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateContinuousBackupsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateContinuousBackupsInput);
-    final result = <Object?>[
-      'PointInTimeRecoverySpecification',
-      serializers.serialize(
-        payload.pointInTimeRecoverySpecification,
-        specifiedType: const FullType(_i3.PointInTimeRecoverySpecification),
-      ),
+    final result$ = <Object?>[];
+    final UpdateContinuousBackupsInput(
+      :tableName,
+      :pointInTimeRecoverySpecification
+    ) = object;
+    result$.addAll([
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+      'PointInTimeRecoverySpecification',
+      serializers.serialize(
+        pointInTimeRecoverySpecification,
+        specifiedType: const FullType(_i3.PointInTimeRecoverySpecification),
+      ),
+    ]);
+    return result$;
   }
 }

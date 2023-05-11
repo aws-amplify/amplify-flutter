@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.put_integration_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,26 +25,26 @@ abstract class PutIntegrationResponseRequest
         _i1.HasPayload<PutIntegrationResponseRequestPayload> {
   /// Represents a put integration response request.
   factory PutIntegrationResponseRequest({
-    _i3.ContentHandlingStrategy? contentHandling,
-    required String httpMethod,
+    required String restApiId,
     required String resourceId,
+    required String httpMethod,
+    required String statusCode,
+    String? selectionPattern,
     Map<String, String>? responseParameters,
     Map<String, String>? responseTemplates,
-    required String restApiId,
-    String? selectionPattern,
-    required String statusCode,
+    _i3.ContentHandlingStrategy? contentHandling,
   }) {
     return _$PutIntegrationResponseRequest._(
-      contentHandling: contentHandling,
-      httpMethod: httpMethod,
+      restApiId: restApiId,
       resourceId: resourceId,
+      httpMethod: httpMethod,
+      statusCode: statusCode,
+      selectionPattern: selectionPattern,
       responseParameters:
           responseParameters == null ? null : _i4.BuiltMap(responseParameters),
       responseTemplates:
           responseTemplates == null ? null : _i4.BuiltMap(responseTemplates),
-      restApiId: restApiId,
-      selectionPattern: selectionPattern,
-      statusCode: statusCode,
+      contentHandling: contentHandling,
     );
   }
 
@@ -89,16 +90,20 @@ abstract class PutIntegrationResponseRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutIntegrationResponseRequestBuilder b) {}
 
-  /// Specifies how to handle response payload content type conversions. Supported values are `CONVERT\_TO\_BINARY` and `CONVERT\_TO\_TEXT`, with the following behaviors:
-  ///
-  /// If this property is not defined, the response payload will be passed through from the integration response to the method response without modification.
-  _i3.ContentHandlingStrategy? get contentHandling;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
+  /// Specifies a put integration response request's resource identifier.
+  String get resourceId;
 
   /// Specifies a put integration response request's HTTP method.
   String get httpMethod;
 
-  /// Specifies a put integration response request's resource identifier.
-  String get resourceId;
+  /// Specifies the status code that is used to map the integration response to an existing MethodResponse.
+  String get statusCode;
+
+  /// Specifies the selection pattern of a put integration response.
+  String? get selectionPattern;
 
   /// A key-value map specifying response parameters that are passed to the method response from the back end. The key is a method response header parameter name and the mapped value is an integration response header value, a static value enclosed within a pair of single quotes, or a JSON expression from the integration response body. The mapping key must match the pattern of `method.response.header.{name}`, where `name` is a valid and unique header name. The mapped non-static value must match the pattern of `integration.response.header.{name}` or `integration.response.body.{JSON-expression}`, where `name` must be a valid and unique response header name and `JSON-expression` a valid JSON expression without the `$` prefix.
   _i4.BuiltMap<String, String>? get responseParameters;
@@ -106,14 +111,10 @@ abstract class PutIntegrationResponseRequest
   /// Specifies a put integration response's templates.
   _i4.BuiltMap<String, String>? get responseTemplates;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
-
-  /// Specifies the selection pattern of a put integration response.
-  String? get selectionPattern;
-
-  /// Specifies the status code that is used to map the integration response to an existing MethodResponse.
-  String get statusCode;
+  /// Specifies how to handle response payload content type conversions. Supported values are `CONVERT\_TO\_BINARY` and `CONVERT\_TO\_TEXT`, with the following behaviors:
+  ///
+  /// If this property is not defined, the response payload will be passed through from the integration response to the method response without modification.
+  _i3.ContentHandlingStrategy? get contentHandling;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -146,29 +147,37 @@ abstract class PutIntegrationResponseRequest
       });
   @override
   List<Object?> get props => [
-        contentHandling,
-        httpMethod,
+        restApiId,
         resourceId,
+        httpMethod,
+        statusCode,
+        selectionPattern,
         responseParameters,
         responseTemplates,
-        restApiId,
-        selectionPattern,
-        statusCode,
+        contentHandling,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutIntegrationResponseRequest');
     helper.add(
-      'contentHandling',
-      contentHandling,
+      'restApiId',
+      restApiId,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
     );
     helper.add(
       'httpMethod',
       httpMethod,
     );
     helper.add(
-      'resourceId',
-      resourceId,
+      'statusCode',
+      statusCode,
+    );
+    helper.add(
+      'selectionPattern',
+      selectionPattern,
     );
     helper.add(
       'responseParameters',
@@ -179,16 +188,8 @@ abstract class PutIntegrationResponseRequest
       responseTemplates,
     );
     helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'selectionPattern',
-      selectionPattern,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
+      'contentHandling',
+      contentHandling,
     );
     return helper.toString();
   }
@@ -285,51 +286,42 @@ class PutIntegrationResponseRequestRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'contentHandling':
-          if (value != null) {
-            result.contentHandling = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ContentHandlingStrategy),
-            ) as _i3.ContentHandlingStrategy);
-          }
-          break;
+          result.contentHandling = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ContentHandlingStrategy),
+          ) as _i3.ContentHandlingStrategy);
         case 'responseParameters':
-          if (value != null) {
-            result.responseParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.responseParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'responseTemplates':
-          if (value != null) {
-            result.responseTemplates.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.responseTemplates.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'selectionPattern':
-          if (value != null) {
-            result.selectionPattern = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.selectionPattern = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -339,26 +331,29 @@ class PutIntegrationResponseRequestRestJson1Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutIntegrationResponseRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutIntegrationResponseRequest
-        ? object.getPayload()
-        : (object as PutIntegrationResponseRequestPayload);
-    final result = <Object?>[];
-    if (payload.contentHandling != null) {
-      result
+    final result$ = <Object?>[];
+    final PutIntegrationResponseRequestPayload(
+      :contentHandling,
+      :responseParameters,
+      :responseTemplates,
+      :selectionPattern
+    ) = object;
+    if (contentHandling != null) {
+      result$
         ..add('contentHandling')
         ..add(serializers.serialize(
-          payload.contentHandling!,
+          contentHandling,
           specifiedType: const FullType(_i3.ContentHandlingStrategy),
         ));
     }
-    if (payload.responseParameters != null) {
-      result
+    if (responseParameters != null) {
+      result$
         ..add('responseParameters')
         ..add(serializers.serialize(
-          payload.responseParameters!,
+          responseParameters,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -368,11 +363,11 @@ class PutIntegrationResponseRequestRestJson1Serializer extends _i1
           ),
         ));
     }
-    if (payload.responseTemplates != null) {
-      result
+    if (responseTemplates != null) {
+      result$
         ..add('responseTemplates')
         ..add(serializers.serialize(
-          payload.responseTemplates!,
+          responseTemplates,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -382,14 +377,14 @@ class PutIntegrationResponseRequestRestJson1Serializer extends _i1
           ),
         ));
     }
-    if (payload.selectionPattern != null) {
-      result
+    if (selectionPattern != null) {
+      result$
         ..add('selectionPattern')
         ..add(serializers.serialize(
-          payload.selectionPattern!,
+          selectionPattern,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

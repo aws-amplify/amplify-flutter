@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.analytics_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,13 +19,13 @@ abstract class AnalyticsConfiguration
     implements Built<AnalyticsConfiguration, AnalyticsConfigurationBuilder> {
   /// Specifies the configuration and any analyses for the analytics filter of an Amazon S3 bucket.
   factory AnalyticsConfiguration({
-    _i2.AnalyticsFilter? filter,
     required String id,
+    _i2.AnalyticsFilter? filter,
     required _i3.StorageClassAnalysis storageClassAnalysis,
   }) {
     return _$AnalyticsConfiguration._(
-      filter: filter,
       id: id,
+      filter: filter,
       storageClassAnalysis: storageClassAnalysis,
     );
   }
@@ -43,30 +44,30 @@ abstract class AnalyticsConfiguration
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AnalyticsConfigurationBuilder b) {}
 
-  /// The filter used to describe a set of objects for analyses. A filter must have exactly one prefix, one tag, or one conjunction (AnalyticsAndOperator). If no filter is provided, all objects will be considered in any analysis.
-  _i2.AnalyticsFilter? get filter;
-
   /// The ID that identifies the analytics configuration.
   String get id;
+
+  /// The filter used to describe a set of objects for analyses. A filter must have exactly one prefix, one tag, or one conjunction (AnalyticsAndOperator). If no filter is provided, all objects will be considered in any analysis.
+  _i2.AnalyticsFilter? get filter;
 
   /// Contains data related to access patterns to be collected and made available to analyze the tradeoffs between different storage classes.
   _i3.StorageClassAnalysis get storageClassAnalysis;
   @override
   List<Object?> get props => [
-        filter,
         id,
+        filter,
         storageClassAnalysis,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AnalyticsConfiguration');
     helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
       'id',
       id,
+    );
+    helper.add(
+      'filter',
+      filter,
     );
     helper.add(
       'storageClassAnalysis',
@@ -102,30 +103,28 @@ class AnalyticsConfigurationRestXmlSerializer
     final result = AnalyticsConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Filter':
-          if (value != null) {
-            result.filter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AnalyticsFilter),
-            ) as _i2.AnalyticsFilter);
-          }
-          break;
+          result.filter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.AnalyticsFilter),
+          ) as _i2.AnalyticsFilter);
         case 'Id':
           result.id = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'StorageClassAnalysis':
           result.storageClassAnalysis.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.StorageClassAnalysis),
           ) as _i3.StorageClassAnalysis));
-          break;
       }
     }
 
@@ -135,36 +134,36 @@ class AnalyticsConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AnalyticsConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AnalyticsConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'AnalyticsConfiguration',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.filter != null) {
-      result
+    final AnalyticsConfiguration(:filter, :id, :storageClassAnalysis) = object;
+    if (filter != null) {
+      result$
         ..add(const _i4.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i2.AnalyticsFilter),
         ));
     }
-    result
+    result$
       ..add(const _i4.XmlElementName('Id'))
       ..add(serializers.serialize(
-        payload.id,
+        id,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i4.XmlElementName('StorageClassAnalysis'))
       ..add(serializers.serialize(
-        payload.storageClassAnalysis,
+        storageClassAnalysis,
         specifiedType: const FullType(_i3.StorageClassAnalysis),
       ));
-    return result;
+    return result$;
   }
 }

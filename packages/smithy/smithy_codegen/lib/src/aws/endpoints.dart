@@ -7,7 +7,7 @@ import 'package:smithy_codegen/src/aws/partition_node.dart';
 part 'endpoints.g.dart';
 
 @JsonLiteral('endpoints.json', asConst: true)
-Map get _awsEndpoints => _$_awsEndpointsJsonLiteral;
+Map<String, Object?> get _awsEndpoints => _$_awsEndpointsJsonLiteral;
 
 final Map<String, PartitionNode> awsPartitions = Map.fromEntries(
   (_awsEndpoints['partitions'] as List).map((el) {

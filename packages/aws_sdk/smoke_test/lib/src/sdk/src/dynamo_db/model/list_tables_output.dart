@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.list_tables_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,12 +17,12 @@ abstract class ListTablesOutput
     implements Built<ListTablesOutput, ListTablesOutputBuilder> {
   /// Represents the output of a `ListTables` operation.
   factory ListTablesOutput({
-    String? lastEvaluatedTableName,
     List<String>? tableNames,
+    String? lastEvaluatedTableName,
   }) {
     return _$ListTablesOutput._(
-      lastEvaluatedTableName: lastEvaluatedTableName,
       tableNames: tableNames == null ? null : _i2.BuiltList(tableNames),
+      lastEvaluatedTableName: lastEvaluatedTableName,
     );
   }
 
@@ -45,30 +46,30 @@ abstract class ListTablesOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListTablesOutputBuilder b) {}
 
-  /// The name of the last table in the current page of results. Use this value as the `ExclusiveStartTableName` in a new request to obtain the next page of results, until all the table names are returned.
-  ///
-  /// If you do not receive a `LastEvaluatedTableName` value in the response, this means that there are no more table names to be retrieved.
-  String? get lastEvaluatedTableName;
-
   /// The names of the tables associated with the current account at the current endpoint. The maximum size of this array is 100.
   ///
   /// If `LastEvaluatedTableName` also appears in the output, you can use this value as the `ExclusiveStartTableName` parameter in a subsequent `ListTables` request and obtain the next page of results.
   _i2.BuiltList<String>? get tableNames;
+
+  /// The name of the last table in the current page of results. Use this value as the `ExclusiveStartTableName` in a new request to obtain the next page of results, until all the table names are returned.
+  ///
+  /// If you do not receive a `LastEvaluatedTableName` value in the response, this means that there are no more table names to be retrieved.
+  String? get lastEvaluatedTableName;
   @override
   List<Object?> get props => [
-        lastEvaluatedTableName,
         tableNames,
+        lastEvaluatedTableName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListTablesOutput');
     helper.add(
-      'lastEvaluatedTableName',
-      lastEvaluatedTableName,
-    );
-    helper.add(
       'tableNames',
       tableNames,
+    );
+    helper.add(
+      'lastEvaluatedTableName',
+      lastEvaluatedTableName,
     );
     return helper.toString();
   }
@@ -102,26 +103,23 @@ class ListTablesOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'LastEvaluatedTableName':
-          if (value != null) {
-            result.lastEvaluatedTableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'TableNames':
-          if (value != null) {
-            result.tableNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.tableNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
+        case 'LastEvaluatedTableName':
+          result.lastEvaluatedTableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -131,30 +129,30 @@ class ListTablesOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListTablesOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListTablesOutput);
-    final result = <Object?>[];
-    if (payload.lastEvaluatedTableName != null) {
-      result
-        ..add('LastEvaluatedTableName')
-        ..add(serializers.serialize(
-          payload.lastEvaluatedTableName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.tableNames != null) {
-      result
+    final result$ = <Object?>[];
+    final ListTablesOutput(:tableNames, :lastEvaluatedTableName) = object;
+    if (tableNames != null) {
+      result$
         ..add('TableNames')
         ..add(serializers.serialize(
-          payload.tableNames!,
+          tableNames,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    if (lastEvaluatedTableName != null) {
+      result$
+        ..add('LastEvaluatedTableName')
+        ..add(serializers.serialize(
+          lastEvaluatedTableName,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

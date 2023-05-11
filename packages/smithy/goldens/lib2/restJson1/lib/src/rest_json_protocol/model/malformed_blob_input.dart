@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.malformed_blob_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -81,15 +82,15 @@ class MalformedBlobInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'blob':
-          if (value != null) {
-            result.blob = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Uint8List),
-            ) as _i3.Uint8List);
-          }
-          break;
+          result.blob = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Uint8List),
+          ) as _i3.Uint8List);
       }
     }
 
@@ -99,19 +100,19 @@ class MalformedBlobInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedBlobInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MalformedBlobInput);
-    final result = <Object?>[];
-    if (payload.blob != null) {
-      result
+    final result$ = <Object?>[];
+    final MalformedBlobInput(:blob) = object;
+    if (blob != null) {
+      result$
         ..add('blob')
         ..add(serializers.serialize(
-          payload.blob!,
+          blob,
           specifiedType: const FullType(_i3.Uint8List),
         ));
     }
-    return result;
+    return result$;
   }
 }

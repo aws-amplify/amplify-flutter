@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_storage_s3_dart.s3.model.initiator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,12 +16,12 @@ abstract class Initiator
     implements Built<Initiator, InitiatorBuilder> {
   /// Container element that identifies who initiated the multipart upload.
   factory Initiator({
-    String? displayName,
     String? id,
+    String? displayName,
   }) {
     return _$Initiator._(
-      displayName: displayName,
       id: id,
+      displayName: displayName,
     );
   }
 
@@ -37,26 +38,26 @@ abstract class Initiator
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InitiatorBuilder b) {}
 
-  /// Name of the Principal.
-  String? get displayName;
-
   /// If the principal is an Amazon Web Services account, it provides the Canonical User ID. If the principal is an IAM User, it provides a user ARN value.
   String? get id;
+
+  /// Name of the Principal.
+  String? get displayName;
   @override
   List<Object?> get props => [
-        displayName,
         id,
+        displayName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Initiator');
     helper.add(
-      'displayName',
-      displayName,
-    );
-    helper.add(
       'id',
       id,
+    );
+    helper.add(
+      'displayName',
+      displayName,
     );
     return helper.toString();
   }
@@ -87,26 +88,23 @@ class InitiatorRestXmlSerializer
     final result = InitiatorBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'DisplayName':
-          if (value != null) {
-            result.displayName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.displayName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ID':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -116,32 +114,32 @@ class InitiatorRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Initiator object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Initiator);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i2.XmlElementName(
         'Initiator',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.displayName != null) {
-      result
+    final Initiator(:displayName, :id) = object;
+    if (displayName != null) {
+      result$
         ..add(const _i2.XmlElementName('DisplayName'))
         ..add(serializers.serialize(
-          payload.displayName!,
+          displayName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.id != null) {
-      result
+    if (id != null) {
+      result$
         ..add(const _i2.XmlElementName('ID'))
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

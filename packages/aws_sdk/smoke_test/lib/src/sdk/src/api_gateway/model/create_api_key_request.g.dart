@@ -8,7 +8,7 @@ part of smoke_test.api_gateway.model.create_api_key_request;
 
 class _$CreateApiKeyRequest extends CreateApiKeyRequest {
   @override
-  final String? customerId;
+  final String? name;
   @override
   final String? description;
   @override
@@ -16,27 +16,27 @@ class _$CreateApiKeyRequest extends CreateApiKeyRequest {
   @override
   final bool? generateDistinctId;
   @override
-  final String? name;
+  final String? value;
   @override
   final _i4.BuiltList<_i3.StageKey>? stageKeys;
   @override
-  final _i4.BuiltMap<String, String>? tags;
+  final String? customerId;
   @override
-  final String? value;
+  final _i4.BuiltMap<String, String>? tags;
 
   factory _$CreateApiKeyRequest(
           [void Function(CreateApiKeyRequestBuilder)? updates]) =>
       (new CreateApiKeyRequestBuilder()..update(updates))._build();
 
   _$CreateApiKeyRequest._(
-      {this.customerId,
+      {this.name,
       this.description,
       this.enabled,
       this.generateDistinctId,
-      this.name,
+      this.value,
       this.stageKeys,
-      this.tags,
-      this.value})
+      this.customerId,
+      this.tags})
       : super._();
 
   @override
@@ -52,27 +52,27 @@ class _$CreateApiKeyRequest extends CreateApiKeyRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CreateApiKeyRequest &&
-        customerId == other.customerId &&
+        name == other.name &&
         description == other.description &&
         enabled == other.enabled &&
         generateDistinctId == other.generateDistinctId &&
-        name == other.name &&
+        value == other.value &&
         stageKeys == other.stageKeys &&
-        tags == other.tags &&
-        value == other.value;
+        customerId == other.customerId &&
+        tags == other.tags;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, customerId.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, enabled.hashCode);
     _$hash = $jc(_$hash, generateDistinctId.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, stageKeys.hashCode);
-    _$hash = $jc(_$hash, tags.hashCode);
     _$hash = $jc(_$hash, value.hashCode);
+    _$hash = $jc(_$hash, stageKeys.hashCode);
+    _$hash = $jc(_$hash, customerId.hashCode);
+    _$hash = $jc(_$hash, tags.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -82,9 +82,9 @@ class CreateApiKeyRequestBuilder
     implements Builder<CreateApiKeyRequest, CreateApiKeyRequestBuilder> {
   _$CreateApiKeyRequest? _$v;
 
-  String? _customerId;
-  String? get customerId => _$this._customerId;
-  set customerId(String? customerId) => _$this._customerId = customerId;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
   String? _description;
   String? get description => _$this._description;
@@ -99,9 +99,9 @@ class CreateApiKeyRequestBuilder
   set generateDistinctId(bool? generateDistinctId) =>
       _$this._generateDistinctId = generateDistinctId;
 
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
+  String? _value;
+  String? get value => _$this._value;
+  set value(String? value) => _$this._value = value;
 
   _i4.ListBuilder<_i3.StageKey>? _stageKeys;
   _i4.ListBuilder<_i3.StageKey> get stageKeys =>
@@ -109,14 +109,14 @@ class CreateApiKeyRequestBuilder
   set stageKeys(_i4.ListBuilder<_i3.StageKey>? stageKeys) =>
       _$this._stageKeys = stageKeys;
 
+  String? _customerId;
+  String? get customerId => _$this._customerId;
+  set customerId(String? customerId) => _$this._customerId = customerId;
+
   _i4.MapBuilder<String, String>? _tags;
   _i4.MapBuilder<String, String> get tags =>
       _$this._tags ??= new _i4.MapBuilder<String, String>();
   set tags(_i4.MapBuilder<String, String>? tags) => _$this._tags = tags;
-
-  String? _value;
-  String? get value => _$this._value;
-  set value(String? value) => _$this._value = value;
 
   CreateApiKeyRequestBuilder() {
     CreateApiKeyRequest._init(this);
@@ -125,14 +125,14 @@ class CreateApiKeyRequestBuilder
   CreateApiKeyRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _customerId = $v.customerId;
+      _name = $v.name;
       _description = $v.description;
       _enabled = $v.enabled;
       _generateDistinctId = $v.generateDistinctId;
-      _name = $v.name;
-      _stageKeys = $v.stageKeys?.toBuilder();
-      _tags = $v.tags?.toBuilder();
       _value = $v.value;
+      _stageKeys = $v.stageKeys?.toBuilder();
+      _customerId = $v.customerId;
+      _tags = $v.tags?.toBuilder();
       _$v = null;
     }
     return this;
@@ -157,19 +157,20 @@ class CreateApiKeyRequestBuilder
     try {
       _$result = _$v ??
           new _$CreateApiKeyRequest._(
-              customerId: customerId,
+              name: name,
               description: description,
               enabled: enabled,
               generateDistinctId: generateDistinctId,
-              name: name,
+              value: value,
               stageKeys: _stageKeys?.build(),
-              tags: _tags?.build(),
-              value: value);
+              customerId: customerId,
+              tags: _tags?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'stageKeys';
         _stageKeys?.build();
+
         _$failedField = 'tags';
         _tags?.build();
       } catch (e) {

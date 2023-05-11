@@ -8,32 +8,32 @@ part of smoke_test.dynamo_db.model.consumed_capacity;
 
 class _$ConsumedCapacity extends ConsumedCapacity {
   @override
+  final String? tableName;
+  @override
   final double? capacityUnits;
-  @override
-  final _i3.BuiltMap<String, _i2.Capacity>? globalSecondaryIndexes;
-  @override
-  final _i3.BuiltMap<String, _i2.Capacity>? localSecondaryIndexes;
   @override
   final double? readCapacityUnits;
   @override
+  final double? writeCapacityUnits;
+  @override
   final _i2.Capacity? table;
   @override
-  final String? tableName;
+  final _i3.BuiltMap<String, _i2.Capacity>? localSecondaryIndexes;
   @override
-  final double? writeCapacityUnits;
+  final _i3.BuiltMap<String, _i2.Capacity>? globalSecondaryIndexes;
 
   factory _$ConsumedCapacity(
           [void Function(ConsumedCapacityBuilder)? updates]) =>
       (new ConsumedCapacityBuilder()..update(updates))._build();
 
   _$ConsumedCapacity._(
-      {this.capacityUnits,
-      this.globalSecondaryIndexes,
-      this.localSecondaryIndexes,
+      {this.tableName,
+      this.capacityUnits,
       this.readCapacityUnits,
+      this.writeCapacityUnits,
       this.table,
-      this.tableName,
-      this.writeCapacityUnits})
+      this.localSecondaryIndexes,
+      this.globalSecondaryIndexes})
       : super._();
 
   @override
@@ -48,25 +48,25 @@ class _$ConsumedCapacity extends ConsumedCapacity {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ConsumedCapacity &&
-        capacityUnits == other.capacityUnits &&
-        globalSecondaryIndexes == other.globalSecondaryIndexes &&
-        localSecondaryIndexes == other.localSecondaryIndexes &&
-        readCapacityUnits == other.readCapacityUnits &&
-        table == other.table &&
         tableName == other.tableName &&
-        writeCapacityUnits == other.writeCapacityUnits;
+        capacityUnits == other.capacityUnits &&
+        readCapacityUnits == other.readCapacityUnits &&
+        writeCapacityUnits == other.writeCapacityUnits &&
+        table == other.table &&
+        localSecondaryIndexes == other.localSecondaryIndexes &&
+        globalSecondaryIndexes == other.globalSecondaryIndexes;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, capacityUnits.hashCode);
-    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
-    _$hash = $jc(_$hash, localSecondaryIndexes.hashCode);
-    _$hash = $jc(_$hash, readCapacityUnits.hashCode);
-    _$hash = $jc(_$hash, table.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, capacityUnits.hashCode);
+    _$hash = $jc(_$hash, readCapacityUnits.hashCode);
     _$hash = $jc(_$hash, writeCapacityUnits.hashCode);
+    _$hash = $jc(_$hash, table.hashCode);
+    _$hash = $jc(_$hash, localSecondaryIndexes.hashCode);
+    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -76,18 +76,28 @@ class ConsumedCapacityBuilder
     implements Builder<ConsumedCapacity, ConsumedCapacityBuilder> {
   _$ConsumedCapacity? _$v;
 
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
+
   double? _capacityUnits;
   double? get capacityUnits => _$this._capacityUnits;
   set capacityUnits(double? capacityUnits) =>
       _$this._capacityUnits = capacityUnits;
 
-  _i3.MapBuilder<String, _i2.Capacity>? _globalSecondaryIndexes;
-  _i3.MapBuilder<String, _i2.Capacity> get globalSecondaryIndexes =>
-      _$this._globalSecondaryIndexes ??=
-          new _i3.MapBuilder<String, _i2.Capacity>();
-  set globalSecondaryIndexes(
-          _i3.MapBuilder<String, _i2.Capacity>? globalSecondaryIndexes) =>
-      _$this._globalSecondaryIndexes = globalSecondaryIndexes;
+  double? _readCapacityUnits;
+  double? get readCapacityUnits => _$this._readCapacityUnits;
+  set readCapacityUnits(double? readCapacityUnits) =>
+      _$this._readCapacityUnits = readCapacityUnits;
+
+  double? _writeCapacityUnits;
+  double? get writeCapacityUnits => _$this._writeCapacityUnits;
+  set writeCapacityUnits(double? writeCapacityUnits) =>
+      _$this._writeCapacityUnits = writeCapacityUnits;
+
+  _i2.CapacityBuilder? _table;
+  _i2.CapacityBuilder get table => _$this._table ??= new _i2.CapacityBuilder();
+  set table(_i2.CapacityBuilder? table) => _$this._table = table;
 
   _i3.MapBuilder<String, _i2.Capacity>? _localSecondaryIndexes;
   _i3.MapBuilder<String, _i2.Capacity> get localSecondaryIndexes =>
@@ -97,23 +107,13 @@ class ConsumedCapacityBuilder
           _i3.MapBuilder<String, _i2.Capacity>? localSecondaryIndexes) =>
       _$this._localSecondaryIndexes = localSecondaryIndexes;
 
-  double? _readCapacityUnits;
-  double? get readCapacityUnits => _$this._readCapacityUnits;
-  set readCapacityUnits(double? readCapacityUnits) =>
-      _$this._readCapacityUnits = readCapacityUnits;
-
-  _i2.CapacityBuilder? _table;
-  _i2.CapacityBuilder get table => _$this._table ??= new _i2.CapacityBuilder();
-  set table(_i2.CapacityBuilder? table) => _$this._table = table;
-
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
-
-  double? _writeCapacityUnits;
-  double? get writeCapacityUnits => _$this._writeCapacityUnits;
-  set writeCapacityUnits(double? writeCapacityUnits) =>
-      _$this._writeCapacityUnits = writeCapacityUnits;
+  _i3.MapBuilder<String, _i2.Capacity>? _globalSecondaryIndexes;
+  _i3.MapBuilder<String, _i2.Capacity> get globalSecondaryIndexes =>
+      _$this._globalSecondaryIndexes ??=
+          new _i3.MapBuilder<String, _i2.Capacity>();
+  set globalSecondaryIndexes(
+          _i3.MapBuilder<String, _i2.Capacity>? globalSecondaryIndexes) =>
+      _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
   ConsumedCapacityBuilder() {
     ConsumedCapacity._init(this);
@@ -122,13 +122,13 @@ class ConsumedCapacityBuilder
   ConsumedCapacityBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _capacityUnits = $v.capacityUnits;
-      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
-      _localSecondaryIndexes = $v.localSecondaryIndexes?.toBuilder();
-      _readCapacityUnits = $v.readCapacityUnits;
-      _table = $v.table?.toBuilder();
       _tableName = $v.tableName;
+      _capacityUnits = $v.capacityUnits;
+      _readCapacityUnits = $v.readCapacityUnits;
       _writeCapacityUnits = $v.writeCapacityUnits;
+      _table = $v.table?.toBuilder();
+      _localSecondaryIndexes = $v.localSecondaryIndexes?.toBuilder();
+      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
       _$v = null;
     }
     return this;
@@ -153,23 +153,22 @@ class ConsumedCapacityBuilder
     try {
       _$result = _$v ??
           new _$ConsumedCapacity._(
-              capacityUnits: capacityUnits,
-              globalSecondaryIndexes: _globalSecondaryIndexes?.build(),
-              localSecondaryIndexes: _localSecondaryIndexes?.build(),
-              readCapacityUnits: readCapacityUnits,
-              table: _table?.build(),
               tableName: tableName,
-              writeCapacityUnits: writeCapacityUnits);
+              capacityUnits: capacityUnits,
+              readCapacityUnits: readCapacityUnits,
+              writeCapacityUnits: writeCapacityUnits,
+              table: _table?.build(),
+              localSecondaryIndexes: _localSecondaryIndexes?.build(),
+              globalSecondaryIndexes: _globalSecondaryIndexes?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'globalSecondaryIndexes';
-        _globalSecondaryIndexes?.build();
-        _$failedField = 'localSecondaryIndexes';
-        _localSecondaryIndexes?.build();
-
         _$failedField = 'table';
         _table?.build();
+        _$failedField = 'localSecondaryIndexes';
+        _localSecondaryIndexes?.build();
+        _$failedField = 'globalSecondaryIndexes';
+        _globalSecondaryIndexes?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ConsumedCapacity', _$failedField, e.toString());

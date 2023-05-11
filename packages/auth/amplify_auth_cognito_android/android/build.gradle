@@ -31,9 +31,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
-// Logic for finding sibling plugins, from `flutter_tools/gradle/flutter.gradle`
-def amplifyFlutter = project.rootProject.findProject(':amplify_flutter_android')
-
 android {
     compileSdkVersion 33
 
@@ -65,12 +62,11 @@ android {
             returnDefaultValues = true
         }
     }
+
+    namespace 'com.amazonaws.amplify.amplify_auth_cognito'
 }
 
 dependencies {
-    api amplifyFlutter
-
-    implementation 'com.amplifyframework:aws-auth-cognito:2.4.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
     implementation 'androidx.browser:browser:1.4.0'
 

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.get_export_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,18 +23,18 @@ abstract class GetExportRequest
         _i1.HasPayload<GetExportRequestPayload> {
   /// Request a new export of a RestApi for a particular Stage.
   factory GetExportRequest({
-    String? accepts,
-    required String exportType,
-    Map<String, String>? parameters,
     required String restApiId,
     required String stageName,
+    required String exportType,
+    Map<String, String>? parameters,
+    String? accepts,
   }) {
     return _$GetExportRequest._(
-      accepts: accepts,
-      exportType: exportType,
-      parameters: parameters == null ? null : _i3.BuiltMap(parameters),
       restApiId: restApiId,
       stageName: stageName,
+      exportType: exportType,
+      parameters: parameters == null ? null : _i3.BuiltMap(parameters),
+      accepts: accepts,
     );
   }
 
@@ -70,8 +71,11 @@ abstract class GetExportRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetExportRequestBuilder b) {}
 
-  /// The content-type of the export, for example `application/json`. Currently `application/json` and `application/yaml` are supported for `exportType` of`oas30` and `swagger`. This should be specified in the `Accept` header for direct API requests.
-  String? get accepts;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
+  /// The name of the Stage that will be exported.
+  String get stageName;
 
   /// The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for Swagger/OpenAPI 2.0.
   String get exportType;
@@ -79,11 +83,8 @@ abstract class GetExportRequest
   /// A key-value map of query string parameters that specify properties of the export, depending on the requested `exportType`. For `exportType` `oas30` and `swagger`, any combination of the following parameters are supported: `extensions='integrations'` or `extensions='apigateway'` will export the API with x-amazon-apigateway-integration extensions. `extensions='authorizers'` will export the API with x-amazon-apigateway-authorizer extensions. `postman` will export the API with Postman extensions, allowing for import to the Postman tool
   _i3.BuiltMap<String, String>? get parameters;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
-
-  /// The name of the Stage that will be exported.
-  String get stageName;
+  /// The content-type of the export, for example `application/json`. Currently `application/json` and `application/yaml` are supported for `exportType` of`oas30` and `swagger`. This should be specified in the `Accept` header for direct API requests.
+  String? get accepts;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -104,18 +105,22 @@ abstract class GetExportRequest
   GetExportRequestPayload getPayload() => GetExportRequestPayload();
   @override
   List<Object?> get props => [
-        accepts,
-        exportType,
-        parameters,
         restApiId,
         stageName,
+        exportType,
+        parameters,
+        accepts,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetExportRequest');
     helper.add(
-      'accepts',
-      accepts,
+      'restApiId',
+      restApiId,
+    );
+    helper.add(
+      'stageName',
+      stageName,
     );
     helper.add(
       'exportType',
@@ -126,12 +131,8 @@ abstract class GetExportRequest
       parameters,
     );
     helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
+      'accepts',
+      accepts,
     );
     return helper.toString();
   }
@@ -190,7 +191,7 @@ class GetExportRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetExportRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

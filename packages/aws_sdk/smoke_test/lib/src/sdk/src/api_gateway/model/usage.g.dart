@@ -8,25 +8,25 @@ part of smoke_test.api_gateway.model.usage;
 
 class _$Usage extends Usage {
   @override
+  final String? usagePlanId;
+  @override
+  final String? startDate;
+  @override
   final String? endDate;
   @override
   final _i3.BuiltListMultimap<String, _i3.BuiltList<_i2.Int64>>? items;
   @override
   final String? position;
-  @override
-  final String? startDate;
-  @override
-  final String? usagePlanId;
 
   factory _$Usage([void Function(UsageBuilder)? updates]) =>
       (new UsageBuilder()..update(updates))._build();
 
   _$Usage._(
-      {this.endDate,
-      this.items,
-      this.position,
+      {this.usagePlanId,
       this.startDate,
-      this.usagePlanId})
+      this.endDate,
+      this.items,
+      this.position})
       : super._();
 
   @override
@@ -40,21 +40,21 @@ class _$Usage extends Usage {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Usage &&
+        usagePlanId == other.usagePlanId &&
+        startDate == other.startDate &&
         endDate == other.endDate &&
         items == other.items &&
-        position == other.position &&
-        startDate == other.startDate &&
-        usagePlanId == other.usagePlanId;
+        position == other.position;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, usagePlanId.hashCode);
+    _$hash = $jc(_$hash, startDate.hashCode);
     _$hash = $jc(_$hash, endDate.hashCode);
     _$hash = $jc(_$hash, items.hashCode);
     _$hash = $jc(_$hash, position.hashCode);
-    _$hash = $jc(_$hash, startDate.hashCode);
-    _$hash = $jc(_$hash, usagePlanId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,6 +62,14 @@ class _$Usage extends Usage {
 
 class UsageBuilder implements Builder<Usage, UsageBuilder> {
   _$Usage? _$v;
+
+  String? _usagePlanId;
+  String? get usagePlanId => _$this._usagePlanId;
+  set usagePlanId(String? usagePlanId) => _$this._usagePlanId = usagePlanId;
+
+  String? _startDate;
+  String? get startDate => _$this._startDate;
+  set startDate(String? startDate) => _$this._startDate = startDate;
 
   String? _endDate;
   String? get endDate => _$this._endDate;
@@ -78,14 +86,6 @@ class UsageBuilder implements Builder<Usage, UsageBuilder> {
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  String? _startDate;
-  String? get startDate => _$this._startDate;
-  set startDate(String? startDate) => _$this._startDate = startDate;
-
-  String? _usagePlanId;
-  String? get usagePlanId => _$this._usagePlanId;
-  set usagePlanId(String? usagePlanId) => _$this._usagePlanId = usagePlanId;
-
   UsageBuilder() {
     Usage._init(this);
   }
@@ -93,11 +93,11 @@ class UsageBuilder implements Builder<Usage, UsageBuilder> {
   UsageBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _usagePlanId = $v.usagePlanId;
+      _startDate = $v.startDate;
       _endDate = $v.endDate;
       _items = $v.items?.toBuilder();
       _position = $v.position;
-      _startDate = $v.startDate;
-      _usagePlanId = $v.usagePlanId;
       _$v = null;
     }
     return this;
@@ -122,11 +122,11 @@ class UsageBuilder implements Builder<Usage, UsageBuilder> {
     try {
       _$result = _$v ??
           new _$Usage._(
+              usagePlanId: usagePlanId,
+              startDate: startDate,
               endDate: endDate,
               items: _items?.build(),
-              position: position,
-              startDate: startDate,
-              usagePlanId: usagePlanId);
+              position: position);
     } catch (_) {
       late String _$failedField;
       try {

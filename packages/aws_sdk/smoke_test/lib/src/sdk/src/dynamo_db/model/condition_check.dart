@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.condition_check; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,15 +21,17 @@ abstract class ConditionCheck
     implements Built<ConditionCheck, ConditionCheckBuilder> {
   /// Represents a request to perform a check that an item exists or to check the condition of specific attributes of the item.
   factory ConditionCheck({
+    required Map<String, _i2.AttributeValue> key,
+    required String tableName,
     required String conditionExpression,
     Map<String, String>? expressionAttributeNames,
     Map<String, _i2.AttributeValue>? expressionAttributeValues,
-    required Map<String, _i2.AttributeValue> key,
     _i3.ReturnValuesOnConditionCheckFailure?
         returnValuesOnConditionCheckFailure,
-    required String tableName,
   }) {
     return _$ConditionCheck._(
+      key: _i4.BuiltMap(key),
+      tableName: tableName,
       conditionExpression: conditionExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
@@ -36,9 +39,7 @@ abstract class ConditionCheck
       expressionAttributeValues: expressionAttributeValues == null
           ? null
           : _i4.BuiltMap(expressionAttributeValues),
-      key: _i4.BuiltMap(key),
       returnValuesOnConditionCheckFailure: returnValuesOnConditionCheckFailure,
-      tableName: tableName,
     );
   }
 
@@ -55,6 +56,12 @@ abstract class ConditionCheck
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConditionCheckBuilder b) {}
 
+  /// The primary key of the item to be checked. Each element consists of an attribute name and a value for that attribute.
+  _i4.BuiltMap<String, _i2.AttributeValue> get key;
+
+  /// Name of the table for the check item request.
+  String get tableName;
+
   /// A condition that must be satisfied in order for a conditional update to succeed.
   String get conditionExpression;
 
@@ -64,27 +71,29 @@ abstract class ConditionCheck
   /// One or more values that can be substituted in an expression.
   _i4.BuiltMap<String, _i2.AttributeValue>? get expressionAttributeValues;
 
-  /// The primary key of the item to be checked. Each element consists of an attribute name and a value for that attribute.
-  _i4.BuiltMap<String, _i2.AttributeValue> get key;
-
   /// Use `ReturnValuesOnConditionCheckFailure` to get the item attributes if the `ConditionCheck` condition fails. For `ReturnValuesOnConditionCheckFailure`, the valid values are: NONE and ALL_OLD.
   _i3.ReturnValuesOnConditionCheckFailure?
       get returnValuesOnConditionCheckFailure;
-
-  /// Name of the table for the check item request.
-  String get tableName;
   @override
   List<Object?> get props => [
+        key,
+        tableName,
         conditionExpression,
         expressionAttributeNames,
         expressionAttributeValues,
-        key,
         returnValuesOnConditionCheckFailure,
-        tableName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConditionCheck');
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'tableName',
+      tableName,
+    );
     helper.add(
       'conditionExpression',
       conditionExpression,
@@ -98,16 +107,8 @@ abstract class ConditionCheck
       expressionAttributeValues,
     );
     helper.add(
-      'key',
-      key,
-    );
-    helper.add(
       'returnValuesOnConditionCheckFailure',
       returnValuesOnConditionCheckFailure,
-    );
-    helper.add(
-      'tableName',
-      tableName,
     );
     return helper.toString();
   }
@@ -141,41 +142,10 @@ class ConditionCheckAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ConditionExpression':
-          result.conditionExpression = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
-        case 'ExpressionAttributeNames':
-          if (value != null) {
-            result.expressionAttributeNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
-        case 'ExpressionAttributeValues':
-          if (value != null) {
-            result.expressionAttributeValues.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeValue),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, _i2.AttributeValue>));
-          }
-          break;
         case 'Key':
           result.key.replace((serializers.deserialize(
             value,
@@ -187,23 +157,44 @@ class ConditionCheckAwsJson10Serializer
               ],
             ),
           ) as _i4.BuiltMap<String, _i2.AttributeValue>));
-          break;
-        case 'ReturnValuesOnConditionCheckFailure':
-          if (value != null) {
-            result.returnValuesOnConditionCheckFailure =
-                (serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.ReturnValuesOnConditionCheckFailure),
-            ) as _i3.ReturnValuesOnConditionCheckFailure);
-          }
-          break;
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'ConditionExpression':
+          result.conditionExpression = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ExpressionAttributeNames':
+          result.expressionAttributeNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
+        case 'ExpressionAttributeValues':
+          result.expressionAttributeValues.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i2.AttributeValue>));
+        case 'ReturnValuesOnConditionCheckFailure':
+          result.returnValuesOnConditionCheckFailure = (serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i3.ReturnValuesOnConditionCheckFailure),
+          ) as _i3.ReturnValuesOnConditionCheckFailure);
       }
     }
 
@@ -213,19 +204,22 @@ class ConditionCheckAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConditionCheck object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConditionCheck);
-    final result = <Object?>[
-      'ConditionExpression',
-      serializers.serialize(
-        payload.conditionExpression,
-        specifiedType: const FullType(String),
-      ),
+    final result$ = <Object?>[];
+    final ConditionCheck(
+      :key,
+      :tableName,
+      :conditionExpression,
+      :expressionAttributeNames,
+      :expressionAttributeValues,
+      :returnValuesOnConditionCheckFailure
+    ) = object;
+    result$.addAll([
       'Key',
       serializers.serialize(
-        payload.key,
+        key,
         specifiedType: const FullType(
           _i4.BuiltMap,
           [
@@ -236,15 +230,20 @@ class ConditionCheckAwsJson10Serializer
       ),
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.expressionAttributeNames != null) {
-      result
+      'ConditionExpression',
+      serializers.serialize(
+        conditionExpression,
+        specifiedType: const FullType(String),
+      ),
+    ]);
+    if (expressionAttributeNames != null) {
+      result$
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
-          payload.expressionAttributeNames!,
+          expressionAttributeNames,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -254,11 +253,11 @@ class ConditionCheckAwsJson10Serializer
           ),
         ));
     }
-    if (payload.expressionAttributeValues != null) {
-      result
+    if (expressionAttributeValues != null) {
+      result$
         ..add('ExpressionAttributeValues')
         ..add(serializers.serialize(
-          payload.expressionAttributeValues!,
+          expressionAttributeValues,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -268,15 +267,15 @@ class ConditionCheckAwsJson10Serializer
           ),
         ));
     }
-    if (payload.returnValuesOnConditionCheckFailure != null) {
-      result
+    if (returnValuesOnConditionCheckFailure != null) {
+      result$
         ..add('ReturnValuesOnConditionCheckFailure')
         ..add(serializers.serialize(
-          payload.returnValuesOnConditionCheckFailure!,
+          returnValuesOnConditionCheckFailure,
           specifiedType:
               const FullType(_i3.ReturnValuesOnConditionCheckFailure),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -8,21 +8,21 @@ part of smoke_test.dynamo_db.model.batch_write_item_output;
 
 class _$BatchWriteItemOutput extends BatchWriteItemOutput {
   @override
-  final _i5.BuiltList<_i2.ConsumedCapacity>? consumedCapacity;
+  final _i5.BuiltListMultimap<String, _i2.WriteRequest>? unprocessedItems;
   @override
   final _i5.BuiltListMultimap<String, _i3.ItemCollectionMetrics>?
       itemCollectionMetrics;
   @override
-  final _i5.BuiltListMultimap<String, _i4.WriteRequest>? unprocessedItems;
+  final _i5.BuiltList<_i4.ConsumedCapacity>? consumedCapacity;
 
   factory _$BatchWriteItemOutput(
           [void Function(BatchWriteItemOutputBuilder)? updates]) =>
       (new BatchWriteItemOutputBuilder()..update(updates))._build();
 
   _$BatchWriteItemOutput._(
-      {this.consumedCapacity,
+      {this.unprocessedItems,
       this.itemCollectionMetrics,
-      this.unprocessedItems})
+      this.consumedCapacity})
       : super._();
 
   @override
@@ -38,17 +38,17 @@ class _$BatchWriteItemOutput extends BatchWriteItemOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is BatchWriteItemOutput &&
-        consumedCapacity == other.consumedCapacity &&
+        unprocessedItems == other.unprocessedItems &&
         itemCollectionMetrics == other.itemCollectionMetrics &&
-        unprocessedItems == other.unprocessedItems;
+        consumedCapacity == other.consumedCapacity;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, consumedCapacity.hashCode);
-    _$hash = $jc(_$hash, itemCollectionMetrics.hashCode);
     _$hash = $jc(_$hash, unprocessedItems.hashCode);
+    _$hash = $jc(_$hash, itemCollectionMetrics.hashCode);
+    _$hash = $jc(_$hash, consumedCapacity.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,12 +58,14 @@ class BatchWriteItemOutputBuilder
     implements Builder<BatchWriteItemOutput, BatchWriteItemOutputBuilder> {
   _$BatchWriteItemOutput? _$v;
 
-  _i5.ListBuilder<_i2.ConsumedCapacity>? _consumedCapacity;
-  _i5.ListBuilder<_i2.ConsumedCapacity> get consumedCapacity =>
-      _$this._consumedCapacity ??= new _i5.ListBuilder<_i2.ConsumedCapacity>();
-  set consumedCapacity(
-          _i5.ListBuilder<_i2.ConsumedCapacity>? consumedCapacity) =>
-      _$this._consumedCapacity = consumedCapacity;
+  _i5.ListMultimapBuilder<String, _i2.WriteRequest>? _unprocessedItems;
+  _i5.ListMultimapBuilder<String, _i2.WriteRequest> get unprocessedItems =>
+      _$this._unprocessedItems ??=
+          new _i5.ListMultimapBuilder<String, _i2.WriteRequest>();
+  set unprocessedItems(
+          _i5.ListMultimapBuilder<String, _i2.WriteRequest>?
+              unprocessedItems) =>
+      _$this._unprocessedItems = unprocessedItems;
 
   _i5.ListMultimapBuilder<String, _i3.ItemCollectionMetrics>?
       _itemCollectionMetrics;
@@ -75,14 +77,12 @@ class BatchWriteItemOutputBuilder
               itemCollectionMetrics) =>
       _$this._itemCollectionMetrics = itemCollectionMetrics;
 
-  _i5.ListMultimapBuilder<String, _i4.WriteRequest>? _unprocessedItems;
-  _i5.ListMultimapBuilder<String, _i4.WriteRequest> get unprocessedItems =>
-      _$this._unprocessedItems ??=
-          new _i5.ListMultimapBuilder<String, _i4.WriteRequest>();
-  set unprocessedItems(
-          _i5.ListMultimapBuilder<String, _i4.WriteRequest>?
-              unprocessedItems) =>
-      _$this._unprocessedItems = unprocessedItems;
+  _i5.ListBuilder<_i4.ConsumedCapacity>? _consumedCapacity;
+  _i5.ListBuilder<_i4.ConsumedCapacity> get consumedCapacity =>
+      _$this._consumedCapacity ??= new _i5.ListBuilder<_i4.ConsumedCapacity>();
+  set consumedCapacity(
+          _i5.ListBuilder<_i4.ConsumedCapacity>? consumedCapacity) =>
+      _$this._consumedCapacity = consumedCapacity;
 
   BatchWriteItemOutputBuilder() {
     BatchWriteItemOutput._init(this);
@@ -91,9 +91,9 @@ class BatchWriteItemOutputBuilder
   BatchWriteItemOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _consumedCapacity = $v.consumedCapacity?.toBuilder();
-      _itemCollectionMetrics = $v.itemCollectionMetrics?.toBuilder();
       _unprocessedItems = $v.unprocessedItems?.toBuilder();
+      _itemCollectionMetrics = $v.itemCollectionMetrics?.toBuilder();
+      _consumedCapacity = $v.consumedCapacity?.toBuilder();
       _$v = null;
     }
     return this;
@@ -118,18 +118,18 @@ class BatchWriteItemOutputBuilder
     try {
       _$result = _$v ??
           new _$BatchWriteItemOutput._(
-              consumedCapacity: _consumedCapacity?.build(),
+              unprocessedItems: _unprocessedItems?.build(),
               itemCollectionMetrics: _itemCollectionMetrics?.build(),
-              unprocessedItems: _unprocessedItems?.build());
+              consumedCapacity: _consumedCapacity?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'consumedCapacity';
-        _consumedCapacity?.build();
-        _$failedField = 'itemCollectionMetrics';
-        _itemCollectionMetrics?.build();
         _$failedField = 'unprocessedItems';
         _unprocessedItems?.build();
+        _$failedField = 'itemCollectionMetrics';
+        _itemCollectionMetrics?.build();
+        _$failedField = 'consumedCapacity';
+        _consumedCapacity?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'BatchWriteItemOutput', _$failedField, e.toString());

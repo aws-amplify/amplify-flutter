@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.analytics_s3_bucket_destination; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,15 +21,15 @@ abstract class AnalyticsS3BucketDestination
             AnalyticsS3BucketDestinationBuilder> {
   /// Contains information about where to publish the analytics results.
   factory AnalyticsS3BucketDestination({
-    required String bucket,
-    String? bucketAccountId,
     required _i2.AnalyticsS3ExportFileFormat format,
+    String? bucketAccountId,
+    required String bucket,
     String? prefix,
   }) {
     return _$AnalyticsS3BucketDestination._(
-      bucket: bucket,
-      bucketAccountId: bucketAccountId,
       format: format,
+      bucketAccountId: bucketAccountId,
+      bucket: bucket,
       prefix: prefix,
     );
   }
@@ -47,40 +48,40 @@ abstract class AnalyticsS3BucketDestination
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AnalyticsS3BucketDestinationBuilder b) {}
 
-  /// The Amazon Resource Name (ARN) of the bucket to which data is exported.
-  String get bucket;
+  /// Specifies the file format used when exporting data to Amazon S3.
+  _i2.AnalyticsS3ExportFileFormat get format;
 
   /// The account ID that owns the destination S3 bucket. If no account ID is provided, the owner is not validated before exporting data.
   ///
   /// Although this value is optional, we strongly recommend that you set it to help prevent problems if the destination bucket ownership changes.
   String? get bucketAccountId;
 
-  /// Specifies the file format used when exporting data to Amazon S3.
-  _i2.AnalyticsS3ExportFileFormat get format;
+  /// The Amazon Resource Name (ARN) of the bucket to which data is exported.
+  String get bucket;
 
   /// The prefix to use when exporting data. The prefix is prepended to all results.
   String? get prefix;
   @override
   List<Object?> get props => [
-        bucket,
-        bucketAccountId,
         format,
+        bucketAccountId,
+        bucket,
         prefix,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AnalyticsS3BucketDestination');
     helper.add(
-      'bucket',
-      bucket,
+      'format',
+      format,
     );
     helper.add(
       'bucketAccountId',
       bucketAccountId,
     );
     helper.add(
-      'format',
-      format,
+      'bucket',
+      bucket,
     );
     helper.add(
       'prefix',
@@ -116,38 +117,33 @@ class AnalyticsS3BucketDestinationRestXmlSerializer
     final result = AnalyticsS3BucketDestinationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Bucket':
           result.bucket = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'BucketAccountId':
-          if (value != null) {
-            result.bucketAccountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.bucketAccountId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Format':
           result.format = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.AnalyticsS3ExportFileFormat),
           ) as _i2.AnalyticsS3ExportFileFormat);
-          break;
         case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -157,44 +153,49 @@ class AnalyticsS3BucketDestinationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AnalyticsS3BucketDestination object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AnalyticsS3BucketDestination);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'AnalyticsS3BucketDestination',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
+    final AnalyticsS3BucketDestination(
+      :bucket,
+      :bucketAccountId,
+      :format,
+      :prefix
+    ) = object;
+    result$
       ..add(const _i3.XmlElementName('Bucket'))
       ..add(serializers.serialize(
-        payload.bucket,
+        bucket,
         specifiedType: const FullType(String),
       ));
-    if (payload.bucketAccountId != null) {
-      result
+    if (bucketAccountId != null) {
+      result$
         ..add(const _i3.XmlElementName('BucketAccountId'))
         ..add(serializers.serialize(
-          payload.bucketAccountId!,
+          bucketAccountId,
           specifiedType: const FullType(String),
         ));
     }
-    result
+    result$
       ..add(const _i3.XmlElementName('Format'))
       ..add(serializers.serialize(
-        payload.format,
+        format,
         specifiedType: const FullType.nullable(_i2.AnalyticsS3ExportFileFormat),
       ));
-    if (payload.prefix != null) {
-      result
+    if (prefix != null) {
+      result$
         ..add(const _i3.XmlElementName('Prefix'))
         ..add(serializers.serialize(
-          payload.prefix!,
+          prefix,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

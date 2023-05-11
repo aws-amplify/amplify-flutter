@@ -19,15 +19,21 @@ abstract class SmithySerializer<T> implements Serializer<T> {
 
 abstract class StructuredSmithySerializer<T> extends SmithySerializer<T>
     implements StructuredSerializer<T> {
-  const StructuredSmithySerializer(String wireName) : super(wireName);
+  const StructuredSmithySerializer(super.wireName);
 
   @override
-  T deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified});
+  T deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  });
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, T object,
-      {FullType specifiedType = FullType.unspecified});
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    T object, {
+    FullType specifiedType = FullType.unspecified,
+  });
 
   @override
   Iterable<Type> get types;
@@ -35,16 +41,22 @@ abstract class StructuredSmithySerializer<T> extends SmithySerializer<T>
 
 abstract class PrimitiveSmithySerializer<T> extends SmithySerializer<T>
     implements PrimitiveSerializer<T> {
-  const PrimitiveSmithySerializer(String wireName) : super(wireName);
+  const PrimitiveSmithySerializer(super.wireName);
 
   @override
   Iterable<Type> get types;
 
   @override
-  T deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified});
+  T deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  });
 
   @override
-  Object serialize(Serializers serializers, T object,
-      {FullType specifiedType = FullType.unspecified});
+  Object serialize(
+    Serializers serializers,
+    T object, {
+    FullType specifiedType = FullType.unspecified,
+  });
 }

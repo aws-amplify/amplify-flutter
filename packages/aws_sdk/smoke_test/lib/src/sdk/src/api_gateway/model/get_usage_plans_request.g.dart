@@ -8,17 +8,17 @@ part of smoke_test.api_gateway.model.get_usage_plans_request;
 
 class _$GetUsagePlansRequest extends GetUsagePlansRequest {
   @override
+  final String? position;
+  @override
   final String? keyId;
   @override
   final int? limit;
-  @override
-  final String? position;
 
   factory _$GetUsagePlansRequest(
           [void Function(GetUsagePlansRequestBuilder)? updates]) =>
       (new GetUsagePlansRequestBuilder()..update(updates))._build();
 
-  _$GetUsagePlansRequest._({this.keyId, this.limit, this.position}) : super._();
+  _$GetUsagePlansRequest._({this.position, this.keyId, this.limit}) : super._();
 
   @override
   GetUsagePlansRequest rebuild(
@@ -33,17 +33,17 @@ class _$GetUsagePlansRequest extends GetUsagePlansRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetUsagePlansRequest &&
+        position == other.position &&
         keyId == other.keyId &&
-        limit == other.limit &&
-        position == other.position;
+        limit == other.limit;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, position.hashCode);
     _$hash = $jc(_$hash, keyId.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
-    _$hash = $jc(_$hash, position.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,6 +53,10 @@ class GetUsagePlansRequestBuilder
     implements Builder<GetUsagePlansRequest, GetUsagePlansRequestBuilder> {
   _$GetUsagePlansRequest? _$v;
 
+  String? _position;
+  String? get position => _$this._position;
+  set position(String? position) => _$this._position = position;
+
   String? _keyId;
   String? get keyId => _$this._keyId;
   set keyId(String? keyId) => _$this._keyId = keyId;
@@ -61,10 +65,6 @@ class GetUsagePlansRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  String? _position;
-  String? get position => _$this._position;
-  set position(String? position) => _$this._position = position;
-
   GetUsagePlansRequestBuilder() {
     GetUsagePlansRequest._init(this);
   }
@@ -72,9 +72,9 @@ class GetUsagePlansRequestBuilder
   GetUsagePlansRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _position = $v.position;
       _keyId = $v.keyId;
       _limit = $v.limit;
-      _position = $v.position;
       _$v = null;
     }
     return this;
@@ -97,7 +97,7 @@ class GetUsagePlansRequestBuilder
   _$GetUsagePlansRequest _build() {
     final _$result = _$v ??
         new _$GetUsagePlansRequest._(
-            keyId: keyId, limit: limit, position: position);
+            position: position, keyId: keyId, limit: limit);
     replace(_$result);
     return _$result;
   }

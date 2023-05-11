@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_organization_conformance_packs_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,14 +20,14 @@ abstract class DescribeOrganizationConformancePacksResponse
         Built<DescribeOrganizationConformancePacksResponse,
             DescribeOrganizationConformancePacksResponseBuilder> {
   factory DescribeOrganizationConformancePacksResponse({
-    String? nextToken,
     List<_i2.OrganizationConformancePack>? organizationConformancePacks,
+    String? nextToken,
   }) {
     return _$DescribeOrganizationConformancePacksResponse._(
-      nextToken: nextToken,
       organizationConformancePacks: organizationConformancePacks == null
           ? null
           : _i3.BuiltList(organizationConformancePacks),
+      nextToken: nextToken,
     );
   }
 
@@ -50,28 +51,28 @@ abstract class DescribeOrganizationConformancePacksResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeOrganizationConformancePacksResponseBuilder b) {}
 
-  /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// Returns a list of OrganizationConformancePacks objects.
   _i3.BuiltList<_i2.OrganizationConformancePack>?
       get organizationConformancePacks;
+
+  /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         organizationConformancePacks,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'DescribeOrganizationConformancePacksResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'organizationConformancePacks',
       organizationConformancePacks,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -107,27 +108,23 @@ class DescribeOrganizationConformancePacksResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'OrganizationConformancePacks':
-          if (value != null) {
-            result.organizationConformancePacks
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.OrganizationConformancePack)],
-              ),
-            ) as _i3.BuiltList<_i2.OrganizationConformancePack>));
-          }
-          break;
+          result.organizationConformancePacks.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.OrganizationConformancePack)],
+            ),
+          ) as _i3.BuiltList<_i2.OrganizationConformancePack>));
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -137,30 +134,33 @@ class DescribeOrganizationConformancePacksResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeOrganizationConformancePacksResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeOrganizationConformancePacksResponse);
-    final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.organizationConformancePacks != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeOrganizationConformancePacksResponse(
+      :organizationConformancePacks,
+      :nextToken
+    ) = object;
+    if (organizationConformancePacks != null) {
+      result$
         ..add('OrganizationConformancePacks')
         ..add(serializers.serialize(
-          payload.organizationConformancePacks!,
+          organizationConformancePacks,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.OrganizationConformancePack)],
           ),
         ));
     }
-    return result;
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

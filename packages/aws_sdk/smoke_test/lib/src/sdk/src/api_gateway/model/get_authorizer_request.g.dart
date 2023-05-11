@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.get_authorizer_request;
 
 class _$GetAuthorizerRequest extends GetAuthorizerRequest {
   @override
-  final String authorizerId;
-  @override
   final String restApiId;
+  @override
+  final String authorizerId;
 
   factory _$GetAuthorizerRequest(
           [void Function(GetAuthorizerRequestBuilder)? updates]) =>
       (new GetAuthorizerRequestBuilder()..update(updates))._build();
 
   _$GetAuthorizerRequest._(
-      {required this.authorizerId, required this.restApiId})
+      {required this.restApiId, required this.authorizerId})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        authorizerId, r'GetAuthorizerRequest', 'authorizerId');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetAuthorizerRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        authorizerId, r'GetAuthorizerRequest', 'authorizerId');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$GetAuthorizerRequest extends GetAuthorizerRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetAuthorizerRequest &&
-        authorizerId == other.authorizerId &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        authorizerId == other.authorizerId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, authorizerId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, authorizerId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -56,13 +56,13 @@ class GetAuthorizerRequestBuilder
     implements Builder<GetAuthorizerRequest, GetAuthorizerRequestBuilder> {
   _$GetAuthorizerRequest? _$v;
 
-  String? _authorizerId;
-  String? get authorizerId => _$this._authorizerId;
-  set authorizerId(String? authorizerId) => _$this._authorizerId = authorizerId;
-
   String? _restApiId;
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  String? _authorizerId;
+  String? get authorizerId => _$this._authorizerId;
+  set authorizerId(String? authorizerId) => _$this._authorizerId = authorizerId;
 
   GetAuthorizerRequestBuilder() {
     GetAuthorizerRequest._init(this);
@@ -71,8 +71,8 @@ class GetAuthorizerRequestBuilder
   GetAuthorizerRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _authorizerId = $v.authorizerId;
       _restApiId = $v.restApiId;
+      _authorizerId = $v.authorizerId;
       _$v = null;
     }
     return this;
@@ -95,10 +95,10 @@ class GetAuthorizerRequestBuilder
   _$GetAuthorizerRequest _build() {
     final _$result = _$v ??
         new _$GetAuthorizerRequest._(
-            authorizerId: BuiltValueNullFieldError.checkNotNull(
-                authorizerId, r'GetAuthorizerRequest', 'authorizerId'),
             restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'GetAuthorizerRequest', 'restApiId'));
+                restApiId, r'GetAuthorizerRequest', 'restApiId'),
+            authorizerId: BuiltValueNullFieldError.checkNotNull(
+                authorizerId, r'GetAuthorizerRequest', 'authorizerId'));
     replace(_$result);
     return _$result;
   }

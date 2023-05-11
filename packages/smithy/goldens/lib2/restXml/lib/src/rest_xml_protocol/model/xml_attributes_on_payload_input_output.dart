@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v2.rest_xml_protocol.model.xml_attributes_on_payload_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -103,26 +104,23 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
     final result = _i2.XmlAttributesInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'test':
-          if (value != null) {
-            result.attr = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.attr = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -132,35 +130,30 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.XmlAttributesInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is XmlAttributesOnPayloadInputOutput
-        ? object.getPayload()
-        : (object as _i2.XmlAttributesInputOutput?);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName('XmlAttributesInputOutput')
     ];
-    if (payload == null) {
-      return result;
-    }
-    if (payload.attr != null) {
-      result.add(_i4.XmlAttribute(
+    final _i2.XmlAttributesInputOutput(:foo, :attr) = object;
+    if (attr != null) {
+      result$.add(_i4.XmlAttribute(
         _i4.XmlName('test'),
         (serializers.serialize(
-          payload.attr!,
+          attr,
           specifiedType: const FullType(String),
         ) as String),
       ));
     }
-    if (payload.foo != null) {
-      result
+    if (foo != null) {
+      result$
         ..add(const _i1.XmlElementName('foo'))
         ..add(serializers.serialize(
-          payload.foo!,
+          foo,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

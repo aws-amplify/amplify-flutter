@@ -8,20 +8,20 @@ part of smoke_test.dynamo_db.model.point_in_time_recovery_description;
 
 class _$PointInTimeRecoveryDescription extends PointInTimeRecoveryDescription {
   @override
+  final _i2.PointInTimeRecoveryStatus? pointInTimeRecoveryStatus;
+  @override
   final DateTime? earliestRestorableDateTime;
   @override
   final DateTime? latestRestorableDateTime;
-  @override
-  final _i2.PointInTimeRecoveryStatus? pointInTimeRecoveryStatus;
 
   factory _$PointInTimeRecoveryDescription(
           [void Function(PointInTimeRecoveryDescriptionBuilder)? updates]) =>
       (new PointInTimeRecoveryDescriptionBuilder()..update(updates))._build();
 
   _$PointInTimeRecoveryDescription._(
-      {this.earliestRestorableDateTime,
-      this.latestRestorableDateTime,
-      this.pointInTimeRecoveryStatus})
+      {this.pointInTimeRecoveryStatus,
+      this.earliestRestorableDateTime,
+      this.latestRestorableDateTime})
       : super._();
 
   @override
@@ -37,17 +37,17 @@ class _$PointInTimeRecoveryDescription extends PointInTimeRecoveryDescription {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PointInTimeRecoveryDescription &&
+        pointInTimeRecoveryStatus == other.pointInTimeRecoveryStatus &&
         earliestRestorableDateTime == other.earliestRestorableDateTime &&
-        latestRestorableDateTime == other.latestRestorableDateTime &&
-        pointInTimeRecoveryStatus == other.pointInTimeRecoveryStatus;
+        latestRestorableDateTime == other.latestRestorableDateTime;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, pointInTimeRecoveryStatus.hashCode);
     _$hash = $jc(_$hash, earliestRestorableDateTime.hashCode);
     _$hash = $jc(_$hash, latestRestorableDateTime.hashCode);
-    _$hash = $jc(_$hash, pointInTimeRecoveryStatus.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,6 +58,13 @@ class PointInTimeRecoveryDescriptionBuilder
         Builder<PointInTimeRecoveryDescription,
             PointInTimeRecoveryDescriptionBuilder> {
   _$PointInTimeRecoveryDescription? _$v;
+
+  _i2.PointInTimeRecoveryStatus? _pointInTimeRecoveryStatus;
+  _i2.PointInTimeRecoveryStatus? get pointInTimeRecoveryStatus =>
+      _$this._pointInTimeRecoveryStatus;
+  set pointInTimeRecoveryStatus(
+          _i2.PointInTimeRecoveryStatus? pointInTimeRecoveryStatus) =>
+      _$this._pointInTimeRecoveryStatus = pointInTimeRecoveryStatus;
 
   DateTime? _earliestRestorableDateTime;
   DateTime? get earliestRestorableDateTime =>
@@ -70,13 +77,6 @@ class PointInTimeRecoveryDescriptionBuilder
   set latestRestorableDateTime(DateTime? latestRestorableDateTime) =>
       _$this._latestRestorableDateTime = latestRestorableDateTime;
 
-  _i2.PointInTimeRecoveryStatus? _pointInTimeRecoveryStatus;
-  _i2.PointInTimeRecoveryStatus? get pointInTimeRecoveryStatus =>
-      _$this._pointInTimeRecoveryStatus;
-  set pointInTimeRecoveryStatus(
-          _i2.PointInTimeRecoveryStatus? pointInTimeRecoveryStatus) =>
-      _$this._pointInTimeRecoveryStatus = pointInTimeRecoveryStatus;
-
   PointInTimeRecoveryDescriptionBuilder() {
     PointInTimeRecoveryDescription._init(this);
   }
@@ -84,9 +84,9 @@ class PointInTimeRecoveryDescriptionBuilder
   PointInTimeRecoveryDescriptionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _pointInTimeRecoveryStatus = $v.pointInTimeRecoveryStatus;
       _earliestRestorableDateTime = $v.earliestRestorableDateTime;
       _latestRestorableDateTime = $v.latestRestorableDateTime;
-      _pointInTimeRecoveryStatus = $v.pointInTimeRecoveryStatus;
       _$v = null;
     }
     return this;
@@ -109,9 +109,9 @@ class PointInTimeRecoveryDescriptionBuilder
   _$PointInTimeRecoveryDescription _build() {
     final _$result = _$v ??
         new _$PointInTimeRecoveryDescription._(
+            pointInTimeRecoveryStatus: pointInTimeRecoveryStatus,
             earliestRestorableDateTime: earliestRestorableDateTime,
-            latestRestorableDateTime: latestRestorableDateTime,
-            pointInTimeRecoveryStatus: pointInTimeRecoveryStatus);
+            latestRestorableDateTime: latestRestorableDateTime);
     replace(_$result);
     return _$result;
   }

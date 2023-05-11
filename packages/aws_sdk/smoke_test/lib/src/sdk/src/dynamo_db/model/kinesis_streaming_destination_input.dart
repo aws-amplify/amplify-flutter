@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.kinesis_streaming_destination_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,12 +18,12 @@ abstract class KinesisStreamingDestinationInput
         Built<KinesisStreamingDestinationInput,
             KinesisStreamingDestinationInputBuilder> {
   factory KinesisStreamingDestinationInput({
-    required String streamArn,
     required String tableName,
+    required String streamArn,
   }) {
     return _$KinesisStreamingDestinationInput._(
-      streamArn: streamArn,
       tableName: tableName,
+      streamArn: streamArn,
     );
   }
 
@@ -46,29 +47,29 @@ abstract class KinesisStreamingDestinationInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(KinesisStreamingDestinationInputBuilder b) {}
 
-  /// The ARN for a Kinesis data stream.
-  String get streamArn;
-
   /// The name of the DynamoDB table.
   String get tableName;
+
+  /// The ARN for a Kinesis data stream.
+  String get streamArn;
   @override
   KinesisStreamingDestinationInput getPayload() => this;
   @override
   List<Object?> get props => [
-        streamArn,
         tableName,
+        streamArn,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('KinesisStreamingDestinationInput');
     helper.add(
-      'streamArn',
-      streamArn,
-    );
-    helper.add(
       'tableName',
       tableName,
+    );
+    helper.add(
+      'streamArn',
+      streamArn,
     );
     return helper.toString();
   }
@@ -103,19 +104,20 @@ class KinesisStreamingDestinationInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'StreamArn':
-          result.streamArn = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'StreamArn':
+          result.streamArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -125,22 +127,23 @@ class KinesisStreamingDestinationInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    KinesisStreamingDestinationInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as KinesisStreamingDestinationInput);
-    final result = <Object?>[
-      'StreamArn',
-      serializers.serialize(
-        payload.streamArn,
-        specifiedType: const FullType(String),
-      ),
+    final result$ = <Object?>[];
+    final KinesisStreamingDestinationInput(:tableName, :streamArn) = object;
+    result$.addAll([
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+      'StreamArn',
+      serializers.serialize(
+        streamArn,
+        specifiedType: const FullType(String),
+      ),
+    ]);
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_resource_config_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,19 +18,19 @@ abstract class PutResourceConfigRequest
     implements
         Built<PutResourceConfigRequest, PutResourceConfigRequestBuilder> {
   factory PutResourceConfigRequest({
-    required String configuration,
-    required String resourceId,
-    String? resourceName,
     required String resourceType,
     required String schemaVersionId,
+    required String resourceId,
+    String? resourceName,
+    required String configuration,
     Map<String, String>? tags,
   }) {
     return _$PutResourceConfigRequest._(
-      configuration: configuration,
-      resourceId: resourceId,
-      resourceName: resourceName,
       resourceType: resourceType,
       schemaVersionId: schemaVersionId,
+      resourceId: resourceId,
+      resourceName: resourceName,
+      configuration: configuration,
       tags: tags == null ? null : _i3.BuiltMap(tags),
     );
   }
@@ -54,17 +55,6 @@ abstract class PutResourceConfigRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutResourceConfigRequestBuilder b) {}
 
-  /// The configuration object of the resource in valid JSON format. It must match the schema registered with CloudFormation.
-  ///
-  /// The configuration JSON must not exceed 64 KB.
-  String get configuration;
-
-  /// Unique identifier of the resource.
-  String get resourceId;
-
-  /// Name of the resource.
-  String? get resourceName;
-
   /// The type of the resource. The custom resource type must be registered with CloudFormation.
   ///
   /// You cannot use the organization names “amzn”, “amazon”, “alexa”, “custom” with custom resource types. It is the first part of the ResourceType up to the first ::.
@@ -72,6 +62,17 @@ abstract class PutResourceConfigRequest
 
   /// Version of the schema registered for the ResourceType in CloudFormation.
   String get schemaVersionId;
+
+  /// Unique identifier of the resource.
+  String get resourceId;
+
+  /// Name of the resource.
+  String? get resourceName;
+
+  /// The configuration object of the resource in valid JSON format. It must match the schema registered with CloudFormation.
+  ///
+  /// The configuration JSON must not exceed 64 KB.
+  String get configuration;
 
   /// Tags associated with the resource.
   ///
@@ -81,19 +82,23 @@ abstract class PutResourceConfigRequest
   PutResourceConfigRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        configuration,
-        resourceId,
-        resourceName,
         resourceType,
         schemaVersionId,
+        resourceId,
+        resourceName,
+        configuration,
         tags,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutResourceConfigRequest');
     helper.add(
-      'configuration',
-      configuration,
+      'resourceType',
+      resourceType,
+    );
+    helper.add(
+      'schemaVersionId',
+      schemaVersionId,
     );
     helper.add(
       'resourceId',
@@ -104,12 +109,8 @@ abstract class PutResourceConfigRequest
       resourceName,
     );
     helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'schemaVersionId',
-      schemaVersionId,
+      'configuration',
+      configuration,
     );
     helper.add(
       'tags',
@@ -148,53 +149,46 @@ class PutResourceConfigRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Configuration':
-          result.configuration = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
-        case 'ResourceId':
-          result.resourceId = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
-        case 'ResourceName':
-          if (value != null) {
-            result.resourceName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SchemaVersionId':
           result.schemaVersionId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'ResourceId':
+          result.resourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ResourceName':
+          result.resourceName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'Configuration':
+          result.configuration = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -204,45 +198,53 @@ class PutResourceConfigRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutResourceConfigRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutResourceConfigRequest);
-    final result = <Object?>[
-      'Configuration',
-      serializers.serialize(
-        payload.configuration,
-        specifiedType: const FullType(String),
-      ),
-      'ResourceId',
-      serializers.serialize(
-        payload.resourceId,
-        specifiedType: const FullType(String),
-      ),
+    final result$ = <Object?>[];
+    final PutResourceConfigRequest(
+      :resourceType,
+      :schemaVersionId,
+      :resourceId,
+      :resourceName,
+      :configuration,
+      :tags
+    ) = object;
+    result$.addAll([
       'ResourceType',
       serializers.serialize(
-        payload.resourceType,
+        resourceType,
         specifiedType: const FullType(String),
       ),
       'SchemaVersionId',
       serializers.serialize(
-        payload.schemaVersionId,
+        schemaVersionId,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.resourceName != null) {
-      result
+      'ResourceId',
+      serializers.serialize(
+        resourceId,
+        specifiedType: const FullType(String),
+      ),
+      'Configuration',
+      serializers.serialize(
+        configuration,
+        specifiedType: const FullType(String),
+      ),
+    ]);
+    if (resourceName != null) {
+      result$
         ..add('ResourceName')
         ..add(serializers.serialize(
-          payload.resourceName!,
+          resourceName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
-      result
+    if (tags != null) {
+      result$
         ..add('Tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -252,6 +254,6 @@ class PutResourceConfigRequestAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

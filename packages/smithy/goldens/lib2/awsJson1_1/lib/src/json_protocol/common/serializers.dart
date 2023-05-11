@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v2.json_protocol.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,6 +117,10 @@ final Map<FullType, Function> builderFactories = {
     [FullType(_i11.FooEnum)],
   ): _i38.ListBuilder<_i11.FooEnum>.new,
   const FullType(
+    _i38.BuiltSet,
+    [FullType(_i11.FooEnum)],
+  ): _i38.SetBuilder<_i11.FooEnum>.new,
+  const FullType(
     _i38.BuiltMap,
     [
       FullType(String),
@@ -123,13 +128,13 @@ final Map<FullType, Function> builderFactories = {
     ],
   ): _i38.MapBuilder<String, _i11.FooEnum>.new,
   const FullType(
-    _i38.BuiltSet,
-    [FullType(_i11.FooEnum)],
-  ): _i38.SetBuilder<_i11.FooEnum>.new,
-  const FullType(
     _i38.BuiltList,
     [FullType(_i13.IntegerEnum)],
   ): _i38.ListBuilder<_i13.IntegerEnum>.new,
+  const FullType(
+    _i38.BuiltSet,
+    [FullType(_i13.IntegerEnum)],
+  ): _i38.SetBuilder<_i13.IntegerEnum>.new,
   const FullType(
     _i38.BuiltMap,
     [
@@ -137,10 +142,6 @@ final Map<FullType, Function> builderFactories = {
       FullType(_i13.IntegerEnum),
     ],
   ): _i38.MapBuilder<String, _i13.IntegerEnum>.new,
-  const FullType(
-    _i38.BuiltSet,
-    [FullType(_i13.IntegerEnum)],
-  ): _i38.SetBuilder<_i13.IntegerEnum>.new,
   const FullType(
     _i38.BuiltList,
     [FullType(String)],

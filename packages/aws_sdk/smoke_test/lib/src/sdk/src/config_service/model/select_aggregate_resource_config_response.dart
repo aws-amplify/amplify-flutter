@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.select_aggregate_resource_config_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,14 +20,14 @@ abstract class SelectAggregateResourceConfigResponse
         Built<SelectAggregateResourceConfigResponse,
             SelectAggregateResourceConfigResponseBuilder> {
   factory SelectAggregateResourceConfigResponse({
-    String? nextToken,
-    _i2.QueryInfo? queryInfo,
     List<String>? results,
+    _i2.QueryInfo? queryInfo,
+    String? nextToken,
   }) {
     return _$SelectAggregateResourceConfigResponse._(
-      nextToken: nextToken,
-      queryInfo: queryInfo,
       results: results == null ? null : _i3.BuiltList(results),
+      queryInfo: queryInfo,
+      nextToken: nextToken,
     );
   }
 
@@ -50,35 +51,35 @@ abstract class SelectAggregateResourceConfigResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SelectAggregateResourceConfigResponseBuilder b) {}
 
-  /// The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
-  String? get nextToken;
+  /// Returns the results for the SQL query.
+  _i3.BuiltList<String>? get results;
 
   /// Details about the query.
   _i2.QueryInfo? get queryInfo;
 
-  /// Returns the results for the SQL query.
-  _i3.BuiltList<String>? get results;
+  /// The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
-        queryInfo,
         results,
+        queryInfo,
+        nextToken,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('SelectAggregateResourceConfigResponse');
     helper.add(
-      'nextToken',
-      nextToken,
+      'results',
+      results,
     );
     helper.add(
       'queryInfo',
       queryInfo,
     );
     helper.add(
-      'results',
-      results,
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -113,34 +114,28 @@ class SelectAggregateResourceConfigResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'QueryInfo':
-          if (value != null) {
-            result.queryInfo.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.QueryInfo),
-            ) as _i2.QueryInfo));
-          }
-          break;
         case 'Results':
-          if (value != null) {
-            result.results.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.results.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
+        case 'QueryInfo':
+          result.queryInfo.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.QueryInfo),
+          ) as _i2.QueryInfo));
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -150,38 +145,42 @@ class SelectAggregateResourceConfigResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SelectAggregateResourceConfigResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SelectAggregateResourceConfigResponse);
-    final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.queryInfo != null) {
-      result
-        ..add('QueryInfo')
-        ..add(serializers.serialize(
-          payload.queryInfo!,
-          specifiedType: const FullType(_i2.QueryInfo),
-        ));
-    }
-    if (payload.results != null) {
-      result
+    final result$ = <Object?>[];
+    final SelectAggregateResourceConfigResponse(
+      :results,
+      :queryInfo,
+      :nextToken
+    ) = object;
+    if (results != null) {
+      result$
         ..add('Results')
         ..add(serializers.serialize(
-          payload.results!,
+          results,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    if (queryInfo != null) {
+      result$
+        ..add('QueryInfo')
+        ..add(serializers.serialize(
+          queryInfo,
+          specifiedType: const FullType(_i2.QueryInfo),
+        ));
+    }
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_validation_protocol.model.malformed_length_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,19 +20,19 @@ abstract class MalformedLengthInput
     implements Built<MalformedLengthInput, MalformedLengthInputBuilder> {
   factory MalformedLengthInput({
     _i3.Uint8List? blob,
+    String? string,
+    String? minString,
+    String? maxString,
     List<String>? list,
     Map<String, List<String>>? map,
-    String? maxString,
-    String? minString,
-    String? string,
   }) {
     return _$MalformedLengthInput._(
       blob: blob,
+      string: string,
+      minString: minString,
+      maxString: maxString,
       list: list == null ? null : _i4.BuiltList(list),
       map: map == null ? null : _i4.BuiltListMultimap(map),
-      maxString: maxString,
-      minString: minString,
-      string: string,
     );
   }
 
@@ -55,21 +56,21 @@ abstract class MalformedLengthInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedLengthInputBuilder b) {}
   _i3.Uint8List? get blob;
+  String? get string;
+  String? get minString;
+  String? get maxString;
   _i4.BuiltList<String>? get list;
   _i4.BuiltListMultimap<String, String>? get map;
-  String? get maxString;
-  String? get minString;
-  String? get string;
   @override
   MalformedLengthInput getPayload() => this;
   @override
   List<Object?> get props => [
         blob,
+        string,
+        minString,
+        maxString,
         list,
         map,
-        maxString,
-        minString,
-        string,
       ];
   @override
   String toString() {
@@ -79,24 +80,24 @@ abstract class MalformedLengthInput
       blob,
     );
     helper.add(
-      'list',
-      list,
-    );
-    helper.add(
-      'map',
-      map,
-    );
-    helper.add(
-      'maxString',
-      maxString,
+      'string',
+      string,
     );
     helper.add(
       'minString',
       minString,
     );
     helper.add(
-      'string',
-      string,
+      'maxString',
+      maxString,
+    );
+    helper.add(
+      'list',
+      list,
+    );
+    helper.add(
+      'map',
+      map,
     );
     return helper.toString();
   }
@@ -131,64 +132,49 @@ class MalformedLengthInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'blob':
-          if (value != null) {
-            result.blob = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Uint8List),
-            ) as _i3.Uint8List);
-          }
-          break;
+          result.blob = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Uint8List),
+          ) as _i3.Uint8List);
         case 'list':
-          if (value != null) {
-            result.list.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.list.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'map':
-          if (value != null) {
-            result.map.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltListMultimap<String, String>));
-          }
-          break;
+          result.map.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltListMultimap<String, String>));
         case 'maxString':
-          if (value != null) {
-            result.maxString = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.maxString = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'minString':
-          if (value != null) {
-            result.minString = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.minString = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'string':
-          if (value != null) {
-            result.string = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.string = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -198,35 +184,42 @@ class MalformedLengthInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedLengthInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MalformedLengthInput);
-    final result = <Object?>[];
-    if (payload.blob != null) {
-      result
+    final result$ = <Object?>[];
+    final MalformedLengthInput(
+      :blob,
+      :list,
+      :map,
+      :maxString,
+      :minString,
+      :string
+    ) = object;
+    if (blob != null) {
+      result$
         ..add('blob')
         ..add(serializers.serialize(
-          payload.blob!,
+          blob,
           specifiedType: const FullType(_i3.Uint8List),
         ));
     }
-    if (payload.list != null) {
-      result
+    if (list != null) {
+      result$
         ..add('list')
         ..add(serializers.serialize(
-          payload.list!,
+          list,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.map != null) {
-      result
+    if (map != null) {
+      result$
         ..add('map')
         ..add(serializers.serialize(
-          payload.map!,
+          map,
           specifiedType: const FullType(
             _i4.BuiltListMultimap,
             [
@@ -236,30 +229,30 @@ class MalformedLengthInputRestJson1Serializer
           ),
         ));
     }
-    if (payload.maxString != null) {
-      result
+    if (maxString != null) {
+      result$
         ..add('maxString')
         ..add(serializers.serialize(
-          payload.maxString!,
+          maxString,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.minString != null) {
-      result
+    if (minString != null) {
+      result$
         ..add('minString')
         ..add(serializers.serialize(
-          payload.minString!,
+          minString,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.string != null) {
-      result
+    if (string != null) {
+      result$
         ..add('string')
         ..add(serializers.serialize(
-          payload.string!,
+          string,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

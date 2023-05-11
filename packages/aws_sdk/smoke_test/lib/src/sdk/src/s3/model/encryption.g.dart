@@ -10,14 +10,14 @@ class _$Encryption extends Encryption {
   @override
   final _i2.ServerSideEncryption encryptionType;
   @override
-  final String? kmsContext;
-  @override
   final String? kmsKeyId;
+  @override
+  final String? kmsContext;
 
   factory _$Encryption([void Function(EncryptionBuilder)? updates]) =>
       (new EncryptionBuilder()..update(updates))._build();
 
-  _$Encryption._({required this.encryptionType, this.kmsContext, this.kmsKeyId})
+  _$Encryption._({required this.encryptionType, this.kmsKeyId, this.kmsContext})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         encryptionType, r'Encryption', 'encryptionType');
@@ -35,16 +35,16 @@ class _$Encryption extends Encryption {
     if (identical(other, this)) return true;
     return other is Encryption &&
         encryptionType == other.encryptionType &&
-        kmsContext == other.kmsContext &&
-        kmsKeyId == other.kmsKeyId;
+        kmsKeyId == other.kmsKeyId &&
+        kmsContext == other.kmsContext;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, encryptionType.hashCode);
-    _$hash = $jc(_$hash, kmsContext.hashCode);
     _$hash = $jc(_$hash, kmsKeyId.hashCode);
+    _$hash = $jc(_$hash, kmsContext.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,13 +58,13 @@ class EncryptionBuilder implements Builder<Encryption, EncryptionBuilder> {
   set encryptionType(_i2.ServerSideEncryption? encryptionType) =>
       _$this._encryptionType = encryptionType;
 
-  String? _kmsContext;
-  String? get kmsContext => _$this._kmsContext;
-  set kmsContext(String? kmsContext) => _$this._kmsContext = kmsContext;
-
   String? _kmsKeyId;
   String? get kmsKeyId => _$this._kmsKeyId;
   set kmsKeyId(String? kmsKeyId) => _$this._kmsKeyId = kmsKeyId;
+
+  String? _kmsContext;
+  String? get kmsContext => _$this._kmsContext;
+  set kmsContext(String? kmsContext) => _$this._kmsContext = kmsContext;
 
   EncryptionBuilder() {
     Encryption._init(this);
@@ -74,8 +74,8 @@ class EncryptionBuilder implements Builder<Encryption, EncryptionBuilder> {
     final $v = _$v;
     if ($v != null) {
       _encryptionType = $v.encryptionType;
-      _kmsContext = $v.kmsContext;
       _kmsKeyId = $v.kmsKeyId;
+      _kmsContext = $v.kmsContext;
       _$v = null;
     }
     return this;
@@ -100,8 +100,8 @@ class EncryptionBuilder implements Builder<Encryption, EncryptionBuilder> {
         new _$Encryption._(
             encryptionType: BuiltValueNullFieldError.checkNotNull(
                 encryptionType, r'Encryption', 'encryptionType'),
-            kmsContext: kmsContext,
-            kmsKeyId: kmsKeyId);
+            kmsKeyId: kmsKeyId,
+            kmsContext: kmsContext);
     replace(_$result);
     return _$result;
   }

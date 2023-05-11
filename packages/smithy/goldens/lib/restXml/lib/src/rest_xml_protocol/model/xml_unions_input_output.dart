@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_v1.rest_xml_protocol.model.xml_unions_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -87,18 +88,18 @@ class XmlUnionsInputOutputRestXmlSerializer
     final result = XmlUnionsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'unionValue':
-          if (value != null) {
-            result.unionValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.XmlUnionShape),
-            ) as _i3.XmlUnionShape);
-          }
-          break;
+          result.unionValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.XmlUnionShape),
+          ) as _i3.XmlUnionShape);
       }
     }
 
@@ -108,19 +109,19 @@ class XmlUnionsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    XmlUnionsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as XmlUnionsInputOutput);
-    final result = <Object?>[const _i1.XmlElementName('XmlUnionsInputOutput')];
-    if (payload.unionValue != null) {
-      result
+    final result$ = <Object?>[const _i1.XmlElementName('XmlUnionsInputOutput')];
+    final XmlUnionsInputOutput(:unionValue) = object;
+    if (unionValue != null) {
+      result$
         ..add(const _i1.XmlElementName('unionValue'))
         ..add(serializers.serialize(
-          payload.unionValue!,
+          unionValue,
           specifiedType: const FullType(_i3.XmlUnionShape),
         ));
     }
-    return result;
+    return result$;
   }
 }

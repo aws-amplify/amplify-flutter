@@ -5,7 +5,7 @@ import 'package:grpc/grpc.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
 
-import 'service/codegen.pbgrpc.dart';
+import 'package:smithy_codegen/src/service/codegen.pbgrpc.dart';
 
 /// Handles requests from a remote codgen client, such as the Smithy plugin.
 class CodegenService extends CodegenServiceBase {
@@ -27,10 +27,12 @@ class CodegenService extends CodegenServiceBase {
       for (final library in outputs.values.expand((out) => out.libraries)) {
         dependencies.addAll(library.dependencies);
         final output = library.emit();
-        response.add(CodegenResponse_Library(
-          metadata: library.smithyLibrary,
-          definition: output,
-        ));
+        response.add(
+          CodegenResponse_Library(
+            metadata: library.smithyLibrary,
+            definition: output,
+          ),
+        );
       }
       final pubspecYaml = PubspecGenerator(pubspec, dependencies).generate();
       return CodegenResponse()

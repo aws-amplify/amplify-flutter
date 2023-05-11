@@ -10,7 +10,17 @@ import 'package:meta/meta.dart';
 
 enum AuthStrategy { OWNER, GROUPS, PRIVATE, PUBLIC }
 
-enum ModelOperation { CREATE, UPDATE, DELETE, READ }
+enum ModelOperation {
+  CREATE,
+  UPDATE,
+  DELETE,
+  READ,
+  GET,
+  LIST,
+  SYNC,
+  LISTEN,
+  SEARCH
+}
 
 enum AuthRuleProvider { APIKEY, OIDC, IAM, USERPOOLS, FUNCTION }
 

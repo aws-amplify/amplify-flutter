@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.shard; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,14 +18,14 @@ abstract class Shard
     implements Built<Shard, ShardBuilder> {
   /// A uniquely identified group of stream records within a stream.
   factory Shard({
-    String? parentShardId,
-    _i2.SequenceNumberRange? sequenceNumberRange,
     String? shardId,
+    _i2.SequenceNumberRange? sequenceNumberRange,
+    String? parentShardId,
   }) {
     return _$Shard._(
-      parentShardId: parentShardId,
-      sequenceNumberRange: sequenceNumberRange,
       shardId: shardId,
+      sequenceNumberRange: sequenceNumberRange,
+      parentShardId: parentShardId,
     );
   }
 
@@ -40,34 +41,34 @@ abstract class Shard
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ShardBuilder b) {}
 
-  /// The shard ID of the current shard's parent.
-  String? get parentShardId;
+  /// The system-generated identifier for this shard.
+  String? get shardId;
 
   /// The range of possible sequence numbers for the shard.
   _i2.SequenceNumberRange? get sequenceNumberRange;
 
-  /// The system-generated identifier for this shard.
-  String? get shardId;
+  /// The shard ID of the current shard's parent.
+  String? get parentShardId;
   @override
   List<Object?> get props => [
-        parentShardId,
-        sequenceNumberRange,
         shardId,
+        sequenceNumberRange,
+        parentShardId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Shard');
     helper.add(
-      'parentShardId',
-      parentShardId,
+      'shardId',
+      shardId,
     );
     helper.add(
       'sequenceNumberRange',
       sequenceNumberRange,
     );
     helper.add(
-      'shardId',
-      shardId,
+      'parentShardId',
+      parentShardId,
     );
     return helper.toString();
   }
@@ -100,31 +101,25 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ParentShardId':
-          if (value != null) {
-            result.parentShardId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'SequenceNumberRange':
-          if (value != null) {
-            result.sequenceNumberRange.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.SequenceNumberRange),
-            ) as _i2.SequenceNumberRange));
-          }
-          break;
         case 'ShardId':
-          if (value != null) {
-            result.shardId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.shardId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'SequenceNumberRange':
+          result.sequenceNumberRange.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.SequenceNumberRange),
+          ) as _i2.SequenceNumberRange));
+        case 'ParentShardId':
+          result.parentShardId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -134,35 +129,35 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Shard object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Shard);
-    final result = <Object?>[];
-    if (payload.parentShardId != null) {
-      result
-        ..add('ParentShardId')
+    final result$ = <Object?>[];
+    final Shard(:shardId, :sequenceNumberRange, :parentShardId) = object;
+    if (shardId != null) {
+      result$
+        ..add('ShardId')
         ..add(serializers.serialize(
-          payload.parentShardId!,
+          shardId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sequenceNumberRange != null) {
-      result
+    if (sequenceNumberRange != null) {
+      result$
         ..add('SequenceNumberRange')
         ..add(serializers.serialize(
-          payload.sequenceNumberRange!,
+          sequenceNumberRange,
           specifiedType: const FullType(_i2.SequenceNumberRange),
         ));
     }
-    if (payload.shardId != null) {
-      result
-        ..add('ShardId')
+    if (parentShardId != null) {
+      result$
+        ..add('ParentShardId')
         ..add(serializers.serialize(
-          payload.shardId!,
+          parentShardId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

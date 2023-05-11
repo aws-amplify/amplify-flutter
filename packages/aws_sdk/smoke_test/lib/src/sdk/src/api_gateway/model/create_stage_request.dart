@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.create_stage_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -25,30 +26,30 @@ abstract class CreateStageRequest
         _i1.HasPayload<CreateStageRequestPayload> {
   /// Requests API Gateway to create a Stage resource.
   factory CreateStageRequest({
-    bool? cacheClusterEnabled,
-    _i3.CacheClusterSize? cacheClusterSize,
-    _i4.CanarySettings? canarySettings,
-    required String deploymentId,
-    String? description,
-    String? documentationVersion,
     required String restApiId,
     required String stageName,
-    Map<String, String>? tags,
-    bool? tracingEnabled,
+    required String deploymentId,
+    String? description,
+    bool? cacheClusterEnabled,
+    _i3.CacheClusterSize? cacheClusterSize,
     Map<String, String>? variables,
+    String? documentationVersion,
+    _i4.CanarySettings? canarySettings,
+    bool? tracingEnabled,
+    Map<String, String>? tags,
   }) {
     return _$CreateStageRequest._(
-      cacheClusterEnabled: cacheClusterEnabled,
-      cacheClusterSize: cacheClusterSize,
-      canarySettings: canarySettings,
-      deploymentId: deploymentId,
-      description: description,
-      documentationVersion: documentationVersion,
       restApiId: restApiId,
       stageName: stageName,
-      tags: tags == null ? null : _i5.BuiltMap(tags),
-      tracingEnabled: tracingEnabled,
+      deploymentId: deploymentId,
+      description: description,
+      cacheClusterEnabled: cacheClusterEnabled,
+      cacheClusterSize: cacheClusterSize,
       variables: variables == null ? null : _i5.BuiltMap(variables),
+      documentationVersion: documentationVersion,
+      canarySettings: canarySettings,
+      tracingEnabled: tracingEnabled,
+      tags: tags == null ? null : _i5.BuiltMap(tags),
     );
   }
 
@@ -93,14 +94,11 @@ abstract class CreateStageRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateStageRequestBuilder b) {}
 
-  /// Whether cache clustering is enabled for the stage.
-  bool? get cacheClusterEnabled;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
-  /// The stage's cache cluster size.
-  _i3.CacheClusterSize? get cacheClusterSize;
-
-  /// The canary deployment settings of this stage.
-  _i4.CanarySettings? get canarySettings;
+  /// The name for the Stage resource. Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is 128 characters.
+  String get stageName;
 
   /// The identifier of the Deployment resource for the Stage resource.
   String get deploymentId;
@@ -108,23 +106,26 @@ abstract class CreateStageRequest
   /// The description of the Stage resource.
   String? get description;
 
+  /// Whether cache clustering is enabled for the stage.
+  bool? get cacheClusterEnabled;
+
+  /// The stage's cache cluster size.
+  _i3.CacheClusterSize? get cacheClusterSize;
+
+  /// A map that defines the stage variables for the new Stage resource. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
+  _i5.BuiltMap<String, String>? get variables;
+
   /// The version of the associated API documentation.
   String? get documentationVersion;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
-
-  /// The name for the Stage resource. Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is 128 characters.
-  String get stageName;
-
-  /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
-  _i5.BuiltMap<String, String>? get tags;
+  /// The canary deployment settings of this stage.
+  _i4.CanarySettings? get canarySettings;
 
   /// Specifies whether active tracing with X-ray is enabled for the Stage.
   bool? get tracingEnabled;
 
-  /// A map that defines the stage variables for the new Stage resource. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
-  _i5.BuiltMap<String, String>? get variables;
+  /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
+  _i5.BuiltMap<String, String>? get tags;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -158,32 +159,28 @@ abstract class CreateStageRequest
       });
   @override
   List<Object?> get props => [
-        cacheClusterEnabled,
-        cacheClusterSize,
-        canarySettings,
-        deploymentId,
-        description,
-        documentationVersion,
         restApiId,
         stageName,
-        tags,
-        tracingEnabled,
+        deploymentId,
+        description,
+        cacheClusterEnabled,
+        cacheClusterSize,
         variables,
+        documentationVersion,
+        canarySettings,
+        tracingEnabled,
+        tags,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateStageRequest');
     helper.add(
-      'cacheClusterEnabled',
-      cacheClusterEnabled,
+      'restApiId',
+      restApiId,
     );
     helper.add(
-      'cacheClusterSize',
-      cacheClusterSize,
-    );
-    helper.add(
-      'canarySettings',
-      canarySettings,
+      'stageName',
+      stageName,
     );
     helper.add(
       'deploymentId',
@@ -194,28 +191,32 @@ abstract class CreateStageRequest
       description,
     );
     helper.add(
+      'cacheClusterEnabled',
+      cacheClusterEnabled,
+    );
+    helper.add(
+      'cacheClusterSize',
+      cacheClusterSize,
+    );
+    helper.add(
+      'variables',
+      variables,
+    );
+    helper.add(
       'documentationVersion',
       documentationVersion,
     );
     helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'tags',
-      tags,
+      'canarySettings',
+      canarySettings,
     );
     helper.add(
       'tracingEnabled',
       tracingEnabled,
     );
     helper.add(
-      'variables',
-      variables,
+      'tags',
+      tags,
     );
     return helper.toString();
   }
@@ -354,95 +355,72 @@ class CreateStageRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'cacheClusterEnabled':
-          if (value != null) {
-            result.cacheClusterEnabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.cacheClusterEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'cacheClusterSize':
-          if (value != null) {
-            result.cacheClusterSize = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.CacheClusterSize),
-            ) as _i3.CacheClusterSize);
-          }
-          break;
+          result.cacheClusterSize = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.CacheClusterSize),
+          ) as _i3.CacheClusterSize);
         case 'canarySettings':
-          if (value != null) {
-            result.canarySettings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.CanarySettings),
-            ) as _i4.CanarySettings));
-          }
-          break;
+          result.canarySettings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.CanarySettings),
+          ) as _i4.CanarySettings));
         case 'deploymentId':
           result.deploymentId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'documentationVersion':
-          if (value != null) {
-            result.documentationVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.documentationVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'stageName':
           result.stageName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, String>));
         case 'tracingEnabled':
-          if (value != null) {
-            result.tracingEnabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.tracingEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'variables':
-          if (value != null) {
-            result.variables.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, String>));
-          }
-          break;
+          result.variables.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, String>));
       }
     }
 
@@ -452,69 +430,79 @@ class CreateStageRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateStageRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is CreateStageRequest
-        ? object.getPayload()
-        : (object as CreateStageRequestPayload);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final CreateStageRequestPayload(
+      :cacheClusterEnabled,
+      :cacheClusterSize,
+      :canarySettings,
+      :deploymentId,
+      :description,
+      :documentationVersion,
+      :stageName,
+      :tags,
+      :tracingEnabled,
+      :variables
+    ) = object;
+    result$.addAll([
       'deploymentId',
       serializers.serialize(
-        payload.deploymentId,
+        deploymentId,
         specifiedType: const FullType(String),
       ),
       'stageName',
       serializers.serialize(
-        payload.stageName,
+        stageName,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.cacheClusterEnabled != null) {
-      result
+    ]);
+    if (cacheClusterEnabled != null) {
+      result$
         ..add('cacheClusterEnabled')
         ..add(serializers.serialize(
-          payload.cacheClusterEnabled!,
+          cacheClusterEnabled,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.cacheClusterSize != null) {
-      result
+    if (cacheClusterSize != null) {
+      result$
         ..add('cacheClusterSize')
         ..add(serializers.serialize(
-          payload.cacheClusterSize!,
+          cacheClusterSize,
           specifiedType: const FullType(_i3.CacheClusterSize),
         ));
     }
-    if (payload.canarySettings != null) {
-      result
+    if (canarySettings != null) {
+      result$
         ..add('canarySettings')
         ..add(serializers.serialize(
-          payload.canarySettings!,
+          canarySettings,
           specifiedType: const FullType(_i4.CanarySettings),
         ));
     }
-    if (payload.description != null) {
-      result
+    if (description != null) {
+      result$
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.documentationVersion != null) {
-      result
+    if (documentationVersion != null) {
+      result$
         ..add('documentationVersion')
         ..add(serializers.serialize(
-          payload.documentationVersion!,
+          documentationVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
-      result
+    if (tags != null) {
+      result$
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -524,19 +512,19 @@ class CreateStageRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.tracingEnabled != null) {
-      result
+    if (tracingEnabled != null) {
+      result$
         ..add('tracingEnabled')
         ..add(serializers.serialize(
-          payload.tracingEnabled!,
+          tracingEnabled,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.variables != null) {
-      result
+    if (variables != null) {
+      result$
         ..add('variables')
         ..add(serializers.serialize(
-          payload.variables!,
+          variables,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -546,6 +534,6 @@ class CreateStageRequestRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_organization_conformance_packs_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,16 +19,16 @@ abstract class DescribeOrganizationConformancePacksRequest
         Built<DescribeOrganizationConformancePacksRequest,
             DescribeOrganizationConformancePacksRequestBuilder> {
   factory DescribeOrganizationConformancePacksRequest({
+    List<String>? organizationConformancePackNames,
     int? limit,
     String? nextToken,
-    List<String>? organizationConformancePackNames,
   }) {
     return _$DescribeOrganizationConformancePacksRequest._(
-      limit: limit,
-      nextToken: nextToken,
       organizationConformancePackNames: organizationConformancePackNames == null
           ? null
           : _i3.BuiltList(organizationConformancePackNames),
+      limit: limit,
+      nextToken: nextToken,
     );
   }
 
@@ -51,26 +52,30 @@ abstract class DescribeOrganizationConformancePacksRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeOrganizationConformancePacksRequestBuilder b) {}
 
+  /// The name that you assign to an organization conformance pack.
+  _i3.BuiltList<String>? get organizationConformancePackNames;
+
   /// The maximum number of organization config packs returned on each page. If you do no specify a number, Config uses the default. The default is 100.
   int? get limit;
 
   /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// The name that you assign to an organization conformance pack.
-  _i3.BuiltList<String>? get organizationConformancePackNames;
   @override
   DescribeOrganizationConformancePacksRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        organizationConformancePackNames,
         limit,
         nextToken,
-        organizationConformancePackNames,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'DescribeOrganizationConformancePacksRequest');
+    helper.add(
+      'organizationConformancePackNames',
+      organizationConformancePackNames,
+    );
     helper.add(
       'limit',
       limit,
@@ -78,10 +83,6 @@ abstract class DescribeOrganizationConformancePacksRequest
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'organizationConformancePackNames',
-      organizationConformancePackNames,
     );
     return helper.toString();
   }
@@ -116,35 +117,29 @@ class DescribeOrganizationConformancePacksRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'OrganizationConformancePackNames':
-          if (value != null) {
-            result.organizationConformancePackNames
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.organizationConformancePackNames
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
+        case 'Limit':
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -154,38 +149,42 @@ class DescribeOrganizationConformancePacksRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeOrganizationConformancePacksRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeOrganizationConformancePacksRequest);
-    final result = <Object?>[];
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.organizationConformancePackNames != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeOrganizationConformancePacksRequest(
+      :organizationConformancePackNames,
+      :limit,
+      :nextToken
+    ) = object;
+    if (organizationConformancePackNames != null) {
+      result$
         ..add('OrganizationConformancePackNames')
         ..add(serializers.serialize(
-          payload.organizationConformancePackNames!,
+          organizationConformancePackNames,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    if (limit != null) {
+      result$
+        ..add('Limit')
+        ..add(serializers.serialize(
+          limit,
+          specifiedType: const FullType(int),
+        ));
+    }
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

@@ -8,31 +8,31 @@ part of smoke_test.s3.model.destination;
 
 class _$Destination extends Destination {
   @override
-  final _i2.AccessControlTranslation? accessControlTranslation;
+  final String bucket;
   @override
   final String? account;
   @override
-  final String bucket;
+  final _i2.StorageClass? storageClass;
   @override
-  final _i3.EncryptionConfiguration? encryptionConfiguration;
+  final _i3.AccessControlTranslation? accessControlTranslation;
   @override
-  final _i4.Metrics? metrics;
+  final _i4.EncryptionConfiguration? encryptionConfiguration;
   @override
   final _i5.ReplicationTime? replicationTime;
   @override
-  final _i6.StorageClass? storageClass;
+  final _i6.Metrics? metrics;
 
   factory _$Destination([void Function(DestinationBuilder)? updates]) =>
       (new DestinationBuilder()..update(updates))._build();
 
   _$Destination._(
-      {this.accessControlTranslation,
+      {required this.bucket,
       this.account,
-      required this.bucket,
+      this.storageClass,
+      this.accessControlTranslation,
       this.encryptionConfiguration,
-      this.metrics,
       this.replicationTime,
-      this.storageClass})
+      this.metrics})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(bucket, r'Destination', 'bucket');
   }
@@ -48,25 +48,25 @@ class _$Destination extends Destination {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Destination &&
-        accessControlTranslation == other.accessControlTranslation &&
-        account == other.account &&
         bucket == other.bucket &&
+        account == other.account &&
+        storageClass == other.storageClass &&
+        accessControlTranslation == other.accessControlTranslation &&
         encryptionConfiguration == other.encryptionConfiguration &&
-        metrics == other.metrics &&
         replicationTime == other.replicationTime &&
-        storageClass == other.storageClass;
+        metrics == other.metrics;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, accessControlTranslation.hashCode);
-    _$hash = $jc(_$hash, account.hashCode);
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, encryptionConfiguration.hashCode);
-    _$hash = $jc(_$hash, metrics.hashCode);
-    _$hash = $jc(_$hash, replicationTime.hashCode);
+    _$hash = $jc(_$hash, account.hashCode);
     _$hash = $jc(_$hash, storageClass.hashCode);
+    _$hash = $jc(_$hash, accessControlTranslation.hashCode);
+    _$hash = $jc(_$hash, encryptionConfiguration.hashCode);
+    _$hash = $jc(_$hash, replicationTime.hashCode);
+    _$hash = $jc(_$hash, metrics.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -75,34 +75,34 @@ class _$Destination extends Destination {
 class DestinationBuilder implements Builder<Destination, DestinationBuilder> {
   _$Destination? _$v;
 
-  _i2.AccessControlTranslationBuilder? _accessControlTranslation;
-  _i2.AccessControlTranslationBuilder get accessControlTranslation =>
-      _$this._accessControlTranslation ??=
-          new _i2.AccessControlTranslationBuilder();
-  set accessControlTranslation(
-          _i2.AccessControlTranslationBuilder? accessControlTranslation) =>
-      _$this._accessControlTranslation = accessControlTranslation;
+  String? _bucket;
+  String? get bucket => _$this._bucket;
+  set bucket(String? bucket) => _$this._bucket = bucket;
 
   String? _account;
   String? get account => _$this._account;
   set account(String? account) => _$this._account = account;
 
-  String? _bucket;
-  String? get bucket => _$this._bucket;
-  set bucket(String? bucket) => _$this._bucket = bucket;
+  _i2.StorageClass? _storageClass;
+  _i2.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i2.StorageClass? storageClass) =>
+      _$this._storageClass = storageClass;
 
-  _i3.EncryptionConfigurationBuilder? _encryptionConfiguration;
-  _i3.EncryptionConfigurationBuilder get encryptionConfiguration =>
+  _i3.AccessControlTranslationBuilder? _accessControlTranslation;
+  _i3.AccessControlTranslationBuilder get accessControlTranslation =>
+      _$this._accessControlTranslation ??=
+          new _i3.AccessControlTranslationBuilder();
+  set accessControlTranslation(
+          _i3.AccessControlTranslationBuilder? accessControlTranslation) =>
+      _$this._accessControlTranslation = accessControlTranslation;
+
+  _i4.EncryptionConfigurationBuilder? _encryptionConfiguration;
+  _i4.EncryptionConfigurationBuilder get encryptionConfiguration =>
       _$this._encryptionConfiguration ??=
-          new _i3.EncryptionConfigurationBuilder();
+          new _i4.EncryptionConfigurationBuilder();
   set encryptionConfiguration(
-          _i3.EncryptionConfigurationBuilder? encryptionConfiguration) =>
+          _i4.EncryptionConfigurationBuilder? encryptionConfiguration) =>
       _$this._encryptionConfiguration = encryptionConfiguration;
-
-  _i4.MetricsBuilder? _metrics;
-  _i4.MetricsBuilder get metrics =>
-      _$this._metrics ??= new _i4.MetricsBuilder();
-  set metrics(_i4.MetricsBuilder? metrics) => _$this._metrics = metrics;
 
   _i5.ReplicationTimeBuilder? _replicationTime;
   _i5.ReplicationTimeBuilder get replicationTime =>
@@ -110,10 +110,10 @@ class DestinationBuilder implements Builder<Destination, DestinationBuilder> {
   set replicationTime(_i5.ReplicationTimeBuilder? replicationTime) =>
       _$this._replicationTime = replicationTime;
 
-  _i6.StorageClass? _storageClass;
-  _i6.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i6.StorageClass? storageClass) =>
-      _$this._storageClass = storageClass;
+  _i6.MetricsBuilder? _metrics;
+  _i6.MetricsBuilder get metrics =>
+      _$this._metrics ??= new _i6.MetricsBuilder();
+  set metrics(_i6.MetricsBuilder? metrics) => _$this._metrics = metrics;
 
   DestinationBuilder() {
     Destination._init(this);
@@ -122,13 +122,13 @@ class DestinationBuilder implements Builder<Destination, DestinationBuilder> {
   DestinationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _accessControlTranslation = $v.accessControlTranslation?.toBuilder();
-      _account = $v.account;
       _bucket = $v.bucket;
-      _encryptionConfiguration = $v.encryptionConfiguration?.toBuilder();
-      _metrics = $v.metrics?.toBuilder();
-      _replicationTime = $v.replicationTime?.toBuilder();
+      _account = $v.account;
       _storageClass = $v.storageClass;
+      _accessControlTranslation = $v.accessControlTranslation?.toBuilder();
+      _encryptionConfiguration = $v.encryptionConfiguration?.toBuilder();
+      _replicationTime = $v.replicationTime?.toBuilder();
+      _metrics = $v.metrics?.toBuilder();
       _$v = null;
     }
     return this;
@@ -153,26 +153,25 @@ class DestinationBuilder implements Builder<Destination, DestinationBuilder> {
     try {
       _$result = _$v ??
           new _$Destination._(
-              accessControlTranslation: _accessControlTranslation?.build(),
-              account: account,
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'Destination', 'bucket'),
+              account: account,
+              storageClass: storageClass,
+              accessControlTranslation: _accessControlTranslation?.build(),
               encryptionConfiguration: _encryptionConfiguration?.build(),
-              metrics: _metrics?.build(),
               replicationTime: _replicationTime?.build(),
-              storageClass: storageClass);
+              metrics: _metrics?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'accessControlTranslation';
         _accessControlTranslation?.build();
-
         _$failedField = 'encryptionConfiguration';
         _encryptionConfiguration?.build();
-        _$failedField = 'metrics';
-        _metrics?.build();
         _$failedField = 'replicationTime';
         _replicationTime?.build();
+        _$failedField = 'metrics';
+        _metrics?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'Destination', _$failedField, e.toString());

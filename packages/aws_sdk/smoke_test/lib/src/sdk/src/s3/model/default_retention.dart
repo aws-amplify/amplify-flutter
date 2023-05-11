@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.default_retention; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -25,13 +26,13 @@ abstract class DefaultRetention
   ///
   /// *   The `DefaultRetention` period can be either `Days` or `Years` but you must select one. You cannot specify `Days` and `Years` at the same time.
   factory DefaultRetention({
-    int? days,
     _i2.ObjectLockRetentionMode? mode,
+    int? days,
     int? years,
   }) {
     return _$DefaultRetention._(
-      days: days,
       mode: mode,
+      days: days,
       years: years,
     );
   }
@@ -53,30 +54,30 @@ abstract class DefaultRetention
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DefaultRetentionBuilder b) {}
 
-  /// The number of days that you want to specify for the default retention period. Must be used with `Mode`.
-  int? get days;
-
   /// The default Object Lock retention mode you want to apply to new objects placed in the specified bucket. Must be used with either `Days` or `Years`.
   _i2.ObjectLockRetentionMode? get mode;
+
+  /// The number of days that you want to specify for the default retention period. Must be used with `Mode`.
+  int? get days;
 
   /// The number of years that you want to specify for the default retention period. Must be used with `Mode`.
   int? get years;
   @override
   List<Object?> get props => [
-        days,
         mode,
+        days,
         years,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DefaultRetention');
     helper.add(
-      'days',
-      days,
-    );
-    helper.add(
       'mode',
       mode,
+    );
+    helper.add(
+      'days',
+      days,
     );
     helper.add(
       'years',
@@ -111,34 +112,28 @@ class DefaultRetentionRestXmlSerializer
     final result = DefaultRetentionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Days':
-          if (value != null) {
-            result.days = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.days = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Mode':
-          if (value != null) {
-            result.mode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ObjectLockRetentionMode),
-            ) as _i2.ObjectLockRetentionMode);
-          }
-          break;
+          result.mode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ObjectLockRetentionMode),
+          ) as _i2.ObjectLockRetentionMode);
         case 'Years':
-          if (value != null) {
-            result.years = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.years = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -148,40 +143,40 @@ class DefaultRetentionRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DefaultRetention object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DefaultRetention);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i3.XmlElementName(
         'DefaultRetention',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.days != null) {
-      result
+    final DefaultRetention(:days, :mode, :years) = object;
+    if (days != null) {
+      result$
         ..add(const _i3.XmlElementName('Days'))
         ..add(serializers.serialize(
-          payload.days!,
+          days,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.mode != null) {
-      result
+    if (mode != null) {
+      result$
         ..add(const _i3.XmlElementName('Mode'))
         ..add(serializers.serialize(
-          payload.mode!,
+          mode,
           specifiedType: const FullType.nullable(_i2.ObjectLockRetentionMode),
         ));
     }
-    if (payload.years != null) {
-      result
+    if (years != null) {
+      result$
         ..add(const _i3.XmlElementName('Years'))
         ..add(serializers.serialize(
-          payload.years!,
+          years,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    return result;
+    return result$;
   }
 }

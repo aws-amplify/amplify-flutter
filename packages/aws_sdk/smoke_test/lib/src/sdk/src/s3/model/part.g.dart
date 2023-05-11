@@ -8,6 +8,14 @@ part of smoke_test.s3.model.part;
 
 class _$Part extends Part {
   @override
+  final int? partNumber;
+  @override
+  final DateTime? lastModified;
+  @override
+  final String? eTag;
+  @override
+  final _i2.Int64? size;
+  @override
   final String? checksumCrc32;
   @override
   final String? checksumCrc32C;
@@ -15,27 +23,19 @@ class _$Part extends Part {
   final String? checksumSha1;
   @override
   final String? checksumSha256;
-  @override
-  final String? eTag;
-  @override
-  final DateTime? lastModified;
-  @override
-  final int? partNumber;
-  @override
-  final _i2.Int64? size;
 
   factory _$Part([void Function(PartBuilder)? updates]) =>
       (new PartBuilder()..update(updates))._build();
 
   _$Part._(
-      {this.checksumCrc32,
+      {this.partNumber,
+      this.lastModified,
+      this.eTag,
+      this.size,
+      this.checksumCrc32,
       this.checksumCrc32C,
       this.checksumSha1,
-      this.checksumSha256,
-      this.eTag,
-      this.lastModified,
-      this.partNumber,
-      this.size})
+      this.checksumSha256})
       : super._();
 
   @override
@@ -49,27 +49,27 @@ class _$Part extends Part {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Part &&
+        partNumber == other.partNumber &&
+        lastModified == other.lastModified &&
+        eTag == other.eTag &&
+        size == other.size &&
         checksumCrc32 == other.checksumCrc32 &&
         checksumCrc32C == other.checksumCrc32C &&
         checksumSha1 == other.checksumSha1 &&
-        checksumSha256 == other.checksumSha256 &&
-        eTag == other.eTag &&
-        lastModified == other.lastModified &&
-        partNumber == other.partNumber &&
-        size == other.size;
+        checksumSha256 == other.checksumSha256;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, partNumber.hashCode);
+    _$hash = $jc(_$hash, lastModified.hashCode);
+    _$hash = $jc(_$hash, eTag.hashCode);
+    _$hash = $jc(_$hash, size.hashCode);
     _$hash = $jc(_$hash, checksumCrc32.hashCode);
     _$hash = $jc(_$hash, checksumCrc32C.hashCode);
     _$hash = $jc(_$hash, checksumSha1.hashCode);
     _$hash = $jc(_$hash, checksumSha256.hashCode);
-    _$hash = $jc(_$hash, eTag.hashCode);
-    _$hash = $jc(_$hash, lastModified.hashCode);
-    _$hash = $jc(_$hash, partNumber.hashCode);
-    _$hash = $jc(_$hash, size.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -77,6 +77,23 @@ class _$Part extends Part {
 
 class PartBuilder implements Builder<Part, PartBuilder> {
   _$Part? _$v;
+
+  int? _partNumber;
+  int? get partNumber => _$this._partNumber;
+  set partNumber(int? partNumber) => _$this._partNumber = partNumber;
+
+  DateTime? _lastModified;
+  DateTime? get lastModified => _$this._lastModified;
+  set lastModified(DateTime? lastModified) =>
+      _$this._lastModified = lastModified;
+
+  String? _eTag;
+  String? get eTag => _$this._eTag;
+  set eTag(String? eTag) => _$this._eTag = eTag;
+
+  _i2.Int64? _size;
+  _i2.Int64? get size => _$this._size;
+  set size(_i2.Int64? size) => _$this._size = size;
 
   String? _checksumCrc32;
   String? get checksumCrc32 => _$this._checksumCrc32;
@@ -97,23 +114,6 @@ class PartBuilder implements Builder<Part, PartBuilder> {
   set checksumSha256(String? checksumSha256) =>
       _$this._checksumSha256 = checksumSha256;
 
-  String? _eTag;
-  String? get eTag => _$this._eTag;
-  set eTag(String? eTag) => _$this._eTag = eTag;
-
-  DateTime? _lastModified;
-  DateTime? get lastModified => _$this._lastModified;
-  set lastModified(DateTime? lastModified) =>
-      _$this._lastModified = lastModified;
-
-  int? _partNumber;
-  int? get partNumber => _$this._partNumber;
-  set partNumber(int? partNumber) => _$this._partNumber = partNumber;
-
-  _i2.Int64? _size;
-  _i2.Int64? get size => _$this._size;
-  set size(_i2.Int64? size) => _$this._size = size;
-
   PartBuilder() {
     Part._init(this);
   }
@@ -121,14 +121,14 @@ class PartBuilder implements Builder<Part, PartBuilder> {
   PartBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _partNumber = $v.partNumber;
+      _lastModified = $v.lastModified;
+      _eTag = $v.eTag;
+      _size = $v.size;
       _checksumCrc32 = $v.checksumCrc32;
       _checksumCrc32C = $v.checksumCrc32C;
       _checksumSha1 = $v.checksumSha1;
       _checksumSha256 = $v.checksumSha256;
-      _eTag = $v.eTag;
-      _lastModified = $v.lastModified;
-      _partNumber = $v.partNumber;
-      _size = $v.size;
       _$v = null;
     }
     return this;
@@ -151,14 +151,14 @@ class PartBuilder implements Builder<Part, PartBuilder> {
   _$Part _build() {
     final _$result = _$v ??
         new _$Part._(
+            partNumber: partNumber,
+            lastModified: lastModified,
+            eTag: eTag,
+            size: size,
             checksumCrc32: checksumCrc32,
             checksumCrc32C: checksumCrc32C,
             checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256,
-            eTag: eTag,
-            lastModified: lastModified,
-            partNumber: partNumber,
-            size: size);
+            checksumSha256: checksumSha256);
     replace(_$result);
     return _$result;
   }

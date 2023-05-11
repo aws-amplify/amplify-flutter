@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.describe_organization_config_rules_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,16 +19,16 @@ abstract class DescribeOrganizationConfigRulesRequest
         Built<DescribeOrganizationConfigRulesRequest,
             DescribeOrganizationConfigRulesRequestBuilder> {
   factory DescribeOrganizationConfigRulesRequest({
+    List<String>? organizationConfigRuleNames,
     int? limit,
     String? nextToken,
-    List<String>? organizationConfigRuleNames,
   }) {
     return _$DescribeOrganizationConfigRulesRequest._(
-      limit: limit,
-      nextToken: nextToken,
       organizationConfigRuleNames: organizationConfigRuleNames == null
           ? null
           : _i3.BuiltList(organizationConfigRuleNames),
+      limit: limit,
+      nextToken: nextToken,
     );
   }
 
@@ -51,26 +52,30 @@ abstract class DescribeOrganizationConfigRulesRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeOrganizationConfigRulesRequestBuilder b) {}
 
+  /// The names of organization Config rules for which you want details. If you do not specify any names, Config returns details for all your organization Config rules.
+  _i3.BuiltList<String>? get organizationConfigRuleNames;
+
   /// The maximum number of organization Config rules returned on each page. If you do no specify a number, Config uses the default. The default is 100.
   int? get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// The names of organization Config rules for which you want details. If you do not specify any names, Config returns details for all your organization Config rules.
-  _i3.BuiltList<String>? get organizationConfigRuleNames;
   @override
   DescribeOrganizationConfigRulesRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        organizationConfigRuleNames,
         limit,
         nextToken,
-        organizationConfigRuleNames,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DescribeOrganizationConfigRulesRequest');
+    helper.add(
+      'organizationConfigRuleNames',
+      organizationConfigRuleNames,
+    );
     helper.add(
       'limit',
       limit,
@@ -78,10 +83,6 @@ abstract class DescribeOrganizationConfigRulesRequest
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'organizationConfigRuleNames',
-      organizationConfigRuleNames,
     );
     return helper.toString();
   }
@@ -116,34 +117,28 @@ class DescribeOrganizationConfigRulesRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'OrganizationConfigRuleNames':
-          if (value != null) {
-            result.organizationConfigRuleNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.organizationConfigRuleNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
+        case 'Limit':
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -153,38 +148,42 @@ class DescribeOrganizationConfigRulesRequestAwsJson11Serializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DescribeOrganizationConfigRulesRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DescribeOrganizationConfigRulesRequest);
-    final result = <Object?>[];
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.organizationConfigRuleNames != null) {
-      result
+    final result$ = <Object?>[];
+    final DescribeOrganizationConfigRulesRequest(
+      :organizationConfigRuleNames,
+      :limit,
+      :nextToken
+    ) = object;
+    if (organizationConfigRuleNames != null) {
+      result$
         ..add('OrganizationConfigRuleNames')
         ..add(serializers.serialize(
-          payload.organizationConfigRuleNames!,
+          organizationConfigRuleNames,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    if (limit != null) {
+      result$
+        ..add('Limit')
+        ..add(serializers.serialize(
+          limit,
+          specifiedType: const FullType(int),
+        ));
+    }
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

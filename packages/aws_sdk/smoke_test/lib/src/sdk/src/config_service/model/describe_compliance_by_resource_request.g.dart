@@ -9,15 +9,15 @@ part of smoke_test.config_service.model.describe_compliance_by_resource_request;
 class _$DescribeComplianceByResourceRequest
     extends DescribeComplianceByResourceRequest {
   @override
+  final String? resourceType;
+  @override
+  final String? resourceId;
+  @override
   final _i4.BuiltList<_i3.ComplianceType>? complianceTypes;
   @override
   final int? limit;
   @override
   final String? nextToken;
-  @override
-  final String? resourceId;
-  @override
-  final String? resourceType;
 
   factory _$DescribeComplianceByResourceRequest(
           [void Function(DescribeComplianceByResourceRequestBuilder)?
@@ -26,11 +26,11 @@ class _$DescribeComplianceByResourceRequest
           ._build();
 
   _$DescribeComplianceByResourceRequest._(
-      {this.complianceTypes,
-      this.limit,
-      this.nextToken,
+      {this.resourceType,
       this.resourceId,
-      this.resourceType})
+      this.complianceTypes,
+      this.limit,
+      this.nextToken})
       : super._();
 
   @override
@@ -46,21 +46,21 @@ class _$DescribeComplianceByResourceRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DescribeComplianceByResourceRequest &&
+        resourceType == other.resourceType &&
+        resourceId == other.resourceId &&
         complianceTypes == other.complianceTypes &&
         limit == other.limit &&
-        nextToken == other.nextToken &&
-        resourceId == other.resourceId &&
-        resourceType == other.resourceType;
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, resourceType.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jc(_$hash, complianceTypes.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, resourceId.hashCode);
-    _$hash = $jc(_$hash, resourceType.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -71,6 +71,14 @@ class DescribeComplianceByResourceRequestBuilder
         Builder<DescribeComplianceByResourceRequest,
             DescribeComplianceByResourceRequestBuilder> {
   _$DescribeComplianceByResourceRequest? _$v;
+
+  String? _resourceType;
+  String? get resourceType => _$this._resourceType;
+  set resourceType(String? resourceType) => _$this._resourceType = resourceType;
+
+  String? _resourceId;
+  String? get resourceId => _$this._resourceId;
+  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
   _i4.ListBuilder<_i3.ComplianceType>? _complianceTypes;
   _i4.ListBuilder<_i3.ComplianceType> get complianceTypes =>
@@ -86,14 +94,6 @@ class DescribeComplianceByResourceRequestBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  String? _resourceId;
-  String? get resourceId => _$this._resourceId;
-  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
-
-  String? _resourceType;
-  String? get resourceType => _$this._resourceType;
-  set resourceType(String? resourceType) => _$this._resourceType = resourceType;
-
   DescribeComplianceByResourceRequestBuilder() {
     DescribeComplianceByResourceRequest._init(this);
   }
@@ -101,11 +101,11 @@ class DescribeComplianceByResourceRequestBuilder
   DescribeComplianceByResourceRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _resourceType = $v.resourceType;
+      _resourceId = $v.resourceId;
       _complianceTypes = $v.complianceTypes?.toBuilder();
       _limit = $v.limit;
       _nextToken = $v.nextToken;
-      _resourceId = $v.resourceId;
-      _resourceType = $v.resourceType;
       _$v = null;
     }
     return this;
@@ -131,11 +131,11 @@ class DescribeComplianceByResourceRequestBuilder
     try {
       _$result = _$v ??
           new _$DescribeComplianceByResourceRequest._(
+              resourceType: resourceType,
+              resourceId: resourceId,
               complianceTypes: _complianceTypes?.build(),
               limit: limit,
-              nextToken: nextToken,
-              resourceId: resourceId,
-              resourceType: resourceType);
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

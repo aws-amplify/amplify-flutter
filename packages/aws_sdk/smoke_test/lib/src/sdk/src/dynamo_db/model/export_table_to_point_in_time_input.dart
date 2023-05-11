@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.export_table_to_point_in_time_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -7,9 +8,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_format.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/s3_sse_algorithm.dart'
     as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/s3_sse_algorithm.dart'
+    as _i3;
 
 part 'export_table_to_point_in_time_input.g.dart';
 
@@ -21,15 +22,15 @@ abstract class ExportTableToPointInTimeInput
         Built<ExportTableToPointInTimeInput,
             ExportTableToPointInTimeInputBuilder> {
   factory ExportTableToPointInTimeInput({
-    String? clientToken,
-    _i3.ExportFormat? exportFormat,
+    required String tableArn,
     DateTime? exportTime,
+    String? clientToken,
     required String s3Bucket,
     String? s3BucketOwner,
     String? s3Prefix,
-    _i4.S3SseAlgorithm? s3SseAlgorithm,
+    _i3.S3SseAlgorithm? s3SseAlgorithm,
     String? s3SseKmsKeyId,
-    required String tableArn,
+    _i4.ExportFormat? exportFormat,
   }) {
     if (const bool.hasEnvironment('SMITHY_TEST')) {
       clientToken ??= '00000000-0000-4000-8000-000000000000';
@@ -37,15 +38,15 @@ abstract class ExportTableToPointInTimeInput
       clientToken ??= _i2.uuid(secure: true);
     }
     return _$ExportTableToPointInTimeInput._(
-      clientToken: clientToken,
-      exportFormat: exportFormat,
+      tableArn: tableArn,
       exportTime: exportTime,
+      clientToken: clientToken,
       s3Bucket: s3Bucket,
       s3BucketOwner: s3BucketOwner,
       s3Prefix: s3Prefix,
       s3SseAlgorithm: s3SseAlgorithm,
       s3SseKmsKeyId: s3SseKmsKeyId,
-      tableArn: tableArn,
+      exportFormat: exportFormat,
     );
   }
 
@@ -75,18 +76,18 @@ abstract class ExportTableToPointInTimeInput
     }
   }
 
+  /// The Amazon Resource Name (ARN) associated with the table to export.
+  String get tableArn;
+
+  /// Time in the past from which to export table data, counted in seconds from the start of the Unix epoch. The table export will be a snapshot of the table's state at this point in time.
+  DateTime? get exportTime;
+
   /// Providing a `ClientToken` makes the call to `ExportTableToPointInTimeInput` idempotent, meaning that multiple identical calls have the same effect as one single call.
   ///
   /// A client token is valid for 8 hours after the first request that uses it is completed. After 8 hours, any request with the same client token is treated as a new request. Do not resubmit the same request with the same client token for more than 8 hours, or the result might not be idempotent.
   ///
   /// If you submit a request with the same client token but a change in other parameters within the 8-hour idempotency window, DynamoDB returns an `ImportConflictException`.
   String? get clientToken;
-
-  /// The format for the exported data. Valid values for `ExportFormat` are `DYNAMODB_JSON` or `ION`.
-  _i3.ExportFormat? get exportFormat;
-
-  /// Time in the past from which to export table data, counted in seconds from the start of the Unix epoch. The table export will be a snapshot of the table's state at this point in time.
-  DateTime? get exportTime;
 
   /// The name of the Amazon S3 bucket to export the snapshot to.
   String get s3Bucket;
@@ -102,41 +103,41 @@ abstract class ExportTableToPointInTimeInput
   /// *   `AES256` \- server-side encryption with Amazon S3 managed keys
   ///
   /// *   `KMS` \- server-side encryption with KMS managed keys
-  _i4.S3SseAlgorithm? get s3SseAlgorithm;
+  _i3.S3SseAlgorithm? get s3SseAlgorithm;
 
   /// The ID of the KMS managed key used to encrypt the S3 bucket where export data will be stored (if applicable).
   String? get s3SseKmsKeyId;
 
-  /// The Amazon Resource Name (ARN) associated with the table to export.
-  String get tableArn;
+  /// The format for the exported data. Valid values for `ExportFormat` are `DYNAMODB_JSON` or `ION`.
+  _i4.ExportFormat? get exportFormat;
   @override
   ExportTableToPointInTimeInput getPayload() => this;
   @override
   List<Object?> get props => [
-        clientToken,
-        exportFormat,
+        tableArn,
         exportTime,
+        clientToken,
         s3Bucket,
         s3BucketOwner,
         s3Prefix,
         s3SseAlgorithm,
         s3SseKmsKeyId,
-        tableArn,
+        exportFormat,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ExportTableToPointInTimeInput');
     helper.add(
-      'clientToken',
-      clientToken,
-    );
-    helper.add(
-      'exportFormat',
-      exportFormat,
+      'tableArn',
+      tableArn,
     );
     helper.add(
       'exportTime',
       exportTime,
+    );
+    helper.add(
+      'clientToken',
+      clientToken,
     );
     helper.add(
       's3Bucket',
@@ -159,8 +160,8 @@ abstract class ExportTableToPointInTimeInput
       s3SseKmsKeyId,
     );
     helper.add(
-      'tableArn',
-      tableArn,
+      'exportFormat',
+      exportFormat,
     );
     return helper.toString();
   }
@@ -195,75 +196,55 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ClientToken':
-          if (value != null) {
-            result.clientToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ExportFormat':
-          if (value != null) {
-            result.exportFormat = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ExportFormat),
-            ) as _i3.ExportFormat);
-          }
-          break;
-        case 'ExportTime':
-          if (value != null) {
-            result.exportTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'S3Bucket':
-          result.s3Bucket = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
-        case 'S3BucketOwner':
-          if (value != null) {
-            result.s3BucketOwner = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'S3Prefix':
-          if (value != null) {
-            result.s3Prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'S3SseAlgorithm':
-          if (value != null) {
-            result.s3SseAlgorithm = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.S3SseAlgorithm),
-            ) as _i4.S3SseAlgorithm);
-          }
-          break;
-        case 'S3SseKmsKeyId':
-          if (value != null) {
-            result.s3SseKmsKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'TableArn':
           result.tableArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'ExportTime':
+          result.exportTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
+        case 'ClientToken':
+          result.clientToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'S3Bucket':
+          result.s3Bucket = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'S3BucketOwner':
+          result.s3BucketOwner = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'S3Prefix':
+          result.s3Prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'S3SseAlgorithm':
+          result.s3SseAlgorithm = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.S3SseAlgorithm),
+          ) as _i3.S3SseAlgorithm);
+        case 'S3SseKmsKeyId':
+          result.s3SseKmsKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ExportFormat':
+          result.exportFormat = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ExportFormat),
+          ) as _i4.ExportFormat);
       }
     }
 
@@ -273,78 +254,89 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ExportTableToPointInTimeInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ExportTableToPointInTimeInput);
-    final result = <Object?>[
-      'S3Bucket',
-      serializers.serialize(
-        payload.s3Bucket,
-        specifiedType: const FullType(String),
-      ),
+    final result$ = <Object?>[];
+    final ExportTableToPointInTimeInput(
+      :tableArn,
+      :exportTime,
+      :clientToken,
+      :s3Bucket,
+      :s3BucketOwner,
+      :s3Prefix,
+      :s3SseAlgorithm,
+      :s3SseKmsKeyId,
+      :exportFormat
+    ) = object;
+    result$.addAll([
       'TableArn',
       serializers.serialize(
-        payload.tableArn,
+        tableArn,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.clientToken != null) {
-      result
-        ..add('ClientToken')
-        ..add(serializers.serialize(
-          payload.clientToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.exportFormat != null) {
-      result
-        ..add('ExportFormat')
-        ..add(serializers.serialize(
-          payload.exportFormat!,
-          specifiedType: const FullType(_i3.ExportFormat),
-        ));
-    }
-    if (payload.exportTime != null) {
-      result
+      'S3Bucket',
+      serializers.serialize(
+        s3Bucket,
+        specifiedType: const FullType(String),
+      ),
+    ]);
+    if (exportTime != null) {
+      result$
         ..add('ExportTime')
         ..add(serializers.serialize(
-          payload.exportTime!,
+          exportTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.s3BucketOwner != null) {
-      result
+    if (clientToken != null) {
+      result$
+        ..add('ClientToken')
+        ..add(serializers.serialize(
+          clientToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (s3BucketOwner != null) {
+      result$
         ..add('S3BucketOwner')
         ..add(serializers.serialize(
-          payload.s3BucketOwner!,
+          s3BucketOwner,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.s3Prefix != null) {
-      result
+    if (s3Prefix != null) {
+      result$
         ..add('S3Prefix')
         ..add(serializers.serialize(
-          payload.s3Prefix!,
+          s3Prefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.s3SseAlgorithm != null) {
-      result
+    if (s3SseAlgorithm != null) {
+      result$
         ..add('S3SseAlgorithm')
         ..add(serializers.serialize(
-          payload.s3SseAlgorithm!,
-          specifiedType: const FullType(_i4.S3SseAlgorithm),
+          s3SseAlgorithm,
+          specifiedType: const FullType(_i3.S3SseAlgorithm),
         ));
     }
-    if (payload.s3SseKmsKeyId != null) {
-      result
+    if (s3SseKmsKeyId != null) {
+      result$
         ..add('S3SseKmsKeyId')
         ..add(serializers.serialize(
-          payload.s3SseKmsKeyId!,
+          s3SseKmsKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    if (exportFormat != null) {
+      result$
+        ..add('ExportFormat')
+        ..add(serializers.serialize(
+          exportFormat,
+          specifiedType: const FullType(_i4.ExportFormat),
+        ));
+    }
+    return result$;
   }
 }

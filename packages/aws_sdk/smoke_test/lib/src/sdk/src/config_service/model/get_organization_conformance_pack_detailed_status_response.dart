@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_organization_conformance_pack_detailed_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,16 +20,16 @@ abstract class GetOrganizationConformancePackDetailedStatusResponse
         Built<GetOrganizationConformancePackDetailedStatusResponse,
             GetOrganizationConformancePackDetailedStatusResponseBuilder> {
   factory GetOrganizationConformancePackDetailedStatusResponse({
-    String? nextToken,
     List<_i2.OrganizationConformancePackDetailedStatus>?
         organizationConformancePackDetailedStatuses,
+    String? nextToken,
   }) {
     return _$GetOrganizationConformancePackDetailedStatusResponse._(
-      nextToken: nextToken,
       organizationConformancePackDetailedStatuses:
           organizationConformancePackDetailedStatuses == null
               ? null
               : _i3.BuiltList(organizationConformancePackDetailedStatuses),
+      nextToken: nextToken,
     );
   }
 
@@ -54,28 +55,28 @@ abstract class GetOrganizationConformancePackDetailedStatusResponse
   static void _init(
       GetOrganizationConformancePackDetailedStatusResponseBuilder b) {}
 
-  /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// A list of `OrganizationConformancePackDetailedStatus` objects.
   _i3.BuiltList<_i2.OrganizationConformancePackDetailedStatus>?
       get organizationConformancePackDetailedStatuses;
+
+  /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         organizationConformancePackDetailedStatuses,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'GetOrganizationConformancePackDetailedStatusResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'organizationConformancePackDetailedStatuses',
       organizationConformancePackDetailedStatuses,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -112,27 +113,24 @@ class GetOrganizationConformancePackDetailedStatusResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'OrganizationConformancePackDetailedStatuses':
-          if (value != null) {
-            result.organizationConformancePackDetailedStatuses
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.OrganizationConformancePackDetailedStatus)],
-              ),
-            ) as _i3.BuiltList<_i2.OrganizationConformancePackDetailedStatus>));
-          }
-          break;
+          result.organizationConformancePackDetailedStatuses
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.OrganizationConformancePackDetailedStatus)],
+            ),
+          ) as _i3.BuiltList<_i2.OrganizationConformancePackDetailedStatus>));
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -142,31 +140,33 @@ class GetOrganizationConformancePackDetailedStatusResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetOrganizationConformancePackDetailedStatusResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload =
-        (object as GetOrganizationConformancePackDetailedStatusResponse);
-    final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.organizationConformancePackDetailedStatuses != null) {
-      result
+    final result$ = <Object?>[];
+    final GetOrganizationConformancePackDetailedStatusResponse(
+      :organizationConformancePackDetailedStatuses,
+      :nextToken
+    ) = object;
+    if (organizationConformancePackDetailedStatuses != null) {
+      result$
         ..add('OrganizationConformancePackDetailedStatuses')
         ..add(serializers.serialize(
-          payload.organizationConformancePackDetailedStatuses!,
+          organizationConformancePackDetailedStatuses,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.OrganizationConformancePackDetailedStatus)],
           ),
         ));
     }
-    return result;
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

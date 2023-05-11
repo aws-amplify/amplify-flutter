@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.account; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,16 +19,16 @@ abstract class Account
     implements Built<Account, AccountBuilder> {
   /// Represents an AWS account that is associated with API Gateway.
   factory Account({
-    String? apiKeyVersion,
     String? cloudwatchRoleArn,
-    List<String>? features,
     _i2.ThrottleSettings? throttleSettings,
+    List<String>? features,
+    String? apiKeyVersion,
   }) {
     return _$Account._(
-      apiKeyVersion: apiKeyVersion,
       cloudwatchRoleArn: cloudwatchRoleArn,
-      features: features == null ? null : _i3.BuiltList(features),
       throttleSettings: throttleSettings,
+      features: features == null ? null : _i3.BuiltList(features),
+      apiKeyVersion: apiKeyVersion,
     );
   }
 
@@ -50,42 +51,42 @@ abstract class Account
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AccountBuilder b) {}
 
-  /// The version of the API keys used for the account.
-  String? get apiKeyVersion;
-
   /// The ARN of an Amazon CloudWatch role for the current Account.
   String? get cloudwatchRoleArn;
+
+  /// Specifies the API request limits configured for the current Account.
+  _i2.ThrottleSettings? get throttleSettings;
 
   /// A list of features supported for the account. When usage plans are enabled, the features list will include an entry of `"UsagePlans"`.
   _i3.BuiltList<String>? get features;
 
-  /// Specifies the API request limits configured for the current Account.
-  _i2.ThrottleSettings? get throttleSettings;
+  /// The version of the API keys used for the account.
+  String? get apiKeyVersion;
   @override
   List<Object?> get props => [
-        apiKeyVersion,
         cloudwatchRoleArn,
-        features,
         throttleSettings,
+        features,
+        apiKeyVersion,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Account');
     helper.add(
-      'apiKeyVersion',
-      apiKeyVersion,
-    );
-    helper.add(
       'cloudwatchRoleArn',
       cloudwatchRoleArn,
+    );
+    helper.add(
+      'throttleSettings',
+      throttleSettings,
     );
     helper.add(
       'features',
       features,
     );
     helper.add(
-      'throttleSettings',
-      throttleSettings,
+      'apiKeyVersion',
+      apiKeyVersion,
     );
     return helper.toString();
   }
@@ -119,42 +120,33 @@ class AccountRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'apiKeyVersion':
-          if (value != null) {
-            result.apiKeyVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.apiKeyVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'cloudwatchRoleArn':
-          if (value != null) {
-            result.cloudwatchRoleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.cloudwatchRoleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'features':
-          if (value != null) {
-            result.features.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.features.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'throttleSettings':
-          if (value != null) {
-            result.throttleSettings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ThrottleSettings),
-            ) as _i2.ThrottleSettings));
-          }
-          break;
+          result.throttleSettings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ThrottleSettings),
+          ) as _i2.ThrottleSettings));
       }
     }
 
@@ -164,46 +156,51 @@ class AccountRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Account object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Account);
-    final result = <Object?>[];
-    if (payload.apiKeyVersion != null) {
-      result
+    final result$ = <Object?>[];
+    final Account(
+      :apiKeyVersion,
+      :cloudwatchRoleArn,
+      :features,
+      :throttleSettings
+    ) = object;
+    if (apiKeyVersion != null) {
+      result$
         ..add('apiKeyVersion')
         ..add(serializers.serialize(
-          payload.apiKeyVersion!,
+          apiKeyVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.cloudwatchRoleArn != null) {
-      result
+    if (cloudwatchRoleArn != null) {
+      result$
         ..add('cloudwatchRoleArn')
         ..add(serializers.serialize(
-          payload.cloudwatchRoleArn!,
+          cloudwatchRoleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.features != null) {
-      result
+    if (features != null) {
+      result$
         ..add('features')
         ..add(serializers.serialize(
-          payload.features!,
+          features,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.throttleSettings != null) {
-      result
+    if (throttleSettings != null) {
+      result$
         ..add('throttleSettings')
         ..add(serializers.serialize(
-          payload.throttleSettings!,
+          throttleSettings,
           specifiedType: const FullType(_i2.ThrottleSettings),
         ));
     }
-    return result;
+    return result$;
   }
 }

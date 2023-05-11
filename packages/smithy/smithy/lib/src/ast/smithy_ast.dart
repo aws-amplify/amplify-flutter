@@ -7,15 +7,14 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/ast.dart';
 
-import 'serializers.dart';
+import 'package:smithy/src/ast/serializers.dart';
 
 part 'smithy_ast.g.dart';
 
 class SmithyVersion extends EnumClass {
+  const SmithyVersion._(super.name);
   static const SmithyVersion v1 = _$v1;
   static const SmithyVersion v2 = _$v2;
-
-  const SmithyVersion._(String name) : super(name);
 
   static BuiltSet<SmithyVersion> get values => _$SmithyVersionValues;
   static SmithyVersion valueOf(String name) => _$SmithyVersionValueOf(name);
@@ -56,13 +55,11 @@ class SmithyVersionSerializer implements PrimitiveSerializer<SmithyVersion> {
     SmithyVersion object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    switch (object) {
-      case SmithyVersion.v1:
-        return '1.0';
-      case SmithyVersion.v2:
-        return '2.0';
-    }
-    throw ArgumentError('Unknown Smithy version: $object');
+    return switch (object) {
+      SmithyVersion.v1 => '1.0',
+      SmithyVersion.v2 => '2.0',
+      _ => throw ArgumentError('Unknown Smithy version: $object'),
+    };
   }
 }
 

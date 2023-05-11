@@ -8,15 +8,15 @@ part of rest_xml_v2.rest_xml_protocol.model.query_precedence_input;
 
 class _$QueryPrecedenceInput extends QueryPrecedenceInput {
   @override
-  final _i3.BuiltMap<String, String>? baz;
-  @override
   final String? foo;
+  @override
+  final _i3.BuiltMap<String, String>? baz;
 
   factory _$QueryPrecedenceInput(
           [void Function(QueryPrecedenceInputBuilder)? updates]) =>
       (new QueryPrecedenceInputBuilder()..update(updates))._build();
 
-  _$QueryPrecedenceInput._({this.baz, this.foo}) : super._();
+  _$QueryPrecedenceInput._({this.foo, this.baz}) : super._();
 
   @override
   QueryPrecedenceInput rebuild(
@@ -31,15 +31,15 @@ class _$QueryPrecedenceInput extends QueryPrecedenceInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is QueryPrecedenceInput &&
-        baz == other.baz &&
-        foo == other.foo;
+        foo == other.foo &&
+        baz == other.baz;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, baz.hashCode);
     _$hash = $jc(_$hash, foo.hashCode);
+    _$hash = $jc(_$hash, baz.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -49,14 +49,14 @@ class QueryPrecedenceInputBuilder
     implements Builder<QueryPrecedenceInput, QueryPrecedenceInputBuilder> {
   _$QueryPrecedenceInput? _$v;
 
+  String? _foo;
+  String? get foo => _$this._foo;
+  set foo(String? foo) => _$this._foo = foo;
+
   _i3.MapBuilder<String, String>? _baz;
   _i3.MapBuilder<String, String> get baz =>
       _$this._baz ??= new _i3.MapBuilder<String, String>();
   set baz(_i3.MapBuilder<String, String>? baz) => _$this._baz = baz;
-
-  String? _foo;
-  String? get foo => _$this._foo;
-  set foo(String? foo) => _$this._foo = foo;
 
   QueryPrecedenceInputBuilder() {
     QueryPrecedenceInput._init(this);
@@ -65,8 +65,8 @@ class QueryPrecedenceInputBuilder
   QueryPrecedenceInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _baz = $v.baz?.toBuilder();
       _foo = $v.foo;
+      _baz = $v.baz?.toBuilder();
       _$v = null;
     }
     return this;
@@ -90,7 +90,7 @@ class QueryPrecedenceInputBuilder
     _$QueryPrecedenceInput _$result;
     try {
       _$result =
-          _$v ?? new _$QueryPrecedenceInput._(baz: _baz?.build(), foo: foo);
+          _$v ?? new _$QueryPrecedenceInput._(foo: foo, baz: _baz?.build());
     } catch (_) {
       late String _$failedField;
       try {

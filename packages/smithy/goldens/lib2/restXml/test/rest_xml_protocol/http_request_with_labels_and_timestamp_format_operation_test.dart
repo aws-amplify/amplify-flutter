@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_xml_v2.rest_xml_protocol.test.http_request_with_labels_and_timestamp_format_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -92,56 +93,52 @@ class HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'defaultFormat':
-          result.defaultFormat =
-              _i4.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value!,
-          );
-          break;
-        case 'memberDateTime':
-          result.memberDateTime =
-              _i4.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value!,
-          );
-          break;
         case 'memberEpochSeconds':
           result.memberEpochSeconds =
               _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
         case 'memberHttpDate':
           result.memberHttpDate =
               _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
-        case 'targetDateTime':
-          result.targetDateTime =
+        case 'memberDateTime':
+          result.memberDateTime =
               _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
+        case 'defaultFormat':
+          result.defaultFormat =
+              _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'targetEpochSeconds':
           result.targetEpochSeconds =
               _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
         case 'targetHttpDate':
           result.targetHttpDate =
               _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
+        case 'targetDateTime':
+          result.targetDateTime =
+              _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -151,7 +148,7 @@ class HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.HttpRequestWithLabelsAndTimestampFormatInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

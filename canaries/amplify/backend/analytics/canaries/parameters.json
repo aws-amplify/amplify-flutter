@@ -1,0 +1,21 @@
+{
+    "appName": "canaries",
+    "roleName": "pinpointLambdaRole88eef202",
+    "cloudformationPolicyName": "cloudformationPolicy88eef202",
+    "cloudWatchPolicyName": "cloudWatchPolicy88eef202",
+    "pinpointPolicyName": "pinpointPolicy88eef202",
+    "authPolicyName": "pinpoint_amplify_88eef202",
+    "unauthPolicyName": "pinpoint_amplify_88eef202",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

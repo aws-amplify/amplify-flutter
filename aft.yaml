@@ -6,28 +6,29 @@
 # Application of these values can be verified/updated with the `aft`
 # tool.
 dependencies:
-  async: ^2.9.0
-  build_runner: ^2.0.0
-  built_value: ">=8.4.0 <8.5.0"
-  built_value_generator: 8.4.4
+  async: ^2.10.0
+  build_runner: ^2.4.0
+  build_web_compilers: ^4.0.0
+  built_value: ">=8.5.0 <8.6.0"
+  built_value_generator: 8.5.0
   code_builder: 4.4.0
-  # TODO(dnys1): Bump when SDK is >=2.19
-  dart_style: 2.2.5
-  drift: ">=2.4.0 <2.7.0"
+  dart_style: 2.3.1
+  drift: ">=2.4.0 <2.9.0"
   flutter_plugin_android_lifecycle: ^2.0.9
-  json_annotation: ">=4.8.0 <4.9.0"
-  json_serializable: 6.6.1
-  intl: ">=0.17.0 <1.0.0"
+  json_annotation: ">=4.8.1 <4.9.0"
+  json_serializable: 6.6.2
+  intl: ">=0.18.0 <1.0.0"
   mime: ^1.0.0
   pigeon: ^9.2.4
   stack_trace: ^1.10.0
   uuid: ">=3.0.6 <=3.0.7"
   xml: ">=6.1.0 <=6.2.2"
+  test: ^1.22.1
 
 # The current constraints for SDKs and OSs.
 environment:
-  sdk: ">=2.18.0 <4.0.0"
-  flutter: ">=3.3.0"
+  sdk: ^3.0.0
+  flutter: ">=3.10.0"
   android:
     minSdkVersion: "24"
   ios:
@@ -50,15 +51,11 @@ components:
     summary: amplify_flutter
     packages:
       - amplify_flutter
-      - amplify_flutter_ios
-      - amplify_flutter_android
       - amplify_core
       - amplify_datastore
       - amplify_datastore_plugin_interface
       - amplify_analytics_pinpoint
       - amplify_api
-      - amplify_api_android
-      - amplify_api_ios
       - amplify_auth_cognito
       - amplify_auth_cognito_android
       - amplify_auth_cognito_ios

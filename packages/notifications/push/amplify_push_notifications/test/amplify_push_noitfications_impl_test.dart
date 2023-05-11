@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -99,6 +100,7 @@ void main() {
         config: config,
       );
 
+      verify(mockPushNotificationsHostApi.requestInitialToken()).called(1);
       verify(
         mockServiceProviderClient.recordNotificationEvent(
           eventType: PinpointEventType.notificationOpened,
@@ -118,6 +120,8 @@ void main() {
         authProviderRepo: authProviderRepo,
         config: config,
       );
+
+      verify(mockPushNotificationsHostApi.requestInitialToken()).called(1);
       verify(mockServiceProviderClient.registerDevice('123')).called(1);
 
       void tokenHandler(String token) {
@@ -262,6 +266,23 @@ void main() {
             throwsA(isA<ConfigurationError>()),
           );
         },
+      );
+    });
+
+    test('configure should fail if timed out awaiting for device token',
+        () async {
+      expect(
+        plugin.configure(
+          authProviderRepo: authProviderRepo,
+          config: config,
+        ),
+        throwsA(
+          isA<PushNotificationException>().having(
+            (o) => o.underlyingException,
+            'underlyingException',
+            isA<TimeoutException>(),
+          ),
+        ),
       );
     });
   });

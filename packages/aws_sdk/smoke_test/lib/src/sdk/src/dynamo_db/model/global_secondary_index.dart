@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.global_secondary_index; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -129,13 +130,15 @@ class GlobalSecondaryIndexAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IndexName':
           result.indexName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'KeySchema':
           result.keySchema.replace((serializers.deserialize(
             value,
@@ -144,21 +147,16 @@ class GlobalSecondaryIndexAwsJson10Serializer
               [FullType(_i2.KeySchemaElement)],
             ),
           ) as _i5.BuiltList<_i2.KeySchemaElement>));
-          break;
         case 'Projection':
           result.projection.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.Projection),
           ) as _i3.Projection));
-          break;
         case 'ProvisionedThroughput':
-          if (value != null) {
-            result.provisionedThroughput.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ProvisionedThroughput),
-            ) as _i4.ProvisionedThroughput));
-          }
-          break;
+          result.provisionedThroughput.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ProvisionedThroughput),
+          ) as _i4.ProvisionedThroughput));
       }
     }
 
@@ -168,19 +166,25 @@ class GlobalSecondaryIndexAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GlobalSecondaryIndex object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GlobalSecondaryIndex);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GlobalSecondaryIndex(
+      :indexName,
+      :keySchema,
+      :projection,
+      :provisionedThroughput
+    ) = object;
+    result$.addAll([
       'IndexName',
       serializers.serialize(
-        payload.indexName,
+        indexName,
         specifiedType: const FullType(String),
       ),
       'KeySchema',
       serializers.serialize(
-        payload.keySchema,
+        keySchema,
         specifiedType: const FullType(
           _i5.BuiltList,
           [FullType(_i2.KeySchemaElement)],
@@ -188,18 +192,18 @@ class GlobalSecondaryIndexAwsJson10Serializer
       ),
       'Projection',
       serializers.serialize(
-        payload.projection,
+        projection,
         specifiedType: const FullType(_i3.Projection),
       ),
-    ];
-    if (payload.provisionedThroughput != null) {
-      result
+    ]);
+    if (provisionedThroughput != null) {
+      result$
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
-          payload.provisionedThroughput!,
+          provisionedThroughput,
           specifiedType: const FullType(_i4.ProvisionedThroughput),
         ));
     }
-    return result;
+    return result$;
   }
 }

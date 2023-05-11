@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library custom_v2.custom.test.http_checksum_really_required_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -88,23 +89,20 @@ class HttpChecksumReallyRequiredInputRestJson1Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'checksumAlgorithm':
-          if (value != null) {
-            result.checksumAlgorithm = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.ChecksumAlgorithm),
-            ) as _i6.ChecksumAlgorithm);
-          }
-          break;
+          result.checksumAlgorithm = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.ChecksumAlgorithm),
+          ) as _i6.ChecksumAlgorithm);
         case 'content':
-          if (value != null) {
-            result.content = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.Uint8List),
-            ) as _i7.Uint8List);
-          }
-          break;
+          result.content = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.Uint8List),
+          ) as _i7.Uint8List);
       }
     }
 
@@ -115,7 +113,7 @@ class HttpChecksumReallyRequiredInputRestJson1Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.HttpChecksumReallyRequiredInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

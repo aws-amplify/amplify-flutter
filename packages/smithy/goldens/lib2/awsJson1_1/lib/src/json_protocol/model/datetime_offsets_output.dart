@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v2.json_protocol.model.datetime_offsets_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -78,15 +79,15 @@ class DatetimeOffsetsOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'datetime':
-          if (value != null) {
-            result.datetime = _i2.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.datetime = _i2.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -96,19 +97,19 @@ class DatetimeOffsetsOutputAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DatetimeOffsetsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DatetimeOffsetsOutput);
-    final result = <Object?>[];
-    if (payload.datetime != null) {
-      result
+    final result$ = <Object?>[];
+    final DatetimeOffsetsOutput(:datetime) = object;
+    if (datetime != null) {
+      result$
         ..add('datetime')
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.datetime!,
+          datetime,
         ));
     }
-    return result;
+    return result$;
   }
 }

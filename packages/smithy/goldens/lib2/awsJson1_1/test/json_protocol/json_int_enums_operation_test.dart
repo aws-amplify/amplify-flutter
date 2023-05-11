@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library aws_json1_1_v2.json_protocol.test.json_int_enums_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -165,67 +166,52 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'intEnum1':
-          if (value != null) {
-            result.intEnum1 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.IntegerEnum),
-            ) as _i7.IntegerEnum);
-          }
-          break;
+          result.intEnum1 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.IntegerEnum),
+          ) as _i7.IntegerEnum);
         case 'intEnum2':
-          if (value != null) {
-            result.intEnum2 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.IntegerEnum),
-            ) as _i7.IntegerEnum);
-          }
-          break;
+          result.intEnum2 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.IntegerEnum),
+          ) as _i7.IntegerEnum);
         case 'intEnum3':
-          if (value != null) {
-            result.intEnum3 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.IntegerEnum),
-            ) as _i7.IntegerEnum);
-          }
-          break;
+          result.intEnum3 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.IntegerEnum),
+          ) as _i7.IntegerEnum);
         case 'intEnumList':
-          if (value != null) {
-            result.intEnumList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i7.IntegerEnum)],
-              ),
-            ) as _i8.BuiltList<_i7.IntegerEnum>));
-          }
-          break;
-        case 'intEnumMap':
-          if (value != null) {
-            result.intEnumMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i7.IntegerEnum),
-                ],
-              ),
-            ) as _i8.BuiltMap<String, _i7.IntegerEnum>));
-          }
-          break;
+          result.intEnumList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i7.IntegerEnum)],
+            ),
+          ) as _i8.BuiltList<_i7.IntegerEnum>));
         case 'intEnumSet':
-          if (value != null) {
-            result.intEnumSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltSet,
-                [FullType(_i7.IntegerEnum)],
-              ),
-            ) as _i8.BuiltSet<_i7.IntegerEnum>));
-          }
-          break;
+          result.intEnumSet.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltSet,
+              [FullType(_i7.IntegerEnum)],
+            ),
+          ) as _i8.BuiltSet<_i7.IntegerEnum>));
+        case 'intEnumMap':
+          result.intEnumMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i7.IntegerEnum),
+              ],
+            ),
+          ) as _i8.BuiltMap<String, _i7.IntegerEnum>));
       }
     }
 
@@ -235,7 +221,7 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i6.JsonIntEnumsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

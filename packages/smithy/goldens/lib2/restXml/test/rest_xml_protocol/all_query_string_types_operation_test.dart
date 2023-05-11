@@ -1,16 +1,17 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 // ignore_for_file: unused_element
 library rest_xml_v2.rest_xml_protocol.test.all_query_string_types_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i9;
+import 'package:fixnum/fixnum.dart' as _i7;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/all_query_string_types_input.dart'
     as _i5;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/foo_enum.dart' as _i7;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/foo_enum.dart' as _i8;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/integer_enum.dart'
-    as _i8;
+    as _i9;
 import 'package:rest_xml_v2/src/rest_xml_protocol/operation/all_query_string_types_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i4;
@@ -357,209 +358,149 @@ class AllQueryStringTypesInputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'queryBoolean':
-          if (value != null) {
-            result.queryBoolean = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
-        case 'queryBooleanList':
-          if (value != null) {
-            result.queryBooleanList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(bool)],
-              ),
-            ) as _i6.BuiltList<bool>));
-          }
-          break;
-        case 'queryByte':
-          if (value != null) {
-            result.queryByte = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'queryDouble':
-          if (value != null) {
-            result.queryDouble = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
-        case 'queryDoubleList':
-          if (value != null) {
-            result.queryDoubleList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(double)],
-              ),
-            ) as _i6.BuiltList<double>));
-          }
-          break;
-        case 'queryEnum':
-          if (value != null) {
-            result.queryEnum = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.FooEnum),
-            ) as _i7.FooEnum);
-          }
-          break;
-        case 'queryEnumList':
-          if (value != null) {
-            result.queryEnumList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i7.FooEnum)],
-              ),
-            ) as _i6.BuiltList<_i7.FooEnum>));
-          }
-          break;
-        case 'queryFloat':
-          if (value != null) {
-            result.queryFloat = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
-        case 'queryInteger':
-          if (value != null) {
-            result.queryInteger = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'queryIntegerEnum':
-          if (value != null) {
-            result.queryIntegerEnum = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.IntegerEnum),
-            ) as _i8.IntegerEnum);
-          }
-          break;
-        case 'queryIntegerEnumList':
-          if (value != null) {
-            result.queryIntegerEnumList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i8.IntegerEnum)],
-              ),
-            ) as _i6.BuiltList<_i8.IntegerEnum>));
-          }
-          break;
-        case 'queryIntegerList':
-          if (value != null) {
-            result.queryIntegerList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(int)],
-              ),
-            ) as _i6.BuiltList<int>));
-          }
-          break;
-        case 'queryIntegerSet':
-          if (value != null) {
-            result.queryIntegerSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltSet,
-                [FullType(int)],
-              ),
-            ) as _i6.BuiltSet<int>));
-          }
-          break;
-        case 'queryLong':
-          if (value != null) {
-            result.queryLong = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i9.Int64),
-            ) as _i9.Int64);
-          }
-          break;
-        case 'queryParamsMapOfStrings':
-          if (value != null) {
-            result.queryParamsMapOfStrings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
-        case 'queryShort':
-          if (value != null) {
-            result.queryShort = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'queryString':
-          if (value != null) {
-            result.queryString = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.queryString = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'queryStringList':
-          if (value != null) {
-            result.queryStringList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
+          result.queryStringList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
         case 'queryStringSet':
-          if (value != null) {
-            result.queryStringSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltSet,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltSet<String>));
-          }
-          break;
+          result.queryStringSet.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltSet,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltSet<String>));
+        case 'queryByte':
+          result.queryByte = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'queryShort':
+          result.queryShort = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'queryInteger':
+          result.queryInteger = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'queryIntegerList':
+          result.queryIntegerList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(int)],
+            ),
+          ) as _i6.BuiltList<int>));
+        case 'queryIntegerSet':
+          result.queryIntegerSet.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltSet,
+              [FullType(int)],
+            ),
+          ) as _i6.BuiltSet<int>));
+        case 'queryLong':
+          result.queryLong = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.Int64),
+          ) as _i7.Int64);
+        case 'queryFloat':
+          result.queryFloat = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
+        case 'queryDouble':
+          result.queryDouble = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
+        case 'queryDoubleList':
+          result.queryDoubleList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(double)],
+            ),
+          ) as _i6.BuiltList<double>));
+        case 'queryBoolean':
+          result.queryBoolean = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
+        case 'queryBooleanList':
+          result.queryBooleanList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(bool)],
+            ),
+          ) as _i6.BuiltList<bool>));
         case 'queryTimestamp':
-          if (value != null) {
-            result.queryTimestamp =
-                _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.queryTimestamp =
+              _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'queryTimestampList':
-          if (value != null) {
-            result.queryTimestampList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(DateTime)],
-              ),
-            ) as _i6.BuiltList<DateTime>));
-          }
-          break;
+          result.queryTimestampList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(DateTime)],
+            ),
+          ) as _i6.BuiltList<DateTime>));
+        case 'queryEnum':
+          result.queryEnum = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.FooEnum),
+          ) as _i8.FooEnum);
+        case 'queryEnumList':
+          result.queryEnumList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i8.FooEnum)],
+            ),
+          ) as _i6.BuiltList<_i8.FooEnum>));
+        case 'queryIntegerEnum':
+          result.queryIntegerEnum = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i9.IntegerEnum),
+          ) as _i9.IntegerEnum);
+        case 'queryIntegerEnumList':
+          result.queryIntegerEnumList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i9.IntegerEnum)],
+            ),
+          ) as _i6.BuiltList<_i9.IntegerEnum>));
+        case 'queryParamsMapOfStrings':
+          result.queryParamsMapOfStrings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
       }
     }
 
@@ -569,7 +510,7 @@ class AllQueryStringTypesInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i5.AllQueryStringTypesInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

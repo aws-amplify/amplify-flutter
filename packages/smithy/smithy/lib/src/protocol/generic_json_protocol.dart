@@ -46,7 +46,7 @@ class GenericJsonProtocol<InputPayload, Input, OutputPayload, Output>
     this.mediaType,
     this.requestInterceptors = const [],
     this.responseInterceptors = const [],
-    List<SmithySerializer> serializers = const [],
+    List<SmithySerializer<dynamic>> serializers = const [],
     Map<FullType, Function> builderFactories = const {},
   })  : _userSerializers = serializers,
         _builderFactories = builderFactories;
@@ -57,7 +57,7 @@ class GenericJsonProtocol<InputPayload, Input, OutputPayload, Output>
   @override
   final List<HttpResponseInterceptor> responseInterceptors;
 
-  final List<SmithySerializer> _userSerializers;
+  final List<SmithySerializer<dynamic>> _userSerializers;
   final Map<FullType, Function> _builderFactories;
 
   static final _coreSerializers = (Serializers().toBuilder()
@@ -72,10 +72,12 @@ class GenericJsonProtocol<InputPayload, Input, OutputPayload, Output>
 
   @override
   late final Serializers serializers = () {
-    final builder = _coreSerializers.toBuilder();
-    builder.addAll(_userSerializers.where((el) {
-      return el.supportedProtocols.contains(protocolId);
-    }));
+    final builder = _coreSerializers.toBuilder()
+      ..addAll(
+        _userSerializers.where((el) {
+          return el.supportedProtocols.contains(protocolId);
+        }),
+      );
     for (final entry in _builderFactories.entries) {
       builder.addBuilderFactory(entry.key, entry.value);
     }

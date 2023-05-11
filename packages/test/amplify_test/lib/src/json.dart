@@ -7,7 +7,7 @@ import 'dart:io';
 /// Loads the JSON object from the given [path].
 Future<dynamic> getJsonFromFile(String path) async {
   path = 'resources/$path';
-  String jsonString = '';
+  var jsonString = '';
   try {
     jsonString = await File(path).readAsString();
   } on Object {

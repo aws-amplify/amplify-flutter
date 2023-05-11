@@ -14,6 +14,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_device_password_veri
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_worker.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_password_verifier_worker.dart';
+import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
@@ -32,7 +33,8 @@ import 'package:meta/meta.dart';
 /// the same pattern of calling `cognitoIdp.InitiateAuth` plus some number of
 /// challenge responses.
 /// {@endtemplate}
-class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
+final class SignInStateMachine
+    extends AuthStateMachine<SignInEvent, SignInState> {
   /// {@macro amplify_auth_cognito.sign_in_state_machine}
   SignInStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 
@@ -170,22 +172,16 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
     }
 
     authFlowType = event.authFlowType?.sdkValue ?? defaultAuthFlowType;
-    switch (authFlowType) {
-      case AuthFlowType.userSrpAuth:
-        expectPassword();
-        return initiateSrpAuth(event);
-      case AuthFlowType.customAuth:
-        return initiateCustomAuth(event);
-      case AuthFlowType.userPasswordAuth:
-        return initiateUserPasswordAuth(event, expectPassword());
-      case AuthFlowType.refreshToken:
-      case AuthFlowType.refreshTokenAuth:
-      case AuthFlowType.adminNoSrpAuth:
-      case AuthFlowType.adminUserPasswordAuth:
-        break;
-    }
-
-    throw StateError('Unsupported auth flow: $authFlowType');
+    return switch (authFlowType) {
+      AuthFlowType.userSrpAuth => () {
+          expectPassword();
+          return initiateSrpAuth(event);
+        }(),
+      AuthFlowType.customAuth => initiateCustomAuth(event),
+      AuthFlowType.userPasswordAuth =>
+        initiateUserPasswordAuth(event, expectPassword()),
+      _ => throw StateError('Unsupported auth flow: $authFlowType'),
+    };
   }
 
   /// Creates the response to a challenge with name [challengeName] and
@@ -424,7 +420,6 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
                 'Include a password in your call to Amplify.Auth.signIn',
           );
         }
-        break;
       case AuthenticationFlowType.customAuthWithoutSrp:
         if (password != null) {
           throw const AuthValidationException(
@@ -434,7 +429,6 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
                 'Do not include a password in your call to Amplify.Auth.signIn',
           );
         }
-        break;
       // ignore: deprecated_member_use
       case AuthenticationFlowType.customAuth:
       default:
@@ -470,27 +464,19 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
     ChallengeNameType challengeName,
     BuiltMap<String, String> challengeParameters,
   ) async {
-    switch (challengeName) {
-      case ChallengeNameType.passwordVerifier:
-        return createPasswordVerifierRequest(challengeParameters);
-      case ChallengeNameType.deviceSrpAuth:
-        return createDeviceSrpAuthRequest();
-      case ChallengeNameType.devicePasswordVerifier:
-        return createDevicePasswordVerifierRequest(challengeParameters);
-      case ChallengeNameType.smsMfa:
-        if (event is SignInRespondToChallenge) {
-          return createSmsMfaRequest(event);
-        }
-        break;
-      case ChallengeNameType.newPasswordRequired:
-        if (event is SignInRespondToChallenge) {
-          return createNewPasswordRequest(event);
-        }
-        break;
-      default:
-        break;
-    }
-    return null;
+    final hasUserResponse = event is SignInRespondToChallenge;
+    return switch (challengeName) {
+      ChallengeNameType.passwordVerifier =>
+        createPasswordVerifierRequest(challengeParameters),
+      ChallengeNameType.deviceSrpAuth => createDeviceSrpAuthRequest(),
+      ChallengeNameType.devicePasswordVerifier =>
+        createDevicePasswordVerifierRequest(challengeParameters),
+      ChallengeNameType.smsMfa when hasUserResponse =>
+        createSmsMfaRequest(event),
+      ChallengeNameType.newPasswordRequired when hasUserResponse =>
+        createNewPasswordRequest(event),
+      _ => null,
+    };
   }
 
   /// Adds the session info from [result] to the user.
@@ -718,7 +704,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
         clientMetadata: event?.clientMetadata,
       );
 
-      return SignInState.success(_user.build());
+      return SignInState.success(_user.build().authUser);
     }
 
     await _updateUser(_challengeParameters);
@@ -834,29 +820,21 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
 
   @override
   Future<void> resolve(SignInEvent event) async {
-    switch (event.type) {
-      case SignInEventType.initiate:
-        event as SignInInitiate;
+    switch (event) {
+      case SignInInitiate _:
         parameters = event.parameters;
         await _assertSignedOut();
         _reset();
         await run(event);
-        return;
-      case SignInEventType.respondToChallenge:
-        event as SignInRespondToChallenge;
+      case SignInRespondToChallenge _:
         final stopState = await _processChallenge(event);
         emit(stopState);
-        return;
-      case SignInEventType.cancelled:
-        event as SignInCancelled;
+      case SignInCancelled _:
         emit(const SignInState.cancelling());
         _reset();
         emit(const SignInState.notStarted());
-        return;
-      case SignInEventType.succeeded:
-        event as SignInSucceeded;
-        emit(SignInState.success(event.user));
-        return;
+      case SignInSucceeded(:final user):
+        emit(SignInState.success(user));
     }
   }
 

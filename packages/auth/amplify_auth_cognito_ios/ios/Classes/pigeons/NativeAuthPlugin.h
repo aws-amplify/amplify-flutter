@@ -13,59 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class NativeAuthSession;
-@class NativeAuthUser;
-@class NativeUserPoolTokens;
-@class NativeAWSCredentials;
 @class LegacyCredentialStoreData;
-
-@interface NativeAuthSession : NSObject
-/// `init` unavailable to enforce nonnull fields, see the `make` class method.
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)makeWithIsSignedIn:(NSNumber *)isSignedIn
-    userSub:(nullable NSString *)userSub
-    userPoolTokens:(nullable NativeUserPoolTokens *)userPoolTokens
-    identityId:(nullable NSString *)identityId
-    awsCredentials:(nullable NativeAWSCredentials *)awsCredentials;
-@property(nonatomic, strong) NSNumber * isSignedIn;
-@property(nonatomic, copy, nullable) NSString * userSub;
-@property(nonatomic, strong, nullable) NativeUserPoolTokens * userPoolTokens;
-@property(nonatomic, copy, nullable) NSString * identityId;
-@property(nonatomic, strong, nullable) NativeAWSCredentials * awsCredentials;
-@end
-
-@interface NativeAuthUser : NSObject
-/// `init` unavailable to enforce nonnull fields, see the `make` class method.
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)makeWithUserId:(NSString *)userId
-    username:(NSString *)username;
-@property(nonatomic, copy) NSString * userId;
-@property(nonatomic, copy) NSString * username;
-@end
-
-@interface NativeUserPoolTokens : NSObject
-/// `init` unavailable to enforce nonnull fields, see the `make` class method.
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)makeWithAccessToken:(NSString *)accessToken
-    refreshToken:(NSString *)refreshToken
-    idToken:(NSString *)idToken;
-@property(nonatomic, copy) NSString * accessToken;
-@property(nonatomic, copy) NSString * refreshToken;
-@property(nonatomic, copy) NSString * idToken;
-@end
-
-@interface NativeAWSCredentials : NSObject
-/// `init` unavailable to enforce nonnull fields, see the `make` class method.
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)makeWithAccessKeyId:(NSString *)accessKeyId
-    secretAccessKey:(NSString *)secretAccessKey
-    sessionToken:(nullable NSString *)sessionToken
-    expirationIso8601Utc:(nullable NSString *)expirationIso8601Utc;
-@property(nonatomic, copy) NSString * accessKeyId;
-@property(nonatomic, copy) NSString * secretAccessKey;
-@property(nonatomic, copy, nullable) NSString * sessionToken;
-@property(nonatomic, copy, nullable) NSString * expirationIso8601Utc;
-@end
 
 @interface LegacyCredentialStoreData : NSObject
 + (instancetype)makeWithIdentityId:(nullable NSString *)identityId
@@ -95,18 +43,12 @@ NSObject<FlutterMessageCodec> *NativeAuthPluginGetCodec(void);
 /// was closed and a redirect happened to the custom URI scheme (iOS) or an
 /// intent was launched with the redirect parameters (Android).
 - (void)exchangeParams:(NSDictionary<NSString *, NSString *> *)params completion:(void (^)(FlutterError *_Nullable))completion;
-- (void)fetchAuthSessionWithCompletion:(void (^)(NativeAuthSession *_Nullable, FlutterError *_Nullable))completion;
 @end
 
 /// The codec used by NativeAuthBridge.
 NSObject<FlutterMessageCodec> *NativeAuthBridgeGetCodec(void);
 
 @protocol NativeAuthBridge
-/// Adds the native platform/plugin.
-///
-/// On iOS/Android, this calls `Amplify.addPlugin` with the [NativeAuthPlugin]
-/// implementation.
-- (void)addPluginWithCompletion:(void (^)(FlutterError *_Nullable))completion;
 /// Sign in by presenting [url] and waiting for a response to a URL with
 /// [callbackUrlScheme].
 ///
@@ -121,8 +63,6 @@ NSObject<FlutterMessageCodec> *NativeAuthBridgeGetCodec(void);
 - (nullable NSDictionary<NSString *, NSString *> *)getValidationDataWithError:(FlutterError *_Nullable *_Nonnull)error;
 /// @return `nil` only when `error != nil`.
 - (nullable NSString *)getBundleIdWithError:(FlutterError *_Nullable *_Nonnull)error;
-/// Updates the native cache of the current user.
-- (void)updateCurrentUserUser:(nullable NativeAuthUser *)user error:(FlutterError *_Nullable *_Nonnull)error;
 /// Fetch legacy credentials stored by native SDKs.
 - (void)getLegacyCredentialsIdentityPoolId:(nullable NSString *)identityPoolId appClientId:(nullable NSString *)appClientId completion:(void (^)(LegacyCredentialStoreData *_Nullable, FlutterError *_Nullable))completion;
 /// Clears the legacy credential store data.

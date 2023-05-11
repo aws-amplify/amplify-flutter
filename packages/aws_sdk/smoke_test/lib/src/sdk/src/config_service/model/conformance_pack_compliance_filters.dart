@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.conformance_pack_compliance_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,13 +22,13 @@ abstract class ConformancePackComplianceFilters
             ConformancePackComplianceFiltersBuilder> {
   /// Filters the conformance pack by compliance types and Config rule names.
   factory ConformancePackComplianceFilters({
-    _i2.ConformancePackComplianceType? complianceType,
     List<String>? configRuleNames,
+    _i2.ConformancePackComplianceType? complianceType,
   }) {
     return _$ConformancePackComplianceFilters._(
-      complianceType: complianceType,
       configRuleNames:
           configRuleNames == null ? null : _i3.BuiltList(configRuleNames),
+      complianceType: complianceType,
     );
   }
 
@@ -45,29 +46,29 @@ abstract class ConformancePackComplianceFilters
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackComplianceFiltersBuilder b) {}
 
+  /// Filters the results by Config rule names.
+  _i3.BuiltList<String>? get configRuleNames;
+
   /// Filters the results by compliance.
   ///
   /// The allowed values are `COMPLIANT` and `NON_COMPLIANT`. `INSUFFICIENT_DATA` is not supported.
   _i2.ConformancePackComplianceType? get complianceType;
-
-  /// Filters the results by Config rule names.
-  _i3.BuiltList<String>? get configRuleNames;
   @override
   List<Object?> get props => [
-        complianceType,
         configRuleNames,
+        complianceType,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ConformancePackComplianceFilters');
     helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
       'configRuleNames',
       configRuleNames,
+    );
+    helper.add(
+      'complianceType',
+      complianceType,
     );
     return helper.toString();
   }
@@ -102,26 +103,23 @@ class ConformancePackComplianceFiltersAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'ComplianceType':
-          if (value != null) {
-            result.complianceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConformancePackComplianceType),
-            ) as _i2.ConformancePackComplianceType);
-          }
-          break;
         case 'ConfigRuleNames':
-          if (value != null) {
-            result.configRuleNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.configRuleNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
+        case 'ComplianceType':
+          result.complianceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConformancePackComplianceType),
+          ) as _i2.ConformancePackComplianceType);
       }
     }
 
@@ -131,30 +129,31 @@ class ConformancePackComplianceFiltersAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConformancePackComplianceFilters object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConformancePackComplianceFilters);
-    final result = <Object?>[];
-    if (payload.complianceType != null) {
-      result
-        ..add('ComplianceType')
-        ..add(serializers.serialize(
-          payload.complianceType!,
-          specifiedType: const FullType(_i2.ConformancePackComplianceType),
-        ));
-    }
-    if (payload.configRuleNames != null) {
-      result
+    final result$ = <Object?>[];
+    final ConformancePackComplianceFilters(:configRuleNames, :complianceType) =
+        object;
+    if (configRuleNames != null) {
+      result$
         ..add('ConfigRuleNames')
         ..add(serializers.serialize(
-          payload.configRuleNames!,
+          configRuleNames,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    if (complianceType != null) {
+      result$
+        ..add('ComplianceType')
+        ..add(serializers.serialize(
+          complianceType,
+          specifiedType: const FullType(_i2.ConformancePackComplianceType),
+        ));
+    }
+    return result$;
   }
 }

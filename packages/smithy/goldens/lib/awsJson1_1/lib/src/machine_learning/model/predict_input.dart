@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.machine_learning.model.predict_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,13 +16,13 @@ abstract class PredictInput
     implements Built<PredictInput, PredictInputBuilder> {
   factory PredictInput({
     required String mlModelId,
-    required String predictEndpoint,
     required Map<String, String> record,
+    required String predictEndpoint,
   }) {
     return _$PredictInput._(
       mlModelId: mlModelId,
-      predictEndpoint: predictEndpoint,
       record: _i3.BuiltMap(record),
+      predictEndpoint: predictEndpoint,
     );
   }
 
@@ -44,15 +45,15 @@ abstract class PredictInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PredictInputBuilder b) {}
   String get mlModelId;
-  String get predictEndpoint;
   _i3.BuiltMap<String, String> get record;
+  String get predictEndpoint;
   @override
   PredictInput getPayload() => this;
   @override
   List<Object?> get props => [
         mlModelId,
-        predictEndpoint,
         record,
+        predictEndpoint,
       ];
   @override
   String toString() {
@@ -62,12 +63,12 @@ abstract class PredictInput
       mlModelId,
     );
     helper.add(
-      'predictEndpoint',
-      predictEndpoint,
-    );
-    helper.add(
       'record',
       record,
+    );
+    helper.add(
+      'predictEndpoint',
+      predictEndpoint,
     );
     return helper.toString();
   }
@@ -101,19 +102,15 @@ class PredictInputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'MLModelId':
           result.mlModelId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
-        case 'PredictEndpoint':
-          result.predictEndpoint = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'Record':
           result.record.replace((serializers.deserialize(
             value,
@@ -125,7 +122,11 @@ class PredictInputAwsJson11Serializer
               ],
             ),
           ) as _i3.BuiltMap<String, String>));
-          break;
+        case 'PredictEndpoint':
+          result.predictEndpoint = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -135,24 +136,20 @@ class PredictInputAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PredictInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PredictInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final PredictInput(:mlModelId, :record, :predictEndpoint) = object;
+    result$.addAll([
       'MLModelId',
       serializers.serialize(
-        payload.mlModelId,
-        specifiedType: const FullType(String),
-      ),
-      'PredictEndpoint',
-      serializers.serialize(
-        payload.predictEndpoint,
+        mlModelId,
         specifiedType: const FullType(String),
       ),
       'Record',
       serializers.serialize(
-        payload.record,
+        record,
         specifiedType: const FullType(
           _i3.BuiltMap,
           [
@@ -161,7 +158,12 @@ class PredictInputAwsJson11Serializer
           ],
         ),
       ),
-    ];
-    return result;
+      'PredictEndpoint',
+      serializers.serialize(
+        predictEndpoint,
+        specifiedType: const FullType(String),
+      ),
+    ]);
+    return result$;
   }
 }

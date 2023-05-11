@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -231,139 +232,97 @@ class EndpointResponseRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Address':
-          if (value != null) {
-            result.address = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.address = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ApplicationId':
-          if (value != null) {
-            result.applicationId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.applicationId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Attributes':
-          if (value != null) {
-            result.attributes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltListMultimap<String, String>));
-          }
-          break;
+          result.attributes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltListMultimap<String, String>));
         case 'ChannelType':
-          if (value != null) {
-            result.channelType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ChannelType),
-            ) as _i2.ChannelType);
-          }
-          break;
+          result.channelType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ChannelType),
+          ) as _i2.ChannelType);
         case 'CohortId':
-          if (value != null) {
-            result.cohortId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.cohortId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CreationDate':
-          if (value != null) {
-            result.creationDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.creationDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Demographic':
-          if (value != null) {
-            result.demographic.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.EndpointDemographic),
-            ) as _i3.EndpointDemographic));
-          }
-          break;
+          result.demographic.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.EndpointDemographic),
+          ) as _i3.EndpointDemographic));
         case 'EffectiveDate':
-          if (value != null) {
-            result.effectiveDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.effectiveDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'EndpointStatus':
-          if (value != null) {
-            result.endpointStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.endpointStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Location':
-          if (value != null) {
-            result.location.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.EndpointLocation),
-            ) as _i4.EndpointLocation));
-          }
-          break;
+          result.location.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.EndpointLocation),
+          ) as _i4.EndpointLocation));
         case 'Metrics':
-          if (value != null) {
-            result.metrics.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(double),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, double>));
-          }
-          break;
+          result.metrics.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(double),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, double>));
         case 'OptOut':
-          if (value != null) {
-            result.optOut = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.optOut = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RequestId':
-          if (value != null) {
-            result.requestId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.requestId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'User':
-          if (value != null) {
-            result.user.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.EndpointUser),
-            ) as _i5.EndpointUser));
-          }
-          break;
+          result.user.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.EndpointUser),
+          ) as _i5.EndpointUser));
       }
     }
 
@@ -373,32 +332,48 @@ class EndpointResponseRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EndpointResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EndpointResponse);
-    final result = <Object?>[];
-    if (payload.address != null) {
-      result
+    final result$ = <Object?>[];
+    final EndpointResponse(
+      :address,
+      :applicationId,
+      :attributes,
+      :channelType,
+      :cohortId,
+      :creationDate,
+      :demographic,
+      :effectiveDate,
+      :endpointStatus,
+      :id,
+      :location,
+      :metrics,
+      :optOut,
+      :requestId,
+      :user
+    ) = object;
+    if (address != null) {
+      result$
         ..add('Address')
         ..add(serializers.serialize(
-          payload.address!,
+          address,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.applicationId != null) {
-      result
+    if (applicationId != null) {
+      result$
         ..add('ApplicationId')
         ..add(serializers.serialize(
-          payload.applicationId!,
+          applicationId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.attributes != null) {
-      result
+    if (attributes != null) {
+      result$
         ..add('Attributes')
         ..add(serializers.serialize(
-          payload.attributes!,
+          attributes,
           specifiedType: const FullType(
             _i6.BuiltListMultimap,
             [
@@ -408,75 +383,75 @@ class EndpointResponseRestJson1Serializer
           ),
         ));
     }
-    if (payload.channelType != null) {
-      result
+    if (channelType != null) {
+      result$
         ..add('ChannelType')
         ..add(serializers.serialize(
-          payload.channelType!,
+          channelType,
           specifiedType: const FullType(_i2.ChannelType),
         ));
     }
-    if (payload.cohortId != null) {
-      result
+    if (cohortId != null) {
+      result$
         ..add('CohortId')
         ..add(serializers.serialize(
-          payload.cohortId!,
+          cohortId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.creationDate != null) {
-      result
+    if (creationDate != null) {
+      result$
         ..add('CreationDate')
         ..add(serializers.serialize(
-          payload.creationDate!,
+          creationDate,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.demographic != null) {
-      result
+    if (demographic != null) {
+      result$
         ..add('Demographic')
         ..add(serializers.serialize(
-          payload.demographic!,
+          demographic,
           specifiedType: const FullType(_i3.EndpointDemographic),
         ));
     }
-    if (payload.effectiveDate != null) {
-      result
+    if (effectiveDate != null) {
+      result$
         ..add('EffectiveDate')
         ..add(serializers.serialize(
-          payload.effectiveDate!,
+          effectiveDate,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.endpointStatus != null) {
-      result
+    if (endpointStatus != null) {
+      result$
         ..add('EndpointStatus')
         ..add(serializers.serialize(
-          payload.endpointStatus!,
+          endpointStatus,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.id != null) {
-      result
+    if (id != null) {
+      result$
         ..add('Id')
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.location != null) {
-      result
+    if (location != null) {
+      result$
         ..add('Location')
         ..add(serializers.serialize(
-          payload.location!,
+          location,
           specifiedType: const FullType(_i4.EndpointLocation),
         ));
     }
-    if (payload.metrics != null) {
-      result
+    if (metrics != null) {
+      result$
         ..add('Metrics')
         ..add(serializers.serialize(
-          payload.metrics!,
+          metrics,
           specifiedType: const FullType(
             _i6.BuiltMap,
             [
@@ -486,30 +461,30 @@ class EndpointResponseRestJson1Serializer
           ),
         ));
     }
-    if (payload.optOut != null) {
-      result
+    if (optOut != null) {
+      result$
         ..add('OptOut')
         ..add(serializers.serialize(
-          payload.optOut!,
+          optOut,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.requestId != null) {
-      result
+    if (requestId != null) {
+      result$
         ..add('RequestId')
         ..add(serializers.serialize(
-          payload.requestId!,
+          requestId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.user != null) {
-      result
+    if (user != null) {
+      result$
         ..add('User')
         ..add(serializers.serialize(
-          payload.user!,
+          user,
           specifiedType: const FullType(_i5.EndpointUser),
         ));
     }
-    return result;
+    return result$;
   }
 }

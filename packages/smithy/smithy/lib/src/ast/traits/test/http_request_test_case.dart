@@ -12,20 +12,20 @@ part 'http_request_test_case.g.dart';
 class HttpRequestTestCase extends HttpMessageTestCase<HttpRequestTestCase>
     with AWSSerializable, AWSEquatable<HttpRequestTestCase> {
   const HttpRequestTestCase({
-    required String id,
-    String? documentation,
-    required ShapeId protocol,
-    ShapeId? authScheme,
-    String? body,
-    String? bodyMediaType,
-    Map<String, Object?> params = const {},
-    ShapeId? vendorParamsShape,
-    Map<String, Object?> vendorParams = const {},
-    Map<String, String> headers = const {},
-    List<String> forbidHeaders = const [],
-    List<String> requireHeaders = const [],
-    List<String> tags = const [],
-    AppliesTo? appliesTo,
+    required super.id,
+    super.documentation,
+    required super.protocol,
+    super.authScheme,
+    super.body,
+    super.bodyMediaType,
+    super.params,
+    super.vendorParamsShape,
+    super.vendorParams,
+    super.headers,
+    super.forbidHeaders,
+    super.requireHeaders,
+    super.tags,
+    super.appliesTo,
     required this.method,
     required this.uri,
     this.host,
@@ -33,22 +33,7 @@ class HttpRequestTestCase extends HttpMessageTestCase<HttpRequestTestCase>
     this.queryParams = const [],
     this.forbidQueryParams = const [],
     this.requireQueryParams = const [],
-  }) : super(
-          id: id,
-          documentation: documentation,
-          protocol: protocol,
-          authScheme: authScheme,
-          body: body,
-          bodyMediaType: bodyMediaType,
-          params: params,
-          vendorParamsShape: vendorParamsShape,
-          vendorParams: vendorParams,
-          headers: headers,
-          forbidHeaders: forbidHeaders,
-          requireHeaders: requireHeaders,
-          tags: tags,
-          appliesTo: appliesTo,
-        );
+  });
 
   factory HttpRequestTestCase.fromJson(Map<String, Object?> json) =>
       _$HttpRequestTestCaseFromJson(json);

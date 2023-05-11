@@ -8,22 +8,22 @@ part of smoke_test.config_service.model.scope;
 
 class _$Scope extends Scope {
   @override
-  final String? complianceResourceId;
-  @override
   final _i2.BuiltList<String>? complianceResourceTypes;
   @override
   final String? tagKey;
   @override
   final String? tagValue;
+  @override
+  final String? complianceResourceId;
 
   factory _$Scope([void Function(ScopeBuilder)? updates]) =>
       (new ScopeBuilder()..update(updates))._build();
 
   _$Scope._(
-      {this.complianceResourceId,
-      this.complianceResourceTypes,
+      {this.complianceResourceTypes,
       this.tagKey,
-      this.tagValue})
+      this.tagValue,
+      this.complianceResourceId})
       : super._();
 
   @override
@@ -37,19 +37,19 @@ class _$Scope extends Scope {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Scope &&
-        complianceResourceId == other.complianceResourceId &&
         complianceResourceTypes == other.complianceResourceTypes &&
         tagKey == other.tagKey &&
-        tagValue == other.tagValue;
+        tagValue == other.tagValue &&
+        complianceResourceId == other.complianceResourceId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, complianceResourceId.hashCode);
     _$hash = $jc(_$hash, complianceResourceTypes.hashCode);
     _$hash = $jc(_$hash, tagKey.hashCode);
     _$hash = $jc(_$hash, tagValue.hashCode);
+    _$hash = $jc(_$hash, complianceResourceId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,11 +57,6 @@ class _$Scope extends Scope {
 
 class ScopeBuilder implements Builder<Scope, ScopeBuilder> {
   _$Scope? _$v;
-
-  String? _complianceResourceId;
-  String? get complianceResourceId => _$this._complianceResourceId;
-  set complianceResourceId(String? complianceResourceId) =>
-      _$this._complianceResourceId = complianceResourceId;
 
   _i2.ListBuilder<String>? _complianceResourceTypes;
   _i2.ListBuilder<String> get complianceResourceTypes =>
@@ -78,6 +73,11 @@ class ScopeBuilder implements Builder<Scope, ScopeBuilder> {
   String? get tagValue => _$this._tagValue;
   set tagValue(String? tagValue) => _$this._tagValue = tagValue;
 
+  String? _complianceResourceId;
+  String? get complianceResourceId => _$this._complianceResourceId;
+  set complianceResourceId(String? complianceResourceId) =>
+      _$this._complianceResourceId = complianceResourceId;
+
   ScopeBuilder() {
     Scope._init(this);
   }
@@ -85,10 +85,10 @@ class ScopeBuilder implements Builder<Scope, ScopeBuilder> {
   ScopeBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _complianceResourceId = $v.complianceResourceId;
       _complianceResourceTypes = $v.complianceResourceTypes?.toBuilder();
       _tagKey = $v.tagKey;
       _tagValue = $v.tagValue;
+      _complianceResourceId = $v.complianceResourceId;
       _$v = null;
     }
     return this;
@@ -113,10 +113,10 @@ class ScopeBuilder implements Builder<Scope, ScopeBuilder> {
     try {
       _$result = _$v ??
           new _$Scope._(
-              complianceResourceId: complianceResourceId,
               complianceResourceTypes: _complianceResourceTypes?.build(),
               tagKey: tagKey,
-              tagValue: tagValue);
+              tagValue: tagValue,
+              complianceResourceId: complianceResourceId);
     } catch (_) {
       late String _$failedField;
       try {

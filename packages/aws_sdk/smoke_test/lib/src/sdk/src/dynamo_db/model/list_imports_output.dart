@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.list_imports_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -98,26 +99,23 @@ class ListImportsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ImportSummaryList':
-          if (value != null) {
-            result.importSummaryList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ImportSummary)],
-              ),
-            ) as _i3.BuiltList<_i2.ImportSummary>));
-          }
-          break;
+          result.importSummaryList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ImportSummary)],
+            ),
+          ) as _i3.BuiltList<_i2.ImportSummary>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -127,30 +125,30 @@ class ListImportsOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListImportsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListImportsOutput);
-    final result = <Object?>[];
-    if (payload.importSummaryList != null) {
-      result
+    final result$ = <Object?>[];
+    final ListImportsOutput(:importSummaryList, :nextToken) = object;
+    if (importSummaryList != null) {
+      result$
         ..add('ImportSummaryList')
         ..add(serializers.serialize(
-          payload.importSummaryList!,
+          importSummaryList,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ImportSummary)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
-      result
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

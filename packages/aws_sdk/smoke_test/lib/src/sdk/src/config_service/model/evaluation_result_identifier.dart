@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.evaluation_result_identifier; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -95,23 +96,20 @@ class EvaluationResultIdentifierAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'EvaluationResultQualifier':
-          if (value != null) {
-            result.evaluationResultQualifier.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.EvaluationResultQualifier),
-            ) as _i2.EvaluationResultQualifier));
-          }
-          break;
+          result.evaluationResultQualifier.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.EvaluationResultQualifier),
+          ) as _i2.EvaluationResultQualifier));
         case 'OrderingTimestamp':
-          if (value != null) {
-            result.orderingTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.orderingTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -121,27 +119,30 @@ class EvaluationResultIdentifierAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EvaluationResultIdentifier object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EvaluationResultIdentifier);
-    final result = <Object?>[];
-    if (payload.evaluationResultQualifier != null) {
-      result
+    final result$ = <Object?>[];
+    final EvaluationResultIdentifier(
+      :evaluationResultQualifier,
+      :orderingTimestamp
+    ) = object;
+    if (evaluationResultQualifier != null) {
+      result$
         ..add('EvaluationResultQualifier')
         ..add(serializers.serialize(
-          payload.evaluationResultQualifier!,
+          evaluationResultQualifier,
           specifiedType: const FullType(_i2.EvaluationResultQualifier),
         ));
     }
-    if (payload.orderingTimestamp != null) {
-      result
+    if (orderingTimestamp != null) {
+      result$
         ..add('OrderingTimestamp')
         ..add(serializers.serialize(
-          payload.orderingTimestamp!,
+          orderingTimestamp,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -10,15 +10,15 @@ class _$PutBucketVersioningRequest extends PutBucketVersioningRequest {
   @override
   final String bucket;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
-  @override
   final String? contentMd5;
   @override
-  final String? expectedBucketOwner;
+  final _i4.ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? mfa;
   @override
   final _i2.VersioningConfiguration versioningConfiguration;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$PutBucketVersioningRequest(
           [void Function(PutBucketVersioningRequestBuilder)? updates]) =>
@@ -26,11 +26,11 @@ class _$PutBucketVersioningRequest extends PutBucketVersioningRequest {
 
   _$PutBucketVersioningRequest._(
       {required this.bucket,
-      this.checksumAlgorithm,
       this.contentMd5,
-      this.expectedBucketOwner,
+      this.checksumAlgorithm,
       this.mfa,
-      required this.versioningConfiguration})
+      required this.versioningConfiguration,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutBucketVersioningRequest', 'bucket');
@@ -52,22 +52,22 @@ class _$PutBucketVersioningRequest extends PutBucketVersioningRequest {
     if (identical(other, this)) return true;
     return other is PutBucketVersioningRequest &&
         bucket == other.bucket &&
-        checksumAlgorithm == other.checksumAlgorithm &&
         contentMd5 == other.contentMd5 &&
-        expectedBucketOwner == other.expectedBucketOwner &&
+        checksumAlgorithm == other.checksumAlgorithm &&
         mfa == other.mfa &&
-        versioningConfiguration == other.versioningConfiguration;
+        versioningConfiguration == other.versioningConfiguration &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jc(_$hash, contentMd5.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jc(_$hash, mfa.hashCode);
     _$hash = $jc(_$hash, versioningConfiguration.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -82,19 +82,14 @@ class PutBucketVersioningRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
-      _$this._checksumAlgorithm = checksumAlgorithm;
-
   String? _contentMd5;
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
+  _i4.ChecksumAlgorithm? _checksumAlgorithm;
+  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+      _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _mfa;
   String? get mfa => _$this._mfa;
@@ -108,6 +103,11 @@ class PutBucketVersioningRequestBuilder
           _i2.VersioningConfigurationBuilder? versioningConfiguration) =>
       _$this._versioningConfiguration = versioningConfiguration;
 
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
+
   PutBucketVersioningRequestBuilder() {
     PutBucketVersioningRequest._init(this);
   }
@@ -116,11 +116,11 @@ class PutBucketVersioningRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _checksumAlgorithm = $v.checksumAlgorithm;
       _contentMd5 = $v.contentMd5;
-      _expectedBucketOwner = $v.expectedBucketOwner;
+      _checksumAlgorithm = $v.checksumAlgorithm;
       _mfa = $v.mfa;
       _versioningConfiguration = $v.versioningConfiguration.toBuilder();
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -147,11 +147,11 @@ class PutBucketVersioningRequestBuilder
           new _$PutBucketVersioningRequest._(
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutBucketVersioningRequest', 'bucket'),
-              checksumAlgorithm: checksumAlgorithm,
               contentMd5: contentMd5,
-              expectedBucketOwner: expectedBucketOwner,
+              checksumAlgorithm: checksumAlgorithm,
               mfa: mfa,
-              versioningConfiguration: versioningConfiguration.build());
+              versioningConfiguration: versioningConfiguration.build(),
+              expectedBucketOwner: expectedBucketOwner);
     } catch (_) {
       late String _$failedField;
       try {

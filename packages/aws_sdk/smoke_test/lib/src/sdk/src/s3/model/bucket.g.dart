@@ -8,14 +8,14 @@ part of smoke_test.s3.model.bucket;
 
 class _$Bucket extends Bucket {
   @override
-  final DateTime? creationDate;
-  @override
   final String? name;
+  @override
+  final DateTime? creationDate;
 
   factory _$Bucket([void Function(BucketBuilder)? updates]) =>
       (new BucketBuilder()..update(updates))._build();
 
-  _$Bucket._({this.creationDate, this.name}) : super._();
+  _$Bucket._({this.name, this.creationDate}) : super._();
 
   @override
   Bucket rebuild(void Function(BucketBuilder) updates) =>
@@ -28,15 +28,15 @@ class _$Bucket extends Bucket {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Bucket &&
-        creationDate == other.creationDate &&
-        name == other.name;
+        name == other.name &&
+        creationDate == other.creationDate;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, creationDate.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, creationDate.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -45,14 +45,14 @@ class _$Bucket extends Bucket {
 class BucketBuilder implements Builder<Bucket, BucketBuilder> {
   _$Bucket? _$v;
 
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
   DateTime? _creationDate;
   DateTime? get creationDate => _$this._creationDate;
   set creationDate(DateTime? creationDate) =>
       _$this._creationDate = creationDate;
-
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
 
   BucketBuilder() {
     Bucket._init(this);
@@ -61,8 +61,8 @@ class BucketBuilder implements Builder<Bucket, BucketBuilder> {
   BucketBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _creationDate = $v.creationDate;
       _name = $v.name;
+      _creationDate = $v.creationDate;
       _$v = null;
     }
     return this;
@@ -84,7 +84,7 @@ class BucketBuilder implements Builder<Bucket, BucketBuilder> {
 
   _$Bucket _build() {
     final _$result =
-        _$v ?? new _$Bucket._(creationDate: creationDate, name: name);
+        _$v ?? new _$Bucket._(name: name, creationDate: creationDate);
     replace(_$result);
     return _$result;
   }

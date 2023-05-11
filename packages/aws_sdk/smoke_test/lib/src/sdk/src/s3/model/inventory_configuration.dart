@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.inventory_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -25,20 +26,20 @@ abstract class InventoryConfiguration
   /// Specifies the inventory configuration for an Amazon S3 bucket. For more information, see [GET Bucket inventory](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGETInventoryConfig.html) in the _Amazon S3 API Reference_.
   factory InventoryConfiguration({
     required _i2.InventoryDestination destination,
+    bool? isEnabled,
     _i3.InventoryFilter? filter,
     required String id,
     required _i4.InventoryIncludedObjectVersions includedObjectVersions,
-    bool? isEnabled,
     List<_i5.InventoryOptionalField>? optionalFields,
     required _i6.InventorySchedule schedule,
   }) {
     isEnabled ??= false;
     return _$InventoryConfiguration._(
       destination: destination,
+      isEnabled: isEnabled,
       filter: filter,
       id: id,
       includedObjectVersions: includedObjectVersions,
-      isEnabled: isEnabled,
       optionalFields:
           optionalFields == null ? null : _i7.BuiltList(optionalFields),
       schedule: schedule,
@@ -64,6 +65,9 @@ abstract class InventoryConfiguration
   /// Contains information about where to publish the inventory results.
   _i2.InventoryDestination get destination;
 
+  /// Specifies whether the inventory is enabled or disabled. If set to `True`, an inventory list is generated. If set to `False`, no inventory list is generated.
+  bool get isEnabled;
+
   /// Specifies an inventory filter. The inventory only includes objects that meet the filter's criteria.
   _i3.InventoryFilter? get filter;
 
@@ -73,9 +77,6 @@ abstract class InventoryConfiguration
   /// Object versions to include in the inventory list. If set to `All`, the list includes all the object versions, which adds the version-related fields `VersionId`, `IsLatest`, and `DeleteMarker` to the list. If set to `Current`, the list does not contain these version-related fields.
   _i4.InventoryIncludedObjectVersions get includedObjectVersions;
 
-  /// Specifies whether the inventory is enabled or disabled. If set to `True`, an inventory list is generated. If set to `False`, no inventory list is generated.
-  bool get isEnabled;
-
   /// Contains the optional fields that are included in the inventory results.
   _i7.BuiltList<_i5.InventoryOptionalField>? get optionalFields;
 
@@ -84,10 +85,10 @@ abstract class InventoryConfiguration
   @override
   List<Object?> get props => [
         destination,
+        isEnabled,
         filter,
         id,
         includedObjectVersions,
-        isEnabled,
         optionalFields,
         schedule,
       ];
@@ -97,6 +98,10 @@ abstract class InventoryConfiguration
     helper.add(
       'destination',
       destination,
+    );
+    helper.add(
+      'isEnabled',
+      isEnabled,
     );
     helper.add(
       'filter',
@@ -109,10 +114,6 @@ abstract class InventoryConfiguration
     helper.add(
       'includedObjectVersions',
       includedObjectVersions,
-    );
-    helper.add(
-      'isEnabled',
-      isEnabled,
     );
     helper.add(
       'optionalFields',
@@ -152,62 +153,54 @@ class InventoryConfigurationRestXmlSerializer
     final result = InventoryConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Destination':
           result.destination.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.InventoryDestination),
           ) as _i2.InventoryDestination));
-          break;
         case 'Filter':
-          if (value != null) {
-            result.filter.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.InventoryFilter),
-            ) as _i3.InventoryFilter));
-          }
-          break;
+          result.filter.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.InventoryFilter),
+          ) as _i3.InventoryFilter));
         case 'Id':
           result.id = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'IncludedObjectVersions':
           result.includedObjectVersions = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i4.InventoryIncludedObjectVersions),
           ) as _i4.InventoryIncludedObjectVersions);
-          break;
         case 'IsEnabled':
           result.isEnabled = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(bool),
           ) as bool);
-          break;
         case 'OptionalFields':
-          if (value != null) {
-            result.optionalFields.replace(
-                (const _i8.XmlBuiltListSerializer(memberName: 'Field')
-                    .deserialize(
-              serializers,
-              (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i5.InventoryOptionalField)],
-              ),
-            ) as _i7.BuiltList<_i5.InventoryOptionalField>));
-          }
-          break;
+          result.optionalFields.replace(
+              (const _i8.XmlBuiltListSerializer(memberName: 'Field')
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(_i5.InventoryOptionalField)],
+            ),
+          ) as _i7.BuiltList<_i5.InventoryOptionalField>));
         case 'Schedule':
           result.schedule.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i6.InventorySchedule),
           ) as _i6.InventorySchedule));
-          break;
       }
     }
 
@@ -217,67 +210,75 @@ class InventoryConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InventoryConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InventoryConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i8.XmlElementName(
         'InventoryConfiguration',
         _i8.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
+    final InventoryConfiguration(
+      :destination,
+      :filter,
+      :id,
+      :includedObjectVersions,
+      :isEnabled,
+      :optionalFields,
+      :schedule
+    ) = object;
+    result$
       ..add(const _i8.XmlElementName('Destination'))
       ..add(serializers.serialize(
-        payload.destination,
+        destination,
         specifiedType: const FullType(_i2.InventoryDestination),
       ));
-    if (payload.filter != null) {
-      result
+    if (filter != null) {
+      result$
         ..add(const _i8.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i3.InventoryFilter),
         ));
     }
-    result
+    result$
       ..add(const _i8.XmlElementName('Id'))
       ..add(serializers.serialize(
-        payload.id,
+        id,
         specifiedType: const FullType(String),
       ));
-    result
+    result$
       ..add(const _i8.XmlElementName('IncludedObjectVersions'))
       ..add(serializers.serialize(
-        payload.includedObjectVersions,
+        includedObjectVersions,
         specifiedType:
             const FullType.nullable(_i4.InventoryIncludedObjectVersions),
       ));
-    result
+    result$
       ..add(const _i8.XmlElementName('IsEnabled'))
       ..add(serializers.serialize(
-        payload.isEnabled,
+        isEnabled,
         specifiedType: const FullType.nullable(bool),
       ));
-    if (payload.optionalFields != null) {
-      result
+    if (optionalFields != null) {
+      result$
         ..add(const _i8.XmlElementName('OptionalFields'))
         ..add(const _i8.XmlBuiltListSerializer(memberName: 'Field').serialize(
           serializers,
-          payload.optionalFields!,
+          optionalFields,
           specifiedType: const FullType.nullable(
             _i7.BuiltList,
             [FullType(_i5.InventoryOptionalField)],
           ),
         ));
     }
-    result
+    result$
       ..add(const _i8.XmlElementName('Schedule'))
       ..add(serializers.serialize(
-        payload.schedule,
+        schedule,
         specifiedType: const FullType(_i6.InventorySchedule),
       ));
-    return result;
+    return result$;
   }
 }

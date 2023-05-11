@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.get_usage_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,20 +22,20 @@ abstract class GetUsageRequest
         _i1.HasPayload<GetUsageRequestPayload> {
   /// The GET request to get the usage data of a usage plan in a specified time interval.
   factory GetUsageRequest({
-    required String endDate,
-    String? keyId,
-    int? limit,
-    String? position,
-    required String startDate,
     required String usagePlanId,
+    String? keyId,
+    required String startDate,
+    required String endDate,
+    String? position,
+    int? limit,
   }) {
     return _$GetUsageRequest._(
-      endDate: endDate,
-      keyId: keyId,
-      limit: limit,
-      position: position,
-      startDate: startDate,
       usagePlanId: usagePlanId,
+      keyId: keyId,
+      startDate: startDate,
+      endDate: endDate,
+      position: position,
+      limit: limit,
     );
   }
 
@@ -77,23 +78,23 @@ abstract class GetUsageRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetUsageRequestBuilder b) {}
 
-  /// The ending date (e.g., 2016-12-31) of the usage data.
-  String get endDate;
+  /// The Id of the usage plan associated with the usage data.
+  String get usagePlanId;
 
   /// The Id of the API key associated with the resultant usage data.
   String? get keyId;
 
-  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-  int? get limit;
+  /// The starting date (e.g., 2016-01-01) of the usage data.
+  String get startDate;
+
+  /// The ending date (e.g., 2016-12-31) of the usage data.
+  String get endDate;
 
   /// The current pagination position in the paged result set.
   String? get position;
 
-  /// The starting date (e.g., 2016-01-01) of the usage data.
-  String get startDate;
-
-  /// The Id of the usage plan associated with the usage data.
-  String get usagePlanId;
+  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+  int? get limit;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -110,39 +111,39 @@ abstract class GetUsageRequest
   GetUsageRequestPayload getPayload() => GetUsageRequestPayload();
   @override
   List<Object?> get props => [
-        endDate,
-        keyId,
-        limit,
-        position,
-        startDate,
         usagePlanId,
+        keyId,
+        startDate,
+        endDate,
+        position,
+        limit,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetUsageRequest');
     helper.add(
-      'endDate',
-      endDate,
+      'usagePlanId',
+      usagePlanId,
     );
     helper.add(
       'keyId',
       keyId,
     );
     helper.add(
-      'limit',
-      limit,
+      'startDate',
+      startDate,
+    );
+    helper.add(
+      'endDate',
+      endDate,
     );
     helper.add(
       'position',
       position,
     );
     helper.add(
-      'startDate',
-      startDate,
-    );
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
+      'limit',
+      limit,
     );
     return helper.toString();
   }
@@ -201,7 +202,7 @@ class GetUsageRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetUsageRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

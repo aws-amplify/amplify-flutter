@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.resources; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -99,26 +100,23 @@ class ResourcesRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'item':
-          if (value != null) {
-            result.items.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.Resource)],
-              ),
-            ) as _i3.BuiltList<_i2.Resource>));
-          }
-          break;
+          result.items.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.Resource)],
+            ),
+          ) as _i3.BuiltList<_i2.Resource>));
         case 'position':
-          if (value != null) {
-            result.position = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.position = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -128,30 +126,30 @@ class ResourcesRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Resources object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Resources);
-    final result = <Object?>[];
-    if (payload.items != null) {
-      result
+    final result$ = <Object?>[];
+    final Resources(:items, :position) = object;
+    if (items != null) {
+      result$
         ..add('item')
         ..add(serializers.serialize(
-          payload.items!,
+          items,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.Resource)],
           ),
         ));
     }
-    if (payload.position != null) {
-      result
+    if (position != null) {
+      result$
         ..add('position')
         ..add(serializers.serialize(
-          payload.position!,
+          position,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

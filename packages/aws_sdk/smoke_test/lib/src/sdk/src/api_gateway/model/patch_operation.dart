@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.patch_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,16 +17,16 @@ abstract class PatchOperation
     implements Built<PatchOperation, PatchOperationBuilder> {
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   factory PatchOperation({
-    String? from,
     _i2.Op? op,
     String? path,
     String? value,
+    String? from,
   }) {
     return _$PatchOperation._(
-      from: from,
       op: op,
       path: path,
       value: value,
+      from: from,
     );
   }
 
@@ -42,9 +43,6 @@ abstract class PatchOperation
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PatchOperationBuilder b) {}
 
-  /// The copy update operation's source as identified by a JSON-Pointer value referencing the location within the targeted resource to copy the value from. For example, to promote a canary deployment, you copy the canary deployment ID to the affiliated deployment ID by calling a PATCH request on a Stage resource with "op":"copy", "from":"/canarySettings/deploymentId" and "path":"/deploymentId".
-  String? get from;
-
   /// An update operation to be performed with this PATCH request. The valid value can be add, remove, replace or copy. Not all valid operations are supported for a given resource. Support of the operations depends on specific operational contexts. Attempts to apply an unsupported operation on a resource will return an error message..
   _i2.Op? get op;
 
@@ -53,20 +51,19 @@ abstract class PatchOperation
 
   /// The new target value of the update operation. It is applicable for the add or replace operation. When using AWS CLI to update a property of a JSON value, enclose the JSON object with a pair of single quotes in a Linux shell, e.g., '{"a": ...}'.
   String? get value;
+
+  /// The copy update operation's source as identified by a JSON-Pointer value referencing the location within the targeted resource to copy the value from. For example, to promote a canary deployment, you copy the canary deployment ID to the affiliated deployment ID by calling a PATCH request on a Stage resource with "op":"copy", "from":"/canarySettings/deploymentId" and "path":"/deploymentId".
+  String? get from;
   @override
   List<Object?> get props => [
-        from,
         op,
         path,
         value,
+        from,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PatchOperation');
-    helper.add(
-      'from',
-      from,
-    );
     helper.add(
       'op',
       op,
@@ -78,6 +75,10 @@ abstract class PatchOperation
     helper.add(
       'value',
       value,
+    );
+    helper.add(
+      'from',
+      from,
     );
     return helper.toString();
   }
@@ -111,39 +112,30 @@ class PatchOperationRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'from':
-          if (value != null) {
-            result.from = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.from = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'op':
-          if (value != null) {
-            result.op = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Op),
-            ) as _i2.Op);
-          }
-          break;
+          result.op = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Op),
+          ) as _i2.Op);
         case 'path':
-          if (value != null) {
-            result.path = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.path = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'value':
-          if (value != null) {
-            result.value = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.value = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -153,43 +145,43 @@ class PatchOperationRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PatchOperation object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PatchOperation);
-    final result = <Object?>[];
-    if (payload.from != null) {
-      result
+    final result$ = <Object?>[];
+    final PatchOperation(:from, :op, :path, :value) = object;
+    if (from != null) {
+      result$
         ..add('from')
         ..add(serializers.serialize(
-          payload.from!,
+          from,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.op != null) {
-      result
+    if (op != null) {
+      result$
         ..add('op')
         ..add(serializers.serialize(
-          payload.op!,
+          op,
           specifiedType: const FullType(_i2.Op),
         ));
     }
-    if (payload.path != null) {
-      result
+    if (path != null) {
+      result$
         ..add('path')
         ..add(serializers.serialize(
-          payload.path!,
+          path,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.value != null) {
-      result
+    if (value != null) {
+      result$
         ..add('value')
         ..add(serializers.serialize(
-          payload.value!,
+          value,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

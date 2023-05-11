@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db_streams.model.get_shard_iterator_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,16 +20,16 @@ abstract class GetShardIteratorInput
     implements Built<GetShardIteratorInput, GetShardIteratorInputBuilder> {
   /// Represents the input of a `GetShardIterator` operation.
   factory GetShardIteratorInput({
-    String? sequenceNumber,
+    required String streamArn,
     required String shardId,
     required _i3.ShardIteratorType shardIteratorType,
-    required String streamArn,
+    String? sequenceNumber,
   }) {
     return _$GetShardIteratorInput._(
-      sequenceNumber: sequenceNumber,
+      streamArn: streamArn,
       shardId: shardId,
       shardIteratorType: shardIteratorType,
-      streamArn: streamArn,
+      sequenceNumber: sequenceNumber,
     );
   }
 
@@ -53,8 +54,8 @@ abstract class GetShardIteratorInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetShardIteratorInputBuilder b) {}
 
-  /// The sequence number of a stream record in the shard from which to start reading.
-  String? get sequenceNumber;
+  /// The Amazon Resource Name (ARN) for the stream.
+  String get streamArn;
 
   /// The identifier of the shard. The iterator will be returned for this shard ID.
   String get shardId;
@@ -70,23 +71,23 @@ abstract class GetShardIteratorInput
   /// *   `LATEST` \- Start reading just after the most recent stream record in the shard, so that you always read the most recent data in the shard.
   _i3.ShardIteratorType get shardIteratorType;
 
-  /// The Amazon Resource Name (ARN) for the stream.
-  String get streamArn;
+  /// The sequence number of a stream record in the shard from which to start reading.
+  String? get sequenceNumber;
   @override
   GetShardIteratorInput getPayload() => this;
   @override
   List<Object?> get props => [
-        sequenceNumber,
+        streamArn,
         shardId,
         shardIteratorType,
-        streamArn,
+        sequenceNumber,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetShardIteratorInput');
     helper.add(
-      'sequenceNumber',
-      sequenceNumber,
+      'streamArn',
+      streamArn,
     );
     helper.add(
       'shardId',
@@ -97,8 +98,8 @@ abstract class GetShardIteratorInput
       shardIteratorType,
     );
     helper.add(
-      'streamArn',
-      streamArn,
+      'sequenceNumber',
+      sequenceNumber,
     );
     return helper.toString();
   }
@@ -133,33 +134,30 @@ class GetShardIteratorInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'SequenceNumber':
-          if (value != null) {
-            result.sequenceNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ShardId':
-          result.shardId = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
-        case 'ShardIteratorType':
-          result.shardIteratorType = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i3.ShardIteratorType),
-          ) as _i3.ShardIteratorType);
-          break;
         case 'StreamArn':
           result.streamArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'ShardId':
+          result.shardId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ShardIteratorType':
+          result.shardIteratorType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ShardIteratorType),
+          ) as _i3.ShardIteratorType);
+        case 'SequenceNumber':
+          result.sequenceNumber = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -169,35 +167,41 @@ class GetShardIteratorInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetShardIteratorInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetShardIteratorInput);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GetShardIteratorInput(
+      :streamArn,
+      :shardId,
+      :shardIteratorType,
+      :sequenceNumber
+    ) = object;
+    result$.addAll([
+      'StreamArn',
+      serializers.serialize(
+        streamArn,
+        specifiedType: const FullType(String),
+      ),
       'ShardId',
       serializers.serialize(
-        payload.shardId,
+        shardId,
         specifiedType: const FullType(String),
       ),
       'ShardIteratorType',
       serializers.serialize(
-        payload.shardIteratorType,
+        shardIteratorType,
         specifiedType: const FullType(_i3.ShardIteratorType),
       ),
-      'StreamArn',
-      serializers.serialize(
-        payload.streamArn,
-        specifiedType: const FullType(String),
-      ),
-    ];
-    if (payload.sequenceNumber != null) {
-      result
+    ]);
+    if (sequenceNumber != null) {
+      result$
         ..add('SequenceNumber')
         ..add(serializers.serialize(
-          payload.sequenceNumber!,
+          sequenceNumber,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

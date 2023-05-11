@@ -88,15 +88,27 @@ class Repo {
     return null;
   }
 
+  /// Returns the directed graph of packages to the packages it depends on.
+  ///
+  /// Will include dev dependencies if [includeDevDependencies] is true.
+  Map<PackageInfo, List<PackageInfo>> getPackageGraph({
+    bool includeDevDependencies = false,
+  }) =>
+      UnmodifiableMapView({
+        for (final package in allPackages.values)
+          package: [
+            ...package.pubspecInfo.pubspec.dependencies.keys,
+            if (includeDevDependencies)
+              ...package.pubspecInfo.pubspec.devDependencies.keys,
+          ]
+              .map((packageName) => allPackages[packageName])
+              .whereType<PackageInfo>()
+              .toList(),
+      });
+
   /// The directed graph of packages to the packages it depends on.
   late final Map<PackageInfo, List<PackageInfo>> packageGraph =
-      UnmodifiableMapView({
-    for (final package in allPackages.values)
-      package: package.pubspecInfo.pubspec.dependencies.keys
-          .map((packageName) => allPackages[packageName])
-          .whereType<PackageInfo>()
-          .toList(),
-  });
+      getPackageGraph();
 
   /// The reversed (transposed) [packageGraph].
   ///
@@ -209,14 +221,17 @@ class Repo {
   final Map<PackageInfo, ChangelogUpdate> changelogUpdates = {};
 
   /// Bumps the version for all packages in the repo.
-  void bumpAllVersions({
+  void bumpAllVersions(
+    Map<String, PackageInfo> packages, {
     required GitChanges Function(PackageInfo) changesForPackage,
+    VersionBumpType? forcedBumpType,
   }) {
-    final sortedPackages = List.of(publishablePackages());
+    final sortedPackages = List.of(publishablePackages(packages));
     sortPackagesTopologically(
       sortedPackages,
       (PackageInfo pkg) => pkg.pubspecInfo.pubspec,
     );
+    bool canBump(PackageInfo package) => packages.containsKey(package.name);
     for (final package in sortedPackages) {
       final changes = changesForPackage(package);
       final commits = (changes.commitsByPackage[package]?.toList() ?? const [])
@@ -225,12 +240,13 @@ class Repo {
         if (commit.type == CommitType.version) {
           continue;
         }
-        final bumpType = commit.bumpType;
+        final bumpType = forcedBumpType ?? commit.bumpType;
         if (bumpType != null) {
           bumpVersion(
             package,
             commit: commit,
             type: bumpType,
+            canBump: canBump,
             includeInChangelog: commit.includeInChangelog,
           );
         }
@@ -260,6 +276,7 @@ class Repo {
     PackageInfo package, {
     required CommitMessage commit,
     required VersionBumpType type,
+    required bool Function(PackageInfo) canBump,
     required bool includeInChangelog,
     bool? propagateToComponent,
   }) {
@@ -332,11 +349,12 @@ class Repo {
                   .contains(package.name),
         )) {
           logger.verbose('found dependent package ${dependent.name}');
-          if (dependent.isPublishable) {
+          if (dependent.isPublishable && canBump(dependent)) {
             bumpVersion(
               dependent,
               commit: commit,
               type: VersionBumpType.patch,
+              canBump: canBump,
               includeInChangelog: false,
             );
           }
@@ -352,7 +370,9 @@ class Repo {
             return MapEntry(allPackages[name]!, dependents);
           }),
           (componentPackage) {
-            if (componentPackage == package) return;
+            if (componentPackage == package || !canBump(componentPackage)) {
+              return;
+            }
             logger.verbose(
               'Bumping component package ${componentPackage.name}',
             );
@@ -360,6 +380,7 @@ class Repo {
               componentPackage,
               commit: commit,
               type: type,
+              canBump: canBump,
               includeInChangelog: false,
               propagateToComponent: false,
             );

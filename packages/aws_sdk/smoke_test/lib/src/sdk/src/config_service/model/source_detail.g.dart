@@ -10,15 +10,15 @@ class _$SourceDetail extends SourceDetail {
   @override
   final _i2.EventSource? eventSource;
   @override
-  final _i3.MaximumExecutionFrequency? maximumExecutionFrequency;
+  final _i3.MessageType? messageType;
   @override
-  final _i4.MessageType? messageType;
+  final _i4.MaximumExecutionFrequency? maximumExecutionFrequency;
 
   factory _$SourceDetail([void Function(SourceDetailBuilder)? updates]) =>
       (new SourceDetailBuilder()..update(updates))._build();
 
   _$SourceDetail._(
-      {this.eventSource, this.maximumExecutionFrequency, this.messageType})
+      {this.eventSource, this.messageType, this.maximumExecutionFrequency})
       : super._();
 
   @override
@@ -33,16 +33,16 @@ class _$SourceDetail extends SourceDetail {
     if (identical(other, this)) return true;
     return other is SourceDetail &&
         eventSource == other.eventSource &&
-        maximumExecutionFrequency == other.maximumExecutionFrequency &&
-        messageType == other.messageType;
+        messageType == other.messageType &&
+        maximumExecutionFrequency == other.maximumExecutionFrequency;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, eventSource.hashCode);
-    _$hash = $jc(_$hash, maximumExecutionFrequency.hashCode);
     _$hash = $jc(_$hash, messageType.hashCode);
+    _$hash = $jc(_$hash, maximumExecutionFrequency.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,17 +57,17 @@ class SourceDetailBuilder
   set eventSource(_i2.EventSource? eventSource) =>
       _$this._eventSource = eventSource;
 
-  _i3.MaximumExecutionFrequency? _maximumExecutionFrequency;
-  _i3.MaximumExecutionFrequency? get maximumExecutionFrequency =>
+  _i3.MessageType? _messageType;
+  _i3.MessageType? get messageType => _$this._messageType;
+  set messageType(_i3.MessageType? messageType) =>
+      _$this._messageType = messageType;
+
+  _i4.MaximumExecutionFrequency? _maximumExecutionFrequency;
+  _i4.MaximumExecutionFrequency? get maximumExecutionFrequency =>
       _$this._maximumExecutionFrequency;
   set maximumExecutionFrequency(
-          _i3.MaximumExecutionFrequency? maximumExecutionFrequency) =>
+          _i4.MaximumExecutionFrequency? maximumExecutionFrequency) =>
       _$this._maximumExecutionFrequency = maximumExecutionFrequency;
-
-  _i4.MessageType? _messageType;
-  _i4.MessageType? get messageType => _$this._messageType;
-  set messageType(_i4.MessageType? messageType) =>
-      _$this._messageType = messageType;
 
   SourceDetailBuilder() {
     SourceDetail._init(this);
@@ -77,8 +77,8 @@ class SourceDetailBuilder
     final $v = _$v;
     if ($v != null) {
       _eventSource = $v.eventSource;
-      _maximumExecutionFrequency = $v.maximumExecutionFrequency;
       _messageType = $v.messageType;
+      _maximumExecutionFrequency = $v.maximumExecutionFrequency;
       _$v = null;
     }
     return this;
@@ -102,8 +102,8 @@ class SourceDetailBuilder
     final _$result = _$v ??
         new _$SourceDetail._(
             eventSource: eventSource,
-            maximumExecutionFrequency: maximumExecutionFrequency,
-            messageType: messageType);
+            messageType: messageType,
+            maximumExecutionFrequency: maximumExecutionFrequency);
     replace(_$result);
     return _$result;
   }

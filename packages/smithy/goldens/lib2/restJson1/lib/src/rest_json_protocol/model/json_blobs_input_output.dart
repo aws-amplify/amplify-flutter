@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.json_blobs_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -91,15 +92,15 @@ class JsonBlobsInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'data':
-          if (value != null) {
-            result.data = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Uint8List),
-            ) as _i3.Uint8List);
-          }
-          break;
+          result.data = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Uint8List),
+          ) as _i3.Uint8List);
       }
     }
 
@@ -109,19 +110,19 @@ class JsonBlobsInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    JsonBlobsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as JsonBlobsInputOutput);
-    final result = <Object?>[];
-    if (payload.data != null) {
-      result
+    final result$ = <Object?>[];
+    final JsonBlobsInputOutput(:data) = object;
+    if (data != null) {
+      result$
         ..add('data')
         ..add(serializers.serialize(
-          payload.data!,
+          data,
           specifiedType: const FullType(_i3.Uint8List),
         ));
     }
-    return result;
+    return result$;
   }
 }

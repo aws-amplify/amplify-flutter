@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.export_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,14 +20,14 @@ abstract class ExportResponse
         _i2.HasPayload<_i3.Uint8List> {
   /// The binary blob response to GetExport, which contains the generated SDK.
   factory ExportResponse({
-    _i3.Uint8List? body,
-    String? contentDisposition,
     String? contentType,
+    String? contentDisposition,
+    _i3.Uint8List? body,
   }) {
     return _$ExportResponse._(
-      body: body,
-      contentDisposition: contentDisposition,
       contentType: contentType,
+      contentDisposition: contentDisposition,
+      body: body,
     );
   }
 
@@ -58,36 +59,36 @@ abstract class ExportResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExportResponseBuilder b) {}
 
-  /// The binary blob response to GetExport, which contains the export.
-  _i3.Uint8List? get body;
+  /// The content-type header value in the HTTP response. This will correspond to a valid 'accept' type in the request.
+  String? get contentType;
 
   /// The content-disposition header value in the HTTP response.
   String? get contentDisposition;
 
-  /// The content-type header value in the HTTP response. This will correspond to a valid 'accept' type in the request.
-  String? get contentType;
+  /// The binary blob response to GetExport, which contains the export.
+  _i3.Uint8List? get body;
   @override
   _i3.Uint8List? getPayload() => body;
   @override
   List<Object?> get props => [
-        body,
-        contentDisposition,
         contentType,
+        contentDisposition,
+        body,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ExportResponse');
     helper.add(
-      'body',
-      body,
+      'contentType',
+      contentType,
     );
     helper.add(
       'contentDisposition',
       contentDisposition,
     );
     helper.add(
-      'contentType',
-      contentType,
+      'body',
+      body,
     );
     return helper.toString();
   }
@@ -124,15 +125,12 @@ class ExportResponseRestJson1Serializer
   @override
   Object serialize(
     Serializers serializers,
-    Object? object, {
+    _i3.Uint8List object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is ExportResponse
-        ? object.getPayload()
-        : (object as _i3.Uint8List?);
-    return (serializers.serialize(
-      payload!,
+    return serializers.serialize(
+      object,
       specifiedType: const FullType(_i3.Uint8List),
-    ) as Object);
+    )!;
   }
 }

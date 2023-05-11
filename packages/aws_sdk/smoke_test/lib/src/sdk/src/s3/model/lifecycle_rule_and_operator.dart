@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.lifecycle_rule_and_operator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -6,9 +7,9 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:fixnum/fixnum.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
 
 part 'lifecycle_rule_and_operator.g.dart';
 
@@ -19,16 +20,16 @@ abstract class LifecycleRuleAndOperator
         Built<LifecycleRuleAndOperator, LifecycleRuleAndOperatorBuilder> {
   /// This is used in a Lifecycle Rule Filter to apply a logical AND to two or more predicates. The Lifecycle Rule will apply to any object matching all of the predicates configured inside the And operator.
   factory LifecycleRuleAndOperator({
-    _i2.Int64? objectSizeGreaterThan,
-    _i2.Int64? objectSizeLessThan,
     String? prefix,
-    List<_i3.Tag>? tags,
+    List<_i2.Tag>? tags,
+    _i3.Int64? objectSizeGreaterThan,
+    _i3.Int64? objectSizeLessThan,
   }) {
     return _$LifecycleRuleAndOperator._(
-      objectSizeGreaterThan: objectSizeGreaterThan,
-      objectSizeLessThan: objectSizeLessThan,
       prefix: prefix,
       tags: tags == null ? null : _i4.BuiltList(tags),
+      objectSizeGreaterThan: objectSizeGreaterThan,
+      objectSizeLessThan: objectSizeLessThan,
     );
   }
 
@@ -46,35 +47,27 @@ abstract class LifecycleRuleAndOperator
   @BuiltValueHook(initializeBuilder: true)
   static void _init(LifecycleRuleAndOperatorBuilder b) {}
 
-  /// Minimum object size to which the rule applies.
-  _i2.Int64? get objectSizeGreaterThan;
-
-  /// Maximum object size to which the rule applies.
-  _i2.Int64? get objectSizeLessThan;
-
   /// Prefix identifying one or more objects to which the rule applies.
   String? get prefix;
 
   /// All of these tags must exist in the object's tag set in order for the rule to apply.
-  _i4.BuiltList<_i3.Tag>? get tags;
+  _i4.BuiltList<_i2.Tag>? get tags;
+
+  /// Minimum object size to which the rule applies.
+  _i3.Int64? get objectSizeGreaterThan;
+
+  /// Maximum object size to which the rule applies.
+  _i3.Int64? get objectSizeLessThan;
   @override
   List<Object?> get props => [
-        objectSizeGreaterThan,
-        objectSizeLessThan,
         prefix,
         tags,
+        objectSizeGreaterThan,
+        objectSizeLessThan,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('LifecycleRuleAndOperator');
-    helper.add(
-      'objectSizeGreaterThan',
-      objectSizeGreaterThan,
-    );
-    helper.add(
-      'objectSizeLessThan',
-      objectSizeLessThan,
-    );
     helper.add(
       'prefix',
       prefix,
@@ -82,6 +75,14 @@ abstract class LifecycleRuleAndOperator
     helper.add(
       'tags',
       tags,
+    );
+    helper.add(
+      'objectSizeGreaterThan',
+      objectSizeGreaterThan,
+    );
+    helper.add(
+      'objectSizeLessThan',
+      objectSizeLessThan,
     );
     return helper.toString();
   }
@@ -113,42 +114,33 @@ class LifecycleRuleAndOperatorRestXmlSerializer
     final result = LifecycleRuleAndOperatorBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ObjectSizeGreaterThan':
-          if (value != null) {
-            result.objectSizeGreaterThan = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.objectSizeGreaterThan = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'ObjectSizeLessThan':
-          if (value != null) {
-            result.objectSizeLessThan = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.objectSizeLessThan = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Tag':
-          if (value != null) {
-            result.tags.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Tag),
-            ) as _i3.Tag));
-          }
-          break;
+          result.tags.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Tag),
+          ) as _i2.Tag));
       }
     }
 
@@ -158,51 +150,56 @@ class LifecycleRuleAndOperatorRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    LifecycleRuleAndOperator object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as LifecycleRuleAndOperator);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i5.XmlElementName(
         'LifecycleRuleAndOperator',
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.objectSizeGreaterThan != null) {
-      result
+    final LifecycleRuleAndOperator(
+      :objectSizeGreaterThan,
+      :objectSizeLessThan,
+      :prefix,
+      :tags
+    ) = object;
+    if (objectSizeGreaterThan != null) {
+      result$
         ..add(const _i5.XmlElementName('ObjectSizeGreaterThan'))
         ..add(serializers.serialize(
-          payload.objectSizeGreaterThan!,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          objectSizeGreaterThan,
+          specifiedType: const FullType.nullable(_i3.Int64),
         ));
     }
-    if (payload.objectSizeLessThan != null) {
-      result
+    if (objectSizeLessThan != null) {
+      result$
         ..add(const _i5.XmlElementName('ObjectSizeLessThan'))
         ..add(serializers.serialize(
-          payload.objectSizeLessThan!,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          objectSizeLessThan,
+          specifiedType: const FullType.nullable(_i3.Int64),
         ));
     }
-    if (payload.prefix != null) {
-      result
+    if (prefix != null) {
+      result$
         ..add(const _i5.XmlElementName('Prefix'))
         ..add(serializers.serialize(
-          payload.prefix!,
+          prefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
-      result
+    if (tags != null) {
+      result$
           .addAll(const _i5.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
-        payload.tags!,
+        tags,
         specifiedType: const FullType.nullable(
           _i4.BuiltList,
-          [FullType(_i3.Tag)],
+          [FullType(_i2.Tag)],
         ),
       ));
     }
-    return result;
+    return result$;
   }
 }

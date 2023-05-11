@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/amplify_core.dart';
+part of 'amplify_exception.dart';
 
 /// {@template amplify_core.unknown_exception}
 /// Exception thrown when an unknown error from an underlying SDK or service is

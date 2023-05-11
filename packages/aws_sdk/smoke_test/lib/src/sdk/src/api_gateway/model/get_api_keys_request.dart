@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.get_api_keys_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,18 +22,18 @@ abstract class GetApiKeysRequest
         _i1.HasPayload<GetApiKeysRequestPayload> {
   /// A request to get information about the current ApiKeys resource.
   factory GetApiKeysRequest({
-    String? customerId,
-    bool? includeValues,
+    String? position,
     int? limit,
     String? nameQuery,
-    String? position,
+    String? customerId,
+    bool? includeValues,
   }) {
     return _$GetApiKeysRequest._(
-      customerId: customerId,
-      includeValues: includeValues,
+      position: position,
       limit: limit,
       nameQuery: nameQuery,
-      position: position,
+      customerId: customerId,
+      includeValues: includeValues,
     );
   }
 
@@ -72,11 +73,8 @@ abstract class GetApiKeysRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetApiKeysRequestBuilder b) {}
 
-  /// The identifier of a customer in AWS Marketplace or an external system, such as a developer portal.
-  String? get customerId;
-
-  /// A boolean flag to specify whether (`true`) or not (`false`) the result contains key values.
-  bool? get includeValues;
+  /// The current pagination position in the paged result set.
+  String? get position;
 
   /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
   int? get limit;
@@ -84,28 +82,27 @@ abstract class GetApiKeysRequest
   /// The name of queried API keys.
   String? get nameQuery;
 
-  /// The current pagination position in the paged result set.
-  String? get position;
+  /// The identifier of a customer in AWS Marketplace or an external system, such as a developer portal.
+  String? get customerId;
+
+  /// A boolean flag to specify whether (`true`) or not (`false`) the result contains key values.
+  bool? get includeValues;
   @override
   GetApiKeysRequestPayload getPayload() => GetApiKeysRequestPayload();
   @override
   List<Object?> get props => [
-        customerId,
-        includeValues,
+        position,
         limit,
         nameQuery,
-        position,
+        customerId,
+        includeValues,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetApiKeysRequest');
     helper.add(
-      'customerId',
-      customerId,
-    );
-    helper.add(
-      'includeValues',
-      includeValues,
+      'position',
+      position,
     );
     helper.add(
       'limit',
@@ -116,8 +113,12 @@ abstract class GetApiKeysRequest
       nameQuery,
     );
     helper.add(
-      'position',
-      position,
+      'customerId',
+      customerId,
+    );
+    helper.add(
+      'includeValues',
+      includeValues,
     );
     return helper.toString();
   }
@@ -176,7 +177,7 @@ class GetApiKeysRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetApiKeysRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

@@ -32,4 +32,4 @@ jobs:
           ( cd packages/aft/external/libgit2dart; git reset --hard HEAD )
 
       - name: Generate Workflows
-        run: aft generate workflows --set-exit-if-changed 
+        run: aft generate workflows --set-exit-if-changed

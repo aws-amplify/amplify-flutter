@@ -8,29 +8,29 @@ part of smoke_test.s3.model.get_object_attributes_parts;
 
 class _$GetObjectAttributesParts extends GetObjectAttributesParts {
   @override
-  final bool? isTruncated;
-  @override
-  final int? maxParts;
-  @override
-  final String? nextPartNumberMarker;
+  final int? totalPartsCount;
   @override
   final String? partNumberMarker;
   @override
-  final _i3.BuiltList<_i2.ObjectPart>? parts;
+  final String? nextPartNumberMarker;
   @override
-  final int? totalPartsCount;
+  final int? maxParts;
+  @override
+  final bool? isTruncated;
+  @override
+  final _i3.BuiltList<_i2.ObjectPart>? parts;
 
   factory _$GetObjectAttributesParts(
           [void Function(GetObjectAttributesPartsBuilder)? updates]) =>
       (new GetObjectAttributesPartsBuilder()..update(updates))._build();
 
   _$GetObjectAttributesParts._(
-      {this.isTruncated,
-      this.maxParts,
-      this.nextPartNumberMarker,
+      {this.totalPartsCount,
       this.partNumberMarker,
-      this.parts,
-      this.totalPartsCount})
+      this.nextPartNumberMarker,
+      this.maxParts,
+      this.isTruncated,
+      this.parts})
       : super._();
 
   @override
@@ -46,23 +46,23 @@ class _$GetObjectAttributesParts extends GetObjectAttributesParts {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetObjectAttributesParts &&
-        isTruncated == other.isTruncated &&
-        maxParts == other.maxParts &&
-        nextPartNumberMarker == other.nextPartNumberMarker &&
+        totalPartsCount == other.totalPartsCount &&
         partNumberMarker == other.partNumberMarker &&
-        parts == other.parts &&
-        totalPartsCount == other.totalPartsCount;
+        nextPartNumberMarker == other.nextPartNumberMarker &&
+        maxParts == other.maxParts &&
+        isTruncated == other.isTruncated &&
+        parts == other.parts;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, isTruncated.hashCode);
-    _$hash = $jc(_$hash, maxParts.hashCode);
-    _$hash = $jc(_$hash, nextPartNumberMarker.hashCode);
-    _$hash = $jc(_$hash, partNumberMarker.hashCode);
-    _$hash = $jc(_$hash, parts.hashCode);
     _$hash = $jc(_$hash, totalPartsCount.hashCode);
+    _$hash = $jc(_$hash, partNumberMarker.hashCode);
+    _$hash = $jc(_$hash, nextPartNumberMarker.hashCode);
+    _$hash = $jc(_$hash, maxParts.hashCode);
+    _$hash = $jc(_$hash, isTruncated.hashCode);
+    _$hash = $jc(_$hash, parts.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -73,33 +73,33 @@ class GetObjectAttributesPartsBuilder
         Builder<GetObjectAttributesParts, GetObjectAttributesPartsBuilder> {
   _$GetObjectAttributesParts? _$v;
 
-  bool? _isTruncated;
-  bool? get isTruncated => _$this._isTruncated;
-  set isTruncated(bool? isTruncated) => _$this._isTruncated = isTruncated;
-
-  int? _maxParts;
-  int? get maxParts => _$this._maxParts;
-  set maxParts(int? maxParts) => _$this._maxParts = maxParts;
-
-  String? _nextPartNumberMarker;
-  String? get nextPartNumberMarker => _$this._nextPartNumberMarker;
-  set nextPartNumberMarker(String? nextPartNumberMarker) =>
-      _$this._nextPartNumberMarker = nextPartNumberMarker;
+  int? _totalPartsCount;
+  int? get totalPartsCount => _$this._totalPartsCount;
+  set totalPartsCount(int? totalPartsCount) =>
+      _$this._totalPartsCount = totalPartsCount;
 
   String? _partNumberMarker;
   String? get partNumberMarker => _$this._partNumberMarker;
   set partNumberMarker(String? partNumberMarker) =>
       _$this._partNumberMarker = partNumberMarker;
 
+  String? _nextPartNumberMarker;
+  String? get nextPartNumberMarker => _$this._nextPartNumberMarker;
+  set nextPartNumberMarker(String? nextPartNumberMarker) =>
+      _$this._nextPartNumberMarker = nextPartNumberMarker;
+
+  int? _maxParts;
+  int? get maxParts => _$this._maxParts;
+  set maxParts(int? maxParts) => _$this._maxParts = maxParts;
+
+  bool? _isTruncated;
+  bool? get isTruncated => _$this._isTruncated;
+  set isTruncated(bool? isTruncated) => _$this._isTruncated = isTruncated;
+
   _i3.ListBuilder<_i2.ObjectPart>? _parts;
   _i3.ListBuilder<_i2.ObjectPart> get parts =>
       _$this._parts ??= new _i3.ListBuilder<_i2.ObjectPart>();
   set parts(_i3.ListBuilder<_i2.ObjectPart>? parts) => _$this._parts = parts;
-
-  int? _totalPartsCount;
-  int? get totalPartsCount => _$this._totalPartsCount;
-  set totalPartsCount(int? totalPartsCount) =>
-      _$this._totalPartsCount = totalPartsCount;
 
   GetObjectAttributesPartsBuilder() {
     GetObjectAttributesParts._init(this);
@@ -108,12 +108,12 @@ class GetObjectAttributesPartsBuilder
   GetObjectAttributesPartsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _isTruncated = $v.isTruncated;
-      _maxParts = $v.maxParts;
-      _nextPartNumberMarker = $v.nextPartNumberMarker;
-      _partNumberMarker = $v.partNumberMarker;
-      _parts = $v.parts?.toBuilder();
       _totalPartsCount = $v.totalPartsCount;
+      _partNumberMarker = $v.partNumberMarker;
+      _nextPartNumberMarker = $v.nextPartNumberMarker;
+      _maxParts = $v.maxParts;
+      _isTruncated = $v.isTruncated;
+      _parts = $v.parts?.toBuilder();
       _$v = null;
     }
     return this;
@@ -138,12 +138,12 @@ class GetObjectAttributesPartsBuilder
     try {
       _$result = _$v ??
           new _$GetObjectAttributesParts._(
-              isTruncated: isTruncated,
-              maxParts: maxParts,
-              nextPartNumberMarker: nextPartNumberMarker,
+              totalPartsCount: totalPartsCount,
               partNumberMarker: partNumberMarker,
-              parts: _parts?.build(),
-              totalPartsCount: totalPartsCount);
+              nextPartNumberMarker: nextPartNumberMarker,
+              maxParts: maxParts,
+              isTruncated: isTruncated,
+              parts: _parts?.build());
     } catch (_) {
       late String _$failedField;
       try {

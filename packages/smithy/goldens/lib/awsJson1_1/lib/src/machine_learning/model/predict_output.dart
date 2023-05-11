@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library aws_json1_1_v1.machine_learning.model.predict_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -78,15 +79,15 @@ class PredictOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Prediction':
-          if (value != null) {
-            result.prediction.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Prediction),
-            ) as _i2.Prediction));
-          }
-          break;
+          result.prediction.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Prediction),
+          ) as _i2.Prediction));
       }
     }
 
@@ -96,19 +97,19 @@ class PredictOutputAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PredictOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PredictOutput);
-    final result = <Object?>[];
-    if (payload.prediction != null) {
-      result
+    final result$ = <Object?>[];
+    final PredictOutput(:prediction) = object;
+    if (prediction != null) {
+      result$
         ..add('Prediction')
         ..add(serializers.serialize(
-          payload.prediction!,
+          prediction,
           specifiedType: const FullType(_i2.Prediction),
         ));
     }
-    return result;
+    return result$;
   }
 }

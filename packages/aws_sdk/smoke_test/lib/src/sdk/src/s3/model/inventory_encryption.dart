@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.inventory_encryption; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -6,8 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/ssekms.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/sses3.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/ssekms.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/sses3.dart' as _i2;
 
 part 'inventory_encryption.g.dart';
 
@@ -17,12 +18,12 @@ abstract class InventoryEncryption
     implements Built<InventoryEncryption, InventoryEncryptionBuilder> {
   /// Contains the type of server-side encryption used to encrypt the inventory results.
   factory InventoryEncryption({
-    _i2.Ssekms? ssekms,
-    _i3.Sses3? sses3,
+    _i2.Sses3? sses3,
+    _i3.Ssekms? ssekms,
   }) {
     return _$InventoryEncryption._(
-      ssekms: ssekms,
       sses3: sses3,
+      ssekms: ssekms,
     );
   }
 
@@ -40,26 +41,26 @@ abstract class InventoryEncryption
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InventoryEncryptionBuilder b) {}
 
-  /// Specifies the use of SSE-KMS to encrypt delivered inventory reports.
-  _i2.Ssekms? get ssekms;
-
   /// Specifies the use of SSE-S3 to encrypt delivered inventory reports.
-  _i3.Sses3? get sses3;
+  _i2.Sses3? get sses3;
+
+  /// Specifies the use of SSE-KMS to encrypt delivered inventory reports.
+  _i3.Ssekms? get ssekms;
   @override
   List<Object?> get props => [
-        ssekms,
         sses3,
+        ssekms,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InventoryEncryption');
     helper.add(
-      'ssekms',
-      ssekms,
-    );
-    helper.add(
       'sses3',
       sses3,
+    );
+    helper.add(
+      'ssekms',
+      ssekms,
     );
     return helper.toString();
   }
@@ -90,26 +91,23 @@ class InventoryEncryptionRestXmlSerializer
     final result = InventoryEncryptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'SSE-KMS':
-          if (value != null) {
-            result.ssekms.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Ssekms),
-            ) as _i2.Ssekms));
-          }
-          break;
+          result.ssekms.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Ssekms),
+          ) as _i3.Ssekms));
         case 'SSE-S3':
-          if (value != null) {
-            result.sses3.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Sses3),
-            ) as _i3.Sses3));
-          }
-          break;
+          result.sses3.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Sses3),
+          ) as _i2.Sses3));
       }
     }
 
@@ -119,32 +117,32 @@ class InventoryEncryptionRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InventoryEncryption object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InventoryEncryption);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'InventoryEncryption',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.ssekms != null) {
-      result
+    final InventoryEncryption(:ssekms, :sses3) = object;
+    if (ssekms != null) {
+      result$
         ..add(const _i4.XmlElementName('SSE-KMS'))
         ..add(serializers.serialize(
-          payload.ssekms!,
-          specifiedType: const FullType(_i2.Ssekms),
+          ssekms,
+          specifiedType: const FullType(_i3.Ssekms),
         ));
     }
-    if (payload.sses3 != null) {
-      result
+    if (sses3 != null) {
+      result$
         ..add(const _i4.XmlElementName('SSE-S3'))
         ..add(serializers.serialize(
-          payload.sses3!,
-          specifiedType: const FullType(_i3.Sses3),
+          sses3,
+          specifiedType: const FullType(_i2.Sses3),
         ));
     }
-    return result;
+    return result$;
   }
 }

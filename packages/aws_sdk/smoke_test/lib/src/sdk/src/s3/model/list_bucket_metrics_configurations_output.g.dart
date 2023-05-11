@@ -9,13 +9,13 @@ part of smoke_test.s3.model.list_bucket_metrics_configurations_output;
 class _$ListBucketMetricsConfigurationsOutput
     extends ListBucketMetricsConfigurationsOutput {
   @override
-  final String? continuationToken;
-  @override
   final bool? isTruncated;
   @override
-  final _i3.BuiltList<_i2.MetricsConfiguration>? metricsConfigurationList;
+  final String? continuationToken;
   @override
   final String? nextContinuationToken;
+  @override
+  final _i3.BuiltList<_i2.MetricsConfiguration>? metricsConfigurationList;
 
   factory _$ListBucketMetricsConfigurationsOutput(
           [void Function(ListBucketMetricsConfigurationsOutputBuilder)?
@@ -24,10 +24,10 @@ class _$ListBucketMetricsConfigurationsOutput
           ._build();
 
   _$ListBucketMetricsConfigurationsOutput._(
-      {this.continuationToken,
-      this.isTruncated,
-      this.metricsConfigurationList,
-      this.nextContinuationToken})
+      {this.isTruncated,
+      this.continuationToken,
+      this.nextContinuationToken,
+      this.metricsConfigurationList})
       : super._();
 
   @override
@@ -44,19 +44,19 @@ class _$ListBucketMetricsConfigurationsOutput
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListBucketMetricsConfigurationsOutput &&
-        continuationToken == other.continuationToken &&
         isTruncated == other.isTruncated &&
-        metricsConfigurationList == other.metricsConfigurationList &&
-        nextContinuationToken == other.nextContinuationToken;
+        continuationToken == other.continuationToken &&
+        nextContinuationToken == other.nextContinuationToken &&
+        metricsConfigurationList == other.metricsConfigurationList;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, continuationToken.hashCode);
     _$hash = $jc(_$hash, isTruncated.hashCode);
-    _$hash = $jc(_$hash, metricsConfigurationList.hashCode);
+    _$hash = $jc(_$hash, continuationToken.hashCode);
     _$hash = $jc(_$hash, nextContinuationToken.hashCode);
+    _$hash = $jc(_$hash, metricsConfigurationList.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -68,14 +68,19 @@ class ListBucketMetricsConfigurationsOutputBuilder
             ListBucketMetricsConfigurationsOutputBuilder> {
   _$ListBucketMetricsConfigurationsOutput? _$v;
 
+  bool? _isTruncated;
+  bool? get isTruncated => _$this._isTruncated;
+  set isTruncated(bool? isTruncated) => _$this._isTruncated = isTruncated;
+
   String? _continuationToken;
   String? get continuationToken => _$this._continuationToken;
   set continuationToken(String? continuationToken) =>
       _$this._continuationToken = continuationToken;
 
-  bool? _isTruncated;
-  bool? get isTruncated => _$this._isTruncated;
-  set isTruncated(bool? isTruncated) => _$this._isTruncated = isTruncated;
+  String? _nextContinuationToken;
+  String? get nextContinuationToken => _$this._nextContinuationToken;
+  set nextContinuationToken(String? nextContinuationToken) =>
+      _$this._nextContinuationToken = nextContinuationToken;
 
   _i3.ListBuilder<_i2.MetricsConfiguration>? _metricsConfigurationList;
   _i3.ListBuilder<_i2.MetricsConfiguration> get metricsConfigurationList =>
@@ -86,11 +91,6 @@ class ListBucketMetricsConfigurationsOutputBuilder
               metricsConfigurationList) =>
       _$this._metricsConfigurationList = metricsConfigurationList;
 
-  String? _nextContinuationToken;
-  String? get nextContinuationToken => _$this._nextContinuationToken;
-  set nextContinuationToken(String? nextContinuationToken) =>
-      _$this._nextContinuationToken = nextContinuationToken;
-
   ListBucketMetricsConfigurationsOutputBuilder() {
     ListBucketMetricsConfigurationsOutput._init(this);
   }
@@ -98,10 +98,10 @@ class ListBucketMetricsConfigurationsOutputBuilder
   ListBucketMetricsConfigurationsOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _continuationToken = $v.continuationToken;
       _isTruncated = $v.isTruncated;
-      _metricsConfigurationList = $v.metricsConfigurationList?.toBuilder();
+      _continuationToken = $v.continuationToken;
       _nextContinuationToken = $v.nextContinuationToken;
+      _metricsConfigurationList = $v.metricsConfigurationList?.toBuilder();
       _$v = null;
     }
     return this;
@@ -127,10 +127,10 @@ class ListBucketMetricsConfigurationsOutputBuilder
     try {
       _$result = _$v ??
           new _$ListBucketMetricsConfigurationsOutput._(
-              continuationToken: continuationToken,
               isTruncated: isTruncated,
-              metricsConfigurationList: _metricsConfigurationList?.build(),
-              nextContinuationToken: nextContinuationToken);
+              continuationToken: continuationToken,
+              nextContinuationToken: nextContinuationToken,
+              metricsConfigurationList: _metricsConfigurationList?.build());
     } catch (_) {
       late String _$failedField;
       try {

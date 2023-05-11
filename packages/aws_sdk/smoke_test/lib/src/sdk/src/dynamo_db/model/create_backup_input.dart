@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.create_backup_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -13,12 +14,12 @@ abstract class CreateBackupInput
     with _i1.HttpInput<CreateBackupInput>, _i2.AWSEquatable<CreateBackupInput>
     implements Built<CreateBackupInput, CreateBackupInputBuilder> {
   factory CreateBackupInput({
-    required String backupName,
     required String tableName,
+    required String backupName,
   }) {
     return _$CreateBackupInput._(
-      backupName: backupName,
       tableName: tableName,
+      backupName: backupName,
     );
   }
 
@@ -41,28 +42,28 @@ abstract class CreateBackupInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateBackupInputBuilder b) {}
 
-  /// Specified name for the backup.
-  String get backupName;
-
   /// The name of the table.
   String get tableName;
+
+  /// Specified name for the backup.
+  String get backupName;
   @override
   CreateBackupInput getPayload() => this;
   @override
   List<Object?> get props => [
-        backupName,
         tableName,
+        backupName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateBackupInput');
     helper.add(
-      'backupName',
-      backupName,
-    );
-    helper.add(
       'tableName',
       tableName,
+    );
+    helper.add(
+      'backupName',
+      backupName,
     );
     return helper.toString();
   }
@@ -96,19 +97,20 @@ class CreateBackupInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'BackupName':
-          result.backupName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'BackupName':
+          result.backupName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -118,22 +120,23 @@ class CreateBackupInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CreateBackupInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CreateBackupInput);
-    final result = <Object?>[
-      'BackupName',
-      serializers.serialize(
-        payload.backupName,
-        specifiedType: const FullType(String),
-      ),
+    final result$ = <Object?>[];
+    final CreateBackupInput(:tableName, :backupName) = object;
+    result$.addAll([
       'TableName',
       serializers.serialize(
-        payload.tableName,
+        tableName,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+      'BackupName',
+      serializers.serialize(
+        backupName,
+        specifiedType: const FullType(String),
+      ),
+    ]);
+    return result$;
   }
 }

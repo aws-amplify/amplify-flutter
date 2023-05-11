@@ -27,7 +27,6 @@ class GeneratedLibrary with AWSEquatable<GeneratedLibrary> {
     final output = StringBuffer()
       ..write(header)
       ..writeln()
-      ..writeln()
       ..write(libraryDocs ?? '')
       ..write(format('${library.accept(buildEmitter(allocator))}'));
     dependencies.addAll(allocator.dependencies);

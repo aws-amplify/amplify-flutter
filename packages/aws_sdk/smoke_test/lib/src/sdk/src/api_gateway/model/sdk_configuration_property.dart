@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.sdk_configuration_property; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,18 +17,18 @@ abstract class SdkConfigurationProperty
         Built<SdkConfigurationProperty, SdkConfigurationPropertyBuilder> {
   /// A configuration property of an SDK type.
   factory SdkConfigurationProperty({
-    String? defaultValue,
-    String? description,
-    String? friendlyName,
     String? name,
+    String? friendlyName,
+    String? description,
     bool? required,
+    String? defaultValue,
   }) {
     return _$SdkConfigurationProperty._(
-      defaultValue: defaultValue,
-      description: description,
-      friendlyName: friendlyName,
       name: name,
+      friendlyName: friendlyName,
+      description: description,
       required: required,
+      defaultValue: defaultValue,
     );
   }
 
@@ -45,50 +46,50 @@ abstract class SdkConfigurationProperty
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SdkConfigurationPropertyBuilder b) {}
 
-  /// The default value of an SdkType configuration property.
-  String? get defaultValue;
-
-  /// The description of an SdkType configuration property.
-  String? get description;
+  /// The name of a an SdkType configuration property.
+  String? get name;
 
   /// The user-friendly name of an SdkType configuration property.
   String? get friendlyName;
 
-  /// The name of a an SdkType configuration property.
-  String? get name;
+  /// The description of an SdkType configuration property.
+  String? get description;
 
   /// A boolean flag of an SdkType configuration property to indicate if the associated SDK configuration property is required (`true`) or not (`false`).
   bool? get required;
+
+  /// The default value of an SdkType configuration property.
+  String? get defaultValue;
   @override
   List<Object?> get props => [
-        defaultValue,
-        description,
-        friendlyName,
         name,
+        friendlyName,
+        description,
         required,
+        defaultValue,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SdkConfigurationProperty');
     helper.add(
-      'defaultValue',
-      defaultValue,
-    );
-    helper.add(
-      'description',
-      description,
+      'name',
+      name,
     );
     helper.add(
       'friendlyName',
       friendlyName,
     );
     helper.add(
-      'name',
-      name,
+      'description',
+      description,
     );
     helper.add(
       'required',
       required,
+    );
+    helper.add(
+      'defaultValue',
+      defaultValue,
     );
     return helper.toString();
   }
@@ -123,47 +124,35 @@ class SdkConfigurationPropertyRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'defaultValue':
-          if (value != null) {
-            result.defaultValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.defaultValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'friendlyName':
-          if (value != null) {
-            result.friendlyName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.friendlyName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'required':
-          if (value != null) {
-            result.required = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.required = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -173,51 +162,57 @@ class SdkConfigurationPropertyRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SdkConfigurationProperty object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SdkConfigurationProperty);
-    final result = <Object?>[];
-    if (payload.defaultValue != null) {
-      result
+    final result$ = <Object?>[];
+    final SdkConfigurationProperty(
+      :defaultValue,
+      :description,
+      :friendlyName,
+      :name,
+      :required
+    ) = object;
+    if (defaultValue != null) {
+      result$
         ..add('defaultValue')
         ..add(serializers.serialize(
-          payload.defaultValue!,
+          defaultValue,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.description != null) {
-      result
+    if (description != null) {
+      result$
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.friendlyName != null) {
-      result
+    if (friendlyName != null) {
+      result$
         ..add('friendlyName')
         ..add(serializers.serialize(
-          payload.friendlyName!,
+          friendlyName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.name != null) {
-      result
+    if (name != null) {
+      result$
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.required != null) {
-      result
+    if (required != null) {
+      result$
         ..add('required')
         ..add(serializers.serialize(
-          payload.required!,
+          required,
           specifiedType: const FullType(bool),
         ));
     }
-    return result;
+    return result$;
   }
 }

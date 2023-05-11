@@ -11,17 +11,18 @@ abstract class PrimitiveShortShape
     implements
         SimpleShape,
         Built<PrimitiveShortShape, PrimitiveShortShapeBuilder> {
-  factory PrimitiveShortShape(
-          [void Function(PrimitiveShortShapeBuilder) updates]) =
-      _$PrimitiveShortShape;
+  factory PrimitiveShortShape([
+    void Function(PrimitiveShortShapeBuilder) updates,
+  ]) = _$PrimitiveShortShape;
   PrimitiveShortShape._();
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PrimitiveShortShapeBuilder b) {
-    b.shapeId = id;
-    b.traits = TraitMap.fromTraits(const [
-      DefaultTrait(0),
-    ]);
+    b
+      ..shapeId = id
+      ..traits = TraitMap.fromTraits(const [
+        DefaultTrait(0),
+      ]);
   }
 
   static const id = ShapeId.core('PrimitiveShort');

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.list_backups_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,26 +103,23 @@ class ListBackupsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BackupSummaries':
-          if (value != null) {
-            result.backupSummaries.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.BackupSummary)],
-              ),
-            ) as _i3.BuiltList<_i2.BackupSummary>));
-          }
-          break;
+          result.backupSummaries.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.BackupSummary)],
+            ),
+          ) as _i3.BuiltList<_i2.BackupSummary>));
         case 'LastEvaluatedBackupArn':
-          if (value != null) {
-            result.lastEvaluatedBackupArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastEvaluatedBackupArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -131,30 +129,30 @@ class ListBackupsOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListBackupsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListBackupsOutput);
-    final result = <Object?>[];
-    if (payload.backupSummaries != null) {
-      result
+    final result$ = <Object?>[];
+    final ListBackupsOutput(:backupSummaries, :lastEvaluatedBackupArn) = object;
+    if (backupSummaries != null) {
+      result$
         ..add('BackupSummaries')
         ..add(serializers.serialize(
-          payload.backupSummaries!,
+          backupSummaries,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.BackupSummary)],
           ),
         ));
     }
-    if (payload.lastEvaluatedBackupArn != null) {
-      result
+    if (lastEvaluatedBackupArn != null) {
+      result$
         ..add('LastEvaluatedBackupArn')
         ..add(serializers.serialize(
-          payload.lastEvaluatedBackupArn!,
+          lastEvaluatedBackupArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

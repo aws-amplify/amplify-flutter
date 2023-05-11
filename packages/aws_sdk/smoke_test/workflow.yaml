@@ -6,12 +6,12 @@ on:
       - stable
       - next
     paths:
-      - 'packages/aws_sdk/**/*.dart'
-      - 'packages/smithy/**/*.dart'
+      - "packages/aws_sdk/**/*.dart"
+      - "packages/smithy/**/*.dart"
   pull_request:
     paths:
-      - 'packages/aws_sdk/**/*.dart'
-      - 'packages/smithy/**/*.dart'
+      - "packages/aws_sdk/**/*.dart"
+      - "packages/smithy/**/*.dart"
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -52,12 +52,9 @@ jobs:
           # https://github.com/localstack/localstack/pull/6831
           pip install pyOpenSSL --upgrade
           pip install cryptography --upgrade
+          pip install localstack
 
-          # Pin to <2.0.0 until bucket creation is fixed:
-          # https://github.com/localstack/localstack/issues/8018
-          pip install "localstack<2.0.0"
-
-          docker pull localstack/localstack
+          docker pull localstack/localstack:latest
           localstack start --detached
           echo "Waiting for localstack startup..."
           localstack wait -t 30

@@ -8,22 +8,22 @@ part of smoke_test.config_service.model.source;
 
 class _$Source extends Source {
   @override
-  final _i2.CustomPolicyDetails? customPolicyDetails;
-  @override
-  final _i3.Owner owner;
-  @override
-  final _i5.BuiltList<_i4.SourceDetail>? sourceDetails;
+  final _i2.Owner owner;
   @override
   final String? sourceIdentifier;
+  @override
+  final _i5.BuiltList<_i3.SourceDetail>? sourceDetails;
+  @override
+  final _i4.CustomPolicyDetails? customPolicyDetails;
 
   factory _$Source([void Function(SourceBuilder)? updates]) =>
       (new SourceBuilder()..update(updates))._build();
 
   _$Source._(
-      {this.customPolicyDetails,
-      required this.owner,
+      {required this.owner,
+      this.sourceIdentifier,
       this.sourceDetails,
-      this.sourceIdentifier})
+      this.customPolicyDetails})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(owner, r'Source', 'owner');
   }
@@ -39,19 +39,19 @@ class _$Source extends Source {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Source &&
-        customPolicyDetails == other.customPolicyDetails &&
         owner == other.owner &&
+        sourceIdentifier == other.sourceIdentifier &&
         sourceDetails == other.sourceDetails &&
-        sourceIdentifier == other.sourceIdentifier;
+        customPolicyDetails == other.customPolicyDetails;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, customPolicyDetails.hashCode);
     _$hash = $jc(_$hash, owner.hashCode);
-    _$hash = $jc(_$hash, sourceDetails.hashCode);
     _$hash = $jc(_$hash, sourceIdentifier.hashCode);
+    _$hash = $jc(_$hash, sourceDetails.hashCode);
+    _$hash = $jc(_$hash, customPolicyDetails.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -60,27 +60,27 @@ class _$Source extends Source {
 class SourceBuilder implements Builder<Source, SourceBuilder> {
   _$Source? _$v;
 
-  _i2.CustomPolicyDetailsBuilder? _customPolicyDetails;
-  _i2.CustomPolicyDetailsBuilder get customPolicyDetails =>
-      _$this._customPolicyDetails ??= new _i2.CustomPolicyDetailsBuilder();
-  set customPolicyDetails(
-          _i2.CustomPolicyDetailsBuilder? customPolicyDetails) =>
-      _$this._customPolicyDetails = customPolicyDetails;
-
-  _i3.Owner? _owner;
-  _i3.Owner? get owner => _$this._owner;
-  set owner(_i3.Owner? owner) => _$this._owner = owner;
-
-  _i5.ListBuilder<_i4.SourceDetail>? _sourceDetails;
-  _i5.ListBuilder<_i4.SourceDetail> get sourceDetails =>
-      _$this._sourceDetails ??= new _i5.ListBuilder<_i4.SourceDetail>();
-  set sourceDetails(_i5.ListBuilder<_i4.SourceDetail>? sourceDetails) =>
-      _$this._sourceDetails = sourceDetails;
+  _i2.Owner? _owner;
+  _i2.Owner? get owner => _$this._owner;
+  set owner(_i2.Owner? owner) => _$this._owner = owner;
 
   String? _sourceIdentifier;
   String? get sourceIdentifier => _$this._sourceIdentifier;
   set sourceIdentifier(String? sourceIdentifier) =>
       _$this._sourceIdentifier = sourceIdentifier;
+
+  _i5.ListBuilder<_i3.SourceDetail>? _sourceDetails;
+  _i5.ListBuilder<_i3.SourceDetail> get sourceDetails =>
+      _$this._sourceDetails ??= new _i5.ListBuilder<_i3.SourceDetail>();
+  set sourceDetails(_i5.ListBuilder<_i3.SourceDetail>? sourceDetails) =>
+      _$this._sourceDetails = sourceDetails;
+
+  _i4.CustomPolicyDetailsBuilder? _customPolicyDetails;
+  _i4.CustomPolicyDetailsBuilder get customPolicyDetails =>
+      _$this._customPolicyDetails ??= new _i4.CustomPolicyDetailsBuilder();
+  set customPolicyDetails(
+          _i4.CustomPolicyDetailsBuilder? customPolicyDetails) =>
+      _$this._customPolicyDetails = customPolicyDetails;
 
   SourceBuilder() {
     Source._init(this);
@@ -89,10 +89,10 @@ class SourceBuilder implements Builder<Source, SourceBuilder> {
   SourceBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _customPolicyDetails = $v.customPolicyDetails?.toBuilder();
       _owner = $v.owner;
-      _sourceDetails = $v.sourceDetails?.toBuilder();
       _sourceIdentifier = $v.sourceIdentifier;
+      _sourceDetails = $v.sourceDetails?.toBuilder();
+      _customPolicyDetails = $v.customPolicyDetails?.toBuilder();
       _$v = null;
     }
     return this;
@@ -117,19 +117,18 @@ class SourceBuilder implements Builder<Source, SourceBuilder> {
     try {
       _$result = _$v ??
           new _$Source._(
-              customPolicyDetails: _customPolicyDetails?.build(),
               owner: BuiltValueNullFieldError.checkNotNull(
                   owner, r'Source', 'owner'),
+              sourceIdentifier: sourceIdentifier,
               sourceDetails: _sourceDetails?.build(),
-              sourceIdentifier: sourceIdentifier);
+              customPolicyDetails: _customPolicyDetails?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'customPolicyDetails';
-        _customPolicyDetails?.build();
-
         _$failedField = 'sourceDetails';
         _sourceDetails?.build();
+        _$failedField = 'customPolicyDetails';
+        _customPolicyDetails?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'Source', _$failedField, e.toString());

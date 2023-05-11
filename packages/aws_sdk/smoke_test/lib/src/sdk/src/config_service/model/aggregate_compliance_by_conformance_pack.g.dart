@@ -9,13 +9,13 @@ part of smoke_test.config_service.model.aggregate_compliance_by_conformance_pack
 class _$AggregateComplianceByConformancePack
     extends AggregateComplianceByConformancePack {
   @override
-  final String? accountId;
-  @override
-  final String? awsRegion;
+  final String? conformancePackName;
   @override
   final _i2.AggregateConformancePackCompliance? compliance;
   @override
-  final String? conformancePackName;
+  final String? accountId;
+  @override
+  final String? awsRegion;
 
   factory _$AggregateComplianceByConformancePack(
           [void Function(AggregateComplianceByConformancePackBuilder)?
@@ -24,10 +24,10 @@ class _$AggregateComplianceByConformancePack
           ._build();
 
   _$AggregateComplianceByConformancePack._(
-      {this.accountId,
-      this.awsRegion,
+      {this.conformancePackName,
       this.compliance,
-      this.conformancePackName})
+      this.accountId,
+      this.awsRegion})
       : super._();
 
   @override
@@ -43,19 +43,19 @@ class _$AggregateComplianceByConformancePack
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AggregateComplianceByConformancePack &&
-        accountId == other.accountId &&
-        awsRegion == other.awsRegion &&
+        conformancePackName == other.conformancePackName &&
         compliance == other.compliance &&
-        conformancePackName == other.conformancePackName;
+        accountId == other.accountId &&
+        awsRegion == other.awsRegion;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, conformancePackName.hashCode);
+    _$hash = $jc(_$hash, compliance.hashCode);
     _$hash = $jc(_$hash, accountId.hashCode);
     _$hash = $jc(_$hash, awsRegion.hashCode);
-    _$hash = $jc(_$hash, compliance.hashCode);
-    _$hash = $jc(_$hash, conformancePackName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -67,13 +67,10 @@ class AggregateComplianceByConformancePackBuilder
             AggregateComplianceByConformancePackBuilder> {
   _$AggregateComplianceByConformancePack? _$v;
 
-  String? _accountId;
-  String? get accountId => _$this._accountId;
-  set accountId(String? accountId) => _$this._accountId = accountId;
-
-  String? _awsRegion;
-  String? get awsRegion => _$this._awsRegion;
-  set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
+  String? _conformancePackName;
+  String? get conformancePackName => _$this._conformancePackName;
+  set conformancePackName(String? conformancePackName) =>
+      _$this._conformancePackName = conformancePackName;
 
   _i2.AggregateConformancePackComplianceBuilder? _compliance;
   _i2.AggregateConformancePackComplianceBuilder get compliance =>
@@ -82,10 +79,13 @@ class AggregateComplianceByConformancePackBuilder
   set compliance(_i2.AggregateConformancePackComplianceBuilder? compliance) =>
       _$this._compliance = compliance;
 
-  String? _conformancePackName;
-  String? get conformancePackName => _$this._conformancePackName;
-  set conformancePackName(String? conformancePackName) =>
-      _$this._conformancePackName = conformancePackName;
+  String? _accountId;
+  String? get accountId => _$this._accountId;
+  set accountId(String? accountId) => _$this._accountId = accountId;
+
+  String? _awsRegion;
+  String? get awsRegion => _$this._awsRegion;
+  set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
   AggregateComplianceByConformancePackBuilder() {
     AggregateComplianceByConformancePack._init(this);
@@ -94,10 +94,10 @@ class AggregateComplianceByConformancePackBuilder
   AggregateComplianceByConformancePackBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _conformancePackName = $v.conformancePackName;
+      _compliance = $v.compliance?.toBuilder();
       _accountId = $v.accountId;
       _awsRegion = $v.awsRegion;
-      _compliance = $v.compliance?.toBuilder();
-      _conformancePackName = $v.conformancePackName;
       _$v = null;
     }
     return this;
@@ -123,10 +123,10 @@ class AggregateComplianceByConformancePackBuilder
     try {
       _$result = _$v ??
           new _$AggregateComplianceByConformancePack._(
-              accountId: accountId,
-              awsRegion: awsRegion,
+              conformancePackName: conformancePackName,
               compliance: _compliance?.build(),
-              conformancePackName: conformancePackName);
+              accountId: accountId,
+              awsRegion: awsRegion);
     } catch (_) {
       late String _$failedField;
       try {

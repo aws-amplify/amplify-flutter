@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_validation_protocol.model.malformed_required_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,13 +20,13 @@ abstract class MalformedRequiredInput
         _i1.HasPayload<MalformedRequiredInputPayload> {
   factory MalformedRequiredInput({
     required String string,
-    required String stringInHeader,
     required String stringInQuery,
+    required String stringInHeader,
   }) {
     return _$MalformedRequiredInput._(
       string: string,
-      stringInHeader: stringInHeader,
       stringInQuery: stringInQuery,
+      stringInHeader: stringInHeader,
     );
   }
 
@@ -57,8 +58,8 @@ abstract class MalformedRequiredInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedRequiredInputBuilder b) {}
   String get string;
-  String get stringInHeader;
   String get stringInQuery;
+  String get stringInHeader;
   @override
   MalformedRequiredInputPayload getPayload() =>
       MalformedRequiredInputPayload((b) {
@@ -67,8 +68,8 @@ abstract class MalformedRequiredInput
   @override
   List<Object?> get props => [
         string,
-        stringInHeader,
         stringInQuery,
+        stringInHeader,
       ];
   @override
   String toString() {
@@ -78,12 +79,12 @@ abstract class MalformedRequiredInput
       string,
     );
     helper.add(
-      'stringInHeader',
-      stringInHeader,
-    );
-    helper.add(
       'stringInQuery',
       stringInQuery,
+    );
+    helper.add(
+      'stringInHeader',
+      stringInHeader,
     );
     return helper.toString();
   }
@@ -149,13 +150,15 @@ class MalformedRequiredInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'string':
           result.string = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -165,19 +168,18 @@ class MalformedRequiredInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MalformedRequiredInputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is MalformedRequiredInput
-        ? object.getPayload()
-        : (object as MalformedRequiredInputPayload);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final MalformedRequiredInputPayload(:string) = object;
+    result$.addAll([
       'string',
       serializers.serialize(
-        payload.string,
+        string,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

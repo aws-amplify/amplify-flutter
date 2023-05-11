@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.put_conformance_pack_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -82,15 +83,15 @@ class PutConformancePackResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConformancePackArn':
-          if (value != null) {
-            result.conformancePackArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.conformancePackArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -100,19 +101,19 @@ class PutConformancePackResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PutConformancePackResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PutConformancePackResponse);
-    final result = <Object?>[];
-    if (payload.conformancePackArn != null) {
-      result
+    final result$ = <Object?>[];
+    final PutConformancePackResponse(:conformancePackArn) = object;
+    if (conformancePackArn != null) {
+      result$
         ..add('ConformancePackArn')
         ..add(serializers.serialize(
-          payload.conformancePackArn!,
+          conformancePackArn,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -16,7 +16,7 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 /// {@template amplify_auth_cognito.hosted_ui_state_machine}
 /// Manages the Hosted UI lifecycle and OIDC flow.
 /// {@endtemplate}
-class HostedUiStateMachine
+final class HostedUiStateMachine
     extends AuthStateMachine<HostedUiEvent, HostedUiState> {
   /// {@macro amplify_auth_cognito.hosted_ui_state_machine}
   HostedUiStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
@@ -38,40 +38,30 @@ class HostedUiStateMachine
   /// The platform-specific behavior.
   late final HostedUiPlatform _platform = getOrCreate();
 
+  /// The configured identity pool.
+  CognitoIdentityCredentialsProvider? get _identityPoolConfig => get();
+
   @override
   Future<void> resolve(HostedUiEvent event) async {
-    switch (event.type) {
-      case HostedUiEventType.configure:
-        event as HostedUiConfigure;
+    switch (event) {
+      case HostedUiConfigure _:
         emit(const HostedUiState.configuring());
         await onConfigure(event);
-        break;
-      case HostedUiEventType.foundState:
-        event as HostedUiFoundState;
+      case HostedUiFoundState _:
         await onFoundState(event);
-        break;
-      case HostedUiEventType.exchange:
-        event as HostedUiExchange;
+      case HostedUiExchange _:
         emit(const HostedUiState.signingIn());
         await onExchange(event);
-        break;
-      case HostedUiEventType.signIn:
-        event as HostedUiSignIn;
+      case HostedUiSignIn _:
         emit(const HostedUiState.signingIn());
         await onSignIn(event);
-        break;
-      case HostedUiEventType.cancelSignIn:
-        await onCancelSignIn(event.cast());
-        break;
-      case HostedUiEventType.signOut:
-        event as HostedUiSignOut;
+      case HostedUiCancelSignIn _:
+        await onCancelSignIn(event);
+      case HostedUiSignOut _:
         emit(const HostedUiState.signingOut());
         await onSignOut(event);
-        break;
-      case HostedUiEventType.succeeded:
-        event as HostedUiSucceeded;
+      case HostedUiSucceeded _:
         await onSucceeded(event);
-        break;
     }
   }
 
@@ -86,9 +76,8 @@ class HostedUiStateMachine
   /// State machine callback for the [HostedUiConfigure] event.
   Future<void> onConfigure(HostedUiConfigure event) async {
     final result = await manager.loadCredentials();
-    final userPoolTokens = result.userPoolTokens;
-    if (userPoolTokens != null &&
-        userPoolTokens.signInMethod == CognitoSignInMethod.hostedUi) {
+    if (result.userPoolTokens case CognitoUserPoolTokens(:final signInMethod)
+        when signInMethod == CognitoSignInMethod.hostedUi) {
       emit(HostedUiState.signedIn(result.authUser));
       return;
     }
@@ -192,6 +181,16 @@ class HostedUiStateMachine
         signInDetails: signInDetails,
       ),
     );
+
+    // Clear anonymous credentials, if there were any, and fetch authenticated
+    // credentials.
+    if (_identityPoolConfig != null) {
+      await manager.clearCredentials(
+        CognitoIdentityPoolKeys(_identityPoolConfig!),
+      );
+
+      await manager.loadSession();
+    }
 
     final idToken = event.tokens.idToken;
     final userId = idToken.userId;

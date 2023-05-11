@@ -8,18 +8,18 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.code_delivery_
 
 class _$CodeDeliveryDetailsType extends CodeDeliveryDetailsType {
   @override
-  final String? attributeName;
+  final String? destination;
   @override
   final _i2.DeliveryMediumType? deliveryMedium;
   @override
-  final String? destination;
+  final String? attributeName;
 
   factory _$CodeDeliveryDetailsType(
           [void Function(CodeDeliveryDetailsTypeBuilder)? updates]) =>
       (new CodeDeliveryDetailsTypeBuilder()..update(updates))._build();
 
   _$CodeDeliveryDetailsType._(
-      {this.attributeName, this.deliveryMedium, this.destination})
+      {this.destination, this.deliveryMedium, this.attributeName})
       : super._();
 
   @override
@@ -35,17 +35,17 @@ class _$CodeDeliveryDetailsType extends CodeDeliveryDetailsType {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CodeDeliveryDetailsType &&
-        attributeName == other.attributeName &&
+        destination == other.destination &&
         deliveryMedium == other.deliveryMedium &&
-        destination == other.destination;
+        attributeName == other.attributeName;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, attributeName.hashCode);
-    _$hash = $jc(_$hash, deliveryMedium.hashCode);
     _$hash = $jc(_$hash, destination.hashCode);
+    _$hash = $jc(_$hash, deliveryMedium.hashCode);
+    _$hash = $jc(_$hash, attributeName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -56,19 +56,19 @@ class CodeDeliveryDetailsTypeBuilder
         Builder<CodeDeliveryDetailsType, CodeDeliveryDetailsTypeBuilder> {
   _$CodeDeliveryDetailsType? _$v;
 
-  String? _attributeName;
-  String? get attributeName => _$this._attributeName;
-  set attributeName(String? attributeName) =>
-      _$this._attributeName = attributeName;
+  String? _destination;
+  String? get destination => _$this._destination;
+  set destination(String? destination) => _$this._destination = destination;
 
   _i2.DeliveryMediumType? _deliveryMedium;
   _i2.DeliveryMediumType? get deliveryMedium => _$this._deliveryMedium;
   set deliveryMedium(_i2.DeliveryMediumType? deliveryMedium) =>
       _$this._deliveryMedium = deliveryMedium;
 
-  String? _destination;
-  String? get destination => _$this._destination;
-  set destination(String? destination) => _$this._destination = destination;
+  String? _attributeName;
+  String? get attributeName => _$this._attributeName;
+  set attributeName(String? attributeName) =>
+      _$this._attributeName = attributeName;
 
   CodeDeliveryDetailsTypeBuilder() {
     CodeDeliveryDetailsType._init(this);
@@ -77,9 +77,9 @@ class CodeDeliveryDetailsTypeBuilder
   CodeDeliveryDetailsTypeBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _attributeName = $v.attributeName;
-      _deliveryMedium = $v.deliveryMedium;
       _destination = $v.destination;
+      _deliveryMedium = $v.deliveryMedium;
+      _attributeName = $v.attributeName;
       _$v = null;
     }
     return this;
@@ -102,9 +102,9 @@ class CodeDeliveryDetailsTypeBuilder
   _$CodeDeliveryDetailsType _build() {
     final _$result = _$v ??
         new _$CodeDeliveryDetailsType._(
-            attributeName: attributeName,
+            destination: destination,
             deliveryMedium: deliveryMedium,
-            destination: destination);
+            attributeName: attributeName);
     replace(_$result);
     return _$result;
   }

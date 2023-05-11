@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_aggregate_config_rule_compliance_summary_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,15 +20,15 @@ abstract class GetAggregateConfigRuleComplianceSummaryResponse
         Built<GetAggregateConfigRuleComplianceSummaryResponse,
             GetAggregateConfigRuleComplianceSummaryResponseBuilder> {
   factory GetAggregateConfigRuleComplianceSummaryResponse({
-    List<_i2.AggregateComplianceCount>? aggregateComplianceCounts,
     String? groupByKey,
+    List<_i2.AggregateComplianceCount>? aggregateComplianceCounts,
     String? nextToken,
   }) {
     return _$GetAggregateConfigRuleComplianceSummaryResponse._(
+      groupByKey: groupByKey,
       aggregateComplianceCounts: aggregateComplianceCounts == null
           ? null
           : _i3.BuiltList(aggregateComplianceCounts),
-      groupByKey: groupByKey,
       nextToken: nextToken,
     );
   }
@@ -52,18 +53,18 @@ abstract class GetAggregateConfigRuleComplianceSummaryResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetAggregateConfigRuleComplianceSummaryResponseBuilder b) {}
 
-  /// Returns a list of AggregateComplianceCounts object.
-  _i3.BuiltList<_i2.AggregateComplianceCount>? get aggregateComplianceCounts;
-
   /// Groups the result based on ACCOUNT\_ID or AWS\_REGION.
   String? get groupByKey;
+
+  /// Returns a list of AggregateComplianceCounts object.
+  _i3.BuiltList<_i2.AggregateComplianceCount>? get aggregateComplianceCounts;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
   @override
   List<Object?> get props => [
-        aggregateComplianceCounts,
         groupByKey,
+        aggregateComplianceCounts,
         nextToken,
       ];
   @override
@@ -71,12 +72,12 @@ abstract class GetAggregateConfigRuleComplianceSummaryResponse
     final helper = newBuiltValueToStringHelper(
         'GetAggregateConfigRuleComplianceSummaryResponse');
     helper.add(
-      'aggregateComplianceCounts',
-      aggregateComplianceCounts,
-    );
-    helper.add(
       'groupByKey',
       groupByKey,
+    );
+    helper.add(
+      'aggregateComplianceCounts',
+      aggregateComplianceCounts,
     );
     helper.add(
       'nextToken',
@@ -116,34 +117,28 @@ class GetAggregateConfigRuleComplianceSummaryResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'AggregateComplianceCounts':
-          if (value != null) {
-            result.aggregateComplianceCounts.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AggregateComplianceCount)],
-              ),
-            ) as _i3.BuiltList<_i2.AggregateComplianceCount>));
-          }
-          break;
         case 'GroupByKey':
-          if (value != null) {
-            result.groupByKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.groupByKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'AggregateComplianceCounts':
+          result.aggregateComplianceCounts.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AggregateComplianceCount)],
+            ),
+          ) as _i3.BuiltList<_i2.AggregateComplianceCount>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -153,38 +148,42 @@ class GetAggregateConfigRuleComplianceSummaryResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetAggregateConfigRuleComplianceSummaryResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetAggregateConfigRuleComplianceSummaryResponse);
-    final result = <Object?>[];
-    if (payload.aggregateComplianceCounts != null) {
-      result
+    final result$ = <Object?>[];
+    final GetAggregateConfigRuleComplianceSummaryResponse(
+      :groupByKey,
+      :aggregateComplianceCounts,
+      :nextToken
+    ) = object;
+    if (groupByKey != null) {
+      result$
+        ..add('GroupByKey')
+        ..add(serializers.serialize(
+          groupByKey,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (aggregateComplianceCounts != null) {
+      result$
         ..add('AggregateComplianceCounts')
         ..add(serializers.serialize(
-          payload.aggregateComplianceCounts!,
+          aggregateComplianceCounts,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AggregateComplianceCount)],
           ),
         ));
     }
-    if (payload.groupByKey != null) {
-      result
-        ..add('GroupByKey')
-        ..add(serializers.serialize(
-          payload.groupByKey!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.nextToken != null) {
-      result
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

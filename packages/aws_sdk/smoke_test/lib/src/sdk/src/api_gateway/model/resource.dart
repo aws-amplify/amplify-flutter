@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.resource; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,15 +20,15 @@ abstract class Resource
   factory Resource({
     String? id,
     String? parentId,
-    String? path,
     String? pathPart,
+    String? path,
     Map<String, _i2.Method>? resourceMethods,
   }) {
     return _$Resource._(
       id: id,
       parentId: parentId,
-      path: path,
       pathPart: pathPart,
+      path: path,
       resourceMethods:
           resourceMethods == null ? null : _i3.BuiltMap(resourceMethods),
     );
@@ -58,11 +59,11 @@ abstract class Resource
   /// The parent resource's identifier.
   String? get parentId;
 
-  /// The full path for this resource.
-  String? get path;
-
   /// The last path segment for this resource.
   String? get pathPart;
+
+  /// The full path for this resource.
+  String? get path;
 
   /// Gets an API resource's method of a given HTTP verb.
   _i3.BuiltMap<String, _i2.Method>? get resourceMethods;
@@ -70,8 +71,8 @@ abstract class Resource
   List<Object?> get props => [
         id,
         parentId,
-        path,
         pathPart,
+        path,
         resourceMethods,
       ];
   @override
@@ -86,12 +87,12 @@ abstract class Resource
       parentId,
     );
     helper.add(
-      'path',
-      path,
-    );
-    helper.add(
       'pathPart',
       pathPart,
+    );
+    helper.add(
+      'path',
+      path,
     );
     helper.add(
       'resourceMethods',
@@ -129,53 +130,41 @@ class ResourceRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'parentId':
-          if (value != null) {
-            result.parentId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.parentId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'path':
-          if (value != null) {
-            result.path = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.path = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'pathPart':
-          if (value != null) {
-            result.pathPart = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.pathPart = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'resourceMethods':
-          if (value != null) {
-            result.resourceMethods.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.Method),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, _i2.Method>));
-          }
-          break;
+          result.resourceMethods.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.Method),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, _i2.Method>));
       }
     }
 
@@ -185,48 +174,48 @@ class ResourceRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    Resource object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as Resource);
-    final result = <Object?>[];
-    if (payload.id != null) {
-      result
+    final result$ = <Object?>[];
+    final Resource(:id, :parentId, :path, :pathPart, :resourceMethods) = object;
+    if (id != null) {
+      result$
         ..add('id')
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.parentId != null) {
-      result
+    if (parentId != null) {
+      result$
         ..add('parentId')
         ..add(serializers.serialize(
-          payload.parentId!,
+          parentId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.path != null) {
-      result
+    if (path != null) {
+      result$
         ..add('path')
         ..add(serializers.serialize(
-          payload.path!,
+          path,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.pathPart != null) {
-      result
+    if (pathPart != null) {
+      result$
         ..add('pathPart')
         ..add(serializers.serialize(
-          payload.pathPart!,
+          pathPart,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceMethods != null) {
-      result
+    if (resourceMethods != null) {
+      result$
         ..add('resourceMethods')
         ..add(serializers.serialize(
-          payload.resourceMethods!,
+          resourceMethods,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -236,6 +225,6 @@ class ResourceRestJson1Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

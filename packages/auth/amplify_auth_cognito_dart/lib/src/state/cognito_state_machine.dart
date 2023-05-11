@@ -56,22 +56,15 @@ class CognitoAuthStateMachine
 
   @override
   StateMachineToken mapEventToMachine(AuthEvent event) {
-    if (event is ConfigurationEvent) {
-      return ConfigurationStateMachine.type;
-    } else if (event is CredentialStoreEvent) {
-      return CredentialStoreStateMachine.type;
-    } else if (event is FetchAuthSessionEvent) {
-      return FetchAuthSessionStateMachine.type;
-    } else if (event is HostedUiEvent) {
-      return HostedUiStateMachine.type;
-    } else if (event is SignInEvent) {
-      return SignInStateMachine.type;
-    } else if (event is SignOutEvent) {
-      return SignOutStateMachine.type;
-    } else if (event is SignUpEvent) {
-      return SignUpStateMachine.type;
-    }
-    throw StateError('Unhandled event: $event');
+    return switch (event) {
+      ConfigurationEvent _ => ConfigurationStateMachine.type,
+      CredentialStoreEvent _ => CredentialStoreStateMachine.type,
+      FetchAuthSessionEvent _ => FetchAuthSessionStateMachine.type,
+      HostedUiEvent _ => HostedUiStateMachine.type,
+      SignInEvent _ => SignInStateMachine.type,
+      SignOutEvent _ => SignOutStateMachine.type,
+      SignUpEvent _ => SignUpStateMachine.type,
+    } as StateMachineToken;
   }
 
   /// Loads credentials from the credential store (which may be

@@ -12,11 +12,11 @@ class _$InventoryS3BucketDestination extends InventoryS3BucketDestination {
   @override
   final String bucket;
   @override
-  final _i2.InventoryEncryption? encryption;
-  @override
-  final _i3.InventoryFormat format;
+  final _i2.InventoryFormat format;
   @override
   final String? prefix;
+  @override
+  final _i3.InventoryEncryption? encryption;
 
   factory _$InventoryS3BucketDestination(
           [void Function(InventoryS3BucketDestinationBuilder)? updates]) =>
@@ -25,9 +25,9 @@ class _$InventoryS3BucketDestination extends InventoryS3BucketDestination {
   _$InventoryS3BucketDestination._(
       {this.accountId,
       required this.bucket,
-      this.encryption,
       required this.format,
-      this.prefix})
+      this.prefix,
+      this.encryption})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'InventoryS3BucketDestination', 'bucket');
@@ -50,9 +50,9 @@ class _$InventoryS3BucketDestination extends InventoryS3BucketDestination {
     return other is InventoryS3BucketDestination &&
         accountId == other.accountId &&
         bucket == other.bucket &&
-        encryption == other.encryption &&
         format == other.format &&
-        prefix == other.prefix;
+        prefix == other.prefix &&
+        encryption == other.encryption;
   }
 
   @override
@@ -60,9 +60,9 @@ class _$InventoryS3BucketDestination extends InventoryS3BucketDestination {
     var _$hash = 0;
     _$hash = $jc(_$hash, accountId.hashCode);
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, encryption.hashCode);
     _$hash = $jc(_$hash, format.hashCode);
     _$hash = $jc(_$hash, prefix.hashCode);
+    _$hash = $jc(_$hash, encryption.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -82,19 +82,19 @@ class InventoryS3BucketDestinationBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i2.InventoryEncryptionBuilder? _encryption;
-  _i2.InventoryEncryptionBuilder get encryption =>
-      _$this._encryption ??= new _i2.InventoryEncryptionBuilder();
-  set encryption(_i2.InventoryEncryptionBuilder? encryption) =>
-      _$this._encryption = encryption;
-
-  _i3.InventoryFormat? _format;
-  _i3.InventoryFormat? get format => _$this._format;
-  set format(_i3.InventoryFormat? format) => _$this._format = format;
+  _i2.InventoryFormat? _format;
+  _i2.InventoryFormat? get format => _$this._format;
+  set format(_i2.InventoryFormat? format) => _$this._format = format;
 
   String? _prefix;
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
+
+  _i3.InventoryEncryptionBuilder? _encryption;
+  _i3.InventoryEncryptionBuilder get encryption =>
+      _$this._encryption ??= new _i3.InventoryEncryptionBuilder();
+  set encryption(_i3.InventoryEncryptionBuilder? encryption) =>
+      _$this._encryption = encryption;
 
   InventoryS3BucketDestinationBuilder() {
     InventoryS3BucketDestination._init(this);
@@ -105,9 +105,9 @@ class InventoryS3BucketDestinationBuilder
     if ($v != null) {
       _accountId = $v.accountId;
       _bucket = $v.bucket;
-      _encryption = $v.encryption?.toBuilder();
       _format = $v.format;
       _prefix = $v.prefix;
+      _encryption = $v.encryption?.toBuilder();
       _$v = null;
     }
     return this;
@@ -135,10 +135,10 @@ class InventoryS3BucketDestinationBuilder
               accountId: accountId,
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'InventoryS3BucketDestination', 'bucket'),
-              encryption: _encryption?.build(),
               format: BuiltValueNullFieldError.checkNotNull(
                   format, r'InventoryS3BucketDestination', 'format'),
-              prefix: prefix);
+              prefix: prefix,
+              encryption: _encryption?.build());
     } catch (_) {
       late String _$failedField;
       try {

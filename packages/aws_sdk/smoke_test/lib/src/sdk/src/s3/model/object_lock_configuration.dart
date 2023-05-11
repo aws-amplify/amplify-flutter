@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.object_lock_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -92,26 +93,23 @@ class ObjectLockConfigurationRestXmlSerializer
     final result = ObjectLockConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ObjectLockEnabled':
-          if (value != null) {
-            result.objectLockEnabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ObjectLockEnabled),
-            ) as _i2.ObjectLockEnabled);
-          }
-          break;
+          result.objectLockEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ObjectLockEnabled),
+          ) as _i2.ObjectLockEnabled);
         case 'Rule':
-          if (value != null) {
-            result.rule.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ObjectLockRule),
-            ) as _i3.ObjectLockRule));
-          }
-          break;
+          result.rule.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ObjectLockRule),
+          ) as _i3.ObjectLockRule));
       }
     }
 
@@ -121,32 +119,32 @@ class ObjectLockConfigurationRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ObjectLockConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ObjectLockConfiguration);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i4.XmlElementName(
         'ObjectLockConfiguration',
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.objectLockEnabled != null) {
-      result
+    final ObjectLockConfiguration(:objectLockEnabled, :rule) = object;
+    if (objectLockEnabled != null) {
+      result$
         ..add(const _i4.XmlElementName('ObjectLockEnabled'))
         ..add(serializers.serialize(
-          payload.objectLockEnabled!,
+          objectLockEnabled,
           specifiedType: const FullType.nullable(_i2.ObjectLockEnabled),
         ));
     }
-    if (payload.rule != null) {
-      result
+    if (rule != null) {
+      result$
         ..add(const _i4.XmlElementName('Rule'))
         ..add(serializers.serialize(
-          payload.rule!,
+          rule,
           specifiedType: const FullType(_i3.ObjectLockRule),
         ));
     }
-    return result;
+    return result$;
   }
 }

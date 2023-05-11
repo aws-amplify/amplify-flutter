@@ -8,20 +8,20 @@ part of smoke_test.api_gateway.model.get_resources_request;
 
 class _$GetResourcesRequest extends GetResourcesRequest {
   @override
-  final _i3.BuiltList<String>? embed;
-  @override
-  final int? limit;
+  final String restApiId;
   @override
   final String? position;
   @override
-  final String restApiId;
+  final int? limit;
+  @override
+  final _i3.BuiltList<String>? embed;
 
   factory _$GetResourcesRequest(
           [void Function(GetResourcesRequestBuilder)? updates]) =>
       (new GetResourcesRequestBuilder()..update(updates))._build();
 
   _$GetResourcesRequest._(
-      {this.embed, this.limit, this.position, required this.restApiId})
+      {required this.restApiId, this.position, this.limit, this.embed})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetResourcesRequest', 'restApiId');
@@ -40,19 +40,19 @@ class _$GetResourcesRequest extends GetResourcesRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetResourcesRequest &&
-        embed == other.embed &&
-        limit == other.limit &&
+        restApiId == other.restApiId &&
         position == other.position &&
-        restApiId == other.restApiId;
+        limit == other.limit &&
+        embed == other.embed;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, embed.hashCode);
-    _$hash = $jc(_$hash, limit.hashCode);
-    _$hash = $jc(_$hash, position.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, position.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
+    _$hash = $jc(_$hash, embed.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,22 +62,22 @@ class GetResourcesRequestBuilder
     implements Builder<GetResourcesRequest, GetResourcesRequestBuilder> {
   _$GetResourcesRequest? _$v;
 
-  _i3.ListBuilder<String>? _embed;
-  _i3.ListBuilder<String> get embed =>
-      _$this._embed ??= new _i3.ListBuilder<String>();
-  set embed(_i3.ListBuilder<String>? embed) => _$this._embed = embed;
-
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _position;
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
+
+  _i3.ListBuilder<String>? _embed;
+  _i3.ListBuilder<String> get embed =>
+      _$this._embed ??= new _i3.ListBuilder<String>();
+  set embed(_i3.ListBuilder<String>? embed) => _$this._embed = embed;
 
   GetResourcesRequestBuilder() {
     GetResourcesRequest._init(this);
@@ -86,10 +86,10 @@ class GetResourcesRequestBuilder
   GetResourcesRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _embed = $v.embed?.toBuilder();
-      _limit = $v.limit;
-      _position = $v.position;
       _restApiId = $v.restApiId;
+      _position = $v.position;
+      _limit = $v.limit;
+      _embed = $v.embed?.toBuilder();
       _$v = null;
     }
     return this;
@@ -114,11 +114,11 @@ class GetResourcesRequestBuilder
     try {
       _$result = _$v ??
           new _$GetResourcesRequest._(
-              embed: _embed?.build(),
-              limit: limit,
-              position: position,
               restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'GetResourcesRequest', 'restApiId'));
+                  restApiId, r'GetResourcesRequest', 'restApiId'),
+              position: position,
+              limit: limit,
+              embed: _embed?.build());
     } catch (_) {
       late String _$failedField;
       try {

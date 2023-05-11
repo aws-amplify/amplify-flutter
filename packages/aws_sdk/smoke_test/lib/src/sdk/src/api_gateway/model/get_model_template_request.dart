@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.api_gateway.model.get_model_template_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,12 +22,12 @@ abstract class GetModelTemplateRequest
         _i1.HasPayload<GetModelTemplateRequestPayload> {
   /// Request to generate a sample mapping template used to transform the payload.
   factory GetModelTemplateRequest({
-    required String modelName,
     required String restApiId,
+    required String modelName,
   }) {
     return _$GetModelTemplateRequest._(
-      modelName: modelName,
       restApiId: restApiId,
+      modelName: modelName,
     );
   }
 
@@ -58,11 +59,11 @@ abstract class GetModelTemplateRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetModelTemplateRequestBuilder b) {}
 
-  /// The name of the model for which to generate a template.
-  String get modelName;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The name of the model for which to generate a template.
+  String get modelName;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -82,19 +83,19 @@ abstract class GetModelTemplateRequest
       GetModelTemplateRequestPayload();
   @override
   List<Object?> get props => [
-        modelName,
         restApiId,
+        modelName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetModelTemplateRequest');
     helper.add(
-      'modelName',
-      modelName,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'modelName',
+      modelName,
     );
     return helper.toString();
   }
@@ -157,7 +158,7 @@ class GetModelTemplateRequestRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetModelTemplateRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

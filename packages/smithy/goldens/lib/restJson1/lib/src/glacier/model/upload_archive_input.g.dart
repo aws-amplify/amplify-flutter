@@ -8,31 +8,31 @@ part of rest_json1_v1.glacier.model.upload_archive_input;
 
 class _$UploadArchiveInput extends UploadArchiveInput {
   @override
+  final String vaultName;
+  @override
   final String accountId;
   @override
   final String? archiveDescription;
   @override
-  final _i2.Stream<List<int>>? body;
-  @override
   final String? checksum;
   @override
-  final String vaultName;
+  final _i2.Stream<List<int>>? body;
 
   factory _$UploadArchiveInput(
           [void Function(UploadArchiveInputBuilder)? updates]) =>
       (new UploadArchiveInputBuilder()..update(updates))._build();
 
   _$UploadArchiveInput._(
-      {required this.accountId,
+      {required this.vaultName,
+      required this.accountId,
       this.archiveDescription,
-      this.body,
       this.checksum,
-      required this.vaultName})
+      this.body})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        accountId, r'UploadArchiveInput', 'accountId');
-    BuiltValueNullFieldError.checkNotNull(
         vaultName, r'UploadArchiveInput', 'vaultName');
+    BuiltValueNullFieldError.checkNotNull(
+        accountId, r'UploadArchiveInput', 'accountId');
   }
 
   @override
@@ -48,21 +48,21 @@ class _$UploadArchiveInput extends UploadArchiveInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UploadArchiveInput &&
+        vaultName == other.vaultName &&
         accountId == other.accountId &&
         archiveDescription == other.archiveDescription &&
-        body == other.body &&
         checksum == other.checksum &&
-        vaultName == other.vaultName;
+        body == other.body;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, vaultName.hashCode);
     _$hash = $jc(_$hash, accountId.hashCode);
     _$hash = $jc(_$hash, archiveDescription.hashCode);
-    _$hash = $jc(_$hash, body.hashCode);
     _$hash = $jc(_$hash, checksum.hashCode);
-    _$hash = $jc(_$hash, vaultName.hashCode);
+    _$hash = $jc(_$hash, body.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -71,6 +71,10 @@ class _$UploadArchiveInput extends UploadArchiveInput {
 class UploadArchiveInputBuilder
     implements Builder<UploadArchiveInput, UploadArchiveInputBuilder> {
   _$UploadArchiveInput? _$v;
+
+  String? _vaultName;
+  String? get vaultName => _$this._vaultName;
+  set vaultName(String? vaultName) => _$this._vaultName = vaultName;
 
   String? _accountId;
   String? get accountId => _$this._accountId;
@@ -81,17 +85,13 @@ class UploadArchiveInputBuilder
   set archiveDescription(String? archiveDescription) =>
       _$this._archiveDescription = archiveDescription;
 
-  _i2.Stream<List<int>>? _body;
-  _i2.Stream<List<int>>? get body => _$this._body;
-  set body(_i2.Stream<List<int>>? body) => _$this._body = body;
-
   String? _checksum;
   String? get checksum => _$this._checksum;
   set checksum(String? checksum) => _$this._checksum = checksum;
 
-  String? _vaultName;
-  String? get vaultName => _$this._vaultName;
-  set vaultName(String? vaultName) => _$this._vaultName = vaultName;
+  _i2.Stream<List<int>>? _body;
+  _i2.Stream<List<int>>? get body => _$this._body;
+  set body(_i2.Stream<List<int>>? body) => _$this._body = body;
 
   UploadArchiveInputBuilder() {
     UploadArchiveInput._init(this);
@@ -100,11 +100,11 @@ class UploadArchiveInputBuilder
   UploadArchiveInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _vaultName = $v.vaultName;
       _accountId = $v.accountId;
       _archiveDescription = $v.archiveDescription;
-      _body = $v.body;
       _checksum = $v.checksum;
-      _vaultName = $v.vaultName;
+      _body = $v.body;
       _$v = null;
     }
     return this;
@@ -127,13 +127,13 @@ class UploadArchiveInputBuilder
   _$UploadArchiveInput _build() {
     final _$result = _$v ??
         new _$UploadArchiveInput._(
+            vaultName: BuiltValueNullFieldError.checkNotNull(
+                vaultName, r'UploadArchiveInput', 'vaultName'),
             accountId: BuiltValueNullFieldError.checkNotNull(
                 accountId, r'UploadArchiveInput', 'accountId'),
             archiveDescription: archiveDescription,
-            body: body,
             checksum: checksum,
-            vaultName: BuiltValueNullFieldError.checkNotNull(
-                vaultName, r'UploadArchiveInput', 'vaultName'));
+            body: body);
     replace(_$result);
     return _$result;
   }

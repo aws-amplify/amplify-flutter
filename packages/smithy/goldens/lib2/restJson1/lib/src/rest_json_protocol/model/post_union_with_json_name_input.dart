@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v2.rest_json_protocol.model.post_union_with_json_name_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -85,15 +86,15 @@ class PostUnionWithJsonNameInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'value':
-          if (value != null) {
-            result.value = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.UnionWithJsonName),
-            ) as _i3.UnionWithJsonName);
-          }
-          break;
+          result.value = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.UnionWithJsonName),
+          ) as _i3.UnionWithJsonName);
       }
     }
 
@@ -103,19 +104,19 @@ class PostUnionWithJsonNameInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    PostUnionWithJsonNameInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as PostUnionWithJsonNameInput);
-    final result = <Object?>[];
-    if (payload.value != null) {
-      result
+    final result$ = <Object?>[];
+    final PostUnionWithJsonNameInput(:value) = object;
+    if (value != null) {
+      result$
         ..add('value')
         ..add(serializers.serialize(
-          payload.value!,
+          value,
           specifiedType: const FullType(_i3.UnionWithJsonName),
         ));
     }
-    return result;
+    return result$;
   }
 }

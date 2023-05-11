@@ -13,13 +13,13 @@ class _$OrganizationConformancePackDetailedStatus
   @override
   final String conformancePackName;
   @override
+  final _i2.OrganizationResourceDetailedStatus status;
+  @override
   final String? errorCode;
   @override
   final String? errorMessage;
   @override
   final DateTime? lastUpdateTime;
-  @override
-  final _i2.OrganizationResourceDetailedStatus status;
 
   factory _$OrganizationConformancePackDetailedStatus(
           [void Function(OrganizationConformancePackDetailedStatusBuilder)?
@@ -30,10 +30,10 @@ class _$OrganizationConformancePackDetailedStatus
   _$OrganizationConformancePackDetailedStatus._(
       {required this.accountId,
       required this.conformancePackName,
+      required this.status,
       this.errorCode,
       this.errorMessage,
-      this.lastUpdateTime,
-      required this.status})
+      this.lastUpdateTime})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         accountId, r'OrganizationConformancePackDetailedStatus', 'accountId');
@@ -59,10 +59,10 @@ class _$OrganizationConformancePackDetailedStatus
     return other is OrganizationConformancePackDetailedStatus &&
         accountId == other.accountId &&
         conformancePackName == other.conformancePackName &&
+        status == other.status &&
         errorCode == other.errorCode &&
         errorMessage == other.errorMessage &&
-        lastUpdateTime == other.lastUpdateTime &&
-        status == other.status;
+        lastUpdateTime == other.lastUpdateTime;
   }
 
   @override
@@ -70,10 +70,10 @@ class _$OrganizationConformancePackDetailedStatus
     var _$hash = 0;
     _$hash = $jc(_$hash, accountId.hashCode);
     _$hash = $jc(_$hash, conformancePackName.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
     _$hash = $jc(_$hash, errorCode.hashCode);
     _$hash = $jc(_$hash, errorMessage.hashCode);
     _$hash = $jc(_$hash, lastUpdateTime.hashCode);
-    _$hash = $jc(_$hash, status.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -94,6 +94,11 @@ class OrganizationConformancePackDetailedStatusBuilder
   set conformancePackName(String? conformancePackName) =>
       _$this._conformancePackName = conformancePackName;
 
+  _i2.OrganizationResourceDetailedStatus? _status;
+  _i2.OrganizationResourceDetailedStatus? get status => _$this._status;
+  set status(_i2.OrganizationResourceDetailedStatus? status) =>
+      _$this._status = status;
+
   String? _errorCode;
   String? get errorCode => _$this._errorCode;
   set errorCode(String? errorCode) => _$this._errorCode = errorCode;
@@ -107,11 +112,6 @@ class OrganizationConformancePackDetailedStatusBuilder
   set lastUpdateTime(DateTime? lastUpdateTime) =>
       _$this._lastUpdateTime = lastUpdateTime;
 
-  _i2.OrganizationResourceDetailedStatus? _status;
-  _i2.OrganizationResourceDetailedStatus? get status => _$this._status;
-  set status(_i2.OrganizationResourceDetailedStatus? status) =>
-      _$this._status = status;
-
   OrganizationConformancePackDetailedStatusBuilder() {
     OrganizationConformancePackDetailedStatus._init(this);
   }
@@ -121,10 +121,10 @@ class OrganizationConformancePackDetailedStatusBuilder
     if ($v != null) {
       _accountId = $v.accountId;
       _conformancePackName = $v.conformancePackName;
+      _status = $v.status;
       _errorCode = $v.errorCode;
       _errorMessage = $v.errorMessage;
       _lastUpdateTime = $v.lastUpdateTime;
-      _status = $v.status;
       _$v = null;
     }
     return this;
@@ -155,11 +155,11 @@ class OrganizationConformancePackDetailedStatusBuilder
                 conformancePackName,
                 r'OrganizationConformancePackDetailedStatus',
                 'conformancePackName'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'OrganizationConformancePackDetailedStatus', 'status'),
             errorCode: errorCode,
             errorMessage: errorMessage,
-            lastUpdateTime: lastUpdateTime,
-            status: BuiltValueNullFieldError.checkNotNull(status,
-                r'OrganizationConformancePackDetailedStatus', 'status'));
+            lastUpdateTime: lastUpdateTime);
     replace(_$result);
     return _$result;
   }

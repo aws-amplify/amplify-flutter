@@ -99,10 +99,10 @@ class ResolvedServiceTrait extends ServiceTrait {
   const ResolvedServiceTrait({
     required this.cloudFormationName,
     required this.arnNamespace,
-    required String sdkId,
+    required super.sdkId,
     required this.cloudTrailEventSource,
     required this.endpointPrefix,
-  }) : super(sdkId: sdkId);
+  });
 
   factory ResolvedServiceTrait.fromJson(Object? json) =>
       _$ResolvedServiceTraitFromJson((json as Map).cast<String, Object?>());

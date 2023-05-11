@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.quiet_time; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -90,23 +91,20 @@ class QuietTimeRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'End':
-          if (value != null) {
-            result.end = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.end = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Start':
-          if (value != null) {
-            result.start = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.start = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -116,27 +114,27 @@ class QuietTimeRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    QuietTime object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as QuietTime);
-    final result = <Object?>[];
-    if (payload.end != null) {
-      result
+    final result$ = <Object?>[];
+    final QuietTime(:end, :start) = object;
+    if (end != null) {
+      result$
         ..add('End')
         ..add(serializers.serialize(
-          payload.end!,
+          end,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.start != null) {
-      result
+    if (start != null) {
+      result$
         ..add('Start')
         ..add(serializers.serialize(
-          payload.start!,
+          start,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

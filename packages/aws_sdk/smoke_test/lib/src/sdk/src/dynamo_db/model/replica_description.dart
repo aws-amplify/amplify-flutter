@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.dynamo_db.model.replica_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,9 +11,9 @@ import 'package:smithy/smithy.dart' as _i7;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_override.dart'
     as _i3;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_global_secondary_index_description.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_status.dart'
     as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_status.dart'
+    as _i2;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class_summary.dart'
     as _i5;
 
@@ -24,27 +25,27 @@ abstract class ReplicaDescription
     implements Built<ReplicaDescription, ReplicaDescriptionBuilder> {
   /// Contains the details of the replica.
   factory ReplicaDescription({
-    List<_i2.ReplicaGlobalSecondaryIndexDescription>? globalSecondaryIndexes,
-    String? kmsMasterKeyId,
-    _i3.ProvisionedThroughputOverride? provisionedThroughputOverride,
     String? regionName,
-    DateTime? replicaInaccessibleDateTime,
-    _i4.ReplicaStatus? replicaStatus,
+    _i2.ReplicaStatus? replicaStatus,
     String? replicaStatusDescription,
     String? replicaStatusPercentProgress,
+    String? kmsMasterKeyId,
+    _i3.ProvisionedThroughputOverride? provisionedThroughputOverride,
+    List<_i4.ReplicaGlobalSecondaryIndexDescription>? globalSecondaryIndexes,
+    DateTime? replicaInaccessibleDateTime,
     _i5.TableClassSummary? replicaTableClassSummary,
   }) {
     return _$ReplicaDescription._(
-      globalSecondaryIndexes: globalSecondaryIndexes == null
-          ? null
-          : _i6.BuiltList(globalSecondaryIndexes),
-      kmsMasterKeyId: kmsMasterKeyId,
-      provisionedThroughputOverride: provisionedThroughputOverride,
       regionName: regionName,
-      replicaInaccessibleDateTime: replicaInaccessibleDateTime,
       replicaStatus: replicaStatus,
       replicaStatusDescription: replicaStatusDescription,
       replicaStatusPercentProgress: replicaStatusPercentProgress,
+      kmsMasterKeyId: kmsMasterKeyId,
+      provisionedThroughputOverride: provisionedThroughputOverride,
+      globalSecondaryIndexes: globalSecondaryIndexes == null
+          ? null
+          : _i6.BuiltList(globalSecondaryIndexes),
+      replicaInaccessibleDateTime: replicaInaccessibleDateTime,
       replicaTableClassSummary: replicaTableClassSummary,
     );
   }
@@ -63,21 +64,8 @@ abstract class ReplicaDescription
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ReplicaDescriptionBuilder b) {}
 
-  /// Replica-specific global secondary index settings.
-  _i6.BuiltList<_i2.ReplicaGlobalSecondaryIndexDescription>?
-      get globalSecondaryIndexes;
-
-  /// The KMS key of the replica that will be used for KMS encryption.
-  String? get kmsMasterKeyId;
-
-  /// Replica-specific provisioned throughput. If not described, uses the source table's provisioned throughput settings.
-  _i3.ProvisionedThroughputOverride? get provisionedThroughputOverride;
-
   /// The name of the Region.
   String? get regionName;
-
-  /// The time at which the replica was first detected as inaccessible. To determine cause of inaccessibility check the `ReplicaStatus` property.
-  DateTime? get replicaInaccessibleDateTime;
 
   /// The current state of the replica:
   ///
@@ -96,7 +84,7 @@ abstract class ReplicaDescription
   /// *   `INACCESSIBLE\_ENCRYPTION\_CREDENTIALS` \- The KMS key used to encrypt the table is inaccessible.
   ///
   ///     If the KMS key remains inaccessible for more than 20 hours, DynamoDB will remove this replica from the replication group. The replica will not be deleted and replication will stop from and to this region.
-  _i4.ReplicaStatus? get replicaStatus;
+  _i2.ReplicaStatus? get replicaStatus;
 
   /// Detailed information about the replica status.
   String? get replicaStatusDescription;
@@ -104,42 +92,39 @@ abstract class ReplicaDescription
   /// Specifies the progress of a Create, Update, or Delete action on the replica as a percentage.
   String? get replicaStatusPercentProgress;
 
+  /// The KMS key of the replica that will be used for KMS encryption.
+  String? get kmsMasterKeyId;
+
+  /// Replica-specific provisioned throughput. If not described, uses the source table's provisioned throughput settings.
+  _i3.ProvisionedThroughputOverride? get provisionedThroughputOverride;
+
+  /// Replica-specific global secondary index settings.
+  _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexDescription>?
+      get globalSecondaryIndexes;
+
+  /// The time at which the replica was first detected as inaccessible. To determine cause of inaccessibility check the `ReplicaStatus` property.
+  DateTime? get replicaInaccessibleDateTime;
+
   /// Contains details of the table class.
   _i5.TableClassSummary? get replicaTableClassSummary;
   @override
   List<Object?> get props => [
-        globalSecondaryIndexes,
-        kmsMasterKeyId,
-        provisionedThroughputOverride,
         regionName,
-        replicaInaccessibleDateTime,
         replicaStatus,
         replicaStatusDescription,
         replicaStatusPercentProgress,
+        kmsMasterKeyId,
+        provisionedThroughputOverride,
+        globalSecondaryIndexes,
+        replicaInaccessibleDateTime,
         replicaTableClassSummary,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ReplicaDescription');
     helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
-    helper.add(
-      'kmsMasterKeyId',
-      kmsMasterKeyId,
-    );
-    helper.add(
-      'provisionedThroughputOverride',
-      provisionedThroughputOverride,
-    );
-    helper.add(
       'regionName',
       regionName,
-    );
-    helper.add(
-      'replicaInaccessibleDateTime',
-      replicaInaccessibleDateTime,
     );
     helper.add(
       'replicaStatus',
@@ -152,6 +137,22 @@ abstract class ReplicaDescription
     helper.add(
       'replicaStatusPercentProgress',
       replicaStatusPercentProgress,
+    );
+    helper.add(
+      'kmsMasterKeyId',
+      kmsMasterKeyId,
+    );
+    helper.add(
+      'provisionedThroughputOverride',
+      provisionedThroughputOverride,
+    );
+    helper.add(
+      'globalSecondaryIndexes',
+      globalSecondaryIndexes,
+    );
+    helper.add(
+      'replicaInaccessibleDateTime',
+      replicaInaccessibleDateTime,
     );
     helper.add(
       'replicaTableClassSummary',
@@ -189,83 +190,58 @@ class ReplicaDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'GlobalSecondaryIndexes':
-          if (value != null) {
-            result.globalSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i2.ReplicaGlobalSecondaryIndexDescription)],
-              ),
-            ) as _i6.BuiltList<_i2.ReplicaGlobalSecondaryIndexDescription>));
-          }
-          break;
-        case 'KMSMasterKeyId':
-          if (value != null) {
-            result.kmsMasterKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ProvisionedThroughputOverride':
-          if (value != null) {
-            result.provisionedThroughputOverride
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ProvisionedThroughputOverride),
-            ) as _i3.ProvisionedThroughputOverride));
-          }
-          break;
         case 'RegionName':
-          if (value != null) {
-            result.regionName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ReplicaInaccessibleDateTime':
-          if (value != null) {
-            result.replicaInaccessibleDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.regionName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ReplicaStatus':
-          if (value != null) {
-            result.replicaStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ReplicaStatus),
-            ) as _i4.ReplicaStatus);
-          }
-          break;
+          result.replicaStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ReplicaStatus),
+          ) as _i2.ReplicaStatus);
         case 'ReplicaStatusDescription':
-          if (value != null) {
-            result.replicaStatusDescription = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.replicaStatusDescription = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ReplicaStatusPercentProgress':
-          if (value != null) {
-            result.replicaStatusPercentProgress = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.replicaStatusPercentProgress = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'KMSMasterKeyId':
+          result.kmsMasterKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'ProvisionedThroughputOverride':
+          result.provisionedThroughputOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ProvisionedThroughputOverride),
+          ) as _i3.ProvisionedThroughputOverride));
+        case 'GlobalSecondaryIndexes':
+          result.globalSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i4.ReplicaGlobalSecondaryIndexDescription)],
+            ),
+          ) as _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexDescription>));
+        case 'ReplicaInaccessibleDateTime':
+          result.replicaInaccessibleDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'ReplicaTableClassSummary':
-          if (value != null) {
-            result.replicaTableClassSummary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.TableClassSummary),
-            ) as _i5.TableClassSummary));
-          }
-          break;
+          result.replicaTableClassSummary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.TableClassSummary),
+          ) as _i5.TableClassSummary));
       }
     }
 
@@ -275,86 +251,96 @@ class ReplicaDescriptionAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ReplicaDescription object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ReplicaDescription);
-    final result = <Object?>[];
-    if (payload.globalSecondaryIndexes != null) {
-      result
-        ..add('GlobalSecondaryIndexes')
+    final result$ = <Object?>[];
+    final ReplicaDescription(
+      :regionName,
+      :replicaStatus,
+      :replicaStatusDescription,
+      :replicaStatusPercentProgress,
+      :kmsMasterKeyId,
+      :provisionedThroughputOverride,
+      :globalSecondaryIndexes,
+      :replicaInaccessibleDateTime,
+      :replicaTableClassSummary
+    ) = object;
+    if (regionName != null) {
+      result$
+        ..add('RegionName')
         ..add(serializers.serialize(
-          payload.globalSecondaryIndexes!,
-          specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(_i2.ReplicaGlobalSecondaryIndexDescription)],
-          ),
-        ));
-    }
-    if (payload.kmsMasterKeyId != null) {
-      result
-        ..add('KMSMasterKeyId')
-        ..add(serializers.serialize(
-          payload.kmsMasterKeyId!,
+          regionName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.provisionedThroughputOverride != null) {
-      result
+    if (replicaStatus != null) {
+      result$
+        ..add('ReplicaStatus')
+        ..add(serializers.serialize(
+          replicaStatus,
+          specifiedType: const FullType(_i2.ReplicaStatus),
+        ));
+    }
+    if (replicaStatusDescription != null) {
+      result$
+        ..add('ReplicaStatusDescription')
+        ..add(serializers.serialize(
+          replicaStatusDescription,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (replicaStatusPercentProgress != null) {
+      result$
+        ..add('ReplicaStatusPercentProgress')
+        ..add(serializers.serialize(
+          replicaStatusPercentProgress,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (kmsMasterKeyId != null) {
+      result$
+        ..add('KMSMasterKeyId')
+        ..add(serializers.serialize(
+          kmsMasterKeyId,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (provisionedThroughputOverride != null) {
+      result$
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
-          payload.provisionedThroughputOverride!,
+          provisionedThroughputOverride,
           specifiedType: const FullType(_i3.ProvisionedThroughputOverride),
         ));
     }
-    if (payload.regionName != null) {
-      result
-        ..add('RegionName')
+    if (globalSecondaryIndexes != null) {
+      result$
+        ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.regionName!,
-          specifiedType: const FullType(String),
+          globalSecondaryIndexes,
+          specifiedType: const FullType(
+            _i6.BuiltList,
+            [FullType(_i4.ReplicaGlobalSecondaryIndexDescription)],
+          ),
         ));
     }
-    if (payload.replicaInaccessibleDateTime != null) {
-      result
+    if (replicaInaccessibleDateTime != null) {
+      result$
         ..add('ReplicaInaccessibleDateTime')
         ..add(serializers.serialize(
-          payload.replicaInaccessibleDateTime!,
+          replicaInaccessibleDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.replicaStatus != null) {
-      result
-        ..add('ReplicaStatus')
-        ..add(serializers.serialize(
-          payload.replicaStatus!,
-          specifiedType: const FullType(_i4.ReplicaStatus),
-        ));
-    }
-    if (payload.replicaStatusDescription != null) {
-      result
-        ..add('ReplicaStatusDescription')
-        ..add(serializers.serialize(
-          payload.replicaStatusDescription!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.replicaStatusPercentProgress != null) {
-      result
-        ..add('ReplicaStatusPercentProgress')
-        ..add(serializers.serialize(
-          payload.replicaStatusPercentProgress!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.replicaTableClassSummary != null) {
-      result
+    if (replicaTableClassSummary != null) {
+      result$
         ..add('ReplicaTableClassSummary')
         ..add(serializers.serialize(
-          payload.replicaTableClassSummary!,
+          replicaTableClassSummary,
           specifiedType: const FullType(_i5.TableClassSummary),
         ));
     }
-    return result;
+    return result$;
   }
 }

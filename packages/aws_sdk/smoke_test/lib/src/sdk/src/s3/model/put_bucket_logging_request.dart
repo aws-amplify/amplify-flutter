@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.s3.model.put_bucket_logging_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,15 +24,15 @@ abstract class PutBucketLoggingRequest
   factory PutBucketLoggingRequest({
     required String bucket,
     required _i2.BucketLoggingStatus bucketLoggingStatus,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
     String? contentMd5,
+    _i4.ChecksumAlgorithm? checksumAlgorithm,
     String? expectedBucketOwner,
   }) {
     return _$PutBucketLoggingRequest._(
       bucket: bucket,
       bucketLoggingStatus: bucketLoggingStatus,
-      checksumAlgorithm: checksumAlgorithm,
       contentMd5: contentMd5,
+      checksumAlgorithm: checksumAlgorithm,
       expectedBucketOwner: expectedBucketOwner,
     );
   }
@@ -78,15 +79,15 @@ abstract class PutBucketLoggingRequest
   /// Container for logging status information.
   _i2.BucketLoggingStatus get bucketLoggingStatus;
 
-  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
-  ///
-  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
-
   /// The MD5 hash of the `PutBucketLogging` request body.
   ///
   /// For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field is calculated automatically.
   String? get contentMd5;
+
+  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
+  ///
+  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+  _i4.ChecksumAlgorithm? get checksumAlgorithm;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -108,8 +109,8 @@ abstract class PutBucketLoggingRequest
   List<Object?> get props => [
         bucket,
         bucketLoggingStatus,
-        checksumAlgorithm,
         contentMd5,
+        checksumAlgorithm,
         expectedBucketOwner,
       ];
   @override
@@ -124,12 +125,12 @@ abstract class PutBucketLoggingRequest
       bucketLoggingStatus,
     );
     helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
       'contentMd5',
       contentMd5,
+    );
+    helper.add(
+      'checksumAlgorithm',
+      checksumAlgorithm,
     );
     helper.add(
       'expectedBucketOwner',
@@ -165,18 +166,18 @@ class PutBucketLoggingRequestRestXmlSerializer
     final result = _i2.BucketLoggingStatusBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'LoggingEnabled':
-          if (value != null) {
-            result.loggingEnabled.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.LoggingEnabled),
-            ) as _i5.LoggingEnabled));
-          }
-          break;
+          result.loggingEnabled.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.LoggingEnabled),
+          ) as _i5.LoggingEnabled));
       }
     }
 
@@ -186,26 +187,24 @@ class PutBucketLoggingRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    _i2.BucketLoggingStatus object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = object is PutBucketLoggingRequest
-        ? object.getPayload()
-        : (object as _i2.BucketLoggingStatus);
-    final result = <Object?>[
+    final result$ = <Object?>[
       const _i1.XmlElementName(
         'BucketLoggingStatus',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.loggingEnabled != null) {
-      result
+    final _i2.BucketLoggingStatus(:loggingEnabled) = object;
+    if (loggingEnabled != null) {
+      result$
         ..add(const _i1.XmlElementName('LoggingEnabled'))
         ..add(serializers.serialize(
-          payload.loggingEnabled!,
+          loggingEnabled,
           specifiedType: const FullType(_i5.LoggingEnabled),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_xml_with_namespace_v2.rest_xml_protocol_namespace.rest_xml_protocol_namespace_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -63,8 +64,9 @@ class _RestXmlProtocolNamespaceServer
     context.response.headers['Content-Type'] =
         _simpleScalarPropertiesProtocol.contentType;
     try {
-      final payload = (await _simpleScalarPropertiesProtocol.deserialize(
-        awsRequest.split(),
+      final payload =
+          (await _simpleScalarPropertiesProtocol.wireSerializer.deserialize(
+        await awsRequest.bodyBytes,
         specifiedType:
             const FullType(_i5.SimpleScalarPropertiesInputOutputPayload),
       ) as _i5.SimpleScalarPropertiesInputOutputPayload);
@@ -81,7 +83,8 @@ class _RestXmlProtocolNamespaceServer
         context.response.headers['X-Foo'] = output.foo!;
       }
       const statusCode = 200;
-      final body = _simpleScalarPropertiesProtocol.serialize(
+      final body =
+          await _simpleScalarPropertiesProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
           _i5.SimpleScalarPropertiesInputOutput,

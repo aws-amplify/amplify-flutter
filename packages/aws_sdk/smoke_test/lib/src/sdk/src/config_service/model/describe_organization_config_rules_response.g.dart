@@ -9,9 +9,9 @@ part of smoke_test.config_service.model.describe_organization_config_rules_respo
 class _$DescribeOrganizationConfigRulesResponse
     extends DescribeOrganizationConfigRulesResponse {
   @override
-  final String? nextToken;
-  @override
   final _i3.BuiltList<_i2.OrganizationConfigRule>? organizationConfigRules;
+  @override
+  final String? nextToken;
 
   factory _$DescribeOrganizationConfigRulesResponse(
           [void Function(DescribeOrganizationConfigRulesResponseBuilder)?
@@ -20,7 +20,7 @@ class _$DescribeOrganizationConfigRulesResponse
           ._build();
 
   _$DescribeOrganizationConfigRulesResponse._(
-      {this.nextToken, this.organizationConfigRules})
+      {this.organizationConfigRules, this.nextToken})
       : super._();
 
   @override
@@ -37,15 +37,15 @@ class _$DescribeOrganizationConfigRulesResponse
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DescribeOrganizationConfigRulesResponse &&
-        nextToken == other.nextToken &&
-        organizationConfigRules == other.organizationConfigRules;
+        organizationConfigRules == other.organizationConfigRules &&
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, organizationConfigRules.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,10 +57,6 @@ class DescribeOrganizationConfigRulesResponseBuilder
             DescribeOrganizationConfigRulesResponseBuilder> {
   _$DescribeOrganizationConfigRulesResponse? _$v;
 
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
   _i3.ListBuilder<_i2.OrganizationConfigRule>? _organizationConfigRules;
   _i3.ListBuilder<_i2.OrganizationConfigRule> get organizationConfigRules =>
       _$this._organizationConfigRules ??=
@@ -70,6 +66,10 @@ class DescribeOrganizationConfigRulesResponseBuilder
               organizationConfigRules) =>
       _$this._organizationConfigRules = organizationConfigRules;
 
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+
   DescribeOrganizationConfigRulesResponseBuilder() {
     DescribeOrganizationConfigRulesResponse._init(this);
   }
@@ -77,8 +77,8 @@ class DescribeOrganizationConfigRulesResponseBuilder
   DescribeOrganizationConfigRulesResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
       _organizationConfigRules = $v.organizationConfigRules?.toBuilder();
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -104,8 +104,8 @@ class DescribeOrganizationConfigRulesResponseBuilder
     try {
       _$result = _$v ??
           new _$DescribeOrganizationConfigRulesResponse._(
-              nextToken: nextToken,
-              organizationConfigRules: _organizationConfigRules?.build());
+              organizationConfigRules: _organizationConfigRules?.build(),
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

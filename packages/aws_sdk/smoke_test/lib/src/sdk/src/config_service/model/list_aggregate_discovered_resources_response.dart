@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.list_aggregate_discovered_resources_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,14 +20,14 @@ abstract class ListAggregateDiscoveredResourcesResponse
         Built<ListAggregateDiscoveredResourcesResponse,
             ListAggregateDiscoveredResourcesResponseBuilder> {
   factory ListAggregateDiscoveredResourcesResponse({
-    String? nextToken,
     List<_i2.AggregateResourceIdentifier>? resourceIdentifiers,
+    String? nextToken,
   }) {
     return _$ListAggregateDiscoveredResourcesResponse._(
-      nextToken: nextToken,
       resourceIdentifiers: resourceIdentifiers == null
           ? null
           : _i3.BuiltList(resourceIdentifiers),
+      nextToken: nextToken,
     );
   }
 
@@ -50,27 +51,27 @@ abstract class ListAggregateDiscoveredResourcesResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListAggregateDiscoveredResourcesResponseBuilder b) {}
 
-  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// Returns a list of `ResourceIdentifiers` objects.
   _i3.BuiltList<_i2.AggregateResourceIdentifier>? get resourceIdentifiers;
+
+  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         resourceIdentifiers,
+        nextToken,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ListAggregateDiscoveredResourcesResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'resourceIdentifiers',
       resourceIdentifiers,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -105,26 +106,23 @@ class ListAggregateDiscoveredResourcesResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ResourceIdentifiers':
-          if (value != null) {
-            result.resourceIdentifiers.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AggregateResourceIdentifier)],
-              ),
-            ) as _i3.BuiltList<_i2.AggregateResourceIdentifier>));
-          }
-          break;
+          result.resourceIdentifiers.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AggregateResourceIdentifier)],
+            ),
+          ) as _i3.BuiltList<_i2.AggregateResourceIdentifier>));
+        case 'NextToken':
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -134,30 +132,33 @@ class ListAggregateDiscoveredResourcesResponseAwsJson11Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListAggregateDiscoveredResourcesResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListAggregateDiscoveredResourcesResponse);
-    final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceIdentifiers != null) {
-      result
+    final result$ = <Object?>[];
+    final ListAggregateDiscoveredResourcesResponse(
+      :resourceIdentifiers,
+      :nextToken
+    ) = object;
+    if (resourceIdentifiers != null) {
+      result$
         ..add('ResourceIdentifiers')
         ..add(serializers.serialize(
-          payload.resourceIdentifiers!,
+          resourceIdentifiers,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AggregateResourceIdentifier)],
           ),
         ));
     }
-    return result;
+    if (nextToken != null) {
+      result$
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result$;
   }
 }

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library smoke_test.config_service.model.get_aggregate_conformance_pack_compliance_summary_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -122,35 +123,29 @@ class GetAggregateConformancePackComplianceSummaryResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AggregateConformancePackComplianceSummaries':
-          if (value != null) {
-            result.aggregateConformancePackComplianceSummaries
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AggregateConformancePackComplianceSummary)],
-              ),
-            ) as _i3.BuiltList<_i2.AggregateConformancePackComplianceSummary>));
-          }
-          break;
+          result.aggregateConformancePackComplianceSummaries
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AggregateConformancePackComplianceSummary)],
+            ),
+          ) as _i3.BuiltList<_i2.AggregateConformancePackComplianceSummary>));
         case 'GroupByKey':
-          if (value != null) {
-            result.groupByKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.groupByKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -160,39 +155,42 @@ class GetAggregateConformancePackComplianceSummaryResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetAggregateConformancePackComplianceSummaryResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload =
-        (object as GetAggregateConformancePackComplianceSummaryResponse);
-    final result = <Object?>[];
-    if (payload.aggregateConformancePackComplianceSummaries != null) {
-      result
+    final result$ = <Object?>[];
+    final GetAggregateConformancePackComplianceSummaryResponse(
+      :aggregateConformancePackComplianceSummaries,
+      :groupByKey,
+      :nextToken
+    ) = object;
+    if (aggregateConformancePackComplianceSummaries != null) {
+      result$
         ..add('AggregateConformancePackComplianceSummaries')
         ..add(serializers.serialize(
-          payload.aggregateConformancePackComplianceSummaries!,
+          aggregateConformancePackComplianceSummaries,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AggregateConformancePackComplianceSummary)],
           ),
         ));
     }
-    if (payload.groupByKey != null) {
-      result
+    if (groupByKey != null) {
+      result$
         ..add('GroupByKey')
         ..add(serializers.serialize(
-          payload.groupByKey!,
+          groupByKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.nextToken != null) {
-      result
+    if (nextToken != null) {
+      result$
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

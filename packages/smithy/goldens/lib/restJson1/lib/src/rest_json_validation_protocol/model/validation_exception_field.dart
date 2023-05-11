@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library rest_json1_v1.rest_json_validation_protocol.model.validation_exception_field; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,12 +17,12 @@ abstract class ValidationExceptionField
         Built<ValidationExceptionField, ValidationExceptionFieldBuilder> {
   /// Describes one specific validation failure for an input member.
   factory ValidationExceptionField({
-    required String message,
     required String path,
+    required String message,
   }) {
     return _$ValidationExceptionField._(
-      message: message,
       path: path,
+      message: message,
     );
   }
 
@@ -39,26 +40,26 @@ abstract class ValidationExceptionField
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ValidationExceptionFieldBuilder b) {}
 
-  /// A detailed description of the validation failure.
-  String get message;
-
   /// A JSONPointer expression to the structure member whose value failed to satisfy the modeled constraints.
   String get path;
+
+  /// A detailed description of the validation failure.
+  String get message;
   @override
   List<Object?> get props => [
-        message,
         path,
+        message,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ValidationExceptionField');
     helper.add(
-      'message',
-      message,
-    );
-    helper.add(
       'path',
       path,
+    );
+    helper.add(
+      'message',
+      message,
     );
     return helper.toString();
   }
@@ -93,19 +94,20 @@ class ValidationExceptionFieldRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'message':
           result.message = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'path':
           result.path = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -115,22 +117,23 @@ class ValidationExceptionFieldRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ValidationExceptionField object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ValidationExceptionField);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ValidationExceptionField(:message, :path) = object;
+    result$.addAll([
       'message',
       serializers.serialize(
-        payload.message,
+        message,
         specifiedType: const FullType(String),
       ),
       'path',
       serializers.serialize(
-        payload.path,
+        path,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }
