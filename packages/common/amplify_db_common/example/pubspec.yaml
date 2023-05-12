@@ -7,7 +7,7 @@ environment:
   sdk: ^3.0.0
 
 dependencies:
-  amplify_db_common: ">=0.1.2+5 <0.2.0"
+  amplify_db_common: ^0.3.0
   drift: ">=2.4.0 <2.9.0"
   flutter:
     sdk: flutter
