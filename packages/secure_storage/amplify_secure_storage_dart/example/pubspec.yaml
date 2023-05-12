@@ -10,7 +10,7 @@ environment:
   sdk: ^3.0.0
 
 dependencies:
-  amplify_secure_storage_dart: ">=0.3.0 <0.4.0"
+  amplify_secure_storage_dart: ^0.4.0
   example_common:
     path: ../../../example_common
 
