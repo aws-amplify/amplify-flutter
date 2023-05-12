@@ -6,6 +6,7 @@ import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
@@ -36,6 +37,9 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
             .resolve(context, country.key)
             .toLowerCase()
             .contains(_searchVal.toLowerCase()),
+      )
+      .sortedBy(
+        (country) => _countriesResolver.resolve(context, country.key),
       )
       .toList();
 
@@ -87,12 +91,16 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
             minWidth: 360,
           ),
           suggestionsBuilder: ((context, SearchController controller) {
-            final filteredCountries = countryCodes.where(
-              (country) => _countriesResolver
-                  .resolve(context, country.key)
-                  .toLowerCase()
-                  .contains(controller.text.toLowerCase()),
-            );
+            final filteredCountries = countryCodes
+                .where(
+                  (country) => _countriesResolver
+                      .resolve(context, country.key)
+                      .toLowerCase()
+                      .contains(controller.text.toLowerCase()),
+                )
+                .sortedBy(
+                  (country) => _countriesResolver.resolve(context, country.key),
+                );
             return filteredCountries.map(
               (country) => SimpleDialogOption(
                 onPressed: () {
