@@ -56,7 +56,61 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
   }
 
   @override
-  Widget get prefix => Padding(
+  Widget get prefix => Theme.of(context).useMaterial3 ? m3Prefix : m2Prefix;
+
+  Widget get m3Prefix => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: SearchAnchor(
+          viewHintText: _countriesResolver.resolve(
+            context,
+            CountryResolverKey.selectDialCode,
+          ),
+          builder: (context, controller) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '+${state.country.value}',
+                  style: Theme.of(context).inputDecorationTheme.hintStyle ??
+                      Theme.of(context).textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const Flexible(
+                  child: Icon(Icons.arrow_drop_down, size: 15),
+                ),
+              ],
+            );
+          },
+          viewConstraints: const BoxConstraints(
+            maxHeight: 300,
+            minHeight: 240,
+            minWidth: 360,
+          ),
+          suggestionsBuilder: ((context, SearchController controller) {
+            final filteredCountries = countryCodes.where(
+              (country) => _countriesResolver
+                  .resolve(context, country.key)
+                  .toLowerCase()
+                  .contains(controller.text.toLowerCase()),
+            );
+            return filteredCountries.map(
+              (country) => SimpleDialogOption(
+                onPressed: () {
+                  state.country = country;
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  '${_countriesResolver.resolve(context, country.key)} '
+                  '(+${country.value})',
+                  style: DialogTheme.of(context).contentTextStyle,
+                ),
+              ),
+            );
+          }),
+        ),
+      );
+
+  Widget get m2Prefix => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: InkWell(
           key: keySelectCountryCode,
