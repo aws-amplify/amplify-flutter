@@ -87,9 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
       child: MaterialApp.router(
         title: 'Flutter Demo',
         builder: Authenticator.builder(),
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData.light(useMaterial3: true),
+        darkTheme: ThemeData.dark(useMaterial3: true),
         routeInformationParser: _router.routeInformationParser,
         routerDelegate: _router.routerDelegate,
         debugShowCheckedModeBanner: false,
