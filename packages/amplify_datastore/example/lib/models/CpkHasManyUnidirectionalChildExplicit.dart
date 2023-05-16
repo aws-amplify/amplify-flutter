@@ -19,19 +19,18 @@
 
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
-import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
+import 'ModelProvider.dart';
+import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
 /// This is an auto generated class representing the CpkHasManyUnidirectionalChildExplicit type in your schema.
-@immutable
-class CpkHasManyUnidirectionalChildExplicit extends Model {
+class CpkHasManyUnidirectionalChildExplicit extends amplify_core.Model {
   static const classType = _CpkHasManyUnidirectionalChildExplicitModelType();
   final String id;
   final String? _name;
   final String? _hasManyParentID;
   final String? _hasManyParentName;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
+  final amplify_core.TemporalDateTime? _createdAt;
+  final amplify_core.TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -46,10 +45,10 @@ class CpkHasManyUnidirectionalChildExplicit extends Model {
       return CpkHasManyUnidirectionalChildExplicitModelIdentifier(
           id: id, name: _name!);
     } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -59,10 +58,10 @@ class CpkHasManyUnidirectionalChildExplicit extends Model {
     try {
       return _name!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -72,10 +71,10 @@ class CpkHasManyUnidirectionalChildExplicit extends Model {
     try {
       return _hasManyParentID!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -85,20 +84,20 @@ class CpkHasManyUnidirectionalChildExplicit extends Model {
     try {
       return _hasManyParentName!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
   }
 
-  TemporalDateTime? get createdAt {
+  amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
 
-  TemporalDateTime? get updatedAt {
+  amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
 
@@ -121,7 +120,7 @@ class CpkHasManyUnidirectionalChildExplicit extends Model {
       required String hasManyParentID,
       required String hasManyParentName}) {
     return CpkHasManyUnidirectionalChildExplicit._internal(
-        id: id == null ? UUID.getUUID() : id,
+        id: id == null ? amplify_core.UUID.getUUID() : id,
         name: name,
         hasManyParentID: hasManyParentID,
         hasManyParentName: hasManyParentName);
@@ -172,16 +171,30 @@ class CpkHasManyUnidirectionalChildExplicit extends Model {
         hasManyParentName: hasManyParentName ?? this.hasManyParentName);
   }
 
+  CpkHasManyUnidirectionalChildExplicit copyWithModelFieldValues(
+      {ModelFieldValue<String>? hasManyParentID,
+      ModelFieldValue<String>? hasManyParentName}) {
+    return CpkHasManyUnidirectionalChildExplicit._internal(
+        id: id,
+        name: name,
+        hasManyParentID: hasManyParentID == null
+            ? this.hasManyParentID
+            : hasManyParentID.value,
+        hasManyParentName: hasManyParentName == null
+            ? this.hasManyParentName
+            : hasManyParentName.value);
+  }
+
   CpkHasManyUnidirectionalChildExplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
         _hasManyParentID = json['hasManyParentID'],
         _hasManyParentName = json['hasManyParentName'],
         _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
         _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -202,61 +215,68 @@ class CpkHasManyUnidirectionalChildExplicit extends Model {
         'updatedAt': _updatedAt
       };
 
-  static final QueryModelIdentifier<
+  static final amplify_core.QueryModelIdentifier<
           CpkHasManyUnidirectionalChildExplicitModelIdentifier>
-      MODEL_IDENTIFIER = QueryModelIdentifier<
+      MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           CpkHasManyUnidirectionalChildExplicitModelIdentifier>();
-  static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField HASMANYPARENTID =
-      QueryField(fieldName: "hasManyParentID");
-  static final QueryField HASMANYPARENTNAME =
-      QueryField(fieldName: "hasManyParentName");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static final ID = amplify_core.QueryField(fieldName: "id");
+  static final NAME = amplify_core.QueryField(fieldName: "name");
+  static final HASMANYPARENTID =
+      amplify_core.QueryField(fieldName: "hasManyParentID");
+  static final HASMANYPARENTNAME =
+      amplify_core.QueryField(fieldName: "hasManyParentName");
+  static var schema = amplify_core.Model.defineSchema(
+      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "CpkHasManyUnidirectionalChildExplicit";
     modelSchemaDefinition.pluralName = "CpkHasManyUnidirectionalChildExplicits";
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["id", "name"], name: null),
-      ModelIndex(
+      amplify_core.ModelIndex(fields: const ["id", "name"], name: null),
+      amplify_core.ModelIndex(
           fields: const ["hasManyParentID", "hasManyParentName"],
           name: "byHasManyParentCpk")
     ];
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.id());
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: CpkHasManyUnidirectionalChildExplicit.NAME,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: CpkHasManyUnidirectionalChildExplicit.HASMANYPARENTID,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: CpkHasManyUnidirectionalChildExplicit.HASMANYPARENTNAME,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'createdAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'createdAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'updatedAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'updatedAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
   });
 }
 
 class _CpkHasManyUnidirectionalChildExplicitModelType
-    extends ModelType<CpkHasManyUnidirectionalChildExplicit> {
+    extends amplify_core.ModelType<CpkHasManyUnidirectionalChildExplicit> {
   const _CpkHasManyUnidirectionalChildExplicitModelType();
 
   @override
@@ -273,9 +293,9 @@ class _CpkHasManyUnidirectionalChildExplicitModelType
 
 /// This is an auto generated class representing the model identifier
 /// of [CpkHasManyUnidirectionalChildExplicit] in your schema.
-@immutable
 class CpkHasManyUnidirectionalChildExplicitModelIdentifier
-    implements ModelIdentifier<CpkHasManyUnidirectionalChildExplicit> {
+    implements
+        amplify_core.ModelIdentifier<CpkHasManyUnidirectionalChildExplicit> {
   final String id;
   final String name;
 

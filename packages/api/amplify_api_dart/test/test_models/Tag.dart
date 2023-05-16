@@ -17,7 +17,7 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
@@ -25,15 +25,14 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the Tag type in your schema.
-@immutable
-class Tag extends Model {
-  static const classType = _TagModelType();
+/** This is an auto generated class representing the Tag type in your schema. */
+class Tag extends amplify_core.Model {
+  static const classType = const _TagModelType();
   final String id;
   final String? _label;
   final List<PostTags>? _posts;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
+  final amplify_core.TemporalDateTime? _createdAt;
+  final amplify_core.TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -51,10 +50,10 @@ class Tag extends Model {
     try {
       return _label!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -64,11 +63,11 @@ class Tag extends Model {
     return _posts;
   }
 
-  TemporalDateTime? get createdAt {
+  amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
 
-  TemporalDateTime? get updatedAt {
+  amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
 
@@ -81,7 +80,7 @@ class Tag extends Model {
 
   factory Tag({String? id, required String label, List<PostTags>? posts}) {
     return Tag._internal(
-        id: id == null ? UUID.getUUID() : id,
+        id: id == null ? amplify_core.UUID.getUUID() : id,
         label: label,
         posts: posts != null ? List<PostTags>.unmodifiable(posts) : posts);
   }
@@ -104,7 +103,7 @@ class Tag extends Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("Tag {");
     buffer.write("id=" + "$id" + ", ");
@@ -124,20 +123,29 @@ class Tag extends Model {
         id: id, label: label ?? this.label, posts: posts ?? this.posts);
   }
 
+  Tag copyWithModelFieldValues(
+      {ModelFieldValue<String>? label,
+      ModelFieldValue<List<PostTags>?>? posts}) {
+    return Tag._internal(
+        id: id,
+        label: label == null ? this.label : label.value,
+        posts: posts == null ? this.posts : posts.value);
+  }
+
   Tag.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _label = json['label'],
         _posts = json['posts'] != null
             ? (json['posts']['items'] as List)
                 .where((e) => e != null)
-                .map((e) => PostTags.fromJson(Map<String, dynamic>.from(e)))
+                .map((e) => PostTags.fromJson(new Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
         _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -156,47 +164,54 @@ class Tag extends Model {
         'updatedAt': _updatedAt
       };
 
-  static final QueryModelIdentifier<TagModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<TagModelIdentifier>();
-  static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField LABEL = QueryField(fieldName: "label");
-  static final QueryField POSTS = QueryField(
+  static final amplify_core.QueryModelIdentifier<TagModelIdentifier>
+      MODEL_IDENTIFIER =
+      amplify_core.QueryModelIdentifier<TagModelIdentifier>();
+  static final ID = amplify_core.QueryField(fieldName: "id");
+  static final LABEL = amplify_core.QueryField(fieldName: "label");
+  static final POSTS = amplify_core.QueryField(
       fieldName: "posts",
-      fieldType:
-          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'PostTags'));
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'PostTags'));
+  static var schema = amplify_core.Model.defineSchema(
+      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Tag";
     modelSchemaDefinition.pluralName = "Tags";
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.id());
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: Tag.LABEL,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
         key: Tag.POSTS,
         isRequired: false,
         ofModelName: 'PostTags',
         associatedKey: PostTags.TAG));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'createdAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'createdAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'updatedAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'updatedAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
   });
 }
 
-class _TagModelType extends ModelType<Tag> {
+class _TagModelType extends amplify_core.ModelType<Tag> {
   const _TagModelType();
 
   @override
@@ -210,13 +225,14 @@ class _TagModelType extends ModelType<Tag> {
   }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [Tag] in your schema.
-@immutable
-class TagModelIdentifier implements ModelIdentifier<Tag> {
+/**
+ * This is an auto generated class representing the model identifier
+ * of [Tag] in your schema.
+ */
+class TagModelIdentifier implements amplify_core.ModelIdentifier<Tag> {
   final String id;
 
-  /// Create an instance of TagModelIdentifier using [id] the primary key.
+  /** Create an instance of TagModelIdentifier using [id] the primary key. */
   const TagModelIdentifier({required this.id});
 
   @override

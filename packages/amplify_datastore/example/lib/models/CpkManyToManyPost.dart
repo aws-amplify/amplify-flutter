@@ -17,22 +17,21 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
+import 'package:amplify_core/amplify_core.dart' as amplify_core;
+import 'package:collection/collection.dart';
+
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
-import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 
 /// This is an auto generated class representing the CpkManyToManyPost type in your schema.
-@immutable
-class CpkManyToManyPost extends Model {
+class CpkManyToManyPost extends amplify_core.Model {
   static const classType = _CpkManyToManyPostModelType();
   final String id;
   final String? _title;
   final List<CpkPostTags>? _tags;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
+  final amplify_core.TemporalDateTime? _createdAt;
+  final amplify_core.TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -50,10 +49,10 @@ class CpkManyToManyPost extends Model {
     try {
       return _title!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -63,11 +62,11 @@ class CpkManyToManyPost extends Model {
     return _tags;
   }
 
-  TemporalDateTime? get createdAt {
+  amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
 
-  TemporalDateTime? get updatedAt {
+  amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
 
@@ -81,7 +80,7 @@ class CpkManyToManyPost extends Model {
   factory CpkManyToManyPost(
       {String? id, required String title, List<CpkPostTags>? tags}) {
     return CpkManyToManyPost._internal(
-        id: id == null ? UUID.getUUID() : id,
+        id: id == null ? amplify_core.UUID.getUUID() : id,
         title: title,
         tags: tags != null ? List<CpkPostTags>.unmodifiable(tags) : tags);
   }
@@ -124,6 +123,15 @@ class CpkManyToManyPost extends Model {
         id: id, title: title ?? this.title, tags: tags ?? this.tags);
   }
 
+  CpkManyToManyPost copyWithModelFieldValues(
+      {ModelFieldValue<String>? title,
+      ModelFieldValue<List<CpkPostTags>?>? tags}) {
+    return CpkManyToManyPost._internal(
+        id: id,
+        title: title == null ? this.title : title.value,
+        tags: tags == null ? this.tags : tags.value);
+  }
+
   CpkManyToManyPost.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _title = json['title'],
@@ -134,10 +142,10 @@ class CpkManyToManyPost extends Model {
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
         _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -156,48 +164,56 @@ class CpkManyToManyPost extends Model {
         'updatedAt': _updatedAt
       };
 
-  static final QueryModelIdentifier<CpkManyToManyPostModelIdentifier>
+  static final amplify_core
+          .QueryModelIdentifier<CpkManyToManyPostModelIdentifier>
       MODEL_IDENTIFIER =
-      QueryModelIdentifier<CpkManyToManyPostModelIdentifier>();
-  static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField TITLE = QueryField(fieldName: "title");
-  static final QueryField TAGS = QueryField(
+      amplify_core.QueryModelIdentifier<CpkManyToManyPostModelIdentifier>();
+  static final ID = amplify_core.QueryField(fieldName: "id");
+  static final TITLE = amplify_core.QueryField(fieldName: "title");
+  static final TAGS = amplify_core.QueryField(
       fieldName: "tags",
-      fieldType:
-          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'CpkPostTags'));
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'CpkPostTags'));
+  static var schema = amplify_core.Model.defineSchema(
+      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "CpkManyToManyPost";
     modelSchemaDefinition.pluralName = "CpkManyToManyPosts";
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.id());
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: CpkManyToManyPost.TITLE,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
         key: CpkManyToManyPost.TAGS,
         isRequired: false,
         ofModelName: 'CpkPostTags',
         associatedKey: CpkPostTags.CPKMANYTOMANYPOST));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'createdAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'createdAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'updatedAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'updatedAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
   });
 }
 
-class _CpkManyToManyPostModelType extends ModelType<CpkManyToManyPost> {
+class _CpkManyToManyPostModelType
+    extends amplify_core.ModelType<CpkManyToManyPost> {
   const _CpkManyToManyPostModelType();
 
   @override
@@ -213,9 +229,8 @@ class _CpkManyToManyPostModelType extends ModelType<CpkManyToManyPost> {
 
 /// This is an auto generated class representing the model identifier
 /// of [CpkManyToManyPost] in your schema.
-@immutable
 class CpkManyToManyPostModelIdentifier
-    implements ModelIdentifier<CpkManyToManyPost> {
+    implements amplify_core.ModelIdentifier<CpkManyToManyPost> {
   final String id;
 
   /// Create an instance of CpkManyToManyPostModelIdentifier using [id] the primary key.

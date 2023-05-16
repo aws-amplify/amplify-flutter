@@ -17,21 +17,20 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
+import 'package:amplify_core/amplify_core.dart' as amplify_core;
+
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
-import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
 
 /// This is an auto generated class representing the HasManyChildBiDirectionalExplicit type in your schema.
-@immutable
-class HasManyChildBiDirectionalExplicit extends Model {
+class HasManyChildBiDirectionalExplicit extends amplify_core.Model {
   static const classType = _HasManyChildBiDirectionalExplicitModelType();
   final String id;
   final String? _name;
   final HasManyParentBiDirectionalExplicit? _hasManyParent;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
+  final amplify_core.TemporalDateTime? _createdAt;
+  final amplify_core.TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -53,11 +52,11 @@ class HasManyChildBiDirectionalExplicit extends Model {
     return _hasManyParent;
   }
 
-  TemporalDateTime? get createdAt {
+  amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
 
-  TemporalDateTime? get updatedAt {
+  amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
 
@@ -73,7 +72,7 @@ class HasManyChildBiDirectionalExplicit extends Model {
       String? name,
       HasManyParentBiDirectionalExplicit? hasManyParent}) {
     return HasManyChildBiDirectionalExplicit._internal(
-        id: id == null ? UUID.getUUID() : id,
+        id: id == null ? amplify_core.UUID.getUUID() : id,
         name: name,
         hasManyParent: hasManyParent);
   }
@@ -122,6 +121,16 @@ class HasManyChildBiDirectionalExplicit extends Model {
         hasManyParent: hasManyParent ?? this.hasManyParent);
   }
 
+  HasManyChildBiDirectionalExplicit copyWithModelFieldValues(
+      {ModelFieldValue<String?>? name,
+      ModelFieldValue<HasManyParentBiDirectionalExplicit?>? hasManyParent}) {
+    return HasManyChildBiDirectionalExplicit._internal(
+        id: id,
+        name: name == null ? this.name : name.value,
+        hasManyParent:
+            hasManyParent == null ? this.hasManyParent : hasManyParent.value);
+  }
+
   HasManyChildBiDirectionalExplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
@@ -130,10 +139,10 @@ class HasManyChildBiDirectionalExplicit extends Model {
                 Map<String, dynamic>.from(json['hasManyParent']))
             : null,
         _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
         _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -152,54 +161,61 @@ class HasManyChildBiDirectionalExplicit extends Model {
         'updatedAt': _updatedAt
       };
 
-  static final QueryModelIdentifier<
+  static final amplify_core.QueryModelIdentifier<
           HasManyChildBiDirectionalExplicitModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<HasManyChildBiDirectionalExplicitModelIdentifier>();
-  static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField HASMANYPARENT = QueryField(
+      amplify_core.QueryModelIdentifier<
+          HasManyChildBiDirectionalExplicitModelIdentifier>();
+  static final ID = amplify_core.QueryField(fieldName: "id");
+  static final NAME = amplify_core.QueryField(fieldName: "name");
+  static final HASMANYPARENT = amplify_core.QueryField(
       fieldName: "hasManyParent",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
           ofModelName: 'HasManyParentBiDirectionalExplicit'));
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = amplify_core.Model.defineSchema(
+      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasManyChildBiDirectionalExplicit";
     modelSchemaDefinition.pluralName = "HasManyChildBiDirectionalExplicits";
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(
+      amplify_core.ModelIndex(
           fields: const ["hasManyParentId", "name"], name: "byHasManyParent")
     ];
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.id());
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: HasManyChildBiDirectionalExplicit.NAME,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
         key: HasManyChildBiDirectionalExplicit.HASMANYPARENT,
         isRequired: false,
         targetNames: ['hasManyParentId'],
         ofModelName: 'HasManyParentBiDirectionalExplicit'));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'createdAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'createdAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'updatedAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'updatedAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
   });
 }
 
 class _HasManyChildBiDirectionalExplicitModelType
-    extends ModelType<HasManyChildBiDirectionalExplicit> {
+    extends amplify_core.ModelType<HasManyChildBiDirectionalExplicit> {
   const _HasManyChildBiDirectionalExplicitModelType();
 
   @override
@@ -215,9 +231,8 @@ class _HasManyChildBiDirectionalExplicitModelType
 
 /// This is an auto generated class representing the model identifier
 /// of [HasManyChildBiDirectionalExplicit] in your schema.
-@immutable
 class HasManyChildBiDirectionalExplicitModelIdentifier
-    implements ModelIdentifier<HasManyChildBiDirectionalExplicit> {
+    implements amplify_core.ModelIdentifier<HasManyChildBiDirectionalExplicit> {
   final String id;
 
   /// Create an instance of HasManyChildBiDirectionalExplicitModelIdentifier using [id] the primary key.

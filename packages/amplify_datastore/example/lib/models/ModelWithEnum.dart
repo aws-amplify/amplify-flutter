@@ -17,22 +17,21 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
+import 'package:amplify_core/amplify_core.dart' as amplify_core;
+import 'package:collection/collection.dart';
+
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
-import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 
 /// This is an auto generated class representing the ModelWithEnum type in your schema.
-@immutable
-class ModelWithEnum extends Model {
+class ModelWithEnum extends amplify_core.Model {
   static const classType = _ModelWithEnumModelType();
   final String id;
   final EnumField? _enumField;
   final List<EnumField>? _listOfEnumField;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
+  final amplify_core.TemporalDateTime? _createdAt;
+  final amplify_core.TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -54,11 +53,11 @@ class ModelWithEnum extends Model {
     return _listOfEnumField;
   }
 
-  TemporalDateTime? get createdAt {
+  amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
 
-  TemporalDateTime? get updatedAt {
+  amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
 
@@ -72,7 +71,7 @@ class ModelWithEnum extends Model {
   factory ModelWithEnum(
       {String? id, EnumField? enumField, List<EnumField>? listOfEnumField}) {
     return ModelWithEnum._internal(
-        id: id == null ? UUID.getUUID() : id,
+        id: id == null ? amplify_core.UUID.getUUID() : id,
         enumField: enumField,
         listOfEnumField: listOfEnumField != null
             ? List<EnumField>.unmodifiable(listOfEnumField)
@@ -103,11 +102,13 @@ class ModelWithEnum extends Model {
     buffer.write("ModelWithEnum {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("enumField=" +
-        (_enumField != null ? enumToString(_enumField)! : "null") +
+        (_enumField != null ? amplify_core.enumToString(_enumField)! : "null") +
         ", ");
     buffer.write("listOfEnumField=" +
         (_listOfEnumField != null
-            ? _listOfEnumField!.map((e) => enumToString(e)).toString()
+            ? _listOfEnumField!
+                .map((e) => amplify_core.enumToString(e))
+                .toString()
             : "null") +
         ", ");
     buffer.write("createdAt=" +
@@ -128,27 +129,39 @@ class ModelWithEnum extends Model {
         listOfEnumField: listOfEnumField ?? this.listOfEnumField);
   }
 
+  ModelWithEnum copyWithModelFieldValues(
+      {ModelFieldValue<EnumField?>? enumField,
+      ModelFieldValue<List<EnumField>?>? listOfEnumField}) {
+    return ModelWithEnum._internal(
+        id: id,
+        enumField: enumField == null ? this.enumField : enumField.value,
+        listOfEnumField: listOfEnumField == null
+            ? this.listOfEnumField
+            : listOfEnumField.value);
+  }
+
   ModelWithEnum.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _enumField =
-            enumFromString<EnumField>(json['enumField'], EnumField.values),
+        _enumField = amplify_core.enumFromString<EnumField>(
+            json['enumField'], EnumField.values),
         _listOfEnumField = json['listOfEnumField'] is List
             ? (json['listOfEnumField'] as List)
-                .map((e) => enumFromString<EnumField>(e, EnumField.values)!)
+                .map((e) => amplify_core.enumFromString<EnumField>(
+                    e, EnumField.values)!)
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
         _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'enumField': enumToString(_enumField),
+        'enumField': amplify_core.enumToString(_enumField),
         'listOfEnumField':
-            _listOfEnumField?.map((e) => enumToString(e)).toList(),
+            _listOfEnumField?.map((e) => amplify_core.enumToString(e)).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
@@ -161,46 +174,53 @@ class ModelWithEnum extends Model {
         'updatedAt': _updatedAt
       };
 
-  static final QueryModelIdentifier<ModelWithEnumModelIdentifier>
-      MODEL_IDENTIFIER = QueryModelIdentifier<ModelWithEnumModelIdentifier>();
-  static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField ENUMFIELD = QueryField(fieldName: "enumField");
-  static final QueryField LISTOFENUMFIELD =
-      QueryField(fieldName: "listOfEnumField");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static final amplify_core.QueryModelIdentifier<ModelWithEnumModelIdentifier>
+      MODEL_IDENTIFIER =
+      amplify_core.QueryModelIdentifier<ModelWithEnumModelIdentifier>();
+  static final ID = amplify_core.QueryField(fieldName: "id");
+  static final ENUMFIELD = amplify_core.QueryField(fieldName: "enumField");
+  static final LISTOFENUMFIELD =
+      amplify_core.QueryField(fieldName: "listOfEnumField");
+  static var schema = amplify_core.Model.defineSchema(
+      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "ModelWithEnum";
     modelSchemaDefinition.pluralName = "ModelWithEnums";
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.id());
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: ModelWithEnum.ENUMFIELD,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.enumeration)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: ModelWithEnum.LISTOFENUMFIELD,
         isRequired: false,
         isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.enumeration))));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.collection,
+            ofModelName: amplify_core.ModelFieldTypeEnum.enumeration.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'createdAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'createdAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'updatedAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'updatedAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
   });
 }
 
-class _ModelWithEnumModelType extends ModelType<ModelWithEnum> {
+class _ModelWithEnumModelType extends amplify_core.ModelType<ModelWithEnum> {
   const _ModelWithEnumModelType();
 
   @override
@@ -216,8 +236,8 @@ class _ModelWithEnumModelType extends ModelType<ModelWithEnum> {
 
 /// This is an auto generated class representing the model identifier
 /// of [ModelWithEnum] in your schema.
-@immutable
-class ModelWithEnumModelIdentifier implements ModelIdentifier<ModelWithEnum> {
+class ModelWithEnumModelIdentifier
+    implements amplify_core.ModelIdentifier<ModelWithEnum> {
   final String id;
 
   /// Create an instance of ModelWithEnumModelIdentifier using [id] the primary key.

@@ -19,21 +19,20 @@
 
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'utils.dart';
 
-/// This is an auto generated class representing the CustomOwnerField type in your schema.
-@immutable
-class CustomOwnerField extends Model {
-  static const classType = _CustomOwnerFieldModelType();
+/** This is an auto generated class representing the CustomOwnerField type in your schema. */
+class CustomOwnerField extends amplify_core.Model {
+  static const classType = const _CustomOwnerFieldModelType();
   final String id;
   final String? _name;
   final List<String>? _owners;
   final String? _private;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
+  final amplify_core.TemporalDateTime? _createdAt;
+  final amplify_core.TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -51,10 +50,10 @@ class CustomOwnerField extends Model {
     try {
       return _name!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -68,11 +67,11 @@ class CustomOwnerField extends Model {
     return _private;
   }
 
-  TemporalDateTime? get createdAt {
+  amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
 
-  TemporalDateTime? get updatedAt {
+  amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
 
@@ -90,7 +89,7 @@ class CustomOwnerField extends Model {
       List<String>? owners,
       String? private}) {
     return CustomOwnerField._internal(
-        id: id == null ? UUID.getUUID() : id,
+        id: id == null ? amplify_core.UUID.getUUID() : id,
         name: name,
         owners: owners != null ? List<String>.unmodifiable(owners) : owners,
         private: private);
@@ -142,16 +141,27 @@ class CustomOwnerField extends Model {
         private: private ?? this.private);
   }
 
+  CustomOwnerField copyWithModelFieldValues(
+      {ModelFieldValue<String>? name,
+      ModelFieldValue<List<String>?>? owners,
+      ModelFieldValue<String?>? private}) {
+    return CustomOwnerField._internal(
+        id: id,
+        name: name == null ? this.name : name.value,
+        owners: owners == null ? this.owners : owners.value,
+        private: private == null ? this.private : private.value);
+  }
+
   CustomOwnerField.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
         _owners = json['owners']?.cast<String>(),
         _private = json['private'],
         _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
         _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -172,72 +182,83 @@ class CustomOwnerField extends Model {
         'updatedAt': _updatedAt
       };
 
-  static final QueryModelIdentifier<CustomOwnerFieldModelIdentifier>
+  static final amplify_core
+          .QueryModelIdentifier<CustomOwnerFieldModelIdentifier>
       MODEL_IDENTIFIER =
-      QueryModelIdentifier<CustomOwnerFieldModelIdentifier>();
-  static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField OWNERS = QueryField(fieldName: "owners");
-  static final QueryField PRIVATE = QueryField(fieldName: "private");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+      amplify_core.QueryModelIdentifier<CustomOwnerFieldModelIdentifier>();
+  static final ID = amplify_core.QueryField(fieldName: "id");
+  static final NAME = amplify_core.QueryField(fieldName: "name");
+  static final OWNERS = amplify_core.QueryField(fieldName: "owners");
+  static final PRIVATE = amplify_core.QueryField(fieldName: "private");
+  static var schema = amplify_core.Model.defineSchema(
+      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "CustomOwnerField";
     modelSchemaDefinition.pluralName = "CustomOwnerFields";
 
     modelSchemaDefinition.authRules = [
-      AuthRule(authStrategy: AuthStrategy.PRIVATE, operations: [
-        ModelOperation.CREATE,
-        ModelOperation.UPDATE,
-        ModelOperation.DELETE,
-        ModelOperation.READ
-      ]),
-      AuthRule(
-          authStrategy: AuthStrategy.OWNER,
+      amplify_core.AuthRule(
+          authStrategy: amplify_core.AuthStrategy.PRIVATE,
+          operations: const [
+            amplify_core.ModelOperation.CREATE,
+            amplify_core.ModelOperation.UPDATE,
+            amplify_core.ModelOperation.DELETE,
+            amplify_core.ModelOperation.READ
+          ]),
+      amplify_core.AuthRule(
+          authStrategy: amplify_core.AuthStrategy.OWNER,
           ownerField: "owners",
           identityClaim: "cognito:username",
-          provider: AuthRuleProvider.USERPOOLS,
-          operations: [
-            ModelOperation.CREATE,
-            ModelOperation.UPDATE,
-            ModelOperation.DELETE,
-            ModelOperation.READ
+          provider: amplify_core.AuthRuleProvider.USERPOOLS,
+          operations: const [
+            amplify_core.ModelOperation.CREATE,
+            amplify_core.ModelOperation.UPDATE,
+            amplify_core.ModelOperation.DELETE,
+            amplify_core.ModelOperation.READ
           ])
     ];
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.id());
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: CustomOwnerField.NAME,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: CustomOwnerField.OWNERS,
         isRequired: false,
         isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.collection,
+            ofModelName: amplify_core.ModelFieldTypeEnum.string.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: CustomOwnerField.PRIVATE,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'createdAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'createdAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'updatedAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'updatedAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
   });
 }
 
-class _CustomOwnerFieldModelType extends ModelType<CustomOwnerField> {
+class _CustomOwnerFieldModelType
+    extends amplify_core.ModelType<CustomOwnerField> {
   const _CustomOwnerFieldModelType();
 
   @override
@@ -251,11 +272,12 @@ class _CustomOwnerFieldModelType extends ModelType<CustomOwnerField> {
   }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [CustomOwnerField] in your schema.
-@immutable
+/**
+ * This is an auto generated class representing the model identifier
+ * of [CustomOwnerField] in your schema.
+ */
 class CustomOwnerFieldModelIdentifier
-    implements ModelIdentifier<CustomOwnerField> {
+    implements amplify_core.ModelIdentifier<CustomOwnerField> {
   final String id;
 
   /// Create an instance of CustomOwnerFieldModelIdentifier using [id] the primary key.

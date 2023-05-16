@@ -19,19 +19,18 @@
 
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
-import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
+import 'ModelProvider.dart';
+import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
 /// This is an auto generated class representing the CpkInventory type in your schema.
-@immutable
-class CpkInventory extends Model {
+class CpkInventory extends amplify_core.Model {
   static const classType = _CpkInventoryModelType();
   final String? _productId;
   final String? _productName;
   final String? _warehouseId;
   final String? _description;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
+  final amplify_core.TemporalDateTime? _createdAt;
+  final amplify_core.TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -48,10 +47,10 @@ class CpkInventory extends Model {
           productName: _productName!,
           warehouseId: _warehouseId!);
     } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -61,10 +60,10 @@ class CpkInventory extends Model {
     try {
       return _productId!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -74,10 +73,10 @@ class CpkInventory extends Model {
     try {
       return _productName!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -87,10 +86,10 @@ class CpkInventory extends Model {
     try {
       return _warehouseId!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -100,11 +99,11 @@ class CpkInventory extends Model {
     return _description;
   }
 
-  TemporalDateTime? get createdAt {
+  amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
 
-  TemporalDateTime? get updatedAt {
+  amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
 
@@ -178,16 +177,26 @@ class CpkInventory extends Model {
         description: description ?? this.description);
   }
 
+  CpkInventory copyWithModelFieldValues(
+      {ModelFieldValue<String?>? description}) {
+    return CpkInventory._internal(
+        productId: productId,
+        productName: productName,
+        warehouseId: warehouseId,
+        description:
+            description == null ? this.description : description.value);
+  }
+
   CpkInventory.fromJson(Map<String, dynamic> json)
       : _productId = json['productId'],
         _productName = json['productName'],
         _warehouseId = json['warehouseId'],
         _description = json['description'],
         _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
         _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -208,57 +217,66 @@ class CpkInventory extends Model {
         'updatedAt': _updatedAt
       };
 
-  static final QueryModelIdentifier<CpkInventoryModelIdentifier>
-      MODEL_IDENTIFIER = QueryModelIdentifier<CpkInventoryModelIdentifier>();
-  static final QueryField PRODUCTID = QueryField(fieldName: "productId");
-  static final QueryField PRODUCTNAME = QueryField(fieldName: "productName");
-  static final QueryField WAREHOUSEID = QueryField(fieldName: "warehouseId");
-  static final QueryField DESCRIPTION = QueryField(fieldName: "description");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static final amplify_core.QueryModelIdentifier<CpkInventoryModelIdentifier>
+      MODEL_IDENTIFIER =
+      amplify_core.QueryModelIdentifier<CpkInventoryModelIdentifier>();
+  static final PRODUCTID = amplify_core.QueryField(fieldName: "productId");
+  static final PRODUCTNAME = amplify_core.QueryField(fieldName: "productName");
+  static final WAREHOUSEID = amplify_core.QueryField(fieldName: "warehouseId");
+  static final DESCRIPTION = amplify_core.QueryField(fieldName: "description");
+  static var schema = amplify_core.Model.defineSchema(
+      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "CpkInventory";
     modelSchemaDefinition.pluralName = "CpkInventories";
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(
+      amplify_core.ModelIndex(
           fields: const ["productId", "productName", "warehouseId"], name: null)
     ];
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: CpkInventory.PRODUCTID,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: CpkInventory.PRODUCTNAME,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: CpkInventory.WAREHOUSEID,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: CpkInventory.DESCRIPTION,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'createdAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'createdAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'updatedAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'updatedAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
   });
 }
 
-class _CpkInventoryModelType extends ModelType<CpkInventory> {
+class _CpkInventoryModelType extends amplify_core.ModelType<CpkInventory> {
   const _CpkInventoryModelType();
 
   @override
@@ -274,8 +292,8 @@ class _CpkInventoryModelType extends ModelType<CpkInventory> {
 
 /// This is an auto generated class representing the model identifier
 /// of [CpkInventory] in your schema.
-@immutable
-class CpkInventoryModelIdentifier implements ModelIdentifier<CpkInventory> {
+class CpkInventoryModelIdentifier
+    implements amplify_core.ModelIdentifier<CpkInventory> {
   final String productId;
   final String productName;
   final String warehouseId;
