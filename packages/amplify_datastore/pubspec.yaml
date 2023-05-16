@@ -27,9 +27,6 @@ dev_dependencies:
   fake_async: ^1.2.0
   pigeon: ^9.2.4
 
-dependency_overrides:
-  async: ^2.10.0
-
 # The following section is specific to Flutter.
 flutter:
   plugin:

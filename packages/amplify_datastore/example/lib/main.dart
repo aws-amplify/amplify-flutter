@@ -5,12 +5,11 @@ library sample_app;
 
 import 'dart:async';
 
-import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 // Uncomment the below line to enable online sync
 // import 'package:amplify_api/amplify_api.dart';
 
-// import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -178,15 +177,6 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  getPost() async {
-    try {
-      List<Post> post = await Amplify.DataStore.query(Post.classType);
-      print(post);
-    } catch (e) {
-      print(e);
-    }
-  }
-
   savePost(String title, int rating, Blog associatedBlog) async {
     try {
       Post post = Post(
@@ -295,10 +285,6 @@ class _MyAppState extends State<MyApp> {
                 _selectedPostForNewComment, _posts, saveComment, this),
 
             Padding(padding: EdgeInsets.all(10.0)),
-
-            Padding(padding: EdgeInsets.all(5.0)),
-
-            ElevatedButton(onPressed: getPost, child: Text('Query Posts')),
 
             // Row for query buttons
             displayQueryButtons(_isAmplifyConfigured, this),

@@ -16,12 +16,8 @@ class ConflictData {
     ModelType modelType,
     Map<String, dynamic> localJson,
     Map<String, dynamic> remoteJson,
-  )   : local = modelType.fromJson(
-          localJson,
-        ),
-        remote = modelType.fromJson(
-          remoteJson,
-        );
+  )   : local = modelType.fromJson(localJson),
+        remote = modelType.fromJson(remoteJson);
 
   final Model local;
   final Model remote;

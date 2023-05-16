@@ -29,7 +29,7 @@ Model _parseModelFromMap(
 ) {
   final serializedElement = serializedHubEventElement['element'] as Map;
   final modelName = serializedHubEventElement['modelName'] as String;
-  final modelData =
-      Map<String, dynamic>.from(serializedElement['model'] as Map);
+  final modelData = Map<String, dynamic>.from(serializedElement['model'] as Map)
+      .cast<String, dynamic>();
   return provider.getModelTypeByModelName(modelName).fromJson(modelData);
 }
