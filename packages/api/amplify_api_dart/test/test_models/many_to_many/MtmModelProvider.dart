@@ -42,9 +42,9 @@ class MtmModelProvider implements amplify_core.ModelProviderInterface {
   ];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [];
-  static final ModelProvider _instance = ModelProvider();
+  static final MtmModelProvider _instance = MtmModelProvider();
 
-  static ModelProvider get instance => _instance;
+  static MtmModelProvider get instance => _instance;
 
   amplify_core.ModelType getModelTypeByModelName(String modelName) {
     switch (modelName) {

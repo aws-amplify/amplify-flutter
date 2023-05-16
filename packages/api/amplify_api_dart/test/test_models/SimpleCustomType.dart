@@ -22,6 +22,8 @@
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:meta/meta.dart';
 
+import 'ModelProvider.dart';
+
 /** This is an auto generated class representing the SimpleCustomType type in your schema. */
 class SimpleCustomType {
   final String? _foo;

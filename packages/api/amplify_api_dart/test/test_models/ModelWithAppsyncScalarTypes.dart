@@ -23,6 +23,8 @@ import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
+import 'ModelProvider.dart';
+
 /** This is an auto generated class representing the ModelWithAppsyncScalarTypes type in your schema. */
 class ModelWithAppsyncScalarTypes extends amplify_core.Model {
   static const classType = const _ModelWithAppsyncScalarTypesModelType();

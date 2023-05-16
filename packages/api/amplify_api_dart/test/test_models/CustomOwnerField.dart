@@ -22,7 +22,8 @@
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
-import 'utils.dart';
+
+import 'ModelProvider.dart';
 
 /** This is an auto generated class representing the CustomOwnerField type in your schema. */
 class CustomOwnerField extends amplify_core.Model {
