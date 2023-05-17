@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         flutter-version:
-          - "2.10.0"
+          - "3.0.0" # min version supported by test suite
           - "3.7.0"
 
     steps:
