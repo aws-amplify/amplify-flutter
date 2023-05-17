@@ -72,10 +72,10 @@ dependencies {
     // Support for Java 8 features
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
-    implementation 'com.amplifyframework:aws-auth-cognito:2.8.3'
-    implementation 'com.amplifyframework:aws-api:2.8.3'
-    implementation 'com.amplifyframework:aws-datastore:2.8.3'
-    implementation 'com.amplifyframework:aws-api-appsync:2.8.3'
+    implementation 'com.amplifyframework:aws-auth-cognito:2.4.1'
+    implementation "com.amplifyframework:aws-api:2.4.1"
+    implementation "com.amplifyframework:aws-datastore:2.4.1"
+    implementation "com.amplifyframework:aws-api-appsync:2.4.1"
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
 
