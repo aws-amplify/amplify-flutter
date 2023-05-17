@@ -24,9 +24,9 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the CpkOneToOneBidirectionalParentCD type in your schema. */
+/// This is an auto generated class representing the CpkOneToOneBidirectionalParentCD type in your schema.
 class CpkOneToOneBidirectionalParentCD extends amplify_core.Model {
-  static const classType = const _CpkOneToOneBidirectionalParentCDModelType();
+  static const classType = _CpkOneToOneBidirectionalParentCDModelType();
   final String? _customId;
   final String? _name;
   final CpkOneToOneBidirectionalChildImplicitCD? _implicitChild;
@@ -195,7 +195,7 @@ class CpkOneToOneBidirectionalParentCD extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("CpkOneToOneBidirectionalParentCD {");
     buffer.write("customId=" + "$_customId" + ", ");
@@ -287,11 +287,11 @@ class CpkOneToOneBidirectionalParentCD extends amplify_core.Model {
         _name = json['name'],
         _implicitChild = json['implicitChild'] != null
             ? CpkOneToOneBidirectionalChildImplicitCD.fromJson(
-                new Map<String, dynamic>.from(json['implicitChild']))
+                Map<String, dynamic>.from(json['implicitChild']))
             : null,
         _explicitChild = json['explicitChild'] != null
             ? CpkOneToOneBidirectionalChildExplicitCD.fromJson(
-                new Map<String, dynamic>.from(json['explicitChild']))
+                Map<String, dynamic>.from(json['explicitChild']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
@@ -466,19 +466,15 @@ class _CpkOneToOneBidirectionalParentCDModelType
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [CpkOneToOneBidirectionalParentCD] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [CpkOneToOneBidirectionalParentCD] in your schema.
 class CpkOneToOneBidirectionalParentCDModelIdentifier
     implements amplify_core.ModelIdentifier<CpkOneToOneBidirectionalParentCD> {
   final String customId;
   final String name;
 
-  /**
-   * Create an instance of CpkOneToOneBidirectionalParentCDModelIdentifier using [customId] the primary key.
-   * And [name] the sort key.
-   */
+  /// Create an instance of CpkOneToOneBidirectionalParentCDModelIdentifier using [customId] the primary key.
+  /// And [name] the sort key.
   const CpkOneToOneBidirectionalParentCDModelIdentifier(
       {required this.customId, required this.name});
 

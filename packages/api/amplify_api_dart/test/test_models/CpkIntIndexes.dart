@@ -24,9 +24,9 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the CpkIntIndexes type in your schema. */
+/// This is an auto generated class representing the CpkIntIndexes type in your schema.
 class CpkIntIndexes extends amplify_core.Model {
-  static const classType = const _CpkIntIndexesModelType();
+  static const classType = _CpkIntIndexesModelType();
   final String? _name;
   final int? _fieldA;
   final int? _fieldB;
@@ -266,10 +266,8 @@ class _CpkIntIndexesModelType extends amplify_core.ModelType<CpkIntIndexes> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [CpkIntIndexes] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [CpkIntIndexes] in your schema.
 class CpkIntIndexesModelIdentifier
     implements amplify_core.ModelIdentifier<CpkIntIndexes> {
   final String name;

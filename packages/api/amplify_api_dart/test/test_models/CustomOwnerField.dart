@@ -25,9 +25,9 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the CustomOwnerField type in your schema. */
+/// This is an auto generated class representing the CustomOwnerField type in your schema.
 class CustomOwnerField extends amplify_core.Model {
-  static const classType = const _CustomOwnerFieldModelType();
+  static const classType = _CustomOwnerFieldModelType();
   final String id;
   final String? _name;
   final List<String>? _owners;
@@ -273,10 +273,8 @@ class _CustomOwnerFieldModelType
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [CustomOwnerField] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [CustomOwnerField] in your schema.
 class CustomOwnerFieldModelIdentifier
     implements amplify_core.ModelIdentifier<CustomOwnerField> {
   final String id;

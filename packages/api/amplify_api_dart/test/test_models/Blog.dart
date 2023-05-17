@@ -25,9 +25,9 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the Blog type in your schema. */
+/// This is an auto generated class representing the Blog type in your schema.
 class Blog extends amplify_core.Model {
-  static const classType = const _BlogModelType();
+  static const classType = _BlogModelType();
   final String id;
   final String? _name;
   final List<Post>? _posts;
@@ -103,7 +103,7 @@ class Blog extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Blog {");
     buffer.write("id=" + "$id" + ", ");
@@ -137,7 +137,7 @@ class Blog extends amplify_core.Model {
         _posts = json['posts'] != null
             ? (json['posts']['items'] as List)
                 .where((e) => e != null)
-                .map((e) => Post.fromJson(new Map<String, dynamic>.from(e)))
+                .map((e) => Post.fromJson(Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -224,14 +224,12 @@ class _BlogModelType extends amplify_core.ModelType<Blog> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [Blog] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [Blog] in your schema.
 class BlogModelIdentifier implements amplify_core.ModelIdentifier<Blog> {
   final String id;
 
-  /** Create an instance of BlogModelIdentifier using [id] the primary key. */
+  /// Create an instance of BlogModelIdentifier using [id] the primary key.
   const BlogModelIdentifier({required this.id});
 
   @override

@@ -24,9 +24,9 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the CpkIntPrimaryKey type in your schema. */
+/// This is an auto generated class representing the CpkIntPrimaryKey type in your schema.
 class CpkIntPrimaryKey extends amplify_core.Model {
-  static const classType = const _CpkIntPrimaryKeyModelType();
+  static const classType = _CpkIntPrimaryKeyModelType();
   final int? _intAsId;
   final int? _fieldA;
   final int? _fieldB;
@@ -276,10 +276,8 @@ class _CpkIntPrimaryKeyModelType
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [CpkIntPrimaryKey] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [CpkIntPrimaryKey] in your schema.
 class CpkIntPrimaryKeyModelIdentifier
     implements amplify_core.ModelIdentifier<CpkIntPrimaryKey> {
   final int intAsId;

@@ -23,9 +23,9 @@ import 'MtmModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:collection/collection.dart';
 
-/** This is an auto generated class representing the ManyToManyPrimary type in your schema. */
+/// This is an auto generated class representing the ManyToManyPrimary type in your schema.
 class ManyToManyPrimary extends amplify_core.Model {
-  static const classType = const _ManyToManyPrimaryModelType();
+  static const classType = _ManyToManyPrimaryModelType();
   final String id;
   final String? _name;
   final List<FirstMtmRelation>? _firstMtmToSecondary;
@@ -124,7 +124,7 @@ class ManyToManyPrimary extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("ManyToManyPrimary {");
     buffer.write("id=" + "$id" + ", ");
@@ -173,14 +173,14 @@ class ManyToManyPrimary extends amplify_core.Model {
             ? (json['firstMtmToSecondary']['items'] as List)
                 .where((e) => e != null)
                 .map((e) =>
-                    FirstMtmRelation.fromJson(new Map<String, dynamic>.from(e)))
+                    FirstMtmRelation.fromJson(Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _secondMtmToSecondary = json['secondMtmToSecondary'] != null
             ? (json['secondMtmToSecondary']['items'] as List)
                 .where((e) => e != null)
-                .map((e) => SecondMtmRelation.fromJson(
-                    new Map<String, dynamic>.from(e)))
+                .map((e) =>
+                    SecondMtmRelation.fromJson(Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -286,15 +286,13 @@ class _ManyToManyPrimaryModelType
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [ManyToManyPrimary] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [ManyToManyPrimary] in your schema.
 class ManyToManyPrimaryModelIdentifier
     implements amplify_core.ModelIdentifier<ManyToManyPrimary> {
   final String id;
 
-  /** Create an instance of ManyToManyPrimaryModelIdentifier using [id] the primary key. */
+  /// Create an instance of ManyToManyPrimaryModelIdentifier using [id] the primary key.
   const ManyToManyPrimaryModelIdentifier({required this.id});
 
   @override

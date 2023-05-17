@@ -24,9 +24,9 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the Comment type in your schema. */
+/// This is an auto generated class representing the Comment type in your schema.
 class Comment extends amplify_core.Model {
-  static const classType = const _CommentModelType();
+  static const classType = _CommentModelType();
   final String id;
   final Post? _post;
   final String? _content;
@@ -102,7 +102,7 @@ class Comment extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("Comment {");
     buffer.write("id=" + "$id" + ", ");
@@ -134,7 +134,7 @@ class Comment extends amplify_core.Model {
   Comment.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _post = json['post'] != null
-            ? Post.fromJson(new Map<String, dynamic>.from(json['post']))
+            ? Post.fromJson(Map<String, dynamic>.from(json['post']))
             : null,
         _content = json['content'],
         _createdAt = json['createdAt'] != null
@@ -226,14 +226,12 @@ class _CommentModelType extends amplify_core.ModelType<Comment> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [Comment] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [Comment] in your schema.
 class CommentModelIdentifier implements amplify_core.ModelIdentifier<Comment> {
   final String id;
 
-  /** Create an instance of CommentModelIdentifier using [id] the primary key. */
+  /// Create an instance of CommentModelIdentifier using [id] the primary key.
   const CommentModelIdentifier({required this.id});
 
   @override

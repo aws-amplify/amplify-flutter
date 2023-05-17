@@ -22,9 +22,9 @@
 import 'MtmModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-/** This is an auto generated class representing the SecondMtmRelation type in your schema. */
+/// This is an auto generated class representing the SecondMtmRelation type in your schema.
 class SecondMtmRelation extends amplify_core.Model {
-  static const classType = const _SecondMtmRelationModelType();
+  static const classType = _SecondMtmRelationModelType();
   final String id;
   final ManyToManyPrimary? _manyToManyPrimary;
   final ManyToManySecondary? _manyToManySecondary;
@@ -116,7 +116,7 @@ class SecondMtmRelation extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("SecondMtmRelation {");
     buffer.write("id=" + "$id" + ", ");
@@ -164,11 +164,11 @@ class SecondMtmRelation extends amplify_core.Model {
       : id = json['id'],
         _manyToManyPrimary = json['manyToManyPrimary'] != null
             ? ManyToManyPrimary.fromJson(
-                new Map<String, dynamic>.from(json['manyToManyPrimary']))
+                Map<String, dynamic>.from(json['manyToManyPrimary']))
             : null,
         _manyToManySecondary = json['manyToManySecondary'] != null
             ? ManyToManySecondary.fromJson(
-                new Map<String, dynamic>.from(json['manyToManySecondary']))
+                Map<String, dynamic>.from(json['manyToManySecondary']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
@@ -268,15 +268,13 @@ class _SecondMtmRelationModelType
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [SecondMtmRelation] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [SecondMtmRelation] in your schema.
 class SecondMtmRelationModelIdentifier
     implements amplify_core.ModelIdentifier<SecondMtmRelation> {
   final String id;
 
-  /** Create an instance of SecondMtmRelationModelIdentifier using [id] the primary key. */
+  /// Create an instance of SecondMtmRelationModelIdentifier using [id] the primary key.
   const SecondMtmRelationModelIdentifier({required this.id});
 
   @override

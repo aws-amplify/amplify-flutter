@@ -24,10 +24,9 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the CpkOneToOneBidirectionalChildImplicitCD type in your schema. */
+/// This is an auto generated class representing the CpkOneToOneBidirectionalChildImplicitCD type in your schema.
 class CpkOneToOneBidirectionalChildImplicitCD extends amplify_core.Model {
-  static const classType =
-      const _CpkOneToOneBidirectionalChildImplicitCDModelType();
+  static const classType = _CpkOneToOneBidirectionalChildImplicitCDModelType();
   final String id;
   final String? _name;
   final CpkOneToOneBidirectionalParentCD? _belongsToParent;
@@ -116,7 +115,7 @@ class CpkOneToOneBidirectionalChildImplicitCD extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("CpkOneToOneBidirectionalChildImplicitCD {");
     buffer.write("id=" + "$id" + ", ");
@@ -157,7 +156,7 @@ class CpkOneToOneBidirectionalChildImplicitCD extends amplify_core.Model {
         _name = json['name'],
         _belongsToParent = json['belongsToParent'] != null
             ? CpkOneToOneBidirectionalParentCD.fromJson(
-                new Map<String, dynamic>.from(json['belongsToParent']))
+                Map<String, dynamic>.from(json['belongsToParent']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
@@ -254,20 +253,16 @@ class _CpkOneToOneBidirectionalChildImplicitCDModelType
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [CpkOneToOneBidirectionalChildImplicitCD] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [CpkOneToOneBidirectionalChildImplicitCD] in your schema.
 class CpkOneToOneBidirectionalChildImplicitCDModelIdentifier
     implements
         amplify_core.ModelIdentifier<CpkOneToOneBidirectionalChildImplicitCD> {
   final String id;
   final String name;
 
-  /**
-   * Create an instance of CpkOneToOneBidirectionalChildImplicitCDModelIdentifier using [id] the primary key.
-   * And [name] the sort key.
-   */
+  /// Create an instance of CpkOneToOneBidirectionalChildImplicitCDModelIdentifier using [id] the primary key.
+  /// And [name] the sort key.
   const CpkOneToOneBidirectionalChildImplicitCDModelIdentifier(
       {required this.id, required this.name});
 

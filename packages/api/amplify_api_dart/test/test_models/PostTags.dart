@@ -24,9 +24,9 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the PostTags type in your schema. */
+/// This is an auto generated class representing the PostTags type in your schema.
 class PostTags extends amplify_core.Model {
-  static const classType = const _PostTagsModelType();
+  static const classType = _PostTagsModelType();
   final String id;
   final Post? _post;
   final Tag? _tag;
@@ -111,7 +111,7 @@ class PostTags extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("PostTags {");
     buffer.write("id=" + "$id" + ", ");
@@ -143,10 +143,10 @@ class PostTags extends amplify_core.Model {
   PostTags.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _post = json['post'] != null
-            ? Post.fromJson(new Map<String, dynamic>.from(json['post']))
+            ? Post.fromJson(Map<String, dynamic>.from(json['post']))
             : null,
         _tag = json['tag'] != null
-            ? Tag.fromJson(new Map<String, dynamic>.from(json['tag']))
+            ? Tag.fromJson(Map<String, dynamic>.from(json['tag']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
@@ -241,15 +241,13 @@ class _PostTagsModelType extends amplify_core.ModelType<PostTags> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [PostTags] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [PostTags] in your schema.
 class PostTagsModelIdentifier
     implements amplify_core.ModelIdentifier<PostTags> {
   final String id;
 
-  /** Create an instance of PostTagsModelIdentifier using [id] the primary key. */
+  /// Create an instance of PostTagsModelIdentifier using [id] the primary key.
   const PostTagsModelIdentifier({required this.id});
 
   @override

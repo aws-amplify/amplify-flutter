@@ -24,7 +24,7 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the SimpleCustomType type in your schema. */
+/// This is an auto generated class representing the SimpleCustomType type in your schema.
 class SimpleCustomType {
   final String? _foo;
 
@@ -62,7 +62,7 @@ class SimpleCustomType {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("SimpleCustomType {");
     buffer.write("foo=" + "$_foo");

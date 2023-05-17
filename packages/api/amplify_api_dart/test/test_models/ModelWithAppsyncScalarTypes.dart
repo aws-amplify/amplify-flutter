@@ -25,9 +25,9 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/** This is an auto generated class representing the ModelWithAppsyncScalarTypes type in your schema. */
+/// This is an auto generated class representing the ModelWithAppsyncScalarTypes type in your schema.
 class ModelWithAppsyncScalarTypes extends amplify_core.Model {
-  static const classType = const _ModelWithAppsyncScalarTypesModelType();
+  static const classType = _ModelWithAppsyncScalarTypesModelType();
   final String id;
   final String? _stringValue;
   final String? _altStringValue;
@@ -402,7 +402,7 @@ class ModelWithAppsyncScalarTypes extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("ModelWithAppsyncScalarTypes {");
     buffer.write("id=" + "$id" + ", ");
@@ -1090,15 +1090,13 @@ class _ModelWithAppsyncScalarTypesModelType
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [ModelWithAppsyncScalarTypes] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [ModelWithAppsyncScalarTypes] in your schema.
 class ModelWithAppsyncScalarTypesModelIdentifier
     implements amplify_core.ModelIdentifier<ModelWithAppsyncScalarTypes> {
   final String id;
 
-  /** Create an instance of ModelWithAppsyncScalarTypesModelIdentifier using [id] the primary key. */
+  /// Create an instance of ModelWithAppsyncScalarTypesModelIdentifier using [id] the primary key.
   const ModelWithAppsyncScalarTypesModelIdentifier({required this.id});
 
   @override
