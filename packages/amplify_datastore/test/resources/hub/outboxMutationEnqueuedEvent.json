@@ -3,7 +3,7 @@
   "modelName": "Post",
   "element": {
     "model": {
-      "modelName": "Post",
+      "__modelName": "Post",
       "id": "43036c6b-8044-4309-bddc-262b6c686026",
       "title": "Title 1",
       "rating": 5,

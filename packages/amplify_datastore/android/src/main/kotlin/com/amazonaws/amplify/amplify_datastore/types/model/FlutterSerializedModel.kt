@@ -25,7 +25,7 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
 
         val cleanedSerializedData: Map<String, Any> = serializedData.filterValues { it != null }.cast()
 
-        val modelNameMap = mapOf("modelName" to modelName)
+        val modelNameMap = mapOf("__modelName" to modelName)
 
         return cleanedSerializedData+modelNameMap
     }

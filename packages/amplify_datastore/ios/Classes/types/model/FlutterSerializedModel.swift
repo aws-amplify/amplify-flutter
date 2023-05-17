@@ -236,7 +236,7 @@ public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder 
                             customTypeSchemaRegistry: customTypeSchemaRegistry,
                             modelName: nextModelName
                         )
-                    let modelNameMap = ["modelName": nextModelName]
+                    let modelNameMap = ["__modelName": nextModelName]
 
                     result[key] = dataMap.merging(modelNameMap) { (current, _) in current }
                 }
@@ -251,7 +251,7 @@ public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder 
                             customTypeSchemaRegistry: customTypeSchemaRegistry,
                             modelName: customTypeName
                         )
-                    let modelNameMap = ["modelName": customTypeName]
+                    let modelNameMap = ["__modelName": customTypeName]
 
                     result[key] = dataMap.merging(modelNameMap) { (current, _) in current }
 
@@ -273,7 +273,7 @@ public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder 
                                 customTypeSchemaRegistry: customTypeSchemaRegistry,
                                 modelName: customTypeName
                             )
-                        let modelNameMap = ["modelName": customTypeName]
+                        let modelNameMap = ["__modelName": customTypeName]
                         deserializedArray.append(dataMap.merging(modelNameMap) { (current, _) in current })
                     } else {
                         deserializedArray.append(deserializeValue(value: item, fieldType: fieldType))
@@ -326,7 +326,7 @@ public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder 
                 customTypeSchemaRegistry: customTypeSchemaRegistry,
                 modelName: modelName
             )
-        let modelNameMap = ["modelName": modelName]
+        let modelNameMap = ["__modelName": modelName]
         return dataMap.merging(modelNameMap) { (current, _) in current }
     }
 }
