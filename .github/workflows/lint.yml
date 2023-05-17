@@ -1,4 +1,4 @@
-# Created with package:mono_repo v6.3.0
+# Created with package:mono_repo v6.5.6
 name: Dart Lint
 on:
   push:
@@ -21,20 +21,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
           sdk: stable
       - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+        name: Checkout repository
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - name: mono_repo self validate
-        run: dart pub global activate mono_repo 6.3.0
+        run: dart pub global activate mono_repo 6.5.6
       - name: mono_repo self validate
         run: dart pub global run mono_repo generate --validate
   job_002:
@@ -42,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.15.0;packages:packages/aws_common-packages/aws_signature_v4/example;commands:format-analyze_0"
@@ -51,43 +53,45 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted;sdk:2.15.0
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
           sdk: "2.15.0"
       - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+        name: Checkout repository
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - id: packages_aws_common_pub_upgrade
         name: packages/aws_common; dart pub upgrade
+        run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/aws_common
-        run: dart pub upgrade
       - name: "packages/aws_common; dart format --output=none --set-exit-if-changed ."
-        if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_common
         run: "dart format --output=none --set-exit-if-changed ."
-      - name: "packages/aws_common; dart analyze --fatal-infos ."
         if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_common
+      - name: "packages/aws_common; dart analyze --fatal-infos ."
         run: dart analyze --fatal-infos .
+        if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_common
       - id: packages_aws_signature_v4_example_pub_upgrade
         name: packages/aws_signature_v4/example; dart pub upgrade
+        run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/aws_signature_v4/example
-        run: dart pub upgrade
       - name: "packages/aws_signature_v4/example; dart format --output=none --set-exit-if-changed ."
-        if: "always() && steps.packages_aws_signature_v4_example_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4/example
         run: "dart format --output=none --set-exit-if-changed ."
-      - name: "packages/aws_signature_v4/example; dart analyze --fatal-infos ."
         if: "always() && steps.packages_aws_signature_v4_example_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4/example
+      - name: "packages/aws_signature_v4/example; dart analyze --fatal-infos ."
         run: dart analyze --fatal-infos .
+        if: "always() && steps.packages_aws_signature_v4_example_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4/example
   job_003:
     name: "analyze_and_format; Dart 2.15.0; PKG: packages/aws_signature_v4; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.15.0;packages:packages/aws_signature_v4;commands:format-analyze_1"
@@ -96,98 +100,104 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted;sdk:2.15.0
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
           sdk: "2.15.0"
       - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+        name: Checkout repository
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
+        run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
-        run: dart pub upgrade
       - name: "packages/aws_signature_v4; dart format --output=none --set-exit-if-changed ."
-        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
         run: "dart format --output=none --set-exit-if-changed ."
-      - name: "packages/aws_signature_v4; dart analyze --fatal-infos lib test"
         if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
+      - name: "packages/aws_signature_v4; dart analyze --fatal-infos lib test"
         run: dart analyze --fatal-infos lib test
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
   job_004:
-    name: "analyze_and_format; Dart stable; PKGS: packages/aws_common, packages/aws_signature_v4/example; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
+    name: "analyze_and_format; Dart 2.19.0; PKGS: packages/aws_common, packages/aws_signature_v4/example; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_common-packages/aws_signature_v4/example;commands:format-analyze_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0;packages:packages/aws_common-packages/aws_signature_v4/example;commands:format-analyze_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_common-packages/aws_signature_v4/example
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0;packages:packages/aws_common-packages/aws_signature_v4/example
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
-          sdk: stable
+          sdk: "2.19.0"
       - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+        name: Checkout repository
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - id: packages_aws_common_pub_upgrade
         name: packages/aws_common; dart pub upgrade
+        run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/aws_common
-        run: dart pub upgrade
       - name: "packages/aws_common; dart format --output=none --set-exit-if-changed ."
-        if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_common
         run: "dart format --output=none --set-exit-if-changed ."
-      - name: "packages/aws_common; dart analyze --fatal-infos ."
         if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_common
+      - name: "packages/aws_common; dart analyze --fatal-infos ."
         run: dart analyze --fatal-infos .
+        if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_common
       - id: packages_aws_signature_v4_example_pub_upgrade
         name: packages/aws_signature_v4/example; dart pub upgrade
+        run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/aws_signature_v4/example
-        run: dart pub upgrade
       - name: "packages/aws_signature_v4/example; dart format --output=none --set-exit-if-changed ."
-        if: "always() && steps.packages_aws_signature_v4_example_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4/example
         run: "dart format --output=none --set-exit-if-changed ."
-      - name: "packages/aws_signature_v4/example; dart analyze --fatal-infos ."
         if: "always() && steps.packages_aws_signature_v4_example_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4/example
+      - name: "packages/aws_signature_v4/example; dart analyze --fatal-infos ."
         run: dart analyze --fatal-infos .
+        if: "always() && steps.packages_aws_signature_v4_example_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4/example
   job_005:
-    name: "analyze_and_format; Dart stable; PKG: packages/aws_signature_v4; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
+    name: "analyze_and_format; Dart 2.19.0; PKG: packages/aws_signature_v4; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:format-analyze_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0;packages:packages/aws_signature_v4;commands:format-analyze_1"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0;packages:packages/aws_signature_v4
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
-          sdk: stable
+          sdk: "2.19.0"
       - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+        name: Checkout repository
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
+        run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
-        run: dart pub upgrade
       - name: "packages/aws_signature_v4; dart format --output=none --set-exit-if-changed ."
-        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
         run: "dart format --output=none --set-exit-if-changed ."
-      - name: "packages/aws_signature_v4; dart analyze --fatal-infos lib test"
         if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
+      - name: "packages/aws_signature_v4; dart analyze --fatal-infos lib test"
         run: dart analyze --fatal-infos lib test
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
