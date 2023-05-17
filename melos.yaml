@@ -14,7 +14,7 @@ scripts:
     flutter pub global activate tuneup
   copy_dummy_config: >
     melos exec --scope="*example*,sample_app" -- \
-      cp -n "\$MELOS_ROOT_PATH"/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
+      cp -n "\$MELOS_ROOT_PATH"/tool/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
 
   build:examples:ios: >
     melos exec -c 1 --scope="*example*,sample_app" --ignore="*_android*" --fail-fast -- \
@@ -57,13 +57,13 @@ scripts:
       melos run test:unit:ios:plugin amplify_flutter $PWD && exit 0
 
   test:unit:flutter:plugin:
-    run: .circleci/test_all_plugins.sh flutter-test $1 $PWD
+    run: tool/test_all_plugins.sh flutter-test $1 $PWD
 
   test:unit:android:plugin:
-    run: ./.circleci/test_all_plugins.sh android-test $1 $PWD
+    run: tool/test_all_plugins.sh android-test $1 $PWD
 
   test:unit:ios:plugin:
-    run: ./.circleci/test_all_plugins.sh ios-test $1 $PWD
+    run: tool/test_all_plugins.sh ios-test $1 $PWD
 
   # ANALYTICS
   build:examples:ios:amplify_analytics_pinpoint: >
@@ -145,7 +145,7 @@ scripts:
     select-package:
       scope:
         - amplify_auth_cognito_android_example
-  
+
   # TODO: LINT COGNITO PLUGIN for iOS
   lint:ios:amplify_auth_cognito:
     run: echo "amplify_auth_cognito does not conform to iOS lint rules"
