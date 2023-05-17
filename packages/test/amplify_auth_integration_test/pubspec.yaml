@@ -1,0 +1,27 @@
+name: amplify_auth_integration_test
+description: Integration test utilities for Amplify Auth packages.
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/test/amplify_auth_integration_test
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
+publish_to: none
+
+environment:
+  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.3.0"
+
+dependencies:
+  amplify_api: any
+  amplify_auth_cognito: any
+  amplify_flutter: any
+  amplify_integration_test: any
+  async: ^2.9.0
+  flutter:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  stack_trace: ^1.10.0
+
+dev_dependencies:
+  amplify_lints: any

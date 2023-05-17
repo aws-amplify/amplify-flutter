@@ -6,7 +6,9 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
+import 'package:collection/collection.dart';
 import 'package:stream_transform/stream_transform.dart';
+import 'package:test/scaffolding.dart';
 
 final _logger =
     AmplifyLogger.category(Category.auth).createChild('IntegrationTestUtils');
@@ -169,30 +171,56 @@ Future<String> adminCreateUser(
     throw Exception(createError);
   }
 
-  return (result['createUser'] as Map)['cognitoUsername'] as String;
+  final cognitoUsername =
+      (result['createUser'] as Map)['cognitoUsername'] as String;
+
+  addTearDown(() async {
+    try {
+      await _oneOf([
+        // TODO(dnys1): Cognito cannot always delete a user by `cognitoUsername`. Why?
+        deleteUser(username),
+        deleteUser(cognitoUsername),
+      ]);
+    } on Exception catch (e) {
+      _logger.debug('Error deleting user ($username / $cognitoUsername):', e);
+    }
+  });
+
+  return cognitoUsername;
 }
 
+/// {@template amplify_integration_test.otp_result}
+/// Captures the result of an OTP code being sent to an email or phone number.
+/// {@endtemplate}
 class OtpResult {
+  /// {@macro amplify_integration_test.otp_result}
   const OtpResult(this.code);
 
+  /// The future value of the OTP code.
   final Future<String> code;
 }
 
-enum UserAttributeType { username, email, phone }
+enum _UserAttributeType { username, email, phone }
 
+/// Identifies a user by a particular attribute.
 class UserAttribute {
+  /// Identifies a user by their username.
   const UserAttribute.username(String username)
-      : value = username,
-        type = UserAttributeType.username;
-  const UserAttribute.email(String email)
-      : value = email,
-        type = UserAttributeType.email;
-  const UserAttribute.phone(String phoneNumber)
-      : value = phoneNumber,
-        type = UserAttributeType.phone;
+      : _value = username,
+        _type = _UserAttributeType.username;
 
-  final UserAttributeType type;
-  final String value;
+  /// Identifies a user by their email.
+  const UserAttribute.email(String email)
+      : _value = email,
+        _type = _UserAttributeType.email;
+
+  /// Identifies a user by their phone number.
+  const UserAttribute.phone(String phoneNumber)
+      : _value = phoneNumber,
+        _type = _UserAttributeType.phone;
+
+  final _UserAttributeType _type;
+  final String _value;
 }
 
 /// Returns the OTP code for [userAttribute].
@@ -208,15 +236,15 @@ Future<OtpResult> getOtpCode(UserAttribute userAttribute) async {
   final code = otpCodes
       .tap((event) => _logger.debug('Got OTP Code: $event'))
       .where((event) {
-        switch (userAttribute.type) {
-          case UserAttributeType.username:
-            return event.username == userAttribute.value;
-          case UserAttributeType.email:
+        switch (userAttribute._type) {
+          case _UserAttributeType.username:
+            return event.username == userAttribute._value;
+          case _UserAttributeType.email:
             return event.userAttributes[CognitoUserAttributeKey.email] ==
-                userAttribute.value;
-          case UserAttributeType.phone:
+                userAttribute._value;
+          case _UserAttributeType.phone:
             return event.userAttributes[CognitoUserAttributeKey.phoneNumber] ==
-                userAttribute.value;
+                userAttribute._value;
         }
       })
       .map((event) => event.code)
@@ -260,7 +288,27 @@ Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
     if (event.hasErrors) {
       throw Exception(event.errors);
     }
-    final json = jsonDecode(event.data!)['onCreateMFACode'] as Map;
+    final json = (jsonDecode(event.data!) as Map)['onCreateMFACode'] as Map;
     return CreateMFACodeResponse.fromJson(json.cast());
   });
+}
+
+/// Completes if one of the [futures] completes successfully.
+///
+/// Otherwise, throws with the combined errors of all of them.
+Future<void> _oneOf(List<Future<Object?>> futures) async {
+  var success = false;
+  final errors = List<Object?>.filled(futures.length, null);
+  await Future.wait(
+    futures.mapIndexed(
+      (index, fut) => fut.then((_) {
+        success = true;
+      }).onError((e, _) {
+        errors[index] = e;
+      }),
+    ),
+  );
+  if (!success) {
+    throw Exception(errors);
+  }
 }

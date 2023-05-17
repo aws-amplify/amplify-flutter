@@ -8,26 +8,20 @@ import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 
-import 'config.dart';
+import 'test_runner.dart';
 import 'utils/test_utils.dart';
 
 void main() {
-  AWSLogger().logLevel = LogLevel.verbose;
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
-  binding.deferFirstFrame();
+  testRunner.setupTests();
 
   group('sign-in-with-email', () {
     // Given I'm running the example "ui/components/authenticator/sign-in-with-email.feature"
-    setUpAll(() async {
-      await loadConfiguration(
+    setUp(() async {
+      await testRunner.configure(
         environmentName: 'sign-in-with-email',
       );
     });
-
-    tearDown(signOut);
 
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
@@ -90,7 +84,6 @@ void main() {
           userAttributes: {AuthUserAttributeKey.email: email},
         ),
       );
-      addTearDown(() => deleteUser(email));
 
       signInPage.expectUsername(label: 'Email');
 
@@ -122,7 +115,7 @@ void main() {
     testWidgets('Sign in with confirmed credentials', (tester) async {
       final username = generateEmail();
       final password = generatePassword();
-      final cognitoUsername = await adminCreateUser(
+      await adminCreateUser(
         username,
         password,
         autoConfirm: true,
@@ -134,7 +127,6 @@ void main() {
           ),
         ],
       );
-      addTearDown(() => deleteUser(cognitoUsername));
 
       await loadAuthenticator(tester: tester);
 
@@ -170,7 +162,7 @@ void main() {
         (tester) async {
       final username = generateEmail();
       final password = generatePassword();
-      final cognitoUsername = await adminCreateUser(
+      await adminCreateUser(
         username,
         password,
         autoConfirm: true,
@@ -182,7 +174,6 @@ void main() {
           ),
         ],
       );
-      addTearDown(() => deleteUser(cognitoUsername));
 
       await loadAuthenticator(tester: tester);
 
@@ -225,7 +216,7 @@ void main() {
         (tester) async {
       final username = generateEmail();
       final password = generatePassword();
-      final cognitoUsername = await adminCreateUser(
+      await adminCreateUser(
         username,
         password,
         attributes: [
@@ -235,7 +226,6 @@ void main() {
           ),
         ],
       );
-      addTearDown(() => deleteUser(cognitoUsername));
 
       await loadAuthenticator(tester: tester);
 

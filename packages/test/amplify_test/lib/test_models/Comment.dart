@@ -134,6 +134,14 @@ class Comment extends Model {
 
   static final QueryModelIdentifier MODEL_IDENTIFIER = QueryModelIdentifier();
   static final QueryField ID = QueryField(fieldName: 'comment.id');
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'post': _post,
+        'content': _content,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryField POST = QueryField(
       fieldName: "post",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Post'));

@@ -5,27 +5,27 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito_idp;
-import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
+import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'utils/setup_utils.dart';
-import 'utils/test_utils.dart';
+import 'test_runner.dart';
+
+AmplifyAuthCognito get cognitoPlugin => Amplify.Auth.getPlugin(
+      AmplifyAuthCognito.pluginKey,
+    );
 
 void main() {
-  initTests();
+  testRunner.setupTests();
 
   group('signOut', () {
     for (final environmentName in userPoolEnvironments) {
       group(environmentName, () {
-        late final cognitoPlugin = Amplify.Auth.getPlugin(
-          AmplifyAuthCognito.pluginKey,
-        );
         late String username;
         late String password;
-        late final AWSHttpClient client;
-        late final cognito_idp.CognitoIdentityProviderClient cognitoClient;
+        late AWSHttpClient client;
+        late cognito_idp.CognitoIdentityProviderClient cognitoClient;
 
         Future<void> check(String accessToken, {required bool isValid}) async {
           await expectLater(
@@ -38,9 +38,9 @@ void main() {
           );
         }
 
-        setUpAll(() async {
-          await configureAuth(
-            config: amplifyEnvironments[environmentName]!,
+        setUp(() async {
+          await testRunner.configure(
+            environmentName: environmentName,
           );
 
           final config = await Amplify.asyncConfig;
@@ -51,21 +51,18 @@ void main() {
             region: authConfig.region,
           );
           addTearDown(client.close);
-        });
 
-        setUp(() async {
           await signOutUser();
 
           username = generateUsername();
           password = generatePassword();
 
-          final cognitoUsername = await adminCreateUser(
+          await adminCreateUser(
             username,
             password,
             autoConfirm: true,
             verifyAttributes: true,
           );
-          addTearDown(() => deleteUser(cognitoUsername));
         });
 
         asyncTest('should sign a user out', (_) async {

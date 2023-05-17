@@ -5,26 +5,20 @@ import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 
-import 'config.dart';
+import 'test_runner.dart';
 import 'utils/test_utils.dart';
 
 void main() {
-  AWSLogger().logLevel = LogLevel.verbose;
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
-  binding.deferFirstFrame();
+  testRunner.setupTests();
 
   group('verify-user', () {
     // Given I'm running the example "ui/components/authenticator/verify-user"
-    setUpAll(() async {
-      await loadConfiguration(
+    setUp(() async {
+      await testRunner.configure(
         environmentName: 'sign-in-with-email',
       );
     });
-
-    tearDown(deleteTestUser);
 
     // Scenario: Redirect to "Verify" page
     testWidgets('Redirect to "Verify" page', (tester) async {
@@ -44,7 +38,7 @@ void main() {
       final username = generateEmail();
       final password = generatePassword();
 
-      final cognitoUsername = await adminCreateUser(
+      await adminCreateUser(
         username,
         password,
         autoConfirm: true,
@@ -55,7 +49,6 @@ void main() {
           ),
         ],
       );
-      addTearDown(() => deleteUser(cognitoUsername));
 
       // When I type my "email" with status "UNVERIFIED"
       await signInPage.enterUsername(username);
@@ -98,7 +91,7 @@ void main() {
       final username = generateEmail();
       final password = generatePassword();
 
-      final cognitoUsername = await adminCreateUser(
+      await adminCreateUser(
         username,
         password,
         autoConfirm: true,
@@ -109,7 +102,6 @@ void main() {
           ),
         ],
       );
-      addTearDown(() => deleteUser(cognitoUsername));
 
       // When I type my "email" with status "UNVERIFIED"
       await signInPage.enterUsername(username);
@@ -163,7 +155,7 @@ void main() {
       final username = generateEmail();
       final password = generatePassword();
 
-      final cognitoUsername = await adminCreateUser(
+      await adminCreateUser(
         username,
         password,
         autoConfirm: true,
@@ -174,7 +166,6 @@ void main() {
           ),
         ],
       );
-      addTearDown(() => deleteUser(cognitoUsername));
 
       // When I type my "email" with status "UNVERIFIED"
       await signInPage.enterUsername(username);
@@ -244,7 +235,7 @@ void main() {
       final phoneNumber = generateUSPhoneNumber();
       final password = generatePassword();
 
-      final cognitoUsername = await adminCreateUser(
+      await adminCreateUser(
         username,
         password,
         autoConfirm: true,
@@ -259,7 +250,6 @@ void main() {
           ),
         ],
       );
-      addTearDown(() => deleteUser(cognitoUsername));
 
       // When I type my "email" with status "UNVERIFIED"
       await signInPage.enterUsername(username);
@@ -314,7 +304,7 @@ void main() {
       final username = generateEmail();
       final password = generatePassword();
 
-      final cognitoUsername = await adminCreateUser(
+      await adminCreateUser(
         username,
         password,
         autoConfirm: true,
@@ -325,7 +315,6 @@ void main() {
           ),
         ],
       );
-      addTearDown(() => deleteUser(cognitoUsername));
 
       // When I sign in with username and password.
       await Amplify.Auth.signIn(username: username, password: password);

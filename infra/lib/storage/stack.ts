@@ -4,6 +4,7 @@
 import * as cdk from "aws-cdk-lib";
 import { RemovalPolicy } from "aws-cdk-lib";
 import * as cognito from "aws-cdk-lib/aws-cognito";
+import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
@@ -157,15 +158,14 @@ class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<
 
     // Create the Cognito Identity Pool
 
-    const identityPool = new cognito.CfnIdentityPool(this, "IdentityPool", {
+    const identityPool = new cognito_identity.IdentityPool(this, "IdentityPool", {
       identityPoolName: this.name,
       allowUnauthenticatedIdentities: true,
-      cognitoIdentityProviders: [
-        {
-          clientId: userPoolClient.userPoolClientId,
-          providerName: `cognito-idp.${this.region}.amazonaws.com/${userPool.userPoolId}`,
-        },
-      ],
+      authenticationProviders: {
+        userPools: [
+          new cognito_identity.UserPoolAuthenticationProvider({ userPool, userPoolClient })
+        ]
+      },
     });
 
     const identityId = "${cognito-identity.amazonaws.com:sub}";
@@ -233,22 +233,11 @@ class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<
       public: buildPolicyDocument(StorageAccessLevel.public),
       protected: buildPolicyDocument(StorageAccessLevel.protected),
     };
-    const unauthenticatedRole = new iam.Role(this, "UnauthenticatedRole", {
-      description: "Default role for anonymous users",
-      assumedBy: new iam.FederatedPrincipal(
-        "cognito-identity.amazonaws.com",
-        {
-          StringEquals: {
-            "cognito-identity.amazonaws.com:aud": identityPool.ref,
-          },
-          "ForAnyValue:StringLike": {
-            "cognito-identity.amazonaws.com:amr": "unauthenticated",
-          },
-        },
-        "sts:AssumeRoleWithWebIdentity"
-      ),
-      inlinePolicies: unauthenticatedPolicies,
-    });
+    for (const [name, document] of Object.entries(unauthenticatedPolicies)) {
+      identityPool.unauthenticatedRole.attachInlinePolicy(
+        new iam.Policy(this, `unauthenticated-${name}`, { document })
+      )
+    }
 
     const authenticatedPolicies: Record<string, iam.PolicyDocument> = {
       ...unauthenticatedPolicies,
@@ -277,34 +266,11 @@ class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<
       }),
       private: buildPolicyDocument(StorageAccessLevel.private),
     };
-    const authenticatedRole = new iam.Role(this, "AuthenticatedRole", {
-      description: "Default role for authenticated users",
-      assumedBy: new iam.FederatedPrincipal(
-        "cognito-identity.amazonaws.com",
-        {
-          StringEquals: {
-            "cognito-identity.amazonaws.com:aud": identityPool.ref,
-          },
-          "ForAnyValue:StringLike": {
-            "cognito-identity.amazonaws.com:amr": "authenticated",
-          },
-        },
-        "sts:AssumeRoleWithWebIdentity"
-      ),
-      inlinePolicies: authenticatedPolicies,
-    });
-
-    new cognito.CfnIdentityPoolRoleAttachment(
-      this,
-      "IdentityPoolRoleAttachment",
-      {
-        identityPoolId: identityPool.ref,
-        roles: {
-          unauthenticated: unauthenticatedRole.roleArn,
-          authenticated: authenticatedRole.roleArn,
-        },
-      }
-    );
+    for (const [name, document] of Object.entries(authenticatedPolicies)) {
+      identityPool.authenticatedRole.attachInlinePolicy(
+        new iam.Policy(this, `authenticated-${name}`, { document })
+      )
+    }
 
     // Save the values needed to build our Amplify configuration.
 
@@ -316,7 +282,7 @@ class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<
           mfa,
         },
         identityPoolConfig: {
-          identityPoolId: identityPool.ref,
+          identityPoolId: identityPool.identityPoolId,
         },
       },
       storageConfig: {

@@ -108,6 +108,27 @@ class Post extends Model {
             comments != null ? List<Comment>.unmodifiable(comments) : comments);
   }
 
+  // TODO(Jordan-Nelson): Remove at next major version bump.
+  // This was added manually so that Post can be extended in tests.
+  const Post.internal(
+      {required this.id,
+      required title,
+      required rating,
+      created,
+      likeCount,
+      blog,
+      comments,
+      createdAt,
+      updatedAt})
+      : _title = title,
+        _rating = rating,
+        _created = created,
+        _likeCount = likeCount,
+        _blog = blog,
+        _comments = comments,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
   const Post._internal(
       {required this.id,
       required title,
@@ -233,6 +254,18 @@ class Post extends Model {
   static final QueryField RATING = QueryField(fieldName: 'rating');
   static final QueryField CREATED = QueryField(fieldName: 'created');
   static final QueryField LIKECOUNT = QueryField(fieldName: 'likeCount');
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'title': _title,
+        'rating': _rating,
+        'created': _created,
+        'likeCount': _likeCount,
+        'blog': _blog,
+        'comments': _comments,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryField BLOG = QueryField(
       fieldName: "blog",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Blog'));

@@ -2,32 +2,25 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 
-import 'config.dart';
+import 'test_runner.dart';
 import 'utils/test_utils.dart';
 
 // This test follows the Amplify UI feature "confirm-sign-up"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/confirm-sign-up.feature
 
 void main() {
-  AWSLogger().logLevel = LogLevel.verbose;
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
-  binding.deferFirstFrame();
+  testRunner.setupTests();
 
   group('confirm-sign-up', () {
     // Given I'm running the example "ui/components/authenticator/confirm-sign-up"
-    setUpAll(() async {
-      await loadConfiguration(
+    setUp(() async {
+      await testRunner.configure(
         environmentName: 'sign-in-with-email',
       );
     });
-
-    tearDown(deleteTestUser);
 
     // Scenario: Confirm a new username & password with an invalid code
     testWidgets(
@@ -50,8 +43,6 @@ void main() {
         );
 
         final username = generateEmail();
-        addTearDown(() => deleteUser(username));
-
         final password = generatePassword();
 
         await signInPage.navigateToSignUp();
@@ -105,8 +96,6 @@ void main() {
       );
 
       final username = generateEmail();
-      addTearDown(() => deleteUser(username));
-
       final password = generatePassword();
       final otpResult = await getOtpCode(UserAttribute.email(username));
 

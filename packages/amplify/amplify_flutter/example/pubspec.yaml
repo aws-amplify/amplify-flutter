@@ -33,6 +33,7 @@ dependency_overrides:
     path: ../../../aws_common
   aws_signature_v4:
     path: ../../../aws_signature_v4
+  test_api: any
 
 dev_dependencies:
   amplify_lints:
