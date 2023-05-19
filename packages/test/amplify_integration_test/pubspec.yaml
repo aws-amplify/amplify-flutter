@@ -11,10 +11,10 @@ dependencies:
   amplify_core: any
   amplify_test:
     path: ../amplify_test
-  async: ^2.9.0
+  async: ^2.10.0
   collection: ^1.15.0
   stream_transform: ^2.0.0
-  test: ^1.16.0
+  test: ^1.22.1
 
 dev_dependencies:
   amplify_lints: any
