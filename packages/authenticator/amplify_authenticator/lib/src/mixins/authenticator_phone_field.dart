@@ -3,9 +3,11 @@
 
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
+import 'package:amplify_authenticator/src/utils/breakpoint.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
@@ -37,6 +39,9 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
             .toLowerCase()
             .contains(_searchVal.toLowerCase()),
       )
+      .sortedBy(
+        (country) => _countriesResolver.resolve(context, country.key),
+      )
       .toList();
 
   String? formatPhoneNumber(String? phoneNumber) {
@@ -56,7 +61,90 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
   }
 
   @override
-  Widget get prefix => Padding(
+  Widget get prefix => Theme.of(context).useMaterial3 ? m3Prefix : m2Prefix;
+
+  Widget get m3Prefix {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: SearchAnchor(
+        // Always use full screen at small break point. Otherwise use default
+        // behavior.
+        isFullScreen: Breakpoint.of(context) == Breakpoint.small ? true : null,
+        viewHintText: _countriesResolver.resolve(
+          context,
+          CountryResolverKey.selectDialCode,
+        ),
+        builder: (context, controller) {
+          return Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '+${state.country.value}',
+                textAlign: TextAlign.center,
+              ),
+              const Flexible(
+                child: Icon(Icons.arrow_drop_down, size: 16),
+              ),
+            ],
+          );
+        },
+        // Default minHeight & minWidth, custom maxHeight.
+        viewConstraints: const BoxConstraints(
+          minHeight: 240,
+          minWidth: 360,
+          maxHeight: 300,
+        ),
+        suggestionsBuilder: ((context, SearchController controller) {
+          final textStyle = Theme.of(context).listTileTheme.titleTextStyle ??
+              const TextStyle(fontSize: 15);
+          final filteredCountries = countryCodes
+              .where(
+                (country) =>
+                    country.value
+                        .contains(controller.text.replaceFirst('+', '')) ||
+                    _countriesResolver
+                        .resolve(context, country.key)
+                        .toLowerCase()
+                        .contains(controller.text.toLowerCase()),
+              )
+              .sortedBy(
+                (country) => _countriesResolver.resolve(context, country.key),
+              );
+          return filteredCountries.map(
+            (country) => InkWell(
+              onTap: () {
+                state.country = country;
+                Navigator.of(context).pop();
+              },
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return ListTile(
+                    onTap: () {
+                      state.country = country;
+                      Navigator.of(context).pop();
+                    },
+                    title: Text(
+                      _countriesResolver.resolve(context, country.key),
+                      style: textStyle,
+                    ),
+                    // Prevent overflows during animations.
+                    trailing: constraints.maxWidth > 250
+                        ? Text(
+                            '+${country.value}',
+                            style: textStyle,
+                          )
+                        : null,
+                  );
+                },
+              ),
+            ),
+          );
+        }),
+      ),
+    );
+  }
+
+  Widget get m2Prefix => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: InkWell(
           key: keySelectCountryCode,

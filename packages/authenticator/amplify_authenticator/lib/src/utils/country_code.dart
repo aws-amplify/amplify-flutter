@@ -11,9 +11,12 @@ class Country {
   final CountryResolverKey key;
 }
 
-/// List of country information
+/// List of country information.
+///
+/// Countries are listed in alphabetical order according to the default
+/// translations, not the country code. However, countryCodes will be ordered
+/// according to the i18n content at runtime to account for custom translations.
 const countryCodes = [
-  Country('US', '1', CountryResolverKey.us$),
   Country('AF', '93', CountryResolverKey.af$),
   Country('AX', '358', CountryResolverKey.ax$),
   Country('AL', '355', CountryResolverKey.al$),
@@ -245,6 +248,7 @@ const countryCodes = [
   Country('UA', '380', CountryResolverKey.ua$),
   Country('AE', '971', CountryResolverKey.ae$),
   Country('GB', '44', CountryResolverKey.gb$),
+  Country('US', '1', CountryResolverKey.us$),
   Country('UM', '246', CountryResolverKey.um$),
   Country('UY', '598', CountryResolverKey.uy$),
   Country('UZ', '998', CountryResolverKey.uz$),
@@ -258,3 +262,5 @@ const countryCodes = [
   Country('ZM', '260', CountryResolverKey.zm$),
   Country('ZW', '263', CountryResolverKey.zw$)
 ];
+
+const initialCountryCode = Country('US', '1', CountryResolverKey.us$);

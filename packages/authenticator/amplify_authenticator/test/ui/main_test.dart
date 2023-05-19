@@ -49,22 +49,28 @@ enum ScreenGeometry {
   final double pixelRatio;
 }
 
+// TODO(Jordan-Nelson): Update all themes to use material3
 enum TestTheme {
-  defaultMaterial,
-  highContrast,
-  customSwatch,
-  custom;
+  defaultMaterial(),
+  material3(),
+  highContrast(),
+  customSwatch(),
+  custom();
 
   ThemeData get lightTheme {
     switch (this) {
       case TestTheme.defaultMaterial:
-        return ThemeData.light();
+        return ThemeData.light(useMaterial3: false);
+      case TestTheme.material3:
+        return ThemeData.light(useMaterial3: true);
       case TestTheme.highContrast:
         return ThemeData.from(
+          useMaterial3: false,
           colorScheme: const ColorScheme.highContrastLight(),
         );
       case TestTheme.customSwatch:
         return ThemeData.from(
+          useMaterial3: false,
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: Colors.red,
             backgroundColor: Colors.white,
@@ -73,7 +79,7 @@ enum TestTheme {
           indicatorColor: Colors.red,
         );
       case TestTheme.custom:
-        return ThemeData.light().copyWith(
+        return ThemeData.light(useMaterial3: false).copyWith(
           tabBarTheme: const TabBarTheme(
             labelColor: Colors.amber,
           ),
@@ -85,13 +91,17 @@ enum TestTheme {
   ThemeData get darkTheme {
     switch (this) {
       case TestTheme.defaultMaterial:
-        return ThemeData.dark();
+        return ThemeData.dark(useMaterial3: false);
+      case TestTheme.material3:
+        return ThemeData.dark(useMaterial3: true);
       case TestTheme.highContrast:
         return ThemeData.from(
+          useMaterial3: false,
           colorScheme: const ColorScheme.highContrastDark(),
         );
       case TestTheme.customSwatch:
         return ThemeData.from(
+          useMaterial3: false,
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: Colors.red,
             backgroundColor: Colors.black,
@@ -99,7 +109,7 @@ enum TestTheme {
           ),
         );
       case TestTheme.custom:
-        return ThemeData.dark().copyWith(
+        return ThemeData.dark(useMaterial3: false).copyWith(
           tabBarTheme: const TabBarTheme(
             labelColor: Colors.amber,
           ),
