@@ -1,6 +1,6 @@
 sdk:
-  - '2.15.0'
-  - stable
+  - "2.15.0"
+  - "2.19.0"
 
 stages:
   - analyze_and_format:
@@ -12,7 +12,7 @@ stages:
           # Pull `aws-c-auth` with the test vectors
           - command: git submodule update --init
             sdk:
-              - stable
+              - "2.19.0"
           - test:
           - test: -p chrome
       - group:

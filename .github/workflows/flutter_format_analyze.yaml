@@ -6,9 +6,9 @@ on:
       - stable
   pull_request:
     paths:
-      - 'packages/**/*.dart'
-      - 'packages/**/*.yaml'
-      - '.github/workflows/flutter_format_analyze.yaml'
+      - "packages/**/*.dart"
+      - "packages/**/*.yaml"
+      - ".github/workflows/flutter_format_analyze.yaml"
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -20,6 +20,13 @@ jobs:
   flutter_format_analyze:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    strategy:
+      # Allows other matrix items to run if one fails
+      fail-fast: false
+      matrix:
+        flutter-version:
+          - "3.0.0" # min version supported by test suite
+          - "3.7.0"
     steps:
       - name: Git Checkout
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
@@ -28,6 +35,7 @@ jobs:
         uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # 2.8.0
         with:
           cache: true
+          flutter-version: ${{ matrix.flutter-version }}
 
       - name: Install Melos and Bootstrap
         id: bootstrap

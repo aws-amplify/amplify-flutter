@@ -1,4 +1,4 @@
-# Created with package:mono_repo v6.3.0
+# Created with package:mono_repo v6.5.6
 name: Test
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.15.0;packages:packages/aws_common;commands:test_0-test_1"
@@ -30,30 +30,32 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted;sdk:2.15.0
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
           sdk: "2.15.0"
       - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+        name: Checkout repository
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - id: packages_aws_common_pub_upgrade
         name: packages/aws_common; dart pub upgrade
+        run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/aws_common
-        run: dart pub upgrade
       - name: packages/aws_common; dart test
-        if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_common
         run: dart test
-      - name: "packages/aws_common; dart test -p chrome"
         if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_common
+      - name: "packages/aws_common; dart test -p chrome"
         run: dart test -p chrome
+        if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_common
   job_002:
     name: "unit_test; Dart 2.15.0; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.15.0;packages:packages/aws_signature_v4;commands:command-test_0"
@@ -62,30 +64,32 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted;sdk:2.15.0
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
           sdk: "2.15.0"
       - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+        name: Checkout repository
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
+        run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
-        run: dart pub upgrade
       - name: "packages/aws_signature_v4; git submodule update --init"
-        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
         run: git submodule update --init
-      - name: packages/aws_signature_v4; dart test
         if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
+      - name: packages/aws_signature_v4; dart test
         run: dart test
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
   job_003:
     name: "unit_test; Dart 2.15.0; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`, `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.15.0;packages:packages/aws_signature_v4;commands:command-test_0-test_1"
@@ -94,125 +98,133 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted;sdk:2.15.0
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
           sdk: "2.15.0"
       - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+        name: Checkout repository
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
+        run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
-        run: dart pub upgrade
       - name: "packages/aws_signature_v4; git submodule update --init"
-        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
         run: git submodule update --init
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
       - name: packages/aws_signature_v4; dart test
-        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
         run: dart test
-      - name: "packages/aws_signature_v4; dart test -p chrome"
         if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
+      - name: "packages/aws_signature_v4; dart test -p chrome"
         run: dart test -p chrome
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
   job_004:
-    name: "unit_test; Dart stable; PKG: packages/aws_common; `dart test`, `dart test -p chrome`"
+    name: "unit_test; Dart 2.19.0; PKG: packages/aws_common; `dart test`, `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_common;commands:test_0-test_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0;packages:packages/aws_common;commands:test_0-test_1"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_common
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0;packages:packages/aws_common
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
-          sdk: stable
+          sdk: "2.19.0"
       - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+        name: Checkout repository
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - id: packages_aws_common_pub_upgrade
         name: packages/aws_common; dart pub upgrade
+        run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/aws_common
-        run: dart pub upgrade
       - name: packages/aws_common; dart test
+        run: dart test
         if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_common
-        run: dart test
       - name: "packages/aws_common; dart test -p chrome"
+        run: dart test -p chrome
         if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_common
-        run: dart test -p chrome
   job_005:
-    name: "unit_test; Dart stable; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`"
+    name: "unit_test; Dart 2.19.0; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0;packages:packages/aws_signature_v4;commands:command-test_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0;packages:packages/aws_signature_v4
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
-          sdk: stable
+          sdk: "2.19.0"
       - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+        name: Checkout repository
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
+        run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
-        run: dart pub upgrade
       - name: "packages/aws_signature_v4; git submodule update --init"
-        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
         run: git submodule update --init
-      - name: packages/aws_signature_v4; dart test
         if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
+      - name: packages/aws_signature_v4; dart test
         run: dart test
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
   job_006:
-    name: "unit_test; Dart stable; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`, `dart test -p chrome`"
+    name: "unit_test; Dart 2.19.0; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`, `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command-test_0-test_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0;packages:packages/aws_signature_v4;commands:command-test_0-test_1"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0;packages:packages/aws_signature_v4
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.19.0
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
-          sdk: stable
+          sdk: "2.19.0"
       - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+        name: Checkout repository
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - id: packages_aws_signature_v4_pub_upgrade
         name: packages/aws_signature_v4; dart pub upgrade
+        run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
-        run: dart pub upgrade
       - name: "packages/aws_signature_v4; git submodule update --init"
-        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
         run: git submodule update --init
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4
       - name: packages/aws_signature_v4; dart test
-        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
         run: dart test
-      - name: "packages/aws_signature_v4; dart test -p chrome"
         if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
+      - name: "packages/aws_signature_v4; dart test -p chrome"
         run: dart test -p chrome
+        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/aws_signature_v4

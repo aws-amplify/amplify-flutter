@@ -61,7 +61,7 @@ case $test_suite in
                 continue
             fi
             if [ ! -f $dummy_file_path ]; then
-                cp ${project_root_dir}/.circleci/dummy_amplifyconfiguration.dart $dummy_file_path
+                cp ${project_root_dir}/tool/dummy_amplifyconfiguration.dart $dummy_file_path
             fi
             cd example/android
             if ./gradlew :"$plugin":testDebugUnitTest; then
@@ -93,7 +93,7 @@ case $test_suite in
         if [ -d "example/ios/unit_tests" ]; then
             XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 13,OS=latest"
             if [ ! -f $dummy_file_path ]; then
-                cp ${project_root_dir}/.circleci/dummy_amplifyconfiguration.dart $dummy_file_path
+                cp ${project_root_dir}/tool/dummy_amplifyconfiguration.dart $dummy_file_path
             fi
             cd example/ios
             if xcodebuild test \
