@@ -34,4 +34,4 @@ dev_dependencies:
   build_runner: ^2.4.0
   flutter_test:
     sdk: flutter
-  json_serializable: 6.6.2
+  json_serializable: 6.7.0
