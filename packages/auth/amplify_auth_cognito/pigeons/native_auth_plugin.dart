@@ -11,8 +11,8 @@
       package: 'com.amazonaws.amplify.amplify_auth_cognito',
     ),
     kotlinOut:
-        'android/src/main/kotlin/com/amazonaws/amplify/amplify_auth_cognito/NativeAuthPluginBindingsPigeon.kt',
-    swiftOut: 'darwin/classes/messages.g.swift',
+        'android/src/main/kotlin/com/amazonaws/amplify/amplify_auth_cognito/pigeons/NativeAuthPluginBindingsPigeon.kt',
+    swiftOut: 'darwin/classes/pigeons/messages.g.swift',
   ),
 )
 library native_auth_plugin;
