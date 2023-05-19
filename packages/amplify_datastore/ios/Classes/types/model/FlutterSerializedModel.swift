@@ -251,7 +251,7 @@ public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder 
                             customTypeSchemaRegistry: customTypeSchemaRegistry,
                             modelName: customTypeName
                         )
-                    let modelNameMap = ["__modelName": customTypeName]
+                    let modelNameMap = ["customTypeName": customTypeName]
 
                     result[key] = dataMap.merging(modelNameMap) { (current, _) in current }
 
@@ -273,7 +273,7 @@ public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder 
                                 customTypeSchemaRegistry: customTypeSchemaRegistry,
                                 modelName: customTypeName
                             )
-                        let modelNameMap = ["__modelName": customTypeName]
+                        let modelNameMap = ["customTypeName": customTypeName]
                         deserializedArray.append(dataMap.merging(modelNameMap) { (current, _) in current })
                     } else {
                         deserializedArray.append(deserializeValue(value: item, fieldType: fieldType))

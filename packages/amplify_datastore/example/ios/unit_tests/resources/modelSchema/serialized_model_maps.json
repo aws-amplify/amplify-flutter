@@ -1,136 +1,101 @@
 {
-    "BlogSerializedMap": {
-        "modelName": "Blog",
-        "serializedData": {
-            "id": "999",
-            "name": "blog name"
-        }
+  "BlogSerializedMap": {
+    "__modelName": "Blog",
+    "id": "999",
+    "name": "blog name"
+  },
+  "CommentSerializedMap": {
+    "__modelName": "Comment",
+    "id": "999",
+    "post": {
+      "id": "555"
     },
-    "CommentSerializedMap": {
-        "modelName": "Comment",
-        "serializedData": {
-            "id": "999",
-            "post": {
-                "id": "555"
-            },
-            "content": "content"
-        }
+    "content": "content"
+  },
+  "PostSerializedMap": {
+    "__modelName": "Post",
+    "id": "999",
+    "title": "post title",
+    "created": "2020-11-25T01:28:49.000Z",
+    "blog": {
+      "id": "555",
+      "__modelName": "Blog",
+      "name": "Blog 1"
     },
-    "PostSerializedMap": {
-        "modelName": "Post",
-        "serializedData": {
-            "id": "999",
-            "title": "post title",
-            "created": "2020-11-25T01:28:49.000Z",
-            "blog": {
-                "id": "555",
-                "modelName": "Blog",
-                "serializedData": {
-                    "id": "555",
-                    "name": "Blog 1"
-                }
-            },
-            "author": {
-                "id": "666",
-                "modelName": "Author",
-                "serializedData": {
-                    "id": "666",
-                    "name": "Someone Testing",
-                    "department": {
-                        "id": "777",
-                        "modelName": "Department",
-                        "serializedData": {
-                            "id": "777",
-                            "name": "Department 1",
-                            "description": "Testing department 1"
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "AllTypeModelSerializedMap": {
-        "modelName": "AllTypeModel",
-        "serializedData": {
-            "id": "999",
-            "stringType": "string value",
-            "intType": 10,
-            "floatType": 9.99,
-            "boolType": true,
-            "dateType": "2020-09-09Z",
-            "dateTimeType": "2020-11-25T01:28:49.000Z",
-            "timeType": "20:20:20:020Z",
-            "timestampType": 999,
-            "enumType": "maybe"
-        }
-    },
-    "PersonModelSerializedMap": {
-        "modelName": "Person",
-        "serializedData": {
-            "id": "123",
-            "name": "Tester Testing",
-            "contact": {
-                "customTypeName": "Contact",
-                "serializedData": {
-                    "email": "test@testing.com",
-                    "phone": {
-                        "customTypeName": "Phone",
-                        "serializedData": {
-                            "country": "+1",
-                            "area": "415",
-                            "number": "6666666"
-                        }
-                    },
-                    "mailingAddresses": [
-                        {
-                            "customTypeName": "Address",
-                            "serializedData": {
-                                "line1": "000 Somewhere far",
-                                "line2": "apt 4",
-                                "city": "San Francisco",
-                                "state": "CA",
-                                "postalCode": "94115"
-                            }
-                        },
-                        {
-                            "customTypeName": "Address",
-                            "serializedData": {
-                                "line1": "111 Somewhere close",
-                                "line2": null,
-                                "city": "Seattle",
-                                "state": "WA",
-                                "postalCode": "98101"
-                            }
-                        }
-                    ]
-                }
-            },
-            "propertiesAddresses": [
-                {
-                    "customTypeName": "Address",
-                    "serializedData": {
-                        "line1": "222 Somewhere in the middle",
-                        "line2": null,
-                        "city": "Portland",
-                        "state": "OR",
-                        "postalCode": "97035"
-                    }
-                }
-            ],
-            "anotherCustomTypeTree": [
-                {
-                    "customTypeName": "CustomA",
-                    "serializedData": {
-                        "field1": "yes another dependencies tree",
-                        "field2": {
-                            "customTypeName": "CustomB",
-                            "serialziedData": {
-                                "field": "just a string"
-                            }
-                        }
-                    }
-                }
-            ]
-        }
+    "author": {
+      "__modelName": "Author",
+      "id": "666",
+      "name": "Someone Testing",
+      "department": {
+        "id": "777",
+        "__modelName": "Department",
+        "name": "Department 1",
+        "description": "Testing department 1"
+      }
     }
+  },
+  "AllTypeModelSerializedMap": {
+    "__modelName": "AllTypeModel",
+    "id": "999",
+    "stringType": "string value",
+    "intType": 10,
+    "floatType": 9.99,
+    "boolType": true,
+    "dateType": "2020-09-09Z",
+    "dateTimeType": "2020-11-25T01:28:49.000Z",
+    "timeType": "20:20:20:020Z",
+    "timestampType": 999,
+    "enumType": "maybe"
+  },
+  "PersonModelSerializedMap": {
+    "__modelName": "Person",
+    "id": "123",
+    "name": "Tester Testing",
+    "contact": {
+      "customTypeName": "Contact",
+      "email": "test@testing.com",
+      "phone": {
+        "customTypeName": "Phone",
+        "country": "+1",
+        "area": "415",
+        "number": "6666666"
+      },
+      "mailingAddresses": [
+        {
+          "customTypeName": "Address",
+          "line1": "000 Somewhere far",
+          "line2": "apt 4",
+          "city": "San Francisco",
+          "state": "CA",
+          "postalCode": "94115"
+        },
+        {
+          "customTypeName": "Address",
+          "line1": "111 Somewhere close",
+          "city": "Seattle",
+          "state": "WA",
+          "postalCode": "98101"
+        }
+      ]
+    },
+    "propertiesAddresses": [
+      {
+        "customTypeName": "Address",
+        "line1": "222 Somewhere in the middle",
+        "city": "Portland",
+        "state": "OR",
+        "postalCode": "97035"
+      }
+    ],
+    "anotherCustomTypeTree": [
+      {
+        "customTypeName": "CustomA",
+        "field1": "yes another dependencies tree",
+        "field2": {
+          "customTypeName": "CustomB",
+          "field": "just a string"
+        }
+      }
+    ]
+  }
 }
