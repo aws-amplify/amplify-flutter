@@ -27,7 +27,7 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
 
         val modelNameMap = mapOf("__modelName" to modelName)
 
-        return cleanedSerializedData+modelNameMap
+        return modelNameMap+cleanedSerializedData
     }
 
     private fun parseModelName(modelName: String?): String {

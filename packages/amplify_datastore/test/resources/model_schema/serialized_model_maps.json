@@ -1,6 +1,6 @@
 {
   "BlogSerializedMap": {
-    "____modelName": "Blog",
+    "__modelName": "Blog",
     "id": "999",
     "name": "blog name"
   },
@@ -59,22 +59,20 @@
         {
           "customTypeName": "Address",
           "line1": "111 Somewhere close",
-          "line2": null,
           "city": "Seattle",
           "state": "WA",
           "postalCode": "98101"
         }
       ]
-    }
-  },
-  "propertiesAddresses": [
-    {
-      "customTypeName": "Address",
-      "line1": "222 Somewhere in the middle",
-      "line2": null,
-      "city": "Portland",
-      "state": "OR",
-      "postalCode": "97035"
-    }
-  ]
+    },
+    "propertiesAddresses": [
+      {
+        "customTypeName": "Address",
+        "line1": "222 Somewhere in the middle",
+        "city": "Portland",
+        "state": "OR",
+        "postalCode": "97035"
+      }
+    ]
+  }
 }
