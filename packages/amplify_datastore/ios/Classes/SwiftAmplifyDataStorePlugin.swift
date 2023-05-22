@@ -146,7 +146,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
             }
             let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self,
                                                                 from: data)
-            AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
+            AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: "\(version) /datastore")
             try Amplify.configure(amplifyConfiguration)
             return completion(.success(()))
         } catch let error as ConfigurationError {
