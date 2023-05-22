@@ -185,7 +185,7 @@ class AuthenticatorState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Country _country = countryCodes.first;
+  Country _country = initialCountryCode;
 
   final Map<CognitoUserAttributeKey, String> authAttributes = {};
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_auth_cognito_dart.cognito_identity_provider.model.code_delivery_failure_exception;
+part of 'code_delivery_failure_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

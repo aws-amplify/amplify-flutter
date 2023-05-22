@@ -52,20 +52,8 @@ class AuthenticatorWithCustomAuthFlow extends StatelessWidget {
         }
       },
       child: MaterialApp(
-        theme: ThemeData.from(
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.deepPurple,
-            backgroundColor: Colors.white,
-            brightness: Brightness.light,
-          ),
-        ),
-        darkTheme: ThemeData.from(
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.deepPurple,
-            backgroundColor: Colors.black,
-            brightness: Brightness.dark,
-          ),
-        ),
+        theme: ThemeData.light(useMaterial3: true),
+        darkTheme: ThemeData.dark(useMaterial3: true),
         themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
         builder: Authenticator.builder(),

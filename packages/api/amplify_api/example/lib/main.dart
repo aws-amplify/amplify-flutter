@@ -88,6 +88,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Authenticator(
       child: MaterialApp(
+        theme: ThemeData.light(useMaterial3: true),
+        darkTheme: ThemeData.dark(useMaterial3: true),
         builder: Authenticator.builder(),
         home: Scaffold(
           appBar: AppBar(

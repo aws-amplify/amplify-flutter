@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_auth_cognito_dart.cognito_identity.model.too_many_requests_exception;
+part of 'too_many_requests_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

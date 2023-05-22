@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_auth_cognito_dart.cognito_identity_provider.model.concurrent_modification_exception;
+part of 'concurrent_modification_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
