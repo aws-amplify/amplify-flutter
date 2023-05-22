@@ -8,5 +8,6 @@
     ],
     "runArgs": [
         "--privileged" // needed to start gnome-keyring
-    ]
+    ],
+    "postStartCommand": "dart pub global activate -spath packages/aft"
 }

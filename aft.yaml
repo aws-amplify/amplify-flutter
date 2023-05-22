@@ -25,7 +25,7 @@ dependencies:
   source_gen: ^1.3.2
   stack_trace: ^1.10.0
   uuid: ">=3.0.6 <=3.0.7"
-  xml: ">=6.1.0 <=6.2.2"
+  xml: 6.3.0
   test: ^1.22.1
 
 # The current constraints for SDKs and OSs.
@@ -119,15 +119,15 @@ scripts:
   test:unit:flutter:
     description: Runs unit tests for all Flutter packages
     from: flutter
-    run: $AFT_ROOT/.circleci/test_all_plugins.sh flutter {{ package.name }}
+    run: $AFT_ROOT/tool/test_all_plugins.sh flutter {{ package.name }}
   test:unit:ios:
     description: Runs unit tests for all iOS plugins
     from: flutter
-    run: $AFT_ROOT/.circleci/test_all_plugins.sh ios {{ package.name }} {{{ package.example.path }}}
+    run: $AFT_ROOT/tool/test_all_plugins.sh ios {{ package.name }} {{{ package.example.path }}}
   test:unit:android:
     description: Runs unit tests for all Android plugins
     from: flutter
-    run: $AFT_ROOT/.circleci/test_all_plugins.sh android {{ package.name }} {{{ package.example.path }}}
+    run: $AFT_ROOT/tool/test_all_plugins.sh android {{ package.name }} {{{ package.example.path }}}
   build:example:ios:
     description: Builds all example apps for iOS
     from:

@@ -20,7 +20,7 @@ flutter pub add --dev --sdk=flutter integration_test
 
 # copy template files to newly generated app
 cp -r $ROOT_DIR/canaries/lib .
-cp $ROOT_DIR/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
+cp $ROOT_DIR/build-support/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
 
 # Android
 sed -i'' -e "s/ext.kotlin_version = .*/ext.kotlin_version = \"1.8.21\"/" ./android/build.gradle

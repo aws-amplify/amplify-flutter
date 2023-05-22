@@ -7,7 +7,7 @@ Thank you for your interest in contributing to our project! <3 Whether it's a bu
 - [Our Design](#our-design)
 - [Development Process](#development-process)
   - [Setting up for local development](#setting-up-for-local-development)
-      - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
+    - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
     - [Platform Setup](#platform-setup)
       - [Linux](#linux)
   - [Steps towards contributions](#steps-towards-contributions)
@@ -58,18 +58,19 @@ Start by [forking](https://help.github.com/en/github/getting-started-with-github
 $ git clone git@github.com:[username]/amplify-flutter.git --recurse-submodules
 $ cd amplify-flutter
 ```
+
 > Note: If you already cloned the project and forgot `--recurse-submodules`, run `git submodule update --init --recursive`.
 
 > Note: Make sure to always [sync your fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork) with main branch of amplify-flutter
 
 Next setup Amplify Flutter Repo Tool (aft). This can be installed using the following:
 
-```sh 
+```sh
 $ brew install libgit2
 $ dart pub global activate -spath packages/aft
 ```
 
-Then, from the root of the project, run `aft bootstrap` to link local packages together and install remaining dependencies. 
+Then, from the root of the project, run `aft bootstrap` to link local packages together and install remaining dependencies.
 
 ```sh
 $ aft bootstrap
@@ -139,12 +140,8 @@ This is mostly the same as GitHub's guide on creating a pull request.
 
 _[Skip step 1 to 3 if you have already done this]_
 
-1. Fork aws-amplify/amplify-flutter
-2. Clone your fork locally: `git clone git@github.com:YOUR_GITHUB_USERNAME/amplify-flutter.git --recurse-submodules`
-    > Note: If you already cloned the project and forgot `--recurse-submodules`, run `git submodule update --init --recursive`.
-
-3. Install `melos` by running `dart pub global activate melos`, and run `melos bootstrap` (or `dart pub global run melos bootstrap`) in the repository root
-4. Within your fork, create a new branch based on the issue (e.g. Issue #123) you're addressing - `git checkout -b "group-token/short-token-[branch-name]"` or `git checkout -b "short-token/[branch-name]"`
+1. Follow the steps in [Setting up for local development above](#setting-up-for-local-development-above)
+2. Within your fork, create a new branch based on the issue (e.g. Issue #123) you're addressing - `git checkout -b "group-token/short-token-[branch-name]"` or `git checkout -b "short-token/[branch-name]"`
    - Use grouping tokens at the beginning of the branch names. \_For e.g, if you are working on changes specific to `amplify-ui-components`, then you could start the branch name as `ui-components/...`
    - short token
      - feat
@@ -152,11 +149,11 @@ _[Skip step 1 to 3 if you have already done this]_
      - bug
    - use slashes to separate parts of branch names
    - Hyphenate well defined branch name
-5. Once your work is committed and you're ready to share, run tests.
+3. Once your work is committed and you're ready to share, run tests.
    **Note:** Manually test your changes in a sample app with different edge cases and also test across different native platforms
-6. Then, Push your branch `git push origin -u`
-7. This previous step will give you a URL to view a GitHub page in your browser. Copy-paste this, and complete the workflow in the UI. It will invite you to "create a PR" from your newly published branch. Fill out the PR template to submit a PR.
-8. Finally, the Amplify team will review your PR. Add reviewers based on the core member who is tracking the issue with you or code owners.
+4. Then, Push your branch `git push origin -u`
+5. This previous step will give you a URL to view a GitHub page in your browser. Copy-paste this, and complete the workflow in the UI. It will invite you to "create a PR" from your newly published branch. Fill out the PR template to submit a PR.
+6. Finally, the Amplify team will review your PR. Add reviewers based on the core member who is tracking the issue with you or code owners.
    _In the meantime, address any automated check that fail (such as linting, unit tests, etc. in CI)_
 
 # Release
@@ -189,14 +186,14 @@ toolkit for interacting with AWS backend resources.
 To run all the flutter unit tests for all plugins:
 
 ```bash
-$ melos run test:unit:flutter
+$ aft run test:unit:flutter
 ```
 
 or run all unit tests for a given platform
 
 ```bash
-$ melos run test:unit:android
-$ melos run test:unit:ios
+$ aft run test:unit:android
+$ aft run test:unit:ios
 ```
 
 ## Integration Tests
@@ -206,38 +203,24 @@ test functionality with real Amplify back-ends. The integration test script will
 apps which have integration tests written (skipping those that don't). It runs on Android and iOS simulators.
 
 **Note:** To run integration tests, you will need prerequisite Amplify resources in the example
-apps where the tests run. The process for creating those is noted below. You will also need to install dependencies with `melos bootstrap`.
+apps where the tests run. The process for creating those is noted below. You will also need to install dependencies with `aft bootstrap`.
 
-To run all integration tests on available platforms:
+To run integration tests for a specific plugin, run:
 
 ```bash
-$ melos run test:integration
+$ aft exec flutter test integration_test --include <plugin-example-app>
 ```
 
-To run tests for all packages on a single platform (replace `android` with `ios` to run on iOS):
+For example, to run the tests for the amplify_auth_cognito plugin, run:
 
 ```bash
-$ melos run test:integration:android --no-select
-```
-
-To run tests for a single package on a single platform (replace `android` with `ios` to run on iOS):
-
-> Note: you will be prompted with which package to run the tests for
-
-```bash
-$ melos run test:integration:android
-```
-
-To run a single test file on device matching "sdk":
-
-```bash
-$ cd packages/amplify_auth_cognito/example
-$ flutter drive --driver=test_driver/integration_test.dart --target=integration_test/sign_in_sign_out_test.dart -d sdk
+$ aft exec flutter test integration_test --include amplify_auth_cognito_example
 ```
 
 ## Provision Resources For Integration Tests
 
 > Note: The provisioning script uses [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) and the [Amplify CLI](https://docs.amplify.aws/cli/usage/headless). You will need to have the following CLI tools installed before continuing:
+>
 > - [AWS CLI](https://aws.amazon.com/cli/)
 > - [Amplify CLI](https://docs.amplify.aws/cli/)
 > - [pnpm](https://pnpm.io/installation)

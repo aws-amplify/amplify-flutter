@@ -879,7 +879,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
         coroutineScope.launch(dispatcher) {
             try {
                 val configuration = AmplifyConfiguration.builder(JSONObject(config))
-                    .addPlatform(UserAgent.Platform.FLUTTER, version)
+                    .addPlatform(UserAgent.Platform.FLUTTER, "$version /datastore")
                     .devMenuEnabled(false)
                     .build()
                 Amplify.configure(configuration, context)
