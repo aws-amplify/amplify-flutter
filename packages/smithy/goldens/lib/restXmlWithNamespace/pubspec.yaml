@@ -14,7 +14,7 @@ dependencies:
   aws_common:
     path: ../../../../aws_common
   built_value: ">=8.5.0 <8.6.0"
-  xml: ">=6.1.0 <=6.2.2"
+  xml: 6.3.0
   fixnum: ^1.0.0
   meta: ^1.7.0
   built_collection: ^5.0.0
