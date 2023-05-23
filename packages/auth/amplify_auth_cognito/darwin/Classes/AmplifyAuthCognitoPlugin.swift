@@ -12,7 +12,6 @@ extension FlutterError: Error { }
 
 public class AmplifyAuthCognitoPlugin: NSObject, FlutterPlugin, NativeAuthBridge {
     
-    
     private let nativeAuthPlugin: NativeAuthPlugin
     private let hostedUIFlow = HostedUIFlow()
     
@@ -104,12 +103,73 @@ public class AmplifyAuthCognitoPlugin: NSObject, FlutterPlugin, NativeAuthBridge
         return bundleId
     }
     
+    func getContextData() throws -> NativeUserContextData {
+#if os(macOS)
+        preconditionFailure("fetching context data via method channel is not supported in macOS")
+#else
+        // Adapted from amplify-swift: https://github.com/aws-amplify/amplify-swift/blob/6b8946fd527f94d6ccbd419e180295ebf64a9c89/AmplifyPlugins/Auth/Sources/AWSCognitoAuthPlugin/ASF/ASFDeviceInfo.swift
+        var contextData = NativeUserContextData()
+
+        // DeviceName
+        contextData.deviceName = UIDevice.current.name
+        
+        // ThirdPartyDeviceId
+        contextData.thirdPartyDeviceId = UIDevice.current.identifierForVendor?.uuidString
+        
+        // DeviceFingerprint
+        let model = UIDevice.current.model
+        let osVersion = UIDevice.current.systemVersion
+        var systemInfo = utsname()
+        if uname(&systemInfo) == 0 {
+            let systemName = systemInfo.sysname
+            let machineMirror = Mirror(reflecting: systemInfo.machine)
+            let identifier = machineMirror.children.reduce("") { identifier, element in
+                guard let value = element.value as? Int8, value != 0 else { return identifier }
+                return identifier + String(UnicodeScalar(UInt8(value)))
+            }
+#if DEBUG
+            let build = "debug"
+#else
+            let build = "release"
+#endif
+            contextData.deviceFingerprint = "Apple/\(model)/\(identifier)/-:\(osVersion)/-/-:-/\(build)"
+        }
+        
+        // ApplicationName
+        contextData.applicationName = Bundle.main.bundleIdentifier
+        
+        // ApplicationVersion
+        let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")
+        if let appVersion = appVersion as? String {
+            let buildNumber = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String)
+            if let buildNumber = buildNumber as? String {
+                contextData.applicationVersion = "\(appVersion)(\(buildNumber))"
+            } else {
+                contextData.applicationVersion = appVersion
+            }
+        }
+        
+        // DeviceLanguage
+        contextData.deviceLanguage = Locale.preferredLanguages[0]
+        
+        // DeviceOsReleaseVersion
+        contextData.deviceOsReleaseVersion = osVersion
+        
+        // ScreenWidthPixels / ScreenHeightPixels
+        let bounds = UIScreen.main.nativeBounds.size
+        contextData.screenWidthPixels = Int64(bounds.width)
+        contextData.screenHeightPixels = Int64(bounds.height)
+    
+        return contextData
+#endif
+    }
+    
     func getLegacyCredentials(identityPoolId: String?, appClientId: String?, completion: @escaping (Result<LegacyCredentialStoreData, Error>) -> Void) {
-        preconditionFailure("fetching legacy credentials via method channel is not supported in iOS")
+        preconditionFailure("fetching legacy credentials via method channel is not supported in iOS/macOS")
     }
     
     func clearLegacyCredentials(completion: @escaping (Result<Void, Error>) -> Void) {
-        preconditionFailure("clearing legacy credentials via method channel is not supported in iOS")
+        preconditionFailure("clearing legacy credentials via method channel is not supported in iOS/macOS")
     }
     
 }
