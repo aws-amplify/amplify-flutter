@@ -236,6 +236,12 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       },
       {
         associateWithWaf,
+        type: "FULL",
+        environmentName: "asf-audit",
+        advancedSecurityMode: cognito.AdvancedSecurityMode.AUDIT,
+      },
+      {
+        associateWithWaf,
         type: "CUSTOM_AUTHORIZER_USER_POOLS",
         environmentName: "custom-authorizer-user-pools",
       },
