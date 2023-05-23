@@ -6,10 +6,15 @@ package com.amazonaws.amplify.amplify_auth_cognito
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.pm.PackageManager.MATCH_ALL
 import android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
+import android.content.pm.PackageManager.PackageInfoFlags
 import android.net.Uri
 import android.os.Build
+import android.provider.Settings
+import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
 import io.flutter.Log
@@ -23,6 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
+import java.util.Locale
 
 open class AmplifyAuthCognitoPlugin :
   FlutterPlugin,
@@ -158,6 +164,70 @@ open class AmplifyAuthCognitoPlugin :
   override fun getValidationData(): MutableMap<String, String> {
     // Currently, the Android libraries do not provide any data by default.
     return mutableMapOf()
+  }
+
+  // Adapted from `amplify-android`:
+  // https://github.com/aws-amplify/aws-sdk-android/blob/05af780090c41c9597059729ca22565ea7719971/aws-android-sdk-cognitoidentityprovider-asf/src/main/java/com.amazonaws.cognito.clientcontext/datacollection/ContextDataAggregator.java
+  override fun getContextData(): NativeUserContextData {
+    val applicationInfo = applicationContext!!.applicationInfo
+    val packageManager = applicationContext!!.packageManager
+    val packageName = applicationContext!!.packageName
+
+    // DeviceName
+    val deviceName = Build.DEVICE
+
+    // ThirdPartyDeviceId
+    val thirdPartyDeviceId = Settings.Secure.ANDROID_ID
+
+    // DeviceFingerprint
+    val deviceFingerprint = Build.FINGERPRINT
+
+    // ApplicationName
+    val applicationName = packageManager.getApplicationLabel(applicationInfo).toString()
+
+    // ApplicationVersion
+    val applicationVersion = try {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        packageManager.getPackageInfo(packageName, PackageInfoFlags.of(0)).versionName
+      } else {
+        packageManager.getPackageInfo(packageName, 0).versionName
+      }
+    } catch (e: PackageManager.NameNotFoundException) {
+      Log.w(TAG, "Unable to get app version for package: $packageName")
+      null
+    }
+
+    // DeviceOsReleaseVersion
+    val deviceOsReleaseVersion = Build.VERSION.RELEASE
+
+    // DeviceLanguage
+    val deviceLanguage = Locale.getDefault().toLanguageTag()
+
+    // ScreenHeightPixels / ScreenWidthPixels
+    val screenHeightPixels = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+      val windowMetrics = mainActivity!!.windowManager.currentWindowMetrics
+      windowMetrics.bounds.height()
+    } else {
+      mainActivity!!.resources.displayMetrics.heightPixels
+    }
+    val screenWidthPixels = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+      val windowMetrics = mainActivity!!.windowManager.currentWindowMetrics
+      windowMetrics.bounds.width()
+    } else {
+      mainActivity!!.resources.displayMetrics.widthPixels
+    }
+
+    return NativeUserContextData(
+      deviceName = deviceName,
+      thirdPartyDeviceId = thirdPartyDeviceId,
+      deviceFingerprint = deviceFingerprint,
+      applicationName = applicationName,
+      applicationVersion = applicationVersion,
+      deviceLanguage = deviceLanguage,
+      deviceOsReleaseVersion = deviceOsReleaseVersion,
+      screenHeightPixels = screenHeightPixels.toLong(),
+      screenWidthPixels = screenWidthPixels.toLong(),
+    )
   }
 
   override fun getBundleId(): String {

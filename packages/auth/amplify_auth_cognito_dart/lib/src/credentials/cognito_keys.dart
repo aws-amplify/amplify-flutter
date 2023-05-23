@@ -34,6 +34,9 @@ enum CognitoUserPoolKey {
 
   /// The [AuthFlowType] passed to `signIn`.
   authFlowType,
+
+  /// The advanced security feature (ASF) device identifier.
+  asfDeviceId,
 }
 
 /// Discrete keys stored for Cognito User Pool device tracking operations in

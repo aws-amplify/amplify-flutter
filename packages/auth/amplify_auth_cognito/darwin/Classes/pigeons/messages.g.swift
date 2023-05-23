@@ -38,6 +38,56 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
+struct NativeUserContextData {
+  var deviceName: String? = nil
+  var thirdPartyDeviceId: String? = nil
+  var deviceFingerprint: String? = nil
+  var applicationName: String? = nil
+  var applicationVersion: String? = nil
+  var deviceLanguage: String? = nil
+  var deviceOsReleaseVersion: String? = nil
+  var screenHeightPixels: Int64? = nil
+  var screenWidthPixels: Int64? = nil
+
+  static func fromList(_ list: [Any]) -> NativeUserContextData? {
+    let deviceName: String? = nilOrValue(list[0])
+    let thirdPartyDeviceId: String? = nilOrValue(list[1])
+    let deviceFingerprint: String? = nilOrValue(list[2])
+    let applicationName: String? = nilOrValue(list[3])
+    let applicationVersion: String? = nilOrValue(list[4])
+    let deviceLanguage: String? = nilOrValue(list[5])
+    let deviceOsReleaseVersion: String? = nilOrValue(list[6])
+    let screenHeightPixels: Int64? = list[7] is NSNull ? nil : (list[7] is Int64? ? list[7] as! Int64? : Int64(list[7] as! Int32))
+    let screenWidthPixels: Int64? = list[8] is NSNull ? nil : (list[8] is Int64? ? list[8] as! Int64? : Int64(list[8] as! Int32))
+
+    return NativeUserContextData(
+      deviceName: deviceName,
+      thirdPartyDeviceId: thirdPartyDeviceId,
+      deviceFingerprint: deviceFingerprint,
+      applicationName: applicationName,
+      applicationVersion: applicationVersion,
+      deviceLanguage: deviceLanguage,
+      deviceOsReleaseVersion: deviceOsReleaseVersion,
+      screenHeightPixels: screenHeightPixels,
+      screenWidthPixels: screenWidthPixels
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      deviceName,
+      thirdPartyDeviceId,
+      deviceFingerprint,
+      applicationName,
+      applicationVersion,
+      deviceLanguage,
+      deviceOsReleaseVersion,
+      screenHeightPixels,
+      screenWidthPixels,
+    ]
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
 struct LegacyCredentialStoreData {
   var identityId: String? = nil
   var accessKeyId: String? = nil
@@ -104,6 +154,8 @@ private class NativeAuthBridgeCodecReader: FlutterStandardReader {
     switch type {
       case 128:
         return LegacyCredentialStoreData.fromList(self.readValue() as! [Any])
+      case 129:
+        return NativeUserContextData.fromList(self.readValue() as! [Any])
       default:
         return super.readValue(ofType: type)
     }
@@ -114,6 +166,9 @@ private class NativeAuthBridgeCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
     if let value = value as? LegacyCredentialStoreData {
       super.writeByte(128)
+      super.writeValue(value.toList())
+    } else if let value = value as? NativeUserContextData {
+      super.writeByte(129)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -147,6 +202,8 @@ protocol NativeAuthBridge {
   func signOutWithUrl(url: String, callbackUrlScheme: String, preferPrivateSession: Bool, browserPackageName: String?, completion: @escaping (Result<Void, Error>) -> Void)
   /// Retrieves the validation data for the current iOS/Android device.
   func getValidationData() throws -> [String: String]
+  /// Retrieves context data as required for advanced security features (ASF).
+  func getContextData() throws -> NativeUserContextData
   func getBundleId() throws -> String
   /// Fetch legacy credentials stored by native SDKs.
   func getLegacyCredentials(identityPoolId: String?, appClientId: String?, completion: @escaping (Result<LegacyCredentialStoreData, Error>) -> Void)
@@ -219,6 +276,20 @@ class NativeAuthBridgeSetup {
       }
     } else {
       getValidationDataChannel.setMessageHandler(nil)
+    }
+    /// Retrieves context data as required for advanced security features (ASF).
+    let getContextDataChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.NativeAuthBridge.getContextData", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getContextDataChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.getContextData()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      getContextDataChannel.setMessageHandler(nil)
     }
     let getBundleIdChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.NativeAuthBridge.getBundleId", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
