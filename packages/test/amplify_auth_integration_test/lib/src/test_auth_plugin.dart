@@ -16,12 +16,15 @@ import 'package:flutter_test/flutter_test.dart';
 /// {@endtemplate}
 class AmplifyAuthTestPlugin extends AmplifyAuthCognito {
   /// {@macro amplify_auth_integration_test.amplify_auth_test_plugin}
-  AmplifyAuthTestPlugin()
+  AmplifyAuthTestPlugin({required this.hasApiPlugin})
       : super(
           secureStorageFactory: AmplifySecureStorage.factoryFrom(
             macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
           ),
         );
+
+  /// Whether there is an API plugin for the configuration.
+  final bool hasApiPlugin;
 
   @override
   Future<CognitoSignUpResult> signUp({
@@ -29,12 +32,15 @@ class AmplifyAuthTestPlugin extends AmplifyAuthCognito {
     required String password,
     SignUpOptions? options,
   }) {
-    addTearDown(
-      () => integ.adminDeleteUser(username).onError(
-            // This is expected in environments which do not have an admin GraphQL API.
-            (e, st) => logger.debug('Error deleting user ($username):', e, st),
-          ),
-    );
+    if (hasApiPlugin) {
+      addTearDown(
+        () => integ.adminDeleteUser(username).onError(
+              // This is expected in environments which do not have an admin GraphQL API.
+              (e, st) =>
+                  logger.debug('Error deleting user ($username):', e, st),
+            ),
+      );
+    }
     return super.signUp(
       username: username,
       password: password,

@@ -7,16 +7,23 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_integration_test/src/test_auth_plugin.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:stack_trace/stack_trace.dart';
 
+final AWSLogger _logger = AWSLogger().createChild('AuthTestRunner');
+
 /// Environments with a user pool and username-based sign in.
-const userPoolEnvironments = ['main', 'user-pool-only', 'with-client-secret'];
+const List<String> userPoolEnvironments = [
+  'main',
+  'user-pool-only',
+  'with-client-secret'
+];
 
 /// Environments with a user pool and opt-in device tracking.
-const deviceOptInEnvironments = [
+const List<String> deviceOptInEnvironments = [
   'device-tracking-opt-in',
   'user-pool-only',
   'with-client-secret'
@@ -24,6 +31,33 @@ const deviceOptInEnvironments = [
 
 /// {@template amplify_auth_integration_test.auth_test_runner}
 /// A test-runner for Auth integration tests.
+///
+/// How to use:
+/// 1. At the start of the integration test, call [setupTests].
+///
+/// ```dart
+/// final AuthTestRunner testRunner = AuthTestRunner(amplifyEnvironments);
+///
+/// void main() {
+///   testRunner.setupTests();
+/// }
+/// ```
+///
+/// 2. In the [setUp] block of your group, call [configure].
+///
+/// > **NOTE**: You must use `setUp` and not `setUpAll` so that no state is persisted
+///   in between tests.
+///
+/// ```dart
+/// group('fetchAuthSession', () {
+///   setUp(() async {
+///     await testRunner.configure(environmentName: 'identity-pool-only');
+///   });
+/// });
+/// ```
+///
+/// 3. That's it! Calls to [AmplifyAuthCognito.signUp] and [adminCreateUser] will
+/// automatically register [tearDown] calls to delete and sign out those users.
 /// {@endtemplate}
 class AuthTestRunner {
   /// {@macro amplify_auth_integration_test.auth_test_runner}
@@ -51,17 +85,21 @@ class AuthTestRunner {
   }
 
   /// Configures Amplify for the given [environmentName].
+  ///
+  /// **MUST** be called from `setUp` and not `setUpAll` so that users created
+  /// during a test are deleted and signed out after the test. This prevents
+  /// any state from leaking between tests.
   Future<void> configure({
     String environmentName = 'main',
     List<APIAuthProvider> apiAuthProviders = const [],
     AWSHttpClient? baseClient,
   }) async {
     final config = _amplifyEnvironments[environmentName]!;
-    final authPlugin = AmplifyAuthTestPlugin();
     final hasApiPlugin = AmplifyConfig.fromJson(
           jsonDecode(config) as Map<String, dynamic>,
         ).api?.awsPlugin !=
         null;
+    final authPlugin = AmplifyAuthTestPlugin(hasApiPlugin: hasApiPlugin);
     await Amplify.addPlugins([
       authPlugin,
       if (hasApiPlugin)
@@ -76,7 +114,7 @@ class AuthTestRunner {
       Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close,
     );
     addTearDown(Amplify.reset);
-    addTearDown(deleteTestUser);
+    addTearDown(signOutUser);
   }
 
   /// Whether a test for [environmentName] should be skipped.
@@ -90,19 +128,21 @@ class AuthTestRunner {
 
 /// Signs out a user if one is signed in.
 Future<void> signOutUser() async {
-  try {
-    await Amplify.Auth.signOut();
-  } on Exception {
-    // Ignore a signOut error because we only care when someone signed in.
+  final result = await Amplify.Auth.signOut() as CognitoSignOutResult;
+  switch (result) {
+    case CognitoCompleteSignOut _:
+      _logger.debug('Successfully signed out user');
+      return;
+    case CognitoPartialSignOut(
+        :final hostedUiException,
+        :final globalSignOutException,
+        :final revokeTokenException,
+      ):
+      _logger.error(
+        'Error signing out:',
+        hostedUiException ?? globalSignOutException ?? revokeTokenException,
+      );
+    case CognitoFailedSignOut(:final exception):
+      _logger.error('Error signing out:', exception);
   }
-}
-
-/// Deletes the user created in the running test.
-Future<void> deleteTestUser() async {
-  try {
-    await Amplify.Auth.deleteUser();
-  } on Object {
-    // OK
-  }
-  await signOutUser();
 }
