@@ -12,9 +12,18 @@ dependencies:
   amplify_test:
     path: ../amplify_test
   async: ^2.10.0
+  aws_common: any
+  aws_signature_v4: any
+  built_collection: ^5.0.0
+  built_value: ">=8.5.0 <8.6.0"
   collection: ^1.15.0
+  meta: ^1.8.0
+  smithy: any
+  smithy_aws: any
   stream_transform: ^2.0.0
   test: ^1.22.1
 
 dev_dependencies:
-  amplify_lints: any
+  amplify_lints: ^2.0.0
+  build_runner: ^2.4.0
+  built_value_generator: 8.5.0

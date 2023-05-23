@@ -1,0 +1,3 @@
+apis:
+  cognito-idp:
+    - com.amazonaws.cognitoidentityprovider#AdminListUserAuthEvents
