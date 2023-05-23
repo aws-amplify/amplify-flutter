@@ -47,6 +47,49 @@ class FlutterError (
 ) : Throwable()
 
 /** Generated class from Pigeon that represents data sent in messages. */
+data class NativeUserContextData (
+  val deviceName: String? = null,
+  val thirdPartyDeviceId: String? = null,
+  val deviceFingerprint: String? = null,
+  val applicationName: String? = null,
+  val applicationVersion: String? = null,
+  val deviceLanguage: String? = null,
+  val deviceOsReleaseVersion: String? = null,
+  val screenHeightPixels: Long? = null,
+  val screenWidthPixels: Long? = null
+
+) {
+  companion object {
+    @Suppress("UNCHECKED_CAST")
+    fun fromList(list: List<Any?>): NativeUserContextData {
+      val deviceName = list[0] as String?
+      val thirdPartyDeviceId = list[1] as String?
+      val deviceFingerprint = list[2] as String?
+      val applicationName = list[3] as String?
+      val applicationVersion = list[4] as String?
+      val deviceLanguage = list[5] as String?
+      val deviceOsReleaseVersion = list[6] as String?
+      val screenHeightPixels = list[7].let { if (it is Int) it.toLong() else it as Long? }
+      val screenWidthPixels = list[8].let { if (it is Int) it.toLong() else it as Long? }
+      return NativeUserContextData(deviceName, thirdPartyDeviceId, deviceFingerprint, applicationName, applicationVersion, deviceLanguage, deviceOsReleaseVersion, screenHeightPixels, screenWidthPixels)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf<Any?>(
+      deviceName,
+      thirdPartyDeviceId,
+      deviceFingerprint,
+      applicationName,
+      applicationVersion,
+      deviceLanguage,
+      deviceOsReleaseVersion,
+      screenHeightPixels,
+      screenWidthPixels,
+    )
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
 data class LegacyCredentialStoreData (
   val identityId: String? = null,
   val accessKeyId: String? = null,
@@ -116,6 +159,11 @@ private object NativeAuthBridgeCodec : StandardMessageCodec() {
           LegacyCredentialStoreData.fromList(it)
         }
       }
+      129.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          NativeUserContextData.fromList(it)
+        }
+      }
       else -> super.readValueOfType(type, buffer)
     }
   }
@@ -123,6 +171,10 @@ private object NativeAuthBridgeCodec : StandardMessageCodec() {
     when (value) {
       is LegacyCredentialStoreData -> {
         stream.write(128)
+        writeValue(stream, value.toList())
+      }
+      is NativeUserContextData -> {
+        stream.write(129)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)
@@ -146,6 +198,8 @@ interface NativeAuthBridge {
   fun signOutWithUrl(url: String, callbackUrlScheme: String, preferPrivateSession: Boolean, browserPackageName: String?, callback: (Result<Unit>) -> Unit)
   /** Retrieves the validation data for the current iOS/Android device. */
   fun getValidationData(): Map<String, String>
+  /** Retrieves context data as required for advanced security features (ASF). */
+  fun getContextData(): NativeUserContextData
   fun getBundleId(): String
   /** Fetch legacy credentials stored by native SDKs. */
   fun getLegacyCredentials(identityPoolId: String?, appClientId: String?, callback: (Result<LegacyCredentialStoreData>) -> Unit)
@@ -212,6 +266,22 @@ interface NativeAuthBridge {
             var wrapped: List<Any?>
             try {
               wrapped = listOf<Any?>(api.getValidationData())
+            } catch (exception: Throwable) {
+              wrapped = wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.NativeAuthBridge.getContextData", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            var wrapped: List<Any?>
+            try {
+              wrapped = listOf<Any?>(api.getContextData())
             } catch (exception: Throwable) {
               wrapped = wrapError(exception)
             }
