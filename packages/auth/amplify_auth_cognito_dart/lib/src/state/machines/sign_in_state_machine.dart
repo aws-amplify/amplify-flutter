@@ -72,6 +72,9 @@ final class SignInStateMachine
   /// The Cognito Identity Provider service client.
   late final CognitoIdentityProviderClient cognitoIdentityProvider = expect();
 
+  /// The advanced security features (ASF) context data provider.
+  late final ASFContextDataProvider? contextDataProvider = getOrCreate();
+
   /// The user built via the auth flow process.
   var _user = CognitoUserBuilder();
 
@@ -593,6 +596,17 @@ final class SignInStateMachine
       }
     });
 
+    final contextDataProvider = this.contextDataProvider;
+    if (contextDataProvider != null) {
+      final contextData = await contextDataProvider.buildRequestData(
+        _user.username!,
+      );
+      if (contextData != null) {
+        initRequest = initRequest.rebuild(
+          (b) => b.userContextData.replace(contextData),
+        );
+      }
+    }
     final initResponse =
         await cognitoIdentityProvider.initiateAuth(initRequest).result;
 
@@ -752,7 +766,14 @@ final class SignInStateMachine
     SignInEvent? event,
     RespondToAuthChallengeRequest respondRequest,
   ) async {
-    // Include session if not already included.
+    UserContextDataType? userContextData;
+    final contextDataProvider = this.contextDataProvider;
+    if (contextDataProvider != null) {
+      userContextData = await contextDataProvider.buildRequestData(
+        _user.username!,
+      );
+    }
+
     respondRequest = respondRequest.rebuild((b) {
       b
         ..session ??= _session
@@ -768,6 +789,10 @@ final class SignInStateMachine
           config.appClientId,
           config.appClientSecret!,
         );
+      }
+
+      if (userContextData != null) {
+        b.userContextData.replace(userContextData);
       }
     });
 
