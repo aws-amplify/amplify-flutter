@@ -6,9 +6,26 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/common/serializers.dart';
+import 'package:built_value/iso_8601_date_time_serializer.dart';
+import 'package:built_value/serializer.dart';
+import 'package:built_value/standard_json_plugin.dart';
 import 'package:collection/collection.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/scaffolding.dart';
+
+export 'package:amplify_integration_test/src/sdk/cognito_identity_provider.dart'
+    show
+        AuthEventType,
+        EventContextDataType,
+        EventFeedbackType,
+        EventType,
+        EventTypeHelpers,
+        EventResponseType,
+        EventResponseTypeHelpers,
+        EventRiskType,
+        RiskDecisionType,
+        RiskDecisionTypeHelpers;
 
 final _logger =
     AmplifyLogger.category(Category.auth).createChild('IntegrationTestUtils');
@@ -32,6 +49,46 @@ Future<Map<String, Object?>> _graphQL(
   return responseJson;
 }
 
+final Serializers _serializers = () {
+  final builder = Serializers().toBuilder()..addPlugin(StandardJsonPlugin());
+  for (final builderFactory in builderFactories.entries) {
+    builder.addBuilderFactory(builderFactory.key, builderFactory.value);
+  }
+  builder
+    ..addAll(serializers)
+    ..add(Iso8601DateTimeSerializer()); // since we're serializing JSON in JS
+  return builder.build();
+}();
+
+/// Lists auth events for the given [username].
+///
+/// This method only works in user pools with advanced security features (ASF)
+/// enabled.
+Future<List<AuthEventType>> adminListAuthEvents(String username) async {
+  final result = await _graphQL(
+    r'''
+query ListAuthEvents($username: String!) {
+  listAuthEvents(username: $username)
+}
+''',
+    variables: <String, dynamic>{
+      'username': username,
+    },
+  );
+
+  final eventsJson =
+      jsonDecode(result['listAuthEvents'] as String) as List<Object?>;
+  final events = <AuthEventType>[];
+  for (final eventJson in eventsJson) {
+    final event = _serializers.deserialize(
+      eventJson,
+      specifiedType: const FullType(AuthEventType),
+    ) as AuthEventType;
+    events.add(event);
+  }
+  return events;
+}
+
 /// Deletes a Cognito user in backend infrastructure.
 ///
 /// This method differs from the Auth.deleteUser API in that
@@ -49,11 +106,14 @@ mutation DeleteUser($username: String!) {
       'username': username,
     },
   );
+  _logger.debug('Got deleteUser result: $result');
 
   final deleteError = (result['deleteUser'] as Map?)?['error'];
   if (deleteError != null) {
     throw Exception(deleteError);
   }
+
+  _logger.debug('Successfully deleted user "$username"');
 }
 
 /// Deletes a Cognito device identified by [deviceKey].
@@ -152,7 +212,7 @@ Future<String> adminCreateUser(
       },
     },
   );
-  _logger.debug('Got result: $result');
+  _logger.debug('Got createUser result: $result');
 
   final createError = (result['createUser'] as Map?)?['error'];
   if (createError != null) {
@@ -173,6 +233,8 @@ Future<String> adminCreateUser(
       _logger.debug('Error deleting user ($username / $cognitoUsername):', e);
     }
   });
+
+  _logger.debug('Successfully created user "$username"');
 
   return cognitoUsername;
 }
