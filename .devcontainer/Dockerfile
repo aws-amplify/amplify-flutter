@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:latest
 
 ## Dockerfile for local development of Amplify Flutter packages on Linux
 
