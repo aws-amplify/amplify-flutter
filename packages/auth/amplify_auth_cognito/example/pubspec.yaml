@@ -23,6 +23,7 @@ dependency_overrides:
   test_api: ^0.5.0
 
 dev_dependencies:
+  amplify_api_dart: any
   amplify_auth_cognito_dart: any
   amplify_auth_cognito_test: any
   amplify_auth_integration_test: any

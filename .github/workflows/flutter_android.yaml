@@ -47,5 +47,5 @@ jobs:
       - name: Run Android unit tests
         run: |
           flutter build apk --debug --verbose
-          ./gradlew :"${{ inputs.package-name}}":testDebugUnitTest
+          ./gradlew :"${{ inputs.package-name }}":testDebugUnitTest --stacktrace
         working-directory: ${{ inputs.working-directory }}

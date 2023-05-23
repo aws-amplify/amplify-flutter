@@ -7,19 +7,12 @@
   PigeonOptions(
     copyrightHeader: '../../../tool/license.txt',
     dartOut: 'lib/src/native_auth_plugin.g.dart',
-    javaOptions: JavaOptions(
-      className: 'NativeAuthPluginBindingsPigeon',
+    kotlinOptions: KotlinOptions(
       package: 'com.amazonaws.amplify.amplify_auth_cognito',
     ),
-    javaOut:
-        '../amplify_auth_cognito_android/android/src/main/kotlin/com/amazonaws/amplify/amplify_auth_cognito/NativeAuthPluginBindingsPigeon.java',
-    objcOptions: ObjcOptions(
-      headerIncludePath: 'NativeAuthPlugin.h',
-    ),
-    objcHeaderOut:
-        '../amplify_auth_cognito_ios/ios/Classes/pigeons/NativeAuthPlugin.h',
-    objcSourceOut:
-        '../amplify_auth_cognito_ios/ios/Classes/pigeons/NativeAuthPlugin.m',
+    kotlinOut:
+        'android/src/main/kotlin/com/amazonaws/amplify/amplify_auth_cognito/pigeons/NativeAuthPluginBindingsPigeon.kt',
+    swiftOut: 'darwin/classes/pigeons/messages.g.swift',
   ),
 )
 library native_auth_plugin;

@@ -60,8 +60,6 @@ components:
       - amplify_analytics_pinpoint
       - amplify_api
       - amplify_auth_cognito
-      - amplify_auth_cognito_android
-      - amplify_auth_cognito_ios
       - amplify_storage_s3
       - amplify_push_notifications
       - amplify_push_notifications_pinpoint

@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:io';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/screens/confirm_user_attribute.dart';
@@ -19,7 +17,7 @@ import 'amplifyconfiguration.dart';
 final AmplifyLogger _logger = AmplifyLogger('MyApp');
 
 void main() {
-  AmplifyLogger().logLevel = LogLevel.debug;
+  AmplifyLogger().logLevel = LogLevel.verbose;
   runApp(const MyApp());
 }
 
@@ -79,10 +77,8 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _configure() async {
     try {
-      if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-        await Amplify.addPlugin(AmplifyAPI());
-      }
-      await Amplify.addPlugin(
+      await Amplify.addPlugins([
+        AmplifyAPI(),
         AmplifyAuthCognito(
           // FIXME: In your app, make sure to remove this line and set up
           /// Keychain Sharing in Xcode as described in the docs:
@@ -93,7 +89,7 @@ class _MyAppState extends State<MyApp> {
                 MacOSSecureStorageOptions(useDataProtection: false),
           ),
         ),
-      );
+      ]);
 
       // Uncomment this block, and comment out the one above to change how
       // credentials are persisted.
