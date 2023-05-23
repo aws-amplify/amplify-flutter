@@ -115,6 +115,13 @@ export interface AuthFullEnvironmentProps {
    * @default false
    */
   withClientSecret?: boolean;
+
+  /**
+   * The advanced security mode.
+   *
+   * @default "OFF"
+   */
+  advancedSecurityMode?: cognito.AdvancedSecurityMode;
 }
 
 export interface AuthCustomAuthorizerEnvironmentProps {
@@ -200,6 +207,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       includeIdentityPool = true,
       allowUnauthenticatedIdentities = true,
       withClientSecret = false,
+      advancedSecurityMode = cognito.AdvancedSecurityMode.OFF,
     } = props;
 
     // Create the GraphQL API for admin actions
@@ -364,6 +372,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       },
       customSenderKmsKey,
       deviceTracking: props.deviceTracking,
+      advancedSecurityMode,
     });
     this.createUserCleanupJob(userPool);
 
@@ -496,6 +505,18 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     );
     userPool.grant(deleteDeviceLambda, "cognito-idp:AdminForgetDevice");
 
+    const listAuthEventsLambda = new lambda_nodejs.NodejsFunction(
+      this,
+      "list-auth-events",
+      {
+        runtime: lambda.Runtime.NODEJS_18_X,
+        environment: {
+          USER_POOL_ID: userPool.userPoolId,
+        },
+      }
+    );
+    userPool.grant(listAuthEventsLambda, "cognito-idp:AdminListUserAuthEvents");
+
     // Add the GraphQL resolvers
 
     const mfaCodesSource = graphQLApi.addDynamoDbDataSource(
@@ -523,6 +544,18 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       fieldName: "listMFACodes",
       requestMappingTemplate: appsync.MappingTemplate.dynamoDbScanTable(),
       responseMappingTemplate: appsync.MappingTemplate.dynamoDbResultItem(),
+    });
+
+    // Query.listAuthEvents
+    const listAuthEventsSource = graphQLApi.addLambdaDataSource(
+      "GraphQLApiListAuthEventsLambda",
+      listAuthEventsLambda
+    );
+    listAuthEventsSource.createResolver("QueryListAuthEventsResolver", {
+      typeName: "Query",
+      fieldName: "listAuthEvents",
+      requestMappingTemplate: appsync.MappingTemplate.lambdaRequest(),
+      responseMappingTemplate: appsync.MappingTemplate.lambdaResult(),
     });
 
     // Mutation.createUser
