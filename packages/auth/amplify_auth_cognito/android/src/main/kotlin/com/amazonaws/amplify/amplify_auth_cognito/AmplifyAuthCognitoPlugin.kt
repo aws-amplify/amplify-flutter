@@ -454,5 +454,6 @@ class LegacyCredentialStoreDataBuilder(
     expirationMsSinceEpoch,
     accessToken,
     refreshToken,
+    idToken,
   )
 }
