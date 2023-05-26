@@ -92,9 +92,15 @@ void main() {
       );
     });
 
-    test('invalid code', () {
-      final error = SecurityFrameworkError.fromCode(1 >> 10);
+    test('no error', () {
+      final error = SecurityFrameworkError.fromCode(0);
       expect(error.message, 'No error.');
+    });
+
+    test('invalid code', () {
+      const invalidCode = 1 << 20;
+      final error = SecurityFrameworkError.fromCode(invalidCode);
+      expect(error.message, 'OSStatus $invalidCode');
     });
   });
 }
