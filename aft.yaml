@@ -18,6 +18,7 @@ dependencies:
   flutter_plugin_android_lifecycle: ^2.0.9
   json_annotation: ">=4.8.1 <4.9.0"
   json_serializable: 6.7.0
+  http: ">=0.13.6 <2.0.0"
   intl: ">=0.18.0 <1.0.0"
   mime: ^1.0.0
   package_info_plus: ^4.0.1
