@@ -11,6 +11,7 @@ A CLI tool for managing the Amplify Flutter repository.
   - `check`: Checks constraints against `aft.yaml`, for use in CI
   - `update`: Updates constraints in `aft.yaml` to match latest in `pub.dev`
   - `apply`: Applies constraints in `aft.yaml` to all repo packages
+  - `pub-verify`: Verifies Amplify constraints against the top pub.dev packages
 - `exec`: Execute a command in all repo packages
 - `generate`: Generates various repo items
   - `workflows`: Generates GitHub actions workflows for all packages in the repo

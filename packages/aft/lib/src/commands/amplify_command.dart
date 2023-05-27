@@ -60,6 +60,9 @@ abstract class AmplifyCommand extends Command<void>
       case LogLevel.none:
         break;
     }
+    if (logEntry.error case final error?) {
+      stderr.writeln(error);
+    }
   }
 
   /// Whether verbose logging is enabled.
