@@ -11,12 +11,11 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_html.dart'
     if (dart.library.io) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_io.dart';
 import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
+import 'package:amplify_auth_cognito_dart/src/oauth/oauth.dart' as oauth2;
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
-import 'package:oauth2/oauth2.dart' as oauth2;
 
 /// A factory constructor for a [HostedUiPlatform] instance.
 typedef HostedUiPlatformFactory = HostedUiPlatform Function(
@@ -44,10 +43,6 @@ abstract class HostedUiPlatform implements Closeable {
 
   /// The secure storage plugin.
   SecureStorageInterface get _secureStorage => dependencyManager.getOrCreate();
-
-  /// The HTTP client to use for internal HTTP requests.
-  @protected
-  http.Client get httpClient => dependencyManager.getOrCreate();
 
   /// The state machine dispatcher.
   @protected
@@ -121,7 +116,6 @@ abstract class HostedUiPlatform implements Closeable {
     _authCodeGrant = createGrant(
       config,
       codeVerifier: codeVerifier,
-      httpClient: httpClient,
       provider: provider,
     );
     final uri = _authCodeGrant!.getAuthorizationUrl(
@@ -161,14 +155,13 @@ abstract class HostedUiPlatform implements Closeable {
     CognitoOAuthConfig config, {
     AuthProvider? provider,
     String? codeVerifier,
-    http.Client? httpClient,
   }) {
     return oauth2.AuthorizationCodeGrant(
       config.appClientId,
       HostedUiConfig(config).signInUri(provider),
       HostedUiConfig(config).tokenUri,
       secret: config.appClientSecret,
-      httpClient: httpClient,
+      httpClient: dependencyManager.getOrCreate(),
       codeVerifier: codeVerifier,
 
       // The spec recommends against this, but it's what Cognito expects. Basic
@@ -186,12 +179,10 @@ abstract class HostedUiPlatform implements Closeable {
     CognitoOAuthConfig config, {
     required String state,
     required String codeVerifier,
-    http.Client? httpClient,
   }) {
     final grant = createGrant(
       config,
       codeVerifier: codeVerifier,
-      httpClient: httpClient,
     );
 
     return grant
@@ -226,19 +217,12 @@ abstract class HostedUiPlatform implements Closeable {
     }
 
     try {
-      final client = await authCodeGrant.handleAuthorizationResponse(
+      final tokens = await authCodeGrant.handleAuthorizationResponse(
         parameters.toJson(),
       );
-      final oAuthCredentials = client.credentials;
-      final tokens = CognitoUserPoolTokens(
-        signInMethod: CognitoSignInMethod.hostedUi,
-        accessToken: JsonWebToken.parse(oAuthCredentials.accessToken),
-        refreshToken: oAuthCredentials.refreshToken!,
-        idToken: JsonWebToken.parse(oAuthCredentials.idToken!),
-      )..validate(
-          nonce: await _secureStorage.read(key: _keys[HostedUiKey.nonce]),
-        );
-
+      tokens.validate(
+        nonce: await _secureStorage.read(key: _keys[HostedUiKey.nonce]),
+      );
       return tokens;
 
       // Transform FormatExceptions from `oauth2` package to Amplify types.
@@ -258,7 +242,6 @@ abstract class HostedUiPlatform implements Closeable {
         config,
         state: state,
         codeVerifier: codeVerifier,
-        httpClient: httpClient,
       );
       return parameters;
     }

@@ -15,7 +15,6 @@ import 'package:amplify_auth_cognito_test/common/mock_hosted_ui.dart';
 import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
 
 class MockHostedUiPlatform extends HostedUiPlatformImpl {
@@ -133,7 +132,7 @@ void main() {
 
     group('signIn', () {
       test('completes', () async {
-        final client = http.Client();
+        final client = AWSHttpClient();
         final dispatcher = MockDispatcher(
           onDispatch: expectAsync1((event) {
             expect(event, isA<HostedUiExchange>());
@@ -159,7 +158,10 @@ void main() {
           ),
         );
 
-        await expectLater(client.get(redirect), completes);
+        await expectLater(
+          client.send(AWSHttpRequest.get(redirect)).response,
+          completes,
+        );
         expect(
           hostedUiPlatform._localServer,
           isNotNull,
@@ -167,11 +169,15 @@ void main() {
         );
 
         await expectLater(
-          client.get(
-            redirect.replace(
-              queryParameters: {'state': 'state', 'code': 'code'},
-            ),
-          ),
+          client
+              .send(
+                AWSHttpRequest.get(
+                  redirect.replace(
+                    queryParameters: {'state': 'state', 'code': 'code'},
+                  ),
+                ),
+              )
+              .response,
           completes,
         );
         await Future<void>.delayed(Duration.zero);

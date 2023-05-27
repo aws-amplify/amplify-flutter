@@ -7,8 +7,7 @@ import 'package:amplify_auth_cognito_dart/src/crypto/oauth.dart';
 import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
 import 'package:amplify_auth_cognito_test/common/jwt.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:http/http.dart';
-import 'package:http/testing.dart';
+import 'package:aws_common/testing.dart';
 
 class _Request {
   _Request({
@@ -51,32 +50,32 @@ const paramErrorURI = 'error_uri';
 
 class MockOAuthServer {
   MockOAuthServer({
-    MockClientHandler? tokenHandler,
-    MockClientHandler? authorizeHandler,
+    MockRequestHandler? tokenHandler,
+    MockRequestHandler? authorizeHandler,
   })  : _tokenHandler = tokenHandler,
         _authorizeHandler = authorizeHandler;
 
-  static MockClientHandler _createHandler({
-    MockClientHandler? tokenHandler,
-    MockClientHandler? authorizeHandler,
+  static MockRequestHandler _createHandler({
+    MockRequestHandler? tokenHandler,
+    MockRequestHandler? authorizeHandler,
   }) {
-    return (Request request) async {
-      if (request.url.path.endsWith('authorize') ||
-          request.url.path.endsWith('login')) {
+    return (AWSHttpRequest request, bool Function() isCancelled) async {
+      if (request.uri.path.endsWith('authorize') ||
+          request.uri.path.endsWith('login')) {
         if (authorizeHandler != null) {
-          return authorizeHandler(request);
+          return authorizeHandler(request, isCancelled);
         }
       }
-      if (request.url.path.endsWith('token')) {
+      if (request.uri.path.endsWith('token')) {
         if (tokenHandler != null) {
-          return tokenHandler(request);
+          return tokenHandler(request, isCancelled);
         }
       }
-      return Response('Not Found', 404);
+      return AWSHttpResponse(statusCode: 404, body: utf8.encode('Not Found'));
     };
   }
 
-  MockClient get httpClient => MockClient(
+  MockAWSHttpClient get httpClient => MockAWSHttpClient(
         _createHandler(
           tokenHandler: tokenHandler,
           authorizeHandler: authorizeHandler,
@@ -84,22 +83,29 @@ class MockOAuthServer {
       );
 
   Future<OAuthParameters> authorize(Uri authorizationUri) async {
-    final resp = await httpClient.get(authorizationUri);
+    final resp =
+        await httpClient.send(AWSHttpRequest.get(authorizationUri)).response;
     if (resp.statusCode != 200) {
       throw Exception('${resp.statusCode}: ${resp.body}');
     }
-    final json = (jsonDecode(resp.body) as Map).cast<String, String>();
+    final json =
+        (jsonDecode(await resp.decodeBody()) as Map).cast<String, String>();
     return OAuthParameters.fromJson(json);
   }
 
-  final MockClientHandler? _tokenHandler;
-  late final MockClientHandler tokenHandler =
+  final MockRequestHandler? _tokenHandler;
+  late final MockRequestHandler tokenHandler =
       _tokenHandler ?? createTokenHandler();
-  static MockClientHandler createTokenHandler({
+  static MockRequestHandler createTokenHandler({
     bool includeNonce = true,
   }) =>
-      (Request request) async {
-        final query = request.bodyFields;
+      (AWSHttpRequest request, bool Function() isCancelled) async {
+        final query = Map.fromEntries(
+          utf8.decode(request.bodyBytes).split('&').map((param) {
+            final [key, value] = param.split('=');
+            return MapEntry(Uri.decodeFull(key), Uri.decodeFull(value));
+          }),
+        );
 
         final code = query[paramCode];
         if (code == null) {
@@ -145,20 +151,23 @@ class MockOAuthServer {
           'scope': session.scope,
         };
 
-        return Response(
-          jsonEncode(response),
-          200,
-          headers: {'content-type': 'application/json'},
+        return AWSHttpResponse(
+          statusCode: 200,
+          body: utf8.encode(jsonEncode(response)),
+          headers: const {'content-type': 'application/json'},
         );
       };
 
-  final MockClientHandler? _authorizeHandler;
-  Future<Response> authorizeHandler(Request request) async {
+  final MockRequestHandler? _authorizeHandler;
+  Future<AWSBaseHttpResponse> authorizeHandler(
+    AWSHttpRequest request,
+    bool Function() isCancelled,
+  ) async {
     if (_authorizeHandler != null) {
-      return _authorizeHandler!(request);
+      return _authorizeHandler!(request, isCancelled);
     }
 
-    final query = request.url.queryParameters;
+    final query = request.uri.queryParameters;
 
     final state = query[paramState];
     if (state == null) {
@@ -200,21 +209,23 @@ class MockOAuthServer {
 
     _pendingRequests[authCode] = session;
 
-    return Response(
-      jsonEncode({
-        paramCode: authCode,
-        paramState: state,
-      }),
-      200,
-      headers: {'content-type': 'application/json'},
+    return AWSHttpResponse(
+      statusCode: 200,
+      body: utf8.encode(
+        jsonEncode({
+          paramCode: authCode,
+          paramState: state,
+        }),
+      ),
+      headers: const {'content-type': 'application/json'},
     );
   }
 
   static final Map<String, _Request> _pendingRequests = {};
 
   MockOAuthServer copyWith({
-    MockClientHandler? tokenHandler,
-    MockClientHandler? authorizeHandler,
+    MockRequestHandler? tokenHandler,
+    MockRequestHandler? authorizeHandler,
   }) {
     return MockOAuthServer(
       tokenHandler: tokenHandler ?? _tokenHandler,
@@ -226,28 +237,32 @@ class MockOAuthServer {
     _pendingRequests.clear();
   }
 
-  static Response _missingParameter(
+  static AWSHttpResponse _missingParameter(
     String parameterName, {
     required String? state,
   }) {
-    return Response(
-      jsonEncode({
-        paramState: state,
-        paramError: 'Missing or invalid parameter',
-        paramErrorDescription: parameterName,
-      }),
-      400,
-      headers: {'content-type': 'application/json'},
+    return AWSHttpResponse(
+      statusCode: 400,
+      body: utf8.encode(
+        jsonEncode({
+          paramState: state,
+          paramError: 'Missing or invalid parameter',
+          paramErrorDescription: parameterName,
+        }),
+      ),
+      headers: const {'content-type': 'application/json'},
     );
   }
 
-  static Response _invalidRequest() {
-    return Response(
-      jsonEncode({
-        paramError: 'Invalid request',
-      }),
-      400,
-      headers: {'content-type': 'application/json'},
+  static AWSHttpResponse _invalidRequest() {
+    return AWSHttpResponse(
+      statusCode: 400,
+      body: utf8.encode(
+        jsonEncode({
+          paramError: 'Invalid request',
+        }),
+      ),
+      headers: const {'content-type': 'application/json'},
     );
   }
 }

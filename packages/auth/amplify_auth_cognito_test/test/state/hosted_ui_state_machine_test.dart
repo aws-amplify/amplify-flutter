@@ -13,7 +13,6 @@ import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:http/http.dart' as http;
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
 
@@ -83,7 +82,7 @@ void main() {
       server = MockOAuthServer();
       secureStorage = MockSecureStorage();
       stateMachine = CognitoAuthStateMachine()
-        ..addInstance<http.Client>(server.httpClient)
+        ..addInstance<AWSHttpClient>(server.httpClient)
         ..addInstance(secureStorage)
         ..addBuilder<HostedUiPlatform>(MockHostedUiPlatform.new);
     });

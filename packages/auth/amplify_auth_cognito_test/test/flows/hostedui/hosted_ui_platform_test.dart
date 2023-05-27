@@ -11,7 +11,6 @@ import 'package:amplify_auth_cognito_test/common/mock_oauth_server.dart';
 import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
 
 final throwsInvalidStateException = throwsA(isA<InvalidStateException>());
@@ -30,7 +29,7 @@ void main() {
       dependencyManager = DependencyManager()
         ..addInstance(hostedUiConfig)
         ..addInstance<SecureStorageInterface>(secureStorage)
-        ..addInstance<http.Client>(server.httpClient)
+        ..addInstance<AWSHttpClient>(server.httpClient)
         ..addInstance<Dispatcher<AuthEvent, AuthState>>(const MockDispatcher());
 
       platform = HostedUiPlatform(dependencyManager);
@@ -103,7 +102,7 @@ void main() {
             includeNonce: false,
           ),
         );
-        dependencyManager.addInstance<http.Client>(server.httpClient);
+        dependencyManager.addInstance<AWSHttpClient>(server.httpClient);
         platform = HostedUiPlatform(dependencyManager);
         final parameters = await server.authorize(
           await platform.getSignInUri(

@@ -10,7 +10,6 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform
 import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
 /// Default state machine builders for [CognitoAuthStateMachine].
@@ -30,7 +29,6 @@ final stateMachineBuilders = <StateMachineToken,
 @visibleForTesting
 final defaultDependencies = <Token, DependencyBuilder>{
   const Token<HostedUiPlatform>(): HostedUiPlatform.new,
-  const Token<http.Client>(): (_) => http.Client(),
   const Token<AuthPluginCredentialsProvider>():
       AuthPluginCredentialsProviderImpl.new,
   const Token<DeviceMetadataRepository>():

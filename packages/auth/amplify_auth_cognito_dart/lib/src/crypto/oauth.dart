@@ -40,5 +40,7 @@ String createCodeVerifier() {
 /// Creates a `Basic` authorization header for identifiying clients.
 String createBasicAuthorization(String clientId, [String? clientSecret]) {
   clientSecret ??= '';
-  return 'Basic ${base64Encode('$clientId:$clientSecret'.codeUnits)}';
+  final userPass =
+      '${Uri.encodeFull(clientId)}:${Uri.encodeFull(clientSecret)}';
+  return 'Basic ${base64Encode(ascii.encode(userPass))}';
 }
