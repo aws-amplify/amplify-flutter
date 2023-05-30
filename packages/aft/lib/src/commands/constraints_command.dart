@@ -361,6 +361,13 @@ class _ConstraintsPubVerifyCommand extends AmplifyCommand {
   Future<void> run() async {
     await super.run();
 
+    // Packages with version constraints so old, we consider them abandoned
+    // and don't bother running the constraint check for them.
+    const unofficiallyAbandonedPackages = [
+      'chewie',
+      'wakelock',
+    ];
+
     // List top pub.dev packages
     logger.info('Collecting top $count pub.dev packages...');
     final topPubPackages = <String, String>{};
@@ -368,6 +375,10 @@ class _ConstraintsPubVerifyCommand extends AmplifyCommand {
     while (topPubPackages.length < count) {
       final results = await _pubClient.search('', page: page++);
       for (final packageName in results.packages.map((pkg) => pkg.package)) {
+        if (unofficiallyAbandonedPackages.contains(packageName)) {
+          continue;
+        }
+
         // Get latest version
         final packageInfo = await _pubClient.packageInfo(packageName);
         topPubPackages[packageName] = packageInfo.latest.version;
