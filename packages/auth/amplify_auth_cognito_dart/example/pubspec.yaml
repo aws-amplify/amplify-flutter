@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   amplify_auth_cognito_dart: any
+  amplify_auth_cognito_test: any
   amplify_core: any
   amplify_secure_storage_dart: any
   example_common:
@@ -15,7 +16,6 @@ dependencies:
 
 dev_dependencies:
   amplify_api_dart: any
-  amplify_auth_cognito_test: any
   amplify_integration_test: any
   amplify_lints:
     path: ../../../amplify_lints
@@ -29,4 +29,5 @@ dev_dependencies:
   path: ^1.8.0
   shelf: ^1.4.0
   test: ^1.22.1
+  webdev: ^3.0.4
   webdriver: ^3.0.0

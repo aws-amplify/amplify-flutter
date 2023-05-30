@@ -4,6 +4,8 @@
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform.dart';
+import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart'
+    show webDatabaseName;
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
@@ -18,9 +20,15 @@ Future<void> configure({
   }
   await Amplify.addPlugin(
     AmplifyAuthCognitoDart(
-      secureStorageFactory: AmplifySecureStorageWorker.factoryFrom(
-        // ignore: invalid_use_of_visible_for_testing_member
-        macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+      // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_internal_member
+      secureStorageFactory: (scope) => AmplifySecureStorageWorker(
+        config: AmplifySecureStorageConfig.byNamespace(
+          namespace: webDatabaseName,
+        ).rebuild((config) {
+          // enabling useDataProtection requires adding the app to an
+          // app group, which requires setting a development team
+          config.macOSOptions.useDataProtection = false;
+        }),
       ),
       hostedUiPlatformFactory: hostedUiPlatformFactory,
     ),

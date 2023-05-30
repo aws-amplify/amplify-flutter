@@ -4,6 +4,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_client.dart';
 import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_common.dart';
@@ -55,6 +56,7 @@ void main() {
           application = await runApp();
           addTearDown(application.close);
 
+          await Amplify.addPlugin(AmplifyAPIDart());
           await Amplify.configure(jsonEncode(config));
           addTearDown(Amplify.reset);
 

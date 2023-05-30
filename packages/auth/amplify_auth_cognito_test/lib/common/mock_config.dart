@@ -7,6 +7,9 @@ import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_core/amplify_core.dart';
 
+/// The name of the database to use in Web tests.
+const String webDatabaseName = 'dart-auth-test';
+
 const testUserPoolId = 'us-east-1_userPoolId';
 const testAppClientId = 'appClientId';
 const testIdentityPoolId = 'identityPoolId';

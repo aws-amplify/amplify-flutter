@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 // ignore: invalid_use_of_internal_member,implementation_imports
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
@@ -63,13 +64,16 @@ Future<void> buildAndRun(Compiler compiler) async {
   if (buildDir.existsSync()) {
     buildDir.deleteSync(recursive: true);
   }
+
   switch (compiler) {
     case Compiler.ddc:
       // Throwaway port. We use `webdev serve` to build with DDC but will
       // re-serve the files with our own server which can better handle
       // redirects.
       const servePort = 9000;
-      await processManager.spawnBackgroundInTest('webdev', [
+      await processManager.spawnBackgroundInTest('dart', [
+        'run',
+        'webdev',
         'serve',
         '--output=web:$buildPath',
         'web:$servePort',
@@ -96,7 +100,9 @@ Future<void> buildAndRun(Compiler compiler) async {
         }
       });
     case Compiler.dart2js:
-      final buildProc = await processManager.spawn('webdev', [
+      final buildProc = await processManager.spawn('dart', [
+        'run',
+        'webdev',
         'build',
         '--',
         '--define=build_web_compilers:entrypoint=dart2js_args=["-DAMPLIFY_ENVIRONMENT=hosted-ui"]',
@@ -165,6 +171,7 @@ Future<void> main() async {
           setUp(() async {
             await buildAndRun(compiler);
 
+            await Amplify.addPlugin(AmplifyAPIDart());
             await Amplify.configure(jsonEncode(config));
             addTearDown(Amplify.reset);
 
@@ -333,45 +340,50 @@ const [
 const databaseVersion = 1;
 const storeName = 'default.store';
 
-const db = await new Promise((resolve, reject) => {
-  const request = indexedDB.open(databaseName, databaseVersion);
-  request.onsuccess = (req) => {
-    resolve(req.target.result);
-  };
-  request.onupgradeneeded = (_) => {
-    reject('Invalid version');
-  };
-  request.onerror = (err) => {
-    reject(`Could not complete request: ${err}`);
-  };
-});
+try {
+  const db = await new Promise((resolve, reject) => {
+    const request = indexedDB.open(databaseName, databaseVersion);
+    request.onsuccess = (req) => {
+      resolve(req.target.result);
+    };
+    request.onupgradeneeded = (_) => {
+      reject('Invalid version');
+    };
+    request.onerror = (err) => {
+      reject(`Could not complete request: ${err}`);
+    };
+  });
 
-const items = new Map();
-await new Promise((resolve, reject) => {
-  const tx = db.transaction(storeName, 'readwrite').objectStore(storeName);
-  const request = tx.openCursor();
-  request.onsuccess = (event) => {
-    const cursor = event.target.result;
-    if (!cursor) {
-      return resolve();
-    }
-    const key = cursor.primaryKey;
-    const value = cursor.value;
-    items[key] = value;
-    cursor.continue();
-  };
-  request.onerror = (err) => {
-    reject(`Could not complete cursor req: ${err}`);
-  };
-  tx.onerror = (err) => {
-    reject(`Could not complete tx: ${err}`);
-  };
-});
+  const items = new Map();
+  await new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readwrite').objectStore(storeName);
+    const request = tx.openCursor();
+    request.onsuccess = (event) => {
+      const cursor = event.target.result;
+      if (!cursor) {
+        return resolve();
+      }
+      const key = cursor.primaryKey;
+      const value = cursor.value;
+      items[key] = value;
+      cursor.continue();
+    };
+    request.onerror = (err) => {
+      reject(`Could not complete cursor req: ${err}`);
+    };
+    tx.onerror = (err) => {
+      reject(`Could not complete tx: ${err}`);
+    };
+  });
 
-callback(JSON.stringify(items));
+  callback(JSON.stringify(items));
+} catch (e) {
+  callback(e.toString());
+}
 ''',
       [webDatabaseName],
     ) as String;
+    logger.debug('Got JavaScript response', json);
     final data =
         (jsonDecode(json) as Map<String, Object?>).cast<String, String?>();
     final keys = HostedUiKeys(

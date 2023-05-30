@@ -9,9 +9,6 @@ import 'package:io/io.dart';
 import 'package:test/test.dart';
 import 'package:webdriver/async_io.dart';
 
-/// The name of the database to use in Web.
-const String webDatabaseName = 'dart-auth-test';
-
 /// The URI for the RPC server, used to drive VM tests.
 final Uri rpcUri = Uri.parse('ws://localhost:4321');
 
