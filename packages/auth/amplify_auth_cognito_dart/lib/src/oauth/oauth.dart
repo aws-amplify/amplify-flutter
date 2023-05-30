@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /// OAuth2 client implementation.
 ///
 /// Forked from Dart team's `package:oauth2` which has been [deprecated](https://github.com/dart-lang/oauth2/issues/137).
