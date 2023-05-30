@@ -12,9 +12,8 @@ import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:aws_common/testing.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/testing.dart';
 
 import 'test_runner.dart';
 
@@ -34,8 +33,8 @@ void main() {
         dependencyManager = DependencyManager()
           ..addInstance<CognitoOAuthConfig>(hostedUiConfig)
           ..addInstance<SecureStorageInterface>(MockSecureStorage())
-          ..addInstance<http.Client>(
-            MockClient((request) {
+          ..addInstance<AWSHttpClient>(
+            MockAWSHttpClient((request, isCancelled) {
               throw UnimplementedError();
             }),
           );

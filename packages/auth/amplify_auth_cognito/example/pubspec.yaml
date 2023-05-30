@@ -31,6 +31,7 @@ dev_dependencies:
   amplify_lints:
     path: ../../../amplify_lints
   async: ^2.10.0
+  aws_common: any
   aws_signature_v4: any
   checks: ^0.2.0
   collection: any
@@ -38,7 +39,6 @@ dev_dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  http: ^0.13.5
   integration_test:
     sdk: flutter
   io: ^1.0.0
