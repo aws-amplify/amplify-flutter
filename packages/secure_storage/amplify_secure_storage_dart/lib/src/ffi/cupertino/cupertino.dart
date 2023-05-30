@@ -36,8 +36,32 @@ extension CFStringPointerX on Pointer<CFString> {
       this,
       kCFStringEncodingUTF8,
     );
-    if (cStringPtr == nullptr) return null;
-    return cStringPtr.cast<Utf8>().toDartString();
+    if (cStringPtr != nullptr) {
+      return cStringPtr.cast<Utf8>().toDartString();
+    }
+    // Call CFStringGetCString as a backup.
+    // See: https://developer.apple.com/documentation/corefoundation/1542133-cfstringgetcstringptr
+    final strLen = coreFoundation.CFStringGetLength(this);
+    final maxLen = coreFoundation.CFStringGetMaximumSizeForEncoding(
+          strLen,
+          kCFStringEncodingUTF8,
+        ) +
+        1 /* terminating NUL byte */;
+    final buffer = calloc<Char>(maxLen);
+    try {
+      final ret = coreFoundation.CFStringGetCString(
+        this,
+        buffer,
+        maxLen,
+        kCFStringEncodingUTF8,
+      );
+      if (ret == 0 /* FALSE */) {
+        return null;
+      }
+      return buffer.cast<Utf8>().toDartString();
+    } finally {
+      calloc.free(buffer);
+    }
   }
 }
 

@@ -42,7 +42,7 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
               aggregateKeyType: "IP",
               // The number of requests which can be performed by
               // a single IP in a 5-minute window.
-              limit: 1000,
+              limit: 3000,
             },
           },
           visibilityConfig: {
