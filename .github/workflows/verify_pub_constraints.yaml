@@ -1,8 +1,5 @@
 name: Verify Pub Constraints
 on:
-  push:
-    branches:
-      - main
   schedule:
     - cron: "0 13 * * *" # Every day at 06:00 PST
 
