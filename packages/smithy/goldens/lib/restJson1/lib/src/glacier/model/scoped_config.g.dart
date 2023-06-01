@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.glacier.model.scoped_config;
+part of 'scoped_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

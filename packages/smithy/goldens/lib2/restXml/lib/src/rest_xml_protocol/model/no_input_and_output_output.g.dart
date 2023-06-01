@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.no_input_and_output_output;
+part of 'no_input_and_output_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

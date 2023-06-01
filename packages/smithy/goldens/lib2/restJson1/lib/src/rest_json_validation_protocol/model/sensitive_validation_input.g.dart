@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_validation_protocol.model.sensitive_validation_input;
+part of 'sensitive_validation_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

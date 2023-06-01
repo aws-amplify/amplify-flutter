@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v1.machine_learning.model.resource_not_found_exception;
+part of 'resource_not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

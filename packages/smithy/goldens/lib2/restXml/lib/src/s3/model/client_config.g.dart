@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.s3.model.client_config;
+part of 'client_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

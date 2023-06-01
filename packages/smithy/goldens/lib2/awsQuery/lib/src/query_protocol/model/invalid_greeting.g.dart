@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.invalid_greeting;
+part of 'invalid_greeting.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -97,7 +97,7 @@ class EndpointOperation
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)}
+        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
       },
     );
   }

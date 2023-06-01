@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.no_input_and_output_output;
+part of 'no_input_and_output_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

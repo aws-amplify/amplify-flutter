@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.structure_list_member;
+part of 'structure_list_member.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

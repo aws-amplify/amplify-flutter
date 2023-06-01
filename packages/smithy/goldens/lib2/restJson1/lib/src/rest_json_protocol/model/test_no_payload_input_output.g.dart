@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.test_no_payload_input_output;
+part of 'test_no_payload_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

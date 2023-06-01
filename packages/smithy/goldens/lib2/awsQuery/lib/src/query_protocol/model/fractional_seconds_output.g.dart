@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.fractional_seconds_output;
+part of 'fractional_seconds_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

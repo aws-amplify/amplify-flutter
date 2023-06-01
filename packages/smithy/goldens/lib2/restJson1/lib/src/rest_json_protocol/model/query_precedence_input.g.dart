@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.query_precedence_input;
+part of 'query_precedence_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

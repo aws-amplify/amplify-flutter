@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of custom_v1.custom.model.nested_collections_input;
+part of 'nested_collections_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

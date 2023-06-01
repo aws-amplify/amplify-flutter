@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.empty_input_and_empty_output_output;
+part of 'empty_input_and_empty_output_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

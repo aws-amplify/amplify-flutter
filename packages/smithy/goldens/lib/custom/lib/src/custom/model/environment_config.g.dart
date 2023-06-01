@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of custom_v1.custom.model.environment_config;
+part of 'environment_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

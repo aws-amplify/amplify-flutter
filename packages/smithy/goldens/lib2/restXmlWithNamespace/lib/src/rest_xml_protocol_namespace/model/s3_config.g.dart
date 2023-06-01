@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_with_namespace_v2.rest_xml_protocol_namespace.model.s3_config;
+part of 's3_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

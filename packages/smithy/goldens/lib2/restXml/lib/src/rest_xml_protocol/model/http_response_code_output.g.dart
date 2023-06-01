@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.http_response_code_output;
+part of 'http_response_code_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

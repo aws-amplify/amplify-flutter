@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.http_payload_with_member_xml_name_input_output;
+part of 'http_payload_with_member_xml_name_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

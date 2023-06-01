@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.malformed_timestamp_query_default_input;
+part of 'malformed_timestamp_query_default_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

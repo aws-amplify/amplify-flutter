@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.xml_namespaces_output;
+part of 'xml_namespaces_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

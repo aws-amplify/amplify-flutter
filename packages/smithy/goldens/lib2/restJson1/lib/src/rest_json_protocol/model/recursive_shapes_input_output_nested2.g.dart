@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.recursive_shapes_input_output_nested2;
+part of 'recursive_shapes_input_output_nested2.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

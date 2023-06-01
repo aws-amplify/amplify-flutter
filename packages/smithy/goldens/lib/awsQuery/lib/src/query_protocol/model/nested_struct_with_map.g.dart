@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.nested_struct_with_map;
+part of 'nested_struct_with_map.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
