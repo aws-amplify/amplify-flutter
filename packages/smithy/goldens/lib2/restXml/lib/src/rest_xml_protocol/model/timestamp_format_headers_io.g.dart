@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.timestamp_format_headers_io;
+part of 'timestamp_format_headers_io.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

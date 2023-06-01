@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.fractional_seconds_output;
+part of 'fractional_seconds_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

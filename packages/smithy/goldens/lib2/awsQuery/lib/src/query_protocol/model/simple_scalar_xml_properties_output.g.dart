@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.simple_scalar_xml_properties_output;
+part of 'simple_scalar_xml_properties_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

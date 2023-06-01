@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.machine_learning.model.limit_exceeded_exception;
+part of 'limit_exceeded_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_validation_protocol.model.malformed_pattern_input;
+part of 'malformed_pattern_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

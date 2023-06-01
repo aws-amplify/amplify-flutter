@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of custom_v2.custom.model.operation_config;
+part of 'operation_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

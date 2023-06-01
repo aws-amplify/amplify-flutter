@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.xml_maps_output;
+part of 'xml_maps_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

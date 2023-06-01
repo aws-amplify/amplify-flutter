@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_0_v2.json_rpc_10.model.endpoint_with_host_label_operation_input;
+part of 'endpoint_with_host_label_operation_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

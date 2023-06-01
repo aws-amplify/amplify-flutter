@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.s3.model.get_bucket_location_request;
+part of 'get_bucket_location_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

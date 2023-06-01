@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v1.machine_learning.model.scoped_config;
+part of 'scoped_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

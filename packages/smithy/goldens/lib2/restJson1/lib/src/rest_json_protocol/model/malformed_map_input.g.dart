@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.malformed_map_input;
+part of 'malformed_map_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

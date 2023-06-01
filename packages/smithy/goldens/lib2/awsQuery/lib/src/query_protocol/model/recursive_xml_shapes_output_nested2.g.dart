@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.recursive_xml_shapes_output_nested2;
+part of 'recursive_xml_shapes_output_nested2.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

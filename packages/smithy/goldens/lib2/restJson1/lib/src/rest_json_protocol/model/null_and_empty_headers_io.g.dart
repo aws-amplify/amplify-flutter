@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.null_and_empty_headers_io;
+part of 'null_and_empty_headers_io.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

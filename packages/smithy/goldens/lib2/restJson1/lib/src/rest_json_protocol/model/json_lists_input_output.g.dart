@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.json_lists_input_output;
+part of 'json_lists_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

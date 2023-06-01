@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_with_namespace_v2.rest_xml_protocol_namespace.model.environment_config;
+part of 'environment_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

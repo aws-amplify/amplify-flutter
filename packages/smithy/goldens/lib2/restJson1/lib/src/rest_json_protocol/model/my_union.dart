@@ -16,6 +16,7 @@ import 'package:rest_json1_v2/src/rest_json_protocol/model/renamed_greeting.dart
     as _i5;
 import 'package:smithy/smithy.dart' as _i1;
 
+/// A union with a representative set of types for members.
 sealed class MyUnion extends _i1.SmithyUnion<MyUnion> {
   const MyUnion._();
 

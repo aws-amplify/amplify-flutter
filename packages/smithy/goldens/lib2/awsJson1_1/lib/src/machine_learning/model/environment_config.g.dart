@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.machine_learning.model.environment_config;
+part of 'environment_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

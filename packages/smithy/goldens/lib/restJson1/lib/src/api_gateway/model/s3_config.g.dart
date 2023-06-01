@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.api_gateway.model.s3_config;
+part of 's3_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
