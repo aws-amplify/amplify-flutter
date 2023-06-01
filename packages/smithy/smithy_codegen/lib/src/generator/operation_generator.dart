@@ -554,25 +554,15 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
                     }).code,
                 ).closure,
               ], {
-                // Create a map with spread and new values. Cannot be done
-                // via [literalMap].
-                'zoneValues': CodeExpression(
-                  Block.of([
-                    const Code('{'),
-                    refer('_awsEndpoint')
-                        .property('credentialScope')
-                        .nullSafeProperty('zoneValues')
-                        .nullSafeSpread
-                        .code,
-                    const Code(','),
-                    literalMap({
-                      DartTypes.awsCommon.awsHeaders
-                              .property('sdkInvocationId'):
-                          DartTypes.awsCommon.uuid(),
-                    }).spread.code,
-                    const Code('}'),
-                  ]),
-                ),
+                'zoneValues': literalMap({
+                  literalNullSafeSpread(): refer('_awsEndpoint')
+                      .property('credentialScope')
+                      .nullSafeProperty('zoneValues'),
+                  literalSpread(): literalMap({
+                    DartTypes.awsCommon.awsHeaders.property('sdkInvocationId'):
+                        DartTypes.awsCommon.uuid(),
+                  }),
+                }),
               })
               .returned
               .statement,
