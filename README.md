@@ -11,7 +11,7 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 - [Getting Started Guide](https://docs.amplify.aws/start/getting-started/setup/q/integration/flutter)
 - [Upgrade from v0](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/)
 
-## Supported Amplify Categories
+## Supported Amplify Libraries
 
 | Library                                                                                                 | pub.dev package                                                                                                                                                                               | Description                                                                                                                                                                                                                                                                                                |
 | :------------------------------------------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
