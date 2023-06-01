@@ -18,7 +18,7 @@ dependencies:
   git: ^2.0.0
   glob: ^2.1.0
   graphs: ^2.1.0
-  http: ^0.13.0
+  http: ">=0.13.0 <2.0.0"
   json_annotation: ">=4.8.1 <4.9.0"
   libgit2dart:
     path: external/libgit2dart
