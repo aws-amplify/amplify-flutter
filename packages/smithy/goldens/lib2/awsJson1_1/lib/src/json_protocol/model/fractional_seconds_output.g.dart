@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.json_protocol.model.fractional_seconds_output;
+part of 'fractional_seconds_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

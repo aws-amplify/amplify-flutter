@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of custom_v2.s3.model.aws_config;
+part of 'aws_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

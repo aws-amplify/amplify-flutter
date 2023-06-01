@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of custom_v1.s3.model.get_object_request;
+part of 'get_object_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

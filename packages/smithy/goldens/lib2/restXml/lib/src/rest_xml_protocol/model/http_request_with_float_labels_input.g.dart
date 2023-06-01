@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.http_request_with_float_labels_input;
+part of 'http_request_with_float_labels_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

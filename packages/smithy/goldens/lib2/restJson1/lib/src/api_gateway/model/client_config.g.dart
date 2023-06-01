@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.api_gateway.model.client_config;
+part of 'client_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

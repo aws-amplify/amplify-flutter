@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.file_config_settings;
+part of 'file_config_settings.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

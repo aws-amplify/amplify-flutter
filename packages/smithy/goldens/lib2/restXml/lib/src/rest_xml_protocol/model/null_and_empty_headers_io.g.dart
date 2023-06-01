@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.null_and_empty_headers_io;
+part of 'null_and_empty_headers_io.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_validation_protocol.model.recursive_structures_input;
+part of 'recursive_structures_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

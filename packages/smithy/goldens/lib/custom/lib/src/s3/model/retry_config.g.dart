@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of custom_v1.s3.model.retry_config;
+part of 'retry_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

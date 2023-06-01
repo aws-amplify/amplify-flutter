@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.aws_config;
+part of 'aws_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

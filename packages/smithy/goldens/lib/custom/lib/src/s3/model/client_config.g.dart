@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of custom_v1.s3.model.client_config;
+part of 'client_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

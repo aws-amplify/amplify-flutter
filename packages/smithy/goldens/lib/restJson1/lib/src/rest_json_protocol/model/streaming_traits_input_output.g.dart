@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.streaming_traits_input_output;
+part of 'streaming_traits_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.glacier.model.resource_not_found_exception;
+part of 'resource_not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

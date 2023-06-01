@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of custom_v1.custom.model.http_checksum_really_not_required_input;
+part of 'http_checksum_really_not_required_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

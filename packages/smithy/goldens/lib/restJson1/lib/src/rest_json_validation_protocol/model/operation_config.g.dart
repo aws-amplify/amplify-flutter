@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_validation_protocol.model.operation_config;
+part of 'operation_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

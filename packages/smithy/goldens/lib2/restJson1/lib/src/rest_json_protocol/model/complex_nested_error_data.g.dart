@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.complex_nested_error_data;
+part of 'complex_nested_error_data.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

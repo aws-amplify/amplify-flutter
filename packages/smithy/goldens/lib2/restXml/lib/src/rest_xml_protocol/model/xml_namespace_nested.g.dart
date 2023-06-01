@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.xml_namespace_nested;
+part of 'xml_namespace_nested.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.query_lists_input;
+part of 'query_lists_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

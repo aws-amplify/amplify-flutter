@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.ignores_wrapping_xml_name_output;
+part of 'ignores_wrapping_xml_name_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

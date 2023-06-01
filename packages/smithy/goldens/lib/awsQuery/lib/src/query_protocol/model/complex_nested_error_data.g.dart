@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.complex_nested_error_data;
+part of 'complex_nested_error_data.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

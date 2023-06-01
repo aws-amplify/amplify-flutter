@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.query_timestamps_input;
+part of 'query_timestamps_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

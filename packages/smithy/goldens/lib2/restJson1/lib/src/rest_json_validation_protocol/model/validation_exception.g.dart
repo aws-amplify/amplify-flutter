@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_validation_protocol.model.validation_exception;
+part of 'validation_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

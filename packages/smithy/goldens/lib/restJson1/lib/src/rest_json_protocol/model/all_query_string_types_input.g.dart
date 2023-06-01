@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.all_query_string_types_input;
+part of 'all_query_string_types_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

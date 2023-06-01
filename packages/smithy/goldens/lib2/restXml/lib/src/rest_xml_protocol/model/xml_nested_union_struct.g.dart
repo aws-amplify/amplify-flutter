@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.xml_nested_union_struct;
+part of 'xml_nested_union_struct.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

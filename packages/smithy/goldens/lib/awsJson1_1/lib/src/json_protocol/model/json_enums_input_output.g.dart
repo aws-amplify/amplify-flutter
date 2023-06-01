@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v1.json_protocol.model.json_enums_input_output;
+part of 'json_enums_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
