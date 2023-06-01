@@ -1,3 +1,13 @@
+## 1.2.0
+
+### Fixes
+- fix(authenticator): Only call `setState` if mounted ([#3076](https://github.com/aws-amplify/amplify-flutter/pull/3076))
+- fix(authenticator): alphabetize country codes
+
+### Features
+- feat(authenticator, m3): use SearchAnchor for country code
+- feat(authenticator, m3): use `FilledButton` for primary buttons
+
 ## 1.1.0
 
 ### Features

@@ -1,3 +1,9 @@
+## 1.1.1
+
+### Fixes
+- fix(auth): User attribute serialization
+- fix(datastore): support nested predicates for observe and observeQuery ([#3029](https://github.com/aws-amplify/amplify-flutter/pull/3029))
+
 ## 1.1.0
 
 ### Features

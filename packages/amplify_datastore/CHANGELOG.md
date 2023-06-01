@@ -1,3 +1,8 @@
+## 1.1.0-supports-only-mobile+1
+
+### Fixes
+- fix(datastore): support nested predicates for observe and observeQuery ([#3029](https://github.com/aws-amplify/amplify-flutter/pull/3029))
+
 ## 1.1.0-supports-only-mobile
 
 ### Features
