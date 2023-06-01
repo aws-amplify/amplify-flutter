@@ -1,0 +1,26 @@
+name: Verify Pub Constraints
+on:
+  schedule:
+    - cron: "0 13 * * *" # Every day at 06:00 PST
+
+jobs:
+  test:
+    name: Verify Pub Constraints
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+        with:
+          submodules: true
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # 2.8.0
+        with:
+          cache: true
+          channel: stable
+
+      - name: Setup aft
+        run: dart pub global activate -spath packages/aft
+
+      - name: Verify Pub Constraints
+        run: aft constraints pub-verify

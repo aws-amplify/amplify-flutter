@@ -5,29 +5,22 @@
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
 
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 
-import 'config.dart';
+import 'test_runner.dart';
 import 'utils/test_utils.dart';
 
 void main() {
-  AWSLogger().logLevel = LogLevel.verbose;
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
-  binding.deferFirstFrame();
+  testRunner.setupTests();
 
   group('sign-up-with-username', () {
     // Given I'm running the example "ui/components/authenticator/sign-up-with-username"
-    setUpAll(() async {
-      await loadConfiguration(
+    setUp(() async {
+      await testRunner.configure(
         environmentName: 'sign-in-with-username',
       );
     });
-
-    tearDown(deleteTestUser);
 
     // Scenario: Login mechanism set to "username"
     testWidgets('Login mechanism set to "username"', (tester) async {
@@ -112,8 +105,6 @@ void main() {
       await signInPage.navigateToSignUp();
 
       final username = generateUsername();
-      addTearDown(() => deleteUser(username));
-
       final password = generatePassword();
       final email = generateEmail();
 

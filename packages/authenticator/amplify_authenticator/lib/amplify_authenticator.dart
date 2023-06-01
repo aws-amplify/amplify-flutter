@@ -587,6 +587,7 @@ class _AuthenticatorState extends State<Authenticator> {
 
   Future<void> _waitForConfiguration() async {
     final config = await Amplify.asyncConfig;
+    if (!mounted) return;
     setState(() {
       _config = config;
       _configInitialized = true;

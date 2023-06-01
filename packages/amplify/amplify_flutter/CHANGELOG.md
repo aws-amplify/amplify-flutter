@@ -1,3 +1,11 @@
+## 1.1.1
+
+### Fixes
+- fix(auth): remove duplicate continuation call for hosted UI ([#3112](https://github.com/aws-amplify/amplify-flutter/pull/3112))
+- fix(datastore): support nested predicates for observe and observeQuery ([#3029](https://github.com/aws-amplify/amplify-flutter/pull/3029))
+- fix: suppress browser on sign out when preferPrivateSession is true ([#3099](https://github.com/aws-amplify/amplify-flutter/pull/3099))
+- fix(auth): User attribute serialization
+
 ## 1.1.0
 
 ### Features

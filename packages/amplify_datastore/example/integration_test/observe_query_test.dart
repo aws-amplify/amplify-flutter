@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:io';
+
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -109,6 +111,83 @@ void main() {
       await Amplify.DataStore.save(newBlog3);
       await Amplify.DataStore.save(newBlog1Copy);
     });
+
+    testWidgets(
+      'should respect nested query predicates',
+      (WidgetTester tester) async {
+        // save initial data set of two blogs with 3 posts each
+        final blog1 = Blog(name: 'blog 1');
+        final blog2 = Blog(name: 'blog 2');
+        final blog1Posts = List.generate(
+          3,
+          (index) => Post(
+            title: 'post $index for blog1',
+            rating: 0,
+            blog: blog1,
+          ),
+        );
+        final blog2Posts = List.generate(
+          3,
+          (index) => Post(
+            title: 'post $index for blog2',
+            rating: 0,
+            blog: blog2,
+          ),
+        );
+        await Amplify.DataStore.save(blog1);
+        await Amplify.DataStore.save(blog2);
+        for (var post in [...blog1Posts, ...blog2Posts]) {
+          await Amplify.DataStore.save(post);
+        }
+
+        final observeQueryItemStream = Amplify.DataStore.observeQuery(
+          Post.classType,
+          where: Post.BLOG.eq(BlogModelIdentifier(id: blog1.id)),
+        ).map((event) => event.items);
+
+        // assert initial snapshot has posts for blog1 only
+        final firstSnapshot = await observeQueryItemStream.first;
+        expect(firstSnapshot, orderedEquals(blog1Posts));
+
+        // create new posts to save
+        final blog1NewPosts = List.generate(
+          3,
+          (index) => Post(
+            title: 'New post $index for blog1',
+            rating: 0,
+            blog: blog1,
+          ),
+        );
+
+        final blog2NewPosts = List.generate(
+          3,
+          (index) => Post(
+            title: 'New post $index for blog2',
+            rating: 0,
+            blog: blog2,
+          ),
+        );
+
+        // assert subsequent snapshots have posts for blog1 only
+        expectLater(
+          observeQueryItemStream,
+          emitsInOrder([
+            orderedEquals([...blog1Posts, blog1NewPosts[0]]),
+            orderedEquals([...blog1Posts, blog1NewPosts[0], blog1NewPosts[1]]),
+            orderedEquals([...blog1Posts, blog1NewPosts[0]]),
+          ]),
+        );
+
+        // save new and updated posts
+        await Amplify.DataStore.save(blog1NewPosts[0]);
+        await Amplify.DataStore.save(blog2NewPosts[0]);
+        await Amplify.DataStore.save(blog1NewPosts[1]);
+        await Amplify.DataStore.save(blog2NewPosts[1]);
+        await Amplify.DataStore.save(blog1NewPosts[1].copyWith(blog: blog2));
+      },
+      // See: https://github.com/aws-amplify/amplify-flutter/issues/2183
+      skip: Platform.isAndroid,
+    );
 
     testWidgets('should respect sort orders', (WidgetTester tester) async {
       List<Blog> blogs = List.generate(3, (index) => Blog(name: 'blog $index'));

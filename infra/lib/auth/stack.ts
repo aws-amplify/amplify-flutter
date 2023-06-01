@@ -5,8 +5,8 @@ import * as cdk from "aws-cdk-lib";
 import { Duration, Expiration, Fn, RemovalPolicy } from "aws-cdk-lib";
 import * as appsync from "aws-cdk-lib/aws-appsync";
 import * as cognito from "aws-cdk-lib/aws-cognito";
+import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
-import * as iam from "aws-cdk-lib/aws-iam";
 import * as kms from "aws-cdk-lib/aws-kms";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
@@ -419,63 +419,20 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     // Add stub unauthenticated/authenticated roles since these are needed by
     // the user pool.
 
-    const cognitoIdentityProviders: cognito.CfnIdentityPool.CognitoIdentityProviderProperty[] =
+    const userPools: cognito_identity.IUserPoolAuthenticationProvider[] =
       [];
     if (includeUserPool) {
-      cognitoIdentityProviders.push({
-        clientId: userPoolClient.userPoolClientId,
-        providerName: `cognito-idp.${this.region}.amazonaws.com/${userPool.userPoolId}`,
-      });
+      userPools.push(
+        new cognito_identity.UserPoolAuthenticationProvider({ userPool, userPoolClient })
+      );
     }
-    const identityPool = new cognito.CfnIdentityPool(this, "IdentityPool", {
+    const identityPool = new cognito_identity.IdentityPool(this, "IdentityPool", {
       identityPoolName: this.name,
       allowUnauthenticatedIdentities,
-      cognitoIdentityProviders,
+      authenticationProviders: {
+        userPools,
+      },
     });
-
-    const unauthenticatedRole = new iam.Role(this, "UnauthenticatedRole", {
-      description: "Default role for anonymous users",
-      assumedBy: new iam.FederatedPrincipal(
-        "cognito-identity.amazonaws.com",
-        {
-          StringEquals: {
-            "cognito-identity.amazonaws.com:aud": identityPool.ref,
-          },
-          "ForAnyValue:StringLike": {
-            "cognito-identity.amazonaws.com:amr": "unauthenticated",
-          },
-        },
-        "sts:AssumeRoleWithWebIdentity"
-      ),
-    });
-
-    const authenticatedRole = new iam.Role(this, "AuthenticatedRole", {
-      description: "Default role for authenticated users",
-      assumedBy: new iam.FederatedPrincipal(
-        "cognito-identity.amazonaws.com",
-        {
-          StringEquals: {
-            "cognito-identity.amazonaws.com:aud": identityPool.ref,
-          },
-          "ForAnyValue:StringLike": {
-            "cognito-identity.amazonaws.com:amr": "authenticated",
-          },
-        },
-        "sts:AssumeRoleWithWebIdentity"
-      ),
-    });
-
-    new cognito.CfnIdentityPoolRoleAttachment(
-      this,
-      "IdentityPoolRoleAttachment",
-      {
-        identityPoolId: identityPool.ref,
-        roles: {
-          unauthenticated: unauthenticatedRole.roleArn,
-          authenticated: authenticatedRole.roleArn,
-        },
-      }
-    );
 
     associateWithWaf(`${this.environmentName}GraphQL`, graphQLApi.arn);
     associateWithWaf(`${this.environmentName}UserPool`, userPool.userPoolArn);
@@ -609,7 +566,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     let identityPoolConfig: IdentityPoolConfig | undefined;
     if (includeIdentityPool) {
       identityPoolConfig = {
-        identityPoolId: identityPool.ref,
+        identityPoolId: identityPool.identityPoolId,
       };
     }
     let userPoolConfig: UserPoolConfig | undefined;

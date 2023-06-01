@@ -1,3 +1,8 @@
+## 0.10.0+1
+
+### Fixes
+- fix(auth): User attribute serialization
+
 ## 0.10.0
 
 ### Features

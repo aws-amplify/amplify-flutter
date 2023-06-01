@@ -21,13 +21,13 @@ import 'security_test.dart' as security_tests;
 import 'sign_in_test.dart' as sign_in_tests;
 import 'sign_out_test.dart' as sign_out_tests;
 import 'sign_up_test.dart' as sign_up_tests;
+import 'test_runner.dart';
 import 'update_password_test.dart' as update_password_tests;
 import 'user_attributes_test.dart' as user_attributes_tests;
-import 'utils/setup_utils.dart';
 import 'version_upgrade_test.dart' as version_upgrade_tests;
 
 void main() async {
-  initTests();
+  testRunner.setupTests();
 
   group('amplify_auth_cognito', () {
     confirm_sign_in_tests.main();
