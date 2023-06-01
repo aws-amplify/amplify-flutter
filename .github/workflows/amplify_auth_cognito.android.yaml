@@ -11,7 +11,6 @@ on:
       - 'packages/auth/amplify_auth_cognito/**/*.yaml'
       - 'packages/auth/amplify_auth_cognito/android/**/*'
       - 'packages/auth/amplify_auth_cognito/example/android/**/*'
-      - 'packages/auth/amplify_auth_cognito_android/**/*'
       - '.github/workflows/flutter_android.yaml'
       - '.github/workflows/amplify_auth_cognito.android.yaml'
   schedule:

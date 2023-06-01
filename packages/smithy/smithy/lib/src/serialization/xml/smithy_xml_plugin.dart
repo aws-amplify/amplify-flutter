@@ -232,7 +232,7 @@ class SmithyXmlPlugin implements SerializerPlugin {
       }
       return els;
     } else if (node is XmlText) {
-      return node.text;
+      return node.value;
     }
     throw ArgumentError('Invalid type: ${node.runtimeType}');
   }

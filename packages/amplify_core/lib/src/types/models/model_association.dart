@@ -15,8 +15,10 @@ class ModelAssociation with AWSEquatable<ModelAssociation>, AWSSerializable {
 
   const ModelAssociation({
     required this.associationType,
-    @Deprecated('Please use the latest version of Amplify CLI to regenerate models')
-        this.targetName,
+    @Deprecated(
+      'Please use the latest version of Amplify CLI to regenerate models',
+    )
+    this.targetName,
     this.targetNames,
     this.associatedName,
     this.associatedType,

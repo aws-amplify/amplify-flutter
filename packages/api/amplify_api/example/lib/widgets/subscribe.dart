@@ -102,8 +102,10 @@ class GraphQLSubscriptionsExamples extends StatelessWidget {
           'Subscriptions',
           textAlign: TextAlign.left,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Wrap(
+          alignment: WrapAlignment.spaceBetween,
+          spacing: 12,
+          runSpacing: 12,
           children: [
             apiButton(
               onPressed: subscription == null ? subscribe : null,

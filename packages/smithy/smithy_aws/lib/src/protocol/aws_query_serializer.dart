@@ -81,6 +81,6 @@ class _XmlVisitor with XmlVisitor {
 
   @override
   void visitText(XmlText node) {
-    _result.add('$_context=${Uri.encodeQueryComponent(node.text)}');
+    _result.add('$_context=${Uri.encodeQueryComponent(node.value)}');
   }
 }

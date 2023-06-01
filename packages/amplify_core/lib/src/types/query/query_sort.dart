@@ -20,8 +20,16 @@ class QuerySortBy {
 
   int compare<T extends Model>(T a, T b) {
     final fieldName = getFieldName(field);
-    final valueA = a.toJson()[fieldName];
-    final valueB = b.toJson()[fieldName];
+    Object? valueA;
+    Object? valueB;
+    // TODO(Jordan-Nelson): Remove try/catch at next major version bump
+    try {
+      valueA = a.toMap()[fieldName];
+      valueB = b.toMap()[fieldName];
+    } on UnimplementedError {
+      valueA = a.toJson()[fieldName];
+      valueB = b.toJson()[fieldName];
+    }
     final orderMultiplier = order == QuerySortOrder.ascending ? 1 : -1;
     if (valueA == null || valueB == null) {
       return orderMultiplier * _compareNull(valueA, valueB);

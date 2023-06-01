@@ -147,8 +147,10 @@ class ModelFieldDefinition {
     bool isRequired = true,
     required String ofModelName,
     QueryField<Object?>? associatedKey,
-    @Deprecated('Please use the latest version of Amplify CLI to regenerate models')
-        String? targetName,
+    @Deprecated(
+      'Please use the latest version of Amplify CLI to regenerate models',
+    )
+    String? targetName,
     List<String>? targetNames,
   }) {
     // Extra code needed due to lack of nullability support

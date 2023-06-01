@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_auth_cognito_dart.cognito_identity_provider.model.enable_software_token_mfa_exception;
+part of 'enable_software_token_mfa_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -12,17 +12,24 @@ dependencies:
   built_value: ">=8.5.0 <8.6.0"
   built_value_generator: 8.5.0
   code_builder: 4.4.0
+  connectivity_plus: ^4.0.1
   dart_style: 2.3.1
+  device_info_plus: ^9.0.0
   drift: ">=2.4.0 <2.9.0"
   flutter_plugin_android_lifecycle: ^2.0.9
   json_annotation: ">=4.8.1 <4.9.0"
-  json_serializable: 6.6.2
+  json_serializable: 6.7.0
+  http: ">=0.13.0 <2.0.0"
   intl: ">=0.18.0 <1.0.0"
   mime: ^1.0.0
+  oauth2: ^2.0.2
+  package_info_plus: ^4.0.1
   pigeon: ^9.2.4
+  source_gen: ^1.3.2
   stack_trace: ^1.10.0
   uuid: ">=3.0.6 <=3.0.7"
-  xml: ">=6.1.0 <=6.2.2"
+  win32: ">=4.1.2 <6.0.0"
+  xml: 6.3.0
   test: ^1.22.1
 
 # The current constraints for SDKs and OSs.
@@ -57,8 +64,6 @@ components:
       - amplify_analytics_pinpoint
       - amplify_api
       - amplify_auth_cognito
-      - amplify_auth_cognito_android
-      - amplify_auth_cognito_ios
       - amplify_storage_s3
       - amplify_push_notifications
       - amplify_push_notifications_pinpoint
@@ -116,15 +121,15 @@ scripts:
   test:unit:flutter:
     description: Runs unit tests for all Flutter packages
     from: flutter
-    run: $AFT_ROOT/.circleci/test_all_plugins.sh flutter {{ package.name }}
+    run: $AFT_ROOT/tool/test_all_plugins.sh flutter {{ package.name }}
   test:unit:ios:
     description: Runs unit tests for all iOS plugins
     from: flutter
-    run: $AFT_ROOT/.circleci/test_all_plugins.sh ios {{ package.name }} {{{ package.example.path }}}
+    run: $AFT_ROOT/tool/test_all_plugins.sh ios {{ package.name }} {{{ package.example.path }}}
   test:unit:android:
     description: Runs unit tests for all Android plugins
     from: flutter
-    run: $AFT_ROOT/.circleci/test_all_plugins.sh android {{ package.name }} {{{ package.example.path }}}
+    run: $AFT_ROOT/tool/test_all_plugins.sh android {{ package.name }} {{{ package.example.path }}}
   build:example:ios:
     description: Builds all example apps for iOS
     from:

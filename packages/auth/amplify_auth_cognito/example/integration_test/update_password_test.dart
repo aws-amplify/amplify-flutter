@@ -2,16 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
+import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'utils/setup_utils.dart';
-import 'utils/test_utils.dart';
+import 'test_runner.dart';
 
 void main() {
-  initTests();
+  testRunner.setupTests();
 
   group('updatePassword', () {
     for (final environmentName in userPoolEnvironments) {
@@ -19,23 +18,20 @@ void main() {
         late String username;
         late String password;
 
-        setUpAll(() async {
-          await configureAuth(
-            config: amplifyEnvironments[environmentName]!,
-          );
-        });
-
         setUp(() async {
+          await testRunner.configure(
+            environmentName: environmentName,
+          );
+
           username = generateUsername();
           password = generatePassword();
 
-          final cognitoUsername = await adminCreateUser(
+          await adminCreateUser(
             username,
             password,
             autoConfirm: true,
             verifyAttributes: true,
           );
-          addTearDown(() => deleteUser(cognitoUsername));
 
           await signOutUser();
 

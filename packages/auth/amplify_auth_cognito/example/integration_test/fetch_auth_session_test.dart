@@ -2,32 +2,27 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
+import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'utils/setup_utils.dart';
-import 'utils/test_utils.dart';
+import 'test_runner.dart';
 import 'utils/validation_utils.dart';
 
 void main() {
-  initTests();
+  testRunner.setupTests();
 
   group('fetchAuthSession', () {
-    tearDown(signOutUser);
-
     group('unauthenticated access enabled', () {
       group('no user pool', () {
-        setUpAll(() async {
-          await configureAuth(
-            config: amplifyEnvironments['identity-pool-only']!,
+        setUp(() async {
+          await testRunner.configure(
+            environmentName: 'identity-pool-only',
           );
         });
 
-        tearDown(signOutUser);
-
-        test('allows retrieving credentials', () async {
+        asyncTest('allows retrieving credentials', (_) async {
           final session =
               await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
           expect(session.isSignedIn, isFalse);
@@ -47,8 +42,8 @@ void main() {
       group('with user pool', () {
         final username = generateUsername();
         final password = generatePassword();
-        setUpAll(() async {
-          await configureAuth();
+        setUp(() async {
+          await testRunner.configure();
 
           await adminCreateUser(
             username,
@@ -56,11 +51,7 @@ void main() {
             autoConfirm: true,
             verifyAttributes: true,
           );
-        });
 
-        tearDownAll(Amplify.reset);
-
-        setUp(() async {
           await signOutUser();
           final res = await Amplify.Auth.signIn(
             username: username,
@@ -113,13 +104,11 @@ void main() {
     });
 
     group('unauthenticated access disabled', () {
-      setUpAll(() async {
-        await configureAuth(
-          config: amplifyEnvironments['authenticated-users-only']!,
+      setUp(() async {
+        await testRunner.configure(
+          environmentName: 'authenticated-users-only',
         );
       });
-
-      tearDown(signOutUser);
 
       Future<void> retrieveUnauthenticatedCredentials() async {
         final session =
@@ -143,23 +132,22 @@ void main() {
         );
       }
 
-      test('prevents retrieving unauthenticated credentials', () async {
+      asyncTest('prevents retrieving unauthenticated credentials', (_) async {
         await retrieveUnauthenticatedCredentials();
       });
 
-      test('allows retrieving authenticated credentials', () async {
+      asyncTest('allows retrieving authenticated credentials', (_) async {
         await retrieveUnauthenticatedCredentials();
 
         final username = generateUsername();
         final password = generatePassword();
 
-        final cognitoUsername = await adminCreateUser(
+        await adminCreateUser(
           username,
           password,
           verifyAttributes: true,
           autoConfirm: true,
         );
-        addTearDown(() => deleteUser(cognitoUsername));
 
         final signInRes = await Amplify.Auth.signIn(
           username: username,
@@ -194,13 +182,11 @@ void main() {
     });
 
     group('user pool-only', () {
-      setUpAll(() async {
-        await configureAuth(
-          config: amplifyEnvironments['user-pool-only']!,
+      setUp(() async {
+        await testRunner.configure(
+          environmentName: 'user-pool-only',
         );
       });
-
-      tearDown(signOutUser);
 
       Future<void> retrieveUnauthenticatedCredentials() async {
         final session =
@@ -224,23 +210,22 @@ void main() {
         );
       }
 
-      test('prevents retrieving unauthenticated credentials', () async {
+      asyncTest('prevents retrieving unauthenticated credentials', (_) async {
         await retrieveUnauthenticatedCredentials();
       });
 
-      test('prevents retrieving authenticated credentials', () async {
+      asyncTest('prevents retrieving authenticated credentials', (_) async {
         await retrieveUnauthenticatedCredentials();
 
         final username = generateUsername();
         final password = generatePassword();
 
-        final cognitoUsername = await adminCreateUser(
+        await adminCreateUser(
           username,
           password,
           verifyAttributes: true,
           autoConfirm: true,
         );
-        addTearDown(() => deleteUser(cognitoUsername));
 
         final signInRes = await Amplify.Auth.signIn(
           username: username,
@@ -286,9 +271,9 @@ void main() {
           return idToken.claims.customClaims;
         }
 
-        setUpAll(() async {
-          await configureAuth(
-            config: amplifyEnvironments[environmentName]!,
+        setUp(() async {
+          await testRunner.configure(
+            environmentName: environmentName,
           );
         });
 
@@ -296,13 +281,12 @@ void main() {
           final username = generateUsername();
           final password = generatePassword();
 
-          final cognitoUsername = await adminCreateUser(
+          await adminCreateUser(
             username,
             password,
             autoConfirm: true,
             verifyAttributes: true,
           );
-          addTearDown(() => deleteUser(cognitoUsername));
 
           final res = await Amplify.Auth.signIn(
             username: username,
@@ -339,7 +323,7 @@ void main() {
           final password = generatePassword();
           final originalEmail = generateEmail();
 
-          final cognitoUsername = await adminCreateUser(
+          await adminCreateUser(
             username,
             password,
             autoConfirm: true,
@@ -351,7 +335,6 @@ void main() {
               ),
             ],
           );
-          addTearDown(() => deleteUser(cognitoUsername));
 
           final res = await Amplify.Auth.signIn(
             username: username,

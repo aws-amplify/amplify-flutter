@@ -18,7 +18,7 @@ dependencies:
   git: ^2.0.0
   glob: ^2.1.0
   graphs: ^2.1.0
-  http: ^0.13.0
+  http: ">=0.13.0 <2.0.0"
   json_annotation: ">=4.8.1 <4.9.0"
   libgit2dart:
     path: external/libgit2dart
@@ -27,6 +27,7 @@ dependencies:
   meta: ^1.7.0
   mustache_template: ^2.0.0
   path: any
+  pub_api_client: ^2.4.0
   pub_semver: ^2.1.1
   pubspec_parse: ^1.2.0
   smithy: ">=0.4.0+8 <0.5.0"
@@ -54,7 +55,7 @@ dev_dependencies:
   amplify_lints: ">=2.0.2 <2.1.0"
   build_runner: ^2.4.0
   built_value_generator: 8.5.0
-  json_serializable: 6.6.2
+  json_serializable: 6.7.0
   test: ^1.22.1
 
 executables:

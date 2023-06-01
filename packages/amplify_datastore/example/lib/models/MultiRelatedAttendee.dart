@@ -122,6 +122,13 @@ class MultiRelatedAttendee extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'meetings': _meetings,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<MultiRelatedAttendeeModelIdentifier>
       MODEL_IDENTIFIER =
       QueryModelIdentifier<MultiRelatedAttendeeModelIdentifier>();
