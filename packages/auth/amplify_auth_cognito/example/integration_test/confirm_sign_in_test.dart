@@ -5,6 +5,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_runner.dart';
@@ -129,6 +130,78 @@ void main() {
             AuthSignInStep.confirmSignInWithSmsMfaCode,
           );
         });
+      });
+
+      asyncTest('includes attributes when setting new password', (_) async {
+        await testRunner.configure(
+          environmentName: environmentName,
+        );
+
+        final username = generateUsername();
+        final password = generatePassword();
+        final phoneNumber = generatePhoneNumber();
+
+        // Sign up user with missing email.
+        await adminCreateUser(
+          username,
+          password,
+          autoConfirm: false,
+          autoFillAttributes: false,
+          attributes: [
+            AuthUserAttribute(
+              userAttributeKey: AuthUserAttributeKey.phoneNumber,
+              value: phoneNumber,
+            ),
+          ],
+        );
+
+        final signInRes = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        expect(
+          signInRes.nextStep.signInStep,
+          AuthSignInStep.confirmSignInWithNewPassword,
+        );
+        expect(
+          signInRes.nextStep.missingAttributes.map((key) => key.key),
+          contains('email'),
+        );
+
+        final newPassword = generatePassword();
+        final email = generateEmail();
+        final confirmSignInRes = await Amplify.Auth.confirmSignIn(
+          confirmationValue: newPassword,
+          options: ConfirmSignInOptions(
+            pluginOptions: CognitoConfirmSignInPluginOptions(
+              userAttributes: {
+                // Code path 1: a missing required attribute
+                CognitoUserAttributeKey.email: email,
+
+                // Code path 2: a missing non-required attribute
+                CognitoUserAttributeKey.name: 'Test User',
+              },
+            ),
+          ),
+        );
+        expect(
+          confirmSignInRes.nextStep.signInStep,
+          AuthSignInStep.done,
+        );
+
+        final userAttributes = await Amplify.Auth.fetchUserAttributes();
+        expect(
+          userAttributes
+              .firstWhereOrNull((attr) => attr.userAttributeKey.key == 'name')
+              ?.value,
+          'Test User',
+        );
+        expect(
+          userAttributes
+              .firstWhereOrNull((attr) => attr.userAttributeKey.key == 'email')
+              ?.value,
+          email,
+        );
       });
     }
   });
