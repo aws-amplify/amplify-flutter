@@ -109,9 +109,8 @@ name: ${pubspec.name}
 description: ${pubspec.description ?? '${pubspec.name.groupIntoWords().map((s) => s.capitalized).join(' ')} client SDK'}
 version: ${pubspec.version?.canonicalizedVersion ?? '0.1.0'}
 ${smithyPath == null ? pubspec.publishTo != null ? 'publish_to: ${pubspec.publishTo}\n' : '' : 'publish_to: none\n'}${pubspec.homepage != null ? 'homepage: ${pubspec.homepage}\n' : ''}
-
 environment:
-  sdk: ">=3.0.0-0 <4.0.0"
+  sdk: ^3.0.0
 
 dependencies:
 $dependenciesBlock
