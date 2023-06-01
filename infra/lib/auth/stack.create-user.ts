@@ -48,15 +48,23 @@ export const handler: lambda.AppSyncResolverHandler<
   console.log(`Creating user ${username}...`);
   let cognitoUsername: string;
   try {
+    const UserAttributes: cognito.AttributeType[] = [];
+    if (input.email) {
+      UserAttributes.push({ Name: "email", Value: input.email });
+    }
+    if (input.phoneNumber) {
+      UserAttributes.push({ Name: "phone_number", Value: input.phoneNumber });
+    }
+    if (input.name) {
+      UserAttributes.push({ Name: "name", Value: input.name });
+    }
+    if (input.givenName) {
+      UserAttributes.push({ Name: "given_name", Value: input.givenName });
+    }
     const createUserParams: cognito.AdminCreateUserCommandInput = {
       ...baseParams,
       TemporaryPassword: input.password,
-      UserAttributes: [
-        { Name: "email", Value: input.email },
-        { Name: "phone_number", Value: input.phoneNumber },
-        { Name: "name", Value: input.name },
-        { Name: "given_name", Value: input.givenName },
-      ],
+      UserAttributes,
     };
     const resp = await CLIENT.send(
       new cognito.AdminCreateUserCommand(createUserParams)
