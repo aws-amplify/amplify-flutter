@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.malformed_accept_with_generic_string_output;
+part of 'malformed_accept_with_generic_string_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

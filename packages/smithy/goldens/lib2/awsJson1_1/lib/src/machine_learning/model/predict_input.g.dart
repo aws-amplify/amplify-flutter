@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.machine_learning.model.predict_input;
+part of 'predict_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

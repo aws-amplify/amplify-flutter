@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.retry_config;
+part of 'retry_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_validation_protocol.model.validation_exception_field;
+part of 'validation_exception_field.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

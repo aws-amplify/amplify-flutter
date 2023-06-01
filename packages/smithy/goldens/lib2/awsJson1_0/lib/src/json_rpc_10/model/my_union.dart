@@ -14,6 +14,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
+/// A union with a representative set of types for members.
 sealed class MyUnion extends _i1.SmithyUnion<MyUnion> {
   const MyUnion._();
 

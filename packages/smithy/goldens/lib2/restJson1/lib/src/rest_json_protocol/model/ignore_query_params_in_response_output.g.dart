@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.ignore_query_params_in_response_output;
+part of 'ignore_query_params_in_response_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

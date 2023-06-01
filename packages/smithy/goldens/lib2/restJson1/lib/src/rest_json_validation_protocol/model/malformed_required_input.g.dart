@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_validation_protocol.model.malformed_required_input;
+part of 'malformed_required_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

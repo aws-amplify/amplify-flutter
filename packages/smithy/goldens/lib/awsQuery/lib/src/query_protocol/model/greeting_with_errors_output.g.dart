@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.greeting_with_errors_output;
+part of 'greeting_with_errors_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

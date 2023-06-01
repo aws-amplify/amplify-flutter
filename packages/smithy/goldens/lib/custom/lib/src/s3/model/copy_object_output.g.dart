@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of custom_v1.s3.model.copy_object_output;
+part of 'copy_object_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.post_player_action_input;
+part of 'post_player_action_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

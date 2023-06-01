@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.glacier.model.service_unavailable_exception;
+part of 'service_unavailable_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

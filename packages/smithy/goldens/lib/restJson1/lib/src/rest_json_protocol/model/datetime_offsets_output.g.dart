@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.datetime_offsets_output;
+part of 'datetime_offsets_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

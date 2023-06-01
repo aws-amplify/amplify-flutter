@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.nested_structures_input;
+part of 'nested_structures_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

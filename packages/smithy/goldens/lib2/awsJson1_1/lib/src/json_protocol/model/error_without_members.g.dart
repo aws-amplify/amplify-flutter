@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.json_protocol.model.error_without_members;
+part of 'error_without_members.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

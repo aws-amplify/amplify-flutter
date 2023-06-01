@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.structure_list_member;
+part of 'structure_list_member.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

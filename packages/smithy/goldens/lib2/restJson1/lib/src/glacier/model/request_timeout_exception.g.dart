@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.glacier.model.request_timeout_exception;
+part of 'request_timeout_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

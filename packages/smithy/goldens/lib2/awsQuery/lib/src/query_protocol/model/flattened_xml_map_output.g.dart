@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.flattened_xml_map_output;
+part of 'flattened_xml_map_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
