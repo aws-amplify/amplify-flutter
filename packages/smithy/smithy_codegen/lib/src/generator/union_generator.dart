@@ -30,10 +30,8 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
     context.generatedTypes[symbol] ??= {};
 
     builder.body.addAll([
-      // TODO(dnys1): Remove when `code_builder` supports class modifiers
-      const Code('sealed '),
       _unionClass,
-      ..._variantClasses.expand((cls) => [const Code('final '), cls]),
+      ..._variantClasses,
       ..._serializers,
     ]);
 
@@ -42,10 +40,10 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
 
   Class get _unionClass => Class(
         (c) => c
-          // TODO(dnys1): Add back when `code_builder` supports class modifiers
-          // ..docs.addAll([
-          //   if (shape.hasDocs(context)) shape.formattedDocs(context),
-          // ])
+          ..docs.addAll([
+            if (shape.hasDocs(context)) shape.formattedDocs(context),
+          ])
+          ..sealed = true
           ..name = className
           ..extend = DartTypes.smithy.smithyUnion(symbol)
           ..constructors.addAll([
@@ -237,6 +235,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
       yield Class((c) {
         c
           ..name = variantClassName(member)
+          ..modifier = ClassModifier.final$
           ..extend = symbol
           ..constructors.addAll([
             ctor,
@@ -293,6 +292,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
     yield Class(
       (c) => c
         ..name = variantClassName(unknownMember)
+        ..modifier = ClassModifier.final$
         ..extend = symbol
         ..constructors.add(ctor)
         ..fields.addAll([
