@@ -656,11 +656,9 @@ final class SignInStateMachine
                 ..accessToken = accessToken
                 ..clientMetadata.addAll(clientMetadata ?? const {})
                 ..userAttributes.addAll([
-                  for (final userAttribute in _attributesNeedingUpdate!.entries)
-                    AttributeType(
-                      name: userAttribute.toString(),
-                      value: userAttribute.value,
-                    )
+                  for (final MapEntry(:key, :value)
+                      in _attributesNeedingUpdate!.entries)
+                    AttributeType(name: key.key, value: value)
                 ]),
             ),
           )
