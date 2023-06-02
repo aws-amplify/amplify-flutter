@@ -43,7 +43,13 @@ Widget apiButton({
     onPressed: Amplify.isConfigured ? onPressed : null,
     style: ElevatedButton.styleFrom(
       backgroundColor: btnColor,
+      padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
     ),
-    child: Text(text),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: onPressed != null ? Colors.white : Colors.black45,
+      ),
+    ),
   );
 }

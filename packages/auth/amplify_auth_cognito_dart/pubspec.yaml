@@ -21,12 +21,12 @@ dependencies:
   convert: ^3.0.1
   crypto: ^3.0.1
   fixnum: ^1.0.0
-  http: ^0.13.4
+  http: ">=0.13.0 <2.0.0"
   intl: ">=0.18.0 <1.0.0"
   js: ^0.6.4
   json_annotation: ">=4.8.1 <4.9.0"
   meta: ^1.7.0
-  oauth2: ^2.0.0
+  oauth2: ^2.0.2
   path: ^1.8.0
   smithy: ">=0.5.0 <0.6.0"
   smithy_aws: ">=0.5.0 <0.6.0"

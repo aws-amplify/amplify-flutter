@@ -88,8 +88,10 @@ class GraphQLCreateExamples extends StatelessWidget {
           'Create',
           textAlign: TextAlign.left,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        Wrap(
+          alignment: WrapAlignment.spaceBetween,
+          spacing: 12,
+          runSpacing: 12,
           children: [
             apiButton(
               onPressed: createBlog,

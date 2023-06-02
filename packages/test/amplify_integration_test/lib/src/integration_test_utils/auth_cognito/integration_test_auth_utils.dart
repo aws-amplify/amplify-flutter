@@ -100,48 +100,39 @@ Future<String> adminCreateUser(
   bool autoConfirm = false,
   bool enableMfa = false,
   bool verifyAttributes = false,
+  bool autoFillAttributes = true,
   List<AuthUserAttribute> attributes = const [],
 }) async {
   final createUserParams = <String, dynamic>{
     'autoConfirm': autoConfirm,
     'email': attributes
-        .firstWhere(
-          (el) => el.userAttributeKey.key == AuthUserAttributeKey.email.key,
-          orElse: () => AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.email,
-            value: generateEmail(),
-          ),
-        )
-        .value,
+            .firstWhereOrNull(
+              (el) => el.userAttributeKey.key == AuthUserAttributeKey.email.key,
+            )
+            ?.value ??
+        (autoFillAttributes ? generateEmail() : null),
     'enableMFA': enableMfa,
     'givenName': attributes
-        .firstWhere(
-          (el) => el.userAttributeKey.key == AuthUserAttributeKey.givenName.key,
-          orElse: () => const AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.givenName,
-            value: 'default_given_name',
-          ),
-        )
-        .value,
+            .firstWhereOrNull(
+              (el) =>
+                  el.userAttributeKey.key == AuthUserAttributeKey.givenName.key,
+            )
+            ?.value ??
+        (autoFillAttributes ? 'default_given_name' : null),
     'name': attributes
-        .firstWhere(
-          (el) => el.userAttributeKey.key == AuthUserAttributeKey.name.key,
-          orElse: () => const AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.name,
-            value: 'default_name',
-          ),
-        )
-        .value,
+            .firstWhereOrNull(
+              (el) => el.userAttributeKey.key == AuthUserAttributeKey.name.key,
+            )
+            ?.value ??
+        (autoFillAttributes ? 'default_name' : null),
     'phoneNumber': attributes
-        .firstWhere(
-          (el) =>
-              el.userAttributeKey.key == AuthUserAttributeKey.phoneNumber.key,
-          orElse: () => AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.phoneNumber,
-            value: generatePhoneNumber(),
-          ),
-        )
-        .value,
+            .firstWhereOrNull(
+              (el) =>
+                  el.userAttributeKey.key ==
+                  AuthUserAttributeKey.phoneNumber.key,
+            )
+            ?.value ??
+        (autoFillAttributes ? generatePhoneNumber() : null),
     'username': username,
     'verifyAttributes': verifyAttributes,
   };
