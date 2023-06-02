@@ -86,7 +86,7 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
 4. Add Amplify categories (choose defaults for this example):
 
    ```bash
-   $ amplify add auth   //choose default configuration after entering this command in your terminal.
+   $ amplify add auth  # Choose default configuration after entering this command in your terminal.
    ```
 
 5. Push changes to the cloud to provision the backend resources:
