@@ -17,7 +17,7 @@ type Subscription {
 
 input CreateUserInput {
   username: String!
-  password: String
+  password: String!
   autoConfirm: Boolean
   enableMFA: Boolean
   verifyAttributes: Boolean
