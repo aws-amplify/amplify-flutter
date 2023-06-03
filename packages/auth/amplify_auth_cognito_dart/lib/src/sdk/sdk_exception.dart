@@ -632,21 +632,19 @@ Object transformSdkException(Object e) {
   if (e is! SmithyException) {
     return e is Exception ? core.AuthException.fromException(e) : e;
   }
-  final message = e.message ?? e.toString();
-  final shapeId = e.shapeId;
-  if (shapeId == null) {
-    return UnknownServiceException(message, underlyingException: e);
-  }
+  final message = e.message ?? 'An unknown error occurred';
+  final shapeName = e.shapeId?.shape;
+
   // Some exceptions are returned as non-Lambda exceptions even though they
   // orginated in user-defined lambdas.
   if (LambdaException.isLambdaException(message) ||
-      shapeId.shape == 'InvalidLambdaResponseException' ||
-      shapeId.shape == 'UnexpectedLambdaException' ||
-      shapeId.shape == 'UserLambdaValidationException') {
+      shapeName == 'InvalidLambdaResponseException' ||
+      shapeName == 'UnexpectedLambdaException' ||
+      shapeName == 'UserLambdaValidationException') {
     return LambdaException(message, underlyingException: e);
   }
 
-  return switch (shapeId.shape) {
+  return switch (shapeName) {
     'AliasExistsException' => AliasExistsException(
         message,
         underlyingException: e,
@@ -663,7 +661,7 @@ Object transformSdkException(Object e) {
         message,
         underlyingException: e,
       ),
-    'EnableSoftwareTokenMfaException' => EnableSoftwareTokenMfaException(
+    'EnableSoftwareTokenMFAException' => EnableSoftwareTokenMfaException(
         message,
         underlyingException: e,
       ),
@@ -715,7 +713,7 @@ Object transformSdkException(Object e) {
         message,
         underlyingException: e,
       ),
-    'MfaMethodNotFoundException' => MfaMethodNotFoundException(
+    'MFAMethodNotFoundException' => MfaMethodNotFoundException(
         message,
         underlyingException: e,
       ),
@@ -731,7 +729,7 @@ Object transformSdkException(Object e) {
         message,
         underlyingException: e,
       ),
-    'SoftwareTokenMfaNotFoundException' => SoftwareTokenMfaNotFoundException(
+    'SoftwareTokenMFANotFoundException' => SoftwareTokenMfaNotFoundException(
         message,
         underlyingException: e,
       ),
