@@ -16,6 +16,8 @@ import 'get_current_user_test.dart' as get_current_user_tests;
 import 'hosted_ui_webview_test.dart' as hosted_ui_webview_tests;
 import 'hub_events_test.dart' as hub_events_tests;
 import 'mfa_sms_test.dart' as mfa_sms_tests;
+import 'mfa_sms_totp_test.dart' as mfa_sms_totp_tests;
+import 'mfa_totp_test.dart' as mfa_totp_tests;
 import 'native_auth_bridge_test.dart' as native_auth_bridge_tests;
 import 'reset_password_test.dart' as reset_password_tests;
 import 'security_test.dart' as security_tests;
@@ -44,6 +46,8 @@ void main() async {
     hosted_ui_webview_tests.main();
     hub_events_tests.main();
     mfa_sms_tests.main();
+    mfa_sms_totp_tests.main();
+    mfa_totp_tests.main();
     native_auth_bridge_tests.main();
     reset_password_tests.main();
     security_tests.main();

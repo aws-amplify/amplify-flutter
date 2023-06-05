@@ -4,6 +4,7 @@
 import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
+import 'package:checks/checks.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_runner.dart';
@@ -11,41 +12,113 @@ import 'test_runner.dart';
 void main() {
   testRunner.setupTests();
 
-  group(
-    'MFA (SMS)',
-    () {
-      setUp(() async {
-        await testRunner.configure();
-      });
+  group('MFA (SMS)', () {
+    final smsEnvironments = mfaEnvironments.where((env) => env.sms);
+    for (final env in smsEnvironments) {
+      testRunner.withEnvironment(env, () {
+        asyncTest(
+          'can sign in with SMS MFA enabled by administrator',
+          (_) async {
+            final username = generateUsername();
+            final password = generatePassword();
 
-      asyncTest('can sign in with SMS MFA', (_) async {
+            final otpResult =
+                await getOtpCode(UserAttribute.username(username));
+
+            await adminCreateUser(
+              username,
+              password,
+              autoConfirm: true,
+              verifyAttributes: true,
+              enableMfa: true,
+            );
+
+            final signInRes = await Amplify.Auth.signIn(
+              username: username,
+              password: password,
+            );
+            check(signInRes.nextStep.signInStep)
+                .equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
+
+            final confirmRes = await Amplify.Auth.confirmSignIn(
+              confirmationValue: await otpResult.code,
+            );
+            check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
+
+            check(await cognitoPlugin.getMfaPreference()).equals(
+              const UserMfaPreference(
+                enabled: {MfaType.sms},
+                preferred: MfaType.sms,
+              ),
+            );
+          },
+        );
+      });
+    }
+
+    testRunner.withEnvironment(MfaEnvironment.mfaRequiredSms, () {
+      asyncTest('must configure MFA when required', (_) async {
         final username = generateUsername();
         final password = generatePassword();
-
-        final otpResult = await getOtpCode(UserAttribute.username(username));
 
         await adminCreateUser(
           username,
           password,
           autoConfirm: true,
           verifyAttributes: true,
-          enableMfa: true,
+        );
+
+        final otpResult = await getOtpCode(UserAttribute.username(username));
+
+        final signInRes = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        check(
+          signInRes.nextStep.signInStep,
+          because: 'When MFA is required, it must be configured during '
+              'the first sign-in',
+        ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
+
+        final confirmRes = await Amplify.Auth.confirmSignIn(
+          confirmationValue: await otpResult.code,
+        );
+        check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
+
+        check(await cognitoPlugin.getMfaPreference()).equals(
+          const UserMfaPreference(
+            enabled: {MfaType.sms},
+            preferred: MfaType.sms,
+          ),
+        );
+      });
+    });
+
+    testRunner.withEnvironment(MfaEnvironment.mfaOptionalSms, () {
+      asyncTest('can skip configuring MFA when not required', (_) async {
+        final username = generateUsername();
+        final password = generatePassword();
+
+        await adminCreateUser(
+          username,
+          password,
+          autoConfirm: true,
+          verifyAttributes: true,
         );
 
         final signInRes = await Amplify.Auth.signIn(
           username: username,
           password: password,
         );
-        expect(
+        check(
           signInRes.nextStep.signInStep,
-          AuthSignInStep.confirmSignInWithSmsMfaCode,
-        );
+          because: 'When MFA is not required, it can be skipped during '
+              'the first sign-in',
+        ).equals(AuthSignInStep.done);
 
-        final confirmRes = await Amplify.Auth.confirmSignIn(
-          confirmationValue: await otpResult.code,
-        );
-        expect(confirmRes.nextStep.signInStep, AuthSignInStep.done);
+        check(await cognitoPlugin.getMfaPreference())
+            .equals(const UserMfaPreference());
       });
-    },
-  );
+    });
+  });
 }
