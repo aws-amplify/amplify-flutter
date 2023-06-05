@@ -27,7 +27,6 @@ final class TotpSetupStateMachine
   Future<void> resolve(TotpSetupEvent event) async {
     switch (event) {
       case TotpSetupInitiate _:
-        emit(const TotpSetupState.inProgress());
         await _onInitiate(event);
       case TotpSetupVerify _:
         await _onVerify(event);
@@ -62,12 +61,9 @@ final class TotpSetupStateMachine
     _session = response.session;
     emit(
       TotpSetupState.requiresVerification(
-        TotpSetupResult(
+        TotpSetupDetails(
           username: CognitoIdToken(tokens.idToken).username,
           secretCode: response.secretCode!,
-          // TODO(dnys1): Use application name?
-          defaultLabel: 'AWSCognito',
-          issuer: 'Cognito',
         ),
       ),
     );
@@ -87,10 +83,21 @@ final class TotpSetupStateMachine
           ),
         )
         .result;
-    await _cognitoIdp.setMfaSettings(
-      accessToken: accessToken,
-      enabled: [MfaType.totp],
-    );
-    emit(const TotpSetupState.success());
+    try {
+      await _cognitoIdp.setMfaSettings(
+        accessToken: accessToken,
+        totp: MfaPreference.enabled,
+      );
+    } on Exception catch (e, st) {
+      logger.error(
+        'Failed to set MFA settings. '
+        'Call `Amplify.Auth.setMfaPreferences(totp: MfaPreference.enabled)` to fix this.',
+        e,
+        st,
+      );
+    } finally {
+      _session = null;
+      emit(const TotpSetupState.success());
+    }
   }
 }

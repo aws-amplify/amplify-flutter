@@ -46,9 +46,13 @@ final class TotpSetupInitiate extends TotpSetupEvent {
 
   @override
   PreconditionException? checkPrecondition(TotpSetupState currentState) {
-    if (currentState.type != TotpSetupStateType.idle) {
+    if (currentState.type == TotpSetupStateType.requiresVerification) {
       // This should not happen due to state machine queue.
-      return const AuthPreconditionException('TOTP setup already in progress');
+      return const AuthPreconditionException(
+        'TOTP setup already in progress',
+        recoverySuggestion:
+            'Call Amplify.Auth.verifyTotpSetup to complete the current setup',
+      );
     }
     return null;
   }
@@ -73,7 +77,7 @@ final class TotpSetupVerify extends TotpSetupEvent {
   /// The MFA code sent to the registered TOTP device.
   final String code;
 
-  /// A name given by the user to aid in recognizing the TOTP device.
+  /// A unique name to help identify the registered TOTP device.
   final String? friendlyDeviceName;
 
   @override

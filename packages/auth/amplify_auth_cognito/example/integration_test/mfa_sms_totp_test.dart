@@ -46,12 +46,12 @@ void main() {
           because: 'MFA is optional',
         ).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.getMfaPreference())
+        check(await cognitoPlugin.fetchMfaPreference())
             .equals(const UserMfaPreference());
 
         await setUpTotp();
 
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.totp},
             preferred: MfaType.totp,
@@ -110,22 +110,23 @@ void main() {
           because: 'MFA is optional',
         ).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.getMfaPreference())
+        check(await cognitoPlugin.fetchMfaPreference())
             .equals(const UserMfaPreference());
 
         await setUpTotp();
 
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.totp},
             preferred: MfaType.totp,
           ),
         );
 
-        await cognitoPlugin.setMfaPreference(
-          enabled: [MfaType.sms, MfaType.totp],
+        await cognitoPlugin.updateMfaPreference(
+          sms: MfaPreference.enabled,
+          totp: MfaPreference.enabled,
         );
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: null,
@@ -140,7 +141,7 @@ void main() {
             password: password,
           );
           check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithMfaSelection);
+              .equals(AuthSignInStep.continueSignInWithMfaSelection);
           check(signInRes.nextStep.allowedMfaTypes)
               .isNotNull()
               .deepEquals({MfaType.sms, MfaType.totp});
@@ -162,7 +163,7 @@ void main() {
           check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
         }
 
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: null,
@@ -171,11 +172,11 @@ void main() {
 
         // Verify we can set TOTP as preferred and forego selection.
 
-        await cognitoPlugin.setMfaPreference(
-          preferred: MfaType.totp,
+        await cognitoPlugin.updateMfaPreference(
+          totp: MfaPreference.preferred,
         );
         check(
-          await cognitoPlugin.getMfaPreference(),
+          await cognitoPlugin.fetchMfaPreference(),
           because: 'TOTP should be marked preferred',
         ).equals(
           const UserMfaPreference(
@@ -207,10 +208,10 @@ void main() {
 
         // Verify we can switch to sMS as preferred.
 
-        await cognitoPlugin.setMfaPreference(
-          preferred: MfaType.sms,
+        await cognitoPlugin.updateMfaPreference(
+          sms: MfaPreference.preferred,
         );
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: MfaType.sms,
@@ -266,22 +267,23 @@ void main() {
           because: 'MFA is optional',
         ).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.getMfaPreference())
+        check(await cognitoPlugin.fetchMfaPreference())
             .equals(const UserMfaPreference());
 
         await setUpTotp();
 
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.totp},
             preferred: MfaType.totp,
           ),
         );
 
-        await cognitoPlugin.setMfaPreference(
-          enabled: [MfaType.sms, MfaType.totp],
+        await cognitoPlugin.updateMfaPreference(
+          sms: MfaPreference.enabled,
+          totp: MfaPreference.enabled,
         );
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: null,
@@ -295,7 +297,7 @@ void main() {
           password: password,
         );
         check(resignInRes.nextStep.signInStep)
-            .equals(AuthSignInStep.confirmSignInWithMfaSelection);
+            .equals(AuthSignInStep.continueSignInWithMfaSelection);
         check(resignInRes.nextStep.allowedMfaTypes)
             .isNotNull()
             .deepEquals({MfaType.sms, MfaType.totp});
@@ -318,7 +320,7 @@ void main() {
         );
         check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: null,
@@ -327,10 +329,10 @@ void main() {
 
         // Verify we can set SMS as preferred and forego selection.
 
-        await cognitoPlugin.setMfaPreference(
-          preferred: MfaType.sms,
+        await cognitoPlugin.updateMfaPreference(
+          sms: MfaPreference.preferred,
         );
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: MfaType.sms,
@@ -362,11 +364,11 @@ void main() {
 
         // Verify we can switch to TOTP as preferred.
 
-        await cognitoPlugin.setMfaPreference(
-          preferred: MfaType.totp,
+        await cognitoPlugin.updateMfaPreference(
+          totp: MfaPreference.preferred,
         );
         check(
-          await cognitoPlugin.getMfaPreference(),
+          await cognitoPlugin.fetchMfaPreference(),
           because: 'TOTP should be marked preferred',
         ).equals(
           const UserMfaPreference(
@@ -419,9 +421,9 @@ void main() {
           signInRes.nextStep.signInStep,
           because: 'MFA is required, and TOTP is chosen when '
               'no phone number is registered',
-        ).equals(AuthSignInStep.confirmSignInWithTotpSetup);
+        ).equals(AuthSignInStep.continueSignInWithTotpSetup);
 
-        final secretCode = signInRes.nextStep.totpSetupResult!.secretCode;
+        final secretCode = signInRes.nextStep.totpSetupDetails!.secretCode;
         final setupRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await generateTotpCode(secretCode),
           options: const ConfirmSignInOptions(
@@ -432,7 +434,7 @@ void main() {
         );
         check(setupRes.nextStep.signInStep).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.totp},
             preferred: MfaType.totp,
@@ -492,7 +494,7 @@ void main() {
         }
 
         check(
-          await cognitoPlugin.getMfaPreference(),
+          await cognitoPlugin.fetchMfaPreference(),
           because: 'MFA is required so Cognito automatically enables SMS MFA',
         ).equals(
           const UserMfaPreference(
@@ -503,7 +505,7 @@ void main() {
 
         await setUpTotp();
 
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: null,
@@ -520,7 +522,7 @@ void main() {
           check(
             resignInRes.nextStep.signInStep,
             because: 'Both SMS + TOTP are activated with no preference',
-          ).equals(AuthSignInStep.confirmSignInWithMfaSelection);
+          ).equals(AuthSignInStep.continueSignInWithMfaSelection);
           check(resignInRes.nextStep.allowedMfaTypes)
               .isNotNull()
               .deepEquals({MfaType.sms, MfaType.totp});
@@ -542,7 +544,7 @@ void main() {
           check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
         }
 
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: null,
@@ -551,10 +553,10 @@ void main() {
 
         // Verify we can set TOTP as preferred and forego selection.
 
-        await cognitoPlugin.setMfaPreference(
-          preferred: MfaType.totp,
+        await cognitoPlugin.updateMfaPreference(
+          totp: MfaPreference.preferred,
         );
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: MfaType.totp,
@@ -586,10 +588,10 @@ void main() {
 
         // Verify we can switch to SMS as preferred.
 
-        await cognitoPlugin.setMfaPreference(
-          preferred: MfaType.sms,
+        await cognitoPlugin.updateMfaPreference(
+          sms: MfaPreference.preferred,
         );
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: MfaType.sms,
@@ -656,7 +658,7 @@ void main() {
         }
 
         check(
-          await cognitoPlugin.getMfaPreference(),
+          await cognitoPlugin.fetchMfaPreference(),
           because: 'MFA is required so Cognito automatically enables SMS MFA',
         ).equals(
           const UserMfaPreference(
@@ -667,7 +669,7 @@ void main() {
 
         await setUpTotp();
 
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: null,
@@ -683,7 +685,7 @@ void main() {
           check(
             signInRes.nextStep.signInStep,
             because: 'Both SMS + TOTP are activated',
-          ).equals(AuthSignInStep.confirmSignInWithMfaSelection);
+          ).equals(AuthSignInStep.continueSignInWithMfaSelection);
           check(signInRes.nextStep.allowedMfaTypes)
               .isNotNull()
               .unorderedEquals([MfaType.sms, MfaType.totp]);
@@ -707,7 +709,7 @@ void main() {
           check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
         }
 
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: null,
@@ -716,10 +718,10 @@ void main() {
 
         // Verify we can set SMS as preferred and forego selection.
 
-        await cognitoPlugin.setMfaPreference(
-          preferred: MfaType.sms,
+        await cognitoPlugin.updateMfaPreference(
+          sms: MfaPreference.preferred,
         );
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: MfaType.sms,
@@ -753,10 +755,10 @@ void main() {
 
         // Verify we can switch to TOTP as preferred.
 
-        await cognitoPlugin.setMfaPreference(
-          preferred: MfaType.totp,
+        await cognitoPlugin.updateMfaPreference(
+          totp: MfaPreference.preferred,
         );
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
             preferred: MfaType.totp,

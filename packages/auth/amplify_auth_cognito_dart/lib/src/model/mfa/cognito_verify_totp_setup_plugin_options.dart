@@ -21,6 +21,7 @@ class CognitoVerifyTotpSetupPluginOptions extends VerifyTotpSetupPluginOptions {
   ) =>
       _$CognitoVerifyTotpSetupPluginOptionsFromJson(json);
 
+  /// A unique name to help identify the registered TOTP device.
   final String? friendlyDeviceName;
 
   @override

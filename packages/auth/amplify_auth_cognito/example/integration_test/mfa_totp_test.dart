@@ -40,9 +40,9 @@ void main() {
           signInRes.nextStep.signInStep,
           because:
               "TOTP MFA is automatically enabled when it's the only option",
-        ).equals(AuthSignInStep.confirmSignInWithTotpSetup);
+        ).equals(AuthSignInStep.continueSignInWithTotpSetup);
 
-        final secretCode = signInRes.nextStep.totpSetupResult!.secretCode;
+        final secretCode = signInRes.nextStep.totpSetupDetails!.secretCode;
         final setupRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await generateTotpCode(secretCode),
           options: const ConfirmSignInOptions(
@@ -53,7 +53,7 @@ void main() {
         );
         check(setupRes.nextStep.signInStep).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.totp},
             preferred: MfaType.totp,
@@ -110,10 +110,10 @@ void main() {
 
         await setUpTotp();
 
-        await cognitoPlugin.setMfaPreference(
-          preferred: MfaType.totp,
+        await cognitoPlugin.updateMfaPreference(
+          totp: MfaPreference.preferred,
         );
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.totp},
             preferred: MfaType.totp,

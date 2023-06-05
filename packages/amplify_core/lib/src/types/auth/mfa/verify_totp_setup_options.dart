@@ -32,7 +32,7 @@ class VerifyTotpSetupOptions
 }
 
 /// {@template amplify_core.auth.verify_totp_setup_plugin_options}
-/// Plugin-specific options for `Amplify.Auth.confirmSignIn`.
+/// Plugin-specific options for `Amplify.Auth.verifyTotpSetup`.
 /// {@endtemplate}
 abstract class VerifyTotpSetupPluginOptions
     with

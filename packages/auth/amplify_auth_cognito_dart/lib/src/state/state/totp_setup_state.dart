@@ -10,9 +10,6 @@ enum TotpSetupStateType {
   /// {@macro amplify_auth_cognito.totp_setup_idle}
   idle,
 
-  /// {@macro amplify_auth_cognito.totp_setup_in_progress}
-  inProgress,
-
   /// {@macro amplify_auth_cognito.totp_setup_requires_verification}
   requiresVerification,
 
@@ -32,11 +29,8 @@ sealed class TotpSetupState extends AuthState<TotpSetupStateType> {
   /// {@macro amplify_auth_cognito.totp_setup_idle}
   const factory TotpSetupState.idle() = TotpSetupIdle;
 
-  /// {@macro amplify_auth_cognito.totp_setup_in_progress}
-  const factory TotpSetupState.inProgress() = TotpSetupInProgress;
-
   /// {@macro amplify_auth_cognito.totp_setup_success}
-  const factory TotpSetupState.requiresVerification(TotpSetupResult result) =
+  const factory TotpSetupState.requiresVerification(TotpSetupDetails result) =
       TotpSetupRequiresVerification;
 
   /// {@macro amplify_auth_cognito.totp_setup_failure}
@@ -66,55 +60,22 @@ final class TotpSetupIdle extends TotpSetupState {
   TotpSetupStateType get type => TotpSetupStateType.idle;
 }
 
-/// {@template amplify_auth_cognito.totp_setup_in_progress}
-/// The state machine is busy with a setup session.
-/// {@endtemplate}
-final class TotpSetupInProgress extends TotpSetupState {
-  /// {@macro amplify_auth_cognito.totp_setup_in_progress}
-  const TotpSetupInProgress() : super._();
-
-  @override
-  List<Object?> get props => const [];
-
-  @override
-  TotpSetupStateType get type => TotpSetupStateType.inProgress;
-}
-
 /// {@template amplify_auth_cognito.totp_setup_requires_verification}
 /// The TOTP device requires verification.
 /// {@endtemplate}
-final class TotpSetupRequiresVerification extends TotpSetupState {
+final class TotpSetupRequiresVerification extends TotpSetupState
+    with SuccessState<TotpSetupStateType> {
   /// {@macro amplify_auth_cognito.totp_setup_requires_verification}
   const TotpSetupRequiresVerification(this.result) : super._();
 
   /// The result of setting up a new TOTP device.
-  final TotpSetupResult result;
+  final TotpSetupDetails result;
 
   @override
   List<Object?> get props => [result];
 
   @override
   TotpSetupStateType get type => TotpSetupStateType.requiresVerification;
-}
-
-/// {@template amplify_auth_cognito.totp_setup_failure}
-/// The setup flow failed unrecoverably with [exception].
-/// {@endtemplate}
-final class TotpSetupFailure extends TotpSetupState {
-  /// {@macro amplify_auth_cognito.totp_setup_failure}
-  const TotpSetupFailure(this.exception, this.stackTrace) : super._();
-
-  /// The exception which triggered the failure.
-  final Exception exception;
-
-  /// The stack trace when the [exception] occurred.
-  final StackTrace stackTrace;
-
-  @override
-  List<Object?> get props => [exception, stackTrace];
-
-  @override
-  TotpSetupStateType get type => TotpSetupStateType.failure;
 }
 
 /// {@template amplify_auth_cognito.totp_setup_success}
@@ -130,4 +91,27 @@ final class TotpSetupSuccess extends TotpSetupState
 
   @override
   TotpSetupStateType get type => TotpSetupStateType.success;
+}
+
+/// {@template amplify_auth_cognito.totp_setup_failure}
+/// The setup flow failed unrecoverably with [exception].
+/// {@endtemplate}
+final class TotpSetupFailure extends TotpSetupState
+    with ErrorState<TotpSetupStateType> {
+  /// {@macro amplify_auth_cognito.totp_setup_failure}
+  const TotpSetupFailure(this.exception, this.stackTrace) : super._();
+
+  /// The exception which triggered the failure.
+  @override
+  final Exception exception;
+
+  /// The stack trace when the [exception] occurred.
+  @override
+  final StackTrace stackTrace;
+
+  @override
+  List<Object?> get props => [exception, stackTrace];
+
+  @override
+  TotpSetupStateType get type => TotpSetupStateType.failure;
 }

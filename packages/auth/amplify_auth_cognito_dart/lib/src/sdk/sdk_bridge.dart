@@ -6,8 +6,10 @@
 library amplify_auth_cognito.sdk.sdk_bridge;
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
+    hide InvalidParameterException;
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
+    hide InvalidParameterException;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
 import 'package:amplify_core/amplify_core.dart'
     show AmplifyHttpClient, AuthenticationFlowType, DependencyManager, MfaType;
@@ -25,8 +27,9 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
           AuthSignInStep.confirmSignInWithNewPassword,
         ChallengeNameType.smsMfa => AuthSignInStep.confirmSignInWithSmsMfaCode,
         ChallengeNameType.selectMfaType =>
-          AuthSignInStep.confirmSignInWithMfaSelection,
-        ChallengeNameType.mfaSetup => AuthSignInStep.confirmSignInWithTotpSetup,
+          AuthSignInStep.continueSignInWithMfaSelection,
+        ChallengeNameType.mfaSetup =>
+          AuthSignInStep.continueSignInWithTotpSetup,
         ChallengeNameType.softwareTokenMfa =>
           AuthSignInStep.confirmSignInWithTotpMfaCode,
         ChallengeNameType.adminNoSrpAuth ||
@@ -795,8 +798,8 @@ extension MfaSettings on CognitoIdentityProviderClient {
   /// Sets the MFA settings for the user.
   Future<void> setMfaSettings({
     required String accessToken,
-    List<MfaType>? enabled,
-    MfaType? preferred,
+    MfaPreference? sms,
+    MfaPreference? totp,
   }) async {
     final UserMfaPreference(
       enabled: currentEnabled,
@@ -804,15 +807,46 @@ extension MfaSettings on CognitoIdentityProviderClient {
     ) = await _getRawUserSettings(
       accessToken: accessToken,
     );
-    final enabledTypes = {...currentEnabled, ...?enabled};
-    final newPreference = preferred ?? currentPreference;
+    const enabledValues = [
+      MfaPreference.enabled,
+      MfaPreference.notPreferred,
+      MfaPreference.preferred,
+    ];
+    final enabled = [
+      if (enabledValues.contains(sms) || currentEnabled.contains(MfaType.sms))
+        MfaType.sms,
+      if (enabledValues.contains(totp) || currentEnabled.contains(MfaType.totp))
+        MfaType.totp,
+    ];
+    final preferred = switch ((currentPreference, sms: sms, totp: totp)) {
+      // Prevent an invalid choice.
+      (_, sms: MfaPreference.preferred, totp: MfaPreference.preferred) =>
+        throw const InvalidParameterException(
+          'Cannot assign both SMS and TOTP as preferred',
+        ),
+
+      // Setting one or the other as preferred overrides previous value.
+      (_, sms: MfaPreference.preferred, totp: != MfaPreference.preferred) =>
+        MfaType.sms,
+      (_, sms: != MfaPreference.preferred, totp: MfaPreference.preferred) =>
+        MfaType.totp,
+
+      // Setting one or the other as not preferred removes current preference
+      // if it matches.
+      (MfaType.sms, sms: MfaPreference.notPreferred, totp: _) ||
+      (MfaType.totp, sms: _, totp: MfaPreference.notPreferred) =>
+        null,
+
+      // Otherwise, make no change and take whatever the current preference is.
+      _ => currentPreference,
+    };
     final smsMfaSettings = SmsMfaSettingsType(
-      enabled: enabledTypes.contains(MfaType.sms),
-      preferredMfa: newPreference == MfaType.sms,
+      enabled: enabled.contains(MfaType.sms),
+      preferredMfa: preferred == MfaType.sms,
     );
     final softwareTokenSettings = SoftwareTokenMfaSettingsType(
-      enabled: enabledTypes.contains(MfaType.totp),
-      preferredMfa: newPreference == MfaType.totp,
+      enabled: enabled.contains(MfaType.totp),
+      preferredMfa: preferred == MfaType.totp,
     );
     await setUserMfaPreference(
       SetUserMfaPreferenceRequest(

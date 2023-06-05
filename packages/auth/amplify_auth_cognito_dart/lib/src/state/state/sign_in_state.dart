@@ -45,7 +45,7 @@ sealed class SignInState extends AuthState<SignInStateType> {
     Map<String, String> challengeParameters,
     List<CognitoUserAttributeKey> requiredAttributes,
     Set<MfaType>? allowedMfaTypes,
-    TotpSetupResult? totpSetupResult,
+    TotpSetupDetails? totpSetupResult,
   ) = SignInChallenge;
 
   /// {@macro amplify_auth_cognito_dart.sign_in_success}
@@ -120,7 +120,7 @@ final class SignInChallenge extends SignInState {
 
   /// The TOTP secret code which can be rendered as a QR code and displayed
   /// to users.
-  final TotpSetupResult? totpSetupResult;
+  final TotpSetupDetails? totpSetupResult;
 
   @override
   SignInStateType get type => SignInStateType.challenge;
