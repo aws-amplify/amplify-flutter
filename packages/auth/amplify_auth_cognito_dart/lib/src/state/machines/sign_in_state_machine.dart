@@ -167,7 +167,7 @@ final class SignInStateMachine
   String? _session;
   SrpInitResult? _initResult;
   Map<CognitoUserAttributeKey, String>? _attributesNeedingUpdate;
-  TotpSetupResult? _totpSetupResult;
+  TotpSetupDetails? _totpSetupResult;
   MfaType? _enableMfaType;
 
   /// The required user attributes returned in the last challenge response.
@@ -552,16 +552,15 @@ final class SignInStateMachine
     });
   }
 
-  TotpSetupResult _createTotpSetupResult(String secretCode) => TotpSetupResult(
-        username: _user.username!,
+  TotpSetupDetails _createTotpSetupResult(String secretCode) =>
+      TotpSetupDetails(
         secretCode: secretCode,
-        defaultLabel: 'AWSCognito',
-        issuer: 'Cognito',
+        username: _user.username!,
       );
 
   /// Initiates registration of a TOTP authenticator for use in TOTP MFA.
   @protected
-  Future<TotpSetupResult> associateSoftwareToken({
+  Future<TotpSetupDetails> associateSoftwareToken({
     String? accessToken,
   }) async {
     final request = AssociateSoftwareTokenRequest(
@@ -905,7 +904,8 @@ final class SignInStateMachine
       if (_enableMfaType case final enableMfaType?) {
         await cognitoIdentityProvider.setMfaSettings(
           accessToken: accessToken,
-          enabled: [enableMfaType],
+          sms: enableMfaType == MfaType.sms ? MfaPreference.enabled : null,
+          totp: enableMfaType == MfaType.totp ? MfaPreference.enabled : null,
         );
       }
 

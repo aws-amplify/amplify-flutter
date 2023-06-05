@@ -116,6 +116,7 @@ final class SignInRespondToChallenge extends SignInEvent {
   /// Required user attributes which were not previously provided.
   final Map<CognitoUserAttributeKey, String> userAttributes;
 
+  /// A unique name to help identify the registered TOTP device.
   final String? friendlyDeviceName;
 
   @override

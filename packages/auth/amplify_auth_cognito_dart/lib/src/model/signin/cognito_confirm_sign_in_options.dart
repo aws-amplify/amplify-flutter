@@ -37,6 +37,7 @@ class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
   /// provided.
   final Map<CognitoUserAttributeKey, String> userAttributes;
 
+  /// A unique name to help identify the registered TOTP device.
   final String? friendlyDeviceName;
 
   @override

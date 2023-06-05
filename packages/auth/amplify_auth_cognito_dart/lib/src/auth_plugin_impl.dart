@@ -542,7 +542,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
             additionalInfo: challengeParameters,
             missingAttributes: requiredAttributes,
             allowedMfaTypes: allowedMfaTypes,
-            totpSetupResult: totpSetupResult,
+            totpSetupDetails: totpSetupResult,
           ),
         ),
       SignInSuccess _ => const CognitoSignInResult(
@@ -904,25 +904,41 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     );
   }
 
-  Future<UserMfaPreference> getMfaPreference() async {
+  /// {@template amplify_core.amplify_auth_category.fetch_mfa_preference}
+  /// Fetches the MFA preference for the current user.
+  /// {@endtemplate}
+  Future<UserMfaPreference> fetchMfaPreference() async {
     final tokens = await _stateMachine.getUserPoolTokens();
-    return _cognitoIdp.getMfaSettings(accessToken: tokens.accessToken.raw);
-  }
-
-  Future<void> setMfaPreference({
-    List<MfaType>? enabled,
-    MfaType? preferred,
-  }) async {
-    final tokens = await _stateMachine.getUserPoolTokens();
-    return _cognitoIdp.setMfaSettings(
+    return _cognitoIdp.getMfaSettings(
       accessToken: tokens.accessToken.raw,
-      enabled: enabled,
-      preferred: preferred,
     );
   }
 
-  Future<TotpSetupResult> setupTotp() async {
-    final machine = _stateMachine.create(TotpSetupStateMachine.type);
+  /// {@template amplify_core.amplify_auth_category.update_mfa_preference}
+  /// Updates the MFA preference for the current user.
+  ///
+  /// If [sms] or [totp] is `null`, the preference for that MFA type is left
+  /// unchanged. Setting either [sms] or [totp] to [MfaPreference.preferred]
+  /// will mark the other as not preferred.
+  /// {@endtemplate}
+  Future<void> updateMfaPreference({
+    MfaPreference? sms,
+    MfaPreference? totp,
+  }) async {
+    final tokens = await _stateMachine.getUserPoolTokens();
+    final accessToken = tokens.accessToken.raw;
+    return _cognitoIdp.setMfaSettings(
+      accessToken: accessToken,
+      sms: sms,
+      totp: totp,
+    );
+  }
+
+  @override
+  Future<TotpSetupDetails> setUpTotp({
+    TotpSetupOptions? options,
+  }) async {
+    final machine = _stateMachine.getOrCreate(TotpSetupStateMachine.type);
     final state =
         await machine.dispatchAndComplete<TotpSetupRequiresVerification>(
       const TotpSetupEvent.initiate(),
@@ -930,6 +946,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     return state.result;
   }
 
+  @override
   Future<void> verifyTotpSetup(
     String totpCode, {
     VerifyTotpSetupOptions? options,

@@ -45,7 +45,7 @@ void main() {
             );
             check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
 
-            check(await cognitoPlugin.getMfaPreference()).equals(
+            check(await cognitoPlugin.fetchMfaPreference()).equals(
               const UserMfaPreference(
                 enabled: {MfaType.sms},
                 preferred: MfaType.sms,
@@ -85,7 +85,7 @@ void main() {
         );
         check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.getMfaPreference()).equals(
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms},
             preferred: MfaType.sms,
@@ -116,7 +116,7 @@ void main() {
               'the first sign-in',
         ).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.getMfaPreference())
+        check(await cognitoPlugin.fetchMfaPreference())
             .equals(const UserMfaPreference());
       });
     });

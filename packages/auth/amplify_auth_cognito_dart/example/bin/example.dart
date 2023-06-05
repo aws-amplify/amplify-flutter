@@ -133,7 +133,7 @@ Future<SignInResult> _processSignInResult(
   final missingAttributes =
       nextStep.missingAttributes.cast<CognitoUserAttributeKey>();
   switch (signInStep) {
-    case AuthSignInStep.confirmSignInWithMfaSelection:
+    case AuthSignInStep.continueSignInWithMfaSelection:
       while (true) {
         final smsOrTotp =
             prompt('Which MFA method would you prefer (SMS/TOTP)? ');
@@ -141,8 +141,9 @@ Future<SignInResult> _processSignInResult(
           return confirmSignIn(smsOrTotp);
         }
       }
-    case AuthSignInStep.confirmSignInWithTotpSetup:
-      final setupUri = nextStep.totpSetupResult!.setupUri(label: 'AuthExample');
+    case AuthSignInStep.continueSignInWithTotpSetup:
+      final setupUri =
+          nextStep.totpSetupDetails!.getSetupUri(appName: 'AuthExample');
       final qrCode = QrCode.fromData(
         data: setupUri.toString(),
         errorCorrectLevel: QrErrorCorrectLevel.L,

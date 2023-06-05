@@ -2,11 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:otp/otp.dart';
-
-import '../test_runner.dart';
 
 /// The device name given to the default TOTP authenticator.
 const friendlyDeviceName = 'friendlyDeviceName';
@@ -49,9 +48,9 @@ Future<void> setUpTotp() async {
   }
   addTearDown(() => _secretCode = null);
 
-  final totpSetupResult = await cognitoPlugin.setupTotp();
+  final totpSetupResult = await Amplify.Auth.setUpTotp();
   _secretCode = totpSetupResult.secretCode;
-  await cognitoPlugin.verifyTotpSetup(
+  await Amplify.Auth.verifyTotpSetup(
     await generateTotpCode(),
     options: const VerifyTotpSetupOptions(
       pluginOptions: CognitoVerifyTotpSetupPluginOptions(
