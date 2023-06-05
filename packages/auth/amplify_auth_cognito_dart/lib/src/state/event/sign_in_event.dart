@@ -39,6 +39,7 @@ sealed class SignInEvent extends AuthEvent<SignInEventType, SignInStateType> {
     required String answer,
     Map<String, String>? clientMetadata,
     Map<CognitoUserAttributeKey, String>? userAttributes,
+    String? friendlyDeviceName,
   }) = SignInRespondToChallenge;
 
   /// {@macro amplify_auth_cognito.sign_in_cancelled}
@@ -100,6 +101,7 @@ final class SignInRespondToChallenge extends SignInEvent {
     required this.answer,
     Map<String, String>? clientMetadata,
     Map<CognitoUserAttributeKey, String>? userAttributes,
+    this.friendlyDeviceName,
   })  : clientMetadata = clientMetadata ?? const {},
         userAttributes = userAttributes ?? const {},
         super._();
@@ -114,6 +116,8 @@ final class SignInRespondToChallenge extends SignInEvent {
   /// Required user attributes which were not previously provided.
   final Map<CognitoUserAttributeKey, String> userAttributes;
 
+  final String? friendlyDeviceName;
+
   @override
   SignInEventType get type => SignInEventType.respondToChallenge;
 
@@ -123,6 +127,7 @@ final class SignInRespondToChallenge extends SignInEvent {
         answer,
         clientMetadata,
         userAttributes,
+        friendlyDeviceName,
       ];
 
   @override
