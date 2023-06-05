@@ -20,6 +20,7 @@ part 'hosted_ui_event.dart';
 part 'sign_in_event.dart';
 part 'sign_out_event.dart';
 part 'sign_up_event.dart';
+part 'totp_setup_event.dart';
 
 /// {@template amplify_auth_cognito_dart.auth_event}
 /// Base class for events of the [CognitoAuthStateMachine].

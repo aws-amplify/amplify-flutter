@@ -21,6 +21,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
     as cognito
     show
         AttributeType,
+        ChallengeNameType,
         ChangePasswordRequest,
         CodeDeliveryDetailsType,
         CognitoIdentityProviderClient,
@@ -249,23 +250,33 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
   /// Retrieves the code delivery details from the challenge parameters.
   AuthCodeDeliveryDetails? _getChallengeDeliveryDetails(
+    cognito.ChallengeNameType challengeName,
     Map<String, String> challengeParameters,
   ) {
-    final destination =
-        challengeParameters[CognitoConstants.challengeParamDeliveryDest];
-    if (destination == null) {
+    final deliveryMedium = switch (challengeName) {
+      // Multiple values are returned for SELECT_MFA_TYPE but they will be
+      // narrowed once a selection is made.
+      cognito.ChallengeNameType.selectMfaType => null,
+      cognito.ChallengeNameType.softwareTokenMfa => DeliveryMedium.totp,
+      _ => switch (challengeParameters[
+            CognitoConstants.challengeParamDeliveryMedium]) {
+          null => null,
+          'SMS' => DeliveryMedium.sms,
+          'EMAIL' => DeliveryMedium.email,
+          _ => DeliveryMedium.unknown,
+        }
+    };
+    if (deliveryMedium == null) {
       return null;
     }
-    final deliveryMediumStr =
-        challengeParameters[CognitoConstants.challengeParamDeliveryMedium];
-    final deliveryMedium = switch (deliveryMediumStr) {
-      'SMS' => DeliveryMedium.sms,
-      'EMAIL' => DeliveryMedium.email,
-      _ => DeliveryMedium.unknown,
+    final destination = switch (deliveryMedium) {
+      DeliveryMedium.totp =>
+        challengeParameters[CognitoConstants.challengeParamFriendlyDeviceName],
+      _ => challengeParameters[CognitoConstants.challengeParamDeliveryDest],
     };
     return AuthCodeDeliveryDetails(
-      destination: destination,
       deliveryMedium: deliveryMedium,
+      destination: destination,
     );
   }
 
@@ -517,16 +528,21 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
         :final challengeName,
         :final challengeParameters,
         :final requiredAttributes,
+        :final allowedMfaTypes,
+        :final totpSetupResult,
       ) =>
         CognitoSignInResult(
           isSignedIn: false,
           nextStep: AuthNextSignInStep(
             signInStep: challengeName.signInStep,
             codeDeliveryDetails: _getChallengeDeliveryDetails(
+              challengeName,
               challengeParameters,
             ),
             additionalInfo: challengeParameters,
             missingAttributes: requiredAttributes,
+            allowedMfaTypes: allowedMfaTypes,
+            totpSetupResult: totpSetupResult,
           ),
         ),
       SignInSuccess _ => const CognitoSignInResult(
@@ -597,6 +613,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
         answer: confirmationValue,
         clientMetadata: pluginOptions.clientMetadata,
         userAttributes: pluginOptions.userAttributes,
+        friendlyDeviceName: pluginOptions.friendlyDeviceName,
       ),
     );
 
@@ -884,6 +901,49 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       userId: userId,
       username: username,
       signInDetails: signInDetails,
+    );
+  }
+
+  Future<UserMfaPreference> getMfaPreference() async {
+    final tokens = await _stateMachine.getUserPoolTokens();
+    return _cognitoIdp.getMfaSettings(accessToken: tokens.accessToken.raw);
+  }
+
+  Future<void> setMfaPreference({
+    List<MfaType>? enabled,
+    MfaType? preferred,
+  }) async {
+    final tokens = await _stateMachine.getUserPoolTokens();
+    return _cognitoIdp.setMfaSettings(
+      accessToken: tokens.accessToken.raw,
+      enabled: enabled,
+      preferred: preferred,
+    );
+  }
+
+  Future<TotpSetupResult> setupTotp() async {
+    final machine = _stateMachine.create(TotpSetupStateMachine.type);
+    final state =
+        await machine.dispatchAndComplete<TotpSetupRequiresVerification>(
+      const TotpSetupEvent.initiate(),
+    );
+    return state.result;
+  }
+
+  Future<void> verifyTotpSetup(
+    String totpCode, {
+    VerifyTotpSetupOptions? options,
+  }) async {
+    final pluginOptions = reifyPluginOptions(
+      pluginOptions: options?.pluginOptions,
+      defaultPluginOptions: const CognitoVerifyTotpSetupPluginOptions(),
+    );
+    final machine = _stateMachine.getOrCreate(TotpSetupStateMachine.type);
+    await machine.dispatchAndComplete<TotpSetupSuccess>(
+      TotpSetupEvent.verify(
+        code: totpCode,
+        friendlyDeviceName: pluginOptions.friendlyDeviceName,
+      ),
     );
   }
 

@@ -19,7 +19,11 @@ import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart'
 import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
-    hide InvalidParameterException, ResourceNotFoundException;
+    hide
+        InvalidParameterException,
+        ResourceNotFoundException,
+        EnableSoftwareTokenMfaException,
+        SoftwareTokenMfaNotFoundException;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
@@ -163,6 +167,47 @@ final class SignInStateMachine
   String? _session;
   SrpInitResult? _initResult;
   Map<CognitoUserAttributeKey, String>? _attributesNeedingUpdate;
+  TotpSetupResult? _totpSetupResult;
+  MfaType? _enableMfaType;
+
+  /// The required user attributes returned in the last challenge response.
+  List<CognitoUserAttributeKey> get _requiredAttributes {
+    final requiredAttributesStr =
+        _challengeParameters[CognitoConstants.challengeParamRequiredAttributes];
+    if (requiredAttributesStr == null || requiredAttributesStr.isEmpty) {
+      return const [];
+    }
+    return (jsonDecode(requiredAttributesStr) as List<Object?>)
+        .cast<String>()
+        .map(
+          (key) => key.replaceFirst(
+            CognitoConstants.challengeParamUserAttributesPrefix,
+            '',
+          ),
+        )
+        .map(CognitoUserAttributeKey.parse)
+        .toList();
+  }
+
+  /// The allowed MFA types returned in the last challenge response.
+  Set<MfaType>? get _allowedMfaTypes {
+    final allowedMfaTypesStr =
+        _challengeParameters[CognitoConstants.challengeParamMfasCanSetup] ??
+            _challengeParameters[CognitoConstants.challengeParamMfasCanChoose];
+    if (allowedMfaTypesStr == null || allowedMfaTypesStr.isEmpty) {
+      return null;
+    }
+    return (jsonDecode(allowedMfaTypesStr) as List<Object?>)
+        .cast<String>()
+        .map(
+          (type) => switch (type) {
+            'SOFTWARE_TOKEN_MFA' => MfaType.totp,
+            'SMS_MFA' => MfaType.sms,
+            _ => throw StateError('Unknown MFA type: $type'),
+          },
+        )
+        .toSet();
+  }
 
   Map<String, String> get _publicChallengeParameters {
     final map = _challengeParameters.toMap()
@@ -197,26 +242,66 @@ final class SignInStateMachine
   /// parameters [challengeParameters].
   ///
   /// Subclasses should return `null` if they cannot handle [challengeName].
-  Future<RespondToAuthChallengeRequest?> respondToAuthChallenge(
+  Future<SignInState> respondToAuthChallenge(
     SignInEvent? event,
     ChallengeNameType challengeName,
     BuiltMap<String, String?> challengeParameters,
   ) async {
-    if (authFlowType == AuthFlowType.customAuth &&
-        event is SignInRespondToChallenge) {
-      return RespondToAuthChallengeRequest.build(
-        (b) => b
-          ..challengeName = ChallengeNameType.customChallenge
-          ..challengeResponses.addAll({
-            CognitoConstants.challengeParamUsername: parameters.username,
-            CognitoConstants.challengeParamAnswer: event.answer,
-          })
-          ..clientId = config.appClientId
-          ..clientMetadata.addAll(event.clientMetadata)
-          ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder(),
+    final hasUserResponse = event is SignInRespondToChallenge;
+    final respondRequest = await switch (challengeName) {
+      ChallengeNameType.customChallenge when hasUserResponse =>
+        createCustomAuthRequest(event),
+      ChallengeNameType.passwordVerifier =>
+        createPasswordVerifierRequest(challengeParameters),
+      ChallengeNameType.deviceSrpAuth => createDeviceSrpAuthRequest(),
+      ChallengeNameType.devicePasswordVerifier =>
+        createDevicePasswordVerifierRequest(challengeParameters),
+      ChallengeNameType.smsMfa when hasUserResponse =>
+        createSmsMfaRequest(event),
+      ChallengeNameType.softwareTokenMfa when hasUserResponse =>
+        createSoftwareTokenMfaRequest(event),
+      ChallengeNameType.selectMfaType when hasUserResponse =>
+        createSelectMfaRequest(event),
+      ChallengeNameType.mfaSetup when hasUserResponse =>
+        createMfaSetupRequest(event),
+      ChallengeNameType.newPasswordRequired when hasUserResponse =>
+        createNewPasswordRequest(event),
+      _ => null,
+    };
+
+    // If we can't internally respond to the challenge, we may need user
+    // input. Put the state machine in the `challenge` state and yield
+    // control.
+    if (respondRequest == null) {
+      return SignInState.challenge(
+        _challengeName!,
+        _challengeParameters.toMap(),
+        _requiredAttributes,
+        _allowedMfaTypes,
+        _totpSetupResult,
       );
     }
-    return respondToSrpChallenge(event, challengeName, challengeParameters);
+
+    // Respond to Cognito and evaluate the returned response.
+    return _respondToChallenge(event, respondRequest);
+  }
+
+  /// Responds to a custom challenge.
+  @protected
+  Future<RespondToAuthChallengeRequest> createCustomAuthRequest(
+    SignInRespondToChallenge event,
+  ) async {
+    return RespondToAuthChallengeRequest.build(
+      (b) => b
+        ..challengeName = ChallengeNameType.customChallenge
+        ..challengeResponses.addAll({
+          CognitoConstants.challengeParamUsername: parameters.username,
+          CognitoConstants.challengeParamAnswer: event.answer,
+        })
+        ..clientId = config.appClientId
+        ..clientMetadata.addAll(event.clientMetadata)
+        ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder(),
+    );
   }
 
   /// Creates the password verifier request in a worker instance.
@@ -309,6 +394,7 @@ final class SignInStateMachine
   Future<RespondToAuthChallengeRequest> createSmsMfaRequest(
     SignInRespondToChallenge event,
   ) async {
+    _enableMfaType = MfaType.sms;
     return RespondToAuthChallengeRequest.build((b) {
       b
         ..clientId = config.appClientId
@@ -466,26 +552,124 @@ final class SignInStateMachine
     });
   }
 
-  /// Responds to an SRP flow challenge.
+  TotpSetupResult _createTotpSetupResult(String secretCode) => TotpSetupResult(
+        username: _user.username!,
+        secretCode: secretCode,
+        defaultLabel: 'AWSCognito',
+        issuer: 'Cognito',
+      );
+
+  /// Initiates registration of a TOTP authenticator for use in TOTP MFA.
   @protected
-  Future<RespondToAuthChallengeRequest?> respondToSrpChallenge(
-    SignInEvent? event,
-    ChallengeNameType challengeName,
-    BuiltMap<String, String?> challengeParameters,
+  Future<TotpSetupResult> associateSoftwareToken({
+    String? accessToken,
+  }) async {
+    final request = AssociateSoftwareTokenRequest(
+      accessToken: accessToken,
+      session: _session,
+    );
+    final response =
+        await cognitoIdentityProvider.associateSoftwareToken(request).result;
+    if (response
+        case AssociateSoftwareTokenResponse(
+          :final session?,
+          :final secretCode?
+        )) {
+      _session = session;
+      return _createTotpSetupResult(secretCode);
+    }
+    throw EnableSoftwareTokenMfaException(
+      'An unknown error occurred configuring TOTP MFA',
+      underlyingException: response,
+    );
+  }
+
+  /// Verifies the provided software token to complete registration of a TOTP
+  /// authenticator.
+  @protected
+  Future<void> verifySoftwareToken({
+    required String userCode,
+    String? friendlyDeviceName,
+  }) async {
+    final request = VerifySoftwareTokenRequest(
+      userCode: userCode,
+      session: _session,
+      friendlyDeviceName: friendlyDeviceName,
+    );
+    final response =
+        await cognitoIdentityProvider.verifySoftwareToken(request).result;
+    switch (response) {
+      case VerifySoftwareTokenResponse(:final session?):
+        _session = session;
+      default:
+        throw EnableSoftwareTokenMfaException(
+          'An unknown error occurred configuring TOTP MFA',
+          underlyingException: response,
+        );
+    }
+  }
+
+  /// Completes set up of a TOTP MFA.
+  @protected
+  Future<RespondToAuthChallengeRequest> createMfaSetupRequest(
+    SignInRespondToChallenge event,
   ) async {
-    final hasUserResponse = event is SignInRespondToChallenge;
-    return switch (challengeName) {
-      ChallengeNameType.passwordVerifier =>
-        createPasswordVerifierRequest(challengeParameters),
-      ChallengeNameType.deviceSrpAuth => createDeviceSrpAuthRequest(),
-      ChallengeNameType.devicePasswordVerifier =>
-        createDevicePasswordVerifierRequest(challengeParameters),
-      ChallengeNameType.smsMfa when hasUserResponse =>
-        createSmsMfaRequest(event),
-      ChallengeNameType.newPasswordRequired when hasUserResponse =>
-        createNewPasswordRequest(event),
-      _ => null,
-    };
+    await verifySoftwareToken(
+      userCode: event.answer,
+      friendlyDeviceName: event.friendlyDeviceName,
+    );
+    _enableMfaType = MfaType.totp;
+    return RespondToAuthChallengeRequest.build((b) {
+      b
+        ..challengeName = ChallengeNameType.mfaSetup
+        ..challengeResponses.addAll({
+          CognitoConstants.challengeParamUsername: _user.username!,
+          // Must be the session from `VerifySoftwareToken`
+          CognitoConstants.challengeParamSession: _session!,
+        })
+        ..clientId = config.appClientId
+        ..clientMetadata.addAll(event.clientMetadata);
+    });
+  }
+
+  /// Selects an MFA type to use for sign-in.
+  @protected
+  Future<RespondToAuthChallengeRequest> createSelectMfaRequest(
+    SignInRespondToChallenge event,
+  ) async {
+    final selection = event.answer.toLowerCase();
+    return RespondToAuthChallengeRequest.build((b) {
+      b
+        ..challengeName = ChallengeNameType.selectMfaType
+        ..challengeResponses.addAll({
+          CognitoConstants.challengeParamUsername: _user.username!,
+          CognitoConstants.challengeParamAnswer: switch (selection) {
+            'sms' => 'SMS_MFA',
+            'totp' => 'SOFTWARE_TOKEN_MFA',
+            _ => throw ArgumentError('Must be either SMS or TOTP'),
+          },
+        })
+        ..clientId = config.appClientId
+        ..clientMetadata.addAll(event.clientMetadata);
+    });
+  }
+
+  /// Responds to a TOTP challenge.
+  @protected
+  Future<RespondToAuthChallengeRequest> createSoftwareTokenMfaRequest(
+    SignInRespondToChallenge event,
+  ) async {
+    _enableMfaType = MfaType.totp;
+    return RespondToAuthChallengeRequest.build((b) {
+      b
+        ..challengeName = ChallengeNameType.softwareTokenMfa
+        ..challengeResponses.addAll({
+          CognitoConstants.challengeParamUsername: _user.username!,
+          CognitoConstants.challengeParamSoftwareTokenMfaCode: event.answer,
+        })
+        ..clientId = config.appClientId
+        ..clientMetadata.addAll(event.clientMetadata);
+    });
   }
 
   /// Adds the session info from [result] to the user.
@@ -531,9 +715,9 @@ final class SignInStateMachine
 
     // Clear anonymous credentials, if there were any, and fetch authenticated
     // credentials.
-    if (identityPoolConfig != null) {
+    if (identityPoolConfig case final identityPoolConfig?) {
       await manager.clearCredentials(
-        CognitoIdentityPoolKeys(identityPoolConfig!),
+        CognitoIdentityPoolKeys(identityPoolConfig),
       );
 
       await manager.loadSession();
@@ -587,12 +771,12 @@ final class SignInStateMachine
     initRequest = initRequest.rebuild((b) {
       b.analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
-      if (config.appClientSecret != null) {
+      if (config.appClientSecret case final appClientSecret?) {
         b.authParameters[CognitoConstants.challengeParamSecretHash] =
             computeSecretHash(
           parameters.username,
           config.appClientId,
-          config.appClientSecret!,
+          appClientSecret,
         );
       }
 
@@ -643,9 +827,7 @@ final class SignInStateMachine
     );
     final workerResult = await worker.stream.first;
     final response = await cognitoIdentityProvider
-        .confirmDevice(
-          workerResult.request,
-        )
+        .confirmDevice(workerResult.request)
         .result;
     final requiresConfirmation = response.userConfirmationNecessary;
 
@@ -663,26 +845,26 @@ final class SignInStateMachine
     required String accessToken,
     required Map<String, String>? clientMetadata,
   }) async {
-    if (_attributesNeedingUpdate == null || _attributesNeedingUpdate!.isEmpty) {
-      return;
-    }
-    try {
-      await cognitoIdentityProvider
-          .updateUserAttributes(
-            UpdateUserAttributesRequest.build(
-              (b) => b
-                ..accessToken = accessToken
-                ..clientMetadata.addAll(clientMetadata ?? const {})
-                ..userAttributes.addAll([
-                  for (final MapEntry(:key, :value)
-                      in _attributesNeedingUpdate!.entries)
-                    AttributeType(name: key.key, value: value),
-                ]),
-            ),
-          )
-          .result;
-    } finally {
-      _attributesNeedingUpdate = null;
+    if (_attributesNeedingUpdate case final attributesNeedingUpdate?
+        when attributesNeedingUpdate.isNotEmpty) {
+      try {
+        await cognitoIdentityProvider
+            .updateUserAttributes(
+              UpdateUserAttributesRequest.build(
+                (b) => b
+                  ..accessToken = accessToken
+                  ..clientMetadata.addAll(clientMetadata ?? const {})
+                  ..userAttributes.addAll([
+                    for (final MapEntry(:key, :value)
+                        in attributesNeedingUpdate.entries)
+                      AttributeType(name: key.key, value: value)
+                  ]),
+              ),
+            )
+            .result;
+      } finally {
+        _attributesNeedingUpdate = null;
+      }
     }
   }
 
@@ -720,48 +902,40 @@ final class SignInStateMachine
         clientMetadata: event?.clientMetadata,
       );
 
+      if (_enableMfaType case final enableMfaType?) {
+        await cognitoIdentityProvider.setMfaSettings(
+          accessToken: accessToken,
+          enabled: [enableMfaType],
+        );
+      }
+
       return SignInState.success(_user.build().authUser);
     }
 
     await _updateUser(_challengeParameters);
 
+    // Configure TOTP authentication if allowed.
+    if (_allowedMfaTypes case final allowedMfaTypes?
+        when _challengeParameters
+            .containsKey(CognitoConstants.challengeParamMfasCanSetup)) {
+      if (allowedMfaTypes.contains(MfaType.totp)) {
+        _totpSetupResult ??= await associateSoftwareToken();
+      } else {
+        throw const SoftwareTokenMfaNotFoundException(
+          'Cannot enable SMS MFA and TOTP MFA is not allowed',
+          recoverySuggestion:
+              'Contact an administrator to enable SMS MFA or allow TOTP MFA',
+        );
+      }
+    }
+
     // Query the state machine for a response given potential user input in
     // `event`.
-    final respondRequest = await respondToAuthChallenge(
+    return respondToAuthChallenge(
       event,
       _challengeName!,
       _challengeParameters,
     );
-
-    // If we can't internally respond to the challenge, we may need user
-    // input. Put the state machine in the `challenge` state and yield
-    // control.
-    if (respondRequest == null) {
-      final requiredAttributesStr = _challengeParameters[
-          CognitoConstants.challengeParamRequiredAttributes];
-      var requiredAttributes = const <CognitoUserAttributeKey>[];
-      if (requiredAttributesStr != null) {
-        requiredAttributes =
-            (json.decode(requiredAttributesStr) as List<Object?>)
-                .cast<String>()
-                .map(
-                  (key) => key.replaceFirst(
-                    CognitoConstants.challengeParamUserAttributesPrefix,
-                    '',
-                  ),
-                )
-                .map(CognitoUserAttributeKey.parse)
-                .toList();
-      }
-      return SignInState.challenge(
-        _challengeName!,
-        _publicChallengeParameters,
-        requiredAttributes,
-      );
-    }
-
-    // Respond to Cognito and evaluate the returned response.
-    return _respondToChallenge(event, respondRequest);
   }
 
   /// Inner handle to send the request returned from [respondToAuthChallenge]
@@ -782,14 +956,12 @@ final class SignInStateMachine
         ..clientMetadata.replace(event?.clientMetadata ?? const {})
         ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
-      if (config.appClientSecret != null &&
-          b.challengeResponses[CognitoConstants.challengeParamSecretHash] ==
-              null) {
-        b.challengeResponses[CognitoConstants.challengeParamSecretHash] =
+      if (config.appClientSecret case final appClientSecret?) {
+        b.challengeResponses[CognitoConstants.challengeParamSecretHash] ??=
             computeSecretHash(
           _user.username!,
           config.appClientId,
-          config.appClientSecret!,
+          appClientSecret,
         );
       }
 
@@ -819,12 +991,11 @@ final class SignInStateMachine
         _user.deviceSecrets = null;
         await getOrCreate<DeviceMetadataRepository>().remove(_user.username!);
 
-        final respondRequest = await respondToAuthChallenge(
+        return respondToAuthChallenge(
           event,
           _challengeName!,
           _challengeParameters,
         );
-        return _respondToChallenge(event, respondRequest!);
       }
       rethrow;
     }
@@ -878,11 +1049,15 @@ final class SignInStateMachine
   }
 
   void _reset() {
+    _initResult = null;
     _user = CognitoUserBuilder();
     _authenticationResult = null;
     _challengeName = null;
     _challengeParameters = BuiltMap();
     _session = null;
+    _attributesNeedingUpdate = null;
+    _totpSetupResult = null;
+    _enableMfaType = null;
   }
 }
 
