@@ -328,12 +328,9 @@ void main() {
             password,
             autoConfirm: true,
             verifyAttributes: true,
-            attributes: [
-              AuthUserAttribute(
-                userAttributeKey: AuthUserAttributeKey.email,
-                value: originalEmail,
-              ),
-            ],
+            attributes: {
+              AuthUserAttributeKey.email: originalEmail,
+            },
           );
 
           final res = await Amplify.Auth.signIn(

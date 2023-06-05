@@ -29,6 +29,12 @@ const List<String> deviceOptInEnvironments = [
   'with-client-secret'
 ];
 
+/// A test environment descriptor.
+abstract interface class TestEnvironment {
+  /// The name of the environment in the backend.
+  String get environmentName;
+}
+
 /// {@template amplify_auth_integration_test.auth_test_runner}
 /// A test-runner for Auth integration tests.
 ///
@@ -123,6 +129,17 @@ class AuthTestRunner {
       return null;
     }
     return 'No config found for "$environmentName"';
+  }
+
+  /// Runs [body] in a [group] which configures [environment].
+  void withEnvironment(TestEnvironment environment, void Function() body) {
+    group(environment.environmentName, () {
+      setUp(() async {
+        await configure(environmentName: environment.environmentName);
+      });
+
+      body();
+    });
   }
 }
 

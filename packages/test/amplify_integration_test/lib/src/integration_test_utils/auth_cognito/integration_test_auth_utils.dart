@@ -161,38 +161,40 @@ Future<String> adminCreateUser(
   bool enableMfa = false,
   bool verifyAttributes = false,
   bool autoFillAttributes = true,
-  List<AuthUserAttribute> attributes = const [],
+  Map<AuthUserAttributeKey, String> attributes = const {},
 }) async {
   final createUserParams = <String, dynamic>{
     'autoConfirm': autoConfirm,
-    'email': attributes
-            .firstWhereOrNull(
-              (el) => el.userAttributeKey == AuthUserAttributeKey.email,
-            )
-            ?.value ??
-        (autoFillAttributes ? generateEmail() : null),
     'enableMFA': enableMfa,
-    'givenName': attributes
-            .firstWhereOrNull(
-              (el) => el.userAttributeKey == AuthUserAttributeKey.givenName,
-            )
-            ?.value ??
-        (autoFillAttributes ? 'default_given_name' : null),
-    'name': attributes
-            .firstWhereOrNull(
-              (el) => el.userAttributeKey == AuthUserAttributeKey.name,
-            )
-            ?.value ??
-        (autoFillAttributes ? 'default_name' : null),
-    'phoneNumber': attributes
-            .firstWhereOrNull(
-              (el) => el.userAttributeKey == AuthUserAttributeKey.phoneNumber,
-            )
-            ?.value ??
-        (autoFillAttributes ? generatePhoneNumber() : null),
     'username': username,
     'verifyAttributes': verifyAttributes,
   };
+
+  final attributeMap = attributes.map(
+    (name, value) => MapEntry(name.key, value),
+  );
+  final email = attributeMap.remove(AuthUserAttributeKey.email.key) ??
+      (autoFillAttributes ? generateEmail() : null);
+  if (email != null) {
+    createUserParams['email'] = email;
+  }
+  final phoneNumber =
+      attributeMap.remove(AuthUserAttributeKey.phoneNumber.key) ??
+          (autoFillAttributes ? generatePhoneNumber() : null);
+  if (phoneNumber != null) {
+    createUserParams['phoneNumber'] = phoneNumber;
+  }
+  final name = attributeMap.remove(AuthUserAttributeKey.name.key) ??
+      (autoFillAttributes ? 'default_name' : null);
+  if (name != null) {
+    createUserParams['name'] = name;
+  }
+  final givenName = attributeMap.remove(AuthUserAttributeKey.givenName.key) ??
+      (autoFillAttributes ? 'default_given_name' : null);
+  if (givenName != null) {
+    createUserParams['givenName'] = name;
+  }
+  assert(attributeMap.isEmpty, 'Unsupported attributes: $attributeMap');
 
   _logger.debug('Creating user "$username" with values: $createUserParams');
   final result = await _graphQL(
