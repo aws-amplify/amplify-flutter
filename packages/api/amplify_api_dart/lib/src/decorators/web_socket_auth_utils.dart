@@ -11,6 +11,15 @@ import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.d
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+// https://
+// followed by 1 or more lowercase letters/numbers
+// followed by .appsync-api.
+// followed by 1 or more lowercase letters/numbers/hyphens (region)
+// followed by .amazonaws.com/graphql
+// Adapted from https://github.com/aws-amplify/amplify-android/blob/6e441f60ae5525644340edff13f3287c3c8960f8/aws-api/src/main/java/com/amplifyframework/api/aws/DomainType.java#L36
+const _appSyncEndpointPattern =
+    r'^https://[a-z0-9]+\.appsync-api\.[a-z0-9-]+\.amazonaws.com/graphql';
+
 // Constants for header values as noted in https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html.
 const _requiredHeaders = {
   AWSHeaders.accept: 'application/json, text/javascript',
@@ -36,10 +45,18 @@ Future<Uri> generateConnectionUri(
   );
   final encodedAuthHeaders =
       base64.encode(json.encode(authorizationHeaders).codeUnits);
-  final endpointUri = Uri.parse(
+  var endpointUri = Uri.parse(
     config.endpoint.replaceFirst('appsync-api', 'appsync-realtime-api'),
   );
-  return Uri(scheme: 'wss', host: endpointUri.host, path: 'graphql').replace(
+  var path = 'graphql';
+  // Check for custom domain and format URL as documented on https://docs.aws.amazon.com/appsync/latest/devguide/custom-domain-name.html.
+  final appSyncDomainRegExp = RegExp(_appSyncEndpointPattern);
+  if (!appSyncDomainRegExp.hasMatch(config.endpoint)) {
+    endpointUri = Uri.parse(config.endpoint);
+    path = 'graphql/realtime';
+  }
+
+  return Uri(scheme: 'wss', host: endpointUri.host, path: path).replace(
     queryParameters: <String, String>{
       'header': encodedAuthHeaders,
       'payload': base64.encode(utf8.encode(json.encode(_emptyBody))),
