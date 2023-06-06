@@ -32,6 +32,8 @@ body:
           required: false
         - label: DataStore
           required: false
+        - label: Notifications (Push)
+          required: false
         - label: Storage
           required: false
   - type: textarea
