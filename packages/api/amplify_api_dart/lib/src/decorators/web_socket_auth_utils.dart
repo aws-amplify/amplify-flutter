@@ -13,7 +13,6 @@ import 'package:meta/meta.dart';
 
 const _appSyncHostPortion = 'appsync-api';
 const _appSyncRealtimeHostPortion = 'appsync-realtime-api';
-const _wssScheme = 'wss';
 
 // Constants for header values as noted in https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html.
 const _requiredHeaders = {
@@ -45,32 +44,27 @@ Future<Uri> generateConnectionUri(
     'header': encodedAuthHeaders,
     'payload': base64.encode(utf8.encode(json.encode(_emptyBody))),
   };
-  // Conditionally format the URI for a) AppSync domain b) custom domain. In either
-  // case, add the auth query parameters.
-  final endpointUriHost = Uri.parse(config.endpoint).host;
+  // Conditionally format the URI for a) AppSync domain b) custom domain.
+  var endpointUriHost = Uri.parse(config.endpoint).host;
+  String path;
   if (endpointUriHost.contains(_appSyncHostPortion) &&
       endpointUriHost.endsWith('amazonaws.com')) {
     // AppSync domain that contains "appsync-api" and ends with "amazonaws.com."
-    // Replace "appsync-api" with "appsync-realtime-api," append "/graphql" and
-    // add formatted auth query parameters.
-    final appSyncRealtimeUri = Uri.parse(
-      config.endpoint
-          .replaceFirst(_appSyncHostPortion, _appSyncRealtimeHostPortion),
+    // Replace "appsync-api" with "appsync-realtime-api," append "/graphql."
+    endpointUriHost = endpointUriHost.replaceFirst(
+      _appSyncHostPortion,
+      _appSyncRealtimeHostPortion,
     );
-    return Uri(
-      scheme: _wssScheme,
-      host: appSyncRealtimeUri.host,
-      path: 'graphql',
-    ).replace(
-      queryParameters: authQueryParameters,
-    );
+    path = 'graphql';
+  } else {
+    // Custom domain, append "graphql/realtime" to the path like on https://docs.aws.amazon.com/appsync/latest/devguide/custom-domain-name.html.
+    path = 'graphql/realtime';
   }
-  // Custom domain (not AppSync); format URL as documented on https://docs.aws.amazon.com/appsync/latest/devguide/custom-domain-name.html.
-  // Appends "/graphql/realtime" path in addition to auth query parameters.
+  // Return wss URI with auth query parameters.
   return Uri(
-    scheme: _wssScheme,
+    scheme: 'wss',
     host: endpointUriHost,
-    path: 'graphql/realtime',
+    path: path,
   ).replace(
     queryParameters: authQueryParameters,
   );
