@@ -78,7 +78,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     if (s3PluginConfig == null) {
       throw ConfigurationError('No Storage S3 plugin config detected.');
     }
-
     s3pluginConfig = s3PluginConfig;
 
     final identityProvider = authProviderRepo
