@@ -22,6 +22,12 @@ const s3ControllableOperationCanceledException =
       ' exception allows you to take further action when an operation is canceled.',
 );
 
+/// The exception thrown when attempt to use acceleration endpoint with a bucket
+/// that has dots in its name.
+final accelerateEndpointUnusable = ConfigurationError(
+  'S3 Transfer Acceleration is not supported for buckets with periods (.) in their names',
+);
+
 /// Extension of [s3.NoSuchKey] to add util methods.
 extension NoSuchKeyToStorageKeyNotFoundException on s3.NoSuchKey {
   /// Creates a [StorageKeyNotFoundException] with the [s3.NoSuchKey] as the
