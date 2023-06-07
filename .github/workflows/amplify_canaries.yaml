@@ -1,5 +1,6 @@
 name: Amplify Canaries
 on:
+  push:
   pull_request:
   schedule:
     # 6am pacific time daily, only runs on default branch
