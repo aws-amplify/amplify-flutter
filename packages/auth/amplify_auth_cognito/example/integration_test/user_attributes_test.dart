@@ -13,7 +13,7 @@ import 'test_runner.dart';
 extension on List<AuthUserAttribute> {
   String? valueOf(AuthUserAttributeKey authUserAttributeKey) =>
       singleWhereOrNull(
-        (el) => el.userAttributeKey.key == authUserAttributeKey.key,
+        (el) => el.userAttributeKey == authUserAttributeKey,
       )?.value;
 }
 
