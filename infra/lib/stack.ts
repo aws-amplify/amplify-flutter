@@ -249,9 +249,13 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
 
     // The Storage stack
     const storage = new StorageIntegrationTestStack(this, [
-      { environmentName: "main" },
+      {
+        environmentName: "main",
+        enableTransferAcceleration: true,
+      },
       {
         environmentName: "custom-prefix",
+        enableTransferAcceleration: true,
         prefixResolver(accessLevel, identityId) {
           switch (accessLevel) {
             case StorageAccessLevel.public:
@@ -267,6 +271,11 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
           [StorageAccessLevel.protected]: "shared",
           [StorageAccessLevel.private]: "private",
         },
+      },
+      {
+        environmentName: "dots-in-name",
+        enableTransferAcceleration: false,
+        bucketName: "amplify.integ-test.stack.com",
       },
     ]);
 
