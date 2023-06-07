@@ -603,7 +603,6 @@ void main() {
               ),
             ).thenAnswer((_) async => testUrl);
 
-            final comparingTime = DateTime.now();
             getUrlResult = await storageS3Service.getUrl(
               key: testKey,
               options: testOptions,
@@ -632,18 +631,6 @@ void main() {
               ),
             );
 
-            expect(capturedParams[1] is AWSCredentialScope, isTrue);
-            final credentialScopeParam =
-                capturedParams[1] as AWSCredentialScope;
-            expect(credentialScopeParam.region, testRegion);
-            expect(credentialScopeParam.service, AWSService.s3.service);
-            // assert the signer scope is always freshly initiated upon calling
-            // `getUrl`
-            expect(
-              comparingTime.isBefore(credentialScopeParam.dateTime.dateTime),
-              isTrue,
-            );
-
             expect(capturedParams[2] is S3ServiceConfiguration, isTrue);
             final configParam = capturedParams[2] as S3ServiceConfiguration;
             expect(configParam.signBody, false);
@@ -660,6 +647,56 @@ void main() {
       test('should return correct url result', () {
         expect(getUrlResult.url, testUrl);
         expect(getUrlResult.expiresAt, testBaseDateTime.add(testExpiresIn));
+      });
+
+      test('should create a new signer scope on every call of getUrl',
+          () async {
+        const testOptions = StorageGetUrlOptions();
+
+        when(
+          () => awsSigV4Signer.presign(
+            any(),
+            credentialScope: any(named: 'credentialScope'),
+            serviceConfiguration: any(named: 'serviceConfiguration'),
+            expiresIn: any(named: 'expiresIn'),
+          ),
+        ).thenAnswer((_) async => testUrl);
+
+        getUrlResult = await storageS3Service.getUrl(
+          key: testKey,
+          options: testOptions,
+        );
+        final capturedSignerScope1 = verify(
+          () => awsSigV4Signer.presign(
+            any(),
+            credentialScope:
+                captureAny<AWSCredentialScope>(named: 'credentialScope'),
+            expiresIn: any(named: 'expiresIn'),
+            serviceConfiguration: any(
+              named: 'serviceConfiguration',
+            ),
+          ),
+        ).captured.first;
+        expect(capturedSignerScope1, isA<AWSCredentialScope>());
+
+        getUrlResult = await storageS3Service.getUrl(
+          key: testKey,
+          options: testOptions,
+        );
+        final capturedSignerScope2 = verify(
+          () => awsSigV4Signer.presign(
+            any(),
+            credentialScope:
+                captureAny<AWSCredentialScope>(named: 'credentialScope'),
+            expiresIn: any(named: 'expiresIn'),
+            serviceConfiguration: any(
+              named: 'serviceConfiguration',
+            ),
+          ),
+        ).captured.first;
+        expect(capturedSignerScope2, isA<AWSCredentialScope>());
+
+        expect(capturedSignerScope1, isNot(equals(capturedSignerScope2)));
       });
 
       test(
