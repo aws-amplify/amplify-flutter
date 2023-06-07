@@ -107,29 +107,26 @@ Future<String> adminCreateUser(
     'autoConfirm': autoConfirm,
     'email': attributes
             .firstWhereOrNull(
-              (el) => el.userAttributeKey.key == AuthUserAttributeKey.email.key,
+              (el) => el.userAttributeKey == AuthUserAttributeKey.email,
             )
             ?.value ??
         (autoFillAttributes ? generateEmail() : null),
     'enableMFA': enableMfa,
     'givenName': attributes
             .firstWhereOrNull(
-              (el) =>
-                  el.userAttributeKey.key == AuthUserAttributeKey.givenName.key,
+              (el) => el.userAttributeKey == AuthUserAttributeKey.givenName,
             )
             ?.value ??
         (autoFillAttributes ? 'default_given_name' : null),
     'name': attributes
             .firstWhereOrNull(
-              (el) => el.userAttributeKey.key == AuthUserAttributeKey.name.key,
+              (el) => el.userAttributeKey == AuthUserAttributeKey.name,
             )
             ?.value ??
         (autoFillAttributes ? 'default_name' : null),
     'phoneNumber': attributes
             .firstWhereOrNull(
-              (el) =>
-                  el.userAttributeKey.key ==
-                  AuthUserAttributeKey.phoneNumber.key,
+              (el) => el.userAttributeKey == AuthUserAttributeKey.phoneNumber,
             )
             ?.value ??
         (autoFillAttributes ? generatePhoneNumber() : null),
