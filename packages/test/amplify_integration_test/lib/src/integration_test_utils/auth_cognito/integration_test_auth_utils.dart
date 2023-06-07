@@ -36,7 +36,7 @@ Future<Map<String, Object?>> _graphQL(
 ///
 /// This method differs from the Auth.deleteUser API in that
 /// an access token is not required.
-Future<void> deleteUser(String username) async {
+Future<void> adminDeleteUser(String username) async {
   final result = await _graphQL(
     r'''
 mutation DeleteUser($username: String!) {
@@ -166,8 +166,8 @@ Future<String> adminCreateUser(
     try {
       await _oneOf([
         // TODO(dnys1): Cognito cannot always delete a user by `cognitoUsername`. Why?
-        deleteUser(username),
-        deleteUser(cognitoUsername),
+        adminDeleteUser(username),
+        adminDeleteUser(cognitoUsername),
       ]);
     } on Exception catch (e) {
       _logger.debug('Error deleting user ($username / $cognitoUsername):', e);
