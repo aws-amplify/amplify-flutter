@@ -44,7 +44,7 @@ class S3ClientConfig {
     S3ServiceConfiguration? signerConfiguration,
   }) {
     return S3ClientConfig(
-      usePathStyle: usePathStyle ?? this.useAcceleration,
+      usePathStyle: usePathStyle ?? this.usePathStyle,
       useDualStack: useDualStack ?? this.useDualStack,
       useAcceleration: useAcceleration ?? this.useAcceleration,
       signerConfiguration: signerConfiguration ?? this.signerConfiguration,
