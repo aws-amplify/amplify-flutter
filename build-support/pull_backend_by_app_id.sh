@@ -6,6 +6,8 @@ IFS='|'
 if ! command -v amplify &> /dev/null
 then
     npm install -g @aws-amplify/cli
+    AMPLIFY_VERSION=$(amplify --version)
+    echo "Successfully installed Amplify CLI v$AMPLIFY_VERSION" 
 fi
 
 FLUTTERCONFIG="{\
