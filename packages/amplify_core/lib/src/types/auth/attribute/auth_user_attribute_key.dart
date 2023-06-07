@@ -13,7 +13,10 @@ typedef UserAttributeKey = AuthUserAttributeKey;
 /// {@endtemplate}
 @immutable
 abstract class AuthUserAttributeKey
-    with AWSSerializable<String>
+    with
+        AWSSerializable<String>,
+        AWSEquatable<AuthUserAttributeKey>,
+        AWSDebuggable
     implements Comparable<AuthUserAttributeKey> {
   /// {@macro amplify_core.auth_user_attribute_key}
   const AuthUserAttributeKey();
@@ -140,18 +143,17 @@ abstract class AuthUserAttributeKey
   String toJson() => key;
 
   @override
-  int compareTo(AuthUserAttributeKey other) => key.compareTo(other.key);
+  int compareTo(AuthUserAttributeKey other) =>
+      key.toLowerCase().compareTo(other.key.toLowerCase());
 
   @override
   String toString() => key;
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is AuthUserAttributeKey && key == other.key;
+  List<Object?> get props => [key.toLowerCase()];
 
   @override
-  int get hashCode => key.hashCode;
+  String get runtimeTypeName => 'AuthUserAttributeKey';
 }
 
 class _AuthUserAttributeKey extends AuthUserAttributeKey {

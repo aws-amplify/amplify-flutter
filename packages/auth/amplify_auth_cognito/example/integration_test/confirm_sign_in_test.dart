@@ -164,12 +164,13 @@ void main() {
           AuthSignInStep.confirmSignInWithNewPassword,
         );
         expect(
-          signInRes.nextStep.missingAttributes.map((key) => key.key),
-          contains('email'),
+          signInRes.nextStep.missingAttributes,
+          equals([CognitoUserAttributeKey.email]),
         );
 
         final newPassword = generatePassword();
         final email = generateEmail();
+        const name = 'Test User';
         final confirmSignInRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: newPassword,
           options: ConfirmSignInOptions(
@@ -179,7 +180,7 @@ void main() {
                 CognitoUserAttributeKey.email: email,
 
                 // Code path 2: a missing non-required attribute
-                CognitoUserAttributeKey.name: 'Test User',
+                CognitoUserAttributeKey.name: name,
               },
             ),
           ),
@@ -192,13 +193,17 @@ void main() {
         final userAttributes = await Amplify.Auth.fetchUserAttributes();
         expect(
           userAttributes
-              .firstWhereOrNull((attr) => attr.userAttributeKey.key == 'name')
+              .firstWhereOrNull(
+                (attr) => attr.userAttributeKey == AuthUserAttributeKey.name,
+              )
               ?.value,
-          'Test User',
+          name,
         );
         expect(
           userAttributes
-              .firstWhereOrNull((attr) => attr.userAttributeKey.key == 'email')
+              .firstWhereOrNull(
+                (attr) => attr.userAttributeKey == AuthUserAttributeKey.email,
+              )
               ?.value,
           email,
         );
