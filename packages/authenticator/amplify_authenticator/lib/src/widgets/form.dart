@@ -251,9 +251,34 @@ class SignUpForm extends AuthenticatorForm {
 class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
   _SignUpFormState() : super();
 
+  bool get isCustomForm => !widget._includeDefaultFields;
+
+  static final logger = AmplifyLogger().createChild('SignUpForm');
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // If a custom form is used, check for duplicate fields and log a warning.
+    if (isCustomForm) {
+      final fields = widget.fields.map((e) => e.field);
+      switch (selectedUsernameType) {
+        case UsernameType.email:
+          if (fields.contains(SignUpField.email)) {
+            logger.warn(_duplicateFieldLog('email', 'email()'));
+          }
+        case UsernameType.phoneNumber:
+          if (fields.contains(SignUpField.phoneNumber)) {
+            logger.warn(_duplicateFieldLog('phone number', 'phoneNumber()'));
+          }
+        case UsernameType.username:
+          break;
+      }
+    }
+  }
+
   @override
   List<AuthenticatorFormField> get allFields {
-    if (!widget._includeDefaultFields) {
+    if (isCustomForm) {
       return widget.fields;
     }
 
@@ -353,6 +378,12 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
     }
 
     return runtimeFields;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<bool>('isCustomForm', isCustomForm));
   }
 }
 
@@ -662,4 +693,12 @@ class ConfirmVerifyUserForm extends AuthenticatorForm {
   @override
   AuthenticatorFormState<ConfirmVerifyUserForm> createState() =>
       AuthenticatorFormState<ConfirmVerifyUserForm>();
+}
+
+String _duplicateFieldLog(String alias, String field) {
+  return 'SignUpForm contains `SignUpFormField.$field`, but Amplify Auth is '
+      'configured to use $alias as a username. This will result in duplicate '
+      '$alias fields. Consider removing `SignUpFormField.$field`, or changing '
+      'how users sign in. For more info, see: '
+      'https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/SignUpFormField/username.html';
 }
