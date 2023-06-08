@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
+    hide UserNotFoundException;
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -57,6 +58,12 @@ final class SignOutStateMachine
     try {
       tokens = await manager.getUserPoolTokens();
     } on SignedOutException {
+      return emit(const SignOutState.success());
+    } on UserNotFoundException {
+      // If a user has been deleted and credentials are expired, a UserNotFoundException
+      // can be thrown. In this case, the token refresh will fail and we should make sure
+      // to clear the credentials associated with the non-existent user.
+      await manager.clearCredentials();
       return emit(const SignOutState.success());
     }
 
