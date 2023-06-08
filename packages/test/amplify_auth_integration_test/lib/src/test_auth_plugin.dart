@@ -30,7 +30,7 @@ class AmplifyAuthTestPlugin extends AmplifyAuthCognito {
     SignUpOptions? options,
   }) {
     addTearDown(
-      () => integ.deleteUser(username).onError(
+      () => integ.adminDeleteUser(username).onError(
             // This is expected in environments which do not have an admin GraphQL API.
             (e, st) => logger.debug('Error deleting user ($username):', e, st),
           ),
