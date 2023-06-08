@@ -37,6 +37,9 @@ class AmplifyLogger extends AWSLogger {
     assert(name.isNotEmpty, 'Name should not be empty');
     return AmplifyLogger('$namespace.$name');
   }
+
+  @override
+  String get runtimeTypeName => 'AmplifyLogger';
 }
 
 /// {@template amplify_core.logger.amplify_logger_plugin}
