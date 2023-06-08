@@ -7,6 +7,7 @@ import 'package:test/test.dart';
 
 final _logger = AWSLogger().createChild('ASF');
 
+/// Tests that the subset of ASF values guaranteed across all platforms are present.
 void runAsfDeviceInfoTests([DependencyManager Function()? getManager]) {
   test('ASFDeviceInfo', () async {
     final deviceInfo =

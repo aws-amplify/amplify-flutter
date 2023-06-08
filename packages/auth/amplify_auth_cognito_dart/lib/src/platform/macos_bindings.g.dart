@@ -159,11 +159,49 @@ class NativeMacOsFramework {
           ffi.Pointer<CFString> Function(
               ffi.Pointer<__CFAllocator>, ffi.Pointer<ffi.Char>, int)>();
 
+  int CFStringGetLength(
+    ffi.Pointer<CFString> theString,
+  ) {
+    return _CFStringGetLength(
+      theString,
+    );
+  }
+
+  late final _CFStringGetLengthPtr =
+      _lookup<ffi.NativeFunction<ffi.Long Function(ffi.Pointer<CFString>)>>(
+          'CFStringGetLength');
+  late final _CFStringGetLength =
+      _CFStringGetLengthPtr.asFunction<int Function(ffi.Pointer<CFString>)>();
+
+  int CFStringGetCString(
+    ffi.Pointer<CFString> theString,
+    ffi.Pointer<ffi.Char> buffer,
+    int bufferSize,
+    int encoding,
+  ) {
+    return _CFStringGetCString(
+      theString,
+      buffer,
+      bufferSize,
+      encoding,
+    );
+  }
+
+  late final _CFStringGetCStringPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.UnsignedChar Function(
+              ffi.Pointer<CFString>,
+              ffi.Pointer<ffi.Char>,
+              ffi.Long,
+              ffi.UnsignedInt)>>('CFStringGetCString');
+  late final _CFStringGetCString = _CFStringGetCStringPtr.asFunction<
+      int Function(ffi.Pointer<CFString>, ffi.Pointer<ffi.Char>, int, int)>();
+
   ffi.Pointer<ffi.Char> CFStringGetCStringPtr(
     ffi.Pointer<CFString> theString,
     int encoding,
   ) {
-    return _CFStringGetCStringPtr(
+    return _CFStringGetCStringPtr1(
       theString,
       encoding,
     );
@@ -173,8 +211,25 @@ class NativeMacOsFramework {
       ffi.NativeFunction<
           ffi.Pointer<ffi.Char> Function(ffi.Pointer<CFString>,
               ffi.UnsignedInt)>>('CFStringGetCStringPtr');
-  late final _CFStringGetCStringPtr = _CFStringGetCStringPtrPtr.asFunction<
+  late final _CFStringGetCStringPtr1 = _CFStringGetCStringPtrPtr.asFunction<
       ffi.Pointer<ffi.Char> Function(ffi.Pointer<CFString>, int)>();
+
+  int CFStringGetMaximumSizeForEncoding(
+    int length,
+    int encoding,
+  ) {
+    return _CFStringGetMaximumSizeForEncoding(
+      length,
+      encoding,
+    );
+  }
+
+  late final _CFStringGetMaximumSizeForEncodingPtr =
+      _lookup<ffi.NativeFunction<ffi.Long Function(ffi.Long, ffi.UnsignedInt)>>(
+          'CFStringGetMaximumSizeForEncoding');
+  late final _CFStringGetMaximumSizeForEncoding =
+      _CFStringGetMaximumSizeForEncodingPtr.asFunction<
+          int Function(int, int)>();
 
   /// The bundle identifier (for CFBundleGetBundleWithIdentifier())
   late final ffi.Pointer<ffi.Pointer<CFString>> _kCFBundleVersionKey =
