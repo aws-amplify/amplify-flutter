@@ -140,14 +140,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   /// Analytics Metadata Provider
   AnalyticsMetadataType? get _analyticsMetadata => _stateMachine.get();
 
-  ASFContextDataProvider? get _contextDataProvider => stateMachine.get();
+  ASFContextDataProvider get _contextDataProvider => stateMachine.getOrCreate();
 
   Future<cognito.UserContextDataType?> _getContextData(String username) async {
-    final contextDataProvider = _contextDataProvider;
-    if (contextDataProvider == null) {
-      return null;
-    }
-    return contextDataProvider.buildRequestData(username);
+    return _contextDataProvider.buildRequestData(username);
   }
 
   final StreamController<AuthHubEvent> _hubEventController =
