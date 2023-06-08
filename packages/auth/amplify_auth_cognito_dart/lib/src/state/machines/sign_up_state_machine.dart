@@ -42,7 +42,7 @@ final class SignUpStateMachine
     return userPoolConfig;
   }
 
-  ASFContextDataProvider? get _contextDataProvider => getOrCreate();
+  ASFContextDataProvider get _contextDataProvider => getOrCreate();
 
   @override
   Future<void> resolve(SignUpEvent event) async {
@@ -71,11 +71,9 @@ final class SignUpStateMachine
   Future<void> onInitiate(SignUpInitiate event) async {
     UserContextDataType? contextData;
     final contextDataProvider = _contextDataProvider;
-    if (contextDataProvider != null) {
-      contextData = await contextDataProvider.buildRequestData(
-        event.parameters.username,
-      );
-    }
+    contextData = await contextDataProvider.buildRequestData(
+      event.parameters.username,
+    );
     final resp = await _cognito.signUp(
       SignUpRequest.build(
         (b) {
@@ -134,11 +132,9 @@ final class SignUpStateMachine
   Future<void> onConfirm(SignUpConfirm event) async {
     UserContextDataType? contextData;
     final contextDataProvider = _contextDataProvider;
-    if (contextDataProvider != null) {
-      contextData = await contextDataProvider.buildRequestData(
-        event.username,
-      );
-    }
+    contextData = await contextDataProvider.buildRequestData(
+      event.username,
+    );
     await _cognito.confirmSignUp(
       ConfirmSignUpRequest.build((b) {
         b
