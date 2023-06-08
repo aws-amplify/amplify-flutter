@@ -52,17 +52,13 @@ Amplify for Flutter is an open-source project and welcomes contributions from th
 - [Flutter](https://flutter.dev/docs/get-started/install)
 - [Amplify CLI](https://docs.amplify.aws/lib/project-setup/prereq/q/platform/flutter#option-1-watch-the-video-guide)
 
-#### Getting Started with Flutter app development and Amplify
-
-- Clone this repository
-- Install Amplify in a Flutter project
-- Add basic Amplify functionality to your project using one of the supported categories
+#### Getting Started Amplify Flutter
 
 1. Open your Flutter project. If you do not have an active Flutter project, you can create one after installing the [Flutter development tooling](https://flutter.dev/docs/get-started/install) and running `flutter create <project-name>` in your terminal.
 
 2. Using the Amplify CLI, run `amplify init` from the root of your project:
 
-See [Amplify CLI Installation](https://docs.amplify.aws/lib/project-setup/prereq/q/platform/flutter#install-and-configure-the-amplify-cli)
+If you have not configured the Amplify CLI, check out our documentation at [Amplify CLI Installation](https://docs.amplify.aws/lib/project-setup/prereq/q/platform/flutter#install-and-configure-the-amplify-cli).
 
 ```bash
 ==> amplify init
@@ -90,8 +86,7 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
 4. Add Amplify categories (choose defaults for this example):
 
    ```bash
-   $ amplify add auth
-   $ amplify add analytics
+   $ amplify add auth  # Choose default configuration after entering this command in your terminal.
    ```
 
 5. Push changes to the cloud to provision the backend resources:
@@ -106,7 +101,6 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
 
 ```yaml
 dependencies:
-  amplify_analytics_pinpoint: ^1.0.0
   amplify_auth_cognito: ^1.0.0
   amplify_authenticator: ^1.0.0
   amplify_flutter: ^1.0.0
@@ -123,7 +117,6 @@ flutter pub get
 8. In your main.dart file, add:
 
 ```dart
-import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -143,8 +136,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var _amplifyConfigured = false;
-
   @override
   void initState() {
     super.initState();
@@ -152,25 +143,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _configureAmplify() async {
-    // Add Pinpoint and Cognito Plugins
-    await Amplify.addPlugin(AmplifyAuthCognito());
-    await Amplify.addPlugin(AmplifyAnalyticsPinpoint());
-
-    // Once Plugins are added, configure Amplify
-    await Amplify.configure(amplifyconfig);
-    setState(() {
-      _amplifyConfigured = true;
-    });
-  }
-
-  // Send an event to Pinpoint
-  Future<void> _recordEvent() async {
-    final event = AnalyticsEvent('test');
-    event.customProperties.addBoolProperty('boolKey', true);
-    event.customProperties.addDoubleProperty('doubleKey', 10);
-    event.customProperties.addIntProperty('intKey', 10);
-    event.customProperties.addStringProperty('stringKey', 'stringValue');
-    await Amplify.Analytics.recordEvent(event: event);
+    try {
+      await Amplify.addPlugin(AmplifyAuthCognito());
+      await Amplify.configure(amplifyconfig);
+      safePrint('Successfully configured');
+    } on Exception catch (e) {
+      safePrint('Error configuring Amplify: $e');
+    }
   }
 
   @override
@@ -178,22 +157,9 @@ class _MyAppState extends State<MyApp> {
     return Authenticator(
       child: MaterialApp(
         builder: Authenticator.builder(),
-        home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Amplify Example App'),
-          ),
+        home: const Scaffold(
           body: Center(
-            child: Column(children: [
-              const Padding(padding: EdgeInsets.all(5)),
-              ElevatedButton(
-                onPressed: _amplifyConfigured ? null : _configureAmplify,
-                child: const Text('Configure Amplify'),
-              ),
-              ElevatedButton(
-                onPressed: _amplifyConfigured ? _recordEvent : null,
-                child: const Text('Record Event'),
-              ),
-            ]),
+            child: Text('You are logged in!'),
           ),
         ),
       ),
@@ -202,7 +168,7 @@ class _MyAppState extends State<MyApp> {
 }
 ```
 
-9. Before you can run the app, some extra configuration may be required for each platform. Check out the [Platform Setup](https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/) guide to make sure you've completed the necessary steps.
+9. Since Amplify Flutter supports 6 platforms with Flutter including iOS, Android, Web, and Desktop, some extra configuration may be required for each platform. Check out the [Platform Setup](https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/) guide to make sure you've completed the necessary steps.
 
 10. Run `flutter run` to launch your app on the connected device.
 
