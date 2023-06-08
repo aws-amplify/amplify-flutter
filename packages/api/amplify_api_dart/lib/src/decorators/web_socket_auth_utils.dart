@@ -11,6 +11,12 @@ import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.d
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+const _appSyncHostPortion = 'appsync-api';
+const _appSyncRealtimeHostPortion = 'appsync-realtime-api';
+const _appSyncHostSuffix = 'amazonaws.com';
+const _appSyncPath = 'graphql';
+const _customDomainPath = 'graphql/realtime';
+
 // Constants for header values as noted in https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html.
 const _requiredHeaders = {
   AWSHeaders.accept: 'application/json, text/javascript',
@@ -28,6 +34,7 @@ Future<Uri> generateConnectionUri(
   AWSApiConfig config,
   AmplifyAuthProviderRepository authRepo,
 ) async {
+  // First, generate auth query parameters.
   final authorizationHeaders = await _generateAuthorizationHeaders(
     config,
     isConnectionInit: true,
@@ -36,14 +43,33 @@ Future<Uri> generateConnectionUri(
   );
   final encodedAuthHeaders =
       base64.encode(json.encode(authorizationHeaders).codeUnits);
-  final endpointUri = Uri.parse(
-    config.endpoint.replaceFirst('appsync-api', 'appsync-realtime-api'),
-  );
-  return Uri(scheme: 'wss', host: endpointUri.host, path: 'graphql').replace(
-    queryParameters: <String, String>{
-      'header': encodedAuthHeaders,
-      'payload': base64.encode(utf8.encode(json.encode(_emptyBody))),
-    },
+  final authQueryParameters = {
+    'header': encodedAuthHeaders,
+    'payload': base64.encode(utf8.encode(json.encode(_emptyBody))),
+  };
+  // Conditionally format the URI for a) AppSync domain b) custom domain.
+  var endpointUriHost = Uri.parse(config.endpoint).host;
+  String path;
+  if (endpointUriHost.contains(_appSyncHostPortion) &&
+      endpointUriHost.endsWith(_appSyncHostSuffix)) {
+    // AppSync domain that contains "appsync-api" and ends with "amazonaws.com."
+    // Replace "appsync-api" with "appsync-realtime-api," append "/graphql."
+    endpointUriHost = endpointUriHost.replaceFirst(
+      _appSyncHostPortion,
+      _appSyncRealtimeHostPortion,
+    );
+    path = _appSyncPath;
+  } else {
+    // Custom domain, append "graphql/realtime" to the path like on https://docs.aws.amazon.com/appsync/latest/devguide/custom-domain-name.html.
+    path = _customDomainPath;
+  }
+  // Return wss URI with auth query parameters.
+  return Uri(
+    scheme: 'wss',
+    host: endpointUriHost,
+    path: path,
+  ).replace(
+    queryParameters: authQueryParameters,
   );
 }
 
