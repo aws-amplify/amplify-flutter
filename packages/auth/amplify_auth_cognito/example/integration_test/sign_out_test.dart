@@ -5,9 +5,12 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito_idp;
+// ignore: invalid_use_of_internal_member
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
+import 'package:checks/checks.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_runner.dart';
@@ -27,7 +30,10 @@ void main() {
         late AWSHttpClient client;
         late cognito_idp.CognitoIdentityProviderClient cognitoClient;
 
-        Future<void> check(String accessToken, {required bool isValid}) async {
+        Future<void> checkToken(
+          String accessToken, {
+          required bool isValid,
+        }) async {
           await expectLater(
             cognitoClient
                 .getUser(cognito_idp.GetUserRequest(accessToken: accessToken))
@@ -103,16 +109,78 @@ void main() {
             isNot(session2Tokens.accessToken.raw),
           );
 
-          await check(session1Tokens.accessToken.raw, isValid: true);
-          await check(session2Tokens.accessToken.raw, isValid: true);
+          await checkToken(session1Tokens.accessToken.raw, isValid: true);
+          await checkToken(session2Tokens.accessToken.raw, isValid: true);
 
           final signOutResult = await cognitoPlugin.signOut(
             options: const SignOutOptions(globalSignOut: true),
           );
           expect(signOutResult, isA<CognitoCompleteSignOut>());
 
-          await check(session1Tokens.accessToken.raw, isValid: false);
-          await check(session2Tokens.accessToken.raw, isValid: false);
+          await checkToken(session1Tokens.accessToken.raw, isValid: false);
+          await checkToken(session2Tokens.accessToken.raw, isValid: false);
+        });
+
+        asyncTest('can call sign out after admin delete', (_) async {
+          final username = generateUsername();
+          final password = generatePassword();
+
+          await adminCreateUser(
+            username,
+            password,
+            autoConfirm: true,
+            verifyAttributes: true,
+          );
+
+          final res = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
+          check(res.isSignedIn).isTrue();
+
+          await adminDeleteUser(username);
+
+          await check(
+            because: 'Sign out should succeed even if user is deleted',
+            cognitoPlugin.signOut(),
+          ).completes(
+            it()
+              ..has((res) => res.signedOutLocally, 'signedOutLocally').isTrue(),
+          );
+        });
+
+        asyncTest('can call sign out after admin delete and session expiration',
+            (_) async {
+          final username = generateUsername();
+          final password = generatePassword();
+
+          await adminCreateUser(
+            username,
+            password,
+            autoConfirm: true,
+            verifyAttributes: true,
+          );
+
+          final res = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
+          check(res.isSignedIn).isTrue();
+
+          await adminDeleteUser(username);
+
+          cognitoPlugin.stateMachine
+              .expect(FetchAuthSessionStateMachine.type)
+              .invalidate();
+
+          await check(
+            because: 'Sign out should succeed even if user is deleted and '
+                'credentials are expired',
+            cognitoPlugin.signOut(),
+          ).completes(
+            it()
+              ..has((res) => res.signedOutLocally, 'signedOutLocally').isTrue(),
+          );
         });
       });
     }
