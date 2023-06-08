@@ -73,7 +73,7 @@ final class SignInStateMachine
   late final CognitoIdentityProviderClient cognitoIdentityProvider = expect();
 
   /// The advanced security features (ASF) context data provider.
-  late final ASFContextDataProvider? contextDataProvider = getOrCreate();
+  ASFContextDataProvider get contextDataProvider => getOrCreate();
 
   /// The user built via the auth flow process.
   var _user = CognitoUserBuilder();
@@ -597,15 +597,13 @@ final class SignInStateMachine
     });
 
     final contextDataProvider = this.contextDataProvider;
-    if (contextDataProvider != null) {
-      final contextData = await contextDataProvider.buildRequestData(
-        _user.username!,
+    final contextData = await contextDataProvider.buildRequestData(
+      _user.username!,
+    );
+    if (contextData != null) {
+      initRequest = initRequest.rebuild(
+        (b) => b.userContextData.replace(contextData),
       );
-      if (contextData != null) {
-        initRequest = initRequest.rebuild(
-          (b) => b.userContextData.replace(contextData),
-        );
-      }
     }
     final initResponse =
         await cognitoIdentityProvider.initiateAuth(initRequest).result;
@@ -768,11 +766,9 @@ final class SignInStateMachine
   ) async {
     UserContextDataType? userContextData;
     final contextDataProvider = this.contextDataProvider;
-    if (contextDataProvider != null) {
-      userContextData = await contextDataProvider.buildRequestData(
-        _user.username!,
-      );
-    }
+    userContextData = await contextDataProvider.buildRequestData(
+      _user.username!,
+    );
 
     respondRequest = respondRequest.rebuild((b) {
       b
