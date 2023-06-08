@@ -13,6 +13,9 @@ import 'package:meta/meta.dart';
 
 const _appSyncHostPortion = 'appsync-api';
 const _appSyncRealtimeHostPortion = 'appsync-realtime-api';
+const _appSyncHostSuffix = 'amazonaws.com';
+const _appSyncPath = 'graphql';
+const _customDomainPath = 'graphql/realtime';
 
 // Constants for header values as noted in https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html.
 const _requiredHeaders = {
@@ -48,17 +51,17 @@ Future<Uri> generateConnectionUri(
   var endpointUriHost = Uri.parse(config.endpoint).host;
   String path;
   if (endpointUriHost.contains(_appSyncHostPortion) &&
-      endpointUriHost.endsWith('amazonaws.com')) {
+      endpointUriHost.endsWith(_appSyncHostSuffix)) {
     // AppSync domain that contains "appsync-api" and ends with "amazonaws.com."
     // Replace "appsync-api" with "appsync-realtime-api," append "/graphql."
     endpointUriHost = endpointUriHost.replaceFirst(
       _appSyncHostPortion,
       _appSyncRealtimeHostPortion,
     );
-    path = 'graphql';
+    path = _appSyncPath;
   } else {
     // Custom domain, append "graphql/realtime" to the path like on https://docs.aws.amazon.com/appsync/latest/devguide/custom-domain-name.html.
-    path = 'graphql/realtime';
+    path = _customDomainPath;
   }
   // Return wss URI with auth query parameters.
   return Uri(
