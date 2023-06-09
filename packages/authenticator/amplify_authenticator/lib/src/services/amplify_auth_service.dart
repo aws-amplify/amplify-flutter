@@ -81,6 +81,10 @@ class AmplifyAuthService
     );
   }
 
+  AmplifyAuthCognito get cognitoPlugin => Amplify.Auth.getPlugin(
+        AmplifyAuthCognito.pluginKey,
+      );
+
   @override
   Future<SignInResult> signIn(String username, String password) async {
     final result = await _withUserAgent(
@@ -191,7 +195,13 @@ class AmplifyAuthService
   Future<bool> get isLoggedIn async {
     return _withUserAgent(() async {
       try {
-        final result = await Amplify.Auth.fetchAuthSession();
+        final result = await cognitoPlugin.fetchAuthSession(
+          options: const FetchAuthSessionOptions(
+            pluginOptions: CognitoFetchAuthSessionPluginOptions(
+              allowNewIdentityCreation: false,
+            ),
+          ),
+        );
 
         return result.isSignedIn;
       } on SignedOutException {
@@ -203,8 +213,13 @@ class AmplifyAuthService
   @override
   Future<bool> isValidSession() async {
     return _withUserAgent(() async {
-      final session =
-          await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+      final session = await cognitoPlugin.fetchAuthSession(
+        options: const FetchAuthSessionOptions(
+          pluginOptions: CognitoFetchAuthSessionPluginOptions(
+            allowNewIdentityCreation: false,
+          ),
+        ),
+      );
       final CognitoAuthSession(:userPoolTokensResult) = session;
       return switch (userPoolTokensResult) {
         // If tokens can be retrieved without an exception, return true.
