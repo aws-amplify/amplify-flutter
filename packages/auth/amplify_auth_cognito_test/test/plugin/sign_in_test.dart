@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
@@ -222,6 +223,68 @@ void main() {
           );
         }
       });
+    });
+
+    test(
+        'calling signIn() does not attempt to create an unauthenticated identity',
+        () async {
+      await plugin.configure(
+        config: mockConfig,
+        authProviderRepo: testAuthRepo,
+      );
+
+      final mockIdp = MockCognitoIdentityProviderClient(
+        initiateAuth: (_) async => InitiateAuthResponse(
+          authenticationResult: AuthenticationResultType(
+            accessToken: accessToken.raw,
+            refreshToken: refreshToken,
+            idToken: idToken.raw,
+          ),
+        ),
+        globalSignOut: () async => GlobalSignOutResponse(),
+        revokeToken: () async => RevokeTokenResponse(),
+      );
+
+      final mockIdClient = MockCognitoIdentityClient(
+        getId: expectAsync0(
+          () async {
+            return GetIdResponse(identityId: 'new-id');
+          },
+          count: 1,
+          reason: 'signIn() should only call GetID after completion.',
+        ),
+        getCredentialsForIdentity: expectAsync0(
+          () async {
+            return GetCredentialsForIdentityResponse(
+              identityId: 'newId',
+              credentials: Credentials(
+                accessKeyId: 'newAccessKeyId',
+                secretKey: 'newSecretAccessKey',
+              ),
+            );
+          },
+          count: 1,
+          reason: 'signIn() should only fetch credentials after completion.',
+        ),
+      );
+
+      stateMachine
+        ..addInstance<CognitoIdentityProviderClient>(mockIdp)
+        ..addInstance<CognitoIdentityClient>(mockIdClient);
+
+      await expectLater(
+        plugin.signIn(
+          username: username,
+          password: 'password',
+        ),
+        completion(
+          isA<CognitoSignInResult>().having(
+            (res) => res.isSignedIn,
+            'isSignedIn',
+            isTrue,
+          ),
+        ),
+      );
     });
   });
 }

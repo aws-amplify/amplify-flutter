@@ -527,7 +527,7 @@ final class SignInStateMachine
         CognitoIdentityPoolKeys(identityPoolConfig!),
       );
 
-      await manager.loadSession();
+      await manager.loadSession(allowNewIdentityCreation: true);
     }
 
     return accessToken;

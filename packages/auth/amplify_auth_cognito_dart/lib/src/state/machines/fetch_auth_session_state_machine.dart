@@ -219,14 +219,19 @@ final class FetchAuthSessionStateMachine
     final awsCredentials = result.awsCredentials;
     final awsCredentialsExpiration = awsCredentials?.expiration;
     final forceRefreshAwsCredentials = options.forceRefresh;
-    final retrieveAwsCredentials = awsCredentials == null;
+    final pluginOptions =
+        options.pluginOptions as CognitoFetchAuthSessionPluginOptions?;
+    final allowNewIdentityCreation =
+        pluginOptions?.allowNewIdentityCreation ?? true;
+    final retrieveAwsCredentials =
+        awsCredentials == null && allowNewIdentityCreation;
     final refreshAwsCredentials = hasIdentityPool &&
         (_invalidated ||
             retrieveAwsCredentials ||
             forceRefreshAwsCredentials ||
             _isExpired(awsCredentialsExpiration));
 
-    if (refreshUserPoolTokens || refreshAwsCredentials) {
+    if ((refreshUserPoolTokens || refreshAwsCredentials)) {
       return resolve(
         FetchAuthSessionEvent.refresh(
           refreshUserPoolTokens: refreshUserPoolTokens,
@@ -238,11 +243,18 @@ final class FetchAuthSessionStateMachine
     // If refresh is not needed, return data directly from storage
     final AuthResult<AWSCredentials> credentialsResult;
     final AuthResult<String> identityIdResult;
-    if (hasIdentityPool) {
+    if (hasIdentityPool && allowNewIdentityCreation) {
       // awsCredentials & identityId cannot be null if refreshAwsCredentials is
-      // false.
+      // false and allowNewIdentityCreation is true.
       credentialsResult = AuthResult.success(awsCredentials!);
       identityIdResult = AuthResult.success(result.identityId!);
+    } else if (hasIdentityPool && !allowNewIdentityCreation) {
+      credentialsResult = const AuthResult.error(
+        SignedOutException('No user is currently signed in'),
+      );
+      identityIdResult = const AuthResult.error(
+        SignedOutException('No user is currently signed in'),
+      );
     } else {
       credentialsResult = const AuthResult.error(
         InvalidAccountTypeException.noIdentityPool(),

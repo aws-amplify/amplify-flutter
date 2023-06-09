@@ -89,9 +89,17 @@ class CognitoAuthStateMachine
   }
 
   /// Loads the user's current session.
-  Future<CognitoAuthSession> loadSession() async {
+  Future<CognitoAuthSession> loadSession({
+    bool allowNewIdentityCreation = false,
+  }) async {
     final sessionState = await dispatchAndComplete<FetchAuthSessionSuccess>(
-      const FetchAuthSessionEvent.fetch(),
+      FetchAuthSessionEvent.fetch(
+        FetchAuthSessionOptions(
+          pluginOptions: CognitoFetchAuthSessionPluginOptions(
+            allowNewIdentityCreation: allowNewIdentityCreation,
+          ),
+        ),
+      ),
     );
     return sessionState.session;
   }

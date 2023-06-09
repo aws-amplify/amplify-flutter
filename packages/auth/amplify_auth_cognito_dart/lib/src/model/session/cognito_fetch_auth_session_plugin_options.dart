@@ -12,13 +12,25 @@ part 'cognito_fetch_auth_session_plugin_options.g.dart';
 class CognitoFetchAuthSessionPluginOptions
     extends FetchAuthSessionPluginOptions {
   /// {@macro amplify_auth_cognito.model.cognito_fetch_auth_session_plugin_options}
-  const CognitoFetchAuthSessionPluginOptions();
+  const CognitoFetchAuthSessionPluginOptions({
+    this.allowNewIdentityCreation = true,
+  });
 
   /// {@macro amplify_auth_cognito.model.cognito_fetch_auth_session_plugin_options}
   factory CognitoFetchAuthSessionPluginOptions.fromJson(
     Map<String, Object?> json,
   ) =>
       _$CognitoFetchAuthSessionPluginOptionsFromJson(json);
+
+  /// Whether or a not a new identity should be created if one does not already
+  /// exist.
+  ///
+  /// Defaults to true. Set to false to fetch the session without creating a new
+  /// identity.
+  ///
+  /// This can be used to check if there is an authenticated user without
+  /// creating an unauthenticated identity.
+  final bool allowNewIdentityCreation;
 
   @override
   List<Object?> get props => [];

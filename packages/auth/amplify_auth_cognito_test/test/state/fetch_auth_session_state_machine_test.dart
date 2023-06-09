@@ -53,6 +53,7 @@ void main() {
 
     Future<CognitoAuthSession> fetchAuthSession({
       bool forceRefresh = false,
+      bool allowNewIdentityCreation = true,
       required bool willRefresh,
     }) async {
       final sm = stateMachine.getOrCreate(
@@ -70,7 +71,12 @@ void main() {
       final sessionState =
           await stateMachine.dispatchAndComplete<FetchAuthSessionSuccess>(
         FetchAuthSessionEvent.fetch(
-          FetchAuthSessionOptions(forceRefresh: forceRefresh),
+          FetchAuthSessionOptions(
+            forceRefresh: forceRefresh,
+            pluginOptions: CognitoFetchAuthSessionPluginOptions(
+              allowNewIdentityCreation: allowNewIdentityCreation,
+            ),
+          ),
         ),
       );
       return sessionState.session;
@@ -1055,6 +1061,50 @@ void main() {
               expect(
                 () => session.identityIdResult.value,
                 throwsA(isA<SessionExpiredException>()),
+              );
+            });
+          });
+        });
+
+        group('allowNewIdentityCreation = false', () {
+          group('fetch', () {
+            setUp(() async {
+              await configureAmplify(config);
+              session = await fetchAuthSession(
+                willRefresh: false,
+                allowNewIdentityCreation: false,
+              );
+            });
+
+            test('should return isSignedIn=false', () {
+              expect(session.isSignedIn, isFalse);
+            });
+
+            test('should throw when accessing user sub', () {
+              expect(
+                () => session.userSubResult.value,
+                throwsA(isA<SignedOutException>()),
+              );
+            });
+
+            test('should throw when accessing user pool tokens', () {
+              expect(
+                () => session.userPoolTokensResult.value,
+                throwsA(isA<SignedOutException>()),
+              );
+            });
+
+            test('should throw when accessing credentials', () {
+              expect(
+                () => session.credentialsResult.value,
+                throwsA(isA<SignedOutException>()),
+              );
+            });
+
+            test('should throw when accessing identityId', () {
+              expect(
+                () => session.identityIdResult.value,
+                throwsA(isA<SignedOutException>()),
               );
             });
           });
