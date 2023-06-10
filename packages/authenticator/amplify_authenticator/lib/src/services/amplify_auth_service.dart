@@ -28,8 +28,18 @@ abstract class AuthService {
 
   Future<AuthUser?> get currentUser;
 
+  /// Checks to see if a user has a valid session.
+  ///
+  /// A valid session is a session in which the tokens are not expired, OR
+  /// the access/id tokens have expired but the state of the refresh token is
+  /// unknown due to network unavailability.
   Future<bool> isValidSession();
 
+  /// Checks if a user is logged in based on whether or not there are
+  /// tokens on the device.
+  ///
+  /// This will not check whether or not those tokens are valid. To check
+  /// if tokens are valid, see [isValidSession].
   Future<bool> get isLoggedIn;
 
   Future<ResetPasswordResult> resetPassword(String username);
@@ -191,9 +201,8 @@ class AmplifyAuthService
   Future<bool> get isLoggedIn async {
     return _withUserAgent(() async {
       try {
-        final result = await Amplify.Auth.fetchAuthSession();
-
-        return result.isSignedIn;
+        await Amplify.Auth.getCurrentUser();
+        return true;
       } on SignedOutException {
         return false;
       }
