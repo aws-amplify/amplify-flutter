@@ -23,6 +23,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_auth_cognito_dart/src/util/credentials_providers.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:built_collection/built_collection.dart';
@@ -551,8 +552,8 @@ final class SignInStateMachine
   Future<void> _assertSignedOut() async {
     bool isSignedIn;
     try {
-      await manager.getUserPoolTokens();
-      isSignedIn = true;
+      final credentials = await manager.loadCredentials();
+      isSignedIn = credentials.userPoolTokens != null;
     } on Exception {
       isSignedIn = false;
     }
@@ -593,8 +594,13 @@ final class SignInStateMachine
       }
     });
 
-    final initResponse =
-        await cognitoIdentityProvider.initiateAuth(initRequest).result;
+    final initResponse = await cognitoIdentityProvider
+        .initiateAuth(
+          initRequest,
+          // initiateAuth does not require credentials
+          credentialsProvider: const AnonymousCredentialsProvider(),
+        )
+        .result;
 
     // Current flow state
     _authenticationResult = initResponse.authenticationResult;
@@ -773,7 +779,11 @@ final class SignInStateMachine
 
     try {
       final challengeResp = await cognitoIdentityProvider
-          .respondToAuthChallenge(respondRequest)
+          .respondToAuthChallenge(
+            respondRequest,
+            // respondToAuthChallenge does not require credentials
+            credentialsProvider: const AnonymousCredentialsProvider(),
+          )
           .result;
 
       // Update flow state
