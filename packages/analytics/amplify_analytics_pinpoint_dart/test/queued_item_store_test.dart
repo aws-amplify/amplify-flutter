@@ -1,39 +1,24 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// ignore_for_file: avoid_print
-
-import 'dart:async';
-
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final db = DartQueuedItemStore('/tmp');
+  late DartQueuedItemStore db;
 
   group('DartQueuedItemStore ', () {
+    setUpAll(() {
+      db = DartQueuedItemStore('/tmp');
+    });
+
     tearDownAll(() async {
       await db.clear();
     });
 
     setUp(() async {
-      print('start clearing');
-      const attempts = [0, 1, 2];
-      final items = await db.getCount(100);
-      if (items.isEmpty) {
-        print('nothing in db, stop now');
-        return;
-      }
-      for (final attempt in attempts) {
-        try {
-          await db.clear();
-          break;
-        } on TimeoutException {
-          if (attempt == 2) rethrow;
-        }
-      }
-      print('done clearing');
+      await db.deleteItems(await db.getCount(100));
     });
 
     Future<Iterable<QueuedItem>> getAll() async {
@@ -52,7 +37,7 @@ void main() {
     });
 
     test('returns first n items in storage', () async {
-      const values = ['a', 'b', 'c', 'd', 'e', 'f'];
+      const values = ['0', '1', '2', '3', '4', '5'];
       for (final value in values) {
         await db.addItem(value);
       }
@@ -65,7 +50,7 @@ void main() {
     test(
         'returns all stored items when get request size exceeds stored item count',
         () async {
-      const values = ['alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta'];
+      const values = ['0', '1', '2', '3', '4', '5'];
       for (final value in values) {
         await db.addItem(value);
       }
@@ -76,7 +61,7 @@ void main() {
     });
 
     test('deletes all items in storage', () async {
-      const values = ['0a', '1b', '2c', '3d', '4e', '5f'];
+      const values = ['0', '1', '2', '3', '4', '5'];
       for (final value in values) {
         await db.addItem(value);
       }
@@ -88,18 +73,7 @@ void main() {
     });
 
     test('deletes first subset of stored items', () async {
-      const values = [
-        'zero',
-        'one',
-        'two',
-        'three',
-        'four',
-        'five',
-        'six',
-        'seven',
-        'eight',
-        'nine'
-      ];
+      const values = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
       for (final value in values) {
         await db.addItem(value);
       }
