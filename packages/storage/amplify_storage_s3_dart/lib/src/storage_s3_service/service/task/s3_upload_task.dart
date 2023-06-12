@@ -199,6 +199,12 @@ class S3UploadTask {
   ///
   /// Should be used only internally.
   Future<void> start() async {
+    if (_s3PluginOptions.useAccelerateEndpoint &&
+        _defaultS3ClientConfig.usePathStyle) {
+      _completeUploadWithError(s3_exception.accelerateEndpointUnusable);
+      return;
+    }
+
     try {
       await _setResolvedKey();
     } on Exception catch (error, stackTrace) {

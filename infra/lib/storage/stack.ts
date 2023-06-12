@@ -1,10 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
 import * as cdk from "aws-cdk-lib";
 import { RemovalPolicy } from "aws-cdk-lib";
 import * as cognito from "aws-cdk-lib/aws-cognito";
-import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
@@ -50,6 +50,13 @@ interface StorageIntegrationTestEnvironmentProps
   ) => string;
 
   prefixOverrides?: Record<StorageAccessLevel, String>;
+
+  /**
+   * The name of the bucket. If not provided, it will be auto-generated.
+   */
+  bucketName?: string;
+
+  enableTransferAcceleration?: boolean;
 }
 
 export class StorageIntegrationTestStack extends IntegrationTestStack<
@@ -90,7 +97,8 @@ class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<
     // Create the bucket
 
     const bucket = new s3.Bucket(this, "Bucket", {
-      transferAcceleration: true,
+      bucketName: props.bucketName,
+      transferAcceleration: props.enableTransferAcceleration,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,

@@ -73,6 +73,7 @@ void main() {
       late String object1Etag;
       late String object2Etag;
       late String object3Etag;
+      final shouldTestTransferAcceleration = entry.key != 'dots-in-name';
 
       setUpAll(() async {
         if (entry.key == 'custom-prefix') {
@@ -455,31 +456,37 @@ void main() {
           expect(result.removedItem.key, testObject3CopyMoveKey);
         });
 
-        testContentTypeInferTest(
-          smallFileBytes: testBytes,
-          largeFileBytes: testLargeFileBytes,
-        );
+        group('content type infer', () {
+          testContentTypeInferTest(
+            smallFileBytes: testBytes,
+            largeFileBytes: testLargeFileBytes,
+          );
+        });
 
-        testTransferAcceleration(
-          dataPayloads: [
-            TestTransferAccelerationConfig(
-              targetKey: 'transfer-acceleration-datapayload-${uuid()}',
-              targetAccessLevel: StorageAccessLevel.guest,
-              uploadSource: S3DataPayload.bytes(
-                testBytes,
-              ),
-              referenceBytes: testBytes,
-            ),
-          ],
-          awsFiles: [
-            TestTransferAccelerationConfig(
-              targetKey: 'transfer-acceleration-awsfile-${uuid()}',
-              targetAccessLevel: StorageAccessLevel.private,
-              uploadSource: AWSFile.fromData(testLargeFileBytes),
-              referenceBytes: testLargeFileBytes,
-            )
-          ],
-        );
+        if (shouldTestTransferAcceleration) {
+          group('transfer acceleration', () {
+            testTransferAcceleration(
+              dataPayloads: [
+                TestTransferAccelerationConfig(
+                  targetKey: 'transfer-acceleration-datapayload-${uuid()}',
+                  targetAccessLevel: StorageAccessLevel.guest,
+                  uploadSource: S3DataPayload.bytes(
+                    testBytes,
+                  ),
+                  referenceBytes: testBytes,
+                ),
+              ],
+              awsFiles: [
+                TestTransferAccelerationConfig(
+                  targetKey: 'transfer-acceleration-awsfile-${uuid()}',
+                  targetAccessLevel: StorageAccessLevel.private,
+                  uploadSource: AWSFile.fromData(testLargeFileBytes),
+                  referenceBytes: testLargeFileBytes,
+                )
+              ],
+            );
+          });
+        }
 
         testWidgets(
             'multiple fields of user defined metadata with non-ascii string values',
