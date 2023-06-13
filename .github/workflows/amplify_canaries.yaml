@@ -81,6 +81,11 @@ jobs:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
           java-version: "11"
 
+      # Must be run before `fetch_backends` so that `pubspec.lock` is present.
+      - name: Pub Upgrade
+        working-directory: canaries
+        run: flutter pub upgrade
+
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
         with:
@@ -126,6 +131,11 @@ jobs:
         uses: ./.github/composite_actions/install_dependencies
         with:
           flutter-version: ${{ matrix.flutter-version }}
+
+      # Must be run before `fetch_backends` so that `pubspec.lock` is present.
+      - name: Pub Upgrade
+        working-directory: canaries
+        run: flutter pub upgrade
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
