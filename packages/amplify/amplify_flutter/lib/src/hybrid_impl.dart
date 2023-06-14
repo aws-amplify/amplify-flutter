@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
+import 'package:graphs/graphs.dart';
 
 /// {@template amplify_flutter.amplify_hybrid_impl}
 /// A hybrid implementation of [AmplifyClass] which uses method channels for
@@ -23,22 +24,30 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
     );
     await Future.wait(_addPluginFutures);
     _addPluginFutures.clear();
-    await Future.wait(
-      [
-        ...API.plugins,
-        ...Auth.plugins,
-        ...Notifications.Push.plugins,
-        ...Analytics.plugins,
-        ...Storage.plugins,
-        ...DataStore.plugins,
-      ].map(
-        (p) => p.configure(
-          config: amplifyConfig,
-          authProviderRepo: authProviderRepo,
+    final categories = <Category, AmplifyCategory>{
+      Category.analytics: Analytics,
+      Category.api: API,
+      Category.auth: Auth,
+      Category.dataStore: DataStore,
+      Category.pushNotifications: Notifications.Push,
+      Category.storage: Storage,
+    };
+    final sortedCategories = topologicalSort(
+      categories.keys,
+      (category) => categories[category]!.categoryDependencies,
+    ).reversed;
+    for (final category in sortedCategories) {
+      final plugins = categories[category]!.plugins;
+      await Future.wait(
+        eagerError: true,
+        plugins.map(
+          (plugin) => plugin.configure(
+            config: amplifyConfig,
+            authProviderRepo: authProviderRepo,
+          ),
         ),
-      ),
-      eagerError: true,
-    );
+      );
+    }
   }
 
   @override
