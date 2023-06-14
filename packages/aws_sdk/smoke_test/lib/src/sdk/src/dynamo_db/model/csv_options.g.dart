@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.csv_options;
+part of 'csv_options.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

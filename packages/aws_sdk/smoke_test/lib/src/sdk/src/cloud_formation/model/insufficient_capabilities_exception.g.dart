@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.insufficient_capabilities_exception;
+part of 'insufficient_capabilities_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

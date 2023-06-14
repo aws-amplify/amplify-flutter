@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.metadata_entry;
+part of 'metadata_entry.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.vpc_links;
+part of 'vpc_links.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

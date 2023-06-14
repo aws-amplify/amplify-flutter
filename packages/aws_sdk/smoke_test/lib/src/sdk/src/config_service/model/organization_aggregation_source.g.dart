@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.organization_aggregation_source;
+part of 'organization_aggregation_source.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

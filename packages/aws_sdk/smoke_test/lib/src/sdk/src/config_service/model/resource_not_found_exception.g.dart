@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.resource_not_found_exception;
+part of 'resource_not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

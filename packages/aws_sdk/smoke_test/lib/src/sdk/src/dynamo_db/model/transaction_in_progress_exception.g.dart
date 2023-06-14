@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.transaction_in_progress_exception;
+part of 'transaction_in_progress_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_service_linked_role_request;
+part of 'create_service_linked_role_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

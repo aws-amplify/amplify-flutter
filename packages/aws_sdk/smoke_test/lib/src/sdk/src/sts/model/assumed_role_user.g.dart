@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.assumed_role_user;
+part of 'assumed_role_user.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

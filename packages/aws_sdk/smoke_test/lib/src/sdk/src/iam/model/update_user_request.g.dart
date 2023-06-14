@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.update_user_request;
+part of 'update_user_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

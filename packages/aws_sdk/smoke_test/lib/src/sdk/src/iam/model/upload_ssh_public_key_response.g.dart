@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.upload_ssh_public_key_response;
+part of 'upload_ssh_public_key_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

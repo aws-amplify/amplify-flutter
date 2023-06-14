@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.invalid_sns_topic_arn_exception;
+part of 'invalid_sns_topic_arn_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

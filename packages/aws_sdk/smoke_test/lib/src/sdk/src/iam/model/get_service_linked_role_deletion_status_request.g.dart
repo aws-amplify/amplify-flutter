@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_service_linked_role_deletion_status_request;
+part of 'get_service_linked_role_deletion_status_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

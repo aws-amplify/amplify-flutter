@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_group_response;
+part of 'get_group_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

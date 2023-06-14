@@ -203,7 +203,7 @@ class GetServiceLastAccessedDetailsOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

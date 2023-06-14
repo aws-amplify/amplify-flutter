@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.create_global_secondary_index_action;
+part of 'create_global_secondary_index_action.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

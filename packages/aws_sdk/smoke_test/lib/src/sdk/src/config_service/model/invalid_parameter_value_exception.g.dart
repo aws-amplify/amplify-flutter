@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.invalid_parameter_value_exception;
+part of 'invalid_parameter_value_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

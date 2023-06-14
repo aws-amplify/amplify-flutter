@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.batch_execute_statement_input;
+part of 'batch_execute_statement_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

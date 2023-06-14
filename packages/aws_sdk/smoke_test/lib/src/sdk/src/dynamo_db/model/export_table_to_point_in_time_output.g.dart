@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.export_table_to_point_in_time_output;
+part of 'export_table_to_point_in_time_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

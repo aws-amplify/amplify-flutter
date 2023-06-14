@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_virtual_mfa_device_request;
+part of 'delete_virtual_mfa_device_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

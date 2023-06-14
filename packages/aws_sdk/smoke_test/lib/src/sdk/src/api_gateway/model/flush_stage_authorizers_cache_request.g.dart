@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.flush_stage_authorizers_cache_request;
+part of 'flush_stage_authorizers_cache_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -149,7 +149,7 @@ class ListGroupsOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
       },
     );
   }

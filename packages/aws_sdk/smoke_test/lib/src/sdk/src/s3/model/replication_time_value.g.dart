@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.replication_time_value;
+part of 'replication_time_value.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

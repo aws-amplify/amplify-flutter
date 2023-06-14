@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.no_available_delivery_channel_exception;
+part of 'no_available_delivery_channel_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

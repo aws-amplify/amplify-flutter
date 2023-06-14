@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.organizations_decision_detail;
+part of 'organizations_decision_detail.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

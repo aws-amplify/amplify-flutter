@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.kinesis_streaming_destination_output;
+part of 'kinesis_streaming_destination_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

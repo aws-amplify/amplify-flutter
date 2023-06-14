@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.internal_server_error;
+part of 'internal_server_error.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

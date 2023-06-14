@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.bucket_lifecycle_configuration;
+part of 'bucket_lifecycle_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

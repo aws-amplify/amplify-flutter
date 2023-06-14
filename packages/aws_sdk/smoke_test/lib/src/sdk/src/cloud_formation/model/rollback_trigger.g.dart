@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.rollback_trigger;
+part of 'rollback_trigger.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

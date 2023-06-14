@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.cfn_registry_exception;
+part of 'cfn_registry_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

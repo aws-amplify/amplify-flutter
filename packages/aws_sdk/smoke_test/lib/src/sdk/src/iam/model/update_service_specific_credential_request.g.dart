@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.update_service_specific_credential_request;
+part of 'update_service_specific_credential_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

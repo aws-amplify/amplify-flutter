@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.invalid_authorization_message_exception;
+part of 'invalid_authorization_message_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

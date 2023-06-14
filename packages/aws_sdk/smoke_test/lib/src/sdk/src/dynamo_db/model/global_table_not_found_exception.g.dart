@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.global_table_not_found_exception;
+part of 'global_table_not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.untag_server_certificate_request;
+part of 'untag_server_certificate_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

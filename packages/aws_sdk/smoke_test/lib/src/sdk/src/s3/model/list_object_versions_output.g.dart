@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.list_object_versions_output;
+part of 'list_object_versions_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

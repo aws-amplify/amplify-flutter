@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.max_number_of_organization_config_rules_exceeded_exception;
+part of 'max_number_of_organization_config_rules_exceeded_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

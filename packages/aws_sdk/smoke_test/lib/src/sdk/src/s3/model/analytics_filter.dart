@@ -10,6 +10,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/analytics_and_operator.dart'
     as _i3;
 import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
 
+/// The filter used to describe a set of objects for analyses. A filter must have exactly one prefix, one tag, or one conjunction (AnalyticsAndOperator). If no filter is provided, all objects will be considered in any analysis.
 sealed class AnalyticsFilter extends _i1.SmithyUnion<AnalyticsFilter> {
   const AnalyticsFilter._();
 

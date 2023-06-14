@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_policy_tags_request;
+part of 'list_policy_tags_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

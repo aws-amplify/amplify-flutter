@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.signal_resource_input;
+part of 'signal_resource_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

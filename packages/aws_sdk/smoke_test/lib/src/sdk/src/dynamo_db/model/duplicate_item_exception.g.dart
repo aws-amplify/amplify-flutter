@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.duplicate_item_exception;
+part of 'duplicate_item_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

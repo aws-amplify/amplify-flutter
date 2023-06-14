@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.get_shard_iterator_input;
+part of 'get_shard_iterator_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

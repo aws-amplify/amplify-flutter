@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.client_certificate;
+part of 'client_certificate.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_object_legal_hold_output;
+part of 'get_object_legal_hold_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

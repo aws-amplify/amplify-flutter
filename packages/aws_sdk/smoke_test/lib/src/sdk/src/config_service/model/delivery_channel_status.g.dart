@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delivery_channel_status;
+part of 'delivery_channel_status.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

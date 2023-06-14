@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.region_disabled_exception;
+part of 'region_disabled_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

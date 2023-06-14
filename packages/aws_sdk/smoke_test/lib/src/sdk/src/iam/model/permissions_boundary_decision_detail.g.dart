@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.permissions_boundary_decision_detail;
+part of 'permissions_boundary_decision_detail.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.encryption_configuration;
+part of 'encryption_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.remove_role_from_instance_profile_request;
+part of 'remove_role_from_instance_profile_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

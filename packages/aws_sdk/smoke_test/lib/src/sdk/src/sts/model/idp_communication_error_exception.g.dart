@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.idp_communication_error_exception;
+part of 'idp_communication_error_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

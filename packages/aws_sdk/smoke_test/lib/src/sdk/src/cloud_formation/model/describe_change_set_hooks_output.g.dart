@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_change_set_hooks_output;
+part of 'describe_change_set_hooks_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.export_conflict_exception;
+part of 'export_conflict_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

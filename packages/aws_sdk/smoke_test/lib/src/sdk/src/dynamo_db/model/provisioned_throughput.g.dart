@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.provisioned_throughput;
+part of 'provisioned_throughput.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

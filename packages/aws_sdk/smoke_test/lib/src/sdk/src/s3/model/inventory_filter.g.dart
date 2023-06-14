@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.inventory_filter;
+part of 'inventory_filter.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

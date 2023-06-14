@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.get_federation_token_request;
+part of 'get_federation_token_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

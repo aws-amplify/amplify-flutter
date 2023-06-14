@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.deployment_targets;
+part of 'deployment_targets.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.decode_authorization_message_response;
+part of 'decode_authorization_message_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.oversized_configuration_item_exception;
+part of 'oversized_configuration_item_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

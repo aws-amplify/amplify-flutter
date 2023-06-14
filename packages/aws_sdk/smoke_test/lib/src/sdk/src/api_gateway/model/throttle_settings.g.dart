@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.throttle_settings;
+part of 'throttle_settings.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

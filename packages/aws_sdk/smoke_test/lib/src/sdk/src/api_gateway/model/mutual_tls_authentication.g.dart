@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.mutual_tls_authentication;
+part of 'mutual_tls_authentication.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

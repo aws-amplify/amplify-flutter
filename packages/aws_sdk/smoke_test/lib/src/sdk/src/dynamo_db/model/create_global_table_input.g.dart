@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.create_global_table_input;
+part of 'create_global_table_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
