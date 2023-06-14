@@ -23,6 +23,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   @nonVirtual
   Category get category => Category.auth;
 
+  @override
+  @nonVirtual
+  Set<Category> get categoryDependencies => const {};
+
   /// Gets the registered plugin of type [Plugin] as provided by a [pluginKey], e.g.
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="get-plugin"?>

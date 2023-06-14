@@ -8,6 +8,10 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
   @nonVirtual
   Category get category => Category.api;
 
+  @override
+  @nonVirtual
+  Set<Category> get categoryDependencies => const {Category.auth};
+
   // ====== GraphQL =======
 
   /// Sends a GraphQL query request and returns the response in a cancelable `GraphQLOperation`.

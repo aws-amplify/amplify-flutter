@@ -67,6 +67,9 @@ enum Category {
 abstract class AmplifyCategory<P extends AmplifyPluginInterface> {
   Category get category;
 
+  /// The categories this category depends on.
+  Set<Category> get categoryDependencies;
+
   final List<P> _plugins = [];
 
   /// The plugins registered for this category.

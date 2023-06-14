@@ -6,6 +6,7 @@
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:graphs/graphs.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_core.amplify_class_impl}
@@ -74,21 +75,30 @@ class AmplifyClassImpl extends AmplifyClass {
     );
     await Future.wait(_addPluginFutures);
     _addPluginFutures.clear();
-    await Future.wait(
-      [
-        ...Analytics.plugins,
-        ...API.plugins,
-        ...Auth.plugins,
-        ...DataStore.plugins,
-        ...Storage.plugins,
-      ].map(
-        (p) => p.configure(
-          config: amplifyConfig,
-          authProviderRepo: authProviderRepo,
+    final categories = <Category, AmplifyCategory>{
+      Category.analytics: Analytics,
+      Category.api: API,
+      Category.auth: Auth,
+      Category.dataStore: DataStore,
+      Category.pushNotifications: Notifications.Push,
+      Category.storage: Storage,
+    };
+    final sortedCategories = topologicalSort(
+      categories.keys,
+      (category) => categories[category]!.categoryDependencies,
+    ).reversed;
+    for (final category in sortedCategories) {
+      final plugins = categories[category]!.plugins;
+      await Future.wait(
+        eagerError: true,
+        plugins.map(
+          (plugin) => plugin.configure(
+            config: amplifyConfig,
+            authProviderRepo: authProviderRepo,
+          ),
         ),
-      ),
-      eagerError: true,
-    );
+      );
+    }
   }
 
   @override

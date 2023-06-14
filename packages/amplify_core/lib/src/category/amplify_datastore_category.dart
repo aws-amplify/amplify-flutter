@@ -13,6 +13,10 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
   Category get category => Category.dataStore;
 
   @override
+  @nonVirtual
+  Set<Category> get categoryDependencies => const {Category.api, Category.auth};
+
+  @override
   Future<void> addPlugin(
     DataStorePluginInterface plugin, {
     required AmplifyAuthProviderRepository authProviderRepo,
