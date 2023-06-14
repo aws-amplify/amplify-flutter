@@ -75,6 +75,8 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
     // The Analytics stack
     const analytics = new AnalyticsIntegrationTestStack(this, [
       { environmentName: "main" },
+      { environmentName: "no-unauth-access", allowUnauthAccess: false },
+      { environmentName: "no-unauth-identities", allowUnauthIdentites: false }
     ]);
 
     // The Auth stack
