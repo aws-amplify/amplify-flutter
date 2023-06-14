@@ -275,7 +275,7 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       {
         environmentName: "dots-in-name",
         enableTransferAcceleration: false,
-        bucketName: "amplify.integ-test.stack.com",
+        bucketNamePrefix: "amplify.integ-test.stack",
       },
     ]);
 
