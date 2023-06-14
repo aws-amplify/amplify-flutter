@@ -6,6 +6,7 @@ library amplify_interface;
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/http/amplify_category_method.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
