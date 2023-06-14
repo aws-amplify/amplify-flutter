@@ -182,28 +182,32 @@ class SmithyHttpRequest {
       },
     );
     Future<void>(() async {
-      final request = await transformRequest(
-        baseClient: client,
-        isCanceled: () => completer.isCanceled,
-      );
-      final operation = request.send(
-        // We extract the transformRequest/transformResponse methods of
-        // `client` when specified. To avoid calling them twice in `send`,
-        // send the request using its baseClient.
-        // TODO(dnys1): Invert? Add interceptors option to Smithy operations?
-        client: client is AWSBaseHttpClient ? client.baseClient : client,
-      );
-      unawaited(operation.requestProgress.forward(requestProgress));
-      unawaited(operation.responseProgress.forward(responseProgress));
-      completer.completeOperation(
-        operation.operation.then(
-          (response) => _transformResponse(
-            response,
-            baseClient: client,
-            isCanceled: () => completer.isCanceled,
+      try {
+        final request = await transformRequest(
+          baseClient: client,
+          isCanceled: () => completer.isCanceled,
+        );
+        final operation = request.send(
+          // We extract the transformRequest/transformResponse methods of
+          // `client` when specified. To avoid calling them twice in `send`,
+          // send the request using its baseClient.
+          // TODO(dnys1): Invert? Add interceptors option to Smithy operations?
+          client: client is AWSBaseHttpClient ? client.baseClient : client,
+        );
+        unawaited(operation.requestProgress.forward(requestProgress));
+        unawaited(operation.responseProgress.forward(responseProgress));
+        completer.completeOperation(
+          operation.operation.then(
+            (response) => _transformResponse(
+              response,
+              baseClient: client,
+              isCanceled: () => completer.isCanceled,
+            ),
           ),
-        ),
-      );
+        );
+      } on Object catch (e, st) {
+        completer.completeError(e, st);
+      }
     });
     return AWSHttpOperation(
       completer.operation,
