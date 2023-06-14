@@ -9,6 +9,10 @@ class PushNotificationsCategory
   @nonVirtual
   Category get category => Category.pushNotifications;
 
+  @override
+  @nonVirtual
+  Set<Category> get categoryDependencies => const {Category.analytics};
+
   /// {@template amplify_core.amplify_push_notifications_category.get_permission_status}
   /// The current Push Notificaiton permission state.
   ///
