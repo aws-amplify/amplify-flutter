@@ -8,6 +8,10 @@ class AnalyticsCategory extends AmplifyCategory<AnalyticsPluginInterface> {
   @nonVirtual
   Category get category => Category.analytics;
 
+  @override
+  @nonVirtual
+  Set<Category> get categoryDependencies => const {Category.auth};
+
   /// {@template amplify_core.amplify_analytics_category.record_event}
   /// Save an [event] to be sent in the next batch to the analytics service
   /// {@endtemplate}
