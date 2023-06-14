@@ -1,11 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:convert';
-
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
-import 'package:graphs/graphs.dart';
 
 /// {@template amplify_flutter.amplify_hybrid_impl}
 /// A hybrid implementation of [AmplifyClass] which uses method channels for
@@ -15,49 +12,8 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
   /// {@macro amplify_flutter.amplify_hybrid_impl}
   AmplifyHybridImpl() : super.protected();
 
-  final _addPluginFutures = <Future<void>>[];
-
   @override
-  Future<void> configurePlatform(String config) async {
-    final amplifyConfig = AmplifyConfig.fromJson(
-      (jsonDecode(config) as Map<Object?, Object?>).cast(),
-    );
-    await Future.wait(_addPluginFutures);
-    _addPluginFutures.clear();
-    final categories = <Category, AmplifyCategory>{
-      Category.analytics: Analytics,
-      Category.api: API,
-      Category.auth: Auth,
-      Category.dataStore: DataStore,
-      Category.pushNotifications: Notifications.Push,
-      Category.storage: Storage,
-    };
-    final sortedCategories = topologicalSort(
-      categories.keys,
-      (category) => categories[category]!.categoryDependencies,
-    ).reversed;
-    for (final category in sortedCategories) {
-      final plugins = categories[category]!.plugins;
-      await Future.wait(
-        eagerError: true,
-        plugins.map(
-          (plugin) => plugin.configure(
-            config: amplifyConfig,
-            authProviderRepo: authProviderRepo,
-          ),
-        ),
-      );
-    }
-  }
-
-  @override
-  Future<void> addPlugin(AmplifyPluginInterface plugin) {
-    final future = _addPlugin(plugin);
-    _addPluginFutures.add(future);
-    return future;
-  }
-
-  Future<void> _addPlugin(AmplifyPluginInterface plugin) async {
+  Future<void> addPluginPlatform(AmplifyPluginInterface plugin) async {
     if (isConfigured) {
       throw const AmplifyAlreadyConfiguredException(
         'Amplify has already been configured and adding plugins after configure is not supported.',
