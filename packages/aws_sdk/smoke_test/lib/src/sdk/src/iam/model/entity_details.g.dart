@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.entity_details;
+part of 'entity_details.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

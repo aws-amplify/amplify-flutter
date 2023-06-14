@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.replica_auto_scaling_update;
+part of 'replica_auto_scaling_update.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

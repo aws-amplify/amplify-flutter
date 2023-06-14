@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.remove_client_id_from_open_id_connect_provider_request;
+part of 'remove_client_id_from_open_id_connect_provider_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

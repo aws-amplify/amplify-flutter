@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.invalid_object_state;
+part of 'invalid_object_state.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

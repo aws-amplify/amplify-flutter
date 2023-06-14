@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.invalid_state_transition_exception;
+part of 'invalid_state_transition_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

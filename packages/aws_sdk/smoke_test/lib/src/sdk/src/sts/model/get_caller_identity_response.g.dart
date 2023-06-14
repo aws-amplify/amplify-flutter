@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.get_caller_identity_response;
+part of 'get_caller_identity_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

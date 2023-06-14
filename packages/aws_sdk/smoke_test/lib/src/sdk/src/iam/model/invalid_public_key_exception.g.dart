@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.invalid_public_key_exception;
+part of 'invalid_public_key_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

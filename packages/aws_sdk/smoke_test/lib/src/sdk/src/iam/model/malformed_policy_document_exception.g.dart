@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.malformed_policy_document_exception;
+part of 'malformed_policy_document_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

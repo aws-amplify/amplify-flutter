@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.list_tags_for_resource_response;
+part of 'list_tags_for_resource_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

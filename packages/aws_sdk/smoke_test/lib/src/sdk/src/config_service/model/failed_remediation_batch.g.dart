@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.failed_remediation_batch;
+part of 'failed_remediation_batch.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

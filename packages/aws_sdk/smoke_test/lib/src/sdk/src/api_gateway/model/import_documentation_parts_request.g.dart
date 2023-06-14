@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.import_documentation_parts_request;
+part of 'import_documentation_parts_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

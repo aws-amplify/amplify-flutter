@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.get_session_token_response;
+part of 'get_session_token_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

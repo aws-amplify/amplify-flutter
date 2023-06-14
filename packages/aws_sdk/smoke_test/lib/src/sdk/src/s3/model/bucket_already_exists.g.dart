@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.bucket_already_exists;
+part of 'bucket_already_exists.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.conditional_check_failed_exception;
+part of 'conditional_check_failed_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

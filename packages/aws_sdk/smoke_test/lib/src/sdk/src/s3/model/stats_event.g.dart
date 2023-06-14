@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.stats_event;
+part of 'stats_event.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

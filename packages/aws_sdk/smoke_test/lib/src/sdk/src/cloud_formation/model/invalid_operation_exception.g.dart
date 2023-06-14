@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.invalid_operation_exception;
+part of 'invalid_operation_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

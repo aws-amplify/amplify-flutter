@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.physical_resource_id_context_key_value_pair;
+part of 'physical_resource_id_context_key_value_pair.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

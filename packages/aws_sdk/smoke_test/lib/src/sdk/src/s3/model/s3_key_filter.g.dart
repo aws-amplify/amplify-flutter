@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.s3_key_filter;
+part of 's3_key_filter.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

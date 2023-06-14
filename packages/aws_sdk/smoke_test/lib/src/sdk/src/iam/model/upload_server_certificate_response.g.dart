@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.upload_server_certificate_response;
+part of 'upload_server_certificate_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.list_backups_input;
+part of 'list_backups_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

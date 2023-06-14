@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.delete_vpc_link_request;
+part of 'delete_vpc_link_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

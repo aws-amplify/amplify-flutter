@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.create_replica_action;
+part of 'create_replica_action.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.parquet_input;
+part of 'parquet_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

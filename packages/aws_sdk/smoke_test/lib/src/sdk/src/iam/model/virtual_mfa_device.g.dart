@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.virtual_mfa_device;
+part of 'virtual_mfa_device.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

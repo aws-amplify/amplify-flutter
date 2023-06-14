@@ -317,7 +317,7 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
+        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)},
       },
     );
   }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.idempotent_parameter_mismatch_exception;
+part of 'idempotent_parameter_mismatch_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

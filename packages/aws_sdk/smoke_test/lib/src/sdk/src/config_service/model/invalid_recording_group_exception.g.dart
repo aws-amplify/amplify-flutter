@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.invalid_recording_group_exception;
+part of 'invalid_recording_group_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

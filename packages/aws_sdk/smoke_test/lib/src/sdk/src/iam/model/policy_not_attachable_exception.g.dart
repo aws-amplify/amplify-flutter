@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.policy_not_attachable_exception;
+part of 'policy_not_attachable_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

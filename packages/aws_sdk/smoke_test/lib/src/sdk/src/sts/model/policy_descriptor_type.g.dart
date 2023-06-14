@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.policy_descriptor_type;
+part of 'policy_descriptor_type.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

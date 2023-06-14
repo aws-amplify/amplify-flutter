@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stack_set_not_found_exception;
+part of 'stack_set_not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

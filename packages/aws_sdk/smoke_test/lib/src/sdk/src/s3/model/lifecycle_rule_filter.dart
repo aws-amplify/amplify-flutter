@@ -11,6 +11,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/lifecycle_rule_and_operator.dart
     as _i4;
 import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
 
+/// The `Filter` is used to identify objects that a Lifecycle Rule applies to. A `Filter` must have exactly one of `Prefix`, `Tag`, or `And` specified.
 sealed class LifecycleRuleFilter extends _i1.SmithyUnion<LifecycleRuleFilter> {
   const LifecycleRuleFilter._();
 

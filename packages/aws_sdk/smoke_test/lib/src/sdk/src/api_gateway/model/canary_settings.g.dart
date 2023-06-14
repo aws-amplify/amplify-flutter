@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.canary_settings;
+part of 'canary_settings.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

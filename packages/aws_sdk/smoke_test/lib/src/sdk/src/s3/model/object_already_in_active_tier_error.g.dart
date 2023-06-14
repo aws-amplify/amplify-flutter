@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.object_already_in_active_tier_error;
+part of 'object_already_in_active_tier_error.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

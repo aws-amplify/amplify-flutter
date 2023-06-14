@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete_public_access_block_request;
+part of 'delete_public_access_block_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.idp_rejected_claim_exception;
+part of 'idp_rejected_claim_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

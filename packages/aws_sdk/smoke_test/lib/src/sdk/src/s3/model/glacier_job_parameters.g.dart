@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.glacier_job_parameters;
+part of 'glacier_job_parameters.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete_bucket_intelligent_tiering_configuration_request;
+part of 'delete_bucket_intelligent_tiering_configuration_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

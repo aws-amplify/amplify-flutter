@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.unmodifiable_entity_exception;
+part of 'unmodifiable_entity_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

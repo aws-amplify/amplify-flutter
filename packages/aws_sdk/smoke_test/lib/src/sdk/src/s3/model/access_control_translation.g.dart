@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.access_control_translation;
+part of 'access_control_translation.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.continuous_backups_unavailable_exception;
+part of 'continuous_backups_unavailable_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

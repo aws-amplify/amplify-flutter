@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.notification_configuration_filter;
+part of 'notification_configuration_filter.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

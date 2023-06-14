@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.compliance_contributor_count;
+part of 'compliance_contributor_count.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

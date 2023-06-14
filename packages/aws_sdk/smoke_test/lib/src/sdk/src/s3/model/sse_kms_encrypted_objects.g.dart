@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.sse_kms_encrypted_objects;
+part of 'sse_kms_encrypted_objects.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_account_limits_input;
+part of 'describe_account_limits_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

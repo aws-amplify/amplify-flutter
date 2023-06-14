@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.lifecycle_rule_and_operator;
+part of 'lifecycle_rule_and_operator.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

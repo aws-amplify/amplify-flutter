@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.output_serialization;
+part of 'output_serialization.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

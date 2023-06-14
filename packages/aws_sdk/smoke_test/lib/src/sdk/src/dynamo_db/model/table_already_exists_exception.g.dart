@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.table_already_exists_exception;
+part of 'table_already_exists_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

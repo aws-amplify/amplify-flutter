@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.set_security_token_service_preferences_request;
+part of 'set_security_token_service_preferences_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

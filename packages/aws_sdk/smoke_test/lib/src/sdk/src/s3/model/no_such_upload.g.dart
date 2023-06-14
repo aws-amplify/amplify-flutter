@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.no_such_upload;
+part of 'no_such_upload.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

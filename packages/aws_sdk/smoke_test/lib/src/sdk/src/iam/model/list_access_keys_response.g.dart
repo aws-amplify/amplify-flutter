@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_access_keys_response;
+part of 'list_access_keys_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

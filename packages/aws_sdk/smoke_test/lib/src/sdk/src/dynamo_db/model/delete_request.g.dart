@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.delete_request;
+part of 'delete_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

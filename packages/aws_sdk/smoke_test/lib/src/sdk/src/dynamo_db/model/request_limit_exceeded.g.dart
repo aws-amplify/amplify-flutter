@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.request_limit_exceeded;
+part of 'request_limit_exceeded.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

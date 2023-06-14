@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.abort_incomplete_multipart_upload;
+part of 'abort_incomplete_multipart_upload.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

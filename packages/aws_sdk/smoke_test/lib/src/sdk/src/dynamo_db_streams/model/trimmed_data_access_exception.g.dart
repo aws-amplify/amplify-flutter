@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.trimmed_data_access_exception;
+part of 'trimmed_data_access_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

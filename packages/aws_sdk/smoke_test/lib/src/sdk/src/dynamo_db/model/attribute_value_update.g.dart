@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.attribute_value_update;
+part of 'attribute_value_update.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

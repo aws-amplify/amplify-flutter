@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_account_password_policy_response;
+part of 'get_account_password_policy_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

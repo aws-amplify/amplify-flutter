@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.tracked_action_last_accessed;
+part of 'tracked_action_last_accessed.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

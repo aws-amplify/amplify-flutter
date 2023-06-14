@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete_objects_request;
+part of 'delete_objects_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

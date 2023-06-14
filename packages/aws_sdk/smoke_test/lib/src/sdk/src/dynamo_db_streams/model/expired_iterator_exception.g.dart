@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.expired_iterator_exception;
+part of 'expired_iterator_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

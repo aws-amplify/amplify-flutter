@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.service_specific_credential_metadata;
+part of 'service_specific_credential_metadata.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

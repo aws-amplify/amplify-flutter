@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.redirect_all_requests_to;
+part of 'redirect_all_requests_to.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

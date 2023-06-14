@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.stop_configuration_recorder_request;
+part of 'stop_configuration_recorder_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

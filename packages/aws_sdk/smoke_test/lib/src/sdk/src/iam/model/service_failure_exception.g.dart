@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.service_failure_exception;
+part of 'service_failure_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
