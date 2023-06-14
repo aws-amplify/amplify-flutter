@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.restore_table_from_backup_input;
+part of 'restore_table_from_backup_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

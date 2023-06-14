@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.organization_all_features_not_enabled_exception;
+part of 'organization_all_features_not_enabled_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

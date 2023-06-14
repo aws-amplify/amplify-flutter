@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.source_selection_criteria;
+part of 'source_selection_criteria.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

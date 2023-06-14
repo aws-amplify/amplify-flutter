@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.unauthorized_exception;
+part of 'unauthorized_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

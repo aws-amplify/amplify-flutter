@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.topic_configuration;
+part of 'topic_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

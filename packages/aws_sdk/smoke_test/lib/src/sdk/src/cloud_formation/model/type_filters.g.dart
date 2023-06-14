@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.type_filters;
+part of 'type_filters.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

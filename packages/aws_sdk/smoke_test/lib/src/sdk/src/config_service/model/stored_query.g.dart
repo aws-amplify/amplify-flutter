@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.stored_query;
+part of 'stored_query.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

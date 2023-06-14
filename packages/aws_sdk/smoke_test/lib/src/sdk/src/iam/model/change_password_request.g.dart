@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.change_password_request;
+part of 'change_password_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

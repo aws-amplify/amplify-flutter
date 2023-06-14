@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.point_in_time_recovery_unavailable_exception;
+part of 'point_in_time_recovery_unavailable_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

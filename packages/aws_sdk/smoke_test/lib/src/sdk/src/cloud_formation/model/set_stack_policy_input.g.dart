@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.set_stack_policy_input;
+part of 'set_stack_policy_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

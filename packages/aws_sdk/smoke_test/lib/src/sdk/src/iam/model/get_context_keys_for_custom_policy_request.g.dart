@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_context_keys_for_custom_policy_request;
+part of 'get_context_keys_for_custom_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

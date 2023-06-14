@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.already_exists_exception;
+part of 'already_exists_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

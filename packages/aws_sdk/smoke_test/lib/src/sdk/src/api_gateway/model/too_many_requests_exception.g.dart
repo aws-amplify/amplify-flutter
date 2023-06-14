@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.too_many_requests_exception;
+part of 'too_many_requests_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

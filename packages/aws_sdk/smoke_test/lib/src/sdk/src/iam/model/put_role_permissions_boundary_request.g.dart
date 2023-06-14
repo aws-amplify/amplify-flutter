@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.put_role_permissions_boundary_request;
+part of 'put_role_permissions_boundary_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

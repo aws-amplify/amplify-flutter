@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_request_payment_output;
+part of 'get_bucket_request_payment_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

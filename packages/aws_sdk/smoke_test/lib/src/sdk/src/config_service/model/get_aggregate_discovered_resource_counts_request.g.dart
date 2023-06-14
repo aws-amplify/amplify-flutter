@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_aggregate_discovered_resource_counts_request;
+part of 'get_aggregate_discovered_resource_counts_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

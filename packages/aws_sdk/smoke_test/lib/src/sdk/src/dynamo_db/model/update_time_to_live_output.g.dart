@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.update_time_to_live_output;
+part of 'update_time_to_live_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

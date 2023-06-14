@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.backup_not_found_exception;
+part of 'backup_not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

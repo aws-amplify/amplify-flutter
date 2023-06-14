@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.duplicate_ssh_public_key_exception;
+part of 'duplicate_ssh_public_key_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

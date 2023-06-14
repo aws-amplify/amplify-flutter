@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.delete_domain_name_request;
+part of 'delete_domain_name_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

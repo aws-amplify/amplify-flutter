@@ -10,6 +10,11 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
+/// Represents the data for an attribute.
+///
+/// Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.
+///
+/// For more information, see [Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes) in the _Amazon DynamoDB Developer Guide_.
 sealed class AttributeValue extends _i1.SmithyUnion<AttributeValue> {
   const AttributeValue._();
 

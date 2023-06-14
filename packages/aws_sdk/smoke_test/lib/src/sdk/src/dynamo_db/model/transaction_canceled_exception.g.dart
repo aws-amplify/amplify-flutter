@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.transaction_canceled_exception;
+part of 'transaction_canceled_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

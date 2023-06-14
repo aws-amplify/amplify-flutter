@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.key_pair_mismatch_exception;
+part of 'key_pair_mismatch_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

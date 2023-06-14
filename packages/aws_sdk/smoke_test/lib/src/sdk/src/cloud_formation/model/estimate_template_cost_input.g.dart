@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.estimate_template_cost_input;
+part of 'estimate_template_cost_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

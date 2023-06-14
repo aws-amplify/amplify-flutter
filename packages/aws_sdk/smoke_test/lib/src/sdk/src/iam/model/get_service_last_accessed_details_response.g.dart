@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_service_last_accessed_details_response;
+part of 'get_service_last_accessed_details_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

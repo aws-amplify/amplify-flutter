@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.s3_bucket_source;
+part of 's3_bucket_source.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

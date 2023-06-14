@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.routing_rule;
+part of 'routing_rule.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

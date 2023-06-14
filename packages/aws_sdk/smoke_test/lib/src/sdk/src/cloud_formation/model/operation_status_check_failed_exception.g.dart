@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.operation_status_check_failed_exception;
+part of 'operation_status_check_failed_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

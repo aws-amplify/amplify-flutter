@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.credentials;
+part of 'credentials.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

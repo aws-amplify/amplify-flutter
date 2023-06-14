@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.put_object_retention_output;
+part of 'put_object_retention_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

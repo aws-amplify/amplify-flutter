@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.ownership_controls;
+part of 'ownership_controls.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

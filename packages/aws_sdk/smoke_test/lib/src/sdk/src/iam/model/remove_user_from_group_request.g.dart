@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.remove_user_from_group_request;
+part of 'remove_user_from_group_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

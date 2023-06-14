@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.storage_class_analysis;
+part of 'storage_class_analysis.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

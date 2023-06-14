@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.invalid_user_type_exception;
+part of 'invalid_user_type_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_saml_provider_request;
+part of 'get_saml_provider_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.no_such_remediation_exception_exception;
+part of 'no_such_remediation_exception_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

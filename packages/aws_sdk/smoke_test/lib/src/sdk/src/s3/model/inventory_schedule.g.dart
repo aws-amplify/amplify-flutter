@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.inventory_schedule;
+part of 'inventory_schedule.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

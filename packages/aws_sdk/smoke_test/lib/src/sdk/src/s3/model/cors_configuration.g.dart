@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.cors_configuration;
+part of 'cors_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

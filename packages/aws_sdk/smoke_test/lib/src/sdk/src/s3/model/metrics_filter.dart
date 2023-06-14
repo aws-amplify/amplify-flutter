@@ -10,6 +10,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/metrics_and_operator.dart'
     as _i3;
 import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
 
+/// Specifies a metrics configuration filter. The metrics configuration only includes objects that meet the filter's criteria. A filter must be a prefix, an object tag, an access point ARN, or a conjunction (MetricsAndOperator). For more information, see [PutBucketMetricsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketMetricsConfiguration.html).
 sealed class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
   const MetricsFilter._();
 

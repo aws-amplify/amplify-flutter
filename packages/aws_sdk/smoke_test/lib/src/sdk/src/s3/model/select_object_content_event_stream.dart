@@ -12,6 +12,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/progress_event.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/s3/model/records_event.dart' as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/stats_event.dart' as _i3;
 
+/// The container for selecting objects from a content event stream.
 sealed class SelectObjectContentEventStream
     extends _i1.SmithyUnion<SelectObjectContentEventStream> {
   const SelectObjectContentEventStream._();

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.queue_configuration;
+part of 'queue_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

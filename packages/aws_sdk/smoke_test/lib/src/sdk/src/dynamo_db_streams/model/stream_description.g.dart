@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.stream_description;
+part of 'stream_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

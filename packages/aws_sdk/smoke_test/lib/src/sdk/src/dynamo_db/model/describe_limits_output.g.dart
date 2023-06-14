@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_limits_output;
+part of 'describe_limits_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

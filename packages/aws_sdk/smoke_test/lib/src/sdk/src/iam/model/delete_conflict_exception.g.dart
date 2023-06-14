@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_conflict_exception;
+part of 'delete_conflict_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

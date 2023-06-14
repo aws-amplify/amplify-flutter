@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.register_publisher_output;
+part of 'register_publisher_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.intelligent_tiering_configuration;
+part of 'intelligent_tiering_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

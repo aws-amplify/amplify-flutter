@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.too_many_tags_exception;
+part of 'too_many_tags_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

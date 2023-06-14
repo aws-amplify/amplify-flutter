@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.tag_role_request;
+part of 'tag_role_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

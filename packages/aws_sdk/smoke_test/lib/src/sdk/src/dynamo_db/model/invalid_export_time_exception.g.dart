@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.invalid_export_time_exception;
+part of 'invalid_export_time_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
