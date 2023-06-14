@@ -92,9 +92,12 @@ class PushNotificationsCategory
     required String userId,
     required UserProfile userProfile,
   }) =>
-      defaultPlugin.identifyUser(
-        userId: userId,
-        userProfile: userProfile,
+      identifyCall(
+        PushNotificationsCategoryMethod.identifyUser,
+        () => defaultPlugin.identifyUser(
+          userId: userId,
+          userProfile: userProfile,
+        ),
       );
 
   /// {@template amplify_core.amplify_push_notifications_category.get_badge_count}
