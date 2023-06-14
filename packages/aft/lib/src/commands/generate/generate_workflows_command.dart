@@ -275,11 +275,9 @@ jobs:
         (appFacingPackageAndroidTestsDirExists ||
             platformPackageAndroidTestDirExists);
 
-    if (!hasAndroidTests) {
-      return;
-    }
-
-    const androidWorkflow = 'flutter_android.yaml';
+    final androidWorkflow = hasAndroidTests
+        ? 'flutter_android.test.yaml'
+        : 'flutter_android.build.yaml';
     final androidWorkflowFilepath = p.join(
       rootDir.path,
       '.github',
