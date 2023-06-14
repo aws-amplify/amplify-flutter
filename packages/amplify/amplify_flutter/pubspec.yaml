@@ -25,7 +25,6 @@ dependencies:
   collection: ^1.15.0
   flutter:
     sdk: flutter
-  graphs: ^2.1.0
   meta: ^1.7.0
 
 dev_dependencies:
