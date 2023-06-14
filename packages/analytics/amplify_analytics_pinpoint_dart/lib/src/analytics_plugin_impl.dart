@@ -111,11 +111,12 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       AmplifySecureStorageScope.awsPinpointAnalyticsPlugin,
     );
 
-    final analyticsClient = AnalyticsClient(
-      endpointStorage: endpointStorage,
-      deviceContextInfoProvider: _deviceContextInfoProvider,
-      legacyNativeDataProvider: _legacyNativeDataProvider,
-    );
+    final analyticsClient = dependencies.get<AnalyticsClient>() ??
+        AnalyticsClient(
+          endpointStorage: endpointStorage,
+          deviceContextInfoProvider: _deviceContextInfoProvider,
+          legacyNativeDataProvider: _legacyNativeDataProvider,
+        );
 
     await analyticsClient.init(
       pinpointAppId: pinpointAppId,
