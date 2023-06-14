@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_object_lock_configuration_request;
+part of 'get_object_lock_configuration_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

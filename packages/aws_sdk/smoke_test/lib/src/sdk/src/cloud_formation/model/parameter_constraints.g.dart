@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.parameter_constraints;
+part of 'parameter_constraints.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

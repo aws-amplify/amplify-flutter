@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.config_rule;
+part of 'config_rule.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

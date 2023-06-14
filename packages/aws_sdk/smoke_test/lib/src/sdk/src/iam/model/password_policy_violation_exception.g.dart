@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.password_policy_violation_exception;
+part of 'password_policy_violation_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

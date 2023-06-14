@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.item_collection_size_limit_exceeded_exception;
+part of 'item_collection_size_limit_exceeded_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

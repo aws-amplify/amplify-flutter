@@ -10,6 +10,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/replication_rule_and_operator.da
     as _i3;
 import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
 
+/// A filter that identifies the subset of objects to which the replication rule applies. A `Filter` must specify exactly one `Prefix`, `Tag`, or an `And` child element.
 sealed class ReplicationRuleFilter
     extends _i1.SmithyUnion<ReplicationRuleFilter> {
   const ReplicationRuleFilter._();

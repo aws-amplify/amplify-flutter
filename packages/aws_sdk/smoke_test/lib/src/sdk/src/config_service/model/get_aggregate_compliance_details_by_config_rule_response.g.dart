@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_aggregate_compliance_details_by_config_rule_response;
+part of 'get_aggregate_compliance_details_by_config_rule_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.no_running_configuration_recorder_exception;
+part of 'no_running_configuration_recorder_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

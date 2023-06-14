@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.packed_policy_too_large_exception;
+part of 'packed_policy_too_large_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

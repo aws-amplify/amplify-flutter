@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_account_alias_request;
+part of 'delete_account_alias_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

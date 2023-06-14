@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_stack_resource_drifts_input;
+part of 'describe_stack_resource_drifts_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

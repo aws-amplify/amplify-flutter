@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.invalid_identity_token_exception;
+part of 'invalid_identity_token_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

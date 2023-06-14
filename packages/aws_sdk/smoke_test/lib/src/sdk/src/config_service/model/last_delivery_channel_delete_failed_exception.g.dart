@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.last_delivery_channel_delete_failed_exception;
+part of 'last_delivery_channel_delete_failed_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

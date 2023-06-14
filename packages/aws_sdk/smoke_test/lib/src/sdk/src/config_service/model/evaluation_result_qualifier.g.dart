@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.evaluation_result_qualifier;
+part of 'evaluation_result_qualifier.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

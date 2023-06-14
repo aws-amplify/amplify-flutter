@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.csv_input;
+part of 'csv_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

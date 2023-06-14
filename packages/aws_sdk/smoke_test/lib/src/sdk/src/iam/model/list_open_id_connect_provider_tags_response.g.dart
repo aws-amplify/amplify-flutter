@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_open_id_connect_provider_tags_response;
+part of 'list_open_id_connect_provider_tags_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

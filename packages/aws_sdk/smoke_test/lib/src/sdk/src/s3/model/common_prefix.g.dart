@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.common_prefix;
+part of 'common_prefix.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

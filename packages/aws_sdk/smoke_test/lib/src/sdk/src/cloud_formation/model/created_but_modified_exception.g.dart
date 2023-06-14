@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.created_but_modified_exception;
+part of 'created_but_modified_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

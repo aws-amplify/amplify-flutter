@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.request_payment_configuration;
+part of 'request_payment_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

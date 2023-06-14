@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stack_instance_comprehensive_status;
+part of 'stack_instance_comprehensive_status.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

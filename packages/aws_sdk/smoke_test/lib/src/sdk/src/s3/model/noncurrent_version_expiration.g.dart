@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.noncurrent_version_expiration;
+part of 'noncurrent_version_expiration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

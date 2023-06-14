@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_policies_granting_service_access_entry;
+part of 'list_policies_granting_service_access_entry.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

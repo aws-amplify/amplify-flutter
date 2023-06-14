@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.credential_report_not_ready_exception;
+part of 'credential_report_not_ready_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

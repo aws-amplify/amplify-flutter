@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete_marker_replication;
+part of 'delete_marker_replication.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

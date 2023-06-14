@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.backup_in_use_exception;
+part of 'backup_in_use_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

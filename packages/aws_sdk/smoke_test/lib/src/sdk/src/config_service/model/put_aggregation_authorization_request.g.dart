@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_aggregation_authorization_request;
+part of 'put_aggregation_authorization_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

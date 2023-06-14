@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.invalid_certificate_exception;
+part of 'invalid_certificate_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.resource_not_found_exception;
+part of 'resource_not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

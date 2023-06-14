@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_resource_config_request;
+part of 'delete_resource_config_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

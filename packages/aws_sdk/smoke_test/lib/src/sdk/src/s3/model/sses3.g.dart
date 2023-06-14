@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.sses3;
+part of 'sses3.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

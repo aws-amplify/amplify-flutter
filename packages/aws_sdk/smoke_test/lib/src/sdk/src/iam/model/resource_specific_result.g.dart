@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.resource_specific_result;
+part of 'resource_specific_result.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

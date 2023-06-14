@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.federated_user;
+part of 'federated_user.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

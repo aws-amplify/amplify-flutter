@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.template_ssm_document_details;
+part of 'template_ssm_document_details.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

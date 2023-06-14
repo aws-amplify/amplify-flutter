@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_base_path_mappings_request;
+part of 'get_base_path_mappings_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_policy_version_request;
+part of 'delete_policy_version_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

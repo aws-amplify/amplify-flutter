@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.inventory_s3_bucket_destination;
+part of 'inventory_s3_bucket_destination.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.scan_range;
+part of 'scan_range.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

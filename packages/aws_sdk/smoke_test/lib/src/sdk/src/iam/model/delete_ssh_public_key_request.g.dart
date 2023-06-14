@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_ssh_public_key_request;
+part of 'delete_ssh_public_key_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

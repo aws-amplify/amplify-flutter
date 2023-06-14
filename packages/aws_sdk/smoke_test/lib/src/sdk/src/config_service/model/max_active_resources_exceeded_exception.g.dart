@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.max_active_resources_exceeded_exception;
+part of 'max_active_resources_exceeded_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

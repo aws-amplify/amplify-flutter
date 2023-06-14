@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.limit_exceeded_exception;
+part of 'limit_exceeded_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

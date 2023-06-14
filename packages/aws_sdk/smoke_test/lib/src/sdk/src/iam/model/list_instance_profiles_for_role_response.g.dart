@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_instance_profiles_for_role_response;
+part of 'list_instance_profiles_for_role_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_conformance_pack_status_response;
+part of 'describe_conformance_pack_status_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
