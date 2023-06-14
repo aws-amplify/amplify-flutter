@@ -63,6 +63,18 @@ void main() {
       expect(op.result, throwsA(isA<DeserializationError>()));
     });
 
+    test('can handle unknown smithy errors', () async {
+      final operation = TestOp();
+      final client = MockAWSHttpClient((req, isCancelled) async {
+        return AWSStreamedHttpResponse(
+          statusCode: 500,
+          body: const Stream.empty(),
+        );
+      });
+      final op = operation.run(const Unit(), client: client);
+      expect(op.result, throwsA(isA<SmithyHttpException>()));
+    });
+
     test('can transform request/response', () async {
       final operation = TestOp();
       final body =
@@ -169,4 +181,22 @@ class TestOp extends HttpOperation<Unit, Unit, Unit, Unit> {
 
   @override
   String get runtimeTypeName => 'TestOp';
+
+  @override
+  SmithyOperation<Unit> run(
+    Unit input, {
+    AWSHttpClient? client,
+    ShapeId? useProtocol,
+  }) {
+    return runZoned(
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        AWSHeaders.sdkInvocationId: uuid(secure: true),
+      },
+    );
+  }
 }
