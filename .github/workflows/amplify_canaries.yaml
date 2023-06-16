@@ -1,6 +1,7 @@
 name: Amplify Canaries
 on:
   schedule:
+    # TODO(kylechen): DO NOT MERGE until clarified runtime frequency
     # 6am pacific time daily, only runs on default branch
     - cron: "0 13 * * *"
 
@@ -156,3 +157,35 @@ jobs:
         run: |
           flutter build ios --simulator --target=integration_test/main_test.dart
           flutter test -d test integration_test/main_test.dart
+
+  log-failure-metric:
+    # Send failure data point to Cloudwatch metric CanaryTestFailure on failure
+    # See repo amplify-ci-support/github-cloudwatch-cdk for related CDK Cloudwatch setup
+    runs-on: macos-latest
+    environment: ci
+    needs: build
+    if: ${{ failure() }}
+    steps:
+      - name: Log failure data point to metric CanaryTestFailure
+        uses: ./.github/composite_actions/log_metric
+        with:
+          metric-name: CanaryTestFailure
+          value: 1
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+  log-success-metric:
+    # Send success data point to Cloudwatch metric CanaryTestFailure on success
+    # See repo amplify-ci-support/github-cloudwatch-cdk for related CDK Cloudwatch setup
+    runs-on: macos-latest
+    environment: ci
+    needs: build
+    if: ${{ success() }}
+    steps:
+      - name: Log success data point to metric CanaryTestFailure
+        uses: ./.github/composite_actions/log_metric
+        with:
+          metric-name: CanaryTestFailure
+          value: 0
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
