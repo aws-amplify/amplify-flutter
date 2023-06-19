@@ -24,5 +24,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_android.build.yaml
     with:
-      working-directory: packages/common/amplify_db_common/example/android
+      working-directory: packages/common/amplify_db_common/example
       package-name: amplify_db_common

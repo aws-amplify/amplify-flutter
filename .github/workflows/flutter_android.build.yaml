@@ -1,4 +1,4 @@
-name: Flutter Android
+name: Flutter Android Build
 on:
   workflow_call:
     inputs:
