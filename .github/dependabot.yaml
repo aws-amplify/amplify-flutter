@@ -183,6 +183,10 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "pub"
+    directory: "packages/notifications/push/amplify_push_notifications/example"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
     directory: "packages/notifications/push/amplify_push_notifications_pinpoint"
     schedule:
       interval: "daily"
