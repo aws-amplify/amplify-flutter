@@ -299,6 +299,9 @@ jobs:
             .join('\n');
 
     final androidWorkflowFile = File(androidWorkflowFilepath);
+    final workingDirectory = hasAndroidTests
+        ? '$repoRelativePath/example/android'
+        : '$repoRelativePath/example';
     final androidWorkflowContents = '''
 # Generated with aft. To update, run: `aft generate workflows`
 name: ${package.name} Android
@@ -325,7 +328,7 @@ jobs:
   test:
     uses: ./.github/workflows/$androidWorkflow
     with:
-      working-directory: $repoRelativePath/example/android
+      working-directory: $workingDirectory
       package-name: ${package.name}
 ''';
 
