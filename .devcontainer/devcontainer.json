@@ -2,10 +2,14 @@
     "name": "Amplify_Flutter_Linux",
     "dockerFile": "Dockerfile",
     "remoteUser": "user1",
-    "extensions": [
-        "dart-code.dart-code",
-        "dart-code.flutter"
-    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dart-code.dart-code",
+                "dart-code.flutter"
+            ]
+        }
+    },
     "runArgs": [
         "--privileged" // needed to start gnome-keyring
     ],

@@ -11,6 +11,67 @@ import 'dart:typed_data' show Float64List, Int32List, Int64List, Uint8List;
 import 'package:flutter/foundation.dart' show ReadBuffer, WriteBuffer;
 import 'package:flutter/services.dart';
 
+class NativeUserContextData {
+  NativeUserContextData({
+    this.deviceName,
+    this.thirdPartyDeviceId,
+    this.deviceFingerprint,
+    this.applicationName,
+    this.applicationVersion,
+    this.deviceLanguage,
+    this.deviceOsReleaseVersion,
+    this.screenHeightPixels,
+    this.screenWidthPixels,
+  });
+
+  String? deviceName;
+
+  String? thirdPartyDeviceId;
+
+  String? deviceFingerprint;
+
+  String? applicationName;
+
+  String? applicationVersion;
+
+  String? deviceLanguage;
+
+  String? deviceOsReleaseVersion;
+
+  int? screenHeightPixels;
+
+  int? screenWidthPixels;
+
+  Object encode() {
+    return <Object?>[
+      deviceName,
+      thirdPartyDeviceId,
+      deviceFingerprint,
+      applicationName,
+      applicationVersion,
+      deviceLanguage,
+      deviceOsReleaseVersion,
+      screenHeightPixels,
+      screenWidthPixels,
+    ];
+  }
+
+  static NativeUserContextData decode(Object result) {
+    result as List<Object?>;
+    return NativeUserContextData(
+      deviceName: result[0] as String?,
+      thirdPartyDeviceId: result[1] as String?,
+      deviceFingerprint: result[2] as String?,
+      applicationName: result[3] as String?,
+      applicationVersion: result[4] as String?,
+      deviceLanguage: result[5] as String?,
+      deviceOsReleaseVersion: result[6] as String?,
+      screenHeightPixels: result[7] as int?,
+      screenWidthPixels: result[8] as int?,
+    );
+  }
+}
+
 class LegacyCredentialStoreData {
   LegacyCredentialStoreData({
     this.identityId,
@@ -106,6 +167,9 @@ class _NativeAuthBridgeCodec extends StandardMessageCodec {
     if (value is LegacyCredentialStoreData) {
       buffer.putUint8(128);
       writeValue(buffer, value.encode());
+    } else if (value is NativeUserContextData) {
+      buffer.putUint8(129);
+      writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
     }
@@ -116,6 +180,8 @@ class _NativeAuthBridgeCodec extends StandardMessageCodec {
     switch (type) {
       case 128:
         return LegacyCredentialStoreData.decode(readValue(buffer)!);
+      case 129:
+        return NativeUserContextData.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -224,6 +290,33 @@ class NativeAuthBridge {
       );
     } else {
       return (replyList[0] as Map<Object?, Object?>?)!.cast<String?, String?>();
+    }
+  }
+
+  /// Retrieves context data as required for advanced security features (ASF).
+  Future<NativeUserContextData> getContextData() async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.NativeAuthBridge.getContextData', codec,
+        binaryMessenger: _binaryMessenger);
+    final List<Object?>? replyList = await channel.send(null) as List<Object?>?;
+    if (replyList == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+      );
+    } else if (replyList.length > 1) {
+      throw PlatformException(
+        code: replyList[0]! as String,
+        message: replyList[1] as String?,
+        details: replyList[2],
+      );
+    } else if (replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (replyList[0] as NativeUserContextData?)!;
     }
   }
 

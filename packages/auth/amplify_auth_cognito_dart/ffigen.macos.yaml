@@ -1,0 +1,83 @@
+name: NativeMacOsFramework
+description: |
+  Bindings for Foundation and supporting frameworks (AppKit/IOKit).
+
+  Regenerate bindings with `dart run ffigen --config=ffigen.macos.yaml`.
+language: "objc"
+output: "lib/src/platform/macos_bindings.g.dart"
+compiler-opts:
+  - "-F/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
+headers:
+  entry-points:
+    - "/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/utsname.h"
+    - "/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFBase.h"
+    - "/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFBundle.h"
+    - "/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFDictionary.h"
+    - "/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFString.h"
+    - "/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFData.h"
+    - "/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSBundle.h"
+    - "/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSLocale.h"
+    - "/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSProcessInfo.h"
+    - "/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Versions/C/Headers/NSScreen.h"
+    - "/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Versions/A/Headers/IOKitKeys.h"
+    - "/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Versions/A/Headers/IOKitLib.h"
+preamble: |
+  // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+  // SPDX-License-Identifier: Apache-2.0
+
+  // ignore_for_file: type=lint
+  // ignore_for_file: return_of_invalid_type
+comments:
+  style: any
+  length: full
+
+exclude-all-by-default: true
+structs:
+  include:
+    - utsname
+  rename:
+    "__CFString": "CFString"
+    "__CFType": "CFType"
+    "__CFData": "CFData"
+    "__CFDictionary": "CFDictionary"
+functions:
+  include:
+    - CFDictionaryCreate
+    - CFDataCreate
+    - CFStringCreateWithCString
+    - CFStringGetCString
+    - CFStringGetCStringPtr
+    - CFStringGetLength
+    - CFStringGetMaximumSizeForEncoding
+    - CFDataGetBytePtr
+    - CFRelease
+    - uname
+    - IOServiceGetMatchingService
+    - IOServiceMatching
+    - IORegistryEntryCreateCFProperty
+    - IOObjectRelease
+objc-interfaces:
+  include:
+    - NSNull
+    - NSProcessInfo
+    - NSLocale
+    - NSBundle
+    - NSString
+    - NSScreen
+  rename:
+    # Removes '_' prefix from interface names.
+    "_(.*)": "$1"
+globals:
+  include:
+    - kCFBundleVersionKey
+    - kIOMasterPortDefault
+    - kCFAllocatorDefault
+enums:
+  include:
+    - CFStringBuiltInEncodings
+macros:
+  include:
+    - kIOPlatformUUIDKey
+typedefs:
+  include:
+    - CFTypeRef

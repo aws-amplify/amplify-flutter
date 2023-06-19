@@ -63,7 +63,11 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
     NativeAuthPlugin.setup(nativePlugin);
 
     final nativeBridge = NativeAuthBridge();
-    stateMachine.addInstance(nativeBridge);
+    stateMachine
+      ..addInstance(nativeBridge)
+      ..addInstance<ASFDeviceInfoCollector>(
+        _NativeASFDeviceInfoCollector(nativeBridge),
+      );
 
     final legacyCredentialProvider = LegacyCredentialProviderImpl(stateMachine);
     stateMachine.addInstance<LegacyCredentialProvider>(
@@ -149,6 +153,29 @@ class _NativeAmplifyAuthCognito
 
   @override
   String get runtimeTypeName => '_NativeAmplifyAuthCognito';
+}
+
+final class _NativeASFDeviceInfoCollector extends ASFDeviceInfoCollector {
+  _NativeASFDeviceInfoCollector(this.bridge) : super.base();
+
+  final NativeAuthBridge bridge;
+
+  @override
+  Future<ASFContextData> getNativeContextData() async {
+    final contextData = await bridge.getContextData();
+    return ASFContextData(
+      deviceName: contextData.deviceName,
+      thirdPartyDeviceId: contextData.thirdPartyDeviceId,
+      deviceFingerprint: contextData.deviceFingerprint,
+      clientTimezone: clientTimezone,
+      applicationName: contextData.applicationName,
+      applicationVersion: contextData.applicationVersion,
+      deviceLanguage: contextData.deviceLanguage,
+      deviceOsReleaseVersion: contextData.deviceOsReleaseVersion,
+      screenHeightPixels: contextData.screenHeightPixels,
+      screenWidthPixels: contextData.screenWidthPixels,
+    );
+  }
 }
 
 class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<AmplifyAuthCognito> {

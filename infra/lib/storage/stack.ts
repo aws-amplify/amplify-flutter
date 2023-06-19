@@ -14,7 +14,8 @@ import {
   AmplifyCategory,
   IntegrationTestStack,
   IntegrationTestStackEnvironment,
-  IntegrationTestStackEnvironmentProps
+  IntegrationTestStackEnvironmentProps,
+  randomBucketName
 } from "../common";
 
 export enum StorageAccessLevel {
@@ -52,9 +53,12 @@ interface StorageIntegrationTestEnvironmentProps
   prefixOverrides?: Record<StorageAccessLevel, String>;
 
   /**
-   * The name of the bucket. If not provided, it will be auto-generated.
+   * The prefix name of the bucket. If not provided, it will be auto-generated.
+   * 
+   * Since bucket names are unique globally, a dedicated bucket name cannot be
+   * used since that would disallow multiple accounts to deploy this stack. 
    */
-  bucketName?: string;
+  bucketNamePrefix?: string;
 
   enableTransferAcceleration?: boolean;
 }
@@ -88,16 +92,16 @@ export class StorageIntegrationTestStack extends IntegrationTestStack<
 
 class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<StorageIntegrationTestEnvironmentProps> {
   constructor(
-    scope: Construct,
+    stack: StorageIntegrationTestStack,
     baseName: string,
     props: StorageIntegrationTestEnvironmentProps
   ) {
-    super(scope, baseName, props);
+    super(stack, baseName, props);
 
     // Create the bucket
 
     const bucket = new s3.Bucket(this, "Bucket", {
-      bucketName: props.bucketName,
+      bucketName: props.bucketNamePrefix ? randomBucketName({ prefix: props.bucketNamePrefix, stack: this }) : undefined,
       transferAcceleration: props.enableTransferAcceleration,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,

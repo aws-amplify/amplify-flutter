@@ -7,6 +7,9 @@ on:
       - feat/**
       - fix/**
       - test/**
+  pull_request:
+    paths:
+      - ".github/workflows/amplify_integration_tests.yaml"
   schedule:
     # 6am pacific time daily, only runs on default branch
     - cron: "0 13 * * *"
