@@ -11,7 +11,7 @@ on:
       - 'packages/notifications/push/amplify_push_notifications/**/*.yaml'
       - 'packages/notifications/push/amplify_push_notifications/android/**/*'
       - 'packages/notifications/push/amplify_push_notifications/example/android/**/*'
-      - '.github/workflows/flutter_android.build.yaml'
+      - '.github/workflows/flutter_android.test.yaml'
       - '.github/workflows/amplify_push_notifications.android.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
@@ -22,7 +22,7 @@ permissions: read-all
 
 jobs:
   test:
-    uses: ./.github/workflows/flutter_android.build.yaml
+    uses: ./.github/workflows/flutter_android.test.yaml
     with:
-      working-directory: packages/notifications/push/amplify_push_notifications/example
+      working-directory: packages/notifications/push/amplify_push_notifications/example/android
       package-name: amplify_push_notifications
