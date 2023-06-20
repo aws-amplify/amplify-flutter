@@ -35,8 +35,6 @@ final defaultDependencies = <Token, DependencyBuilder>{
       AuthPluginCredentialsProviderImpl.new,
   const Token<DeviceMetadataRepository>():
       DeviceMetadataRepository.fromDependencies,
-  const Token<ASFDeviceInfoCollector>(): (_) => ASFDeviceInfoCollector(),
-  const Token<ASFContextDataProvider>(): ASFContextDataProvider.new,
 };
 
 /// {@template amplify_auth_cognito.cognito_auth_state_machine}
