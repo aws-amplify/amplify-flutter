@@ -24,7 +24,7 @@ dev_dependencies:
     path: ../../../amplify_lints
   amplify_storage_s3_dart: any
   aws_common: any
-  drift: ">=2.4.0 <2.9.0"
+  drift: ">=2.9.0 <2.10.0"
   flutter_driver:
     sdk: flutter
   flutter_test:

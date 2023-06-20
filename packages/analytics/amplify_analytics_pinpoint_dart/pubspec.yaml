@@ -17,7 +17,7 @@ dependencies:
   built_collection: ^5.0.0
   built_value: ">=8.6.0 <8.7.0"
   collection: ^1.15.0
-  drift: ">=2.4.0 <2.9.0"
+  drift: ">=2.9.0 <2.10.0"
   intl: ">=0.18.0 <1.0.0"
   meta: ^1.7.0
   path: ^1.8.0
