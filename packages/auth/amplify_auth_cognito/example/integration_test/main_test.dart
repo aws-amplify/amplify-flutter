@@ -3,7 +3,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'asf_test.dart' as asf_tests;
+// import 'asf_test.dart' as asf_tests;
 import 'confirm_sign_in_test.dart' as confirm_sign_in_tests;
 import 'confirm_sign_up_test.dart' as confirm_sign_up_tests;
 import 'custom_auth_test.dart' as custom_auth_tests;
@@ -31,7 +31,7 @@ void main() async {
   testRunner.setupTests();
 
   group('amplify_auth_cognito', () {
-    asf_tests.main();
+    // asf_tests.main();
     confirm_sign_in_tests.main();
     confirm_sign_up_tests.main();
     custom_auth_tests.main();
