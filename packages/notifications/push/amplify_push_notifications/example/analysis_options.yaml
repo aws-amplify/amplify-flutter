@@ -1,1 +1,1 @@
-include: package:flutter_lints/flutter.yaml
+include: package:amplify_lints/app.yaml
