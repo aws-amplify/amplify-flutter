@@ -1,3 +1,11 @@
+## 0.3.1
+
+### Fixes
+- fix(storage): API doc errors
+
+### Features
+- feat(storage): using path style URLs when bucket name contains dots
+
 ## 0.3.0+1
 
 - Minor bug fixes and improvements

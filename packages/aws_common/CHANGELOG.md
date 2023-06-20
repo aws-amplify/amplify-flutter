@@ -1,3 +1,8 @@
+## 0.5.0+2
+
+### Fixes
+- fix(core): Disallowed JS tearoff ([#3150](https://github.com/aws-amplify/amplify-flutter/pull/3150))
+
 ## 0.5.0+1
 
 - Minor bug fixes and improvements

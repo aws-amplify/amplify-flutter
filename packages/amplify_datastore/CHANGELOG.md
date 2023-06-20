@@ -1,3 +1,7 @@
+## 1.2.0-supports-only-mobile
+
+- Minor bug fixes and improvements
+
 ## 1.1.0-supports-only-mobile+1
 
 ### Fixes

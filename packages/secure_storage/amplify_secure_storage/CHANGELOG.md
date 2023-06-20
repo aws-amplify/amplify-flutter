@@ -1,7 +1,6 @@
-## NEXT
+## 0.4.0+1
 
-### Fixes
-- fix(secure_storage): Fallback for CFStringRef decoding ([#3111](https://github.com/aws-amplify/amplify-flutter/pull/3111))
+- Minor bug fixes and improvements
 
 ## 0.4.0
 

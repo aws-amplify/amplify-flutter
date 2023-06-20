@@ -1,3 +1,8 @@
+## 0.10.1
+
+### Fixes
+- fix(auth): `signOut` after user deletion ([#3162](https://github.com/aws-amplify/amplify-flutter/pull/3162))
+
 ## 0.10.0+1
 
 ### Fixes
