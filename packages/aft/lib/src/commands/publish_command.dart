@@ -268,6 +268,10 @@ Future<void> runBuildRunner(
   if (!package.needsBuildRunner) {
     return;
   }
+  final dartTool = Directory(p.join(package.path, '.dart_tool'));
+  if (!dartTool.existsSync()) {
+    await runPub(package.flavor, ['get'], package);
+  }
   logger.info('Running build_runner for ${package.name}...');
   final buildRunnerCmd = await Process.start(
     package.flavor.entrypoint,
