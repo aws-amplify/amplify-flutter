@@ -1,7 +1,21 @@
+## 1.2.0
+
+### Fixes
+- fix(api): GraphQL subscription with custom domain formats URI correctly ([#3148](https://github.com/aws-amplify/amplify-flutter/pull/3148))
+
+## 1.1.1
+
+- Minor bug fixes and improvements
+
 ## 1.1.0
 
 ### Features
 - Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
+
+## 1.0.1
+
+### Fixes
+- fix(repo): Flutter 3.3 support
 
 ## 1.0.0
 

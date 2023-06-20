@@ -1,3 +1,7 @@
+## 0.3.0+1
+
+- Minor bug fixes and improvements
+
 ## 0.3.0
 
 ### Features
@@ -5,6 +9,11 @@
 
 ### Fixes
 - fix(repo): AGP 8.0 compatibility ([#2942](https://github.com/aws-amplify/amplify-flutter/pull/2942))
+
+## 0.1.2+8
+
+### Fixes
+- fix(repo): Flutter 3.3 support
 
 ## 0.1.2+7
 

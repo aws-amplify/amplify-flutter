@@ -1,3 +1,12 @@
+## 1.2.0-supports-only-mobile
+
+- Minor bug fixes and improvements
+
+## 1.1.0-supports-only-mobile+1
+
+### Fixes
+- fix(datastore): support nested predicates for observe and observeQuery ([#3029](https://github.com/aws-amplify/amplify-flutter/pull/3029))
+
 ## 1.1.0-supports-only-mobile
 
 ### Features
@@ -5,6 +14,11 @@
 
 ### Fixes
 - fix(repo): AGP 8.0 compatibility ([#2942](https://github.com/aws-amplify/amplify-flutter/pull/2942))
+
+## 1.0.0-supports-only-mobile.0+1
+
+### Fixes
+- fix(repo): Flutter 3.3 support
 
 ## 1.0.0-supports-only-mobile.0
 
