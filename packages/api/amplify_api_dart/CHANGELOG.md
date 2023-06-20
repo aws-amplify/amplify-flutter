@@ -1,3 +1,8 @@
+## 0.3.0+1
+
+### Fixes
+- fix(api): GraphQL subscription with custom domain formats URI correctly ([#3148](https://github.com/aws-amplify/amplify-flutter/pull/3148))
+
 ## 0.3.0
 
 ### Features

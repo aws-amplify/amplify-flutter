@@ -1,3 +1,11 @@
+## 1.2.1
+
+- Minor bug fixes and improvements
+
+## 1.2.0
+
+- Minor bug fixes and improvements
+
 ## 1.1.0
 
 - Minor bug fixes and improvements
