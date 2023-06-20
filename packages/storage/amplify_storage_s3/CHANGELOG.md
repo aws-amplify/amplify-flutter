@@ -1,3 +1,8 @@
+## 1.2.0
+
+### Features
+- feat(storage): using path style URLs when bucket name contains dots
+
 ## 1.1.1
 
 - Minor bug fixes and improvements
