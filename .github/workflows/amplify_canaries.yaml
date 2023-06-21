@@ -35,7 +35,7 @@ jobs:
           flutter-version: ${{ matrix.flutter-version }}
 
       # Flutter requires Java 11 to build android apps with Gradle.
-      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
+      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2 # 3.11.0
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
           java-version: "11"
@@ -76,7 +76,7 @@ jobs:
           flutter-version: ${{ matrix.flutter-version }}
 
       # Flutter requires Java 11 to build android apps with Gradle.
-      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
+      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2 # 3.11.0
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
           java-version: "11"
