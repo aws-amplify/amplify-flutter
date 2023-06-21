@@ -333,6 +333,12 @@ class Repo {
         ['version'],
         newVersion.toString(),
       );
+      // Packages which depend on the package being bumped.
+      final packageDependents = allPackages.values.where(
+        (pkg) =>
+            pkg.pubspecInfo.pubspec.dependencies.keys.contains(package.name) ||
+            pkg.pubspecInfo.pubspec.devDependencies.keys.contains(package.name),
+      );
       if (commit.isBreakingChange) {
         // Back-propagate to all dependent packages for breaking changes.
         //
@@ -341,13 +347,7 @@ class Repo {
         logger.verbose(
           'Breaking change. Performing dfs on dependent packages...',
         );
-        for (final dependent in allPackages.values.where(
-          (pkg) =>
-              pkg.pubspecInfo.pubspec.dependencies.keys
-                  .contains(package.name) ||
-              pkg.pubspecInfo.pubspec.devDependencies.keys
-                  .contains(package.name),
-        )) {
+        for (final dependent in packageDependents) {
           logger.verbose('found dependent package ${dependent.name}');
           if (dependent.isPublishable && canBump(dependent)) {
             bumpVersion(
@@ -358,6 +358,12 @@ class Repo {
               includeInChangelog: false,
             );
           }
+          updateConstraint(package, dependent);
+        }
+      } else if (type == VersionBumpType.nonBreaking) {
+        // For non-breaking changes, we still need to update all constraints
+        // since we "pin" to minor versions.
+        for (final dependent in packageDependents) {
           updateConstraint(package, dependent);
         }
       }
