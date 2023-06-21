@@ -54,7 +54,7 @@ dependencies {
     implementation 'androidx.security:security-crypto:1.0.0'
     // TODO(Jordan-Nelson): remove once security-crypto:1.1.0 is stable.
     // See https://github.com/aws-amplify/amplify-flutter/issues/2640
-    implementation 'com.google.crypto.tink:tink-android:1.8.0'
+    implementation 'com.google.crypto.tink:tink-android:[1.8.0'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.robolectric:robolectric:4.10.3'
     testImplementation 'androidx.test:core-ktx:1.5.0'
