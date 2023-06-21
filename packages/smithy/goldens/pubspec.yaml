@@ -7,8 +7,8 @@ environment:
   sdk: ^3.0.0
 
 dependencies:
-  aws_common: ">=0.4.0 <0.5.0"
-  smithy: ">=0.4.0+1 <0.5.0"
+  aws_common: ^0.5.0+2
+  smithy: ^0.5.0+2
 
 dependency_overrides: 
   aws_common:
@@ -24,7 +24,7 @@ dependency_overrides:
 
 dev_dependencies:
   args: ^2.3.1
-  file: ^6.1.2
+  file: ^7.0.0
   glob: ^2.0.2
   lints: ^2.0.0
   path: any
