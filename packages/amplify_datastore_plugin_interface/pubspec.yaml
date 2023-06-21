@@ -10,7 +10,7 @@ environment:
   flutter: ">=3.10.0"
 
 dependencies:
-  amplify_core: ">=1.1.0 <1.2.0"
+  amplify_core: ^1.1.0
   collection: ^1.15.0
   flutter:
     sdk: flutter
