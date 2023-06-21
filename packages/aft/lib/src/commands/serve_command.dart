@@ -49,6 +49,8 @@ class ServeCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
   @override
   Future<void> run() async {
     await super.run();
+    await linkPackages();
+
     final pubServer = await io.serve(
       PubServer.prod().handler,
       InternetAddress.anyIPv4,
