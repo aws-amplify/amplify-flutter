@@ -294,7 +294,6 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
             );
             continue;
           }
-          // ">=1.1.0 <1.4.3"
           if (latestVersion >= lowerBound.nextBreaking) {
             logger.warn(
               'Breaking change detected for $package: $latestVersion '
@@ -302,6 +301,7 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
             );
             continue;
           }
+          // ">=1.1.0 <1.4.3"
           updateConstraint(
             VersionRange(
               min: lowerBound,
@@ -327,12 +327,14 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
       logger.info('No dependencies updated');
     }
 
-    for (final failedUpdate in failedUpdates) {
-      logger.error('Could not update $failedUpdate');
-      exitCode = 1;
+    if (failedUpdates.isNotEmpty) {
+      for (final failedUpdate in failedUpdates) {
+        logger.error('Could not update $failedUpdate');
+      }
+      exit(1);
     }
 
-    if (hasUpdates && failedUpdates.isEmpty) {
+    if (hasUpdates) {
       await _run(_ConstraintsAction.apply);
     }
   }
