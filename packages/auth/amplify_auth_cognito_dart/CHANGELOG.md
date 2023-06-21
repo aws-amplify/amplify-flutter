@@ -1,3 +1,13 @@
+## 0.10.1
+
+### Fixes
+- fix(auth): `signOut` after user deletion ([#3162](https://github.com/aws-amplify/amplify-flutter/pull/3162))
+
+## 0.10.0+1
+
+### Fixes
+- fix(auth): User attribute serialization
+
 ## 0.10.0
 
 ### Features
@@ -6,6 +16,12 @@
 ### Fixes
 - fix(auth): Fetch AWS credentials after Hosted UI login ([#2956](https://github.com/aws-amplify/amplify-flutter/pull/2956))
 - fix(auth): Transform network exceptions ([#2967](https://github.com/aws-amplify/amplify-flutter/pull/2967))
+
+## 0.9.0+3
+
+### Fixes
+- fix(repo): Flutter 3.3 support
+- fix: convert AuthUserAttributeKey in updateUserAttributes
 
 ## 0.9.0+2
 

@@ -1,7 +1,26 @@
+## 1.2.1
+
+- Minor bug fixes and improvements
+
+## 1.2.0
+
+### Fixes
+- fix(authenticator): Only call `setState` if mounted ([#3076](https://github.com/aws-amplify/amplify-flutter/pull/3076))
+- fix(authenticator): alphabetize country codes
+
+### Features
+- feat(authenticator, m3): use SearchAnchor for country code
+- feat(authenticator, m3): use `FilledButton` for primary buttons
+
 ## 1.1.0
 
 ### Features
 - Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
+
+## 1.0.1
+
+### Fixes
+- fix(repo): Flutter 3.3 support
 
 ## 1.0.0
 
