@@ -42,12 +42,29 @@ updates:
     await super.run();
     for (final package in commandPackages.values) {
       final repoRelativePath = p.relative(package.path, from: rootDir.path);
+      final dependentPackages = <PackageInfo>[];
+      dfs(
+        repo.getPackageGraph(includeDevDependencies: true),
+        root: package,
+        (dependent) {
+          if (dependent == package || !dependent.isDevelopmentPackage) {
+            return;
+          }
+          dependentPackages.add(dependent);
+        },
+      );
       _dependabotConfig.write('''
   - package-ecosystem: "pub"
     directory: "$repoRelativePath"
     schedule:
       interval: "daily"
 ''');
+      if (dependentPackages.isNotEmpty) {
+        _dependabotConfig.write('''
+    ignore:
+${dependentPackages.map((dep) => '      - dependency-name: "${dep.name}"').join('\n')}
+''');
+      }
 
       if (package.pubspecInfo.pubspec.publishTo == 'none' &&
           !falsePositiveExamples.contains(package.name)) {
@@ -104,30 +121,23 @@ updates:
         '$repoRelativePath/lib/**/*',
         '$repoRelativePath/test/**/*',
       ];
-      dfs(
-        repo.getPackageGraph(includeDevDependencies: true),
-        root: package,
-        (dependent) {
-          if (dependent == package || !dependent.isDevelopmentPackage) {
-            return;
-          }
-          final repoRelativePath = p.relative(
-            dependent.path,
-            from: rootDir.path,
-          );
-          if (dependent.isLintsPackage) {
-            workflowPaths.addAll([
-              '$repoRelativePath/pubspec.yaml',
-              '$repoRelativePath/lib/**/*.yaml',
-            ]);
-            return;
-          }
+      for (final dependent in dependentPackages) {
+        final repoRelativePath = p.relative(
+          dependent.path,
+          from: rootDir.path,
+        );
+        if (dependent.isLintsPackage) {
           workflowPaths.addAll([
             '$repoRelativePath/pubspec.yaml',
-            '$repoRelativePath/lib/**/*.dart',
+            '$repoRelativePath/lib/**/*.yaml',
           ]);
-        },
-      );
+          continue;
+        }
+        workflowPaths.addAll([
+          '$repoRelativePath/pubspec.yaml',
+          '$repoRelativePath/lib/**/*.dart',
+        ]);
+      }
 
       workflowPaths.sort();
 
@@ -256,6 +266,10 @@ jobs:
     directory: "${p.relative(androidPackageDir, from: rootDir.path)}"
     schedule:
       interval: "weekly"
+    ignore:
+      # Ignore Kotlin updates since we should always match Flutter stable
+      # to ensure users can have Kt versions >= Flutter stable.
+      - dependency-name: "kotlin"
 ''');
 
     final appFacingAndroidTestDir =
