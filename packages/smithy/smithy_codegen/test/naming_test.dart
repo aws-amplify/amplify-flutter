@@ -221,7 +221,7 @@ void main() {
               ..traits = TraitMap.fromTraits(const [EnumValueTrait('index')]),
           ),
         ];
-        final memberNames = traits.map((def) => def.variantName);
+        final memberNames = traits.map((def) => def.enumVariantName);
         expect(
           memberNames,
           unorderedEquals([
