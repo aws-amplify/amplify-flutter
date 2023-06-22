@@ -51,24 +51,25 @@ void main() {
           ..traits = TraitMap.fromTraits(const [DocumentationTrait(docs)]),
       );
       final context = createTestContext([struct]);
+      context.run(() {
+        expect(struct.hasDocs(context), isTrue);
+        expect(struct.formattedDocs(context), contains(docs));
 
-      expect(struct.hasDocs(context), isTrue);
-      expect(struct.formattedDocs(context), contains(docs));
+        final generator = StructureGenerator(struct, context);
+        final emitter = buildEmitter(Allocator.none);
 
-      final generator = StructureGenerator(struct, context);
-      final emitter = buildEmitter(Allocator.none);
+        final ctor = generator.factoryConstructor;
+        expect(ctor.docs, isNotEmpty);
+        final ctorOutput =
+            emitter.visitConstructor(ctor, generator.className).toString();
+        expect(ctorOutput, contains(docs));
 
-      final ctor = generator.factoryConstructor;
-      expect(ctor.docs, isNotEmpty);
-      final ctorOutput =
-          emitter.visitConstructor(ctor, generator.className).toString();
-      expect(ctorOutput, contains(docs));
-
-      final response = generator.fromResponseConstructor;
-      expect(ctor.docs, isNotEmpty);
-      final responseOutput =
-          emitter.visitConstructor(response, generator.className).toString();
-      expect(responseOutput, startsWith('/// '));
+        final response = generator.fromResponseConstructor;
+        expect(ctor.docs, isNotEmpty);
+        final responseOutput =
+            emitter.visitConstructor(response, generator.className).toString();
+        expect(responseOutput, startsWith('/// '));
+      });
     });
   });
 }

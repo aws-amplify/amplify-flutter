@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
+
 import 'package:aws_common/aws_common.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:collection/collection.dart';
@@ -9,6 +11,9 @@ import 'package:smithy/ast.dart';
 import 'package:smithy/smithy.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
 import 'package:smithy_codegen/src/generator/visitors/symbol_visitor.dart';
+
+/// The global [CodegenContext].
+CodegenContext get context => Zone.current[CodegenContext] as CodegenContext;
 
 /// The context for code generation.
 class CodegenContext {
@@ -193,4 +198,8 @@ class CodegenContext {
     filename: serviceName,
     basePath: basePath,
   );
+
+  /// Runs [action] with the `this` as the global [CodegenContext].
+  R run<R>(R Function() action) =>
+      runZoned(action, zoneValues: {CodegenContext: this});
 }

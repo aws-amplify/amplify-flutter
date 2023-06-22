@@ -10,16 +10,19 @@ import 'package:smithy_test/smithy_test.dart';
 import 'common.dart';
 
 void main() {
-  void testDefaultValue(StructureShape struct, CodegenContext context) {
-    final generator = StructureGenerator(struct, context);
-    final method = generator.defaultValues(
-      members: generator.payloadMembers,
-      builderSymbol: generator.payloadBuilderSymbol,
-    );
-    final emitter = buildEmitter(Allocator.none);
-    final output = method.accept(emitter).toString();
-    expect(output, contains('b.defaultValue = 0'));
-  }
+  void testDefaultValue(StructureShape struct, CodegenContext context) =>
+      context.run(() {
+        {
+          final generator = StructureGenerator(struct, context);
+          final method = generator.defaultValues(
+            members: generator.payloadMembers,
+            builderSymbol: generator.payloadBuilderSymbol,
+          );
+          final emitter = buildEmitter(Allocator.none);
+          final output = method.accept(emitter).toString();
+          expect(output, contains('b.defaultValue = 0'));
+        }
+      });
 
   group('default value', () {
     test('v1', () {
