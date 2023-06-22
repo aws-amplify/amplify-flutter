@@ -33,9 +33,8 @@ abstract class PostUnionWithJsonNameOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    PostUnionWithJsonNameOutputRestJson1Serializer()
-  ];
+  static const List<_i3.SmithySerializer<PostUnionWithJsonNameOutput>>
+      serializers = [PostUnionWithJsonNameOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PostUnionWithJsonNameOutputBuilder b) {}
@@ -44,11 +43,11 @@ abstract class PostUnionWithJsonNameOutput
   List<Object?> get props => [value];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PostUnionWithJsonNameOutput');
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('PostUnionWithJsonNameOutput')
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

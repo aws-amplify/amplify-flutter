@@ -51,9 +51,8 @@ abstract class MalformedLengthOverrideInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedLengthOverrideInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedLengthOverrideInput>>
+      serializers = [MalformedLengthOverrideInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedLengthOverrideInputBuilder b) {}
@@ -76,31 +75,31 @@ abstract class MalformedLengthOverrideInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedLengthOverrideInput');
-    helper.add(
-      'blob',
-      blob,
-    );
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'minString',
-      minString,
-    );
-    helper.add(
-      'maxString',
-      maxString,
-    );
-    helper.add(
-      'list',
-      list,
-    );
-    helper.add(
-      'map',
-      map,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedLengthOverrideInput')
+      ..add(
+        'blob',
+        blob,
+      )
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'minString',
+        minString,
+      )
+      ..add(
+        'maxString',
+        maxString,
+      )
+      ..add(
+        'list',
+        list,
+      )
+      ..add(
+        'map',
+        map,
+      );
     return helper.toString();
   }
 }

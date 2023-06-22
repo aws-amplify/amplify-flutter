@@ -42,7 +42,7 @@ abstract class XmlNestedUnionStruct
 
   const XmlNestedUnionStruct._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<XmlNestedUnionStruct>> serializers = [
     XmlNestedUnionStructRestXmlSerializer()
   ];
 
@@ -69,39 +69,39 @@ abstract class XmlNestedUnionStruct
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlNestedUnionStruct');
-    helper.add(
-      'stringValue',
-      stringValue,
-    );
-    helper.add(
-      'booleanValue',
-      booleanValue,
-    );
-    helper.add(
-      'byteValue',
-      byteValue,
-    );
-    helper.add(
-      'shortValue',
-      shortValue,
-    );
-    helper.add(
-      'integerValue',
-      integerValue,
-    );
-    helper.add(
-      'longValue',
-      longValue,
-    );
-    helper.add(
-      'floatValue',
-      floatValue,
-    );
-    helper.add(
-      'doubleValue',
-      doubleValue,
-    );
+    final helper = newBuiltValueToStringHelper('XmlNestedUnionStruct')
+      ..add(
+        'stringValue',
+        stringValue,
+      )
+      ..add(
+        'booleanValue',
+        booleanValue,
+      )
+      ..add(
+        'byteValue',
+        byteValue,
+      )
+      ..add(
+        'shortValue',
+        shortValue,
+      )
+      ..add(
+        'integerValue',
+        integerValue,
+      )
+      ..add(
+        'longValue',
+        longValue,
+      )
+      ..add(
+        'floatValue',
+        floatValue,
+      )
+      ..add(
+        'doubleValue',
+        doubleValue,
+      );
     return helper.toString();
   }
 }

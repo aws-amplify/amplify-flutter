@@ -50,9 +50,9 @@ abstract class ConstantAndVariableQueryStringInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ConstantAndVariableQueryStringInputRestXmlSerializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<ConstantAndVariableQueryStringInputPayload>>
+      serializers = [ConstantAndVariableQueryStringInputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConstantAndVariableQueryStringInputBuilder b) {}
@@ -69,15 +69,15 @@ abstract class ConstantAndVariableQueryStringInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ConstantAndVariableQueryStringInput');
-    helper.add(
-      'baz',
-      baz,
-    );
-    helper.add(
-      'maybeSet',
-      maybeSet,
-    );
+        newBuiltValueToStringHelper('ConstantAndVariableQueryStringInput')
+          ..add(
+            'baz',
+            baz,
+          )
+          ..add(
+            'maybeSet',
+            maybeSet,
+          );
     return helper.toString();
   }
 }

@@ -50,7 +50,7 @@ abstract class HttpChecksumReallyNotRequiredInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List?>> serializers = [
     HttpChecksumReallyNotRequiredInputRestJson1Serializer()
   ];
 
@@ -68,15 +68,15 @@ abstract class HttpChecksumReallyNotRequiredInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('HttpChecksumReallyNotRequiredInput');
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'content',
-      content,
-    );
+        newBuiltValueToStringHelper('HttpChecksumReallyNotRequiredInput')
+          ..add(
+            'checksumAlgorithm',
+            checksumAlgorithm,
+          )
+          ..add(
+            'content',
+            content,
+          );
     return helper.toString();
   }
 }

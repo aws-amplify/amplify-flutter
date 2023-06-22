@@ -43,7 +43,7 @@ abstract class StringPayloadInput
         b.payload = payload;
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<String?>> serializers = [
     StringPayloadInputRestJson1Serializer()
   ];
 
@@ -56,11 +56,11 @@ abstract class StringPayloadInput
   List<Object?> get props => [payload];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StringPayloadInput');
-    helper.add(
-      'payload',
-      payload,
-    );
+    final helper = newBuiltValueToStringHelper('StringPayloadInput')
+      ..add(
+        'payload',
+        payload,
+      );
     return helper.toString();
   }
 }

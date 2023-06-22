@@ -32,7 +32,7 @@ abstract class EndpointConfiguration
 
   const EndpointConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<EndpointConfiguration>> serializers = [
     EndpointConfigurationRestJson1Serializer()
   ];
 
@@ -47,15 +47,15 @@ abstract class EndpointConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointConfiguration');
-    helper.add(
-      'types',
-      types,
-    );
-    helper.add(
-      'vpcEndpointIds',
-      vpcEndpointIds,
-    );
+    final helper = newBuiltValueToStringHelper('EndpointConfiguration')
+      ..add(
+        'types',
+        types,
+      )
+      ..add(
+        'vpcEndpointIds',
+        vpcEndpointIds,
+      );
     return helper.toString();
   }
 }

@@ -109,9 +109,9 @@ abstract class OmitsSerializingEmptyListsInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    OmitsSerializingEmptyListsInputRestJson1Serializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<OmitsSerializingEmptyListsInputPayload>>
+      serializers = [OmitsSerializingEmptyListsInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OmitsSerializingEmptyListsInputBuilder b) {}
@@ -138,35 +138,35 @@ abstract class OmitsSerializingEmptyListsInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OmitsSerializingEmptyListsInput');
-    helper.add(
-      'queryStringList',
-      queryStringList,
-    );
-    helper.add(
-      'queryIntegerList',
-      queryIntegerList,
-    );
-    helper.add(
-      'queryDoubleList',
-      queryDoubleList,
-    );
-    helper.add(
-      'queryBooleanList',
-      queryBooleanList,
-    );
-    helper.add(
-      'queryTimestampList',
-      queryTimestampList,
-    );
-    helper.add(
-      'queryEnumList',
-      queryEnumList,
-    );
-    helper.add(
-      'queryIntegerEnumList',
-      queryIntegerEnumList,
-    );
+        newBuiltValueToStringHelper('OmitsSerializingEmptyListsInput')
+          ..add(
+            'queryStringList',
+            queryStringList,
+          )
+          ..add(
+            'queryIntegerList',
+            queryIntegerList,
+          )
+          ..add(
+            'queryDoubleList',
+            queryDoubleList,
+          )
+          ..add(
+            'queryBooleanList',
+            queryBooleanList,
+          )
+          ..add(
+            'queryTimestampList',
+            queryTimestampList,
+          )
+          ..add(
+            'queryEnumList',
+            queryEnumList,
+          )
+          ..add(
+            'queryIntegerEnumList',
+            queryIntegerEnumList,
+          );
     return helper.toString();
   }
 }

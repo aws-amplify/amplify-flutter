@@ -23,7 +23,7 @@ abstract class PayloadWithXmlName
 
   const PayloadWithXmlName._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PayloadWithXmlName>> serializers = [
     PayloadWithXmlNameRestXmlSerializer()
   ];
 
@@ -34,11 +34,11 @@ abstract class PayloadWithXmlName
   List<Object?> get props => [name];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PayloadWithXmlName');
-    helper.add(
-      'name',
-      name,
-    );
+    final helper = newBuiltValueToStringHelper('PayloadWithXmlName')
+      ..add(
+        'name',
+        name,
+      );
     return helper.toString();
   }
 }

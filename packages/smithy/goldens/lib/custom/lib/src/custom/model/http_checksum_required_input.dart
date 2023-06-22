@@ -38,7 +38,7 @@ abstract class HttpChecksumRequiredInput
         b.content = payload;
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List?>> serializers = [
     HttpChecksumRequiredInputRestJson1Serializer()
   ];
 
@@ -51,11 +51,11 @@ abstract class HttpChecksumRequiredInput
   List<Object?> get props => [content];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HttpChecksumRequiredInput');
-    helper.add(
-      'content',
-      content,
-    );
+    final helper = newBuiltValueToStringHelper('HttpChecksumRequiredInput')
+      ..add(
+        'content',
+        content,
+      );
     return helper.toString();
   }
 }

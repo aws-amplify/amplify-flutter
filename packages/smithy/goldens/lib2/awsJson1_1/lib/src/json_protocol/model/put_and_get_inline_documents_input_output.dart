@@ -44,9 +44,8 @@ abstract class PutAndGetInlineDocumentsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutAndGetInlineDocumentsInputOutputAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutAndGetInlineDocumentsInputOutput>>
+      serializers = [PutAndGetInlineDocumentsInputOutputAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutAndGetInlineDocumentsInputOutputBuilder b) {}
@@ -58,11 +57,11 @@ abstract class PutAndGetInlineDocumentsInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutAndGetInlineDocumentsInputOutput');
-    helper.add(
-      'inlineDocument',
-      inlineDocument,
-    );
+        newBuiltValueToStringHelper('PutAndGetInlineDocumentsInputOutput')
+          ..add(
+            'inlineDocument',
+            inlineDocument,
+          );
     return helper.toString();
   }
 }

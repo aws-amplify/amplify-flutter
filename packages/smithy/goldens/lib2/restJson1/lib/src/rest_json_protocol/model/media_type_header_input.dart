@@ -45,9 +45,8 @@ abstract class MediaTypeHeaderInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MediaTypeHeaderInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MediaTypeHeaderInputPayload>>
+      serializers = [MediaTypeHeaderInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MediaTypeHeaderInputBuilder b) {}
@@ -58,11 +57,11 @@ abstract class MediaTypeHeaderInput
   List<Object?> get props => [json];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MediaTypeHeaderInput');
-    helper.add(
-      'json',
-      json,
-    );
+    final helper = newBuiltValueToStringHelper('MediaTypeHeaderInput')
+      ..add(
+        'json',
+        json,
+      );
     return helper.toString();
   }
 }

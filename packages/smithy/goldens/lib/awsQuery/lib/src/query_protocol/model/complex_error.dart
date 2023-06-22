@@ -45,7 +45,7 @@ abstract class ComplexError
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ComplexError>> serializers = [
     ComplexErrorAwsQuerySerializer()
   ];
 
@@ -77,15 +77,15 @@ abstract class ComplexError
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplexError');
-    helper.add(
-      'topLevel',
-      topLevel,
-    );
-    helper.add(
-      'nested',
-      nested,
-    );
+    final helper = newBuiltValueToStringHelper('ComplexError')
+      ..add(
+        'topLevel',
+        topLevel,
+      )
+      ..add(
+        'nested',
+        nested,
+      );
     return helper.toString();
   }
 }

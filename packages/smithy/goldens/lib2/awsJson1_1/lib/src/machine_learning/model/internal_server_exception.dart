@@ -40,9 +40,8 @@ abstract class InternalServerException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InternalServerExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InternalServerException>> serializers =
+      [InternalServerExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InternalServerExceptionBuilder b) {}
@@ -71,15 +70,15 @@ abstract class InternalServerException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InternalServerException');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'code',
-      code,
-    );
+    final helper = newBuiltValueToStringHelper('InternalServerException')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'code',
+        code,
+      );
     return helper.toString();
   }
 }

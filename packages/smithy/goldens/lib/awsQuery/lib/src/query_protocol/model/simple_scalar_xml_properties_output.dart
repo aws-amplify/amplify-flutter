@@ -56,9 +56,8 @@ abstract class SimpleScalarXmlPropertiesOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    SimpleScalarXmlPropertiesOutputAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<SimpleScalarXmlPropertiesOutput>>
+      serializers = [SimpleScalarXmlPropertiesOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SimpleScalarXmlPropertiesOutputBuilder b) {}
@@ -88,47 +87,47 @@ abstract class SimpleScalarXmlPropertiesOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('SimpleScalarXmlPropertiesOutput');
-    helper.add(
-      'stringValue',
-      stringValue,
-    );
-    helper.add(
-      'emptyStringValue',
-      emptyStringValue,
-    );
-    helper.add(
-      'trueBooleanValue',
-      trueBooleanValue,
-    );
-    helper.add(
-      'falseBooleanValue',
-      falseBooleanValue,
-    );
-    helper.add(
-      'byteValue',
-      byteValue,
-    );
-    helper.add(
-      'shortValue',
-      shortValue,
-    );
-    helper.add(
-      'integerValue',
-      integerValue,
-    );
-    helper.add(
-      'longValue',
-      longValue,
-    );
-    helper.add(
-      'floatValue',
-      floatValue,
-    );
-    helper.add(
-      'doubleValue',
-      doubleValue,
-    );
+        newBuiltValueToStringHelper('SimpleScalarXmlPropertiesOutput')
+          ..add(
+            'stringValue',
+            stringValue,
+          )
+          ..add(
+            'emptyStringValue',
+            emptyStringValue,
+          )
+          ..add(
+            'trueBooleanValue',
+            trueBooleanValue,
+          )
+          ..add(
+            'falseBooleanValue',
+            falseBooleanValue,
+          )
+          ..add(
+            'byteValue',
+            byteValue,
+          )
+          ..add(
+            'shortValue',
+            shortValue,
+          )
+          ..add(
+            'integerValue',
+            integerValue,
+          )
+          ..add(
+            'longValue',
+            longValue,
+          )
+          ..add(
+            'floatValue',
+            floatValue,
+          )
+          ..add(
+            'doubleValue',
+            doubleValue,
+          );
     return helper.toString();
   }
 }

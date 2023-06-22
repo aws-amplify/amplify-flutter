@@ -40,7 +40,7 @@ abstract class QueryTimestampsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<QueryTimestampsInput>> serializers = [
     QueryTimestampsInputAwsQuerySerializer()
   ];
 
@@ -59,19 +59,19 @@ abstract class QueryTimestampsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueryTimestampsInput');
-    helper.add(
-      'normalFormat',
-      normalFormat,
-    );
-    helper.add(
-      'epochMember',
-      epochMember,
-    );
-    helper.add(
-      'epochTarget',
-      epochTarget,
-    );
+    final helper = newBuiltValueToStringHelper('QueryTimestampsInput')
+      ..add(
+        'normalFormat',
+        normalFormat,
+      )
+      ..add(
+        'epochMember',
+        epochMember,
+      )
+      ..add(
+        'epochTarget',
+        epochTarget,
+      );
     return helper.toString();
   }
 }

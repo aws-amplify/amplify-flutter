@@ -42,9 +42,8 @@ abstract class ResourceNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ResourceNotFoundExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ResourceNotFoundException>>
+      serializers = [ResourceNotFoundExceptionRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceNotFoundExceptionBuilder b) {}
@@ -75,19 +74,19 @@ abstract class ResourceNotFoundException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceNotFoundException');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceNotFoundException')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

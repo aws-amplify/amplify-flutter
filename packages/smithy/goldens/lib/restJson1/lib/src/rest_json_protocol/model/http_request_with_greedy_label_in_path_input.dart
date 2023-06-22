@@ -50,7 +50,9 @@ abstract class HttpRequestWithGreedyLabelInPathInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<HttpRequestWithGreedyLabelInPathInputPayload>>
+      serializers = [
     HttpRequestWithGreedyLabelInPathInputRestJson1Serializer()
   ];
 
@@ -83,15 +85,15 @@ abstract class HttpRequestWithGreedyLabelInPathInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('HttpRequestWithGreedyLabelInPathInput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'baz',
-      baz,
-    );
+        newBuiltValueToStringHelper('HttpRequestWithGreedyLabelInPathInput')
+          ..add(
+            'foo',
+            foo,
+          )
+          ..add(
+            'baz',
+            baz,
+          );
     return helper.toString();
   }
 }

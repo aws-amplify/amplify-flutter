@@ -54,9 +54,8 @@ abstract class XmlAttributesOnPayloadInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    XmlAttributesOnPayloadInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.XmlAttributesInputOutput?>>
+      serializers = [XmlAttributesOnPayloadInputOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(XmlAttributesOnPayloadInputOutputBuilder b) {}
@@ -69,11 +68,11 @@ abstract class XmlAttributesOnPayloadInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('XmlAttributesOnPayloadInputOutput');
-    helper.add(
-      'payload',
-      payload,
-    );
+        newBuiltValueToStringHelper('XmlAttributesOnPayloadInputOutput')
+          ..add(
+            'payload',
+            payload,
+          );
     return helper.toString();
   }
 }

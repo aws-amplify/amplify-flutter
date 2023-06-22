@@ -34,9 +34,8 @@ abstract class MalformedTimestampBodyDefaultInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedTimestampBodyDefaultInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedTimestampBodyDefaultInput>>
+      serializers = [MalformedTimestampBodyDefaultInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedTimestampBodyDefaultInputBuilder b) {}
@@ -48,11 +47,11 @@ abstract class MalformedTimestampBodyDefaultInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('MalformedTimestampBodyDefaultInput');
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
+        newBuiltValueToStringHelper('MalformedTimestampBodyDefaultInput')
+          ..add(
+            'timestamp',
+            timestamp,
+          );
     return helper.toString();
   }
 }

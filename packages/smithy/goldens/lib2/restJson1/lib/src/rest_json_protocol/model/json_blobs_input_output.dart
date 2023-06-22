@@ -41,7 +41,7 @@ abstract class JsonBlobsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<JsonBlobsInputOutput>> serializers = [
     JsonBlobsInputOutputRestJson1Serializer()
   ];
 
@@ -54,11 +54,11 @@ abstract class JsonBlobsInputOutput
   List<Object?> get props => [data];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonBlobsInputOutput');
-    helper.add(
-      'data',
-      data,
-    );
+    final helper = newBuiltValueToStringHelper('JsonBlobsInputOutput')
+      ..add(
+        'data',
+        data,
+      );
     return helper.toString();
   }
 }

@@ -33,7 +33,7 @@ abstract class FlattenedXmlMapOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<FlattenedXmlMapOutput>> serializers = [
     FlattenedXmlMapOutputAwsQuerySerializer()
   ];
 
@@ -44,11 +44,11 @@ abstract class FlattenedXmlMapOutput
   List<Object?> get props => [myMap];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FlattenedXmlMapOutput');
-    helper.add(
-      'myMap',
-      myMap,
-    );
+    final helper = newBuiltValueToStringHelper('FlattenedXmlMapOutput')
+      ..add(
+        'myMap',
+        myMap,
+      );
     return helper.toString();
   }
 }

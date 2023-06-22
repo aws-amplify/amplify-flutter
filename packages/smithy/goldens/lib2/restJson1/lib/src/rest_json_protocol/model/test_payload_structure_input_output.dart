@@ -64,7 +64,7 @@ abstract class TestPayloadStructureInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.PayloadConfig?>> serializers = [
     TestPayloadStructureInputOutputRestJson1Serializer()
   ];
 
@@ -82,15 +82,15 @@ abstract class TestPayloadStructureInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('TestPayloadStructureInputOutput');
-    helper.add(
-      'testId',
-      testId,
-    );
-    helper.add(
-      'payloadConfig',
-      payloadConfig,
-    );
+        newBuiltValueToStringHelper('TestPayloadStructureInputOutput')
+          ..add(
+            'testId',
+            testId,
+          )
+          ..add(
+            'payloadConfig',
+            payloadConfig,
+          );
     return helper.toString();
   }
 }

@@ -47,9 +47,8 @@ abstract class XmlAttributesInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    XmlAttributesInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<XmlAttributesInputOutput>>
+      serializers = [XmlAttributesInputOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(XmlAttributesInputOutputBuilder b) {}
@@ -64,15 +63,15 @@ abstract class XmlAttributesInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlAttributesInputOutput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'attr',
-      attr,
-    );
+    final helper = newBuiltValueToStringHelper('XmlAttributesInputOutput')
+      ..add(
+        'foo',
+        foo,
+      )
+      ..add(
+        'attr',
+        attr,
+      );
     return helper.toString();
   }
 }

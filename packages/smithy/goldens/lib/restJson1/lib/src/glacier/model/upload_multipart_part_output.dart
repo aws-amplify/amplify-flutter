@@ -38,9 +38,8 @@ abstract class UploadMultipartPartOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UploadMultipartPartOutputRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<UploadMultipartPartOutputPayload>>
+      serializers = [UploadMultipartPartOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadMultipartPartOutputBuilder b) {}
@@ -52,11 +51,11 @@ abstract class UploadMultipartPartOutput
   List<Object?> get props => [checksum];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadMultipartPartOutput');
-    helper.add(
-      'checksum',
-      checksum,
-    );
+    final helper = newBuiltValueToStringHelper('UploadMultipartPartOutput')
+      ..add(
+        'checksum',
+        checksum,
+      );
     return helper.toString();
   }
 }

@@ -33,9 +33,8 @@ abstract class ValidationExceptionField
 
   const ValidationExceptionField._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ValidationExceptionFieldRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ValidationExceptionField>>
+      serializers = [ValidationExceptionFieldRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ValidationExceptionFieldBuilder b) {}
@@ -52,15 +51,15 @@ abstract class ValidationExceptionField
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ValidationExceptionField');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ValidationExceptionField')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

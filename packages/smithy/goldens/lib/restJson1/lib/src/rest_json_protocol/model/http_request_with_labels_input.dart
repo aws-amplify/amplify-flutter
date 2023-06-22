@@ -89,9 +89,8 @@ abstract class HttpRequestWithLabelsInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HttpRequestWithLabelsInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<HttpRequestWithLabelsInputPayload>>
+      serializers = [HttpRequestWithLabelsInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpRequestWithLabelsInputBuilder b) {
@@ -159,39 +158,39 @@ abstract class HttpRequestWithLabelsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HttpRequestWithLabelsInput');
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'short',
-      short,
-    );
-    helper.add(
-      'integer',
-      integer,
-    );
-    helper.add(
-      'long',
-      long,
-    );
-    helper.add(
-      'float',
-      float,
-    );
-    helper.add(
-      'double_',
-      double_,
-    );
-    helper.add(
-      'boolean',
-      boolean,
-    );
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
+    final helper = newBuiltValueToStringHelper('HttpRequestWithLabelsInput')
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'short',
+        short,
+      )
+      ..add(
+        'integer',
+        integer,
+      )
+      ..add(
+        'long',
+        long,
+      )
+      ..add(
+        'float',
+        float,
+      )
+      ..add(
+        'double_',
+        double_,
+      )
+      ..add(
+        'boolean',
+        boolean,
+      )
+      ..add(
+        'timestamp',
+        timestamp,
+      );
     return helper.toString();
   }
 }

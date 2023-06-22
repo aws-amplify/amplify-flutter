@@ -31,7 +31,7 @@ abstract class XmlBlobsOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<XmlBlobsOutput>> serializers = [
     XmlBlobsOutputAwsQuerySerializer()
   ];
 
@@ -42,11 +42,11 @@ abstract class XmlBlobsOutput
   List<Object?> get props => [data];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlBlobsOutput');
-    helper.add(
-      'data',
-      data,
-    );
+    final helper = newBuiltValueToStringHelper('XmlBlobsOutput')
+      ..add(
+        'data',
+        data,
+      );
     return helper.toString();
   }
 }

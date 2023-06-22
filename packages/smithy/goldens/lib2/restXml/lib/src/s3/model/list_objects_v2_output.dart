@@ -61,7 +61,7 @@ abstract class ListObjectsV2Output
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<ListObjectsV2Output>> serializers = [
     ListObjectsV2OutputRestXmlSerializer()
   ];
 
@@ -96,55 +96,55 @@ abstract class ListObjectsV2Output
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListObjectsV2Output');
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'contents',
-      contents,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'maxKeys',
-      maxKeys,
-    );
-    helper.add(
-      'commonPrefixes',
-      commonPrefixes,
-    );
-    helper.add(
-      'encodingType',
-      encodingType,
-    );
-    helper.add(
-      'keyCount',
-      keyCount,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'nextContinuationToken',
-      nextContinuationToken,
-    );
-    helper.add(
-      'startAfter',
-      startAfter,
-    );
+    final helper = newBuiltValueToStringHelper('ListObjectsV2Output')
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'contents',
+        contents,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'delimiter',
+        delimiter,
+      )
+      ..add(
+        'maxKeys',
+        maxKeys,
+      )
+      ..add(
+        'commonPrefixes',
+        commonPrefixes,
+      )
+      ..add(
+        'encodingType',
+        encodingType,
+      )
+      ..add(
+        'keyCount',
+        keyCount,
+      )
+      ..add(
+        'continuationToken',
+        continuationToken,
+      )
+      ..add(
+        'nextContinuationToken',
+        nextContinuationToken,
+      )
+      ..add(
+        'startAfter',
+        startAfter,
+      );
     return helper.toString();
   }
 }

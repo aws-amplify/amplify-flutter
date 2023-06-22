@@ -39,7 +39,7 @@ abstract class MalformedContentTypeWithPayloadInput
         b.payload = payload;
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List?>> serializers = [
     MalformedContentTypeWithPayloadInputRestJson1Serializer()
   ];
 
@@ -53,11 +53,11 @@ abstract class MalformedContentTypeWithPayloadInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('MalformedContentTypeWithPayloadInput');
-    helper.add(
-      'payload',
-      payload,
-    );
+        newBuiltValueToStringHelper('MalformedContentTypeWithPayloadInput')
+          ..add(
+            'payload',
+            payload,
+          );
     return helper.toString();
   }
 }

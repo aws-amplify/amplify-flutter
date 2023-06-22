@@ -48,9 +48,9 @@ abstract class QueryParamsAsStringListMapInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    QueryParamsAsStringListMapInputRestJson1Serializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<QueryParamsAsStringListMapInputPayload>>
+      serializers = [QueryParamsAsStringListMapInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(QueryParamsAsStringListMapInputBuilder b) {}
@@ -67,15 +67,15 @@ abstract class QueryParamsAsStringListMapInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('QueryParamsAsStringListMapInput');
-    helper.add(
-      'qux',
-      qux,
-    );
-    helper.add(
-      'foo',
-      foo,
-    );
+        newBuiltValueToStringHelper('QueryParamsAsStringListMapInput')
+          ..add(
+            'qux',
+            qux,
+          )
+          ..add(
+            'foo',
+            foo,
+          );
     return helper.toString();
   }
 }

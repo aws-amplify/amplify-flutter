@@ -33,9 +33,8 @@ abstract class IgnoreQueryParamsInResponseOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    IgnoreQueryParamsInResponseOutputRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<IgnoreQueryParamsInResponseOutput>>
+      serializers = [IgnoreQueryParamsInResponseOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(IgnoreQueryParamsInResponseOutputBuilder b) {}
@@ -45,11 +44,11 @@ abstract class IgnoreQueryParamsInResponseOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('IgnoreQueryParamsInResponseOutput');
-    helper.add(
-      'baz',
-      baz,
-    );
+        newBuiltValueToStringHelper('IgnoreQueryParamsInResponseOutput')
+          ..add(
+            'baz',
+            baz,
+          );
     return helper.toString();
   }
 }

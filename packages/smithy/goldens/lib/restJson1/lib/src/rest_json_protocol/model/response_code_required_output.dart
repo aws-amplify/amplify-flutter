@@ -37,9 +37,8 @@ abstract class ResponseCodeRequiredOutput
         b.responseCode = response.statusCode;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ResponseCodeRequiredOutputRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ResponseCodeRequiredOutputPayload>>
+      serializers = [ResponseCodeRequiredOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResponseCodeRequiredOutputBuilder b) {
@@ -54,11 +53,11 @@ abstract class ResponseCodeRequiredOutput
   List<Object?> get props => [responseCode];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResponseCodeRequiredOutput');
-    helper.add(
-      'responseCode',
-      responseCode,
-    );
+    final helper = newBuiltValueToStringHelper('ResponseCodeRequiredOutput')
+      ..add(
+        'responseCode',
+        responseCode,
+      );
     return helper.toString();
   }
 }

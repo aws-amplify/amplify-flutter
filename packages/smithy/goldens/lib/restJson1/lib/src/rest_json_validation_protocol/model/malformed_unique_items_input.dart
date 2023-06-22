@@ -77,9 +77,8 @@ abstract class MalformedUniqueItemsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedUniqueItemsInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedUniqueItemsInput>>
+      serializers = [MalformedUniqueItemsInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedUniqueItemsInputBuilder b) {}
@@ -120,67 +119,67 @@ abstract class MalformedUniqueItemsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedUniqueItemsInput');
-    helper.add(
-      'blobList',
-      blobList,
-    );
-    helper.add(
-      'booleanList',
-      booleanList,
-    );
-    helper.add(
-      'stringList',
-      stringList,
-    );
-    helper.add(
-      'byteList',
-      byteList,
-    );
-    helper.add(
-      'shortList',
-      shortList,
-    );
-    helper.add(
-      'integerList',
-      integerList,
-    );
-    helper.add(
-      'longList',
-      longList,
-    );
-    helper.add(
-      'timestampList',
-      timestampList,
-    );
-    helper.add(
-      'dateTimeList',
-      dateTimeList,
-    );
-    helper.add(
-      'httpDateList',
-      httpDateList,
-    );
-    helper.add(
-      'enumList',
-      enumList,
-    );
-    helper.add(
-      'intEnumList',
-      intEnumList,
-    );
-    helper.add(
-      'listList',
-      listList,
-    );
-    helper.add(
-      'structureList',
-      structureList,
-    );
-    helper.add(
-      'unionList',
-      unionList,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedUniqueItemsInput')
+      ..add(
+        'blobList',
+        blobList,
+      )
+      ..add(
+        'booleanList',
+        booleanList,
+      )
+      ..add(
+        'stringList',
+        stringList,
+      )
+      ..add(
+        'byteList',
+        byteList,
+      )
+      ..add(
+        'shortList',
+        shortList,
+      )
+      ..add(
+        'integerList',
+        integerList,
+      )
+      ..add(
+        'longList',
+        longList,
+      )
+      ..add(
+        'timestampList',
+        timestampList,
+      )
+      ..add(
+        'dateTimeList',
+        dateTimeList,
+      )
+      ..add(
+        'httpDateList',
+        httpDateList,
+      )
+      ..add(
+        'enumList',
+        enumList,
+      )
+      ..add(
+        'intEnumList',
+        intEnumList,
+      )
+      ..add(
+        'listList',
+        listList,
+      )
+      ..add(
+        'structureList',
+        structureList,
+      )
+      ..add(
+        'unionList',
+        unionList,
+      );
     return helper.toString();
   }
 }

@@ -55,7 +55,7 @@ abstract class RestApi
 
   const RestApi._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<RestApi>> serializers = [
     RestApiRestJson1Serializer()
   ];
 
@@ -92,59 +92,59 @@ abstract class RestApi
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RestApi');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
-    );
-    helper.add(
-      'version',
-      version,
-    );
-    helper.add(
-      'warnings',
-      warnings,
-    );
-    helper.add(
-      'binaryMediaTypes',
-      binaryMediaTypes,
-    );
-    helper.add(
-      'minimumCompressionSize',
-      minimumCompressionSize,
-    );
-    helper.add(
-      'apiKeySource',
-      apiKeySource,
-    );
-    helper.add(
-      'endpointConfiguration',
-      endpointConfiguration,
-    );
-    helper.add(
-      'policy',
-      policy,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'disableExecuteApiEndpoint',
-      disableExecuteApiEndpoint,
-    );
+    final helper = newBuiltValueToStringHelper('RestApi')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'createdDate',
+        createdDate,
+      )
+      ..add(
+        'version',
+        version,
+      )
+      ..add(
+        'warnings',
+        warnings,
+      )
+      ..add(
+        'binaryMediaTypes',
+        binaryMediaTypes,
+      )
+      ..add(
+        'minimumCompressionSize',
+        minimumCompressionSize,
+      )
+      ..add(
+        'apiKeySource',
+        apiKeySource,
+      )
+      ..add(
+        'endpointConfiguration',
+        endpointConfiguration,
+      )
+      ..add(
+        'policy',
+        policy,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'disableExecuteApiEndpoint',
+        disableExecuteApiEndpoint,
+      );
     return helper.toString();
   }
 }

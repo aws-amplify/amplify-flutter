@@ -36,7 +36,7 @@ abstract class GreetingStruct
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GreetingStruct>> serializers = [
     GreetingStructRestJson1Serializer()
   ];
 
@@ -49,11 +49,11 @@ abstract class GreetingStruct
   List<Object?> get props => [hi];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GreetingStruct');
-    helper.add(
-      'hi',
-      hi,
-    );
+    final helper = newBuiltValueToStringHelper('GreetingStruct')
+      ..add(
+        'hi',
+        hi,
+      );
     return helper.toString();
   }
 }

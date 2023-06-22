@@ -49,9 +49,8 @@ abstract class StreamingTraitsRequireLengthInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    StreamingTraitsRequireLengthInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
+      [StreamingTraitsRequireLengthInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StreamingTraitsRequireLengthInputBuilder b) {
@@ -70,15 +69,15 @@ abstract class StreamingTraitsRequireLengthInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('StreamingTraitsRequireLengthInput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'blob',
-      blob,
-    );
+        newBuiltValueToStringHelper('StreamingTraitsRequireLengthInput')
+          ..add(
+            'foo',
+            foo,
+          )
+          ..add(
+            'blob',
+            blob,
+          );
     return helper.toString();
   }
 }

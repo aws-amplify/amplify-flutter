@@ -145,9 +145,8 @@ abstract class TimestampFormatHeadersIo
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TimestampFormatHeadersIoRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<TimestampFormatHeadersIoPayload>>
+      serializers = [TimestampFormatHeadersIoRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TimestampFormatHeadersIoBuilder b) {}
@@ -173,35 +172,35 @@ abstract class TimestampFormatHeadersIo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TimestampFormatHeadersIo');
-    helper.add(
-      'memberEpochSeconds',
-      memberEpochSeconds,
-    );
-    helper.add(
-      'memberHttpDate',
-      memberHttpDate,
-    );
-    helper.add(
-      'memberDateTime',
-      memberDateTime,
-    );
-    helper.add(
-      'defaultFormat',
-      defaultFormat,
-    );
-    helper.add(
-      'targetEpochSeconds',
-      targetEpochSeconds,
-    );
-    helper.add(
-      'targetHttpDate',
-      targetHttpDate,
-    );
-    helper.add(
-      'targetDateTime',
-      targetDateTime,
-    );
+    final helper = newBuiltValueToStringHelper('TimestampFormatHeadersIo')
+      ..add(
+        'memberEpochSeconds',
+        memberEpochSeconds,
+      )
+      ..add(
+        'memberHttpDate',
+        memberHttpDate,
+      )
+      ..add(
+        'memberDateTime',
+        memberDateTime,
+      )
+      ..add(
+        'defaultFormat',
+        defaultFormat,
+      )
+      ..add(
+        'targetEpochSeconds',
+        targetEpochSeconds,
+      )
+      ..add(
+        'targetHttpDate',
+        targetHttpDate,
+      )
+      ..add(
+        'targetDateTime',
+        targetDateTime,
+      );
     return helper.toString();
   }
 }

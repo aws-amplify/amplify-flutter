@@ -94,9 +94,8 @@ abstract class ListObjectsV2Request
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListObjectsV2RequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListObjectsV2RequestPayload>>
+      serializers = [ListObjectsV2RequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListObjectsV2RequestBuilder b) {}
@@ -139,47 +138,47 @@ abstract class ListObjectsV2Request
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListObjectsV2Request');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'encodingType',
-      encodingType,
-    );
-    helper.add(
-      'maxKeys',
-      maxKeys,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'fetchOwner',
-      fetchOwner,
-    );
-    helper.add(
-      'startAfter',
-      startAfter,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('ListObjectsV2Request')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'delimiter',
+        delimiter,
+      )
+      ..add(
+        'encodingType',
+        encodingType,
+      )
+      ..add(
+        'maxKeys',
+        maxKeys,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'continuationToken',
+        continuationToken,
+      )
+      ..add(
+        'fetchOwner',
+        fetchOwner,
+      )
+      ..add(
+        'startAfter',
+        startAfter,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

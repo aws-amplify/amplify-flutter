@@ -59,7 +59,7 @@ abstract class TestPayloadBlobInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List?>> serializers = [
     TestPayloadBlobInputOutputRestJson1Serializer()
   ];
 
@@ -76,15 +76,15 @@ abstract class TestPayloadBlobInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestPayloadBlobInputOutput');
-    helper.add(
-      'contentType',
-      contentType,
-    );
-    helper.add(
-      'data',
-      data,
-    );
+    final helper = newBuiltValueToStringHelper('TestPayloadBlobInputOutput')
+      ..add(
+        'contentType',
+        contentType,
+      )
+      ..add(
+        'data',
+        data,
+      );
     return helper.toString();
   }
 }

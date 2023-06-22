@@ -34,9 +34,8 @@ abstract class EndpointWithHostLabelOperationInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    EndpointWithHostLabelOperationInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<EndpointWithHostLabelOperationInput>>
+      serializers = [EndpointWithHostLabelOperationInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EndpointWithHostLabelOperationInputBuilder b) {}
@@ -60,11 +59,11 @@ abstract class EndpointWithHostLabelOperationInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('EndpointWithHostLabelOperationInput');
-    helper.add(
-      'label',
-      label,
-    );
+        newBuiltValueToStringHelper('EndpointWithHostLabelOperationInput')
+          ..add(
+            'label',
+            label,
+          );
     return helper.toString();
   }
 }

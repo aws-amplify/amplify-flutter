@@ -49,7 +49,7 @@ abstract class MalformedLengthInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<MalformedLengthInput>> serializers = [
     MalformedLengthInputRestJson1Serializer()
   ];
 
@@ -74,31 +74,31 @@ abstract class MalformedLengthInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedLengthInput');
-    helper.add(
-      'blob',
-      blob,
-    );
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'minString',
-      minString,
-    );
-    helper.add(
-      'maxString',
-      maxString,
-    );
-    helper.add(
-      'list',
-      list,
-    );
-    helper.add(
-      'map',
-      map,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedLengthInput')
+      ..add(
+        'blob',
+        blob,
+      )
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'minString',
+        minString,
+      )
+      ..add(
+        'maxString',
+        maxString,
+      )
+      ..add(
+        'list',
+        list,
+      )
+      ..add(
+        'map',
+        map,
+      );
     return helper.toString();
   }
 }

@@ -55,7 +55,7 @@ abstract class ComplexError
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ComplexErrorPayload>> serializers = [
     ComplexErrorRestXmlSerializer()
   ];
 
@@ -96,19 +96,19 @@ abstract class ComplexError
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplexError');
-    helper.add(
-      'header',
-      header,
-    );
-    helper.add(
-      'topLevel',
-      topLevel,
-    );
-    helper.add(
-      'nested',
-      nested,
-    );
+    final helper = newBuiltValueToStringHelper('ComplexError')
+      ..add(
+        'header',
+        header,
+      )
+      ..add(
+        'topLevel',
+        topLevel,
+      )
+      ..add(
+        'nested',
+        nested,
+      );
     return helper.toString();
   }
 }
@@ -134,15 +134,15 @@ abstract class ComplexErrorPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplexErrorPayload');
-    helper.add(
-      'nested',
-      nested,
-    );
-    helper.add(
-      'topLevel',
-      topLevel,
-    );
+    final helper = newBuiltValueToStringHelper('ComplexErrorPayload')
+      ..add(
+        'nested',
+        nested,
+      )
+      ..add(
+        'topLevel',
+        topLevel,
+      );
     return helper.toString();
   }
 }

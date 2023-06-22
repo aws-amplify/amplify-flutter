@@ -40,9 +40,8 @@ abstract class HostLabelHeaderInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HostLabelHeaderInputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<HostLabelHeaderInputPayload>>
+      serializers = [HostLabelHeaderInputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HostLabelHeaderInputBuilder b) {}
@@ -65,11 +64,11 @@ abstract class HostLabelHeaderInput
   List<Object?> get props => [accountId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HostLabelHeaderInput');
-    helper.add(
-      'accountId',
-      accountId,
-    );
+    final helper = newBuiltValueToStringHelper('HostLabelHeaderInput')
+      ..add(
+        'accountId',
+        accountId,
+      );
     return helper.toString();
   }
 }

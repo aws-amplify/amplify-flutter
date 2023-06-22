@@ -42,9 +42,8 @@ abstract class ResponseCodeHttpFallbackInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ResponseCodeHttpFallbackInputOutputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<ResponseCodeHttpFallbackInputOutput>>
+      serializers = [ResponseCodeHttpFallbackInputOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResponseCodeHttpFallbackInputOutputBuilder b) {}

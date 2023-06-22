@@ -65,9 +65,8 @@ abstract class TestBodyStructureInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TestBodyStructureInputOutputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<TestBodyStructureInputOutputPayload>>
+      serializers = [TestBodyStructureInputOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestBodyStructureInputOutputBuilder b) {}
@@ -87,15 +86,15 @@ abstract class TestBodyStructureInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestBodyStructureInputOutput');
-    helper.add(
-      'testId',
-      testId,
-    );
-    helper.add(
-      'testConfig',
-      testConfig,
-    );
+    final helper = newBuiltValueToStringHelper('TestBodyStructureInputOutput')
+      ..add(
+        'testId',
+        testId,
+      )
+      ..add(
+        'testConfig',
+        testConfig,
+      );
     return helper.toString();
   }
 }
@@ -121,11 +120,11 @@ abstract class TestBodyStructureInputOutputPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('TestBodyStructureInputOutputPayload');
-    helper.add(
-      'testConfig',
-      testConfig,
-    );
+        newBuiltValueToStringHelper('TestBodyStructureInputOutputPayload')
+          ..add(
+            'testConfig',
+            testConfig,
+          );
     return helper.toString();
   }
 }

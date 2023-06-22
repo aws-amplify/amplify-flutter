@@ -40,7 +40,7 @@ abstract class EnvironmentConfig
 
   const EnvironmentConfig._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<EnvironmentConfig>> serializers = [
     EnvironmentConfigAwsQuerySerializer()
   ];
 
@@ -65,31 +65,31 @@ abstract class EnvironmentConfig
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EnvironmentConfig');
-    helper.add(
-      'awsAccessKeyId',
-      awsAccessKeyId,
-    );
-    helper.add(
-      'awsSecretAccessKey',
-      awsSecretAccessKey,
-    );
-    helper.add(
-      'awsDefaultRegion',
-      awsDefaultRegion,
-    );
-    helper.add(
-      'awsRetryMode',
-      awsRetryMode,
-    );
-    helper.add(
-      'awsSessionToken',
-      awsSessionToken,
-    );
-    helper.add(
-      'awsProfile',
-      awsProfile,
-    );
+    final helper = newBuiltValueToStringHelper('EnvironmentConfig')
+      ..add(
+        'awsAccessKeyId',
+        awsAccessKeyId,
+      )
+      ..add(
+        'awsSecretAccessKey',
+        awsSecretAccessKey,
+      )
+      ..add(
+        'awsDefaultRegion',
+        awsDefaultRegion,
+      )
+      ..add(
+        'awsRetryMode',
+        awsRetryMode,
+      )
+      ..add(
+        'awsSessionToken',
+        awsSessionToken,
+      )
+      ..add(
+        'awsProfile',
+        awsProfile,
+      );
     return helper.toString();
   }
 }

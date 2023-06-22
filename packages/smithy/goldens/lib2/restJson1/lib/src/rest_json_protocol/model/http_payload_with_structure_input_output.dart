@@ -52,7 +52,7 @@ abstract class HttpPayloadWithStructureInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.NestedPayload?>> serializers = [
     HttpPayloadWithStructureInputOutputRestJson1Serializer()
   ];
 
@@ -66,11 +66,11 @@ abstract class HttpPayloadWithStructureInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('HttpPayloadWithStructureInputOutput');
-    helper.add(
-      'nested',
-      nested,
-    );
+        newBuiltValueToStringHelper('HttpPayloadWithStructureInputOutput')
+          ..add(
+            'nested',
+            nested,
+          );
     return helper.toString();
   }
 }

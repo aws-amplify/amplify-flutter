@@ -33,9 +33,8 @@ abstract class SensitiveValidationInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    SensitiveValidationInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<SensitiveValidationInput>>
+      serializers = [SensitiveValidationInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SensitiveValidationInputBuilder b) {}
@@ -46,11 +45,11 @@ abstract class SensitiveValidationInput
   List<Object?> get props => [string];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SensitiveValidationInput');
-    helper.add(
-      'string',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('SensitiveValidationInput')
+      ..add(
+        'string',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }

@@ -34,7 +34,7 @@ abstract class NoInputAndOutputInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<NoInputAndOutputInput>> serializers = [
     NoInputAndOutputInputAwsQuerySerializer()
   ];
 
