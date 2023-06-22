@@ -104,6 +104,7 @@ export 'package:smoke_test/src/sdk/src/config_service/model/describe_compliance_
 export 'package:smoke_test/src/sdk/src/config_service/model/describe_compliance_by_resource_response.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/describe_config_rule_evaluation_status_request.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/describe_config_rule_evaluation_status_response.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/describe_config_rules_filters.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/describe_config_rules_request.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/describe_config_rules_response.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/describe_configuration_aggregator_sources_status_request.dart';
@@ -143,10 +144,15 @@ export 'package:smoke_test/src/sdk/src/config_service/model/describe_remediation
 export 'package:smoke_test/src/sdk/src/config_service/model/describe_retention_configurations_request.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/describe_retention_configurations_response.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/evaluation.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/evaluation_context.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode_configuration.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result_identifier.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result_qualifier.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/evaluation_status.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/event_source.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/exclusion_by_resource_types.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/execution_controls.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/external_evaluation.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/failed_delete_remediation_exceptions_batch.dart';
@@ -186,9 +192,12 @@ export 'package:smoke_test/src/sdk/src/config_service/model/get_organization_cus
 export 'package:smoke_test/src/sdk/src/config_service/model/get_organization_custom_rule_policy_response.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/get_resource_config_history_request.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/get_resource_config_history_response.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/get_resource_evaluation_summary_request.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/get_resource_evaluation_summary_response.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/get_stored_query_request.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/get_stored_query_response.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/grouped_resource_count.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/idempotent_parameter_mismatch.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/insufficient_delivery_policy_exception.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/insufficient_permissions_exception.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/invalid_configuration_recorder_name_exception.dart';
@@ -212,6 +221,8 @@ export 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pac
 export 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pack_compliance_scores_response.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/list_discovered_resources_request.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/list_discovered_resources_response.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/list_resource_evaluations_request.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/list_resource_evaluations_response.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/list_stored_queries_request.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/list_stored_queries_response.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/list_tags_for_resource_request.dart';
@@ -295,6 +306,8 @@ export 'package:smoke_test/src/sdk/src/config_service/model/put_stored_query_res
 export 'package:smoke_test/src/sdk/src/config_service/model/query_info.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/recorder_status.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/recording_group.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/recording_strategy.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/recording_strategy_type.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/relationship.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/remediation_configuration.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/remediation_exception.dart';
@@ -307,9 +320,14 @@ export 'package:smoke_test/src/sdk/src/config_service/model/remediation_in_progr
 export 'package:smoke_test/src/sdk/src/config_service/model/remediation_parameter_value.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/remediation_target_type.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/resource_concurrent_modification_exception.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/resource_configuration_schema_type.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/resource_count.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/resource_count_filters.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/resource_count_group_key.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/resource_details.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/resource_evaluation.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/resource_evaluation_filters.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/resource_evaluation_status.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/resource_filters.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/resource_identifier.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/resource_in_use_exception.dart';
@@ -335,6 +353,8 @@ export 'package:smoke_test/src/sdk/src/config_service/model/start_config_rules_e
 export 'package:smoke_test/src/sdk/src/config_service/model/start_configuration_recorder_request.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/start_remediation_execution_request.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/start_remediation_execution_response.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/start_resource_evaluation_request.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/start_resource_evaluation_response.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/static_value.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/status_detail_filters.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/stop_configuration_recorder_request.dart';
@@ -343,6 +363,7 @@ export 'package:smoke_test/src/sdk/src/config_service/model/stored_query_metadat
 export 'package:smoke_test/src/sdk/src/config_service/model/tag.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/tag_resource_request.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/template_ssm_document_details.dart';
+export 'package:smoke_test/src/sdk/src/config_service/model/time_window.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/too_many_tags_exception.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/untag_resource_request.dart';
 export 'package:smoke_test/src/sdk/src/config_service/model/validation_exception.dart';

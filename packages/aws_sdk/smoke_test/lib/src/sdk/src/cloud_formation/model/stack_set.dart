@@ -48,6 +48,7 @@ abstract class StackSet
     _i8.PermissionModels? permissionModel,
     List<String>? organizationalUnitIds,
     _i9.ManagedExecution? managedExecution,
+    List<String>? regions,
   }) {
     return _$StackSet._(
       stackSetName: stackSetName,
@@ -68,6 +69,7 @@ abstract class StackSet
           ? null
           : _i10.BuiltList(organizationalUnitIds),
       managedExecution: managedExecution,
+      regions: regions == null ? null : _i10.BuiltList(regions),
     );
   }
 
@@ -140,6 +142,9 @@ abstract class StackSet
 
   /// Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting operations.
   _i9.ManagedExecution? get managedExecution;
+
+  /// Returns a list of all Amazon Web Services Regions the given StackSet has stack instances deployed in. The Amazon Web Services Regions list output is in no particular order.
+  _i10.BuiltList<String>? get regions;
   @override
   List<Object?> get props => [
         stackSetName,
@@ -158,6 +163,7 @@ abstract class StackSet
         permissionModel,
         organizationalUnitIds,
         managedExecution,
+        regions,
       ];
   @override
   String toString() {
@@ -225,6 +231,10 @@ abstract class StackSet
     helper.add(
       'managedExecution',
       managedExecution,
+    );
+    helper.add(
+      'regions',
+      regions,
     );
     return helper.toString();
   }
@@ -367,6 +377,17 @@ class StackSetAwsQuerySerializer
             value,
             specifiedType: const FullType(_i9.ManagedExecution),
           ) as _i9.ManagedExecution));
+        case 'Regions':
+          result.regions.replace((const _i11.XmlBuiltListSerializer(
+                  indexer: _i11.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i10.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i10.BuiltList<String>));
       }
     }
 
@@ -402,7 +423,8 @@ class StackSetAwsQuerySerializer
       :autoDeployment,
       :permissionModel,
       :organizationalUnitIds,
-      :managedExecution
+      :managedExecution,
+      :regions
     ) = object;
     if (stackSetName != null) {
       result$
@@ -554,6 +576,20 @@ class StackSetAwsQuerySerializer
         ..add(serializers.serialize(
           managedExecution,
           specifiedType: const FullType(_i9.ManagedExecution),
+        ));
+    }
+    if (regions != null) {
+      result$
+        ..add(const _i11.XmlElementName('Regions'))
+        ..add(const _i11.XmlBuiltListSerializer(
+                indexer: _i11.XmlIndexer.awsQueryList)
+            .serialize(
+          serializers,
+          regions,
+          specifiedType: const FullType.nullable(
+            _i10.BuiltList,
+            [FullType(String)],
+          ),
         ));
     }
     return result$;

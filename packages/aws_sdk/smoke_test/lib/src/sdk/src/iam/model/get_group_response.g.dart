@@ -12,7 +12,7 @@ class _$GetGroupResponse extends GetGroupResponse {
   @override
   final _i4.BuiltList<_i3.User> users;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -21,10 +21,15 @@ class _$GetGroupResponse extends GetGroupResponse {
       (new GetGroupResponseBuilder()..update(updates))._build();
 
   _$GetGroupResponse._(
-      {required this.group, required this.users, this.isTruncated, this.marker})
+      {required this.group,
+      required this.users,
+      required this.isTruncated,
+      this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(group, r'GetGroupResponse', 'group');
     BuiltValueNullFieldError.checkNotNull(users, r'GetGroupResponse', 'users');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'GetGroupResponse', 'isTruncated');
   }
 
   @override
@@ -115,7 +120,8 @@ class GetGroupResponseBuilder
           new _$GetGroupResponse._(
               group: group.build(),
               users: users.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'GetGroupResponse', 'isTruncated'),
               marker: marker);
     } catch (_) {
       late String _$failedField;

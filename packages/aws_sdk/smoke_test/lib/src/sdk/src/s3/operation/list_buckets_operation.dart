@@ -15,9 +15,13 @@ import 'package:smoke_test/src/sdk/src/s3/model/list_buckets_output.dart'
     as _i2;
 
 /// Returns a list of all buckets owned by the authenticated sender of the request. To use this operation, you must have the `s3:ListAllMyBuckets` permission.
+///
+/// For information about Amazon S3 buckets, see [Creating, configuring, and working with Amazon S3 buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html).
 class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
     _i2.ListBucketsOutput, _i2.ListBucketsOutput> {
   /// Returns a list of all buckets owned by the authenticated sender of the request. To use this operation, you must have the `s3:ListAllMyBuckets` permission.
+  ///
+  /// For information about Amazon S3 buckets, see [Creating, configuring, and working with Amazon S3 buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html).
   ListBucketsOperation({
     required String region,
     Uri? baseUri,

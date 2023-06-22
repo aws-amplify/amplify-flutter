@@ -238,12 +238,14 @@ class PutBucketInventoryConfigurationRequestRestXmlSerializer
         destination,
         specifiedType: const FullType(_i4.InventoryDestination),
       ));
-    result$
-      ..add(const _i1.XmlElementName('IsEnabled'))
-      ..add(serializers.serialize(
-        isEnabled,
-        specifiedType: const FullType.nullable(bool),
-      ));
+    if (isEnabled != null) {
+      result$
+        ..add(const _i1.XmlElementName('IsEnabled'))
+        ..add(serializers.serialize(
+          isEnabled,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (filter != null) {
       result$
         ..add(const _i1.XmlElementName('Filter'))

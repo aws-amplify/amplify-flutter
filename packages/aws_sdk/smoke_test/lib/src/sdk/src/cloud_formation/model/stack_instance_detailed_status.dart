@@ -50,8 +50,14 @@ class StackInstanceDetailedStatus
     'RUNNING',
   );
 
-  static const succeeded = StackInstanceDetailedStatus._(
+  static const skippedSuspendedAccount = StackInstanceDetailedStatus._(
     5,
+    'SKIPPED_SUSPENDED_ACCOUNT',
+    'SKIPPED_SUSPENDED_ACCOUNT',
+  );
+
+  static const succeeded = StackInstanceDetailedStatus._(
+    6,
     'SUCCEEDED',
     'SUCCEEDED',
   );
@@ -63,6 +69,7 @@ class StackInstanceDetailedStatus
     StackInstanceDetailedStatus.inoperable,
     StackInstanceDetailedStatus.pending,
     StackInstanceDetailedStatus.running,
+    StackInstanceDetailedStatus.skippedSuspendedAccount,
     StackInstanceDetailedStatus.succeeded,
   ];
 

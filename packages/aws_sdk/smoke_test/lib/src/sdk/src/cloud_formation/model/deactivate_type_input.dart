@@ -49,7 +49,7 @@ abstract class DeactivateTypeInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeactivateTypeInputBuilder b) {}
 
-  /// The type name of the extension, in this account and region. If you specified a type name alias when enabling the extension, use the type name alias.
+  /// The type name of the extension, in this account and Region. If you specified a type name alias when enabling the extension, use the type name alias.
   ///
   /// Conditional: You must specify either `Arn`, or `TypeName` and `Type`.
   String? get typeName;
@@ -59,7 +59,7 @@ abstract class DeactivateTypeInput
   /// Conditional: You must specify either `Arn`, or `TypeName` and `Type`.
   _i3.ThirdPartyType? get type;
 
-  /// The Amazon Resource Name (ARN) for the extension, in this account and region.
+  /// The Amazon Resource Name (ARN) for the extension, in this account and Region.
   ///
   /// Conditional: You must specify either `Arn`, or `TypeName` and `Type`.
   String? get arn;

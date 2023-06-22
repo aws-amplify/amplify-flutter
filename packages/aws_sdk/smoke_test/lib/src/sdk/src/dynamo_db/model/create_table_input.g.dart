@@ -29,6 +29,8 @@ class _$CreateTableInput extends CreateTableInput {
   final _i13.BuiltList<_i11.Tag>? tags;
   @override
   final _i12.TableClass? tableClass;
+  @override
+  final bool? deletionProtectionEnabled;
 
   factory _$CreateTableInput(
           [void Function(CreateTableInputBuilder)? updates]) =>
@@ -45,7 +47,8 @@ class _$CreateTableInput extends CreateTableInput {
       this.streamSpecification,
       this.sseSpecification,
       this.tags,
-      this.tableClass})
+      this.tableClass,
+      this.deletionProtectionEnabled})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         attributeDefinitions, r'CreateTableInput', 'attributeDefinitions');
@@ -77,7 +80,8 @@ class _$CreateTableInput extends CreateTableInput {
         streamSpecification == other.streamSpecification &&
         sseSpecification == other.sseSpecification &&
         tags == other.tags &&
-        tableClass == other.tableClass;
+        tableClass == other.tableClass &&
+        deletionProtectionEnabled == other.deletionProtectionEnabled;
   }
 
   @override
@@ -94,6 +98,7 @@ class _$CreateTableInput extends CreateTableInput {
     _$hash = $jc(_$hash, sseSpecification.hashCode);
     _$hash = $jc(_$hash, tags.hashCode);
     _$hash = $jc(_$hash, tableClass.hashCode);
+    _$hash = $jc(_$hash, deletionProtectionEnabled.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -172,6 +177,11 @@ class CreateTableInputBuilder
   set tableClass(_i12.TableClass? tableClass) =>
       _$this._tableClass = tableClass;
 
+  bool? _deletionProtectionEnabled;
+  bool? get deletionProtectionEnabled => _$this._deletionProtectionEnabled;
+  set deletionProtectionEnabled(bool? deletionProtectionEnabled) =>
+      _$this._deletionProtectionEnabled = deletionProtectionEnabled;
+
   CreateTableInputBuilder() {
     CreateTableInput._init(this);
   }
@@ -190,6 +200,7 @@ class CreateTableInputBuilder
       _sseSpecification = $v.sseSpecification?.toBuilder();
       _tags = $v.tags?.toBuilder();
       _tableClass = $v.tableClass;
+      _deletionProtectionEnabled = $v.deletionProtectionEnabled;
       _$v = null;
     }
     return this;
@@ -225,7 +236,8 @@ class CreateTableInputBuilder
               streamSpecification: _streamSpecification?.build(),
               sseSpecification: _sseSpecification?.build(),
               tags: _tags?.build(),
-              tableClass: tableClass);
+              tableClass: tableClass,
+              deletionProtectionEnabled: deletionProtectionEnabled);
     } catch (_) {
       late String _$failedField;
       try {

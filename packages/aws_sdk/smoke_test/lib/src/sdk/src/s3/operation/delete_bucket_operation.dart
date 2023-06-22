@@ -16,7 +16,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_request.dart'
 
 /// Deletes the S3 bucket. All objects (including all object versions and delete markers) in the bucket must be deleted before the bucket itself can be deleted.
 ///
-/// **Related Resources**
+/// The following operations are related to `DeleteBucket`:
 ///
 /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
 ///
@@ -28,7 +28,7 @@ class DeleteBucketOperation extends _i1.HttpOperation<
     _i1.Unit> {
   /// Deletes the S3 bucket. All objects (including all object versions and delete markers) in the bucket must be deleted before the bucket itself can be deleted.
   ///
-  /// **Related Resources**
+  /// The following operations are related to `DeleteBucket`:
   ///
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
   ///

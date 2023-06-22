@@ -10,7 +10,7 @@ class _$ListAccountAliasesResponse extends ListAccountAliasesResponse {
   @override
   final _i2.BuiltList<String> accountAliases;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -19,10 +19,12 @@ class _$ListAccountAliasesResponse extends ListAccountAliasesResponse {
       (new ListAccountAliasesResponseBuilder()..update(updates))._build();
 
   _$ListAccountAliasesResponse._(
-      {required this.accountAliases, this.isTruncated, this.marker})
+      {required this.accountAliases, required this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         accountAliases, r'ListAccountAliasesResponse', 'accountAliases');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListAccountAliasesResponse', 'isTruncated');
   }
 
   @override
@@ -108,7 +110,8 @@ class ListAccountAliasesResponseBuilder
       _$result = _$v ??
           new _$ListAccountAliasesResponse._(
               accountAliases: accountAliases.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListAccountAliasesResponse', 'isTruncated'),
               marker: marker);
     } catch (_) {
       late String _$failedField;

@@ -15,7 +15,7 @@ class _$ListConformancePackComplianceScoresRequest
   @override
   final _i5.SortBy? sortBy;
   @override
-  final int? limit;
+  final int limit;
   @override
   final String? nextToken;
 
@@ -26,8 +26,15 @@ class _$ListConformancePackComplianceScoresRequest
           ._build();
 
   _$ListConformancePackComplianceScoresRequest._(
-      {this.filters, this.sortOrder, this.sortBy, this.limit, this.nextToken})
-      : super._();
+      {this.filters,
+      this.sortOrder,
+      this.sortBy,
+      required this.limit,
+      this.nextToken})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'ListConformancePackComplianceScoresRequest', 'limit');
+  }
 
   @override
   ListConformancePackComplianceScoresRequest rebuild(
@@ -133,7 +140,8 @@ class ListConformancePackComplianceScoresRequestBuilder
               filters: _filters?.build(),
               sortOrder: sortOrder,
               sortBy: sortBy,
-              limit: limit,
+              limit: BuiltValueNullFieldError.checkNotNull(limit,
+                  r'ListConformancePackComplianceScoresRequest', 'limit'),
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

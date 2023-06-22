@@ -10,7 +10,7 @@ class _$ListAccessKeysResponse extends ListAccessKeysResponse {
   @override
   final _i3.BuiltList<_i2.AccessKeyMetadata> accessKeyMetadata;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -19,10 +19,12 @@ class _$ListAccessKeysResponse extends ListAccessKeysResponse {
       (new ListAccessKeysResponseBuilder()..update(updates))._build();
 
   _$ListAccessKeysResponse._(
-      {required this.accessKeyMetadata, this.isTruncated, this.marker})
+      {required this.accessKeyMetadata, required this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         accessKeyMetadata, r'ListAccessKeysResponse', 'accessKeyMetadata');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListAccessKeysResponse', 'isTruncated');
   }
 
   @override
@@ -109,7 +111,8 @@ class ListAccessKeysResponseBuilder
       _$result = _$v ??
           new _$ListAccessKeysResponse._(
               accessKeyMetadata: accessKeyMetadata.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListAccessKeysResponse', 'isTruncated'),
               marker: marker);
     } catch (_) {
       late String _$failedField;

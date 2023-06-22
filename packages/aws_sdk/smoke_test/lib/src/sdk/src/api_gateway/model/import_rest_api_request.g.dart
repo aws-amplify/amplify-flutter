@@ -8,7 +8,7 @@ part of 'import_rest_api_request.dart';
 
 class _$ImportRestApiRequest extends ImportRestApiRequest {
   @override
-  final bool? failOnWarnings;
+  final bool failOnWarnings;
   @override
   final _i4.BuiltMap<String, String>? parameters;
   @override
@@ -19,8 +19,10 @@ class _$ImportRestApiRequest extends ImportRestApiRequest {
       (new ImportRestApiRequestBuilder()..update(updates))._build();
 
   _$ImportRestApiRequest._(
-      {this.failOnWarnings, this.parameters, required this.body})
+      {required this.failOnWarnings, this.parameters, required this.body})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        failOnWarnings, r'ImportRestApiRequest', 'failOnWarnings');
     BuiltValueNullFieldError.checkNotNull(
         body, r'ImportRestApiRequest', 'body');
   }
@@ -107,7 +109,8 @@ class ImportRestApiRequestBuilder
     try {
       _$result = _$v ??
           new _$ImportRestApiRequest._(
-              failOnWarnings: failOnWarnings,
+              failOnWarnings: BuiltValueNullFieldError.checkNotNull(
+                  failOnWarnings, r'ImportRestApiRequest', 'failOnWarnings'),
               parameters: _parameters?.build(),
               body: BuiltValueNullFieldError.checkNotNull(
                   body, r'ImportRestApiRequest', 'body'));

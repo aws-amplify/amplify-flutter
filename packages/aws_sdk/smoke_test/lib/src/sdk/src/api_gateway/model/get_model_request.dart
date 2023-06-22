@@ -26,6 +26,7 @@ abstract class GetModelRequest
     required String modelName,
     bool? flatten,
   }) {
+    flatten ??= false;
     return _$GetModelRequest._(
       restApiId: restApiId,
       modelName: modelName,
@@ -61,7 +62,9 @@ abstract class GetModelRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetModelRequestBuilder b) {}
+  static void _init(GetModelRequestBuilder b) {
+    b.flatten = false;
+  }
 
   /// The RestApi identifier under which the Model exists.
   String get restApiId;
@@ -70,7 +73,7 @@ abstract class GetModelRequest
   String get modelName;
 
   /// A query parameter of a Boolean value to resolve (`true`) all external model references and returns a flattened model schema or not (`false`) The default is `false`.
-  bool? get flatten;
+  bool get flatten;
   @override
   String labelFor(String key) {
     switch (key) {

@@ -19,7 +19,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/no_such_key.dart' as _i9;
 
 /// Retrieves all the metadata from an object without returning the object itself. This action is useful if you're interested only in an object's metadata. To use `GetObjectAttributes`, you must have READ access to the object.
 ///
-/// `GetObjectAttributes` combines the functionality of `GetObjectAcl`, `GetObjectLegalHold`, `GetObjectLockConfiguration`, `GetObjectRetention`, `GetObjectTagging`, `HeadObject`, and `ListParts`. All of the data returned with each of those individual calls can be returned with a single call to `GetObjectAttributes`.
+/// `GetObjectAttributes` combines the functionality of `HeadObject` and `ListParts`. All of the data returned with each of those individual calls can be returned with a single call to `GetObjectAttributes`.
 ///
 /// If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the metadata from the object, you must use the following headers:
 ///
@@ -32,7 +32,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/no_such_key.dart' as _i9;
 ///
 /// For more information about SSE-C, see [Server-Side Encryption (Using Customer-Provided Encryption Keys)](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
 ///
-/// *   Encryption request headers, such as `x-amz-server-side-encryption`, should not be sent for GET requests if your object uses server-side encryption with Amazon Web Services KMS keys stored in Amazon Web Services Key Management Service (SSE-KMS) or server-side encryption with Amazon S3 managed encryption keys (SSE-S3). If your object does use these types of keys, you'll get an HTTP `400 Bad Request` error.
+/// *   Encryption request headers, such as `x-amz-server-side-encryption`, should not be sent for GET requests if your object uses server-side encryption with Amazon Web Services KMS keys stored in Amazon Web Services Key Management Service (SSE-KMS) or server-side encryption with Amazon S3 managed keys (SSE-S3). If your object does use these types of keys, you'll get an HTTP `400 Bad Request` error.
 ///
 /// *   The last modified property in this case is the creation date of the object.
 ///
@@ -54,7 +54,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/no_such_key.dart' as _i9;
 ///
 /// For more information about conditional requests, see [RFC 7232](https://tools.ietf.org/html/rfc7232).
 ///
-/// **Permissions**
+/// Permissions
 ///
 /// The permissions that you need to use this operation depend on whether the bucket is versioned. If the bucket is versioned, you need both the `s3:GetObjectVersion` and `s3:GetObjectVersionAttributes` permissions for this operation. If the bucket is not versioned, you need the `s3:GetObject` and `s3:GetObjectAttributes` permissions. For more information, see [Specifying Permissions in a Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html) in the _Amazon S3 User Guide_. If the object that you request does not exist, the error Amazon S3 returns depends on whether you also have the `s3:ListBucket` permission.
 ///
@@ -87,7 +87,7 @@ class GetObjectAttributesOperation extends _i1.HttpOperation<
     _i3.GetObjectAttributesOutput> {
   /// Retrieves all the metadata from an object without returning the object itself. This action is useful if you're interested only in an object's metadata. To use `GetObjectAttributes`, you must have READ access to the object.
   ///
-  /// `GetObjectAttributes` combines the functionality of `GetObjectAcl`, `GetObjectLegalHold`, `GetObjectLockConfiguration`, `GetObjectRetention`, `GetObjectTagging`, `HeadObject`, and `ListParts`. All of the data returned with each of those individual calls can be returned with a single call to `GetObjectAttributes`.
+  /// `GetObjectAttributes` combines the functionality of `HeadObject` and `ListParts`. All of the data returned with each of those individual calls can be returned with a single call to `GetObjectAttributes`.
   ///
   /// If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the metadata from the object, you must use the following headers:
   ///
@@ -100,7 +100,7 @@ class GetObjectAttributesOperation extends _i1.HttpOperation<
   ///
   /// For more information about SSE-C, see [Server-Side Encryption (Using Customer-Provided Encryption Keys)](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
   ///
-  /// *   Encryption request headers, such as `x-amz-server-side-encryption`, should not be sent for GET requests if your object uses server-side encryption with Amazon Web Services KMS keys stored in Amazon Web Services Key Management Service (SSE-KMS) or server-side encryption with Amazon S3 managed encryption keys (SSE-S3). If your object does use these types of keys, you'll get an HTTP `400 Bad Request` error.
+  /// *   Encryption request headers, such as `x-amz-server-side-encryption`, should not be sent for GET requests if your object uses server-side encryption with Amazon Web Services KMS keys stored in Amazon Web Services Key Management Service (SSE-KMS) or server-side encryption with Amazon S3 managed keys (SSE-S3). If your object does use these types of keys, you'll get an HTTP `400 Bad Request` error.
   ///
   /// *   The last modified property in this case is the creation date of the object.
   ///
@@ -122,7 +122,7 @@ class GetObjectAttributesOperation extends _i1.HttpOperation<
   ///
   /// For more information about conditional requests, see [RFC 7232](https://tools.ietf.org/html/rfc7232).
   ///
-  /// **Permissions**
+  /// Permissions
   ///
   /// The permissions that you need to use this operation depend on whether the bucket is versioned. If the bucket is versioned, you need both the `s3:GetObjectVersion` and `s3:GetObjectVersionAttributes` permissions for this operation. If the bucket is not versioned, you need the `s3:GetObject` and `s3:GetObjectAttributes` permissions. For more information, see [Specifying Permissions in a Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html) in the _Amazon S3 User Guide_. If the object that you request does not exist, the error Amazon S3 returns depends on whether you also have the `s3:ListBucket` permission.
   ///

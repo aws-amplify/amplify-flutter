@@ -29,6 +29,7 @@ abstract class GetServiceLastAccessedDetailsWithEntitiesResponse
     String? marker,
     _i4.ErrorDetails? error,
   }) {
+    isTruncated ??= false;
     return _$GetServiceLastAccessedDetailsWithEntitiesResponse._(
       jobStatus: jobStatus,
       jobCreationDate: jobCreationDate,
@@ -59,7 +60,9 @@ abstract class GetServiceLastAccessedDetailsWithEntitiesResponse
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(
-      GetServiceLastAccessedDetailsWithEntitiesResponseBuilder b) {}
+      GetServiceLastAccessedDetailsWithEntitiesResponseBuilder b) {
+    b.isTruncated = false;
+  }
 
   /// The status of the job.
   _i2.JobStatusType get jobStatus;
@@ -76,7 +79,7 @@ abstract class GetServiceLastAccessedDetailsWithEntitiesResponse
   _i5.BuiltList<_i3.EntityDetails> get entityDetailsList;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a subsequent pagination request.
   String? get marker;
@@ -261,14 +264,12 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer
           [FullType(_i3.EntityDetails)],
         ),
       ));
-    if (isTruncated != null) {
-      result$
-        ..add(const _i6.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i6.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (marker != null) {
       result$
         ..add(const _i6.XmlElementName('Marker'))

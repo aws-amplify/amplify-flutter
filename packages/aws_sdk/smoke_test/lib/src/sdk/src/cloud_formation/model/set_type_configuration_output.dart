@@ -38,7 +38,7 @@ abstract class SetTypeConfigurationOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SetTypeConfigurationOutputBuilder b) {}
 
-  /// The Amazon Resource Name (ARN) for the configuration data, in this account and region.
+  /// The Amazon Resource Name (ARN) for the configuration data, in this account and Region.
   ///
   /// Conditional: You must specify `ConfigurationArn`, or `Type` and `TypeName`.
   String? get configurationArn;

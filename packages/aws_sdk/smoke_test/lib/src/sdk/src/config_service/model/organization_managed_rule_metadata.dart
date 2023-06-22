@@ -13,14 +13,14 @@ import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_fr
 
 part 'organization_managed_rule_metadata.g.dart';
 
-/// An object that specifies organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
+/// organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
 abstract class OrganizationManagedRuleMetadata
     with
         _i1.AWSEquatable<OrganizationManagedRuleMetadata>
     implements
         Built<OrganizationManagedRuleMetadata,
             OrganizationManagedRuleMetadataBuilder> {
-  /// An object that specifies organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
+  /// organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
   factory OrganizationManagedRuleMetadata({
     String? description,
     required String ruleIdentifier,
@@ -44,7 +44,7 @@ abstract class OrganizationManagedRuleMetadata
     );
   }
 
-  /// An object that specifies organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
+  /// organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
   factory OrganizationManagedRuleMetadata.build(
           [void Function(OrganizationManagedRuleMetadataBuilder) updates]) =
       _$OrganizationManagedRuleMetadata;

@@ -10,7 +10,7 @@ class _$ListGroupPoliciesResponse extends ListGroupPoliciesResponse {
   @override
   final _i2.BuiltList<String> policyNames;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -19,10 +19,12 @@ class _$ListGroupPoliciesResponse extends ListGroupPoliciesResponse {
       (new ListGroupPoliciesResponseBuilder()..update(updates))._build();
 
   _$ListGroupPoliciesResponse._(
-      {required this.policyNames, this.isTruncated, this.marker})
+      {required this.policyNames, required this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         policyNames, r'ListGroupPoliciesResponse', 'policyNames');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListGroupPoliciesResponse', 'isTruncated');
   }
 
   @override
@@ -108,7 +110,8 @@ class ListGroupPoliciesResponseBuilder
       _$result = _$v ??
           new _$ListGroupPoliciesResponse._(
               policyNames: policyNames.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListGroupPoliciesResponse', 'isTruncated'),
               marker: marker);
     } catch (_) {
       late String _$failedField;

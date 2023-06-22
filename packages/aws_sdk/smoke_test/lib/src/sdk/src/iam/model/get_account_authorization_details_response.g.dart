@@ -17,7 +17,7 @@ class _$GetAccountAuthorizationDetailsResponse
   @override
   final _i6.BuiltList<_i5.ManagedPolicyDetail>? policies;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -32,9 +32,12 @@ class _$GetAccountAuthorizationDetailsResponse
       this.groupDetailList,
       this.roleDetailList,
       this.policies,
-      this.isTruncated,
+      required this.isTruncated,
       this.marker})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'GetAccountAuthorizationDetailsResponse', 'isTruncated');
+  }
 
   @override
   GetAccountAuthorizationDetailsResponse rebuild(
@@ -152,7 +155,8 @@ class GetAccountAuthorizationDetailsResponseBuilder
               groupDetailList: _groupDetailList?.build(),
               roleDetailList: _roleDetailList?.build(),
               policies: _policies?.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
+                  r'GetAccountAuthorizationDetailsResponse', 'isTruncated'),
               marker: marker);
     } catch (_) {
       late String _$failedField;

@@ -21,6 +21,7 @@ abstract class CreatePolicyVersionRequest
     required String policyDocument,
     bool? setAsDefault,
   }) {
+    setAsDefault ??= false;
     return _$CreatePolicyVersionRequest._(
       policyArn: policyArn,
       policyDocument: policyDocument,
@@ -46,7 +47,9 @@ abstract class CreatePolicyVersionRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreatePolicyVersionRequestBuilder b) {}
+  static void _init(CreatePolicyVersionRequestBuilder b) {
+    b.setAsDefault = false;
+  }
 
   /// The Amazon Resource Name (ARN) of the IAM policy to which you want to add a new version.
   ///
@@ -73,7 +76,7 @@ abstract class CreatePolicyVersionRequest
   /// When this parameter is `true`, the new policy version becomes the operative version. That is, it becomes the version that is in effect for the IAM users, groups, and roles that the policy is attached to.
   ///
   /// For more information about managed policy versions, see [Versioning for managed policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html) in the _IAM User Guide_.
-  bool? get setAsDefault;
+  bool get setAsDefault;
   @override
   CreatePolicyVersionRequest getPayload() => this;
   @override
@@ -184,14 +187,12 @@ class CreatePolicyVersionRequestAwsQuerySerializer
         policyDocument,
         specifiedType: const FullType(String),
       ));
-    if (setAsDefault != null) {
-      result$
-        ..add(const _i1.XmlElementName('SetAsDefault'))
-        ..add(serializers.serialize(
-          setAsDefault,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i1.XmlElementName('SetAsDefault'))
+      ..add(serializers.serialize(
+        setAsDefault,
+        specifiedType: const FullType(bool),
+      ));
     return result$;
   }
 }

@@ -31,7 +31,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_metrics_configuration
 /// *   [ListBucketMetricsConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketMetricsConfigurations.html)
 ///
 ///
-/// `GetBucketLifecycle` has the following special error:
+/// `PutBucketMetricsConfiguration` has the following special error:
 ///
 /// *   Error code: `TooManyConfigurations`
 ///
@@ -58,7 +58,7 @@ class PutBucketMetricsConfigurationOperation extends _i1.HttpOperation<
   /// *   [ListBucketMetricsConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketMetricsConfigurations.html)
   ///
   ///
-  /// `GetBucketLifecycle` has the following special error:
+  /// `PutBucketMetricsConfiguration` has the following special error:
   ///
   /// *   Error code: `TooManyConfigurations`
   ///

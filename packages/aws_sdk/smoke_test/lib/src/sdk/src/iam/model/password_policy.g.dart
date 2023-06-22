@@ -10,17 +10,17 @@ class _$PasswordPolicy extends PasswordPolicy {
   @override
   final int? minimumPasswordLength;
   @override
-  final bool? requireSymbols;
+  final bool requireSymbols;
   @override
-  final bool? requireNumbers;
+  final bool requireNumbers;
   @override
-  final bool? requireUppercaseCharacters;
+  final bool requireUppercaseCharacters;
   @override
-  final bool? requireLowercaseCharacters;
+  final bool requireLowercaseCharacters;
   @override
-  final bool? allowUsersToChangePassword;
+  final bool allowUsersToChangePassword;
   @override
-  final bool? expirePasswords;
+  final bool expirePasswords;
   @override
   final int? maxPasswordAge;
   @override
@@ -33,16 +33,29 @@ class _$PasswordPolicy extends PasswordPolicy {
 
   _$PasswordPolicy._(
       {this.minimumPasswordLength,
-      this.requireSymbols,
-      this.requireNumbers,
-      this.requireUppercaseCharacters,
-      this.requireLowercaseCharacters,
-      this.allowUsersToChangePassword,
-      this.expirePasswords,
+      required this.requireSymbols,
+      required this.requireNumbers,
+      required this.requireUppercaseCharacters,
+      required this.requireLowercaseCharacters,
+      required this.allowUsersToChangePassword,
+      required this.expirePasswords,
       this.maxPasswordAge,
       this.passwordReusePrevention,
       this.hardExpiry})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        requireSymbols, r'PasswordPolicy', 'requireSymbols');
+    BuiltValueNullFieldError.checkNotNull(
+        requireNumbers, r'PasswordPolicy', 'requireNumbers');
+    BuiltValueNullFieldError.checkNotNull(requireUppercaseCharacters,
+        r'PasswordPolicy', 'requireUppercaseCharacters');
+    BuiltValueNullFieldError.checkNotNull(requireLowercaseCharacters,
+        r'PasswordPolicy', 'requireLowercaseCharacters');
+    BuiltValueNullFieldError.checkNotNull(allowUsersToChangePassword,
+        r'PasswordPolicy', 'allowUsersToChangePassword');
+    BuiltValueNullFieldError.checkNotNull(
+        expirePasswords, r'PasswordPolicy', 'expirePasswords');
+  }
 
   @override
   PasswordPolicy rebuild(void Function(PasswordPolicyBuilder) updates) =>
@@ -179,12 +192,22 @@ class PasswordPolicyBuilder
     final _$result = _$v ??
         new _$PasswordPolicy._(
             minimumPasswordLength: minimumPasswordLength,
-            requireSymbols: requireSymbols,
-            requireNumbers: requireNumbers,
-            requireUppercaseCharacters: requireUppercaseCharacters,
-            requireLowercaseCharacters: requireLowercaseCharacters,
-            allowUsersToChangePassword: allowUsersToChangePassword,
-            expirePasswords: expirePasswords,
+            requireSymbols: BuiltValueNullFieldError.checkNotNull(
+                requireSymbols, r'PasswordPolicy', 'requireSymbols'),
+            requireNumbers: BuiltValueNullFieldError.checkNotNull(
+                requireNumbers, r'PasswordPolicy', 'requireNumbers'),
+            requireUppercaseCharacters: BuiltValueNullFieldError.checkNotNull(
+                requireUppercaseCharacters, r'PasswordPolicy', 'requireUppercaseCharacters'),
+            requireLowercaseCharacters: BuiltValueNullFieldError.checkNotNull(
+                requireLowercaseCharacters,
+                r'PasswordPolicy',
+                'requireLowercaseCharacters'),
+            allowUsersToChangePassword: BuiltValueNullFieldError.checkNotNull(
+                allowUsersToChangePassword,
+                r'PasswordPolicy',
+                'allowUsersToChangePassword'),
+            expirePasswords: BuiltValueNullFieldError.checkNotNull(
+                expirePasswords, r'PasswordPolicy', 'expirePasswords'),
             maxPasswordAge: maxPasswordAge,
             passwordReusePrevention: passwordReusePrevention,
             hardExpiry: hardExpiry);

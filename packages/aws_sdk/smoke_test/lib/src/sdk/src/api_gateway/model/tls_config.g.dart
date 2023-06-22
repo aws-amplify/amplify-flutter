@@ -8,12 +8,15 @@ part of 'tls_config.dart';
 
 class _$TlsConfig extends TlsConfig {
   @override
-  final bool? insecureSkipVerification;
+  final bool insecureSkipVerification;
 
   factory _$TlsConfig([void Function(TlsConfigBuilder)? updates]) =>
       (new TlsConfigBuilder()..update(updates))._build();
 
-  _$TlsConfig._({this.insecureSkipVerification}) : super._();
+  _$TlsConfig._({required this.insecureSkipVerification}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        insecureSkipVerification, r'TlsConfig', 'insecureSkipVerification');
+  }
 
   @override
   TlsConfig rebuild(void Function(TlsConfigBuilder) updates) =>
@@ -75,7 +78,11 @@ class TlsConfigBuilder implements Builder<TlsConfig, TlsConfigBuilder> {
 
   _$TlsConfig _build() {
     final _$result = _$v ??
-        new _$TlsConfig._(insecureSkipVerification: insecureSkipVerification);
+        new _$TlsConfig._(
+            insecureSkipVerification: BuiltValueNullFieldError.checkNotNull(
+                insecureSkipVerification,
+                r'TlsConfig',
+                'insecureSkipVerification'));
     replace(_$result);
     return _$result;
   }

@@ -19,7 +19,7 @@ import 'package:smoke_test/src/sdk/src/sts/model/get_caller_identity_response.da
 
 /// Returns details about the IAM user or role whose credentials are used to call the operation.
 ///
-/// No permissions are required to perform this operation. If an administrator adds a policy to your IAM user or role that explicitly denies access to the `sts:GetCallerIdentity` action, you can still perform this operation. Permissions are not required because the same information is returned when an IAM user or role is denied access. To view an example response, see [I Am Not Authorized to Perform: iam:DeleteVirtualMFADevice](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_access-denied-delete-mfa) in the _IAM User Guide_.
+/// No permissions are required to perform this operation. If an administrator attaches a policy to your identity that explicitly denies access to the `sts:GetCallerIdentity` action, you can still perform this operation. Permissions are not required because the same information is returned when access is denied. To view an example response, see [I Am Not Authorized to Perform: iam:DeleteVirtualMFADevice](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_access-denied-delete-mfa) in the _IAM User Guide_.
 class GetCallerIdentityOperation extends _i1.HttpOperation<
     _i2.GetCallerIdentityRequest,
     _i2.GetCallerIdentityRequest,
@@ -27,7 +27,7 @@ class GetCallerIdentityOperation extends _i1.HttpOperation<
     _i3.GetCallerIdentityResponse> {
   /// Returns details about the IAM user or role whose credentials are used to call the operation.
   ///
-  /// No permissions are required to perform this operation. If an administrator adds a policy to your IAM user or role that explicitly denies access to the `sts:GetCallerIdentity` action, you can still perform this operation. Permissions are not required because the same information is returned when an IAM user or role is denied access. To view an example response, see [I Am Not Authorized to Perform: iam:DeleteVirtualMFADevice](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_access-denied-delete-mfa) in the _IAM User Guide_.
+  /// No permissions are required to perform this operation. If an administrator attaches a policy to your identity that explicitly denies access to the `sts:GetCallerIdentity` action, you can still perform this operation. Permissions are not required because the same information is returned when access is denied. To view an example response, see [I Am Not Authorized to Perform: iam:DeleteVirtualMFADevice](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_access-denied-delete-mfa) in the _IAM User Guide_.
   GetCallerIdentityOperation({
     required String region,
     Uri? baseUri,

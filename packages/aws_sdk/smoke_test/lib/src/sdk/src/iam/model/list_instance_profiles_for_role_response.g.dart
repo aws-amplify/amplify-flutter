@@ -11,7 +11,7 @@ class _$ListInstanceProfilesForRoleResponse
   @override
   final _i3.BuiltList<_i2.InstanceProfile> instanceProfiles;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -22,10 +22,12 @@ class _$ListInstanceProfilesForRoleResponse
           ._build();
 
   _$ListInstanceProfilesForRoleResponse._(
-      {required this.instanceProfiles, this.isTruncated, this.marker})
+      {required this.instanceProfiles, required this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(instanceProfiles,
         r'ListInstanceProfilesForRoleResponse', 'instanceProfiles');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListInstanceProfilesForRoleResponse', 'isTruncated');
   }
 
   @override
@@ -114,7 +116,8 @@ class ListInstanceProfilesForRoleResponseBuilder
       _$result = _$v ??
           new _$ListInstanceProfilesForRoleResponse._(
               instanceProfiles: instanceProfiles.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
+                  r'ListInstanceProfilesForRoleResponse', 'isTruncated'),
               marker: marker);
     } catch (_) {
       late String _$failedField;

@@ -35,6 +35,7 @@ abstract class CreateRestApiRequest
     Map<String, String>? tags,
     bool? disableExecuteApiEndpoint,
   }) {
+    disableExecuteApiEndpoint ??= false;
     return _$CreateRestApiRequest._(
       name: name,
       description: description,
@@ -70,7 +71,9 @@ abstract class CreateRestApiRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateRestApiRequestBuilder b) {}
+  static void _init(CreateRestApiRequestBuilder b) {
+    b.disableExecuteApiEndpoint = false;
+  }
 
   /// The name of the RestApi.
   String get name;
@@ -103,7 +106,7 @@ abstract class CreateRestApiRequest
   _i5.BuiltMap<String, String>? get tags;
 
   /// Specifies whether clients can invoke your API by using the default `execute-api` endpoint. By default, clients can invoke your API with the default `https://{api_id}.execute-api.{region}.amazonaws.com` endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint
-  bool? get disableExecuteApiEndpoint;
+  bool get disableExecuteApiEndpoint;
   @override
   CreateRestApiRequest getPayload() => this;
   @override
@@ -295,6 +298,11 @@ class CreateRestApiRequestRestJson1Serializer
       :version
     ) = object;
     result$.addAll([
+      'disableExecuteApiEndpoint',
+      serializers.serialize(
+        disableExecuteApiEndpoint,
+        specifiedType: const FullType(bool),
+      ),
       'name',
       serializers.serialize(
         name,
@@ -334,14 +342,6 @@ class CreateRestApiRequestRestJson1Serializer
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (disableExecuteApiEndpoint != null) {
-      result$
-        ..add('disableExecuteApiEndpoint')
-        ..add(serializers.serialize(
-          disableExecuteApiEndpoint,
-          specifiedType: const FullType(bool),
         ));
     }
     if (endpointConfiguration != null) {

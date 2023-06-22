@@ -12,7 +12,7 @@ class _$PolicyVersion extends PolicyVersion {
   @override
   final String? versionId;
   @override
-  final bool? isDefaultVersion;
+  final bool isDefaultVersion;
   @override
   final DateTime? createDate;
 
@@ -20,8 +20,14 @@ class _$PolicyVersion extends PolicyVersion {
       (new PolicyVersionBuilder()..update(updates))._build();
 
   _$PolicyVersion._(
-      {this.document, this.versionId, this.isDefaultVersion, this.createDate})
-      : super._();
+      {this.document,
+      this.versionId,
+      required this.isDefaultVersion,
+      this.createDate})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isDefaultVersion, r'PolicyVersion', 'isDefaultVersion');
+  }
 
   @override
   PolicyVersion rebuild(void Function(PolicyVersionBuilder) updates) =>
@@ -108,7 +114,8 @@ class PolicyVersionBuilder
         new _$PolicyVersion._(
             document: document,
             versionId: versionId,
-            isDefaultVersion: isDefaultVersion,
+            isDefaultVersion: BuiltValueNullFieldError.checkNotNull(
+                isDefaultVersion, r'PolicyVersion', 'isDefaultVersion'),
             createDate: createDate);
     replace(_$result);
     return _$result;

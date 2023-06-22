@@ -4,7 +4,7 @@
 library smoke_test.cloud_formation.model.create_change_set_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i9;
+import 'package:built_collection/built_collection.dart' as _i10;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -12,6 +12,8 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart'
     as _i4;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_set_type.dart'
     as _i7;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/on_stack_failure.dart'
+    as _i9;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart'
     as _i3;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_to_import.dart'
@@ -47,28 +49,30 @@ abstract class CreateChangeSetInput
     _i7.ChangeSetType? changeSetType,
     List<_i8.ResourceToImport>? resourcesToImport,
     bool? includeNestedStacks,
+    _i9.OnStackFailure? onStackFailure,
   }) {
     return _$CreateChangeSetInput._(
       stackName: stackName,
       templateBody: templateBody,
       templateUrl: templateUrl,
       usePreviousTemplate: usePreviousTemplate,
-      parameters: parameters == null ? null : _i9.BuiltList(parameters),
-      capabilities: capabilities == null ? null : _i9.BuiltList(capabilities),
+      parameters: parameters == null ? null : _i10.BuiltList(parameters),
+      capabilities: capabilities == null ? null : _i10.BuiltList(capabilities),
       resourceTypes:
-          resourceTypes == null ? null : _i9.BuiltList(resourceTypes),
+          resourceTypes == null ? null : _i10.BuiltList(resourceTypes),
       roleArn: roleArn,
       rollbackConfiguration: rollbackConfiguration,
       notificationArNs:
-          notificationArNs == null ? null : _i9.BuiltList(notificationArNs),
-      tags: tags == null ? null : _i9.BuiltList(tags),
+          notificationArNs == null ? null : _i10.BuiltList(notificationArNs),
+      tags: tags == null ? null : _i10.BuiltList(tags),
       changeSetName: changeSetName,
       clientToken: clientToken,
       description: description,
       changeSetType: changeSetType,
       resourcesToImport:
-          resourcesToImport == null ? null : _i9.BuiltList(resourcesToImport),
+          resourcesToImport == null ? null : _i10.BuiltList(resourcesToImport),
       includeNestedStacks: includeNestedStacks,
+      onStackFailure: onStackFailure,
     );
   }
 
@@ -110,7 +114,7 @@ abstract class CreateChangeSetInput
   bool? get usePreviousTemplate;
 
   /// A list of `Parameter` structures that specify input parameters for the change set. For more information, see the Parameter data type.
-  _i9.BuiltList<_i3.Parameter>? get parameters;
+  _i10.BuiltList<_i3.Parameter>? get parameters;
 
   /// In some cases, you must explicitly acknowledge that your stack template contains certain capabilities in order for CloudFormation to create the stack.
   ///
@@ -155,12 +159,12 @@ abstract class CreateChangeSetInput
   ///     If you want to create a stack from a stack template that contains macros _and_ nested stacks, you must create or update the stack directly from the template using the CreateStack or UpdateStack action, and specifying this capability.
   ///
   ///     For more information about macros, see [Using CloudFormation macros to perform custom processing on templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
-  _i9.BuiltList<_i4.Capability>? get capabilities;
+  _i10.BuiltList<_i4.Capability>? get capabilities;
 
   /// The template resource types that you have permissions to work with if you execute this change set, such as `AWS::EC2::Instance`, `AWS::EC2::*`, or `Custom::MyCustomInstance`.
   ///
   /// If the list of resource types doesn't include a resource type that you're updating, the stack update fails. By default, CloudFormation grants permissions to all resource types. Identity and Access Management (IAM) uses this parameter for condition keys in IAM policies for CloudFormation. For more information, see [Controlling access with Identity and Access Management](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html) in the CloudFormation User Guide.
-  _i9.BuiltList<String>? get resourceTypes;
+  _i10.BuiltList<String>? get resourceTypes;
 
   /// The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that CloudFormation assumes when executing the change set. CloudFormation uses the role's credentials to make calls on your behalf. CloudFormation uses this role for all future operations on the stack. Provided that users have permission to operate on the stack, CloudFormation uses this role even if the users don't have permission to pass it. Ensure that the role grants least permission.
   ///
@@ -171,10 +175,10 @@ abstract class CreateChangeSetInput
   _i5.RollbackConfiguration? get rollbackConfiguration;
 
   /// The Amazon Resource Names (ARNs) of Amazon Simple Notification Service (Amazon SNS) topics that CloudFormation associates with the stack. To remove all associated notification topics, specify an empty list.
-  _i9.BuiltList<String>? get notificationArNs;
+  _i10.BuiltList<String>? get notificationArNs;
 
   /// Key-value pairs to associate with this stack. CloudFormation also propagates these tags to resources in the stack. You can specify a maximum of 50 tags.
-  _i9.BuiltList<_i6.Tag>? get tags;
+  _i10.BuiltList<_i6.Tag>? get tags;
 
   /// The name of the change set. The name must be unique among all change sets that are associated with the specified stack.
   ///
@@ -189,16 +193,28 @@ abstract class CreateChangeSetInput
 
   /// The type of change set operation. To create a change set for a new stack, specify `CREATE`. To create a change set for an existing stack, specify `UPDATE`. To create a change set for an import operation, specify `IMPORT`.
   ///
-  /// If you create a change set for a new stack, CloudFormation creates a stack with a unique stack ID, but no template or resources. The stack will be in the [`REVIEW\_IN\_PROGRESS`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-describing-stacks.html#d0e11995) state until you execute the change set.
+  /// If you create a change set for a new stack, CloudFormation creates a stack with a unique stack ID, but no template or resources. The stack will be in the [REVIEW\_IN\_PROGRESS](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-describing-stacks.html#d0e11995) state until you execute the change set.
   ///
   /// By default, CloudFormation specifies `UPDATE`. You can't use the `UPDATE` type to create a change set for a new stack or the `CREATE` type to create a change set for an existing stack.
   _i7.ChangeSetType? get changeSetType;
 
   /// The resources to import into your stack.
-  _i9.BuiltList<_i8.ResourceToImport>? get resourcesToImport;
+  _i10.BuiltList<_i8.ResourceToImport>? get resourcesToImport;
 
   /// Creates a change set for the all nested stacks specified in the template. The default behavior of this action is set to `False`. To include nested sets in a change set, specify `True`.
   bool? get includeNestedStacks;
+
+  /// Determines what action will be taken if stack creation fails. If this parameter is specified, the `DisableRollback` parameter to the [ExecuteChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html) API operation must not be specified. This must be one of these values:
+  ///
+  /// *   `DELETE` \- Deletes the change set if the stack creation fails. This is only valid when the `ChangeSetType` parameter is set to `CREATE`. If the deletion of the stack fails, the status of the stack is `DELETE_FAILED`.
+  ///
+  /// *   `DO_NOTHING` \- if the stack creation fails, do nothing. This is equivalent to specifying `true` for the `DisableRollback` parameter to the [ExecuteChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html) API operation.
+  ///
+  /// *   `ROLLBACK` \- if the stack creation fails, roll back the stack. This is equivalent to specifying `false` for the `DisableRollback` parameter to the [ExecuteChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html) API operation.
+  ///
+  ///
+  /// For nested stacks, when the `OnStackFailure` parameter is set to `DELETE` for the change set for the parent stack, any failure in a child stack will cause the parent stack creation to fail and all stacks to be deleted.
+  _i9.OnStackFailure? get onStackFailure;
   @override
   CreateChangeSetInput getPayload() => this;
   @override
@@ -220,6 +236,7 @@ abstract class CreateChangeSetInput
         changeSetType,
         resourcesToImport,
         includeNestedStacks,
+        onStackFailure,
       ];
   @override
   String toString() {
@@ -292,6 +309,10 @@ abstract class CreateChangeSetInput
       'includeNestedStacks',
       includeNestedStacks,
     );
+    helper.add(
+      'onStackFailure',
+      onStackFailure,
+    );
     return helper.toString();
   }
 }
@@ -356,10 +377,10 @@ class CreateChangeSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i9.BuiltList,
+              _i10.BuiltList,
               [FullType(_i3.Parameter)],
             ),
-          ) as _i9.BuiltList<_i3.Parameter>));
+          ) as _i10.BuiltList<_i3.Parameter>));
         case 'Capabilities':
           result.capabilities.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -367,10 +388,10 @@ class CreateChangeSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i9.BuiltList,
+              _i10.BuiltList,
               [FullType(_i4.Capability)],
             ),
-          ) as _i9.BuiltList<_i4.Capability>));
+          ) as _i10.BuiltList<_i4.Capability>));
         case 'ResourceTypes':
           result.resourceTypes.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -378,10 +399,10 @@ class CreateChangeSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i9.BuiltList,
+              _i10.BuiltList,
               [FullType(String)],
             ),
-          ) as _i9.BuiltList<String>));
+          ) as _i10.BuiltList<String>));
         case 'RoleARN':
           result.roleArn = (serializers.deserialize(
             value,
@@ -399,10 +420,10 @@ class CreateChangeSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i9.BuiltList,
+              _i10.BuiltList,
               [FullType(String)],
             ),
-          ) as _i9.BuiltList<String>));
+          ) as _i10.BuiltList<String>));
         case 'Tags':
           result.tags.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -410,10 +431,10 @@ class CreateChangeSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i9.BuiltList,
+              _i10.BuiltList,
               [FullType(_i6.Tag)],
             ),
-          ) as _i9.BuiltList<_i6.Tag>));
+          ) as _i10.BuiltList<_i6.Tag>));
         case 'ChangeSetName':
           result.changeSetName = (serializers.deserialize(
             value,
@@ -441,15 +462,20 @@ class CreateChangeSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i9.BuiltList,
+              _i10.BuiltList,
               [FullType(_i8.ResourceToImport)],
             ),
-          ) as _i9.BuiltList<_i8.ResourceToImport>));
+          ) as _i10.BuiltList<_i8.ResourceToImport>));
         case 'IncludeNestedStacks':
           result.includeNestedStacks = (serializers.deserialize(
             value,
             specifiedType: const FullType(bool),
           ) as bool);
+        case 'OnStackFailure':
+          result.onStackFailure = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i9.OnStackFailure),
+          ) as _i9.OnStackFailure);
       }
     }
 
@@ -485,7 +511,8 @@ class CreateChangeSetInputAwsQuerySerializer
       :description,
       :changeSetType,
       :resourcesToImport,
-      :includeNestedStacks
+      :includeNestedStacks,
+      :onStackFailure
     ) = object;
     result$
       ..add(const _i1.XmlElementName('StackName'))
@@ -526,7 +553,7 @@ class CreateChangeSetInputAwsQuerySerializer
           serializers,
           parameters,
           specifiedType: const FullType.nullable(
-            _i9.BuiltList,
+            _i10.BuiltList,
             [FullType(_i3.Parameter)],
           ),
         ));
@@ -540,7 +567,7 @@ class CreateChangeSetInputAwsQuerySerializer
           serializers,
           capabilities,
           specifiedType: const FullType.nullable(
-            _i9.BuiltList,
+            _i10.BuiltList,
             [FullType(_i4.Capability)],
           ),
         ));
@@ -554,7 +581,7 @@ class CreateChangeSetInputAwsQuerySerializer
           serializers,
           resourceTypes,
           specifiedType: const FullType.nullable(
-            _i9.BuiltList,
+            _i10.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -584,7 +611,7 @@ class CreateChangeSetInputAwsQuerySerializer
           serializers,
           notificationArNs,
           specifiedType: const FullType.nullable(
-            _i9.BuiltList,
+            _i10.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -598,7 +625,7 @@ class CreateChangeSetInputAwsQuerySerializer
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i9.BuiltList,
+            _i10.BuiltList,
             [FullType(_i6.Tag)],
           ),
         ));
@@ -642,7 +669,7 @@ class CreateChangeSetInputAwsQuerySerializer
           serializers,
           resourcesToImport,
           specifiedType: const FullType.nullable(
-            _i9.BuiltList,
+            _i10.BuiltList,
             [FullType(_i8.ResourceToImport)],
           ),
         ));
@@ -653,6 +680,14 @@ class CreateChangeSetInputAwsQuerySerializer
         ..add(serializers.serialize(
           includeNestedStacks,
           specifiedType: const FullType.nullable(bool),
+        ));
+    }
+    if (onStackFailure != null) {
+      result$
+        ..add(const _i1.XmlElementName('OnStackFailure'))
+        ..add(serializers.serialize(
+          onStackFailure,
+          specifiedType: const FullType.nullable(_i9.OnStackFailure),
         ));
     }
     return result$;

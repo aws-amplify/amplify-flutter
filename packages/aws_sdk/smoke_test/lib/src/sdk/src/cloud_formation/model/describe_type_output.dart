@@ -125,7 +125,7 @@ abstract class DescribeTypeOutput
   ///
   /// This applies only to private extensions you have registered in your account. For public extensions, both those provided by Amazon Web Services and published by third parties, CloudFormation returns `null`. For more information, see [RegisterType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html).
   ///
-  /// To set the default version of an extension, use `SetTypeDefaultVersion` .
+  /// To set the default version of an extension, use SetTypeDefaultVersion.
   String? get defaultVersionId;
 
   /// Whether the specified extension version is set as the default version.
@@ -226,7 +226,7 @@ abstract class DescribeTypeOutput
   /// When the specified private extension version was registered or activated in your account.
   DateTime? get timeCreated;
 
-  /// A JSON string that represent the current configuration data for the extension in this account and region.
+  /// A JSON string that represent the current configuration data for the extension in this account and Region.
   ///
   /// To set the configuration data for an extension, use [SetTypeConfiguration](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_SetTypeConfiguration.html). For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
   String? get configurationSchema;
@@ -236,12 +236,12 @@ abstract class DescribeTypeOutput
   /// This applies only to public third-party extensions. For private registered extensions, and extensions provided by Amazon Web Services, CloudFormation returns `null`.
   String? get publisherId;
 
-  /// For public extensions that have been activated for this account and region, the type name of the public extension.
+  /// For public extensions that have been activated for this account and Region, the type name of the public extension.
   ///
-  /// If you specified a `TypeNameAlias` when enabling the extension in this account and region, CloudFormation treats that alias as the extension's type name within the account and region, not the type name of the public extension. For more information, see [Specifying aliases to refer to extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-alias) in the _CloudFormation User Guide_.
+  /// If you specified a `TypeNameAlias` when enabling the extension in this account and Region, CloudFormation treats that alias as the extension's type name within the account and Region, not the type name of the public extension. For more information, see [Specifying aliases to refer to extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-alias) in the _CloudFormation User Guide_.
   String? get originalTypeName;
 
-  /// For public extensions that have been activated for this account and region, the Amazon Resource Name (ARN) of the public extension.
+  /// For public extensions that have been activated for this account and Region, the Amazon Resource Name (ARN) of the public extension.
   String? get originalTypeArn;
 
   /// The version number of a public third-party extension.
@@ -254,12 +254,12 @@ abstract class DescribeTypeOutput
   /// This only applies if you specify a public extension, and you don't specify a version. For all other requests, CloudFormation returns `null`.
   String? get latestPublicVersion;
 
-  /// Whether the extension is activated in the account and region.
+  /// Whether the extension is activated in the account and Region.
   ///
   /// This only applies to public third-party extensions. For all other extensions, CloudFormation returns `null`.
   bool? get isActivated;
 
-  /// Whether CloudFormation automatically updates the extension in this account and region when a new _minor_ version is published by the extension publisher. Major versions released by the publisher must be manually updated. For more information, see [Activating public extensions for use in your account](AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable) in the _CloudFormation User Guide_.
+  /// Whether CloudFormation automatically updates the extension in this account and Region when a new _minor_ version is published by the extension publisher. Major versions released by the publisher must be manually updated. For more information, see [Activating public extensions for use in your account](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable) in the _CloudFormation User Guide_.
   bool? get autoUpdate;
   @override
   List<Object?> get props => [

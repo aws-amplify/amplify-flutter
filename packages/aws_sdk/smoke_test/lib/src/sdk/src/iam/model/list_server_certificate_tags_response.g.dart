@@ -11,7 +11,7 @@ class _$ListServerCertificateTagsResponse
   @override
   final _i3.BuiltList<_i2.Tag> tags;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -21,10 +21,12 @@ class _$ListServerCertificateTagsResponse
           ._build();
 
   _$ListServerCertificateTagsResponse._(
-      {required this.tags, this.isTruncated, this.marker})
+      {required this.tags, required this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         tags, r'ListServerCertificateTagsResponse', 'tags');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListServerCertificateTagsResponse', 'isTruncated');
   }
 
   @override
@@ -110,7 +112,10 @@ class ListServerCertificateTagsResponseBuilder
     try {
       _$result = _$v ??
           new _$ListServerCertificateTagsResponse._(
-              tags: tags.build(), isTruncated: isTruncated, marker: marker);
+              tags: tags.build(),
+              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
+                  r'ListServerCertificateTagsResponse', 'isTruncated'),
+              marker: marker);
     } catch (_) {
       late String _$failedField;
       try {

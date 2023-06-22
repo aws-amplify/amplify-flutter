@@ -11,7 +11,7 @@ class _$ListAttachedGroupPoliciesResponse
   @override
   final _i3.BuiltList<_i2.AttachedPolicy>? attachedPolicies;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -21,8 +21,11 @@ class _$ListAttachedGroupPoliciesResponse
           ._build();
 
   _$ListAttachedGroupPoliciesResponse._(
-      {this.attachedPolicies, this.isTruncated, this.marker})
-      : super._();
+      {this.attachedPolicies, required this.isTruncated, this.marker})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListAttachedGroupPoliciesResponse', 'isTruncated');
+  }
 
   @override
   ListAttachedGroupPoliciesResponse rebuild(
@@ -109,7 +112,8 @@ class ListAttachedGroupPoliciesResponseBuilder
       _$result = _$v ??
           new _$ListAttachedGroupPoliciesResponse._(
               attachedPolicies: _attachedPolicies?.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
+                  r'ListAttachedGroupPoliciesResponse', 'isTruncated'),
               marker: marker);
     } catch (_) {
       late String _$failedField;

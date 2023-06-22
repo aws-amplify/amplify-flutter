@@ -3,7 +3,7 @@
 
 library smoke_test.iam.operation.upload_signing_certificate_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i16;
+import 'dart:async' as _i17;
 
 import 'package:aws_common/aws_common.dart' as _i7;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
@@ -12,20 +12,22 @@ import 'package:smithy_aws/smithy_aws.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart'
     as _i8;
 import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/iam/model/duplicate_certificate_exception.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/concurrent_modification_exception.dart'
     as _i9;
-import 'package:smoke_test/src/sdk/src/iam/model/entity_already_exists_exception.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/duplicate_certificate_exception.dart'
     as _i10;
-import 'package:smoke_test/src/sdk/src/iam/model/invalid_certificate_exception.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/entity_already_exists_exception.dart'
     as _i11;
-import 'package:smoke_test/src/sdk/src/iam/model/limit_exceeded_exception.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/invalid_certificate_exception.dart'
     as _i12;
-import 'package:smoke_test/src/sdk/src/iam/model/malformed_certificate_exception.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/limit_exceeded_exception.dart'
     as _i13;
-import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/malformed_certificate_exception.dart'
     as _i14;
-import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
     as _i15;
+import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
+    as _i16;
 import 'package:smoke_test/src/sdk/src/iam/model/upload_signing_certificate_request.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/iam/model/upload_signing_certificate_response.dart'
@@ -91,6 +93,11 @@ class UploadSigningCertificateOperation extends _i1.HttpOperation<
       action: 'UploadSigningCertificate',
       version: '2010-05-08',
       awsQueryErrors: const [
+        _i5.AwsQueryError(
+          shape: 'ConcurrentModificationException',
+          code: 'ConcurrentModification',
+          httpResponseCode: 409,
+        ),
         _i5.AwsQueryError(
           shape: 'DuplicateCertificateException',
           code: 'DuplicateCertificate',
@@ -164,81 +171,92 @@ class UploadSigningCertificateOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.DuplicateCertificateException,
-            _i9.DuplicateCertificateException>(
+        _i1.SmithyError<_i9.ConcurrentModificationException,
+            _i9.ConcurrentModificationException>(
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.iam',
+            shape: 'ConcurrentModificationException',
+          ),
+          _i1.ErrorKind.client,
+          _i9.ConcurrentModificationException,
+          statusCode: 409,
+          builder: _i9.ConcurrentModificationException.fromResponse,
+        ),
+        _i1.SmithyError<_i10.DuplicateCertificateException,
+            _i10.DuplicateCertificateException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'DuplicateCertificateException',
           ),
           _i1.ErrorKind.client,
-          _i9.DuplicateCertificateException,
+          _i10.DuplicateCertificateException,
           statusCode: 409,
-          builder: _i9.DuplicateCertificateException.fromResponse,
+          builder: _i10.DuplicateCertificateException.fromResponse,
         ),
-        _i1.SmithyError<_i10.EntityAlreadyExistsException,
-            _i10.EntityAlreadyExistsException>(
+        _i1.SmithyError<_i11.EntityAlreadyExistsException,
+            _i11.EntityAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'EntityAlreadyExistsException',
           ),
           _i1.ErrorKind.client,
-          _i10.EntityAlreadyExistsException,
+          _i11.EntityAlreadyExistsException,
           statusCode: 409,
-          builder: _i10.EntityAlreadyExistsException.fromResponse,
+          builder: _i11.EntityAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError<_i11.InvalidCertificateException,
-            _i11.InvalidCertificateException>(
+        _i1.SmithyError<_i12.InvalidCertificateException,
+            _i12.InvalidCertificateException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidCertificateException',
           ),
           _i1.ErrorKind.client,
-          _i11.InvalidCertificateException,
+          _i12.InvalidCertificateException,
           statusCode: 400,
-          builder: _i11.InvalidCertificateException.fromResponse,
+          builder: _i12.InvalidCertificateException.fromResponse,
         ),
-        _i1.SmithyError<_i12.LimitExceededException,
-            _i12.LimitExceededException>(
+        _i1.SmithyError<_i13.LimitExceededException,
+            _i13.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
           ),
           _i1.ErrorKind.client,
-          _i12.LimitExceededException,
+          _i13.LimitExceededException,
           statusCode: 409,
-          builder: _i12.LimitExceededException.fromResponse,
+          builder: _i13.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i13.MalformedCertificateException,
-            _i13.MalformedCertificateException>(
+        _i1.SmithyError<_i14.MalformedCertificateException,
+            _i14.MalformedCertificateException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'MalformedCertificateException',
           ),
           _i1.ErrorKind.client,
-          _i13.MalformedCertificateException,
+          _i14.MalformedCertificateException,
           statusCode: 400,
-          builder: _i13.MalformedCertificateException.fromResponse,
+          builder: _i14.MalformedCertificateException.fromResponse,
         ),
-        _i1.SmithyError<_i14.NoSuchEntityException, _i14.NoSuchEntityException>(
+        _i1.SmithyError<_i15.NoSuchEntityException, _i15.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
           ),
           _i1.ErrorKind.client,
-          _i14.NoSuchEntityException,
+          _i15.NoSuchEntityException,
           statusCode: 404,
-          builder: _i14.NoSuchEntityException.fromResponse,
+          builder: _i15.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError<_i15.ServiceFailureException,
-            _i15.ServiceFailureException>(
+        _i1.SmithyError<_i16.ServiceFailureException,
+            _i16.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
           ),
           _i1.ErrorKind.server,
-          _i15.ServiceFailureException,
+          _i16.ServiceFailureException,
           statusCode: 500,
-          builder: _i15.ServiceFailureException.fromResponse,
+          builder: _i16.ServiceFailureException.fromResponse,
         ),
       ];
   @override
@@ -255,7 +273,7 @@ class UploadSigningCertificateOperation extends _i1.HttpOperation<
     _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i16.runZoned(
+    return _i17.runZoned(
       () => super.run(
         input,
         client: client,

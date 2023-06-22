@@ -54,16 +54,16 @@ abstract class SetTypeConfigurationInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SetTypeConfigurationInputBuilder b) {}
 
-  /// The Amazon Resource Name (ARN) for the extension, in this account and region.
+  /// The Amazon Resource Name (ARN) for the extension, in this account and Region.
   ///
-  /// For public extensions, this will be the ARN assigned when you [activate the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html) in this account and region. For private extensions, this will be the ARN assigned when you [register the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html) in this account and region.
+  /// For public extensions, this will be the ARN assigned when you [activate the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html) in this account and Region. For private extensions, this will be the ARN assigned when you [register the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html) in this account and Region.
   ///
   /// Do not include the extension versions suffix at the end of the ARN. You can set the configuration for an extension, but not for a specific extension version.
   String? get typeArn;
 
-  /// The configuration data for the extension, in this account and region.
+  /// The configuration data for the extension, in this account and Region.
   ///
-  /// The configuration data must be formatted as JSON, and validate against the schema returned in the `ConfigurationSchema` response element of [API_DescribeType](AWSCloudFormation/latest/APIReference/API_DescribeType.html). For more information, see [Defining account-level configuration data for an extension](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-model.html#resource-type-howto-configuration) in the _CloudFormation CLI User Guide_.
+  /// The configuration data must be formatted as JSON, and validate against the schema returned in the `ConfigurationSchema` response element of [DescribeType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html). For more information, see [Defining account-level configuration data for an extension](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-model.html#resource-type-howto-configuration) in the _CloudFormation CLI User Guide_.
   String get configuration;
 
   /// An alias by which to refer to this extension configuration data.

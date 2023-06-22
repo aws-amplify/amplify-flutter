@@ -22,6 +22,8 @@ abstract class CanarySettings
     Map<String, String>? stageVariableOverrides,
     bool? useStageCache,
   }) {
+    percentTraffic ??= 0;
+    useStageCache ??= false;
     return _$CanarySettings._(
       percentTraffic: percentTraffic,
       deploymentId: deploymentId,
@@ -43,10 +45,13 @@ abstract class CanarySettings
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CanarySettingsBuilder b) {}
+  static void _init(CanarySettingsBuilder b) {
+    b.percentTraffic = 0;
+    b.useStageCache = false;
+  }
 
   /// The percent (0-100) of traffic diverted to a canary deployment.
-  double? get percentTraffic;
+  double get percentTraffic;
 
   /// The ID of the canary deployment.
   String? get deploymentId;
@@ -55,7 +60,7 @@ abstract class CanarySettings
   _i2.BuiltMap<String, String>? get stageVariableOverrides;
 
   /// A Boolean flag to indicate whether the canary deployment uses the stage cache or not.
-  bool? get useStageCache;
+  bool get useStageCache;
   @override
   List<Object?> get props => [
         percentTraffic,
@@ -163,20 +168,24 @@ class CanarySettingsRestJson1Serializer
       :stageVariableOverrides,
       :useStageCache
     ) = object;
+    result$.addAll([
+      'percentTraffic',
+      serializers.serialize(
+        percentTraffic,
+        specifiedType: const FullType(double),
+      ),
+      'useStageCache',
+      serializers.serialize(
+        useStageCache,
+        specifiedType: const FullType(bool),
+      ),
+    ]);
     if (deploymentId != null) {
       result$
         ..add('deploymentId')
         ..add(serializers.serialize(
           deploymentId,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (percentTraffic != null) {
-      result$
-        ..add('percentTraffic')
-        ..add(serializers.serialize(
-          percentTraffic,
-          specifiedType: const FullType(double),
         ));
     }
     if (stageVariableOverrides != null) {
@@ -191,14 +200,6 @@ class CanarySettingsRestJson1Serializer
               FullType(String),
             ],
           ),
-        ));
-    }
-    if (useStageCache != null) {
-      result$
-        ..add('useStageCache')
-        ..add(serializers.serialize(
-          useStageCache,
-          specifiedType: const FullType(bool),
         ));
     }
     return result$;

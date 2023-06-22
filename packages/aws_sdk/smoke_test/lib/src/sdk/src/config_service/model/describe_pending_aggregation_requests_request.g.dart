@@ -9,7 +9,7 @@ part of 'describe_pending_aggregation_requests_request.dart';
 class _$DescribePendingAggregationRequestsRequest
     extends DescribePendingAggregationRequestsRequest {
   @override
-  final int? limit;
+  final int limit;
   @override
   final String? nextToken;
 
@@ -19,8 +19,12 @@ class _$DescribePendingAggregationRequestsRequest
       (new DescribePendingAggregationRequestsRequestBuilder()..update(updates))
           ._build();
 
-  _$DescribePendingAggregationRequestsRequest._({this.limit, this.nextToken})
-      : super._();
+  _$DescribePendingAggregationRequestsRequest._(
+      {required this.limit, this.nextToken})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'DescribePendingAggregationRequestsRequest', 'limit');
+  }
 
   @override
   DescribePendingAggregationRequestsRequest rebuild(
@@ -97,7 +101,9 @@ class DescribePendingAggregationRequestsRequestBuilder
   _$DescribePendingAggregationRequestsRequest _build() {
     final _$result = _$v ??
         new _$DescribePendingAggregationRequestsRequest._(
-            limit: limit, nextToken: nextToken);
+            limit: BuiltValueNullFieldError.checkNotNull(
+                limit, r'DescribePendingAggregationRequestsRequest', 'limit'),
+            nextToken: nextToken);
     replace(_$result);
     return _$result;
   }

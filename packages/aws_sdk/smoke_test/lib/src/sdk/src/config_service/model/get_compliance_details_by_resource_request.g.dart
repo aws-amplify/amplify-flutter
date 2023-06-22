@@ -9,13 +9,15 @@ part of 'get_compliance_details_by_resource_request.dart';
 class _$GetComplianceDetailsByResourceRequest
     extends GetComplianceDetailsByResourceRequest {
   @override
-  final String resourceType;
+  final String? resourceType;
   @override
-  final String resourceId;
+  final String? resourceId;
   @override
   final _i4.BuiltList<_i3.ComplianceType>? complianceTypes;
   @override
   final String? nextToken;
+  @override
+  final String? resourceEvaluationId;
 
   factory _$GetComplianceDetailsByResourceRequest(
           [void Function(GetComplianceDetailsByResourceRequestBuilder)?
@@ -24,16 +26,12 @@ class _$GetComplianceDetailsByResourceRequest
           ._build();
 
   _$GetComplianceDetailsByResourceRequest._(
-      {required this.resourceType,
-      required this.resourceId,
+      {this.resourceType,
+      this.resourceId,
       this.complianceTypes,
-      this.nextToken})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        resourceType, r'GetComplianceDetailsByResourceRequest', 'resourceType');
-    BuiltValueNullFieldError.checkNotNull(
-        resourceId, r'GetComplianceDetailsByResourceRequest', 'resourceId');
-  }
+      this.nextToken,
+      this.resourceEvaluationId})
+      : super._();
 
   @override
   GetComplianceDetailsByResourceRequest rebuild(
@@ -52,7 +50,8 @@ class _$GetComplianceDetailsByResourceRequest
         resourceType == other.resourceType &&
         resourceId == other.resourceId &&
         complianceTypes == other.complianceTypes &&
-        nextToken == other.nextToken;
+        nextToken == other.nextToken &&
+        resourceEvaluationId == other.resourceEvaluationId;
   }
 
   @override
@@ -62,6 +61,7 @@ class _$GetComplianceDetailsByResourceRequest
     _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jc(_$hash, complianceTypes.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
+    _$hash = $jc(_$hash, resourceEvaluationId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -91,6 +91,11 @@ class GetComplianceDetailsByResourceRequestBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
+  String? _resourceEvaluationId;
+  String? get resourceEvaluationId => _$this._resourceEvaluationId;
+  set resourceEvaluationId(String? resourceEvaluationId) =>
+      _$this._resourceEvaluationId = resourceEvaluationId;
+
   GetComplianceDetailsByResourceRequestBuilder() {
     GetComplianceDetailsByResourceRequest._init(this);
   }
@@ -102,6 +107,7 @@ class GetComplianceDetailsByResourceRequestBuilder
       _resourceId = $v.resourceId;
       _complianceTypes = $v.complianceTypes?.toBuilder();
       _nextToken = $v.nextToken;
+      _resourceEvaluationId = $v.resourceEvaluationId;
       _$v = null;
     }
     return this;
@@ -127,12 +133,11 @@ class GetComplianceDetailsByResourceRequestBuilder
     try {
       _$result = _$v ??
           new _$GetComplianceDetailsByResourceRequest._(
-              resourceType: BuiltValueNullFieldError.checkNotNull(resourceType,
-                  r'GetComplianceDetailsByResourceRequest', 'resourceType'),
-              resourceId: BuiltValueNullFieldError.checkNotNull(resourceId,
-                  r'GetComplianceDetailsByResourceRequest', 'resourceId'),
+              resourceType: resourceType,
+              resourceId: resourceId,
               complianceTypes: _complianceTypes?.build(),
-              nextToken: nextToken);
+              nextToken: nextToken,
+              resourceEvaluationId: resourceEvaluationId);
     } catch (_) {
       late String _$failedField;
       try {

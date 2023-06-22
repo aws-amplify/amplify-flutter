@@ -8,7 +8,7 @@ part of 'test_invoke_method_response.dart';
 
 class _$TestInvokeMethodResponse extends TestInvokeMethodResponse {
   @override
-  final int? status;
+  final int status;
   @override
   final String? body;
   @override
@@ -18,20 +18,25 @@ class _$TestInvokeMethodResponse extends TestInvokeMethodResponse {
   @override
   final String? log;
   @override
-  final _i2.Int64? latency;
+  final _i2.Int64 latency;
 
   factory _$TestInvokeMethodResponse(
           [void Function(TestInvokeMethodResponseBuilder)? updates]) =>
       (new TestInvokeMethodResponseBuilder()..update(updates))._build();
 
   _$TestInvokeMethodResponse._(
-      {this.status,
+      {required this.status,
       this.body,
       this.headers,
       this.multiValueHeaders,
       this.log,
-      this.latency})
-      : super._();
+      required this.latency})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        status, r'TestInvokeMethodResponse', 'status');
+    BuiltValueNullFieldError.checkNotNull(
+        latency, r'TestInvokeMethodResponse', 'latency');
+  }
 
   @override
   TestInvokeMethodResponse rebuild(
@@ -140,12 +145,14 @@ class TestInvokeMethodResponseBuilder
     try {
       _$result = _$v ??
           new _$TestInvokeMethodResponse._(
-              status: status,
+              status: BuiltValueNullFieldError.checkNotNull(
+                  status, r'TestInvokeMethodResponse', 'status'),
               body: body,
               headers: _headers?.build(),
               multiValueHeaders: _multiValueHeaders?.build(),
               log: log,
-              latency: latency);
+              latency: BuiltValueNullFieldError.checkNotNull(
+                  latency, r'TestInvokeMethodResponse', 'latency'));
     } catch (_) {
       late String _$failedField;
       try {

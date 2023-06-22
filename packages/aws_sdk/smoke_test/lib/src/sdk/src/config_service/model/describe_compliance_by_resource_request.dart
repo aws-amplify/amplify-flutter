@@ -27,6 +27,7 @@ abstract class DescribeComplianceByResourceRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$DescribeComplianceByResourceRequest._(
       resourceType: resourceType,
       resourceId: resourceId,
@@ -55,7 +56,9 @@ abstract class DescribeComplianceByResourceRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeComplianceByResourceRequestBuilder b) {}
+  static void _init(DescribeComplianceByResourceRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The types of Amazon Web Services resources for which you want compliance information (for example, `AWS::EC2::Instance`). For this action, you can specify that the resource type is an Amazon Web Services account by specifying `AWS::::Account`.
   String? get resourceType;
@@ -64,12 +67,10 @@ abstract class DescribeComplianceByResourceRequest
   String? get resourceId;
 
   /// Filters the results by compliance.
-  ///
-  /// The allowed values are `COMPLIANT`, `NON_COMPLIANT`, and `INSUFFICIENT_DATA`.
   _i4.BuiltList<_i3.ComplianceType>? get complianceTypes;
 
   /// The maximum number of evaluation results returned on each page. The default is 10. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -192,6 +193,13 @@ class DescribeComplianceByResourceRequestAwsJson11Serializer extends _i1
       :limit,
       :nextToken
     ) = object;
+    result$.addAll([
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (resourceType != null) {
       result$
         ..add('ResourceType')
@@ -217,14 +225,6 @@ class DescribeComplianceByResourceRequestAwsJson11Serializer extends _i1
             _i4.BuiltList,
             [FullType(_i3.ComplianceType)],
           ),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

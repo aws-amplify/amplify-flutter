@@ -18,7 +18,7 @@ class _$DescribeChangeSetOutput extends DescribeChangeSetOutput {
   @override
   final String? description;
   @override
-  final _i9.BuiltList<_i2.Parameter>? parameters;
+  final _i10.BuiltList<_i2.Parameter>? parameters;
   @override
   final DateTime? creationTime;
   @override
@@ -28,15 +28,15 @@ class _$DescribeChangeSetOutput extends DescribeChangeSetOutput {
   @override
   final String? statusReason;
   @override
-  final _i9.BuiltList<String>? notificationArNs;
+  final _i10.BuiltList<String>? notificationArNs;
   @override
   final _i5.RollbackConfiguration? rollbackConfiguration;
   @override
-  final _i9.BuiltList<_i6.Capability>? capabilities;
+  final _i10.BuiltList<_i6.Capability>? capabilities;
   @override
-  final _i9.BuiltList<_i7.Tag>? tags;
+  final _i10.BuiltList<_i7.Tag>? tags;
   @override
-  final _i9.BuiltList<_i8.Change>? changes;
+  final _i10.BuiltList<_i8.Change>? changes;
   @override
   final String? nextToken;
   @override
@@ -45,6 +45,8 @@ class _$DescribeChangeSetOutput extends DescribeChangeSetOutput {
   final String? parentChangeSetId;
   @override
   final String? rootChangeSetId;
+  @override
+  final _i9.OnStackFailure? onStackFailure;
 
   factory _$DescribeChangeSetOutput(
           [void Function(DescribeChangeSetOutputBuilder)? updates]) =>
@@ -69,7 +71,8 @@ class _$DescribeChangeSetOutput extends DescribeChangeSetOutput {
       this.nextToken,
       this.includeNestedStacks,
       this.parentChangeSetId,
-      this.rootChangeSetId})
+      this.rootChangeSetId,
+      this.onStackFailure})
       : super._();
 
   @override
@@ -103,7 +106,8 @@ class _$DescribeChangeSetOutput extends DescribeChangeSetOutput {
         nextToken == other.nextToken &&
         includeNestedStacks == other.includeNestedStacks &&
         parentChangeSetId == other.parentChangeSetId &&
-        rootChangeSetId == other.rootChangeSetId;
+        rootChangeSetId == other.rootChangeSetId &&
+        onStackFailure == other.onStackFailure;
   }
 
   @override
@@ -128,6 +132,7 @@ class _$DescribeChangeSetOutput extends DescribeChangeSetOutput {
     _$hash = $jc(_$hash, includeNestedStacks.hashCode);
     _$hash = $jc(_$hash, parentChangeSetId.hashCode);
     _$hash = $jc(_$hash, rootChangeSetId.hashCode);
+    _$hash = $jc(_$hash, onStackFailure.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -159,10 +164,10 @@ class DescribeChangeSetOutputBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i9.ListBuilder<_i2.Parameter>? _parameters;
-  _i9.ListBuilder<_i2.Parameter> get parameters =>
-      _$this._parameters ??= new _i9.ListBuilder<_i2.Parameter>();
-  set parameters(_i9.ListBuilder<_i2.Parameter>? parameters) =>
+  _i10.ListBuilder<_i2.Parameter>? _parameters;
+  _i10.ListBuilder<_i2.Parameter> get parameters =>
+      _$this._parameters ??= new _i10.ListBuilder<_i2.Parameter>();
+  set parameters(_i10.ListBuilder<_i2.Parameter>? parameters) =>
       _$this._parameters = parameters;
 
   DateTime? _creationTime;
@@ -183,10 +188,10 @@ class DescribeChangeSetOutputBuilder
   String? get statusReason => _$this._statusReason;
   set statusReason(String? statusReason) => _$this._statusReason = statusReason;
 
-  _i9.ListBuilder<String>? _notificationArNs;
-  _i9.ListBuilder<String> get notificationArNs =>
-      _$this._notificationArNs ??= new _i9.ListBuilder<String>();
-  set notificationArNs(_i9.ListBuilder<String>? notificationArNs) =>
+  _i10.ListBuilder<String>? _notificationArNs;
+  _i10.ListBuilder<String> get notificationArNs =>
+      _$this._notificationArNs ??= new _i10.ListBuilder<String>();
+  set notificationArNs(_i10.ListBuilder<String>? notificationArNs) =>
       _$this._notificationArNs = notificationArNs;
 
   _i5.RollbackConfigurationBuilder? _rollbackConfiguration;
@@ -196,21 +201,21 @@ class DescribeChangeSetOutputBuilder
           _i5.RollbackConfigurationBuilder? rollbackConfiguration) =>
       _$this._rollbackConfiguration = rollbackConfiguration;
 
-  _i9.ListBuilder<_i6.Capability>? _capabilities;
-  _i9.ListBuilder<_i6.Capability> get capabilities =>
-      _$this._capabilities ??= new _i9.ListBuilder<_i6.Capability>();
-  set capabilities(_i9.ListBuilder<_i6.Capability>? capabilities) =>
+  _i10.ListBuilder<_i6.Capability>? _capabilities;
+  _i10.ListBuilder<_i6.Capability> get capabilities =>
+      _$this._capabilities ??= new _i10.ListBuilder<_i6.Capability>();
+  set capabilities(_i10.ListBuilder<_i6.Capability>? capabilities) =>
       _$this._capabilities = capabilities;
 
-  _i9.ListBuilder<_i7.Tag>? _tags;
-  _i9.ListBuilder<_i7.Tag> get tags =>
-      _$this._tags ??= new _i9.ListBuilder<_i7.Tag>();
-  set tags(_i9.ListBuilder<_i7.Tag>? tags) => _$this._tags = tags;
+  _i10.ListBuilder<_i7.Tag>? _tags;
+  _i10.ListBuilder<_i7.Tag> get tags =>
+      _$this._tags ??= new _i10.ListBuilder<_i7.Tag>();
+  set tags(_i10.ListBuilder<_i7.Tag>? tags) => _$this._tags = tags;
 
-  _i9.ListBuilder<_i8.Change>? _changes;
-  _i9.ListBuilder<_i8.Change> get changes =>
-      _$this._changes ??= new _i9.ListBuilder<_i8.Change>();
-  set changes(_i9.ListBuilder<_i8.Change>? changes) =>
+  _i10.ListBuilder<_i8.Change>? _changes;
+  _i10.ListBuilder<_i8.Change> get changes =>
+      _$this._changes ??= new _i10.ListBuilder<_i8.Change>();
+  set changes(_i10.ListBuilder<_i8.Change>? changes) =>
       _$this._changes = changes;
 
   String? _nextToken;
@@ -231,6 +236,11 @@ class DescribeChangeSetOutputBuilder
   String? get rootChangeSetId => _$this._rootChangeSetId;
   set rootChangeSetId(String? rootChangeSetId) =>
       _$this._rootChangeSetId = rootChangeSetId;
+
+  _i9.OnStackFailure? _onStackFailure;
+  _i9.OnStackFailure? get onStackFailure => _$this._onStackFailure;
+  set onStackFailure(_i9.OnStackFailure? onStackFailure) =>
+      _$this._onStackFailure = onStackFailure;
 
   DescribeChangeSetOutputBuilder() {
     DescribeChangeSetOutput._init(this);
@@ -258,6 +268,7 @@ class DescribeChangeSetOutputBuilder
       _includeNestedStacks = $v.includeNestedStacks;
       _parentChangeSetId = $v.parentChangeSetId;
       _rootChangeSetId = $v.rootChangeSetId;
+      _onStackFailure = $v.onStackFailure;
       _$v = null;
     }
     return this;
@@ -300,7 +311,8 @@ class DescribeChangeSetOutputBuilder
               nextToken: nextToken,
               includeNestedStacks: includeNestedStacks,
               parentChangeSetId: parentChangeSetId,
-              rootChangeSetId: rootChangeSetId);
+              rootChangeSetId: rootChangeSetId,
+              onStackFailure: onStackFailure);
     } catch (_) {
       late String _$failedField;
       try {

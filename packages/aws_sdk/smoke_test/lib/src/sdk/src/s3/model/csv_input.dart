@@ -57,7 +57,9 @@ abstract class CsvInput
   /// *   `Use`: First line is a header, and you can use the header value to identify a column in an expression (`SELECT "name" FROM OBJECT`).
   _i2.FileHeaderInfo? get fileHeaderInfo;
 
-  /// A single character used to indicate that a row should be ignored when the character is present at the start of that row. You can specify any character to indicate a comment line.
+  /// A single character used to indicate that a row should be ignored when the character is present at the start of that row. You can specify any character to indicate a comment line. The default character is `#`.
+  ///
+  /// Default: `#`
   String? get comments;
 
   /// A single character used for escaping the quotation mark character inside an already escaped value. For example, the value `""" a , b """` is parsed as `" a , b "`.
