@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_integration_test.cognito_identity_provider.model.auth_event_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -164,74 +165,53 @@ class AuthEventTypeAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'EventId':
-          if (value != null) {
-            result.eventId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.eventId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'EventType':
-          if (value != null) {
-            result.eventType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.EventType),
-            ) as _i2.EventType);
-          }
-          break;
+          result.eventType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.EventType),
+          ) as _i2.EventType);
         case 'CreationDate':
-          if (value != null) {
-            result.creationDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.creationDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'EventResponse':
-          if (value != null) {
-            result.eventResponse = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.EventResponseType),
-            ) as _i3.EventResponseType);
-          }
-          break;
+          result.eventResponse = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.EventResponseType),
+          ) as _i3.EventResponseType);
         case 'EventRisk':
-          if (value != null) {
-            result.eventRisk.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.EventRiskType),
-            ) as _i4.EventRiskType));
-          }
-          break;
+          result.eventRisk.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.EventRiskType),
+          ) as _i4.EventRiskType));
         case 'ChallengeResponses':
-          if (value != null) {
-            result.challengeResponses.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i5.ChallengeResponseType)],
-              ),
-            ) as _i8.BuiltList<_i5.ChallengeResponseType>));
-          }
-          break;
+          result.challengeResponses.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i5.ChallengeResponseType)],
+            ),
+          ) as _i8.BuiltList<_i5.ChallengeResponseType>));
         case 'EventContextData':
-          if (value != null) {
-            result.eventContextData.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.EventContextDataType),
-            ) as _i6.EventContextDataType));
-          }
-          break;
+          result.eventContextData.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.EventContextDataType),
+          ) as _i6.EventContextDataType));
         case 'EventFeedback':
-          if (value != null) {
-            result.eventFeedback.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.EventFeedbackType),
-            ) as _i7.EventFeedbackType));
-          }
-          break;
+          result.eventFeedback.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.EventFeedbackType),
+          ) as _i7.EventFeedbackType));
       }
     }
 
@@ -241,78 +221,87 @@ class AuthEventTypeAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AuthEventType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AuthEventType);
-    final result = <Object?>[];
-    if (payload.eventId != null) {
-      result
+    final result$ = <Object?>[];
+    final AuthEventType(
+      :eventId,
+      :eventType,
+      :creationDate,
+      :eventResponse,
+      :eventRisk,
+      :challengeResponses,
+      :eventContextData,
+      :eventFeedback
+    ) = object;
+    if (eventId != null) {
+      result$
         ..add('EventId')
         ..add(serializers.serialize(
-          payload.eventId!,
+          eventId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.eventType != null) {
-      result
+    if (eventType != null) {
+      result$
         ..add('EventType')
         ..add(serializers.serialize(
-          payload.eventType!,
+          eventType,
           specifiedType: const FullType(_i2.EventType),
         ));
     }
-    if (payload.creationDate != null) {
-      result
+    if (creationDate != null) {
+      result$
         ..add('CreationDate')
         ..add(serializers.serialize(
-          payload.creationDate!,
+          creationDate,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.eventResponse != null) {
-      result
+    if (eventResponse != null) {
+      result$
         ..add('EventResponse')
         ..add(serializers.serialize(
-          payload.eventResponse!,
+          eventResponse,
           specifiedType: const FullType(_i3.EventResponseType),
         ));
     }
-    if (payload.eventRisk != null) {
-      result
+    if (eventRisk != null) {
+      result$
         ..add('EventRisk')
         ..add(serializers.serialize(
-          payload.eventRisk!,
+          eventRisk,
           specifiedType: const FullType(_i4.EventRiskType),
         ));
     }
-    if (payload.challengeResponses != null) {
-      result
+    if (challengeResponses != null) {
+      result$
         ..add('ChallengeResponses')
         ..add(serializers.serialize(
-          payload.challengeResponses!,
+          challengeResponses,
           specifiedType: const FullType(
             _i8.BuiltList,
             [FullType(_i5.ChallengeResponseType)],
           ),
         ));
     }
-    if (payload.eventContextData != null) {
-      result
+    if (eventContextData != null) {
+      result$
         ..add('EventContextData')
         ..add(serializers.serialize(
-          payload.eventContextData!,
+          eventContextData,
           specifiedType: const FullType(_i6.EventContextDataType),
         ));
     }
-    if (payload.eventFeedback != null) {
-      result
+    if (eventFeedback != null) {
+      result$
         ..add('EventFeedback')
         ..add(serializers.serialize(
-          payload.eventFeedback!,
+          eventFeedback,
           specifiedType: const FullType(_i7.EventFeedbackType),
         ));
     }
-    return result;
+    return result$;
   }
 }
