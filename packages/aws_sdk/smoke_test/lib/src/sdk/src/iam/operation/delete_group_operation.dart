@@ -120,7 +120,8 @@ class DeleteGroupOperation extends _i1.HttpOperation<_i2.DeleteGroupRequest,
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.DeleteConflictException,
+            _i8.DeleteConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'DeleteConflictException',
@@ -130,7 +131,7 @@ class DeleteGroupOperation extends _i1.HttpOperation<_i2.DeleteGroupRequest,
           statusCode: 409,
           builder: _i8.DeleteConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.LimitExceededException, _i9.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -140,7 +141,7 @@ class DeleteGroupOperation extends _i1.HttpOperation<_i2.DeleteGroupRequest,
           statusCode: 409,
           builder: _i9.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NoSuchEntityException, _i10.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -150,7 +151,8 @@ class DeleteGroupOperation extends _i1.HttpOperation<_i2.DeleteGroupRequest,
           statusCode: 404,
           builder: _i10.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ServiceFailureException,
+            _i11.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',

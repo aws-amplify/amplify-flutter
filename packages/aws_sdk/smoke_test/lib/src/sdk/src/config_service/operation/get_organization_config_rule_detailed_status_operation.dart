@@ -122,7 +122,7 @@ class GetOrganizationConfigRuleDetailedStatusOperation
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidLimitException, _i11.InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
@@ -131,7 +131,8 @@ class GetOrganizationConfigRuleDetailedStatusOperation
           _i11.InvalidLimitException,
           builder: _i11.InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidNextTokenException,
+            _i12.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -140,7 +141,8 @@ class GetOrganizationConfigRuleDetailedStatusOperation
           _i12.InvalidNextTokenException,
           builder: _i12.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.NoSuchOrganizationConfigRuleException,
+            _i13.NoSuchOrganizationConfigRuleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchOrganizationConfigRuleException',
@@ -149,7 +151,8 @@ class GetOrganizationConfigRuleDetailedStatusOperation
           _i13.NoSuchOrganizationConfigRuleException,
           builder: _i13.NoSuchOrganizationConfigRuleException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.OrganizationAccessDeniedException,
+            _i14.OrganizationAccessDeniedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAccessDeniedException',

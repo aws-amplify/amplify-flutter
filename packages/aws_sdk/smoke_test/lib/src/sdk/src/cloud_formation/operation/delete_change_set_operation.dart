@@ -116,7 +116,8 @@ class DeleteChangeSetOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidChangeSetStatusException,
+            _i9.InvalidChangeSetStatusException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'InvalidChangeSetStatusException',

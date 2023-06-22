@@ -248,7 +248,7 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ExpiredTokenException, _i9.ExpiredTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'ExpiredTokenException',
@@ -258,7 +258,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.ExpiredTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.IdpCommunicationErrorException,
+            _i10.IdpCommunicationErrorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'IDPCommunicationErrorException',
@@ -268,7 +269,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i10.IdpCommunicationErrorException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.IdpRejectedClaimException,
+            _i11.IdpRejectedClaimException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'IDPRejectedClaimException',
@@ -278,7 +280,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i11.IdpRejectedClaimException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidIdentityTokenException,
+            _i12.InvalidIdentityTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'InvalidIdentityTokenException',
@@ -288,7 +291,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i12.InvalidIdentityTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.MalformedPolicyDocumentException,
+            _i13.MalformedPolicyDocumentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'MalformedPolicyDocumentException',
@@ -298,7 +302,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i13.MalformedPolicyDocumentException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.PackedPolicyTooLargeException,
+            _i14.PackedPolicyTooLargeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'PackedPolicyTooLargeException',
@@ -308,7 +313,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i14.PackedPolicyTooLargeException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.RegionDisabledException,
+            _i15.RegionDisabledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'RegionDisabledException',

@@ -134,7 +134,8 @@ class DescribeComplianceByResourceOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidNextTokenException,
+            _i11.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -143,7 +144,8 @@ class DescribeComplianceByResourceOperation extends _i1.PaginatedHttpOperation<
           _i11.InvalidNextTokenException,
           builder: _i11.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidParameterValueException,
+            _i12.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',

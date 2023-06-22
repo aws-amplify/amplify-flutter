@@ -108,7 +108,8 @@ class DeleteConfigRuleOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.NoSuchConfigRuleException,
+            _i8.NoSuchConfigRuleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigRuleException',
@@ -117,7 +118,7 @@ class DeleteConfigRuleOperation extends _i1.HttpOperation<
           _i8.NoSuchConfigRuleException,
           builder: _i8.NoSuchConfigRuleException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ResourceInUseException, _i9.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceInUseException',

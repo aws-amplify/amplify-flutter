@@ -170,7 +170,8 @@ class TransactWriteItemsOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.IdempotentParameterMismatchException,
+            _i9.IdempotentParameterMismatchException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'IdempotentParameterMismatchException',
@@ -179,7 +180,7 @@ class TransactWriteItemsOperation extends _i1.HttpOperation<
           _i9.IdempotentParameterMismatchException,
           builder: _i9.IdempotentParameterMismatchException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InternalServerError, _i10.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -188,7 +189,8 @@ class TransactWriteItemsOperation extends _i1.HttpOperation<
           _i10.InternalServerError,
           builder: _i10.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidEndpointException,
+            _i11.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -198,7 +200,8 @@ class TransactWriteItemsOperation extends _i1.HttpOperation<
           statusCode: 421,
           builder: _i11.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ProvisionedThroughputExceededException,
+            _i12.ProvisionedThroughputExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ProvisionedThroughputExceededException',
@@ -207,7 +210,7 @@ class TransactWriteItemsOperation extends _i1.HttpOperation<
           _i12.ProvisionedThroughputExceededException,
           builder: _i12.ProvisionedThroughputExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.RequestLimitExceeded, _i13.RequestLimitExceeded>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'RequestLimitExceeded',
@@ -216,7 +219,8 @@ class TransactWriteItemsOperation extends _i1.HttpOperation<
           _i13.RequestLimitExceeded,
           builder: _i13.RequestLimitExceeded.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.ResourceNotFoundException,
+            _i14.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
@@ -225,7 +229,8 @@ class TransactWriteItemsOperation extends _i1.HttpOperation<
           _i14.ResourceNotFoundException,
           builder: _i14.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.TransactionCanceledException,
+            _i15.TransactionCanceledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TransactionCanceledException',
@@ -234,7 +239,8 @@ class TransactWriteItemsOperation extends _i1.HttpOperation<
           _i15.TransactionCanceledException,
           builder: _i15.TransactionCanceledException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.TransactionInProgressException,
+            _i16.TransactionInProgressException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TransactionInProgressException',

@@ -105,7 +105,8 @@ class GetStoredQueryOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ResourceNotFoundException,
+            _i9.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceNotFoundException',
@@ -114,7 +115,7 @@ class GetStoredQueryOperation extends _i1.HttpOperation<
           _i9.ResourceNotFoundException,
           builder: _i9.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ValidationException, _i10.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',

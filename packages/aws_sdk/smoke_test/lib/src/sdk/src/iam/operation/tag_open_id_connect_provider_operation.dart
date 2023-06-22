@@ -155,7 +155,8 @@ class TagOpenIdConnectProviderOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.ConcurrentModificationException,
+            _i8.ConcurrentModificationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ConcurrentModificationException',
@@ -165,7 +166,7 @@ class TagOpenIdConnectProviderOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i8.ConcurrentModificationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidInputException, _i9.InvalidInputException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidInputException',
@@ -175,7 +176,8 @@ class TagOpenIdConnectProviderOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.InvalidInputException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.LimitExceededException,
+            _i10.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -185,7 +187,7 @@ class TagOpenIdConnectProviderOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i10.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NoSuchEntityException, _i11.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -195,7 +197,8 @@ class TagOpenIdConnectProviderOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i11.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ServiceFailureException,
+            _i12.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',

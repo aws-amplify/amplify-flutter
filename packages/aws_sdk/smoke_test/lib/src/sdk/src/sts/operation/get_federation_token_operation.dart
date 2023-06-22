@@ -190,7 +190,8 @@ class GetFederationTokenOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.MalformedPolicyDocumentException,
+            _i9.MalformedPolicyDocumentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'MalformedPolicyDocumentException',
@@ -200,7 +201,8 @@ class GetFederationTokenOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.MalformedPolicyDocumentException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.PackedPolicyTooLargeException,
+            _i10.PackedPolicyTooLargeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'PackedPolicyTooLargeException',
@@ -210,7 +212,8 @@ class GetFederationTokenOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i10.PackedPolicyTooLargeException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.RegionDisabledException,
+            _i11.RegionDisabledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'RegionDisabledException',

@@ -146,7 +146,8 @@ class CreateLoginProfileOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.EntityAlreadyExistsException,
+            _i9.EntityAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'EntityAlreadyExistsException',
@@ -156,7 +157,8 @@ class CreateLoginProfileOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i9.EntityAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.LimitExceededException,
+            _i10.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -166,7 +168,7 @@ class CreateLoginProfileOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i10.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NoSuchEntityException, _i11.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -176,7 +178,8 @@ class CreateLoginProfileOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i11.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.PasswordPolicyViolationException,
+            _i12.PasswordPolicyViolationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'PasswordPolicyViolationException',
@@ -186,7 +189,8 @@ class CreateLoginProfileOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i12.PasswordPolicyViolationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ServiceFailureException,
+            _i13.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',

@@ -112,7 +112,7 @@ class GetApiKeyOperation extends _i1.HttpOperation<_i2.GetApiKeyRequestPayload,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.BadRequestException, _i9.BadRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'BadRequestException',
@@ -122,7 +122,7 @@ class GetApiKeyOperation extends _i1.HttpOperation<_i2.GetApiKeyRequestPayload,
           statusCode: 400,
           builder: _i9.BadRequestException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NotFoundException, _i10.NotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'NotFoundException',
@@ -132,7 +132,8 @@ class GetApiKeyOperation extends _i1.HttpOperation<_i2.GetApiKeyRequestPayload,
           statusCode: 404,
           builder: _i10.NotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.TooManyRequestsExceptionPayload,
+            _i11.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'TooManyRequestsException',
@@ -142,7 +143,7 @@ class GetApiKeyOperation extends _i1.HttpOperation<_i2.GetApiKeyRequestPayload,
           statusCode: 429,
           builder: _i11.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.UnauthorizedException, _i12.UnauthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'UnauthorizedException',

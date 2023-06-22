@@ -126,7 +126,8 @@ class DeleteItemOperation extends _i1.HttpOperation<_i2.DeleteItemInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ConditionalCheckFailedException,
+            _i9.ConditionalCheckFailedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ConditionalCheckFailedException',
@@ -135,7 +136,7 @@ class DeleteItemOperation extends _i1.HttpOperation<_i2.DeleteItemInput,
           _i9.ConditionalCheckFailedException,
           builder: _i9.ConditionalCheckFailedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InternalServerError, _i10.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -144,7 +145,8 @@ class DeleteItemOperation extends _i1.HttpOperation<_i2.DeleteItemInput,
           _i10.InternalServerError,
           builder: _i10.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidEndpointException,
+            _i11.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -154,7 +156,8 @@ class DeleteItemOperation extends _i1.HttpOperation<_i2.DeleteItemInput,
           statusCode: 421,
           builder: _i11.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ItemCollectionSizeLimitExceededException,
+            _i12.ItemCollectionSizeLimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ItemCollectionSizeLimitExceededException',
@@ -163,7 +166,8 @@ class DeleteItemOperation extends _i1.HttpOperation<_i2.DeleteItemInput,
           _i12.ItemCollectionSizeLimitExceededException,
           builder: _i12.ItemCollectionSizeLimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ProvisionedThroughputExceededException,
+            _i13.ProvisionedThroughputExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ProvisionedThroughputExceededException',
@@ -172,7 +176,7 @@ class DeleteItemOperation extends _i1.HttpOperation<_i2.DeleteItemInput,
           _i13.ProvisionedThroughputExceededException,
           builder: _i13.ProvisionedThroughputExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.RequestLimitExceeded, _i14.RequestLimitExceeded>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'RequestLimitExceeded',
@@ -181,7 +185,8 @@ class DeleteItemOperation extends _i1.HttpOperation<_i2.DeleteItemInput,
           _i14.RequestLimitExceeded,
           builder: _i14.RequestLimitExceeded.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.ResourceNotFoundException,
+            _i15.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
@@ -190,7 +195,8 @@ class DeleteItemOperation extends _i1.HttpOperation<_i2.DeleteItemInput,
           _i15.ResourceNotFoundException,
           builder: _i15.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.TransactionConflictException,
+            _i16.TransactionConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TransactionConflictException',

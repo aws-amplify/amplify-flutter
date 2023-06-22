@@ -203,7 +203,7 @@ class AssumeRoleOperation extends _i1.HttpOperation<_i2.AssumeRoleRequest,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ExpiredTokenException, _i9.ExpiredTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'ExpiredTokenException',
@@ -213,7 +213,8 @@ class AssumeRoleOperation extends _i1.HttpOperation<_i2.AssumeRoleRequest,
           statusCode: 400,
           builder: _i9.ExpiredTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.MalformedPolicyDocumentException,
+            _i10.MalformedPolicyDocumentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'MalformedPolicyDocumentException',
@@ -223,7 +224,8 @@ class AssumeRoleOperation extends _i1.HttpOperation<_i2.AssumeRoleRequest,
           statusCode: 400,
           builder: _i10.MalformedPolicyDocumentException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.PackedPolicyTooLargeException,
+            _i11.PackedPolicyTooLargeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'PackedPolicyTooLargeException',
@@ -233,7 +235,8 @@ class AssumeRoleOperation extends _i1.HttpOperation<_i2.AssumeRoleRequest,
           statusCode: 400,
           builder: _i11.PackedPolicyTooLargeException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.RegionDisabledException,
+            _i12.RegionDisabledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'RegionDisabledException',

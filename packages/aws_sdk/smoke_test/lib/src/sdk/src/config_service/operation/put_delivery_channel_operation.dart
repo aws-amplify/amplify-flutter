@@ -124,7 +124,8 @@ class PutDeliveryChannelOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.InsufficientDeliveryPolicyException,
+            _i8.InsufficientDeliveryPolicyException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InsufficientDeliveryPolicyException',
@@ -133,7 +134,8 @@ class PutDeliveryChannelOperation extends _i1.HttpOperation<
           _i8.InsufficientDeliveryPolicyException,
           builder: _i8.InsufficientDeliveryPolicyException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidDeliveryChannelNameException,
+            _i9.InvalidDeliveryChannelNameException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidDeliveryChannelNameException',
@@ -142,7 +144,8 @@ class PutDeliveryChannelOperation extends _i1.HttpOperation<
           _i9.InvalidDeliveryChannelNameException,
           builder: _i9.InvalidDeliveryChannelNameException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidS3KeyPrefixException,
+            _i10.InvalidS3KeyPrefixException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidS3KeyPrefixException',
@@ -151,7 +154,8 @@ class PutDeliveryChannelOperation extends _i1.HttpOperation<
           _i10.InvalidS3KeyPrefixException,
           builder: _i10.InvalidS3KeyPrefixException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidS3KmsKeyArnException,
+            _i11.InvalidS3KmsKeyArnException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidS3KmsKeyArnException',
@@ -160,7 +164,8 @@ class PutDeliveryChannelOperation extends _i1.HttpOperation<
           _i11.InvalidS3KmsKeyArnException,
           builder: _i11.InvalidS3KmsKeyArnException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidSnsTopicArnException,
+            _i12.InvalidSnsTopicArnException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidSNSTopicARNException',
@@ -169,7 +174,8 @@ class PutDeliveryChannelOperation extends _i1.HttpOperation<
           _i12.InvalidSnsTopicArnException,
           builder: _i12.InvalidSnsTopicArnException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.MaxNumberOfDeliveryChannelsExceededException,
+            _i13.MaxNumberOfDeliveryChannelsExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'MaxNumberOfDeliveryChannelsExceededException',
@@ -179,7 +185,8 @@ class PutDeliveryChannelOperation extends _i1.HttpOperation<
           builder:
               _i13.MaxNumberOfDeliveryChannelsExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.NoAvailableConfigurationRecorderException,
+            _i14.NoAvailableConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoAvailableConfigurationRecorderException',
@@ -188,7 +195,7 @@ class PutDeliveryChannelOperation extends _i1.HttpOperation<
           _i14.NoAvailableConfigurationRecorderException,
           builder: _i14.NoAvailableConfigurationRecorderException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.NoSuchBucketException, _i15.NoSuchBucketException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchBucketException',

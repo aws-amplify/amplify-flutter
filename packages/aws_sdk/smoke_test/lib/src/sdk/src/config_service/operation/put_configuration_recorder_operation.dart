@@ -119,7 +119,8 @@ class PutConfigurationRecorderOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.InvalidConfigurationRecorderNameException,
+            _i8.InvalidConfigurationRecorderNameException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidConfigurationRecorderNameException',
@@ -128,7 +129,8 @@ class PutConfigurationRecorderOperation extends _i1.HttpOperation<
           _i8.InvalidConfigurationRecorderNameException,
           builder: _i8.InvalidConfigurationRecorderNameException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidRecordingGroupException,
+            _i9.InvalidRecordingGroupException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidRecordingGroupException',
@@ -137,7 +139,7 @@ class PutConfigurationRecorderOperation extends _i1.HttpOperation<
           _i9.InvalidRecordingGroupException,
           builder: _i9.InvalidRecordingGroupException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidRoleException, _i10.InvalidRoleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidRoleException',
@@ -146,7 +148,8 @@ class PutConfigurationRecorderOperation extends _i1.HttpOperation<
           _i10.InvalidRoleException,
           builder: _i10.InvalidRoleException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.MaxNumberOfConfigurationRecordersExceededException,
+            _i11.MaxNumberOfConfigurationRecordersExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'MaxNumberOfConfigurationRecordersExceededException',

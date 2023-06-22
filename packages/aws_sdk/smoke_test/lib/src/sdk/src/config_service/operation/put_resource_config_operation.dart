@@ -116,7 +116,8 @@ class PutResourceConfigOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.InsufficientPermissionsException,
+            _i8.InsufficientPermissionsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InsufficientPermissionsException',
@@ -125,7 +126,8 @@ class PutResourceConfigOperation extends _i1.HttpOperation<
           _i8.InsufficientPermissionsException,
           builder: _i8.InsufficientPermissionsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.MaxActiveResourcesExceededException,
+            _i9.MaxActiveResourcesExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'MaxActiveResourcesExceededException',
@@ -134,7 +136,8 @@ class PutResourceConfigOperation extends _i1.HttpOperation<
           _i9.MaxActiveResourcesExceededException,
           builder: _i9.MaxActiveResourcesExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NoRunningConfigurationRecorderException,
+            _i10.NoRunningConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoRunningConfigurationRecorderException',
@@ -143,7 +146,7 @@ class PutResourceConfigOperation extends _i1.HttpOperation<
           _i10.NoRunningConfigurationRecorderException,
           builder: _i10.NoRunningConfigurationRecorderException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ValidationException, _i11.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',

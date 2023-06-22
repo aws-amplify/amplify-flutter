@@ -107,7 +107,8 @@ class StartConfigurationRecorderOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.NoAvailableDeliveryChannelException,
+            _i8.NoAvailableDeliveryChannelException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoAvailableDeliveryChannelException',
@@ -116,7 +117,8 @@ class StartConfigurationRecorderOperation extends _i1.HttpOperation<
           _i8.NoAvailableDeliveryChannelException,
           builder: _i8.NoAvailableDeliveryChannelException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoSuchConfigurationRecorderException,
+            _i9.NoSuchConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigurationRecorderException',

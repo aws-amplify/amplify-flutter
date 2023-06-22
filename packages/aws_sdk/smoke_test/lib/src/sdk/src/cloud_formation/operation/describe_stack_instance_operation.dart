@@ -122,7 +122,8 @@ class DescribeStackInstanceOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.StackInstanceNotFoundException,
+            _i9.StackInstanceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StackInstanceNotFoundException',
@@ -132,7 +133,8 @@ class DescribeStackInstanceOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i9.StackInstanceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.StackSetNotFoundException,
+            _i10.StackSetNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StackSetNotFoundException',
