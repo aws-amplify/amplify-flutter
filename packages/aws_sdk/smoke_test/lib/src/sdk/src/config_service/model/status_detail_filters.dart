@@ -34,7 +34,7 @@ abstract class StatusDetailFilters
 
   const StatusDetailFilters._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<StatusDetailFilters>> serializers = [
     StatusDetailFiltersAwsJson11Serializer()
   ];
 
@@ -73,15 +73,15 @@ abstract class StatusDetailFilters
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StatusDetailFilters');
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'memberAccountRuleStatus',
-      memberAccountRuleStatus,
-    );
+    final helper = newBuiltValueToStringHelper('StatusDetailFilters')
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'memberAccountRuleStatus',
+        memberAccountRuleStatus,
+      );
     return helper.toString();
   }
 }

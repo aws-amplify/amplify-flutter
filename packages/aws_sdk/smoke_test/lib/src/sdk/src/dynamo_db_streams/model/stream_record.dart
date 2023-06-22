@@ -47,7 +47,7 @@ abstract class StreamRecord
 
   const StreamRecord._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<StreamRecord>> serializers = [
     StreamRecordAwsJson10Serializer()
   ];
 
@@ -94,35 +94,35 @@ abstract class StreamRecord
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StreamRecord');
-    helper.add(
-      'approximateCreationDateTime',
-      approximateCreationDateTime,
-    );
-    helper.add(
-      'keys',
-      keys,
-    );
-    helper.add(
-      'newImage',
-      newImage,
-    );
-    helper.add(
-      'oldImage',
-      oldImage,
-    );
-    helper.add(
-      'sequenceNumber',
-      sequenceNumber,
-    );
-    helper.add(
-      'sizeBytes',
-      sizeBytes,
-    );
-    helper.add(
-      'streamViewType',
-      streamViewType,
-    );
+    final helper = newBuiltValueToStringHelper('StreamRecord')
+      ..add(
+        'approximateCreationDateTime',
+        approximateCreationDateTime,
+      )
+      ..add(
+        'keys',
+        keys,
+      )
+      ..add(
+        'newImage',
+        newImage,
+      )
+      ..add(
+        'oldImage',
+        oldImage,
+      )
+      ..add(
+        'sequenceNumber',
+        sequenceNumber,
+      )
+      ..add(
+        'sizeBytes',
+        sizeBytes,
+      )
+      ..add(
+        'streamViewType',
+        streamViewType,
+      );
     return helper.toString();
   }
 }

@@ -47,9 +47,8 @@ abstract class AggregateComplianceByConfigRule
 
   const AggregateComplianceByConfigRule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AggregateComplianceByConfigRuleAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<AggregateComplianceByConfigRule>>
+      serializers = [AggregateComplianceByConfigRuleAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AggregateComplianceByConfigRuleBuilder b) {}
@@ -75,23 +74,23 @@ abstract class AggregateComplianceByConfigRule
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('AggregateComplianceByConfigRule');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'compliance',
-      compliance,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
+        newBuiltValueToStringHelper('AggregateComplianceByConfigRule')
+          ..add(
+            'configRuleName',
+            configRuleName,
+          )
+          ..add(
+            'compliance',
+            compliance,
+          )
+          ..add(
+            'accountId',
+            accountId,
+          )
+          ..add(
+            'awsRegion',
+            awsRegion,
+          );
     return helper.toString();
   }
 }

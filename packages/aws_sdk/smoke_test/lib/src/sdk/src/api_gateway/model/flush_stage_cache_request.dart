@@ -52,9 +52,8 @@ abstract class FlushStageCacheRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    FlushStageCacheRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<FlushStageCacheRequestPayload>>
+      serializers = [FlushStageCacheRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FlushStageCacheRequestBuilder b) {}
@@ -87,15 +86,15 @@ abstract class FlushStageCacheRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FlushStageCacheRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
+    final helper = newBuiltValueToStringHelper('FlushStageCacheRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      );
     return helper.toString();
   }
 }

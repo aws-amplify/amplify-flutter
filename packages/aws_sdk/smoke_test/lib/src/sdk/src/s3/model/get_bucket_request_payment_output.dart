@@ -34,9 +34,8 @@ abstract class GetBucketRequestPaymentOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetBucketRequestPaymentOutputRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<GetBucketRequestPaymentOutput>>
+      serializers = [GetBucketRequestPaymentOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketRequestPaymentOutputBuilder b) {}
@@ -47,11 +46,11 @@ abstract class GetBucketRequestPaymentOutput
   List<Object?> get props => [payer];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketRequestPaymentOutput');
-    helper.add(
-      'payer',
-      payer,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketRequestPaymentOutput')
+      ..add(
+        'payer',
+        payer,
+      );
     return helper.toString();
   }
 }

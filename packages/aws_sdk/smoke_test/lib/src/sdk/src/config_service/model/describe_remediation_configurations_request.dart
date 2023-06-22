@@ -37,7 +37,9 @@ abstract class DescribeRemediationConfigurationsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DescribeRemediationConfigurationsRequest>>
+      serializers = [
     DescribeRemediationConfigurationsRequestAwsJson11Serializer()
   ];
 
@@ -53,11 +55,11 @@ abstract class DescribeRemediationConfigurationsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeRemediationConfigurationsRequest');
-    helper.add(
-      'configRuleNames',
-      configRuleNames,
-    );
+        newBuiltValueToStringHelper('DescribeRemediationConfigurationsRequest')
+          ..add(
+            'configRuleNames',
+            configRuleNames,
+          );
     return helper.toString();
   }
 }

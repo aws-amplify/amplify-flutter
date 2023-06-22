@@ -48,9 +48,8 @@ abstract class GetObjectTorrentOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetObjectTorrentOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<_i3.Stream<List<int>>?>> serializers =
+      [GetObjectTorrentOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectTorrentOutputBuilder b) {
@@ -71,15 +70,15 @@ abstract class GetObjectTorrentOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectTorrentOutput');
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectTorrentOutput')
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }

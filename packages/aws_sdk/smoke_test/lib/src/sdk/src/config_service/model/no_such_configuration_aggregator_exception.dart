@@ -40,7 +40,9 @@ abstract class NoSuchConfigurationAggregatorException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<NoSuchConfigurationAggregatorException>>
+      serializers = [
     NoSuchConfigurationAggregatorExceptionAwsJson11Serializer()
   ];
 
@@ -70,11 +72,11 @@ abstract class NoSuchConfigurationAggregatorException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('NoSuchConfigurationAggregatorException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('NoSuchConfigurationAggregatorException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

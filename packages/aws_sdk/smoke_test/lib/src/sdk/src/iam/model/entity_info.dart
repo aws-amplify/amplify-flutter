@@ -45,7 +45,7 @@ abstract class EntityInfo
 
   const EntityInfo._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<EntityInfo>> serializers = [
     EntityInfoAwsQuerySerializer()
   ];
 
@@ -78,27 +78,27 @@ abstract class EntityInfo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EntityInfo');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'path',
-      path,
-    );
+    final helper = newBuiltValueToStringHelper('EntityInfo')
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'path',
+        path,
+      );
     return helper.toString();
   }
 }

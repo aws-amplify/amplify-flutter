@@ -32,9 +32,8 @@ abstract class GetAccessKeyInfoRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetAccessKeyInfoRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetAccessKeyInfoRequest>> serializers =
+      [GetAccessKeyInfoRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetAccessKeyInfoRequestBuilder b) {}
@@ -49,11 +48,11 @@ abstract class GetAccessKeyInfoRequest
   List<Object?> get props => [accessKeyId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetAccessKeyInfoRequest');
-    helper.add(
-      'accessKeyId',
-      accessKeyId,
-    );
+    final helper = newBuiltValueToStringHelper('GetAccessKeyInfoRequest')
+      ..add(
+        'accessKeyId',
+        accessKeyId,
+      );
     return helper.toString();
   }
 }

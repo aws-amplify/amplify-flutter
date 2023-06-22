@@ -30,7 +30,7 @@ abstract class QueryInfo
 
   const QueryInfo._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<QueryInfo>> serializers = [
     QueryInfoAwsJson11Serializer()
   ];
 
@@ -43,11 +43,11 @@ abstract class QueryInfo
   List<Object?> get props => [selectFields];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueryInfo');
-    helper.add(
-      'selectFields',
-      selectFields,
-    );
+    final helper = newBuiltValueToStringHelper('QueryInfo')
+      ..add(
+        'selectFields',
+        selectFields,
+      );
     return helper.toString();
   }
 }

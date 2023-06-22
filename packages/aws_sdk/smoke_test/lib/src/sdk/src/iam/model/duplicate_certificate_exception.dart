@@ -39,9 +39,8 @@ abstract class DuplicateCertificateException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DuplicateCertificateExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<DuplicateCertificateException>>
+      serializers = [DuplicateCertificateExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DuplicateCertificateExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class DuplicateCertificateException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DuplicateCertificateException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('DuplicateCertificateException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -44,7 +44,9 @@ abstract class ListPoliciesGrantingServiceAccessEntry
 
   const ListPoliciesGrantingServiceAccessEntry._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<ListPoliciesGrantingServiceAccessEntry>>
+      serializers = [
     ListPoliciesGrantingServiceAccessEntryAwsQuerySerializer()
   ];
 
@@ -66,15 +68,15 @@ abstract class ListPoliciesGrantingServiceAccessEntry
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListPoliciesGrantingServiceAccessEntry');
-    helper.add(
-      'serviceNamespace',
-      serviceNamespace,
-    );
-    helper.add(
-      'policies',
-      policies,
-    );
+        newBuiltValueToStringHelper('ListPoliciesGrantingServiceAccessEntry')
+          ..add(
+            'serviceNamespace',
+            serviceNamespace,
+          )
+          ..add(
+            'policies',
+            policies,
+          );
     return helper.toString();
   }
 }

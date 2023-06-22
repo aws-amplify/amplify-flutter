@@ -40,9 +40,8 @@ abstract class AssociateSoftwareTokenRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    AssociateSoftwareTokenRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<AssociateSoftwareTokenRequest>>
+      serializers = [AssociateSoftwareTokenRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AssociateSoftwareTokenRequestBuilder b) {}
@@ -61,15 +60,15 @@ abstract class AssociateSoftwareTokenRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AssociateSoftwareTokenRequest');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'session',
-      session,
-    );
+    final helper = newBuiltValueToStringHelper('AssociateSoftwareTokenRequest')
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'session',
+        session,
+      );
     return helper.toString();
   }
 }

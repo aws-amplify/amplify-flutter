@@ -39,9 +39,8 @@ abstract class DeleteResourceConfigRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteResourceConfigRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteResourceConfigRequest>>
+      serializers = [DeleteResourceConfigRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteResourceConfigRequestBuilder b) {}
@@ -60,15 +59,15 @@ abstract class DeleteResourceConfigRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteResourceConfigRequest');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteResourceConfigRequest')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      );
     return helper.toString();
   }
 }

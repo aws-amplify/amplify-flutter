@@ -55,9 +55,8 @@ abstract class ReplicaAutoScalingDescription
 
   const ReplicaAutoScalingDescription._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    ReplicaAutoScalingDescriptionAwsJson10Serializer()
-  ];
+  static const List<_i6.SmithySerializer<ReplicaAutoScalingDescription>>
+      serializers = [ReplicaAutoScalingDescriptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ReplicaAutoScalingDescriptionBuilder b) {}
@@ -97,27 +96,27 @@ abstract class ReplicaAutoScalingDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicaAutoScalingDescription');
-    helper.add(
-      'regionName',
-      regionName,
-    );
-    helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
-    helper.add(
-      'replicaProvisionedReadCapacityAutoScalingSettings',
-      replicaProvisionedReadCapacityAutoScalingSettings,
-    );
-    helper.add(
-      'replicaProvisionedWriteCapacityAutoScalingSettings',
-      replicaProvisionedWriteCapacityAutoScalingSettings,
-    );
-    helper.add(
-      'replicaStatus',
-      replicaStatus,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicaAutoScalingDescription')
+      ..add(
+        'regionName',
+        regionName,
+      )
+      ..add(
+        'globalSecondaryIndexes',
+        globalSecondaryIndexes,
+      )
+      ..add(
+        'replicaProvisionedReadCapacityAutoScalingSettings',
+        replicaProvisionedReadCapacityAutoScalingSettings,
+      )
+      ..add(
+        'replicaProvisionedWriteCapacityAutoScalingSettings',
+        replicaProvisionedWriteCapacityAutoScalingSettings,
+      )
+      ..add(
+        'replicaStatus',
+        replicaStatus,
+      );
     return helper.toString();
   }
 }

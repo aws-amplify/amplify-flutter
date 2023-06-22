@@ -34,7 +34,7 @@ abstract class CreateTableOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<CreateTableOutput>> serializers = [
     CreateTableOutputAwsJson10Serializer()
   ];
 
@@ -47,11 +47,11 @@ abstract class CreateTableOutput
   List<Object?> get props => [tableDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateTableOutput');
-    helper.add(
-      'tableDescription',
-      tableDescription,
-    );
+    final helper = newBuiltValueToStringHelper('CreateTableOutput')
+      ..add(
+        'tableDescription',
+        tableDescription,
+      );
     return helper.toString();
   }
 }

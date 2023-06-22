@@ -42,7 +42,7 @@ abstract class RollbackConfiguration
 
   const RollbackConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<RollbackConfiguration>> serializers = [
     RollbackConfigurationAwsQuerySerializer()
   ];
 
@@ -78,15 +78,15 @@ abstract class RollbackConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RollbackConfiguration');
-    helper.add(
-      'rollbackTriggers',
-      rollbackTriggers,
-    );
-    helper.add(
-      'monitoringTimeInMinutes',
-      monitoringTimeInMinutes,
-    );
+    final helper = newBuiltValueToStringHelper('RollbackConfiguration')
+      ..add(
+        'rollbackTriggers',
+        rollbackTriggers,
+      )
+      ..add(
+        'monitoringTimeInMinutes',
+        monitoringTimeInMinutes,
+      );
     return helper.toString();
   }
 }

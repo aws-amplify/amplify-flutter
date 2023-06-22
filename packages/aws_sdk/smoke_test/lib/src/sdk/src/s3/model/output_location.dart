@@ -26,7 +26,7 @@ abstract class OutputLocation
 
   const OutputLocation._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<OutputLocation>> serializers = [
     OutputLocationRestXmlSerializer()
   ];
 
@@ -39,11 +39,11 @@ abstract class OutputLocation
   List<Object?> get props => [s3];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OutputLocation');
-    helper.add(
-      's3',
-      s3,
-    );
+    final helper = newBuiltValueToStringHelper('OutputLocation')
+      ..add(
+        's3',
+        s3,
+      );
     return helper.toString();
   }
 }

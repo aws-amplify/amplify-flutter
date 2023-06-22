@@ -38,9 +38,8 @@ abstract class IndexNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    IndexNotFoundExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<IndexNotFoundException>> serializers =
+      [IndexNotFoundExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(IndexNotFoundExceptionBuilder b) {}
@@ -65,11 +64,11 @@ abstract class IndexNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('IndexNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('IndexNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

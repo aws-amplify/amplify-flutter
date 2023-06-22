@@ -33,9 +33,8 @@ abstract class DeleteStoredQueryRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteStoredQueryRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteStoredQueryRequest>>
+      serializers = [DeleteStoredQueryRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteStoredQueryRequestBuilder b) {}
@@ -48,11 +47,11 @@ abstract class DeleteStoredQueryRequest
   List<Object?> get props => [queryName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteStoredQueryRequest');
-    helper.add(
-      'queryName',
-      queryName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteStoredQueryRequest')
+      ..add(
+        'queryName',
+        queryName,
+      );
     return helper.toString();
   }
 }

@@ -41,7 +41,7 @@ abstract class DeviceType
 
   const DeviceType._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<DeviceType>> serializers = [
     DeviceTypeAwsJson11Serializer()
   ];
 
@@ -57,7 +57,7 @@ abstract class DeviceType
   /// The creation date of the device.
   DateTime? get deviceCreateDate;
 
-  /// The last modified date of the device.
+  /// The date and time, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format, when the item was modified.
   DateTime? get deviceLastModifiedDate;
 
   /// The date when the device was last authenticated.
@@ -72,27 +72,27 @@ abstract class DeviceType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeviceType');
-    helper.add(
-      'deviceKey',
-      deviceKey,
-    );
-    helper.add(
-      'deviceAttributes',
-      deviceAttributes,
-    );
-    helper.add(
-      'deviceCreateDate',
-      deviceCreateDate,
-    );
-    helper.add(
-      'deviceLastModifiedDate',
-      deviceLastModifiedDate,
-    );
-    helper.add(
-      'deviceLastAuthenticatedDate',
-      deviceLastAuthenticatedDate,
-    );
+    final helper = newBuiltValueToStringHelper('DeviceType')
+      ..add(
+        'deviceKey',
+        deviceKey,
+      )
+      ..add(
+        'deviceAttributes',
+        deviceAttributes,
+      )
+      ..add(
+        'deviceCreateDate',
+        deviceCreateDate,
+      )
+      ..add(
+        'deviceLastModifiedDate',
+        deviceLastModifiedDate,
+      )
+      ..add(
+        'deviceLastAuthenticatedDate',
+        deviceLastAuthenticatedDate,
+      );
     return helper.toString();
   }
 }

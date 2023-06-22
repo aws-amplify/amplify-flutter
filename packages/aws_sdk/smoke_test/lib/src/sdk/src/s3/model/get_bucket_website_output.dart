@@ -46,9 +46,8 @@ abstract class GetBucketWebsiteOutput
   ) =>
       payload;
 
-  static const List<_i7.SmithySerializer> serializers = [
-    GetBucketWebsiteOutputRestXmlSerializer()
-  ];
+  static const List<_i7.SmithySerializer<GetBucketWebsiteOutput>> serializers =
+      [GetBucketWebsiteOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketWebsiteOutputBuilder b) {}
@@ -73,23 +72,23 @@ abstract class GetBucketWebsiteOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketWebsiteOutput');
-    helper.add(
-      'redirectAllRequestsTo',
-      redirectAllRequestsTo,
-    );
-    helper.add(
-      'indexDocument',
-      indexDocument,
-    );
-    helper.add(
-      'errorDocument',
-      errorDocument,
-    );
-    helper.add(
-      'routingRules',
-      routingRules,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketWebsiteOutput')
+      ..add(
+        'redirectAllRequestsTo',
+        redirectAllRequestsTo,
+      )
+      ..add(
+        'indexDocument',
+        indexDocument,
+      )
+      ..add(
+        'errorDocument',
+        errorDocument,
+      )
+      ..add(
+        'routingRules',
+        routingRules,
+      );
     return helper.toString();
   }
 }

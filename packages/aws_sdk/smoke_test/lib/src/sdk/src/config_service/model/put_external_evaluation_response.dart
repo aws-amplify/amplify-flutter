@@ -34,9 +34,8 @@ abstract class PutExternalEvaluationResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PutExternalEvaluationResponseAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<PutExternalEvaluationResponse>>
+      serializers = [PutExternalEvaluationResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutExternalEvaluationResponseBuilder b) {}

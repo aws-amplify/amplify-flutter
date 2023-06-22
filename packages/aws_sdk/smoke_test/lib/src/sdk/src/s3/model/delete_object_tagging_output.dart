@@ -38,9 +38,8 @@ abstract class DeleteObjectTaggingOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeleteObjectTaggingOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<DeleteObjectTaggingOutputPayload>>
+      serializers = [DeleteObjectTaggingOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteObjectTaggingOutputBuilder b) {}
@@ -54,11 +53,11 @@ abstract class DeleteObjectTaggingOutput
   List<Object?> get props => [versionId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteObjectTaggingOutput');
-    helper.add(
-      'versionId',
-      versionId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteObjectTaggingOutput')
+      ..add(
+        'versionId',
+        versionId,
+      );
     return helper.toString();
   }
 }

@@ -25,7 +25,7 @@ abstract class JsonOutput
 
   const JsonOutput._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<JsonOutput>> serializers = [
     JsonOutputRestXmlSerializer()
   ];
 
@@ -38,11 +38,11 @@ abstract class JsonOutput
   List<Object?> get props => [recordDelimiter];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonOutput');
-    helper.add(
-      'recordDelimiter',
-      recordDelimiter,
-    );
+    final helper = newBuiltValueToStringHelper('JsonOutput')
+      ..add(
+        'recordDelimiter',
+        recordDelimiter,
+      );
     return helper.toString();
   }
 }

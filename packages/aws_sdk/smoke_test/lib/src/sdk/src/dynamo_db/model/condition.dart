@@ -61,7 +61,7 @@ abstract class Condition
 
   const Condition._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<Condition>> serializers = [
     ConditionAwsJson10Serializer()
   ];
 
@@ -151,15 +151,15 @@ abstract class Condition
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Condition');
-    helper.add(
-      'attributeValueList',
-      attributeValueList,
-    );
-    helper.add(
-      'comparisonOperator',
-      comparisonOperator,
-    );
+    final helper = newBuiltValueToStringHelper('Condition')
+      ..add(
+        'attributeValueList',
+        attributeValueList,
+      )
+      ..add(
+        'comparisonOperator',
+        comparisonOperator,
+      );
     return helper.toString();
   }
 }

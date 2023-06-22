@@ -104,9 +104,8 @@ abstract class CompleteMultipartUploadOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    CompleteMultipartUploadOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<CompleteMultipartUploadOutputPayload>>
+      serializers = [CompleteMultipartUploadOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CompleteMultipartUploadOutputBuilder b) {}
@@ -187,63 +186,63 @@ abstract class CompleteMultipartUploadOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CompleteMultipartUploadOutput');
-    helper.add(
-      'location',
-      location,
-    );
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'expiration',
-      expiration,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
-    helper.add(
-      'serverSideEncryption',
-      serverSideEncryption,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'ssekmsKeyId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('CompleteMultipartUploadOutput')
+      ..add(
+        'location',
+        location,
+      )
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'expiration',
+        expiration,
+      )
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      )
+      ..add(
+        'serverSideEncryption',
+        serverSideEncryption,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'ssekmsKeyId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'bucketKeyEnabled',
+        bucketKeyEnabled,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }
@@ -305,39 +304,39 @@ abstract class CompleteMultipartUploadOutputPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CompleteMultipartUploadOutputPayload');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'location',
-      location,
-    );
+        newBuiltValueToStringHelper('CompleteMultipartUploadOutputPayload')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'checksumCrc32',
+            checksumCrc32,
+          )
+          ..add(
+            'checksumCrc32C',
+            checksumCrc32C,
+          )
+          ..add(
+            'checksumSha1',
+            checksumSha1,
+          )
+          ..add(
+            'checksumSha256',
+            checksumSha256,
+          )
+          ..add(
+            'eTag',
+            eTag,
+          )
+          ..add(
+            'key',
+            key,
+          )
+          ..add(
+            'location',
+            location,
+          );
     return helper.toString();
   }
 }

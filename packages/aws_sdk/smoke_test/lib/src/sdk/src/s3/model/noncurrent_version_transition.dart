@@ -37,9 +37,8 @@ abstract class NoncurrentVersionTransition
 
   const NoncurrentVersionTransition._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    NoncurrentVersionTransitionRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<NoncurrentVersionTransition>>
+      serializers = [NoncurrentVersionTransitionRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NoncurrentVersionTransitionBuilder b) {}
@@ -60,19 +59,19 @@ abstract class NoncurrentVersionTransition
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NoncurrentVersionTransition');
-    helper.add(
-      'noncurrentDays',
-      noncurrentDays,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'newerNoncurrentVersions',
-      newerNoncurrentVersions,
-    );
+    final helper = newBuiltValueToStringHelper('NoncurrentVersionTransition')
+      ..add(
+        'noncurrentDays',
+        noncurrentDays,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'newerNoncurrentVersions',
+        newerNoncurrentVersions,
+      );
     return helper.toString();
   }
 }

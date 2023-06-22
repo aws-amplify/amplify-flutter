@@ -49,9 +49,8 @@ abstract class GetTemplateSummaryInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetTemplateSummaryInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetTemplateSummaryInput>> serializers =
+      [GetTemplateSummaryInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetTemplateSummaryInputBuilder b) {}
@@ -98,27 +97,27 @@ abstract class GetTemplateSummaryInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetTemplateSummaryInput');
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateUrl',
-      templateUrl,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+    final helper = newBuiltValueToStringHelper('GetTemplateSummaryInput')
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'templateUrl',
+        templateUrl,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      );
     return helper.toString();
   }
 }

@@ -38,9 +38,8 @@ abstract class DeleteDeliveryChannelRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteDeliveryChannelRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteDeliveryChannelRequest>>
+      serializers = [DeleteDeliveryChannelRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteDeliveryChannelRequestBuilder b) {}
@@ -53,11 +52,11 @@ abstract class DeleteDeliveryChannelRequest
   List<Object?> get props => [deliveryChannelName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteDeliveryChannelRequest');
-    helper.add(
-      'deliveryChannelName',
-      deliveryChannelName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteDeliveryChannelRequest')
+      ..add(
+        'deliveryChannelName',
+        deliveryChannelName,
+      );
     return helper.toString();
   }
 }

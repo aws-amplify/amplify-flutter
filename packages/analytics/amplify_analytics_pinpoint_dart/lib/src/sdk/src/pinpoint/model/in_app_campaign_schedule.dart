@@ -38,7 +38,7 @@ abstract class InAppCampaignSchedule
 
   const InAppCampaignSchedule._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<InAppCampaignSchedule>> serializers = [
     InAppCampaignScheduleRestJson1Serializer()
   ];
 
@@ -61,19 +61,19 @@ abstract class InAppCampaignSchedule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppCampaignSchedule');
-    helper.add(
-      'endDate',
-      endDate,
-    );
-    helper.add(
-      'eventFilter',
-      eventFilter,
-    );
-    helper.add(
-      'quietTime',
-      quietTime,
-    );
+    final helper = newBuiltValueToStringHelper('InAppCampaignSchedule')
+      ..add(
+        'endDate',
+        endDate,
+      )
+      ..add(
+        'eventFilter',
+        eventFilter,
+      )
+      ..add(
+        'quietTime',
+        quietTime,
+      );
     return helper.toString();
   }
 }

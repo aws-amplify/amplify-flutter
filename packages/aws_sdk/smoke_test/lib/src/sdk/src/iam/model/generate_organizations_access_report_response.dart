@@ -33,7 +33,9 @@ abstract class GenerateOrganizationsAccessReportResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<GenerateOrganizationsAccessReportResponse>>
+      serializers = [
     GenerateOrganizationsAccessReportResponseAwsQuerySerializer()
   ];
 
@@ -46,12 +48,12 @@ abstract class GenerateOrganizationsAccessReportResponse
   List<Object?> get props => [jobId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'GenerateOrganizationsAccessReportResponse');
-    helper.add(
-      'jobId',
-      jobId,
-    );
+    final helper =
+        newBuiltValueToStringHelper('GenerateOrganizationsAccessReportResponse')
+          ..add(
+            'jobId',
+            jobId,
+          );
     return helper.toString();
   }
 }

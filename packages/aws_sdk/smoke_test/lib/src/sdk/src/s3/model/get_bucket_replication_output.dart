@@ -42,9 +42,8 @@ abstract class GetBucketReplicationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketReplicationOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<_i3.ReplicationConfiguration?>>
+      serializers = [GetBucketReplicationOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketReplicationOutputBuilder b) {}
@@ -57,11 +56,11 @@ abstract class GetBucketReplicationOutput
   List<Object?> get props => [replicationConfiguration];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketReplicationOutput');
-    helper.add(
-      'replicationConfiguration',
-      replicationConfiguration,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketReplicationOutput')
+      ..add(
+        'replicationConfiguration',
+        replicationConfiguration,
+      );
     return helper.toString();
   }
 }

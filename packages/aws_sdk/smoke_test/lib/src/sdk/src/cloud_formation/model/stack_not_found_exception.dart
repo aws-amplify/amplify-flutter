@@ -37,9 +37,8 @@ abstract class StackNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    StackNotFoundExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<StackNotFoundException>> serializers =
+      [StackNotFoundExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StackNotFoundExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class StackNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('StackNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

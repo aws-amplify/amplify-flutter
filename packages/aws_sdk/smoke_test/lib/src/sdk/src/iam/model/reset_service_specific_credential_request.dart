@@ -40,9 +40,8 @@ abstract class ResetServiceSpecificCredentialRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ResetServiceSpecificCredentialRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ResetServiceSpecificCredentialRequest>>
+      serializers = [ResetServiceSpecificCredentialRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResetServiceSpecificCredentialRequestBuilder b) {}
@@ -66,15 +65,15 @@ abstract class ResetServiceSpecificCredentialRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ResetServiceSpecificCredentialRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'serviceSpecificCredentialId',
-      serviceSpecificCredentialId,
-    );
+        newBuiltValueToStringHelper('ResetServiceSpecificCredentialRequest')
+          ..add(
+            'userName',
+            userName,
+          )
+          ..add(
+            'serviceSpecificCredentialId',
+            serviceSpecificCredentialId,
+          );
     return helper.toString();
   }
 }

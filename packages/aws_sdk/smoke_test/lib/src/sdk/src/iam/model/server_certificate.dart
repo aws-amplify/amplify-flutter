@@ -45,7 +45,7 @@ abstract class ServerCertificate
 
   const ServerCertificate._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<ServerCertificate>> serializers = [
     ServerCertificateAwsQuerySerializer()
   ];
 
@@ -72,23 +72,23 @@ abstract class ServerCertificate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServerCertificate');
-    helper.add(
-      'serverCertificateMetadata',
-      serverCertificateMetadata,
-    );
-    helper.add(
-      'certificateBody',
-      certificateBody,
-    );
-    helper.add(
-      'certificateChain',
-      certificateChain,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('ServerCertificate')
+      ..add(
+        'serverCertificateMetadata',
+        serverCertificateMetadata,
+      )
+      ..add(
+        'certificateBody',
+        certificateBody,
+      )
+      ..add(
+        'certificateChain',
+        certificateChain,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

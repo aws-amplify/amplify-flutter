@@ -48,9 +48,8 @@ abstract class PolicyGrantingServiceAccess
 
   const PolicyGrantingServiceAccess._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    PolicyGrantingServiceAccessAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<PolicyGrantingServiceAccess>>
+      serializers = [PolicyGrantingServiceAccessAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PolicyGrantingServiceAccessBuilder b) {}
@@ -85,27 +84,27 @@ abstract class PolicyGrantingServiceAccess
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PolicyGrantingServiceAccess');
-    helper.add(
-      'policyName',
-      policyName,
-    );
-    helper.add(
-      'policyType',
-      policyType,
-    );
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
-    helper.add(
-      'entityType',
-      entityType,
-    );
-    helper.add(
-      'entityName',
-      entityName,
-    );
+    final helper = newBuiltValueToStringHelper('PolicyGrantingServiceAccess')
+      ..add(
+        'policyName',
+        policyName,
+      )
+      ..add(
+        'policyType',
+        policyType,
+      )
+      ..add(
+        'policyArn',
+        policyArn,
+      )
+      ..add(
+        'entityType',
+        entityType,
+      )
+      ..add(
+        'entityName',
+        entityName,
+      );
     return helper.toString();
   }
 }

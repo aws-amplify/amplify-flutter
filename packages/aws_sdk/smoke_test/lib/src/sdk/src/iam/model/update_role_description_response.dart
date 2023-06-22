@@ -34,9 +34,8 @@ abstract class UpdateRoleDescriptionResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    UpdateRoleDescriptionResponseAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<UpdateRoleDescriptionResponse>>
+      serializers = [UpdateRoleDescriptionResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateRoleDescriptionResponseBuilder b) {}
@@ -47,11 +46,11 @@ abstract class UpdateRoleDescriptionResponse
   List<Object?> get props => [role];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateRoleDescriptionResponse');
-    helper.add(
-      'role',
-      role,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateRoleDescriptionResponse')
+      ..add(
+        'role',
+        role,
+      );
     return helper.toString();
   }
 }

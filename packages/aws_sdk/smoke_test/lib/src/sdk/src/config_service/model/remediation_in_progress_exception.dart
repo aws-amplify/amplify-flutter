@@ -40,9 +40,8 @@ abstract class RemediationInProgressException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    RemediationInProgressExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<RemediationInProgressException>>
+      serializers = [RemediationInProgressExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RemediationInProgressExceptionBuilder b) {}
@@ -69,12 +68,11 @@ abstract class RemediationInProgressException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('RemediationInProgressException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('RemediationInProgressException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

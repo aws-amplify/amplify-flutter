@@ -32,7 +32,7 @@ abstract class MethodSnapshot
 
   const MethodSnapshot._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<MethodSnapshot>> serializers = [
     MethodSnapshotRestJson1Serializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class MethodSnapshot
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MethodSnapshot');
-    helper.add(
-      'authorizationType',
-      authorizationType,
-    );
-    helper.add(
-      'apiKeyRequired',
-      apiKeyRequired,
-    );
+    final helper = newBuiltValueToStringHelper('MethodSnapshot')
+      ..add(
+        'authorizationType',
+        authorizationType,
+      )
+      ..add(
+        'apiKeyRequired',
+        apiKeyRequired,
+      );
     return helper.toString();
   }
 }

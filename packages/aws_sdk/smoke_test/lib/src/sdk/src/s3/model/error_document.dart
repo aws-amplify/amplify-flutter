@@ -25,7 +25,7 @@ abstract class ErrorDocument
 
   const ErrorDocument._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ErrorDocument>> serializers = [
     ErrorDocumentRestXmlSerializer()
   ];
 
@@ -40,11 +40,11 @@ abstract class ErrorDocument
   List<Object?> get props => [key];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ErrorDocument');
-    helper.add(
-      'key',
-      key,
-    );
+    final helper = newBuiltValueToStringHelper('ErrorDocument')
+      ..add(
+        'key',
+        key,
+      );
     return helper.toString();
   }
 }

@@ -46,9 +46,8 @@ abstract class GetCredentialsForIdentityInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetCredentialsForIdentityInputAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetCredentialsForIdentityInput>>
+      serializers = [GetCredentialsForIdentityInputAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetCredentialsForIdentityInputBuilder b) {}
@@ -75,20 +74,19 @@ abstract class GetCredentialsForIdentityInput
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetCredentialsForIdentityInput');
-    helper.add(
-      'identityId',
-      identityId,
-    );
-    helper.add(
-      'logins',
-      logins,
-    );
-    helper.add(
-      'customRoleArn',
-      customRoleArn,
-    );
+    final helper = newBuiltValueToStringHelper('GetCredentialsForIdentityInput')
+      ..add(
+        'identityId',
+        identityId,
+      )
+      ..add(
+        'logins',
+        logins,
+      )
+      ..add(
+        'customRoleArn',
+        customRoleArn,
+      );
     return helper.toString();
   }
 }

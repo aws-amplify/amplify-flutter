@@ -51,9 +51,8 @@ abstract class OrganizationManagedRuleMetadata
 
   const OrganizationManagedRuleMetadata._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    OrganizationManagedRuleMetadataAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<OrganizationManagedRuleMetadata>>
+      serializers = [OrganizationManagedRuleMetadataAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationManagedRuleMetadataBuilder b) {}
@@ -97,39 +96,39 @@ abstract class OrganizationManagedRuleMetadata
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OrganizationManagedRuleMetadata');
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'ruleIdentifier',
-      ruleIdentifier,
-    );
-    helper.add(
-      'inputParameters',
-      inputParameters,
-    );
-    helper.add(
-      'maximumExecutionFrequency',
-      maximumExecutionFrequency,
-    );
-    helper.add(
-      'resourceTypesScope',
-      resourceTypesScope,
-    );
-    helper.add(
-      'resourceIdScope',
-      resourceIdScope,
-    );
-    helper.add(
-      'tagKeyScope',
-      tagKeyScope,
-    );
-    helper.add(
-      'tagValueScope',
-      tagValueScope,
-    );
+        newBuiltValueToStringHelper('OrganizationManagedRuleMetadata')
+          ..add(
+            'description',
+            description,
+          )
+          ..add(
+            'ruleIdentifier',
+            ruleIdentifier,
+          )
+          ..add(
+            'inputParameters',
+            inputParameters,
+          )
+          ..add(
+            'maximumExecutionFrequency',
+            maximumExecutionFrequency,
+          )
+          ..add(
+            'resourceTypesScope',
+            resourceTypesScope,
+          )
+          ..add(
+            'resourceIdScope',
+            resourceIdScope,
+          )
+          ..add(
+            'tagKeyScope',
+            tagKeyScope,
+          )
+          ..add(
+            'tagValueScope',
+            tagValueScope,
+          );
     return helper.toString();
   }
 }

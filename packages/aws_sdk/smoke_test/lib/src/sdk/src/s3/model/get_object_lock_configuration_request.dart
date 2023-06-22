@@ -51,9 +51,9 @@ abstract class GetObjectLockConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetObjectLockConfigurationRequestRestXmlSerializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<GetObjectLockConfigurationRequestPayload>>
+      serializers = [GetObjectLockConfigurationRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectLockConfigurationRequestBuilder b) {}
@@ -88,15 +88,15 @@ abstract class GetObjectLockConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetObjectLockConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('GetObjectLockConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }

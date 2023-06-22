@@ -28,7 +28,7 @@ abstract class PutRequest
 
   const PutRequest._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<PutRequest>> serializers = [
     PutRequestAwsJson10Serializer()
   ];
 
@@ -41,11 +41,11 @@ abstract class PutRequest
   List<Object?> get props => [item];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutRequest');
-    helper.add(
-      'item',
-      item,
-    );
+    final helper = newBuiltValueToStringHelper('PutRequest')
+      ..add(
+        'item',
+        item,
+      );
     return helper.toString();
   }
 }

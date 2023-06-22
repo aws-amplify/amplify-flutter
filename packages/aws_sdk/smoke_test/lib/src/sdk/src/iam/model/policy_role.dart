@@ -43,7 +43,7 @@ abstract class PolicyRole
 
   const PolicyRole._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PolicyRole>> serializers = [
     PolicyRoleAwsQuerySerializer()
   ];
 
@@ -62,15 +62,15 @@ abstract class PolicyRole
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PolicyRole');
-    helper.add(
-      'roleName',
-      roleName,
-    );
-    helper.add(
-      'roleId',
-      roleId,
-    );
+    final helper = newBuiltValueToStringHelper('PolicyRole')
+      ..add(
+        'roleName',
+        roleName,
+      )
+      ..add(
+        'roleId',
+        roleId,
+      );
     return helper.toString();
   }
 }

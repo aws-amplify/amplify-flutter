@@ -32,7 +32,7 @@ abstract class Stream
 
   const Stream._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Stream>> serializers = [
     StreamAwsJson10Serializer()
   ];
 
@@ -63,19 +63,19 @@ abstract class Stream
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Stream');
-    helper.add(
-      'streamArn',
-      streamArn,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'streamLabel',
-      streamLabel,
-    );
+    final helper = newBuiltValueToStringHelper('Stream')
+      ..add(
+        'streamArn',
+        streamArn,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'streamLabel',
+        streamLabel,
+      );
     return helper.toString();
   }
 }

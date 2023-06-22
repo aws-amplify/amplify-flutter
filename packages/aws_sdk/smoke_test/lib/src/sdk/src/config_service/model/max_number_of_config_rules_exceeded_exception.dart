@@ -40,7 +40,9 @@ abstract class MaxNumberOfConfigRulesExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<MaxNumberOfConfigRulesExceededException>>
+      serializers = [
     MaxNumberOfConfigRulesExceededExceptionAwsJson11Serializer()
   ];
 
@@ -70,11 +72,11 @@ abstract class MaxNumberOfConfigRulesExceededException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('MaxNumberOfConfigRulesExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('MaxNumberOfConfigRulesExceededException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

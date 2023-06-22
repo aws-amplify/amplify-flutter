@@ -39,9 +39,8 @@ abstract class ResourceTargetDefinition
 
   const ResourceTargetDefinition._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ResourceTargetDefinitionAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<ResourceTargetDefinition>>
+      serializers = [ResourceTargetDefinitionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceTargetDefinitionBuilder b) {}
@@ -62,19 +61,19 @@ abstract class ResourceTargetDefinition
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceTargetDefinition');
-    helper.add(
-      'attribute',
-      attribute,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'requiresRecreation',
-      requiresRecreation,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceTargetDefinition')
+      ..add(
+        'attribute',
+        attribute,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'requiresRecreation',
+        requiresRecreation,
+      );
     return helper.toString();
   }
 }

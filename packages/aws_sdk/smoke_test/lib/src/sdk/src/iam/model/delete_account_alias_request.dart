@@ -33,9 +33,8 @@ abstract class DeleteAccountAliasRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteAccountAliasRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteAccountAliasRequest>>
+      serializers = [DeleteAccountAliasRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteAccountAliasRequestBuilder b) {}
@@ -50,11 +49,11 @@ abstract class DeleteAccountAliasRequest
   List<Object?> get props => [accountAlias];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteAccountAliasRequest');
-    helper.add(
-      'accountAlias',
-      accountAlias,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteAccountAliasRequest')
+      ..add(
+        'accountAlias',
+        accountAlias,
+      );
     return helper.toString();
   }
 }

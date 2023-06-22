@@ -34,7 +34,7 @@ abstract class GroupedResourceCount
 
   const GroupedResourceCount._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<GroupedResourceCount>> serializers = [
     GroupedResourceCountAwsJson11Serializer()
   ];
 
@@ -55,15 +55,15 @@ abstract class GroupedResourceCount
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GroupedResourceCount');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'resourceCount',
-      resourceCount,
-    );
+    final helper = newBuiltValueToStringHelper('GroupedResourceCount')
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'resourceCount',
+        resourceCount,
+      );
     return helper.toString();
   }
 }

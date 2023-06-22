@@ -37,9 +37,8 @@ abstract class PutConfigurationAggregatorResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    PutConfigurationAggregatorResponseAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<PutConfigurationAggregatorResponse>>
+      serializers = [PutConfigurationAggregatorResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutConfigurationAggregatorResponseBuilder b) {}
@@ -51,11 +50,11 @@ abstract class PutConfigurationAggregatorResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutConfigurationAggregatorResponse');
-    helper.add(
-      'configurationAggregator',
-      configurationAggregator,
-    );
+        newBuiltValueToStringHelper('PutConfigurationAggregatorResponse')
+          ..add(
+            'configurationAggregator',
+            configurationAggregator,
+          );
     return helper.toString();
   }
 }

@@ -37,9 +37,8 @@ abstract class InAppMessageHeaderConfig
 
   const InAppMessageHeaderConfig._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    InAppMessageHeaderConfigRestJson1Serializer()
-  ];
+  static const List<_i3.SmithySerializer<InAppMessageHeaderConfig>>
+      serializers = [InAppMessageHeaderConfigRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InAppMessageHeaderConfigBuilder b) {}
@@ -60,19 +59,19 @@ abstract class InAppMessageHeaderConfig
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessageHeaderConfig');
-    helper.add(
-      'alignment',
-      alignment,
-    );
-    helper.add(
-      'header',
-      header,
-    );
-    helper.add(
-      'textColor',
-      textColor,
-    );
+    final helper = newBuiltValueToStringHelper('InAppMessageHeaderConfig')
+      ..add(
+        'alignment',
+        alignment,
+      )
+      ..add(
+        'header',
+        header,
+      )
+      ..add(
+        'textColor',
+        textColor,
+      );
     return helper.toString();
   }
 }

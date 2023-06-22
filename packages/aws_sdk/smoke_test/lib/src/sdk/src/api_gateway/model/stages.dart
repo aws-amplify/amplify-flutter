@@ -33,7 +33,7 @@ abstract class Stages
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Stages>> serializers = [
     StagesRestJson1Serializer()
   ];
 
@@ -46,11 +46,11 @@ abstract class Stages
   List<Object?> get props => [item];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Stages');
-    helper.add(
-      'item',
-      item,
-    );
+    final helper = newBuiltValueToStringHelper('Stages')
+      ..add(
+        'item',
+        item,
+      );
     return helper.toString();
   }
 }

@@ -40,7 +40,8 @@ abstract class NoSuchRetentionConfigurationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<NoSuchRetentionConfigurationException>>
+      serializers = [
     NoSuchRetentionConfigurationExceptionAwsJson11Serializer()
   ];
 
@@ -70,11 +71,11 @@ abstract class NoSuchRetentionConfigurationException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('NoSuchRetentionConfigurationException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('NoSuchRetentionConfigurationException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

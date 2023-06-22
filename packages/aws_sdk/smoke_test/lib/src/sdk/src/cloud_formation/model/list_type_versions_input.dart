@@ -52,7 +52,7 @@ abstract class ListTypeVersionsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListTypeVersionsInput>> serializers = [
     ListTypeVersionsInputAwsQuerySerializer()
   ];
 
@@ -110,35 +110,35 @@ abstract class ListTypeVersionsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTypeVersionsInput');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'maxResults',
-      maxResults,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'deprecatedStatus',
-      deprecatedStatus,
-    );
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
+    final helper = newBuiltValueToStringHelper('ListTypeVersionsInput')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'maxResults',
+        maxResults,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      )
+      ..add(
+        'deprecatedStatus',
+        deprecatedStatus,
+      )
+      ..add(
+        'publisherId',
+        publisherId,
+      );
     return helper.toString();
   }
 }

@@ -39,7 +39,7 @@ abstract class UntagMfaDeviceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UntagMfaDeviceRequest>> serializers = [
     UntagMfaDeviceRequestAwsQuerySerializer()
   ];
 
@@ -62,15 +62,15 @@ abstract class UntagMfaDeviceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UntagMfaDeviceRequest');
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
-    helper.add(
-      'tagKeys',
-      tagKeys,
-    );
+    final helper = newBuiltValueToStringHelper('UntagMfaDeviceRequest')
+      ..add(
+        'serialNumber',
+        serialNumber,
+      )
+      ..add(
+        'tagKeys',
+        tagKeys,
+      );
     return helper.toString();
   }
 }

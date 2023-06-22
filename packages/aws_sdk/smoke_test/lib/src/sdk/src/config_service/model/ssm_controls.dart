@@ -31,7 +31,7 @@ abstract class SsmControls
 
   const SsmControls._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<SsmControls>> serializers = [
     SsmControlsAwsJson11Serializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class SsmControls
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SsmControls');
-    helper.add(
-      'concurrentExecutionRatePercentage',
-      concurrentExecutionRatePercentage,
-    );
-    helper.add(
-      'errorPercentage',
-      errorPercentage,
-    );
+    final helper = newBuiltValueToStringHelper('SsmControls')
+      ..add(
+        'concurrentExecutionRatePercentage',
+        concurrentExecutionRatePercentage,
+      )
+      ..add(
+        'errorPercentage',
+        errorPercentage,
+      );
     return helper.toString();
   }
 }

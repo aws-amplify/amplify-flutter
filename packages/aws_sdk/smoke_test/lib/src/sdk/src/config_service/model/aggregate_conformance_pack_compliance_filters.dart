@@ -41,7 +41,9 @@ abstract class AggregateConformancePackComplianceFilters
 
   const AggregateConformancePackComplianceFilters._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<
+          _i3.SmithySerializer<AggregateConformancePackComplianceFilters>>
+      serializers = [
     AggregateConformancePackComplianceFiltersAwsJson11Serializer()
   ];
 
@@ -68,24 +70,24 @@ abstract class AggregateConformancePackComplianceFilters
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'AggregateConformancePackComplianceFilters');
-    helper.add(
-      'conformancePackName',
-      conformancePackName,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
+    final helper =
+        newBuiltValueToStringHelper('AggregateConformancePackComplianceFilters')
+          ..add(
+            'conformancePackName',
+            conformancePackName,
+          )
+          ..add(
+            'complianceType',
+            complianceType,
+          )
+          ..add(
+            'accountId',
+            accountId,
+          )
+          ..add(
+            'awsRegion',
+            awsRegion,
+          );
     return helper.toString();
   }
 }

@@ -24,7 +24,7 @@ abstract class Ssekms
 
   const Ssekms._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Ssekms>> serializers = [
     SsekmsRestXmlSerializer()
   ];
 
@@ -37,11 +37,11 @@ abstract class Ssekms
   List<Object?> get props => [keyId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Ssekms');
-    helper.add(
-      'keyId',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('Ssekms')
+      ..add(
+        'keyId',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }

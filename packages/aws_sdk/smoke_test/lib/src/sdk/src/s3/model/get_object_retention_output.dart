@@ -40,9 +40,8 @@ abstract class GetObjectRetentionOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetObjectRetentionOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<_i3.ObjectLockRetention?>>
+      serializers = [GetObjectRetentionOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectRetentionOutputBuilder b) {}
@@ -56,11 +55,11 @@ abstract class GetObjectRetentionOutput
   List<Object?> get props => [retention];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectRetentionOutput');
-    helper.add(
-      'retention',
-      retention,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectRetentionOutput')
+      ..add(
+        'retention',
+        retention,
+      );
     return helper.toString();
   }
 }

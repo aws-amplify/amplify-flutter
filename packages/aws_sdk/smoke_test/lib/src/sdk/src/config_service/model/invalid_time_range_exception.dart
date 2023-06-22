@@ -38,9 +38,8 @@ abstract class InvalidTimeRangeException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidTimeRangeExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidTimeRangeException>>
+      serializers = [InvalidTimeRangeExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidTimeRangeExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class InvalidTimeRangeException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidTimeRangeException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidTimeRangeException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

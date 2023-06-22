@@ -38,9 +38,8 @@ abstract class IntelligentTieringFilter
 
   const IntelligentTieringFilter._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    IntelligentTieringFilterRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<IntelligentTieringFilter>>
+      serializers = [IntelligentTieringFilterRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(IntelligentTieringFilterBuilder b) {}
@@ -63,19 +62,19 @@ abstract class IntelligentTieringFilter
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('IntelligentTieringFilter');
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'tag',
-      tag,
-    );
-    helper.add(
-      'and',
-      and,
-    );
+    final helper = newBuiltValueToStringHelper('IntelligentTieringFilter')
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'tag',
+        tag,
+      )
+      ..add(
+        'and',
+        and,
+      );
     return helper.toString();
   }
 }

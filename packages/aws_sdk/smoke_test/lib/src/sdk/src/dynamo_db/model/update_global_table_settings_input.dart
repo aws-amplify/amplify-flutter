@@ -67,9 +67,8 @@ abstract class UpdateGlobalTableSettingsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateGlobalTableSettingsInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateGlobalTableSettingsInput>>
+      serializers = [UpdateGlobalTableSettingsInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateGlobalTableSettingsInputBuilder b) {}
@@ -110,32 +109,31 @@ abstract class UpdateGlobalTableSettingsInput
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UpdateGlobalTableSettingsInput');
-    helper.add(
-      'globalTableName',
-      globalTableName,
-    );
-    helper.add(
-      'globalTableBillingMode',
-      globalTableBillingMode,
-    );
-    helper.add(
-      'globalTableProvisionedWriteCapacityUnits',
-      globalTableProvisionedWriteCapacityUnits,
-    );
-    helper.add(
-      'globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate',
-      globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
-    );
-    helper.add(
-      'globalTableGlobalSecondaryIndexSettingsUpdate',
-      globalTableGlobalSecondaryIndexSettingsUpdate,
-    );
-    helper.add(
-      'replicaSettingsUpdate',
-      replicaSettingsUpdate,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateGlobalTableSettingsInput')
+      ..add(
+        'globalTableName',
+        globalTableName,
+      )
+      ..add(
+        'globalTableBillingMode',
+        globalTableBillingMode,
+      )
+      ..add(
+        'globalTableProvisionedWriteCapacityUnits',
+        globalTableProvisionedWriteCapacityUnits,
+      )
+      ..add(
+        'globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate',
+        globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
+      )
+      ..add(
+        'globalTableGlobalSecondaryIndexSettingsUpdate',
+        globalTableGlobalSecondaryIndexSettingsUpdate,
+      )
+      ..add(
+        'replicaSettingsUpdate',
+        replicaSettingsUpdate,
+      );
     return helper.toString();
   }
 }

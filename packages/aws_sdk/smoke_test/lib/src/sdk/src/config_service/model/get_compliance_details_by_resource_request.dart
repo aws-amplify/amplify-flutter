@@ -50,7 +50,8 @@ abstract class GetComplianceDetailsByResourceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetComplianceDetailsByResourceRequest>>
+      serializers = [
     GetComplianceDetailsByResourceRequestAwsJson11Serializer()
   ];
 
@@ -88,27 +89,27 @@ abstract class GetComplianceDetailsByResourceRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetComplianceDetailsByResourceRequest');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'complianceTypes',
-      complianceTypes,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'resourceEvaluationId',
-      resourceEvaluationId,
-    );
+        newBuiltValueToStringHelper('GetComplianceDetailsByResourceRequest')
+          ..add(
+            'resourceType',
+            resourceType,
+          )
+          ..add(
+            'resourceId',
+            resourceId,
+          )
+          ..add(
+            'complianceTypes',
+            complianceTypes,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          )
+          ..add(
+            'resourceEvaluationId',
+            resourceEvaluationId,
+          );
     return helper.toString();
   }
 }

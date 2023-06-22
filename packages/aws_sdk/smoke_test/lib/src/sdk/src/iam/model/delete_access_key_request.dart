@@ -38,9 +38,8 @@ abstract class DeleteAccessKeyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteAccessKeyRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteAccessKeyRequest>> serializers =
+      [DeleteAccessKeyRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteAccessKeyRequestBuilder b) {}
@@ -63,15 +62,15 @@ abstract class DeleteAccessKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteAccessKeyRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'accessKeyId',
-      accessKeyId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteAccessKeyRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'accessKeyId',
+        accessKeyId,
+      );
     return helper.toString();
   }
 }

@@ -53,7 +53,7 @@ abstract class ConformancePackDetail
 
   const ConformancePackDetail._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<ConformancePackDetail>> serializers = [
     ConformancePackDetailAwsJson11Serializer()
   ];
 
@@ -105,43 +105,43 @@ abstract class ConformancePackDetail
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConformancePackDetail');
-    helper.add(
-      'conformancePackName',
-      conformancePackName,
-    );
-    helper.add(
-      'conformancePackArn',
-      conformancePackArn,
-    );
-    helper.add(
-      'conformancePackId',
-      conformancePackId,
-    );
-    helper.add(
-      'deliveryS3Bucket',
-      deliveryS3Bucket,
-    );
-    helper.add(
-      'deliveryS3KeyPrefix',
-      deliveryS3KeyPrefix,
-    );
-    helper.add(
-      'conformancePackInputParameters',
-      conformancePackInputParameters,
-    );
-    helper.add(
-      'lastUpdateRequestedTime',
-      lastUpdateRequestedTime,
-    );
-    helper.add(
-      'createdBy',
-      createdBy,
-    );
-    helper.add(
-      'templateSsmDocumentDetails',
-      templateSsmDocumentDetails,
-    );
+    final helper = newBuiltValueToStringHelper('ConformancePackDetail')
+      ..add(
+        'conformancePackName',
+        conformancePackName,
+      )
+      ..add(
+        'conformancePackArn',
+        conformancePackArn,
+      )
+      ..add(
+        'conformancePackId',
+        conformancePackId,
+      )
+      ..add(
+        'deliveryS3Bucket',
+        deliveryS3Bucket,
+      )
+      ..add(
+        'deliveryS3KeyPrefix',
+        deliveryS3KeyPrefix,
+      )
+      ..add(
+        'conformancePackInputParameters',
+        conformancePackInputParameters,
+      )
+      ..add(
+        'lastUpdateRequestedTime',
+        lastUpdateRequestedTime,
+      )
+      ..add(
+        'createdBy',
+        createdBy,
+      )
+      ..add(
+        'templateSsmDocumentDetails',
+        templateSsmDocumentDetails,
+      );
     return helper.toString();
   }
 }

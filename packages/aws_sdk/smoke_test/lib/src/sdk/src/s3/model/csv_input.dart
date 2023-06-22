@@ -41,7 +41,7 @@ abstract class CsvInput
 
   const CsvInput._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<CsvInput>> serializers = [
     CsvInputRestXmlSerializer()
   ];
 
@@ -94,35 +94,35 @@ abstract class CsvInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CsvInput');
-    helper.add(
-      'fileHeaderInfo',
-      fileHeaderInfo,
-    );
-    helper.add(
-      'comments',
-      comments,
-    );
-    helper.add(
-      'quoteEscapeCharacter',
-      quoteEscapeCharacter,
-    );
-    helper.add(
-      'recordDelimiter',
-      recordDelimiter,
-    );
-    helper.add(
-      'fieldDelimiter',
-      fieldDelimiter,
-    );
-    helper.add(
-      'quoteCharacter',
-      quoteCharacter,
-    );
-    helper.add(
-      'allowQuotedRecordDelimiter',
-      allowQuotedRecordDelimiter,
-    );
+    final helper = newBuiltValueToStringHelper('CsvInput')
+      ..add(
+        'fileHeaderInfo',
+        fileHeaderInfo,
+      )
+      ..add(
+        'comments',
+        comments,
+      )
+      ..add(
+        'quoteEscapeCharacter',
+        quoteEscapeCharacter,
+      )
+      ..add(
+        'recordDelimiter',
+        recordDelimiter,
+      )
+      ..add(
+        'fieldDelimiter',
+        fieldDelimiter,
+      )
+      ..add(
+        'quoteCharacter',
+        quoteCharacter,
+      )
+      ..add(
+        'allowQuotedRecordDelimiter',
+        allowQuotedRecordDelimiter,
+      );
     return helper.toString();
   }
 }

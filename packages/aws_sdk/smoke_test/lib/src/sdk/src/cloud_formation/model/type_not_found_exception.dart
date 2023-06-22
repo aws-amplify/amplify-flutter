@@ -37,7 +37,7 @@ abstract class TypeNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<TypeNotFoundException>> serializers = [
     TypeNotFoundExceptionAwsQuerySerializer()
   ];
 
@@ -64,11 +64,11 @@ abstract class TypeNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TypeNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('TypeNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

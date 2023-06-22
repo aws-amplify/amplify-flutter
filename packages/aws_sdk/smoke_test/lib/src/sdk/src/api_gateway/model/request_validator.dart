@@ -44,7 +44,7 @@ abstract class RequestValidator
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<RequestValidator>> serializers = [
     RequestValidatorRestJson1Serializer()
   ];
 
@@ -74,23 +74,23 @@ abstract class RequestValidator
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RequestValidator');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'validateRequestBody',
-      validateRequestBody,
-    );
-    helper.add(
-      'validateRequestParameters',
-      validateRequestParameters,
-    );
+    final helper = newBuiltValueToStringHelper('RequestValidator')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'validateRequestBody',
+        validateRequestBody,
+      )
+      ..add(
+        'validateRequestParameters',
+        validateRequestParameters,
+      );
     return helper.toString();
   }
 }

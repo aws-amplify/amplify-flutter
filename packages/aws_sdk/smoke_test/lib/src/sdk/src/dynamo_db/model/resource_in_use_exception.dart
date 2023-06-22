@@ -38,9 +38,8 @@ abstract class ResourceInUseException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ResourceInUseExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ResourceInUseException>> serializers =
+      [ResourceInUseExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceInUseExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class ResourceInUseException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceInUseException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceInUseException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

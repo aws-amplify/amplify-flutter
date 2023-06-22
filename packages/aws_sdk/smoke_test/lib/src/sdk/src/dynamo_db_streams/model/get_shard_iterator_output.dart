@@ -33,9 +33,8 @@ abstract class GetShardIteratorOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetShardIteratorOutputAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<GetShardIteratorOutput>> serializers =
+      [GetShardIteratorOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetShardIteratorOutputBuilder b) {}
@@ -46,11 +45,11 @@ abstract class GetShardIteratorOutput
   List<Object?> get props => [shardIterator];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetShardIteratorOutput');
-    helper.add(
-      'shardIterator',
-      shardIterator,
-    );
+    final helper = newBuiltValueToStringHelper('GetShardIteratorOutput')
+      ..add(
+        'shardIterator',
+        shardIterator,
+      );
     return helper.toString();
   }
 }

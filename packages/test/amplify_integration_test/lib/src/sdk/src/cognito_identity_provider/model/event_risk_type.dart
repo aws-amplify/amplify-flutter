@@ -37,7 +37,7 @@ abstract class EventRiskType
 
   const EventRiskType._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<EventRiskType>> serializers = [
     EventRiskTypeAwsJson11Serializer()
   ];
 
@@ -60,19 +60,19 @@ abstract class EventRiskType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventRiskType');
-    helper.add(
-      'riskDecision',
-      riskDecision,
-    );
-    helper.add(
-      'riskLevel',
-      riskLevel,
-    );
-    helper.add(
-      'compromisedCredentialsDetected',
-      compromisedCredentialsDetected,
-    );
+    final helper = newBuiltValueToStringHelper('EventRiskType')
+      ..add(
+        'riskDecision',
+        riskDecision,
+      )
+      ..add(
+        'riskLevel',
+        riskLevel,
+      )
+      ..add(
+        'compromisedCredentialsDetected',
+        compromisedCredentialsDetected,
+      );
     return helper.toString();
   }
 }

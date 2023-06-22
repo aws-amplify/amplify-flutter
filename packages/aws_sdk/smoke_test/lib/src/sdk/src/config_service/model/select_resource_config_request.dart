@@ -42,9 +42,8 @@ abstract class SelectResourceConfigRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    SelectResourceConfigRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<SelectResourceConfigRequest>>
+      serializers = [SelectResourceConfigRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SelectResourceConfigRequestBuilder b) {
@@ -69,19 +68,19 @@ abstract class SelectResourceConfigRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SelectResourceConfigRequest');
-    helper.add(
-      'expression',
-      expression,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('SelectResourceConfigRequest')
+      ..add(
+        'expression',
+        expression,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

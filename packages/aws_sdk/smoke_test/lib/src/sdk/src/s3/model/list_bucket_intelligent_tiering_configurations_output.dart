@@ -50,7 +50,9 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+      _i4.SmithySerializer<
+          ListBucketIntelligentTieringConfigurationsOutput>> serializers = [
     ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer()
   ];
 
@@ -80,23 +82,23 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'ListBucketIntelligentTieringConfigurationsOutput');
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'nextContinuationToken',
-      nextContinuationToken,
-    );
-    helper.add(
-      'intelligentTieringConfigurationList',
-      intelligentTieringConfigurationList,
-    );
+        'ListBucketIntelligentTieringConfigurationsOutput')
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'continuationToken',
+        continuationToken,
+      )
+      ..add(
+        'nextContinuationToken',
+        nextContinuationToken,
+      )
+      ..add(
+        'intelligentTieringConfigurationList',
+        intelligentTieringConfigurationList,
+      );
     return helper.toString();
   }
 }

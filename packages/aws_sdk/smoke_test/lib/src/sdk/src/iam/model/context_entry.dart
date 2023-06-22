@@ -43,7 +43,7 @@ abstract class ContextEntry
 
   const ContextEntry._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ContextEntry>> serializers = [
     ContextEntryAwsQuerySerializer()
   ];
 
@@ -66,19 +66,19 @@ abstract class ContextEntry
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ContextEntry');
-    helper.add(
-      'contextKeyName',
-      contextKeyName,
-    );
-    helper.add(
-      'contextKeyValues',
-      contextKeyValues,
-    );
-    helper.add(
-      'contextKeyType',
-      contextKeyType,
-    );
+    final helper = newBuiltValueToStringHelper('ContextEntry')
+      ..add(
+        'contextKeyName',
+        contextKeyName,
+      )
+      ..add(
+        'contextKeyValues',
+        contextKeyValues,
+      )
+      ..add(
+        'contextKeyType',
+        contextKeyType,
+      );
     return helper.toString();
   }
 }

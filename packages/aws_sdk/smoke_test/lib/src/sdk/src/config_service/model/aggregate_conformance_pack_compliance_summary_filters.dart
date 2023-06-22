@@ -35,7 +35,9 @@ abstract class AggregateConformancePackComplianceSummaryFilters
 
   const AggregateConformancePackComplianceSummaryFilters._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+      _i2.SmithySerializer<
+          AggregateConformancePackComplianceSummaryFilters>> serializers = [
     AggregateConformancePackComplianceSummaryFiltersAwsJson11Serializer()
   ];
 
@@ -56,15 +58,15 @@ abstract class AggregateConformancePackComplianceSummaryFilters
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'AggregateConformancePackComplianceSummaryFilters');
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
+        'AggregateConformancePackComplianceSummaryFilters')
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'awsRegion',
+        awsRegion,
+      );
     return helper.toString();
   }
 }

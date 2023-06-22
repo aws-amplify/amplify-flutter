@@ -52,7 +52,7 @@ abstract class ExportResponse
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.Uint8List?>> serializers = [
     ExportResponseRestJson1Serializer()
   ];
 
@@ -77,19 +77,19 @@ abstract class ExportResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExportResponse');
-    helper.add(
-      'contentType',
-      contentType,
-    );
-    helper.add(
-      'contentDisposition',
-      contentDisposition,
-    );
-    helper.add(
-      'body',
-      body,
-    );
+    final helper = newBuiltValueToStringHelper('ExportResponse')
+      ..add(
+        'contentType',
+        contentType,
+      )
+      ..add(
+        'contentDisposition',
+        contentDisposition,
+      )
+      ..add(
+        'body',
+        body,
+      );
     return helper.toString();
   }
 }

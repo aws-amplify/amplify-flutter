@@ -133,9 +133,8 @@ abstract class TransactionInProgressException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TransactionInProgressExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<TransactionInProgressException>>
+      serializers = [TransactionInProgressExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TransactionInProgressExceptionBuilder b) {}
@@ -160,12 +159,11 @@ abstract class TransactionInProgressException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('TransactionInProgressException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('TransactionInProgressException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

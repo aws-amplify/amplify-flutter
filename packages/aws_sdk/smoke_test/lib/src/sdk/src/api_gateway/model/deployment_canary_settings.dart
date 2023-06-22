@@ -40,9 +40,8 @@ abstract class DeploymentCanarySettings
 
   const DeploymentCanarySettings._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    DeploymentCanarySettingsRestJson1Serializer()
-  ];
+  static const List<_i3.SmithySerializer<DeploymentCanarySettings>>
+      serializers = [DeploymentCanarySettingsRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeploymentCanarySettingsBuilder b) {
@@ -66,19 +65,19 @@ abstract class DeploymentCanarySettings
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeploymentCanarySettings');
-    helper.add(
-      'percentTraffic',
-      percentTraffic,
-    );
-    helper.add(
-      'stageVariableOverrides',
-      stageVariableOverrides,
-    );
-    helper.add(
-      'useStageCache',
-      useStageCache,
-    );
+    final helper = newBuiltValueToStringHelper('DeploymentCanarySettings')
+      ..add(
+        'percentTraffic',
+        percentTraffic,
+      )
+      ..add(
+        'stageVariableOverrides',
+        stageVariableOverrides,
+      )
+      ..add(
+        'useStageCache',
+        useStageCache,
+      );
     return helper.toString();
   }
 }

@@ -32,7 +32,7 @@ abstract class UserContextDataType
 
   const UserContextDataType._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<UserContextDataType>> serializers = [
     UserContextDataTypeAwsJson11Serializer()
   ];
 
@@ -51,15 +51,15 @@ abstract class UserContextDataType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UserContextDataType');
-    helper.add(
-      'ipAddress',
-      ipAddress,
-    );
-    helper.add(
-      'encodedData',
-      encodedData,
-    );
+    final helper = newBuiltValueToStringHelper('UserContextDataType')
+      ..add(
+        'ipAddress',
+        ipAddress,
+      )
+      ..add(
+        'encodedData',
+        encodedData,
+      );
     return helper.toString();
   }
 }

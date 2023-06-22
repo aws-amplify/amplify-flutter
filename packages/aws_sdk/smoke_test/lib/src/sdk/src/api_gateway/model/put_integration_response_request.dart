@@ -83,9 +83,8 @@ abstract class PutIntegrationResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutIntegrationResponseRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutIntegrationResponseRequestPayload>>
+      serializers = [PutIntegrationResponseRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutIntegrationResponseRequestBuilder b) {}
@@ -158,39 +157,39 @@ abstract class PutIntegrationResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutIntegrationResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'selectionPattern',
-      selectionPattern,
-    );
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
-    helper.add(
-      'responseTemplates',
-      responseTemplates,
-    );
-    helper.add(
-      'contentHandling',
-      contentHandling,
-    );
+    final helper = newBuiltValueToStringHelper('PutIntegrationResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      )
+      ..add(
+        'selectionPattern',
+        selectionPattern,
+      )
+      ..add(
+        'responseParameters',
+        responseParameters,
+      )
+      ..add(
+        'responseTemplates',
+        responseTemplates,
+      )
+      ..add(
+        'contentHandling',
+        contentHandling,
+      );
     return helper.toString();
   }
 }
@@ -234,23 +233,23 @@ abstract class PutIntegrationResponseRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutIntegrationResponseRequestPayload');
-    helper.add(
-      'contentHandling',
-      contentHandling,
-    );
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
-    helper.add(
-      'responseTemplates',
-      responseTemplates,
-    );
-    helper.add(
-      'selectionPattern',
-      selectionPattern,
-    );
+        newBuiltValueToStringHelper('PutIntegrationResponseRequestPayload')
+          ..add(
+            'contentHandling',
+            contentHandling,
+          )
+          ..add(
+            'responseParameters',
+            responseParameters,
+          )
+          ..add(
+            'responseTemplates',
+            responseTemplates,
+          )
+          ..add(
+            'selectionPattern',
+            selectionPattern,
+          );
     return helper.toString();
   }
 }

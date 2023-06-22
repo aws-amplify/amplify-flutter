@@ -37,7 +37,7 @@ abstract class StoredQuery
 
   const StoredQuery._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<StoredQuery>> serializers = [
     StoredQueryAwsJson11Serializer()
   ];
 
@@ -68,27 +68,27 @@ abstract class StoredQuery
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StoredQuery');
-    helper.add(
-      'queryId',
-      queryId,
-    );
-    helper.add(
-      'queryArn',
-      queryArn,
-    );
-    helper.add(
-      'queryName',
-      queryName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'expression',
-      expression,
-    );
+    final helper = newBuiltValueToStringHelper('StoredQuery')
+      ..add(
+        'queryId',
+        queryId,
+      )
+      ..add(
+        'queryArn',
+        queryArn,
+      )
+      ..add(
+        'queryName',
+        queryName,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'expression',
+        expression,
+      );
     return helper.toString();
   }
 }

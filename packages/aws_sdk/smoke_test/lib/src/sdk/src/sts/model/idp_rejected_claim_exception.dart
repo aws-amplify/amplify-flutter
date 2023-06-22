@@ -43,9 +43,8 @@ abstract class IdpRejectedClaimException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    IdpRejectedClaimExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<IdpRejectedClaimException>>
+      serializers = [IdpRejectedClaimExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(IdpRejectedClaimExceptionBuilder b) {}
@@ -70,11 +69,11 @@ abstract class IdpRejectedClaimException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('IdpRejectedClaimException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('IdpRejectedClaimException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

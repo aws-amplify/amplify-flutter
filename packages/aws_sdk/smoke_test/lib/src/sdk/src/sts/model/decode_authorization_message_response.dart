@@ -37,9 +37,8 @@ abstract class DecodeAuthorizationMessageResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DecodeAuthorizationMessageResponseAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<DecodeAuthorizationMessageResponse>>
+      serializers = [DecodeAuthorizationMessageResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DecodeAuthorizationMessageResponseBuilder b) {}
@@ -51,11 +50,11 @@ abstract class DecodeAuthorizationMessageResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DecodeAuthorizationMessageResponse');
-    helper.add(
-      'decodedMessage',
-      decodedMessage,
-    );
+        newBuiltValueToStringHelper('DecodeAuthorizationMessageResponse')
+          ..add(
+            'decodedMessage',
+            decodedMessage,
+          );
     return helper.toString();
   }
 }

@@ -48,9 +48,8 @@ abstract class ExecuteStatementOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    ExecuteStatementOutputAwsJson10Serializer()
-  ];
+  static const List<_i5.SmithySerializer<ExecuteStatementOutput>> serializers =
+      [ExecuteStatementOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExecuteStatementOutputBuilder b) {}
@@ -75,23 +74,23 @@ abstract class ExecuteStatementOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExecuteStatementOutput');
-    helper.add(
-      'items',
-      items,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
-    helper.add(
-      'lastEvaluatedKey',
-      lastEvaluatedKey,
-    );
+    final helper = newBuiltValueToStringHelper('ExecuteStatementOutput')
+      ..add(
+        'items',
+        items,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      )
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      )
+      ..add(
+        'lastEvaluatedKey',
+        lastEvaluatedKey,
+      );
     return helper.toString();
   }
 }

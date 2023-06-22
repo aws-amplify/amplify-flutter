@@ -32,7 +32,7 @@ abstract class GetIdResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<GetIdResponse>> serializers = [
     GetIdResponseAwsJson11Serializer()
   ];
 
@@ -45,11 +45,11 @@ abstract class GetIdResponse
   List<Object?> get props => [identityId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetIdResponse');
-    helper.add(
-      'identityId',
-      identityId,
-    );
+    final helper = newBuiltValueToStringHelper('GetIdResponse')
+      ..add(
+        'identityId',
+        identityId,
+      );
     return helper.toString();
   }
 }

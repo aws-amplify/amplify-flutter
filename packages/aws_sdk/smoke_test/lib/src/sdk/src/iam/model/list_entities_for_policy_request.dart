@@ -50,9 +50,8 @@ abstract class ListEntitiesForPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListEntitiesForPolicyRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListEntitiesForPolicyRequest>>
+      serializers = [ListEntitiesForPolicyRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListEntitiesForPolicyRequestBuilder b) {}
@@ -99,31 +98,31 @@ abstract class ListEntitiesForPolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListEntitiesForPolicyRequest');
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
-    helper.add(
-      'entityFilter',
-      entityFilter,
-    );
-    helper.add(
-      'pathPrefix',
-      pathPrefix,
-    );
-    helper.add(
-      'policyUsageFilter',
-      policyUsageFilter,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListEntitiesForPolicyRequest')
+      ..add(
+        'policyArn',
+        policyArn,
+      )
+      ..add(
+        'entityFilter',
+        entityFilter,
+      )
+      ..add(
+        'pathPrefix',
+        pathPrefix,
+      )
+      ..add(
+        'policyUsageFilter',
+        policyUsageFilter,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

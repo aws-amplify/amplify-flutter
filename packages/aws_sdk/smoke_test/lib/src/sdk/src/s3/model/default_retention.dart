@@ -47,7 +47,7 @@ abstract class DefaultRetention
 
   const DefaultRetention._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DefaultRetention>> serializers = [
     DefaultRetentionRestXmlSerializer()
   ];
 
@@ -70,19 +70,19 @@ abstract class DefaultRetention
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DefaultRetention');
-    helper.add(
-      'mode',
-      mode,
-    );
-    helper.add(
-      'days',
-      days,
-    );
-    helper.add(
-      'years',
-      years,
-    );
+    final helper = newBuiltValueToStringHelper('DefaultRetention')
+      ..add(
+        'mode',
+        mode,
+      )
+      ..add(
+        'days',
+        days,
+      )
+      ..add(
+        'years',
+        years,
+      );
     return helper.toString();
   }
 }

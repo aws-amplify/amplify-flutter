@@ -40,7 +40,7 @@ abstract class ExternalEvaluation
 
   const ExternalEvaluation._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ExternalEvaluation>> serializers = [
     ExternalEvaluationAwsJson11Serializer()
   ];
 
@@ -71,27 +71,27 @@ abstract class ExternalEvaluation
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExternalEvaluation');
-    helper.add(
-      'complianceResourceType',
-      complianceResourceType,
-    );
-    helper.add(
-      'complianceResourceId',
-      complianceResourceId,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'annotation',
-      annotation,
-    );
-    helper.add(
-      'orderingTimestamp',
-      orderingTimestamp,
-    );
+    final helper = newBuiltValueToStringHelper('ExternalEvaluation')
+      ..add(
+        'complianceResourceType',
+        complianceResourceType,
+      )
+      ..add(
+        'complianceResourceId',
+        complianceResourceId,
+      )
+      ..add(
+        'complianceType',
+        complianceType,
+      )
+      ..add(
+        'annotation',
+        annotation,
+      )
+      ..add(
+        'orderingTimestamp',
+        orderingTimestamp,
+      );
     return helper.toString();
   }
 }

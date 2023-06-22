@@ -32,7 +32,7 @@ abstract class AnalyticsMetadataType
 
   const AnalyticsMetadataType._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AnalyticsMetadataType>> serializers = [
     AnalyticsMetadataTypeAwsJson11Serializer()
   ];
 
@@ -45,11 +45,11 @@ abstract class AnalyticsMetadataType
   List<Object?> get props => [analyticsEndpointId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AnalyticsMetadataType');
-    helper.add(
-      'analyticsEndpointId',
-      analyticsEndpointId,
-    );
+    final helper = newBuiltValueToStringHelper('AnalyticsMetadataType')
+      ..add(
+        'analyticsEndpointId',
+        analyticsEndpointId,
+      );
     return helper.toString();
   }
 }

@@ -48,7 +48,7 @@ abstract class Destination
 
   const Destination._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<Destination>> serializers = [
     DestinationRestXmlSerializer()
   ];
 
@@ -89,35 +89,35 @@ abstract class Destination
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Destination');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'account',
-      account,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'accessControlTranslation',
-      accessControlTranslation,
-    );
-    helper.add(
-      'encryptionConfiguration',
-      encryptionConfiguration,
-    );
-    helper.add(
-      'replicationTime',
-      replicationTime,
-    );
-    helper.add(
-      'metrics',
-      metrics,
-    );
+    final helper = newBuiltValueToStringHelper('Destination')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'account',
+        account,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'accessControlTranslation',
+        accessControlTranslation,
+      )
+      ..add(
+        'encryptionConfiguration',
+        encryptionConfiguration,
+      )
+      ..add(
+        'replicationTime',
+        replicationTime,
+      )
+      ..add(
+        'metrics',
+        metrics,
+      );
     return helper.toString();
   }
 }

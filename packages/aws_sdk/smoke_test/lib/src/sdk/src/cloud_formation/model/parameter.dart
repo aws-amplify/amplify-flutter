@@ -35,7 +35,7 @@ abstract class Parameter
 
   const Parameter._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Parameter>> serializers = [
     ParameterAwsQuerySerializer()
   ];
 
@@ -62,23 +62,23 @@ abstract class Parameter
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Parameter');
-    helper.add(
-      'parameterKey',
-      parameterKey,
-    );
-    helper.add(
-      'parameterValue',
-      parameterValue,
-    );
-    helper.add(
-      'usePreviousValue',
-      usePreviousValue,
-    );
-    helper.add(
-      'resolvedValue',
-      resolvedValue,
-    );
+    final helper = newBuiltValueToStringHelper('Parameter')
+      ..add(
+        'parameterKey',
+        parameterKey,
+      )
+      ..add(
+        'parameterValue',
+        parameterValue,
+      )
+      ..add(
+        'usePreviousValue',
+        usePreviousValue,
+      )
+      ..add(
+        'resolvedValue',
+        resolvedValue,
+      );
     return helper.toString();
   }
 }

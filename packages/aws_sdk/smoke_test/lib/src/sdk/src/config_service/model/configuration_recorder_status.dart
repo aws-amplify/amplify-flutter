@@ -54,9 +54,8 @@ abstract class ConfigurationRecorderStatus
 
   const ConfigurationRecorderStatus._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ConfigurationRecorderStatusAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<ConfigurationRecorderStatus>>
+      serializers = [ConfigurationRecorderStatusAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigurationRecorderStatusBuilder b) {
@@ -99,39 +98,39 @@ abstract class ConfigurationRecorderStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfigurationRecorderStatus');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'lastStartTime',
-      lastStartTime,
-    );
-    helper.add(
-      'lastStopTime',
-      lastStopTime,
-    );
-    helper.add(
-      'recording',
-      recording,
-    );
-    helper.add(
-      'lastStatus',
-      lastStatus,
-    );
-    helper.add(
-      'lastErrorCode',
-      lastErrorCode,
-    );
-    helper.add(
-      'lastErrorMessage',
-      lastErrorMessage,
-    );
-    helper.add(
-      'lastStatusChangeTime',
-      lastStatusChangeTime,
-    );
+    final helper = newBuiltValueToStringHelper('ConfigurationRecorderStatus')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'lastStartTime',
+        lastStartTime,
+      )
+      ..add(
+        'lastStopTime',
+        lastStopTime,
+      )
+      ..add(
+        'recording',
+        recording,
+      )
+      ..add(
+        'lastStatus',
+        lastStatus,
+      )
+      ..add(
+        'lastErrorCode',
+        lastErrorCode,
+      )
+      ..add(
+        'lastErrorMessage',
+        lastErrorMessage,
+      )
+      ..add(
+        'lastStatusChangeTime',
+        lastStatusChangeTime,
+      );
     return helper.toString();
   }
 }

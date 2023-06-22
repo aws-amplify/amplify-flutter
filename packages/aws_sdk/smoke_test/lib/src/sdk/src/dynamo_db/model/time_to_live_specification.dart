@@ -33,9 +33,8 @@ abstract class TimeToLiveSpecification
 
   const TimeToLiveSpecification._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TimeToLiveSpecificationAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<TimeToLiveSpecification>> serializers =
+      [TimeToLiveSpecificationAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TimeToLiveSpecificationBuilder b) {
@@ -54,15 +53,15 @@ abstract class TimeToLiveSpecification
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TimeToLiveSpecification');
-    helper.add(
-      'enabled',
-      enabled,
-    );
-    helper.add(
-      'attributeName',
-      attributeName,
-    );
+    final helper = newBuiltValueToStringHelper('TimeToLiveSpecification')
+      ..add(
+        'enabled',
+        enabled,
+      )
+      ..add(
+        'attributeName',
+        attributeName,
+      );
     return helper.toString();
   }
 }

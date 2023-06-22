@@ -55,7 +55,7 @@ abstract class ApiKey
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ApiKey>> serializers = [
     ApiKeyRestJson1Serializer()
   ];
 
@@ -108,47 +108,47 @@ abstract class ApiKey
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ApiKey');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'value',
-      value,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'customerId',
-      customerId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'enabled',
-      enabled,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
-    );
-    helper.add(
-      'lastUpdatedDate',
-      lastUpdatedDate,
-    );
-    helper.add(
-      'stageKeys',
-      stageKeys,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('ApiKey')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'value',
+        value,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'customerId',
+        customerId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'enabled',
+        enabled,
+      )
+      ..add(
+        'createdDate',
+        createdDate,
+      )
+      ..add(
+        'lastUpdatedDate',
+        lastUpdatedDate,
+      )
+      ..add(
+        'stageKeys',
+        stageKeys,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

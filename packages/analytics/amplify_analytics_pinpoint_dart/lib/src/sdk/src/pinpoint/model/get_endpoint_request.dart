@@ -49,9 +49,8 @@ abstract class GetEndpointRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetEndpointRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetEndpointRequestPayload>>
+      serializers = [GetEndpointRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetEndpointRequestBuilder b) {}
@@ -84,15 +83,15 @@ abstract class GetEndpointRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetEndpointRequest');
-    helper.add(
-      'applicationId',
-      applicationId,
-    );
-    helper.add(
-      'endpointId',
-      endpointId,
-    );
+    final helper = newBuiltValueToStringHelper('GetEndpointRequest')
+      ..add(
+        'applicationId',
+        applicationId,
+      )
+      ..add(
+        'endpointId',
+        endpointId,
+      );
     return helper.toString();
   }
 }

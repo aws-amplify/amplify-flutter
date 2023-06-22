@@ -43,9 +43,8 @@ abstract class MethodNotAllowedException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    MethodNotAllowedExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<MethodNotAllowedException>>
+      serializers = [MethodNotAllowedExceptionRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MethodNotAllowedExceptionBuilder b) {}
@@ -78,15 +77,15 @@ abstract class MethodNotAllowedException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MethodNotAllowedException');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'requestId',
-      requestId,
-    );
+    final helper = newBuiltValueToStringHelper('MethodNotAllowedException')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'requestId',
+        requestId,
+      );
     return helper.toString();
   }
 }

@@ -37,9 +37,8 @@ abstract class RestoreTableToPointInTimeOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    RestoreTableToPointInTimeOutputAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<RestoreTableToPointInTimeOutput>>
+      serializers = [RestoreTableToPointInTimeOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RestoreTableToPointInTimeOutputBuilder b) {}
@@ -51,11 +50,11 @@ abstract class RestoreTableToPointInTimeOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('RestoreTableToPointInTimeOutput');
-    helper.add(
-      'tableDescription',
-      tableDescription,
-    );
+        newBuiltValueToStringHelper('RestoreTableToPointInTimeOutput')
+          ..add(
+            'tableDescription',
+            tableDescription,
+          );
     return helper.toString();
   }
 }

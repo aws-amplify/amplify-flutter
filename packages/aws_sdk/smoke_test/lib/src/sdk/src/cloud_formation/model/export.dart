@@ -32,7 +32,7 @@ abstract class Export
 
   const Export._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Export>> serializers = [
     ExportAwsQuerySerializer()
   ];
 
@@ -55,19 +55,19 @@ abstract class Export
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Export');
-    helper.add(
-      'exportingStackId',
-      exportingStackId,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('Export')
+      ..add(
+        'exportingStackId',
+        exportingStackId,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

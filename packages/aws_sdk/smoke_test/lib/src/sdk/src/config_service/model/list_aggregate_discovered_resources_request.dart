@@ -51,7 +51,9 @@ abstract class ListAggregateDiscoveredResourcesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<ListAggregateDiscoveredResourcesRequest>>
+      serializers = [
     ListAggregateDiscoveredResourcesRequestAwsJson11Serializer()
   ];
 
@@ -87,27 +89,27 @@ abstract class ListAggregateDiscoveredResourcesRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListAggregateDiscoveredResourcesRequest');
-    helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'filters',
-      filters,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('ListAggregateDiscoveredResourcesRequest')
+          ..add(
+            'configurationAggregatorName',
+            configurationAggregatorName,
+          )
+          ..add(
+            'resourceType',
+            resourceType,
+          )
+          ..add(
+            'filters',
+            filters,
+          )
+          ..add(
+            'limit',
+            limit,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

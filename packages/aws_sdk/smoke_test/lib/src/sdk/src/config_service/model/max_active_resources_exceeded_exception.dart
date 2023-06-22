@@ -40,9 +40,8 @@ abstract class MaxActiveResourcesExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    MaxActiveResourcesExceededExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<MaxActiveResourcesExceededException>>
+      serializers = [MaxActiveResourcesExceededExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MaxActiveResourcesExceededExceptionBuilder b) {}
@@ -70,11 +69,11 @@ abstract class MaxActiveResourcesExceededException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('MaxActiveResourcesExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('MaxActiveResourcesExceededException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

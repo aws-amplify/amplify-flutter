@@ -40,7 +40,7 @@ abstract class ListMfaDevicesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListMfaDevicesRequest>> serializers = [
     ListMfaDevicesRequestAwsQuerySerializer()
   ];
 
@@ -69,19 +69,19 @@ abstract class ListMfaDevicesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListMfaDevicesRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListMfaDevicesRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

@@ -42,7 +42,7 @@ abstract class ClientCertificates
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ClientCertificates>> serializers = [
     ClientCertificatesRestJson1Serializer()
   ];
 
@@ -61,15 +61,15 @@ abstract class ClientCertificates
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ClientCertificates');
-    helper.add(
-      'items',
-      items,
-    );
-    helper.add(
-      'position',
-      position,
-    );
+    final helper = newBuiltValueToStringHelper('ClientCertificates')
+      ..add(
+        'items',
+        items,
+      )
+      ..add(
+        'position',
+        position,
+      );
     return helper.toString();
   }
 }

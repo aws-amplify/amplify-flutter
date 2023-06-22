@@ -44,7 +44,7 @@ abstract class Statement
 
   const Statement._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Statement>> serializers = [
     StatementAwsQuerySerializer()
   ];
 
@@ -71,23 +71,23 @@ abstract class Statement
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Statement');
-    helper.add(
-      'sourcePolicyId',
-      sourcePolicyId,
-    );
-    helper.add(
-      'sourcePolicyType',
-      sourcePolicyType,
-    );
-    helper.add(
-      'startPosition',
-      startPosition,
-    );
-    helper.add(
-      'endPosition',
-      endPosition,
-    );
+    final helper = newBuiltValueToStringHelper('Statement')
+      ..add(
+        'sourcePolicyId',
+        sourcePolicyId,
+      )
+      ..add(
+        'sourcePolicyType',
+        sourcePolicyType,
+      )
+      ..add(
+        'startPosition',
+        startPosition,
+      )
+      ..add(
+        'endPosition',
+        endPosition,
+      );
     return helper.toString();
   }
 }

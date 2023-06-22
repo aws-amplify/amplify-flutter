@@ -35,7 +35,7 @@ abstract class CustomPolicyDetails
 
   const CustomPolicyDetails._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<CustomPolicyDetails>> serializers = [
     CustomPolicyDetailsAwsJson11Serializer()
   ];
 
@@ -60,19 +60,19 @@ abstract class CustomPolicyDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CustomPolicyDetails');
-    helper.add(
-      'policyRuntime',
-      policyRuntime,
-    );
-    helper.add(
-      'policyText',
-      policyText,
-    );
-    helper.add(
-      'enableDebugLogDelivery',
-      enableDebugLogDelivery,
-    );
+    final helper = newBuiltValueToStringHelper('CustomPolicyDetails')
+      ..add(
+        'policyRuntime',
+        policyRuntime,
+      )
+      ..add(
+        'policyText',
+        policyText,
+      )
+      ..add(
+        'enableDebugLogDelivery',
+        enableDebugLogDelivery,
+      );
     return helper.toString();
   }
 }

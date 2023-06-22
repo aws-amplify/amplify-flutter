@@ -27,7 +27,7 @@ abstract class RecordingStrategy
 
   const RecordingStrategy._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<RecordingStrategy>> serializers = [
     RecordingStrategyAwsJson11Serializer()
   ];
 
@@ -61,11 +61,11 @@ abstract class RecordingStrategy
   List<Object?> get props => [useOnly];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RecordingStrategy');
-    helper.add(
-      'useOnly',
-      useOnly,
-    );
+    final helper = newBuiltValueToStringHelper('RecordingStrategy')
+      ..add(
+        'useOnly',
+        useOnly,
+      );
     return helper.toString();
   }
 }

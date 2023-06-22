@@ -57,7 +57,7 @@ abstract class AuthEventType
 
   const AuthEventType._();
 
-  static const List<_i9.SmithySerializer> serializers = [
+  static const List<_i9.SmithySerializer<AuthEventType>> serializers = [
     AuthEventTypeAwsJson11Serializer()
   ];
 
@@ -70,7 +70,7 @@ abstract class AuthEventType
   /// The event type.
   _i2.EventType? get eventType;
 
-  /// The creation date
+  /// The date and time, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format, when the item was created.
   DateTime? get creationDate;
 
   /// The event response.
@@ -100,39 +100,39 @@ abstract class AuthEventType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AuthEventType');
-    helper.add(
-      'eventId',
-      eventId,
-    );
-    helper.add(
-      'eventType',
-      eventType,
-    );
-    helper.add(
-      'creationDate',
-      creationDate,
-    );
-    helper.add(
-      'eventResponse',
-      eventResponse,
-    );
-    helper.add(
-      'eventRisk',
-      eventRisk,
-    );
-    helper.add(
-      'challengeResponses',
-      challengeResponses,
-    );
-    helper.add(
-      'eventContextData',
-      eventContextData,
-    );
-    helper.add(
-      'eventFeedback',
-      eventFeedback,
-    );
+    final helper = newBuiltValueToStringHelper('AuthEventType')
+      ..add(
+        'eventId',
+        eventId,
+      )
+      ..add(
+        'eventType',
+        eventType,
+      )
+      ..add(
+        'creationDate',
+        creationDate,
+      )
+      ..add(
+        'eventResponse',
+        eventResponse,
+      )
+      ..add(
+        'eventRisk',
+        eventRisk,
+      )
+      ..add(
+        'challengeResponses',
+        challengeResponses,
+      )
+      ..add(
+        'eventContextData',
+        eventContextData,
+      )
+      ..add(
+        'eventFeedback',
+        eventFeedback,
+      );
     return helper.toString();
   }
 }

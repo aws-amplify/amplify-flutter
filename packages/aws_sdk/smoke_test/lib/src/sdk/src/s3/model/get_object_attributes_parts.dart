@@ -43,9 +43,8 @@ abstract class GetObjectAttributesParts
 
   const GetObjectAttributesParts._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetObjectAttributesPartsRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<GetObjectAttributesParts>>
+      serializers = [GetObjectAttributesPartsRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectAttributesPartsBuilder b) {}
@@ -78,31 +77,31 @@ abstract class GetObjectAttributesParts
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectAttributesParts');
-    helper.add(
-      'totalPartsCount',
-      totalPartsCount,
-    );
-    helper.add(
-      'partNumberMarker',
-      partNumberMarker,
-    );
-    helper.add(
-      'nextPartNumberMarker',
-      nextPartNumberMarker,
-    );
-    helper.add(
-      'maxParts',
-      maxParts,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'parts',
-      parts,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectAttributesParts')
+      ..add(
+        'totalPartsCount',
+        totalPartsCount,
+      )
+      ..add(
+        'partNumberMarker',
+        partNumberMarker,
+      )
+      ..add(
+        'nextPartNumberMarker',
+        nextPartNumberMarker,
+      )
+      ..add(
+        'maxParts',
+        maxParts,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'parts',
+        parts,
+      );
     return helper.toString();
   }
 }

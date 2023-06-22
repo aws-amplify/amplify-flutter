@@ -56,9 +56,8 @@ abstract class GetObjectAclOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetObjectAclOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<GetObjectAclOutputPayload>>
+      serializers = [GetObjectAclOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectAclOutputBuilder b) {}
@@ -88,19 +87,19 @@ abstract class GetObjectAclOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectAclOutput');
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
-      'grants',
-      grants,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectAclOutput')
+      ..add(
+        'owner',
+        owner,
+      )
+      ..add(
+        'grants',
+        grants,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }
@@ -131,15 +130,15 @@ abstract class GetObjectAclOutputPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectAclOutputPayload');
-    helper.add(
-      'grants',
-      grants,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectAclOutputPayload')
+      ..add(
+        'grants',
+        grants,
+      )
+      ..add(
+        'owner',
+        owner,
+      );
     return helper.toString();
   }
 }

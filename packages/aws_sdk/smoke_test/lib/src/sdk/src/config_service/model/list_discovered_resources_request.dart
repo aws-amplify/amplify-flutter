@@ -53,9 +53,8 @@ abstract class ListDiscoveredResourcesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListDiscoveredResourcesRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<ListDiscoveredResourcesRequest>>
+      serializers = [ListDiscoveredResourcesRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListDiscoveredResourcesRequestBuilder b) {
@@ -93,32 +92,31 @@ abstract class ListDiscoveredResourcesRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListDiscoveredResourcesRequest');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceIds',
-      resourceIds,
-    );
-    helper.add(
-      'resourceName',
-      resourceName,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'includeDeletedResources',
-      includeDeletedResources,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListDiscoveredResourcesRequest')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceIds',
+        resourceIds,
+      )
+      ..add(
+        'resourceName',
+        resourceName,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'includeDeletedResources',
+        includeDeletedResources,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

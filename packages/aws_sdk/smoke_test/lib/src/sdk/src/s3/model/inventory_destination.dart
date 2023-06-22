@@ -29,7 +29,7 @@ abstract class InventoryDestination
 
   const InventoryDestination._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<InventoryDestination>> serializers = [
     InventoryDestinationRestXmlSerializer()
   ];
 
@@ -42,11 +42,11 @@ abstract class InventoryDestination
   List<Object?> get props => [s3BucketDestination];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InventoryDestination');
-    helper.add(
-      's3BucketDestination',
-      s3BucketDestination,
-    );
+    final helper = newBuiltValueToStringHelper('InventoryDestination')
+      ..add(
+        's3BucketDestination',
+        s3BucketDestination,
+      );
     return helper.toString();
   }
 }

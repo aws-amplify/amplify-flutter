@@ -37,9 +37,8 @@ abstract class GetAggregateResourceConfigResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetAggregateResourceConfigResponseAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<GetAggregateResourceConfigResponse>>
+      serializers = [GetAggregateResourceConfigResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetAggregateResourceConfigResponseBuilder b) {}
@@ -51,11 +50,11 @@ abstract class GetAggregateResourceConfigResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetAggregateResourceConfigResponse');
-    helper.add(
-      'configurationItem',
-      configurationItem,
-    );
+        newBuiltValueToStringHelper('GetAggregateResourceConfigResponse')
+          ..add(
+            'configurationItem',
+            configurationItem,
+          );
     return helper.toString();
   }
 }

@@ -32,7 +32,7 @@ abstract class NewDeviceMetadataType
 
   const NewDeviceMetadataType._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<NewDeviceMetadataType>> serializers = [
     NewDeviceMetadataTypeAwsJson11Serializer()
   ];
 
@@ -51,15 +51,15 @@ abstract class NewDeviceMetadataType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NewDeviceMetadataType');
-    helper.add(
-      'deviceKey',
-      deviceKey,
-    );
-    helper.add(
-      'deviceGroupKey',
-      deviceGroupKey,
-    );
+    final helper = newBuiltValueToStringHelper('NewDeviceMetadataType')
+      ..add(
+        'deviceKey',
+        deviceKey,
+      )
+      ..add(
+        'deviceGroupKey',
+        deviceGroupKey,
+      );
     return helper.toString();
   }
 }

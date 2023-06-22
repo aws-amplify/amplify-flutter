@@ -43,9 +43,8 @@ abstract class DescribeChangeSetInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeChangeSetInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DescribeChangeSetInput>> serializers =
+      [DescribeChangeSetInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeChangeSetInputBuilder b) {}
@@ -68,19 +67,19 @@ abstract class DescribeChangeSetInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeChangeSetInput');
-    helper.add(
-      'changeSetName',
-      changeSetName,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeChangeSetInput')
+      ..add(
+        'changeSetName',
+        changeSetName,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

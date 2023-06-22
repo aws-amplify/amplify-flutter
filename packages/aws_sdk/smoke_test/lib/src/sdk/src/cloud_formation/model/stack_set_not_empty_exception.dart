@@ -37,9 +37,8 @@ abstract class StackSetNotEmptyException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    StackSetNotEmptyExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<StackSetNotEmptyException>>
+      serializers = [StackSetNotEmptyExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StackSetNotEmptyExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class StackSetNotEmptyException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackSetNotEmptyException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('StackSetNotEmptyException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

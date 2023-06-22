@@ -51,9 +51,8 @@ abstract class DeletePublicAccessBlockRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeletePublicAccessBlockRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeletePublicAccessBlockRequestPayload>>
+      serializers = [DeletePublicAccessBlockRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeletePublicAccessBlockRequestBuilder b) {}
@@ -85,16 +84,15 @@ abstract class DeletePublicAccessBlockRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeletePublicAccessBlockRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('DeletePublicAccessBlockRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

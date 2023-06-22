@@ -45,7 +45,7 @@ abstract class SigningCertificate
 
   const SigningCertificate._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<SigningCertificate>> serializers = [
     SigningCertificateAwsQuerySerializer()
   ];
 
@@ -76,27 +76,27 @@ abstract class SigningCertificate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SigningCertificate');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'certificateId',
-      certificateId,
-    );
-    helper.add(
-      'certificateBody',
-      certificateBody,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'uploadDate',
-      uploadDate,
-    );
+    final helper = newBuiltValueToStringHelper('SigningCertificate')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'certificateId',
+        certificateId,
+      )
+      ..add(
+        'certificateBody',
+        certificateBody,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'uploadDate',
+        uploadDate,
+      );
     return helper.toString();
   }
 }

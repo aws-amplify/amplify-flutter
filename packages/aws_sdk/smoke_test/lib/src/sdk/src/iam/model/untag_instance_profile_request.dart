@@ -40,9 +40,8 @@ abstract class UntagInstanceProfileRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UntagInstanceProfileRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<UntagInstanceProfileRequest>>
+      serializers = [UntagInstanceProfileRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UntagInstanceProfileRequestBuilder b) {}
@@ -63,15 +62,15 @@ abstract class UntagInstanceProfileRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UntagInstanceProfileRequest');
-    helper.add(
-      'instanceProfileName',
-      instanceProfileName,
-    );
-    helper.add(
-      'tagKeys',
-      tagKeys,
-    );
+    final helper = newBuiltValueToStringHelper('UntagInstanceProfileRequest')
+      ..add(
+        'instanceProfileName',
+        instanceProfileName,
+      )
+      ..add(
+        'tagKeys',
+        tagKeys,
+      );
     return helper.toString();
   }
 }

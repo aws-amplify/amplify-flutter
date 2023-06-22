@@ -27,7 +27,7 @@ abstract class CorsConfiguration
 
   const CorsConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<CorsConfiguration>> serializers = [
     CorsConfigurationRestXmlSerializer()
   ];
 
@@ -40,11 +40,11 @@ abstract class CorsConfiguration
   List<Object?> get props => [corsRules];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CorsConfiguration');
-    helper.add(
-      'corsRules',
-      corsRules,
-    );
+    final helper = newBuiltValueToStringHelper('CorsConfiguration')
+      ..add(
+        'corsRules',
+        corsRules,
+      );
     return helper.toString();
   }
 }

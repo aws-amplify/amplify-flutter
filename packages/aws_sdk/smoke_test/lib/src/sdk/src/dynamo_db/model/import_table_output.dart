@@ -33,7 +33,7 @@ abstract class ImportTableOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ImportTableOutput>> serializers = [
     ImportTableOutputAwsJson10Serializer()
   ];
 
@@ -46,11 +46,11 @@ abstract class ImportTableOutput
   List<Object?> get props => [importTableDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ImportTableOutput');
-    helper.add(
-      'importTableDescription',
-      importTableDescription,
-    );
+    final helper = newBuiltValueToStringHelper('ImportTableOutput')
+      ..add(
+        'importTableDescription',
+        importTableDescription,
+      );
     return helper.toString();
   }
 }

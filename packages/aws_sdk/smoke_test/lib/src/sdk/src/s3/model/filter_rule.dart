@@ -32,7 +32,7 @@ abstract class FilterRule
 
   const FilterRule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<FilterRule>> serializers = [
     FilterRuleRestXmlSerializer()
   ];
 
@@ -51,15 +51,15 @@ abstract class FilterRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FilterRule');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('FilterRule')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

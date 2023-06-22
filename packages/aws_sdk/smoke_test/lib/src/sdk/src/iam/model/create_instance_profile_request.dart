@@ -44,9 +44,8 @@ abstract class CreateInstanceProfileRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateInstanceProfileRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateInstanceProfileRequest>>
+      serializers = [CreateInstanceProfileRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateInstanceProfileRequestBuilder b) {}
@@ -77,19 +76,19 @@ abstract class CreateInstanceProfileRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateInstanceProfileRequest');
-    helper.add(
-      'instanceProfileName',
-      instanceProfileName,
-    );
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('CreateInstanceProfileRequest')
+      ..add(
+        'instanceProfileName',
+        instanceProfileName,
+      )
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

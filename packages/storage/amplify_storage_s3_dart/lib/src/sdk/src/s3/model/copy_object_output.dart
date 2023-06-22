@@ -110,7 +110,7 @@ abstract class CopyObjectOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.CopyObjectResult?>> serializers = [
     CopyObjectOutputRestXmlSerializer()
   ];
 
@@ -168,51 +168,51 @@ abstract class CopyObjectOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CopyObjectOutput');
-    helper.add(
-      'copyObjectResult',
-      copyObjectResult,
-    );
-    helper.add(
-      'expiration',
-      expiration,
-    );
-    helper.add(
-      'copySourceVersionId',
-      copySourceVersionId,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'serverSideEncryption',
-      serverSideEncryption,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'ssekmsKeyId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'ssekmsEncryptionContext',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('CopyObjectOutput')
+      ..add(
+        'copyObjectResult',
+        copyObjectResult,
+      )
+      ..add(
+        'expiration',
+        expiration,
+      )
+      ..add(
+        'copySourceVersionId',
+        copySourceVersionId,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'serverSideEncryption',
+        serverSideEncryption,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'ssekmsKeyId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'ssekmsEncryptionContext',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'bucketKeyEnabled',
+        bucketKeyEnabled,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }

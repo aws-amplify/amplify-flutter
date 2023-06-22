@@ -36,7 +36,7 @@ abstract class Change
 
   const Change._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Change>> serializers = [
     ChangeAwsQuerySerializer()
   ];
 
@@ -59,19 +59,19 @@ abstract class Change
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Change');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'hookInvocationCount',
-      hookInvocationCount,
-    );
-    helper.add(
-      'resourceChange',
-      resourceChange,
-    );
+    final helper = newBuiltValueToStringHelper('Change')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'hookInvocationCount',
+        hookInvocationCount,
+      )
+      ..add(
+        'resourceChange',
+        resourceChange,
+      );
     return helper.toString();
   }
 }

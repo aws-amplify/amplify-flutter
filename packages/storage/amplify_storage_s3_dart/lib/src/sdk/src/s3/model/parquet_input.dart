@@ -25,7 +25,7 @@ abstract class ParquetInput
 
   const ParquetInput._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ParquetInput>> serializers = [
     ParquetInputRestXmlSerializer()
   ];
 

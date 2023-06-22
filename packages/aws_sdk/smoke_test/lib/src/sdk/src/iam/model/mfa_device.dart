@@ -39,7 +39,7 @@ abstract class MfaDevice
 
   const MfaDevice._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<MfaDevice>> serializers = [
     MfaDeviceAwsQuerySerializer()
   ];
 
@@ -62,19 +62,19 @@ abstract class MfaDevice
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MfaDevice');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
-    helper.add(
-      'enableDate',
-      enableDate,
-    );
+    final helper = newBuiltValueToStringHelper('MfaDevice')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'serialNumber',
+        serialNumber,
+      )
+      ..add(
+        'enableDate',
+        enableDate,
+      );
     return helper.toString();
   }
 }

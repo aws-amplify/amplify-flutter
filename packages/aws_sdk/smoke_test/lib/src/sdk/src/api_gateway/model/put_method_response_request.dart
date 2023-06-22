@@ -74,9 +74,8 @@ abstract class PutMethodResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutMethodResponseRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutMethodResponseRequestPayload>>
+      serializers = [PutMethodResponseRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutMethodResponseRequestBuilder b) {}
@@ -137,31 +136,31 @@ abstract class PutMethodResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutMethodResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
-    helper.add(
-      'responseModels',
-      responseModels,
-    );
+    final helper = newBuiltValueToStringHelper('PutMethodResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      )
+      ..add(
+        'responseParameters',
+        responseParameters,
+      )
+      ..add(
+        'responseModels',
+        responseModels,
+      );
     return helper.toString();
   }
 }
@@ -195,15 +194,15 @@ abstract class PutMethodResponseRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutMethodResponseRequestPayload');
-    helper.add(
-      'responseModels',
-      responseModels,
-    );
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
+        newBuiltValueToStringHelper('PutMethodResponseRequestPayload')
+          ..add(
+            'responseModels',
+            responseModels,
+          )
+          ..add(
+            'responseParameters',
+            responseParameters,
+          );
     return helper.toString();
   }
 }

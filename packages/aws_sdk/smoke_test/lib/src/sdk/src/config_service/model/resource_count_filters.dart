@@ -36,7 +36,7 @@ abstract class ResourceCountFilters
 
   const ResourceCountFilters._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ResourceCountFilters>> serializers = [
     ResourceCountFiltersAwsJson11Serializer()
   ];
 
@@ -59,19 +59,19 @@ abstract class ResourceCountFilters
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceCountFilters');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'region',
-      region,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceCountFilters')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'region',
+        region,
+      );
     return helper.toString();
   }
 }

@@ -96,9 +96,8 @@ abstract class CreateBucketRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateBucketRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.CreateBucketConfiguration?>>
+      serializers = [CreateBucketRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateBucketRequestBuilder b) {}
@@ -170,47 +169,47 @@ abstract class CreateBucketRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateBucketRequest');
-    helper.add(
-      'acl',
-      acl,
-    );
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'createBucketConfiguration',
-      createBucketConfiguration,
-    );
-    helper.add(
-      'grantFullControl',
-      grantFullControl,
-    );
-    helper.add(
-      'grantRead',
-      grantRead,
-    );
-    helper.add(
-      'grantReadAcp',
-      grantReadAcp,
-    );
-    helper.add(
-      'grantWrite',
-      grantWrite,
-    );
-    helper.add(
-      'grantWriteAcp',
-      grantWriteAcp,
-    );
-    helper.add(
-      'objectLockEnabledForBucket',
-      objectLockEnabledForBucket,
-    );
-    helper.add(
-      'objectOwnership',
-      objectOwnership,
-    );
+    final helper = newBuiltValueToStringHelper('CreateBucketRequest')
+      ..add(
+        'acl',
+        acl,
+      )
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'createBucketConfiguration',
+        createBucketConfiguration,
+      )
+      ..add(
+        'grantFullControl',
+        grantFullControl,
+      )
+      ..add(
+        'grantRead',
+        grantRead,
+      )
+      ..add(
+        'grantReadAcp',
+        grantReadAcp,
+      )
+      ..add(
+        'grantWrite',
+        grantWrite,
+      )
+      ..add(
+        'grantWriteAcp',
+        grantWriteAcp,
+      )
+      ..add(
+        'objectLockEnabledForBucket',
+        objectLockEnabledForBucket,
+      )
+      ..add(
+        'objectOwnership',
+        objectOwnership,
+      );
     return helper.toString();
   }
 }

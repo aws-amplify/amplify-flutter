@@ -69,9 +69,8 @@ abstract class PutBucketEncryptionRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketEncryptionRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.ServerSideEncryptionConfiguration>>
+      serializers = [PutBucketEncryptionRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutBucketEncryptionRequestBuilder b) {}
@@ -119,27 +118,27 @@ abstract class PutBucketEncryptionRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutBucketEncryptionRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'serverSideEncryptionConfiguration',
-      serverSideEncryptionConfiguration,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutBucketEncryptionRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'serverSideEncryptionConfiguration',
+        serverSideEncryptionConfiguration,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

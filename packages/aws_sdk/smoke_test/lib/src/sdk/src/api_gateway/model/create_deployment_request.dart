@@ -79,9 +79,8 @@ abstract class CreateDeploymentRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateDeploymentRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateDeploymentRequestPayload>>
+      serializers = [CreateDeploymentRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateDeploymentRequestBuilder b) {}
@@ -154,43 +153,43 @@ abstract class CreateDeploymentRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateDeploymentRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'stageDescription',
-      stageDescription,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'cacheClusterEnabled',
-      cacheClusterEnabled,
-    );
-    helper.add(
-      'cacheClusterSize',
-      cacheClusterSize,
-    );
-    helper.add(
-      'variables',
-      variables,
-    );
-    helper.add(
-      'canarySettings',
-      canarySettings,
-    );
-    helper.add(
-      'tracingEnabled',
-      tracingEnabled,
-    );
+    final helper = newBuiltValueToStringHelper('CreateDeploymentRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      )
+      ..add(
+        'stageDescription',
+        stageDescription,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'cacheClusterEnabled',
+        cacheClusterEnabled,
+      )
+      ..add(
+        'cacheClusterSize',
+        cacheClusterSize,
+      )
+      ..add(
+        'variables',
+        variables,
+      )
+      ..add(
+        'canarySettings',
+        canarySettings,
+      )
+      ..add(
+        'tracingEnabled',
+        tracingEnabled,
+      );
     return helper.toString();
   }
 }
@@ -247,40 +246,39 @@ abstract class CreateDeploymentRequestPayload
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CreateDeploymentRequestPayload');
-    helper.add(
-      'cacheClusterEnabled',
-      cacheClusterEnabled,
-    );
-    helper.add(
-      'cacheClusterSize',
-      cacheClusterSize,
-    );
-    helper.add(
-      'canarySettings',
-      canarySettings,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'stageDescription',
-      stageDescription,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'tracingEnabled',
-      tracingEnabled,
-    );
-    helper.add(
-      'variables',
-      variables,
-    );
+    final helper = newBuiltValueToStringHelper('CreateDeploymentRequestPayload')
+      ..add(
+        'cacheClusterEnabled',
+        cacheClusterEnabled,
+      )
+      ..add(
+        'cacheClusterSize',
+        cacheClusterSize,
+      )
+      ..add(
+        'canarySettings',
+        canarySettings,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'stageDescription',
+        stageDescription,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      )
+      ..add(
+        'tracingEnabled',
+        tracingEnabled,
+      )
+      ..add(
+        'variables',
+        variables,
+      );
     return helper.toString();
   }
 }

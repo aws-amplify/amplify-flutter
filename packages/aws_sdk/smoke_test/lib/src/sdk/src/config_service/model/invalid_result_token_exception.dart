@@ -38,9 +38,8 @@ abstract class InvalidResultTokenException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidResultTokenExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidResultTokenException>>
+      serializers = [InvalidResultTokenExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidResultTokenExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class InvalidResultTokenException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidResultTokenException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidResultTokenException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

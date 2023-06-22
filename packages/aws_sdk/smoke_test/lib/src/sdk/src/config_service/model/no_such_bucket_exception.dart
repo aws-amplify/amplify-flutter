@@ -38,7 +38,7 @@ abstract class NoSuchBucketException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<NoSuchBucketException>> serializers = [
     NoSuchBucketExceptionAwsJson11Serializer()
   ];
 
@@ -67,11 +67,11 @@ abstract class NoSuchBucketException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NoSuchBucketException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('NoSuchBucketException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

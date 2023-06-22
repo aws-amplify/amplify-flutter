@@ -37,7 +37,7 @@ abstract class UntagResourceInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UntagResourceInput>> serializers = [
     UntagResourceInputAwsJson10Serializer()
   ];
 
@@ -58,15 +58,15 @@ abstract class UntagResourceInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UntagResourceInput');
-    helper.add(
-      'resourceArn',
-      resourceArn,
-    );
-    helper.add(
-      'tagKeys',
-      tagKeys,
-    );
+    final helper = newBuiltValueToStringHelper('UntagResourceInput')
+      ..add(
+        'resourceArn',
+        resourceArn,
+      )
+      ..add(
+        'tagKeys',
+        tagKeys,
+      );
     return helper.toString();
   }
 }

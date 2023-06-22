@@ -38,9 +38,8 @@ abstract class InvalidRestoreTimeException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidRestoreTimeExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidRestoreTimeException>>
+      serializers = [InvalidRestoreTimeExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidRestoreTimeExceptionBuilder b) {}
@@ -65,11 +64,11 @@ abstract class InvalidRestoreTimeException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidRestoreTimeException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidRestoreTimeException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

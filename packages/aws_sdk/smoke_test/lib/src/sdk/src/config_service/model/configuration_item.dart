@@ -74,7 +74,7 @@ abstract class ConfigurationItem
 
   const ConfigurationItem._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<ConfigurationItem>> serializers = [
     ConfigurationItemAwsJson11Serializer()
   ];
 
@@ -176,79 +176,79 @@ abstract class ConfigurationItem
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfigurationItem');
-    helper.add(
-      'version',
-      version,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'configurationItemCaptureTime',
-      configurationItemCaptureTime,
-    );
-    helper.add(
-      'configurationItemStatus',
-      configurationItemStatus,
-    );
-    helper.add(
-      'configurationStateId',
-      configurationStateId,
-    );
-    helper.add(
-      'configurationItemMd5Hash',
-      configurationItemMd5Hash,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'resourceName',
-      resourceName,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
-    helper.add(
-      'availabilityZone',
-      availabilityZone,
-    );
-    helper.add(
-      'resourceCreationTime',
-      resourceCreationTime,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'relatedEvents',
-      relatedEvents,
-    );
-    helper.add(
-      'relationships',
-      relationships,
-    );
-    helper.add(
-      'configuration',
-      configuration,
-    );
-    helper.add(
-      'supplementaryConfiguration',
-      supplementaryConfiguration,
-    );
+    final helper = newBuiltValueToStringHelper('ConfigurationItem')
+      ..add(
+        'version',
+        version,
+      )
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'configurationItemCaptureTime',
+        configurationItemCaptureTime,
+      )
+      ..add(
+        'configurationItemStatus',
+        configurationItemStatus,
+      )
+      ..add(
+        'configurationStateId',
+        configurationStateId,
+      )
+      ..add(
+        'configurationItemMd5Hash',
+        configurationItemMd5Hash,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'resourceName',
+        resourceName,
+      )
+      ..add(
+        'awsRegion',
+        awsRegion,
+      )
+      ..add(
+        'availabilityZone',
+        availabilityZone,
+      )
+      ..add(
+        'resourceCreationTime',
+        resourceCreationTime,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'relatedEvents',
+        relatedEvents,
+      )
+      ..add(
+        'relationships',
+        relationships,
+      )
+      ..add(
+        'configuration',
+        configuration,
+      )
+      ..add(
+        'supplementaryConfiguration',
+        supplementaryConfiguration,
+      );
     return helper.toString();
   }
 }

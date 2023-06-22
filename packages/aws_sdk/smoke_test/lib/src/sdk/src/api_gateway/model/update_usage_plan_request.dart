@@ -55,9 +55,8 @@ abstract class UpdateUsagePlanRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateUsagePlanRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateUsagePlanRequestPayload>>
+      serializers = [UpdateUsagePlanRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateUsagePlanRequestBuilder b) {}
@@ -93,15 +92,15 @@ abstract class UpdateUsagePlanRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateUsagePlanRequest');
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateUsagePlanRequest')
+      ..add(
+        'usagePlanId',
+        usagePlanId,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -128,11 +127,11 @@ abstract class UpdateUsagePlanRequestPayload
   List<Object?> get props => [patchOperations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateUsagePlanRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateUsagePlanRequestPayload')
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }

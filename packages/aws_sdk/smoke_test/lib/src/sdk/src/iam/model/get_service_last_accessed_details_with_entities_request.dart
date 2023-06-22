@@ -44,7 +44,9 @@ abstract class GetServiceLastAccessedDetailsWithEntitiesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+      _i1.SmithySerializer<
+          GetServiceLastAccessedDetailsWithEntitiesRequest>> serializers = [
     GetServiceLastAccessedDetailsWithEntitiesRequestAwsQuerySerializer()
   ];
 
@@ -79,23 +81,23 @@ abstract class GetServiceLastAccessedDetailsWithEntitiesRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetServiceLastAccessedDetailsWithEntitiesRequest');
-    helper.add(
-      'jobId',
-      jobId,
-    );
-    helper.add(
-      'serviceNamespace',
-      serviceNamespace,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+        'GetServiceLastAccessedDetailsWithEntitiesRequest')
+      ..add(
+        'jobId',
+        jobId,
+      )
+      ..add(
+        'serviceNamespace',
+        serviceNamespace,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      )
+      ..add(
+        'marker',
+        marker,
+      );
     return helper.toString();
   }
 }

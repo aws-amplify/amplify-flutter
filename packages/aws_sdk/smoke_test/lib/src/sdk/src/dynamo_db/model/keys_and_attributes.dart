@@ -49,7 +49,7 @@ abstract class KeysAndAttributes
 
   const KeysAndAttributes._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<KeysAndAttributes>> serializers = [
     KeysAndAttributesAwsJson10Serializer()
   ];
 
@@ -110,27 +110,27 @@ abstract class KeysAndAttributes
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('KeysAndAttributes');
-    helper.add(
-      'keys',
-      keys,
-    );
-    helper.add(
-      'attributesToGet',
-      attributesToGet,
-    );
-    helper.add(
-      'consistentRead',
-      consistentRead,
-    );
-    helper.add(
-      'projectionExpression',
-      projectionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
+    final helper = newBuiltValueToStringHelper('KeysAndAttributes')
+      ..add(
+        'keys',
+        keys,
+      )
+      ..add(
+        'attributesToGet',
+        attributesToGet,
+      )
+      ..add(
+        'consistentRead',
+        consistentRead,
+      )
+      ..add(
+        'projectionExpression',
+        projectionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      );
     return helper.toString();
   }
 }

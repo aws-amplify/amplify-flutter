@@ -48,9 +48,8 @@ abstract class BatchGetResourceConfigResponse
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    BatchGetResourceConfigResponseAwsJson11Serializer()
-  ];
+  static const List<_i5.SmithySerializer<BatchGetResourceConfigResponse>>
+      serializers = [BatchGetResourceConfigResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BatchGetResourceConfigResponseBuilder b) {}
@@ -67,16 +66,15 @@ abstract class BatchGetResourceConfigResponse
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('BatchGetResourceConfigResponse');
-    helper.add(
-      'baseConfigurationItems',
-      baseConfigurationItems,
-    );
-    helper.add(
-      'unprocessedResourceKeys',
-      unprocessedResourceKeys,
-    );
+    final helper = newBuiltValueToStringHelper('BatchGetResourceConfigResponse')
+      ..add(
+        'baseConfigurationItems',
+        baseConfigurationItems,
+      )
+      ..add(
+        'unprocessedResourceKeys',
+        unprocessedResourceKeys,
+      );
     return helper.toString();
   }
 }

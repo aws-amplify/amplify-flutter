@@ -30,7 +30,7 @@ abstract class RegisterTypeOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<RegisterTypeOutput>> serializers = [
     RegisterTypeOutputAwsQuerySerializer()
   ];
 
@@ -45,11 +45,11 @@ abstract class RegisterTypeOutput
   List<Object?> get props => [registrationToken];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RegisterTypeOutput');
-    helper.add(
-      'registrationToken',
-      registrationToken,
-    );
+    final helper = newBuiltValueToStringHelper('RegisterTypeOutput')
+      ..add(
+        'registrationToken',
+        registrationToken,
+      );
     return helper.toString();
   }
 }

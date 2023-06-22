@@ -44,7 +44,7 @@ abstract class InputSerialization
 
   const InputSerialization._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<InputSerialization>> serializers = [
     InputSerializationRestXmlSerializer()
   ];
 
@@ -71,23 +71,23 @@ abstract class InputSerialization
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InputSerialization');
-    helper.add(
-      'csv',
-      csv,
-    );
-    helper.add(
-      'compressionType',
-      compressionType,
-    );
-    helper.add(
-      'json',
-      json,
-    );
-    helper.add(
-      'parquet',
-      parquet,
-    );
+    final helper = newBuiltValueToStringHelper('InputSerialization')
+      ..add(
+        'csv',
+        csv,
+      )
+      ..add(
+        'compressionType',
+        compressionType,
+      )
+      ..add(
+        'json',
+        json,
+      )
+      ..add(
+        'parquet',
+        parquet,
+      );
     return helper.toString();
   }
 }

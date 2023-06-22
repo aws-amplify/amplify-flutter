@@ -74,9 +74,8 @@ abstract class StackSetDriftDetectionDetails
 
   const StackSetDriftDetectionDetails._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    StackSetDriftDetectionDetailsAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<StackSetDriftDetectionDetails>>
+      serializers = [StackSetDriftDetectionDetailsAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StackSetDriftDetectionDetailsBuilder b) {
@@ -149,39 +148,39 @@ abstract class StackSetDriftDetectionDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackSetDriftDetectionDetails');
-    helper.add(
-      'driftStatus',
-      driftStatus,
-    );
-    helper.add(
-      'driftDetectionStatus',
-      driftDetectionStatus,
-    );
-    helper.add(
-      'lastDriftCheckTimestamp',
-      lastDriftCheckTimestamp,
-    );
-    helper.add(
-      'totalStackInstancesCount',
-      totalStackInstancesCount,
-    );
-    helper.add(
-      'driftedStackInstancesCount',
-      driftedStackInstancesCount,
-    );
-    helper.add(
-      'inSyncStackInstancesCount',
-      inSyncStackInstancesCount,
-    );
-    helper.add(
-      'inProgressStackInstancesCount',
-      inProgressStackInstancesCount,
-    );
-    helper.add(
-      'failedStackInstancesCount',
-      failedStackInstancesCount,
-    );
+    final helper = newBuiltValueToStringHelper('StackSetDriftDetectionDetails')
+      ..add(
+        'driftStatus',
+        driftStatus,
+      )
+      ..add(
+        'driftDetectionStatus',
+        driftDetectionStatus,
+      )
+      ..add(
+        'lastDriftCheckTimestamp',
+        lastDriftCheckTimestamp,
+      )
+      ..add(
+        'totalStackInstancesCount',
+        totalStackInstancesCount,
+      )
+      ..add(
+        'driftedStackInstancesCount',
+        driftedStackInstancesCount,
+      )
+      ..add(
+        'inSyncStackInstancesCount',
+        inSyncStackInstancesCount,
+      )
+      ..add(
+        'inProgressStackInstancesCount',
+        inProgressStackInstancesCount,
+      )
+      ..add(
+        'failedStackInstancesCount',
+        failedStackInstancesCount,
+      );
     return helper.toString();
   }
 }

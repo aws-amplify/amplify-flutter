@@ -37,9 +37,8 @@ abstract class UnexpectedLambdaException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UnexpectedLambdaExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<UnexpectedLambdaException>>
+      serializers = [UnexpectedLambdaExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UnexpectedLambdaExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class UnexpectedLambdaException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UnexpectedLambdaException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('UnexpectedLambdaException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -43,9 +43,8 @@ abstract class GetUsagePlanRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetUsagePlanRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetUsagePlanRequestPayload>>
+      serializers = [GetUsagePlanRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetUsagePlanRequestBuilder b) {}
@@ -70,11 +69,11 @@ abstract class GetUsagePlanRequest
   List<Object?> get props => [usagePlanId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetUsagePlanRequest');
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
-    );
+    final helper = newBuiltValueToStringHelper('GetUsagePlanRequest')
+      ..add(
+        'usagePlanId',
+        usagePlanId,
+      );
     return helper.toString();
   }
 }

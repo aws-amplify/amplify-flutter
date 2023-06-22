@@ -35,7 +35,7 @@ abstract class Credentials
 
   const Credentials._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Credentials>> serializers = [
     CredentialsAwsJson11Serializer()
   ];
 
@@ -62,23 +62,23 @@ abstract class Credentials
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Credentials');
-    helper.add(
-      'accessKeyId',
-      accessKeyId,
-    );
-    helper.add(
-      'secretKey',
-      secretKey,
-    );
-    helper.add(
-      'sessionToken',
-      sessionToken,
-    );
-    helper.add(
-      'expiration',
-      expiration,
-    );
+    final helper = newBuiltValueToStringHelper('Credentials')
+      ..add(
+        'accessKeyId',
+        accessKeyId,
+      )
+      ..add(
+        'secretKey',
+        secretKey,
+      )
+      ..add(
+        'sessionToken',
+        sessionToken,
+      )
+      ..add(
+        'expiration',
+        expiration,
+      );
     return helper.toString();
   }
 }

@@ -51,7 +51,7 @@ abstract class BackupSummary
 
   const BackupSummary._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<BackupSummary>> serializers = [
     BackupSummaryAwsJson10Serializer()
   ];
 
@@ -108,47 +108,47 @@ abstract class BackupSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BackupSummary');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'tableId',
-      tableId,
-    );
-    helper.add(
-      'tableArn',
-      tableArn,
-    );
-    helper.add(
-      'backupArn',
-      backupArn,
-    );
-    helper.add(
-      'backupName',
-      backupName,
-    );
-    helper.add(
-      'backupCreationDateTime',
-      backupCreationDateTime,
-    );
-    helper.add(
-      'backupExpiryDateTime',
-      backupExpiryDateTime,
-    );
-    helper.add(
-      'backupStatus',
-      backupStatus,
-    );
-    helper.add(
-      'backupType',
-      backupType,
-    );
-    helper.add(
-      'backupSizeBytes',
-      backupSizeBytes,
-    );
+    final helper = newBuiltValueToStringHelper('BackupSummary')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'tableId',
+        tableId,
+      )
+      ..add(
+        'tableArn',
+        tableArn,
+      )
+      ..add(
+        'backupArn',
+        backupArn,
+      )
+      ..add(
+        'backupName',
+        backupName,
+      )
+      ..add(
+        'backupCreationDateTime',
+        backupCreationDateTime,
+      )
+      ..add(
+        'backupExpiryDateTime',
+        backupExpiryDateTime,
+      )
+      ..add(
+        'backupStatus',
+        backupStatus,
+      )
+      ..add(
+        'backupType',
+        backupType,
+      )
+      ..add(
+        'backupSizeBytes',
+        backupSizeBytes,
+      );
     return helper.toString();
   }
 }

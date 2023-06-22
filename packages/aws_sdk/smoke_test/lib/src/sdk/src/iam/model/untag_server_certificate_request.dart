@@ -41,9 +41,8 @@ abstract class UntagServerCertificateRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UntagServerCertificateRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<UntagServerCertificateRequest>>
+      serializers = [UntagServerCertificateRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UntagServerCertificateRequestBuilder b) {}
@@ -64,15 +63,15 @@ abstract class UntagServerCertificateRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UntagServerCertificateRequest');
-    helper.add(
-      'serverCertificateName',
-      serverCertificateName,
-    );
-    helper.add(
-      'tagKeys',
-      tagKeys,
-    );
+    final helper = newBuiltValueToStringHelper('UntagServerCertificateRequest')
+      ..add(
+        'serverCertificateName',
+        serverCertificateName,
+      )
+      ..add(
+        'tagKeys',
+        tagKeys,
+      );
     return helper.toString();
   }
 }

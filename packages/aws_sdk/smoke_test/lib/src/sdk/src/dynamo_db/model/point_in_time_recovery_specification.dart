@@ -31,9 +31,8 @@ abstract class PointInTimeRecoverySpecification
 
   const PointInTimeRecoverySpecification._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PointInTimeRecoverySpecificationAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<PointInTimeRecoverySpecification>>
+      serializers = [PointInTimeRecoverySpecificationAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PointInTimeRecoverySpecificationBuilder b) {
@@ -47,11 +46,11 @@ abstract class PointInTimeRecoverySpecification
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PointInTimeRecoverySpecification');
-    helper.add(
-      'pointInTimeRecoveryEnabled',
-      pointInTimeRecoveryEnabled,
-    );
+        newBuiltValueToStringHelper('PointInTimeRecoverySpecification')
+          ..add(
+            'pointInTimeRecoveryEnabled',
+            pointInTimeRecoveryEnabled,
+          );
     return helper.toString();
   }
 }

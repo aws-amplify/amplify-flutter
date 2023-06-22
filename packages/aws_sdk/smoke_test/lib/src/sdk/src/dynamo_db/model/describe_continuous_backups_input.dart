@@ -34,9 +34,8 @@ abstract class DescribeContinuousBackupsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeContinuousBackupsInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DescribeContinuousBackupsInput>>
+      serializers = [DescribeContinuousBackupsInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeContinuousBackupsInputBuilder b) {}
@@ -49,12 +48,11 @@ abstract class DescribeContinuousBackupsInput
   List<Object?> get props => [tableName];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DescribeContinuousBackupsInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeContinuousBackupsInput')
+      ..add(
+        'tableName',
+        tableName,
+      );
     return helper.toString();
   }
 }

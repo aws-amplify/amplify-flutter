@@ -28,7 +28,7 @@ abstract class EventsRequest
 
   const EventsRequest._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<EventsRequest>> serializers = [
     EventsRequestRestJson1Serializer()
   ];
 
@@ -41,11 +41,11 @@ abstract class EventsRequest
   List<Object?> get props => [batchItem];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventsRequest');
-    helper.add(
-      'batchItem',
-      batchItem,
-    );
+    final helper = newBuiltValueToStringHelper('EventsRequest')
+      ..add(
+        'batchItem',
+        batchItem,
+      );
     return helper.toString();
   }
 }

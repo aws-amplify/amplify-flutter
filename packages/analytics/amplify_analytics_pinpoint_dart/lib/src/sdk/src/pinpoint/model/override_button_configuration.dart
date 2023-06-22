@@ -35,9 +35,8 @@ abstract class OverrideButtonConfiguration
 
   const OverrideButtonConfiguration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    OverrideButtonConfigurationRestJson1Serializer()
-  ];
+  static const List<_i3.SmithySerializer<OverrideButtonConfiguration>>
+      serializers = [OverrideButtonConfigurationRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OverrideButtonConfigurationBuilder b) {}
@@ -54,15 +53,15 @@ abstract class OverrideButtonConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OverrideButtonConfiguration');
-    helper.add(
-      'buttonAction',
-      buttonAction,
-    );
-    helper.add(
-      'link',
-      link,
-    );
+    final helper = newBuiltValueToStringHelper('OverrideButtonConfiguration')
+      ..add(
+        'buttonAction',
+        buttonAction,
+      )
+      ..add(
+        'link',
+        link,
+      );
     return helper.toString();
   }
 }

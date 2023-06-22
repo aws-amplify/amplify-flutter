@@ -43,9 +43,8 @@ abstract class DeleteVpcLinkRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteVpcLinkRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteVpcLinkRequestPayload>>
+      serializers = [DeleteVpcLinkRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteVpcLinkRequestBuilder b) {}
@@ -70,11 +69,11 @@ abstract class DeleteVpcLinkRequest
   List<Object?> get props => [vpcLinkId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteVpcLinkRequest');
-    helper.add(
-      'vpcLinkId',
-      vpcLinkId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteVpcLinkRequest')
+      ..add(
+        'vpcLinkId',
+        vpcLinkId,
+      );
     return helper.toString();
   }
 }

@@ -67,7 +67,7 @@ abstract class LifecycleRule
 
   const LifecycleRule._();
 
-  static const List<_i10.SmithySerializer> serializers = [
+  static const List<_i10.SmithySerializer<LifecycleRule>> serializers = [
     LifecycleRuleRestXmlSerializer()
   ];
 
@@ -119,43 +119,43 @@ abstract class LifecycleRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LifecycleRule');
-    helper.add(
-      'expiration',
-      expiration,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'transitions',
-      transitions,
-    );
-    helper.add(
-      'noncurrentVersionTransitions',
-      noncurrentVersionTransitions,
-    );
-    helper.add(
-      'noncurrentVersionExpiration',
-      noncurrentVersionExpiration,
-    );
-    helper.add(
-      'abortIncompleteMultipartUpload',
-      abortIncompleteMultipartUpload,
-    );
+    final helper = newBuiltValueToStringHelper('LifecycleRule')
+      ..add(
+        'expiration',
+        expiration,
+      )
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'filter',
+        filter,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'transitions',
+        transitions,
+      )
+      ..add(
+        'noncurrentVersionTransitions',
+        noncurrentVersionTransitions,
+      )
+      ..add(
+        'noncurrentVersionExpiration',
+        noncurrentVersionExpiration,
+      )
+      ..add(
+        'abortIncompleteMultipartUpload',
+        abortIncompleteMultipartUpload,
+      );
     return helper.toString();
   }
 }

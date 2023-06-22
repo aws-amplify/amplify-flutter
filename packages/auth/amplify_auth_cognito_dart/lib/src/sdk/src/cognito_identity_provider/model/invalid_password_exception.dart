@@ -37,9 +37,8 @@ abstract class InvalidPasswordException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidPasswordExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidPasswordException>>
+      serializers = [InvalidPasswordExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidPasswordExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class InvalidPasswordException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidPasswordException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidPasswordException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

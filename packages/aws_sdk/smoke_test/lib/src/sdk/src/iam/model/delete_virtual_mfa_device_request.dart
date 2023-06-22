@@ -34,9 +34,8 @@ abstract class DeleteVirtualMfaDeviceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteVirtualMfaDeviceRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteVirtualMfaDeviceRequest>>
+      serializers = [DeleteVirtualMfaDeviceRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteVirtualMfaDeviceRequestBuilder b) {}
@@ -51,11 +50,11 @@ abstract class DeleteVirtualMfaDeviceRequest
   List<Object?> get props => [serialNumber];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteVirtualMfaDeviceRequest');
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteVirtualMfaDeviceRequest')
+      ..add(
+        'serialNumber',
+        serialNumber,
+      );
     return helper.toString();
   }
 }

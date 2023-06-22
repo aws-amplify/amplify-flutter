@@ -42,9 +42,8 @@ abstract class ListServerCertificatesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListServerCertificatesRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListServerCertificatesRequest>>
+      serializers = [ListServerCertificatesRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListServerCertificatesRequestBuilder b) {}
@@ -71,19 +70,19 @@ abstract class ListServerCertificatesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListServerCertificatesRequest');
-    helper.add(
-      'pathPrefix',
-      pathPrefix,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListServerCertificatesRequest')
+      ..add(
+        'pathPrefix',
+        pathPrefix,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

@@ -41,9 +41,8 @@ abstract class TagInstanceProfileRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TagInstanceProfileRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<TagInstanceProfileRequest>>
+      serializers = [TagInstanceProfileRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TagInstanceProfileRequestBuilder b) {}
@@ -64,15 +63,15 @@ abstract class TagInstanceProfileRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagInstanceProfileRequest');
-    helper.add(
-      'instanceProfileName',
-      instanceProfileName,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagInstanceProfileRequest')
+      ..add(
+        'instanceProfileName',
+        instanceProfileName,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

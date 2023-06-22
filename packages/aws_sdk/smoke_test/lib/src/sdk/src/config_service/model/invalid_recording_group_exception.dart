@@ -76,9 +76,8 @@ abstract class InvalidRecordingGroupException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidRecordingGroupExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidRecordingGroupException>>
+      serializers = [InvalidRecordingGroupExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidRecordingGroupExceptionBuilder b) {}
@@ -105,12 +104,11 @@ abstract class InvalidRecordingGroupException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InvalidRecordingGroupException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidRecordingGroupException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

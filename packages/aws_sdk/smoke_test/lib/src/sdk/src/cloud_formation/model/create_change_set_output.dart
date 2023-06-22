@@ -39,7 +39,7 @@ abstract class CreateChangeSetOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<CreateChangeSetOutput>> serializers = [
     CreateChangeSetOutputAwsQuerySerializer()
   ];
 
@@ -58,15 +58,15 @@ abstract class CreateChangeSetOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateChangeSetOutput');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'stackId',
-      stackId,
-    );
+    final helper = newBuiltValueToStringHelper('CreateChangeSetOutput')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'stackId',
+        stackId,
+      );
     return helper.toString();
   }
 }

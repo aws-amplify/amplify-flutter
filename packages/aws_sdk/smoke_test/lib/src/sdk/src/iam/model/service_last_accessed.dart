@@ -53,7 +53,7 @@ abstract class ServiceLastAccessed
 
   const ServiceLastAccessed._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ServiceLastAccessed>> serializers = [
     ServiceLastAccessedAwsQuerySerializer()
   ];
 
@@ -104,35 +104,35 @@ abstract class ServiceLastAccessed
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServiceLastAccessed');
-    helper.add(
-      'serviceName',
-      serviceName,
-    );
-    helper.add(
-      'lastAuthenticated',
-      lastAuthenticated,
-    );
-    helper.add(
-      'serviceNamespace',
-      serviceNamespace,
-    );
-    helper.add(
-      'lastAuthenticatedEntity',
-      lastAuthenticatedEntity,
-    );
-    helper.add(
-      'lastAuthenticatedRegion',
-      lastAuthenticatedRegion,
-    );
-    helper.add(
-      'totalAuthenticatedEntities',
-      totalAuthenticatedEntities,
-    );
-    helper.add(
-      'trackedActionsLastAccessed',
-      trackedActionsLastAccessed,
-    );
+    final helper = newBuiltValueToStringHelper('ServiceLastAccessed')
+      ..add(
+        'serviceName',
+        serviceName,
+      )
+      ..add(
+        'lastAuthenticated',
+        lastAuthenticated,
+      )
+      ..add(
+        'serviceNamespace',
+        serviceNamespace,
+      )
+      ..add(
+        'lastAuthenticatedEntity',
+        lastAuthenticatedEntity,
+      )
+      ..add(
+        'lastAuthenticatedRegion',
+        lastAuthenticatedRegion,
+      )
+      ..add(
+        'totalAuthenticatedEntities',
+        totalAuthenticatedEntities,
+      )
+      ..add(
+        'trackedActionsLastAccessed',
+        trackedActionsLastAccessed,
+      );
     return helper.toString();
   }
 }

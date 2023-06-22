@@ -54,7 +54,7 @@ abstract class QueryOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<QueryOutput>> serializers = [
     QueryOutputAwsJson10Serializer()
   ];
 
@@ -98,27 +98,27 @@ abstract class QueryOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueryOutput');
-    helper.add(
-      'items',
-      items,
-    );
-    helper.add(
-      'count',
-      count,
-    );
-    helper.add(
-      'scannedCount',
-      scannedCount,
-    );
-    helper.add(
-      'lastEvaluatedKey',
-      lastEvaluatedKey,
-    );
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
+    final helper = newBuiltValueToStringHelper('QueryOutput')
+      ..add(
+        'items',
+        items,
+      )
+      ..add(
+        'count',
+        count,
+      )
+      ..add(
+        'scannedCount',
+        scannedCount,
+      )
+      ..add(
+        'lastEvaluatedKey',
+        lastEvaluatedKey,
+      )
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      );
     return helper.toString();
   }
 }

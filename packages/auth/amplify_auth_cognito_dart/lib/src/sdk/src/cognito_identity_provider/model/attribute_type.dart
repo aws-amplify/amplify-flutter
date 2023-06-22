@@ -31,7 +31,7 @@ abstract class AttributeType
 
   const AttributeType._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AttributeType>> serializers = [
     AttributeTypeAwsJson11Serializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class AttributeType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AttributeType');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'value',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('AttributeType')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'value',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }

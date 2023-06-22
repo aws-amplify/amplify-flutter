@@ -52,9 +52,8 @@ abstract class GetBasePathMappingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBasePathMappingRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetBasePathMappingRequestPayload>>
+      serializers = [GetBasePathMappingRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBasePathMappingRequestBuilder b) {}
@@ -88,15 +87,15 @@ abstract class GetBasePathMappingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBasePathMappingRequest');
-    helper.add(
-      'domainName',
-      domainName,
-    );
-    helper.add(
-      'basePath',
-      basePath,
-    );
+    final helper = newBuiltValueToStringHelper('GetBasePathMappingRequest')
+      ..add(
+        'domainName',
+        domainName,
+      )
+      ..add(
+        'basePath',
+        basePath,
+      );
     return helper.toString();
   }
 }

@@ -40,9 +40,8 @@ abstract class InsufficientDeliveryPolicyException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InsufficientDeliveryPolicyExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InsufficientDeliveryPolicyException>>
+      serializers = [InsufficientDeliveryPolicyExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InsufficientDeliveryPolicyExceptionBuilder b) {}
@@ -70,11 +69,11 @@ abstract class InsufficientDeliveryPolicyException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InsufficientDeliveryPolicyException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InsufficientDeliveryPolicyException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

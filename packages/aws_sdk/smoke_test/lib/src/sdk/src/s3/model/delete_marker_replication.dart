@@ -40,9 +40,8 @@ abstract class DeleteMarkerReplication
 
   const DeleteMarkerReplication._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    DeleteMarkerReplicationRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<DeleteMarkerReplication>> serializers =
+      [DeleteMarkerReplicationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteMarkerReplicationBuilder b) {}
@@ -55,11 +54,11 @@ abstract class DeleteMarkerReplication
   List<Object?> get props => [status];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteMarkerReplication');
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteMarkerReplication')
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

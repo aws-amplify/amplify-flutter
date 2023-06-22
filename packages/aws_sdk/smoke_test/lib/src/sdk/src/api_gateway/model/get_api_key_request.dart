@@ -51,9 +51,8 @@ abstract class GetApiKeyRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetApiKeyRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetApiKeyRequestPayload>> serializers =
+      [GetApiKeyRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetApiKeyRequestBuilder b) {}
@@ -84,15 +83,15 @@ abstract class GetApiKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetApiKeyRequest');
-    helper.add(
-      'apiKey',
-      apiKey,
-    );
-    helper.add(
-      'includeValue',
-      includeValue,
-    );
+    final helper = newBuiltValueToStringHelper('GetApiKeyRequest')
+      ..add(
+        'apiKey',
+        apiKey,
+      )
+      ..add(
+        'includeValue',
+        includeValue,
+      );
     return helper.toString();
   }
 }

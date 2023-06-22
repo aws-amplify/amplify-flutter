@@ -29,7 +29,7 @@ abstract class ListExportsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListExportsInput>> serializers = [
     ListExportsInputAwsQuerySerializer()
   ];
 
@@ -44,11 +44,11 @@ abstract class ListExportsInput
   List<Object?> get props => [nextToken];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListExportsInput');
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListExportsInput')
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

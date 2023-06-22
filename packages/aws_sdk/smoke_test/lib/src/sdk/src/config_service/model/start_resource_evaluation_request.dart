@@ -53,9 +53,8 @@ abstract class StartResourceEvaluationRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    StartResourceEvaluationRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<StartResourceEvaluationRequest>>
+      serializers = [StartResourceEvaluationRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StartResourceEvaluationRequestBuilder b) {
@@ -90,28 +89,27 @@ abstract class StartResourceEvaluationRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('StartResourceEvaluationRequest');
-    helper.add(
-      'resourceDetails',
-      resourceDetails,
-    );
-    helper.add(
-      'evaluationContext',
-      evaluationContext,
-    );
-    helper.add(
-      'evaluationMode',
-      evaluationMode,
-    );
-    helper.add(
-      'evaluationTimeout',
-      evaluationTimeout,
-    );
-    helper.add(
-      'clientToken',
-      clientToken,
-    );
+    final helper = newBuiltValueToStringHelper('StartResourceEvaluationRequest')
+      ..add(
+        'resourceDetails',
+        resourceDetails,
+      )
+      ..add(
+        'evaluationContext',
+        evaluationContext,
+      )
+      ..add(
+        'evaluationMode',
+        evaluationMode,
+      )
+      ..add(
+        'evaluationTimeout',
+        evaluationTimeout,
+      )
+      ..add(
+        'clientToken',
+        clientToken,
+      );
     return helper.toString();
   }
 }

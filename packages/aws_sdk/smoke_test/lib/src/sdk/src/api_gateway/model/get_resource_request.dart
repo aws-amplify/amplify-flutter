@@ -60,9 +60,8 @@ abstract class GetResourceRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetResourceRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetResourceRequestPayload>>
+      serializers = [GetResourceRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetResourceRequestBuilder b) {}
@@ -99,19 +98,19 @@ abstract class GetResourceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetResourceRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'embed',
-      embed,
-    );
+    final helper = newBuiltValueToStringHelper('GetResourceRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'embed',
+        embed,
+      );
     return helper.toString();
   }
 }

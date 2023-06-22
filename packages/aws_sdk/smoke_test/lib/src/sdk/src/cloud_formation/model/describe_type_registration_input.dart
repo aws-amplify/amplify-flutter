@@ -35,9 +35,8 @@ abstract class DescribeTypeRegistrationInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeTypeRegistrationInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DescribeTypeRegistrationInput>>
+      serializers = [DescribeTypeRegistrationInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeTypeRegistrationInputBuilder b) {}
@@ -52,11 +51,11 @@ abstract class DescribeTypeRegistrationInput
   List<Object?> get props => [registrationToken];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeTypeRegistrationInput');
-    helper.add(
-      'registrationToken',
-      registrationToken,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeTypeRegistrationInput')
+      ..add(
+        'registrationToken',
+        registrationToken,
+      );
     return helper.toString();
   }
 }

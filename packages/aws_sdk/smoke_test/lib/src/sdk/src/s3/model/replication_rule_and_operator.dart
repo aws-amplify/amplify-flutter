@@ -53,9 +53,8 @@ abstract class ReplicationRuleAndOperator
 
   const ReplicationRuleAndOperator._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ReplicationRuleAndOperatorRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<ReplicationRuleAndOperator>>
+      serializers = [ReplicationRuleAndOperatorRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ReplicationRuleAndOperatorBuilder b) {}
@@ -72,15 +71,15 @@ abstract class ReplicationRuleAndOperator
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicationRuleAndOperator');
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicationRuleAndOperator')
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

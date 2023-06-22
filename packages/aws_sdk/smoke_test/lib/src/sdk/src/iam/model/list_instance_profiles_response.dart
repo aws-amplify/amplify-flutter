@@ -47,9 +47,8 @@ abstract class ListInstanceProfilesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListInstanceProfilesResponseAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<ListInstanceProfilesResponse>>
+      serializers = [ListInstanceProfilesResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListInstanceProfilesResponseBuilder b) {
@@ -72,19 +71,19 @@ abstract class ListInstanceProfilesResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListInstanceProfilesResponse');
-    helper.add(
-      'instanceProfiles',
-      instanceProfiles,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper = newBuiltValueToStringHelper('ListInstanceProfilesResponse')
+      ..add(
+        'instanceProfiles',
+        instanceProfiles,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      );
     return helper.toString();
   }
 }

@@ -50,9 +50,8 @@ abstract class GetBucketEncryptionRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketEncryptionRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetBucketEncryptionRequestPayload>>
+      serializers = [GetBucketEncryptionRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketEncryptionRequestBuilder b) {}
@@ -84,15 +83,15 @@ abstract class GetBucketEncryptionRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketEncryptionRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketEncryptionRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

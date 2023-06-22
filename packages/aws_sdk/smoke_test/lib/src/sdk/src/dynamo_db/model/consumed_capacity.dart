@@ -47,7 +47,7 @@ abstract class ConsumedCapacity
 
   const ConsumedCapacity._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ConsumedCapacity>> serializers = [
     ConsumedCapacityAwsJson10Serializer()
   ];
 
@@ -86,35 +86,35 @@ abstract class ConsumedCapacity
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConsumedCapacity');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'capacityUnits',
-      capacityUnits,
-    );
-    helper.add(
-      'readCapacityUnits',
-      readCapacityUnits,
-    );
-    helper.add(
-      'writeCapacityUnits',
-      writeCapacityUnits,
-    );
-    helper.add(
-      'table',
-      table,
-    );
-    helper.add(
-      'localSecondaryIndexes',
-      localSecondaryIndexes,
-    );
-    helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
+    final helper = newBuiltValueToStringHelper('ConsumedCapacity')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'capacityUnits',
+        capacityUnits,
+      )
+      ..add(
+        'readCapacityUnits',
+        readCapacityUnits,
+      )
+      ..add(
+        'writeCapacityUnits',
+        writeCapacityUnits,
+      )
+      ..add(
+        'table',
+        table,
+      )
+      ..add(
+        'localSecondaryIndexes',
+        localSecondaryIndexes,
+      )
+      ..add(
+        'globalSecondaryIndexes',
+        globalSecondaryIndexes,
+      );
     return helper.toString();
   }
 }

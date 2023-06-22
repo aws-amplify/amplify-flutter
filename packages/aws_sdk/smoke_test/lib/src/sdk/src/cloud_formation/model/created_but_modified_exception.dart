@@ -37,9 +37,8 @@ abstract class CreatedButModifiedException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    CreatedButModifiedExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<CreatedButModifiedException>>
+      serializers = [CreatedButModifiedExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreatedButModifiedExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class CreatedButModifiedException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreatedButModifiedException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('CreatedButModifiedException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

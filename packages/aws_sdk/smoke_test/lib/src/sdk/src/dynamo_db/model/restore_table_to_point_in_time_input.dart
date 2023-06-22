@@ -71,9 +71,8 @@ abstract class RestoreTableToPointInTimeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    RestoreTableToPointInTimeInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<RestoreTableToPointInTimeInput>>
+      serializers = [RestoreTableToPointInTimeInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RestoreTableToPointInTimeInputBuilder b) {}
@@ -124,48 +123,47 @@ abstract class RestoreTableToPointInTimeInput
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('RestoreTableToPointInTimeInput');
-    helper.add(
-      'sourceTableArn',
-      sourceTableArn,
-    );
-    helper.add(
-      'sourceTableName',
-      sourceTableName,
-    );
-    helper.add(
-      'targetTableName',
-      targetTableName,
-    );
-    helper.add(
-      'useLatestRestorableTime',
-      useLatestRestorableTime,
-    );
-    helper.add(
-      'restoreDateTime',
-      restoreDateTime,
-    );
-    helper.add(
-      'billingModeOverride',
-      billingModeOverride,
-    );
-    helper.add(
-      'globalSecondaryIndexOverride',
-      globalSecondaryIndexOverride,
-    );
-    helper.add(
-      'localSecondaryIndexOverride',
-      localSecondaryIndexOverride,
-    );
-    helper.add(
-      'provisionedThroughputOverride',
-      provisionedThroughputOverride,
-    );
-    helper.add(
-      'sseSpecificationOverride',
-      sseSpecificationOverride,
-    );
+    final helper = newBuiltValueToStringHelper('RestoreTableToPointInTimeInput')
+      ..add(
+        'sourceTableArn',
+        sourceTableArn,
+      )
+      ..add(
+        'sourceTableName',
+        sourceTableName,
+      )
+      ..add(
+        'targetTableName',
+        targetTableName,
+      )
+      ..add(
+        'useLatestRestorableTime',
+        useLatestRestorableTime,
+      )
+      ..add(
+        'restoreDateTime',
+        restoreDateTime,
+      )
+      ..add(
+        'billingModeOverride',
+        billingModeOverride,
+      )
+      ..add(
+        'globalSecondaryIndexOverride',
+        globalSecondaryIndexOverride,
+      )
+      ..add(
+        'localSecondaryIndexOverride',
+        localSecondaryIndexOverride,
+      )
+      ..add(
+        'provisionedThroughputOverride',
+        provisionedThroughputOverride,
+      )
+      ..add(
+        'sseSpecificationOverride',
+        sseSpecificationOverride,
+      );
     return helper.toString();
   }
 }

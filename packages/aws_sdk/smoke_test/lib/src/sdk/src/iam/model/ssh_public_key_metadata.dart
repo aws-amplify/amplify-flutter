@@ -43,7 +43,7 @@ abstract class SshPublicKeyMetadata
 
   const SshPublicKeyMetadata._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<SshPublicKeyMetadata>> serializers = [
     SshPublicKeyMetadataAwsQuerySerializer()
   ];
 
@@ -70,23 +70,23 @@ abstract class SshPublicKeyMetadata
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SshPublicKeyMetadata');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'sshPublicKeyId',
-      sshPublicKeyId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'uploadDate',
-      uploadDate,
-    );
+    final helper = newBuiltValueToStringHelper('SshPublicKeyMetadata')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'sshPublicKeyId',
+        sshPublicKeyId,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'uploadDate',
+        uploadDate,
+      );
     return helper.toString();
   }
 }

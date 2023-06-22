@@ -36,7 +36,7 @@ abstract class StoredQueryMetadata
 
   const StoredQueryMetadata._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<StoredQueryMetadata>> serializers = [
     StoredQueryMetadataAwsJson11Serializer()
   ];
 
@@ -63,23 +63,23 @@ abstract class StoredQueryMetadata
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StoredQueryMetadata');
-    helper.add(
-      'queryId',
-      queryId,
-    );
-    helper.add(
-      'queryArn',
-      queryArn,
-    );
-    helper.add(
-      'queryName',
-      queryName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
+    final helper = newBuiltValueToStringHelper('StoredQueryMetadata')
+      ..add(
+        'queryId',
+        queryId,
+      )
+      ..add(
+        'queryArn',
+        queryArn,
+      )
+      ..add(
+        'queryName',
+        queryName,
+      )
+      ..add(
+        'description',
+        description,
+      );
     return helper.toString();
   }
 }

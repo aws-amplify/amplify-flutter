@@ -39,9 +39,8 @@ abstract class InvalidAuthorizationMessageException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidAuthorizationMessageExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidAuthorizationMessageException>>
+      serializers = [InvalidAuthorizationMessageExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidAuthorizationMessageExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class InvalidAuthorizationMessageException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InvalidAuthorizationMessageException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InvalidAuthorizationMessageException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

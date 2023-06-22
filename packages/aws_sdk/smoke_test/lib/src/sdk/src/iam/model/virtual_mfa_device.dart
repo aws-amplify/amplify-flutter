@@ -44,7 +44,7 @@ abstract class VirtualMfaDevice
 
   const VirtualMfaDevice._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<VirtualMfaDevice>> serializers = [
     VirtualMfaDeviceAwsQuerySerializer()
   ];
 
@@ -79,31 +79,31 @@ abstract class VirtualMfaDevice
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('VirtualMfaDevice');
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
-    helper.add(
-      'base32StringSeed',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'qrCodePng',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'user',
-      user,
-    );
-    helper.add(
-      'enableDate',
-      enableDate,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('VirtualMfaDevice')
+      ..add(
+        'serialNumber',
+        serialNumber,
+      )
+      ..add(
+        'base32StringSeed',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'qrCodePng',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'user',
+        user,
+      )
+      ..add(
+        'enableDate',
+        enableDate,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

@@ -40,7 +40,7 @@ abstract class BillingModeSummary
 
   const BillingModeSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<BillingModeSummary>> serializers = [
     BillingModeSummaryAwsJson10Serializer()
   ];
 
@@ -63,15 +63,15 @@ abstract class BillingModeSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BillingModeSummary');
-    helper.add(
-      'billingMode',
-      billingMode,
-    );
-    helper.add(
-      'lastUpdateToPayPerRequestDateTime',
-      lastUpdateToPayPerRequestDateTime,
-    );
+    final helper = newBuiltValueToStringHelper('BillingModeSummary')
+      ..add(
+        'billingMode',
+        billingMode,
+      )
+      ..add(
+        'lastUpdateToPayPerRequestDateTime',
+        lastUpdateToPayPerRequestDateTime,
+      );
     return helper.toString();
   }
 }

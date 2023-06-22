@@ -33,9 +33,8 @@ abstract class PendingAggregationRequest
 
   const PendingAggregationRequest._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PendingAggregationRequestAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<PendingAggregationRequest>>
+      serializers = [PendingAggregationRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PendingAggregationRequestBuilder b) {}
@@ -52,15 +51,15 @@ abstract class PendingAggregationRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PendingAggregationRequest');
-    helper.add(
-      'requesterAccountId',
-      requesterAccountId,
-    );
-    helper.add(
-      'requesterAwsRegion',
-      requesterAwsRegion,
-    );
+    final helper = newBuiltValueToStringHelper('PendingAggregationRequest')
+      ..add(
+        'requesterAccountId',
+        requesterAccountId,
+      )
+      ..add(
+        'requesterAwsRegion',
+        requesterAwsRegion,
+      );
     return helper.toString();
   }
 }

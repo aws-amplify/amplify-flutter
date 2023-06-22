@@ -39,9 +39,8 @@ abstract class ListGlobalTablesOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListGlobalTablesOutputAwsJson10Serializer()
-  ];
+  static const List<_i4.SmithySerializer<ListGlobalTablesOutput>> serializers =
+      [ListGlobalTablesOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListGlobalTablesOutputBuilder b) {}
@@ -58,15 +57,15 @@ abstract class ListGlobalTablesOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListGlobalTablesOutput');
-    helper.add(
-      'globalTables',
-      globalTables,
-    );
-    helper.add(
-      'lastEvaluatedGlobalTableName',
-      lastEvaluatedGlobalTableName,
-    );
+    final helper = newBuiltValueToStringHelper('ListGlobalTablesOutput')
+      ..add(
+        'globalTables',
+        globalTables,
+      )
+      ..add(
+        'lastEvaluatedGlobalTableName',
+        lastEvaluatedGlobalTableName,
+      );
     return helper.toString();
   }
 }

@@ -59,9 +59,8 @@ abstract class GlobalSecondaryIndexUpdate
 
   const GlobalSecondaryIndexUpdate._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    GlobalSecondaryIndexUpdateAwsJson10Serializer()
-  ];
+  static const List<_i5.SmithySerializer<GlobalSecondaryIndexUpdate>>
+      serializers = [GlobalSecondaryIndexUpdateAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GlobalSecondaryIndexUpdateBuilder b) {}
@@ -92,19 +91,19 @@ abstract class GlobalSecondaryIndexUpdate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GlobalSecondaryIndexUpdate');
-    helper.add(
-      'update_',
-      update_,
-    );
-    helper.add(
-      'create',
-      create,
-    );
-    helper.add(
-      'delete',
-      delete,
-    );
+    final helper = newBuiltValueToStringHelper('GlobalSecondaryIndexUpdate')
+      ..add(
+        'update_',
+        update_,
+      )
+      ..add(
+        'create',
+        create,
+      )
+      ..add(
+        'delete',
+        delete,
+      );
     return helper.toString();
   }
 }

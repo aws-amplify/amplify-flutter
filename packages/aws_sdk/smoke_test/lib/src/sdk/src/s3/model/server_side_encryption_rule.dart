@@ -35,9 +35,8 @@ abstract class ServerSideEncryptionRule
 
   const ServerSideEncryptionRule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ServerSideEncryptionRuleRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<ServerSideEncryptionRule>>
+      serializers = [ServerSideEncryptionRuleRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ServerSideEncryptionRuleBuilder b) {}
@@ -56,15 +55,15 @@ abstract class ServerSideEncryptionRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServerSideEncryptionRule');
-    helper.add(
-      'applyServerSideEncryptionByDefault',
-      applyServerSideEncryptionByDefault,
-    );
-    helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
+    final helper = newBuiltValueToStringHelper('ServerSideEncryptionRule')
+      ..add(
+        'applyServerSideEncryptionByDefault',
+        applyServerSideEncryptionByDefault,
+      )
+      ..add(
+        'bucketKeyEnabled',
+        bucketKeyEnabled,
+      );
     return helper.toString();
   }
 }

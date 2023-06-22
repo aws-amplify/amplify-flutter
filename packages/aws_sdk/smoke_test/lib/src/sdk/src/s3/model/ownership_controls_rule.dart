@@ -28,7 +28,7 @@ abstract class OwnershipControlsRule
 
   const OwnershipControlsRule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<OwnershipControlsRule>> serializers = [
     OwnershipControlsRuleRestXmlSerializer()
   ];
 
@@ -47,11 +47,11 @@ abstract class OwnershipControlsRule
   List<Object?> get props => [objectOwnership];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OwnershipControlsRule');
-    helper.add(
-      'objectOwnership',
-      objectOwnership,
-    );
+    final helper = newBuiltValueToStringHelper('OwnershipControlsRule')
+      ..add(
+        'objectOwnership',
+        objectOwnership,
+      );
     return helper.toString();
   }
 }

@@ -47,7 +47,9 @@ abstract class DescribeConformancePackComplianceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DescribeConformancePackComplianceRequest>>
+      serializers = [
     DescribeConformancePackComplianceRequestAwsJson11Serializer()
   ];
 
@@ -79,23 +81,23 @@ abstract class DescribeConformancePackComplianceRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeConformancePackComplianceRequest');
-    helper.add(
-      'conformancePackName',
-      conformancePackName,
-    );
-    helper.add(
-      'filters',
-      filters,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('DescribeConformancePackComplianceRequest')
+          ..add(
+            'conformancePackName',
+            conformancePackName,
+          )
+          ..add(
+            'filters',
+            filters,
+          )
+          ..add(
+            'limit',
+            limit,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

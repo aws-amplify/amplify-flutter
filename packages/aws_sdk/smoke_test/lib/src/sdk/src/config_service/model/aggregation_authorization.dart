@@ -37,9 +37,8 @@ abstract class AggregationAuthorization
 
   const AggregationAuthorization._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    AggregationAuthorizationAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<AggregationAuthorization>>
+      serializers = [AggregationAuthorizationAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AggregationAuthorizationBuilder b) {}
@@ -64,23 +63,23 @@ abstract class AggregationAuthorization
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AggregationAuthorization');
-    helper.add(
-      'aggregationAuthorizationArn',
-      aggregationAuthorizationArn,
-    );
-    helper.add(
-      'authorizedAccountId',
-      authorizedAccountId,
-    );
-    helper.add(
-      'authorizedAwsRegion',
-      authorizedAwsRegion,
-    );
-    helper.add(
-      'creationTime',
-      creationTime,
-    );
+    final helper = newBuiltValueToStringHelper('AggregationAuthorization')
+      ..add(
+        'aggregationAuthorizationArn',
+        aggregationAuthorizationArn,
+      )
+      ..add(
+        'authorizedAccountId',
+        authorizedAccountId,
+      )
+      ..add(
+        'authorizedAwsRegion',
+        authorizedAwsRegion,
+      )
+      ..add(
+        'creationTime',
+        creationTime,
+      );
     return helper.toString();
   }
 }

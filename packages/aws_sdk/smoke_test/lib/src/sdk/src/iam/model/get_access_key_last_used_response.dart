@@ -44,9 +44,8 @@ abstract class GetAccessKeyLastUsedResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetAccessKeyLastUsedResponseAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<GetAccessKeyLastUsedResponse>>
+      serializers = [GetAccessKeyLastUsedResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetAccessKeyLastUsedResponseBuilder b) {}
@@ -63,15 +62,15 @@ abstract class GetAccessKeyLastUsedResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetAccessKeyLastUsedResponse');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'accessKeyLastUsed',
-      accessKeyLastUsed,
-    );
+    final helper = newBuiltValueToStringHelper('GetAccessKeyLastUsedResponse')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'accessKeyLastUsed',
+        accessKeyLastUsed,
+      );
     return helper.toString();
   }
 }

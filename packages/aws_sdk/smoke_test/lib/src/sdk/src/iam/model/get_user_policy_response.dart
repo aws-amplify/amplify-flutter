@@ -41,7 +41,7 @@ abstract class GetUserPolicyResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<GetUserPolicyResponse>> serializers = [
     GetUserPolicyResponseAwsQuerySerializer()
   ];
 
@@ -66,19 +66,19 @@ abstract class GetUserPolicyResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetUserPolicyResponse');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'policyName',
-      policyName,
-    );
-    helper.add(
-      'policyDocument',
-      policyDocument,
-    );
+    final helper = newBuiltValueToStringHelper('GetUserPolicyResponse')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'policyName',
+        policyName,
+      )
+      ..add(
+        'policyDocument',
+        policyDocument,
+      );
     return helper.toString();
   }
 }

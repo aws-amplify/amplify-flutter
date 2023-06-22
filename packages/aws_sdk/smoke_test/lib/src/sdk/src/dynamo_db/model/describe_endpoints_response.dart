@@ -33,9 +33,8 @@ abstract class DescribeEndpointsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    DescribeEndpointsResponseAwsJson10Serializer()
-  ];
+  static const List<_i4.SmithySerializer<DescribeEndpointsResponse>>
+      serializers = [DescribeEndpointsResponseAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeEndpointsResponseBuilder b) {}
@@ -46,11 +45,11 @@ abstract class DescribeEndpointsResponse
   List<Object?> get props => [endpoints];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeEndpointsResponse');
-    helper.add(
-      'endpoints',
-      endpoints,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeEndpointsResponse')
+      ..add(
+        'endpoints',
+        endpoints,
+      );
     return helper.toString();
   }
 }

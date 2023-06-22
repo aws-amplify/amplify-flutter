@@ -39,7 +39,7 @@ abstract class RestApis
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<RestApis>> serializers = [
     RestApisRestJson1Serializer()
   ];
 
@@ -58,15 +58,15 @@ abstract class RestApis
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RestApis');
-    helper.add(
-      'items',
-      items,
-    );
-    helper.add(
-      'position',
-      position,
-    );
+    final helper = newBuiltValueToStringHelper('RestApis')
+      ..add(
+        'items',
+        items,
+      )
+      ..add(
+        'position',
+        position,
+      );
     return helper.toString();
   }
 }

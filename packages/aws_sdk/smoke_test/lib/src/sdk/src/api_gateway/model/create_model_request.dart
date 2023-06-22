@@ -58,9 +58,8 @@ abstract class CreateModelRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateModelRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateModelRequestPayload>>
+      serializers = [CreateModelRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateModelRequestBuilder b) {}
@@ -108,27 +107,27 @@ abstract class CreateModelRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateModelRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'schema',
-      schema,
-    );
-    helper.add(
-      'contentType',
-      contentType,
-    );
+    final helper = newBuiltValueToStringHelper('CreateModelRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'schema',
+        schema,
+      )
+      ..add(
+        'contentType',
+        contentType,
+      );
     return helper.toString();
   }
 }
@@ -167,23 +166,23 @@ abstract class CreateModelRequestPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateModelRequestPayload');
-    helper.add(
-      'contentType',
-      contentType,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'schema',
-      schema,
-    );
+    final helper = newBuiltValueToStringHelper('CreateModelRequestPayload')
+      ..add(
+        'contentType',
+        contentType,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'schema',
+        schema,
+      );
     return helper.toString();
   }
 }

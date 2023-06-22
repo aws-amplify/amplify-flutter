@@ -34,7 +34,7 @@ abstract class StackInstanceFilter
 
   const StackInstanceFilter._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<StackInstanceFilter>> serializers = [
     StackInstanceFilterAwsQuerySerializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class StackInstanceFilter
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackInstanceFilter');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'values',
-      values,
-    );
+    final helper = newBuiltValueToStringHelper('StackInstanceFilter')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'values',
+        values,
+      );
     return helper.toString();
   }
 }

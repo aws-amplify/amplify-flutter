@@ -48,7 +48,7 @@ abstract class RestoreRequest
 
   const RestoreRequest._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<RestoreRequest>> serializers = [
     RestoreRequestRestXmlSerializer()
   ];
 
@@ -89,35 +89,35 @@ abstract class RestoreRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RestoreRequest');
-    helper.add(
-      'days',
-      days,
-    );
-    helper.add(
-      'glacierJobParameters',
-      glacierJobParameters,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'tier',
-      tier,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'selectParameters',
-      selectParameters,
-    );
-    helper.add(
-      'outputLocation',
-      outputLocation,
-    );
+    final helper = newBuiltValueToStringHelper('RestoreRequest')
+      ..add(
+        'days',
+        days,
+      )
+      ..add(
+        'glacierJobParameters',
+        glacierJobParameters,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'tier',
+        tier,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'selectParameters',
+        selectParameters,
+      )
+      ..add(
+        'outputLocation',
+        outputLocation,
+      );
     return helper.toString();
   }
 }

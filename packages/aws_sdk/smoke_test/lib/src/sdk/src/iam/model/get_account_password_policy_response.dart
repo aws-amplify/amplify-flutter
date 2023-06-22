@@ -38,9 +38,8 @@ abstract class GetAccountPasswordPolicyResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetAccountPasswordPolicyResponseAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<GetAccountPasswordPolicyResponse>>
+      serializers = [GetAccountPasswordPolicyResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetAccountPasswordPolicyResponseBuilder b) {}
@@ -52,11 +51,11 @@ abstract class GetAccountPasswordPolicyResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetAccountPasswordPolicyResponse');
-    helper.add(
-      'passwordPolicy',
-      passwordPolicy,
-    );
+        newBuiltValueToStringHelper('GetAccountPasswordPolicyResponse')
+          ..add(
+            'passwordPolicy',
+            passwordPolicy,
+          );
     return helper.toString();
   }
 }

@@ -90,7 +90,7 @@ abstract class CreateChangeSetInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<CreateChangeSetInput>> serializers = [
     CreateChangeSetInputAwsQuerySerializer()
   ];
 
@@ -240,79 +240,79 @@ abstract class CreateChangeSetInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateChangeSetInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateUrl',
-      templateUrl,
-    );
-    helper.add(
-      'usePreviousTemplate',
-      usePreviousTemplate,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'capabilities',
-      capabilities,
-    );
-    helper.add(
-      'resourceTypes',
-      resourceTypes,
-    );
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'rollbackConfiguration',
-      rollbackConfiguration,
-    );
-    helper.add(
-      'notificationArNs',
-      notificationArNs,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'changeSetName',
-      changeSetName,
-    );
-    helper.add(
-      'clientToken',
-      clientToken,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'changeSetType',
-      changeSetType,
-    );
-    helper.add(
-      'resourcesToImport',
-      resourcesToImport,
-    );
-    helper.add(
-      'includeNestedStacks',
-      includeNestedStacks,
-    );
-    helper.add(
-      'onStackFailure',
-      onStackFailure,
-    );
+    final helper = newBuiltValueToStringHelper('CreateChangeSetInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'templateUrl',
+        templateUrl,
+      )
+      ..add(
+        'usePreviousTemplate',
+        usePreviousTemplate,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'capabilities',
+        capabilities,
+      )
+      ..add(
+        'resourceTypes',
+        resourceTypes,
+      )
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'rollbackConfiguration',
+        rollbackConfiguration,
+      )
+      ..add(
+        'notificationArNs',
+        notificationArNs,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'changeSetName',
+        changeSetName,
+      )
+      ..add(
+        'clientToken',
+        clientToken,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'changeSetType',
+        changeSetType,
+      )
+      ..add(
+        'resourcesToImport',
+        resourcesToImport,
+      )
+      ..add(
+        'includeNestedStacks',
+        includeNestedStacks,
+      )
+      ..add(
+        'onStackFailure',
+        onStackFailure,
+      );
     return helper.toString();
   }
 }

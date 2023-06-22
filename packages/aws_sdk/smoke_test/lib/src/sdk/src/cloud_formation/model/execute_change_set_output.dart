@@ -35,9 +35,8 @@ abstract class ExecuteChangeSetOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ExecuteChangeSetOutputAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<ExecuteChangeSetOutput>> serializers =
+      [ExecuteChangeSetOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExecuteChangeSetOutputBuilder b) {}

@@ -37,9 +37,8 @@ abstract class InvalidUserTypeException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidUserTypeExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidUserTypeException>>
+      serializers = [InvalidUserTypeExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidUserTypeExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class InvalidUserTypeException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidUserTypeException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidUserTypeException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

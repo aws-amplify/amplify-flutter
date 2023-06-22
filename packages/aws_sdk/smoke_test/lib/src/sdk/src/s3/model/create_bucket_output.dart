@@ -38,9 +38,8 @@ abstract class CreateBucketOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    CreateBucketOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<CreateBucketOutputPayload>>
+      serializers = [CreateBucketOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateBucketOutputBuilder b) {}
@@ -53,11 +52,11 @@ abstract class CreateBucketOutput
   List<Object?> get props => [location];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateBucketOutput');
-    helper.add(
-      'location',
-      location,
-    );
+    final helper = newBuiltValueToStringHelper('CreateBucketOutput')
+      ..add(
+        'location',
+        location,
+      );
     return helper.toString();
   }
 }

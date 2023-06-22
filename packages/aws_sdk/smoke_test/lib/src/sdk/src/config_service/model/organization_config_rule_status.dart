@@ -43,9 +43,8 @@ abstract class OrganizationConfigRuleStatus
 
   const OrganizationConfigRuleStatus._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    OrganizationConfigRuleStatusAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<OrganizationConfigRuleStatus>>
+      serializers = [OrganizationConfigRuleStatusAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationConfigRuleStatusBuilder b) {}
@@ -94,27 +93,27 @@ abstract class OrganizationConfigRuleStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OrganizationConfigRuleStatus');
-    helper.add(
-      'organizationConfigRuleName',
-      organizationConfigRuleName,
-    );
-    helper.add(
-      'organizationRuleStatus',
-      organizationRuleStatus,
-    );
-    helper.add(
-      'errorCode',
-      errorCode,
-    );
-    helper.add(
-      'errorMessage',
-      errorMessage,
-    );
-    helper.add(
-      'lastUpdateTime',
-      lastUpdateTime,
-    );
+    final helper = newBuiltValueToStringHelper('OrganizationConfigRuleStatus')
+      ..add(
+        'organizationConfigRuleName',
+        organizationConfigRuleName,
+      )
+      ..add(
+        'organizationRuleStatus',
+        organizationRuleStatus,
+      )
+      ..add(
+        'errorCode',
+        errorCode,
+      )
+      ..add(
+        'errorMessage',
+        errorMessage,
+      )
+      ..add(
+        'lastUpdateTime',
+        lastUpdateTime,
+      );
     return helper.toString();
   }
 }

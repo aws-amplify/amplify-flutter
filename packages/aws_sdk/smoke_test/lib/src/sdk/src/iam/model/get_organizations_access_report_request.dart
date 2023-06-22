@@ -45,9 +45,8 @@ abstract class GetOrganizationsAccessReportRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetOrganizationsAccessReportRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetOrganizationsAccessReportRequest>>
+      serializers = [GetOrganizationsAccessReportRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetOrganizationsAccessReportRequestBuilder b) {}
@@ -77,23 +76,23 @@ abstract class GetOrganizationsAccessReportRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetOrganizationsAccessReportRequest');
-    helper.add(
-      'jobId',
-      jobId,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'sortKey',
-      sortKey,
-    );
+        newBuiltValueToStringHelper('GetOrganizationsAccessReportRequest')
+          ..add(
+            'jobId',
+            jobId,
+          )
+          ..add(
+            'maxItems',
+            maxItems,
+          )
+          ..add(
+            'marker',
+            marker,
+          )
+          ..add(
+            'sortKey',
+            sortKey,
+          );
     return helper.toString();
   }
 }

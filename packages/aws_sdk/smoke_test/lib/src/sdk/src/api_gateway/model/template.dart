@@ -31,7 +31,7 @@ abstract class Template
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Template>> serializers = [
     TemplateRestJson1Serializer()
   ];
 
@@ -44,11 +44,11 @@ abstract class Template
   List<Object?> get props => [value];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Template');
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('Template')
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

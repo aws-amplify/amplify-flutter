@@ -34,7 +34,7 @@ abstract class Output
 
   const Output._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Output>> serializers = [
     OutputAwsQuerySerializer()
   ];
 
@@ -61,23 +61,23 @@ abstract class Output
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Output');
-    helper.add(
-      'outputKey',
-      outputKey,
-    );
-    helper.add(
-      'outputValue',
-      outputValue,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'exportName',
-      exportName,
-    );
+    final helper = newBuiltValueToStringHelper('Output')
+      ..add(
+        'outputKey',
+        outputKey,
+      )
+      ..add(
+        'outputValue',
+        outputValue,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'exportName',
+        exportName,
+      );
     return helper.toString();
   }
 }

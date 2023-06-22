@@ -47,7 +47,7 @@ abstract class CreateRoleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<CreateRoleRequest>> serializers = [
     CreateRoleRequestAwsQuerySerializer()
   ];
 
@@ -117,35 +117,35 @@ abstract class CreateRoleRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateRoleRequest');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'roleName',
-      roleName,
-    );
-    helper.add(
-      'assumeRolePolicyDocument',
-      assumeRolePolicyDocument,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'maxSessionDuration',
-      maxSessionDuration,
-    );
-    helper.add(
-      'permissionsBoundary',
-      permissionsBoundary,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('CreateRoleRequest')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'roleName',
+        roleName,
+      )
+      ..add(
+        'assumeRolePolicyDocument',
+        assumeRolePolicyDocument,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'maxSessionDuration',
+        maxSessionDuration,
+      )
+      ..add(
+        'permissionsBoundary',
+        permissionsBoundary,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

@@ -37,9 +37,8 @@ abstract class MfaMethodNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    MfaMethodNotFoundExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<MfaMethodNotFoundException>>
+      serializers = [MfaMethodNotFoundExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MfaMethodNotFoundExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class MfaMethodNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MfaMethodNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('MfaMethodNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -42,7 +42,7 @@ abstract class GetTemplateOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<GetTemplateOutput>> serializers = [
     GetTemplateOutputAwsQuerySerializer()
   ];
 
@@ -63,15 +63,15 @@ abstract class GetTemplateOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetTemplateOutput');
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'stagesAvailable',
-      stagesAvailable,
-    );
+    final helper = newBuiltValueToStringHelper('GetTemplateOutput')
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'stagesAvailable',
+        stagesAvailable,
+      );
     return helper.toString();
   }
 }

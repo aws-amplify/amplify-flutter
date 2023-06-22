@@ -40,7 +40,9 @@ abstract class DescribeRemediationConfigurationsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<DescribeRemediationConfigurationsResponse>>
+      serializers = [
     DescribeRemediationConfigurationsResponseAwsJson11Serializer()
   ];
 
@@ -53,12 +55,12 @@ abstract class DescribeRemediationConfigurationsResponse
   List<Object?> get props => [remediationConfigurations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'DescribeRemediationConfigurationsResponse');
-    helper.add(
-      'remediationConfigurations',
-      remediationConfigurations,
-    );
+    final helper =
+        newBuiltValueToStringHelper('DescribeRemediationConfigurationsResponse')
+          ..add(
+            'remediationConfigurations',
+            remediationConfigurations,
+          );
     return helper.toString();
   }
 }

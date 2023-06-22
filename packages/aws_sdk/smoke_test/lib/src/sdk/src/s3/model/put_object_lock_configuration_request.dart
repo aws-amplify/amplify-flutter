@@ -83,9 +83,8 @@ abstract class PutObjectLockConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutObjectLockConfigurationRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.ObjectLockConfiguration?>>
+      serializers = [PutObjectLockConfigurationRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutObjectLockConfigurationRequestBuilder b) {}
@@ -142,35 +141,35 @@ abstract class PutObjectLockConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutObjectLockConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'objectLockConfiguration',
-      objectLockConfiguration,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'token',
-      token,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('PutObjectLockConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'objectLockConfiguration',
+            objectLockConfiguration,
+          )
+          ..add(
+            'requestPayer',
+            requestPayer,
+          )
+          ..add(
+            'token',
+            token,
+          )
+          ..add(
+            'contentMd5',
+            contentMd5,
+          )
+          ..add(
+            'checksumAlgorithm',
+            checksumAlgorithm,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }

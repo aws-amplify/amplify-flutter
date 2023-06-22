@@ -41,9 +41,8 @@ abstract class ObjectAlreadyInActiveTierError
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ObjectAlreadyInActiveTierErrorRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<ObjectAlreadyInActiveTierError>>
+      serializers = [ObjectAlreadyInActiveTierErrorRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ObjectAlreadyInActiveTierErrorBuilder b) {}

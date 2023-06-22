@@ -62,9 +62,8 @@ abstract class GetObjectTorrentRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetObjectTorrentRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetObjectTorrentRequestPayload>>
+      serializers = [GetObjectTorrentRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectTorrentRequestBuilder b) {}
@@ -106,23 +105,23 @@ abstract class GetObjectTorrentRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectTorrentRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectTorrentRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

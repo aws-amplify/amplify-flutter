@@ -40,9 +40,8 @@ abstract class LifecycleRuleAndOperator
 
   const LifecycleRuleAndOperator._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    LifecycleRuleAndOperatorRestXmlSerializer()
-  ];
+  static const List<_i5.SmithySerializer<LifecycleRuleAndOperator>>
+      serializers = [LifecycleRuleAndOperatorRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(LifecycleRuleAndOperatorBuilder b) {}
@@ -67,23 +66,23 @@ abstract class LifecycleRuleAndOperator
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LifecycleRuleAndOperator');
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'objectSizeGreaterThan',
-      objectSizeGreaterThan,
-    );
-    helper.add(
-      'objectSizeLessThan',
-      objectSizeLessThan,
-    );
+    final helper = newBuiltValueToStringHelper('LifecycleRuleAndOperator')
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'objectSizeGreaterThan',
+        objectSizeGreaterThan,
+      )
+      ..add(
+        'objectSizeLessThan',
+        objectSizeLessThan,
+      );
     return helper.toString();
   }
 }

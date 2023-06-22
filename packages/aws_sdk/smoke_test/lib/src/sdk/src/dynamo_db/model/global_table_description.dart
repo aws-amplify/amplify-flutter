@@ -44,9 +44,8 @@ abstract class GlobalTableDescription
 
   const GlobalTableDescription._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    GlobalTableDescriptionAwsJson10Serializer()
-  ];
+  static const List<_i5.SmithySerializer<GlobalTableDescription>> serializers =
+      [GlobalTableDescriptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GlobalTableDescriptionBuilder b) {}
@@ -83,27 +82,27 @@ abstract class GlobalTableDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GlobalTableDescription');
-    helper.add(
-      'replicationGroup',
-      replicationGroup,
-    );
-    helper.add(
-      'globalTableArn',
-      globalTableArn,
-    );
-    helper.add(
-      'creationDateTime',
-      creationDateTime,
-    );
-    helper.add(
-      'globalTableStatus',
-      globalTableStatus,
-    );
-    helper.add(
-      'globalTableName',
-      globalTableName,
-    );
+    final helper = newBuiltValueToStringHelper('GlobalTableDescription')
+      ..add(
+        'replicationGroup',
+        replicationGroup,
+      )
+      ..add(
+        'globalTableArn',
+        globalTableArn,
+      )
+      ..add(
+        'creationDateTime',
+        creationDateTime,
+      )
+      ..add(
+        'globalTableStatus',
+        globalTableStatus,
+      )
+      ..add(
+        'globalTableName',
+        globalTableName,
+      );
     return helper.toString();
   }
 }

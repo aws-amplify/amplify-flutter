@@ -39,7 +39,7 @@ abstract class VpcLinks
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<VpcLinks>> serializers = [
     VpcLinksRestJson1Serializer()
   ];
 
@@ -58,15 +58,15 @@ abstract class VpcLinks
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('VpcLinks');
-    helper.add(
-      'items',
-      items,
-    );
-    helper.add(
-      'position',
-      position,
-    );
+    final helper = newBuiltValueToStringHelper('VpcLinks')
+      ..add(
+        'items',
+        items,
+      )
+      ..add(
+        'position',
+        position,
+      );
     return helper.toString();
   }
 }

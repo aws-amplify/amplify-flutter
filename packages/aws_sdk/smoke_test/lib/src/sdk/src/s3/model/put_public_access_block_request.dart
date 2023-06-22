@@ -65,9 +65,8 @@ abstract class PutPublicAccessBlockRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutPublicAccessBlockRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.PublicAccessBlockConfiguration>>
+      serializers = [PutPublicAccessBlockRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutPublicAccessBlockRequestBuilder b) {}
@@ -115,27 +114,27 @@ abstract class PutPublicAccessBlockRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutPublicAccessBlockRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'publicAccessBlockConfiguration',
-      publicAccessBlockConfiguration,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutPublicAccessBlockRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'publicAccessBlockConfiguration',
+        publicAccessBlockConfiguration,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

@@ -30,9 +30,8 @@ abstract class ExistingObjectReplication
 
   const ExistingObjectReplication._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ExistingObjectReplicationRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<ExistingObjectReplication>>
+      serializers = [ExistingObjectReplicationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExistingObjectReplicationBuilder b) {}
@@ -43,11 +42,11 @@ abstract class ExistingObjectReplication
   List<Object?> get props => [status];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExistingObjectReplication');
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('ExistingObjectReplication')
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

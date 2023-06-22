@@ -42,9 +42,8 @@ abstract class TransactGetItemsOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    TransactGetItemsOutputAwsJson10Serializer()
-  ];
+  static const List<_i5.SmithySerializer<TransactGetItemsOutput>> serializers =
+      [TransactGetItemsOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TransactGetItemsOutputBuilder b) {}
@@ -63,15 +62,15 @@ abstract class TransactGetItemsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TransactGetItemsOutput');
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
-    helper.add(
-      'responses',
-      responses,
-    );
+    final helper = newBuiltValueToStringHelper('TransactGetItemsOutput')
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      )
+      ..add(
+        'responses',
+        responses,
+      );
     return helper.toString();
   }
 }

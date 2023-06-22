@@ -61,9 +61,8 @@ abstract class ConfirmForgotPasswordRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ConfirmForgotPasswordRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<ConfirmForgotPasswordRequest>>
+      serializers = [ConfirmForgotPasswordRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfirmForgotPasswordRequestBuilder b) {}
@@ -71,7 +70,7 @@ abstract class ConfirmForgotPasswordRequest
   /// The app client ID of the app associated with the user pool.
   String get clientId;
 
-  /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message.
+  /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message. For more information about `SecretHash`, see [Computing secret hash values](https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash).
   String? get secretHash;
 
   /// The user name of the user for whom you want to enter a code to retrieve a forgotten password.
@@ -118,39 +117,39 @@ abstract class ConfirmForgotPasswordRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfirmForgotPasswordRequest');
-    helper.add(
-      'clientId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'secretHash',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'username',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'confirmationCode',
-      confirmationCode,
-    );
-    helper.add(
-      'password',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'analyticsMetadata',
-      analyticsMetadata,
-    );
-    helper.add(
-      'userContextData',
-      userContextData,
-    );
-    helper.add(
-      'clientMetadata',
-      clientMetadata,
-    );
+    final helper = newBuiltValueToStringHelper('ConfirmForgotPasswordRequest')
+      ..add(
+        'clientId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'secretHash',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'username',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'confirmationCode',
+        confirmationCode,
+      )
+      ..add(
+        'password',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'analyticsMetadata',
+        analyticsMetadata,
+      )
+      ..add(
+        'userContextData',
+        userContextData,
+      )
+      ..add(
+        'clientMetadata',
+        clientMetadata,
+      );
     return helper.toString();
   }
 }

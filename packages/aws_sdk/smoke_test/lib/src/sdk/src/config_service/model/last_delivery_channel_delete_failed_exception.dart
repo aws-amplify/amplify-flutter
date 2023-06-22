@@ -40,7 +40,9 @@ abstract class LastDeliveryChannelDeleteFailedException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<LastDeliveryChannelDeleteFailedException>>
+      serializers = [
     LastDeliveryChannelDeleteFailedExceptionAwsJson11Serializer()
   ];
 
@@ -70,11 +72,11 @@ abstract class LastDeliveryChannelDeleteFailedException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('LastDeliveryChannelDeleteFailedException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('LastDeliveryChannelDeleteFailedException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

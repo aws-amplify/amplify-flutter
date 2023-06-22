@@ -44,9 +44,8 @@ abstract class DescribeConformancePacksResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    DescribeConformancePacksResponseAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<DescribeConformancePacksResponse>>
+      serializers = [DescribeConformancePacksResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeConformancePacksResponseBuilder b) {}
@@ -64,15 +63,15 @@ abstract class DescribeConformancePacksResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeConformancePacksResponse');
-    helper.add(
-      'conformancePackDetails',
-      conformancePackDetails,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('DescribeConformancePacksResponse')
+          ..add(
+            'conformancePackDetails',
+            conformancePackDetails,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

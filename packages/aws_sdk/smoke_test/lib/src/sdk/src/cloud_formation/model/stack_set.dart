@@ -78,7 +78,7 @@ abstract class StackSet
 
   const StackSet._();
 
-  static const List<_i11.SmithySerializer> serializers = [
+  static const List<_i11.SmithySerializer<StackSet>> serializers = [
     StackSetAwsQuerySerializer()
   ];
 
@@ -167,75 +167,75 @@ abstract class StackSet
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackSet');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'stackSetId',
-      stackSetId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'capabilities',
-      capabilities,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'stackSetArn',
-      stackSetArn,
-    );
-    helper.add(
-      'administrationRoleArn',
-      administrationRoleArn,
-    );
-    helper.add(
-      'executionRoleName',
-      executionRoleName,
-    );
-    helper.add(
-      'stackSetDriftDetectionDetails',
-      stackSetDriftDetectionDetails,
-    );
-    helper.add(
-      'autoDeployment',
-      autoDeployment,
-    );
-    helper.add(
-      'permissionModel',
-      permissionModel,
-    );
-    helper.add(
-      'organizationalUnitIds',
-      organizationalUnitIds,
-    );
-    helper.add(
-      'managedExecution',
-      managedExecution,
-    );
-    helper.add(
-      'regions',
-      regions,
-    );
+    final helper = newBuiltValueToStringHelper('StackSet')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'stackSetId',
+        stackSetId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'capabilities',
+        capabilities,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'stackSetArn',
+        stackSetArn,
+      )
+      ..add(
+        'administrationRoleArn',
+        administrationRoleArn,
+      )
+      ..add(
+        'executionRoleName',
+        executionRoleName,
+      )
+      ..add(
+        'stackSetDriftDetectionDetails',
+        stackSetDriftDetectionDetails,
+      )
+      ..add(
+        'autoDeployment',
+        autoDeployment,
+      )
+      ..add(
+        'permissionModel',
+        permissionModel,
+      )
+      ..add(
+        'organizationalUnitIds',
+        organizationalUnitIds,
+      )
+      ..add(
+        'managedExecution',
+        managedExecution,
+      )
+      ..add(
+        'regions',
+        regions,
+      );
     return helper.toString();
   }
 }

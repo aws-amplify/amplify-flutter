@@ -42,9 +42,8 @@ abstract class CreateSamlProviderResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    CreateSamlProviderResponseAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<CreateSamlProviderResponse>>
+      serializers = [CreateSamlProviderResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateSamlProviderResponseBuilder b) {}
@@ -61,15 +60,15 @@ abstract class CreateSamlProviderResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateSamlProviderResponse');
-    helper.add(
-      'samlProviderArn',
-      samlProviderArn,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('CreateSamlProviderResponse')
+      ..add(
+        'samlProviderArn',
+        samlProviderArn,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

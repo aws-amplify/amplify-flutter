@@ -47,7 +47,7 @@ abstract class ConfirmDeviceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ConfirmDeviceRequest>> serializers = [
     ConfirmDeviceRequestAwsJson11Serializer()
   ];
 
@@ -76,23 +76,23 @@ abstract class ConfirmDeviceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfirmDeviceRequest');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'deviceKey',
-      deviceKey,
-    );
-    helper.add(
-      'deviceSecretVerifierConfig',
-      deviceSecretVerifierConfig,
-    );
-    helper.add(
-      'deviceName',
-      deviceName,
-    );
+    final helper = newBuiltValueToStringHelper('ConfirmDeviceRequest')
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'deviceKey',
+        deviceKey,
+      )
+      ..add(
+        'deviceSecretVerifierConfig',
+        deviceSecretVerifierConfig,
+      )
+      ..add(
+        'deviceName',
+        deviceName,
+      );
     return helper.toString();
   }
 }

@@ -30,7 +30,7 @@ abstract class StageKey
 
   const StageKey._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<StageKey>> serializers = [
     StageKeyRestJson1Serializer()
   ];
 
@@ -49,15 +49,15 @@ abstract class StageKey
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StageKey');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
+    final helper = newBuiltValueToStringHelper('StageKey')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      );
     return helper.toString();
   }
 }

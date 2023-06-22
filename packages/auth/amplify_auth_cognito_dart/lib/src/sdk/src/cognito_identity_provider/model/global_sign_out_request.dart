@@ -35,7 +35,7 @@ abstract class GlobalSignOutRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GlobalSignOutRequest>> serializers = [
     GlobalSignOutRequestAwsJson11Serializer()
   ];
 
@@ -50,11 +50,11 @@ abstract class GlobalSignOutRequest
   List<Object?> get props => [accessToken];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GlobalSignOutRequest');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('GlobalSignOutRequest')
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }

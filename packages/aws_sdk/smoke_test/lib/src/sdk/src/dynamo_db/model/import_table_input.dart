@@ -58,7 +58,7 @@ abstract class ImportTableInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ImportTableInput>> serializers = [
     ImportTableInputAwsJson10Serializer()
   ];
 
@@ -105,31 +105,31 @@ abstract class ImportTableInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ImportTableInput');
-    helper.add(
-      'clientToken',
-      clientToken,
-    );
-    helper.add(
-      's3BucketSource',
-      s3BucketSource,
-    );
-    helper.add(
-      'inputFormat',
-      inputFormat,
-    );
-    helper.add(
-      'inputFormatOptions',
-      inputFormatOptions,
-    );
-    helper.add(
-      'inputCompressionType',
-      inputCompressionType,
-    );
-    helper.add(
-      'tableCreationParameters',
-      tableCreationParameters,
-    );
+    final helper = newBuiltValueToStringHelper('ImportTableInput')
+      ..add(
+        'clientToken',
+        clientToken,
+      )
+      ..add(
+        's3BucketSource',
+        s3BucketSource,
+      )
+      ..add(
+        'inputFormat',
+        inputFormat,
+      )
+      ..add(
+        'inputFormatOptions',
+        inputFormatOptions,
+      )
+      ..add(
+        'inputCompressionType',
+        inputCompressionType,
+      )
+      ..add(
+        'tableCreationParameters',
+        tableCreationParameters,
+      );
     return helper.toString();
   }
 }

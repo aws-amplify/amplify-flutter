@@ -38,7 +38,7 @@ abstract class GetDeviceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetDeviceRequest>> serializers = [
     GetDeviceRequestAwsJson11Serializer()
   ];
 
@@ -59,15 +59,15 @@ abstract class GetDeviceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetDeviceRequest');
-    helper.add(
-      'deviceKey',
-      deviceKey,
-    );
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('GetDeviceRequest')
+      ..add(
+        'deviceKey',
+        deviceKey,
+      )
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }

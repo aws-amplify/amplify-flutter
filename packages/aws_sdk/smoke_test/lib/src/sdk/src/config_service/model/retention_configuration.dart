@@ -33,9 +33,8 @@ abstract class RetentionConfiguration
 
   const RetentionConfiguration._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    RetentionConfigurationAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<RetentionConfiguration>> serializers =
+      [RetentionConfigurationAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RetentionConfigurationBuilder b) {
@@ -56,15 +55,15 @@ abstract class RetentionConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RetentionConfiguration');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'retentionPeriodInDays',
-      retentionPeriodInDays,
-    );
+    final helper = newBuiltValueToStringHelper('RetentionConfiguration')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'retentionPeriodInDays',
+        retentionPeriodInDays,
+      );
     return helper.toString();
   }
 }

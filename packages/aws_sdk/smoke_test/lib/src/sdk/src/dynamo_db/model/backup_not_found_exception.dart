@@ -38,9 +38,8 @@ abstract class BackupNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    BackupNotFoundExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<BackupNotFoundException>> serializers =
+      [BackupNotFoundExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BackupNotFoundExceptionBuilder b) {}
@@ -65,11 +64,11 @@ abstract class BackupNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BackupNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('BackupNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

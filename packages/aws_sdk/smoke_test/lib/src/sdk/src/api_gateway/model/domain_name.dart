@@ -77,7 +77,7 @@ abstract class DomainName
   ) =>
       payload;
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<DomainName>> serializers = [
     DomainNameRestJson1Serializer()
   ];
 
@@ -156,75 +156,75 @@ abstract class DomainName
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DomainName');
-    helper.add(
-      'domainName',
-      domainName,
-    );
-    helper.add(
-      'certificateName',
-      certificateName,
-    );
-    helper.add(
-      'certificateArn',
-      certificateArn,
-    );
-    helper.add(
-      'certificateUploadDate',
-      certificateUploadDate,
-    );
-    helper.add(
-      'regionalDomainName',
-      regionalDomainName,
-    );
-    helper.add(
-      'regionalHostedZoneId',
-      regionalHostedZoneId,
-    );
-    helper.add(
-      'regionalCertificateName',
-      regionalCertificateName,
-    );
-    helper.add(
-      'regionalCertificateArn',
-      regionalCertificateArn,
-    );
-    helper.add(
-      'distributionDomainName',
-      distributionDomainName,
-    );
-    helper.add(
-      'distributionHostedZoneId',
-      distributionHostedZoneId,
-    );
-    helper.add(
-      'endpointConfiguration',
-      endpointConfiguration,
-    );
-    helper.add(
-      'domainNameStatus',
-      domainNameStatus,
-    );
-    helper.add(
-      'domainNameStatusMessage',
-      domainNameStatusMessage,
-    );
-    helper.add(
-      'securityPolicy',
-      securityPolicy,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'mutualTlsAuthentication',
-      mutualTlsAuthentication,
-    );
-    helper.add(
-      'ownershipVerificationCertificateArn',
-      ownershipVerificationCertificateArn,
-    );
+    final helper = newBuiltValueToStringHelper('DomainName')
+      ..add(
+        'domainName',
+        domainName,
+      )
+      ..add(
+        'certificateName',
+        certificateName,
+      )
+      ..add(
+        'certificateArn',
+        certificateArn,
+      )
+      ..add(
+        'certificateUploadDate',
+        certificateUploadDate,
+      )
+      ..add(
+        'regionalDomainName',
+        regionalDomainName,
+      )
+      ..add(
+        'regionalHostedZoneId',
+        regionalHostedZoneId,
+      )
+      ..add(
+        'regionalCertificateName',
+        regionalCertificateName,
+      )
+      ..add(
+        'regionalCertificateArn',
+        regionalCertificateArn,
+      )
+      ..add(
+        'distributionDomainName',
+        distributionDomainName,
+      )
+      ..add(
+        'distributionHostedZoneId',
+        distributionHostedZoneId,
+      )
+      ..add(
+        'endpointConfiguration',
+        endpointConfiguration,
+      )
+      ..add(
+        'domainNameStatus',
+        domainNameStatus,
+      )
+      ..add(
+        'domainNameStatusMessage',
+        domainNameStatusMessage,
+      )
+      ..add(
+        'securityPolicy',
+        securityPolicy,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'mutualTlsAuthentication',
+        mutualTlsAuthentication,
+      )
+      ..add(
+        'ownershipVerificationCertificateArn',
+        ownershipVerificationCertificateArn,
+      );
     return helper.toString();
   }
 }

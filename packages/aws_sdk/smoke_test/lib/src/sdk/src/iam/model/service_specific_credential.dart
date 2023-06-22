@@ -44,9 +44,8 @@ abstract class ServiceSpecificCredential
 
   const ServiceSpecificCredential._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ServiceSpecificCredentialAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<ServiceSpecificCredential>>
+      serializers = [ServiceSpecificCredentialAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ServiceSpecificCredentialBuilder b) {}
@@ -83,35 +82,35 @@ abstract class ServiceSpecificCredential
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServiceSpecificCredential');
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'serviceName',
-      serviceName,
-    );
-    helper.add(
-      'serviceUserName',
-      serviceUserName,
-    );
-    helper.add(
-      'servicePassword',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'serviceSpecificCredentialId',
-      serviceSpecificCredentialId,
-    );
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('ServiceSpecificCredential')
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'serviceName',
+        serviceName,
+      )
+      ..add(
+        'serviceUserName',
+        serviceUserName,
+      )
+      ..add(
+        'servicePassword',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'serviceSpecificCredentialId',
+        serviceSpecificCredentialId,
+      )
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

@@ -37,9 +37,8 @@ abstract class EvaluationResultIdentifier
 
   const EvaluationResultIdentifier._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    EvaluationResultIdentifierAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<EvaluationResultIdentifier>>
+      serializers = [EvaluationResultIdentifierAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EvaluationResultIdentifierBuilder b) {}
@@ -60,19 +59,19 @@ abstract class EvaluationResultIdentifier
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EvaluationResultIdentifier');
-    helper.add(
-      'evaluationResultQualifier',
-      evaluationResultQualifier,
-    );
-    helper.add(
-      'orderingTimestamp',
-      orderingTimestamp,
-    );
-    helper.add(
-      'resourceEvaluationId',
-      resourceEvaluationId,
-    );
+    final helper = newBuiltValueToStringHelper('EvaluationResultIdentifier')
+      ..add(
+        'evaluationResultQualifier',
+        evaluationResultQualifier,
+      )
+      ..add(
+        'orderingTimestamp',
+        orderingTimestamp,
+      )
+      ..add(
+        'resourceEvaluationId',
+        resourceEvaluationId,
+      );
     return helper.toString();
   }
 }

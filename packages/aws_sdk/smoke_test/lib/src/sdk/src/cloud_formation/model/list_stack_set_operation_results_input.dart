@@ -53,9 +53,8 @@ abstract class ListStackSetOperationResultsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListStackSetOperationResultsInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListStackSetOperationResultsInput>>
+      serializers = [ListStackSetOperationResultsInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListStackSetOperationResultsInputBuilder b) {}
@@ -99,31 +98,31 @@ abstract class ListStackSetOperationResultsInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListStackSetOperationResultsInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'operationId',
-      operationId,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'maxResults',
-      maxResults,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
-    helper.add(
-      'filters',
-      filters,
-    );
+        newBuiltValueToStringHelper('ListStackSetOperationResultsInput')
+          ..add(
+            'stackSetName',
+            stackSetName,
+          )
+          ..add(
+            'operationId',
+            operationId,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          )
+          ..add(
+            'maxResults',
+            maxResults,
+          )
+          ..add(
+            'callAs',
+            callAs,
+          )
+          ..add(
+            'filters',
+            filters,
+          );
     return helper.toString();
   }
 }

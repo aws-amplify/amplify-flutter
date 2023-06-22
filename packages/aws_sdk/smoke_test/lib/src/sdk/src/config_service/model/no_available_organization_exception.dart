@@ -40,9 +40,8 @@ abstract class NoAvailableOrganizationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    NoAvailableOrganizationExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<NoAvailableOrganizationException>>
+      serializers = [NoAvailableOrganizationExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NoAvailableOrganizationExceptionBuilder b) {}
@@ -70,11 +69,11 @@ abstract class NoAvailableOrganizationException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('NoAvailableOrganizationException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('NoAvailableOrganizationException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

@@ -49,9 +49,8 @@ abstract class ServiceUnavailableException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ServiceUnavailableExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ServiceUnavailableExceptionPayload>>
+      serializers = [ServiceUnavailableExceptionRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ServiceUnavailableExceptionBuilder b) {}
@@ -85,15 +84,15 @@ abstract class ServiceUnavailableException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServiceUnavailableException');
-    helper.add(
-      'retryAfterSeconds',
-      retryAfterSeconds,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ServiceUnavailableException')
+      ..add(
+        'retryAfterSeconds',
+        retryAfterSeconds,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }
@@ -119,11 +118,11 @@ abstract class ServiceUnavailableExceptionPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ServiceUnavailableExceptionPayload');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('ServiceUnavailableExceptionPayload')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

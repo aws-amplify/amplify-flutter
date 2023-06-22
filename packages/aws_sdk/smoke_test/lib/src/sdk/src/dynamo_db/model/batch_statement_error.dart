@@ -34,7 +34,7 @@ abstract class BatchStatementError
 
   const BatchStatementError._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<BatchStatementError>> serializers = [
     BatchStatementErrorAwsJson10Serializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class BatchStatementError
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BatchStatementError');
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('BatchStatementError')
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -43,9 +43,8 @@ abstract class DeleteRemediationExceptionsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteRemediationExceptionsRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteRemediationExceptionsRequest>>
+      serializers = [DeleteRemediationExceptionsRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteRemediationExceptionsRequestBuilder b) {}
@@ -65,15 +64,15 @@ abstract class DeleteRemediationExceptionsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteRemediationExceptionsRequest');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'resourceKeys',
-      resourceKeys,
-    );
+        newBuiltValueToStringHelper('DeleteRemediationExceptionsRequest')
+          ..add(
+            'configRuleName',
+            configRuleName,
+          )
+          ..add(
+            'resourceKeys',
+            resourceKeys,
+          );
     return helper.toString();
   }
 }

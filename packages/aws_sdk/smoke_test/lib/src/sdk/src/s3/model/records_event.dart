@@ -27,7 +27,7 @@ abstract class RecordsEvent
 
   const RecordsEvent._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<RecordsEvent>> serializers = [
     RecordsEventRestXmlSerializer()
   ];
 
@@ -40,11 +40,11 @@ abstract class RecordsEvent
   List<Object?> get props => [payload];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RecordsEvent');
-    helper.add(
-      'payload',
-      payload,
-    );
+    final helper = newBuiltValueToStringHelper('RecordsEvent')
+      ..add(
+        'payload',
+        payload,
+      );
     return helper.toString();
   }
 }

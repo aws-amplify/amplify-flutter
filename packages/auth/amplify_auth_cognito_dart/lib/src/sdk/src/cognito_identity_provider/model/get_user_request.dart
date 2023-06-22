@@ -32,7 +32,7 @@ abstract class GetUserRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetUserRequest>> serializers = [
     GetUserRequestAwsJson11Serializer()
   ];
 
@@ -47,11 +47,11 @@ abstract class GetUserRequest
   List<Object?> get props => [accessToken];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetUserRequest');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('GetUserRequest')
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }

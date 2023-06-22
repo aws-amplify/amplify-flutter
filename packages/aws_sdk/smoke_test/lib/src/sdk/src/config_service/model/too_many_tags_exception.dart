@@ -38,7 +38,7 @@ abstract class TooManyTagsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<TooManyTagsException>> serializers = [
     TooManyTagsExceptionAwsJson11Serializer()
   ];
 
@@ -67,11 +67,11 @@ abstract class TooManyTagsException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TooManyTagsException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('TooManyTagsException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

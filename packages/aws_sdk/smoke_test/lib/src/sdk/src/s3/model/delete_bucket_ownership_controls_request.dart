@@ -51,9 +51,9 @@ abstract class DeleteBucketOwnershipControlsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteBucketOwnershipControlsRequestRestXmlSerializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<DeleteBucketOwnershipControlsRequestPayload>>
+      serializers = [DeleteBucketOwnershipControlsRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteBucketOwnershipControlsRequestBuilder b) {}
@@ -86,15 +86,15 @@ abstract class DeleteBucketOwnershipControlsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteBucketOwnershipControlsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('DeleteBucketOwnershipControlsRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }

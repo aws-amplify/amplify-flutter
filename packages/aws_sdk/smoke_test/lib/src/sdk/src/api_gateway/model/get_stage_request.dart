@@ -51,9 +51,8 @@ abstract class GetStageRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetStageRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetStageRequestPayload>> serializers =
+      [GetStageRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetStageRequestBuilder b) {}
@@ -86,15 +85,15 @@ abstract class GetStageRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetStageRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
+    final helper = newBuiltValueToStringHelper('GetStageRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      );
     return helper.toString();
   }
 }

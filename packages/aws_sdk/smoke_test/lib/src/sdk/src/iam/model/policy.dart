@@ -65,7 +65,7 @@ abstract class Policy
 
   const Policy._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Policy>> serializers = [
     PolicyAwsQuerySerializer()
   ];
 
@@ -138,55 +138,55 @@ abstract class Policy
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Policy');
-    helper.add(
-      'policyName',
-      policyName,
-    );
-    helper.add(
-      'policyId',
-      policyId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'defaultVersionId',
-      defaultVersionId,
-    );
-    helper.add(
-      'attachmentCount',
-      attachmentCount,
-    );
-    helper.add(
-      'permissionsBoundaryUsageCount',
-      permissionsBoundaryUsageCount,
-    );
-    helper.add(
-      'isAttachable',
-      isAttachable,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'updateDate',
-      updateDate,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('Policy')
+      ..add(
+        'policyName',
+        policyName,
+      )
+      ..add(
+        'policyId',
+        policyId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'defaultVersionId',
+        defaultVersionId,
+      )
+      ..add(
+        'attachmentCount',
+        attachmentCount,
+      )
+      ..add(
+        'permissionsBoundaryUsageCount',
+        permissionsBoundaryUsageCount,
+      )
+      ..add(
+        'isAttachable',
+        isAttachable,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'updateDate',
+        updateDate,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

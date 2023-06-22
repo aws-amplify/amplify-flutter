@@ -99,9 +99,8 @@ abstract class ConfigSnapshotDeliveryProperties
 
   const ConfigSnapshotDeliveryProperties._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ConfigSnapshotDeliveryPropertiesAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<ConfigSnapshotDeliveryProperties>>
+      serializers = [ConfigSnapshotDeliveryPropertiesAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigSnapshotDeliveryPropertiesBuilder b) {}
@@ -113,11 +112,11 @@ abstract class ConfigSnapshotDeliveryProperties
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ConfigSnapshotDeliveryProperties');
-    helper.add(
-      'deliveryFrequency',
-      deliveryFrequency,
-    );
+        newBuiltValueToStringHelper('ConfigSnapshotDeliveryProperties')
+          ..add(
+            'deliveryFrequency',
+            deliveryFrequency,
+          );
     return helper.toString();
   }
 }

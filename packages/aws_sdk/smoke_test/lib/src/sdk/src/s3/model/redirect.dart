@@ -37,7 +37,7 @@ abstract class Redirect
 
   const Redirect._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Redirect>> serializers = [
     RedirectRestXmlSerializer()
   ];
 
@@ -72,27 +72,27 @@ abstract class Redirect
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Redirect');
-    helper.add(
-      'hostName',
-      hostName,
-    );
-    helper.add(
-      'httpRedirectCode',
-      httpRedirectCode,
-    );
-    helper.add(
-      'protocol',
-      protocol,
-    );
-    helper.add(
-      'replaceKeyPrefixWith',
-      replaceKeyPrefixWith,
-    );
-    helper.add(
-      'replaceKeyWith',
-      replaceKeyWith,
-    );
+    final helper = newBuiltValueToStringHelper('Redirect')
+      ..add(
+        'hostName',
+        hostName,
+      )
+      ..add(
+        'httpRedirectCode',
+        httpRedirectCode,
+      )
+      ..add(
+        'protocol',
+        protocol,
+      )
+      ..add(
+        'replaceKeyPrefixWith',
+        replaceKeyPrefixWith,
+      )
+      ..add(
+        'replaceKeyWith',
+        replaceKeyWith,
+      );
     return helper.toString();
   }
 }

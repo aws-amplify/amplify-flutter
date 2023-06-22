@@ -78,7 +78,7 @@ abstract class UpdateStackInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UpdateStackInput>> serializers = [
     UpdateStackInputAwsQuerySerializer()
   ];
 
@@ -229,75 +229,75 @@ abstract class UpdateStackInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateStackInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateUrl',
-      templateUrl,
-    );
-    helper.add(
-      'usePreviousTemplate',
-      usePreviousTemplate,
-    );
-    helper.add(
-      'stackPolicyDuringUpdateBody',
-      stackPolicyDuringUpdateBody,
-    );
-    helper.add(
-      'stackPolicyDuringUpdateUrl',
-      stackPolicyDuringUpdateUrl,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'capabilities',
-      capabilities,
-    );
-    helper.add(
-      'resourceTypes',
-      resourceTypes,
-    );
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'rollbackConfiguration',
-      rollbackConfiguration,
-    );
-    helper.add(
-      'stackPolicyBody',
-      stackPolicyBody,
-    );
-    helper.add(
-      'stackPolicyUrl',
-      stackPolicyUrl,
-    );
-    helper.add(
-      'notificationArNs',
-      notificationArNs,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'disableRollback',
-      disableRollback,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateStackInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'templateUrl',
+        templateUrl,
+      )
+      ..add(
+        'usePreviousTemplate',
+        usePreviousTemplate,
+      )
+      ..add(
+        'stackPolicyDuringUpdateBody',
+        stackPolicyDuringUpdateBody,
+      )
+      ..add(
+        'stackPolicyDuringUpdateUrl',
+        stackPolicyDuringUpdateUrl,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'capabilities',
+        capabilities,
+      )
+      ..add(
+        'resourceTypes',
+        resourceTypes,
+      )
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'rollbackConfiguration',
+        rollbackConfiguration,
+      )
+      ..add(
+        'stackPolicyBody',
+        stackPolicyBody,
+      )
+      ..add(
+        'stackPolicyUrl',
+        stackPolicyUrl,
+      )
+      ..add(
+        'notificationArNs',
+        notificationArNs,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'disableRollback',
+        disableRollback,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      );
     return helper.toString();
   }
 }

@@ -41,7 +41,7 @@ abstract class CorsRule
 
   const CorsRule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<CorsRule>> serializers = [
     CorsRuleRestXmlSerializer()
   ];
 
@@ -76,31 +76,31 @@ abstract class CorsRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CorsRule');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'allowedHeaders',
-      allowedHeaders,
-    );
-    helper.add(
-      'allowedMethods',
-      allowedMethods,
-    );
-    helper.add(
-      'allowedOrigins',
-      allowedOrigins,
-    );
-    helper.add(
-      'exposeHeaders',
-      exposeHeaders,
-    );
-    helper.add(
-      'maxAgeSeconds',
-      maxAgeSeconds,
-    );
+    final helper = newBuiltValueToStringHelper('CorsRule')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'allowedHeaders',
+        allowedHeaders,
+      )
+      ..add(
+        'allowedMethods',
+        allowedMethods,
+      )
+      ..add(
+        'allowedOrigins',
+        allowedOrigins,
+      )
+      ..add(
+        'exposeHeaders',
+        exposeHeaders,
+      )
+      ..add(
+        'maxAgeSeconds',
+        maxAgeSeconds,
+      );
     return helper.toString();
   }
 }

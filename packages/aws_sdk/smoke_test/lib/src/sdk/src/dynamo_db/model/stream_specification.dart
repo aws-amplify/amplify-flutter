@@ -35,7 +35,7 @@ abstract class StreamSpecification
 
   const StreamSpecification._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<StreamSpecification>> serializers = [
     StreamSpecificationAwsJson10Serializer()
   ];
 
@@ -64,15 +64,15 @@ abstract class StreamSpecification
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StreamSpecification');
-    helper.add(
-      'streamEnabled',
-      streamEnabled,
-    );
-    helper.add(
-      'streamViewType',
-      streamViewType,
-    );
+    final helper = newBuiltValueToStringHelper('StreamSpecification')
+      ..add(
+        'streamEnabled',
+        streamEnabled,
+      )
+      ..add(
+        'streamViewType',
+        streamViewType,
+      );
     return helper.toString();
   }
 }

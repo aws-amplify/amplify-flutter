@@ -39,9 +39,8 @@ abstract class UpdateSamlProviderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateSamlProviderRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateSamlProviderRequest>>
+      serializers = [UpdateSamlProviderRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateSamlProviderRequestBuilder b) {}
@@ -62,15 +61,15 @@ abstract class UpdateSamlProviderRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateSamlProviderRequest');
-    helper.add(
-      'samlMetadataDocument',
-      samlMetadataDocument,
-    );
-    helper.add(
-      'samlProviderArn',
-      samlProviderArn,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateSamlProviderRequest')
+      ..add(
+        'samlMetadataDocument',
+        samlMetadataDocument,
+      )
+      ..add(
+        'samlProviderArn',
+        samlProviderArn,
+      );
     return helper.toString();
   }
 }

@@ -43,9 +43,8 @@ abstract class DeleteApiKeyRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteApiKeyRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteApiKeyRequestPayload>>
+      serializers = [DeleteApiKeyRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteApiKeyRequestBuilder b) {}
@@ -70,11 +69,11 @@ abstract class DeleteApiKeyRequest
   List<Object?> get props => [apiKey];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteApiKeyRequest');
-    helper.add(
-      'apiKey',
-      apiKey,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteApiKeyRequest')
+      ..add(
+        'apiKey',
+        apiKey,
+      );
     return helper.toString();
   }
 }

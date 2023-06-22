@@ -45,7 +45,7 @@ abstract class AccessDetail
 
   const AccessDetail._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AccessDetail>> serializers = [
     AccessDetailAwsQuerySerializer()
   ];
 
@@ -88,31 +88,31 @@ abstract class AccessDetail
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccessDetail');
-    helper.add(
-      'serviceName',
-      serviceName,
-    );
-    helper.add(
-      'serviceNamespace',
-      serviceNamespace,
-    );
-    helper.add(
-      'region',
-      region,
-    );
-    helper.add(
-      'entityPath',
-      entityPath,
-    );
-    helper.add(
-      'lastAuthenticatedTime',
-      lastAuthenticatedTime,
-    );
-    helper.add(
-      'totalAuthenticatedEntities',
-      totalAuthenticatedEntities,
-    );
+    final helper = newBuiltValueToStringHelper('AccessDetail')
+      ..add(
+        'serviceName',
+        serviceName,
+      )
+      ..add(
+        'serviceNamespace',
+        serviceNamespace,
+      )
+      ..add(
+        'region',
+        region,
+      )
+      ..add(
+        'entityPath',
+        entityPath,
+      )
+      ..add(
+        'lastAuthenticatedTime',
+        lastAuthenticatedTime,
+      )
+      ..add(
+        'totalAuthenticatedEntities',
+        totalAuthenticatedEntities,
+      );
     return helper.toString();
   }
 }

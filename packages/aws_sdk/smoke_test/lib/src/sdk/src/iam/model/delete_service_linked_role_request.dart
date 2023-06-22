@@ -34,9 +34,8 @@ abstract class DeleteServiceLinkedRoleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteServiceLinkedRoleRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteServiceLinkedRoleRequest>>
+      serializers = [DeleteServiceLinkedRoleRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteServiceLinkedRoleRequestBuilder b) {}
@@ -49,12 +48,11 @@ abstract class DeleteServiceLinkedRoleRequest
   List<Object?> get props => [roleName];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeleteServiceLinkedRoleRequest');
-    helper.add(
-      'roleName',
-      roleName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteServiceLinkedRoleRequest')
+      ..add(
+        'roleName',
+        roleName,
+      );
     return helper.toString();
   }
 }

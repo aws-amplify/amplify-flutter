@@ -56,9 +56,8 @@ abstract class TrimmedDataAccessException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TrimmedDataAccessExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<TrimmedDataAccessException>>
+      serializers = [TrimmedDataAccessExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TrimmedDataAccessExceptionBuilder b) {}
@@ -85,11 +84,11 @@ abstract class TrimmedDataAccessException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TrimmedDataAccessException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('TrimmedDataAccessException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

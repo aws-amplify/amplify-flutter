@@ -37,7 +37,7 @@ abstract class ForbiddenException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ForbiddenException>> serializers = [
     ForbiddenExceptionAwsJson11Serializer()
   ];
 
@@ -66,11 +66,11 @@ abstract class ForbiddenException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ForbiddenException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ForbiddenException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -42,9 +42,8 @@ abstract class ListMfaDeviceTagsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListMfaDeviceTagsResponseAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<ListMfaDeviceTagsResponse>>
+      serializers = [ListMfaDeviceTagsResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListMfaDeviceTagsResponseBuilder b) {
@@ -67,19 +66,19 @@ abstract class ListMfaDeviceTagsResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListMfaDeviceTagsResponse');
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper = newBuiltValueToStringHelper('ListMfaDeviceTagsResponse')
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      );
     return helper.toString();
   }
 }

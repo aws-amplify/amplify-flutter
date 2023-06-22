@@ -37,7 +37,9 @@ abstract class ReplicaGlobalSecondaryIndexDescription
 
   const ReplicaGlobalSecondaryIndexDescription._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<
+          _i3.SmithySerializer<ReplicaGlobalSecondaryIndexDescription>>
+      serializers = [
     ReplicaGlobalSecondaryIndexDescriptionAwsJson10Serializer()
   ];
 
@@ -57,15 +59,15 @@ abstract class ReplicaGlobalSecondaryIndexDescription
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ReplicaGlobalSecondaryIndexDescription');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'provisionedThroughputOverride',
-      provisionedThroughputOverride,
-    );
+        newBuiltValueToStringHelper('ReplicaGlobalSecondaryIndexDescription')
+          ..add(
+            'indexName',
+            indexName,
+          )
+          ..add(
+            'provisionedThroughputOverride',
+            provisionedThroughputOverride,
+          );
     return helper.toString();
   }
 }

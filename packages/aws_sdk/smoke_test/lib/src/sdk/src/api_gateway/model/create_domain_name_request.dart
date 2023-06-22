@@ -70,9 +70,8 @@ abstract class CreateDomainNameRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateDomainNameRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateDomainNameRequest>> serializers =
+      [CreateDomainNameRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateDomainNameRequestBuilder b) {}
@@ -135,59 +134,59 @@ abstract class CreateDomainNameRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateDomainNameRequest');
-    helper.add(
-      'domainName',
-      domainName,
-    );
-    helper.add(
-      'certificateName',
-      certificateName,
-    );
-    helper.add(
-      'certificateBody',
-      certificateBody,
-    );
-    helper.add(
-      'certificatePrivateKey',
-      certificatePrivateKey,
-    );
-    helper.add(
-      'certificateChain',
-      certificateChain,
-    );
-    helper.add(
-      'certificateArn',
-      certificateArn,
-    );
-    helper.add(
-      'regionalCertificateName',
-      regionalCertificateName,
-    );
-    helper.add(
-      'regionalCertificateArn',
-      regionalCertificateArn,
-    );
-    helper.add(
-      'endpointConfiguration',
-      endpointConfiguration,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'securityPolicy',
-      securityPolicy,
-    );
-    helper.add(
-      'mutualTlsAuthentication',
-      mutualTlsAuthentication,
-    );
-    helper.add(
-      'ownershipVerificationCertificateArn',
-      ownershipVerificationCertificateArn,
-    );
+    final helper = newBuiltValueToStringHelper('CreateDomainNameRequest')
+      ..add(
+        'domainName',
+        domainName,
+      )
+      ..add(
+        'certificateName',
+        certificateName,
+      )
+      ..add(
+        'certificateBody',
+        certificateBody,
+      )
+      ..add(
+        'certificatePrivateKey',
+        certificatePrivateKey,
+      )
+      ..add(
+        'certificateChain',
+        certificateChain,
+      )
+      ..add(
+        'certificateArn',
+        certificateArn,
+      )
+      ..add(
+        'regionalCertificateName',
+        regionalCertificateName,
+      )
+      ..add(
+        'regionalCertificateArn',
+        regionalCertificateArn,
+      )
+      ..add(
+        'endpointConfiguration',
+        endpointConfiguration,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'securityPolicy',
+        securityPolicy,
+      )
+      ..add(
+        'mutualTlsAuthentication',
+        mutualTlsAuthentication,
+      )
+      ..add(
+        'ownershipVerificationCertificateArn',
+        ownershipVerificationCertificateArn,
+      );
     return helper.toString();
   }
 }

@@ -39,9 +39,8 @@ abstract class SoftwareTokenMfaNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    SoftwareTokenMfaNotFoundExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<SoftwareTokenMfaNotFoundException>>
+      serializers = [SoftwareTokenMfaNotFoundExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SoftwareTokenMfaNotFoundExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class SoftwareTokenMfaNotFoundException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('SoftwareTokenMfaNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('SoftwareTokenMfaNotFoundException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

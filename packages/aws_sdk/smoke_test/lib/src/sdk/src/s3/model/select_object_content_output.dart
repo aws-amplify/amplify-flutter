@@ -36,7 +36,8 @@ abstract class SelectObjectContentOutput
         b.payload = payload;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [];
+  static const List<_i2.SmithySerializer<_i3.SelectObjectContentEventStream?>>
+      serializers = [];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SelectObjectContentOutputBuilder b) {}
@@ -49,11 +50,11 @@ abstract class SelectObjectContentOutput
   List<Object?> get props => [payload];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SelectObjectContentOutput');
-    helper.add(
-      'payload',
-      payload,
-    );
+    final helper = newBuiltValueToStringHelper('SelectObjectContentOutput')
+      ..add(
+        'payload',
+        payload,
+      );
     return helper.toString();
   }
 }

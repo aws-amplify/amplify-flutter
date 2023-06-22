@@ -31,7 +31,7 @@ abstract class TimeWindow
 
   const TimeWindow._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<TimeWindow>> serializers = [
     TimeWindowAwsJson11Serializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class TimeWindow
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TimeWindow');
-    helper.add(
-      'startTime',
-      startTime,
-    );
-    helper.add(
-      'endTime',
-      endTime,
-    );
+    final helper = newBuiltValueToStringHelper('TimeWindow')
+      ..add(
+        'startTime',
+        startTime,
+      )
+      ..add(
+        'endTime',
+        endTime,
+      );
     return helper.toString();
   }
 }

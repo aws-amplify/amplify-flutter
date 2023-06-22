@@ -40,9 +40,8 @@ abstract class PutObjectAclOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PutObjectAclOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<PutObjectAclOutputPayload>>
+      serializers = [PutObjectAclOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutObjectAclOutputBuilder b) {}
@@ -55,11 +54,11 @@ abstract class PutObjectAclOutput
   List<Object?> get props => [requestCharged];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutObjectAclOutput');
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('PutObjectAclOutput')
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }

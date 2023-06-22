@@ -77,7 +77,7 @@ abstract class DeleteObjectsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Delete>> serializers = [
     DeleteObjectsRequestRestXmlSerializer()
   ];
 
@@ -138,35 +138,35 @@ abstract class DeleteObjectsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteObjectsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'delete',
-      delete,
-    );
-    helper.add(
-      'mfa',
-      mfa,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'bypassGovernanceRetention',
-      bypassGovernanceRetention,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteObjectsRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'delete',
+        delete,
+      )
+      ..add(
+        'mfa',
+        mfa,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'bypassGovernanceRetention',
+        bypassGovernanceRetention,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      );
     return helper.toString();
   }
 }

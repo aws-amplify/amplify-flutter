@@ -56,7 +56,7 @@ abstract class StackInstanceSummary
 
   const StackInstanceSummary._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<StackInstanceSummary>> serializers = [
     StackInstanceSummaryAwsQuerySerializer()
   ];
 
@@ -129,51 +129,51 @@ abstract class StackInstanceSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackInstanceSummary');
-    helper.add(
-      'stackSetId',
-      stackSetId,
-    );
-    helper.add(
-      'region',
-      region,
-    );
-    helper.add(
-      'account',
-      account,
-    );
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'statusReason',
-      statusReason,
-    );
-    helper.add(
-      'stackInstanceStatus',
-      stackInstanceStatus,
-    );
-    helper.add(
-      'organizationalUnitId',
-      organizationalUnitId,
-    );
-    helper.add(
-      'driftStatus',
-      driftStatus,
-    );
-    helper.add(
-      'lastDriftCheckTimestamp',
-      lastDriftCheckTimestamp,
-    );
-    helper.add(
-      'lastOperationId',
-      lastOperationId,
-    );
+    final helper = newBuiltValueToStringHelper('StackInstanceSummary')
+      ..add(
+        'stackSetId',
+        stackSetId,
+      )
+      ..add(
+        'region',
+        region,
+      )
+      ..add(
+        'account',
+        account,
+      )
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'statusReason',
+        statusReason,
+      )
+      ..add(
+        'stackInstanceStatus',
+        stackInstanceStatus,
+      )
+      ..add(
+        'organizationalUnitId',
+        organizationalUnitId,
+      )
+      ..add(
+        'driftStatus',
+        driftStatus,
+      )
+      ..add(
+        'lastDriftCheckTimestamp',
+        lastDriftCheckTimestamp,
+      )
+      ..add(
+        'lastOperationId',
+        lastOperationId,
+      );
     return helper.toString();
   }
 }

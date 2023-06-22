@@ -64,7 +64,7 @@ abstract class ImportDocumentationPartsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List>> serializers = [
     ImportDocumentationPartsRequestRestJson1Serializer()
   ];
 
@@ -108,23 +108,23 @@ abstract class ImportDocumentationPartsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ImportDocumentationPartsRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'mode',
-      mode,
-    );
-    helper.add(
-      'failOnWarnings',
-      failOnWarnings,
-    );
-    helper.add(
-      'body',
-      body,
-    );
+        newBuiltValueToStringHelper('ImportDocumentationPartsRequest')
+          ..add(
+            'restApiId',
+            restApiId,
+          )
+          ..add(
+            'mode',
+            mode,
+          )
+          ..add(
+            'failOnWarnings',
+            failOnWarnings,
+          )
+          ..add(
+            'body',
+            body,
+          );
     return helper.toString();
   }
 }

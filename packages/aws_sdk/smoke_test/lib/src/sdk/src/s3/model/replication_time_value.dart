@@ -26,7 +26,7 @@ abstract class ReplicationTimeValue
 
   const ReplicationTimeValue._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ReplicationTimeValue>> serializers = [
     ReplicationTimeValueRestXmlSerializer()
   ];
 
@@ -41,11 +41,11 @@ abstract class ReplicationTimeValue
   List<Object?> get props => [minutes];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicationTimeValue');
-    helper.add(
-      'minutes',
-      minutes,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicationTimeValue')
+      ..add(
+        'minutes',
+        minutes,
+      );
     return helper.toString();
   }
 }

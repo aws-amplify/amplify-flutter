@@ -46,7 +46,7 @@ abstract class DeploymentTargets
 
   const DeploymentTargets._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<DeploymentTargets>> serializers = [
     DeploymentTargetsAwsQuerySerializer()
   ];
 
@@ -85,23 +85,23 @@ abstract class DeploymentTargets
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeploymentTargets');
-    helper.add(
-      'accounts',
-      accounts,
-    );
-    helper.add(
-      'accountsUrl',
-      accountsUrl,
-    );
-    helper.add(
-      'organizationalUnitIds',
-      organizationalUnitIds,
-    );
-    helper.add(
-      'accountFilterType',
-      accountFilterType,
-    );
+    final helper = newBuiltValueToStringHelper('DeploymentTargets')
+      ..add(
+        'accounts',
+        accounts,
+      )
+      ..add(
+        'accountsUrl',
+        accountsUrl,
+      )
+      ..add(
+        'organizationalUnitIds',
+        organizationalUnitIds,
+      )
+      ..add(
+        'accountFilterType',
+        accountFilterType,
+      );
     return helper.toString();
   }
 }

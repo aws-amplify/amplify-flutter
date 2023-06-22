@@ -46,9 +46,8 @@ abstract class UpdateDeviceStatusRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateDeviceStatusRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateDeviceStatusRequest>>
+      serializers = [UpdateDeviceStatusRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateDeviceStatusRequestBuilder b) {}
@@ -71,19 +70,19 @@ abstract class UpdateDeviceStatusRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateDeviceStatusRequest');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'deviceKey',
-      deviceKey,
-    );
-    helper.add(
-      'deviceRememberedStatus',
-      deviceRememberedStatus,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateDeviceStatusRequest')
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'deviceKey',
+        deviceKey,
+      )
+      ..add(
+        'deviceRememberedStatus',
+        deviceRememberedStatus,
+      );
     return helper.toString();
   }
 }

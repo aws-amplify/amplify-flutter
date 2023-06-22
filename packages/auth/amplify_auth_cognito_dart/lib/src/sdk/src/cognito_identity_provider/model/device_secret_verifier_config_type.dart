@@ -35,9 +35,8 @@ abstract class DeviceSecretVerifierConfigType
 
   const DeviceSecretVerifierConfigType._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeviceSecretVerifierConfigTypeAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<DeviceSecretVerifierConfigType>>
+      serializers = [DeviceSecretVerifierConfigTypeAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeviceSecretVerifierConfigTypeBuilder b) {}
@@ -54,16 +53,15 @@ abstract class DeviceSecretVerifierConfigType
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeviceSecretVerifierConfigType');
-    helper.add(
-      'passwordVerifier',
-      passwordVerifier,
-    );
-    helper.add(
-      'salt',
-      salt,
-    );
+    final helper = newBuiltValueToStringHelper('DeviceSecretVerifierConfigType')
+      ..add(
+        'passwordVerifier',
+        passwordVerifier,
+      )
+      ..add(
+        'salt',
+        salt,
+      );
     return helper.toString();
   }
 }

@@ -39,9 +39,8 @@ abstract class RemoveUserFromGroupRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    RemoveUserFromGroupRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<RemoveUserFromGroupRequest>>
+      serializers = [RemoveUserFromGroupRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RemoveUserFromGroupRequestBuilder b) {}
@@ -64,15 +63,15 @@ abstract class RemoveUserFromGroupRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RemoveUserFromGroupRequest');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'userName',
-      userName,
-    );
+    final helper = newBuiltValueToStringHelper('RemoveUserFromGroupRequest')
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'userName',
+        userName,
+      );
     return helper.toString();
   }
 }

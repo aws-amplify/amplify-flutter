@@ -52,7 +52,9 @@ abstract class ReplicaGlobalSecondaryIndexSettingsDescription
 
   const ReplicaGlobalSecondaryIndexSettingsDescription._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<
+          _i5.SmithySerializer<ReplicaGlobalSecondaryIndexSettingsDescription>>
+      serializers = [
     ReplicaGlobalSecondaryIndexSettingsDescriptionAwsJson10Serializer()
   ];
 
@@ -98,31 +100,31 @@ abstract class ReplicaGlobalSecondaryIndexSettingsDescription
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'ReplicaGlobalSecondaryIndexSettingsDescription');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'indexStatus',
-      indexStatus,
-    );
-    helper.add(
-      'provisionedReadCapacityUnits',
-      provisionedReadCapacityUnits,
-    );
-    helper.add(
-      'provisionedReadCapacityAutoScalingSettings',
-      provisionedReadCapacityAutoScalingSettings,
-    );
-    helper.add(
-      'provisionedWriteCapacityUnits',
-      provisionedWriteCapacityUnits,
-    );
-    helper.add(
-      'provisionedWriteCapacityAutoScalingSettings',
-      provisionedWriteCapacityAutoScalingSettings,
-    );
+        'ReplicaGlobalSecondaryIndexSettingsDescription')
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'indexStatus',
+        indexStatus,
+      )
+      ..add(
+        'provisionedReadCapacityUnits',
+        provisionedReadCapacityUnits,
+      )
+      ..add(
+        'provisionedReadCapacityAutoScalingSettings',
+        provisionedReadCapacityAutoScalingSettings,
+      )
+      ..add(
+        'provisionedWriteCapacityUnits',
+        provisionedWriteCapacityUnits,
+      )
+      ..add(
+        'provisionedWriteCapacityAutoScalingSettings',
+        provisionedWriteCapacityAutoScalingSettings,
+      );
     return helper.toString();
   }
 }

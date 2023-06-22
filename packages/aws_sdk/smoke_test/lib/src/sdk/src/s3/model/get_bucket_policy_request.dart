@@ -50,9 +50,8 @@ abstract class GetBucketPolicyRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketPolicyRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetBucketPolicyRequestPayload>>
+      serializers = [GetBucketPolicyRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketPolicyRequestBuilder b) {}
@@ -87,15 +86,15 @@ abstract class GetBucketPolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketPolicyRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketPolicyRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

@@ -43,7 +43,9 @@ abstract class BatchGetAggregateResourceConfigRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<BatchGetAggregateResourceConfigRequest>>
+      serializers = [
     BatchGetAggregateResourceConfigRequestAwsJson11Serializer()
   ];
 
@@ -65,15 +67,15 @@ abstract class BatchGetAggregateResourceConfigRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('BatchGetAggregateResourceConfigRequest');
-    helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
-    helper.add(
-      'resourceIdentifiers',
-      resourceIdentifiers,
-    );
+        newBuiltValueToStringHelper('BatchGetAggregateResourceConfigRequest')
+          ..add(
+            'configurationAggregatorName',
+            configurationAggregatorName,
+          )
+          ..add(
+            'resourceIdentifiers',
+            resourceIdentifiers,
+          );
     return helper.toString();
   }
 }

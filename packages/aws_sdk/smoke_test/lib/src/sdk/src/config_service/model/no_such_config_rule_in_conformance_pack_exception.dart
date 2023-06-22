@@ -40,7 +40,9 @@ abstract class NoSuchConfigRuleInConformancePackException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<NoSuchConfigRuleInConformancePackException>>
+      serializers = [
     NoSuchConfigRuleInConformancePackExceptionAwsJson11Serializer()
   ];
 
@@ -70,11 +72,11 @@ abstract class NoSuchConfigRuleInConformancePackException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'NoSuchConfigRuleInConformancePackException');
-    helper.add(
-      'message',
-      message,
-    );
+        'NoSuchConfigRuleInConformancePackException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

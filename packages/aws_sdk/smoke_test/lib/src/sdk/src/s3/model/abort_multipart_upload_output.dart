@@ -40,9 +40,8 @@ abstract class AbortMultipartUploadOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    AbortMultipartUploadOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<AbortMultipartUploadOutputPayload>>
+      serializers = [AbortMultipartUploadOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AbortMultipartUploadOutputBuilder b) {}
@@ -56,11 +55,11 @@ abstract class AbortMultipartUploadOutput
   List<Object?> get props => [requestCharged];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AbortMultipartUploadOutput');
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('AbortMultipartUploadOutput')
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }

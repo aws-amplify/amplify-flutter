@@ -33,7 +33,7 @@ abstract class Progress
 
   const Progress._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Progress>> serializers = [
     ProgressRestXmlSerializer()
   ];
 
@@ -56,19 +56,19 @@ abstract class Progress
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Progress');
-    helper.add(
-      'bytesScanned',
-      bytesScanned,
-    );
-    helper.add(
-      'bytesProcessed',
-      bytesProcessed,
-    );
-    helper.add(
-      'bytesReturned',
-      bytesReturned,
-    );
+    final helper = newBuiltValueToStringHelper('Progress')
+      ..add(
+        'bytesScanned',
+        bytesScanned,
+      )
+      ..add(
+        'bytesProcessed',
+        bytesProcessed,
+      )
+      ..add(
+        'bytesReturned',
+        bytesReturned,
+      );
     return helper.toString();
   }
 }

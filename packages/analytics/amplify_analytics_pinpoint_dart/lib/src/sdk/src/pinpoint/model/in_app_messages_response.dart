@@ -33,7 +33,7 @@ abstract class InAppMessagesResponse
 
   const InAppMessagesResponse._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<InAppMessagesResponse>> serializers = [
     InAppMessagesResponseRestJson1Serializer()
   ];
 
@@ -46,11 +46,11 @@ abstract class InAppMessagesResponse
   List<Object?> get props => [inAppMessageCampaigns];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessagesResponse');
-    helper.add(
-      'inAppMessageCampaigns',
-      inAppMessageCampaigns,
-    );
+    final helper = newBuiltValueToStringHelper('InAppMessagesResponse')
+      ..add(
+        'inAppMessageCampaigns',
+        inAppMessageCampaigns,
+      );
     return helper.toString();
   }
 }

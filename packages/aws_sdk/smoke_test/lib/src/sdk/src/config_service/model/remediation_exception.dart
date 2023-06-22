@@ -38,7 +38,7 @@ abstract class RemediationException
 
   const RemediationException._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<RemediationException>> serializers = [
     RemediationExceptionAwsJson11Serializer()
   ];
 
@@ -69,27 +69,27 @@ abstract class RemediationException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RemediationException');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'expirationTime',
-      expirationTime,
-    );
+    final helper = newBuiltValueToStringHelper('RemediationException')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'expirationTime',
+        expirationTime,
+      );
     return helper.toString();
   }
 }

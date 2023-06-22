@@ -50,9 +50,8 @@ abstract class AssumeRoleWithSamlRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    AssumeRoleWithSamlRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<AssumeRoleWithSamlRequest>>
+      serializers = [AssumeRoleWithSamlRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AssumeRoleWithSamlRequestBuilder b) {}
@@ -105,31 +104,31 @@ abstract class AssumeRoleWithSamlRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AssumeRoleWithSamlRequest');
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'principalArn',
-      principalArn,
-    );
-    helper.add(
-      'samlAssertion',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'policyArns',
-      policyArns,
-    );
-    helper.add(
-      'policy',
-      policy,
-    );
-    helper.add(
-      'durationSeconds',
-      durationSeconds,
-    );
+    final helper = newBuiltValueToStringHelper('AssumeRoleWithSamlRequest')
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'principalArn',
+        principalArn,
+      )
+      ..add(
+        'samlAssertion',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'policyArns',
+        policyArns,
+      )
+      ..add(
+        'policy',
+        policy,
+      )
+      ..add(
+        'durationSeconds',
+        durationSeconds,
+      );
     return helper.toString();
   }
 }

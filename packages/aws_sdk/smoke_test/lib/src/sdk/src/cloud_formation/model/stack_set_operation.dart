@@ -67,7 +67,7 @@ abstract class StackSetOperation
 
   const StackSetOperation._();
 
-  static const List<_i8.SmithySerializer> serializers = [
+  static const List<_i8.SmithySerializer<StackSetOperation>> serializers = [
     StackSetOperationAwsQuerySerializer()
   ];
 
@@ -154,63 +154,63 @@ abstract class StackSetOperation
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackSetOperation');
-    helper.add(
-      'operationId',
-      operationId,
-    );
-    helper.add(
-      'stackSetId',
-      stackSetId,
-    );
-    helper.add(
-      'action',
-      action,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'operationPreferences',
-      operationPreferences,
-    );
-    helper.add(
-      'retainStacks',
-      retainStacks,
-    );
-    helper.add(
-      'administrationRoleArn',
-      administrationRoleArn,
-    );
-    helper.add(
-      'executionRoleName',
-      executionRoleName,
-    );
-    helper.add(
-      'creationTimestamp',
-      creationTimestamp,
-    );
-    helper.add(
-      'endTimestamp',
-      endTimestamp,
-    );
-    helper.add(
-      'deploymentTargets',
-      deploymentTargets,
-    );
-    helper.add(
-      'stackSetDriftDetectionDetails',
-      stackSetDriftDetectionDetails,
-    );
-    helper.add(
-      'statusReason',
-      statusReason,
-    );
-    helper.add(
-      'statusDetails',
-      statusDetails,
-    );
+    final helper = newBuiltValueToStringHelper('StackSetOperation')
+      ..add(
+        'operationId',
+        operationId,
+      )
+      ..add(
+        'stackSetId',
+        stackSetId,
+      )
+      ..add(
+        'action',
+        action,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'operationPreferences',
+        operationPreferences,
+      )
+      ..add(
+        'retainStacks',
+        retainStacks,
+      )
+      ..add(
+        'administrationRoleArn',
+        administrationRoleArn,
+      )
+      ..add(
+        'executionRoleName',
+        executionRoleName,
+      )
+      ..add(
+        'creationTimestamp',
+        creationTimestamp,
+      )
+      ..add(
+        'endTimestamp',
+        endTimestamp,
+      )
+      ..add(
+        'deploymentTargets',
+        deploymentTargets,
+      )
+      ..add(
+        'stackSetDriftDetectionDetails',
+        stackSetDriftDetectionDetails,
+      )
+      ..add(
+        'statusReason',
+        statusReason,
+      )
+      ..add(
+        'statusDetails',
+        statusDetails,
+      );
     return helper.toString();
   }
 }

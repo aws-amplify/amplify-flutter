@@ -46,7 +46,9 @@ abstract class NoSuchOrganizationConformancePackException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<NoSuchOrganizationConformancePackException>>
+      serializers = [
     NoSuchOrganizationConformancePackExceptionAwsJson11Serializer()
   ];
 
@@ -76,11 +78,11 @@ abstract class NoSuchOrganizationConformancePackException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'NoSuchOrganizationConformancePackException');
-    helper.add(
-      'message',
-      message,
-    );
+        'NoSuchOrganizationConformancePackException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

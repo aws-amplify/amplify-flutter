@@ -71,7 +71,7 @@ abstract class PutItemInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<PutItemInput>> serializers = [
     PutItemInputAwsJson10Serializer()
   ];
 
@@ -206,47 +206,47 @@ abstract class PutItemInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutItemInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'item',
-      item,
-    );
-    helper.add(
-      'expected',
-      expected,
-    );
-    helper.add(
-      'returnValues',
-      returnValues,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'returnItemCollectionMetrics',
-      returnItemCollectionMetrics,
-    );
-    helper.add(
-      'conditionalOperator',
-      conditionalOperator,
-    );
-    helper.add(
-      'conditionExpression',
-      conditionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'expressionAttributeValues',
-      expressionAttributeValues,
-    );
+    final helper = newBuiltValueToStringHelper('PutItemInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'item',
+        item,
+      )
+      ..add(
+        'expected',
+        expected,
+      )
+      ..add(
+        'returnValues',
+        returnValues,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      )
+      ..add(
+        'returnItemCollectionMetrics',
+        returnItemCollectionMetrics,
+      )
+      ..add(
+        'conditionalOperator',
+        conditionalOperator,
+      )
+      ..add(
+        'conditionExpression',
+        conditionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      )
+      ..add(
+        'expressionAttributeValues',
+        expressionAttributeValues,
+      );
     return helper.toString();
   }
 }

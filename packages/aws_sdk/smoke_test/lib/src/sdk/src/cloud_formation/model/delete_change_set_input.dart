@@ -41,7 +41,7 @@ abstract class DeleteChangeSetInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeleteChangeSetInput>> serializers = [
     DeleteChangeSetInputAwsQuerySerializer()
   ];
 
@@ -62,15 +62,15 @@ abstract class DeleteChangeSetInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteChangeSetInput');
-    helper.add(
-      'changeSetName',
-      changeSetName,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteChangeSetInput')
+      ..add(
+        'changeSetName',
+        changeSetName,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      );
     return helper.toString();
   }
 }

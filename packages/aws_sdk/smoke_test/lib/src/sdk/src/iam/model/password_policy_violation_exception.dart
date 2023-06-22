@@ -39,9 +39,8 @@ abstract class PasswordPolicyViolationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PasswordPolicyViolationExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<PasswordPolicyViolationException>>
+      serializers = [PasswordPolicyViolationExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PasswordPolicyViolationExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class PasswordPolicyViolationException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PasswordPolicyViolationException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('PasswordPolicyViolationException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

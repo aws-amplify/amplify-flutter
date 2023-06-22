@@ -45,7 +45,7 @@ abstract class RequiredActivatedType
 
   const RequiredActivatedType._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<RequiredActivatedType>> serializers = [
     RequiredActivatedTypeAwsQuerySerializer()
   ];
 
@@ -74,23 +74,23 @@ abstract class RequiredActivatedType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RequiredActivatedType');
-    helper.add(
-      'typeNameAlias',
-      typeNameAlias,
-    );
-    helper.add(
-      'originalTypeName',
-      originalTypeName,
-    );
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
-    helper.add(
-      'supportedMajorVersions',
-      supportedMajorVersions,
-    );
+    final helper = newBuiltValueToStringHelper('RequiredActivatedType')
+      ..add(
+        'typeNameAlias',
+        typeNameAlias,
+      )
+      ..add(
+        'originalTypeName',
+        originalTypeName,
+      )
+      ..add(
+        'publisherId',
+        publisherId,
+      )
+      ..add(
+        'supportedMajorVersions',
+        supportedMajorVersions,
+      );
     return helper.toString();
   }
 }

@@ -42,7 +42,7 @@ abstract class ParameterDeclaration
 
   const ParameterDeclaration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ParameterDeclaration>> serializers = [
     ParameterDeclarationAwsQuerySerializer()
   ];
 
@@ -77,31 +77,31 @@ abstract class ParameterDeclaration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ParameterDeclaration');
-    helper.add(
-      'parameterKey',
-      parameterKey,
-    );
-    helper.add(
-      'defaultValue',
-      defaultValue,
-    );
-    helper.add(
-      'parameterType',
-      parameterType,
-    );
-    helper.add(
-      'noEcho',
-      noEcho,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'parameterConstraints',
-      parameterConstraints,
-    );
+    final helper = newBuiltValueToStringHelper('ParameterDeclaration')
+      ..add(
+        'parameterKey',
+        parameterKey,
+      )
+      ..add(
+        'defaultValue',
+        defaultValue,
+      )
+      ..add(
+        'parameterType',
+        parameterType,
+      )
+      ..add(
+        'noEcho',
+        noEcho,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'parameterConstraints',
+        parameterConstraints,
+      );
     return helper.toString();
   }
 }

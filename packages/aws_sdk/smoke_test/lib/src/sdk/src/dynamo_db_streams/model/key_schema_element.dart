@@ -45,7 +45,7 @@ abstract class KeySchemaElement
 
   const KeySchemaElement._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<KeySchemaElement>> serializers = [
     KeySchemaElementAwsJson10Serializer()
   ];
 
@@ -73,15 +73,15 @@ abstract class KeySchemaElement
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('KeySchemaElement');
-    helper.add(
-      'attributeName',
-      attributeName,
-    );
-    helper.add(
-      'keyType',
-      keyType,
-    );
+    final helper = newBuiltValueToStringHelper('KeySchemaElement')
+      ..add(
+        'attributeName',
+        attributeName,
+      )
+      ..add(
+        'keyType',
+        keyType,
+      );
     return helper.toString();
   }
 }

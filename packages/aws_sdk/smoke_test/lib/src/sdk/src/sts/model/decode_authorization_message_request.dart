@@ -35,9 +35,8 @@ abstract class DecodeAuthorizationMessageRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DecodeAuthorizationMessageRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DecodeAuthorizationMessageRequest>>
+      serializers = [DecodeAuthorizationMessageRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DecodeAuthorizationMessageRequestBuilder b) {}
@@ -51,11 +50,11 @@ abstract class DecodeAuthorizationMessageRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DecodeAuthorizationMessageRequest');
-    helper.add(
-      'encodedMessage',
-      encodedMessage,
-    );
+        newBuiltValueToStringHelper('DecodeAuthorizationMessageRequest')
+          ..add(
+            'encodedMessage',
+            encodedMessage,
+          );
     return helper.toString();
   }
 }

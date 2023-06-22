@@ -48,7 +48,7 @@ abstract class InAppMessageCampaign
 
   const InAppMessageCampaign._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<InAppMessageCampaign>> serializers = [
     InAppMessageCampaignRestJson1Serializer()
   ];
 
@@ -91,39 +91,39 @@ abstract class InAppMessageCampaign
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessageCampaign');
-    helper.add(
-      'campaignId',
-      campaignId,
-    );
-    helper.add(
-      'dailyCap',
-      dailyCap,
-    );
-    helper.add(
-      'inAppMessage',
-      inAppMessage,
-    );
-    helper.add(
-      'priority',
-      priority,
-    );
-    helper.add(
-      'schedule',
-      schedule,
-    );
-    helper.add(
-      'sessionCap',
-      sessionCap,
-    );
-    helper.add(
-      'totalCap',
-      totalCap,
-    );
-    helper.add(
-      'treatmentId',
-      treatmentId,
-    );
+    final helper = newBuiltValueToStringHelper('InAppMessageCampaign')
+      ..add(
+        'campaignId',
+        campaignId,
+      )
+      ..add(
+        'dailyCap',
+        dailyCap,
+      )
+      ..add(
+        'inAppMessage',
+        inAppMessage,
+      )
+      ..add(
+        'priority',
+        priority,
+      )
+      ..add(
+        'schedule',
+        schedule,
+      )
+      ..add(
+        'sessionCap',
+        sessionCap,
+      )
+      ..add(
+        'totalCap',
+        totalCap,
+      )
+      ..add(
+        'treatmentId',
+        treatmentId,
+      );
     return helper.toString();
   }
 }

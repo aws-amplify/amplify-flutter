@@ -41,7 +41,7 @@ abstract class CreateUserRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<CreateUserRequest>> serializers = [
     CreateUserRequestAwsQuerySerializer()
   ];
 
@@ -82,23 +82,23 @@ abstract class CreateUserRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateUserRequest');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'permissionsBoundary',
-      permissionsBoundary,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('CreateUserRequest')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'permissionsBoundary',
+        permissionsBoundary,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

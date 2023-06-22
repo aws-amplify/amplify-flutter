@@ -60,7 +60,7 @@ abstract class Group
 
   const Group._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Group>> serializers = [
     GroupAwsQuerySerializer()
   ];
 
@@ -91,27 +91,27 @@ abstract class Group
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Group');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'groupId',
-      groupId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
+    final helper = newBuiltValueToStringHelper('Group')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'groupId',
+        groupId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      );
     return helper.toString();
   }
 }

@@ -57,7 +57,7 @@ abstract class GetSdkRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetSdkRequestPayload>> serializers = [
     GetSdkRequestRestJson1Serializer()
   ];
 
@@ -102,23 +102,23 @@ abstract class GetSdkRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetSdkRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'sdkType',
-      sdkType,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
+    final helper = newBuiltValueToStringHelper('GetSdkRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      )
+      ..add(
+        'sdkType',
+        sdkType,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      );
     return helper.toString();
   }
 }

@@ -40,7 +40,7 @@ abstract class BasePathMapping
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<BasePathMapping>> serializers = [
     BasePathMappingRestJson1Serializer()
   ];
 
@@ -63,19 +63,19 @@ abstract class BasePathMapping
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BasePathMapping');
-    helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stage',
-      stage,
-    );
+    final helper = newBuiltValueToStringHelper('BasePathMapping')
+      ..add(
+        'basePath',
+        basePath,
+      )
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stage',
+        stage,
+      );
     return helper.toString();
   }
 }

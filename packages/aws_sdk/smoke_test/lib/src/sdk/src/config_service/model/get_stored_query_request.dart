@@ -32,7 +32,7 @@ abstract class GetStoredQueryRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetStoredQueryRequest>> serializers = [
     GetStoredQueryRequestAwsJson11Serializer()
   ];
 
@@ -47,11 +47,11 @@ abstract class GetStoredQueryRequest
   List<Object?> get props => [queryName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetStoredQueryRequest');
-    helper.add(
-      'queryName',
-      queryName,
-    );
+    final helper = newBuiltValueToStringHelper('GetStoredQueryRequest')
+      ..add(
+        'queryName',
+        queryName,
+      );
     return helper.toString();
   }
 }

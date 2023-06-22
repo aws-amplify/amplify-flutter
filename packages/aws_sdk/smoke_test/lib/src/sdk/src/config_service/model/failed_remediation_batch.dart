@@ -35,9 +35,8 @@ abstract class FailedRemediationBatch
 
   const FailedRemediationBatch._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    FailedRemediationBatchAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<FailedRemediationBatch>> serializers =
+      [FailedRemediationBatchAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FailedRemediationBatchBuilder b) {}
@@ -54,15 +53,15 @@ abstract class FailedRemediationBatch
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FailedRemediationBatch');
-    helper.add(
-      'failureMessage',
-      failureMessage,
-    );
-    helper.add(
-      'failedItems',
-      failedItems,
-    );
+    final helper = newBuiltValueToStringHelper('FailedRemediationBatch')
+      ..add(
+        'failureMessage',
+        failureMessage,
+      )
+      ..add(
+        'failedItems',
+        failedItems,
+      );
     return helper.toString();
   }
 }

@@ -35,9 +35,8 @@ abstract class DescribeTimeToLiveOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    DescribeTimeToLiveOutputAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<DescribeTimeToLiveOutput>>
+      serializers = [DescribeTimeToLiveOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeTimeToLiveOutputBuilder b) {}
@@ -47,11 +46,11 @@ abstract class DescribeTimeToLiveOutput
   List<Object?> get props => [timeToLiveDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeTimeToLiveOutput');
-    helper.add(
-      'timeToLiveDescription',
-      timeToLiveDescription,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeTimeToLiveOutput')
+      ..add(
+        'timeToLiveDescription',
+        timeToLiveDescription,
+      );
     return helper.toString();
   }
 }

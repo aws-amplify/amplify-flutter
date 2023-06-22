@@ -31,9 +31,8 @@ abstract class UpdateStackInstancesOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UpdateStackInstancesOutputAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<UpdateStackInstancesOutput>>
+      serializers = [UpdateStackInstancesOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateStackInstancesOutputBuilder b) {}
@@ -44,11 +43,11 @@ abstract class UpdateStackInstancesOutput
   List<Object?> get props => [operationId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateStackInstancesOutput');
-    helper.add(
-      'operationId',
-      operationId,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateStackInstancesOutput')
+      ..add(
+        'operationId',
+        operationId,
+      );
     return helper.toString();
   }
 }

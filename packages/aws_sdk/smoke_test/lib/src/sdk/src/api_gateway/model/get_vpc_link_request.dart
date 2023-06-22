@@ -42,9 +42,8 @@ abstract class GetVpcLinkRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetVpcLinkRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetVpcLinkRequestPayload>>
+      serializers = [GetVpcLinkRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetVpcLinkRequestBuilder b) {}
@@ -69,11 +68,11 @@ abstract class GetVpcLinkRequest
   List<Object?> get props => [vpcLinkId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetVpcLinkRequest');
-    helper.add(
-      'vpcLinkId',
-      vpcLinkId,
-    );
+    final helper = newBuiltValueToStringHelper('GetVpcLinkRequest')
+      ..add(
+        'vpcLinkId',
+        vpcLinkId,
+      );
     return helper.toString();
   }
 }

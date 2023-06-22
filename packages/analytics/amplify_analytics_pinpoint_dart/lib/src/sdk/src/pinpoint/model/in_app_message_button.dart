@@ -40,7 +40,7 @@ abstract class InAppMessageButton
 
   const InAppMessageButton._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<InAppMessageButton>> serializers = [
     InAppMessageButtonRestJson1Serializer()
   ];
 
@@ -67,23 +67,23 @@ abstract class InAppMessageButton
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessageButton');
-    helper.add(
-      'android',
-      android,
-    );
-    helper.add(
-      'defaultConfig',
-      defaultConfig,
-    );
-    helper.add(
-      'ios',
-      ios,
-    );
-    helper.add(
-      'web',
-      web,
-    );
+    final helper = newBuiltValueToStringHelper('InAppMessageButton')
+      ..add(
+        'android',
+        android,
+      )
+      ..add(
+        'defaultConfig',
+        defaultConfig,
+      )
+      ..add(
+        'ios',
+        ios,
+      )
+      ..add(
+        'web',
+        web,
+      );
     return helper.toString();
   }
 }

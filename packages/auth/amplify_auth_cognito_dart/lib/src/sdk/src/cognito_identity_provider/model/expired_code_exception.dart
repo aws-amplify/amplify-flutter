@@ -37,7 +37,7 @@ abstract class ExpiredCodeException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ExpiredCodeException>> serializers = [
     ExpiredCodeExceptionAwsJson11Serializer()
   ];
 
@@ -66,11 +66,11 @@ abstract class ExpiredCodeException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExpiredCodeException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ExpiredCodeException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

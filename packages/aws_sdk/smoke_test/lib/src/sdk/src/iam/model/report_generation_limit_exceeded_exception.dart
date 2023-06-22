@@ -39,7 +39,9 @@ abstract class ReportGenerationLimitExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<ReportGenerationLimitExceededException>>
+      serializers = [
     ReportGenerationLimitExceededExceptionAwsQuerySerializer()
   ];
 
@@ -67,11 +69,11 @@ abstract class ReportGenerationLimitExceededException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ReportGenerationLimitExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('ReportGenerationLimitExceededException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

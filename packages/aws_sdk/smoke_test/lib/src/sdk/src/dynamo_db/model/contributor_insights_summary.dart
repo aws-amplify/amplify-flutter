@@ -37,9 +37,8 @@ abstract class ContributorInsightsSummary
 
   const ContributorInsightsSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ContributorInsightsSummaryAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<ContributorInsightsSummary>>
+      serializers = [ContributorInsightsSummaryAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ContributorInsightsSummaryBuilder b) {}
@@ -60,19 +59,19 @@ abstract class ContributorInsightsSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ContributorInsightsSummary');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'contributorInsightsStatus',
-      contributorInsightsStatus,
-    );
+    final helper = newBuiltValueToStringHelper('ContributorInsightsSummary')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'contributorInsightsStatus',
+        contributorInsightsStatus,
+      );
     return helper.toString();
   }
 }

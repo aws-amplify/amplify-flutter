@@ -39,9 +39,8 @@ abstract class ConcurrentModificationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ConcurrentModificationExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<ConcurrentModificationException>>
+      serializers = [ConcurrentModificationExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConcurrentModificationExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class ConcurrentModificationException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ConcurrentModificationException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('ConcurrentModificationException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

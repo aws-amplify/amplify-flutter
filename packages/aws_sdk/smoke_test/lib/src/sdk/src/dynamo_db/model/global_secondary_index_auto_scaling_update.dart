@@ -38,7 +38,8 @@ abstract class GlobalSecondaryIndexAutoScalingUpdate
 
   const GlobalSecondaryIndexAutoScalingUpdate._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<GlobalSecondaryIndexAutoScalingUpdate>>
+      serializers = [
     GlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer()
   ];
 
@@ -58,15 +59,15 @@ abstract class GlobalSecondaryIndexAutoScalingUpdate
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GlobalSecondaryIndexAutoScalingUpdate');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'provisionedWriteCapacityAutoScalingUpdate',
-      provisionedWriteCapacityAutoScalingUpdate,
-    );
+        newBuiltValueToStringHelper('GlobalSecondaryIndexAutoScalingUpdate')
+          ..add(
+            'indexName',
+            indexName,
+          )
+          ..add(
+            'provisionedWriteCapacityAutoScalingUpdate',
+            provisionedWriteCapacityAutoScalingUpdate,
+          );
     return helper.toString();
   }
 }

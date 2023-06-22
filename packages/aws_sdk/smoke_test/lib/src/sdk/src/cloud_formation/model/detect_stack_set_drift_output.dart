@@ -31,9 +31,8 @@ abstract class DetectStackSetDriftOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DetectStackSetDriftOutputAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<DetectStackSetDriftOutput>>
+      serializers = [DetectStackSetDriftOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DetectStackSetDriftOutputBuilder b) {}
@@ -46,11 +45,11 @@ abstract class DetectStackSetDriftOutput
   List<Object?> get props => [operationId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DetectStackSetDriftOutput');
-    helper.add(
-      'operationId',
-      operationId,
-    );
+    final helper = newBuiltValueToStringHelper('DetectStackSetDriftOutput')
+      ..add(
+        'operationId',
+        operationId,
+      );
     return helper.toString();
   }
 }

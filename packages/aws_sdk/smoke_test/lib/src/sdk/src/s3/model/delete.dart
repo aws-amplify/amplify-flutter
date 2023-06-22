@@ -32,7 +32,7 @@ abstract class Delete
 
   const Delete._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Delete>> serializers = [
     DeleteRestXmlSerializer()
   ];
 
@@ -51,15 +51,15 @@ abstract class Delete
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Delete');
-    helper.add(
-      'objects',
-      objects,
-    );
-    helper.add(
-      'quiet',
-      quiet,
-    );
+    final helper = newBuiltValueToStringHelper('Delete')
+      ..add(
+        'objects',
+        objects,
+      )
+      ..add(
+        'quiet',
+        quiet,
+      );
     return helper.toString();
   }
 }

@@ -31,9 +31,8 @@ abstract class AnalyticsExportDestination
 
   const AnalyticsExportDestination._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AnalyticsExportDestinationRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<AnalyticsExportDestination>>
+      serializers = [AnalyticsExportDestinationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AnalyticsExportDestinationBuilder b) {}
@@ -44,11 +43,11 @@ abstract class AnalyticsExportDestination
   List<Object?> get props => [s3BucketDestination];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AnalyticsExportDestination');
-    helper.add(
-      's3BucketDestination',
-      s3BucketDestination,
-    );
+    final helper = newBuiltValueToStringHelper('AnalyticsExportDestination')
+      ..add(
+        's3BucketDestination',
+        s3BucketDestination,
+      );
     return helper.toString();
   }
 }

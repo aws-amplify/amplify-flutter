@@ -34,9 +34,8 @@ abstract class DeleteRolePermissionsBoundaryRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteRolePermissionsBoundaryRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteRolePermissionsBoundaryRequest>>
+      serializers = [DeleteRolePermissionsBoundaryRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteRolePermissionsBoundaryRequestBuilder b) {}
@@ -50,11 +49,11 @@ abstract class DeleteRolePermissionsBoundaryRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteRolePermissionsBoundaryRequest');
-    helper.add(
-      'roleName',
-      roleName,
-    );
+        newBuiltValueToStringHelper('DeleteRolePermissionsBoundaryRequest')
+          ..add(
+            'roleName',
+            roleName,
+          );
     return helper.toString();
   }
 }

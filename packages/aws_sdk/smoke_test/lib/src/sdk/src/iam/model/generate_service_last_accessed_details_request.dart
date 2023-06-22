@@ -42,7 +42,9 @@ abstract class GenerateServiceLastAccessedDetailsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<GenerateServiceLastAccessedDetailsRequest>>
+      serializers = [
     GenerateServiceLastAccessedDetailsRequestAwsQuerySerializer()
   ];
 
@@ -63,16 +65,16 @@ abstract class GenerateServiceLastAccessedDetailsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'GenerateServiceLastAccessedDetailsRequest');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'granularity',
-      granularity,
-    );
+    final helper =
+        newBuiltValueToStringHelper('GenerateServiceLastAccessedDetailsRequest')
+          ..add(
+            'arn',
+            arn,
+          )
+          ..add(
+            'granularity',
+            granularity,
+          );
     return helper.toString();
   }
 }

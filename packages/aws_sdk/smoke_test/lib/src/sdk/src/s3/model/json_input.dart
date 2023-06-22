@@ -26,7 +26,7 @@ abstract class JsonInput
 
   const JsonInput._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<JsonInput>> serializers = [
     JsonInputRestXmlSerializer()
   ];
 
@@ -39,11 +39,11 @@ abstract class JsonInput
   List<Object?> get props => [type];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonInput');
-    helper.add(
-      'type',
-      type,
-    );
+    final helper = newBuiltValueToStringHelper('JsonInput')
+      ..add(
+        'type',
+        type,
+      );
     return helper.toString();
   }
 }

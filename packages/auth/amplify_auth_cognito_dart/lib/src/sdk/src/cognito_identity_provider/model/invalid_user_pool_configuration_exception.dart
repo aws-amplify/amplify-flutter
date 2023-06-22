@@ -39,7 +39,8 @@ abstract class InvalidUserPoolConfigurationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<InvalidUserPoolConfigurationException>>
+      serializers = [
     InvalidUserPoolConfigurationExceptionAwsJson11Serializer()
   ];
 
@@ -69,11 +70,11 @@ abstract class InvalidUserPoolConfigurationException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InvalidUserPoolConfigurationException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InvalidUserPoolConfigurationException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }
