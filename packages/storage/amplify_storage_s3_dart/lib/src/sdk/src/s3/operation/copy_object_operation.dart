@@ -493,7 +493,8 @@ class CopyObjectOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ObjectNotInActiveTierError,
+            _i10.ObjectNotInActiveTierError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.s3',
             shape: 'ObjectNotInActiveTierError',
@@ -541,7 +542,7 @@ class CopyObjectOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
+        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)},
       },
     );
   }
