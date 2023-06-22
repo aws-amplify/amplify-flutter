@@ -221,15 +221,8 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
                   isNullable: false,
                 ),
               ]).code
-            else ...[
-              if (member.target == Shape.unit)
-                refer(variantName)
-                    .assign(
-                      DartTypes.smithy.unit.constInstance([]),
-                    )
-                    .code,
+            else
               refer('super').property('_').call([]).code,
-            ]
           ]),
       );
       Constructor? privateConstructor;
@@ -259,15 +252,16 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
             ctor,
             if (privateConstructor != null) privateConstructor,
           ])
-          ..fields.add(
-            Field(
-              (f) => f
-                ..modifier = FieldModifier.final$
-                ..annotations.add(DartTypes.core.override)
-                ..name = variantName
-                ..type = memberSymbols[member]!.unboxed,
-            ),
-          )
+          ..fields.addAll([
+            if (member.target != Shape.unit)
+              Field(
+                (f) => f
+                  ..modifier = FieldModifier.final$
+                  ..annotations.add(DartTypes.core.override)
+                  ..name = variantName
+                  ..type = memberSymbols[member]!.unboxed,
+              ),
+          ])
           ..methods.addAll([
             Method(
               (m) => m
@@ -278,6 +272,16 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
                 ..lambda = true
                 ..body = literalString(member.memberName).code,
             ),
+            if (member.target == Shape.unit)
+              Method(
+                (m) => m
+                  ..annotations.add(DartTypes.core.override)
+                  ..returns = memberSymbols[member]!.unboxed
+                  ..name = variantName
+                  ..type = MethodType.getter
+                  ..lambda = true
+                  ..body = DartTypes.smithy.unit.constInstance([]).code,
+              ),
           ]);
       });
     }
@@ -335,6 +339,9 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
             .call([literalString(className, raw: true)]),
       ),
     );
+    // Add a check for every member instead of doing helper.add(name, value)
+    // since some members may be sensitive or have other specific requirements
+    // to consider when logging.
     for (final member in members) {
       final dartName = member.dartName(ShapeType.union);
       final isSensitive = shape.hasTrait<SensitiveTrait>() ||
