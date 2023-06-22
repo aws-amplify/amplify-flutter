@@ -18,11 +18,23 @@ sealed class ReplicationRuleFilter
   const factory ReplicationRuleFilter.prefix(String prefix) =
       ReplicationRuleFilterPrefix;
 
-  const factory ReplicationRuleFilter.tag(_i2.Tag tag) =
-      ReplicationRuleFilterTag;
+  factory ReplicationRuleFilter.tag({
+    required String key,
+    required String value,
+  }) =>
+      ReplicationRuleFilterTag(_i2.Tag(
+        key: key,
+        value: value,
+      ));
 
-  const factory ReplicationRuleFilter.and(_i3.ReplicationRuleAndOperator and) =
-      ReplicationRuleFilterAnd;
+  factory ReplicationRuleFilter.and({
+    String? prefix,
+    List<_i2.Tag>? tags,
+  }) =>
+      ReplicationRuleFilterAnd(_i3.ReplicationRuleAndOperator(
+        prefix: prefix,
+        tags: tags,
+      ));
 
   const factory ReplicationRuleFilter.sdkUnknown(
     String name,

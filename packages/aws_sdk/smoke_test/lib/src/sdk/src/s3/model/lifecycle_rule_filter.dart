@@ -18,7 +18,14 @@ sealed class LifecycleRuleFilter extends _i1.SmithyUnion<LifecycleRuleFilter> {
   const factory LifecycleRuleFilter.prefix(String prefix) =
       LifecycleRuleFilterPrefix;
 
-  const factory LifecycleRuleFilter.tag(_i2.Tag tag) = LifecycleRuleFilterTag;
+  factory LifecycleRuleFilter.tag({
+    required String key,
+    required String value,
+  }) =>
+      LifecycleRuleFilterTag(_i2.Tag(
+        key: key,
+        value: value,
+      ));
 
   const factory LifecycleRuleFilter.objectSizeGreaterThan(
           _i3.Int64 objectSizeGreaterThan) =
@@ -27,8 +34,18 @@ sealed class LifecycleRuleFilter extends _i1.SmithyUnion<LifecycleRuleFilter> {
   const factory LifecycleRuleFilter.objectSizeLessThan(
       _i3.Int64 objectSizeLessThan) = LifecycleRuleFilterObjectSizeLessThan;
 
-  const factory LifecycleRuleFilter.and(_i4.LifecycleRuleAndOperator and) =
-      LifecycleRuleFilterAnd;
+  factory LifecycleRuleFilter.and({
+    String? prefix,
+    List<_i2.Tag>? tags,
+    _i3.Int64? objectSizeGreaterThan,
+    _i3.Int64? objectSizeLessThan,
+  }) =>
+      LifecycleRuleFilterAnd(_i4.LifecycleRuleAndOperator(
+        prefix: prefix,
+        tags: tags,
+        objectSizeGreaterThan: objectSizeGreaterThan,
+        objectSizeLessThan: objectSizeLessThan,
+      ));
 
   const factory LifecycleRuleFilter.sdkUnknown(
     String name,
