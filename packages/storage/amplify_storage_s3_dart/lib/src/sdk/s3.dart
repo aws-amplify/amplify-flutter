@@ -60,10 +60,12 @@ export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/invalid_object_stat
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/json_input.dart';
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/json_output.dart';
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/json_type.dart';
-export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/list_multipart_uploads_output.dart';
+export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/list_multipart_uploads_output.dart'
+    hide ListMultipartUploadsOutputPayload;
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/list_multipart_uploads_request.dart'
     hide ListMultipartUploadsRequestPayload;
-export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/list_objects_v2_output.dart';
+export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/list_objects_v2_output.dart'
+    hide ListObjectsV2OutputPayload;
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/list_objects_v2_request.dart'
     hide ListObjectsV2RequestPayload;
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/list_parts_output.dart'

@@ -42,7 +42,7 @@ import 'package:smithy_aws/smithy_aws.dart' as _i4;
 class ListMultipartUploadsOperation extends _i1.HttpOperation<
     _i2.ListMultipartUploadsRequestPayload,
     _i2.ListMultipartUploadsRequest,
-    _i3.ListMultipartUploadsOutput,
+    _i3.ListMultipartUploadsOutputPayload,
     _i3.ListMultipartUploadsOutput> {
   /// This action lists in-progress multipart uploads. An in-progress multipart upload is a multipart upload that has been initiated using the Initiate Multipart Upload request, but has not yet been completed or aborted.
   ///
@@ -85,7 +85,7 @@ class ListMultipartUploadsOperation extends _i1.HttpOperation<
       _i1.HttpProtocol<
           _i2.ListMultipartUploadsRequestPayload,
           _i2.ListMultipartUploadsRequest,
-          _i3.ListMultipartUploadsOutput,
+          _i3.ListMultipartUploadsOutputPayload,
           _i3.ListMultipartUploadsOutput>> protocols = [
     _i4.RestXmlProtocol(
       serializers: _i6.serializers,
@@ -140,6 +140,9 @@ class ListMultipartUploadsOperation extends _i1.HttpOperation<
                 input.expectedBucketOwner!;
           }
         }
+        if (input.requestPayer != null) {
+          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+        }
         if (input.delimiter != null) {
           b.queryParameters.add(
             'delimiter',
@@ -181,7 +184,7 @@ class ListMultipartUploadsOperation extends _i1.HttpOperation<
   int successCode([_i3.ListMultipartUploadsOutput? output]) => 200;
   @override
   _i3.ListMultipartUploadsOutput buildOutput(
-    _i3.ListMultipartUploadsOutput payload,
+    _i3.ListMultipartUploadsOutputPayload payload,
     _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ListMultipartUploadsOutput.fromResponse(
