@@ -10,6 +10,7 @@ import 'package:smithy/ast.dart';
 import 'package:smithy/smithy.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
 import 'package:smithy_codegen/src/core/reserved_words.dart';
+import 'package:smithy_codegen/src/generator/enum_generator.dart';
 import 'package:smithy_codegen/src/generator/serialization/protocol_traits.dart';
 import 'package:smithy_codegen/src/generator/types.dart';
 import 'package:smithy_codegen/src/generator/visitors/symbol_visitor.dart';
@@ -273,22 +274,48 @@ extension ShapeUtils on Shape {
     final defaultTrait =
         getTrait<DefaultTrait>() ?? targetShape.getTrait<DefaultTrait>();
     final defaultValue = defaultTrait?.value;
-    switch (targetShape.getType()) {
-      case ShapeType.byte:
-      case ShapeType.short:
-      case ShapeType.integer:
-      case ShapeType.float:
-      case ShapeType.double:
+    switch (targetShape) {
+      case StringShape _:
+        assert(
+          defaultValue is String?,
+          'String shapes should only accept string values',
+        );
+        if (defaultValue is String) {
+          return literalString(defaultValue, raw: true);
+        }
+        return null;
+      case final StringEnumShape targetShape:
+        assert(
+          defaultValue is String?,
+          'Enum values should be strings in the Smithy IDL',
+        );
+        if (defaultValue is String) {
+          final enumValue = targetShape.enumValues.singleWhere(
+            (val) => val.expectTrait<EnumValueTrait>().value == defaultValue,
+            orElse: () => throw StateError(
+              'No ${targetShape.shapeId.shape} enum value found for $defaultValue',
+            ),
+          );
+          return context
+              .symbolFor(targetShape.shapeId)
+              .property(enumValue.enumVariantName);
+        }
+        return null;
+      case ByteShape _ || PrimitiveByteShape _:
+      case ShortShape _ || PrimitiveShortShape _:
+      case IntegerShape _ || PrimitiveIntegerShape _:
+      case FloatShape _ || PrimitiveFloatShape _:
+      case DoubleShape _ || PrimitiveDoubleShape _:
         return literalNum(defaultValue as num? ?? 0);
-      case ShapeType.long:
+      case LongShape _ || PrimitiveLongShape _:
         return defaultValue == null || defaultValue == 0
             ? DartTypes.fixNum.int64.property('ZERO')
             : DartTypes.fixNum.int64.newInstance([
                 literalNum(defaultValue as int),
               ]);
-      case ShapeType.boolean:
+      case BooleanShape _ || PrimitiveBooleanShape _:
         return literalBool(defaultValue as bool? ?? false);
-      case ShapeType.blob:
+      case BlobShape _:
         if (defaultValue is! String) {
           return null;
         }
