@@ -40,9 +40,8 @@ abstract class UpdateRoleDescriptionRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateRoleDescriptionRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateRoleDescriptionRequest>>
+      serializers = [UpdateRoleDescriptionRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateRoleDescriptionRequestBuilder b) {}
@@ -61,15 +60,15 @@ abstract class UpdateRoleDescriptionRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateRoleDescriptionRequest');
-    helper.add(
-      'roleName',
-      roleName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateRoleDescriptionRequest')
+      ..add(
+        'roleName',
+        roleName,
+      )
+      ..add(
+        'description',
+        description,
+      );
     return helper.toString();
   }
 }

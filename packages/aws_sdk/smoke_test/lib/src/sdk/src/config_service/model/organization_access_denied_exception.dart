@@ -73,9 +73,8 @@ abstract class OrganizationAccessDeniedException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    OrganizationAccessDeniedExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<OrganizationAccessDeniedException>>
+      serializers = [OrganizationAccessDeniedExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationAccessDeniedExceptionBuilder b) {}
@@ -103,11 +102,11 @@ abstract class OrganizationAccessDeniedException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OrganizationAccessDeniedException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('OrganizationAccessDeniedException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

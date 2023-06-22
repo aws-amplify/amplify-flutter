@@ -31,7 +31,7 @@ abstract class FailureException
 
   const FailureException._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<FailureException>> serializers = [
     FailureExceptionAwsJson10Serializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class FailureException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FailureException');
-    helper.add(
-      'exceptionName',
-      exceptionName,
-    );
-    helper.add(
-      'exceptionDescription',
-      exceptionDescription,
-    );
+    final helper = newBuiltValueToStringHelper('FailureException')
+      ..add(
+        'exceptionName',
+        exceptionName,
+      )
+      ..add(
+        'exceptionDescription',
+        exceptionDescription,
+      );
     return helper.toString();
   }
 }

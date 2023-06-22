@@ -67,9 +67,8 @@ abstract class GetObjectLegalHoldRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetObjectLegalHoldRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetObjectLegalHoldRequestPayload>>
+      serializers = [GetObjectLegalHoldRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectLegalHoldRequestBuilder b) {}
@@ -117,27 +116,27 @@ abstract class GetObjectLegalHoldRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectLegalHoldRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectLegalHoldRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

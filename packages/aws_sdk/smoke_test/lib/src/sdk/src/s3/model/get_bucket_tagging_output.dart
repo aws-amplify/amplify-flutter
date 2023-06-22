@@ -32,9 +32,8 @@ abstract class GetBucketTaggingOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetBucketTaggingOutputRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<GetBucketTaggingOutput>> serializers =
+      [GetBucketTaggingOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketTaggingOutputBuilder b) {}
@@ -45,11 +44,11 @@ abstract class GetBucketTaggingOutput
   List<Object?> get props => [tagSet];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketTaggingOutput');
-    helper.add(
-      'tagSet',
-      tagSet,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketTaggingOutput')
+      ..add(
+        'tagSet',
+        tagSet,
+      );
     return helper.toString();
   }
 }

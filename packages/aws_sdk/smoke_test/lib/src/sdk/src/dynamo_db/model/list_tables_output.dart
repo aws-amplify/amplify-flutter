@@ -39,7 +39,7 @@ abstract class ListTablesOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ListTablesOutput>> serializers = [
     ListTablesOutputAwsJson10Serializer()
   ];
 
@@ -62,15 +62,15 @@ abstract class ListTablesOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTablesOutput');
-    helper.add(
-      'tableNames',
-      tableNames,
-    );
-    helper.add(
-      'lastEvaluatedTableName',
-      lastEvaluatedTableName,
-    );
+    final helper = newBuiltValueToStringHelper('ListTablesOutput')
+      ..add(
+        'tableNames',
+        tableNames,
+      )
+      ..add(
+        'lastEvaluatedTableName',
+        lastEvaluatedTableName,
+      );
     return helper.toString();
   }
 }

@@ -39,7 +39,7 @@ abstract class Get
 
   const Get._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Get>> serializers = [
     GetAwsJson10Serializer()
   ];
 
@@ -66,23 +66,23 @@ abstract class Get
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Get');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'projectionExpression',
-      projectionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
+    final helper = newBuiltValueToStringHelper('Get')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'projectionExpression',
+        projectionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      );
     return helper.toString();
   }
 }

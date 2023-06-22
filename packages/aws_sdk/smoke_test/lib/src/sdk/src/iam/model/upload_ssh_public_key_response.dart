@@ -35,9 +35,8 @@ abstract class UploadSshPublicKeyResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    UploadSshPublicKeyResponseAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<UploadSshPublicKeyResponse>>
+      serializers = [UploadSshPublicKeyResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadSshPublicKeyResponseBuilder b) {}
@@ -48,11 +47,11 @@ abstract class UploadSshPublicKeyResponse
   List<Object?> get props => [sshPublicKey];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadSshPublicKeyResponse');
-    helper.add(
-      'sshPublicKey',
-      sshPublicKey,
-    );
+    final helper = newBuiltValueToStringHelper('UploadSshPublicKeyResponse')
+      ..add(
+        'sshPublicKey',
+        sshPublicKey,
+      );
     return helper.toString();
   }
 }

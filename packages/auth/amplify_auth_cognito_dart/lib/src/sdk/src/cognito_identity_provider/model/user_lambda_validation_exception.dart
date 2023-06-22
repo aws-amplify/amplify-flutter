@@ -39,9 +39,8 @@ abstract class UserLambdaValidationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UserLambdaValidationExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<UserLambdaValidationException>>
+      serializers = [UserLambdaValidationExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UserLambdaValidationExceptionBuilder b) {}
@@ -68,11 +67,11 @@ abstract class UserLambdaValidationException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UserLambdaValidationException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('UserLambdaValidationException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

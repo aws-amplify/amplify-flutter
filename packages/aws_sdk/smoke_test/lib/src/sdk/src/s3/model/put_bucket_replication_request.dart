@@ -72,9 +72,8 @@ abstract class PutBucketReplicationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketReplicationRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.ReplicationConfiguration>>
+      serializers = [PutBucketReplicationRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutBucketReplicationRequestBuilder b) {}
@@ -125,31 +124,31 @@ abstract class PutBucketReplicationRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutBucketReplicationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'replicationConfiguration',
-      replicationConfiguration,
-    );
-    helper.add(
-      'token',
-      token,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutBucketReplicationRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'replicationConfiguration',
+        replicationConfiguration,
+      )
+      ..add(
+        'token',
+        token,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

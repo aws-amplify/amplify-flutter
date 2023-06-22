@@ -38,7 +38,7 @@ abstract class GetRecordsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetRecordsInput>> serializers = [
     GetRecordsInputAwsJson10Serializer()
   ];
 
@@ -59,15 +59,15 @@ abstract class GetRecordsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetRecordsInput');
-    helper.add(
-      'shardIterator',
-      shardIterator,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+    final helper = newBuiltValueToStringHelper('GetRecordsInput')
+      ..add(
+        'shardIterator',
+        shardIterator,
+      )
+      ..add(
+        'limit',
+        limit,
+      );
     return helper.toString();
   }
 }

@@ -40,9 +40,8 @@ abstract class NoSuchConformancePackException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    NoSuchConformancePackExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<NoSuchConformancePackException>>
+      serializers = [NoSuchConformancePackExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NoSuchConformancePackExceptionBuilder b) {}
@@ -69,12 +68,11 @@ abstract class NoSuchConformancePackException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('NoSuchConformancePackException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('NoSuchConformancePackException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

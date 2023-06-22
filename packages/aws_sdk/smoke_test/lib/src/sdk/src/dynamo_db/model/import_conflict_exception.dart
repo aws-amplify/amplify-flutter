@@ -38,9 +38,8 @@ abstract class ImportConflictException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ImportConflictExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ImportConflictException>> serializers =
+      [ImportConflictExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ImportConflictExceptionBuilder b) {}
@@ -65,11 +64,11 @@ abstract class ImportConflictException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ImportConflictException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ImportConflictException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

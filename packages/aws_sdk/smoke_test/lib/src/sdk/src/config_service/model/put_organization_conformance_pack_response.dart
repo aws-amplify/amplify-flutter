@@ -35,7 +35,9 @@ abstract class PutOrganizationConformancePackResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<PutOrganizationConformancePackResponse>>
+      serializers = [
     PutOrganizationConformancePackResponseAwsJson11Serializer()
   ];
 
@@ -49,11 +51,11 @@ abstract class PutOrganizationConformancePackResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutOrganizationConformancePackResponse');
-    helper.add(
-      'organizationConformancePackArn',
-      organizationConformancePackArn,
-    );
+        newBuiltValueToStringHelper('PutOrganizationConformancePackResponse')
+          ..add(
+            'organizationConformancePackArn',
+            organizationConformancePackArn,
+          );
     return helper.toString();
   }
 }

@@ -39,9 +39,8 @@ abstract class VerifySoftwareTokenResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    VerifySoftwareTokenResponseAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<VerifySoftwareTokenResponse>>
+      serializers = [VerifySoftwareTokenResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(VerifySoftwareTokenResponseBuilder b) {}
@@ -58,15 +57,15 @@ abstract class VerifySoftwareTokenResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('VerifySoftwareTokenResponse');
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'session',
-      session,
-    );
+    final helper = newBuiltValueToStringHelper('VerifySoftwareTokenResponse')
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'session',
+        session,
+      );
     return helper.toString();
   }
 }

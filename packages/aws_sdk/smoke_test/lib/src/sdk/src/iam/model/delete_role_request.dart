@@ -29,7 +29,7 @@ abstract class DeleteRoleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeleteRoleRequest>> serializers = [
     DeleteRoleRequestAwsQuerySerializer()
   ];
 
@@ -46,11 +46,11 @@ abstract class DeleteRoleRequest
   List<Object?> get props => [roleName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteRoleRequest');
-    helper.add(
-      'roleName',
-      roleName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteRoleRequest')
+      ..add(
+        'roleName',
+        roleName,
+      );
     return helper.toString();
   }
 }

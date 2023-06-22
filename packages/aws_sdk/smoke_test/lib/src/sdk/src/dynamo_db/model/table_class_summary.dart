@@ -32,7 +32,7 @@ abstract class TableClassSummary
 
   const TableClassSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<TableClassSummary>> serializers = [
     TableClassSummaryAwsJson10Serializer()
   ];
 
@@ -51,15 +51,15 @@ abstract class TableClassSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TableClassSummary');
-    helper.add(
-      'tableClass',
-      tableClass,
-    );
-    helper.add(
-      'lastUpdateDateTime',
-      lastUpdateDateTime,
-    );
+    final helper = newBuiltValueToStringHelper('TableClassSummary')
+      ..add(
+        'tableClass',
+        tableClass,
+      )
+      ..add(
+        'lastUpdateDateTime',
+        lastUpdateDateTime,
+      );
     return helper.toString();
   }
 }

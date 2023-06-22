@@ -29,9 +29,8 @@ abstract class DescribeConfigRulesFilters
 
   const DescribeConfigRulesFilters._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    DescribeConfigRulesFiltersAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<DescribeConfigRulesFilters>>
+      serializers = [DescribeConfigRulesFiltersAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeConfigRulesFiltersBuilder b) {}
@@ -42,11 +41,11 @@ abstract class DescribeConfigRulesFilters
   List<Object?> get props => [evaluationMode];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeConfigRulesFilters');
-    helper.add(
-      'evaluationMode',
-      evaluationMode,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeConfigRulesFilters')
+      ..add(
+        'evaluationMode',
+        evaluationMode,
+      );
     return helper.toString();
   }
 }

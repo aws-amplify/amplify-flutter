@@ -31,7 +31,7 @@ abstract class AccessLogSettings
 
   const AccessLogSettings._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AccessLogSettings>> serializers = [
     AccessLogSettingsRestJson1Serializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class AccessLogSettings
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccessLogSettings');
-    helper.add(
-      'format',
-      format,
-    );
-    helper.add(
-      'destinationArn',
-      destinationArn,
-    );
+    final helper = newBuiltValueToStringHelper('AccessLogSettings')
+      ..add(
+        'format',
+        format,
+      )
+      ..add(
+        'destinationArn',
+        destinationArn,
+      );
     return helper.toString();
   }
 }

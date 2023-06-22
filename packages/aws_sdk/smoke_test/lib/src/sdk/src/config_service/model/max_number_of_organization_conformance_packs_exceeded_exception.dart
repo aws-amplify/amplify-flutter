@@ -44,7 +44,10 @@ abstract class MaxNumberOfOrganizationConformancePacksExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<
+              MaxNumberOfOrganizationConformancePacksExceededException>>
+      serializers = [
     MaxNumberOfOrganizationConformancePacksExceededExceptionAwsJson11Serializer()
   ];
 
@@ -75,11 +78,11 @@ abstract class MaxNumberOfOrganizationConformancePacksExceededException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MaxNumberOfOrganizationConformancePacksExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+        'MaxNumberOfOrganizationConformancePacksExceededException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

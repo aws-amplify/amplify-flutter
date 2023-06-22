@@ -40,7 +40,9 @@ abstract class NoAvailableConfigurationRecorderException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<NoAvailableConfigurationRecorderException>>
+      serializers = [
     NoAvailableConfigurationRecorderExceptionAwsJson11Serializer()
   ];
 
@@ -69,12 +71,12 @@ abstract class NoAvailableConfigurationRecorderException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'NoAvailableConfigurationRecorderException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper =
+        newBuiltValueToStringHelper('NoAvailableConfigurationRecorderException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

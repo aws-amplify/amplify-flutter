@@ -26,7 +26,7 @@ abstract class DeleteReplicaAction
 
   const DeleteReplicaAction._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<DeleteReplicaAction>> serializers = [
     DeleteReplicaActionAwsJson10Serializer()
   ];
 
@@ -39,11 +39,11 @@ abstract class DeleteReplicaAction
   List<Object?> get props => [regionName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteReplicaAction');
-    helper.add(
-      'regionName',
-      regionName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteReplicaAction')
+      ..add(
+        'regionName',
+        regionName,
+      );
     return helper.toString();
   }
 }

@@ -42,7 +42,7 @@ abstract class ResourceChangeDetail
 
   const ResourceChangeDetail._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<ResourceChangeDetail>> serializers = [
     ResourceChangeDetailAwsQuerySerializer()
   ];
 
@@ -85,23 +85,23 @@ abstract class ResourceChangeDetail
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceChangeDetail');
-    helper.add(
-      'target',
-      target,
-    );
-    helper.add(
-      'evaluation',
-      evaluation,
-    );
-    helper.add(
-      'changeSource',
-      changeSource,
-    );
-    helper.add(
-      'causingEntity',
-      causingEntity,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceChangeDetail')
+      ..add(
+        'target',
+        target,
+      )
+      ..add(
+        'evaluation',
+        evaluation,
+      )
+      ..add(
+        'changeSource',
+        changeSource,
+      )
+      ..add(
+        'causingEntity',
+        causingEntity,
+      );
     return helper.toString();
   }
 }

@@ -31,7 +31,7 @@ abstract class MetadataEntry
 
   const MetadataEntry._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<MetadataEntry>> serializers = [
     MetadataEntryRestXmlSerializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class MetadataEntry
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MetadataEntry');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('MetadataEntry')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

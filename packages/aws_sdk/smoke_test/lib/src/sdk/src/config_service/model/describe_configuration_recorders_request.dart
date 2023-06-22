@@ -42,7 +42,8 @@ abstract class DescribeConfigurationRecordersRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DescribeConfigurationRecordersRequest>>
+      serializers = [
     DescribeConfigurationRecordersRequestAwsJson11Serializer()
   ];
 
@@ -58,11 +59,11 @@ abstract class DescribeConfigurationRecordersRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeConfigurationRecordersRequest');
-    helper.add(
-      'configurationRecorderNames',
-      configurationRecorderNames,
-    );
+        newBuiltValueToStringHelper('DescribeConfigurationRecordersRequest')
+          ..add(
+            'configurationRecorderNames',
+            configurationRecorderNames,
+          );
     return helper.toString();
   }
 }

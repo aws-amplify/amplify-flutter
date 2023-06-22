@@ -42,9 +42,8 @@ abstract class GetRestApiRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetRestApiRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetRestApiRequestPayload>>
+      serializers = [GetRestApiRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetRestApiRequestBuilder b) {}
@@ -69,11 +68,11 @@ abstract class GetRestApiRequest
   List<Object?> get props => [restApiId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetRestApiRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
+    final helper = newBuiltValueToStringHelper('GetRestApiRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      );
     return helper.toString();
   }
 }

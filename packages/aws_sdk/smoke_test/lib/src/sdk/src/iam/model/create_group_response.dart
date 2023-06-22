@@ -34,7 +34,7 @@ abstract class CreateGroupResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<CreateGroupResponse>> serializers = [
     CreateGroupResponseAwsQuerySerializer()
   ];
 
@@ -47,11 +47,11 @@ abstract class CreateGroupResponse
   List<Object?> get props => [group];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateGroupResponse');
-    helper.add(
-      'group',
-      group,
-    );
+    final helper = newBuiltValueToStringHelper('CreateGroupResponse')
+      ..add(
+        'group',
+        group,
+      );
     return helper.toString();
   }
 }

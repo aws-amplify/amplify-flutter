@@ -44,9 +44,8 @@ abstract class DescribeAccountLimitsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    DescribeAccountLimitsOutputAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<DescribeAccountLimitsOutput>>
+      serializers = [DescribeAccountLimitsOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeAccountLimitsOutputBuilder b) {}
@@ -63,15 +62,15 @@ abstract class DescribeAccountLimitsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeAccountLimitsOutput');
-    helper.add(
-      'accountLimits',
-      accountLimits,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeAccountLimitsOutput')
+      ..add(
+        'accountLimits',
+        accountLimits,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

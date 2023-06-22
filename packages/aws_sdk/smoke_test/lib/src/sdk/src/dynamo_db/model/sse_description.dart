@@ -37,7 +37,7 @@ abstract class SseDescription
 
   const SseDescription._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<SseDescription>> serializers = [
     SseDescriptionAwsJson10Serializer()
   ];
 
@@ -70,23 +70,23 @@ abstract class SseDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SseDescription');
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'sseType',
-      sseType,
-    );
-    helper.add(
-      'kmsMasterKeyArn',
-      kmsMasterKeyArn,
-    );
-    helper.add(
-      'inaccessibleEncryptionDateTime',
-      inaccessibleEncryptionDateTime,
-    );
+    final helper = newBuiltValueToStringHelper('SseDescription')
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'sseType',
+        sseType,
+      )
+      ..add(
+        'kmsMasterKeyArn',
+        kmsMasterKeyArn,
+      )
+      ..add(
+        'inaccessibleEncryptionDateTime',
+        inaccessibleEncryptionDateTime,
+      );
     return helper.toString();
   }
 }

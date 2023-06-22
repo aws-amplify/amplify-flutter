@@ -33,7 +33,9 @@ abstract class GetOrganizationCustomRulePolicyResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<GetOrganizationCustomRulePolicyResponse>>
+      serializers = [
     GetOrganizationCustomRulePolicyResponseAwsJson11Serializer()
   ];
 
@@ -47,11 +49,11 @@ abstract class GetOrganizationCustomRulePolicyResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetOrganizationCustomRulePolicyResponse');
-    helper.add(
-      'policyText',
-      policyText,
-    );
+        newBuiltValueToStringHelper('GetOrganizationCustomRulePolicyResponse')
+          ..add(
+            'policyText',
+            policyText,
+          );
     return helper.toString();
   }
 }

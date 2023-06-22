@@ -65,9 +65,8 @@ abstract class UpdateIntegrationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateIntegrationRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateIntegrationRequestPayload>>
+      serializers = [UpdateIntegrationRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateIntegrationRequestBuilder b) {}
@@ -115,23 +114,23 @@ abstract class UpdateIntegrationRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateIntegrationRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateIntegrationRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -159,11 +158,11 @@ abstract class UpdateIntegrationRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateIntegrationRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateIntegrationRequestPayload')
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }

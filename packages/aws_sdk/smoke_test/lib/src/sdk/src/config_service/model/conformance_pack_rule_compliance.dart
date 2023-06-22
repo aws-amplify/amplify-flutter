@@ -40,9 +40,8 @@ abstract class ConformancePackRuleCompliance
 
   const ConformancePackRuleCompliance._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ConformancePackRuleComplianceAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<ConformancePackRuleCompliance>>
+      serializers = [ConformancePackRuleComplianceAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackRuleComplianceBuilder b) {}
@@ -63,19 +62,19 @@ abstract class ConformancePackRuleCompliance
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConformancePackRuleCompliance');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'controls',
-      controls,
-    );
+    final helper = newBuiltValueToStringHelper('ConformancePackRuleCompliance')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'complianceType',
+        complianceType,
+      )
+      ..add(
+        'controls',
+        controls,
+      );
     return helper.toString();
   }
 }

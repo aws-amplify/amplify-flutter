@@ -39,9 +39,8 @@ abstract class MalformedPolicyDocumentException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    MalformedPolicyDocumentExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<MalformedPolicyDocumentException>>
+      serializers = [MalformedPolicyDocumentExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedPolicyDocumentExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class MalformedPolicyDocumentException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('MalformedPolicyDocumentException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('MalformedPolicyDocumentException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

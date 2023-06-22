@@ -39,9 +39,8 @@ abstract class ObjectNotInActiveTierError
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ObjectNotInActiveTierErrorRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<ObjectNotInActiveTierError>>
+      serializers = [ObjectNotInActiveTierErrorRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ObjectNotInActiveTierErrorBuilder b) {}

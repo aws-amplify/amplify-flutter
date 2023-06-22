@@ -41,7 +41,7 @@ abstract class ForgetDeviceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ForgetDeviceRequest>> serializers = [
     ForgetDeviceRequestAwsJson11Serializer()
   ];
 
@@ -62,15 +62,15 @@ abstract class ForgetDeviceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ForgetDeviceRequest');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'deviceKey',
-      deviceKey,
-    );
+    final helper = newBuiltValueToStringHelper('ForgetDeviceRequest')
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'deviceKey',
+        deviceKey,
+      );
     return helper.toString();
   }
 }

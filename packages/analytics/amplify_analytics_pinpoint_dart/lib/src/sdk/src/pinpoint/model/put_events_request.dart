@@ -44,7 +44,7 @@ abstract class PutEventsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.EventsRequest>> serializers = [
     PutEventsRequestRestJson1Serializer()
   ];
 
@@ -77,15 +77,15 @@ abstract class PutEventsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutEventsRequest');
-    helper.add(
-      'applicationId',
-      applicationId,
-    );
-    helper.add(
-      'eventsRequest',
-      eventsRequest,
-    );
+    final helper = newBuiltValueToStringHelper('PutEventsRequest')
+      ..add(
+        'applicationId',
+        applicationId,
+      )
+      ..add(
+        'eventsRequest',
+        eventsRequest,
+      );
     return helper.toString();
   }
 }

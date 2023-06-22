@@ -52,9 +52,8 @@ abstract class GetDocumentationPartRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetDocumentationPartRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetDocumentationPartRequestPayload>>
+      serializers = [GetDocumentationPartRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetDocumentationPartRequestBuilder b) {}
@@ -88,15 +87,15 @@ abstract class GetDocumentationPartRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetDocumentationPartRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'documentationPartId',
-      documentationPartId,
-    );
+    final helper = newBuiltValueToStringHelper('GetDocumentationPartRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'documentationPartId',
+        documentationPartId,
+      );
     return helper.toString();
   }
 }

@@ -50,7 +50,7 @@ abstract class GetUserResponse
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<GetUserResponse>> serializers = [
     GetUserResponseAwsJson11Serializer()
   ];
 
@@ -83,27 +83,27 @@ abstract class GetUserResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetUserResponse');
-    helper.add(
-      'username',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'userAttributes',
-      userAttributes,
-    );
-    helper.add(
-      'mfaOptions',
-      mfaOptions,
-    );
-    helper.add(
-      'preferredMfaSetting',
-      preferredMfaSetting,
-    );
-    helper.add(
-      'userMfaSettingList',
-      userMfaSettingList,
-    );
+    final helper = newBuiltValueToStringHelper('GetUserResponse')
+      ..add(
+        'username',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'userAttributes',
+        userAttributes,
+      )
+      ..add(
+        'mfaOptions',
+        mfaOptions,
+      )
+      ..add(
+        'preferredMfaSetting',
+        preferredMfaSetting,
+      )
+      ..add(
+        'userMfaSettingList',
+        userMfaSettingList,
+      );
     return helper.toString();
   }
 }

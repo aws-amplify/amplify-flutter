@@ -24,7 +24,7 @@ abstract class Replica
 
   const Replica._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Replica>> serializers = [
     ReplicaAwsJson10Serializer()
   ];
 
@@ -37,11 +37,11 @@ abstract class Replica
   List<Object?> get props => [regionName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Replica');
-    helper.add(
-      'regionName',
-      regionName,
-    );
+    final helper = newBuiltValueToStringHelper('Replica')
+      ..add(
+        'regionName',
+        regionName,
+      );
     return helper.toString();
   }
 }

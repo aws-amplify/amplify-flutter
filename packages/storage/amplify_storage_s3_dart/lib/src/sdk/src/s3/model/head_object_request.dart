@@ -133,9 +133,8 @@ abstract class HeadObjectRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HeadObjectRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<HeadObjectRequestPayload>>
+      serializers = [HeadObjectRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HeadObjectRequestBuilder b) {}
@@ -226,67 +225,67 @@ abstract class HeadObjectRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HeadObjectRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'ifMatch',
-      ifMatch,
-    );
-    helper.add(
-      'ifModifiedSince',
-      ifModifiedSince,
-    );
-    helper.add(
-      'ifNoneMatch',
-      ifNoneMatch,
-    );
-    helper.add(
-      'ifUnmodifiedSince',
-      ifUnmodifiedSince,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'range',
-      range,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'partNumber',
-      partNumber,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'checksumMode',
-      checksumMode,
-    );
+    final helper = newBuiltValueToStringHelper('HeadObjectRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'ifMatch',
+        ifMatch,
+      )
+      ..add(
+        'ifModifiedSince',
+        ifModifiedSince,
+      )
+      ..add(
+        'ifNoneMatch',
+        ifNoneMatch,
+      )
+      ..add(
+        'ifUnmodifiedSince',
+        ifUnmodifiedSince,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'range',
+        range,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'partNumber',
+        partNumber,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      )
+      ..add(
+        'checksumMode',
+        checksumMode,
+      );
     return helper.toString();
   }
 }

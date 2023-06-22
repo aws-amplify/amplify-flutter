@@ -57,9 +57,8 @@ abstract class DeleteMethodRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteMethodRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteMethodRequestPayload>>
+      serializers = [DeleteMethodRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteMethodRequestBuilder b) {}
@@ -98,19 +97,19 @@ abstract class DeleteMethodRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteMethodRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteMethodRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      );
     return helper.toString();
   }
 }

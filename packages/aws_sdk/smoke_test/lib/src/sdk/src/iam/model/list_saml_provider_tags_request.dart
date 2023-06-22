@@ -41,9 +41,8 @@ abstract class ListSamlProviderTagsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListSamlProviderTagsRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListSamlProviderTagsRequest>>
+      serializers = [ListSamlProviderTagsRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListSamlProviderTagsRequestBuilder b) {}
@@ -70,19 +69,19 @@ abstract class ListSamlProviderTagsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListSamlProviderTagsRequest');
-    helper.add(
-      'samlProviderArn',
-      samlProviderArn,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListSamlProviderTagsRequest')
+      ..add(
+        'samlProviderArn',
+        samlProviderArn,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

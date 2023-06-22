@@ -48,9 +48,8 @@ abstract class ContinueUpdateRollbackInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ContinueUpdateRollbackInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ContinueUpdateRollbackInput>>
+      serializers = [ContinueUpdateRollbackInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ContinueUpdateRollbackInputBuilder b) {}
@@ -89,23 +88,23 @@ abstract class ContinueUpdateRollbackInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ContinueUpdateRollbackInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'resourcesToSkip',
-      resourcesToSkip,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
+    final helper = newBuiltValueToStringHelper('ContinueUpdateRollbackInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'resourcesToSkip',
+        resourcesToSkip,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      );
     return helper.toString();
   }
 }

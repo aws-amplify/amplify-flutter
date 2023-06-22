@@ -37,7 +37,7 @@ abstract class NotFound
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<NotFound>> serializers = [
     NotFoundRestXmlSerializer()
   ];
 

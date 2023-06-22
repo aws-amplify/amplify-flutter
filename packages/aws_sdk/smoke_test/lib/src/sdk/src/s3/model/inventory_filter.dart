@@ -25,7 +25,7 @@ abstract class InventoryFilter
 
   const InventoryFilter._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<InventoryFilter>> serializers = [
     InventoryFilterRestXmlSerializer()
   ];
 
@@ -38,11 +38,11 @@ abstract class InventoryFilter
   List<Object?> get props => [prefix];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InventoryFilter');
-    helper.add(
-      'prefix',
-      prefix,
-    );
+    final helper = newBuiltValueToStringHelper('InventoryFilter')
+      ..add(
+        'prefix',
+        prefix,
+      );
     return helper.toString();
   }
 }

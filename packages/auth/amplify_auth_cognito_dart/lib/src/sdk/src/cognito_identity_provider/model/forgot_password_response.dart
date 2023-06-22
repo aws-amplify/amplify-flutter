@@ -36,9 +36,8 @@ abstract class ForgotPasswordResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ForgotPasswordResponseAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<ForgotPasswordResponse>> serializers =
+      [ForgotPasswordResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ForgotPasswordResponseBuilder b) {}
@@ -49,11 +48,11 @@ abstract class ForgotPasswordResponse
   List<Object?> get props => [codeDeliveryDetails];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ForgotPasswordResponse');
-    helper.add(
-      'codeDeliveryDetails',
-      codeDeliveryDetails,
-    );
+    final helper = newBuiltValueToStringHelper('ForgotPasswordResponse')
+      ..add(
+        'codeDeliveryDetails',
+        codeDeliveryDetails,
+      );
     return helper.toString();
   }
 }

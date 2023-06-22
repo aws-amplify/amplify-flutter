@@ -33,9 +33,8 @@ abstract class ServerSideEncryptionConfiguration
 
   const ServerSideEncryptionConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ServerSideEncryptionConfigurationRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<ServerSideEncryptionConfiguration>>
+      serializers = [ServerSideEncryptionConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ServerSideEncryptionConfigurationBuilder b) {}
@@ -47,11 +46,11 @@ abstract class ServerSideEncryptionConfiguration
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ServerSideEncryptionConfiguration');
-    helper.add(
-      'rules',
-      rules,
-    );
+        newBuiltValueToStringHelper('ServerSideEncryptionConfiguration')
+          ..add(
+            'rules',
+            rules,
+          );
     return helper.toString();
   }
 }

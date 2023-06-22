@@ -38,7 +38,7 @@ abstract class TagResourceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<TagResourceRequest>> serializers = [
     TagResourceRequestAwsJson11Serializer()
   ];
 
@@ -59,15 +59,15 @@ abstract class TagResourceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagResourceRequest');
-    helper.add(
-      'resourceArn',
-      resourceArn,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagResourceRequest')
+      ..add(
+        'resourceArn',
+        resourceArn,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

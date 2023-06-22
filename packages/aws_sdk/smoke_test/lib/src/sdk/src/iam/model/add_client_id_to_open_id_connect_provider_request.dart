@@ -40,7 +40,9 @@ abstract class AddClientIdToOpenIdConnectProviderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<AddClientIdToOpenIdConnectProviderRequest>>
+      serializers = [
     AddClientIdToOpenIdConnectProviderRequestAwsQuerySerializer()
   ];
 
@@ -61,16 +63,16 @@ abstract class AddClientIdToOpenIdConnectProviderRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'AddClientIdToOpenIdConnectProviderRequest');
-    helper.add(
-      'openIdConnectProviderArn',
-      openIdConnectProviderArn,
-    );
-    helper.add(
-      'clientId',
-      clientId,
-    );
+    final helper =
+        newBuiltValueToStringHelper('AddClientIdToOpenIdConnectProviderRequest')
+          ..add(
+            'openIdConnectProviderArn',
+            openIdConnectProviderArn,
+          )
+          ..add(
+            'clientId',
+            clientId,
+          );
     return helper.toString();
   }
 }

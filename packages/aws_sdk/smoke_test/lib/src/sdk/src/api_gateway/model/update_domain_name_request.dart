@@ -55,9 +55,8 @@ abstract class UpdateDomainNameRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateDomainNameRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateDomainNameRequestPayload>>
+      serializers = [UpdateDomainNameRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateDomainNameRequestBuilder b) {}
@@ -93,15 +92,15 @@ abstract class UpdateDomainNameRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateDomainNameRequest');
-    helper.add(
-      'domainName',
-      domainName,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateDomainNameRequest')
+      ..add(
+        'domainName',
+        domainName,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -128,12 +127,11 @@ abstract class UpdateDomainNameRequestPayload
   List<Object?> get props => [patchOperations];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UpdateDomainNameRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateDomainNameRequestPayload')
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }

@@ -43,9 +43,8 @@ abstract class TrackedActionLastAccessed
 
   const TrackedActionLastAccessed._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TrackedActionLastAccessedAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<TrackedActionLastAccessed>>
+      serializers = [TrackedActionLastAccessedAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TrackedActionLastAccessedBuilder b) {}
@@ -76,23 +75,23 @@ abstract class TrackedActionLastAccessed
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TrackedActionLastAccessed');
-    helper.add(
-      'actionName',
-      actionName,
-    );
-    helper.add(
-      'lastAccessedEntity',
-      lastAccessedEntity,
-    );
-    helper.add(
-      'lastAccessedTime',
-      lastAccessedTime,
-    );
-    helper.add(
-      'lastAccessedRegion',
-      lastAccessedRegion,
-    );
+    final helper = newBuiltValueToStringHelper('TrackedActionLastAccessed')
+      ..add(
+        'actionName',
+        actionName,
+      )
+      ..add(
+        'lastAccessedEntity',
+        lastAccessedEntity,
+      )
+      ..add(
+        'lastAccessedTime',
+        lastAccessedTime,
+      )
+      ..add(
+        'lastAccessedRegion',
+        lastAccessedRegion,
+      );
     return helper.toString();
   }
 }

@@ -51,9 +51,8 @@ abstract class BatchDescribeTypeConfigurationsOutput
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
-    BatchDescribeTypeConfigurationsOutputAwsQuerySerializer()
-  ];
+  static const List<_i6.SmithySerializer<BatchDescribeTypeConfigurationsOutput>>
+      serializers = [BatchDescribeTypeConfigurationsOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BatchDescribeTypeConfigurationsOutputBuilder b) {}
@@ -76,19 +75,19 @@ abstract class BatchDescribeTypeConfigurationsOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('BatchDescribeTypeConfigurationsOutput');
-    helper.add(
-      'errors',
-      errors,
-    );
-    helper.add(
-      'unprocessedTypeConfigurations',
-      unprocessedTypeConfigurations,
-    );
-    helper.add(
-      'typeConfigurations',
-      typeConfigurations,
-    );
+        newBuiltValueToStringHelper('BatchDescribeTypeConfigurationsOutput')
+          ..add(
+            'errors',
+            errors,
+          )
+          ..add(
+            'unprocessedTypeConfigurations',
+            unprocessedTypeConfigurations,
+          )
+          ..add(
+            'typeConfigurations',
+            typeConfigurations,
+          );
     return helper.toString();
   }
 }

@@ -57,9 +57,8 @@ abstract class GetGatewayResponsesRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetGatewayResponsesRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetGatewayResponsesRequestPayload>>
+      serializers = [GetGatewayResponsesRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetGatewayResponsesRequestBuilder b) {}
@@ -95,19 +94,19 @@ abstract class GetGatewayResponsesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetGatewayResponsesRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+    final helper = newBuiltValueToStringHelper('GetGatewayResponsesRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'position',
+        position,
+      )
+      ..add(
+        'limit',
+        limit,
+      );
     return helper.toString();
   }
 }

@@ -39,7 +39,7 @@ abstract class BucketAlreadyExists
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<BucketAlreadyExists>> serializers = [
     BucketAlreadyExistsRestXmlSerializer()
   ];
 

@@ -67,9 +67,8 @@ abstract class ReplicationGroupUpdate
 
   const ReplicationGroupUpdate._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    ReplicationGroupUpdateAwsJson10Serializer()
-  ];
+  static const List<_i5.SmithySerializer<ReplicationGroupUpdate>> serializers =
+      [ReplicationGroupUpdateAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ReplicationGroupUpdateBuilder b) {}
@@ -90,19 +89,19 @@ abstract class ReplicationGroupUpdate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicationGroupUpdate');
-    helper.add(
-      'create',
-      create,
-    );
-    helper.add(
-      'update_',
-      update_,
-    );
-    helper.add(
-      'delete',
-      delete,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicationGroupUpdate')
+      ..add(
+        'create',
+        create,
+      )
+      ..add(
+        'update_',
+        update_,
+      )
+      ..add(
+        'delete',
+        delete,
+      );
     return helper.toString();
   }
 }

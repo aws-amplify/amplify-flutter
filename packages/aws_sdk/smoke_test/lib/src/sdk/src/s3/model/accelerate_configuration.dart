@@ -28,9 +28,8 @@ abstract class AccelerateConfiguration
 
   const AccelerateConfiguration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AccelerateConfigurationRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<AccelerateConfiguration>> serializers =
+      [AccelerateConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AccelerateConfigurationBuilder b) {}
@@ -41,11 +40,11 @@ abstract class AccelerateConfiguration
   List<Object?> get props => [status];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccelerateConfiguration');
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('AccelerateConfiguration')
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

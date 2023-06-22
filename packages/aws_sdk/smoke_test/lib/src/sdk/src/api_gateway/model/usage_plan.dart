@@ -56,7 +56,7 @@ abstract class UsagePlan
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<UsagePlan>> serializers = [
     UsagePlanRestJson1Serializer()
   ];
 
@@ -99,39 +99,39 @@ abstract class UsagePlan
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UsagePlan');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'apiStages',
-      apiStages,
-    );
-    helper.add(
-      'throttle',
-      throttle,
-    );
-    helper.add(
-      'quota',
-      quota,
-    );
-    helper.add(
-      'productCode',
-      productCode,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('UsagePlan')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'apiStages',
+        apiStages,
+      )
+      ..add(
+        'throttle',
+        throttle,
+      )
+      ..add(
+        'quota',
+        quota,
+      )
+      ..add(
+        'productCode',
+        productCode,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

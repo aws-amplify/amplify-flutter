@@ -34,7 +34,7 @@ abstract class Shard
 
   const Shard._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Shard>> serializers = [
     ShardAwsJson10Serializer()
   ];
 
@@ -57,19 +57,19 @@ abstract class Shard
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Shard');
-    helper.add(
-      'shardId',
-      shardId,
-    );
-    helper.add(
-      'sequenceNumberRange',
-      sequenceNumberRange,
-    );
-    helper.add(
-      'parentShardId',
-      parentShardId,
-    );
+    final helper = newBuiltValueToStringHelper('Shard')
+      ..add(
+        'shardId',
+        shardId,
+      )
+      ..add(
+        'sequenceNumberRange',
+        sequenceNumberRange,
+      )
+      ..add(
+        'parentShardId',
+        parentShardId,
+      );
     return helper.toString();
   }
 }

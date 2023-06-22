@@ -61,7 +61,7 @@ abstract class StackInstance
 
   const StackInstance._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<StackInstance>> serializers = [
     StackInstanceAwsQuerySerializer()
   ];
 
@@ -138,55 +138,55 @@ abstract class StackInstance
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackInstance');
-    helper.add(
-      'stackSetId',
-      stackSetId,
-    );
-    helper.add(
-      'region',
-      region,
-    );
-    helper.add(
-      'account',
-      account,
-    );
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'parameterOverrides',
-      parameterOverrides,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'stackInstanceStatus',
-      stackInstanceStatus,
-    );
-    helper.add(
-      'statusReason',
-      statusReason,
-    );
-    helper.add(
-      'organizationalUnitId',
-      organizationalUnitId,
-    );
-    helper.add(
-      'driftStatus',
-      driftStatus,
-    );
-    helper.add(
-      'lastDriftCheckTimestamp',
-      lastDriftCheckTimestamp,
-    );
-    helper.add(
-      'lastOperationId',
-      lastOperationId,
-    );
+    final helper = newBuiltValueToStringHelper('StackInstance')
+      ..add(
+        'stackSetId',
+        stackSetId,
+      )
+      ..add(
+        'region',
+        region,
+      )
+      ..add(
+        'account',
+        account,
+      )
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'parameterOverrides',
+        parameterOverrides,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'stackInstanceStatus',
+        stackInstanceStatus,
+      )
+      ..add(
+        'statusReason',
+        statusReason,
+      )
+      ..add(
+        'organizationalUnitId',
+        organizationalUnitId,
+      )
+      ..add(
+        'driftStatus',
+        driftStatus,
+      )
+      ..add(
+        'lastDriftCheckTimestamp',
+        lastDriftCheckTimestamp,
+      )
+      ..add(
+        'lastOperationId',
+        lastOperationId,
+      );
     return helper.toString();
   }
 }

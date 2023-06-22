@@ -32,7 +32,7 @@ abstract class Capacity
 
   const Capacity._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Capacity>> serializers = [
     CapacityAwsJson10Serializer()
   ];
 
@@ -55,19 +55,19 @@ abstract class Capacity
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Capacity');
-    helper.add(
-      'readCapacityUnits',
-      readCapacityUnits,
-    );
-    helper.add(
-      'writeCapacityUnits',
-      writeCapacityUnits,
-    );
-    helper.add(
-      'capacityUnits',
-      capacityUnits,
-    );
+    final helper = newBuiltValueToStringHelper('Capacity')
+      ..add(
+        'readCapacityUnits',
+        readCapacityUnits,
+      )
+      ..add(
+        'writeCapacityUnits',
+        writeCapacityUnits,
+      )
+      ..add(
+        'capacityUnits',
+        capacityUnits,
+      );
     return helper.toString();
   }
 }

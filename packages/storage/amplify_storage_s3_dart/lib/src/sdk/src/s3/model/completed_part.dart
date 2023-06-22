@@ -39,7 +39,7 @@ abstract class CompletedPart
 
   const CompletedPart._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<CompletedPart>> serializers = [
     CompletedPartRestXmlSerializer()
   ];
 
@@ -74,31 +74,31 @@ abstract class CompletedPart
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CompletedPart');
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
-    helper.add(
-      'partNumber',
-      partNumber,
-    );
+    final helper = newBuiltValueToStringHelper('CompletedPart')
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      )
+      ..add(
+        'partNumber',
+        partNumber,
+      );
     return helper.toString();
   }
 }

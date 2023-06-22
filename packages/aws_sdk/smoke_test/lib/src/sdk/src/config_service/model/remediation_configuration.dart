@@ -62,9 +62,8 @@ abstract class RemediationConfiguration
 
   const RemediationConfiguration._();
 
-  static const List<_i7.SmithySerializer> serializers = [
-    RemediationConfigurationAwsJson11Serializer()
-  ];
+  static const List<_i7.SmithySerializer<RemediationConfiguration>>
+      serializers = [RemediationConfigurationAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RemediationConfigurationBuilder b) {
@@ -129,55 +128,55 @@ abstract class RemediationConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RemediationConfiguration');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'targetType',
-      targetType,
-    );
-    helper.add(
-      'targetId',
-      targetId,
-    );
-    helper.add(
-      'targetVersion',
-      targetVersion,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'automatic',
-      automatic,
-    );
-    helper.add(
-      'executionControls',
-      executionControls,
-    );
-    helper.add(
-      'maximumAutomaticAttempts',
-      maximumAutomaticAttempts,
-    );
-    helper.add(
-      'retryAttemptSeconds',
-      retryAttemptSeconds,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createdByService',
-      createdByService,
-    );
+    final helper = newBuiltValueToStringHelper('RemediationConfiguration')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'targetType',
+        targetType,
+      )
+      ..add(
+        'targetId',
+        targetId,
+      )
+      ..add(
+        'targetVersion',
+        targetVersion,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'automatic',
+        automatic,
+      )
+      ..add(
+        'executionControls',
+        executionControls,
+      )
+      ..add(
+        'maximumAutomaticAttempts',
+        maximumAutomaticAttempts,
+      )
+      ..add(
+        'retryAttemptSeconds',
+        retryAttemptSeconds,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createdByService',
+        createdByService,
+      );
     return helper.toString();
   }
 }

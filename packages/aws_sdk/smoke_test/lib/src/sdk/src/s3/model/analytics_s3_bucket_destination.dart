@@ -41,9 +41,8 @@ abstract class AnalyticsS3BucketDestination
 
   const AnalyticsS3BucketDestination._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AnalyticsS3BucketDestinationRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<AnalyticsS3BucketDestination>>
+      serializers = [AnalyticsS3BucketDestinationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AnalyticsS3BucketDestinationBuilder b) {}
@@ -70,23 +69,23 @@ abstract class AnalyticsS3BucketDestination
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AnalyticsS3BucketDestination');
-    helper.add(
-      'format',
-      format,
-    );
-    helper.add(
-      'bucketAccountId',
-      bucketAccountId,
-    );
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
+    final helper = newBuiltValueToStringHelper('AnalyticsS3BucketDestination')
+      ..add(
+        'format',
+        format,
+      )
+      ..add(
+        'bucketAccountId',
+        bucketAccountId,
+      )
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      );
     return helper.toString();
   }
 }

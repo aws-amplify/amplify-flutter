@@ -37,9 +37,8 @@ abstract class GetBucketLocationOutput
         b.locationConstraint = payload;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketLocationOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<_i3.BucketLocationConstraint?>>
+      serializers = [GetBucketLocationOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketLocationOutputBuilder b) {}
@@ -52,11 +51,11 @@ abstract class GetBucketLocationOutput
   List<Object?> get props => [locationConstraint];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketLocationOutput');
-    helper.add(
-      'locationConstraint',
-      locationConstraint,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketLocationOutput')
+      ..add(
+        'locationConstraint',
+        locationConstraint,
+      );
     return helper.toString();
   }
 }

@@ -32,9 +32,8 @@ abstract class DeleteStoredQueryResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeleteStoredQueryResponseAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<DeleteStoredQueryResponse>>
+      serializers = [DeleteStoredQueryResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteStoredQueryResponseBuilder b) {}

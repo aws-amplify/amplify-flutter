@@ -76,9 +76,8 @@ abstract class InsufficientPermissionsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InsufficientPermissionsExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InsufficientPermissionsException>>
+      serializers = [InsufficientPermissionsExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InsufficientPermissionsExceptionBuilder b) {}
@@ -106,11 +105,11 @@ abstract class InsufficientPermissionsException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InsufficientPermissionsException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InsufficientPermissionsException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

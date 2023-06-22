@@ -59,9 +59,8 @@ abstract class GetServiceLastAccessedDetailsResponse
   ) =>
       payload;
 
-  static const List<_i7.SmithySerializer> serializers = [
-    GetServiceLastAccessedDetailsResponseAwsQuerySerializer()
-  ];
+  static const List<_i7.SmithySerializer<GetServiceLastAccessedDetailsResponse>>
+      serializers = [GetServiceLastAccessedDetailsResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetServiceLastAccessedDetailsResponseBuilder b) {
@@ -107,39 +106,39 @@ abstract class GetServiceLastAccessedDetailsResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetServiceLastAccessedDetailsResponse');
-    helper.add(
-      'jobStatus',
-      jobStatus,
-    );
-    helper.add(
-      'jobType',
-      jobType,
-    );
-    helper.add(
-      'jobCreationDate',
-      jobCreationDate,
-    );
-    helper.add(
-      'servicesLastAccessed',
-      servicesLastAccessed,
-    );
-    helper.add(
-      'jobCompletionDate',
-      jobCompletionDate,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'error',
-      error,
-    );
+        newBuiltValueToStringHelper('GetServiceLastAccessedDetailsResponse')
+          ..add(
+            'jobStatus',
+            jobStatus,
+          )
+          ..add(
+            'jobType',
+            jobType,
+          )
+          ..add(
+            'jobCreationDate',
+            jobCreationDate,
+          )
+          ..add(
+            'servicesLastAccessed',
+            servicesLastAccessed,
+          )
+          ..add(
+            'jobCompletionDate',
+            jobCompletionDate,
+          )
+          ..add(
+            'isTruncated',
+            isTruncated,
+          )
+          ..add(
+            'marker',
+            marker,
+          )
+          ..add(
+            'error',
+            error,
+          );
     return helper.toString();
   }
 }

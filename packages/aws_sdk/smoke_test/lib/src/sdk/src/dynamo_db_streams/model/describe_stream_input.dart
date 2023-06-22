@@ -43,7 +43,7 @@ abstract class DescribeStreamInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DescribeStreamInput>> serializers = [
     DescribeStreamInputAwsJson10Serializer()
   ];
 
@@ -68,19 +68,19 @@ abstract class DescribeStreamInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeStreamInput');
-    helper.add(
-      'streamArn',
-      streamArn,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'exclusiveStartShardId',
-      exclusiveStartShardId,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeStreamInput')
+      ..add(
+        'streamArn',
+        streamArn,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'exclusiveStartShardId',
+        exclusiveStartShardId,
+      );
     return helper.toString();
   }
 }

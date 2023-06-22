@@ -48,7 +48,7 @@ abstract class PolicyVersion
 
   const PolicyVersion._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PolicyVersion>> serializers = [
     PolicyVersionAwsQuerySerializer()
   ];
 
@@ -83,23 +83,23 @@ abstract class PolicyVersion
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PolicyVersion');
-    helper.add(
-      'document',
-      document,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'isDefaultVersion',
-      isDefaultVersion,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
+    final helper = newBuiltValueToStringHelper('PolicyVersion')
+      ..add(
+        'document',
+        document,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'isDefaultVersion',
+        isDefaultVersion,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      );
     return helper.toString();
   }
 }

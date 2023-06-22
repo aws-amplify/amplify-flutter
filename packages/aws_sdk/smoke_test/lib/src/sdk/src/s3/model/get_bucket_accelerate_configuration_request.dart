@@ -58,7 +58,9 @@ abstract class GetBucketAccelerateConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<GetBucketAccelerateConfigurationRequestPayload>>
+      serializers = [
     GetBucketAccelerateConfigurationRequestRestXmlSerializer()
   ];
 
@@ -97,19 +99,19 @@ abstract class GetBucketAccelerateConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketAccelerateConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
+        newBuiltValueToStringHelper('GetBucketAccelerateConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          )
+          ..add(
+            'requestPayer',
+            requestPayer,
+          );
     return helper.toString();
   }
 }

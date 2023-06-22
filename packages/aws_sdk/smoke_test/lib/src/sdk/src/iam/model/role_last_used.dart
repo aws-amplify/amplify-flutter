@@ -37,7 +37,7 @@ abstract class RoleLastUsed
 
   const RoleLastUsed._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<RoleLastUsed>> serializers = [
     RoleLastUsedAwsQuerySerializer()
   ];
 
@@ -58,15 +58,15 @@ abstract class RoleLastUsed
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RoleLastUsed');
-    helper.add(
-      'lastUsedDate',
-      lastUsedDate,
-    );
-    helper.add(
-      'region',
-      region,
-    );
+    final helper = newBuiltValueToStringHelper('RoleLastUsed')
+      ..add(
+        'lastUsedDate',
+        lastUsedDate,
+      )
+      ..add(
+        'region',
+        region,
+      );
     return helper.toString();
   }
 }

@@ -35,9 +35,8 @@ abstract class VersioningConfiguration
 
   const VersioningConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    VersioningConfigurationRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<VersioningConfiguration>> serializers =
+      [VersioningConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(VersioningConfigurationBuilder b) {}
@@ -54,15 +53,15 @@ abstract class VersioningConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('VersioningConfiguration');
-    helper.add(
-      'mfaDelete',
-      mfaDelete,
-    );
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('VersioningConfiguration')
+      ..add(
+        'mfaDelete',
+        mfaDelete,
+      )
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

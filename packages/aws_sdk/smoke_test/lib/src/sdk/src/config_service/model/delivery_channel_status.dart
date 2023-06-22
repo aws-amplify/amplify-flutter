@@ -46,7 +46,7 @@ abstract class DeliveryChannelStatus
 
   const DeliveryChannelStatus._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<DeliveryChannelStatus>> serializers = [
     DeliveryChannelStatusAwsJson11Serializer()
   ];
 
@@ -73,23 +73,23 @@ abstract class DeliveryChannelStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeliveryChannelStatus');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'configSnapshotDeliveryInfo',
-      configSnapshotDeliveryInfo,
-    );
-    helper.add(
-      'configHistoryDeliveryInfo',
-      configHistoryDeliveryInfo,
-    );
-    helper.add(
-      'configStreamDeliveryInfo',
-      configStreamDeliveryInfo,
-    );
+    final helper = newBuiltValueToStringHelper('DeliveryChannelStatus')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'configSnapshotDeliveryInfo',
+        configSnapshotDeliveryInfo,
+      )
+      ..add(
+        'configHistoryDeliveryInfo',
+        configHistoryDeliveryInfo,
+      )
+      ..add(
+        'configStreamDeliveryInfo',
+        configStreamDeliveryInfo,
+      );
     return helper.toString();
   }
 }

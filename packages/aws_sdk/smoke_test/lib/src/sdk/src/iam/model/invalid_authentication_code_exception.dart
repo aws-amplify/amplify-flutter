@@ -39,9 +39,8 @@ abstract class InvalidAuthenticationCodeException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidAuthenticationCodeExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidAuthenticationCodeException>>
+      serializers = [InvalidAuthenticationCodeExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidAuthenticationCodeExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class InvalidAuthenticationCodeException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InvalidAuthenticationCodeException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InvalidAuthenticationCodeException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

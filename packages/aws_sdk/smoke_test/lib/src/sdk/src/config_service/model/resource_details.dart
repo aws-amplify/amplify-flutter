@@ -37,7 +37,7 @@ abstract class ResourceDetails
 
   const ResourceDetails._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ResourceDetails>> serializers = [
     ResourceDetailsAwsJson11Serializer()
   ];
 
@@ -68,23 +68,23 @@ abstract class ResourceDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceDetails');
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceConfiguration',
-      resourceConfiguration,
-    );
-    helper.add(
-      'resourceConfigurationSchemaType',
-      resourceConfigurationSchemaType,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceDetails')
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceConfiguration',
+        resourceConfiguration,
+      )
+      ..add(
+        'resourceConfigurationSchemaType',
+        resourceConfigurationSchemaType,
+      );
     return helper.toString();
   }
 }

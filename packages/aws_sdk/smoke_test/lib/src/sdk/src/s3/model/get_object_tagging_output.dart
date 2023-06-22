@@ -46,9 +46,8 @@ abstract class GetObjectTaggingOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetObjectTaggingOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<GetObjectTaggingOutputPayload>>
+      serializers = [GetObjectTaggingOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectTaggingOutputBuilder b) {}
@@ -70,15 +69,15 @@ abstract class GetObjectTaggingOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectTaggingOutput');
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'tagSet',
-      tagSet,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectTaggingOutput')
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'tagSet',
+        tagSet,
+      );
     return helper.toString();
   }
 }
@@ -105,11 +104,11 @@ abstract class GetObjectTaggingOutputPayload
   List<Object?> get props => [tagSet];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectTaggingOutputPayload');
-    helper.add(
-      'tagSet',
-      tagSet,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectTaggingOutputPayload')
+      ..add(
+        'tagSet',
+        tagSet,
+      );
     return helper.toString();
   }
 }

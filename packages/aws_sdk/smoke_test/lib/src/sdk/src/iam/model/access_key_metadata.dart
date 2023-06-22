@@ -42,7 +42,7 @@ abstract class AccessKeyMetadata
 
   const AccessKeyMetadata._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<AccessKeyMetadata>> serializers = [
     AccessKeyMetadataAwsQuerySerializer()
   ];
 
@@ -69,23 +69,23 @@ abstract class AccessKeyMetadata
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccessKeyMetadata');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'accessKeyId',
-      accessKeyId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
+    final helper = newBuiltValueToStringHelper('AccessKeyMetadata')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'accessKeyId',
+        accessKeyId,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      );
     return helper.toString();
   }
 }

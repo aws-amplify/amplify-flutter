@@ -58,9 +58,8 @@ abstract class CreateRequestValidatorRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateRequestValidatorRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateRequestValidatorRequestPayload>>
+      serializers = [CreateRequestValidatorRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateRequestValidatorRequestBuilder b) {
@@ -107,23 +106,23 @@ abstract class CreateRequestValidatorRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateRequestValidatorRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'validateRequestBody',
-      validateRequestBody,
-    );
-    helper.add(
-      'validateRequestParameters',
-      validateRequestParameters,
-    );
+    final helper = newBuiltValueToStringHelper('CreateRequestValidatorRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'validateRequestBody',
+        validateRequestBody,
+      )
+      ..add(
+        'validateRequestParameters',
+        validateRequestParameters,
+      );
     return helper.toString();
   }
 }
@@ -164,19 +163,19 @@ abstract class CreateRequestValidatorRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateRequestValidatorRequestPayload');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'validateRequestBody',
-      validateRequestBody,
-    );
-    helper.add(
-      'validateRequestParameters',
-      validateRequestParameters,
-    );
+        newBuiltValueToStringHelper('CreateRequestValidatorRequestPayload')
+          ..add(
+            'name',
+            name,
+          )
+          ..add(
+            'validateRequestBody',
+            validateRequestBody,
+          )
+          ..add(
+            'validateRequestParameters',
+            validateRequestParameters,
+          );
     return helper.toString();
   }
 }

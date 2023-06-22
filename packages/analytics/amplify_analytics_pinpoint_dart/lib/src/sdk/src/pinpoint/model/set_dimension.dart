@@ -34,7 +34,7 @@ abstract class SetDimension
 
   const SetDimension._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<SetDimension>> serializers = [
     SetDimensionRestJson1Serializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class SetDimension
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SetDimension');
-    helper.add(
-      'dimensionType',
-      dimensionType,
-    );
-    helper.add(
-      'values',
-      values,
-    );
+    final helper = newBuiltValueToStringHelper('SetDimension')
+      ..add(
+        'dimensionType',
+        dimensionType,
+      )
+      ..add(
+        'values',
+        values,
+      );
     return helper.toString();
   }
 }

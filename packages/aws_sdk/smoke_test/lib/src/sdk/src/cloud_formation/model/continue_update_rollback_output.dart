@@ -37,9 +37,8 @@ abstract class ContinueUpdateRollbackOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ContinueUpdateRollbackOutputAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<ContinueUpdateRollbackOutput>>
+      serializers = [ContinueUpdateRollbackOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ContinueUpdateRollbackOutputBuilder b) {}

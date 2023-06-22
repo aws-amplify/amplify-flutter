@@ -53,9 +53,8 @@ abstract class RespondToAuthChallengeResponse
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    RespondToAuthChallengeResponseAwsJson11Serializer()
-  ];
+  static const List<_i5.SmithySerializer<RespondToAuthChallengeResponse>>
+      serializers = [RespondToAuthChallengeResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RespondToAuthChallengeResponseBuilder b) {}
@@ -80,24 +79,23 @@ abstract class RespondToAuthChallengeResponse
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('RespondToAuthChallengeResponse');
-    helper.add(
-      'challengeName',
-      challengeName,
-    );
-    helper.add(
-      'session',
-      session,
-    );
-    helper.add(
-      'challengeParameters',
-      challengeParameters,
-    );
-    helper.add(
-      'authenticationResult',
-      authenticationResult,
-    );
+    final helper = newBuiltValueToStringHelper('RespondToAuthChallengeResponse')
+      ..add(
+        'challengeName',
+        challengeName,
+      )
+      ..add(
+        'session',
+        session,
+      )
+      ..add(
+        'challengeParameters',
+        challengeParameters,
+      )
+      ..add(
+        'authenticationResult',
+        authenticationResult,
+      );
     return helper.toString();
   }
 }

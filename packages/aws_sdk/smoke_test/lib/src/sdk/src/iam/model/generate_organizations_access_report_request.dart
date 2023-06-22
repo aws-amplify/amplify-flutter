@@ -40,7 +40,9 @@ abstract class GenerateOrganizationsAccessReportRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<GenerateOrganizationsAccessReportRequest>>
+      serializers = [
     GenerateOrganizationsAccessReportRequestAwsQuerySerializer()
   ];
 
@@ -64,15 +66,15 @@ abstract class GenerateOrganizationsAccessReportRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GenerateOrganizationsAccessReportRequest');
-    helper.add(
-      'entityPath',
-      entityPath,
-    );
-    helper.add(
-      'organizationsPolicyId',
-      organizationsPolicyId,
-    );
+        newBuiltValueToStringHelper('GenerateOrganizationsAccessReportRequest')
+          ..add(
+            'entityPath',
+            entityPath,
+          )
+          ..add(
+            'organizationsPolicyId',
+            organizationsPolicyId,
+          );
     return helper.toString();
   }
 }

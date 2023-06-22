@@ -43,7 +43,7 @@ abstract class ChangePasswordRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ChangePasswordRequest>> serializers = [
     ChangePasswordRequestAwsJson11Serializer()
   ];
 
@@ -68,19 +68,19 @@ abstract class ChangePasswordRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ChangePasswordRequest');
-    helper.add(
-      'previousPassword',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'proposedPassword',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('ChangePasswordRequest')
+      ..add(
+        'previousPassword',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'proposedPassword',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }

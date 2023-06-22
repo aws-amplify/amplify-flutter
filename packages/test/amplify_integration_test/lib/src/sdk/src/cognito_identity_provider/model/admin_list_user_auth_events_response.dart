@@ -42,9 +42,8 @@ abstract class AdminListUserAuthEventsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    AdminListUserAuthEventsResponseAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<AdminListUserAuthEventsResponse>>
+      serializers = [AdminListUserAuthEventsResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AdminListUserAuthEventsResponseBuilder b) {}
@@ -62,15 +61,15 @@ abstract class AdminListUserAuthEventsResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('AdminListUserAuthEventsResponse');
-    helper.add(
-      'authEvents',
-      authEvents,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('AdminListUserAuthEventsResponse')
+          ..add(
+            'authEvents',
+            authEvents,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

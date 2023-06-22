@@ -41,9 +41,8 @@ abstract class GetSshPublicKeyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetSshPublicKeyRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetSshPublicKeyRequest>> serializers =
+      [GetSshPublicKeyRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetSshPublicKeyRequestBuilder b) {}
@@ -70,19 +69,19 @@ abstract class GetSshPublicKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetSshPublicKeyRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'sshPublicKeyId',
-      sshPublicKeyId,
-    );
-    helper.add(
-      'encoding',
-      encoding,
-    );
+    final helper = newBuiltValueToStringHelper('GetSshPublicKeyRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'sshPublicKeyId',
+        sshPublicKeyId,
+      )
+      ..add(
+        'encoding',
+        encoding,
+      );
     return helper.toString();
   }
 }

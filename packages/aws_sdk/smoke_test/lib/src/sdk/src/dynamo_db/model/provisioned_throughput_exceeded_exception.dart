@@ -40,7 +40,9 @@ abstract class ProvisionedThroughputExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<ProvisionedThroughputExceededException>>
+      serializers = [
     ProvisionedThroughputExceededExceptionAwsJson10Serializer()
   ];
 
@@ -70,11 +72,11 @@ abstract class ProvisionedThroughputExceededException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ProvisionedThroughputExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('ProvisionedThroughputExceededException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

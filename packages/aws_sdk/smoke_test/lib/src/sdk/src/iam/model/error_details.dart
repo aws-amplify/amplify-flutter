@@ -37,7 +37,7 @@ abstract class ErrorDetails
 
   const ErrorDetails._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ErrorDetails>> serializers = [
     ErrorDetailsAwsQuerySerializer()
   ];
 
@@ -56,15 +56,15 @@ abstract class ErrorDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ErrorDetails');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'code',
-      code,
-    );
+    final helper = newBuiltValueToStringHelper('ErrorDetails')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'code',
+        code,
+      );
     return helper.toString();
   }
 }

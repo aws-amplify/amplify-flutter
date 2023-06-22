@@ -37,9 +37,8 @@ abstract class IdempotentParameterMismatch
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    IdempotentParameterMismatchAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<IdempotentParameterMismatch>>
+      serializers = [IdempotentParameterMismatchAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(IdempotentParameterMismatchBuilder b) {}
@@ -64,11 +63,11 @@ abstract class IdempotentParameterMismatch
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('IdempotentParameterMismatch');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('IdempotentParameterMismatch')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

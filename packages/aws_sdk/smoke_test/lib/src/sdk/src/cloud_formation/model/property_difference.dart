@@ -38,7 +38,7 @@ abstract class PropertyDifference
 
   const PropertyDifference._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<PropertyDifference>> serializers = [
     PropertyDifferenceAwsQuerySerializer()
   ];
 
@@ -71,23 +71,23 @@ abstract class PropertyDifference
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PropertyDifference');
-    helper.add(
-      'propertyPath',
-      propertyPath,
-    );
-    helper.add(
-      'expectedValue',
-      expectedValue,
-    );
-    helper.add(
-      'actualValue',
-      actualValue,
-    );
-    helper.add(
-      'differenceType',
-      differenceType,
-    );
+    final helper = newBuiltValueToStringHelper('PropertyDifference')
+      ..add(
+        'propertyPath',
+        propertyPath,
+      )
+      ..add(
+        'expectedValue',
+        expectedValue,
+      )
+      ..add(
+        'actualValue',
+        actualValue,
+      )
+      ..add(
+        'differenceType',
+        differenceType,
+      );
     return helper.toString();
   }
 }

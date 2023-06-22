@@ -37,7 +37,7 @@ abstract class TagPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<TagPolicyRequest>> serializers = [
     TagPolicyRequestAwsQuerySerializer()
   ];
 
@@ -60,15 +60,15 @@ abstract class TagPolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagPolicyRequest');
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagPolicyRequest')
+      ..add(
+        'policyArn',
+        policyArn,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

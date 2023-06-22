@@ -39,9 +39,8 @@ abstract class PolicyNotAttachableException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PolicyNotAttachableExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<PolicyNotAttachableException>>
+      serializers = [PolicyNotAttachableExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PolicyNotAttachableExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class PolicyNotAttachableException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PolicyNotAttachableException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('PolicyNotAttachableException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -36,7 +36,7 @@ abstract class ChallengeResponseType
 
   const ChallengeResponseType._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ChallengeResponseType>> serializers = [
     ChallengeResponseTypeAwsJson11Serializer()
   ];
 
@@ -55,15 +55,15 @@ abstract class ChallengeResponseType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ChallengeResponseType');
-    helper.add(
-      'challengeName',
-      challengeName,
-    );
-    helper.add(
-      'challengeResponse',
-      challengeResponse,
-    );
+    final helper = newBuiltValueToStringHelper('ChallengeResponseType')
+      ..add(
+        'challengeName',
+        challengeName,
+      )
+      ..add(
+        'challengeResponse',
+        challengeResponse,
+      );
     return helper.toString();
   }
 }

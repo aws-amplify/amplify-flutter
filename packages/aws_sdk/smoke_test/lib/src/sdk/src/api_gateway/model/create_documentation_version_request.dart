@@ -56,9 +56,9 @@ abstract class CreateDocumentationVersionRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateDocumentationVersionRequestRestJson1Serializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<CreateDocumentationVersionRequestPayload>>
+      serializers = [CreateDocumentationVersionRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateDocumentationVersionRequestBuilder b) {}
@@ -103,23 +103,23 @@ abstract class CreateDocumentationVersionRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateDocumentationVersionRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
+        newBuiltValueToStringHelper('CreateDocumentationVersionRequest')
+          ..add(
+            'restApiId',
+            restApiId,
+          )
+          ..add(
+            'documentationVersion',
+            documentationVersion,
+          )
+          ..add(
+            'stageName',
+            stageName,
+          )
+          ..add(
+            'description',
+            description,
+          );
     return helper.toString();
   }
 }
@@ -157,19 +157,19 @@ abstract class CreateDocumentationVersionRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateDocumentationVersionRequestPayload');
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
+        newBuiltValueToStringHelper('CreateDocumentationVersionRequestPayload')
+          ..add(
+            'description',
+            description,
+          )
+          ..add(
+            'documentationVersion',
+            documentationVersion,
+          )
+          ..add(
+            'stageName',
+            stageName,
+          );
     return helper.toString();
   }
 }

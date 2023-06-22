@@ -37,9 +37,8 @@ abstract class UnmodifiableEntityException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UnmodifiableEntityExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<UnmodifiableEntityException>>
+      serializers = [UnmodifiableEntityExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UnmodifiableEntityExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class UnmodifiableEntityException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UnmodifiableEntityException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('UnmodifiableEntityException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

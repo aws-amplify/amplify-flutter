@@ -42,7 +42,7 @@ abstract class ListChangeSetsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ListChangeSetsOutput>> serializers = [
     ListChangeSetsOutputAwsQuerySerializer()
   ];
 
@@ -61,15 +61,15 @@ abstract class ListChangeSetsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListChangeSetsOutput');
-    helper.add(
-      'summaries',
-      summaries,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListChangeSetsOutput')
+      ..add(
+        'summaries',
+        summaries,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

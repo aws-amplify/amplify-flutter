@@ -41,9 +41,8 @@ abstract class LambdaFunctionConfiguration
 
   const LambdaFunctionConfiguration._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    LambdaFunctionConfigurationRestXmlSerializer()
-  ];
+  static const List<_i5.SmithySerializer<LambdaFunctionConfiguration>>
+      serializers = [LambdaFunctionConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(LambdaFunctionConfigurationBuilder b) {}
@@ -68,23 +67,23 @@ abstract class LambdaFunctionConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LambdaFunctionConfiguration');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'lambdaFunctionArn',
-      lambdaFunctionArn,
-    );
-    helper.add(
-      'events',
-      events,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
+    final helper = newBuiltValueToStringHelper('LambdaFunctionConfiguration')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'lambdaFunctionArn',
+        lambdaFunctionArn,
+      )
+      ..add(
+        'events',
+        events,
+      )
+      ..add(
+        'filter',
+        filter,
+      );
     return helper.toString();
   }
 }

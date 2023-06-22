@@ -39,9 +39,8 @@ abstract class BucketAlreadyOwnedByYou
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    BucketAlreadyOwnedByYouRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<BucketAlreadyOwnedByYou>> serializers =
+      [BucketAlreadyOwnedByYouRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BucketAlreadyOwnedByYouBuilder b) {}

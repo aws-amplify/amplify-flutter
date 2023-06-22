@@ -40,9 +40,8 @@ abstract class NoAvailableDeliveryChannelException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    NoAvailableDeliveryChannelExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<NoAvailableDeliveryChannelException>>
+      serializers = [NoAvailableDeliveryChannelExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NoAvailableDeliveryChannelExceptionBuilder b) {}
@@ -70,11 +69,11 @@ abstract class NoAvailableDeliveryChannelException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('NoAvailableDeliveryChannelException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('NoAvailableDeliveryChannelException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

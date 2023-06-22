@@ -41,9 +41,8 @@ abstract class CancelUpdateStackInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CancelUpdateStackInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<CancelUpdateStackInput>> serializers =
+      [CancelUpdateStackInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CancelUpdateStackInputBuilder b) {}
@@ -68,15 +67,15 @@ abstract class CancelUpdateStackInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CancelUpdateStackInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
+    final helper = newBuiltValueToStringHelper('CancelUpdateStackInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      );
     return helper.toString();
   }
 }

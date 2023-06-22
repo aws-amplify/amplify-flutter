@@ -33,7 +33,7 @@ abstract class ResourceKey
 
   const ResourceKey._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ResourceKey>> serializers = [
     ResourceKeyAwsJson11Serializer()
   ];
 
@@ -52,15 +52,15 @@ abstract class ResourceKey
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceKey');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceKey')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      );
     return helper.toString();
   }
 }

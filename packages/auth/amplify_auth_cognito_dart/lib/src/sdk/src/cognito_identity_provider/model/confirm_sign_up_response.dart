@@ -35,7 +35,7 @@ abstract class ConfirmSignUpResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ConfirmSignUpResponse>> serializers = [
     ConfirmSignUpResponseAwsJson11Serializer()
   ];
 

@@ -34,7 +34,7 @@ abstract class ResourceToImport
 
   const ResourceToImport._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ResourceToImport>> serializers = [
     ResourceToImportAwsQuerySerializer()
   ];
 
@@ -57,19 +57,19 @@ abstract class ResourceToImport
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceToImport');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
-    helper.add(
-      'resourceIdentifier',
-      resourceIdentifier,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceToImport')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      )
+      ..add(
+        'resourceIdentifier',
+        resourceIdentifier,
+      );
     return helper.toString();
   }
 }

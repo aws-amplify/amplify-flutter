@@ -47,9 +47,8 @@ abstract class ConformancePackStatusDetail
 
   const ConformancePackStatusDetail._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ConformancePackStatusDetailAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<ConformancePackStatusDetail>>
+      serializers = [ConformancePackStatusDetailAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackStatusDetailBuilder b) {}
@@ -102,39 +101,39 @@ abstract class ConformancePackStatusDetail
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConformancePackStatusDetail');
-    helper.add(
-      'conformancePackName',
-      conformancePackName,
-    );
-    helper.add(
-      'conformancePackId',
-      conformancePackId,
-    );
-    helper.add(
-      'conformancePackArn',
-      conformancePackArn,
-    );
-    helper.add(
-      'conformancePackState',
-      conformancePackState,
-    );
-    helper.add(
-      'stackArn',
-      stackArn,
-    );
-    helper.add(
-      'conformancePackStatusReason',
-      conformancePackStatusReason,
-    );
-    helper.add(
-      'lastUpdateRequestedTime',
-      lastUpdateRequestedTime,
-    );
-    helper.add(
-      'lastUpdateCompletedTime',
-      lastUpdateCompletedTime,
-    );
+    final helper = newBuiltValueToStringHelper('ConformancePackStatusDetail')
+      ..add(
+        'conformancePackName',
+        conformancePackName,
+      )
+      ..add(
+        'conformancePackId',
+        conformancePackId,
+      )
+      ..add(
+        'conformancePackArn',
+        conformancePackArn,
+      )
+      ..add(
+        'conformancePackState',
+        conformancePackState,
+      )
+      ..add(
+        'stackArn',
+        stackArn,
+      )
+      ..add(
+        'conformancePackStatusReason',
+        conformancePackStatusReason,
+      )
+      ..add(
+        'lastUpdateRequestedTime',
+        lastUpdateRequestedTime,
+      )
+      ..add(
+        'lastUpdateCompletedTime',
+        lastUpdateCompletedTime,
+      );
     return helper.toString();
   }
 }

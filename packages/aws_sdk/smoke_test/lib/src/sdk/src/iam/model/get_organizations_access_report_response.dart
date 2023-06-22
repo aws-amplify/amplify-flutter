@@ -59,9 +59,8 @@ abstract class GetOrganizationsAccessReportResponse
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
-    GetOrganizationsAccessReportResponseAwsQuerySerializer()
-  ];
+  static const List<_i6.SmithySerializer<GetOrganizationsAccessReportResponse>>
+      serializers = [GetOrganizationsAccessReportResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetOrganizationsAccessReportResponseBuilder b) {
@@ -113,43 +112,43 @@ abstract class GetOrganizationsAccessReportResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetOrganizationsAccessReportResponse');
-    helper.add(
-      'jobStatus',
-      jobStatus,
-    );
-    helper.add(
-      'jobCreationDate',
-      jobCreationDate,
-    );
-    helper.add(
-      'jobCompletionDate',
-      jobCompletionDate,
-    );
-    helper.add(
-      'numberOfServicesAccessible',
-      numberOfServicesAccessible,
-    );
-    helper.add(
-      'numberOfServicesNotAccessed',
-      numberOfServicesNotAccessed,
-    );
-    helper.add(
-      'accessDetails',
-      accessDetails,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'errorDetails',
-      errorDetails,
-    );
+        newBuiltValueToStringHelper('GetOrganizationsAccessReportResponse')
+          ..add(
+            'jobStatus',
+            jobStatus,
+          )
+          ..add(
+            'jobCreationDate',
+            jobCreationDate,
+          )
+          ..add(
+            'jobCompletionDate',
+            jobCompletionDate,
+          )
+          ..add(
+            'numberOfServicesAccessible',
+            numberOfServicesAccessible,
+          )
+          ..add(
+            'numberOfServicesNotAccessed',
+            numberOfServicesNotAccessed,
+          )
+          ..add(
+            'accessDetails',
+            accessDetails,
+          )
+          ..add(
+            'isTruncated',
+            isTruncated,
+          )
+          ..add(
+            'marker',
+            marker,
+          )
+          ..add(
+            'errorDetails',
+            errorDetails,
+          );
     return helper.toString();
   }
 }

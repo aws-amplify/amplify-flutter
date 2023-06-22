@@ -53,9 +53,8 @@ abstract class DeleteDocumentationPartRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteDocumentationPartRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteDocumentationPartRequestPayload>>
+      serializers = [DeleteDocumentationPartRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteDocumentationPartRequestBuilder b) {}
@@ -89,16 +88,15 @@ abstract class DeleteDocumentationPartRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeleteDocumentationPartRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'documentationPartId',
-      documentationPartId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteDocumentationPartRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'documentationPartId',
+        documentationPartId,
+      );
     return helper.toString();
   }
 }

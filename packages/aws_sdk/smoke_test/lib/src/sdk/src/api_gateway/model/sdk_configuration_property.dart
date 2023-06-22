@@ -40,9 +40,8 @@ abstract class SdkConfigurationProperty
 
   const SdkConfigurationProperty._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    SdkConfigurationPropertyRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<SdkConfigurationProperty>>
+      serializers = [SdkConfigurationPropertyRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SdkConfigurationPropertyBuilder b) {
@@ -73,27 +72,27 @@ abstract class SdkConfigurationProperty
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SdkConfigurationProperty');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'friendlyName',
-      friendlyName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'required',
-      required,
-    );
-    helper.add(
-      'defaultValue',
-      defaultValue,
-    );
+    final helper = newBuiltValueToStringHelper('SdkConfigurationProperty')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'friendlyName',
+        friendlyName,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'required',
+        required,
+      )
+      ..add(
+        'defaultValue',
+        defaultValue,
+      );
     return helper.toString();
   }
 }

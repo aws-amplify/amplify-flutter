@@ -30,9 +30,8 @@ abstract class NotificationConfigurationFilter
 
   const NotificationConfigurationFilter._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    NotificationConfigurationFilterRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<NotificationConfigurationFilter>>
+      serializers = [NotificationConfigurationFilterRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NotificationConfigurationFilterBuilder b) {}
@@ -44,11 +43,11 @@ abstract class NotificationConfigurationFilter
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('NotificationConfigurationFilter');
-    helper.add(
-      'key',
-      key,
-    );
+        newBuiltValueToStringHelper('NotificationConfigurationFilter')
+          ..add(
+            'key',
+            key,
+          );
     return helper.toString();
   }
 }

@@ -35,7 +35,7 @@ abstract class Encryption
 
   const Encryption._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Encryption>> serializers = [
     EncryptionRestXmlSerializer()
   ];
 
@@ -58,19 +58,19 @@ abstract class Encryption
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Encryption');
-    helper.add(
-      'encryptionType',
-      encryptionType,
-    );
-    helper.add(
-      'kmsKeyId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'kmsContext',
-      kmsContext,
-    );
+    final helper = newBuiltValueToStringHelper('Encryption')
+      ..add(
+        'encryptionType',
+        encryptionType,
+      )
+      ..add(
+        'kmsKeyId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'kmsContext',
+        kmsContext,
+      );
     return helper.toString();
   }
 }

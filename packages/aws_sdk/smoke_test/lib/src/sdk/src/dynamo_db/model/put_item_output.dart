@@ -47,7 +47,7 @@ abstract class PutItemOutput
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<PutItemOutput>> serializers = [
     PutItemOutputAwsJson10Serializer()
   ];
 
@@ -78,19 +78,19 @@ abstract class PutItemOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutItemOutput');
-    helper.add(
-      'attributes',
-      attributes,
-    );
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
-    helper.add(
-      'itemCollectionMetrics',
-      itemCollectionMetrics,
-    );
+    final helper = newBuiltValueToStringHelper('PutItemOutput')
+      ..add(
+        'attributes',
+        attributes,
+      )
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      )
+      ..add(
+        'itemCollectionMetrics',
+        itemCollectionMetrics,
+      );
     return helper.toString();
   }
 }

@@ -32,9 +32,8 @@ abstract class StopStackSetOperationOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    StopStackSetOperationOutputAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<StopStackSetOperationOutput>>
+      serializers = [StopStackSetOperationOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StopStackSetOperationOutputBuilder b) {}

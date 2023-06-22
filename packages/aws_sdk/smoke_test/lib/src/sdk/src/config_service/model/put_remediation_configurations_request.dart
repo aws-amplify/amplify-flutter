@@ -39,9 +39,8 @@ abstract class PutRemediationConfigurationsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutRemediationConfigurationsRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutRemediationConfigurationsRequest>>
+      serializers = [PutRemediationConfigurationsRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutRemediationConfigurationsRequestBuilder b) {}
@@ -55,11 +54,11 @@ abstract class PutRemediationConfigurationsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutRemediationConfigurationsRequest');
-    helper.add(
-      'remediationConfigurations',
-      remediationConfigurations,
-    );
+        newBuiltValueToStringHelper('PutRemediationConfigurationsRequest')
+          ..add(
+            'remediationConfigurations',
+            remediationConfigurations,
+          );
     return helper.toString();
   }
 }

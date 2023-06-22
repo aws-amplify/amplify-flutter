@@ -38,9 +38,8 @@ abstract class InvalidS3KmsKeyArnException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidS3KmsKeyArnExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidS3KmsKeyArnException>>
+      serializers = [InvalidS3KmsKeyArnExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidS3KmsKeyArnExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class InvalidS3KmsKeyArnException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidS3KmsKeyArnException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidS3KmsKeyArnException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

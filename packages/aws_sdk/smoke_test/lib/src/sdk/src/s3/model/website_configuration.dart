@@ -42,7 +42,7 @@ abstract class WebsiteConfiguration
 
   const WebsiteConfiguration._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<WebsiteConfiguration>> serializers = [
     WebsiteConfigurationRestXmlSerializer()
   ];
 
@@ -71,23 +71,23 @@ abstract class WebsiteConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('WebsiteConfiguration');
-    helper.add(
-      'errorDocument',
-      errorDocument,
-    );
-    helper.add(
-      'indexDocument',
-      indexDocument,
-    );
-    helper.add(
-      'redirectAllRequestsTo',
-      redirectAllRequestsTo,
-    );
-    helper.add(
-      'routingRules',
-      routingRules,
-    );
+    final helper = newBuiltValueToStringHelper('WebsiteConfiguration')
+      ..add(
+        'errorDocument',
+        errorDocument,
+      )
+      ..add(
+        'indexDocument',
+        indexDocument,
+      )
+      ..add(
+        'redirectAllRequestsTo',
+        redirectAllRequestsTo,
+      )
+      ..add(
+        'routingRules',
+        routingRules,
+      );
     return helper.toString();
   }
 }

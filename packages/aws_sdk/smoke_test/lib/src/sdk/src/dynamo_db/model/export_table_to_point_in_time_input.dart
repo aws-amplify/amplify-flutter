@@ -63,9 +63,8 @@ abstract class ExportTableToPointInTimeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ExportTableToPointInTimeInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<ExportTableToPointInTimeInput>>
+      serializers = [ExportTableToPointInTimeInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExportTableToPointInTimeInputBuilder b) {
@@ -126,43 +125,43 @@ abstract class ExportTableToPointInTimeInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExportTableToPointInTimeInput');
-    helper.add(
-      'tableArn',
-      tableArn,
-    );
-    helper.add(
-      'exportTime',
-      exportTime,
-    );
-    helper.add(
-      'clientToken',
-      clientToken,
-    );
-    helper.add(
-      's3Bucket',
-      s3Bucket,
-    );
-    helper.add(
-      's3BucketOwner',
-      s3BucketOwner,
-    );
-    helper.add(
-      's3Prefix',
-      s3Prefix,
-    );
-    helper.add(
-      's3SseAlgorithm',
-      s3SseAlgorithm,
-    );
-    helper.add(
-      's3SseKmsKeyId',
-      s3SseKmsKeyId,
-    );
-    helper.add(
-      'exportFormat',
-      exportFormat,
-    );
+    final helper = newBuiltValueToStringHelper('ExportTableToPointInTimeInput')
+      ..add(
+        'tableArn',
+        tableArn,
+      )
+      ..add(
+        'exportTime',
+        exportTime,
+      )
+      ..add(
+        'clientToken',
+        clientToken,
+      )
+      ..add(
+        's3Bucket',
+        s3Bucket,
+      )
+      ..add(
+        's3BucketOwner',
+        s3BucketOwner,
+      )
+      ..add(
+        's3Prefix',
+        s3Prefix,
+      )
+      ..add(
+        's3SseAlgorithm',
+        s3SseAlgorithm,
+      )
+      ..add(
+        's3SseKmsKeyId',
+        s3SseKmsKeyId,
+      )
+      ..add(
+        'exportFormat',
+        exportFormat,
+      );
     return helper.toString();
   }
 }

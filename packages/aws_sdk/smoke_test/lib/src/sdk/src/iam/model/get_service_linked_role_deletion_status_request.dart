@@ -36,7 +36,9 @@ abstract class GetServiceLinkedRoleDeletionStatusRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<GetServiceLinkedRoleDeletionStatusRequest>>
+      serializers = [
     GetServiceLinkedRoleDeletionStatusRequestAwsQuerySerializer()
   ];
 
@@ -51,12 +53,12 @@ abstract class GetServiceLinkedRoleDeletionStatusRequest
   List<Object?> get props => [deletionTaskId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'GetServiceLinkedRoleDeletionStatusRequest');
-    helper.add(
-      'deletionTaskId',
-      deletionTaskId,
-    );
+    final helper =
+        newBuiltValueToStringHelper('GetServiceLinkedRoleDeletionStatusRequest')
+          ..add(
+            'deletionTaskId',
+            deletionTaskId,
+          );
     return helper.toString();
   }
 }

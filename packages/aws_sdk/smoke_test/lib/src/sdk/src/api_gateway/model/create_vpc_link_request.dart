@@ -46,7 +46,7 @@ abstract class CreateVpcLinkRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<CreateVpcLinkRequest>> serializers = [
     CreateVpcLinkRequestRestJson1Serializer()
   ];
 
@@ -75,23 +75,23 @@ abstract class CreateVpcLinkRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateVpcLinkRequest');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'targetArns',
-      targetArns,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('CreateVpcLinkRequest')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'targetArns',
+        targetArns,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

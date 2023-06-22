@@ -50,7 +50,7 @@ abstract class IntegrationResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<IntegrationResponse>> serializers = [
     IntegrationResponseRestJson1Serializer()
   ];
 
@@ -83,27 +83,27 @@ abstract class IntegrationResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('IntegrationResponse');
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'selectionPattern',
-      selectionPattern,
-    );
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
-    helper.add(
-      'responseTemplates',
-      responseTemplates,
-    );
-    helper.add(
-      'contentHandling',
-      contentHandling,
-    );
+    final helper = newBuiltValueToStringHelper('IntegrationResponse')
+      ..add(
+        'statusCode',
+        statusCode,
+      )
+      ..add(
+        'selectionPattern',
+        selectionPattern,
+      )
+      ..add(
+        'responseParameters',
+        responseParameters,
+      )
+      ..add(
+        'responseTemplates',
+        responseTemplates,
+      )
+      ..add(
+        'contentHandling',
+        contentHandling,
+      );
     return helper.toString();
   }
 }

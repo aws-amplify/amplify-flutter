@@ -56,7 +56,8 @@ abstract class PutOrganizationConformancePackRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<PutOrganizationConformancePackRequest>>
+      serializers = [
     PutOrganizationConformancePackRequestAwsJson11Serializer()
   ];
 
@@ -105,35 +106,35 @@ abstract class PutOrganizationConformancePackRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutOrganizationConformancePackRequest');
-    helper.add(
-      'organizationConformancePackName',
-      organizationConformancePackName,
-    );
-    helper.add(
-      'templateS3Uri',
-      templateS3Uri,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'deliveryS3Bucket',
-      deliveryS3Bucket,
-    );
-    helper.add(
-      'deliveryS3KeyPrefix',
-      deliveryS3KeyPrefix,
-    );
-    helper.add(
-      'conformancePackInputParameters',
-      conformancePackInputParameters,
-    );
-    helper.add(
-      'excludedAccounts',
-      excludedAccounts,
-    );
+        newBuiltValueToStringHelper('PutOrganizationConformancePackRequest')
+          ..add(
+            'organizationConformancePackName',
+            organizationConformancePackName,
+          )
+          ..add(
+            'templateS3Uri',
+            templateS3Uri,
+          )
+          ..add(
+            'templateBody',
+            templateBody,
+          )
+          ..add(
+            'deliveryS3Bucket',
+            deliveryS3Bucket,
+          )
+          ..add(
+            'deliveryS3KeyPrefix',
+            deliveryS3KeyPrefix,
+          )
+          ..add(
+            'conformancePackInputParameters',
+            conformancePackInputParameters,
+          )
+          ..add(
+            'excludedAccounts',
+            excludedAccounts,
+          );
     return helper.toString();
   }
 }

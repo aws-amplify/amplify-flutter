@@ -95,7 +95,7 @@ abstract class UploadPartCopyOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.CopyPartResult?>> serializers = [
     UploadPartCopyOutputRestXmlSerializer()
   ];
 
@@ -140,39 +140,39 @@ abstract class UploadPartCopyOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadPartCopyOutput');
-    helper.add(
-      'copySourceVersionId',
-      copySourceVersionId,
-    );
-    helper.add(
-      'copyPartResult',
-      copyPartResult,
-    );
-    helper.add(
-      'serverSideEncryption',
-      serverSideEncryption,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'ssekmsKeyId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('UploadPartCopyOutput')
+      ..add(
+        'copySourceVersionId',
+        copySourceVersionId,
+      )
+      ..add(
+        'copyPartResult',
+        copyPartResult,
+      )
+      ..add(
+        'serverSideEncryption',
+        serverSideEncryption,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'ssekmsKeyId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'bucketKeyEnabled',
+        bucketKeyEnabled,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }

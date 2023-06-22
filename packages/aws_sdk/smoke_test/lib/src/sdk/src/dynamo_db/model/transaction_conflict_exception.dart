@@ -40,9 +40,8 @@ abstract class TransactionConflictException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TransactionConflictExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<TransactionConflictException>>
+      serializers = [TransactionConflictExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TransactionConflictExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class TransactionConflictException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TransactionConflictException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('TransactionConflictException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

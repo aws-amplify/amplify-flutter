@@ -44,7 +44,7 @@ abstract class DescribeLimitsOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DescribeLimitsOutput>> serializers = [
     DescribeLimitsOutputAwsJson10Serializer()
   ];
 
@@ -71,23 +71,23 @@ abstract class DescribeLimitsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeLimitsOutput');
-    helper.add(
-      'accountMaxReadCapacityUnits',
-      accountMaxReadCapacityUnits,
-    );
-    helper.add(
-      'accountMaxWriteCapacityUnits',
-      accountMaxWriteCapacityUnits,
-    );
-    helper.add(
-      'tableMaxReadCapacityUnits',
-      tableMaxReadCapacityUnits,
-    );
-    helper.add(
-      'tableMaxWriteCapacityUnits',
-      tableMaxWriteCapacityUnits,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeLimitsOutput')
+      ..add(
+        'accountMaxReadCapacityUnits',
+        accountMaxReadCapacityUnits,
+      )
+      ..add(
+        'accountMaxWriteCapacityUnits',
+        accountMaxWriteCapacityUnits,
+      )
+      ..add(
+        'tableMaxReadCapacityUnits',
+        tableMaxReadCapacityUnits,
+      )
+      ..add(
+        'tableMaxWriteCapacityUnits',
+        tableMaxWriteCapacityUnits,
+      );
     return helper.toString();
   }
 }

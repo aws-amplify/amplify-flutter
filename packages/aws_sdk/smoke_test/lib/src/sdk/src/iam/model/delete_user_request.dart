@@ -29,7 +29,7 @@ abstract class DeleteUserRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeleteUserRequest>> serializers = [
     DeleteUserRequestAwsQuerySerializer()
   ];
 
@@ -46,11 +46,11 @@ abstract class DeleteUserRequest
   List<Object?> get props => [userName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteUserRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteUserRequest')
+      ..add(
+        'userName',
+        userName,
+      );
     return helper.toString();
   }
 }

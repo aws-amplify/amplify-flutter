@@ -37,9 +37,8 @@ abstract class ServiceFailureException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ServiceFailureExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<ServiceFailureException>> serializers =
+      [ServiceFailureExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ServiceFailureExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class ServiceFailureException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServiceFailureException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ServiceFailureException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

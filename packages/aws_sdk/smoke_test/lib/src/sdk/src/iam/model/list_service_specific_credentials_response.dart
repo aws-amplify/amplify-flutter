@@ -41,7 +41,9 @@ abstract class ListServiceSpecificCredentialsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<ListServiceSpecificCredentialsResponse>>
+      serializers = [
     ListServiceSpecificCredentialsResponseAwsQuerySerializer()
   ];
 
@@ -56,11 +58,11 @@ abstract class ListServiceSpecificCredentialsResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListServiceSpecificCredentialsResponse');
-    helper.add(
-      'serviceSpecificCredentials',
-      serviceSpecificCredentials,
-    );
+        newBuiltValueToStringHelper('ListServiceSpecificCredentialsResponse')
+          ..add(
+            'serviceSpecificCredentials',
+            serviceSpecificCredentials,
+          );
     return helper.toString();
   }
 }

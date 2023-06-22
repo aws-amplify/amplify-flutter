@@ -50,9 +50,9 @@ abstract class GetBucketAccelerateConfigurationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketAccelerateConfigurationOutputRestXmlSerializer()
-  ];
+  static const List<
+          _i2.SmithySerializer<GetBucketAccelerateConfigurationOutputPayload>>
+      serializers = [GetBucketAccelerateConfigurationOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketAccelerateConfigurationOutputBuilder b) {}
@@ -75,15 +75,15 @@ abstract class GetBucketAccelerateConfigurationOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketAccelerateConfigurationOutput');
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+        newBuiltValueToStringHelper('GetBucketAccelerateConfigurationOutput')
+          ..add(
+            'status',
+            status,
+          )
+          ..add(
+            'requestCharged',
+            requestCharged,
+          );
     return helper.toString();
   }
 }
@@ -111,11 +111,11 @@ abstract class GetBucketAccelerateConfigurationOutputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetBucketAccelerateConfigurationOutputPayload');
-    helper.add(
-      'status',
-      status,
-    );
+        'GetBucketAccelerateConfigurationOutputPayload')
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

@@ -38,7 +38,7 @@ abstract class RequestLimitExceeded
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<RequestLimitExceeded>> serializers = [
     RequestLimitExceededAwsJson10Serializer()
   ];
 
@@ -65,11 +65,11 @@ abstract class RequestLimitExceeded
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RequestLimitExceeded');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('RequestLimitExceeded')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -38,7 +38,7 @@ abstract class BackupInUseException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<BackupInUseException>> serializers = [
     BackupInUseExceptionAwsJson10Serializer()
   ];
 
@@ -65,11 +65,11 @@ abstract class BackupInUseException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BackupInUseException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('BackupInUseException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -28,7 +28,7 @@ abstract class ItemResponse
 
   const ItemResponse._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ItemResponse>> serializers = [
     ItemResponseAwsJson10Serializer()
   ];
 
@@ -41,11 +41,11 @@ abstract class ItemResponse
   List<Object?> get props => [item];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ItemResponse');
-    helper.add(
-      'item',
-      item,
-    );
+    final helper = newBuiltValueToStringHelper('ItemResponse')
+      ..add(
+        'item',
+        item,
+      );
     return helper.toString();
   }
 }

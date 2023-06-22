@@ -75,7 +75,7 @@ abstract class StackResourceDrift
 
   const StackResourceDrift._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<StackResourceDrift>> serializers = [
     StackResourceDriftAwsQuerySerializer()
   ];
 
@@ -143,51 +143,51 @@ abstract class StackResourceDrift
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackResourceDrift');
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
-    helper.add(
-      'physicalResourceId',
-      physicalResourceId,
-    );
-    helper.add(
-      'physicalResourceIdContext',
-      physicalResourceIdContext,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'expectedProperties',
-      expectedProperties,
-    );
-    helper.add(
-      'actualProperties',
-      actualProperties,
-    );
-    helper.add(
-      'propertyDifferences',
-      propertyDifferences,
-    );
-    helper.add(
-      'stackResourceDriftStatus',
-      stackResourceDriftStatus,
-    );
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
-    helper.add(
-      'moduleInfo',
-      moduleInfo,
-    );
+    final helper = newBuiltValueToStringHelper('StackResourceDrift')
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      )
+      ..add(
+        'physicalResourceId',
+        physicalResourceId,
+      )
+      ..add(
+        'physicalResourceIdContext',
+        physicalResourceIdContext,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'expectedProperties',
+        expectedProperties,
+      )
+      ..add(
+        'actualProperties',
+        actualProperties,
+      )
+      ..add(
+        'propertyDifferences',
+        propertyDifferences,
+      )
+      ..add(
+        'stackResourceDriftStatus',
+        stackResourceDriftStatus,
+      )
+      ..add(
+        'timestamp',
+        timestamp,
+      )
+      ..add(
+        'moduleInfo',
+        moduleInfo,
+      );
     return helper.toString();
   }
 }

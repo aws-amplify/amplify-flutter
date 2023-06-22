@@ -45,9 +45,8 @@ abstract class CreateGlobalSecondaryIndexAction
 
   const CreateGlobalSecondaryIndexAction._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    CreateGlobalSecondaryIndexActionAwsJson10Serializer()
-  ];
+  static const List<_i6.SmithySerializer<CreateGlobalSecondaryIndexAction>>
+      serializers = [CreateGlobalSecondaryIndexActionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateGlobalSecondaryIndexActionBuilder b) {}
@@ -75,23 +74,23 @@ abstract class CreateGlobalSecondaryIndexAction
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateGlobalSecondaryIndexAction');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'projection',
-      projection,
-    );
-    helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
-    );
+        newBuiltValueToStringHelper('CreateGlobalSecondaryIndexAction')
+          ..add(
+            'indexName',
+            indexName,
+          )
+          ..add(
+            'keySchema',
+            keySchema,
+          )
+          ..add(
+            'projection',
+            projection,
+          )
+          ..add(
+            'provisionedThroughput',
+            provisionedThroughput,
+          );
     return helper.toString();
   }
 }

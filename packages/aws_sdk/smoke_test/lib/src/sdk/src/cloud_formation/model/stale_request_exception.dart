@@ -37,7 +37,7 @@ abstract class StaleRequestException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<StaleRequestException>> serializers = [
     StaleRequestExceptionAwsQuerySerializer()
   ];
 
@@ -64,11 +64,11 @@ abstract class StaleRequestException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StaleRequestException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('StaleRequestException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -34,9 +34,8 @@ abstract class EstimateTemplateCostOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    EstimateTemplateCostOutputAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<EstimateTemplateCostOutput>>
+      serializers = [EstimateTemplateCostOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EstimateTemplateCostOutputBuilder b) {}
@@ -47,11 +46,11 @@ abstract class EstimateTemplateCostOutput
   List<Object?> get props => [url];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EstimateTemplateCostOutput');
-    helper.add(
-      'url',
-      url,
-    );
+    final helper = newBuiltValueToStringHelper('EstimateTemplateCostOutput')
+      ..add(
+        'url',
+        url,
+      );
     return helper.toString();
   }
 }

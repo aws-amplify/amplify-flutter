@@ -47,9 +47,8 @@ abstract class UpdateEndpointsBatchRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateEndpointsBatchRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.EndpointBatchRequest>>
+      serializers = [UpdateEndpointsBatchRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateEndpointsBatchRequestBuilder b) {}
@@ -80,15 +79,15 @@ abstract class UpdateEndpointsBatchRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateEndpointsBatchRequest');
-    helper.add(
-      'applicationId',
-      applicationId,
-    );
-    helper.add(
-      'endpointBatchRequest',
-      endpointBatchRequest,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateEndpointsBatchRequest')
+      ..add(
+        'applicationId',
+        applicationId,
+      )
+      ..add(
+        'endpointBatchRequest',
+        endpointBatchRequest,
+      );
     return helper.toString();
   }
 }

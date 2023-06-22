@@ -41,9 +41,8 @@ abstract class ListStackResourcesInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListStackResourcesInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListStackResourcesInput>> serializers =
+      [ListStackResourcesInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListStackResourcesInputBuilder b) {}
@@ -69,15 +68,15 @@ abstract class ListStackResourcesInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListStackResourcesInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListStackResourcesInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

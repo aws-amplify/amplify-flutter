@@ -89,9 +89,8 @@ abstract class ListObjectVersionsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListObjectVersionsRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListObjectVersionsRequestPayload>>
+      serializers = [ListObjectVersionsRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListObjectVersionsRequestBuilder b) {}
@@ -151,43 +150,43 @@ abstract class ListObjectVersionsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListObjectVersionsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'encodingType',
-      encodingType,
-    );
-    helper.add(
-      'keyMarker',
-      keyMarker,
-    );
-    helper.add(
-      'maxKeys',
-      maxKeys,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'versionIdMarker',
-      versionIdMarker,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
+    final helper = newBuiltValueToStringHelper('ListObjectVersionsRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'delimiter',
+        delimiter,
+      )
+      ..add(
+        'encodingType',
+        encodingType,
+      )
+      ..add(
+        'keyMarker',
+        keyMarker,
+      )
+      ..add(
+        'maxKeys',
+        maxKeys,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'versionIdMarker',
+        versionIdMarker,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      );
     return helper.toString();
   }
 }

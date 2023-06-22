@@ -52,7 +52,10 @@ abstract class DeleteBucketIntelligentTieringConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<
+              DeleteBucketIntelligentTieringConfigurationRequestPayload>>
+      serializers = [
     DeleteBucketIntelligentTieringConfigurationRequestRestXmlSerializer()
   ];
 
@@ -88,15 +91,15 @@ abstract class DeleteBucketIntelligentTieringConfigurationRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'DeleteBucketIntelligentTieringConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'id',
-      id,
-    );
+        'DeleteBucketIntelligentTieringConfigurationRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'id',
+        id,
+      );
     return helper.toString();
   }
 }

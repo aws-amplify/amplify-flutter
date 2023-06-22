@@ -37,9 +37,8 @@ abstract class OperationNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    OperationNotFoundExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<OperationNotFoundException>>
+      serializers = [OperationNotFoundExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OperationNotFoundExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class OperationNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OperationNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('OperationNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

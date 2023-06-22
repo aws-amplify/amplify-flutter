@@ -39,9 +39,8 @@ abstract class ServiceNotSupportedException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ServiceNotSupportedExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<ServiceNotSupportedException>>
+      serializers = [ServiceNotSupportedExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ServiceNotSupportedExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class ServiceNotSupportedException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServiceNotSupportedException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ServiceNotSupportedException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

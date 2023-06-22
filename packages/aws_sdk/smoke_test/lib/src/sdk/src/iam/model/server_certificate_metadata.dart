@@ -47,9 +47,8 @@ abstract class ServerCertificateMetadata
 
   const ServerCertificateMetadata._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ServerCertificateMetadataAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<ServerCertificateMetadata>>
+      serializers = [ServerCertificateMetadataAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ServerCertificateMetadataBuilder b) {}
@@ -82,31 +81,31 @@ abstract class ServerCertificateMetadata
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServerCertificateMetadata');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'serverCertificateName',
-      serverCertificateName,
-    );
-    helper.add(
-      'serverCertificateId',
-      serverCertificateId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'uploadDate',
-      uploadDate,
-    );
-    helper.add(
-      'expiration',
-      expiration,
-    );
+    final helper = newBuiltValueToStringHelper('ServerCertificateMetadata')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'serverCertificateName',
+        serverCertificateName,
+      )
+      ..add(
+        'serverCertificateId',
+        serverCertificateId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'uploadDate',
+        uploadDate,
+      )
+      ..add(
+        'expiration',
+        expiration,
+      );
     return helper.toString();
   }
 }

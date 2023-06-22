@@ -57,7 +57,7 @@ abstract class ReplicaDescription
 
   const ReplicaDescription._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<ReplicaDescription>> serializers = [
     ReplicaDescriptionAwsJson10Serializer()
   ];
 
@@ -121,43 +121,43 @@ abstract class ReplicaDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicaDescription');
-    helper.add(
-      'regionName',
-      regionName,
-    );
-    helper.add(
-      'replicaStatus',
-      replicaStatus,
-    );
-    helper.add(
-      'replicaStatusDescription',
-      replicaStatusDescription,
-    );
-    helper.add(
-      'replicaStatusPercentProgress',
-      replicaStatusPercentProgress,
-    );
-    helper.add(
-      'kmsMasterKeyId',
-      kmsMasterKeyId,
-    );
-    helper.add(
-      'provisionedThroughputOverride',
-      provisionedThroughputOverride,
-    );
-    helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
-    helper.add(
-      'replicaInaccessibleDateTime',
-      replicaInaccessibleDateTime,
-    );
-    helper.add(
-      'replicaTableClassSummary',
-      replicaTableClassSummary,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicaDescription')
+      ..add(
+        'regionName',
+        regionName,
+      )
+      ..add(
+        'replicaStatus',
+        replicaStatus,
+      )
+      ..add(
+        'replicaStatusDescription',
+        replicaStatusDescription,
+      )
+      ..add(
+        'replicaStatusPercentProgress',
+        replicaStatusPercentProgress,
+      )
+      ..add(
+        'kmsMasterKeyId',
+        kmsMasterKeyId,
+      )
+      ..add(
+        'provisionedThroughputOverride',
+        provisionedThroughputOverride,
+      )
+      ..add(
+        'globalSecondaryIndexes',
+        globalSecondaryIndexes,
+      )
+      ..add(
+        'replicaInaccessibleDateTime',
+        replicaInaccessibleDateTime,
+      )
+      ..add(
+        'replicaTableClassSummary',
+        replicaTableClassSummary,
+      );
     return helper.toString();
   }
 }

@@ -39,9 +39,8 @@ abstract class UnsupportedTokenTypeException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UnsupportedTokenTypeExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<UnsupportedTokenTypeException>>
+      serializers = [UnsupportedTokenTypeExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UnsupportedTokenTypeExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class UnsupportedTokenTypeException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UnsupportedTokenTypeException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('UnsupportedTokenTypeException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

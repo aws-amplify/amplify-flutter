@@ -53,7 +53,7 @@ abstract class GroupDetail
 
   const GroupDetail._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<GroupDetail>> serializers = [
     GroupDetailAwsQuerySerializer()
   ];
 
@@ -94,35 +94,35 @@ abstract class GroupDetail
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GroupDetail');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'groupId',
-      groupId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'groupPolicyList',
-      groupPolicyList,
-    );
-    helper.add(
-      'attachedManagedPolicies',
-      attachedManagedPolicies,
-    );
+    final helper = newBuiltValueToStringHelper('GroupDetail')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'groupId',
+        groupId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'groupPolicyList',
+        groupPolicyList,
+      )
+      ..add(
+        'attachedManagedPolicies',
+        attachedManagedPolicies,
+      );
     return helper.toString();
   }
 }

@@ -40,7 +40,9 @@ abstract class GetUserAttributeVerificationCodeResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<
+          _i3.SmithySerializer<GetUserAttributeVerificationCodeResponse>>
+      serializers = [
     GetUserAttributeVerificationCodeResponseAwsJson11Serializer()
   ];
 
@@ -54,11 +56,11 @@ abstract class GetUserAttributeVerificationCodeResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetUserAttributeVerificationCodeResponse');
-    helper.add(
-      'codeDeliveryDetails',
-      codeDeliveryDetails,
-    );
+        newBuiltValueToStringHelper('GetUserAttributeVerificationCodeResponse')
+          ..add(
+            'codeDeliveryDetails',
+            codeDeliveryDetails,
+          );
     return helper.toString();
   }
 }

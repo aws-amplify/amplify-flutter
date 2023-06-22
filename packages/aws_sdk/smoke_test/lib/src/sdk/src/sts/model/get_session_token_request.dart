@@ -40,9 +40,8 @@ abstract class GetSessionTokenRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetSessionTokenRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetSessionTokenRequest>> serializers =
+      [GetSessionTokenRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetSessionTokenRequestBuilder b) {}
@@ -69,19 +68,19 @@ abstract class GetSessionTokenRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetSessionTokenRequest');
-    helper.add(
-      'durationSeconds',
-      durationSeconds,
-    );
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
-    helper.add(
-      'tokenCode',
-      tokenCode,
-    );
+    final helper = newBuiltValueToStringHelper('GetSessionTokenRequest')
+      ..add(
+        'durationSeconds',
+        durationSeconds,
+      )
+      ..add(
+        'serialNumber',
+        serialNumber,
+      )
+      ..add(
+        'tokenCode',
+        tokenCode,
+      );
     return helper.toString();
   }
 }

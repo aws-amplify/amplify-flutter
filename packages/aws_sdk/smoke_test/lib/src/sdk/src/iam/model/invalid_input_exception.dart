@@ -37,7 +37,7 @@ abstract class InvalidInputException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<InvalidInputException>> serializers = [
     InvalidInputExceptionAwsQuerySerializer()
   ];
 
@@ -64,11 +64,11 @@ abstract class InvalidInputException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidInputException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidInputException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

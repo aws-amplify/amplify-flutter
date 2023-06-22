@@ -55,7 +55,7 @@ abstract class StackSetSummary
 
   const StackSetSummary._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<StackSetSummary>> serializers = [
     StackSetSummaryAwsQuerySerializer()
   ];
 
@@ -114,43 +114,43 @@ abstract class StackSetSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackSetSummary');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'stackSetId',
-      stackSetId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'autoDeployment',
-      autoDeployment,
-    );
-    helper.add(
-      'permissionModel',
-      permissionModel,
-    );
-    helper.add(
-      'driftStatus',
-      driftStatus,
-    );
-    helper.add(
-      'lastDriftCheckTimestamp',
-      lastDriftCheckTimestamp,
-    );
-    helper.add(
-      'managedExecution',
-      managedExecution,
-    );
+    final helper = newBuiltValueToStringHelper('StackSetSummary')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'stackSetId',
+        stackSetId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'autoDeployment',
+        autoDeployment,
+      )
+      ..add(
+        'permissionModel',
+        permissionModel,
+      )
+      ..add(
+        'driftStatus',
+        driftStatus,
+      )
+      ..add(
+        'lastDriftCheckTimestamp',
+        lastDriftCheckTimestamp,
+      )
+      ..add(
+        'managedExecution',
+        managedExecution,
+      );
     return helper.toString();
   }
 }

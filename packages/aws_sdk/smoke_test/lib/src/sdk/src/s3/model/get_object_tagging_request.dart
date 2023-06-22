@@ -67,9 +67,8 @@ abstract class GetObjectTaggingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetObjectTaggingRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetObjectTaggingRequestPayload>>
+      serializers = [GetObjectTaggingRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectTaggingRequestBuilder b) {}
@@ -119,27 +118,27 @@ abstract class GetObjectTaggingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectTaggingRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectTaggingRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      );
     return helper.toString();
   }
 }

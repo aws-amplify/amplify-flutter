@@ -37,7 +37,7 @@ abstract class QuotaSettings
 
   const QuotaSettings._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<QuotaSettings>> serializers = [
     QuotaSettingsRestJson1Serializer()
   ];
 
@@ -63,19 +63,19 @@ abstract class QuotaSettings
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QuotaSettings');
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'offset',
-      offset,
-    );
-    helper.add(
-      'period',
-      period,
-    );
+    final helper = newBuiltValueToStringHelper('QuotaSettings')
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'offset',
+        offset,
+      )
+      ..add(
+        'period',
+        period,
+      );
     return helper.toString();
   }
 }

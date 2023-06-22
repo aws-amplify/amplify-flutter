@@ -41,7 +41,7 @@ abstract class GetRecordsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<GetRecordsOutput>> serializers = [
     GetRecordsOutputAwsJson10Serializer()
   ];
 
@@ -60,15 +60,15 @@ abstract class GetRecordsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetRecordsOutput');
-    helper.add(
-      'records',
-      records,
-    );
-    helper.add(
-      'nextShardIterator',
-      nextShardIterator,
-    );
+    final helper = newBuiltValueToStringHelper('GetRecordsOutput')
+      ..add(
+        'records',
+        records,
+      )
+      ..add(
+        'nextShardIterator',
+        nextShardIterator,
+      );
     return helper.toString();
   }
 }

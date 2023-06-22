@@ -111,9 +111,8 @@ abstract class SelectObjectContentRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    SelectObjectContentRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<SelectObjectContentRequestPayload>>
+      serializers = [SelectObjectContentRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SelectObjectContentRequestBuilder b) {}
@@ -206,55 +205,55 @@ abstract class SelectObjectContentRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SelectObjectContentRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'expression',
-      expression,
-    );
-    helper.add(
-      'expressionType',
-      expressionType,
-    );
-    helper.add(
-      'requestProgress',
-      requestProgress,
-    );
-    helper.add(
-      'inputSerialization',
-      inputSerialization,
-    );
-    helper.add(
-      'outputSerialization',
-      outputSerialization,
-    );
-    helper.add(
-      'scanRange',
-      scanRange,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('SelectObjectContentRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'expression',
+        expression,
+      )
+      ..add(
+        'expressionType',
+        expressionType,
+      )
+      ..add(
+        'requestProgress',
+        requestProgress,
+      )
+      ..add(
+        'inputSerialization',
+        inputSerialization,
+      )
+      ..add(
+        'outputSerialization',
+        outputSerialization,
+      )
+      ..add(
+        'scanRange',
+        scanRange,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }
@@ -312,31 +311,31 @@ abstract class SelectObjectContentRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('SelectObjectContentRequestPayload');
-    helper.add(
-      'expression',
-      expression,
-    );
-    helper.add(
-      'expressionType',
-      expressionType,
-    );
-    helper.add(
-      'inputSerialization',
-      inputSerialization,
-    );
-    helper.add(
-      'outputSerialization',
-      outputSerialization,
-    );
-    helper.add(
-      'requestProgress',
-      requestProgress,
-    );
-    helper.add(
-      'scanRange',
-      scanRange,
-    );
+        newBuiltValueToStringHelper('SelectObjectContentRequestPayload')
+          ..add(
+            'expression',
+            expression,
+          )
+          ..add(
+            'expressionType',
+            expressionType,
+          )
+          ..add(
+            'inputSerialization',
+            inputSerialization,
+          )
+          ..add(
+            'outputSerialization',
+            outputSerialization,
+          )
+          ..add(
+            'requestProgress',
+            requestProgress,
+          )
+          ..add(
+            'scanRange',
+            scanRange,
+          );
     return helper.toString();
   }
 }

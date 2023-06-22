@@ -59,9 +59,8 @@ abstract class NotificationConfiguration
   ) =>
       payload;
 
-  static const List<_i7.SmithySerializer> serializers = [
-    NotificationConfigurationRestXmlSerializer()
-  ];
+  static const List<_i7.SmithySerializer<NotificationConfiguration>>
+      serializers = [NotificationConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NotificationConfigurationBuilder b) {}
@@ -87,23 +86,23 @@ abstract class NotificationConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NotificationConfiguration');
-    helper.add(
-      'topicConfigurations',
-      topicConfigurations,
-    );
-    helper.add(
-      'queueConfigurations',
-      queueConfigurations,
-    );
-    helper.add(
-      'lambdaFunctionConfigurations',
-      lambdaFunctionConfigurations,
-    );
-    helper.add(
-      'eventBridgeConfiguration',
-      eventBridgeConfiguration,
-    );
+    final helper = newBuiltValueToStringHelper('NotificationConfiguration')
+      ..add(
+        'topicConfigurations',
+        topicConfigurations,
+      )
+      ..add(
+        'queueConfigurations',
+        queueConfigurations,
+      )
+      ..add(
+        'lambdaFunctionConfigurations',
+        lambdaFunctionConfigurations,
+      )
+      ..add(
+        'eventBridgeConfiguration',
+        eventBridgeConfiguration,
+      );
     return helper.toString();
   }
 }

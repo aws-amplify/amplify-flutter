@@ -35,7 +35,7 @@ abstract class Transition
 
   const Transition._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Transition>> serializers = [
     TransitionRestXmlSerializer()
   ];
 
@@ -58,19 +58,19 @@ abstract class Transition
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Transition');
-    helper.add(
-      'date',
-      date,
-    );
-    helper.add(
-      'days',
-      days,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
+    final helper = newBuiltValueToStringHelper('Transition')
+      ..add(
+        'date',
+        date,
+      )
+      ..add(
+        'days',
+        days,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      );
     return helper.toString();
   }
 }

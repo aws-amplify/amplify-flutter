@@ -45,9 +45,8 @@ abstract class GetObjectLockConfigurationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetObjectLockConfigurationOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<_i3.ObjectLockConfiguration?>>
+      serializers = [GetObjectLockConfigurationOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectLockConfigurationOutputBuilder b) {}
@@ -62,11 +61,11 @@ abstract class GetObjectLockConfigurationOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetObjectLockConfigurationOutput');
-    helper.add(
-      'objectLockConfiguration',
-      objectLockConfiguration,
-    );
+        newBuiltValueToStringHelper('GetObjectLockConfigurationOutput')
+          ..add(
+            'objectLockConfiguration',
+            objectLockConfiguration,
+          );
     return helper.toString();
   }
 }

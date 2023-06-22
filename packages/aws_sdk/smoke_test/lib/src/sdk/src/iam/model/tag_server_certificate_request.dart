@@ -41,9 +41,8 @@ abstract class TagServerCertificateRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TagServerCertificateRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<TagServerCertificateRequest>>
+      serializers = [TagServerCertificateRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TagServerCertificateRequestBuilder b) {}
@@ -64,15 +63,15 @@ abstract class TagServerCertificateRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagServerCertificateRequest');
-    helper.add(
-      'serverCertificateName',
-      serverCertificateName,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagServerCertificateRequest')
+      ..add(
+        'serverCertificateName',
+        serverCertificateName,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

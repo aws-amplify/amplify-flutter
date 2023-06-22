@@ -32,7 +32,7 @@ abstract class MetricDimension
 
   const MetricDimension._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<MetricDimension>> serializers = [
     MetricDimensionRestJson1Serializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class MetricDimension
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MetricDimension');
-    helper.add(
-      'comparisonOperator',
-      comparisonOperator,
-    );
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('MetricDimension')
+      ..add(
+        'comparisonOperator',
+        comparisonOperator,
+      )
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

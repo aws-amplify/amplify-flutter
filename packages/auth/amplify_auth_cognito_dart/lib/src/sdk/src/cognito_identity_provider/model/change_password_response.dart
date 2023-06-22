@@ -35,9 +35,8 @@ abstract class ChangePasswordResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ChangePasswordResponseAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ChangePasswordResponse>> serializers =
+      [ChangePasswordResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ChangePasswordResponseBuilder b) {}

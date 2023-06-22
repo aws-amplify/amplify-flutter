@@ -34,7 +34,7 @@ abstract class ObjectLockRetention
 
   const ObjectLockRetention._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ObjectLockRetention>> serializers = [
     ObjectLockRetentionRestXmlSerializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class ObjectLockRetention
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ObjectLockRetention');
-    helper.add(
-      'mode',
-      mode,
-    );
-    helper.add(
-      'retainUntilDate',
-      retainUntilDate,
-    );
+    final helper = newBuiltValueToStringHelper('ObjectLockRetention')
+      ..add(
+        'mode',
+        mode,
+      )
+      ..add(
+        'retainUntilDate',
+        retainUntilDate,
+      );
     return helper.toString();
   }
 }

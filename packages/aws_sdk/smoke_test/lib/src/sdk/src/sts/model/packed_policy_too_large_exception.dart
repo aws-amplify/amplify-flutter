@@ -45,9 +45,8 @@ abstract class PackedPolicyTooLargeException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PackedPolicyTooLargeExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<PackedPolicyTooLargeException>>
+      serializers = [PackedPolicyTooLargeExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PackedPolicyTooLargeExceptionBuilder b) {}
@@ -72,11 +71,11 @@ abstract class PackedPolicyTooLargeException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PackedPolicyTooLargeException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('PackedPolicyTooLargeException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

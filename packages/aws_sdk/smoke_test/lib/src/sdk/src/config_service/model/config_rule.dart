@@ -83,7 +83,7 @@ abstract class ConfigRule
 
   const ConfigRule._();
 
-  static const List<_i8.SmithySerializer> serializers = [
+  static const List<_i8.SmithySerializer<ConfigRule>> serializers = [
     ConfigRuleAwsJson11Serializer()
   ];
 
@@ -155,51 +155,51 @@ abstract class ConfigRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfigRule');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'configRuleArn',
-      configRuleArn,
-    );
-    helper.add(
-      'configRuleId',
-      configRuleId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'scope',
-      scope,
-    );
-    helper.add(
-      'source',
-      source,
-    );
-    helper.add(
-      'inputParameters',
-      inputParameters,
-    );
-    helper.add(
-      'maximumExecutionFrequency',
-      maximumExecutionFrequency,
-    );
-    helper.add(
-      'configRuleState',
-      configRuleState,
-    );
-    helper.add(
-      'createdBy',
-      createdBy,
-    );
-    helper.add(
-      'evaluationModes',
-      evaluationModes,
-    );
+    final helper = newBuiltValueToStringHelper('ConfigRule')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'configRuleArn',
+        configRuleArn,
+      )
+      ..add(
+        'configRuleId',
+        configRuleId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'scope',
+        scope,
+      )
+      ..add(
+        'source',
+        source,
+      )
+      ..add(
+        'inputParameters',
+        inputParameters,
+      )
+      ..add(
+        'maximumExecutionFrequency',
+        maximumExecutionFrequency,
+      )
+      ..add(
+        'configRuleState',
+        configRuleState,
+      )
+      ..add(
+        'createdBy',
+        createdBy,
+      )
+      ..add(
+        'evaluationModes',
+        evaluationModes,
+      );
     return helper.toString();
   }
 }

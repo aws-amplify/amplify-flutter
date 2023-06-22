@@ -92,9 +92,8 @@ abstract class ListObjectsV2Output
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ListObjectsV2OutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<ListObjectsV2OutputPayload>>
+      serializers = [ListObjectsV2OutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListObjectsV2OutputBuilder b) {}
@@ -190,59 +189,59 @@ abstract class ListObjectsV2Output
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListObjectsV2Output');
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'contents',
-      contents,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'maxKeys',
-      maxKeys,
-    );
-    helper.add(
-      'commonPrefixes',
-      commonPrefixes,
-    );
-    helper.add(
-      'encodingType',
-      encodingType,
-    );
-    helper.add(
-      'keyCount',
-      keyCount,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'nextContinuationToken',
-      nextContinuationToken,
-    );
-    helper.add(
-      'startAfter',
-      startAfter,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('ListObjectsV2Output')
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'contents',
+        contents,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'delimiter',
+        delimiter,
+      )
+      ..add(
+        'maxKeys',
+        maxKeys,
+      )
+      ..add(
+        'commonPrefixes',
+        commonPrefixes,
+      )
+      ..add(
+        'encodingType',
+        encodingType,
+      )
+      ..add(
+        'keyCount',
+        keyCount,
+      )
+      ..add(
+        'continuationToken',
+        continuationToken,
+      )
+      ..add(
+        'nextContinuationToken',
+        nextContinuationToken,
+      )
+      ..add(
+        'startAfter',
+        startAfter,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }
@@ -329,55 +328,55 @@ abstract class ListObjectsV2OutputPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListObjectsV2OutputPayload');
-    helper.add(
-      'commonPrefixes',
-      commonPrefixes,
-    );
-    helper.add(
-      'contents',
-      contents,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'encodingType',
-      encodingType,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'keyCount',
-      keyCount,
-    );
-    helper.add(
-      'maxKeys',
-      maxKeys,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'nextContinuationToken',
-      nextContinuationToken,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'startAfter',
-      startAfter,
-    );
+    final helper = newBuiltValueToStringHelper('ListObjectsV2OutputPayload')
+      ..add(
+        'commonPrefixes',
+        commonPrefixes,
+      )
+      ..add(
+        'contents',
+        contents,
+      )
+      ..add(
+        'continuationToken',
+        continuationToken,
+      )
+      ..add(
+        'delimiter',
+        delimiter,
+      )
+      ..add(
+        'encodingType',
+        encodingType,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'keyCount',
+        keyCount,
+      )
+      ..add(
+        'maxKeys',
+        maxKeys,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'nextContinuationToken',
+        nextContinuationToken,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'startAfter',
+        startAfter,
+      );
     return helper.toString();
   }
 }

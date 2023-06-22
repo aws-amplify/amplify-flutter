@@ -43,9 +43,8 @@ abstract class UpdateGlobalTableSettingsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    UpdateGlobalTableSettingsOutputAwsJson10Serializer()
-  ];
+  static const List<_i4.SmithySerializer<UpdateGlobalTableSettingsOutput>>
+      serializers = [UpdateGlobalTableSettingsOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateGlobalTableSettingsOutputBuilder b) {}
@@ -63,15 +62,15 @@ abstract class UpdateGlobalTableSettingsOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateGlobalTableSettingsOutput');
-    helper.add(
-      'globalTableName',
-      globalTableName,
-    );
-    helper.add(
-      'replicaSettings',
-      replicaSettings,
-    );
+        newBuiltValueToStringHelper('UpdateGlobalTableSettingsOutput')
+          ..add(
+            'globalTableName',
+            globalTableName,
+          )
+          ..add(
+            'replicaSettings',
+            replicaSettings,
+          );
     return helper.toString();
   }
 }

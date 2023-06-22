@@ -375,9 +375,8 @@ abstract class TransactionCanceledException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TransactionCanceledExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<TransactionCanceledException>>
+      serializers = [TransactionCanceledExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TransactionCanceledExceptionBuilder b) {}
@@ -408,15 +407,15 @@ abstract class TransactionCanceledException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TransactionCanceledException');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'cancellationReasons',
-      cancellationReasons,
-    );
+    final helper = newBuiltValueToStringHelper('TransactionCanceledException')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'cancellationReasons',
+        cancellationReasons,
+      );
     return helper.toString();
   }
 }

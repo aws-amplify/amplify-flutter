@@ -34,9 +34,8 @@ abstract class DeleteEvaluationResultsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteEvaluationResultsRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteEvaluationResultsRequest>>
+      serializers = [DeleteEvaluationResultsRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteEvaluationResultsRequestBuilder b) {}
@@ -49,12 +48,11 @@ abstract class DeleteEvaluationResultsRequest
   List<Object?> get props => [configRuleName];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeleteEvaluationResultsRequest');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteEvaluationResultsRequest')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      );
     return helper.toString();
   }
 }

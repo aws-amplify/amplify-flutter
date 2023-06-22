@@ -76,7 +76,7 @@ abstract class UpdateTableInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UpdateTableInput>> serializers = [
     UpdateTableInputAwsJson10Serializer()
   ];
 
@@ -149,47 +149,47 @@ abstract class UpdateTableInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateTableInput');
-    helper.add(
-      'attributeDefinitions',
-      attributeDefinitions,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'billingMode',
-      billingMode,
-    );
-    helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
-    );
-    helper.add(
-      'globalSecondaryIndexUpdates',
-      globalSecondaryIndexUpdates,
-    );
-    helper.add(
-      'streamSpecification',
-      streamSpecification,
-    );
-    helper.add(
-      'sseSpecification',
-      sseSpecification,
-    );
-    helper.add(
-      'replicaUpdates',
-      replicaUpdates,
-    );
-    helper.add(
-      'tableClass',
-      tableClass,
-    );
-    helper.add(
-      'deletionProtectionEnabled',
-      deletionProtectionEnabled,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateTableInput')
+      ..add(
+        'attributeDefinitions',
+        attributeDefinitions,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'billingMode',
+        billingMode,
+      )
+      ..add(
+        'provisionedThroughput',
+        provisionedThroughput,
+      )
+      ..add(
+        'globalSecondaryIndexUpdates',
+        globalSecondaryIndexUpdates,
+      )
+      ..add(
+        'streamSpecification',
+        streamSpecification,
+      )
+      ..add(
+        'sseSpecification',
+        sseSpecification,
+      )
+      ..add(
+        'replicaUpdates',
+        replicaUpdates,
+      )
+      ..add(
+        'tableClass',
+        tableClass,
+      )
+      ..add(
+        'deletionProtectionEnabled',
+        deletionProtectionEnabled,
+      );
     return helper.toString();
   }
 }

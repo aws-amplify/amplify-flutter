@@ -47,7 +47,7 @@ abstract class DeleteItemOutput
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<DeleteItemOutput>> serializers = [
     DeleteItemOutputAwsJson10Serializer()
   ];
 
@@ -78,19 +78,19 @@ abstract class DeleteItemOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteItemOutput');
-    helper.add(
-      'attributes',
-      attributes,
-    );
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
-    helper.add(
-      'itemCollectionMetrics',
-      itemCollectionMetrics,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteItemOutput')
+      ..add(
+        'attributes',
+        attributes,
+      )
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      )
+      ..add(
+        'itemCollectionMetrics',
+        itemCollectionMetrics,
+      );
     return helper.toString();
   }
 }

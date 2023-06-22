@@ -60,9 +60,8 @@ abstract class GetDeploymentRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetDeploymentRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetDeploymentRequestPayload>>
+      serializers = [GetDeploymentRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetDeploymentRequestBuilder b) {}
@@ -99,19 +98,19 @@ abstract class GetDeploymentRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetDeploymentRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
-      'embed',
-      embed,
-    );
+    final helper = newBuiltValueToStringHelper('GetDeploymentRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'deploymentId',
+        deploymentId,
+      )
+      ..add(
+        'embed',
+        embed,
+      );
     return helper.toString();
   }
 }

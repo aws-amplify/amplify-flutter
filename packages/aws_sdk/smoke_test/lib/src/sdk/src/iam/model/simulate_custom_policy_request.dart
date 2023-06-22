@@ -63,9 +63,8 @@ abstract class SimulateCustomPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    SimulateCustomPolicyRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<SimulateCustomPolicyRequest>>
+      serializers = [SimulateCustomPolicyRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SimulateCustomPolicyRequestBuilder b) {}
@@ -185,51 +184,51 @@ abstract class SimulateCustomPolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SimulateCustomPolicyRequest');
-    helper.add(
-      'policyInputList',
-      policyInputList,
-    );
-    helper.add(
-      'permissionsBoundaryPolicyInputList',
-      permissionsBoundaryPolicyInputList,
-    );
-    helper.add(
-      'actionNames',
-      actionNames,
-    );
-    helper.add(
-      'resourceArns',
-      resourceArns,
-    );
-    helper.add(
-      'resourcePolicy',
-      resourcePolicy,
-    );
-    helper.add(
-      'resourceOwner',
-      resourceOwner,
-    );
-    helper.add(
-      'callerArn',
-      callerArn,
-    );
-    helper.add(
-      'contextEntries',
-      contextEntries,
-    );
-    helper.add(
-      'resourceHandlingOption',
-      resourceHandlingOption,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper = newBuiltValueToStringHelper('SimulateCustomPolicyRequest')
+      ..add(
+        'policyInputList',
+        policyInputList,
+      )
+      ..add(
+        'permissionsBoundaryPolicyInputList',
+        permissionsBoundaryPolicyInputList,
+      )
+      ..add(
+        'actionNames',
+        actionNames,
+      )
+      ..add(
+        'resourceArns',
+        resourceArns,
+      )
+      ..add(
+        'resourcePolicy',
+        resourcePolicy,
+      )
+      ..add(
+        'resourceOwner',
+        resourceOwner,
+      )
+      ..add(
+        'callerArn',
+        callerArn,
+      )
+      ..add(
+        'contextEntries',
+        contextEntries,
+      )
+      ..add(
+        'resourceHandlingOption',
+        resourceHandlingOption,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      )
+      ..add(
+        'marker',
+        marker,
+      );
     return helper.toString();
   }
 }

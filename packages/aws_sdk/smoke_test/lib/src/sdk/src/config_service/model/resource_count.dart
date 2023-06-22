@@ -35,7 +35,7 @@ abstract class ResourceCount
 
   const ResourceCount._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ResourceCount>> serializers = [
     ResourceCountAwsJson11Serializer()
   ];
 
@@ -56,15 +56,15 @@ abstract class ResourceCount
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceCount');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'count',
-      count,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceCount')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'count',
+        count,
+      );
     return helper.toString();
   }
 }

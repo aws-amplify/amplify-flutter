@@ -31,7 +31,7 @@ abstract class RollbackTrigger
 
   const RollbackTrigger._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<RollbackTrigger>> serializers = [
     RollbackTriggerAwsQuerySerializer()
   ];
 
@@ -52,15 +52,15 @@ abstract class RollbackTrigger
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RollbackTrigger');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'type',
-      type,
-    );
+    final helper = newBuiltValueToStringHelper('RollbackTrigger')
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'type',
+        type,
+      );
     return helper.toString();
   }
 }

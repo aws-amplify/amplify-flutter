@@ -57,7 +57,7 @@ abstract class TypeSummary
 
   const TypeSummary._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<TypeSummary>> serializers = [
     TypeSummaryAwsQuerySerializer()
   ];
 
@@ -143,59 +143,59 @@ abstract class TypeSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TypeSummary');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'defaultVersionId',
-      defaultVersionId,
-    );
-    helper.add(
-      'typeArn',
-      typeArn,
-    );
-    helper.add(
-      'lastUpdated',
-      lastUpdated,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
-    helper.add(
-      'originalTypeName',
-      originalTypeName,
-    );
-    helper.add(
-      'publicVersionNumber',
-      publicVersionNumber,
-    );
-    helper.add(
-      'latestPublicVersion',
-      latestPublicVersion,
-    );
-    helper.add(
-      'publisherIdentity',
-      publisherIdentity,
-    );
-    helper.add(
-      'publisherName',
-      publisherName,
-    );
-    helper.add(
-      'isActivated',
-      isActivated,
-    );
+    final helper = newBuiltValueToStringHelper('TypeSummary')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'defaultVersionId',
+        defaultVersionId,
+      )
+      ..add(
+        'typeArn',
+        typeArn,
+      )
+      ..add(
+        'lastUpdated',
+        lastUpdated,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'publisherId',
+        publisherId,
+      )
+      ..add(
+        'originalTypeName',
+        originalTypeName,
+      )
+      ..add(
+        'publicVersionNumber',
+        publicVersionNumber,
+      )
+      ..add(
+        'latestPublicVersion',
+        latestPublicVersion,
+      )
+      ..add(
+        'publisherIdentity',
+        publisherIdentity,
+      )
+      ..add(
+        'publisherName',
+        publisherName,
+      )
+      ..add(
+        'isActivated',
+        isActivated,
+      );
     return helper.toString();
   }
 }

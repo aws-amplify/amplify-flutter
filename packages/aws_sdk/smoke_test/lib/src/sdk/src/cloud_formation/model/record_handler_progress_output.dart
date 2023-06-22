@@ -32,9 +32,8 @@ abstract class RecordHandlerProgressOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    RecordHandlerProgressOutputAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<RecordHandlerProgressOutput>>
+      serializers = [RecordHandlerProgressOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RecordHandlerProgressOutputBuilder b) {}

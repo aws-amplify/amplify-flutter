@@ -54,7 +54,9 @@ abstract class GetServiceLastAccessedDetailsWithEntitiesResponse
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<
+      _i6.SmithySerializer<
+          GetServiceLastAccessedDetailsWithEntitiesResponse>> serializers = [
     GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer()
   ];
 
@@ -99,35 +101,35 @@ abstract class GetServiceLastAccessedDetailsWithEntitiesResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetServiceLastAccessedDetailsWithEntitiesResponse');
-    helper.add(
-      'jobStatus',
-      jobStatus,
-    );
-    helper.add(
-      'jobCreationDate',
-      jobCreationDate,
-    );
-    helper.add(
-      'jobCompletionDate',
-      jobCompletionDate,
-    );
-    helper.add(
-      'entityDetailsList',
-      entityDetailsList,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'error',
-      error,
-    );
+        'GetServiceLastAccessedDetailsWithEntitiesResponse')
+      ..add(
+        'jobStatus',
+        jobStatus,
+      )
+      ..add(
+        'jobCreationDate',
+        jobCreationDate,
+      )
+      ..add(
+        'jobCompletionDate',
+        jobCompletionDate,
+      )
+      ..add(
+        'entityDetailsList',
+        entityDetailsList,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'error',
+        error,
+      );
     return helper.toString();
   }
 }

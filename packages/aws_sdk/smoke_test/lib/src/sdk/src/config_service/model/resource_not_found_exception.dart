@@ -38,9 +38,8 @@ abstract class ResourceNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ResourceNotFoundExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ResourceNotFoundException>>
+      serializers = [ResourceNotFoundExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceNotFoundExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class ResourceNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

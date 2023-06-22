@@ -66,7 +66,7 @@ abstract class CreateRestApiRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<CreateRestApiRequest>> serializers = [
     CreateRestApiRequestRestJson1Serializer()
   ];
 
@@ -125,51 +125,51 @@ abstract class CreateRestApiRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateRestApiRequest');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'version',
-      version,
-    );
-    helper.add(
-      'cloneFrom',
-      cloneFrom,
-    );
-    helper.add(
-      'binaryMediaTypes',
-      binaryMediaTypes,
-    );
-    helper.add(
-      'minimumCompressionSize',
-      minimumCompressionSize,
-    );
-    helper.add(
-      'apiKeySource',
-      apiKeySource,
-    );
-    helper.add(
-      'endpointConfiguration',
-      endpointConfiguration,
-    );
-    helper.add(
-      'policy',
-      policy,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'disableExecuteApiEndpoint',
-      disableExecuteApiEndpoint,
-    );
+    final helper = newBuiltValueToStringHelper('CreateRestApiRequest')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'version',
+        version,
+      )
+      ..add(
+        'cloneFrom',
+        cloneFrom,
+      )
+      ..add(
+        'binaryMediaTypes',
+        binaryMediaTypes,
+      )
+      ..add(
+        'minimumCompressionSize',
+        minimumCompressionSize,
+      )
+      ..add(
+        'apiKeySource',
+        apiKeySource,
+      )
+      ..add(
+        'endpointConfiguration',
+        endpointConfiguration,
+      )
+      ..add(
+        'policy',
+        policy,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'disableExecuteApiEndpoint',
+        disableExecuteApiEndpoint,
+      );
     return helper.toString();
   }
 }

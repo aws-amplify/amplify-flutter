@@ -52,9 +52,8 @@ abstract class PutConfigurationAggregatorRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutConfigurationAggregatorRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutConfigurationAggregatorRequest>>
+      serializers = [PutConfigurationAggregatorRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutConfigurationAggregatorRequestBuilder b) {}
@@ -82,23 +81,23 @@ abstract class PutConfigurationAggregatorRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutConfigurationAggregatorRequest');
-    helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
-    helper.add(
-      'accountAggregationSources',
-      accountAggregationSources,
-    );
-    helper.add(
-      'organizationAggregationSource',
-      organizationAggregationSource,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+        newBuiltValueToStringHelper('PutConfigurationAggregatorRequest')
+          ..add(
+            'configurationAggregatorName',
+            configurationAggregatorName,
+          )
+          ..add(
+            'accountAggregationSources',
+            accountAggregationSources,
+          )
+          ..add(
+            'organizationAggregationSource',
+            organizationAggregationSource,
+          )
+          ..add(
+            'tags',
+            tags,
+          );
     return helper.toString();
   }
 }

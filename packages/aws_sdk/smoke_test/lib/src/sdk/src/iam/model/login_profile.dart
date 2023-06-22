@@ -40,7 +40,7 @@ abstract class LoginProfile
 
   const LoginProfile._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<LoginProfile>> serializers = [
     LoginProfileAwsQuerySerializer()
   ];
 
@@ -65,19 +65,19 @@ abstract class LoginProfile
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LoginProfile');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'passwordResetRequired',
-      passwordResetRequired,
-    );
+    final helper = newBuiltValueToStringHelper('LoginProfile')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'passwordResetRequired',
+        passwordResetRequired,
+      );
     return helper.toString();
   }
 }

@@ -33,7 +33,7 @@ abstract class MetricsConfiguration
 
   const MetricsConfiguration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<MetricsConfiguration>> serializers = [
     MetricsConfigurationRestXmlSerializer()
   ];
 
@@ -52,15 +52,15 @@ abstract class MetricsConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MetricsConfiguration');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
+    final helper = newBuiltValueToStringHelper('MetricsConfiguration')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'filter',
+        filter,
+      );
     return helper.toString();
   }
 }

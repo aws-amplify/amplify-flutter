@@ -36,9 +36,8 @@ abstract class DeleteConfigurationAggregatorRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteConfigurationAggregatorRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteConfigurationAggregatorRequest>>
+      serializers = [DeleteConfigurationAggregatorRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteConfigurationAggregatorRequestBuilder b) {}
@@ -52,11 +51,11 @@ abstract class DeleteConfigurationAggregatorRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteConfigurationAggregatorRequest');
-    helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
+        newBuiltValueToStringHelper('DeleteConfigurationAggregatorRequest')
+          ..add(
+            'configurationAggregatorName',
+            configurationAggregatorName,
+          );
     return helper.toString();
   }
 }

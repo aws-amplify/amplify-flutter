@@ -50,7 +50,7 @@ abstract class InitiateAuthResponse
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<InitiateAuthResponse>> serializers = [
     InitiateAuthResponseAwsJson11Serializer()
   ];
 
@@ -103,23 +103,23 @@ abstract class InitiateAuthResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InitiateAuthResponse');
-    helper.add(
-      'challengeName',
-      challengeName,
-    );
-    helper.add(
-      'session',
-      session,
-    );
-    helper.add(
-      'challengeParameters',
-      challengeParameters,
-    );
-    helper.add(
-      'authenticationResult',
-      authenticationResult,
-    );
+    final helper = newBuiltValueToStringHelper('InitiateAuthResponse')
+      ..add(
+        'challengeName',
+        challengeName,
+      )
+      ..add(
+        'session',
+        session,
+      )
+      ..add(
+        'challengeParameters',
+        challengeParameters,
+      )
+      ..add(
+        'authenticationResult',
+        authenticationResult,
+      );
     return helper.toString();
   }
 }

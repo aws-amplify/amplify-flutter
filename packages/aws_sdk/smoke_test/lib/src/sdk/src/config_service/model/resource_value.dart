@@ -27,7 +27,7 @@ abstract class ResourceValue
 
   const ResourceValue._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ResourceValue>> serializers = [
     ResourceValueAwsJson11Serializer()
   ];
 
@@ -40,11 +40,11 @@ abstract class ResourceValue
   List<Object?> get props => [value];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceValue');
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceValue')
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

@@ -60,9 +60,8 @@ abstract class UpdateResourceRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateResourceRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateResourceRequestPayload>>
+      serializers = [UpdateResourceRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateResourceRequestBuilder b) {}
@@ -104,19 +103,19 @@ abstract class UpdateResourceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateResourceRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateResourceRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -143,11 +142,11 @@ abstract class UpdateResourceRequestPayload
   List<Object?> get props => [patchOperations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateResourceRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateResourceRequestPayload')
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }

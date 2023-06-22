@@ -35,9 +35,8 @@ abstract class ParameterizedStatement
 
   const ParameterizedStatement._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ParameterizedStatementAwsJson10Serializer()
-  ];
+  static const List<_i4.SmithySerializer<ParameterizedStatement>> serializers =
+      [ParameterizedStatementAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ParameterizedStatementBuilder b) {}
@@ -54,15 +53,15 @@ abstract class ParameterizedStatement
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ParameterizedStatement');
-    helper.add(
-      'statement',
-      statement,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
+    final helper = newBuiltValueToStringHelper('ParameterizedStatement')
+      ..add(
+        'statement',
+        statement,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      );
     return helper.toString();
   }
 }

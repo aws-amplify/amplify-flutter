@@ -48,7 +48,7 @@ abstract class MultipartUpload
 
   const MultipartUpload._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<MultipartUpload>> serializers = [
     MultipartUploadRestXmlSerializer()
   ];
 
@@ -87,35 +87,35 @@ abstract class MultipartUpload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MultipartUpload');
-    helper.add(
-      'uploadId',
-      uploadId,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'initiated',
-      initiated,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
-      'initiator',
-      initiator,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
+    final helper = newBuiltValueToStringHelper('MultipartUpload')
+      ..add(
+        'uploadId',
+        uploadId,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'initiated',
+        initiated,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'owner',
+        owner,
+      )
+      ..add(
+        'initiator',
+        initiator,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      );
     return helper.toString();
   }
 }

@@ -30,7 +30,7 @@ abstract class ActivateTypeOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ActivateTypeOutput>> serializers = [
     ActivateTypeOutputAwsQuerySerializer()
   ];
 
@@ -43,11 +43,11 @@ abstract class ActivateTypeOutput
   List<Object?> get props => [arn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ActivateTypeOutput');
-    helper.add(
-      'arn',
-      arn,
-    );
+    final helper = newBuiltValueToStringHelper('ActivateTypeOutput')
+      ..add(
+        'arn',
+        arn,
+      );
     return helper.toString();
   }
 }

@@ -38,9 +38,8 @@ abstract class CreateInstanceProfileResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    CreateInstanceProfileResponseAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<CreateInstanceProfileResponse>>
+      serializers = [CreateInstanceProfileResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateInstanceProfileResponseBuilder b) {}
@@ -51,11 +50,11 @@ abstract class CreateInstanceProfileResponse
   List<Object?> get props => [instanceProfile];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateInstanceProfileResponse');
-    helper.add(
-      'instanceProfile',
-      instanceProfile,
-    );
+    final helper = newBuiltValueToStringHelper('CreateInstanceProfileResponse')
+      ..add(
+        'instanceProfile',
+        instanceProfile,
+      );
     return helper.toString();
   }
 }

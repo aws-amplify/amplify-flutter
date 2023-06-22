@@ -29,9 +29,8 @@ abstract class OrganizationsDecisionDetail
 
   const OrganizationsDecisionDetail._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    OrganizationsDecisionDetailAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<OrganizationsDecisionDetail>>
+      serializers = [OrganizationsDecisionDetailAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationsDecisionDetailBuilder b) {
@@ -44,11 +43,11 @@ abstract class OrganizationsDecisionDetail
   List<Object?> get props => [allowedByOrganizations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OrganizationsDecisionDetail');
-    helper.add(
-      'allowedByOrganizations',
-      allowedByOrganizations,
-    );
+    final helper = newBuiltValueToStringHelper('OrganizationsDecisionDetail')
+      ..add(
+        'allowedByOrganizations',
+        allowedByOrganizations,
+      );
     return helper.toString();
   }
 }

@@ -33,9 +33,8 @@ abstract class NoncurrentVersionExpiration
 
   const NoncurrentVersionExpiration._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    NoncurrentVersionExpirationRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<NoncurrentVersionExpiration>>
+      serializers = [NoncurrentVersionExpirationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NoncurrentVersionExpirationBuilder b) {}
@@ -52,15 +51,15 @@ abstract class NoncurrentVersionExpiration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NoncurrentVersionExpiration');
-    helper.add(
-      'noncurrentDays',
-      noncurrentDays,
-    );
-    helper.add(
-      'newerNoncurrentVersions',
-      newerNoncurrentVersions,
-    );
+    final helper = newBuiltValueToStringHelper('NoncurrentVersionExpiration')
+      ..add(
+        'noncurrentDays',
+        noncurrentDays,
+      )
+      ..add(
+        'newerNoncurrentVersions',
+        newerNoncurrentVersions,
+      );
     return helper.toString();
   }
 }

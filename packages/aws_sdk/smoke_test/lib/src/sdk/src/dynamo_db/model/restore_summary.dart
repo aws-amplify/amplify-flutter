@@ -36,7 +36,7 @@ abstract class RestoreSummary
 
   const RestoreSummary._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<RestoreSummary>> serializers = [
     RestoreSummaryAwsJson10Serializer()
   ];
 
@@ -65,23 +65,23 @@ abstract class RestoreSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RestoreSummary');
-    helper.add(
-      'sourceBackupArn',
-      sourceBackupArn,
-    );
-    helper.add(
-      'sourceTableArn',
-      sourceTableArn,
-    );
-    helper.add(
-      'restoreDateTime',
-      restoreDateTime,
-    );
-    helper.add(
-      'restoreInProgress',
-      restoreInProgress,
-    );
+    final helper = newBuiltValueToStringHelper('RestoreSummary')
+      ..add(
+        'sourceBackupArn',
+        sourceBackupArn,
+      )
+      ..add(
+        'sourceTableArn',
+        sourceTableArn,
+      )
+      ..add(
+        'restoreDateTime',
+        restoreDateTime,
+      )
+      ..add(
+        'restoreInProgress',
+        restoreInProgress,
+      );
     return helper.toString();
   }
 }

@@ -35,9 +35,8 @@ abstract class ComplianceContributorCount
 
   const ComplianceContributorCount._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ComplianceContributorCountAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ComplianceContributorCount>>
+      serializers = [ComplianceContributorCountAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplianceContributorCountBuilder b) {
@@ -57,15 +56,15 @@ abstract class ComplianceContributorCount
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplianceContributorCount');
-    helper.add(
-      'cappedCount',
-      cappedCount,
-    );
-    helper.add(
-      'capExceeded',
-      capExceeded,
-    );
+    final helper = newBuiltValueToStringHelper('ComplianceContributorCount')
+      ..add(
+        'cappedCount',
+        cappedCount,
+      )
+      ..add(
+        'capExceeded',
+        capExceeded,
+      );
     return helper.toString();
   }
 }

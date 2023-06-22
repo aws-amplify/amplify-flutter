@@ -37,7 +37,7 @@ abstract class AliasExistsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AliasExistsException>> serializers = [
     AliasExistsExceptionAwsJson11Serializer()
   ];
 
@@ -66,11 +66,11 @@ abstract class AliasExistsException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AliasExistsException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('AliasExistsException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

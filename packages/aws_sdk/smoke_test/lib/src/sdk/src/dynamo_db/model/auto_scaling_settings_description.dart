@@ -46,9 +46,8 @@ abstract class AutoScalingSettingsDescription
 
   const AutoScalingSettingsDescription._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    AutoScalingSettingsDescriptionAwsJson10Serializer()
-  ];
+  static const List<_i5.SmithySerializer<AutoScalingSettingsDescription>>
+      serializers = [AutoScalingSettingsDescriptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AutoScalingSettingsDescriptionBuilder b) {}
@@ -77,28 +76,27 @@ abstract class AutoScalingSettingsDescription
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AutoScalingSettingsDescription');
-    helper.add(
-      'minimumUnits',
-      minimumUnits,
-    );
-    helper.add(
-      'maximumUnits',
-      maximumUnits,
-    );
-    helper.add(
-      'autoScalingDisabled',
-      autoScalingDisabled,
-    );
-    helper.add(
-      'autoScalingRoleArn',
-      autoScalingRoleArn,
-    );
-    helper.add(
-      'scalingPolicies',
-      scalingPolicies,
-    );
+    final helper = newBuiltValueToStringHelper('AutoScalingSettingsDescription')
+      ..add(
+        'minimumUnits',
+        minimumUnits,
+      )
+      ..add(
+        'maximumUnits',
+        maximumUnits,
+      )
+      ..add(
+        'autoScalingDisabled',
+        autoScalingDisabled,
+      )
+      ..add(
+        'autoScalingRoleArn',
+        autoScalingRoleArn,
+      )
+      ..add(
+        'scalingPolicies',
+        scalingPolicies,
+      );
     return helper.toString();
   }
 }

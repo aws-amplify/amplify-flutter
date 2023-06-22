@@ -41,9 +41,8 @@ abstract class DocumentationPartLocation
 
   const DocumentationPartLocation._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    DocumentationPartLocationRestJson1Serializer()
-  ];
+  static const List<_i3.SmithySerializer<DocumentationPartLocation>>
+      serializers = [DocumentationPartLocationRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DocumentationPartLocationBuilder b) {}
@@ -72,27 +71,27 @@ abstract class DocumentationPartLocation
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DocumentationPartLocation');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'method',
-      method,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'name',
-      name,
-    );
+    final helper = newBuiltValueToStringHelper('DocumentationPartLocation')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'method',
+        method,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      )
+      ..add(
+        'name',
+        name,
+      );
     return helper.toString();
   }
 }

@@ -27,7 +27,7 @@ abstract class ProgressEvent
 
   const ProgressEvent._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ProgressEvent>> serializers = [
     ProgressEventRestXmlSerializer()
   ];
 
@@ -40,11 +40,11 @@ abstract class ProgressEvent
   List<Object?> get props => [details];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ProgressEvent');
-    helper.add(
-      'details',
-      details,
-    );
+    final helper = newBuiltValueToStringHelper('ProgressEvent')
+      ..add(
+        'details',
+        details,
+      );
     return helper.toString();
   }
 }

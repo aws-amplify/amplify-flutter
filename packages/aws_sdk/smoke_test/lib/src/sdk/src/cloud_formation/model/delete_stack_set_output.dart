@@ -32,7 +32,7 @@ abstract class DeleteStackSetOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<DeleteStackSetOutput>> serializers = [
     DeleteStackSetOutputAwsQuerySerializer()
   ];
 

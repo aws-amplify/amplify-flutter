@@ -41,7 +41,7 @@ abstract class DeliveryChannel
 
   const DeliveryChannel._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DeliveryChannel>> serializers = [
     DeliveryChannelAwsJson11Serializer()
   ];
 
@@ -80,31 +80,31 @@ abstract class DeliveryChannel
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeliveryChannel');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      's3BucketName',
-      s3BucketName,
-    );
-    helper.add(
-      's3KeyPrefix',
-      s3KeyPrefix,
-    );
-    helper.add(
-      's3KmsKeyArn',
-      s3KmsKeyArn,
-    );
-    helper.add(
-      'snsTopicArn',
-      snsTopicArn,
-    );
-    helper.add(
-      'configSnapshotDeliveryProperties',
-      configSnapshotDeliveryProperties,
-    );
+    final helper = newBuiltValueToStringHelper('DeliveryChannel')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        's3BucketName',
+        s3BucketName,
+      )
+      ..add(
+        's3KeyPrefix',
+        s3KeyPrefix,
+      )
+      ..add(
+        's3KmsKeyArn',
+        s3KmsKeyArn,
+      )
+      ..add(
+        'snsTopicArn',
+        snsTopicArn,
+      )
+      ..add(
+        'configSnapshotDeliveryProperties',
+        configSnapshotDeliveryProperties,
+      );
     return helper.toString();
   }
 }

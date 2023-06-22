@@ -41,7 +41,7 @@ abstract class RequestValidators
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<RequestValidators>> serializers = [
     RequestValidatorsRestJson1Serializer()
   ];
 
@@ -60,15 +60,15 @@ abstract class RequestValidators
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RequestValidators');
-    helper.add(
-      'items',
-      items,
-    );
-    helper.add(
-      'position',
-      position,
-    );
+    final helper = newBuiltValueToStringHelper('RequestValidators')
+      ..add(
+        'items',
+        items,
+      )
+      ..add(
+        'position',
+        position,
+      );
     return helper.toString();
   }
 }

@@ -48,7 +48,7 @@ abstract class Put
 
   const Put._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<Put>> serializers = [
     PutAwsJson10Serializer()
   ];
 
@@ -84,31 +84,31 @@ abstract class Put
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Put');
-    helper.add(
-      'item',
-      item,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'conditionExpression',
-      conditionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'expressionAttributeValues',
-      expressionAttributeValues,
-    );
-    helper.add(
-      'returnValuesOnConditionCheckFailure',
-      returnValuesOnConditionCheckFailure,
-    );
+    final helper = newBuiltValueToStringHelper('Put')
+      ..add(
+        'item',
+        item,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'conditionExpression',
+        conditionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      )
+      ..add(
+        'expressionAttributeValues',
+        expressionAttributeValues,
+      )
+      ..add(
+        'returnValuesOnConditionCheckFailure',
+        returnValuesOnConditionCheckFailure,
+      );
     return helper.toString();
   }
 }

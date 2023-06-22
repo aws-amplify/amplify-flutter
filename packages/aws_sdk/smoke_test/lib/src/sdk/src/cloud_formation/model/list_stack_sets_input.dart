@@ -44,7 +44,7 @@ abstract class ListStackSetsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListStackSetsInput>> serializers = [
     ListStackSetsInputAwsQuerySerializer()
   ];
 
@@ -81,23 +81,23 @@ abstract class ListStackSetsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListStackSetsInput');
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'maxResults',
-      maxResults,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+    final helper = newBuiltValueToStringHelper('ListStackSetsInput')
+      ..add(
+        'nextToken',
+        nextToken,
+      )
+      ..add(
+        'maxResults',
+        maxResults,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      );
     return helper.toString();
   }
 }

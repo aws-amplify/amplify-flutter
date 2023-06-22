@@ -38,9 +38,8 @@ abstract class NoSuchConfigRuleException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    NoSuchConfigRuleExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<NoSuchConfigRuleException>>
+      serializers = [NoSuchConfigRuleExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NoSuchConfigRuleExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class NoSuchConfigRuleException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NoSuchConfigRuleException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('NoSuchConfigRuleException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -40,9 +40,8 @@ abstract class NoSuchConfigurationRecorderException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    NoSuchConfigurationRecorderExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<NoSuchConfigurationRecorderException>>
+      serializers = [NoSuchConfigurationRecorderExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NoSuchConfigurationRecorderExceptionBuilder b) {}
@@ -70,11 +69,11 @@ abstract class NoSuchConfigurationRecorderException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('NoSuchConfigurationRecorderException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('NoSuchConfigurationRecorderException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

@@ -50,9 +50,8 @@ abstract class GetBucketLoggingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketLoggingRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetBucketLoggingRequestPayload>>
+      serializers = [GetBucketLoggingRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketLoggingRequestBuilder b) {}
@@ -84,15 +83,15 @@ abstract class GetBucketLoggingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketLoggingRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketLoggingRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

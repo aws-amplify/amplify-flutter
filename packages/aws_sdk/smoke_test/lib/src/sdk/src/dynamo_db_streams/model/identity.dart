@@ -30,7 +30,7 @@ abstract class Identity
 
   const Identity._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Identity>> serializers = [
     IdentityAwsJson10Serializer()
   ];
 
@@ -49,15 +49,15 @@ abstract class Identity
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Identity');
-    helper.add(
-      'principalId',
-      principalId,
-    );
-    helper.add(
-      'type',
-      type,
-    );
+    final helper = newBuiltValueToStringHelper('Identity')
+      ..add(
+        'principalId',
+        principalId,
+      )
+      ..add(
+        'type',
+        type,
+      );
     return helper.toString();
   }
 }

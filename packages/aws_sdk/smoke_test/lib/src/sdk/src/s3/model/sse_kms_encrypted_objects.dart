@@ -29,9 +29,8 @@ abstract class SseKmsEncryptedObjects
 
   const SseKmsEncryptedObjects._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    SseKmsEncryptedObjectsRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<SseKmsEncryptedObjects>> serializers =
+      [SseKmsEncryptedObjectsRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SseKmsEncryptedObjectsBuilder b) {}
@@ -42,11 +41,11 @@ abstract class SseKmsEncryptedObjects
   List<Object?> get props => [status];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SseKmsEncryptedObjects');
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('SseKmsEncryptedObjects')
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

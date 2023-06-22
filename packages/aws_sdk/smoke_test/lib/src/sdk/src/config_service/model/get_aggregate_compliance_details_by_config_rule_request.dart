@@ -53,7 +53,9 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+      _i1.SmithySerializer<
+          GetAggregateComplianceDetailsByConfigRuleRequest>> serializers = [
     GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer()
   ];
 
@@ -99,35 +101,35 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetAggregateComplianceDetailsByConfigRuleRequest');
-    helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        'GetAggregateComplianceDetailsByConfigRuleRequest')
+      ..add(
+        'configurationAggregatorName',
+        configurationAggregatorName,
+      )
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'awsRegion',
+        awsRegion,
+      )
+      ..add(
+        'complianceType',
+        complianceType,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

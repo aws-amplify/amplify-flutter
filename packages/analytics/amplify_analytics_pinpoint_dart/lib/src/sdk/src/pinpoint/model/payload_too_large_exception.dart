@@ -43,9 +43,8 @@ abstract class PayloadTooLargeException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PayloadTooLargeExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<PayloadTooLargeException>>
+      serializers = [PayloadTooLargeExceptionRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PayloadTooLargeExceptionBuilder b) {}
@@ -78,15 +77,15 @@ abstract class PayloadTooLargeException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PayloadTooLargeException');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'requestId',
-      requestId,
-    );
+    final helper = newBuiltValueToStringHelper('PayloadTooLargeException')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'requestId',
+        requestId,
+      );
     return helper.toString();
   }
 }

@@ -63,7 +63,9 @@ abstract class OrganizationCustomPolicyRuleMetadataNoPolicy
 
   const OrganizationCustomPolicyRuleMetadataNoPolicy._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<
+          _i5.SmithySerializer<OrganizationCustomPolicyRuleMetadataNoPolicy>>
+      serializers = [
     OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer()
   ];
 
@@ -120,47 +122,47 @@ abstract class OrganizationCustomPolicyRuleMetadataNoPolicy
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'OrganizationCustomPolicyRuleMetadataNoPolicy');
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'organizationConfigRuleTriggerTypes',
-      organizationConfigRuleTriggerTypes,
-    );
-    helper.add(
-      'inputParameters',
-      inputParameters,
-    );
-    helper.add(
-      'maximumExecutionFrequency',
-      maximumExecutionFrequency,
-    );
-    helper.add(
-      'resourceTypesScope',
-      resourceTypesScope,
-    );
-    helper.add(
-      'resourceIdScope',
-      resourceIdScope,
-    );
-    helper.add(
-      'tagKeyScope',
-      tagKeyScope,
-    );
-    helper.add(
-      'tagValueScope',
-      tagValueScope,
-    );
-    helper.add(
-      'policyRuntime',
-      policyRuntime,
-    );
-    helper.add(
-      'debugLogDeliveryAccounts',
-      debugLogDeliveryAccounts,
-    );
+        'OrganizationCustomPolicyRuleMetadataNoPolicy')
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'organizationConfigRuleTriggerTypes',
+        organizationConfigRuleTriggerTypes,
+      )
+      ..add(
+        'inputParameters',
+        inputParameters,
+      )
+      ..add(
+        'maximumExecutionFrequency',
+        maximumExecutionFrequency,
+      )
+      ..add(
+        'resourceTypesScope',
+        resourceTypesScope,
+      )
+      ..add(
+        'resourceIdScope',
+        resourceIdScope,
+      )
+      ..add(
+        'tagKeyScope',
+        tagKeyScope,
+      )
+      ..add(
+        'tagValueScope',
+        tagValueScope,
+      )
+      ..add(
+        'policyRuntime',
+        policyRuntime,
+      )
+      ..add(
+        'debugLogDeliveryAccounts',
+        debugLogDeliveryAccounts,
+      );
     return helper.toString();
   }
 }

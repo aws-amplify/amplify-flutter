@@ -31,9 +31,8 @@ abstract class CreateBucketConfiguration
 
   const CreateBucketConfiguration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    CreateBucketConfigurationRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<CreateBucketConfiguration>>
+      serializers = [CreateBucketConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateBucketConfigurationBuilder b) {}
@@ -44,11 +43,11 @@ abstract class CreateBucketConfiguration
   List<Object?> get props => [locationConstraint];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateBucketConfiguration');
-    helper.add(
-      'locationConstraint',
-      locationConstraint,
-    );
+    final helper = newBuiltValueToStringHelper('CreateBucketConfiguration')
+      ..add(
+        'locationConstraint',
+        locationConstraint,
+      );
     return helper.toString();
   }
 }

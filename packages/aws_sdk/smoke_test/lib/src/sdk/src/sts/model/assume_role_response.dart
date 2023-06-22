@@ -45,7 +45,7 @@ abstract class AssumeRoleResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<AssumeRoleResponse>> serializers = [
     AssumeRoleResponseAwsQuerySerializer()
   ];
 
@@ -78,23 +78,23 @@ abstract class AssumeRoleResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AssumeRoleResponse');
-    helper.add(
-      'credentials',
-      credentials,
-    );
-    helper.add(
-      'assumedRoleUser',
-      assumedRoleUser,
-    );
-    helper.add(
-      'packedPolicySize',
-      packedPolicySize,
-    );
-    helper.add(
-      'sourceIdentity',
-      sourceIdentity,
-    );
+    final helper = newBuiltValueToStringHelper('AssumeRoleResponse')
+      ..add(
+        'credentials',
+        credentials,
+      )
+      ..add(
+        'assumedRoleUser',
+        assumedRoleUser,
+      )
+      ..add(
+        'packedPolicySize',
+        packedPolicySize,
+      )
+      ..add(
+        'sourceIdentity',
+        sourceIdentity,
+      );
     return helper.toString();
   }
 }

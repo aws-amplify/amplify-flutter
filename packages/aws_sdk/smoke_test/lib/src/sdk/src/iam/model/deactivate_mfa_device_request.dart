@@ -39,9 +39,8 @@ abstract class DeactivateMfaDeviceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeactivateMfaDeviceRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeactivateMfaDeviceRequest>>
+      serializers = [DeactivateMfaDeviceRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeactivateMfaDeviceRequestBuilder b) {}
@@ -64,15 +63,15 @@ abstract class DeactivateMfaDeviceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeactivateMfaDeviceRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
+    final helper = newBuiltValueToStringHelper('DeactivateMfaDeviceRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'serialNumber',
+        serialNumber,
+      );
     return helper.toString();
   }
 }

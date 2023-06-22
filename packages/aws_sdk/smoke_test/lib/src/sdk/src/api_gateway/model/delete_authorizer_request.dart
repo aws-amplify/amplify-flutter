@@ -52,9 +52,8 @@ abstract class DeleteAuthorizerRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteAuthorizerRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteAuthorizerRequestPayload>>
+      serializers = [DeleteAuthorizerRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteAuthorizerRequestBuilder b) {}
@@ -88,15 +87,15 @@ abstract class DeleteAuthorizerRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteAuthorizerRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'authorizerId',
-      authorizerId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteAuthorizerRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'authorizerId',
+        authorizerId,
+      );
     return helper.toString();
   }
 }

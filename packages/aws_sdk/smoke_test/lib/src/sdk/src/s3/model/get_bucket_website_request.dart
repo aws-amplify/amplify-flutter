@@ -50,9 +50,8 @@ abstract class GetBucketWebsiteRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketWebsiteRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetBucketWebsiteRequestPayload>>
+      serializers = [GetBucketWebsiteRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketWebsiteRequestBuilder b) {}
@@ -84,15 +83,15 @@ abstract class GetBucketWebsiteRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketWebsiteRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketWebsiteRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

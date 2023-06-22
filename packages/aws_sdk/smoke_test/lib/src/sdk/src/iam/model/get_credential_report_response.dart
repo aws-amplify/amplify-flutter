@@ -46,9 +46,8 @@ abstract class GetCredentialReportResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetCredentialReportResponseAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<GetCredentialReportResponse>>
+      serializers = [GetCredentialReportResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetCredentialReportResponseBuilder b) {}
@@ -69,19 +68,19 @@ abstract class GetCredentialReportResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetCredentialReportResponse');
-    helper.add(
-      'content',
-      content,
-    );
-    helper.add(
-      'reportFormat',
-      reportFormat,
-    );
-    helper.add(
-      'generatedTime',
-      generatedTime,
-    );
+    final helper = newBuiltValueToStringHelper('GetCredentialReportResponse')
+      ..add(
+        'content',
+        content,
+      )
+      ..add(
+        'reportFormat',
+        reportFormat,
+      )
+      ..add(
+        'generatedTime',
+        generatedTime,
+      );
     return helper.toString();
   }
 }

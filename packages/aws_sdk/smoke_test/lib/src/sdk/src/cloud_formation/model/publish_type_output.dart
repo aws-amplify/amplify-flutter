@@ -29,7 +29,7 @@ abstract class PublishTypeOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PublishTypeOutput>> serializers = [
     PublishTypeOutputAwsQuerySerializer()
   ];
 
@@ -42,11 +42,11 @@ abstract class PublishTypeOutput
   List<Object?> get props => [publicTypeArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PublishTypeOutput');
-    helper.add(
-      'publicTypeArn',
-      publicTypeArn,
-    );
+    final helper = newBuiltValueToStringHelper('PublishTypeOutput')
+      ..add(
+        'publicTypeArn',
+        publicTypeArn,
+      );
     return helper.toString();
   }
 }

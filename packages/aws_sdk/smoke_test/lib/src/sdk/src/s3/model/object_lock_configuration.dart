@@ -35,9 +35,8 @@ abstract class ObjectLockConfiguration
 
   const ObjectLockConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ObjectLockConfigurationRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<ObjectLockConfiguration>> serializers =
+      [ObjectLockConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ObjectLockConfigurationBuilder b) {}
@@ -54,15 +53,15 @@ abstract class ObjectLockConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ObjectLockConfiguration');
-    helper.add(
-      'objectLockEnabled',
-      objectLockEnabled,
-    );
-    helper.add(
-      'rule',
-      rule,
-    );
+    final helper = newBuiltValueToStringHelper('ObjectLockConfiguration')
+      ..add(
+        'objectLockEnabled',
+        objectLockEnabled,
+      )
+      ..add(
+        'rule',
+        rule,
+      );
     return helper.toString();
   }
 }

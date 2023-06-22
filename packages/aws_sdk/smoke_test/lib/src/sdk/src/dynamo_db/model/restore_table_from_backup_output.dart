@@ -36,9 +36,8 @@ abstract class RestoreTableFromBackupOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    RestoreTableFromBackupOutputAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<RestoreTableFromBackupOutput>>
+      serializers = [RestoreTableFromBackupOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RestoreTableFromBackupOutputBuilder b) {}
@@ -49,11 +48,11 @@ abstract class RestoreTableFromBackupOutput
   List<Object?> get props => [tableDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RestoreTableFromBackupOutput');
-    helper.add(
-      'tableDescription',
-      tableDescription,
-    );
+    final helper = newBuiltValueToStringHelper('RestoreTableFromBackupOutput')
+      ..add(
+        'tableDescription',
+        tableDescription,
+      );
     return helper.toString();
   }
 }

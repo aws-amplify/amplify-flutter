@@ -33,7 +33,7 @@ abstract class EvaluationStatus
 
   const EvaluationStatus._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<EvaluationStatus>> serializers = [
     EvaluationStatusAwsJson11Serializer()
   ];
 
@@ -52,15 +52,15 @@ abstract class EvaluationStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EvaluationStatus');
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'failureReason',
-      failureReason,
-    );
+    final helper = newBuiltValueToStringHelper('EvaluationStatus')
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'failureReason',
+        failureReason,
+      );
     return helper.toString();
   }
 }

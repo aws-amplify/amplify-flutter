@@ -24,7 +24,7 @@ abstract class Sses3
 
   const Sses3._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Sses3>> serializers = [
     Sses3RestXmlSerializer()
   ];
 

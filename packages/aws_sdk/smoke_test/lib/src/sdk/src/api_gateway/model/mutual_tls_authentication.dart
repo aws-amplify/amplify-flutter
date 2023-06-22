@@ -36,9 +36,8 @@ abstract class MutualTlsAuthentication
 
   const MutualTlsAuthentication._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    MutualTlsAuthenticationRestJson1Serializer()
-  ];
+  static const List<_i3.SmithySerializer<MutualTlsAuthentication>> serializers =
+      [MutualTlsAuthenticationRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MutualTlsAuthenticationBuilder b) {}
@@ -59,19 +58,19 @@ abstract class MutualTlsAuthentication
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MutualTlsAuthentication');
-    helper.add(
-      'truststoreUri',
-      truststoreUri,
-    );
-    helper.add(
-      'truststoreVersion',
-      truststoreVersion,
-    );
-    helper.add(
-      'truststoreWarnings',
-      truststoreWarnings,
-    );
+    final helper = newBuiltValueToStringHelper('MutualTlsAuthentication')
+      ..add(
+        'truststoreUri',
+        truststoreUri,
+      )
+      ..add(
+        'truststoreVersion',
+        truststoreVersion,
+      )
+      ..add(
+        'truststoreWarnings',
+        truststoreWarnings,
+      );
     return helper.toString();
   }
 }

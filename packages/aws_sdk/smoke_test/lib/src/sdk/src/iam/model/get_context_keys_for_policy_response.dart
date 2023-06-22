@@ -39,9 +39,8 @@ abstract class GetContextKeysForPolicyResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetContextKeysForPolicyResponseAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<GetContextKeysForPolicyResponse>>
+      serializers = [GetContextKeysForPolicyResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetContextKeysForPolicyResponseBuilder b) {}
@@ -53,11 +52,11 @@ abstract class GetContextKeysForPolicyResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetContextKeysForPolicyResponse');
-    helper.add(
-      'contextKeyNames',
-      contextKeyNames,
-    );
+        newBuiltValueToStringHelper('GetContextKeysForPolicyResponse')
+          ..add(
+            'contextKeyNames',
+            contextKeyNames,
+          );
     return helper.toString();
   }
 }

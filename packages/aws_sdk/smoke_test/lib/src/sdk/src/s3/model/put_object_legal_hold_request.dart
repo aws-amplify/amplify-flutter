@@ -86,9 +86,8 @@ abstract class PutObjectLegalHoldRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutObjectLegalHoldRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.ObjectLockLegalHold?>>
+      serializers = [PutObjectLegalHoldRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutObjectLegalHoldRequestBuilder b) {}
@@ -152,39 +151,39 @@ abstract class PutObjectLegalHoldRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutObjectLegalHoldRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'legalHold',
-      legalHold,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutObjectLegalHoldRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'legalHold',
+        legalHold,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

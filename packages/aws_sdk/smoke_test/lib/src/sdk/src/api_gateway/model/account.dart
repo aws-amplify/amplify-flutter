@@ -44,7 +44,7 @@ abstract class Account
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Account>> serializers = [
     AccountRestJson1Serializer()
   ];
 
@@ -71,23 +71,23 @@ abstract class Account
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Account');
-    helper.add(
-      'cloudwatchRoleArn',
-      cloudwatchRoleArn,
-    );
-    helper.add(
-      'throttleSettings',
-      throttleSettings,
-    );
-    helper.add(
-      'features',
-      features,
-    );
-    helper.add(
-      'apiKeyVersion',
-      apiKeyVersion,
-    );
+    final helper = newBuiltValueToStringHelper('Account')
+      ..add(
+        'cloudwatchRoleArn',
+        cloudwatchRoleArn,
+      )
+      ..add(
+        'throttleSettings',
+        throttleSettings,
+      )
+      ..add(
+        'features',
+        features,
+      )
+      ..add(
+        'apiKeyVersion',
+        apiKeyVersion,
+      );
     return helper.toString();
   }
 }

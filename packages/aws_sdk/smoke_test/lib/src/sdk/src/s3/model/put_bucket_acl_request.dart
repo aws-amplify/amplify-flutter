@@ -102,9 +102,8 @@ abstract class PutBucketAclRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketAclRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.AccessControlPolicy?>>
+      serializers = [PutBucketAclRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutBucketAclRequestBuilder b) {}
@@ -178,51 +177,51 @@ abstract class PutBucketAclRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutBucketAclRequest');
-    helper.add(
-      'acl',
-      acl,
-    );
-    helper.add(
-      'accessControlPolicy',
-      accessControlPolicy,
-    );
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'grantFullControl',
-      grantFullControl,
-    );
-    helper.add(
-      'grantRead',
-      grantRead,
-    );
-    helper.add(
-      'grantReadAcp',
-      grantReadAcp,
-    );
-    helper.add(
-      'grantWrite',
-      grantWrite,
-    );
-    helper.add(
-      'grantWriteAcp',
-      grantWriteAcp,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutBucketAclRequest')
+      ..add(
+        'acl',
+        acl,
+      )
+      ..add(
+        'accessControlPolicy',
+        accessControlPolicy,
+      )
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'grantFullControl',
+        grantFullControl,
+      )
+      ..add(
+        'grantRead',
+        grantRead,
+      )
+      ..add(
+        'grantReadAcp',
+        grantReadAcp,
+      )
+      ..add(
+        'grantWrite',
+        grantWrite,
+      )
+      ..add(
+        'grantWriteAcp',
+        grantWriteAcp,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

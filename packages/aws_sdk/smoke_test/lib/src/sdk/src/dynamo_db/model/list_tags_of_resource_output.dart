@@ -39,9 +39,8 @@ abstract class ListTagsOfResourceOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListTagsOfResourceOutputAwsJson10Serializer()
-  ];
+  static const List<_i4.SmithySerializer<ListTagsOfResourceOutput>>
+      serializers = [ListTagsOfResourceOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListTagsOfResourceOutputBuilder b) {}
@@ -58,15 +57,15 @@ abstract class ListTagsOfResourceOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTagsOfResourceOutput');
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListTagsOfResourceOutput')
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

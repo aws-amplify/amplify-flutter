@@ -33,7 +33,7 @@ abstract class S3BucketSource
 
   const S3BucketSource._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<S3BucketSource>> serializers = [
     S3BucketSourceAwsJson10Serializer()
   ];
 
@@ -56,19 +56,19 @@ abstract class S3BucketSource
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('S3BucketSource');
-    helper.add(
-      's3BucketOwner',
-      s3BucketOwner,
-    );
-    helper.add(
-      's3Bucket',
-      s3Bucket,
-    );
-    helper.add(
-      's3KeyPrefix',
-      s3KeyPrefix,
-    );
+    final helper = newBuiltValueToStringHelper('S3BucketSource')
+      ..add(
+        's3BucketOwner',
+        s3BucketOwner,
+      )
+      ..add(
+        's3Bucket',
+        s3Bucket,
+      )
+      ..add(
+        's3KeyPrefix',
+        s3KeyPrefix,
+      );
     return helper.toString();
   }
 }

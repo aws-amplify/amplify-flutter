@@ -40,7 +40,8 @@ abstract class DeleteRemediationConfigurationRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeleteRemediationConfigurationRequest>>
+      serializers = [
     DeleteRemediationConfigurationRequestAwsJson11Serializer()
   ];
 
@@ -62,15 +63,15 @@ abstract class DeleteRemediationConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteRemediationConfigurationRequest');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
+        newBuiltValueToStringHelper('DeleteRemediationConfigurationRequest')
+          ..add(
+            'configRuleName',
+            configRuleName,
+          )
+          ..add(
+            'resourceType',
+            resourceType,
+          );
     return helper.toString();
   }
 }

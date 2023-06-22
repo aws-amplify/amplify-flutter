@@ -40,9 +40,8 @@ abstract class PutObjectRetentionOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PutObjectRetentionOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<PutObjectRetentionOutputPayload>>
+      serializers = [PutObjectRetentionOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutObjectRetentionOutputBuilder b) {}
@@ -56,11 +55,11 @@ abstract class PutObjectRetentionOutput
   List<Object?> get props => [requestCharged];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutObjectRetentionOutput');
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('PutObjectRetentionOutput')
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }

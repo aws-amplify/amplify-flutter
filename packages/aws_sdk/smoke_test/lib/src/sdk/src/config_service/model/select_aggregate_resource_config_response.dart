@@ -44,7 +44,8 @@ abstract class SelectAggregateResourceConfigResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<SelectAggregateResourceConfigResponse>>
+      serializers = [
     SelectAggregateResourceConfigResponseAwsJson11Serializer()
   ];
 
@@ -68,19 +69,19 @@ abstract class SelectAggregateResourceConfigResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('SelectAggregateResourceConfigResponse');
-    helper.add(
-      'results',
-      results,
-    );
-    helper.add(
-      'queryInfo',
-      queryInfo,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('SelectAggregateResourceConfigResponse')
+          ..add(
+            'results',
+            results,
+          )
+          ..add(
+            'queryInfo',
+            queryInfo,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

@@ -58,7 +58,7 @@ abstract class AssumeRoleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<AssumeRoleRequest>> serializers = [
     AssumeRoleRequestAwsQuerySerializer()
   ];
 
@@ -161,51 +161,51 @@ abstract class AssumeRoleRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AssumeRoleRequest');
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'roleSessionName',
-      roleSessionName,
-    );
-    helper.add(
-      'policyArns',
-      policyArns,
-    );
-    helper.add(
-      'policy',
-      policy,
-    );
-    helper.add(
-      'durationSeconds',
-      durationSeconds,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'transitiveTagKeys',
-      transitiveTagKeys,
-    );
-    helper.add(
-      'externalId',
-      externalId,
-    );
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
-    helper.add(
-      'tokenCode',
-      tokenCode,
-    );
-    helper.add(
-      'sourceIdentity',
-      sourceIdentity,
-    );
+    final helper = newBuiltValueToStringHelper('AssumeRoleRequest')
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'roleSessionName',
+        roleSessionName,
+      )
+      ..add(
+        'policyArns',
+        policyArns,
+      )
+      ..add(
+        'policy',
+        policy,
+      )
+      ..add(
+        'durationSeconds',
+        durationSeconds,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'transitiveTagKeys',
+        transitiveTagKeys,
+      )
+      ..add(
+        'externalId',
+        externalId,
+      )
+      ..add(
+        'serialNumber',
+        serialNumber,
+      )
+      ..add(
+        'tokenCode',
+        tokenCode,
+      )
+      ..add(
+        'sourceIdentity',
+        sourceIdentity,
+      );
     return helper.toString();
   }
 }

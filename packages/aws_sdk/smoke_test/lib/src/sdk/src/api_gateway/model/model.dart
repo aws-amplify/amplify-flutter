@@ -43,7 +43,7 @@ abstract class Model
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Model>> serializers = [
     ModelRestJson1Serializer()
   ];
 
@@ -74,27 +74,27 @@ abstract class Model
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Model');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'schema',
-      schema,
-    );
-    helper.add(
-      'contentType',
-      contentType,
-    );
+    final helper = newBuiltValueToStringHelper('Model')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'schema',
+        schema,
+      )
+      ..add(
+        'contentType',
+        contentType,
+      );
     return helper.toString();
   }
 }

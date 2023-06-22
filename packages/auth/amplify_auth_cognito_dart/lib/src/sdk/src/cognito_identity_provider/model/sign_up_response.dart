@@ -43,7 +43,7 @@ abstract class SignUpResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<SignUpResponse>> serializers = [
     SignUpResponseAwsJson11Serializer()
   ];
 
@@ -68,19 +68,19 @@ abstract class SignUpResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SignUpResponse');
-    helper.add(
-      'userConfirmed',
-      userConfirmed,
-    );
-    helper.add(
-      'codeDeliveryDetails',
-      codeDeliveryDetails,
-    );
-    helper.add(
-      'userSub',
-      userSub,
-    );
+    final helper = newBuiltValueToStringHelper('SignUpResponse')
+      ..add(
+        'userConfirmed',
+        userConfirmed,
+      )
+      ..add(
+        'codeDeliveryDetails',
+        codeDeliveryDetails,
+      )
+      ..add(
+        'userSub',
+        userSub,
+      );
     return helper.toString();
   }
 }

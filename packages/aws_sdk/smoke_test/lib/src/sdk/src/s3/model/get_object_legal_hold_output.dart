@@ -40,9 +40,8 @@ abstract class GetObjectLegalHoldOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetObjectLegalHoldOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<_i3.ObjectLockLegalHold?>>
+      serializers = [GetObjectLegalHoldOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectLegalHoldOutputBuilder b) {}
@@ -56,11 +55,11 @@ abstract class GetObjectLegalHoldOutput
   List<Object?> get props => [legalHold];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectLegalHoldOutput');
-    helper.add(
-      'legalHold',
-      legalHold,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectLegalHoldOutput')
+      ..add(
+        'legalHold',
+        legalHold,
+      );
     return helper.toString();
   }
 }

@@ -42,9 +42,8 @@ abstract class ProvisionedThroughputDescription
 
   const ProvisionedThroughputDescription._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ProvisionedThroughputDescriptionAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<ProvisionedThroughputDescription>>
+      serializers = [ProvisionedThroughputDescriptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ProvisionedThroughputDescriptionBuilder b) {}
@@ -74,27 +73,27 @@ abstract class ProvisionedThroughputDescription
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ProvisionedThroughputDescription');
-    helper.add(
-      'lastIncreaseDateTime',
-      lastIncreaseDateTime,
-    );
-    helper.add(
-      'lastDecreaseDateTime',
-      lastDecreaseDateTime,
-    );
-    helper.add(
-      'numberOfDecreasesToday',
-      numberOfDecreasesToday,
-    );
-    helper.add(
-      'readCapacityUnits',
-      readCapacityUnits,
-    );
-    helper.add(
-      'writeCapacityUnits',
-      writeCapacityUnits,
-    );
+        newBuiltValueToStringHelper('ProvisionedThroughputDescription')
+          ..add(
+            'lastIncreaseDateTime',
+            lastIncreaseDateTime,
+          )
+          ..add(
+            'lastDecreaseDateTime',
+            lastDecreaseDateTime,
+          )
+          ..add(
+            'numberOfDecreasesToday',
+            numberOfDecreasesToday,
+          )
+          ..add(
+            'readCapacityUnits',
+            readCapacityUnits,
+          )
+          ..add(
+            'writeCapacityUnits',
+            writeCapacityUnits,
+          );
     return helper.toString();
   }
 }

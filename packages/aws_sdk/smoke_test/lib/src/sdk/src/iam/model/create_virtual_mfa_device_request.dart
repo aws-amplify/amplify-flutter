@@ -44,9 +44,8 @@ abstract class CreateVirtualMfaDeviceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateVirtualMfaDeviceRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateVirtualMfaDeviceRequest>>
+      serializers = [CreateVirtualMfaDeviceRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateVirtualMfaDeviceRequestBuilder b) {}
@@ -77,19 +76,19 @@ abstract class CreateVirtualMfaDeviceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateVirtualMfaDeviceRequest');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'virtualMfaDeviceName',
-      virtualMfaDeviceName,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('CreateVirtualMfaDeviceRequest')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'virtualMfaDeviceName',
+        virtualMfaDeviceName,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

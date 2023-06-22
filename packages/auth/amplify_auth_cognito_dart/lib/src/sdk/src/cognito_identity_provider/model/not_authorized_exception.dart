@@ -37,9 +37,8 @@ abstract class NotAuthorizedException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    NotAuthorizedExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<NotAuthorizedException>> serializers =
+      [NotAuthorizedExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NotAuthorizedExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class NotAuthorizedException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NotAuthorizedException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('NotAuthorizedException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

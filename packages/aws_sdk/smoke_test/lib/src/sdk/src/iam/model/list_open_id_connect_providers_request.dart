@@ -35,9 +35,8 @@ abstract class ListOpenIdConnectProvidersRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListOpenIdConnectProvidersRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListOpenIdConnectProvidersRequest>>
+      serializers = [ListOpenIdConnectProvidersRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListOpenIdConnectProvidersRequestBuilder b) {}

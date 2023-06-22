@@ -34,7 +34,7 @@ abstract class GetDeviceResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<GetDeviceResponse>> serializers = [
     GetDeviceResponseAwsJson11Serializer()
   ];
 
@@ -47,11 +47,11 @@ abstract class GetDeviceResponse
   List<Object?> get props => [device];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetDeviceResponse');
-    helper.add(
-      'device',
-      device,
-    );
+    final helper = newBuiltValueToStringHelper('GetDeviceResponse')
+      ..add(
+        'device',
+        device,
+      );
     return helper.toString();
   }
 }

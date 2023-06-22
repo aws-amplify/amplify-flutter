@@ -27,7 +27,7 @@ abstract class InventorySchedule
 
   const InventorySchedule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<InventorySchedule>> serializers = [
     InventoryScheduleRestXmlSerializer()
   ];
 
@@ -40,11 +40,11 @@ abstract class InventorySchedule
   List<Object?> get props => [frequency];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InventorySchedule');
-    helper.add(
-      'frequency',
-      frequency,
-    );
+    final helper = newBuiltValueToStringHelper('InventorySchedule')
+      ..add(
+        'frequency',
+        frequency,
+      );
     return helper.toString();
   }
 }

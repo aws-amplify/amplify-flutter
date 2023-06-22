@@ -48,7 +48,7 @@ abstract class AttributeValueUpdate
 
   const AttributeValueUpdate._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<AttributeValueUpdate>> serializers = [
     AttributeValueUpdateAwsJson10Serializer()
   ];
 
@@ -103,15 +103,15 @@ abstract class AttributeValueUpdate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AttributeValueUpdate');
-    helper.add(
-      'value',
-      value,
-    );
-    helper.add(
-      'action',
-      action,
-    );
+    final helper = newBuiltValueToStringHelper('AttributeValueUpdate')
+      ..add(
+        'value',
+        value,
+      )
+      ..add(
+        'action',
+        action,
+      );
     return helper.toString();
   }
 }

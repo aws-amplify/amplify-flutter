@@ -40,7 +40,9 @@ abstract class MaxNumberOfDeliveryChannelsExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<MaxNumberOfDeliveryChannelsExceededException>>
+      serializers = [
     MaxNumberOfDeliveryChannelsExceededExceptionAwsJson11Serializer()
   ];
 
@@ -70,11 +72,11 @@ abstract class MaxNumberOfDeliveryChannelsExceededException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MaxNumberOfDeliveryChannelsExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+        'MaxNumberOfDeliveryChannelsExceededException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

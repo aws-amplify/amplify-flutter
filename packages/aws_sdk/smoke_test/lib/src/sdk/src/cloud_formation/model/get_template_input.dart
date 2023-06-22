@@ -42,7 +42,7 @@ abstract class GetTemplateInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetTemplateInput>> serializers = [
     GetTemplateInputAwsQuerySerializer()
   ];
 
@@ -76,19 +76,19 @@ abstract class GetTemplateInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetTemplateInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'changeSetName',
-      changeSetName,
-    );
-    helper.add(
-      'templateStage',
-      templateStage,
-    );
+    final helper = newBuiltValueToStringHelper('GetTemplateInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'changeSetName',
+        changeSetName,
+      )
+      ..add(
+        'templateStage',
+        templateStage,
+      );
     return helper.toString();
   }
 }

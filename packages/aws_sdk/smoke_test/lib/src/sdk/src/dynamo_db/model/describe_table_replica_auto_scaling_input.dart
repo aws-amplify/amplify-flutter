@@ -34,9 +34,8 @@ abstract class DescribeTableReplicaAutoScalingInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeTableReplicaAutoScalingInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DescribeTableReplicaAutoScalingInput>>
+      serializers = [DescribeTableReplicaAutoScalingInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeTableReplicaAutoScalingInputBuilder b) {}
@@ -50,11 +49,11 @@ abstract class DescribeTableReplicaAutoScalingInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeTableReplicaAutoScalingInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
+        newBuiltValueToStringHelper('DescribeTableReplicaAutoScalingInput')
+          ..add(
+            'tableName',
+            tableName,
+          );
     return helper.toString();
   }
 }

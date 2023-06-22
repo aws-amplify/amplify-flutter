@@ -37,9 +37,8 @@ abstract class ExportTableToPointInTimeOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ExportTableToPointInTimeOutputAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<ExportTableToPointInTimeOutput>>
+      serializers = [ExportTableToPointInTimeOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExportTableToPointInTimeOutputBuilder b) {}
@@ -50,12 +49,11 @@ abstract class ExportTableToPointInTimeOutput
   List<Object?> get props => [exportDescription];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ExportTableToPointInTimeOutput');
-    helper.add(
-      'exportDescription',
-      exportDescription,
-    );
+    final helper = newBuiltValueToStringHelper('ExportTableToPointInTimeOutput')
+      ..add(
+        'exportDescription',
+        exportDescription,
+      );
     return helper.toString();
   }
 }

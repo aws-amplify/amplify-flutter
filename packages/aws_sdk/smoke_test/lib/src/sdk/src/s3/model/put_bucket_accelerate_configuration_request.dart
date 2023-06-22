@@ -63,7 +63,8 @@ abstract class PutBucketAccelerateConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.AccelerateConfiguration>>
+      serializers = [
     PutBucketAccelerateConfigurationRequestRestXmlSerializer()
   ];
 
@@ -107,23 +108,23 @@ abstract class PutBucketAccelerateConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutBucketAccelerateConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'accelerateConfiguration',
-      accelerateConfiguration,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
+        newBuiltValueToStringHelper('PutBucketAccelerateConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'accelerateConfiguration',
+            accelerateConfiguration,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          )
+          ..add(
+            'checksumAlgorithm',
+            checksumAlgorithm,
+          );
     return helper.toString();
   }
 }

@@ -44,9 +44,9 @@ abstract class GetBucketEncryptionOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketEncryptionOutputRestXmlSerializer()
-  ];
+  static const List<
+          _i2.SmithySerializer<_i3.ServerSideEncryptionConfiguration?>>
+      serializers = [GetBucketEncryptionOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketEncryptionOutputBuilder b) {}
@@ -60,11 +60,11 @@ abstract class GetBucketEncryptionOutput
   List<Object?> get props => [serverSideEncryptionConfiguration];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketEncryptionOutput');
-    helper.add(
-      'serverSideEncryptionConfiguration',
-      serverSideEncryptionConfiguration,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketEncryptionOutput')
+      ..add(
+        'serverSideEncryptionConfiguration',
+        serverSideEncryptionConfiguration,
+      );
     return helper.toString();
   }
 }

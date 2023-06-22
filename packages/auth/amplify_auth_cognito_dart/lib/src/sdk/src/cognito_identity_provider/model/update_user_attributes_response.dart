@@ -43,9 +43,8 @@ abstract class UpdateUserAttributesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    UpdateUserAttributesResponseAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<UpdateUserAttributesResponse>>
+      serializers = [UpdateUserAttributesResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateUserAttributesResponseBuilder b) {}
@@ -56,11 +55,11 @@ abstract class UpdateUserAttributesResponse
   List<Object?> get props => [codeDeliveryDetailsList];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateUserAttributesResponse');
-    helper.add(
-      'codeDeliveryDetailsList',
-      codeDeliveryDetailsList,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateUserAttributesResponse')
+      ..add(
+        'codeDeliveryDetailsList',
+        codeDeliveryDetailsList,
+      );
     return helper.toString();
   }
 }

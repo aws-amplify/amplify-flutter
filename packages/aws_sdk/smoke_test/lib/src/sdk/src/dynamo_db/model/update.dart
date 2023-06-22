@@ -50,7 +50,7 @@ abstract class Update
 
   const Update._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<Update>> serializers = [
     UpdateAwsJson10Serializer()
   ];
 
@@ -90,35 +90,35 @@ abstract class Update
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Update');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'updateExpression',
-      updateExpression,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'conditionExpression',
-      conditionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'expressionAttributeValues',
-      expressionAttributeValues,
-    );
-    helper.add(
-      'returnValuesOnConditionCheckFailure',
-      returnValuesOnConditionCheckFailure,
-    );
+    final helper = newBuiltValueToStringHelper('Update')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'updateExpression',
+        updateExpression,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'conditionExpression',
+        conditionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      )
+      ..add(
+        'expressionAttributeValues',
+        expressionAttributeValues,
+      )
+      ..add(
+        'returnValuesOnConditionCheckFailure',
+        returnValuesOnConditionCheckFailure,
+      );
     return helper.toString();
   }
 }

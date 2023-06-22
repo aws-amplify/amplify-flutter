@@ -38,7 +38,9 @@ abstract class GetComplianceSummaryByResourceTypeRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<GetComplianceSummaryByResourceTypeRequest>>
+      serializers = [
     GetComplianceSummaryByResourceTypeRequestAwsJson11Serializer()
   ];
 
@@ -55,12 +57,12 @@ abstract class GetComplianceSummaryByResourceTypeRequest
   List<Object?> get props => [resourceTypes];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'GetComplianceSummaryByResourceTypeRequest');
-    helper.add(
-      'resourceTypes',
-      resourceTypes,
-    );
+    final helper =
+        newBuiltValueToStringHelper('GetComplianceSummaryByResourceTypeRequest')
+          ..add(
+            'resourceTypes',
+            resourceTypes,
+          );
     return helper.toString();
   }
 }

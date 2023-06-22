@@ -31,9 +31,8 @@ abstract class StackSetOperationStatusDetails
 
   const StackSetOperationStatusDetails._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    StackSetOperationStatusDetailsAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<StackSetOperationStatusDetails>>
+      serializers = [StackSetOperationStatusDetailsAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StackSetOperationStatusDetailsBuilder b) {
@@ -46,12 +45,11 @@ abstract class StackSetOperationStatusDetails
   List<Object?> get props => [failedStackInstancesCount];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('StackSetOperationStatusDetails');
-    helper.add(
-      'failedStackInstancesCount',
-      failedStackInstancesCount,
-    );
+    final helper = newBuiltValueToStringHelper('StackSetOperationStatusDetails')
+      ..add(
+        'failedStackInstancesCount',
+        failedStackInstancesCount,
+      );
     return helper.toString();
   }
 }

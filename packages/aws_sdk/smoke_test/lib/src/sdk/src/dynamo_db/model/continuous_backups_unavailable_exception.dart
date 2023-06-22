@@ -40,7 +40,8 @@ abstract class ContinuousBackupsUnavailableException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ContinuousBackupsUnavailableException>>
+      serializers = [
     ContinuousBackupsUnavailableExceptionAwsJson10Serializer()
   ];
 
@@ -68,11 +69,11 @@ abstract class ContinuousBackupsUnavailableException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ContinuousBackupsUnavailableException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('ContinuousBackupsUnavailableException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

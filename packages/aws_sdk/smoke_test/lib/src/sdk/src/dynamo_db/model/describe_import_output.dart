@@ -34,7 +34,7 @@ abstract class DescribeImportOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DescribeImportOutput>> serializers = [
     DescribeImportOutputAwsJson10Serializer()
   ];
 
@@ -47,11 +47,11 @@ abstract class DescribeImportOutput
   List<Object?> get props => [importTableDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeImportOutput');
-    helper.add(
-      'importTableDescription',
-      importTableDescription,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeImportOutput')
+      ..add(
+        'importTableDescription',
+        importTableDescription,
+      );
     return helper.toString();
   }
 }

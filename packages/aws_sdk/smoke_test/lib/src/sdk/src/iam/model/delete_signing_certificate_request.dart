@@ -40,9 +40,8 @@ abstract class DeleteSigningCertificateRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteSigningCertificateRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteSigningCertificateRequest>>
+      serializers = [DeleteSigningCertificateRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteSigningCertificateRequestBuilder b) {}
@@ -66,15 +65,15 @@ abstract class DeleteSigningCertificateRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteSigningCertificateRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'certificateId',
-      certificateId,
-    );
+        newBuiltValueToStringHelper('DeleteSigningCertificateRequest')
+          ..add(
+            'userName',
+            userName,
+          )
+          ..add(
+            'certificateId',
+            certificateId,
+          );
     return helper.toString();
   }
 }

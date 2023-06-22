@@ -54,9 +54,8 @@ abstract class AssumeRoleWithWebIdentityResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    AssumeRoleWithWebIdentityResponseAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<AssumeRoleWithWebIdentityResponse>>
+      serializers = [AssumeRoleWithWebIdentityResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AssumeRoleWithWebIdentityResponseBuilder b) {}
@@ -100,35 +99,35 @@ abstract class AssumeRoleWithWebIdentityResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('AssumeRoleWithWebIdentityResponse');
-    helper.add(
-      'credentials',
-      credentials,
-    );
-    helper.add(
-      'subjectFromWebIdentityToken',
-      subjectFromWebIdentityToken,
-    );
-    helper.add(
-      'assumedRoleUser',
-      assumedRoleUser,
-    );
-    helper.add(
-      'packedPolicySize',
-      packedPolicySize,
-    );
-    helper.add(
-      'provider',
-      provider,
-    );
-    helper.add(
-      'audience',
-      audience,
-    );
-    helper.add(
-      'sourceIdentity',
-      sourceIdentity,
-    );
+        newBuiltValueToStringHelper('AssumeRoleWithWebIdentityResponse')
+          ..add(
+            'credentials',
+            credentials,
+          )
+          ..add(
+            'subjectFromWebIdentityToken',
+            subjectFromWebIdentityToken,
+          )
+          ..add(
+            'assumedRoleUser',
+            assumedRoleUser,
+          )
+          ..add(
+            'packedPolicySize',
+            packedPolicySize,
+          )
+          ..add(
+            'provider',
+            provider,
+          )
+          ..add(
+            'audience',
+            audience,
+          )
+          ..add(
+            'sourceIdentity',
+            sourceIdentity,
+          );
     return helper.toString();
   }
 }

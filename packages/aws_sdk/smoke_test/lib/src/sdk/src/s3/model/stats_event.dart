@@ -26,7 +26,7 @@ abstract class StatsEvent
 
   const StatsEvent._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<StatsEvent>> serializers = [
     StatsEventRestXmlSerializer()
   ];
 
@@ -39,11 +39,11 @@ abstract class StatsEvent
   List<Object?> get props => [details];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StatsEvent');
-    helper.add(
-      'details',
-      details,
-    );
+    final helper = newBuiltValueToStringHelper('StatsEvent')
+      ..add(
+        'details',
+        details,
+      );
     return helper.toString();
   }
 }

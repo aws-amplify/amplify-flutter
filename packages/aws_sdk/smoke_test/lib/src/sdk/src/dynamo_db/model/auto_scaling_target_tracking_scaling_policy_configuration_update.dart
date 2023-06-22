@@ -42,7 +42,10 @@ abstract class AutoScalingTargetTrackingScalingPolicyConfigurationUpdate
 
   const AutoScalingTargetTrackingScalingPolicyConfigurationUpdate._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<
+              AutoScalingTargetTrackingScalingPolicyConfigurationUpdate>>
+      serializers = [
     AutoScalingTargetTrackingScalingPolicyConfigurationUpdateAwsJson10Serializer()
   ];
 
@@ -73,23 +76,23 @@ abstract class AutoScalingTargetTrackingScalingPolicyConfigurationUpdate
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'AutoScalingTargetTrackingScalingPolicyConfigurationUpdate');
-    helper.add(
-      'disableScaleIn',
-      disableScaleIn,
-    );
-    helper.add(
-      'scaleInCooldown',
-      scaleInCooldown,
-    );
-    helper.add(
-      'scaleOutCooldown',
-      scaleOutCooldown,
-    );
-    helper.add(
-      'targetValue',
-      targetValue,
-    );
+        'AutoScalingTargetTrackingScalingPolicyConfigurationUpdate')
+      ..add(
+        'disableScaleIn',
+        disableScaleIn,
+      )
+      ..add(
+        'scaleInCooldown',
+        scaleInCooldown,
+      )
+      ..add(
+        'scaleOutCooldown',
+        scaleOutCooldown,
+      )
+      ..add(
+        'targetValue',
+        targetValue,
+      );
     return helper.toString();
   }
 }

@@ -34,7 +34,7 @@ abstract class SseSpecification
 
   const SseSpecification._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<SseSpecification>> serializers = [
     SseSpecificationAwsJson10Serializer()
   ];
 
@@ -59,19 +59,19 @@ abstract class SseSpecification
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SseSpecification');
-    helper.add(
-      'enabled',
-      enabled,
-    );
-    helper.add(
-      'sseType',
-      sseType,
-    );
-    helper.add(
-      'kmsMasterKeyId',
-      kmsMasterKeyId,
-    );
+    final helper = newBuiltValueToStringHelper('SseSpecification')
+      ..add(
+        'enabled',
+        enabled,
+      )
+      ..add(
+        'sseType',
+        sseType,
+      )
+      ..add(
+        'kmsMasterKeyId',
+        kmsMasterKeyId,
+      );
     return helper.toString();
   }
 }

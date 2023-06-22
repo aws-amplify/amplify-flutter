@@ -73,9 +73,8 @@ abstract class PutBucketVersioningRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketVersioningRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.VersioningConfiguration>>
+      serializers = [PutBucketVersioningRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutBucketVersioningRequestBuilder b) {}
@@ -126,31 +125,31 @@ abstract class PutBucketVersioningRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutBucketVersioningRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'mfa',
-      mfa,
-    );
-    helper.add(
-      'versioningConfiguration',
-      versioningConfiguration,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutBucketVersioningRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'mfa',
+        mfa,
+      )
+      ..add(
+        'versioningConfiguration',
+        versioningConfiguration,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

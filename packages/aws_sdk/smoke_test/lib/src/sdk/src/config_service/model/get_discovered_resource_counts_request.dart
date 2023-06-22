@@ -45,9 +45,8 @@ abstract class GetDiscoveredResourceCountsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetDiscoveredResourceCountsRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetDiscoveredResourceCountsRequest>>
+      serializers = [GetDiscoveredResourceCountsRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetDiscoveredResourceCountsRequestBuilder b) {
@@ -77,19 +76,19 @@ abstract class GetDiscoveredResourceCountsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetDiscoveredResourceCountsRequest');
-    helper.add(
-      'resourceTypes',
-      resourceTypes,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('GetDiscoveredResourceCountsRequest')
+          ..add(
+            'resourceTypes',
+            resourceTypes,
+          )
+          ..add(
+            'limit',
+            limit,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

@@ -65,9 +65,8 @@ abstract class OrganizationCustomPolicyRuleMetadata
 
   const OrganizationCustomPolicyRuleMetadata._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    OrganizationCustomPolicyRuleMetadataAwsJson11Serializer()
-  ];
+  static const List<_i5.SmithySerializer<OrganizationCustomPolicyRuleMetadata>>
+      serializers = [OrganizationCustomPolicyRuleMetadataAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationCustomPolicyRuleMetadataBuilder b) {}
@@ -126,51 +125,51 @@ abstract class OrganizationCustomPolicyRuleMetadata
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OrganizationCustomPolicyRuleMetadata');
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'organizationConfigRuleTriggerTypes',
-      organizationConfigRuleTriggerTypes,
-    );
-    helper.add(
-      'inputParameters',
-      inputParameters,
-    );
-    helper.add(
-      'maximumExecutionFrequency',
-      maximumExecutionFrequency,
-    );
-    helper.add(
-      'resourceTypesScope',
-      resourceTypesScope,
-    );
-    helper.add(
-      'resourceIdScope',
-      resourceIdScope,
-    );
-    helper.add(
-      'tagKeyScope',
-      tagKeyScope,
-    );
-    helper.add(
-      'tagValueScope',
-      tagValueScope,
-    );
-    helper.add(
-      'policyRuntime',
-      policyRuntime,
-    );
-    helper.add(
-      'policyText',
-      policyText,
-    );
-    helper.add(
-      'debugLogDeliveryAccounts',
-      debugLogDeliveryAccounts,
-    );
+        newBuiltValueToStringHelper('OrganizationCustomPolicyRuleMetadata')
+          ..add(
+            'description',
+            description,
+          )
+          ..add(
+            'organizationConfigRuleTriggerTypes',
+            organizationConfigRuleTriggerTypes,
+          )
+          ..add(
+            'inputParameters',
+            inputParameters,
+          )
+          ..add(
+            'maximumExecutionFrequency',
+            maximumExecutionFrequency,
+          )
+          ..add(
+            'resourceTypesScope',
+            resourceTypesScope,
+          )
+          ..add(
+            'resourceIdScope',
+            resourceIdScope,
+          )
+          ..add(
+            'tagKeyScope',
+            tagKeyScope,
+          )
+          ..add(
+            'tagValueScope',
+            tagValueScope,
+          )
+          ..add(
+            'policyRuntime',
+            policyRuntime,
+          )
+          ..add(
+            'policyText',
+            policyText,
+          )
+          ..add(
+            'debugLogDeliveryAccounts',
+            debugLogDeliveryAccounts,
+          );
     return helper.toString();
   }
 }

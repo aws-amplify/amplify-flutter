@@ -34,7 +34,7 @@ abstract class OutputSerialization
 
   const OutputSerialization._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<OutputSerialization>> serializers = [
     OutputSerializationRestXmlSerializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class OutputSerialization
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OutputSerialization');
-    helper.add(
-      'csv',
-      csv,
-    );
-    helper.add(
-      'json',
-      json,
-    );
+    final helper = newBuiltValueToStringHelper('OutputSerialization')
+      ..add(
+        'csv',
+        csv,
+      )
+      ..add(
+        'json',
+        json,
+      );
     return helper.toString();
   }
 }

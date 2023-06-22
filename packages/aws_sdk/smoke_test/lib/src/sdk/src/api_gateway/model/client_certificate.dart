@@ -47,7 +47,7 @@ abstract class ClientCertificate
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ClientCertificate>> serializers = [
     ClientCertificateRestJson1Serializer()
   ];
 
@@ -82,31 +82,31 @@ abstract class ClientCertificate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ClientCertificate');
-    helper.add(
-      'clientCertificateId',
-      clientCertificateId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'pemEncodedCertificate',
-      pemEncodedCertificate,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
-    );
-    helper.add(
-      'expirationDate',
-      expirationDate,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('ClientCertificate')
+      ..add(
+        'clientCertificateId',
+        clientCertificateId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'pemEncodedCertificate',
+        pemEncodedCertificate,
+      )
+      ..add(
+        'createdDate',
+        createdDate,
+      )
+      ..add(
+        'expirationDate',
+        expirationDate,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

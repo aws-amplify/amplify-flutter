@@ -43,9 +43,8 @@ abstract class DeleteRestApiRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteRestApiRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteRestApiRequestPayload>>
+      serializers = [DeleteRestApiRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteRestApiRequestBuilder b) {}
@@ -70,11 +69,11 @@ abstract class DeleteRestApiRequest
   List<Object?> get props => [restApiId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteRestApiRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteRestApiRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      );
     return helper.toString();
   }
 }

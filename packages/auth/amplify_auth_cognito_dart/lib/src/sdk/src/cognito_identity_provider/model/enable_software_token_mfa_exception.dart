@@ -39,9 +39,8 @@ abstract class EnableSoftwareTokenMfaException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    EnableSoftwareTokenMfaExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<EnableSoftwareTokenMfaException>>
+      serializers = [EnableSoftwareTokenMfaExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EnableSoftwareTokenMfaExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class EnableSoftwareTokenMfaException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('EnableSoftwareTokenMfaException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('EnableSoftwareTokenMfaException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

@@ -38,7 +38,7 @@ abstract class ListTablesInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListTablesInput>> serializers = [
     ListTablesInputAwsJson10Serializer()
   ];
 
@@ -59,15 +59,15 @@ abstract class ListTablesInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTablesInput');
-    helper.add(
-      'exclusiveStartTableName',
-      exclusiveStartTableName,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+    final helper = newBuiltValueToStringHelper('ListTablesInput')
+      ..add(
+        'exclusiveStartTableName',
+        exclusiveStartTableName,
+      )
+      ..add(
+        'limit',
+        limit,
+      );
     return helper.toString();
   }
 }

@@ -59,7 +59,7 @@ abstract class MethodSetting
 
   const MethodSetting._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<MethodSetting>> serializers = [
     MethodSettingRestJson1Serializer()
   ];
 
@@ -120,47 +120,47 @@ abstract class MethodSetting
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MethodSetting');
-    helper.add(
-      'metricsEnabled',
-      metricsEnabled,
-    );
-    helper.add(
-      'loggingLevel',
-      loggingLevel,
-    );
-    helper.add(
-      'dataTraceEnabled',
-      dataTraceEnabled,
-    );
-    helper.add(
-      'throttlingBurstLimit',
-      throttlingBurstLimit,
-    );
-    helper.add(
-      'throttlingRateLimit',
-      throttlingRateLimit,
-    );
-    helper.add(
-      'cachingEnabled',
-      cachingEnabled,
-    );
-    helper.add(
-      'cacheTtlInSeconds',
-      cacheTtlInSeconds,
-    );
-    helper.add(
-      'cacheDataEncrypted',
-      cacheDataEncrypted,
-    );
-    helper.add(
-      'requireAuthorizationForCacheControl',
-      requireAuthorizationForCacheControl,
-    );
-    helper.add(
-      'unauthorizedCacheControlHeaderStrategy',
-      unauthorizedCacheControlHeaderStrategy,
-    );
+    final helper = newBuiltValueToStringHelper('MethodSetting')
+      ..add(
+        'metricsEnabled',
+        metricsEnabled,
+      )
+      ..add(
+        'loggingLevel',
+        loggingLevel,
+      )
+      ..add(
+        'dataTraceEnabled',
+        dataTraceEnabled,
+      )
+      ..add(
+        'throttlingBurstLimit',
+        throttlingBurstLimit,
+      )
+      ..add(
+        'throttlingRateLimit',
+        throttlingRateLimit,
+      )
+      ..add(
+        'cachingEnabled',
+        cachingEnabled,
+      )
+      ..add(
+        'cacheTtlInSeconds',
+        cacheTtlInSeconds,
+      )
+      ..add(
+        'cacheDataEncrypted',
+        cacheDataEncrypted,
+      )
+      ..add(
+        'requireAuthorizationForCacheControl',
+        requireAuthorizationForCacheControl,
+      )
+      ..add(
+        'unauthorizedCacheControlHeaderStrategy',
+        unauthorizedCacheControlHeaderStrategy,
+      );
     return helper.toString();
   }
 }

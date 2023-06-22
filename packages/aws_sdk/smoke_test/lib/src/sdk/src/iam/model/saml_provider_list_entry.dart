@@ -34,7 +34,7 @@ abstract class SamlProviderListEntry
 
   const SamlProviderListEntry._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<SamlProviderListEntry>> serializers = [
     SamlProviderListEntryAwsQuerySerializer()
   ];
 
@@ -57,19 +57,19 @@ abstract class SamlProviderListEntry
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SamlProviderListEntry');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'validUntil',
-      validUntil,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
+    final helper = newBuiltValueToStringHelper('SamlProviderListEntry')
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'validUntil',
+        validUntil,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      );
     return helper.toString();
   }
 }

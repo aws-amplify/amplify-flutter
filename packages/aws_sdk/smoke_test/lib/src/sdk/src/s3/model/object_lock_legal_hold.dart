@@ -28,7 +28,7 @@ abstract class ObjectLockLegalHold
 
   const ObjectLockLegalHold._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ObjectLockLegalHold>> serializers = [
     ObjectLockLegalHoldRestXmlSerializer()
   ];
 
@@ -41,11 +41,11 @@ abstract class ObjectLockLegalHold
   List<Object?> get props => [status];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ObjectLockLegalHold');
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('ObjectLockLegalHold')
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

@@ -53,7 +53,7 @@ abstract class StackSummary
 
   const StackSummary._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<StackSummary>> serializers = [
     StackSummaryAwsQuerySerializer()
   ];
 
@@ -112,51 +112,51 @@ abstract class StackSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackSummary');
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'templateDescription',
-      templateDescription,
-    );
-    helper.add(
-      'creationTime',
-      creationTime,
-    );
-    helper.add(
-      'lastUpdatedTime',
-      lastUpdatedTime,
-    );
-    helper.add(
-      'deletionTime',
-      deletionTime,
-    );
-    helper.add(
-      'stackStatus',
-      stackStatus,
-    );
-    helper.add(
-      'stackStatusReason',
-      stackStatusReason,
-    );
-    helper.add(
-      'parentId',
-      parentId,
-    );
-    helper.add(
-      'rootId',
-      rootId,
-    );
-    helper.add(
-      'driftInformation',
-      driftInformation,
-    );
+    final helper = newBuiltValueToStringHelper('StackSummary')
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'templateDescription',
+        templateDescription,
+      )
+      ..add(
+        'creationTime',
+        creationTime,
+      )
+      ..add(
+        'lastUpdatedTime',
+        lastUpdatedTime,
+      )
+      ..add(
+        'deletionTime',
+        deletionTime,
+      )
+      ..add(
+        'stackStatus',
+        stackStatus,
+      )
+      ..add(
+        'stackStatusReason',
+        stackStatusReason,
+      )
+      ..add(
+        'parentId',
+        parentId,
+      )
+      ..add(
+        'rootId',
+        rootId,
+      )
+      ..add(
+        'driftInformation',
+        driftInformation,
+      );
     return helper.toString();
   }
 }

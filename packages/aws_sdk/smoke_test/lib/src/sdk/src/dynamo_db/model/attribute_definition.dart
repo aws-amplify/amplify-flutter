@@ -34,7 +34,7 @@ abstract class AttributeDefinition
 
   const AttributeDefinition._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<AttributeDefinition>> serializers = [
     AttributeDefinitionAwsJson10Serializer()
   ];
 
@@ -59,15 +59,15 @@ abstract class AttributeDefinition
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AttributeDefinition');
-    helper.add(
-      'attributeName',
-      attributeName,
-    );
-    helper.add(
-      'attributeType',
-      attributeType,
-    );
+    final helper = newBuiltValueToStringHelper('AttributeDefinition')
+      ..add(
+        'attributeName',
+        attributeName,
+      )
+      ..add(
+        'attributeType',
+        attributeType,
+      );
     return helper.toString();
   }
 }

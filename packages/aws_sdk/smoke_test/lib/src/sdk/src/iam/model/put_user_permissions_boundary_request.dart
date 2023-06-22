@@ -40,9 +40,8 @@ abstract class PutUserPermissionsBoundaryRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutUserPermissionsBoundaryRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<PutUserPermissionsBoundaryRequest>>
+      serializers = [PutUserPermissionsBoundaryRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutUserPermissionsBoundaryRequestBuilder b) {}
@@ -66,15 +65,15 @@ abstract class PutUserPermissionsBoundaryRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutUserPermissionsBoundaryRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'permissionsBoundary',
-      permissionsBoundary,
-    );
+        newBuiltValueToStringHelper('PutUserPermissionsBoundaryRequest')
+          ..add(
+            'userName',
+            userName,
+          )
+          ..add(
+            'permissionsBoundary',
+            permissionsBoundary,
+          );
     return helper.toString();
   }
 }

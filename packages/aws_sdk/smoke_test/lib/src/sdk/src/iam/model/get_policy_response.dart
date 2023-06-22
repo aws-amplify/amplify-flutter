@@ -33,7 +33,7 @@ abstract class GetPolicyResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<GetPolicyResponse>> serializers = [
     GetPolicyResponseAwsQuerySerializer()
   ];
 
@@ -46,11 +46,11 @@ abstract class GetPolicyResponse
   List<Object?> get props => [policy];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetPolicyResponse');
-    helper.add(
-      'policy',
-      policy,
-    );
+    final helper = newBuiltValueToStringHelper('GetPolicyResponse')
+      ..add(
+        'policy',
+        policy,
+      );
     return helper.toString();
   }
 }

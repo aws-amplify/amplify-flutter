@@ -39,9 +39,8 @@ abstract class ContinuousBackupsDescription
 
   const ContinuousBackupsDescription._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ContinuousBackupsDescriptionAwsJson10Serializer()
-  ];
+  static const List<_i4.SmithySerializer<ContinuousBackupsDescription>>
+      serializers = [ContinuousBackupsDescriptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ContinuousBackupsDescriptionBuilder b) {}
@@ -58,15 +57,15 @@ abstract class ContinuousBackupsDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ContinuousBackupsDescription');
-    helper.add(
-      'continuousBackupsStatus',
-      continuousBackupsStatus,
-    );
-    helper.add(
-      'pointInTimeRecoveryDescription',
-      pointInTimeRecoveryDescription,
-    );
+    final helper = newBuiltValueToStringHelper('ContinuousBackupsDescription')
+      ..add(
+        'continuousBackupsStatus',
+        continuousBackupsStatus,
+      )
+      ..add(
+        'pointInTimeRecoveryDescription',
+        pointInTimeRecoveryDescription,
+      );
     return helper.toString();
   }
 }

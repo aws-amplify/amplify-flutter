@@ -59,7 +59,7 @@ abstract class PasswordPolicy
 
   const PasswordPolicy._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PasswordPolicy>> serializers = [
     PasswordPolicyAwsQuerySerializer()
   ];
 
@@ -119,47 +119,47 @@ abstract class PasswordPolicy
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PasswordPolicy');
-    helper.add(
-      'minimumPasswordLength',
-      minimumPasswordLength,
-    );
-    helper.add(
-      'requireSymbols',
-      requireSymbols,
-    );
-    helper.add(
-      'requireNumbers',
-      requireNumbers,
-    );
-    helper.add(
-      'requireUppercaseCharacters',
-      requireUppercaseCharacters,
-    );
-    helper.add(
-      'requireLowercaseCharacters',
-      requireLowercaseCharacters,
-    );
-    helper.add(
-      'allowUsersToChangePassword',
-      allowUsersToChangePassword,
-    );
-    helper.add(
-      'expirePasswords',
-      expirePasswords,
-    );
-    helper.add(
-      'maxPasswordAge',
-      maxPasswordAge,
-    );
-    helper.add(
-      'passwordReusePrevention',
-      passwordReusePrevention,
-    );
-    helper.add(
-      'hardExpiry',
-      hardExpiry,
-    );
+    final helper = newBuiltValueToStringHelper('PasswordPolicy')
+      ..add(
+        'minimumPasswordLength',
+        minimumPasswordLength,
+      )
+      ..add(
+        'requireSymbols',
+        requireSymbols,
+      )
+      ..add(
+        'requireNumbers',
+        requireNumbers,
+      )
+      ..add(
+        'requireUppercaseCharacters',
+        requireUppercaseCharacters,
+      )
+      ..add(
+        'requireLowercaseCharacters',
+        requireLowercaseCharacters,
+      )
+      ..add(
+        'allowUsersToChangePassword',
+        allowUsersToChangePassword,
+      )
+      ..add(
+        'expirePasswords',
+        expirePasswords,
+      )
+      ..add(
+        'maxPasswordAge',
+        maxPasswordAge,
+      )
+      ..add(
+        'passwordReusePrevention',
+        passwordReusePrevention,
+      )
+      ..add(
+        'hardExpiry',
+        hardExpiry,
+      );
     return helper.toString();
   }
 }

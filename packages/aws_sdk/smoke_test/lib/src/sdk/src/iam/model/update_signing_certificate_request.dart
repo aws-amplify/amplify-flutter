@@ -43,9 +43,8 @@ abstract class UpdateSigningCertificateRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateSigningCertificateRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateSigningCertificateRequest>>
+      serializers = [UpdateSigningCertificateRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateSigningCertificateRequestBuilder b) {}
@@ -73,19 +72,19 @@ abstract class UpdateSigningCertificateRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateSigningCertificateRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'certificateId',
-      certificateId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
+        newBuiltValueToStringHelper('UpdateSigningCertificateRequest')
+          ..add(
+            'userName',
+            userName,
+          )
+          ..add(
+            'certificateId',
+            certificateId,
+          )
+          ..add(
+            'status',
+            status,
+          );
     return helper.toString();
   }
 }

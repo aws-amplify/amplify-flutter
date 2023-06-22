@@ -44,7 +44,7 @@ abstract class DeregisterTypeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeregisterTypeInput>> serializers = [
     DeregisterTypeInputAwsQuerySerializer()
   ];
 
@@ -79,23 +79,23 @@ abstract class DeregisterTypeInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeregisterTypeInput');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
+    final helper = newBuiltValueToStringHelper('DeregisterTypeInput')
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      );
     return helper.toString();
   }
 }

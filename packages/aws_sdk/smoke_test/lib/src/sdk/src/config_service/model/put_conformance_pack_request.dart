@@ -56,9 +56,8 @@ abstract class PutConformancePackRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutConformancePackRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutConformancePackRequest>>
+      serializers = [PutConformancePackRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutConformancePackRequestBuilder b) {}
@@ -106,35 +105,35 @@ abstract class PutConformancePackRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutConformancePackRequest');
-    helper.add(
-      'conformancePackName',
-      conformancePackName,
-    );
-    helper.add(
-      'templateS3Uri',
-      templateS3Uri,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'deliveryS3Bucket',
-      deliveryS3Bucket,
-    );
-    helper.add(
-      'deliveryS3KeyPrefix',
-      deliveryS3KeyPrefix,
-    );
-    helper.add(
-      'conformancePackInputParameters',
-      conformancePackInputParameters,
-    );
-    helper.add(
-      'templateSsmDocumentDetails',
-      templateSsmDocumentDetails,
-    );
+    final helper = newBuiltValueToStringHelper('PutConformancePackRequest')
+      ..add(
+        'conformancePackName',
+        conformancePackName,
+      )
+      ..add(
+        'templateS3Uri',
+        templateS3Uri,
+      )
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'deliveryS3Bucket',
+        deliveryS3Bucket,
+      )
+      ..add(
+        'deliveryS3KeyPrefix',
+        deliveryS3KeyPrefix,
+      )
+      ..add(
+        'conformancePackInputParameters',
+        conformancePackInputParameters,
+      )
+      ..add(
+        'templateSsmDocumentDetails',
+        templateSsmDocumentDetails,
+      );
     return helper.toString();
   }
 }

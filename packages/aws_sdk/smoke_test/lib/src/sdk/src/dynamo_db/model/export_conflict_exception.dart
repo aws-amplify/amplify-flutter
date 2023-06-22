@@ -38,9 +38,8 @@ abstract class ExportConflictException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ExportConflictExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ExportConflictException>> serializers =
+      [ExportConflictExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExportConflictExceptionBuilder b) {}
@@ -65,11 +64,11 @@ abstract class ExportConflictException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExportConflictException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ExportConflictException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

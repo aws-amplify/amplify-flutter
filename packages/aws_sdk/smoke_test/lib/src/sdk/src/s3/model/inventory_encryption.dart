@@ -34,7 +34,7 @@ abstract class InventoryEncryption
 
   const InventoryEncryption._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<InventoryEncryption>> serializers = [
     InventoryEncryptionRestXmlSerializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class InventoryEncryption
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InventoryEncryption');
-    helper.add(
-      'sses3',
-      sses3,
-    );
-    helper.add(
-      'ssekms',
-      ssekms,
-    );
+    final helper = newBuiltValueToStringHelper('InventoryEncryption')
+      ..add(
+        'sses3',
+        sses3,
+      )
+      ..add(
+        'ssekms',
+        ssekms,
+      );
     return helper.toString();
   }
 }

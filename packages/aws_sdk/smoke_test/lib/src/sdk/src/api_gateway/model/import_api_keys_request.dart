@@ -58,7 +58,7 @@ abstract class ImportApiKeysRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List>> serializers = [
     ImportApiKeysRequestRestJson1Serializer()
   ];
 
@@ -85,19 +85,19 @@ abstract class ImportApiKeysRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ImportApiKeysRequest');
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'format',
-      format,
-    );
-    helper.add(
-      'failOnWarnings',
-      failOnWarnings,
-    );
+    final helper = newBuiltValueToStringHelper('ImportApiKeysRequest')
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'format',
+        format,
+      )
+      ..add(
+        'failOnWarnings',
+        failOnWarnings,
+      );
     return helper.toString();
   }
 }

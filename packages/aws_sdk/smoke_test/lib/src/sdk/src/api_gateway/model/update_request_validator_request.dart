@@ -61,9 +61,8 @@ abstract class UpdateRequestValidatorRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateRequestValidatorRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateRequestValidatorRequestPayload>>
+      serializers = [UpdateRequestValidatorRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateRequestValidatorRequestBuilder b) {}
@@ -105,19 +104,19 @@ abstract class UpdateRequestValidatorRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateRequestValidatorRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'requestValidatorId',
-      requestValidatorId,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateRequestValidatorRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'requestValidatorId',
+        requestValidatorId,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -145,11 +144,11 @@ abstract class UpdateRequestValidatorRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateRequestValidatorRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateRequestValidatorRequestPayload')
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }

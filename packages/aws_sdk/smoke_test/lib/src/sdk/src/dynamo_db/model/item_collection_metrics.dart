@@ -38,7 +38,7 @@ abstract class ItemCollectionMetrics
 
   const ItemCollectionMetrics._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ItemCollectionMetrics>> serializers = [
     ItemCollectionMetricsAwsJson10Serializer()
   ];
 
@@ -59,15 +59,15 @@ abstract class ItemCollectionMetrics
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ItemCollectionMetrics');
-    helper.add(
-      'itemCollectionKey',
-      itemCollectionKey,
-    );
-    helper.add(
-      'sizeEstimateRangeGb',
-      sizeEstimateRangeGb,
-    );
+    final helper = newBuiltValueToStringHelper('ItemCollectionMetrics')
+      ..add(
+        'itemCollectionKey',
+        itemCollectionKey,
+      )
+      ..add(
+        'sizeEstimateRangeGb',
+        sizeEstimateRangeGb,
+      );
     return helper.toString();
   }
 }

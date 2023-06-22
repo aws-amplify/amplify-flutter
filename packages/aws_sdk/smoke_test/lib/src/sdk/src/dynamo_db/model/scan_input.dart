@@ -81,7 +81,7 @@ abstract class ScanInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ScanInput>> serializers = [
     ScanInputAwsJson10Serializer()
   ];
 
@@ -256,71 +256,71 @@ abstract class ScanInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ScanInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'attributesToGet',
-      attributesToGet,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'select',
-      select,
-    );
-    helper.add(
-      'scanFilter',
-      scanFilter,
-    );
-    helper.add(
-      'conditionalOperator',
-      conditionalOperator,
-    );
-    helper.add(
-      'exclusiveStartKey',
-      exclusiveStartKey,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'totalSegments',
-      totalSegments,
-    );
-    helper.add(
-      'segment',
-      segment,
-    );
-    helper.add(
-      'projectionExpression',
-      projectionExpression,
-    );
-    helper.add(
-      'filterExpression',
-      filterExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'expressionAttributeValues',
-      expressionAttributeValues,
-    );
-    helper.add(
-      'consistentRead',
-      consistentRead,
-    );
+    final helper = newBuiltValueToStringHelper('ScanInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'attributesToGet',
+        attributesToGet,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'select',
+        select,
+      )
+      ..add(
+        'scanFilter',
+        scanFilter,
+      )
+      ..add(
+        'conditionalOperator',
+        conditionalOperator,
+      )
+      ..add(
+        'exclusiveStartKey',
+        exclusiveStartKey,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      )
+      ..add(
+        'totalSegments',
+        totalSegments,
+      )
+      ..add(
+        'segment',
+        segment,
+      )
+      ..add(
+        'projectionExpression',
+        projectionExpression,
+      )
+      ..add(
+        'filterExpression',
+        filterExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      )
+      ..add(
+        'expressionAttributeValues',
+        expressionAttributeValues,
+      )
+      ..add(
+        'consistentRead',
+        consistentRead,
+      );
     return helper.toString();
   }
 }

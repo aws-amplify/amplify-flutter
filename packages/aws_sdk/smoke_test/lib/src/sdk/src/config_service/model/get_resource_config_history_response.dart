@@ -46,9 +46,8 @@ abstract class GetResourceConfigHistoryResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetResourceConfigHistoryResponseAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<GetResourceConfigHistoryResponse>>
+      serializers = [GetResourceConfigHistoryResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetResourceConfigHistoryResponseBuilder b) {}
@@ -66,15 +65,15 @@ abstract class GetResourceConfigHistoryResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetResourceConfigHistoryResponse');
-    helper.add(
-      'configurationItems',
-      configurationItems,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('GetResourceConfigHistoryResponse')
+          ..add(
+            'configurationItems',
+            configurationItems,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

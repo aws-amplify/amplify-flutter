@@ -38,7 +38,7 @@ abstract class TableInUseException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<TableInUseException>> serializers = [
     TableInUseExceptionAwsJson10Serializer()
   ];
 
@@ -65,11 +65,11 @@ abstract class TableInUseException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TableInUseException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('TableInUseException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

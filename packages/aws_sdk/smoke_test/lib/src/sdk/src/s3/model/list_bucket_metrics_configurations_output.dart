@@ -48,9 +48,8 @@ abstract class ListBucketMetricsConfigurationsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListBucketMetricsConfigurationsOutputRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<ListBucketMetricsConfigurationsOutput>>
+      serializers = [ListBucketMetricsConfigurationsOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListBucketMetricsConfigurationsOutputBuilder b) {}
@@ -76,23 +75,23 @@ abstract class ListBucketMetricsConfigurationsOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListBucketMetricsConfigurationsOutput');
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'nextContinuationToken',
-      nextContinuationToken,
-    );
-    helper.add(
-      'metricsConfigurationList',
-      metricsConfigurationList,
-    );
+        newBuiltValueToStringHelper('ListBucketMetricsConfigurationsOutput')
+          ..add(
+            'isTruncated',
+            isTruncated,
+          )
+          ..add(
+            'continuationToken',
+            continuationToken,
+          )
+          ..add(
+            'nextContinuationToken',
+            nextContinuationToken,
+          )
+          ..add(
+            'metricsConfigurationList',
+            metricsConfigurationList,
+          );
     return helper.toString();
   }
 }

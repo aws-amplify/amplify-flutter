@@ -37,7 +37,9 @@ abstract class OrganizationResourceDetailedStatusFilters
 
   const OrganizationResourceDetailedStatusFilters._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<
+          _i3.SmithySerializer<OrganizationResourceDetailedStatusFilters>>
+      serializers = [
     OrganizationResourceDetailedStatusFiltersAwsJson11Serializer()
   ];
 
@@ -76,16 +78,16 @@ abstract class OrganizationResourceDetailedStatusFilters
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'OrganizationResourceDetailedStatusFilters');
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
+    final helper =
+        newBuiltValueToStringHelper('OrganizationResourceDetailedStatusFilters')
+          ..add(
+            'accountId',
+            accountId,
+          )
+          ..add(
+            'status',
+            status,
+          );
     return helper.toString();
   }
 }

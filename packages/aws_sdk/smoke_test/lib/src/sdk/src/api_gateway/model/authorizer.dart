@@ -57,7 +57,7 @@ abstract class Authorizer
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Authorizer>> serializers = [
     AuthorizerRestJson1Serializer()
   ];
 
@@ -108,47 +108,47 @@ abstract class Authorizer
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Authorizer');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'providerArNs',
-      providerArNs,
-    );
-    helper.add(
-      'authType',
-      authType,
-    );
-    helper.add(
-      'authorizerUri',
-      authorizerUri,
-    );
-    helper.add(
-      'authorizerCredentials',
-      authorizerCredentials,
-    );
-    helper.add(
-      'identitySource',
-      identitySource,
-    );
-    helper.add(
-      'identityValidationExpression',
-      identityValidationExpression,
-    );
-    helper.add(
-      'authorizerResultTtlInSeconds',
-      authorizerResultTtlInSeconds,
-    );
+    final helper = newBuiltValueToStringHelper('Authorizer')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'providerArNs',
+        providerArNs,
+      )
+      ..add(
+        'authType',
+        authType,
+      )
+      ..add(
+        'authorizerUri',
+        authorizerUri,
+      )
+      ..add(
+        'authorizerCredentials',
+        authorizerCredentials,
+      )
+      ..add(
+        'identitySource',
+        identitySource,
+      )
+      ..add(
+        'identityValidationExpression',
+        identityValidationExpression,
+      )
+      ..add(
+        'authorizerResultTtlInSeconds',
+        authorizerResultTtlInSeconds,
+      );
     return helper.toString();
   }
 }

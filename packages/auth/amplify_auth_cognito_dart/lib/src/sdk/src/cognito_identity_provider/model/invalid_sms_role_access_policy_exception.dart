@@ -39,9 +39,8 @@ abstract class InvalidSmsRoleAccessPolicyException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidSmsRoleAccessPolicyExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidSmsRoleAccessPolicyException>>
+      serializers = [InvalidSmsRoleAccessPolicyExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidSmsRoleAccessPolicyExceptionBuilder b) {}
@@ -69,11 +68,11 @@ abstract class InvalidSmsRoleAccessPolicyException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InvalidSmsRoleAccessPolicyException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InvalidSmsRoleAccessPolicyException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

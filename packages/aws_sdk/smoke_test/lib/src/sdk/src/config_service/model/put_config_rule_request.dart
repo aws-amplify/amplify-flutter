@@ -42,7 +42,7 @@ abstract class PutConfigRuleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<PutConfigRuleRequest>> serializers = [
     PutConfigRuleRequestAwsJson11Serializer()
   ];
 
@@ -63,15 +63,15 @@ abstract class PutConfigRuleRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutConfigRuleRequest');
-    helper.add(
-      'configRule',
-      configRule,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('PutConfigRuleRequest')
+      ..add(
+        'configRule',
+        configRule,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

@@ -33,7 +33,7 @@ abstract class ExportSummary
 
   const ExportSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ExportSummary>> serializers = [
     ExportSummaryAwsJson10Serializer()
   ];
 
@@ -52,15 +52,15 @@ abstract class ExportSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExportSummary');
-    helper.add(
-      'exportArn',
-      exportArn,
-    );
-    helper.add(
-      'exportStatus',
-      exportStatus,
-    );
+    final helper = newBuiltValueToStringHelper('ExportSummary')
+      ..add(
+        'exportArn',
+        exportArn,
+      )
+      ..add(
+        'exportStatus',
+        exportStatus,
+      );
     return helper.toString();
   }
 }

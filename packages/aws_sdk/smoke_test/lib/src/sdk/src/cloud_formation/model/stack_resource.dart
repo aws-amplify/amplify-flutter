@@ -55,7 +55,7 @@ abstract class StackResource
 
   const StackResource._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<StackResource>> serializers = [
     StackResourceAwsQuerySerializer()
   ];
 
@@ -110,51 +110,51 @@ abstract class StackResource
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackResource');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
-    helper.add(
-      'physicalResourceId',
-      physicalResourceId,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
-    helper.add(
-      'resourceStatus',
-      resourceStatus,
-    );
-    helper.add(
-      'resourceStatusReason',
-      resourceStatusReason,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'driftInformation',
-      driftInformation,
-    );
-    helper.add(
-      'moduleInfo',
-      moduleInfo,
-    );
+    final helper = newBuiltValueToStringHelper('StackResource')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      )
+      ..add(
+        'physicalResourceId',
+        physicalResourceId,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'timestamp',
+        timestamp,
+      )
+      ..add(
+        'resourceStatus',
+        resourceStatus,
+      )
+      ..add(
+        'resourceStatusReason',
+        resourceStatusReason,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'driftInformation',
+        driftInformation,
+      )
+      ..add(
+        'moduleInfo',
+        moduleInfo,
+      );
     return helper.toString();
   }
 }

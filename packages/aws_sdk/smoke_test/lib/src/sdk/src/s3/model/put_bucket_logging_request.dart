@@ -66,9 +66,8 @@ abstract class PutBucketLoggingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketLoggingRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.BucketLoggingStatus>> serializers =
+      [PutBucketLoggingRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutBucketLoggingRequestBuilder b) {}
@@ -115,27 +114,27 @@ abstract class PutBucketLoggingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutBucketLoggingRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'bucketLoggingStatus',
-      bucketLoggingStatus,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutBucketLoggingRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'bucketLoggingStatus',
+        bucketLoggingStatus,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

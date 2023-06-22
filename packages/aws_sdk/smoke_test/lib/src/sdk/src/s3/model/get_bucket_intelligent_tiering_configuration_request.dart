@@ -50,7 +50,10 @@ abstract class GetBucketIntelligentTieringConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<
+              GetBucketIntelligentTieringConfigurationRequestPayload>>
+      serializers = [
     GetBucketIntelligentTieringConfigurationRequestRestXmlSerializer()
   ];
 
@@ -85,15 +88,15 @@ abstract class GetBucketIntelligentTieringConfigurationRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetBucketIntelligentTieringConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'id',
-      id,
-    );
+        'GetBucketIntelligentTieringConfigurationRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'id',
+        id,
+      );
     return helper.toString();
   }
 }

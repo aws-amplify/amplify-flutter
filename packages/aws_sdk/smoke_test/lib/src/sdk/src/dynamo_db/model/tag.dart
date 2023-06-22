@@ -42,7 +42,7 @@ abstract class Tag
 
   const Tag._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Tag>> serializers = [
     TagAwsJson10Serializer()
   ];
 
@@ -61,15 +61,15 @@ abstract class Tag
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Tag');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('Tag')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

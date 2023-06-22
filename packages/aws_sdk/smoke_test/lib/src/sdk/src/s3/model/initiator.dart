@@ -31,7 +31,7 @@ abstract class Initiator
 
   const Initiator._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Initiator>> serializers = [
     InitiatorRestXmlSerializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class Initiator
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Initiator');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'displayName',
-      displayName,
-    );
+    final helper = newBuiltValueToStringHelper('Initiator')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'displayName',
+        displayName,
+      );
     return helper.toString();
   }
 }

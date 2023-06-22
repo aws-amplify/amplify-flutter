@@ -40,7 +40,7 @@ abstract class LifecycleExpiration
 
   const LifecycleExpiration._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<LifecycleExpiration>> serializers = [
     LifecycleExpirationRestXmlSerializer()
   ];
 
@@ -63,19 +63,19 @@ abstract class LifecycleExpiration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LifecycleExpiration');
-    helper.add(
-      'date',
-      date,
-    );
-    helper.add(
-      'days',
-      days,
-    );
-    helper.add(
-      'expiredObjectDeleteMarker',
-      expiredObjectDeleteMarker,
-    );
+    final helper = newBuiltValueToStringHelper('LifecycleExpiration')
+      ..add(
+        'date',
+        date,
+      )
+      ..add(
+        'days',
+        days,
+      )
+      ..add(
+        'expiredObjectDeleteMarker',
+        expiredObjectDeleteMarker,
+      );
     return helper.toString();
   }
 }

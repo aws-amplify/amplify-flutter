@@ -58,7 +58,7 @@ abstract class StackResourceDetail
 
   const StackResourceDetail._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<StackResourceDetail>> serializers = [
     StackResourceDetailAwsQuerySerializer()
   ];
 
@@ -117,55 +117,55 @@ abstract class StackResourceDetail
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackResourceDetail');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
-    helper.add(
-      'physicalResourceId',
-      physicalResourceId,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'lastUpdatedTimestamp',
-      lastUpdatedTimestamp,
-    );
-    helper.add(
-      'resourceStatus',
-      resourceStatus,
-    );
-    helper.add(
-      'resourceStatusReason',
-      resourceStatusReason,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'metadata',
-      metadata,
-    );
-    helper.add(
-      'driftInformation',
-      driftInformation,
-    );
-    helper.add(
-      'moduleInfo',
-      moduleInfo,
-    );
+    final helper = newBuiltValueToStringHelper('StackResourceDetail')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      )
+      ..add(
+        'physicalResourceId',
+        physicalResourceId,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'lastUpdatedTimestamp',
+        lastUpdatedTimestamp,
+      )
+      ..add(
+        'resourceStatus',
+        resourceStatus,
+      )
+      ..add(
+        'resourceStatusReason',
+        resourceStatusReason,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'metadata',
+        metadata,
+      )
+      ..add(
+        'driftInformation',
+        driftInformation,
+      )
+      ..add(
+        'moduleInfo',
+        moduleInfo,
+      );
     return helper.toString();
   }
 }

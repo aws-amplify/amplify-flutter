@@ -31,9 +31,8 @@ abstract class GetBucketLoggingOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetBucketLoggingOutputRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<GetBucketLoggingOutput>> serializers =
+      [GetBucketLoggingOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketLoggingOutputBuilder b) {}
@@ -44,11 +43,11 @@ abstract class GetBucketLoggingOutput
   List<Object?> get props => [loggingEnabled];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketLoggingOutput');
-    helper.add(
-      'loggingEnabled',
-      loggingEnabled,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketLoggingOutput')
+      ..add(
+        'loggingEnabled',
+        loggingEnabled,
+      );
     return helper.toString();
   }
 }

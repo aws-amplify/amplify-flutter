@@ -40,7 +40,9 @@ abstract class OrganizationAllFeaturesNotEnabledException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<OrganizationAllFeaturesNotEnabledException>>
+      serializers = [
     OrganizationAllFeaturesNotEnabledExceptionAwsJson11Serializer()
   ];
 
@@ -70,11 +72,11 @@ abstract class OrganizationAllFeaturesNotEnabledException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'OrganizationAllFeaturesNotEnabledException');
-    helper.add(
-      'message',
-      message,
-    );
+        'OrganizationAllFeaturesNotEnabledException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

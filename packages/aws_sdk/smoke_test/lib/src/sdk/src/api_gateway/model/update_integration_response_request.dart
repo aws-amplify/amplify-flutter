@@ -71,9 +71,9 @@ abstract class UpdateIntegrationResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateIntegrationResponseRequestRestJson1Serializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<UpdateIntegrationResponseRequestPayload>>
+      serializers = [UpdateIntegrationResponseRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateIntegrationResponseRequestBuilder b) {}
@@ -128,27 +128,27 @@ abstract class UpdateIntegrationResponseRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateIntegrationResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateIntegrationResponseRequest')
+          ..add(
+            'restApiId',
+            restApiId,
+          )
+          ..add(
+            'resourceId',
+            resourceId,
+          )
+          ..add(
+            'httpMethod',
+            httpMethod,
+          )
+          ..add(
+            'statusCode',
+            statusCode,
+          )
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }
@@ -176,11 +176,11 @@ abstract class UpdateIntegrationResponseRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateIntegrationResponseRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateIntegrationResponseRequestPayload')
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }

@@ -43,9 +43,8 @@ abstract class UpdateContinuousBackupsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateContinuousBackupsInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateContinuousBackupsInput>>
+      serializers = [UpdateContinuousBackupsInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateContinuousBackupsInputBuilder b) {}
@@ -64,15 +63,15 @@ abstract class UpdateContinuousBackupsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateContinuousBackupsInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'pointInTimeRecoverySpecification',
-      pointInTimeRecoverySpecification,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateContinuousBackupsInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'pointInTimeRecoverySpecification',
+        pointInTimeRecoverySpecification,
+      );
     return helper.toString();
   }
 }

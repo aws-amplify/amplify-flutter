@@ -32,7 +32,7 @@ abstract class DeletePolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeletePolicyRequest>> serializers = [
     DeletePolicyRequestAwsQuerySerializer()
   ];
 
@@ -49,11 +49,11 @@ abstract class DeletePolicyRequest
   List<Object?> get props => [policyArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeletePolicyRequest');
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
+    final helper = newBuiltValueToStringHelper('DeletePolicyRequest')
+      ..add(
+        'policyArn',
+        policyArn,
+      );
     return helper.toString();
   }
 }

@@ -41,9 +41,8 @@ abstract class TypeConfigurationIdentifier
 
   const TypeConfigurationIdentifier._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    TypeConfigurationIdentifierAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<TypeConfigurationIdentifier>>
+      serializers = [TypeConfigurationIdentifierAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TypeConfigurationIdentifierBuilder b) {}
@@ -74,27 +73,27 @@ abstract class TypeConfigurationIdentifier
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TypeConfigurationIdentifier');
-    helper.add(
-      'typeArn',
-      typeArn,
-    );
-    helper.add(
-      'typeConfigurationAlias',
-      typeConfigurationAlias,
-    );
-    helper.add(
-      'typeConfigurationArn',
-      typeConfigurationArn,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
+    final helper = newBuiltValueToStringHelper('TypeConfigurationIdentifier')
+      ..add(
+        'typeArn',
+        typeArn,
+      )
+      ..add(
+        'typeConfigurationAlias',
+        typeConfigurationAlias,
+      )
+      ..add(
+        'typeConfigurationArn',
+        typeConfigurationArn,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      );
     return helper.toString();
   }
 }

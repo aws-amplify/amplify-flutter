@@ -40,9 +40,8 @@ abstract class NoSuchRemediationExceptionException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    NoSuchRemediationExceptionExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<NoSuchRemediationExceptionException>>
+      serializers = [NoSuchRemediationExceptionExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NoSuchRemediationExceptionExceptionBuilder b) {}
@@ -70,11 +69,11 @@ abstract class NoSuchRemediationExceptionException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('NoSuchRemediationExceptionException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('NoSuchRemediationExceptionException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

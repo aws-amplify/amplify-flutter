@@ -39,7 +39,7 @@ abstract class ListImportsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ListImportsOutput>> serializers = [
     ListImportsOutputAwsJson10Serializer()
   ];
 
@@ -58,15 +58,15 @@ abstract class ListImportsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListImportsOutput');
-    helper.add(
-      'importSummaryList',
-      importSummaryList,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListImportsOutput')
+      ..add(
+        'importSummaryList',
+        importSummaryList,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

@@ -61,9 +61,8 @@ abstract class UpdateBasePathMappingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateBasePathMappingRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateBasePathMappingRequestPayload>>
+      serializers = [UpdateBasePathMappingRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateBasePathMappingRequestBuilder b) {}
@@ -107,19 +106,19 @@ abstract class UpdateBasePathMappingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateBasePathMappingRequest');
-    helper.add(
-      'domainName',
-      domainName,
-    );
-    helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateBasePathMappingRequest')
+      ..add(
+        'domainName',
+        domainName,
+      )
+      ..add(
+        'basePath',
+        basePath,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -147,11 +146,11 @@ abstract class UpdateBasePathMappingRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateBasePathMappingRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateBasePathMappingRequestPayload')
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }

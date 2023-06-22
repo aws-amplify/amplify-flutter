@@ -42,7 +42,9 @@ abstract class MaxNumberOfOrganizationConfigRulesExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+      _i2.SmithySerializer<
+          MaxNumberOfOrganizationConfigRulesExceededException>> serializers = [
     MaxNumberOfOrganizationConfigRulesExceededExceptionAwsJson11Serializer()
   ];
 
@@ -73,11 +75,11 @@ abstract class MaxNumberOfOrganizationConfigRulesExceededException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MaxNumberOfOrganizationConfigRulesExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+        'MaxNumberOfOrganizationConfigRulesExceededException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

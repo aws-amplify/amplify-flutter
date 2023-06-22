@@ -34,7 +34,7 @@ abstract class Error
 
   const Error._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Error>> serializers = [
     ErrorRestXmlSerializer()
   ];
 
@@ -765,23 +765,23 @@ abstract class Error
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Error');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('Error')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

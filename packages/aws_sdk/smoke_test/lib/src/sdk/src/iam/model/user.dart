@@ -70,7 +70,7 @@ abstract class User
 
   const User._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<User>> serializers = [
     UserAwsQuerySerializer()
   ];
 
@@ -124,39 +124,39 @@ abstract class User
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('User');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'userId',
-      userId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'passwordLastUsed',
-      passwordLastUsed,
-    );
-    helper.add(
-      'permissionsBoundary',
-      permissionsBoundary,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('User')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'userId',
+        userId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'passwordLastUsed',
+        passwordLastUsed,
+      )
+      ..add(
+        'permissionsBoundary',
+        permissionsBoundary,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

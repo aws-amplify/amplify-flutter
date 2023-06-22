@@ -83,7 +83,7 @@ abstract class QueryInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<QueryInput>> serializers = [
     QueryInputAwsJson10Serializer()
   ];
 
@@ -292,75 +292,75 @@ abstract class QueryInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueryInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'select',
-      select,
-    );
-    helper.add(
-      'attributesToGet',
-      attributesToGet,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'consistentRead',
-      consistentRead,
-    );
-    helper.add(
-      'keyConditions',
-      keyConditions,
-    );
-    helper.add(
-      'queryFilter',
-      queryFilter,
-    );
-    helper.add(
-      'conditionalOperator',
-      conditionalOperator,
-    );
-    helper.add(
-      'scanIndexForward',
-      scanIndexForward,
-    );
-    helper.add(
-      'exclusiveStartKey',
-      exclusiveStartKey,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'projectionExpression',
-      projectionExpression,
-    );
-    helper.add(
-      'filterExpression',
-      filterExpression,
-    );
-    helper.add(
-      'keyConditionExpression',
-      keyConditionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'expressionAttributeValues',
-      expressionAttributeValues,
-    );
+    final helper = newBuiltValueToStringHelper('QueryInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'select',
+        select,
+      )
+      ..add(
+        'attributesToGet',
+        attributesToGet,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'consistentRead',
+        consistentRead,
+      )
+      ..add(
+        'keyConditions',
+        keyConditions,
+      )
+      ..add(
+        'queryFilter',
+        queryFilter,
+      )
+      ..add(
+        'conditionalOperator',
+        conditionalOperator,
+      )
+      ..add(
+        'scanIndexForward',
+        scanIndexForward,
+      )
+      ..add(
+        'exclusiveStartKey',
+        exclusiveStartKey,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      )
+      ..add(
+        'projectionExpression',
+        projectionExpression,
+      )
+      ..add(
+        'filterExpression',
+        filterExpression,
+      )
+      ..add(
+        'keyConditionExpression',
+        keyConditionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      )
+      ..add(
+        'expressionAttributeValues',
+        expressionAttributeValues,
+      );
     return helper.toString();
   }
 }

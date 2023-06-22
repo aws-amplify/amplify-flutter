@@ -43,9 +43,8 @@ abstract class StartRemediationExecutionRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    StartRemediationExecutionRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<StartRemediationExecutionRequest>>
+      serializers = [StartRemediationExecutionRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StartRemediationExecutionRequestBuilder b) {}
@@ -65,15 +64,15 @@ abstract class StartRemediationExecutionRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('StartRemediationExecutionRequest');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'resourceKeys',
-      resourceKeys,
-    );
+        newBuiltValueToStringHelper('StartRemediationExecutionRequest')
+          ..add(
+            'configRuleName',
+            configRuleName,
+          )
+          ..add(
+            'resourceKeys',
+            resourceKeys,
+          );
     return helper.toString();
   }
 }

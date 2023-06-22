@@ -25,7 +25,7 @@ abstract class RequestProgress
 
   const RequestProgress._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<RequestProgress>> serializers = [
     RequestProgressRestXmlSerializer()
   ];
 
@@ -38,11 +38,11 @@ abstract class RequestProgress
   List<Object?> get props => [enabled];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RequestProgress');
-    helper.add(
-      'enabled',
-      enabled,
-    );
+    final helper = newBuiltValueToStringHelper('RequestProgress')
+      ..add(
+        'enabled',
+        enabled,
+      );
     return helper.toString();
   }
 }

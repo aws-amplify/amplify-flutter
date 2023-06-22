@@ -35,7 +35,7 @@ abstract class DeletedObject
 
   const DeletedObject._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<DeletedObject>> serializers = [
     DeletedObjectRestXmlSerializer()
   ];
 
@@ -62,23 +62,23 @@ abstract class DeletedObject
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeletedObject');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'deleteMarker',
-      deleteMarker,
-    );
-    helper.add(
-      'deleteMarkerVersionId',
-      deleteMarkerVersionId,
-    );
+    final helper = newBuiltValueToStringHelper('DeletedObject')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'deleteMarker',
+        deleteMarker,
+      )
+      ..add(
+        'deleteMarkerVersionId',
+        deleteMarkerVersionId,
+      );
     return helper.toString();
   }
 }

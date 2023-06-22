@@ -35,7 +35,7 @@ abstract class PutEventsResponse
         b.eventsResponse.replace(payload);
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.EventsResponse>> serializers = [
     PutEventsResponseRestJson1Serializer()
   ];
 
@@ -50,11 +50,11 @@ abstract class PutEventsResponse
   List<Object?> get props => [eventsResponse];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutEventsResponse');
-    helper.add(
-      'eventsResponse',
-      eventsResponse,
-    );
+    final helper = newBuiltValueToStringHelper('PutEventsResponse')
+      ..add(
+        'eventsResponse',
+        eventsResponse,
+      );
     return helper.toString();
   }
 }
