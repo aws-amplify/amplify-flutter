@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.device_secret_verifier_config_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -96,23 +97,20 @@ class DeviceSecretVerifierConfigTypeAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'PasswordVerifier':
-          if (value != null) {
-            result.passwordVerifier = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.passwordVerifier = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Salt':
-          if (value != null) {
-            result.salt = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.salt = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -122,27 +120,27 @@ class DeviceSecretVerifierConfigTypeAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    DeviceSecretVerifierConfigType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as DeviceSecretVerifierConfigType);
-    final result = <Object?>[];
-    if (payload.passwordVerifier != null) {
-      result
+    final result$ = <Object?>[];
+    final DeviceSecretVerifierConfigType(:passwordVerifier, :salt) = object;
+    if (passwordVerifier != null) {
+      result$
         ..add('PasswordVerifier')
         ..add(serializers.serialize(
-          payload.passwordVerifier!,
+          passwordVerifier,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.salt != null) {
-      result
+    if (salt != null) {
+      result$
         ..add('Salt')
         ..add(serializers.serialize(
-          payload.salt!,
+          salt,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }
