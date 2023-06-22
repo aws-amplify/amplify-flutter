@@ -57,12 +57,12 @@ jobs:
           value: 1
           dimensions: channel=${{ matrix.channel }}
       - name: Log succeeding builds
-          if: ${{ success() }}
-          uses: ./.github/composite_actions/log_metric
-          with:
-            metric-name: BuildCanaryTestFailure
-            value: 0
-            dimensions: channel=${{ matrix.channel }}
+        if: ${{ success() }}
+        uses: ./.github/composite_actions/log_metric
+        with:
+          metric-name: BuildCanaryTestFailure
+          value: 0
+          dimensions: channel=${{ matrix.channel }}
 
 
   e2e-android:
@@ -121,19 +121,19 @@ jobs:
             cd canaries && flutter test -d emulator-5554 integration_test/main_test.dart
 
       - name: Log failing android runs
-            if: ${{ failure() }}
-            uses: ./.github/composite_actions/log_metric
-            with:
-              metric-name: e2eCanaryTestFailure
-              value: 1
-              dimensions: channel=${{ matrix.channel }},platform=android
+        if: ${{ failure() }}
+        uses: ./.github/composite_actions/log_metric
+        with:
+          metric-name: e2eCanaryTestFailure
+          value: 1
+          dimensions: channel=${{ matrix.channel }},platform=android
       - name: Log succeeding android runs
-          if: ${{ success() }}
-          uses: ./.github/composite_actions/log_metric
-          with:
-            metric-name: e2eCanaryTestFailure
-            value: 0
-            dimensions: channel=${{ matrix.channel }},platform=android
+        if: ${{ success() }}
+        uses: ./.github/composite_actions/log_metric
+        with:
+          metric-name: e2eCanaryTestFailure
+          value: 0
+          dimensions: channel=${{ matrix.channel }},platform=android
 
   e2e-ios:
     runs-on: macos-latest
@@ -192,16 +192,16 @@ jobs:
           flutter test -d test integration_test/main_test.dart
 
       - name: Log failing ios runs
-          if: ${{ failure() }}
-          uses: ./.github/composite_actions/log_metric
-          with:
-            metric-name: e2eCanaryTestFailure
-            value: 1
-            dimensions: channel=${{ matrix.channel }},platform=ios
+        if: ${{ failure() }}
+        uses: ./.github/composite_actions/log_metric
+        with:
+          metric-name: e2eCanaryTestFailure
+          value: 1
+          dimensions: channel=${{ matrix.channel }},platform=ios
       - name: Log succeeding ios runs
-          if: ${{ success() }}
-          uses: ./.github/composite_actions/log_metric
-          with:
-            metric-name: e2eCanaryTestFailure
-            value: 0
-            dimensions: channel=${{ matrix.channel }},platform=ios
+        if: ${{ success() }}
+        uses: ./.github/composite_actions/log_metric
+        with:
+          metric-name: e2eCanaryTestFailure
+          value: 0
+          dimensions: channel=${{ matrix.channel }},platform=ios
