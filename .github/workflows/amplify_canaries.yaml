@@ -3,8 +3,7 @@ on:
   push:
     branches:
       - canaries/**
-  schedule:
-    # TODO(kylechen): DO NOT MERGE until clarified runtime frequency
+  schedule:    
     # 6am pacific time daily, only runs on default branch
     - cron: "0 13 * * *"
 
