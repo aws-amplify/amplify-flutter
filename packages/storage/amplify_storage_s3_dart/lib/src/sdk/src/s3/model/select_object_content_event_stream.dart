@@ -17,6 +17,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
+/// The container for selecting objects from a content event stream.
 sealed class SelectObjectContentEventStream
     extends _i1.SmithyUnion<SelectObjectContentEventStream> {
   const SelectObjectContentEventStream._();
