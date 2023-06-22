@@ -31,9 +31,9 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_acl_request.dart'
 ///
 /// If your bucket uses the bucket owner enforced setting for S3 Object Ownership, ACLs are disabled and no longer affect permissions. You must use policies to grant access to your bucket and the objects in it. Requests to set ACLs or update ACLs fail and return the `AccessControlListNotSupported` error code. Requests to read ACLs are still supported. For more information, see [Controlling object ownership](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) in the _Amazon S3 User Guide_.
 ///
-/// **Access Permissions**
+/// Permissions
 ///
-/// You can set access permissions using one of the following methods:
+/// You can set access permissions by using one of the following methods:
 ///
 /// *   Specify a canned ACL with the `x-amz-acl` request header. Amazon S3 supports a set of predefined ACLs, known as _canned ACLs_. Each canned ACL has a predefined set of grantees and permissions. Specify the canned ACL name as the value of `x-amz-acl`. If you use this header, you cannot use other access control-specific headers in your request. For more information, see [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL).
 ///
@@ -76,7 +76,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_acl_request.dart'
 ///
 /// You can use either a canned ACL or specify access permissions explicitly. You cannot do both.
 ///
-/// **Grantee Values**
+/// Grantee Values
 ///
 /// You can specify the person (grantee) to whom you're assigning access rights (using request elements) in the following ways:
 ///
@@ -92,7 +92,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_acl_request.dart'
 ///
 /// *   By Email address:
 ///
-///     `<>Grantees@email.com<>lt;/Grantee>`
+///     `<>Grantees@email.com<>&`
 ///
 ///     The grantee is resolved to the CanonicalUser and, in a response to a GET Object acl request, appears as the CanonicalUser.
 ///
@@ -118,7 +118,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_acl_request.dart'
 ///     For a list of all the Amazon S3 supported Regions and endpoints, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region) in the Amazon Web Services General Reference.
 ///
 ///
-/// **Related Resources**
+/// The following operations are related to `PutBucketAcl`:
 ///
 /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
 ///
@@ -142,9 +142,9 @@ class PutBucketAclOperation extends _i1.HttpOperation<_i2.AccessControlPolicy,
   ///
   /// If your bucket uses the bucket owner enforced setting for S3 Object Ownership, ACLs are disabled and no longer affect permissions. You must use policies to grant access to your bucket and the objects in it. Requests to set ACLs or update ACLs fail and return the `AccessControlListNotSupported` error code. Requests to read ACLs are still supported. For more information, see [Controlling object ownership](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) in the _Amazon S3 User Guide_.
   ///
-  /// **Access Permissions**
+  /// Permissions
   ///
-  /// You can set access permissions using one of the following methods:
+  /// You can set access permissions by using one of the following methods:
   ///
   /// *   Specify a canned ACL with the `x-amz-acl` request header. Amazon S3 supports a set of predefined ACLs, known as _canned ACLs_. Each canned ACL has a predefined set of grantees and permissions. Specify the canned ACL name as the value of `x-amz-acl`. If you use this header, you cannot use other access control-specific headers in your request. For more information, see [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL).
   ///
@@ -187,7 +187,7 @@ class PutBucketAclOperation extends _i1.HttpOperation<_i2.AccessControlPolicy,
   ///
   /// You can use either a canned ACL or specify access permissions explicitly. You cannot do both.
   ///
-  /// **Grantee Values**
+  /// Grantee Values
   ///
   /// You can specify the person (grantee) to whom you're assigning access rights (using request elements) in the following ways:
   ///
@@ -203,7 +203,7 @@ class PutBucketAclOperation extends _i1.HttpOperation<_i2.AccessControlPolicy,
   ///
   /// *   By Email address:
   ///
-  ///     `<>Grantees@email.com<>lt;/Grantee>`
+  ///     `<>Grantees@email.com<>&`
   ///
   ///     The grantee is resolved to the CanonicalUser and, in a response to a GET Object acl request, appears as the CanonicalUser.
   ///
@@ -229,7 +229,7 @@ class PutBucketAclOperation extends _i1.HttpOperation<_i2.AccessControlPolicy,
   ///     For a list of all the Amazon S3 supported Regions and endpoints, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region) in the Amazon Web Services General Reference.
   ///
   ///
-  /// **Related Resources**
+  /// The following operations are related to `PutBucketAcl`:
   ///
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
   ///

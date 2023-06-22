@@ -20,9 +20,11 @@ import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_location_request.dart
 
 /// Returns the Region the bucket resides in. You set the bucket's Region using the `LocationConstraint` request parameter in a `CreateBucket` request. For more information, see [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html).
 ///
-/// To use this implementation of the operation, you must be the bucket owner.
+/// To use this API operation against an access point, provide the alias of the access point in place of the bucket name.
 ///
-/// To use this API against an access point, provide the alias of the access point in place of the bucket name.
+/// To use this API operation against an Object Lambda access point, provide the alias of the Object Lambda access point in place of the bucket name. If the Object Lambda access point alias in a request is not valid, the error code `InvalidAccessPointAliasError` is returned. For more information about `InvalidAccessPointAliasError`, see [List of Error Codes](https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#ErrorCodeList).
+///
+/// We recommend that you use [HeadBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadBucket.html) to return the Region that a bucket resides in. For backward compatibility, Amazon S3 continues to support GetBucketLocation.
 ///
 /// The following operations are related to `GetBucketLocation`:
 ///
@@ -36,9 +38,11 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
     _i4.GetBucketLocationOutput> {
   /// Returns the Region the bucket resides in. You set the bucket's Region using the `LocationConstraint` request parameter in a `CreateBucket` request. For more information, see [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html).
   ///
-  /// To use this implementation of the operation, you must be the bucket owner.
+  /// To use this API operation against an access point, provide the alias of the access point in place of the bucket name.
   ///
-  /// To use this API against an access point, provide the alias of the access point in place of the bucket name.
+  /// To use this API operation against an Object Lambda access point, provide the alias of the Object Lambda access point in place of the bucket name. If the Object Lambda access point alias in a request is not valid, the error code `InvalidAccessPointAliasError` is returned. For more information about `InvalidAccessPointAliasError`, see [List of Error Codes](https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#ErrorCodeList).
+  ///
+  /// We recommend that you use [HeadBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadBucket.html) to return the Region that a bucket resides in. For backward compatibility, Amazon S3 continues to support GetBucketLocation.
   ///
   /// The following operations are related to `GetBucketLocation`:
   ///

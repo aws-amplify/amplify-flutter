@@ -9,7 +9,7 @@ part of 'get_discovered_resource_counts_response.dart';
 class _$GetDiscoveredResourceCountsResponse
     extends GetDiscoveredResourceCountsResponse {
   @override
-  final _i2.Int64? totalDiscoveredResources;
+  final _i2.Int64 totalDiscoveredResources;
   @override
   final _i4.BuiltList<_i3.ResourceCount>? resourceCounts;
   @override
@@ -22,8 +22,13 @@ class _$GetDiscoveredResourceCountsResponse
           ._build();
 
   _$GetDiscoveredResourceCountsResponse._(
-      {this.totalDiscoveredResources, this.resourceCounts, this.nextToken})
-      : super._();
+      {required this.totalDiscoveredResources,
+      this.resourceCounts,
+      this.nextToken})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(totalDiscoveredResources,
+        r'GetDiscoveredResourceCountsResponse', 'totalDiscoveredResources');
+  }
 
   @override
   GetDiscoveredResourceCountsResponse rebuild(
@@ -110,7 +115,10 @@ class GetDiscoveredResourceCountsResponseBuilder
     try {
       _$result = _$v ??
           new _$GetDiscoveredResourceCountsResponse._(
-              totalDiscoveredResources: totalDiscoveredResources,
+              totalDiscoveredResources: BuiltValueNullFieldError.checkNotNull(
+                  totalDiscoveredResources,
+                  r'GetDiscoveredResourceCountsResponse',
+                  'totalDiscoveredResources'),
               resourceCounts: _resourceCounts?.build(),
               nextToken: nextToken);
     } catch (_) {

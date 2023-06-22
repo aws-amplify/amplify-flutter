@@ -37,6 +37,7 @@ abstract class ConfigRuleEvaluationStatus
     String? lastDebugLogDeliveryStatusReason,
     DateTime? lastDebugLogDeliveryTime,
   }) {
+    firstEvaluationStarted ??= false;
     return _$ConfigRuleEvaluationStatus._(
       configRuleName: configRuleName,
       configRuleArn: configRuleArn,
@@ -70,7 +71,9 @@ abstract class ConfigRuleEvaluationStatus
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigRuleEvaluationStatusBuilder b) {}
+  static void _init(ConfigRuleEvaluationStatusBuilder b) {
+    b.firstEvaluationStarted = false;
+  }
 
   /// The name of the Config rule.
   String? get configRuleName;
@@ -110,7 +113,7 @@ abstract class ConfigRuleEvaluationStatus
   /// *   `true` \- Config has evaluated your Amazon Web Services resources against the rule at least once.
   ///
   /// *   `false` \- Config has not finished evaluating your Amazon Web Services resources against the rule at least once.
-  bool? get firstEvaluationStarted;
+  bool get firstEvaluationStarted;
 
   /// The status of the last attempted delivery of a debug log for your Config Custom Policy rules. Either `Successful` or `Failed`.
   String? get lastDebugLogDeliveryStatus;
@@ -343,6 +346,13 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
       :lastDebugLogDeliveryStatusReason,
       :lastDebugLogDeliveryTime
     ) = object;
+    result$.addAll([
+      'FirstEvaluationStarted',
+      serializers.serialize(
+        firstEvaluationStarted,
+        specifiedType: const FullType(bool),
+      ),
+    ]);
     if (configRuleName != null) {
       result$
         ..add('ConfigRuleName')
@@ -429,14 +439,6 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ..add(serializers.serialize(
           lastErrorMessage,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (firstEvaluationStarted != null) {
-      result$
-        ..add('FirstEvaluationStarted')
-        ..add(serializers.serialize(
-          firstEvaluationStarted,
-          specifiedType: const FullType(bool),
         ));
     }
     if (lastDebugLogDeliveryStatus != null) {

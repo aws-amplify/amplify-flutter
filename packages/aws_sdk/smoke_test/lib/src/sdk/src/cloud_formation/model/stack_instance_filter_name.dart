@@ -25,9 +25,16 @@ class StackInstanceFilterName extends _i1.SmithyEnum<StackInstanceFilterName> {
     'DETAILED_STATUS',
   );
 
+  static const lastOperationId = StackInstanceFilterName._(
+    1,
+    'LAST_OPERATION_ID',
+    'LAST_OPERATION_ID',
+  );
+
   /// All values of [StackInstanceFilterName].
   static const values = <StackInstanceFilterName>[
-    StackInstanceFilterName.detailedStatus
+    StackInstanceFilterName.detailedStatus,
+    StackInstanceFilterName.lastOperationId,
   ];
 
   static const List<_i1.SmithySerializer<StackInstanceFilterName>> serializers =

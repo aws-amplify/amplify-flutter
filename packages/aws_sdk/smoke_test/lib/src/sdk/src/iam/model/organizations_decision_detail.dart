@@ -17,6 +17,7 @@ abstract class OrganizationsDecisionDetail
         Built<OrganizationsDecisionDetail, OrganizationsDecisionDetailBuilder> {
   /// Contains information about the effect that Organizations has on a policy simulation.
   factory OrganizationsDecisionDetail({bool? allowedByOrganizations}) {
+    allowedByOrganizations ??= false;
     return _$OrganizationsDecisionDetail._(
         allowedByOrganizations: allowedByOrganizations);
   }
@@ -33,10 +34,12 @@ abstract class OrganizationsDecisionDetail
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationsDecisionDetailBuilder b) {}
+  static void _init(OrganizationsDecisionDetailBuilder b) {
+    b.allowedByOrganizations = false;
+  }
 
   /// Specifies whether the simulated operation is allowed by the Organizations service control policies that impact the simulated user's account.
-  bool? get allowedByOrganizations;
+  bool get allowedByOrganizations;
   @override
   List<Object?> get props => [allowedByOrganizations];
   @override
@@ -107,14 +110,12 @@ class OrganizationsDecisionDetailAwsQuerySerializer
       )
     ];
     final OrganizationsDecisionDetail(:allowedByOrganizations) = object;
-    if (allowedByOrganizations != null) {
-      result$
-        ..add(const _i2.XmlElementName('AllowedByOrganizations'))
-        ..add(serializers.serialize(
-          allowedByOrganizations,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i2.XmlElementName('AllowedByOrganizations'))
+      ..add(serializers.serialize(
+        allowedByOrganizations,
+        specifiedType: const FullType(bool),
+      ));
     return result$;
   }
 }

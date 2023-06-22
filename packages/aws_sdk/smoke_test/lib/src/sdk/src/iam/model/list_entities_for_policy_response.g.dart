@@ -14,7 +14,7 @@ class _$ListEntitiesForPolicyResponse extends ListEntitiesForPolicyResponse {
   @override
   final _i5.BuiltList<_i4.PolicyRole>? policyRoles;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -26,9 +26,12 @@ class _$ListEntitiesForPolicyResponse extends ListEntitiesForPolicyResponse {
       {this.policyGroups,
       this.policyUsers,
       this.policyRoles,
-      this.isTruncated,
+      required this.isTruncated,
       this.marker})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListEntitiesForPolicyResponse', 'isTruncated');
+  }
 
   @override
   ListEntitiesForPolicyResponse rebuild(
@@ -134,7 +137,8 @@ class ListEntitiesForPolicyResponseBuilder
               policyGroups: _policyGroups?.build(),
               policyUsers: _policyUsers?.build(),
               policyRoles: _policyRoles?.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListEntitiesForPolicyResponse', 'isTruncated'),
               marker: marker);
     } catch (_) {
       late String _$failedField;

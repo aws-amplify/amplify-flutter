@@ -30,7 +30,7 @@ class _$ConfigRuleEvaluationStatus extends ConfigRuleEvaluationStatus {
   @override
   final String? lastErrorMessage;
   @override
-  final bool? firstEvaluationStarted;
+  final bool firstEvaluationStarted;
   @override
   final String? lastDebugLogDeliveryStatus;
   @override
@@ -54,11 +54,14 @@ class _$ConfigRuleEvaluationStatus extends ConfigRuleEvaluationStatus {
       this.lastDeactivatedTime,
       this.lastErrorCode,
       this.lastErrorMessage,
-      this.firstEvaluationStarted,
+      required this.firstEvaluationStarted,
       this.lastDebugLogDeliveryStatus,
       this.lastDebugLogDeliveryStatusReason,
       this.lastDebugLogDeliveryTime})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(firstEvaluationStarted,
+        r'ConfigRuleEvaluationStatus', 'firstEvaluationStarted');
+  }
 
   @override
   ConfigRuleEvaluationStatus rebuild(
@@ -253,7 +256,10 @@ class ConfigRuleEvaluationStatusBuilder
             lastDeactivatedTime: lastDeactivatedTime,
             lastErrorCode: lastErrorCode,
             lastErrorMessage: lastErrorMessage,
-            firstEvaluationStarted: firstEvaluationStarted,
+            firstEvaluationStarted: BuiltValueNullFieldError.checkNotNull(
+                firstEvaluationStarted,
+                r'ConfigRuleEvaluationStatus',
+                'firstEvaluationStarted'),
             lastDebugLogDeliveryStatus: lastDebugLogDeliveryStatus,
             lastDebugLogDeliveryStatusReason: lastDebugLogDeliveryStatusReason,
             lastDebugLogDeliveryTime: lastDebugLogDeliveryTime);

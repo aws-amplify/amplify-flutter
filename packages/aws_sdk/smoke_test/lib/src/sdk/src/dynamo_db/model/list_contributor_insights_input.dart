@@ -22,6 +22,7 @@ abstract class ListContributorInsightsInput
     String? nextToken,
     int? maxResults,
   }) {
+    maxResults ??= 0;
     return _$ListContributorInsightsInput._(
       tableName: tableName,
       nextToken: nextToken,
@@ -47,7 +48,9 @@ abstract class ListContributorInsightsInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListContributorInsightsInputBuilder b) {}
+  static void _init(ListContributorInsightsInputBuilder b) {
+    b.maxResults = 0;
+  }
 
   /// The name of the table.
   String? get tableName;
@@ -56,7 +59,7 @@ abstract class ListContributorInsightsInput
   String? get nextToken;
 
   /// Maximum number of results to return per page.
-  int? get maxResults;
+  int get maxResults;
   @override
   ListContributorInsightsInput getPayload() => this;
   @override
@@ -147,6 +150,13 @@ class ListContributorInsightsInputAwsJson10Serializer
     final result$ = <Object?>[];
     final ListContributorInsightsInput(:tableName, :nextToken, :maxResults) =
         object;
+    result$.addAll([
+      'MaxResults',
+      serializers.serialize(
+        maxResults,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (tableName != null) {
       result$
         ..add('TableName')
@@ -161,14 +171,6 @@ class ListContributorInsightsInputAwsJson10Serializer
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (maxResults != null) {
-      result$
-        ..add('MaxResults')
-        ..add(serializers.serialize(
-          maxResults,
-          specifiedType: const FullType(int),
         ));
     }
     return result$;

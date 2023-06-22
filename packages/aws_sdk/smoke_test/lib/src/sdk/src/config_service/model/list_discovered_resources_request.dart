@@ -28,6 +28,8 @@ abstract class ListDiscoveredResourcesRequest
     bool? includeDeletedResources,
     String? nextToken,
   }) {
+    limit ??= 0;
+    includeDeletedResources ??= false;
     return _$ListDiscoveredResourcesRequest._(
       resourceType: resourceType,
       resourceIds: resourceIds == null ? null : _i4.BuiltList(resourceIds),
@@ -56,22 +58,25 @@ abstract class ListDiscoveredResourcesRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListDiscoveredResourcesRequestBuilder b) {}
+  static void _init(ListDiscoveredResourcesRequestBuilder b) {
+    b.limit = 0;
+    b.includeDeletedResources = false;
+  }
 
   /// The type of resources that you want Config to list in the response.
   _i3.ResourceType get resourceType;
 
-  /// The IDs of only those resources that you want Config to list in the response. If you do not specify this parameter, Config lists all resources of the specified type that it has discovered.
+  /// The IDs of only those resources that you want Config to list in the response. If you do not specify this parameter, Config lists all resources of the specified type that it has discovered. You can list a minimum of 1 resourceID and a maximum of 20 resourceIds.
   _i4.BuiltList<String>? get resourceIds;
 
   /// The custom name of only those resources that you want Config to list in the response. If you do not specify this parameter, Config lists all resources of the specified type that it has discovered.
   String? get resourceName;
 
   /// The maximum number of resource identifiers returned on each page. The default is 100. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// Specifies whether Config includes deleted resources in the results. By default, deleted resources are not included.
-  bool? get includeDeletedResources;
+  bool get includeDeletedResources;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -211,6 +216,16 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
         resourceType,
         specifiedType: const FullType(_i3.ResourceType),
       ),
+      'limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
+      'includeDeletedResources',
+      serializers.serialize(
+        includeDeletedResources,
+        specifiedType: const FullType(bool),
+      ),
     ]);
     if (resourceIds != null) {
       result$
@@ -229,22 +244,6 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
         ..add(serializers.serialize(
           resourceName,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (includeDeletedResources != null) {
-      result$
-        ..add('includeDeletedResources')
-        ..add(serializers.serialize(
-          includeDeletedResources,
-          specifiedType: const FullType(bool),
         ));
     }
     if (nextToken != null) {

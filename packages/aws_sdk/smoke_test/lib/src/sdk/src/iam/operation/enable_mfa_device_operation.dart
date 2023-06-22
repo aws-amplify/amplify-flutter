@@ -3,7 +3,7 @@
 
 library smoke_test.iam.operation.enable_mfa_device_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i14;
+import 'dart:async' as _i15;
 
 import 'package:aws_common/aws_common.dart' as _i6;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
@@ -12,20 +12,22 @@ import 'package:smithy_aws/smithy_aws.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart'
     as _i7;
 import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/iam/model/concurrent_modification_exception.dart'
+    as _i8;
 import 'package:smoke_test/src/sdk/src/iam/model/enable_mfa_device_request.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/iam/model/entity_already_exists_exception.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/iam/model/entity_temporarily_unmodifiable_exception.dart'
     as _i9;
-import 'package:smoke_test/src/sdk/src/iam/model/invalid_authentication_code_exception.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/entity_temporarily_unmodifiable_exception.dart'
     as _i10;
-import 'package:smoke_test/src/sdk/src/iam/model/limit_exceeded_exception.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/invalid_authentication_code_exception.dart'
     as _i11;
-import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/limit_exceeded_exception.dart'
     as _i12;
-import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
     as _i13;
+import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
+    as _i14;
 
 /// Enables the specified MFA device and associates it with the specified IAM user. When enabled, the MFA device is required for every subsequent login by the IAM user associated with the device.
 class EnableMfaDeviceOperation extends _i1.HttpOperation<
@@ -72,6 +74,11 @@ class EnableMfaDeviceOperation extends _i1.HttpOperation<
       action: 'EnableMFADevice',
       version: '2010-05-08',
       awsQueryErrors: const [
+        _i4.AwsQueryError(
+          shape: 'ConcurrentModificationException',
+          code: 'ConcurrentModification',
+          httpResponseCode: 409,
+        ),
         _i4.AwsQueryError(
           shape: 'EntityAlreadyExistsException',
           code: 'EntityAlreadyExists',
@@ -137,70 +144,81 @@ class EnableMfaDeviceOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i8.EntityAlreadyExistsException,
-            _i8.EntityAlreadyExistsException>(
+        _i1.SmithyError<_i8.ConcurrentModificationException,
+            _i8.ConcurrentModificationException>(
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.iam',
+            shape: 'ConcurrentModificationException',
+          ),
+          _i1.ErrorKind.client,
+          _i8.ConcurrentModificationException,
+          statusCode: 409,
+          builder: _i8.ConcurrentModificationException.fromResponse,
+        ),
+        _i1.SmithyError<_i9.EntityAlreadyExistsException,
+            _i9.EntityAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'EntityAlreadyExistsException',
           ),
           _i1.ErrorKind.client,
-          _i8.EntityAlreadyExistsException,
+          _i9.EntityAlreadyExistsException,
           statusCode: 409,
-          builder: _i8.EntityAlreadyExistsException.fromResponse,
+          builder: _i9.EntityAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError<_i9.EntityTemporarilyUnmodifiableException,
-            _i9.EntityTemporarilyUnmodifiableException>(
+        _i1.SmithyError<_i10.EntityTemporarilyUnmodifiableException,
+            _i10.EntityTemporarilyUnmodifiableException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'EntityTemporarilyUnmodifiableException',
           ),
           _i1.ErrorKind.client,
-          _i9.EntityTemporarilyUnmodifiableException,
+          _i10.EntityTemporarilyUnmodifiableException,
           statusCode: 409,
-          builder: _i9.EntityTemporarilyUnmodifiableException.fromResponse,
+          builder: _i10.EntityTemporarilyUnmodifiableException.fromResponse,
         ),
-        _i1.SmithyError<_i10.InvalidAuthenticationCodeException,
-            _i10.InvalidAuthenticationCodeException>(
+        _i1.SmithyError<_i11.InvalidAuthenticationCodeException,
+            _i11.InvalidAuthenticationCodeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidAuthenticationCodeException',
           ),
           _i1.ErrorKind.client,
-          _i10.InvalidAuthenticationCodeException,
+          _i11.InvalidAuthenticationCodeException,
           statusCode: 403,
-          builder: _i10.InvalidAuthenticationCodeException.fromResponse,
+          builder: _i11.InvalidAuthenticationCodeException.fromResponse,
         ),
-        _i1.SmithyError<_i11.LimitExceededException,
-            _i11.LimitExceededException>(
+        _i1.SmithyError<_i12.LimitExceededException,
+            _i12.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
           ),
           _i1.ErrorKind.client,
-          _i11.LimitExceededException,
+          _i12.LimitExceededException,
           statusCode: 409,
-          builder: _i11.LimitExceededException.fromResponse,
+          builder: _i12.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i12.NoSuchEntityException, _i12.NoSuchEntityException>(
+        _i1.SmithyError<_i13.NoSuchEntityException, _i13.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
           ),
           _i1.ErrorKind.client,
-          _i12.NoSuchEntityException,
+          _i13.NoSuchEntityException,
           statusCode: 404,
-          builder: _i12.NoSuchEntityException.fromResponse,
+          builder: _i13.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError<_i13.ServiceFailureException,
-            _i13.ServiceFailureException>(
+        _i1.SmithyError<_i14.ServiceFailureException,
+            _i14.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
           ),
           _i1.ErrorKind.server,
-          _i13.ServiceFailureException,
+          _i14.ServiceFailureException,
           statusCode: 500,
-          builder: _i13.ServiceFailureException.fromResponse,
+          builder: _i14.ServiceFailureException.fromResponse,
         ),
       ];
   @override
@@ -217,7 +235,7 @@ class EnableMfaDeviceOperation extends _i1.HttpOperation<
     _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i14.runZoned(
+    return _i15.runZoned(
       () => super.run(
         input,
         client: client,

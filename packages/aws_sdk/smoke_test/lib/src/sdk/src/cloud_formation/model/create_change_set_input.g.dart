@@ -16,19 +16,19 @@ class _$CreateChangeSetInput extends CreateChangeSetInput {
   @override
   final bool? usePreviousTemplate;
   @override
-  final _i9.BuiltList<_i3.Parameter>? parameters;
+  final _i10.BuiltList<_i3.Parameter>? parameters;
   @override
-  final _i9.BuiltList<_i4.Capability>? capabilities;
+  final _i10.BuiltList<_i4.Capability>? capabilities;
   @override
-  final _i9.BuiltList<String>? resourceTypes;
+  final _i10.BuiltList<String>? resourceTypes;
   @override
   final String? roleArn;
   @override
   final _i5.RollbackConfiguration? rollbackConfiguration;
   @override
-  final _i9.BuiltList<String>? notificationArNs;
+  final _i10.BuiltList<String>? notificationArNs;
   @override
-  final _i9.BuiltList<_i6.Tag>? tags;
+  final _i10.BuiltList<_i6.Tag>? tags;
   @override
   final String changeSetName;
   @override
@@ -38,9 +38,11 @@ class _$CreateChangeSetInput extends CreateChangeSetInput {
   @override
   final _i7.ChangeSetType? changeSetType;
   @override
-  final _i9.BuiltList<_i8.ResourceToImport>? resourcesToImport;
+  final _i10.BuiltList<_i8.ResourceToImport>? resourcesToImport;
   @override
   final bool? includeNestedStacks;
+  @override
+  final _i9.OnStackFailure? onStackFailure;
 
   factory _$CreateChangeSetInput(
           [void Function(CreateChangeSetInputBuilder)? updates]) =>
@@ -63,7 +65,8 @@ class _$CreateChangeSetInput extends CreateChangeSetInput {
       this.description,
       this.changeSetType,
       this.resourcesToImport,
-      this.includeNestedStacks})
+      this.includeNestedStacks,
+      this.onStackFailure})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         stackName, r'CreateChangeSetInput', 'stackName');
@@ -100,7 +103,8 @@ class _$CreateChangeSetInput extends CreateChangeSetInput {
         description == other.description &&
         changeSetType == other.changeSetType &&
         resourcesToImport == other.resourcesToImport &&
-        includeNestedStacks == other.includeNestedStacks;
+        includeNestedStacks == other.includeNestedStacks &&
+        onStackFailure == other.onStackFailure;
   }
 
   @override
@@ -123,6 +127,7 @@ class _$CreateChangeSetInput extends CreateChangeSetInput {
     _$hash = $jc(_$hash, changeSetType.hashCode);
     _$hash = $jc(_$hash, resourcesToImport.hashCode);
     _$hash = $jc(_$hash, includeNestedStacks.hashCode);
+    _$hash = $jc(_$hash, onStackFailure.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -149,22 +154,22 @@ class CreateChangeSetInputBuilder
   set usePreviousTemplate(bool? usePreviousTemplate) =>
       _$this._usePreviousTemplate = usePreviousTemplate;
 
-  _i9.ListBuilder<_i3.Parameter>? _parameters;
-  _i9.ListBuilder<_i3.Parameter> get parameters =>
-      _$this._parameters ??= new _i9.ListBuilder<_i3.Parameter>();
-  set parameters(_i9.ListBuilder<_i3.Parameter>? parameters) =>
+  _i10.ListBuilder<_i3.Parameter>? _parameters;
+  _i10.ListBuilder<_i3.Parameter> get parameters =>
+      _$this._parameters ??= new _i10.ListBuilder<_i3.Parameter>();
+  set parameters(_i10.ListBuilder<_i3.Parameter>? parameters) =>
       _$this._parameters = parameters;
 
-  _i9.ListBuilder<_i4.Capability>? _capabilities;
-  _i9.ListBuilder<_i4.Capability> get capabilities =>
-      _$this._capabilities ??= new _i9.ListBuilder<_i4.Capability>();
-  set capabilities(_i9.ListBuilder<_i4.Capability>? capabilities) =>
+  _i10.ListBuilder<_i4.Capability>? _capabilities;
+  _i10.ListBuilder<_i4.Capability> get capabilities =>
+      _$this._capabilities ??= new _i10.ListBuilder<_i4.Capability>();
+  set capabilities(_i10.ListBuilder<_i4.Capability>? capabilities) =>
       _$this._capabilities = capabilities;
 
-  _i9.ListBuilder<String>? _resourceTypes;
-  _i9.ListBuilder<String> get resourceTypes =>
-      _$this._resourceTypes ??= new _i9.ListBuilder<String>();
-  set resourceTypes(_i9.ListBuilder<String>? resourceTypes) =>
+  _i10.ListBuilder<String>? _resourceTypes;
+  _i10.ListBuilder<String> get resourceTypes =>
+      _$this._resourceTypes ??= new _i10.ListBuilder<String>();
+  set resourceTypes(_i10.ListBuilder<String>? resourceTypes) =>
       _$this._resourceTypes = resourceTypes;
 
   String? _roleArn;
@@ -178,16 +183,16 @@ class CreateChangeSetInputBuilder
           _i5.RollbackConfigurationBuilder? rollbackConfiguration) =>
       _$this._rollbackConfiguration = rollbackConfiguration;
 
-  _i9.ListBuilder<String>? _notificationArNs;
-  _i9.ListBuilder<String> get notificationArNs =>
-      _$this._notificationArNs ??= new _i9.ListBuilder<String>();
-  set notificationArNs(_i9.ListBuilder<String>? notificationArNs) =>
+  _i10.ListBuilder<String>? _notificationArNs;
+  _i10.ListBuilder<String> get notificationArNs =>
+      _$this._notificationArNs ??= new _i10.ListBuilder<String>();
+  set notificationArNs(_i10.ListBuilder<String>? notificationArNs) =>
       _$this._notificationArNs = notificationArNs;
 
-  _i9.ListBuilder<_i6.Tag>? _tags;
-  _i9.ListBuilder<_i6.Tag> get tags =>
-      _$this._tags ??= new _i9.ListBuilder<_i6.Tag>();
-  set tags(_i9.ListBuilder<_i6.Tag>? tags) => _$this._tags = tags;
+  _i10.ListBuilder<_i6.Tag>? _tags;
+  _i10.ListBuilder<_i6.Tag> get tags =>
+      _$this._tags ??= new _i10.ListBuilder<_i6.Tag>();
+  set tags(_i10.ListBuilder<_i6.Tag>? tags) => _$this._tags = tags;
 
   String? _changeSetName;
   String? get changeSetName => _$this._changeSetName;
@@ -207,17 +212,23 @@ class CreateChangeSetInputBuilder
   set changeSetType(_i7.ChangeSetType? changeSetType) =>
       _$this._changeSetType = changeSetType;
 
-  _i9.ListBuilder<_i8.ResourceToImport>? _resourcesToImport;
-  _i9.ListBuilder<_i8.ResourceToImport> get resourcesToImport =>
-      _$this._resourcesToImport ??= new _i9.ListBuilder<_i8.ResourceToImport>();
+  _i10.ListBuilder<_i8.ResourceToImport>? _resourcesToImport;
+  _i10.ListBuilder<_i8.ResourceToImport> get resourcesToImport =>
+      _$this._resourcesToImport ??=
+          new _i10.ListBuilder<_i8.ResourceToImport>();
   set resourcesToImport(
-          _i9.ListBuilder<_i8.ResourceToImport>? resourcesToImport) =>
+          _i10.ListBuilder<_i8.ResourceToImport>? resourcesToImport) =>
       _$this._resourcesToImport = resourcesToImport;
 
   bool? _includeNestedStacks;
   bool? get includeNestedStacks => _$this._includeNestedStacks;
   set includeNestedStacks(bool? includeNestedStacks) =>
       _$this._includeNestedStacks = includeNestedStacks;
+
+  _i9.OnStackFailure? _onStackFailure;
+  _i9.OnStackFailure? get onStackFailure => _$this._onStackFailure;
+  set onStackFailure(_i9.OnStackFailure? onStackFailure) =>
+      _$this._onStackFailure = onStackFailure;
 
   CreateChangeSetInputBuilder() {
     CreateChangeSetInput._init(this);
@@ -243,6 +254,7 @@ class CreateChangeSetInputBuilder
       _changeSetType = $v.changeSetType;
       _resourcesToImport = $v.resourcesToImport?.toBuilder();
       _includeNestedStacks = $v.includeNestedStacks;
+      _onStackFailure = $v.onStackFailure;
       _$v = null;
     }
     return this;
@@ -285,7 +297,8 @@ class CreateChangeSetInputBuilder
               description: description,
               changeSetType: changeSetType,
               resourcesToImport: _resourcesToImport?.build(),
-              includeNestedStacks: includeNestedStacks);
+              includeNestedStacks: includeNestedStacks,
+              onStackFailure: onStackFailure);
     } catch (_) {
       late String _$failedField;
       try {

@@ -56,7 +56,7 @@ abstract class QueueConfiguration
   /// A collection of bucket events for which to send notifications
   _i4.BuiltList<_i2.Event> get events;
 
-  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
+  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring event notifications using object key name filtering](https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-how-to-filtering.html) in the _Amazon S3 User Guide_.
   _i3.NotificationConfigurationFilter? get filter;
   @override
   List<Object?> get props => [

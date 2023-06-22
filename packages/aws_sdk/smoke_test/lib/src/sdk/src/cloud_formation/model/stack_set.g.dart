@@ -39,6 +39,8 @@ class _$StackSet extends StackSet {
   final _i10.BuiltList<String>? organizationalUnitIds;
   @override
   final _i9.ManagedExecution? managedExecution;
+  @override
+  final _i10.BuiltList<String>? regions;
 
   factory _$StackSet([void Function(StackSetBuilder)? updates]) =>
       (new StackSetBuilder()..update(updates))._build();
@@ -59,7 +61,8 @@ class _$StackSet extends StackSet {
       this.autoDeployment,
       this.permissionModel,
       this.organizationalUnitIds,
-      this.managedExecution})
+      this.managedExecution,
+      this.regions})
       : super._();
 
   @override
@@ -88,7 +91,8 @@ class _$StackSet extends StackSet {
         autoDeployment == other.autoDeployment &&
         permissionModel == other.permissionModel &&
         organizationalUnitIds == other.organizationalUnitIds &&
-        managedExecution == other.managedExecution;
+        managedExecution == other.managedExecution &&
+        regions == other.regions;
   }
 
   @override
@@ -110,6 +114,7 @@ class _$StackSet extends StackSet {
     _$hash = $jc(_$hash, permissionModel.hashCode);
     _$hash = $jc(_$hash, organizationalUnitIds.hashCode);
     _$hash = $jc(_$hash, managedExecution.hashCode);
+    _$hash = $jc(_$hash, regions.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -201,6 +206,11 @@ class StackSetBuilder implements Builder<StackSet, StackSetBuilder> {
   set managedExecution(_i9.ManagedExecutionBuilder? managedExecution) =>
       _$this._managedExecution = managedExecution;
 
+  _i10.ListBuilder<String>? _regions;
+  _i10.ListBuilder<String> get regions =>
+      _$this._regions ??= new _i10.ListBuilder<String>();
+  set regions(_i10.ListBuilder<String>? regions) => _$this._regions = regions;
+
   StackSetBuilder() {
     StackSet._init(this);
   }
@@ -225,6 +235,7 @@ class StackSetBuilder implements Builder<StackSet, StackSetBuilder> {
       _permissionModel = $v.permissionModel;
       _organizationalUnitIds = $v.organizationalUnitIds?.toBuilder();
       _managedExecution = $v.managedExecution?.toBuilder();
+      _regions = $v.regions?.toBuilder();
       _$v = null;
     }
     return this;
@@ -265,7 +276,8 @@ class StackSetBuilder implements Builder<StackSet, StackSetBuilder> {
               autoDeployment: _autoDeployment?.build(),
               permissionModel: permissionModel,
               organizationalUnitIds: _organizationalUnitIds?.build(),
-              managedExecution: _managedExecution?.build());
+              managedExecution: _managedExecution?.build(),
+              regions: _regions?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -285,6 +297,8 @@ class StackSetBuilder implements Builder<StackSet, StackSetBuilder> {
         _organizationalUnitIds?.build();
         _$failedField = 'managedExecution';
         _managedExecution?.build();
+        _$failedField = 'regions';
+        _regions?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'StackSet', _$failedField, e.toString());

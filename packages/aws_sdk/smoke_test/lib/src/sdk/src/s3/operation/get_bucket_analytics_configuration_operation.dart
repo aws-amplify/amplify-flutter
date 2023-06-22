@@ -24,7 +24,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_analytics_configurati
 ///
 /// For information about Amazon S3 analytics feature, see [Amazon S3 Analytics – Storage Class Analysis](https://docs.aws.amazon.com/AmazonS3/latest/dev/analytics-storage-class.html) in the _Amazon S3 User Guide_.
 ///
-/// **Related Resources**
+/// The following operations are related to `GetBucketAnalyticsConfiguration`:
 ///
 /// *   [DeleteBucketAnalyticsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketAnalyticsConfiguration.html)
 ///
@@ -42,7 +42,7 @@ class GetBucketAnalyticsConfigurationOperation extends _i1.HttpOperation<
   ///
   /// For information about Amazon S3 analytics feature, see [Amazon S3 Analytics – Storage Class Analysis](https://docs.aws.amazon.com/AmazonS3/latest/dev/analytics-storage-class.html) in the _Amazon S3 User Guide_.
   ///
-  /// **Related Resources**
+  /// The following operations are related to `GetBucketAnalyticsConfiguration`:
   ///
   /// *   [DeleteBucketAnalyticsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketAnalyticsConfiguration.html)
   ///

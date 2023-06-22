@@ -3,7 +3,7 @@
 
 library smoke_test.iam.operation.delete_account_alias_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i11;
+import 'dart:async' as _i12;
 
 import 'package:aws_common/aws_common.dart' as _i6;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
@@ -12,22 +12,24 @@ import 'package:smithy_aws/smithy_aws.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart'
     as _i7;
 import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/iam/model/concurrent_modification_exception.dart'
+    as _i8;
 import 'package:smoke_test/src/sdk/src/iam/model/delete_account_alias_request.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/iam/model/limit_exceeded_exception.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
     as _i9;
-import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
     as _i10;
+import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
+    as _i11;
 
-/// Deletes the specified Amazon Web Services account alias. For information about using an Amazon Web Services account alias, see [Using an alias for your Amazon Web Services account ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html) in the _IAM User Guide_.
+/// Deletes the specified Amazon Web Services account alias. For information about using an Amazon Web Services account alias, see [Creating, deleting, and listing an Amazon Web Services account alias](https://docs.aws.amazon.com/signin/latest/userguide/CreateAccountAlias.html) in the _Amazon Web Services Sign-In User Guide_.
 class DeleteAccountAliasOperation extends _i1.HttpOperation<
     _i2.DeleteAccountAliasRequest,
     _i2.DeleteAccountAliasRequest,
     _i1.Unit,
     _i1.Unit> {
-  /// Deletes the specified Amazon Web Services account alias. For information about using an Amazon Web Services account alias, see [Using an alias for your Amazon Web Services account ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html) in the _IAM User Guide_.
+  /// Deletes the specified Amazon Web Services account alias. For information about using an Amazon Web Services account alias, see [Creating, deleting, and listing an Amazon Web Services account alias](https://docs.aws.amazon.com/signin/latest/userguide/CreateAccountAlias.html) in the _Amazon Web Services Sign-In User Guide_.
   DeleteAccountAliasOperation({
     required String region,
     Uri? baseUri,
@@ -66,6 +68,11 @@ class DeleteAccountAliasOperation extends _i1.HttpOperation<
       action: 'DeleteAccountAlias',
       version: '2010-05-08',
       awsQueryErrors: const [
+        _i4.AwsQueryError(
+          shape: 'ConcurrentModificationException',
+          code: 'ConcurrentModification',
+          httpResponseCode: 409,
+        ),
         _i4.AwsQueryError(
           shape: 'LimitExceededException',
           code: 'LimitExceeded',
@@ -116,36 +123,47 @@ class DeleteAccountAliasOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i8.LimitExceededException, _i8.LimitExceededException>(
+        _i1.SmithyError<_i8.ConcurrentModificationException,
+            _i8.ConcurrentModificationException>(
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.iam',
+            shape: 'ConcurrentModificationException',
+          ),
+          _i1.ErrorKind.client,
+          _i8.ConcurrentModificationException,
+          statusCode: 409,
+          builder: _i8.ConcurrentModificationException.fromResponse,
+        ),
+        _i1.SmithyError<_i9.LimitExceededException, _i9.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
           ),
           _i1.ErrorKind.client,
-          _i8.LimitExceededException,
+          _i9.LimitExceededException,
           statusCode: 409,
-          builder: _i8.LimitExceededException.fromResponse,
+          builder: _i9.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i9.NoSuchEntityException, _i9.NoSuchEntityException>(
+        _i1.SmithyError<_i10.NoSuchEntityException, _i10.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
           ),
           _i1.ErrorKind.client,
-          _i9.NoSuchEntityException,
+          _i10.NoSuchEntityException,
           statusCode: 404,
-          builder: _i9.NoSuchEntityException.fromResponse,
+          builder: _i10.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError<_i10.ServiceFailureException,
-            _i10.ServiceFailureException>(
+        _i1.SmithyError<_i11.ServiceFailureException,
+            _i11.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
           ),
           _i1.ErrorKind.server,
-          _i10.ServiceFailureException,
+          _i11.ServiceFailureException,
           statusCode: 500,
-          builder: _i10.ServiceFailureException.fromResponse,
+          builder: _i11.ServiceFailureException.fromResponse,
         ),
       ];
   @override
@@ -162,7 +180,7 @@ class DeleteAccountAliasOperation extends _i1.HttpOperation<
     _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i11.runZoned(
+    return _i12.runZoned(
       () => super.run(
         input,
         client: client,

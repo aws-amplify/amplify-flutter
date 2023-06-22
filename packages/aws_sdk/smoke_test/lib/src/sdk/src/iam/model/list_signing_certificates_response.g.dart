@@ -11,7 +11,7 @@ class _$ListSigningCertificatesResponse
   @override
   final _i3.BuiltList<_i2.SigningCertificate> certificates;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -20,10 +20,12 @@ class _$ListSigningCertificatesResponse
       (new ListSigningCertificatesResponseBuilder()..update(updates))._build();
 
   _$ListSigningCertificatesResponse._(
-      {required this.certificates, this.isTruncated, this.marker})
+      {required this.certificates, required this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         certificates, r'ListSigningCertificatesResponse', 'certificates');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListSigningCertificatesResponse', 'isTruncated');
   }
 
   @override
@@ -110,7 +112,8 @@ class ListSigningCertificatesResponseBuilder
       _$result = _$v ??
           new _$ListSigningCertificatesResponse._(
               certificates: certificates.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
+                  r'ListSigningCertificatesResponse', 'isTruncated'),
               marker: marker);
     } catch (_) {
       late String _$failedField;

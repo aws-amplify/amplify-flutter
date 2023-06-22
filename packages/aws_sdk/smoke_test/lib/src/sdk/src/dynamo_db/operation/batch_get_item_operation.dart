@@ -30,7 +30,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_except
 
 /// The `BatchGetItem` operation returns the attributes of one or more items from one or more tables. You identify requested items by primary key.
 ///
-/// A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items. `BatchGetItem` returns a partial result if the response size limit is exceeded, the table's provisioned throughput is exceeded, or an internal processing failure occurs. If a partial result is returned, the operation returns a value for `UnprocessedKeys`. You can use this value to retry the operation starting with the next item to get.
+/// A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items. `BatchGetItem` returns a partial result if the response size limit is exceeded, the table's provisioned throughput is exceeded, more than 1MB per partition is requested, or an internal processing failure occurs. If a partial result is returned, the operation returns a value for `UnprocessedKeys`. You can use this value to retry the operation starting with the next item to get.
 ///
 /// If you request more than 100 items, `BatchGetItem` returns a `ValidationException` with the message "Too many items requested for the BatchGetItem call."
 ///
@@ -44,7 +44,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_except
 ///
 /// By default, `BatchGetItem` performs eventually consistent reads on every table in the request. If you want strongly consistent reads instead, you can set `ConsistentRead` to `true` for any or all tables.
 ///
-/// In order to minimize response latency, `BatchGetItem` retrieves items in parallel.
+/// In order to minimize response latency, `BatchGetItem` may retrieve items in parallel.
 ///
 /// When designing your application, keep in mind that DynamoDB does not return items in any particular order. To help parse the response by item, include the primary key values for the items in your request in the `ProjectionExpression` parameter.
 ///
@@ -53,7 +53,7 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
     _i2.BatchGetItemInput, _i3.BatchGetItemOutput, _i3.BatchGetItemOutput> {
   /// The `BatchGetItem` operation returns the attributes of one or more items from one or more tables. You identify requested items by primary key.
   ///
-  /// A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items. `BatchGetItem` returns a partial result if the response size limit is exceeded, the table's provisioned throughput is exceeded, or an internal processing failure occurs. If a partial result is returned, the operation returns a value for `UnprocessedKeys`. You can use this value to retry the operation starting with the next item to get.
+  /// A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items. `BatchGetItem` returns a partial result if the response size limit is exceeded, the table's provisioned throughput is exceeded, more than 1MB per partition is requested, or an internal processing failure occurs. If a partial result is returned, the operation returns a value for `UnprocessedKeys`. You can use this value to retry the operation starting with the next item to get.
   ///
   /// If you request more than 100 items, `BatchGetItem` returns a `ValidationException` with the message "Too many items requested for the BatchGetItem call."
   ///
@@ -67,7 +67,7 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
   ///
   /// By default, `BatchGetItem` performs eventually consistent reads on every table in the request. If you want strongly consistent reads instead, you can set `ConsistentRead` to `true` for any or all tables.
   ///
-  /// In order to minimize response latency, `BatchGetItem` retrieves items in parallel.
+  /// In order to minimize response latency, `BatchGetItem` may retrieve items in parallel.
   ///
   /// When designing your application, keep in mind that DynamoDB does not return items in any particular order. To help parse the response by item, include the primary key values for the items in your request in the `ProjectionExpression` parameter.
   ///

@@ -21,7 +21,6 @@ abstract class Tiering
     int? days,
     required _i2.IntelligentTieringAccessTier accessTier,
   }) {
-    days ??= 0;
     return _$Tiering._(
       days: days,
       accessTier: accessTier,
@@ -38,12 +37,10 @@ abstract class Tiering
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(TieringBuilder b) {
-    b.days = 0;
-  }
+  static void _init(TieringBuilder b) {}
 
   /// The number of consecutive days of no access after which an object will be eligible to be transitioned to the corresponding tier. The minimum number of days specified for Archive Access tier must be at least 90 days and Deep Archive Access tier must be at least 180 days. The maximum can be up to 2 years (730 days).
-  int get days;
+  int? get days;
 
   /// S3 Intelligent-Tiering access tier. See [Storage class for automatically optimizing frequently and infrequently accessed objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access) for a list of access tiers in the S3 Intelligent-Tiering storage class.
   _i2.IntelligentTieringAccessTier get accessTier;
@@ -134,12 +131,14 @@ class TieringRestXmlSerializer extends _i3.StructuredSmithySerializer<Tiering> {
         specifiedType:
             const FullType.nullable(_i2.IntelligentTieringAccessTier),
       ));
-    result$
-      ..add(const _i3.XmlElementName('Days'))
-      ..add(serializers.serialize(
-        days,
-        specifiedType: const FullType.nullable(int),
-      ));
+    if (days != null) {
+      result$
+        ..add(const _i3.XmlElementName('Days'))
+        ..add(serializers.serialize(
+          days,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     return result$;
   }
 }

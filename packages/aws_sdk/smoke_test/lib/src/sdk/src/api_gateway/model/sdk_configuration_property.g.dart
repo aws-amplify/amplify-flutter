@@ -14,7 +14,7 @@ class _$SdkConfigurationProperty extends SdkConfigurationProperty {
   @override
   final String? description;
   @override
-  final bool? required;
+  final bool required;
   @override
   final String? defaultValue;
 
@@ -26,9 +26,12 @@ class _$SdkConfigurationProperty extends SdkConfigurationProperty {
       {this.name,
       this.friendlyName,
       this.description,
-      this.required,
+      required this.required,
       this.defaultValue})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        required, r'SdkConfigurationProperty', 'required');
+  }
 
   @override
   SdkConfigurationProperty rebuild(
@@ -125,7 +128,8 @@ class SdkConfigurationPropertyBuilder
             name: name,
             friendlyName: friendlyName,
             description: description,
-            required: required,
+            required: BuiltValueNullFieldError.checkNotNull(
+                required, r'SdkConfigurationProperty', 'required'),
             defaultValue: defaultValue);
     replace(_$result);
     return _$result;

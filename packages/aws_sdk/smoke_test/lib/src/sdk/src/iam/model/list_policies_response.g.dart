@@ -10,7 +10,7 @@ class _$ListPoliciesResponse extends ListPoliciesResponse {
   @override
   final _i3.BuiltList<_i2.Policy>? policies;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -18,8 +18,12 @@ class _$ListPoliciesResponse extends ListPoliciesResponse {
           [void Function(ListPoliciesResponseBuilder)? updates]) =>
       (new ListPoliciesResponseBuilder()..update(updates))._build();
 
-  _$ListPoliciesResponse._({this.policies, this.isTruncated, this.marker})
-      : super._();
+  _$ListPoliciesResponse._(
+      {this.policies, required this.isTruncated, this.marker})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListPoliciesResponse', 'isTruncated');
+  }
 
   @override
   ListPoliciesResponse rebuild(
@@ -103,7 +107,8 @@ class ListPoliciesResponseBuilder
       _$result = _$v ??
           new _$ListPoliciesResponse._(
               policies: _policies?.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListPoliciesResponse', 'isTruncated'),
               marker: marker);
     } catch (_) {
       late String _$failedField;

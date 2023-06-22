@@ -39,7 +39,7 @@ abstract class RegisterTypeOutput
 
   /// The identifier for this registration request.
   ///
-  /// Use this registration token when calling `DescribeTypeRegistration` , which returns information about the status and IDs of the extension registration.
+  /// Use this registration token when calling DescribeTypeRegistration, which returns information about the status and IDs of the extension registration.
   String? get registrationToken;
   @override
   List<Object?> get props => [registrationToken];

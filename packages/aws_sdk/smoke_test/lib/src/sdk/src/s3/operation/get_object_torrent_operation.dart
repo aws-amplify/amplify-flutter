@@ -16,7 +16,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/get_object_torrent_output.dart'
 import 'package:smoke_test/src/sdk/src/s3/model/get_object_torrent_request.dart'
     as _i2;
 
-/// Returns torrent files from a bucket. BitTorrent can save you bandwidth when you're distributing large files. For more information about BitTorrent, see [Using BitTorrent with Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/S3Torrent.html).
+/// Returns torrent files from a bucket. BitTorrent can save you bandwidth when you're distributing large files.
 ///
 /// You can get torrent only for objects that are less than 5 GB in size, and that are not encrypted using server-side encryption with a customer-provided encryption key.
 ///
@@ -32,7 +32,7 @@ class GetObjectTorrentOperation extends _i1.HttpOperation<
     _i2.GetObjectTorrentRequest,
     _i3.Stream<List<int>>,
     _i4.GetObjectTorrentOutput> {
-  /// Returns torrent files from a bucket. BitTorrent can save you bandwidth when you're distributing large files. For more information about BitTorrent, see [Using BitTorrent with Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/S3Torrent.html).
+  /// Returns torrent files from a bucket. BitTorrent can save you bandwidth when you're distributing large files.
   ///
   /// You can get torrent only for objects that are less than 5 GB in size, and that are not encrypted using server-side encryption with a customer-provided encryption key.
   ///

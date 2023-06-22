@@ -32,7 +32,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_already_exists_exce
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_in_use_exception.dart'
     as _i15;
 
-/// Creates a new table from an existing backup. Any number of users can execute up to 4 concurrent restores (any type of restore) in a given account.
+/// Creates a new table from an existing backup. Any number of users can execute up to 50 concurrent restores (any type of restore) in a given account.
 ///
 /// You can call `RestoreTableFromBackup` at a maximum rate of 10 times per second.
 ///
@@ -54,7 +54,7 @@ class RestoreTableFromBackupOperation extends _i1.HttpOperation<
     _i2.RestoreTableFromBackupInput,
     _i3.RestoreTableFromBackupOutput,
     _i3.RestoreTableFromBackupOutput> {
-  /// Creates a new table from an existing backup. Any number of users can execute up to 4 concurrent restores (any type of restore) in a given account.
+  /// Creates a new table from an existing backup. Any number of users can execute up to 50 concurrent restores (any type of restore) in a given account.
   ///
   /// You can call `RestoreTableFromBackup` at a maximum rate of 10 times per second.
   ///

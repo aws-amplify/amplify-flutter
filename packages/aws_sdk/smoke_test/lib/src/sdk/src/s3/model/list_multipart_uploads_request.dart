@@ -6,9 +6,10 @@ library smoke_test.s3.model.list_multipart_uploads_request; // ignore_for_file: 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i4;
+import 'package:meta/meta.dart' as _i5;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i4;
 
 part 'list_multipart_uploads_request.g.dart';
 
@@ -29,6 +30,7 @@ abstract class ListMultipartUploadsRequest
     String? prefix,
     String? uploadIdMarker,
     String? expectedBucketOwner,
+    _i4.RequestPayer? requestPayer,
   }) {
     return _$ListMultipartUploadsRequest._(
       bucket: bucket,
@@ -39,6 +41,7 @@ abstract class ListMultipartUploadsRequest
       prefix: prefix,
       uploadIdMarker: uploadIdMarker,
       expectedBucketOwner: expectedBucketOwner,
+      requestPayer: requestPayer,
     );
   }
 
@@ -57,6 +60,10 @@ abstract class ListMultipartUploadsRequest
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
           b.expectedBucketOwner =
               request.headers['x-amz-expected-bucket-owner']!;
+        }
+        if (request.headers['x-amz-request-payer'] != null) {
+          b.requestPayer = _i4.RequestPayer.values
+              .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.queryParameters['delimiter'] != null) {
           b.delimiter = request.queryParameters['delimiter']!;
@@ -93,7 +100,7 @@ abstract class ListMultipartUploadsRequest
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   ///
-  /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
   /// Character you use to group keys.
@@ -122,6 +129,9 @@ abstract class ListMultipartUploadsRequest
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
+
+  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
+  _i4.RequestPayer? get requestPayer;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -147,6 +157,7 @@ abstract class ListMultipartUploadsRequest
         prefix,
         uploadIdMarker,
         expectedBucketOwner,
+        requestPayer,
       ];
   @override
   String toString() {
@@ -183,11 +194,15 @@ abstract class ListMultipartUploadsRequest
       'expectedBucketOwner',
       expectedBucketOwner,
     );
+    helper.add(
+      'requestPayer',
+      requestPayer,
+    );
     return helper.toString();
   }
 }
 
-@_i4.internal
+@_i5.internal
 abstract class ListMultipartUploadsRequestPayload
     with
         _i2.AWSEquatable<ListMultipartUploadsRequestPayload>

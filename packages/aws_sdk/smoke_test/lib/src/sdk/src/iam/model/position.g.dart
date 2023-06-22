@@ -8,14 +8,17 @@ part of 'position.dart';
 
 class _$Position extends Position {
   @override
-  final int? line;
+  final int line;
   @override
-  final int? column;
+  final int column;
 
   factory _$Position([void Function(PositionBuilder)? updates]) =>
       (new PositionBuilder()..update(updates))._build();
 
-  _$Position._({this.line, this.column}) : super._();
+  _$Position._({required this.line, required this.column}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(line, r'Position', 'line');
+    BuiltValueNullFieldError.checkNotNull(column, r'Position', 'column');
+  }
 
   @override
   Position rebuild(void Function(PositionBuilder) updates) =>
@@ -80,7 +83,12 @@ class PositionBuilder implements Builder<Position, PositionBuilder> {
   Position build() => _build();
 
   _$Position _build() {
-    final _$result = _$v ?? new _$Position._(line: line, column: column);
+    final _$result = _$v ??
+        new _$Position._(
+            line: BuiltValueNullFieldError.checkNotNull(
+                line, r'Position', 'line'),
+            column: BuiltValueNullFieldError.checkNotNull(
+                column, r'Position', 'column'));
     replace(_$result);
     return _$result;
   }

@@ -33,16 +33,12 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/stale_request_excep
     as _i15;
 
 /// Import existing stacks into a new stack sets. Use the stack import operation to import up to 10 stacks into a new stack set in the same account as the source stack or in a different administrator account and Region, by specifying the stack ID of the stack you intend to import.
-///
-/// `ImportStacksToStackSet` is only supported by self-managed permissions.
 class ImportStacksToStackSetOperation extends _i1.HttpOperation<
     _i2.ImportStacksToStackSetInput,
     _i2.ImportStacksToStackSetInput,
     _i3.ImportStacksToStackSetOutput,
     _i3.ImportStacksToStackSetOutput> {
   /// Import existing stacks into a new stack sets. Use the stack import operation to import up to 10 stacks into a new stack set in the same account as the source stack or in a different administrator account and Region, by specifying the stack ID of the stack you intend to import.
-  ///
-  /// `ImportStacksToStackSet` is only supported by self-managed permissions.
   ImportStacksToStackSetOperation({
     required String region,
     Uri? baseUri,

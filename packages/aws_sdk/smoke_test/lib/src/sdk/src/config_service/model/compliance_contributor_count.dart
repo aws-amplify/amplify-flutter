@@ -20,6 +20,8 @@ abstract class ComplianceContributorCount
     int? cappedCount,
     bool? capExceeded,
   }) {
+    cappedCount ??= 0;
+    capExceeded ??= false;
     return _$ComplianceContributorCount._(
       cappedCount: cappedCount,
       capExceeded: capExceeded,
@@ -38,13 +40,16 @@ abstract class ComplianceContributorCount
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplianceContributorCountBuilder b) {}
+  static void _init(ComplianceContributorCountBuilder b) {
+    b.cappedCount = 0;
+    b.capExceeded = false;
+  }
 
   /// The number of Amazon Web Services resources or Config rules responsible for the current compliance of the item.
-  int? get cappedCount;
+  int get cappedCount;
 
   /// Indicates whether the maximum count is reached.
-  bool? get capExceeded;
+  bool get capExceeded;
   @override
   List<Object?> get props => [
         cappedCount,
@@ -122,22 +127,18 @@ class ComplianceContributorCountAwsJson11Serializer
   }) {
     final result$ = <Object?>[];
     final ComplianceContributorCount(:cappedCount, :capExceeded) = object;
-    if (cappedCount != null) {
-      result$
-        ..add('CappedCount')
-        ..add(serializers.serialize(
-          cappedCount,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (capExceeded != null) {
-      result$
-        ..add('CapExceeded')
-        ..add(serializers.serialize(
-          capExceeded,
-          specifiedType: const FullType(bool),
-        ));
-    }
+    result$.addAll([
+      'CappedCount',
+      serializers.serialize(
+        cappedCount,
+        specifiedType: const FullType(int),
+      ),
+      'CapExceeded',
+      serializers.serialize(
+        capExceeded,
+        specifiedType: const FullType(bool),
+      ),
+    ]);
     return result$;
   }
 }

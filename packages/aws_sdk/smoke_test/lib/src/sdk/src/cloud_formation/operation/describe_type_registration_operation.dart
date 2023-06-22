@@ -22,9 +22,9 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/describe_type_regis
 
 /// Returns information about an extension's registration, including its current status and type and version identifiers.
 ///
-/// When you initiate a registration request using `RegisterType` , you can then use `DescribeTypeRegistration` to monitor the progress of that registration request.
+/// When you initiate a registration request using RegisterType, you can then use DescribeTypeRegistration to monitor the progress of that registration request.
 ///
-/// Once the registration request has completed, use `DescribeType` to return detailed information about an extension.
+/// Once the registration request has completed, use DescribeType to return detailed information about an extension.
 class DescribeTypeRegistrationOperation extends _i1.HttpOperation<
     _i2.DescribeTypeRegistrationInput,
     _i2.DescribeTypeRegistrationInput,
@@ -32,9 +32,9 @@ class DescribeTypeRegistrationOperation extends _i1.HttpOperation<
     _i3.DescribeTypeRegistrationOutput> {
   /// Returns information about an extension's registration, including its current status and type and version identifiers.
   ///
-  /// When you initiate a registration request using `RegisterType` , you can then use `DescribeTypeRegistration` to monitor the progress of that registration request.
+  /// When you initiate a registration request using RegisterType, you can then use DescribeTypeRegistration to monitor the progress of that registration request.
   ///
-  /// Once the registration request has completed, use `DescribeType` to return detailed information about an extension.
+  /// Once the registration request has completed, use DescribeType to return detailed information about an extension.
   DescribeTypeRegistrationOperation({
     required String region,
     Uri? baseUri,

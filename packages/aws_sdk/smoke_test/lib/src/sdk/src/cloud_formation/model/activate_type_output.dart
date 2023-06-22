@@ -37,7 +37,7 @@ abstract class ActivateTypeOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ActivateTypeOutputBuilder b) {}
 
-  /// The Amazon Resource Name (ARN) of the activated extension, in this account and region.
+  /// The Amazon Resource Name (ARN) of the activated extension, in this account and Region.
   String? get arn;
   @override
   List<Object?> get props => [arn];

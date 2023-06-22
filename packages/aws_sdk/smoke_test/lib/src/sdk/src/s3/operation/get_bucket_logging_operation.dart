@@ -16,7 +16,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_logging_output.dart'
 import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_logging_request.dart'
     as _i2;
 
-/// Returns the logging status of a bucket and the permissions users have to view and modify that status. To use GET, you must be the bucket owner.
+/// Returns the logging status of a bucket and the permissions users have to view and modify that status.
 ///
 /// The following operations are related to `GetBucketLogging`:
 ///
@@ -28,7 +28,7 @@ class GetBucketLoggingOperation extends _i1.HttpOperation<
     _i2.GetBucketLoggingRequest,
     _i3.GetBucketLoggingOutput,
     _i3.GetBucketLoggingOutput> {
-  /// Returns the logging status of a bucket and the permissions users have to view and modify that status. To use GET, you must be the bucket owner.
+  /// Returns the logging status of a bucket and the permissions users have to view and modify that status.
   ///
   /// The following operations are related to `GetBucketLogging`:
   ///

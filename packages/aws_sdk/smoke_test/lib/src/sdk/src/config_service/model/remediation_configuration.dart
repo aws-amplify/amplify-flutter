@@ -38,6 +38,7 @@ abstract class RemediationConfiguration
     String? arn,
     String? createdByService,
   }) {
+    automatic ??= false;
     return _$RemediationConfiguration._(
       configRuleName: configRuleName,
       targetType: targetType,
@@ -66,7 +67,9 @@ abstract class RemediationConfiguration
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemediationConfigurationBuilder b) {}
+  static void _init(RemediationConfigurationBuilder b) {
+    b.automatic = false;
+  }
 
   /// The name of the Config rule.
   String get configRuleName;
@@ -74,7 +77,7 @@ abstract class RemediationConfiguration
   /// The type of the target. Target executes remediation. For example, SSM document.
   _i2.RemediationTargetType get targetType;
 
-  /// Target ID is the name of the public document.
+  /// Target ID is the name of the SSM document.
   String get targetId;
 
   /// Version of the target. For example, version of the SSM document.
@@ -89,7 +92,7 @@ abstract class RemediationConfiguration
   String? get resourceType;
 
   /// The remediation is triggered automatically.
-  bool? get automatic;
+  bool get automatic;
 
   /// An ExecutionControls object.
   _i4.ExecutionControls? get executionControls;
@@ -321,6 +324,11 @@ class RemediationConfigurationAwsJson11Serializer
         targetId,
         specifiedType: const FullType(String),
       ),
+      'Automatic',
+      serializers.serialize(
+        automatic,
+        specifiedType: const FullType(bool),
+      ),
     ]);
     if (targetVersion != null) {
       result$
@@ -350,14 +358,6 @@ class RemediationConfigurationAwsJson11Serializer
         ..add(serializers.serialize(
           resourceType,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (automatic != null) {
-      result$
-        ..add('Automatic')
-        ..add(serializers.serialize(
-          automatic,
-          specifiedType: const FullType(bool),
         ));
     }
     if (executionControls != null) {

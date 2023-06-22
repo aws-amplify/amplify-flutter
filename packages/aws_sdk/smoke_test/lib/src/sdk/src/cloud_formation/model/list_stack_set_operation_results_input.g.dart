@@ -18,6 +18,8 @@ class _$ListStackSetOperationResultsInput
   final int? maxResults;
   @override
   final _i3.CallAs? callAs;
+  @override
+  final _i5.BuiltList<_i4.OperationResultFilter>? filters;
 
   factory _$ListStackSetOperationResultsInput(
           [void Function(ListStackSetOperationResultsInputBuilder)? updates]) =>
@@ -29,7 +31,8 @@ class _$ListStackSetOperationResultsInput
       required this.operationId,
       this.nextToken,
       this.maxResults,
-      this.callAs})
+      this.callAs,
+      this.filters})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         stackSetName, r'ListStackSetOperationResultsInput', 'stackSetName');
@@ -54,7 +57,8 @@ class _$ListStackSetOperationResultsInput
         operationId == other.operationId &&
         nextToken == other.nextToken &&
         maxResults == other.maxResults &&
-        callAs == other.callAs;
+        callAs == other.callAs &&
+        filters == other.filters;
   }
 
   @override
@@ -65,6 +69,7 @@ class _$ListStackSetOperationResultsInput
     _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, maxResults.hashCode);
     _$hash = $jc(_$hash, callAs.hashCode);
+    _$hash = $jc(_$hash, filters.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -96,6 +101,12 @@ class ListStackSetOperationResultsInputBuilder
   _i3.CallAs? get callAs => _$this._callAs;
   set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
 
+  _i5.ListBuilder<_i4.OperationResultFilter>? _filters;
+  _i5.ListBuilder<_i4.OperationResultFilter> get filters =>
+      _$this._filters ??= new _i5.ListBuilder<_i4.OperationResultFilter>();
+  set filters(_i5.ListBuilder<_i4.OperationResultFilter>? filters) =>
+      _$this._filters = filters;
+
   ListStackSetOperationResultsInputBuilder() {
     ListStackSetOperationResultsInput._init(this);
   }
@@ -108,6 +119,7 @@ class ListStackSetOperationResultsInputBuilder
       _nextToken = $v.nextToken;
       _maxResults = $v.maxResults;
       _callAs = $v.callAs;
+      _filters = $v.filters?.toBuilder();
       _$v = null;
     }
     return this;
@@ -129,15 +141,29 @@ class ListStackSetOperationResultsInputBuilder
   ListStackSetOperationResultsInput build() => _build();
 
   _$ListStackSetOperationResultsInput _build() {
-    final _$result = _$v ??
-        new _$ListStackSetOperationResultsInput._(
-            stackSetName: BuiltValueNullFieldError.checkNotNull(stackSetName,
-                r'ListStackSetOperationResultsInput', 'stackSetName'),
-            operationId: BuiltValueNullFieldError.checkNotNull(operationId,
-                r'ListStackSetOperationResultsInput', 'operationId'),
-            nextToken: nextToken,
-            maxResults: maxResults,
-            callAs: callAs);
+    _$ListStackSetOperationResultsInput _$result;
+    try {
+      _$result = _$v ??
+          new _$ListStackSetOperationResultsInput._(
+              stackSetName: BuiltValueNullFieldError.checkNotNull(stackSetName,
+                  r'ListStackSetOperationResultsInput', 'stackSetName'),
+              operationId: BuiltValueNullFieldError.checkNotNull(operationId,
+                  r'ListStackSetOperationResultsInput', 'operationId'),
+              nextToken: nextToken,
+              maxResults: maxResults,
+              callAs: callAs,
+              filters: _filters?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'filters';
+        _filters?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'ListStackSetOperationResultsInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

@@ -10,7 +10,7 @@ class _$ListInstanceProfilesResponse extends ListInstanceProfilesResponse {
   @override
   final _i3.BuiltList<_i2.InstanceProfile> instanceProfiles;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -19,10 +19,12 @@ class _$ListInstanceProfilesResponse extends ListInstanceProfilesResponse {
       (new ListInstanceProfilesResponseBuilder()..update(updates))._build();
 
   _$ListInstanceProfilesResponse._(
-      {required this.instanceProfiles, this.isTruncated, this.marker})
+      {required this.instanceProfiles, required this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         instanceProfiles, r'ListInstanceProfilesResponse', 'instanceProfiles');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListInstanceProfilesResponse', 'isTruncated');
   }
 
   @override
@@ -110,7 +112,8 @@ class ListInstanceProfilesResponseBuilder
       _$result = _$v ??
           new _$ListInstanceProfilesResponse._(
               instanceProfiles: instanceProfiles.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListInstanceProfilesResponse', 'isTruncated'),
               marker: marker);
     } catch (_) {
       late String _$failedField;

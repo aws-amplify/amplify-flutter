@@ -25,6 +25,7 @@ abstract class GetOrganizationConformancePackDetailedStatusRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetOrganizationConformancePackDetailedStatusRequest._(
       organizationConformancePackName: organizationConformancePackName,
       filters: filters,
@@ -52,7 +53,9 @@ abstract class GetOrganizationConformancePackDetailedStatusRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(
-      GetOrganizationConformancePackDetailedStatusRequestBuilder b) {}
+      GetOrganizationConformancePackDetailedStatusRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of organization conformance pack for which you want status details for member accounts.
   String get organizationConformancePackName;
@@ -61,7 +64,7 @@ abstract class GetOrganizationConformancePackDetailedStatusRequest
   _i3.OrganizationResourceDetailedStatusFilters? get filters;
 
   /// The maximum number of `OrganizationConformancePackDetailedStatuses` returned on each page. If you do not specify a number, Config uses the default. The default is 100.
-  int? get limit;
+  int get limit;
 
   /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -178,6 +181,11 @@ class GetOrganizationConformancePackDetailedStatusRequestAwsJson11Serializer
         organizationConformancePackName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
     if (filters != null) {
       result$
@@ -186,14 +194,6 @@ class GetOrganizationConformancePackDetailedStatusRequestAwsJson11Serializer
           filters,
           specifiedType:
               const FullType(_i3.OrganizationResourceDetailedStatusFilters),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

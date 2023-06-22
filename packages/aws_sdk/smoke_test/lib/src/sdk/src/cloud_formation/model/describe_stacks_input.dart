@@ -48,6 +48,12 @@ abstract class DescribeStacksInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeStacksInputBuilder b) {}
 
+  /// If you don't pass a parameter to `StackName`, the API returns a response that describes all resources in the account. This requires `ListStacks` and `DescribeStacks` permissions.
+  ///
+  /// The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and avoid returning a response when no parameter is sent in the request:
+  ///
+  /// { "Version": "2012-10-17", "Statement": \[{ "Effect": "Deny", "Action": "cloudformation:DescribeStacks", "NotResource": "arn:aws:cloudformation:*:*:stack/*/*" }\] }
+  ///
   /// The name or the unique stack ID that's associated with the stack, which aren't always interchangeable:
   ///
   /// *   Running stacks: You can specify either the stack's name or its unique stack ID.

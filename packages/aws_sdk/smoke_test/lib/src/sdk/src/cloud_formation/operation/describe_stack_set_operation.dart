@@ -22,13 +22,13 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_not_found
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_not_found_exception.dart'
     as _i10;
 
-/// Returns the description of the specified stack set operation.
+/// Returns the description of the specified StackSet operation.
 class DescribeStackSetOperation extends _i1.HttpOperation<
     _i2.DescribeStackSetOperationInput,
     _i2.DescribeStackSetOperationInput,
     _i3.DescribeStackSetOperationOutput,
     _i3.DescribeStackSetOperationOutput> {
-  /// Returns the description of the specified stack set operation.
+  /// Returns the description of the specified StackSet operation.
   DescribeStackSetOperation({
     required String region,
     Uri? baseUri,

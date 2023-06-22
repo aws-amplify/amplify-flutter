@@ -11,7 +11,7 @@ class _$ListOpenIdConnectProviderTagsResponse
   @override
   final _i3.BuiltList<_i2.Tag> tags;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -22,10 +22,12 @@ class _$ListOpenIdConnectProviderTagsResponse
           ._build();
 
   _$ListOpenIdConnectProviderTagsResponse._(
-      {required this.tags, this.isTruncated, this.marker})
+      {required this.tags, required this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         tags, r'ListOpenIdConnectProviderTagsResponse', 'tags');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListOpenIdConnectProviderTagsResponse', 'isTruncated');
   }
 
   @override
@@ -112,7 +114,10 @@ class ListOpenIdConnectProviderTagsResponseBuilder
     try {
       _$result = _$v ??
           new _$ListOpenIdConnectProviderTagsResponse._(
-              tags: tags.build(), isTruncated: isTruncated, marker: marker);
+              tags: tags.build(),
+              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
+                  r'ListOpenIdConnectProviderTagsResponse', 'isTruncated'),
+              marker: marker);
     } catch (_) {
       late String _$failedField;
       try {

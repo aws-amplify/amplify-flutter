@@ -24,6 +24,7 @@ abstract class LoginProfile
     required DateTime createDate,
     bool? passwordResetRequired,
   }) {
+    passwordResetRequired ??= false;
     return _$LoginProfile._(
       userName: userName,
       createDate: createDate,
@@ -44,7 +45,9 @@ abstract class LoginProfile
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(LoginProfileBuilder b) {}
+  static void _init(LoginProfileBuilder b) {
+    b.passwordResetRequired = false;
+  }
 
   /// The name of the user, which can be used for signing in to the Amazon Web Services Management Console.
   String get userName;
@@ -53,7 +56,7 @@ abstract class LoginProfile
   DateTime get createDate;
 
   /// Specifies whether the user is required to set a new password on next sign-in.
-  bool? get passwordResetRequired;
+  bool get passwordResetRequired;
   @override
   List<Object?> get props => [
         userName,
@@ -157,14 +160,12 @@ class LoginProfileAwsQuerySerializer
         createDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    if (passwordResetRequired != null) {
-      result$
-        ..add(const _i2.XmlElementName('PasswordResetRequired'))
-        ..add(serializers.serialize(
-          passwordResetRequired,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i2.XmlElementName('PasswordResetRequired'))
+      ..add(serializers.serialize(
+        passwordResetRequired,
+        specifiedType: const FullType(bool),
+      ));
     return result$;
   }
 }

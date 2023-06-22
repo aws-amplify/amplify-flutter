@@ -20,7 +20,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_cors_request.dart'
 ///
 /// For information about `cors`, see [Enabling Cross-Origin Resource Sharing](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html) in the _Amazon S3 User Guide_.
 ///
-/// **Related Resources:**
+/// **Related Resources**
 ///
 /// *   [PutBucketCors](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketCors.html)
 ///
@@ -36,7 +36,7 @@ class DeleteBucketCorsOperation extends _i1.HttpOperation<
   ///
   /// For information about `cors`, see [Enabling Cross-Origin Resource Sharing](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html) in the _Amazon S3 User Guide_.
   ///
-  /// **Related Resources:**
+  /// **Related Resources**
   ///
   /// *   [PutBucketCors](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketCors.html)
   ///

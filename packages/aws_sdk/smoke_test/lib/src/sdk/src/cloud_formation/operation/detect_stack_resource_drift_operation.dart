@@ -18,7 +18,7 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/detect_stack_resour
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/detect_stack_resource_drift_output.dart'
     as _i3;
 
-/// Returns information about whether a resource's actual configuration differs, or has _drifted_, from it's expected configuration, as defined in the stack template and any values specified as template parameters. This information includes actual and expected property values for resources in which CloudFormation detects drift. Only resource properties explicitly defined in the stack template are checked for drift. For more information about stack and resource drift, see [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+/// Returns information about whether a resource's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. This information includes actual and expected property values for resources in which CloudFormation detects drift. Only resource properties explicitly defined in the stack template are checked for drift. For more information about stack and resource drift, see [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
 ///
 /// Use `DetectStackResourceDrift` to detect drift on individual resources, or DetectStackDrift to detect drift on all resources in a given stack that support drift detection.
 ///
@@ -28,7 +28,7 @@ class DetectStackResourceDriftOperation extends _i1.HttpOperation<
     _i2.DetectStackResourceDriftInput,
     _i3.DetectStackResourceDriftOutput,
     _i3.DetectStackResourceDriftOutput> {
-  /// Returns information about whether a resource's actual configuration differs, or has _drifted_, from it's expected configuration, as defined in the stack template and any values specified as template parameters. This information includes actual and expected property values for resources in which CloudFormation detects drift. Only resource properties explicitly defined in the stack template are checked for drift. For more information about stack and resource drift, see [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// Returns information about whether a resource's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. This information includes actual and expected property values for resources in which CloudFormation detects drift. Only resource properties explicitly defined in the stack template are checked for drift. For more information about stack and resource drift, see [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   ///
   /// Use `DetectStackResourceDrift` to detect drift on individual resources, or DetectStackDrift to detect drift on all resources in a given stack that support drift detection.
   ///

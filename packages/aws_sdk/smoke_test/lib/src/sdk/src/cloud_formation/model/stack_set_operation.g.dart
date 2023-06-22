@@ -33,6 +33,8 @@ class _$StackSetOperation extends StackSetOperation {
   final _i6.StackSetDriftDetectionDetails? stackSetDriftDetectionDetails;
   @override
   final String? statusReason;
+  @override
+  final _i7.StackSetOperationStatusDetails? statusDetails;
 
   factory _$StackSetOperation(
           [void Function(StackSetOperationBuilder)? updates]) =>
@@ -51,7 +53,8 @@ class _$StackSetOperation extends StackSetOperation {
       this.endTimestamp,
       this.deploymentTargets,
       this.stackSetDriftDetectionDetails,
-      this.statusReason})
+      this.statusReason,
+      this.statusDetails})
       : super._();
 
   @override
@@ -78,7 +81,8 @@ class _$StackSetOperation extends StackSetOperation {
         endTimestamp == other.endTimestamp &&
         deploymentTargets == other.deploymentTargets &&
         stackSetDriftDetectionDetails == other.stackSetDriftDetectionDetails &&
-        statusReason == other.statusReason;
+        statusReason == other.statusReason &&
+        statusDetails == other.statusDetails;
   }
 
   @override
@@ -97,6 +101,7 @@ class _$StackSetOperation extends StackSetOperation {
     _$hash = $jc(_$hash, deploymentTargets.hashCode);
     _$hash = $jc(_$hash, stackSetDriftDetectionDetails.hashCode);
     _$hash = $jc(_$hash, statusReason.hashCode);
+    _$hash = $jc(_$hash, statusDetails.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -173,6 +178,12 @@ class StackSetOperationBuilder
   String? get statusReason => _$this._statusReason;
   set statusReason(String? statusReason) => _$this._statusReason = statusReason;
 
+  _i7.StackSetOperationStatusDetailsBuilder? _statusDetails;
+  _i7.StackSetOperationStatusDetailsBuilder get statusDetails =>
+      _$this._statusDetails ??= new _i7.StackSetOperationStatusDetailsBuilder();
+  set statusDetails(_i7.StackSetOperationStatusDetailsBuilder? statusDetails) =>
+      _$this._statusDetails = statusDetails;
+
   StackSetOperationBuilder() {
     StackSetOperation._init(this);
   }
@@ -194,6 +205,7 @@ class StackSetOperationBuilder
       _stackSetDriftDetectionDetails =
           $v.stackSetDriftDetectionDetails?.toBuilder();
       _statusReason = $v.statusReason;
+      _statusDetails = $v.statusDetails?.toBuilder();
       _$v = null;
     }
     return this;
@@ -231,7 +243,8 @@ class StackSetOperationBuilder
               deploymentTargets: _deploymentTargets?.build(),
               stackSetDriftDetectionDetails:
                   _stackSetDriftDetectionDetails?.build(),
-              statusReason: statusReason);
+              statusReason: statusReason,
+              statusDetails: _statusDetails?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -242,6 +255,9 @@ class StackSetOperationBuilder
         _deploymentTargets?.build();
         _$failedField = 'stackSetDriftDetectionDetails';
         _stackSetDriftDetectionDetails?.build();
+
+        _$failedField = 'statusDetails';
+        _statusDetails?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'StackSetOperation', _$failedField, e.toString());

@@ -15,14 +15,14 @@ import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_
 
 part 'organization_custom_rule_metadata.g.dart';
 
-/// An object that specifies organization custom rule metadata such as resource type, resource ID of Amazon Web Services resource, Lambda function ARN, and organization trigger types that trigger Config to evaluate your Amazon Web Services resources against a rule. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
+/// organization custom rule metadata such as resource type, resource ID of Amazon Web Services resource, Lambda function ARN, and organization trigger types that trigger Config to evaluate your Amazon Web Services resources against a rule. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
 abstract class OrganizationCustomRuleMetadata
     with
         _i1.AWSEquatable<OrganizationCustomRuleMetadata>
     implements
         Built<OrganizationCustomRuleMetadata,
             OrganizationCustomRuleMetadataBuilder> {
-  /// An object that specifies organization custom rule metadata such as resource type, resource ID of Amazon Web Services resource, Lambda function ARN, and organization trigger types that trigger Config to evaluate your Amazon Web Services resources against a rule. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
+  /// organization custom rule metadata such as resource type, resource ID of Amazon Web Services resource, Lambda function ARN, and organization trigger types that trigger Config to evaluate your Amazon Web Services resources against a rule. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
   factory OrganizationCustomRuleMetadata({
     String? description,
     required String lambdaFunctionArn,
@@ -50,7 +50,7 @@ abstract class OrganizationCustomRuleMetadata
     );
   }
 
-  /// An object that specifies organization custom rule metadata such as resource type, resource ID of Amazon Web Services resource, Lambda function ARN, and organization trigger types that trigger Config to evaluate your Amazon Web Services resources against a rule. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
+  /// organization custom rule metadata such as resource type, resource ID of Amazon Web Services resource, Lambda function ARN, and organization trigger types that trigger Config to evaluate your Amazon Web Services resources against a rule. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
   factory OrganizationCustomRuleMetadata.build(
           [void Function(OrganizationCustomRuleMetadataBuilder) updates]) =
       _$OrganizationCustomRuleMetadata;

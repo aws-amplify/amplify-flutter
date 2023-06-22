@@ -28,7 +28,7 @@ class _$UploadPartRequest extends UploadPartRequest {
   @override
   final String key;
   @override
-  final int partNumber;
+  final int? partNumber;
   @override
   final String uploadId;
   @override
@@ -57,7 +57,7 @@ class _$UploadPartRequest extends UploadPartRequest {
       this.checksumSha1,
       this.checksumSha256,
       required this.key,
-      required this.partNumber,
+      this.partNumber,
       required this.uploadId,
       this.sseCustomerAlgorithm,
       this.sseCustomerKey,
@@ -68,8 +68,6 @@ class _$UploadPartRequest extends UploadPartRequest {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'UploadPartRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(key, r'UploadPartRequest', 'key');
-    BuiltValueNullFieldError.checkNotNull(
-        partNumber, r'UploadPartRequest', 'partNumber');
     BuiltValueNullFieldError.checkNotNull(
         uploadId, r'UploadPartRequest', 'uploadId');
   }
@@ -270,8 +268,7 @@ class UploadPartRequestBuilder
             checksumSha256: checksumSha256,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'UploadPartRequest', 'key'),
-            partNumber: BuiltValueNullFieldError.checkNotNull(
-                partNumber, r'UploadPartRequest', 'partNumber'),
+            partNumber: partNumber,
             uploadId: BuiltValueNullFieldError.checkNotNull(
                 uploadId, r'UploadPartRequest', 'uploadId'),
             sseCustomerAlgorithm: sseCustomerAlgorithm,

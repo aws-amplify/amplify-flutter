@@ -12,11 +12,17 @@ part 'limit_exceeded_exception.g.dart';
 
 /// There is no limit to the number of daily on-demand backups that can be taken.
 ///
-/// Up to 500 simultaneous table operations are allowed per account. These operations include `CreateTable`, `UpdateTable`, `DeleteTable`,`UpdateTimeToLive`, `RestoreTableFromBackup`, and `RestoreTableToPointInTime`.
+/// For most purposes, up to 500 simultaneous table operations are allowed per account. These operations include `CreateTable`, `UpdateTable`, `DeleteTable`,`UpdateTimeToLive`, `RestoreTableFromBackup`, and `RestoreTableToPointInTime`.
 ///
-/// The only exception is when you are creating a table with one or more secondary indexes. You can have up to 250 such requests running at a time; however, if the table or index specifications are complex, DynamoDB might temporarily reduce the number of concurrent operations.
+/// When you are creating a table with one or more secondary indexes, you can have up to 250 such requests running at a time. However, if the table or index specifications are complex, then DynamoDB might temporarily reduce the number of concurrent operations.
+///
+/// When importing into DynamoDB, up to 50 simultaneous import table operations are allowed per account.
 ///
 /// There is a soft account quota of 2,500 tables.
+///
+/// GetRecords was called with a value of more than 1000 for the limit request parameter.
+///
+/// More than 2 processes are reading from the same streams shard at the same time. Exceeding this limit may result in request throttling.
 abstract class LimitExceededException
     with _i1.AWSEquatable<LimitExceededException>
     implements
@@ -24,22 +30,34 @@ abstract class LimitExceededException
         _i2.SmithyHttpException {
   /// There is no limit to the number of daily on-demand backups that can be taken.
   ///
-  /// Up to 500 simultaneous table operations are allowed per account. These operations include `CreateTable`, `UpdateTable`, `DeleteTable`,`UpdateTimeToLive`, `RestoreTableFromBackup`, and `RestoreTableToPointInTime`.
+  /// For most purposes, up to 500 simultaneous table operations are allowed per account. These operations include `CreateTable`, `UpdateTable`, `DeleteTable`,`UpdateTimeToLive`, `RestoreTableFromBackup`, and `RestoreTableToPointInTime`.
   ///
-  /// The only exception is when you are creating a table with one or more secondary indexes. You can have up to 250 such requests running at a time; however, if the table or index specifications are complex, DynamoDB might temporarily reduce the number of concurrent operations.
+  /// When you are creating a table with one or more secondary indexes, you can have up to 250 such requests running at a time. However, if the table or index specifications are complex, then DynamoDB might temporarily reduce the number of concurrent operations.
+  ///
+  /// When importing into DynamoDB, up to 50 simultaneous import table operations are allowed per account.
   ///
   /// There is a soft account quota of 2,500 tables.
+  ///
+  /// GetRecords was called with a value of more than 1000 for the limit request parameter.
+  ///
+  /// More than 2 processes are reading from the same streams shard at the same time. Exceeding this limit may result in request throttling.
   factory LimitExceededException({String? message}) {
     return _$LimitExceededException._(message: message);
   }
 
   /// There is no limit to the number of daily on-demand backups that can be taken.
   ///
-  /// Up to 500 simultaneous table operations are allowed per account. These operations include `CreateTable`, `UpdateTable`, `DeleteTable`,`UpdateTimeToLive`, `RestoreTableFromBackup`, and `RestoreTableToPointInTime`.
+  /// For most purposes, up to 500 simultaneous table operations are allowed per account. These operations include `CreateTable`, `UpdateTable`, `DeleteTable`,`UpdateTimeToLive`, `RestoreTableFromBackup`, and `RestoreTableToPointInTime`.
   ///
-  /// The only exception is when you are creating a table with one or more secondary indexes. You can have up to 250 such requests running at a time; however, if the table or index specifications are complex, DynamoDB might temporarily reduce the number of concurrent operations.
+  /// When you are creating a table with one or more secondary indexes, you can have up to 250 such requests running at a time. However, if the table or index specifications are complex, then DynamoDB might temporarily reduce the number of concurrent operations.
+  ///
+  /// When importing into DynamoDB, up to 50 simultaneous import table operations are allowed per account.
   ///
   /// There is a soft account quota of 2,500 tables.
+  ///
+  /// GetRecords was called with a value of more than 1000 for the limit request parameter.
+  ///
+  /// More than 2 processes are reading from the same streams shard at the same time. Exceeding this limit may result in request throttling.
   factory LimitExceededException.build(
           [void Function(LimitExceededExceptionBuilder) updates]) =
       _$LimitExceededException;

@@ -10,7 +10,7 @@ class _$ListMfaDeviceTagsResponse extends ListMfaDeviceTagsResponse {
   @override
   final _i3.BuiltList<_i2.Tag> tags;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -19,10 +19,12 @@ class _$ListMfaDeviceTagsResponse extends ListMfaDeviceTagsResponse {
       (new ListMfaDeviceTagsResponseBuilder()..update(updates))._build();
 
   _$ListMfaDeviceTagsResponse._(
-      {required this.tags, this.isTruncated, this.marker})
+      {required this.tags, required this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         tags, r'ListMfaDeviceTagsResponse', 'tags');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListMfaDeviceTagsResponse', 'isTruncated');
   }
 
   @override
@@ -106,7 +108,10 @@ class ListMfaDeviceTagsResponseBuilder
     try {
       _$result = _$v ??
           new _$ListMfaDeviceTagsResponse._(
-              tags: tags.build(), isTruncated: isTruncated, marker: marker);
+              tags: tags.build(),
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListMfaDeviceTagsResponse', 'isTruncated'),
+              marker: marker);
     } catch (_) {
       late String _$failedField;
       try {

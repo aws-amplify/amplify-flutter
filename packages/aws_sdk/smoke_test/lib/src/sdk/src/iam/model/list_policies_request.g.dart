@@ -10,7 +10,7 @@ class _$ListPoliciesRequest extends ListPoliciesRequest {
   @override
   final _i3.PolicyScopeType? scope;
   @override
-  final bool? onlyAttached;
+  final bool onlyAttached;
   @override
   final String? pathPrefix;
   @override
@@ -26,12 +26,15 @@ class _$ListPoliciesRequest extends ListPoliciesRequest {
 
   _$ListPoliciesRequest._(
       {this.scope,
-      this.onlyAttached,
+      required this.onlyAttached,
       this.pathPrefix,
       this.policyUsageFilter,
       this.marker,
       this.maxItems})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        onlyAttached, r'ListPoliciesRequest', 'onlyAttached');
+  }
 
   @override
   ListPoliciesRequest rebuild(
@@ -133,7 +136,8 @@ class ListPoliciesRequestBuilder
     final _$result = _$v ??
         new _$ListPoliciesRequest._(
             scope: scope,
-            onlyAttached: onlyAttached,
+            onlyAttached: BuiltValueNullFieldError.checkNotNull(
+                onlyAttached, r'ListPoliciesRequest', 'onlyAttached'),
             pathPrefix: pathPrefix,
             policyUsageFilter: policyUsageFilter,
             marker: marker,

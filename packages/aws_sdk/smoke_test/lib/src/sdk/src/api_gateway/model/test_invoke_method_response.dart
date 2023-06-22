@@ -26,6 +26,8 @@ abstract class TestInvokeMethodResponse
     String? log,
     _i2.Int64? latency,
   }) {
+    status ??= 0;
+    latency ??= _i2.Int64.ZERO;
     return _$TestInvokeMethodResponse._(
       status: status,
       body: body,
@@ -57,10 +59,13 @@ abstract class TestInvokeMethodResponse
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestInvokeMethodResponseBuilder b) {}
+  static void _init(TestInvokeMethodResponseBuilder b) {
+    b.status = 0;
+    b.latency = _i2.Int64.ZERO;
+  }
 
   /// The HTTP status code.
-  int? get status;
+  int get status;
 
   /// The body of the HTTP response.
   String? get body;
@@ -75,7 +80,7 @@ abstract class TestInvokeMethodResponse
   String? get log;
 
   /// The execution latency of the test invoke request.
-  _i2.Int64? get latency;
+  _i2.Int64 get latency;
   @override
   List<Object?> get props => [
         status,
@@ -212,6 +217,18 @@ class TestInvokeMethodResponseRestJson1Serializer
       :multiValueHeaders,
       :status
     ) = object;
+    result$.addAll([
+      'latency',
+      serializers.serialize(
+        latency,
+        specifiedType: const FullType(_i2.Int64),
+      ),
+      'status',
+      serializers.serialize(
+        status,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (body != null) {
       result$
         ..add('body')
@@ -234,14 +251,6 @@ class TestInvokeMethodResponseRestJson1Serializer
           ),
         ));
     }
-    if (latency != null) {
-      result$
-        ..add('latency')
-        ..add(serializers.serialize(
-          latency,
-          specifiedType: const FullType(_i2.Int64),
-        ));
-    }
     if (log != null) {
       result$
         ..add('log')
@@ -262,14 +271,6 @@ class TestInvokeMethodResponseRestJson1Serializer
               FullType(String),
             ],
           ),
-        ));
-    }
-    if (status != null) {
-      result$
-        ..add('status')
-        ..add(serializers.serialize(
-          status,
-          specifiedType: const FullType(int),
         ));
     }
     return result$;

@@ -21,7 +21,7 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_imports_output
 
 /// Lists all stacks that are importing an exported output value. To modify or remove an exported output value, first use this action to see which stacks are using it. To see the exported output values in your account, see ListExports.
 ///
-/// For more information about importing an exported output value, see the [`Fn::ImportValue`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html) function.
+/// For more information about importing an exported output value, see the [Fn::ImportValue](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html) function.
 class ListImportsOperation extends _i1.PaginatedHttpOperation<
     _i2.ListImportsInput,
     _i2.ListImportsInput,
@@ -32,7 +32,7 @@ class ListImportsOperation extends _i1.PaginatedHttpOperation<
     _i4.BuiltList<String>> {
   /// Lists all stacks that are importing an exported output value. To modify or remove an exported output value, first use this action to see which stacks are using it. To see the exported output values in your account, see ListExports.
   ///
-  /// For more information about importing an exported output value, see the [`Fn::ImportValue`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html) function.
+  /// For more information about importing an exported output value, see the [Fn::ImportValue](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html) function.
   ListImportsOperation({
     required String region,
     Uri? baseUri,

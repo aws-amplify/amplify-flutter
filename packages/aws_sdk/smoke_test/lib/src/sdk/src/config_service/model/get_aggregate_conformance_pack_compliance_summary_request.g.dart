@@ -15,7 +15,7 @@ class _$GetAggregateConformancePackComplianceSummaryRequest
   @override
   final _i4.AggregateConformancePackComplianceSummaryGroupKey? groupByKey;
   @override
-  final int? limit;
+  final int limit;
   @override
   final String? nextToken;
 
@@ -31,13 +31,15 @@ class _$GetAggregateConformancePackComplianceSummaryRequest
       {required this.configurationAggregatorName,
       this.filters,
       this.groupByKey,
-      this.limit,
+      required this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         configurationAggregatorName,
         r'GetAggregateConformancePackComplianceSummaryRequest',
         'configurationAggregatorName');
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'GetAggregateConformancePackComplianceSummaryRequest', 'limit');
   }
 
   @override
@@ -157,7 +159,10 @@ class GetAggregateConformancePackComplianceSummaryRequestBuilder
                       'configurationAggregatorName'),
               filters: _filters?.build(),
               groupByKey: groupByKey,
-              limit: limit,
+              limit: BuiltValueNullFieldError.checkNotNull(
+                  limit,
+                  r'GetAggregateConformancePackComplianceSummaryRequest',
+                  'limit'),
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

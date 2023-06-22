@@ -26,10 +26,10 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/limit_exceeded_exce
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/token_already_exists_exception.dart'
     as _i12;
 
-/// Creates a stack as specified in the template. After the call completes successfully, the stack creation starts. You can check the status of the stack through the DescribeStacksoperation.
+/// Creates a stack as specified in the template. After the call completes successfully, the stack creation starts. You can check the status of the stack through the DescribeStacks operation.
 class CreateStackOperation extends _i1.HttpOperation<_i2.CreateStackInput,
     _i2.CreateStackInput, _i3.CreateStackOutput, _i3.CreateStackOutput> {
-  /// Creates a stack as specified in the template. After the call completes successfully, the stack creation starts. You can check the status of the stack through the DescribeStacksoperation.
+  /// Creates a stack as specified in the template. After the call completes successfully, the stack creation starts. You can check the status of the stack through the DescribeStacks operation.
   CreateStackOperation({
     required String region,
     Uri? baseUri,
