@@ -899,7 +899,7 @@ void main() {
               accessLevel: testUploadDataOptions.accessLevel!,
             )}$testKey',
           );
-          partNumbers.add(request.partNumber);
+          partNumbers.add(request.partNumber!);
           bytes.add(
             await request.body!.toList().then(
                   (collectedBytes) =>

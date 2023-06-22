@@ -184,7 +184,7 @@ abstract class GetObjectRequest
   ///
   /// When using an Object Lambda access point the hostname takes the form _AccessPointName_-_AccountId_.s3-object-lambda._Region_.amazonaws.com.
   ///
-  /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
   /// Return the object only if its entity tag (ETag) is the same as the one specified; otherwise, return a 412 (precondition failed) error.
@@ -202,7 +202,7 @@ abstract class GetObjectRequest
   /// Key of the object to get.
   String get key;
 
-  /// Downloads the specified range bytes of an object. For more information about the HTTP Range header, see [https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35).
+  /// Downloads the specified range bytes of an object. For more information about the HTTP Range header, see [https://www.rfc-editor.org/rfc/rfc9110.html#name-range](https://www.rfc-editor.org/rfc/rfc9110.html#name-range).
   ///
   /// Amazon S3 doesn't support retrieving multiple ranges of data per `GET` request.
   String? get range;

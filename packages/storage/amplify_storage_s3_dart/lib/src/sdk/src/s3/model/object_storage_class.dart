@@ -60,14 +60,20 @@ class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
     'REDUCED_REDUNDANCY',
   );
 
-  static const standard = ObjectStorageClass._(
+  static const snow = ObjectStorageClass._(
     7,
+    'SNOW',
+    'SNOW',
+  );
+
+  static const standard = ObjectStorageClass._(
+    8,
     'STANDARD',
     'STANDARD',
   );
 
   static const standardIa = ObjectStorageClass._(
-    8,
+    9,
     'STANDARD_IA',
     'STANDARD_IA',
   );
@@ -81,6 +87,7 @@ class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
     ObjectStorageClass.onezoneIa,
     ObjectStorageClass.outposts,
     ObjectStorageClass.reducedRedundancy,
+    ObjectStorageClass.snow,
     ObjectStorageClass.standard,
     ObjectStorageClass.standardIa,
   ];
