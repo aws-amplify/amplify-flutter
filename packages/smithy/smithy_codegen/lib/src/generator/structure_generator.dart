@@ -584,7 +584,9 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         (f) => f
           ..static = true
           ..modifier = FieldModifier.constant
-          ..type = DartTypes.core.list(DartTypes.smithy.smithySerializer())
+          ..type = DartTypes.core.list(
+            DartTypes.smithy.smithySerializer(payloadSymbol),
+          )
           ..name = 'serializers'
           ..assignment = literalList(
             serializerClasses.map((name) => refer(name).newInstance([])),
@@ -920,12 +922,8 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
   Method _toString({required bool isPayload}) {
     final builder = BlockBuilder();
     final helper = refer('helper');
-    builder.addExpression(
-      declareFinal('helper').assign(
-        DartTypes.builtValue.newBuiltValueToStringHelper
-            .call([literalString(isPayload ? payloadClassName! : className)]),
-      ),
-    );
+    var helperExpression = DartTypes.builtValue.newBuiltValueToStringHelper
+        .call([literalString(isPayload ? payloadClassName! : className)]);
     final members = isPayload ? payloadMembers : this.members;
     for (final member in members) {
       final dartName = member.dartName(ShapeType.structure);
@@ -934,14 +932,16 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
           context.shapeFor(member.target).hasTrait<SensitiveTrait>();
       final stringValue =
           isSensitive ? literalString('***SENSITIVE***') : refer(dartName);
-      builder.addExpression(
-        helper.property('add').call([
-          literalString(dartName),
-          stringValue,
-        ]),
-      );
+      helperExpression = helperExpression.cascade('add').call([
+        literalString(dartName),
+        stringValue,
+      ]);
     }
-    builder.addExpression(helper.property('toString').call([]).returned);
+    builder
+      ..addExpression(
+        declareFinal('helper').assign(helperExpression),
+      )
+      ..addExpression(helper.property('toString').call([]).returned);
     return Method(
       (m) => m
         ..annotations.add(DartTypes.core.override)
