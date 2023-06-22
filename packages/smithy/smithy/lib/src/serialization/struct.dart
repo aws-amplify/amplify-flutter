@@ -4,7 +4,7 @@
 import 'package:built_value/serializer.dart';
 import 'package:smithy/ast.dart';
 
-abstract class SmithySerializer<T> implements Serializer<T> {
+abstract class SmithySerializer<T extends Object?> implements Serializer<T> {
   const SmithySerializer(this.wireName);
 
   /// The protocols for which this serializer is valid.
@@ -17,8 +17,8 @@ abstract class SmithySerializer<T> implements Serializer<T> {
   final String wireName;
 }
 
-abstract class StructuredSmithySerializer<T> extends SmithySerializer<T>
-    implements StructuredSerializer<T> {
+abstract class StructuredSmithySerializer<T extends Object?>
+    extends SmithySerializer<T> implements StructuredSerializer<T> {
   const StructuredSmithySerializer(super.wireName);
 
   @override
@@ -39,8 +39,8 @@ abstract class StructuredSmithySerializer<T> extends SmithySerializer<T>
   Iterable<Type> get types;
 }
 
-abstract class PrimitiveSmithySerializer<T> extends SmithySerializer<T>
-    implements PrimitiveSerializer<T> {
+abstract class PrimitiveSmithySerializer<T extends Object?>
+    extends SmithySerializer<T> implements PrimitiveSerializer<T> {
   const PrimitiveSmithySerializer(super.wireName);
 
   @override
