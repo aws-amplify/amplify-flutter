@@ -32,9 +32,8 @@ abstract class NoInputAndOutputOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    NoInputAndOutputOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<NoInputAndOutputOutput>> serializers =
+      [NoInputAndOutputOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NoInputAndOutputOutputBuilder b) {}

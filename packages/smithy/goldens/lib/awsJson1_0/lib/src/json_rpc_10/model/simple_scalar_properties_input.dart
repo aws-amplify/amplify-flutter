@@ -39,9 +39,8 @@ abstract class SimpleScalarPropertiesInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    SimpleScalarPropertiesInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<SimpleScalarPropertiesInput>>
+      serializers = [SimpleScalarPropertiesInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SimpleScalarPropertiesInputBuilder b) {}
@@ -56,15 +55,15 @@ abstract class SimpleScalarPropertiesInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SimpleScalarPropertiesInput');
-    helper.add(
-      'floatValue',
-      floatValue,
-    );
-    helper.add(
-      'doubleValue',
-      doubleValue,
-    );
+    final helper = newBuiltValueToStringHelper('SimpleScalarPropertiesInput')
+      ..add(
+        'floatValue',
+        floatValue,
+      )
+      ..add(
+        'doubleValue',
+        doubleValue,
+      );
     return helper.toString();
   }
 }

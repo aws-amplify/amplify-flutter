@@ -73,7 +73,7 @@ abstract class JsonListsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<JsonListsInputOutput>> serializers = [
     JsonListsInputOutputRestJson1Serializer()
   ];
 
@@ -108,47 +108,47 @@ abstract class JsonListsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonListsInputOutput');
-    helper.add(
-      'stringList',
-      stringList,
-    );
-    helper.add(
-      'sparseStringList',
-      sparseStringList,
-    );
-    helper.add(
-      'stringSet',
-      stringSet,
-    );
-    helper.add(
-      'integerList',
-      integerList,
-    );
-    helper.add(
-      'booleanList',
-      booleanList,
-    );
-    helper.add(
-      'timestampList',
-      timestampList,
-    );
-    helper.add(
-      'enumList',
-      enumList,
-    );
-    helper.add(
-      'intEnumList',
-      intEnumList,
-    );
-    helper.add(
-      'nestedStringList',
-      nestedStringList,
-    );
-    helper.add(
-      'structureList',
-      structureList,
-    );
+    final helper = newBuiltValueToStringHelper('JsonListsInputOutput')
+      ..add(
+        'stringList',
+        stringList,
+      )
+      ..add(
+        'sparseStringList',
+        sparseStringList,
+      )
+      ..add(
+        'stringSet',
+        stringSet,
+      )
+      ..add(
+        'integerList',
+        integerList,
+      )
+      ..add(
+        'booleanList',
+        booleanList,
+      )
+      ..add(
+        'timestampList',
+        timestampList,
+      )
+      ..add(
+        'enumList',
+        enumList,
+      )
+      ..add(
+        'intEnumList',
+        intEnumList,
+      )
+      ..add(
+        'nestedStringList',
+        nestedStringList,
+      )
+      ..add(
+        'structureList',
+        structureList,
+      );
     return helper.toString();
   }
 }

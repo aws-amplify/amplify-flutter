@@ -49,9 +49,8 @@ abstract class GetObjectOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetObjectOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<_i3.Stream<List<int>>?>> serializers =
+      [GetObjectOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectOutputBuilder b) {}
@@ -68,19 +67,19 @@ abstract class GetObjectOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectOutput');
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'contentLength',
-      contentLength,
-    );
-    helper.add(
-      'contentRange',
-      contentRange,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectOutput')
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'contentLength',
+        contentLength,
+      )
+      ..add(
+        'contentRange',
+        contentRange,
+      );
     return helper.toString();
   }
 }

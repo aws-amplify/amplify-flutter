@@ -38,7 +38,7 @@ abstract class PredictInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<PredictInput>> serializers = [
     PredictInputAwsJson11Serializer()
   ];
 
@@ -57,19 +57,19 @@ abstract class PredictInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PredictInput');
-    helper.add(
-      'mlModelId',
-      mlModelId,
-    );
-    helper.add(
-      'record',
-      record,
-    );
-    helper.add(
-      'predictEndpoint',
-      predictEndpoint,
-    );
+    final helper = newBuiltValueToStringHelper('PredictInput')
+      ..add(
+        'mlModelId',
+        mlModelId,
+      )
+      ..add(
+        'record',
+        record,
+      )
+      ..add(
+        'predictEndpoint',
+        predictEndpoint,
+      );
     return helper.toString();
   }
 }

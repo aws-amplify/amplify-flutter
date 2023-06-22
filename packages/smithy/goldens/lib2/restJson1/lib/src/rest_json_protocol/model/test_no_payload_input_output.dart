@@ -51,9 +51,8 @@ abstract class TestNoPayloadInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TestNoPayloadInputOutputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<TestNoPayloadInputOutputPayload>>
+      serializers = [TestNoPayloadInputOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestNoPayloadInputOutputBuilder b) {}
@@ -65,11 +64,11 @@ abstract class TestNoPayloadInputOutput
   List<Object?> get props => [testId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestNoPayloadInputOutput');
-    helper.add(
-      'testId',
-      testId,
-    );
+    final helper = newBuiltValueToStringHelper('TestNoPayloadInputOutput')
+      ..add(
+        'testId',
+        testId,
+      );
     return helper.toString();
   }
 }

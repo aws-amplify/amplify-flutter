@@ -33,7 +33,7 @@ abstract class NestedStructuresInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<NestedStructuresInput>> serializers = [
     NestedStructuresInputAwsQuerySerializer()
   ];
 
@@ -46,11 +46,11 @@ abstract class NestedStructuresInput
   List<Object?> get props => [nested];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NestedStructuresInput');
-    helper.add(
-      'nested',
-      nested,
-    );
+    final helper = newBuiltValueToStringHelper('NestedStructuresInput')
+      ..add(
+        'nested',
+        nested,
+      );
     return helper.toString();
   }
 }

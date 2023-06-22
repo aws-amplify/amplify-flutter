@@ -33,9 +33,8 @@ abstract class IgnoresWrappingXmlNameOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    IgnoresWrappingXmlNameOutputAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<IgnoresWrappingXmlNameOutput>>
+      serializers = [IgnoresWrappingXmlNameOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(IgnoresWrappingXmlNameOutputBuilder b) {}
@@ -44,11 +43,11 @@ abstract class IgnoresWrappingXmlNameOutput
   List<Object?> get props => [foo];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('IgnoresWrappingXmlNameOutput');
-    helper.add(
-      'foo',
-      foo,
-    );
+    final helper = newBuiltValueToStringHelper('IgnoresWrappingXmlNameOutput')
+      ..add(
+        'foo',
+        foo,
+      );
     return helper.toString();
   }
 }

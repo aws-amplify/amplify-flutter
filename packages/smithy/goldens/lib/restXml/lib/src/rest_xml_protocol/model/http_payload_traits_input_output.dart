@@ -60,7 +60,7 @@ abstract class HttpPayloadTraitsInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List?>> serializers = [
     HttpPayloadTraitsInputOutputRestXmlSerializer()
   ];
 
@@ -77,15 +77,15 @@ abstract class HttpPayloadTraitsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HttpPayloadTraitsInputOutput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'blob',
-      blob,
-    );
+    final helper = newBuiltValueToStringHelper('HttpPayloadTraitsInputOutput')
+      ..add(
+        'foo',
+        foo,
+      )
+      ..add(
+        'blob',
+        blob,
+      );
     return helper.toString();
   }
 }

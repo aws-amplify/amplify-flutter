@@ -32,7 +32,7 @@ abstract class RetryConfig
 
   const RetryConfig._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<RetryConfig>> serializers = [
     RetryConfigRestXmlSerializer()
   ];
 
@@ -49,15 +49,15 @@ abstract class RetryConfig
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RetryConfig');
-    helper.add(
-      'mode',
-      mode,
-    );
-    helper.add(
-      'maxAttempts',
-      maxAttempts,
-    );
+    final helper = newBuiltValueToStringHelper('RetryConfig')
+      ..add(
+        'mode',
+        mode,
+      )
+      ..add(
+        'maxAttempts',
+        maxAttempts,
+      );
     return helper.toString();
   }
 }

@@ -34,9 +34,8 @@ abstract class RecursiveXmlShapesOutputNested1
 
   const RecursiveXmlShapesOutputNested1._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    RecursiveXmlShapesOutputNested1AwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<RecursiveXmlShapesOutputNested1>>
+      serializers = [RecursiveXmlShapesOutputNested1AwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RecursiveXmlShapesOutputNested1Builder b) {}
@@ -50,15 +49,15 @@ abstract class RecursiveXmlShapesOutputNested1
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('RecursiveXmlShapesOutputNested1');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'nested',
-      nested,
-    );
+        newBuiltValueToStringHelper('RecursiveXmlShapesOutputNested1')
+          ..add(
+            'foo',
+            foo,
+          )
+          ..add(
+            'nested',
+            nested,
+          );
     return helper.toString();
   }
 }

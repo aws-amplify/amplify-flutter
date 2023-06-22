@@ -25,7 +25,7 @@ abstract class NestedStructWithMap
 
   const NestedStructWithMap._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<NestedStructWithMap>> serializers = [
     NestedStructWithMapAwsQuerySerializer()
   ];
 
@@ -36,11 +36,11 @@ abstract class NestedStructWithMap
   List<Object?> get props => [mapArg];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NestedStructWithMap');
-    helper.add(
-      'mapArg',
-      mapArg,
-    );
+    final helper = newBuiltValueToStringHelper('NestedStructWithMap')
+      ..add(
+        'mapArg',
+        mapArg,
+      );
     return helper.toString();
   }
 }

@@ -52,9 +52,8 @@ abstract class HttpPayloadWithXmlNameInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HttpPayloadWithXmlNameInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.PayloadWithXmlName?>> serializers =
+      [HttpPayloadWithXmlNameInputOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpPayloadWithXmlNameInputOutputBuilder b) {}
@@ -66,11 +65,11 @@ abstract class HttpPayloadWithXmlNameInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('HttpPayloadWithXmlNameInputOutput');
-    helper.add(
-      'nested',
-      nested,
-    );
+        newBuiltValueToStringHelper('HttpPayloadWithXmlNameInputOutput')
+          ..add(
+            'nested',
+            nested,
+          );
     return helper.toString();
   }
 }

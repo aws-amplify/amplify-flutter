@@ -41,9 +41,9 @@ abstract class MalformedLengthQueryStringInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedLengthQueryStringInputRestJson1Serializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<MalformedLengthQueryStringInputPayload>>
+      serializers = [MalformedLengthQueryStringInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedLengthQueryStringInputBuilder b) {}
@@ -56,11 +56,11 @@ abstract class MalformedLengthQueryStringInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('MalformedLengthQueryStringInput');
-    helper.add(
-      'string',
-      string,
-    );
+        newBuiltValueToStringHelper('MalformedLengthQueryStringInput')
+          ..add(
+            'string',
+            string,
+          );
     return helper.toString();
   }
 }

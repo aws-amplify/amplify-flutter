@@ -34,7 +34,8 @@ abstract class OperationWithOptionalInputOutputInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<OperationWithOptionalInputOutputInput>>
+      serializers = [
     OperationWithOptionalInputOutputInputAwsJson11Serializer()
   ];
 
@@ -48,11 +49,11 @@ abstract class OperationWithOptionalInputOutputInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OperationWithOptionalInputOutputInput');
-    helper.add(
-      'value',
-      value,
-    );
+        newBuiltValueToStringHelper('OperationWithOptionalInputOutputInput')
+          ..add(
+            'value',
+            value,
+          );
     return helper.toString();
   }
 }

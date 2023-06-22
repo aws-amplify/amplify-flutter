@@ -92,9 +92,9 @@ abstract class SimpleScalarPropertiesInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    SimpleScalarPropertiesInputOutputRestXmlSerializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<SimpleScalarPropertiesInputOutputPayload>>
+      serializers = [SimpleScalarPropertiesInputOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SimpleScalarPropertiesInputOutputBuilder b) {}
@@ -137,47 +137,47 @@ abstract class SimpleScalarPropertiesInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('SimpleScalarPropertiesInputOutput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'stringValue',
-      stringValue,
-    );
-    helper.add(
-      'trueBooleanValue',
-      trueBooleanValue,
-    );
-    helper.add(
-      'falseBooleanValue',
-      falseBooleanValue,
-    );
-    helper.add(
-      'byteValue',
-      byteValue,
-    );
-    helper.add(
-      'shortValue',
-      shortValue,
-    );
-    helper.add(
-      'integerValue',
-      integerValue,
-    );
-    helper.add(
-      'longValue',
-      longValue,
-    );
-    helper.add(
-      'floatValue',
-      floatValue,
-    );
-    helper.add(
-      'doubleValue',
-      doubleValue,
-    );
+        newBuiltValueToStringHelper('SimpleScalarPropertiesInputOutput')
+          ..add(
+            'foo',
+            foo,
+          )
+          ..add(
+            'stringValue',
+            stringValue,
+          )
+          ..add(
+            'trueBooleanValue',
+            trueBooleanValue,
+          )
+          ..add(
+            'falseBooleanValue',
+            falseBooleanValue,
+          )
+          ..add(
+            'byteValue',
+            byteValue,
+          )
+          ..add(
+            'shortValue',
+            shortValue,
+          )
+          ..add(
+            'integerValue',
+            integerValue,
+          )
+          ..add(
+            'longValue',
+            longValue,
+          )
+          ..add(
+            'floatValue',
+            floatValue,
+          )
+          ..add(
+            'doubleValue',
+            doubleValue,
+          );
     return helper.toString();
   }
 }
@@ -221,43 +221,43 @@ abstract class SimpleScalarPropertiesInputOutputPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('SimpleScalarPropertiesInputOutputPayload');
-    helper.add(
-      'byteValue',
-      byteValue,
-    );
-    helper.add(
-      'doubleValue',
-      doubleValue,
-    );
-    helper.add(
-      'falseBooleanValue',
-      falseBooleanValue,
-    );
-    helper.add(
-      'floatValue',
-      floatValue,
-    );
-    helper.add(
-      'integerValue',
-      integerValue,
-    );
-    helper.add(
-      'longValue',
-      longValue,
-    );
-    helper.add(
-      'shortValue',
-      shortValue,
-    );
-    helper.add(
-      'stringValue',
-      stringValue,
-    );
-    helper.add(
-      'trueBooleanValue',
-      trueBooleanValue,
-    );
+        newBuiltValueToStringHelper('SimpleScalarPropertiesInputOutputPayload')
+          ..add(
+            'byteValue',
+            byteValue,
+          )
+          ..add(
+            'doubleValue',
+            doubleValue,
+          )
+          ..add(
+            'falseBooleanValue',
+            falseBooleanValue,
+          )
+          ..add(
+            'floatValue',
+            floatValue,
+          )
+          ..add(
+            'integerValue',
+            integerValue,
+          )
+          ..add(
+            'longValue',
+            longValue,
+          )
+          ..add(
+            'shortValue',
+            shortValue,
+          )
+          ..add(
+            'stringValue',
+            stringValue,
+          )
+          ..add(
+            'trueBooleanValue',
+            trueBooleanValue,
+          );
     return helper.toString();
   }
 }

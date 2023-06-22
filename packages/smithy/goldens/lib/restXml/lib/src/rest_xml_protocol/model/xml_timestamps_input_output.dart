@@ -56,9 +56,8 @@ abstract class XmlTimestampsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    XmlTimestampsInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<XmlTimestampsInputOutput>>
+      serializers = [XmlTimestampsInputOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(XmlTimestampsInputOutputBuilder b) {}
@@ -83,35 +82,35 @@ abstract class XmlTimestampsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlTimestampsInputOutput');
-    helper.add(
-      'normal',
-      normal,
-    );
-    helper.add(
-      'dateTime',
-      dateTime,
-    );
-    helper.add(
-      'dateTimeOnTarget',
-      dateTimeOnTarget,
-    );
-    helper.add(
-      'epochSeconds',
-      epochSeconds,
-    );
-    helper.add(
-      'epochSecondsOnTarget',
-      epochSecondsOnTarget,
-    );
-    helper.add(
-      'httpDate',
-      httpDate,
-    );
-    helper.add(
-      'httpDateOnTarget',
-      httpDateOnTarget,
-    );
+    final helper = newBuiltValueToStringHelper('XmlTimestampsInputOutput')
+      ..add(
+        'normal',
+        normal,
+      )
+      ..add(
+        'dateTime',
+        dateTime,
+      )
+      ..add(
+        'dateTimeOnTarget',
+        dateTimeOnTarget,
+      )
+      ..add(
+        'epochSeconds',
+        epochSeconds,
+      )
+      ..add(
+        'epochSecondsOnTarget',
+        epochSecondsOnTarget,
+      )
+      ..add(
+        'httpDate',
+        httpDate,
+      )
+      ..add(
+        'httpDateOnTarget',
+        httpDateOnTarget,
+      );
     return helper.toString();
   }
 }

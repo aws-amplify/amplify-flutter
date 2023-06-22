@@ -44,9 +44,9 @@ abstract class MalformedTimestampQueryEpochInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedTimestampQueryEpochInputRestJson1Serializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<MalformedTimestampQueryEpochInputPayload>>
+      serializers = [MalformedTimestampQueryEpochInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedTimestampQueryEpochInputBuilder b) {}
@@ -59,11 +59,11 @@ abstract class MalformedTimestampQueryEpochInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('MalformedTimestampQueryEpochInput');
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
+        newBuiltValueToStringHelper('MalformedTimestampQueryEpochInput')
+          ..add(
+            'timestamp',
+            timestamp,
+          );
     return helper.toString();
   }
 }

@@ -44,7 +44,9 @@ abstract class MalformedTimestampHeaderDateTimeInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<MalformedTimestampHeaderDateTimeInputPayload>>
+      serializers = [
     MalformedTimestampHeaderDateTimeInputRestJson1Serializer()
   ];
 
@@ -59,11 +61,11 @@ abstract class MalformedTimestampHeaderDateTimeInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('MalformedTimestampHeaderDateTimeInput');
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
+        newBuiltValueToStringHelper('MalformedTimestampHeaderDateTimeInput')
+          ..add(
+            'timestamp',
+            timestamp,
+          );
     return helper.toString();
   }
 }

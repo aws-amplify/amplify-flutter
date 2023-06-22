@@ -44,9 +44,8 @@ abstract class InvalidParameterValueException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidParameterValueExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidParameterValueException>>
+      serializers = [InvalidParameterValueExceptionRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidParameterValueExceptionBuilder b) {}
@@ -77,20 +76,19 @@ abstract class InvalidParameterValueException
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InvalidParameterValueException');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidParameterValueException')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

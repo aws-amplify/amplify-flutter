@@ -59,9 +59,8 @@ abstract class MalformedLongInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedLongInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedLongInputPayload>>
+      serializers = [MalformedLongInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedLongInputBuilder b) {
@@ -97,23 +96,23 @@ abstract class MalformedLongInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedLongInput');
-    helper.add(
-      'longInBody',
-      longInBody,
-    );
-    helper.add(
-      'longInPath',
-      longInPath,
-    );
-    helper.add(
-      'longInQuery',
-      longInQuery,
-    );
-    helper.add(
-      'longInHeader',
-      longInHeader,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedLongInput')
+      ..add(
+        'longInBody',
+        longInBody,
+      )
+      ..add(
+        'longInPath',
+        longInPath,
+      )
+      ..add(
+        'longInQuery',
+        longInQuery,
+      )
+      ..add(
+        'longInHeader',
+        longInHeader,
+      );
     return helper.toString();
   }
 }
@@ -136,11 +135,11 @@ abstract class MalformedLongInputPayload
   List<Object?> get props => [longInBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedLongInputPayload');
-    helper.add(
-      'longInBody',
-      longInBody,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedLongInputPayload')
+      ..add(
+        'longInBody',
+        longInBody,
+      );
     return helper.toString();
   }
 }

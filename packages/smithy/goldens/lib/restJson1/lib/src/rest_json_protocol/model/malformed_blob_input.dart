@@ -32,7 +32,7 @@ abstract class MalformedBlobInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<MalformedBlobInput>> serializers = [
     MalformedBlobInputRestJson1Serializer()
   ];
 
@@ -45,11 +45,11 @@ abstract class MalformedBlobInput
   List<Object?> get props => [blob];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedBlobInput');
-    helper.add(
-      'blob',
-      blob,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedBlobInput')
+      ..add(
+        'blob',
+        blob,
+      );
     return helper.toString();
   }
 }

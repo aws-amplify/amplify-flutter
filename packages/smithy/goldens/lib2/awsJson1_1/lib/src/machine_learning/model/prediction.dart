@@ -36,7 +36,7 @@ abstract class Prediction
 
   const Prediction._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Prediction>> serializers = [
     PredictionAwsJson11Serializer()
   ];
 
@@ -55,23 +55,23 @@ abstract class Prediction
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Prediction');
-    helper.add(
-      'predictedLabel',
-      predictedLabel,
-    );
-    helper.add(
-      'predictedValue',
-      predictedValue,
-    );
-    helper.add(
-      'predictedScores',
-      predictedScores,
-    );
-    helper.add(
-      'details',
-      details,
-    );
+    final helper = newBuiltValueToStringHelper('Prediction')
+      ..add(
+        'predictedLabel',
+        predictedLabel,
+      )
+      ..add(
+        'predictedValue',
+        predictedValue,
+      )
+      ..add(
+        'predictedScores',
+        predictedScores,
+      )
+      ..add(
+        'details',
+        details,
+      );
     return helper.toString();
   }
 }

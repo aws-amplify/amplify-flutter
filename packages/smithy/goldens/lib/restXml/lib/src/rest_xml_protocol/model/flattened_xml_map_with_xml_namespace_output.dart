@@ -35,9 +35,8 @@ abstract class FlattenedXmlMapWithXmlNamespaceOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    FlattenedXmlMapWithXmlNamespaceOutputRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<FlattenedXmlMapWithXmlNamespaceOutput>>
+      serializers = [FlattenedXmlMapWithXmlNamespaceOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FlattenedXmlMapWithXmlNamespaceOutputBuilder b) {}
@@ -47,11 +46,11 @@ abstract class FlattenedXmlMapWithXmlNamespaceOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('FlattenedXmlMapWithXmlNamespaceOutput');
-    helper.add(
-      'myMap',
-      myMap,
-    );
+        newBuiltValueToStringHelper('FlattenedXmlMapWithXmlNamespaceOutput')
+          ..add(
+            'myMap',
+            myMap,
+          );
     return helper.toString();
   }
 }

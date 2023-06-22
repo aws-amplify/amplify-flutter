@@ -56,9 +56,8 @@ abstract class JsonTimestampsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    JsonTimestampsInputOutputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<JsonTimestampsInputOutput>>
+      serializers = [JsonTimestampsInputOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(JsonTimestampsInputOutputBuilder b) {}
@@ -83,35 +82,35 @@ abstract class JsonTimestampsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonTimestampsInputOutput');
-    helper.add(
-      'normal',
-      normal,
-    );
-    helper.add(
-      'dateTime',
-      dateTime,
-    );
-    helper.add(
-      'dateTimeOnTarget',
-      dateTimeOnTarget,
-    );
-    helper.add(
-      'epochSeconds',
-      epochSeconds,
-    );
-    helper.add(
-      'epochSecondsOnTarget',
-      epochSecondsOnTarget,
-    );
-    helper.add(
-      'httpDate',
-      httpDate,
-    );
-    helper.add(
-      'httpDateOnTarget',
-      httpDateOnTarget,
-    );
+    final helper = newBuiltValueToStringHelper('JsonTimestampsInputOutput')
+      ..add(
+        'normal',
+        normal,
+      )
+      ..add(
+        'dateTime',
+        dateTime,
+      )
+      ..add(
+        'dateTimeOnTarget',
+        dateTimeOnTarget,
+      )
+      ..add(
+        'epochSeconds',
+        epochSeconds,
+      )
+      ..add(
+        'epochSecondsOnTarget',
+        epochSecondsOnTarget,
+      )
+      ..add(
+        'httpDate',
+        httpDate,
+      )
+      ..add(
+        'httpDateOnTarget',
+        httpDateOnTarget,
+      );
     return helper.toString();
   }
 }

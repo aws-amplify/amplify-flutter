@@ -35,9 +35,8 @@ abstract class PostUnionWithJsonNameInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PostUnionWithJsonNameInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PostUnionWithJsonNameInput>>
+      serializers = [PostUnionWithJsonNameInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PostUnionWithJsonNameInputBuilder b) {}
@@ -48,11 +47,11 @@ abstract class PostUnionWithJsonNameInput
   List<Object?> get props => [value];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PostUnionWithJsonNameInput');
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('PostUnionWithJsonNameInput')
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

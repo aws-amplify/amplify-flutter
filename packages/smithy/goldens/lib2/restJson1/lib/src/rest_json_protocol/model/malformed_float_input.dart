@@ -58,9 +58,8 @@ abstract class MalformedFloatInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedFloatInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedFloatInputPayload>>
+      serializers = [MalformedFloatInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedFloatInputBuilder b) {
@@ -96,23 +95,23 @@ abstract class MalformedFloatInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedFloatInput');
-    helper.add(
-      'floatInBody',
-      floatInBody,
-    );
-    helper.add(
-      'floatInPath',
-      floatInPath,
-    );
-    helper.add(
-      'floatInQuery',
-      floatInQuery,
-    );
-    helper.add(
-      'floatInHeader',
-      floatInHeader,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedFloatInput')
+      ..add(
+        'floatInBody',
+        floatInBody,
+      )
+      ..add(
+        'floatInPath',
+        floatInPath,
+      )
+      ..add(
+        'floatInQuery',
+        floatInQuery,
+      )
+      ..add(
+        'floatInHeader',
+        floatInHeader,
+      );
     return helper.toString();
   }
 }
@@ -135,11 +134,11 @@ abstract class MalformedFloatInputPayload
   List<Object?> get props => [floatInBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedFloatInputPayload');
-    helper.add(
-      'floatInBody',
-      floatInBody,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedFloatInputPayload')
+      ..add(
+        'floatInBody',
+        floatInBody,
+      );
     return helper.toString();
   }
 }

@@ -23,7 +23,7 @@ abstract class StructWithJsonName
 
   const StructWithJsonName._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<StructWithJsonName>> serializers = [
     StructWithJsonNameAwsJson11Serializer()
   ];
 
@@ -34,11 +34,11 @@ abstract class StructWithJsonName
   List<Object?> get props => [value];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StructWithJsonName');
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('StructWithJsonName')
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

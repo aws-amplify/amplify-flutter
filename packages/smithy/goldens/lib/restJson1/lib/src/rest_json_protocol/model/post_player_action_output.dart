@@ -32,9 +32,8 @@ abstract class PostPlayerActionOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    PostPlayerActionOutputRestJson1Serializer()
-  ];
+  static const List<_i3.SmithySerializer<PostPlayerActionOutput>> serializers =
+      [PostPlayerActionOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PostPlayerActionOutputBuilder b) {}
@@ -43,11 +42,11 @@ abstract class PostPlayerActionOutput
   List<Object?> get props => [action];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PostPlayerActionOutput');
-    helper.add(
-      'action',
-      action,
-    );
+    final helper = newBuiltValueToStringHelper('PostPlayerActionOutput')
+      ..add(
+        'action',
+        action,
+      );
     return helper.toString();
   }
 }

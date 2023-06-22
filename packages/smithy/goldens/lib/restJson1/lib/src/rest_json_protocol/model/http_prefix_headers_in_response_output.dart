@@ -42,9 +42,9 @@ abstract class HttpPrefixHeadersInResponseOutput
         b.prefixHeaders.addEntries(response.headers.entries);
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    HttpPrefixHeadersInResponseOutputRestJson1Serializer()
-  ];
+  static const List<
+          _i2.SmithySerializer<HttpPrefixHeadersInResponseOutputPayload>>
+      serializers = [HttpPrefixHeadersInResponseOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpPrefixHeadersInResponseOutputBuilder b) {}
@@ -57,11 +57,11 @@ abstract class HttpPrefixHeadersInResponseOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('HttpPrefixHeadersInResponseOutput');
-    helper.add(
-      'prefixHeaders',
-      prefixHeaders,
-    );
+        newBuiltValueToStringHelper('HttpPrefixHeadersInResponseOutput')
+          ..add(
+            'prefixHeaders',
+            prefixHeaders,
+          );
     return helper.toString();
   }
 }

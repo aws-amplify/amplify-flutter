@@ -65,7 +65,7 @@ abstract class MalformedRangeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<MalformedRangeInput>> serializers = [
     MalformedRangeInputRestJson1Serializer()
   ];
 
@@ -108,67 +108,67 @@ abstract class MalformedRangeInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedRangeInput');
-    helper.add(
-      'byte',
-      byte,
-    );
-    helper.add(
-      'minByte',
-      minByte,
-    );
-    helper.add(
-      'maxByte',
-      maxByte,
-    );
-    helper.add(
-      'short',
-      short,
-    );
-    helper.add(
-      'minShort',
-      minShort,
-    );
-    helper.add(
-      'maxShort',
-      maxShort,
-    );
-    helper.add(
-      'integer',
-      integer,
-    );
-    helper.add(
-      'minInteger',
-      minInteger,
-    );
-    helper.add(
-      'maxInteger',
-      maxInteger,
-    );
-    helper.add(
-      'long',
-      long,
-    );
-    helper.add(
-      'minLong',
-      minLong,
-    );
-    helper.add(
-      'maxLong',
-      maxLong,
-    );
-    helper.add(
-      'float',
-      float,
-    );
-    helper.add(
-      'minFloat',
-      minFloat,
-    );
-    helper.add(
-      'maxFloat',
-      maxFloat,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedRangeInput')
+      ..add(
+        'byte',
+        byte,
+      )
+      ..add(
+        'minByte',
+        minByte,
+      )
+      ..add(
+        'maxByte',
+        maxByte,
+      )
+      ..add(
+        'short',
+        short,
+      )
+      ..add(
+        'minShort',
+        minShort,
+      )
+      ..add(
+        'maxShort',
+        maxShort,
+      )
+      ..add(
+        'integer',
+        integer,
+      )
+      ..add(
+        'minInteger',
+        minInteger,
+      )
+      ..add(
+        'maxInteger',
+        maxInteger,
+      )
+      ..add(
+        'long',
+        long,
+      )
+      ..add(
+        'minLong',
+        minLong,
+      )
+      ..add(
+        'maxLong',
+        maxLong,
+      )
+      ..add(
+        'float',
+        float,
+      )
+      ..add(
+        'minFloat',
+        minFloat,
+      )
+      ..add(
+        'maxFloat',
+        maxFloat,
+      );
     return helper.toString();
   }
 }

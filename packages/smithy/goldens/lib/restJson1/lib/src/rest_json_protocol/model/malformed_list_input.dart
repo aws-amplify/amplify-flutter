@@ -32,7 +32,7 @@ abstract class MalformedListInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<MalformedListInput>> serializers = [
     MalformedListInputRestJson1Serializer()
   ];
 
@@ -45,11 +45,11 @@ abstract class MalformedListInput
   List<Object?> get props => [bodyList];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedListInput');
-    helper.add(
-      'bodyList',
-      bodyList,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedListInput')
+      ..add(
+        'bodyList',
+        bodyList,
+      );
     return helper.toString();
   }
 }

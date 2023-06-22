@@ -35,9 +35,8 @@ abstract class HttpPrefixHeadersInResponseInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HttpPrefixHeadersInResponseInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<HttpPrefixHeadersInResponseInput>>
+      serializers = [HttpPrefixHeadersInResponseInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpPrefixHeadersInResponseInputBuilder b) {}

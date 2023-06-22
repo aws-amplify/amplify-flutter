@@ -51,9 +51,8 @@ abstract class NullOperationInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    NullOperationInputOutputAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<NullOperationInputOutput>>
+      serializers = [NullOperationInputOutputAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NullOperationInputOutputBuilder b) {}
@@ -70,19 +69,19 @@ abstract class NullOperationInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NullOperationInputOutput');
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'sparseStringList',
-      sparseStringList,
-    );
-    helper.add(
-      'sparseStringMap',
-      sparseStringMap,
-    );
+    final helper = newBuiltValueToStringHelper('NullOperationInputOutput')
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'sparseStringList',
+        sparseStringList,
+      )
+      ..add(
+        'sparseStringMap',
+        sparseStringMap,
+      );
     return helper.toString();
   }
 }

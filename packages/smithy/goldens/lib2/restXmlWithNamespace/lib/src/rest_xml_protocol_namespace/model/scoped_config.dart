@@ -47,7 +47,7 @@ abstract class ScopedConfig
 
   const ScopedConfig._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<ScopedConfig>> serializers = [
     ScopedConfigRestXmlSerializer()
   ];
 
@@ -78,27 +78,27 @@ abstract class ScopedConfig
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ScopedConfig');
-    helper.add(
-      'environment',
-      environment,
-    );
-    helper.add(
-      'configFile',
-      configFile,
-    );
-    helper.add(
-      'credentialsFile',
-      credentialsFile,
-    );
-    helper.add(
-      'client',
-      client,
-    );
-    helper.add(
-      'operation',
-      operation,
-    );
+    final helper = newBuiltValueToStringHelper('ScopedConfig')
+      ..add(
+        'environment',
+        environment,
+      )
+      ..add(
+        'configFile',
+        configFile,
+      )
+      ..add(
+        'credentialsFile',
+        credentialsFile,
+      )
+      ..add(
+        'client',
+        client,
+      )
+      ..add(
+        'operation',
+        operation,
+      );
     return helper.toString();
   }
 }

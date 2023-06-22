@@ -34,7 +34,7 @@ abstract class CopyObjectError
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<CopyObjectError>> serializers = [
     CopyObjectErrorRestXmlSerializer()
   ];
 

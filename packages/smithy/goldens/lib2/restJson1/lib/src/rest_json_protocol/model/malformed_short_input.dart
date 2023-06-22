@@ -57,9 +57,8 @@ abstract class MalformedShortInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedShortInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedShortInputPayload>>
+      serializers = [MalformedShortInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedShortInputBuilder b) {
@@ -95,23 +94,23 @@ abstract class MalformedShortInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedShortInput');
-    helper.add(
-      'shortInBody',
-      shortInBody,
-    );
-    helper.add(
-      'shortInPath',
-      shortInPath,
-    );
-    helper.add(
-      'shortInQuery',
-      shortInQuery,
-    );
-    helper.add(
-      'shortInHeader',
-      shortInHeader,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedShortInput')
+      ..add(
+        'shortInBody',
+        shortInBody,
+      )
+      ..add(
+        'shortInPath',
+        shortInPath,
+      )
+      ..add(
+        'shortInQuery',
+        shortInQuery,
+      )
+      ..add(
+        'shortInHeader',
+        shortInHeader,
+      );
     return helper.toString();
   }
 }
@@ -134,11 +133,11 @@ abstract class MalformedShortInputPayload
   List<Object?> get props => [shortInBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedShortInputPayload');
-    helper.add(
-      'shortInBody',
-      shortInBody,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedShortInputPayload')
+      ..add(
+        'shortInBody',
+        shortInBody,
+      );
     return helper.toString();
   }
 }

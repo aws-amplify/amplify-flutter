@@ -24,7 +24,7 @@ abstract class NestedWithNamespace
 
   const NestedWithNamespace._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<NestedWithNamespace>> serializers = [
     NestedWithNamespaceRestXmlSerializer()
   ];
 
@@ -35,11 +35,11 @@ abstract class NestedWithNamespace
   List<Object?> get props => [attrField];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NestedWithNamespace');
-    helper.add(
-      'attrField',
-      attrField,
-    );
+    final helper = newBuiltValueToStringHelper('NestedWithNamespace')
+      ..add(
+        'attrField',
+        attrField,
+      );
     return helper.toString();
   }
 }

@@ -45,7 +45,7 @@ abstract class ClientConfig
 
   const ClientConfig._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ClientConfig>> serializers = [
     ClientConfigRestJson1Serializer()
   ];
 
@@ -74,35 +74,35 @@ abstract class ClientConfig
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ClientConfig');
-    helper.add(
-      'awsAccessKeyId',
-      awsAccessKeyId,
-    );
-    helper.add(
-      'awsSecretAccessKey',
-      awsSecretAccessKey,
-    );
-    helper.add(
-      'awsSessionToken',
-      awsSessionToken,
-    );
-    helper.add(
-      'region',
-      region,
-    );
-    helper.add(
-      's3',
-      s3,
-    );
-    helper.add(
-      'retryConfig',
-      retryConfig,
-    );
-    helper.add(
-      'awsProfile',
-      awsProfile,
-    );
+    final helper = newBuiltValueToStringHelper('ClientConfig')
+      ..add(
+        'awsAccessKeyId',
+        awsAccessKeyId,
+      )
+      ..add(
+        'awsSecretAccessKey',
+        awsSecretAccessKey,
+      )
+      ..add(
+        'awsSessionToken',
+        awsSessionToken,
+      )
+      ..add(
+        'region',
+        region,
+      )
+      ..add(
+        's3',
+        s3,
+      )
+      ..add(
+        'retryConfig',
+        retryConfig,
+      )
+      ..add(
+        'awsProfile',
+        awsProfile,
+      );
     return helper.toString();
   }
 }

@@ -56,7 +56,7 @@ abstract class QueryMapsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<QueryMapsInput>> serializers = [
     QueryMapsInputAwsQuerySerializer()
   ];
 
@@ -85,39 +85,39 @@ abstract class QueryMapsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueryMapsInput');
-    helper.add(
-      'mapArg',
-      mapArg,
-    );
-    helper.add(
-      'renamedMapArg',
-      renamedMapArg,
-    );
-    helper.add(
-      'complexMapArg',
-      complexMapArg,
-    );
-    helper.add(
-      'mapWithXmlMemberName',
-      mapWithXmlMemberName,
-    );
-    helper.add(
-      'flattenedMap',
-      flattenedMap,
-    );
-    helper.add(
-      'flattenedMapWithXmlName',
-      flattenedMapWithXmlName,
-    );
-    helper.add(
-      'mapOfLists',
-      mapOfLists,
-    );
-    helper.add(
-      'nestedStructWithMap',
-      nestedStructWithMap,
-    );
+    final helper = newBuiltValueToStringHelper('QueryMapsInput')
+      ..add(
+        'mapArg',
+        mapArg,
+      )
+      ..add(
+        'renamedMapArg',
+        renamedMapArg,
+      )
+      ..add(
+        'complexMapArg',
+        complexMapArg,
+      )
+      ..add(
+        'mapWithXmlMemberName',
+        mapWithXmlMemberName,
+      )
+      ..add(
+        'flattenedMap',
+        flattenedMap,
+      )
+      ..add(
+        'flattenedMapWithXmlName',
+        flattenedMapWithXmlName,
+      )
+      ..add(
+        'mapOfLists',
+        mapOfLists,
+      )
+      ..add(
+        'nestedStructWithMap',
+        nestedStructWithMap,
+      );
     return helper.toString();
   }
 }

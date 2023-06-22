@@ -39,9 +39,8 @@ abstract class QueryIdempotencyTokenAutoFillInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    QueryIdempotencyTokenAutoFillInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<QueryIdempotencyTokenAutoFillInput>>
+      serializers = [QueryIdempotencyTokenAutoFillInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(QueryIdempotencyTokenAutoFillInputBuilder b) {
@@ -60,11 +59,11 @@ abstract class QueryIdempotencyTokenAutoFillInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('QueryIdempotencyTokenAutoFillInput');
-    helper.add(
-      'token',
-      token,
-    );
+        newBuiltValueToStringHelper('QueryIdempotencyTokenAutoFillInput')
+          ..add(
+            'token',
+            token,
+          );
     return helper.toString();
   }
 }

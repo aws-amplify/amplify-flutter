@@ -46,9 +46,9 @@ abstract class QueryIdempotencyTokenAutoFillInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    QueryIdempotencyTokenAutoFillInputRestJson1Serializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<QueryIdempotencyTokenAutoFillInputPayload>>
+      serializers = [QueryIdempotencyTokenAutoFillInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(QueryIdempotencyTokenAutoFillInputBuilder b) {
@@ -68,11 +68,11 @@ abstract class QueryIdempotencyTokenAutoFillInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('QueryIdempotencyTokenAutoFillInput');
-    helper.add(
-      'token',
-      token,
-    );
+        newBuiltValueToStringHelper('QueryIdempotencyTokenAutoFillInput')
+          ..add(
+            'token',
+            token,
+          );
     return helper.toString();
   }
 }

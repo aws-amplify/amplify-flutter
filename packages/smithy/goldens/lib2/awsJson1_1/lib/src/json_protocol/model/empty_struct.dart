@@ -22,7 +22,7 @@ abstract class EmptyStruct
 
   const EmptyStruct._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<EmptyStruct>> serializers = [
     EmptyStructAwsJson11Serializer()
   ];
 

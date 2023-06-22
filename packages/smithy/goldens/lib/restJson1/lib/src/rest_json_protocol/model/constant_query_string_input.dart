@@ -40,9 +40,8 @@ abstract class ConstantQueryStringInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ConstantQueryStringInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<ConstantQueryStringInputPayload>>
+      serializers = [ConstantQueryStringInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConstantQueryStringInputBuilder b) {}
@@ -66,11 +65,11 @@ abstract class ConstantQueryStringInput
   List<Object?> get props => [hello];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConstantQueryStringInput');
-    helper.add(
-      'hello',
-      hello,
-    );
+    final helper = newBuiltValueToStringHelper('ConstantQueryStringInput')
+      ..add(
+        'hello',
+        hello,
+      );
     return helper.toString();
   }
 }

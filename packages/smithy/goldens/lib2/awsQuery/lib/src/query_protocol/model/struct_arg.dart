@@ -30,7 +30,7 @@ abstract class StructArg
 
   const StructArg._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<StructArg>> serializers = [
     StructArgAwsQuerySerializer()
   ];
 
@@ -47,19 +47,19 @@ abstract class StructArg
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StructArg');
-    helper.add(
-      'stringArg',
-      stringArg,
-    );
-    helper.add(
-      'otherArg',
-      otherArg,
-    );
-    helper.add(
-      'recursiveArg',
-      recursiveArg,
-    );
+    final helper = newBuiltValueToStringHelper('StructArg')
+      ..add(
+        'stringArg',
+        stringArg,
+      )
+      ..add(
+        'otherArg',
+        otherArg,
+      )
+      ..add(
+        'recursiveArg',
+        recursiveArg,
+      );
     return helper.toString();
   }
 }

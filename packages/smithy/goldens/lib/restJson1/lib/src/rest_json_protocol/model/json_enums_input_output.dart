@@ -56,7 +56,7 @@ abstract class JsonEnumsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<JsonEnumsInputOutput>> serializers = [
     JsonEnumsInputOutputRestJson1Serializer()
   ];
 
@@ -81,31 +81,31 @@ abstract class JsonEnumsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonEnumsInputOutput');
-    helper.add(
-      'fooEnum1',
-      fooEnum1,
-    );
-    helper.add(
-      'fooEnum2',
-      fooEnum2,
-    );
-    helper.add(
-      'fooEnum3',
-      fooEnum3,
-    );
-    helper.add(
-      'fooEnumList',
-      fooEnumList,
-    );
-    helper.add(
-      'fooEnumSet',
-      fooEnumSet,
-    );
-    helper.add(
-      'fooEnumMap',
-      fooEnumMap,
-    );
+    final helper = newBuiltValueToStringHelper('JsonEnumsInputOutput')
+      ..add(
+        'fooEnum1',
+        fooEnum1,
+      )
+      ..add(
+        'fooEnum2',
+        fooEnum2,
+      )
+      ..add(
+        'fooEnum3',
+        fooEnum3,
+      )
+      ..add(
+        'fooEnumList',
+        fooEnumList,
+      )
+      ..add(
+        'fooEnumSet',
+        fooEnumSet,
+      )
+      ..add(
+        'fooEnumMap',
+        fooEnumMap,
+      );
     return helper.toString();
   }
 }

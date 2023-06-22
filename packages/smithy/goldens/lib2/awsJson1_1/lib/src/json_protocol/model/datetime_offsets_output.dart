@@ -30,7 +30,7 @@ abstract class DatetimeOffsetsOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<DatetimeOffsetsOutput>> serializers = [
     DatetimeOffsetsOutputAwsJson11Serializer()
   ];
 
@@ -41,11 +41,11 @@ abstract class DatetimeOffsetsOutput
   List<Object?> get props => [datetime];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DatetimeOffsetsOutput');
-    helper.add(
-      'datetime',
-      datetime,
-    );
+    final helper = newBuiltValueToStringHelper('DatetimeOffsetsOutput')
+      ..add(
+        'datetime',
+        datetime,
+      );
     return helper.toString();
   }
 }

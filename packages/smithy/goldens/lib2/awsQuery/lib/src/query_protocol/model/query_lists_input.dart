@@ -54,7 +54,7 @@ abstract class QueryListsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<QueryListsInput>> serializers = [
     QueryListsInputAwsQuerySerializer()
   ];
 
@@ -79,31 +79,31 @@ abstract class QueryListsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueryListsInput');
-    helper.add(
-      'listArg',
-      listArg,
-    );
-    helper.add(
-      'complexListArg',
-      complexListArg,
-    );
-    helper.add(
-      'flattenedListArg',
-      flattenedListArg,
-    );
-    helper.add(
-      'listArgWithXmlNameMember',
-      listArgWithXmlNameMember,
-    );
-    helper.add(
-      'flattenedListArgWithXmlName',
-      flattenedListArgWithXmlName,
-    );
-    helper.add(
-      'nestedWithList',
-      nestedWithList,
-    );
+    final helper = newBuiltValueToStringHelper('QueryListsInput')
+      ..add(
+        'listArg',
+        listArg,
+      )
+      ..add(
+        'complexListArg',
+        complexListArg,
+      )
+      ..add(
+        'flattenedListArg',
+        flattenedListArg,
+      )
+      ..add(
+        'listArgWithXmlNameMember',
+        listArgWithXmlNameMember,
+      )
+      ..add(
+        'flattenedListArgWithXmlName',
+        flattenedListArgWithXmlName,
+      )
+      ..add(
+        'nestedWithList',
+        nestedWithList,
+      );
     return helper.toString();
   }
 }
