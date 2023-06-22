@@ -3,11 +3,16 @@ import 'dart:io';
 void main(List<String> args) {
   final metricName = args[0];
   final value = args[1];
+  final dimensions = args.length > 2 ? args[2] : '';
 
-  var metricNameTrimmed = metricName.trim();
-  var valueTrimmed = value.trim();
-  var metricNameRegex = RegExp(r'^[a-zA-Z0-9\ \_\-]+$');
-  var valueRegex = RegExp(r'^[-+]?[0-9]+\.?[0-9]*$');
+  final metricNameTrimmed = metricName.trim();
+  final valueTrimmed = value.trim();
+  final dimensionsTrimmed = dimensions.trim();
+
+  final metricNameRegex = RegExp(r'^[a-zA-Z0-9\ \_\-]+$');
+  final valueRegex = RegExp(r'^[-+]?[0-9]+\.?[0-9]*$');
+  final dimensionsRegex = RegExp(r'^([^=,]+=[^=,]+(?:,[^=,]+=[^=,]+)*)?$');
+
   if (!metricNameRegex.hasMatch(metricNameTrimmed)) {
     print(
         'Metric name can only contain alphanumeric characters, space character, -, and _.');
@@ -17,7 +22,14 @@ void main(List<String> args) {
     print('Metric value must be a valid number');
     exit(1);
   }
-  Process.runSync('aws', [
+  if(!dimensionsRegex.hasMatch(dimensionsTrimmed)) {
+    print(
+      'Dimensions must be empty or be in format string=string,string=string,...'
+    );
+    exit(1);
+  }
+
+  final cloudArgs = [
     'cloudwatch',
     'put-metric-data',
     '--metric-name',
@@ -25,6 +37,13 @@ void main(List<String> args) {
     '--namespace',
     'GithubCanaryApps',
     '--value',
-    value
-  ]);
+    value,
+  ];
+
+  if(!dimensionsTrimmed.isEmpty){
+    cloudArgs.add('--dimensions');
+    cloudArgs.add(dimensionsTrimmed);
+  }
+
+  Process.runSync('aws', cloudArgs);
 }

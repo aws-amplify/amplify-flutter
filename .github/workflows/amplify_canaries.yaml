@@ -49,6 +49,22 @@ jobs:
       - name: Build Canary (Android)
         run: build-support/build_canary.sh apk
 
+      - name: Log failing builds
+        if: ${{ failure() }}
+        uses: ./.github/composite_actions/log_metric
+        with:
+          metric-name: BuildCanaryTestFailure
+          value: 1
+          dimensions: channel=${{ matrix.channel }}
+      - name: Log succeeding builds
+          if: ${{ success() }}
+          uses: ./.github/composite_actions/log_metric
+          with:
+            metric-name: BuildCanaryTestFailure
+            value: 0
+            dimensions: channel=${{ matrix.channel }}
+
+
   e2e-android:
     runs-on: macos-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
@@ -103,6 +119,21 @@ jobs:
         with:
           script: |
             cd canaries && flutter test -d emulator-5554 integration_test/main_test.dart
+
+      - name: Log failing android runs
+            if: ${{ failure() }}
+            uses: ./.github/composite_actions/log_metric
+            with:
+              metric-name: e2eCanaryTestFailure
+              value: 1
+              dimensions: channel=${{ matrix.channel }},platform=android
+      - name: Log succeeding android runs
+          if: ${{ success() }}
+          uses: ./.github/composite_actions/log_metric
+          with:
+            metric-name: e2eCanaryTestFailure
+            value: 0
+            dimensions: channel=${{ matrix.channel }},platform=android
 
   e2e-ios:
     runs-on: macos-latest
@@ -160,45 +191,17 @@ jobs:
           flutter build ios --simulator --target=integration_test/main_test.dart
           flutter test -d test integration_test/main_test.dart
 
-  log-failure-metric:
-    # Send failure data point to Cloudwatch metric CanaryTestFailure on failure
-    # See repo amplify-ci-support/github-cloudwatch-cdk for related CDK Cloudwatch setup
-    runs-on: ubuntu-latest
-    needs: build
-    if: ${{ failure() }}
-    steps:
-      # Flutter requires Java 11 to build android apps with Gradle.
-      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
-        with:
-          distribution: "corretto" # Amazon Corretto Build of OpenJDK
-          java-version: "11"
-
-      - name: Log failure data point to metric CanaryTestFailure
-        uses: ./.github/composite_actions/log_metric
-        with:
-          metric-name: test-CanaryTestFailure
-          value: 1
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-  log-success-metric:
-    # Send success data point to Cloudwatch metric CanaryTestFailure on success
-    # See repo amplify-ci-support/github-cloudwatch-cdk for related CDK Cloudwatch setup
-    runs-on: ubuntu-latest
-    needs: build
-    # if: ${{ success() }}
-    steps:
-      # Flutter requires Java 11 to build android apps with Gradle.
-      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
-        with:
-          distribution: "corretto" # Amazon Corretto Build of OpenJDK
-          java-version: "11"
-          
-      - name: Log success data point to metric CanaryTestFailure
-        uses: ./.github/composite_actions/log_metric
-        with:
-          metric-name: test-CanaryTestFailure
-          # Why we publish value 0: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html#publishingZero
-          value: 0
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Log failing ios runs
+          if: ${{ failure() }}
+          uses: ./.github/composite_actions/log_metric
+          with:
+            metric-name: e2eCanaryTestFailure
+            value: 1
+            dimensions: channel=${{ matrix.channel }},platform=ios
+      - name: Log succeeding ios runs
+          if: ${{ success() }}
+          uses: ./.github/composite_actions/log_metric
+          with:
+            metric-name: e2eCanaryTestFailure
+            value: 0
+            dimensions: channel=${{ matrix.channel }},platform=ios
