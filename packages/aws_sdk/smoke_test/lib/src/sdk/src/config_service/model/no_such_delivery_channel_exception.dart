@@ -40,9 +40,8 @@ abstract class NoSuchDeliveryChannelException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    NoSuchDeliveryChannelExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<NoSuchDeliveryChannelException>>
+      serializers = [NoSuchDeliveryChannelExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NoSuchDeliveryChannelExceptionBuilder b) {}
@@ -69,12 +68,11 @@ abstract class NoSuchDeliveryChannelException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('NoSuchDeliveryChannelException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('NoSuchDeliveryChannelException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -40,7 +40,7 @@ abstract class QueueConfiguration
 
   const QueueConfiguration._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<QueueConfiguration>> serializers = [
     QueueConfigurationRestXmlSerializer()
   ];
 
@@ -67,23 +67,23 @@ abstract class QueueConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueueConfiguration');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'queueArn',
-      queueArn,
-    );
-    helper.add(
-      'events',
-      events,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
+    final helper = newBuiltValueToStringHelper('QueueConfiguration')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'queueArn',
+        queueArn,
+      )
+      ..add(
+        'events',
+        events,
+      )
+      ..add(
+        'filter',
+        filter,
+      );
     return helper.toString();
   }
 }

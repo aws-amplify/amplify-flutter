@@ -50,9 +50,8 @@ abstract class GetBucketCorsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketCorsRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetBucketCorsRequestPayload>>
+      serializers = [GetBucketCorsRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketCorsRequestBuilder b) {}
@@ -87,15 +86,15 @@ abstract class GetBucketCorsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketCorsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketCorsRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

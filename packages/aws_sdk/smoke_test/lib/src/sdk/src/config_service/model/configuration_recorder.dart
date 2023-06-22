@@ -36,7 +36,7 @@ abstract class ConfigurationRecorder
 
   const ConfigurationRecorder._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ConfigurationRecorder>> serializers = [
     ConfigurationRecorderAwsJson11Serializer()
   ];
 
@@ -75,19 +75,19 @@ abstract class ConfigurationRecorder
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfigurationRecorder');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'recordingGroup',
-      recordingGroup,
-    );
+    final helper = newBuiltValueToStringHelper('ConfigurationRecorder')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'recordingGroup',
+        recordingGroup,
+      );
     return helper.toString();
   }
 }

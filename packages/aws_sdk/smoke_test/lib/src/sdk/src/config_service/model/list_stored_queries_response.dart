@@ -42,9 +42,8 @@ abstract class ListStoredQueriesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListStoredQueriesResponseAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<ListStoredQueriesResponse>>
+      serializers = [ListStoredQueriesResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListStoredQueriesResponseBuilder b) {}
@@ -61,15 +60,15 @@ abstract class ListStoredQueriesResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListStoredQueriesResponse');
-    helper.add(
-      'storedQueryMetadata',
-      storedQueryMetadata,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListStoredQueriesResponse')
+      ..add(
+        'storedQueryMetadata',
+        storedQueryMetadata,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

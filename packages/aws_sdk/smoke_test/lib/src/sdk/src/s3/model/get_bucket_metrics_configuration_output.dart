@@ -43,9 +43,8 @@ abstract class GetBucketMetricsConfigurationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketMetricsConfigurationOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<_i3.MetricsConfiguration?>>
+      serializers = [GetBucketMetricsConfigurationOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketMetricsConfigurationOutputBuilder b) {}
@@ -59,11 +58,11 @@ abstract class GetBucketMetricsConfigurationOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketMetricsConfigurationOutput');
-    helper.add(
-      'metricsConfiguration',
-      metricsConfiguration,
-    );
+        newBuiltValueToStringHelper('GetBucketMetricsConfigurationOutput')
+          ..add(
+            'metricsConfiguration',
+            metricsConfiguration,
+          );
     return helper.toString();
   }
 }

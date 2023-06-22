@@ -35,7 +35,7 @@ abstract class ReplicaModifications
 
   const ReplicaModifications._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ReplicaModifications>> serializers = [
     ReplicaModificationsRestXmlSerializer()
   ];
 
@@ -48,11 +48,11 @@ abstract class ReplicaModifications
   List<Object?> get props => [status];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicaModifications');
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicaModifications')
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

@@ -35,9 +35,8 @@ abstract class PutOrganizationConfigRuleResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PutOrganizationConfigRuleResponseAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<PutOrganizationConfigRuleResponse>>
+      serializers = [PutOrganizationConfigRuleResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutOrganizationConfigRuleResponseBuilder b) {}
@@ -49,11 +48,11 @@ abstract class PutOrganizationConfigRuleResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutOrganizationConfigRuleResponse');
-    helper.add(
-      'organizationConfigRuleArn',
-      organizationConfigRuleArn,
-    );
+        newBuiltValueToStringHelper('PutOrganizationConfigRuleResponse')
+          ..add(
+            'organizationConfigRuleArn',
+            organizationConfigRuleArn,
+          );
     return helper.toString();
   }
 }

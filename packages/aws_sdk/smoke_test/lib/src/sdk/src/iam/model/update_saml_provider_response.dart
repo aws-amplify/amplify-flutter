@@ -34,9 +34,8 @@ abstract class UpdateSamlProviderResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UpdateSamlProviderResponseAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<UpdateSamlProviderResponse>>
+      serializers = [UpdateSamlProviderResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateSamlProviderResponseBuilder b) {}
@@ -47,11 +46,11 @@ abstract class UpdateSamlProviderResponse
   List<Object?> get props => [samlProviderArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateSamlProviderResponse');
-    helper.add(
-      'samlProviderArn',
-      samlProviderArn,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateSamlProviderResponse')
+      ..add(
+        'samlProviderArn',
+        samlProviderArn,
+      );
     return helper.toString();
   }
 }

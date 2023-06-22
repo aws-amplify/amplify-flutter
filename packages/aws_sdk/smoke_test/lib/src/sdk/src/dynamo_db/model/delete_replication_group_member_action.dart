@@ -29,9 +29,8 @@ abstract class DeleteReplicationGroupMemberAction
 
   const DeleteReplicationGroupMemberAction._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeleteReplicationGroupMemberActionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<DeleteReplicationGroupMemberAction>>
+      serializers = [DeleteReplicationGroupMemberActionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteReplicationGroupMemberActionBuilder b) {}
@@ -43,11 +42,11 @@ abstract class DeleteReplicationGroupMemberAction
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteReplicationGroupMemberAction');
-    helper.add(
-      'regionName',
-      regionName,
-    );
+        newBuiltValueToStringHelper('DeleteReplicationGroupMemberAction')
+          ..add(
+            'regionName',
+            regionName,
+          );
     return helper.toString();
   }
 }

@@ -54,9 +54,8 @@ abstract class CreateResourceRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateResourceRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateResourceRequestPayload>>
+      serializers = [CreateResourceRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateResourceRequestBuilder b) {}
@@ -96,19 +95,19 @@ abstract class CreateResourceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateResourceRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'parentId',
-      parentId,
-    );
-    helper.add(
-      'pathPart',
-      pathPart,
-    );
+    final helper = newBuiltValueToStringHelper('CreateResourceRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'parentId',
+        parentId,
+      )
+      ..add(
+        'pathPart',
+        pathPart,
+      );
     return helper.toString();
   }
 }
@@ -135,11 +134,11 @@ abstract class CreateResourceRequestPayload
   List<Object?> get props => [pathPart];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateResourceRequestPayload');
-    helper.add(
-      'pathPart',
-      pathPart,
-    );
+    final helper = newBuiltValueToStringHelper('CreateResourceRequestPayload')
+      ..add(
+        'pathPart',
+        pathPart,
+      );
     return helper.toString();
   }
 }

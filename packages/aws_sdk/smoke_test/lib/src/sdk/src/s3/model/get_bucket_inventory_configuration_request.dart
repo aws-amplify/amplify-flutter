@@ -56,9 +56,9 @@ abstract class GetBucketInventoryConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketInventoryConfigurationRequestRestXmlSerializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<GetBucketInventoryConfigurationRequestPayload>>
+      serializers = [GetBucketInventoryConfigurationRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketInventoryConfigurationRequestBuilder b) {}
@@ -95,19 +95,19 @@ abstract class GetBucketInventoryConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketInventoryConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('GetBucketInventoryConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'id',
+            id,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }

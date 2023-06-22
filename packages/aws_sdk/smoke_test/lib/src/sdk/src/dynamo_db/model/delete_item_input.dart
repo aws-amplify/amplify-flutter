@@ -71,7 +71,7 @@ abstract class DeleteItemInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeleteItemInput>> serializers = [
     DeleteItemInputAwsJson10Serializer()
   ];
 
@@ -196,47 +196,47 @@ abstract class DeleteItemInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteItemInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'expected',
-      expected,
-    );
-    helper.add(
-      'conditionalOperator',
-      conditionalOperator,
-    );
-    helper.add(
-      'returnValues',
-      returnValues,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'returnItemCollectionMetrics',
-      returnItemCollectionMetrics,
-    );
-    helper.add(
-      'conditionExpression',
-      conditionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'expressionAttributeValues',
-      expressionAttributeValues,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteItemInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'expected',
+        expected,
+      )
+      ..add(
+        'conditionalOperator',
+        conditionalOperator,
+      )
+      ..add(
+        'returnValues',
+        returnValues,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      )
+      ..add(
+        'returnItemCollectionMetrics',
+        returnItemCollectionMetrics,
+      )
+      ..add(
+        'conditionExpression',
+        conditionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      )
+      ..add(
+        'expressionAttributeValues',
+        expressionAttributeValues,
+      );
     return helper.toString();
   }
 }

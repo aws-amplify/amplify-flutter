@@ -39,9 +39,8 @@ abstract class InvalidChangeSetStatusException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidChangeSetStatusExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidChangeSetStatusException>>
+      serializers = [InvalidChangeSetStatusExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidChangeSetStatusExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class InvalidChangeSetStatusException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InvalidChangeSetStatusException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InvalidChangeSetStatusException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

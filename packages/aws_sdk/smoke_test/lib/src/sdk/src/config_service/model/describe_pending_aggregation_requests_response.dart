@@ -44,7 +44,9 @@ abstract class DescribePendingAggregationRequestsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<DescribePendingAggregationRequestsResponse>>
+      serializers = [
     DescribePendingAggregationRequestsResponseAwsJson11Serializer()
   ];
 
@@ -64,15 +66,15 @@ abstract class DescribePendingAggregationRequestsResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'DescribePendingAggregationRequestsResponse');
-    helper.add(
-      'pendingAggregationRequests',
-      pendingAggregationRequests,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        'DescribePendingAggregationRequestsResponse')
+      ..add(
+        'pendingAggregationRequests',
+        pendingAggregationRequests,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

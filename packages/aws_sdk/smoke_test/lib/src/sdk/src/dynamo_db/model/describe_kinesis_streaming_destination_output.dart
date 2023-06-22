@@ -44,7 +44,9 @@ abstract class DescribeKinesisStreamingDestinationOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<DescribeKinesisStreamingDestinationOutput>>
+      serializers = [
     DescribeKinesisStreamingDestinationOutputAwsJson10Serializer()
   ];
 
@@ -64,16 +66,16 @@ abstract class DescribeKinesisStreamingDestinationOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'DescribeKinesisStreamingDestinationOutput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'kinesisDataStreamDestinations',
-      kinesisDataStreamDestinations,
-    );
+    final helper =
+        newBuiltValueToStringHelper('DescribeKinesisStreamingDestinationOutput')
+          ..add(
+            'tableName',
+            tableName,
+          )
+          ..add(
+            'kinesisDataStreamDestinations',
+            kinesisDataStreamDestinations,
+          );
     return helper.toString();
   }
 }

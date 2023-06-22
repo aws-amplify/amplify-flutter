@@ -32,7 +32,7 @@ abstract class DescribeBackupOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DescribeBackupOutput>> serializers = [
     DescribeBackupOutputAwsJson10Serializer()
   ];
 
@@ -45,11 +45,11 @@ abstract class DescribeBackupOutput
   List<Object?> get props => [backupDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeBackupOutput');
-    helper.add(
-      'backupDescription',
-      backupDescription,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeBackupOutput')
+      ..add(
+        'backupDescription',
+        backupDescription,
+      );
     return helper.toString();
   }
 }

@@ -29,9 +29,8 @@ abstract class EvaluationModeConfiguration
 
   const EvaluationModeConfiguration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    EvaluationModeConfigurationAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<EvaluationModeConfiguration>>
+      serializers = [EvaluationModeConfigurationAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EvaluationModeConfigurationBuilder b) {}
@@ -42,11 +41,11 @@ abstract class EvaluationModeConfiguration
   List<Object?> get props => [mode];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EvaluationModeConfiguration');
-    helper.add(
-      'mode',
-      mode,
-    );
+    final helper = newBuiltValueToStringHelper('EvaluationModeConfiguration')
+      ..add(
+        'mode',
+        mode,
+      );
     return helper.toString();
   }
 }

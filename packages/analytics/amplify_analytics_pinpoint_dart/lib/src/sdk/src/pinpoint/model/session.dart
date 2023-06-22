@@ -34,7 +34,7 @@ abstract class Session
 
   const Session._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Session>> serializers = [
     SessionRestJson1Serializer()
   ];
 
@@ -61,23 +61,23 @@ abstract class Session
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Session');
-    helper.add(
-      'duration',
-      duration,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'startTimestamp',
-      startTimestamp,
-    );
-    helper.add(
-      'stopTimestamp',
-      stopTimestamp,
-    );
+    final helper = newBuiltValueToStringHelper('Session')
+      ..add(
+        'duration',
+        duration,
+      )
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'startTimestamp',
+        startTimestamp,
+      )
+      ..add(
+        'stopTimestamp',
+        stopTimestamp,
+      );
     return helper.toString();
   }
 }

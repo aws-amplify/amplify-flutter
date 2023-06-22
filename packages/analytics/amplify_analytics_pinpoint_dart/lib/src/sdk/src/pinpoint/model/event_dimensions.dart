@@ -40,7 +40,7 @@ abstract class EventDimensions
 
   const EventDimensions._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<EventDimensions>> serializers = [
     EventDimensionsRestJson1Serializer()
   ];
 
@@ -63,19 +63,19 @@ abstract class EventDimensions
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventDimensions');
-    helper.add(
-      'attributes',
-      attributes,
-    );
-    helper.add(
-      'eventType',
-      eventType,
-    );
-    helper.add(
-      'metrics',
-      metrics,
-    );
+    final helper = newBuiltValueToStringHelper('EventDimensions')
+      ..add(
+        'attributes',
+        attributes,
+      )
+      ..add(
+        'eventType',
+        eventType,
+      )
+      ..add(
+        'metrics',
+        metrics,
+      );
     return helper.toString();
   }
 }

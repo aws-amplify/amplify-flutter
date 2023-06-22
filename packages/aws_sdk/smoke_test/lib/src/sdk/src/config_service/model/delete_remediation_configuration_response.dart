@@ -34,7 +34,9 @@ abstract class DeleteRemediationConfigurationResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<DeleteRemediationConfigurationResponse>>
+      serializers = [
     DeleteRemediationConfigurationResponseAwsJson11Serializer()
   ];
 

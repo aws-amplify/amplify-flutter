@@ -32,9 +32,8 @@ abstract class PermissionsBoundaryDecisionDetail
 
   const PermissionsBoundaryDecisionDetail._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PermissionsBoundaryDecisionDetailAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<PermissionsBoundaryDecisionDetail>>
+      serializers = [PermissionsBoundaryDecisionDetailAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PermissionsBoundaryDecisionDetailBuilder b) {
@@ -48,11 +47,11 @@ abstract class PermissionsBoundaryDecisionDetail
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PermissionsBoundaryDecisionDetail');
-    helper.add(
-      'allowedByPermissionsBoundary',
-      allowedByPermissionsBoundary,
-    );
+        newBuiltValueToStringHelper('PermissionsBoundaryDecisionDetail')
+          ..add(
+            'allowedByPermissionsBoundary',
+            allowedByPermissionsBoundary,
+          );
     return helper.toString();
   }
 }

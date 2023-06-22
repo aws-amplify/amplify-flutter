@@ -33,9 +33,8 @@ abstract class DeleteSamlProviderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteSamlProviderRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteSamlProviderRequest>>
+      serializers = [DeleteSamlProviderRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteSamlProviderRequestBuilder b) {}
@@ -48,11 +47,11 @@ abstract class DeleteSamlProviderRequest
   List<Object?> get props => [samlProviderArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteSamlProviderRequest');
-    helper.add(
-      'samlProviderArn',
-      samlProviderArn,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteSamlProviderRequest')
+      ..add(
+        'samlProviderArn',
+        samlProviderArn,
+      );
     return helper.toString();
   }
 }

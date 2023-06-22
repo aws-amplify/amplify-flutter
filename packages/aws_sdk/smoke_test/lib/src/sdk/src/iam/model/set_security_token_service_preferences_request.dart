@@ -38,7 +38,9 @@ abstract class SetSecurityTokenServicePreferencesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<SetSecurityTokenServicePreferencesRequest>>
+      serializers = [
     SetSecurityTokenServicePreferencesRequestAwsQuerySerializer()
   ];
 
@@ -55,12 +57,12 @@ abstract class SetSecurityTokenServicePreferencesRequest
   List<Object?> get props => [globalEndpointTokenVersion];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'SetSecurityTokenServicePreferencesRequest');
-    helper.add(
-      'globalEndpointTokenVersion',
-      globalEndpointTokenVersion,
-    );
+    final helper =
+        newBuiltValueToStringHelper('SetSecurityTokenServicePreferencesRequest')
+          ..add(
+            'globalEndpointTokenVersion',
+            globalEndpointTokenVersion,
+          );
     return helper.toString();
   }
 }

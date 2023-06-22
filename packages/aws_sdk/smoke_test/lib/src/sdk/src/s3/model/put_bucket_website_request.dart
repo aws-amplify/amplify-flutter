@@ -71,9 +71,8 @@ abstract class PutBucketWebsiteRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketWebsiteRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.WebsiteConfiguration>>
+      serializers = [PutBucketWebsiteRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutBucketWebsiteRequestBuilder b) {}
@@ -120,27 +119,27 @@ abstract class PutBucketWebsiteRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutBucketWebsiteRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'websiteConfiguration',
-      websiteConfiguration,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutBucketWebsiteRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'websiteConfiguration',
+        websiteConfiguration,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

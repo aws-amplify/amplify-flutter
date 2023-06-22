@@ -119,9 +119,8 @@ abstract class CreateMultipartUploadOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    CreateMultipartUploadOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<CreateMultipartUploadOutputPayload>>
+      serializers = [CreateMultipartUploadOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateMultipartUploadOutputBuilder b) {}
@@ -195,59 +194,59 @@ abstract class CreateMultipartUploadOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateMultipartUploadOutput');
-    helper.add(
-      'abortDate',
-      abortDate,
-    );
-    helper.add(
-      'abortRuleId',
-      abortRuleId,
-    );
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'uploadId',
-      uploadId,
-    );
-    helper.add(
-      'serverSideEncryption',
-      serverSideEncryption,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'ssekmsKeyId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'ssekmsEncryptionContext',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
+    final helper = newBuiltValueToStringHelper('CreateMultipartUploadOutput')
+      ..add(
+        'abortDate',
+        abortDate,
+      )
+      ..add(
+        'abortRuleId',
+        abortRuleId,
+      )
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'uploadId',
+        uploadId,
+      )
+      ..add(
+        'serverSideEncryption',
+        serverSideEncryption,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'ssekmsKeyId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'ssekmsEncryptionContext',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'bucketKeyEnabled',
+        bucketKeyEnabled,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      );
     return helper.toString();
   }
 }
@@ -289,19 +288,19 @@ abstract class CreateMultipartUploadOutputPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateMultipartUploadOutputPayload');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'uploadId',
-      uploadId,
-    );
+        newBuiltValueToStringHelper('CreateMultipartUploadOutputPayload')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'key',
+            key,
+          )
+          ..add(
+            'uploadId',
+            uploadId,
+          );
     return helper.toString();
   }
 }

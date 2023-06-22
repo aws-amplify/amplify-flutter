@@ -35,9 +35,8 @@ abstract class DeleteInstanceProfileRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteInstanceProfileRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteInstanceProfileRequest>>
+      serializers = [DeleteInstanceProfileRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteInstanceProfileRequestBuilder b) {}
@@ -52,11 +51,11 @@ abstract class DeleteInstanceProfileRequest
   List<Object?> get props => [instanceProfileName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteInstanceProfileRequest');
-    helper.add(
-      'instanceProfileName',
-      instanceProfileName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteInstanceProfileRequest')
+      ..add(
+        'instanceProfileName',
+        instanceProfileName,
+      );
     return helper.toString();
   }
 }

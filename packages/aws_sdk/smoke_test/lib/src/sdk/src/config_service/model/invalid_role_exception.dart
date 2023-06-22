@@ -38,7 +38,7 @@ abstract class InvalidRoleException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<InvalidRoleException>> serializers = [
     InvalidRoleExceptionAwsJson11Serializer()
   ];
 
@@ -67,11 +67,11 @@ abstract class InvalidRoleException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidRoleException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidRoleException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

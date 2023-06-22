@@ -38,9 +38,8 @@ abstract class InvalidExpressionException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidExpressionExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidExpressionException>>
+      serializers = [InvalidExpressionExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidExpressionExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class InvalidExpressionException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidExpressionException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidExpressionException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

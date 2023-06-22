@@ -43,9 +43,8 @@ abstract class TooManyRequestsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TooManyRequestsExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<TooManyRequestsException>>
+      serializers = [TooManyRequestsExceptionRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TooManyRequestsExceptionBuilder b) {}
@@ -78,15 +77,15 @@ abstract class TooManyRequestsException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TooManyRequestsException');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'requestId',
-      requestId,
-    );
+    final helper = newBuiltValueToStringHelper('TooManyRequestsException')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'requestId',
+        requestId,
+      );
     return helper.toString();
   }
 }

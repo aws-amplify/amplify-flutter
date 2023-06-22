@@ -39,9 +39,8 @@ abstract class OperationInProgressException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    OperationInProgressExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<OperationInProgressException>>
+      serializers = [OperationInProgressExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OperationInProgressExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class OperationInProgressException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OperationInProgressException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('OperationInProgressException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

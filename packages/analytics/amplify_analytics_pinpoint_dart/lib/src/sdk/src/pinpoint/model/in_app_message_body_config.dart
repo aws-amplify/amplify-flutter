@@ -36,9 +36,8 @@ abstract class InAppMessageBodyConfig
 
   const InAppMessageBodyConfig._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    InAppMessageBodyConfigRestJson1Serializer()
-  ];
+  static const List<_i3.SmithySerializer<InAppMessageBodyConfig>> serializers =
+      [InAppMessageBodyConfigRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InAppMessageBodyConfigBuilder b) {}
@@ -59,19 +58,19 @@ abstract class InAppMessageBodyConfig
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessageBodyConfig');
-    helper.add(
-      'alignment',
-      alignment,
-    );
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'textColor',
-      textColor,
-    );
+    final helper = newBuiltValueToStringHelper('InAppMessageBodyConfig')
+      ..add(
+        'alignment',
+        alignment,
+      )
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'textColor',
+        textColor,
+      );
     return helper.toString();
   }
 }

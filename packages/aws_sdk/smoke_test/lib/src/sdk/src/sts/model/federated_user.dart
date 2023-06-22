@@ -31,7 +31,7 @@ abstract class FederatedUser
 
   const FederatedUser._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<FederatedUser>> serializers = [
     FederatedUserAwsQuerySerializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class FederatedUser
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FederatedUser');
-    helper.add(
-      'federatedUserId',
-      federatedUserId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
+    final helper = newBuiltValueToStringHelper('FederatedUser')
+      ..add(
+        'federatedUserId',
+        federatedUserId,
+      )
+      ..add(
+        'arn',
+        arn,
+      );
     return helper.toString();
   }
 }

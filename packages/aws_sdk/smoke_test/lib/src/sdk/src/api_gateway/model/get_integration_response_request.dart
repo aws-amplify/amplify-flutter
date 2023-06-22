@@ -63,9 +63,8 @@ abstract class GetIntegrationResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetIntegrationResponseRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetIntegrationResponseRequestPayload>>
+      serializers = [GetIntegrationResponseRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetIntegrationResponseRequestBuilder b) {}
@@ -111,23 +110,23 @@ abstract class GetIntegrationResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetIntegrationResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
+    final helper = newBuiltValueToStringHelper('GetIntegrationResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      );
     return helper.toString();
   }
 }

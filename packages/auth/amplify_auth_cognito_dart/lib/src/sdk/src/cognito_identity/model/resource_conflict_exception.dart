@@ -37,9 +37,8 @@ abstract class ResourceConflictException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ResourceConflictExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ResourceConflictException>>
+      serializers = [ResourceConflictExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceConflictExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class ResourceConflictException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceConflictException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceConflictException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

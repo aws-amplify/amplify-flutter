@@ -43,9 +43,8 @@ abstract class ConfigExportDeliveryInfo
 
   const ConfigExportDeliveryInfo._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ConfigExportDeliveryInfoAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<ConfigExportDeliveryInfo>>
+      serializers = [ConfigExportDeliveryInfoAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigExportDeliveryInfoBuilder b) {}
@@ -78,31 +77,31 @@ abstract class ConfigExportDeliveryInfo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfigExportDeliveryInfo');
-    helper.add(
-      'lastStatus',
-      lastStatus,
-    );
-    helper.add(
-      'lastErrorCode',
-      lastErrorCode,
-    );
-    helper.add(
-      'lastErrorMessage',
-      lastErrorMessage,
-    );
-    helper.add(
-      'lastAttemptTime',
-      lastAttemptTime,
-    );
-    helper.add(
-      'lastSuccessfulTime',
-      lastSuccessfulTime,
-    );
-    helper.add(
-      'nextDeliveryTime',
-      nextDeliveryTime,
-    );
+    final helper = newBuiltValueToStringHelper('ConfigExportDeliveryInfo')
+      ..add(
+        'lastStatus',
+        lastStatus,
+      )
+      ..add(
+        'lastErrorCode',
+        lastErrorCode,
+      )
+      ..add(
+        'lastErrorMessage',
+        lastErrorMessage,
+      )
+      ..add(
+        'lastAttemptTime',
+        lastAttemptTime,
+      )
+      ..add(
+        'lastSuccessfulTime',
+        lastSuccessfulTime,
+      )
+      ..add(
+        'nextDeliveryTime',
+        nextDeliveryTime,
+      );
     return helper.toString();
   }
 }

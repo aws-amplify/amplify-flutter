@@ -40,9 +40,8 @@ abstract class SetDefaultPolicyVersionRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    SetDefaultPolicyVersionRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<SetDefaultPolicyVersionRequest>>
+      serializers = [SetDefaultPolicyVersionRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SetDefaultPolicyVersionRequestBuilder b) {}
@@ -65,16 +64,15 @@ abstract class SetDefaultPolicyVersionRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('SetDefaultPolicyVersionRequest');
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
+    final helper = newBuiltValueToStringHelper('SetDefaultPolicyVersionRequest')
+      ..add(
+        'policyArn',
+        policyArn,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      );
     return helper.toString();
   }
 }

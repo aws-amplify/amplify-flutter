@@ -33,7 +33,7 @@ abstract class DescribeTableInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DescribeTableInput>> serializers = [
     DescribeTableInputAwsJson10Serializer()
   ];
 
@@ -48,11 +48,11 @@ abstract class DescribeTableInput
   List<Object?> get props => [tableName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeTableInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeTableInput')
+      ..add(
+        'tableName',
+        tableName,
+      );
     return helper.toString();
   }
 }

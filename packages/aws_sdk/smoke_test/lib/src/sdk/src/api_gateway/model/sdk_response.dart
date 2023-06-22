@@ -52,7 +52,7 @@ abstract class SdkResponse
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.Uint8List?>> serializers = [
     SdkResponseRestJson1Serializer()
   ];
 
@@ -77,19 +77,19 @@ abstract class SdkResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SdkResponse');
-    helper.add(
-      'contentType',
-      contentType,
-    );
-    helper.add(
-      'contentDisposition',
-      contentDisposition,
-    );
-    helper.add(
-      'body',
-      body,
-    );
+    final helper = newBuiltValueToStringHelper('SdkResponse')
+      ..add(
+        'contentType',
+        contentType,
+      )
+      ..add(
+        'contentDisposition',
+        contentDisposition,
+      )
+      ..add(
+        'body',
+        body,
+      );
     return helper.toString();
   }
 }

@@ -81,7 +81,7 @@ abstract class Stage
   ) =>
       payload;
 
-  static const List<_i8.SmithySerializer> serializers = [
+  static const List<_i8.SmithySerializer<Stage>> serializers = [
     StageRestJson1Serializer()
   ];
 
@@ -163,75 +163,75 @@ abstract class Stage
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Stage');
-    helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
-      'clientCertificateId',
-      clientCertificateId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'cacheClusterEnabled',
-      cacheClusterEnabled,
-    );
-    helper.add(
-      'cacheClusterSize',
-      cacheClusterSize,
-    );
-    helper.add(
-      'cacheClusterStatus',
-      cacheClusterStatus,
-    );
-    helper.add(
-      'methodSettings',
-      methodSettings,
-    );
-    helper.add(
-      'variables',
-      variables,
-    );
-    helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
-    helper.add(
-      'accessLogSettings',
-      accessLogSettings,
-    );
-    helper.add(
-      'canarySettings',
-      canarySettings,
-    );
-    helper.add(
-      'tracingEnabled',
-      tracingEnabled,
-    );
-    helper.add(
-      'webAclArn',
-      webAclArn,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
-    );
-    helper.add(
-      'lastUpdatedDate',
-      lastUpdatedDate,
-    );
+    final helper = newBuiltValueToStringHelper('Stage')
+      ..add(
+        'deploymentId',
+        deploymentId,
+      )
+      ..add(
+        'clientCertificateId',
+        clientCertificateId,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'cacheClusterEnabled',
+        cacheClusterEnabled,
+      )
+      ..add(
+        'cacheClusterSize',
+        cacheClusterSize,
+      )
+      ..add(
+        'cacheClusterStatus',
+        cacheClusterStatus,
+      )
+      ..add(
+        'methodSettings',
+        methodSettings,
+      )
+      ..add(
+        'variables',
+        variables,
+      )
+      ..add(
+        'documentationVersion',
+        documentationVersion,
+      )
+      ..add(
+        'accessLogSettings',
+        accessLogSettings,
+      )
+      ..add(
+        'canarySettings',
+        canarySettings,
+      )
+      ..add(
+        'tracingEnabled',
+        tracingEnabled,
+      )
+      ..add(
+        'webAclArn',
+        webAclArn,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'createdDate',
+        createdDate,
+      )
+      ..add(
+        'lastUpdatedDate',
+        lastUpdatedDate,
+      );
     return helper.toString();
   }
 }

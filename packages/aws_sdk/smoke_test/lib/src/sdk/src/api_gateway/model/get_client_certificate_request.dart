@@ -44,9 +44,8 @@ abstract class GetClientCertificateRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetClientCertificateRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetClientCertificateRequestPayload>>
+      serializers = [GetClientCertificateRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetClientCertificateRequestBuilder b) {}
@@ -72,11 +71,11 @@ abstract class GetClientCertificateRequest
   List<Object?> get props => [clientCertificateId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetClientCertificateRequest');
-    helper.add(
-      'clientCertificateId',
-      clientCertificateId,
-    );
+    final helper = newBuiltValueToStringHelper('GetClientCertificateRequest')
+      ..add(
+        'clientCertificateId',
+        clientCertificateId,
+      );
     return helper.toString();
   }
 }

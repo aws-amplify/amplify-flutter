@@ -38,7 +38,7 @@ abstract class RoleUsageType
 
   const RoleUsageType._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<RoleUsageType>> serializers = [
     RoleUsageTypeAwsQuerySerializer()
   ];
 
@@ -57,15 +57,15 @@ abstract class RoleUsageType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RoleUsageType');
-    helper.add(
-      'region',
-      region,
-    );
-    helper.add(
-      'resources',
-      resources,
-    );
+    final helper = newBuiltValueToStringHelper('RoleUsageType')
+      ..add(
+        'region',
+        region,
+      )
+      ..add(
+        'resources',
+        resources,
+      );
     return helper.toString();
   }
 }

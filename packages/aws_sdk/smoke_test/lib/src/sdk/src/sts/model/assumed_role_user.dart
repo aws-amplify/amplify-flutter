@@ -31,7 +31,7 @@ abstract class AssumedRoleUser
 
   const AssumedRoleUser._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AssumedRoleUser>> serializers = [
     AssumedRoleUserAwsQuerySerializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class AssumedRoleUser
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AssumedRoleUser');
-    helper.add(
-      'assumedRoleId',
-      assumedRoleId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
+    final helper = newBuiltValueToStringHelper('AssumedRoleUser')
+      ..add(
+        'assumedRoleId',
+        assumedRoleId,
+      )
+      ..add(
+        'arn',
+        arn,
+      );
     return helper.toString();
   }
 }

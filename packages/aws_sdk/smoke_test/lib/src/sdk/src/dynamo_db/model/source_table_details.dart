@@ -54,7 +54,7 @@ abstract class SourceTableDetails
 
   const SourceTableDetails._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<SourceTableDetails>> serializers = [
     SourceTableDetailsAwsJson10Serializer()
   ];
 
@@ -105,43 +105,43 @@ abstract class SourceTableDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SourceTableDetails');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'tableId',
-      tableId,
-    );
-    helper.add(
-      'tableArn',
-      tableArn,
-    );
-    helper.add(
-      'tableSizeBytes',
-      tableSizeBytes,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'tableCreationDateTime',
-      tableCreationDateTime,
-    );
-    helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
-    );
-    helper.add(
-      'itemCount',
-      itemCount,
-    );
-    helper.add(
-      'billingMode',
-      billingMode,
-    );
+    final helper = newBuiltValueToStringHelper('SourceTableDetails')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'tableId',
+        tableId,
+      )
+      ..add(
+        'tableArn',
+        tableArn,
+      )
+      ..add(
+        'tableSizeBytes',
+        tableSizeBytes,
+      )
+      ..add(
+        'keySchema',
+        keySchema,
+      )
+      ..add(
+        'tableCreationDateTime',
+        tableCreationDateTime,
+      )
+      ..add(
+        'provisionedThroughput',
+        provisionedThroughput,
+      )
+      ..add(
+        'itemCount',
+        itemCount,
+      )
+      ..add(
+        'billingMode',
+        billingMode,
+      );
     return helper.toString();
   }
 }

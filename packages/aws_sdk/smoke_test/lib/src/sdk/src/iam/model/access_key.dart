@@ -50,7 +50,7 @@ abstract class AccessKey
 
   const AccessKey._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<AccessKey>> serializers = [
     AccessKeyAwsQuerySerializer()
   ];
 
@@ -81,27 +81,27 @@ abstract class AccessKey
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccessKey');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'accessKeyId',
-      accessKeyId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'secretAccessKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
+    final helper = newBuiltValueToStringHelper('AccessKey')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'accessKeyId',
+        accessKeyId,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'secretAccessKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'createDate',
+        createDate,
+      );
     return helper.toString();
   }
 }

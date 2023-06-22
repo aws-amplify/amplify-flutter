@@ -42,7 +42,7 @@ abstract class MemberAccountStatus
 
   const MemberAccountStatus._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<MemberAccountStatus>> serializers = [
     MemberAccountStatusAwsJson11Serializer()
   ];
 
@@ -97,31 +97,31 @@ abstract class MemberAccountStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MemberAccountStatus');
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'memberAccountRuleStatus',
-      memberAccountRuleStatus,
-    );
-    helper.add(
-      'errorCode',
-      errorCode,
-    );
-    helper.add(
-      'errorMessage',
-      errorMessage,
-    );
-    helper.add(
-      'lastUpdateTime',
-      lastUpdateTime,
-    );
+    final helper = newBuiltValueToStringHelper('MemberAccountStatus')
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'memberAccountRuleStatus',
+        memberAccountRuleStatus,
+      )
+      ..add(
+        'errorCode',
+        errorCode,
+      )
+      ..add(
+        'errorMessage',
+        errorMessage,
+      )
+      ..add(
+        'lastUpdateTime',
+        lastUpdateTime,
+      );
     return helper.toString();
   }
 }

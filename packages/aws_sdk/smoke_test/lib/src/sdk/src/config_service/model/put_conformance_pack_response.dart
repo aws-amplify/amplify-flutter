@@ -32,9 +32,8 @@ abstract class PutConformancePackResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PutConformancePackResponseAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<PutConformancePackResponse>>
+      serializers = [PutConformancePackResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutConformancePackResponseBuilder b) {}
@@ -45,11 +44,11 @@ abstract class PutConformancePackResponse
   List<Object?> get props => [conformancePackArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutConformancePackResponse');
-    helper.add(
-      'conformancePackArn',
-      conformancePackArn,
-    );
+    final helper = newBuiltValueToStringHelper('PutConformancePackResponse')
+      ..add(
+        'conformancePackArn',
+        conformancePackArn,
+      );
     return helper.toString();
   }
 }

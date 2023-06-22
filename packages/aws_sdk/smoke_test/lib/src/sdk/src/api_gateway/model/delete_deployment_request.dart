@@ -52,9 +52,8 @@ abstract class DeleteDeploymentRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteDeploymentRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteDeploymentRequestPayload>>
+      serializers = [DeleteDeploymentRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteDeploymentRequestBuilder b) {}
@@ -88,15 +87,15 @@ abstract class DeleteDeploymentRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteDeploymentRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'deploymentId',
-      deploymentId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteDeploymentRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'deploymentId',
+        deploymentId,
+      );
     return helper.toString();
   }
 }

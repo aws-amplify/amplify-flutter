@@ -39,9 +39,8 @@ abstract class InvalidLambdaResponseException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidLambdaResponseExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidLambdaResponseException>>
+      serializers = [InvalidLambdaResponseExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidLambdaResponseExceptionBuilder b) {}
@@ -68,12 +67,11 @@ abstract class InvalidLambdaResponseException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InvalidLambdaResponseException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidLambdaResponseException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

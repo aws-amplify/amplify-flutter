@@ -89,9 +89,8 @@ abstract class CreateStageRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateStageRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateStageRequestPayload>>
+      serializers = [CreateStageRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateStageRequestBuilder b) {
@@ -178,51 +177,51 @@ abstract class CreateStageRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateStageRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'cacheClusterEnabled',
-      cacheClusterEnabled,
-    );
-    helper.add(
-      'cacheClusterSize',
-      cacheClusterSize,
-    );
-    helper.add(
-      'variables',
-      variables,
-    );
-    helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
-    helper.add(
-      'canarySettings',
-      canarySettings,
-    );
-    helper.add(
-      'tracingEnabled',
-      tracingEnabled,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('CreateStageRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      )
+      ..add(
+        'deploymentId',
+        deploymentId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'cacheClusterEnabled',
+        cacheClusterEnabled,
+      )
+      ..add(
+        'cacheClusterSize',
+        cacheClusterSize,
+      )
+      ..add(
+        'variables',
+        variables,
+      )
+      ..add(
+        'documentationVersion',
+        documentationVersion,
+      )
+      ..add(
+        'canarySettings',
+        canarySettings,
+      )
+      ..add(
+        'tracingEnabled',
+        tracingEnabled,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }
@@ -288,47 +287,47 @@ abstract class CreateStageRequestPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateStageRequestPayload');
-    helper.add(
-      'cacheClusterEnabled',
-      cacheClusterEnabled,
-    );
-    helper.add(
-      'cacheClusterSize',
-      cacheClusterSize,
-    );
-    helper.add(
-      'canarySettings',
-      canarySettings,
-    );
-    helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'tracingEnabled',
-      tracingEnabled,
-    );
-    helper.add(
-      'variables',
-      variables,
-    );
+    final helper = newBuiltValueToStringHelper('CreateStageRequestPayload')
+      ..add(
+        'cacheClusterEnabled',
+        cacheClusterEnabled,
+      )
+      ..add(
+        'cacheClusterSize',
+        cacheClusterSize,
+      )
+      ..add(
+        'canarySettings',
+        canarySettings,
+      )
+      ..add(
+        'deploymentId',
+        deploymentId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'documentationVersion',
+        documentationVersion,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'tracingEnabled',
+        tracingEnabled,
+      )
+      ..add(
+        'variables',
+        variables,
+      );
     return helper.toString();
   }
 }

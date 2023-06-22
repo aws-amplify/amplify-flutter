@@ -37,7 +37,9 @@ abstract class AggregateConformancePackComplianceCount
 
   const AggregateConformancePackComplianceCount._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<AggregateConformancePackComplianceCount>>
+      serializers = [
     AggregateConformancePackComplianceCountAwsJson11Serializer()
   ];
 
@@ -60,15 +62,15 @@ abstract class AggregateConformancePackComplianceCount
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('AggregateConformancePackComplianceCount');
-    helper.add(
-      'compliantConformancePackCount',
-      compliantConformancePackCount,
-    );
-    helper.add(
-      'nonCompliantConformancePackCount',
-      nonCompliantConformancePackCount,
-    );
+        newBuiltValueToStringHelper('AggregateConformancePackComplianceCount')
+          ..add(
+            'compliantConformancePackCount',
+            compliantConformancePackCount,
+          )
+          ..add(
+            'nonCompliantConformancePackCount',
+            nonCompliantConformancePackCount,
+          );
     return helper.toString();
   }
 }

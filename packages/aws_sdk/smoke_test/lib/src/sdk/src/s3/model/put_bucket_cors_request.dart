@@ -66,7 +66,7 @@ abstract class PutBucketCorsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.CorsConfiguration>> serializers = [
     PutBucketCorsRequestRestXmlSerializer()
   ];
 
@@ -115,27 +115,27 @@ abstract class PutBucketCorsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutBucketCorsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'corsConfiguration',
-      corsConfiguration,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutBucketCorsRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'corsConfiguration',
+        corsConfiguration,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

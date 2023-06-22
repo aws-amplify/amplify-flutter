@@ -40,7 +40,8 @@ abstract class NoSuchOrganizationConfigRuleException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<NoSuchOrganizationConfigRuleException>>
+      serializers = [
     NoSuchOrganizationConfigRuleExceptionAwsJson11Serializer()
   ];
 
@@ -70,11 +71,11 @@ abstract class NoSuchOrganizationConfigRuleException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('NoSuchOrganizationConfigRuleException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('NoSuchOrganizationConfigRuleException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

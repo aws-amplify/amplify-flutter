@@ -47,9 +47,8 @@ abstract class SetTypeConfigurationInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    SetTypeConfigurationInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<SetTypeConfigurationInput>>
+      serializers = [SetTypeConfigurationInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SetTypeConfigurationInputBuilder b) {}
@@ -92,27 +91,27 @@ abstract class SetTypeConfigurationInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SetTypeConfigurationInput');
-    helper.add(
-      'typeArn',
-      typeArn,
-    );
-    helper.add(
-      'configuration',
-      configuration,
-    );
-    helper.add(
-      'configurationAlias',
-      configurationAlias,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'type',
-      type,
-    );
+    final helper = newBuiltValueToStringHelper('SetTypeConfigurationInput')
+      ..add(
+        'typeArn',
+        typeArn,
+      )
+      ..add(
+        'configuration',
+        configuration,
+      )
+      ..add(
+        'configurationAlias',
+        configurationAlias,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'type',
+        type,
+      );
     return helper.toString();
   }
 }

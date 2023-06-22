@@ -81,7 +81,7 @@ abstract class Integration
   ) =>
       payload;
 
-  static const List<_i8.SmithySerializer> serializers = [
+  static const List<_i8.SmithySerializer<Integration>> serializers = [
     IntegrationRestJson1Serializer()
   ];
 
@@ -160,67 +160,67 @@ abstract class Integration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Integration');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'uri',
-      uri,
-    );
-    helper.add(
-      'connectionType',
-      connectionType,
-    );
-    helper.add(
-      'connectionId',
-      connectionId,
-    );
-    helper.add(
-      'credentials',
-      credentials,
-    );
-    helper.add(
-      'requestParameters',
-      requestParameters,
-    );
-    helper.add(
-      'requestTemplates',
-      requestTemplates,
-    );
-    helper.add(
-      'passthroughBehavior',
-      passthroughBehavior,
-    );
-    helper.add(
-      'contentHandling',
-      contentHandling,
-    );
-    helper.add(
-      'timeoutInMillis',
-      timeoutInMillis,
-    );
-    helper.add(
-      'cacheNamespace',
-      cacheNamespace,
-    );
-    helper.add(
-      'cacheKeyParameters',
-      cacheKeyParameters,
-    );
-    helper.add(
-      'integrationResponses',
-      integrationResponses,
-    );
-    helper.add(
-      'tlsConfig',
-      tlsConfig,
-    );
+    final helper = newBuiltValueToStringHelper('Integration')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'uri',
+        uri,
+      )
+      ..add(
+        'connectionType',
+        connectionType,
+      )
+      ..add(
+        'connectionId',
+        connectionId,
+      )
+      ..add(
+        'credentials',
+        credentials,
+      )
+      ..add(
+        'requestParameters',
+        requestParameters,
+      )
+      ..add(
+        'requestTemplates',
+        requestTemplates,
+      )
+      ..add(
+        'passthroughBehavior',
+        passthroughBehavior,
+      )
+      ..add(
+        'contentHandling',
+        contentHandling,
+      )
+      ..add(
+        'timeoutInMillis',
+        timeoutInMillis,
+      )
+      ..add(
+        'cacheNamespace',
+        cacheNamespace,
+      )
+      ..add(
+        'cacheKeyParameters',
+        cacheKeyParameters,
+      )
+      ..add(
+        'integrationResponses',
+        integrationResponses,
+      )
+      ..add(
+        'tlsConfig',
+        tlsConfig,
+      );
     return helper.toString();
   }
 }

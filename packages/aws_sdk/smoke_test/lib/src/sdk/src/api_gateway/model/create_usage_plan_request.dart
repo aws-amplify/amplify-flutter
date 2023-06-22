@@ -55,9 +55,8 @@ abstract class CreateUsagePlanRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateUsagePlanRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateUsagePlanRequest>> serializers =
+      [CreateUsagePlanRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateUsagePlanRequestBuilder b) {}
@@ -92,31 +91,31 @@ abstract class CreateUsagePlanRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateUsagePlanRequest');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'apiStages',
-      apiStages,
-    );
-    helper.add(
-      'throttle',
-      throttle,
-    );
-    helper.add(
-      'quota',
-      quota,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('CreateUsagePlanRequest')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'apiStages',
+        apiStages,
+      )
+      ..add(
+        'throttle',
+        throttle,
+      )
+      ..add(
+        'quota',
+        quota,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

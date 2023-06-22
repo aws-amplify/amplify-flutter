@@ -62,9 +62,8 @@ abstract class RespondToAuthChallengeRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    RespondToAuthChallengeRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<RespondToAuthChallengeRequest>>
+      serializers = [RespondToAuthChallengeRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RespondToAuthChallengeRequestBuilder b) {}
@@ -137,35 +136,35 @@ abstract class RespondToAuthChallengeRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RespondToAuthChallengeRequest');
-    helper.add(
-      'clientId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'challengeName',
-      challengeName,
-    );
-    helper.add(
-      'session',
-      session,
-    );
-    helper.add(
-      'challengeResponses',
-      challengeResponses,
-    );
-    helper.add(
-      'analyticsMetadata',
-      analyticsMetadata,
-    );
-    helper.add(
-      'userContextData',
-      userContextData,
-    );
-    helper.add(
-      'clientMetadata',
-      clientMetadata,
-    );
+    final helper = newBuiltValueToStringHelper('RespondToAuthChallengeRequest')
+      ..add(
+        'clientId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'challengeName',
+        challengeName,
+      )
+      ..add(
+        'session',
+        session,
+      )
+      ..add(
+        'challengeResponses',
+        challengeResponses,
+      )
+      ..add(
+        'analyticsMetadata',
+        analyticsMetadata,
+      )
+      ..add(
+        'userContextData',
+        userContextData,
+      )
+      ..add(
+        'clientMetadata',
+        clientMetadata,
+      );
     return helper.toString();
   }
 }

@@ -24,7 +24,7 @@ abstract class ContinuationEvent
 
   const ContinuationEvent._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ContinuationEvent>> serializers = [
     ContinuationEventRestXmlSerializer()
   ];
 

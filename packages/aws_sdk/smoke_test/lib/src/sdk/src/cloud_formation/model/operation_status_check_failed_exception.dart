@@ -39,9 +39,8 @@ abstract class OperationStatusCheckFailedException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    OperationStatusCheckFailedExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<OperationStatusCheckFailedException>>
+      serializers = [OperationStatusCheckFailedExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OperationStatusCheckFailedExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class OperationStatusCheckFailedException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OperationStatusCheckFailedException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('OperationStatusCheckFailedException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

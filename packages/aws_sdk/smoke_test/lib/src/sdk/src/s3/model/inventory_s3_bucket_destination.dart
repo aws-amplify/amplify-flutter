@@ -44,9 +44,8 @@ abstract class InventoryS3BucketDestination
 
   const InventoryS3BucketDestination._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    InventoryS3BucketDestinationRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<InventoryS3BucketDestination>>
+      serializers = [InventoryS3BucketDestinationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InventoryS3BucketDestinationBuilder b) {}
@@ -77,27 +76,27 @@ abstract class InventoryS3BucketDestination
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InventoryS3BucketDestination');
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'format',
-      format,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'encryption',
-      encryption,
-    );
+    final helper = newBuiltValueToStringHelper('InventoryS3BucketDestination')
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'format',
+        format,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'encryption',
+        encryption,
+      );
     return helper.toString();
   }
 }

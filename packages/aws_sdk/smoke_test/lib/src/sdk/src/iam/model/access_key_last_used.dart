@@ -39,7 +39,7 @@ abstract class AccessKeyLastUsed
 
   const AccessKeyLastUsed._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AccessKeyLastUsed>> serializers = [
     AccessKeyLastUsedAwsQuerySerializer()
   ];
 
@@ -83,19 +83,19 @@ abstract class AccessKeyLastUsed
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccessKeyLastUsed');
-    helper.add(
-      'lastUsedDate',
-      lastUsedDate,
-    );
-    helper.add(
-      'serviceName',
-      serviceName,
-    );
-    helper.add(
-      'region',
-      region,
-    );
+    final helper = newBuiltValueToStringHelper('AccessKeyLastUsed')
+      ..add(
+        'lastUsedDate',
+        lastUsedDate,
+      )
+      ..add(
+        'serviceName',
+        serviceName,
+      )
+      ..add(
+        'region',
+        region,
+      );
     return helper.toString();
   }
 }

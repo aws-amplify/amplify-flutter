@@ -44,9 +44,8 @@ abstract class ListContributorInsightsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListContributorInsightsOutputAwsJson10Serializer()
-  ];
+  static const List<_i4.SmithySerializer<ListContributorInsightsOutput>>
+      serializers = [ListContributorInsightsOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListContributorInsightsOutputBuilder b) {}
@@ -64,15 +63,15 @@ abstract class ListContributorInsightsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListContributorInsightsOutput');
-    helper.add(
-      'contributorInsightsSummaries',
-      contributorInsightsSummaries,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListContributorInsightsOutput')
+      ..add(
+        'contributorInsightsSummaries',
+        contributorInsightsSummaries,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

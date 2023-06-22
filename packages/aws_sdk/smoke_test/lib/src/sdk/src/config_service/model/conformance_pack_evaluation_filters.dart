@@ -43,9 +43,8 @@ abstract class ConformancePackEvaluationFilters
 
   const ConformancePackEvaluationFilters._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ConformancePackEvaluationFiltersAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<ConformancePackEvaluationFilters>>
+      serializers = [ConformancePackEvaluationFiltersAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackEvaluationFiltersBuilder b) {}
@@ -75,23 +74,23 @@ abstract class ConformancePackEvaluationFilters
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ConformancePackEvaluationFilters');
-    helper.add(
-      'configRuleNames',
-      configRuleNames,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceIds',
-      resourceIds,
-    );
+        newBuiltValueToStringHelper('ConformancePackEvaluationFilters')
+          ..add(
+            'configRuleNames',
+            configRuleNames,
+          )
+          ..add(
+            'complianceType',
+            complianceType,
+          )
+          ..add(
+            'resourceType',
+            resourceType,
+          )
+          ..add(
+            'resourceIds',
+            resourceIds,
+          );
     return helper.toString();
   }
 }

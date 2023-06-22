@@ -37,7 +37,7 @@ abstract class ModuleInfo
 
   const ModuleInfo._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ModuleInfo>> serializers = [
     ModuleInfoAwsQuerySerializer()
   ];
 
@@ -66,15 +66,15 @@ abstract class ModuleInfo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ModuleInfo');
-    helper.add(
-      'typeHierarchy',
-      typeHierarchy,
-    );
-    helper.add(
-      'logicalIdHierarchy',
-      logicalIdHierarchy,
-    );
+    final helper = newBuiltValueToStringHelper('ModuleInfo')
+      ..add(
+        'typeHierarchy',
+        typeHierarchy,
+      )
+      ..add(
+        'logicalIdHierarchy',
+        logicalIdHierarchy,
+      );
     return helper.toString();
   }
 }

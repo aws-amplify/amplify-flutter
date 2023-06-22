@@ -56,9 +56,9 @@ abstract class ListBucketMetricsConfigurationsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListBucketMetricsConfigurationsRequestRestXmlSerializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<ListBucketMetricsConfigurationsRequestPayload>>
+      serializers = [ListBucketMetricsConfigurationsRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListBucketMetricsConfigurationsRequestBuilder b) {}
@@ -95,19 +95,19 @@ abstract class ListBucketMetricsConfigurationsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListBucketMetricsConfigurationsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('ListBucketMetricsConfigurationsRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'continuationToken',
+            continuationToken,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }

@@ -61,7 +61,7 @@ abstract class PutBucketOwnershipControlsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.OwnershipControls>> serializers = [
     PutBucketOwnershipControlsRequestRestXmlSerializer()
   ];
 
@@ -105,23 +105,23 @@ abstract class PutBucketOwnershipControlsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutBucketOwnershipControlsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'ownershipControls',
-      ownershipControls,
-    );
+        newBuiltValueToStringHelper('PutBucketOwnershipControlsRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'contentMd5',
+            contentMd5,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          )
+          ..add(
+            'ownershipControls',
+            ownershipControls,
+          );
     return helper.toString();
   }
 }

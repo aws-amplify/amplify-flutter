@@ -25,7 +25,7 @@ abstract class PolicyStatus
 
   const PolicyStatus._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PolicyStatus>> serializers = [
     PolicyStatusRestXmlSerializer()
   ];
 
@@ -38,11 +38,11 @@ abstract class PolicyStatus
   List<Object?> get props => [isPublic];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PolicyStatus');
-    helper.add(
-      'isPublic',
-      isPublic,
-    );
+    final helper = newBuiltValueToStringHelper('PolicyStatus')
+      ..add(
+        'isPublic',
+        isPublic,
+      );
     return helper.toString();
   }
 }

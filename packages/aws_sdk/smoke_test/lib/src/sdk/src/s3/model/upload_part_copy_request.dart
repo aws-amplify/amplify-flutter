@@ -161,9 +161,8 @@ abstract class UploadPartCopyRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UploadPartCopyRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<UploadPartCopyRequestPayload>>
+      serializers = [UploadPartCopyRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadPartCopyRequestBuilder b) {}
@@ -279,83 +278,83 @@ abstract class UploadPartCopyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadPartCopyRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'copySource',
-      copySource,
-    );
-    helper.add(
-      'copySourceIfMatch',
-      copySourceIfMatch,
-    );
-    helper.add(
-      'copySourceIfModifiedSince',
-      copySourceIfModifiedSince,
-    );
-    helper.add(
-      'copySourceIfNoneMatch',
-      copySourceIfNoneMatch,
-    );
-    helper.add(
-      'copySourceIfUnmodifiedSince',
-      copySourceIfUnmodifiedSince,
-    );
-    helper.add(
-      'copySourceRange',
-      copySourceRange,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'partNumber',
-      partNumber,
-    );
-    helper.add(
-      'uploadId',
-      uploadId,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'copySourceSseCustomerAlgorithm',
-      copySourceSseCustomerAlgorithm,
-    );
-    helper.add(
-      'copySourceSseCustomerKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'copySourceSseCustomerKeyMd5',
-      copySourceSseCustomerKeyMd5,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'expectedSourceBucketOwner',
-      expectedSourceBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('UploadPartCopyRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'copySource',
+        copySource,
+      )
+      ..add(
+        'copySourceIfMatch',
+        copySourceIfMatch,
+      )
+      ..add(
+        'copySourceIfModifiedSince',
+        copySourceIfModifiedSince,
+      )
+      ..add(
+        'copySourceIfNoneMatch',
+        copySourceIfNoneMatch,
+      )
+      ..add(
+        'copySourceIfUnmodifiedSince',
+        copySourceIfUnmodifiedSince,
+      )
+      ..add(
+        'copySourceRange',
+        copySourceRange,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'partNumber',
+        partNumber,
+      )
+      ..add(
+        'uploadId',
+        uploadId,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'copySourceSseCustomerAlgorithm',
+        copySourceSseCustomerAlgorithm,
+      )
+      ..add(
+        'copySourceSseCustomerKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'copySourceSseCustomerKeyMd5',
+        copySourceSseCustomerKeyMd5,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      )
+      ..add(
+        'expectedSourceBucketOwner',
+        expectedSourceBucketOwner,
+      );
     return helper.toString();
   }
 }

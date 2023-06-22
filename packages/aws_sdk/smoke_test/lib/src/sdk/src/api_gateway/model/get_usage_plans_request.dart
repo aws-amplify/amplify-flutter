@@ -57,9 +57,8 @@ abstract class GetUsagePlansRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetUsagePlansRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetUsagePlansRequestPayload>>
+      serializers = [GetUsagePlansRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetUsagePlansRequestBuilder b) {}
@@ -82,19 +81,19 @@ abstract class GetUsagePlansRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetUsagePlansRequest');
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'keyId',
-      keyId,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+    final helper = newBuiltValueToStringHelper('GetUsagePlansRequest')
+      ..add(
+        'position',
+        position,
+      )
+      ..add(
+        'keyId',
+        keyId,
+      )
+      ..add(
+        'limit',
+        limit,
+      );
     return helper.toString();
   }
 }

@@ -59,9 +59,8 @@ abstract class UpdateAccountPasswordPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateAccountPasswordPolicyRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateAccountPasswordPolicyRequest>>
+      serializers = [UpdateAccountPasswordPolicyRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateAccountPasswordPolicyRequestBuilder b) {
@@ -137,43 +136,43 @@ abstract class UpdateAccountPasswordPolicyRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateAccountPasswordPolicyRequest');
-    helper.add(
-      'minimumPasswordLength',
-      minimumPasswordLength,
-    );
-    helper.add(
-      'requireSymbols',
-      requireSymbols,
-    );
-    helper.add(
-      'requireNumbers',
-      requireNumbers,
-    );
-    helper.add(
-      'requireUppercaseCharacters',
-      requireUppercaseCharacters,
-    );
-    helper.add(
-      'requireLowercaseCharacters',
-      requireLowercaseCharacters,
-    );
-    helper.add(
-      'allowUsersToChangePassword',
-      allowUsersToChangePassword,
-    );
-    helper.add(
-      'maxPasswordAge',
-      maxPasswordAge,
-    );
-    helper.add(
-      'passwordReusePrevention',
-      passwordReusePrevention,
-    );
-    helper.add(
-      'hardExpiry',
-      hardExpiry,
-    );
+        newBuiltValueToStringHelper('UpdateAccountPasswordPolicyRequest')
+          ..add(
+            'minimumPasswordLength',
+            minimumPasswordLength,
+          )
+          ..add(
+            'requireSymbols',
+            requireSymbols,
+          )
+          ..add(
+            'requireNumbers',
+            requireNumbers,
+          )
+          ..add(
+            'requireUppercaseCharacters',
+            requireUppercaseCharacters,
+          )
+          ..add(
+            'requireLowercaseCharacters',
+            requireLowercaseCharacters,
+          )
+          ..add(
+            'allowUsersToChangePassword',
+            allowUsersToChangePassword,
+          )
+          ..add(
+            'maxPasswordAge',
+            maxPasswordAge,
+          )
+          ..add(
+            'passwordReusePrevention',
+            passwordReusePrevention,
+          )
+          ..add(
+            'hardExpiry',
+            hardExpiry,
+          );
     return helper.toString();
   }
 }

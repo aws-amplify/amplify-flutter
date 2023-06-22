@@ -41,7 +41,7 @@ abstract class GetIdInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetIdInput>> serializers = [
     GetIdInputAwsJson11Serializer()
   ];
 
@@ -78,19 +78,19 @@ abstract class GetIdInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetIdInput');
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'identityPoolId',
-      identityPoolId,
-    );
-    helper.add(
-      'logins',
-      logins,
-    );
+    final helper = newBuiltValueToStringHelper('GetIdInput')
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'identityPoolId',
+        identityPoolId,
+      )
+      ..add(
+        'logins',
+        logins,
+      );
     return helper.toString();
   }
 }

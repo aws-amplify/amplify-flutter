@@ -29,7 +29,7 @@ abstract class EventsResponse
 
   const EventsResponse._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<EventsResponse>> serializers = [
     EventsResponseRestJson1Serializer()
   ];
 
@@ -42,11 +42,11 @@ abstract class EventsResponse
   List<Object?> get props => [results];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventsResponse');
-    helper.add(
-      'results',
-      results,
-    );
+    final helper = newBuiltValueToStringHelper('EventsResponse')
+      ..add(
+        'results',
+        results,
+      );
     return helper.toString();
   }
 }

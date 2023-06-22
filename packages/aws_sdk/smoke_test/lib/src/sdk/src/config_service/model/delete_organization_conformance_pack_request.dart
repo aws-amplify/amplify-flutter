@@ -36,7 +36,9 @@ abstract class DeleteOrganizationConformancePackRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DeleteOrganizationConformancePackRequest>>
+      serializers = [
     DeleteOrganizationConformancePackRequestAwsJson11Serializer()
   ];
 
@@ -52,11 +54,11 @@ abstract class DeleteOrganizationConformancePackRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteOrganizationConformancePackRequest');
-    helper.add(
-      'organizationConformancePackName',
-      organizationConformancePackName,
-    );
+        newBuiltValueToStringHelper('DeleteOrganizationConformancePackRequest')
+          ..add(
+            'organizationConformancePackName',
+            organizationConformancePackName,
+          );
     return helper.toString();
   }
 }

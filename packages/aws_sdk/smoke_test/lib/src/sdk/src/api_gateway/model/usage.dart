@@ -54,7 +54,7 @@ abstract class Usage
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Usage>> serializers = [
     UsageRestJson1Serializer()
   ];
 
@@ -85,27 +85,27 @@ abstract class Usage
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Usage');
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
-    );
-    helper.add(
-      'startDate',
-      startDate,
-    );
-    helper.add(
-      'endDate',
-      endDate,
-    );
-    helper.add(
-      'items',
-      items,
-    );
-    helper.add(
-      'position',
-      position,
-    );
+    final helper = newBuiltValueToStringHelper('Usage')
+      ..add(
+        'usagePlanId',
+        usagePlanId,
+      )
+      ..add(
+        'startDate',
+        startDate,
+      )
+      ..add(
+        'endDate',
+        endDate,
+      )
+      ..add(
+        'items',
+        items,
+      )
+      ..add(
+        'position',
+        position,
+      );
     return helper.toString();
   }
 }

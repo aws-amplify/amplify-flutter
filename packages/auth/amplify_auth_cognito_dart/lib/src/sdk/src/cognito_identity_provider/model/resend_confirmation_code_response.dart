@@ -40,9 +40,8 @@ abstract class ResendConfirmationCodeResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ResendConfirmationCodeResponseAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<ResendConfirmationCodeResponse>>
+      serializers = [ResendConfirmationCodeResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResendConfirmationCodeResponseBuilder b) {}
@@ -53,12 +52,11 @@ abstract class ResendConfirmationCodeResponse
   List<Object?> get props => [codeDeliveryDetails];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ResendConfirmationCodeResponse');
-    helper.add(
-      'codeDeliveryDetails',
-      codeDeliveryDetails,
-    );
+    final helper = newBuiltValueToStringHelper('ResendConfirmationCodeResponse')
+      ..add(
+        'codeDeliveryDetails',
+        codeDeliveryDetails,
+      );
     return helper.toString();
   }
 }

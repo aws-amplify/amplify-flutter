@@ -50,9 +50,8 @@ abstract class UploadServerCertificateRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UploadServerCertificateRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<UploadServerCertificateRequest>>
+      serializers = [UploadServerCertificateRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadServerCertificateRequestBuilder b) {}
@@ -119,32 +118,31 @@ abstract class UploadServerCertificateRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UploadServerCertificateRequest');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'serverCertificateName',
-      serverCertificateName,
-    );
-    helper.add(
-      'certificateBody',
-      certificateBody,
-    );
-    helper.add(
-      'privateKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'certificateChain',
-      certificateChain,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('UploadServerCertificateRequest')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'serverCertificateName',
+        serverCertificateName,
+      )
+      ..add(
+        'certificateBody',
+        certificateBody,
+      )
+      ..add(
+        'privateKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'certificateChain',
+        certificateChain,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

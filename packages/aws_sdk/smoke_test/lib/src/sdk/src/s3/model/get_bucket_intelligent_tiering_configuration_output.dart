@@ -48,7 +48,8 @@ abstract class GetBucketIntelligentTieringConfigurationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.IntelligentTieringConfiguration?>>
+      serializers = [
     GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer()
   ];
 
@@ -65,11 +66,11 @@ abstract class GetBucketIntelligentTieringConfigurationOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetBucketIntelligentTieringConfigurationOutput');
-    helper.add(
-      'intelligentTieringConfiguration',
-      intelligentTieringConfiguration,
-    );
+        'GetBucketIntelligentTieringConfigurationOutput')
+      ..add(
+        'intelligentTieringConfiguration',
+        intelligentTieringConfiguration,
+      );
     return helper.toString();
   }
 }

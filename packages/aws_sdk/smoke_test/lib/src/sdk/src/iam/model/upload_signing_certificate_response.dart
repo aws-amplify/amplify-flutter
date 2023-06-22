@@ -39,9 +39,8 @@ abstract class UploadSigningCertificateResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    UploadSigningCertificateResponseAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<UploadSigningCertificateResponse>>
+      serializers = [UploadSigningCertificateResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadSigningCertificateResponseBuilder b) {}
@@ -53,11 +52,11 @@ abstract class UploadSigningCertificateResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UploadSigningCertificateResponse');
-    helper.add(
-      'certificate',
-      certificate,
-    );
+        newBuiltValueToStringHelper('UploadSigningCertificateResponse')
+          ..add(
+            'certificate',
+            certificate,
+          );
     return helper.toString();
   }
 }

@@ -44,9 +44,8 @@ abstract class VerifyUserAttributeRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    VerifyUserAttributeRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<VerifyUserAttributeRequest>>
+      serializers = [VerifyUserAttributeRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(VerifyUserAttributeRequestBuilder b) {}
@@ -69,19 +68,19 @@ abstract class VerifyUserAttributeRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('VerifyUserAttributeRequest');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'attributeName',
-      attributeName,
-    );
-    helper.add(
-      'code',
-      code,
-    );
+    final helper = newBuiltValueToStringHelper('VerifyUserAttributeRequest')
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'attributeName',
+        attributeName,
+      )
+      ..add(
+        'code',
+        code,
+      );
     return helper.toString();
   }
 }

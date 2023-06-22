@@ -39,7 +39,9 @@ abstract class EntityTemporarilyUnmodifiableException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<EntityTemporarilyUnmodifiableException>>
+      serializers = [
     EntityTemporarilyUnmodifiableExceptionAwsQuerySerializer()
   ];
 
@@ -67,11 +69,11 @@ abstract class EntityTemporarilyUnmodifiableException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('EntityTemporarilyUnmodifiableException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('EntityTemporarilyUnmodifiableException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

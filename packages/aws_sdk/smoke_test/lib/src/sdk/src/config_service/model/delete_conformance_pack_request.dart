@@ -35,9 +35,8 @@ abstract class DeleteConformancePackRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteConformancePackRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteConformancePackRequest>>
+      serializers = [DeleteConformancePackRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteConformancePackRequestBuilder b) {}
@@ -50,11 +49,11 @@ abstract class DeleteConformancePackRequest
   List<Object?> get props => [conformancePackName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteConformancePackRequest');
-    helper.add(
-      'conformancePackName',
-      conformancePackName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteConformancePackRequest')
+      ..add(
+        'conformancePackName',
+        conformancePackName,
+      );
     return helper.toString();
   }
 }

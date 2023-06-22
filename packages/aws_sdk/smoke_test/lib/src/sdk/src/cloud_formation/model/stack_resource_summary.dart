@@ -50,7 +50,7 @@ abstract class StackResourceSummary
 
   const StackResourceSummary._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<StackResourceSummary>> serializers = [
     StackResourceSummaryAwsQuerySerializer()
   ];
 
@@ -93,39 +93,39 @@ abstract class StackResourceSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackResourceSummary');
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
-    helper.add(
-      'physicalResourceId',
-      physicalResourceId,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'lastUpdatedTimestamp',
-      lastUpdatedTimestamp,
-    );
-    helper.add(
-      'resourceStatus',
-      resourceStatus,
-    );
-    helper.add(
-      'resourceStatusReason',
-      resourceStatusReason,
-    );
-    helper.add(
-      'driftInformation',
-      driftInformation,
-    );
-    helper.add(
-      'moduleInfo',
-      moduleInfo,
-    );
+    final helper = newBuiltValueToStringHelper('StackResourceSummary')
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      )
+      ..add(
+        'physicalResourceId',
+        physicalResourceId,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'lastUpdatedTimestamp',
+        lastUpdatedTimestamp,
+      )
+      ..add(
+        'resourceStatus',
+        resourceStatus,
+      )
+      ..add(
+        'resourceStatusReason',
+        resourceStatusReason,
+      )
+      ..add(
+        'driftInformation',
+        driftInformation,
+      )
+      ..add(
+        'moduleInfo',
+        moduleInfo,
+      );
     return helper.toString();
   }
 }

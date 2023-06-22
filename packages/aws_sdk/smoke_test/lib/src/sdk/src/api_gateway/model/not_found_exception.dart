@@ -36,7 +36,7 @@ abstract class NotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<NotFoundException>> serializers = [
     NotFoundExceptionRestJson1Serializer()
   ];
 
@@ -63,11 +63,11 @@ abstract class NotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('NotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

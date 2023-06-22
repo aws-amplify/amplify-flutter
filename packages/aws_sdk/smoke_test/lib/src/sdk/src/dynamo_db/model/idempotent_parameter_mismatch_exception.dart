@@ -40,9 +40,8 @@ abstract class IdempotentParameterMismatchException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    IdempotentParameterMismatchExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<IdempotentParameterMismatchException>>
+      serializers = [IdempotentParameterMismatchExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(IdempotentParameterMismatchExceptionBuilder b) {}
@@ -68,11 +67,11 @@ abstract class IdempotentParameterMismatchException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('IdempotentParameterMismatchException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('IdempotentParameterMismatchException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

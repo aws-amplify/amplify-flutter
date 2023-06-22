@@ -67,9 +67,8 @@ abstract class GetObjectRetentionRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetObjectRetentionRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetObjectRetentionRequestPayload>>
+      serializers = [GetObjectRetentionRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectRetentionRequestBuilder b) {}
@@ -117,27 +116,27 @@ abstract class GetObjectRetentionRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectRetentionRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectRetentionRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

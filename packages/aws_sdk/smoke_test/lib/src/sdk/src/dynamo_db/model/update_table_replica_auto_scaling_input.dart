@@ -56,9 +56,8 @@ abstract class UpdateTableReplicaAutoScalingInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateTableReplicaAutoScalingInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateTableReplicaAutoScalingInput>>
+      serializers = [UpdateTableReplicaAutoScalingInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateTableReplicaAutoScalingInputBuilder b) {}
@@ -87,23 +86,23 @@ abstract class UpdateTableReplicaAutoScalingInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateTableReplicaAutoScalingInput');
-    helper.add(
-      'globalSecondaryIndexUpdates',
-      globalSecondaryIndexUpdates,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'provisionedWriteCapacityAutoScalingUpdate',
-      provisionedWriteCapacityAutoScalingUpdate,
-    );
-    helper.add(
-      'replicaUpdates',
-      replicaUpdates,
-    );
+        newBuiltValueToStringHelper('UpdateTableReplicaAutoScalingInput')
+          ..add(
+            'globalSecondaryIndexUpdates',
+            globalSecondaryIndexUpdates,
+          )
+          ..add(
+            'tableName',
+            tableName,
+          )
+          ..add(
+            'provisionedWriteCapacityAutoScalingUpdate',
+            provisionedWriteCapacityAutoScalingUpdate,
+          )
+          ..add(
+            'replicaUpdates',
+            replicaUpdates,
+          );
     return helper.toString();
   }
 }

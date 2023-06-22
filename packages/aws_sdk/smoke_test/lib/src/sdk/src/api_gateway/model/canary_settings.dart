@@ -40,7 +40,7 @@ abstract class CanarySettings
 
   const CanarySettings._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<CanarySettings>> serializers = [
     CanarySettingsRestJson1Serializer()
   ];
 
@@ -70,23 +70,23 @@ abstract class CanarySettings
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CanarySettings');
-    helper.add(
-      'percentTraffic',
-      percentTraffic,
-    );
-    helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
-      'stageVariableOverrides',
-      stageVariableOverrides,
-    );
-    helper.add(
-      'useStageCache',
-      useStageCache,
-    );
+    final helper = newBuiltValueToStringHelper('CanarySettings')
+      ..add(
+        'percentTraffic',
+        percentTraffic,
+      )
+      ..add(
+        'deploymentId',
+        deploymentId,
+      )
+      ..add(
+        'stageVariableOverrides',
+        stageVariableOverrides,
+      )
+      ..add(
+        'useStageCache',
+        useStageCache,
+      );
     return helper.toString();
   }
 }

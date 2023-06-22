@@ -39,7 +39,9 @@ abstract class InvalidIdentityPoolConfigurationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<InvalidIdentityPoolConfigurationException>>
+      serializers = [
     InvalidIdentityPoolConfigurationExceptionAwsJson11Serializer()
   ];
 
@@ -68,12 +70,12 @@ abstract class InvalidIdentityPoolConfigurationException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'InvalidIdentityPoolConfigurationException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper =
+        newBuiltValueToStringHelper('InvalidIdentityPoolConfigurationException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

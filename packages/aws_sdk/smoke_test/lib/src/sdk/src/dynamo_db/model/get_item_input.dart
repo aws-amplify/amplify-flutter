@@ -56,7 +56,7 @@ abstract class GetItemInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetItemInput>> serializers = [
     GetItemInputAwsJson10Serializer()
   ];
 
@@ -137,35 +137,35 @@ abstract class GetItemInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetItemInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'attributesToGet',
-      attributesToGet,
-    );
-    helper.add(
-      'consistentRead',
-      consistentRead,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'projectionExpression',
-      projectionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
+    final helper = newBuiltValueToStringHelper('GetItemInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'attributesToGet',
+        attributesToGet,
+      )
+      ..add(
+        'consistentRead',
+        consistentRead,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      )
+      ..add(
+        'projectionExpression',
+        projectionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      );
     return helper.toString();
   }
 }

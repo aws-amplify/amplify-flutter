@@ -44,9 +44,8 @@ abstract class AuthenticationResultType
 
   const AuthenticationResultType._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AuthenticationResultTypeAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<AuthenticationResultType>>
+      serializers = [AuthenticationResultTypeAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AuthenticationResultTypeBuilder b) {
@@ -81,31 +80,31 @@ abstract class AuthenticationResultType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AuthenticationResultType');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'expiresIn',
-      expiresIn,
-    );
-    helper.add(
-      'tokenType',
-      tokenType,
-    );
-    helper.add(
-      'refreshToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'idToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'newDeviceMetadata',
-      newDeviceMetadata,
-    );
+    final helper = newBuiltValueToStringHelper('AuthenticationResultType')
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'expiresIn',
+        expiresIn,
+      )
+      ..add(
+        'tokenType',
+        tokenType,
+      )
+      ..add(
+        'refreshToken',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'idToken',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'newDeviceMetadata',
+        newDeviceMetadata,
+      );
     return helper.toString();
   }
 }

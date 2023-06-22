@@ -38,7 +38,7 @@ abstract class CsvOutput
 
   const CsvOutput._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<CsvOutput>> serializers = [
     CsvOutputRestXmlSerializer()
   ];
 
@@ -73,27 +73,27 @@ abstract class CsvOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CsvOutput');
-    helper.add(
-      'quoteFields',
-      quoteFields,
-    );
-    helper.add(
-      'quoteEscapeCharacter',
-      quoteEscapeCharacter,
-    );
-    helper.add(
-      'recordDelimiter',
-      recordDelimiter,
-    );
-    helper.add(
-      'fieldDelimiter',
-      fieldDelimiter,
-    );
-    helper.add(
-      'quoteCharacter',
-      quoteCharacter,
-    );
+    final helper = newBuiltValueToStringHelper('CsvOutput')
+      ..add(
+        'quoteFields',
+        quoteFields,
+      )
+      ..add(
+        'quoteEscapeCharacter',
+        quoteEscapeCharacter,
+      )
+      ..add(
+        'recordDelimiter',
+        recordDelimiter,
+      )
+      ..add(
+        'fieldDelimiter',
+        fieldDelimiter,
+      )
+      ..add(
+        'quoteCharacter',
+        quoteCharacter,
+      );
     return helper.toString();
   }
 }

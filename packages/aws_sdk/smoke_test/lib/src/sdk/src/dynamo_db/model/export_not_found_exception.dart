@@ -38,9 +38,8 @@ abstract class ExportNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ExportNotFoundExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ExportNotFoundException>> serializers =
+      [ExportNotFoundExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExportNotFoundExceptionBuilder b) {}
@@ -65,11 +64,11 @@ abstract class ExportNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExportNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ExportNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

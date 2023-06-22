@@ -49,7 +49,9 @@ abstract class GetAggregateConformancePackComplianceSummaryResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+      _i4.SmithySerializer<
+          GetAggregateConformancePackComplianceSummaryResponse>> serializers = [
     GetAggregateConformancePackComplianceSummaryResponseAwsJson11Serializer()
   ];
 
@@ -75,19 +77,19 @@ abstract class GetAggregateConformancePackComplianceSummaryResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetAggregateConformancePackComplianceSummaryResponse');
-    helper.add(
-      'aggregateConformancePackComplianceSummaries',
-      aggregateConformancePackComplianceSummaries,
-    );
-    helper.add(
-      'groupByKey',
-      groupByKey,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        'GetAggregateConformancePackComplianceSummaryResponse')
+      ..add(
+        'aggregateConformancePackComplianceSummaries',
+        aggregateConformancePackComplianceSummaries,
+      )
+      ..add(
+        'groupByKey',
+        groupByKey,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

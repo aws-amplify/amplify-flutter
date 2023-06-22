@@ -54,9 +54,8 @@ abstract class DescribeContributorInsightsOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    DescribeContributorInsightsOutputAwsJson10Serializer()
-  ];
+  static const List<_i5.SmithySerializer<DescribeContributorInsightsOutput>>
+      serializers = [DescribeContributorInsightsOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeContributorInsightsOutputBuilder b) {}
@@ -100,31 +99,31 @@ abstract class DescribeContributorInsightsOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeContributorInsightsOutput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'contributorInsightsRuleList',
-      contributorInsightsRuleList,
-    );
-    helper.add(
-      'contributorInsightsStatus',
-      contributorInsightsStatus,
-    );
-    helper.add(
-      'lastUpdateDateTime',
-      lastUpdateDateTime,
-    );
-    helper.add(
-      'failureException',
-      failureException,
-    );
+        newBuiltValueToStringHelper('DescribeContributorInsightsOutput')
+          ..add(
+            'tableName',
+            tableName,
+          )
+          ..add(
+            'indexName',
+            indexName,
+          )
+          ..add(
+            'contributorInsightsRuleList',
+            contributorInsightsRuleList,
+          )
+          ..add(
+            'contributorInsightsStatus',
+            contributorInsightsStatus,
+          )
+          ..add(
+            'lastUpdateDateTime',
+            lastUpdateDateTime,
+          )
+          ..add(
+            'failureException',
+            failureException,
+          );
     return helper.toString();
   }
 }

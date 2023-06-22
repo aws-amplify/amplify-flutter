@@ -45,9 +45,8 @@ abstract class ConformancePackEvaluationResult
 
   const ConformancePackEvaluationResult._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ConformancePackEvaluationResultAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<ConformancePackEvaluationResult>>
+      serializers = [ConformancePackEvaluationResultAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackEvaluationResultBuilder b) {}
@@ -77,27 +76,27 @@ abstract class ConformancePackEvaluationResult
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ConformancePackEvaluationResult');
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'evaluationResultIdentifier',
-      evaluationResultIdentifier,
-    );
-    helper.add(
-      'configRuleInvokedTime',
-      configRuleInvokedTime,
-    );
-    helper.add(
-      'resultRecordedTime',
-      resultRecordedTime,
-    );
-    helper.add(
-      'annotation',
-      annotation,
-    );
+        newBuiltValueToStringHelper('ConformancePackEvaluationResult')
+          ..add(
+            'complianceType',
+            complianceType,
+          )
+          ..add(
+            'evaluationResultIdentifier',
+            evaluationResultIdentifier,
+          )
+          ..add(
+            'configRuleInvokedTime',
+            configRuleInvokedTime,
+          )
+          ..add(
+            'resultRecordedTime',
+            resultRecordedTime,
+          )
+          ..add(
+            'annotation',
+            annotation,
+          );
     return helper.toString();
   }
 }

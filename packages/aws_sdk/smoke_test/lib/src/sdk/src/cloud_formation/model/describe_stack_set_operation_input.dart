@@ -44,9 +44,8 @@ abstract class DescribeStackSetOperationInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeStackSetOperationInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DescribeStackSetOperationInput>>
+      serializers = [DescribeStackSetOperationInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeStackSetOperationInputBuilder b) {}
@@ -77,20 +76,19 @@ abstract class DescribeStackSetOperationInput
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DescribeStackSetOperationInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'operationId',
-      operationId,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeStackSetOperationInput')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'operationId',
+        operationId,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      );
     return helper.toString();
   }
 }

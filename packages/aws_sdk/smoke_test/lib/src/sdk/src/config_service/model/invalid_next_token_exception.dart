@@ -38,9 +38,8 @@ abstract class InvalidNextTokenException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidNextTokenExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidNextTokenException>>
+      serializers = [InvalidNextTokenExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidNextTokenExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class InvalidNextTokenException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidNextTokenException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidNextTokenException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

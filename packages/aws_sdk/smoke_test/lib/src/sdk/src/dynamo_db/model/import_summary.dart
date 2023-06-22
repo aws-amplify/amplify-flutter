@@ -49,7 +49,7 @@ abstract class ImportSummary
 
   const ImportSummary._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<ImportSummary>> serializers = [
     ImportSummaryAwsJson10Serializer()
   ];
 
@@ -92,39 +92,39 @@ abstract class ImportSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ImportSummary');
-    helper.add(
-      'importArn',
-      importArn,
-    );
-    helper.add(
-      'importStatus',
-      importStatus,
-    );
-    helper.add(
-      'tableArn',
-      tableArn,
-    );
-    helper.add(
-      's3BucketSource',
-      s3BucketSource,
-    );
-    helper.add(
-      'cloudWatchLogGroupArn',
-      cloudWatchLogGroupArn,
-    );
-    helper.add(
-      'inputFormat',
-      inputFormat,
-    );
-    helper.add(
-      'startTime',
-      startTime,
-    );
-    helper.add(
-      'endTime',
-      endTime,
-    );
+    final helper = newBuiltValueToStringHelper('ImportSummary')
+      ..add(
+        'importArn',
+        importArn,
+      )
+      ..add(
+        'importStatus',
+        importStatus,
+      )
+      ..add(
+        'tableArn',
+        tableArn,
+      )
+      ..add(
+        's3BucketSource',
+        s3BucketSource,
+      )
+      ..add(
+        'cloudWatchLogGroupArn',
+        cloudWatchLogGroupArn,
+      )
+      ..add(
+        'inputFormat',
+        inputFormat,
+      )
+      ..add(
+        'startTime',
+        startTime,
+      )
+      ..add(
+        'endTime',
+        endTime,
+      );
     return helper.toString();
   }
 }

@@ -43,9 +43,8 @@ abstract class GenerateCredentialReportResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GenerateCredentialReportResponseAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<GenerateCredentialReportResponse>>
+      serializers = [GenerateCredentialReportResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GenerateCredentialReportResponseBuilder b) {}
@@ -63,15 +62,15 @@ abstract class GenerateCredentialReportResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GenerateCredentialReportResponse');
-    helper.add(
-      'state',
-      state,
-    );
-    helper.add(
-      'description',
-      description,
-    );
+        newBuiltValueToStringHelper('GenerateCredentialReportResponse')
+          ..add(
+            'state',
+            state,
+          )
+          ..add(
+            'description',
+            description,
+          );
     return helper.toString();
   }
 }

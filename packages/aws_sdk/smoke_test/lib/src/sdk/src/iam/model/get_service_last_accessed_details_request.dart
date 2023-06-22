@@ -42,9 +42,8 @@ abstract class GetServiceLastAccessedDetailsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetServiceLastAccessedDetailsRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetServiceLastAccessedDetailsRequest>>
+      serializers = [GetServiceLastAccessedDetailsRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetServiceLastAccessedDetailsRequestBuilder b) {}
@@ -70,19 +69,19 @@ abstract class GetServiceLastAccessedDetailsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetServiceLastAccessedDetailsRequest');
-    helper.add(
-      'jobId',
-      jobId,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+        newBuiltValueToStringHelper('GetServiceLastAccessedDetailsRequest')
+          ..add(
+            'jobId',
+            jobId,
+          )
+          ..add(
+            'maxItems',
+            maxItems,
+          )
+          ..add(
+            'marker',
+            marker,
+          );
     return helper.toString();
   }
 }

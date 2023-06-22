@@ -39,9 +39,8 @@ abstract class TypeConfigurationNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TypeConfigurationNotFoundExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<TypeConfigurationNotFoundException>>
+      serializers = [TypeConfigurationNotFoundExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TypeConfigurationNotFoundExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class TypeConfigurationNotFoundException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('TypeConfigurationNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('TypeConfigurationNotFoundException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

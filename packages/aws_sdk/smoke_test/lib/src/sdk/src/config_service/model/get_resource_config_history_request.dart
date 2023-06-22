@@ -58,9 +58,8 @@ abstract class GetResourceConfigHistoryRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetResourceConfigHistoryRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetResourceConfigHistoryRequest>>
+      serializers = [GetResourceConfigHistoryRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetResourceConfigHistoryRequestBuilder b) {
@@ -102,35 +101,35 @@ abstract class GetResourceConfigHistoryRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetResourceConfigHistoryRequest');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'laterTime',
-      laterTime,
-    );
-    helper.add(
-      'earlierTime',
-      earlierTime,
-    );
-    helper.add(
-      'chronologicalOrder',
-      chronologicalOrder,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('GetResourceConfigHistoryRequest')
+          ..add(
+            'resourceType',
+            resourceType,
+          )
+          ..add(
+            'resourceId',
+            resourceId,
+          )
+          ..add(
+            'laterTime',
+            laterTime,
+          )
+          ..add(
+            'earlierTime',
+            earlierTime,
+          )
+          ..add(
+            'chronologicalOrder',
+            chronologicalOrder,
+          )
+          ..add(
+            'limit',
+            limit,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

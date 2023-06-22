@@ -33,9 +33,8 @@ abstract class GetCustomRulePolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetCustomRulePolicyRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetCustomRulePolicyRequest>>
+      serializers = [GetCustomRulePolicyRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetCustomRulePolicyRequestBuilder b) {}
@@ -48,11 +47,11 @@ abstract class GetCustomRulePolicyRequest
   List<Object?> get props => [configRuleName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetCustomRulePolicyRequest');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
+    final helper = newBuiltValueToStringHelper('GetCustomRulePolicyRequest')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      );
     return helper.toString();
   }
 }

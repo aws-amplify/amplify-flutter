@@ -39,9 +39,8 @@ abstract class DeleteSshPublicKeyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteSshPublicKeyRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteSshPublicKeyRequest>>
+      serializers = [DeleteSshPublicKeyRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteSshPublicKeyRequestBuilder b) {}
@@ -64,15 +63,15 @@ abstract class DeleteSshPublicKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteSshPublicKeyRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'sshPublicKeyId',
-      sshPublicKeyId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteSshPublicKeyRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'sshPublicKeyId',
+        sshPublicKeyId,
+      );
     return helper.toString();
   }
 }

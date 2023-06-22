@@ -40,9 +40,8 @@ abstract class GetBucketVersioningOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetBucketVersioningOutputRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<GetBucketVersioningOutput>>
+      serializers = [GetBucketVersioningOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketVersioningOutputBuilder b) {}
@@ -59,15 +58,15 @@ abstract class GetBucketVersioningOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketVersioningOutput');
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'mfaDelete',
-      mfaDelete,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketVersioningOutput')
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'mfaDelete',
+        mfaDelete,
+      );
     return helper.toString();
   }
 }

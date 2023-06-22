@@ -39,7 +39,7 @@ abstract class UntagResourceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UntagResourceRequest>> serializers = [
     UntagResourceRequestAwsJson11Serializer()
   ];
 
@@ -60,15 +60,15 @@ abstract class UntagResourceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UntagResourceRequest');
-    helper.add(
-      'resourceArn',
-      resourceArn,
-    );
-    helper.add(
-      'tagKeys',
-      tagKeys,
-    );
+    final helper = newBuiltValueToStringHelper('UntagResourceRequest')
+      ..add(
+        'resourceArn',
+        resourceArn,
+      )
+      ..add(
+        'tagKeys',
+        tagKeys,
+      );
     return helper.toString();
   }
 }

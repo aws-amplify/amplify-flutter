@@ -34,9 +34,8 @@ abstract class UpdateGlobalTableOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    UpdateGlobalTableOutputAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<UpdateGlobalTableOutput>> serializers =
+      [UpdateGlobalTableOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateGlobalTableOutputBuilder b) {}
@@ -47,11 +46,11 @@ abstract class UpdateGlobalTableOutput
   List<Object?> get props => [globalTableDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateGlobalTableOutput');
-    helper.add(
-      'globalTableDescription',
-      globalTableDescription,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateGlobalTableOutput')
+      ..add(
+        'globalTableDescription',
+        globalTableDescription,
+      );
     return helper.toString();
   }
 }

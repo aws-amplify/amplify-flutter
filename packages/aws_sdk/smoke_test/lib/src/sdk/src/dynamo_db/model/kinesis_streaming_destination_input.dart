@@ -40,9 +40,8 @@ abstract class KinesisStreamingDestinationInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    KinesisStreamingDestinationInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<KinesisStreamingDestinationInput>>
+      serializers = [KinesisStreamingDestinationInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(KinesisStreamingDestinationInputBuilder b) {}
@@ -62,15 +61,15 @@ abstract class KinesisStreamingDestinationInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('KinesisStreamingDestinationInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'streamArn',
-      streamArn,
-    );
+        newBuiltValueToStringHelper('KinesisStreamingDestinationInput')
+          ..add(
+            'tableName',
+            tableName,
+          )
+          ..add(
+            'streamArn',
+            streamArn,
+          );
     return helper.toString();
   }
 }

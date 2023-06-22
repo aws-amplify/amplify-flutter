@@ -38,9 +38,8 @@ abstract class InvalidS3KeyPrefixException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidS3KeyPrefixExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidS3KeyPrefixException>>
+      serializers = [InvalidS3KeyPrefixExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidS3KeyPrefixExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class InvalidS3KeyPrefixException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidS3KeyPrefixException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidS3KeyPrefixException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

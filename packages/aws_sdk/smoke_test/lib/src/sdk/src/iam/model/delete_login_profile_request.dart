@@ -33,9 +33,8 @@ abstract class DeleteLoginProfileRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteLoginProfileRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteLoginProfileRequest>>
+      serializers = [DeleteLoginProfileRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteLoginProfileRequestBuilder b) {}
@@ -50,11 +49,11 @@ abstract class DeleteLoginProfileRequest
   List<Object?> get props => [userName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteLoginProfileRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteLoginProfileRequest')
+      ..add(
+        'userName',
+        userName,
+      );
     return helper.toString();
   }
 }

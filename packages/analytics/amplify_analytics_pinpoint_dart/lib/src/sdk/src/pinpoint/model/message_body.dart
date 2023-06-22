@@ -31,7 +31,7 @@ abstract class MessageBody
 
   const MessageBody._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<MessageBody>> serializers = [
     MessageBodyRestJson1Serializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class MessageBody
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MessageBody');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'requestId',
-      requestId,
-    );
+    final helper = newBuiltValueToStringHelper('MessageBody')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'requestId',
+        requestId,
+      );
     return helper.toString();
   }
 }

@@ -41,9 +41,8 @@ abstract class UpdateLoginProfileRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateLoginProfileRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateLoginProfileRequest>>
+      serializers = [UpdateLoginProfileRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateLoginProfileRequestBuilder b) {}
@@ -79,19 +78,19 @@ abstract class UpdateLoginProfileRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateLoginProfileRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'password',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'passwordResetRequired',
-      passwordResetRequired,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateLoginProfileRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'password',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'passwordResetRequired',
+        passwordResetRequired,
+      );
     return helper.toString();
   }
 }

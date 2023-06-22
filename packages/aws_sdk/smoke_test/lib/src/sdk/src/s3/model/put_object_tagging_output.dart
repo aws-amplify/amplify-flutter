@@ -38,9 +38,8 @@ abstract class PutObjectTaggingOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PutObjectTaggingOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<PutObjectTaggingOutputPayload>>
+      serializers = [PutObjectTaggingOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutObjectTaggingOutputBuilder b) {}
@@ -53,11 +52,11 @@ abstract class PutObjectTaggingOutput
   List<Object?> get props => [versionId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutObjectTaggingOutput');
-    helper.add(
-      'versionId',
-      versionId,
-    );
+    final helper = newBuiltValueToStringHelper('PutObjectTaggingOutput')
+      ..add(
+        'versionId',
+        versionId,
+      );
     return helper.toString();
   }
 }

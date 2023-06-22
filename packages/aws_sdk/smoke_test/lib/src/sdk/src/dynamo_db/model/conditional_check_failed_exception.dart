@@ -40,9 +40,8 @@ abstract class ConditionalCheckFailedException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ConditionalCheckFailedExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ConditionalCheckFailedException>>
+      serializers = [ConditionalCheckFailedExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConditionalCheckFailedExceptionBuilder b) {}
@@ -70,11 +69,11 @@ abstract class ConditionalCheckFailedException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ConditionalCheckFailedException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('ConditionalCheckFailedException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

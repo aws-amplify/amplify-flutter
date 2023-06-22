@@ -49,9 +49,8 @@ abstract class RestoreObjectOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    RestoreObjectOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<RestoreObjectOutputPayload>>
+      serializers = [RestoreObjectOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RestoreObjectOutputBuilder b) {}
@@ -70,15 +69,15 @@ abstract class RestoreObjectOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RestoreObjectOutput');
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
-      'restoreOutputPath',
-      restoreOutputPath,
-    );
+    final helper = newBuiltValueToStringHelper('RestoreObjectOutput')
+      ..add(
+        'requestCharged',
+        requestCharged,
+      )
+      ..add(
+        'restoreOutputPath',
+        restoreOutputPath,
+      );
     return helper.toString();
   }
 }

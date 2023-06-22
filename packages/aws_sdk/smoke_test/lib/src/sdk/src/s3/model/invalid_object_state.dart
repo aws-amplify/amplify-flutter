@@ -47,7 +47,7 @@ abstract class InvalidObjectState
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<InvalidObjectState>> serializers = [
     InvalidObjectStateRestXmlSerializer()
   ];
 
@@ -79,15 +79,15 @@ abstract class InvalidObjectState
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidObjectState');
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'accessTier',
-      accessTier,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidObjectState')
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'accessTier',
+        accessTier,
+      );
     return helper.toString();
   }
 }

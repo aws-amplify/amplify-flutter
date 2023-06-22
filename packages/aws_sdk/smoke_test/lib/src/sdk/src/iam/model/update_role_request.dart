@@ -37,7 +37,7 @@ abstract class UpdateRoleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UpdateRoleRequest>> serializers = [
     UpdateRoleRequestAwsQuerySerializer()
   ];
 
@@ -64,19 +64,19 @@ abstract class UpdateRoleRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateRoleRequest');
-    helper.add(
-      'roleName',
-      roleName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'maxSessionDuration',
-      maxSessionDuration,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateRoleRequest')
+      ..add(
+        'roleName',
+        roleName,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'maxSessionDuration',
+        maxSessionDuration,
+      );
     return helper.toString();
   }
 }

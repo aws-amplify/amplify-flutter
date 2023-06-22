@@ -56,9 +56,9 @@ abstract class GetBucketAnalyticsConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketAnalyticsConfigurationRequestRestXmlSerializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<GetBucketAnalyticsConfigurationRequestPayload>>
+      serializers = [GetBucketAnalyticsConfigurationRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketAnalyticsConfigurationRequestBuilder b) {}
@@ -95,19 +95,19 @@ abstract class GetBucketAnalyticsConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketAnalyticsConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('GetBucketAnalyticsConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'id',
+            id,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }

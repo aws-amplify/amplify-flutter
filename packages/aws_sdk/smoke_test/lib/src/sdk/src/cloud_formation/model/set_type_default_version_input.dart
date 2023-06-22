@@ -45,9 +45,8 @@ abstract class SetTypeDefaultVersionInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    SetTypeDefaultVersionInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<SetTypeDefaultVersionInput>>
+      serializers = [SetTypeDefaultVersionInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SetTypeDefaultVersionInputBuilder b) {}
@@ -80,23 +79,23 @@ abstract class SetTypeDefaultVersionInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SetTypeDefaultVersionInput');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
+    final helper = newBuiltValueToStringHelper('SetTypeDefaultVersionInput')
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      );
     return helper.toString();
   }
 }

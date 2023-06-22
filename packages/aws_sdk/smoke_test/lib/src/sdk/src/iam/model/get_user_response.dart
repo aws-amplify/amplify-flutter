@@ -33,7 +33,7 @@ abstract class GetUserResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<GetUserResponse>> serializers = [
     GetUserResponseAwsQuerySerializer()
   ];
 
@@ -50,11 +50,11 @@ abstract class GetUserResponse
   List<Object?> get props => [user];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetUserResponse');
-    helper.add(
-      'user',
-      user,
-    );
+    final helper = newBuiltValueToStringHelper('GetUserResponse')
+      ..add(
+        'user',
+        user,
+      );
     return helper.toString();
   }
 }

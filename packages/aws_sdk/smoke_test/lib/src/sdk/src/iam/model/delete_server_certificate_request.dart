@@ -36,9 +36,8 @@ abstract class DeleteServerCertificateRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteServerCertificateRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteServerCertificateRequest>>
+      serializers = [DeleteServerCertificateRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteServerCertificateRequestBuilder b) {}
@@ -53,12 +52,11 @@ abstract class DeleteServerCertificateRequest
   List<Object?> get props => [serverCertificateName];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeleteServerCertificateRequest');
-    helper.add(
-      'serverCertificateName',
-      serverCertificateName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteServerCertificateRequest')
+      ..add(
+        'serverCertificateName',
+        serverCertificateName,
+      );
     return helper.toString();
   }
 }

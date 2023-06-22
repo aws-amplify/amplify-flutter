@@ -50,9 +50,8 @@ abstract class DeleteBucketWebsiteRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteBucketWebsiteRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteBucketWebsiteRequestPayload>>
+      serializers = [DeleteBucketWebsiteRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteBucketWebsiteRequestBuilder b) {}
@@ -84,15 +83,15 @@ abstract class DeleteBucketWebsiteRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteBucketWebsiteRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteBucketWebsiteRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

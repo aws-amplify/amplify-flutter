@@ -43,7 +43,7 @@ abstract class TestTypeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<TestTypeInput>> serializers = [
     TestTypeInputAwsQuerySerializer()
   ];
 
@@ -97,27 +97,27 @@ abstract class TestTypeInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestTypeInput');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'logDeliveryBucket',
-      logDeliveryBucket,
-    );
+    final helper = newBuiltValueToStringHelper('TestTypeInput')
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'logDeliveryBucket',
+        logDeliveryBucket,
+      );
     return helper.toString();
   }
 }

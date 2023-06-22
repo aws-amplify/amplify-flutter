@@ -33,9 +33,8 @@ abstract class GetAccessKeyLastUsedRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetAccessKeyLastUsedRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetAccessKeyLastUsedRequest>>
+      serializers = [GetAccessKeyLastUsedRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetAccessKeyLastUsedRequestBuilder b) {}
@@ -50,11 +49,11 @@ abstract class GetAccessKeyLastUsedRequest
   List<Object?> get props => [accessKeyId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetAccessKeyLastUsedRequest');
-    helper.add(
-      'accessKeyId',
-      accessKeyId,
-    );
+    final helper = newBuiltValueToStringHelper('GetAccessKeyLastUsedRequest')
+      ..add(
+        'accessKeyId',
+        accessKeyId,
+      );
     return helper.toString();
   }
 }

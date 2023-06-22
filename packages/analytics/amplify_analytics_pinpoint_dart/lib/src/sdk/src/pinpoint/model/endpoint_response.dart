@@ -66,7 +66,7 @@ abstract class EndpointResponse
 
   const EndpointResponse._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<EndpointResponse>> serializers = [
     EndpointResponseRestJson1Serializer()
   ];
 
@@ -139,67 +139,67 @@ abstract class EndpointResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointResponse');
-    helper.add(
-      'address',
-      address,
-    );
-    helper.add(
-      'applicationId',
-      applicationId,
-    );
-    helper.add(
-      'attributes',
-      attributes,
-    );
-    helper.add(
-      'channelType',
-      channelType,
-    );
-    helper.add(
-      'cohortId',
-      cohortId,
-    );
-    helper.add(
-      'creationDate',
-      creationDate,
-    );
-    helper.add(
-      'demographic',
-      demographic,
-    );
-    helper.add(
-      'effectiveDate',
-      effectiveDate,
-    );
-    helper.add(
-      'endpointStatus',
-      endpointStatus,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'location',
-      location,
-    );
-    helper.add(
-      'metrics',
-      metrics,
-    );
-    helper.add(
-      'optOut',
-      optOut,
-    );
-    helper.add(
-      'requestId',
-      requestId,
-    );
-    helper.add(
-      'user',
-      user,
-    );
+    final helper = newBuiltValueToStringHelper('EndpointResponse')
+      ..add(
+        'address',
+        address,
+      )
+      ..add(
+        'applicationId',
+        applicationId,
+      )
+      ..add(
+        'attributes',
+        attributes,
+      )
+      ..add(
+        'channelType',
+        channelType,
+      )
+      ..add(
+        'cohortId',
+        cohortId,
+      )
+      ..add(
+        'creationDate',
+        creationDate,
+      )
+      ..add(
+        'demographic',
+        demographic,
+      )
+      ..add(
+        'effectiveDate',
+        effectiveDate,
+      )
+      ..add(
+        'endpointStatus',
+        endpointStatus,
+      )
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'location',
+        location,
+      )
+      ..add(
+        'metrics',
+        metrics,
+      )
+      ..add(
+        'optOut',
+        optOut,
+      )
+      ..add(
+        'requestId',
+        requestId,
+      )
+      ..add(
+        'user',
+        user,
+      );
     return helper.toString();
   }
 }

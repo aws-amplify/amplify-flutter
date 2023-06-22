@@ -35,7 +35,7 @@ abstract class TemplateParameter
 
   const TemplateParameter._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<TemplateParameter>> serializers = [
     TemplateParameterAwsQuerySerializer()
   ];
 
@@ -62,23 +62,23 @@ abstract class TemplateParameter
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TemplateParameter');
-    helper.add(
-      'parameterKey',
-      parameterKey,
-    );
-    helper.add(
-      'defaultValue',
-      defaultValue,
-    );
-    helper.add(
-      'noEcho',
-      noEcho,
-    );
-    helper.add(
-      'description',
-      description,
-    );
+    final helper = newBuiltValueToStringHelper('TemplateParameter')
+      ..add(
+        'parameterKey',
+        parameterKey,
+      )
+      ..add(
+        'defaultValue',
+        defaultValue,
+      )
+      ..add(
+        'noEcho',
+        noEcho,
+      )
+      ..add(
+        'description',
+        description,
+      );
     return helper.toString();
   }
 }

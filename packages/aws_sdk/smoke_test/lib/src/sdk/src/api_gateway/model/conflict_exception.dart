@@ -36,7 +36,7 @@ abstract class ConflictException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ConflictException>> serializers = [
     ConflictExceptionRestJson1Serializer()
   ];
 
@@ -63,11 +63,11 @@ abstract class ConflictException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConflictException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ConflictException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

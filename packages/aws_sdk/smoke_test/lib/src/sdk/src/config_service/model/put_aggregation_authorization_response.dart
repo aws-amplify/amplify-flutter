@@ -37,9 +37,8 @@ abstract class PutAggregationAuthorizationResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    PutAggregationAuthorizationResponseAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<PutAggregationAuthorizationResponse>>
+      serializers = [PutAggregationAuthorizationResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutAggregationAuthorizationResponseBuilder b) {}
@@ -51,11 +50,11 @@ abstract class PutAggregationAuthorizationResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutAggregationAuthorizationResponse');
-    helper.add(
-      'aggregationAuthorization',
-      aggregationAuthorization,
-    );
+        newBuiltValueToStringHelper('PutAggregationAuthorizationResponse')
+          ..add(
+            'aggregationAuthorization',
+            aggregationAuthorization,
+          );
     return helper.toString();
   }
 }

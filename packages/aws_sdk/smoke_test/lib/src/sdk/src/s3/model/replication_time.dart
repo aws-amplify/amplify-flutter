@@ -35,7 +35,7 @@ abstract class ReplicationTime
 
   const ReplicationTime._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ReplicationTime>> serializers = [
     ReplicationTimeRestXmlSerializer()
   ];
 
@@ -54,15 +54,15 @@ abstract class ReplicationTime
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicationTime');
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'time',
-      time,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicationTime')
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'time',
+        time,
+      );
     return helper.toString();
   }
 }

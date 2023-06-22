@@ -37,9 +37,8 @@ abstract class GetContextKeysForCustomPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetContextKeysForCustomPolicyRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetContextKeysForCustomPolicyRequest>>
+      serializers = [GetContextKeysForCustomPolicyRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetContextKeysForCustomPolicyRequestBuilder b) {}
@@ -61,11 +60,11 @@ abstract class GetContextKeysForCustomPolicyRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetContextKeysForCustomPolicyRequest');
-    helper.add(
-      'policyInputList',
-      policyInputList,
-    );
+        newBuiltValueToStringHelper('GetContextKeysForCustomPolicyRequest')
+          ..add(
+            'policyInputList',
+            policyInputList,
+          );
     return helper.toString();
   }
 }

@@ -29,7 +29,7 @@ abstract class EndpointBatchRequest
 
   const EndpointBatchRequest._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<EndpointBatchRequest>> serializers = [
     EndpointBatchRequestRestJson1Serializer()
   ];
 
@@ -42,11 +42,11 @@ abstract class EndpointBatchRequest
   List<Object?> get props => [item];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointBatchRequest');
-    helper.add(
-      'item',
-      item,
-    );
+    final helper = newBuiltValueToStringHelper('EndpointBatchRequest')
+      ..add(
+        'item',
+        item,
+      );
     return helper.toString();
   }
 }

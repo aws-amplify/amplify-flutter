@@ -51,7 +51,7 @@ abstract class ExecuteStatementInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ExecuteStatementInput>> serializers = [
     ExecuteStatementInputAwsJson10Serializer()
   ];
 
@@ -96,31 +96,31 @@ abstract class ExecuteStatementInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExecuteStatementInput');
-    helper.add(
-      'statement',
-      statement,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'consistentRead',
-      consistentRead,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+    final helper = newBuiltValueToStringHelper('ExecuteStatementInput')
+      ..add(
+        'statement',
+        statement,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'consistentRead',
+        consistentRead,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      )
+      ..add(
+        'limit',
+        limit,
+      );
     return helper.toString();
   }
 }

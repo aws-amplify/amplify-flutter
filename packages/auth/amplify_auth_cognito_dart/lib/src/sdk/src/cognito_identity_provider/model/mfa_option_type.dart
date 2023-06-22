@@ -33,7 +33,7 @@ abstract class MfaOptionType
 
   const MfaOptionType._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<MfaOptionType>> serializers = [
     MfaOptionTypeAwsJson11Serializer()
   ];
 
@@ -52,15 +52,15 @@ abstract class MfaOptionType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MfaOptionType');
-    helper.add(
-      'deliveryMedium',
-      deliveryMedium,
-    );
-    helper.add(
-      'attributeName',
-      attributeName,
-    );
+    final helper = newBuiltValueToStringHelper('MfaOptionType')
+      ..add(
+        'deliveryMedium',
+        deliveryMedium,
+      )
+      ..add(
+        'attributeName',
+        attributeName,
+      );
     return helper.toString();
   }
 }

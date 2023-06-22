@@ -35,7 +35,7 @@ abstract class ApiStage
 
   const ApiStage._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ApiStage>> serializers = [
     ApiStageRestJson1Serializer()
   ];
 
@@ -58,19 +58,19 @@ abstract class ApiStage
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ApiStage');
-    helper.add(
-      'apiId',
-      apiId,
-    );
-    helper.add(
-      'stage',
-      stage,
-    );
-    helper.add(
-      'throttle',
-      throttle,
-    );
+    final helper = newBuiltValueToStringHelper('ApiStage')
+      ..add(
+        'apiId',
+        apiId,
+      )
+      ..add(
+        'stage',
+        stage,
+      )
+      ..add(
+        'throttle',
+        throttle,
+      );
     return helper.toString();
   }
 }

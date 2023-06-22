@@ -62,9 +62,8 @@ abstract class GetMethodResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetMethodResponseRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetMethodResponseRequestPayload>>
+      serializers = [GetMethodResponseRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetMethodResponseRequestBuilder b) {}
@@ -110,23 +109,23 @@ abstract class GetMethodResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetMethodResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
+    final helper = newBuiltValueToStringHelper('GetMethodResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      );
     return helper.toString();
   }
 }

@@ -39,7 +39,7 @@ abstract class GetBucketAclOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<GetBucketAclOutput>> serializers = [
     GetBucketAclOutputRestXmlSerializer()
   ];
 
@@ -58,15 +58,15 @@ abstract class GetBucketAclOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketAclOutput');
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
-      'grants',
-      grants,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketAclOutput')
+      ..add(
+        'owner',
+        owner,
+      )
+      ..add(
+        'grants',
+        grants,
+      );
     return helper.toString();
   }
 }

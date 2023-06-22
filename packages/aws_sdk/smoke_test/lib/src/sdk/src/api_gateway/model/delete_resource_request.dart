@@ -52,9 +52,8 @@ abstract class DeleteResourceRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteResourceRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteResourceRequestPayload>>
+      serializers = [DeleteResourceRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteResourceRequestBuilder b) {}
@@ -87,15 +86,15 @@ abstract class DeleteResourceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteResourceRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteResourceRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      );
     return helper.toString();
   }
 }

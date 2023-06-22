@@ -37,9 +37,8 @@ abstract class RemediationParameterValue
 
   const RemediationParameterValue._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    RemediationParameterValueAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<RemediationParameterValue>>
+      serializers = [RemediationParameterValueAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RemediationParameterValueBuilder b) {}
@@ -56,15 +55,15 @@ abstract class RemediationParameterValue
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RemediationParameterValue');
-    helper.add(
-      'resourceValue',
-      resourceValue,
-    );
-    helper.add(
-      'staticValue',
-      staticValue,
-    );
+    final helper = newBuiltValueToStringHelper('RemediationParameterValue')
+      ..add(
+        'resourceValue',
+        resourceValue,
+      )
+      ..add(
+        'staticValue',
+        staticValue,
+      );
     return helper.toString();
   }
 }

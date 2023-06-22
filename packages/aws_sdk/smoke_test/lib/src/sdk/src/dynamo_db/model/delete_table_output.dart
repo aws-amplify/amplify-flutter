@@ -34,7 +34,7 @@ abstract class DeleteTableOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DeleteTableOutput>> serializers = [
     DeleteTableOutputAwsJson10Serializer()
   ];
 
@@ -47,11 +47,11 @@ abstract class DeleteTableOutput
   List<Object?> get props => [tableDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteTableOutput');
-    helper.add(
-      'tableDescription',
-      tableDescription,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteTableOutput')
+      ..add(
+        'tableDescription',
+        tableDescription,
+      );
     return helper.toString();
   }
 }

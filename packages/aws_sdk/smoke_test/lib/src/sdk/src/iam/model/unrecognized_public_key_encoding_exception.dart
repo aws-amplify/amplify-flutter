@@ -39,7 +39,9 @@ abstract class UnrecognizedPublicKeyEncodingException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<UnrecognizedPublicKeyEncodingException>>
+      serializers = [
     UnrecognizedPublicKeyEncodingExceptionAwsQuerySerializer()
   ];
 
@@ -67,11 +69,11 @@ abstract class UnrecognizedPublicKeyEncodingException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UnrecognizedPublicKeyEncodingException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('UnrecognizedPublicKeyEncodingException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

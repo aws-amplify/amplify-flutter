@@ -43,9 +43,8 @@ abstract class VerifySoftwareTokenRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    VerifySoftwareTokenRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<VerifySoftwareTokenRequest>>
+      serializers = [VerifySoftwareTokenRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(VerifySoftwareTokenRequestBuilder b) {}
@@ -72,23 +71,23 @@ abstract class VerifySoftwareTokenRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('VerifySoftwareTokenRequest');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'session',
-      session,
-    );
-    helper.add(
-      'userCode',
-      userCode,
-    );
-    helper.add(
-      'friendlyDeviceName',
-      friendlyDeviceName,
-    );
+    final helper = newBuiltValueToStringHelper('VerifySoftwareTokenRequest')
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'session',
+        session,
+      )
+      ..add(
+        'userCode',
+        userCode,
+      )
+      ..add(
+        'friendlyDeviceName',
+        friendlyDeviceName,
+      );
     return helper.toString();
   }
 }

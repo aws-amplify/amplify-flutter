@@ -38,9 +38,8 @@ abstract class GetAccountSummaryResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetAccountSummaryResponseAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<GetAccountSummaryResponse>>
+      serializers = [GetAccountSummaryResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetAccountSummaryResponseBuilder b) {}
@@ -51,11 +50,11 @@ abstract class GetAccountSummaryResponse
   List<Object?> get props => [summaryMap];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetAccountSummaryResponse');
-    helper.add(
-      'summaryMap',
-      summaryMap,
-    );
+    final helper = newBuiltValueToStringHelper('GetAccountSummaryResponse')
+      ..add(
+        'summaryMap',
+        summaryMap,
+      );
     return helper.toString();
   }
 }

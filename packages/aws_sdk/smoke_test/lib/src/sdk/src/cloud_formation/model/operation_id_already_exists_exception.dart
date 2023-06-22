@@ -39,9 +39,8 @@ abstract class OperationIdAlreadyExistsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    OperationIdAlreadyExistsExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<OperationIdAlreadyExistsException>>
+      serializers = [OperationIdAlreadyExistsExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OperationIdAlreadyExistsExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class OperationIdAlreadyExistsException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OperationIdAlreadyExistsException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('OperationIdAlreadyExistsException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

@@ -45,7 +45,7 @@ abstract class AccountGateResult
 
   const AccountGateResult._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<AccountGateResult>> serializers = [
     AccountGateResultAwsQuerySerializer()
   ];
 
@@ -76,15 +76,15 @@ abstract class AccountGateResult
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccountGateResult');
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'statusReason',
-      statusReason,
-    );
+    final helper = newBuiltValueToStringHelper('AccountGateResult')
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'statusReason',
+        statusReason,
+      );
     return helper.toString();
   }
 }

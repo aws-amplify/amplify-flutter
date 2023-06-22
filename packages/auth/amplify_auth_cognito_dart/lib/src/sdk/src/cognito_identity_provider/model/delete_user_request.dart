@@ -32,7 +32,7 @@ abstract class DeleteUserRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeleteUserRequest>> serializers = [
     DeleteUserRequestAwsJson11Serializer()
   ];
 
@@ -47,11 +47,11 @@ abstract class DeleteUserRequest
   List<Object?> get props => [accessToken];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteUserRequest');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('DeleteUserRequest')
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }

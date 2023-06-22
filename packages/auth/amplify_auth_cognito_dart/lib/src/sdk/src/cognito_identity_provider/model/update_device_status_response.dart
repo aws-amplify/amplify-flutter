@@ -35,9 +35,8 @@ abstract class UpdateDeviceStatusResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UpdateDeviceStatusResponseAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<UpdateDeviceStatusResponse>>
+      serializers = [UpdateDeviceStatusResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateDeviceStatusResponseBuilder b) {}

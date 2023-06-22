@@ -55,9 +55,8 @@ abstract class UntagResourceRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UntagResourceRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UntagResourceRequestPayload>>
+      serializers = [UntagResourceRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UntagResourceRequestBuilder b) {}
@@ -88,15 +87,15 @@ abstract class UntagResourceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UntagResourceRequest');
-    helper.add(
-      'resourceArn',
-      resourceArn,
-    );
-    helper.add(
-      'tagKeys',
-      tagKeys,
-    );
+    final helper = newBuiltValueToStringHelper('UntagResourceRequest')
+      ..add(
+        'resourceArn',
+        resourceArn,
+      )
+      ..add(
+        'tagKeys',
+        tagKeys,
+      );
     return helper.toString();
   }
 }

@@ -64,9 +64,8 @@ abstract class DeleteStackInstancesInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteStackInstancesInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteStackInstancesInput>>
+      serializers = [DeleteStackInstancesInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteStackInstancesInputBuilder b) {
@@ -136,39 +135,39 @@ abstract class DeleteStackInstancesInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteStackInstancesInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'accounts',
-      accounts,
-    );
-    helper.add(
-      'deploymentTargets',
-      deploymentTargets,
-    );
-    helper.add(
-      'regions',
-      regions,
-    );
-    helper.add(
-      'operationPreferences',
-      operationPreferences,
-    );
-    helper.add(
-      'retainStacks',
-      retainStacks,
-    );
-    helper.add(
-      'operationId',
-      operationId,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteStackInstancesInput')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'accounts',
+        accounts,
+      )
+      ..add(
+        'deploymentTargets',
+        deploymentTargets,
+      )
+      ..add(
+        'regions',
+        regions,
+      )
+      ..add(
+        'operationPreferences',
+        operationPreferences,
+      )
+      ..add(
+        'retainStacks',
+        retainStacks,
+      )
+      ..add(
+        'operationId',
+        operationId,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      );
     return helper.toString();
   }
 }

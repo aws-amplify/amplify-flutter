@@ -60,7 +60,7 @@ abstract class ConfirmSignUpRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ConfirmSignUpRequest>> serializers = [
     ConfirmSignUpRequestAwsJson11Serializer()
   ];
 
@@ -119,39 +119,39 @@ abstract class ConfirmSignUpRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfirmSignUpRequest');
-    helper.add(
-      'clientId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'secretHash',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'username',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'confirmationCode',
-      confirmationCode,
-    );
-    helper.add(
-      'forceAliasCreation',
-      forceAliasCreation,
-    );
-    helper.add(
-      'analyticsMetadata',
-      analyticsMetadata,
-    );
-    helper.add(
-      'userContextData',
-      userContextData,
-    );
-    helper.add(
-      'clientMetadata',
-      clientMetadata,
-    );
+    final helper = newBuiltValueToStringHelper('ConfirmSignUpRequest')
+      ..add(
+        'clientId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'secretHash',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'username',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'confirmationCode',
+        confirmationCode,
+      )
+      ..add(
+        'forceAliasCreation',
+        forceAliasCreation,
+      )
+      ..add(
+        'analyticsMetadata',
+        analyticsMetadata,
+      )
+      ..add(
+        'userContextData',
+        userContextData,
+      )
+      ..add(
+        'clientMetadata',
+        clientMetadata,
+      );
     return helper.toString();
   }
 }

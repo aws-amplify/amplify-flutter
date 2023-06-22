@@ -48,9 +48,8 @@ abstract class UpdateUserAttributesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateUserAttributesRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateUserAttributesRequest>>
+      serializers = [UpdateUserAttributesRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateUserAttributesRequestBuilder b) {}
@@ -89,19 +88,19 @@ abstract class UpdateUserAttributesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateUserAttributesRequest');
-    helper.add(
-      'userAttributes',
-      userAttributes,
-    );
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'clientMetadata',
-      clientMetadata,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateUserAttributesRequest')
+      ..add(
+        'userAttributes',
+        userAttributes,
+      )
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'clientMetadata',
+        clientMetadata,
+      );
     return helper.toString();
   }
 }

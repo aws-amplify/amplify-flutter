@@ -42,9 +42,8 @@ abstract class TagOpenIdConnectProviderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TagOpenIdConnectProviderRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<TagOpenIdConnectProviderRequest>>
+      serializers = [TagOpenIdConnectProviderRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TagOpenIdConnectProviderRequestBuilder b) {}
@@ -66,15 +65,15 @@ abstract class TagOpenIdConnectProviderRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('TagOpenIdConnectProviderRequest');
-    helper.add(
-      'openIdConnectProviderArn',
-      openIdConnectProviderArn,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+        newBuiltValueToStringHelper('TagOpenIdConnectProviderRequest')
+          ..add(
+            'openIdConnectProviderArn',
+            openIdConnectProviderArn,
+          )
+          ..add(
+            'tags',
+            tags,
+          );
     return helper.toString();
   }
 }

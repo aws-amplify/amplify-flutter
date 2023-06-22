@@ -38,7 +38,7 @@ abstract class DeleteMarkerEntry
 
   const DeleteMarkerEntry._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DeleteMarkerEntry>> serializers = [
     DeleteMarkerEntryRestXmlSerializer()
   ];
 
@@ -69,27 +69,27 @@ abstract class DeleteMarkerEntry
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteMarkerEntry');
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'isLatest',
-      isLatest,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteMarkerEntry')
+      ..add(
+        'owner',
+        owner,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'isLatest',
+        isLatest,
+      )
+      ..add(
+        'lastModified',
+        lastModified,
+      );
     return helper.toString();
   }
 }

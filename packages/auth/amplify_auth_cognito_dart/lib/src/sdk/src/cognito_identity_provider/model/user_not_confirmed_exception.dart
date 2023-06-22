@@ -37,9 +37,8 @@ abstract class UserNotConfirmedException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UserNotConfirmedExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<UserNotConfirmedException>>
+      serializers = [UserNotConfirmedExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UserNotConfirmedExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class UserNotConfirmedException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UserNotConfirmedException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('UserNotConfirmedException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

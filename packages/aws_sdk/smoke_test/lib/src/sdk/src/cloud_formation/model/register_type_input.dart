@@ -47,7 +47,7 @@ abstract class RegisterTypeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<RegisterTypeInput>> serializers = [
     RegisterTypeInputAwsQuerySerializer()
   ];
 
@@ -115,31 +115,31 @@ abstract class RegisterTypeInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RegisterTypeInput');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'schemaHandlerPackage',
-      schemaHandlerPackage,
-    );
-    helper.add(
-      'loggingConfig',
-      loggingConfig,
-    );
-    helper.add(
-      'executionRoleArn',
-      executionRoleArn,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
+    final helper = newBuiltValueToStringHelper('RegisterTypeInput')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'schemaHandlerPackage',
+        schemaHandlerPackage,
+      )
+      ..add(
+        'loggingConfig',
+        loggingConfig,
+      )
+      ..add(
+        'executionRoleArn',
+        executionRoleArn,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      );
     return helper.toString();
   }
 }

@@ -28,9 +28,8 @@ abstract class EventBridgeConfiguration
 
   const EventBridgeConfiguration._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    EventBridgeConfigurationRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<EventBridgeConfiguration>>
+      serializers = [EventBridgeConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EventBridgeConfigurationBuilder b) {}

@@ -44,7 +44,7 @@ abstract class PutEvaluationsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<PutEvaluationsRequest>> serializers = [
     PutEvaluationsRequestAwsJson11Serializer()
   ];
 
@@ -73,19 +73,19 @@ abstract class PutEvaluationsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutEvaluationsRequest');
-    helper.add(
-      'evaluations',
-      evaluations,
-    );
-    helper.add(
-      'resultToken',
-      resultToken,
-    );
-    helper.add(
-      'testMode',
-      testMode,
-    );
+    final helper = newBuiltValueToStringHelper('PutEvaluationsRequest')
+      ..add(
+        'evaluations',
+        evaluations,
+      )
+      ..add(
+        'resultToken',
+        resultToken,
+      )
+      ..add(
+        'testMode',
+        testMode,
+      );
     return helper.toString();
   }
 }

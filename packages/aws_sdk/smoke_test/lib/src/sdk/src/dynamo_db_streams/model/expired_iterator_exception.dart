@@ -38,9 +38,8 @@ abstract class ExpiredIteratorException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ExpiredIteratorExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ExpiredIteratorException>>
+      serializers = [ExpiredIteratorExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExpiredIteratorExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class ExpiredIteratorException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExpiredIteratorException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ExpiredIteratorException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

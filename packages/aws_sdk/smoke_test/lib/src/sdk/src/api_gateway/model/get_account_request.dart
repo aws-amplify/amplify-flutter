@@ -34,7 +34,7 @@ abstract class GetAccountRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetAccountRequest>> serializers = [
     GetAccountRequestRestJson1Serializer()
   ];
 

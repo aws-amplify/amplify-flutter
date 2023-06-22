@@ -52,9 +52,8 @@ abstract class OrganizationConfigRule
 
   const OrganizationConfigRule._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    OrganizationConfigRuleAwsJson11Serializer()
-  ];
+  static const List<_i6.SmithySerializer<OrganizationConfigRule>> serializers =
+      [OrganizationConfigRuleAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationConfigRuleBuilder b) {}
@@ -92,35 +91,35 @@ abstract class OrganizationConfigRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OrganizationConfigRule');
-    helper.add(
-      'organizationConfigRuleName',
-      organizationConfigRuleName,
-    );
-    helper.add(
-      'organizationConfigRuleArn',
-      organizationConfigRuleArn,
-    );
-    helper.add(
-      'organizationManagedRuleMetadata',
-      organizationManagedRuleMetadata,
-    );
-    helper.add(
-      'organizationCustomRuleMetadata',
-      organizationCustomRuleMetadata,
-    );
-    helper.add(
-      'excludedAccounts',
-      excludedAccounts,
-    );
-    helper.add(
-      'lastUpdateTime',
-      lastUpdateTime,
-    );
-    helper.add(
-      'organizationCustomPolicyRuleMetadata',
-      organizationCustomPolicyRuleMetadata,
-    );
+    final helper = newBuiltValueToStringHelper('OrganizationConfigRule')
+      ..add(
+        'organizationConfigRuleName',
+        organizationConfigRuleName,
+      )
+      ..add(
+        'organizationConfigRuleArn',
+        organizationConfigRuleArn,
+      )
+      ..add(
+        'organizationManagedRuleMetadata',
+        organizationManagedRuleMetadata,
+      )
+      ..add(
+        'organizationCustomRuleMetadata',
+        organizationCustomRuleMetadata,
+      )
+      ..add(
+        'excludedAccounts',
+        excludedAccounts,
+      )
+      ..add(
+        'lastUpdateTime',
+        lastUpdateTime,
+      )
+      ..add(
+        'organizationCustomPolicyRuleMetadata',
+        organizationCustomPolicyRuleMetadata,
+      );
     return helper.toString();
   }
 }

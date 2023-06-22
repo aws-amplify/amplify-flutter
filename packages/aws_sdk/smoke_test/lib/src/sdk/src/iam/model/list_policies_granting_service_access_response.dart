@@ -47,7 +47,9 @@ abstract class ListPoliciesGrantingServiceAccessResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<ListPoliciesGrantingServiceAccessResponse>>
+      serializers = [
     ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer()
   ];
 
@@ -73,20 +75,20 @@ abstract class ListPoliciesGrantingServiceAccessResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'ListPoliciesGrantingServiceAccessResponse');
-    helper.add(
-      'policiesGrantingServiceAccess',
-      policiesGrantingServiceAccess,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper =
+        newBuiltValueToStringHelper('ListPoliciesGrantingServiceAccessResponse')
+          ..add(
+            'policiesGrantingServiceAccess',
+            policiesGrantingServiceAccess,
+          )
+          ..add(
+            'isTruncated',
+            isTruncated,
+          )
+          ..add(
+            'marker',
+            marker,
+          );
     return helper.toString();
   }
 }

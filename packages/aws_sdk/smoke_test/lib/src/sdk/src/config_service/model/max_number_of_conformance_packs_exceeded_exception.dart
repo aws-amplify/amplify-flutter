@@ -40,7 +40,9 @@ abstract class MaxNumberOfConformancePacksExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<MaxNumberOfConformancePacksExceededException>>
+      serializers = [
     MaxNumberOfConformancePacksExceededExceptionAwsJson11Serializer()
   ];
 
@@ -70,11 +72,11 @@ abstract class MaxNumberOfConformancePacksExceededException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MaxNumberOfConformancePacksExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+        'MaxNumberOfConformancePacksExceededException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

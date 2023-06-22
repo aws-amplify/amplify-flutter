@@ -37,7 +37,7 @@ abstract class GetBucketPolicyStatusOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.PolicyStatus?>> serializers = [
     GetBucketPolicyStatusOutputRestXmlSerializer()
   ];
 
@@ -52,11 +52,11 @@ abstract class GetBucketPolicyStatusOutput
   List<Object?> get props => [policyStatus];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketPolicyStatusOutput');
-    helper.add(
-      'policyStatus',
-      policyStatus,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketPolicyStatusOutput')
+      ..add(
+        'policyStatus',
+        policyStatus,
+      );
     return helper.toString();
   }
 }

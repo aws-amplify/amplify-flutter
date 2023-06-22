@@ -43,7 +43,7 @@ abstract class UpdateTimeToLiveInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UpdateTimeToLiveInput>> serializers = [
     UpdateTimeToLiveInputAwsJson10Serializer()
   ];
 
@@ -64,15 +64,15 @@ abstract class UpdateTimeToLiveInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateTimeToLiveInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'timeToLiveSpecification',
-      timeToLiveSpecification,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateTimeToLiveInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'timeToLiveSpecification',
+        timeToLiveSpecification,
+      );
     return helper.toString();
   }
 }

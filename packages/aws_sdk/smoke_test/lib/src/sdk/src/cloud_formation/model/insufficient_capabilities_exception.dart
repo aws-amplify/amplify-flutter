@@ -39,9 +39,8 @@ abstract class InsufficientCapabilitiesException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InsufficientCapabilitiesExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<InsufficientCapabilitiesException>>
+      serializers = [InsufficientCapabilitiesExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InsufficientCapabilitiesExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class InsufficientCapabilitiesException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InsufficientCapabilitiesException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InsufficientCapabilitiesException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

@@ -67,9 +67,8 @@ abstract class AbortMultipartUploadRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    AbortMultipartUploadRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<AbortMultipartUploadRequestPayload>>
+      serializers = [AbortMultipartUploadRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AbortMultipartUploadRequestBuilder b) {}
@@ -119,27 +118,27 @@ abstract class AbortMultipartUploadRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AbortMultipartUploadRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'uploadId',
-      uploadId,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('AbortMultipartUploadRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'uploadId',
+        uploadId,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

@@ -33,7 +33,7 @@ abstract class GetBucketCorsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<GetBucketCorsOutput>> serializers = [
     GetBucketCorsOutputRestXmlSerializer()
   ];
 
@@ -46,11 +46,11 @@ abstract class GetBucketCorsOutput
   List<Object?> get props => [corsRules];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketCorsOutput');
-    helper.add(
-      'corsRules',
-      corsRules,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketCorsOutput')
+      ..add(
+        'corsRules',
+        corsRules,
+      );
     return helper.toString();
   }
 }

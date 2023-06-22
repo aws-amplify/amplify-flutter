@@ -39,9 +39,8 @@ abstract class CredentialReportExpiredException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    CredentialReportExpiredExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<CredentialReportExpiredException>>
+      serializers = [CredentialReportExpiredExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CredentialReportExpiredExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class CredentialReportExpiredException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CredentialReportExpiredException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('CredentialReportExpiredException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

@@ -36,9 +36,8 @@ abstract class GetResourceEvaluationSummaryRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetResourceEvaluationSummaryRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetResourceEvaluationSummaryRequest>>
+      serializers = [GetResourceEvaluationSummaryRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetResourceEvaluationSummaryRequestBuilder b) {}
@@ -52,11 +51,11 @@ abstract class GetResourceEvaluationSummaryRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetResourceEvaluationSummaryRequest');
-    helper.add(
-      'resourceEvaluationId',
-      resourceEvaluationId,
-    );
+        newBuiltValueToStringHelper('GetResourceEvaluationSummaryRequest')
+          ..add(
+            'resourceEvaluationId',
+            resourceEvaluationId,
+          );
     return helper.toString();
   }
 }

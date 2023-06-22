@@ -69,7 +69,7 @@ abstract class PutBucketPolicyRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<String>> serializers = [
     PutBucketPolicyRequestRestXmlSerializer()
   ];
 
@@ -122,31 +122,31 @@ abstract class PutBucketPolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutBucketPolicyRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'confirmRemoveSelfBucketAccess',
-      confirmRemoveSelfBucketAccess,
-    );
-    helper.add(
-      'policy',
-      policy,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutBucketPolicyRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'confirmRemoveSelfBucketAccess',
+        confirmRemoveSelfBucketAccess,
+      )
+      ..add(
+        'policy',
+        policy,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

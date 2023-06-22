@@ -37,9 +37,8 @@ abstract class ChangeSetHookTargetDetails
 
   const ChangeSetHookTargetDetails._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ChangeSetHookTargetDetailsAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<ChangeSetHookTargetDetails>>
+      serializers = [ChangeSetHookTargetDetailsAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ChangeSetHookTargetDetailsBuilder b) {}
@@ -56,15 +55,15 @@ abstract class ChangeSetHookTargetDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ChangeSetHookTargetDetails');
-    helper.add(
-      'targetType',
-      targetType,
-    );
-    helper.add(
-      'resourceTargetDetails',
-      resourceTargetDetails,
-    );
+    final helper = newBuiltValueToStringHelper('ChangeSetHookTargetDetails')
+      ..add(
+        'targetType',
+        targetType,
+      )
+      ..add(
+        'resourceTargetDetails',
+        resourceTargetDetails,
+      );
     return helper.toString();
   }
 }

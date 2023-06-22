@@ -43,7 +43,7 @@ abstract class PolicyGroup
 
   const PolicyGroup._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PolicyGroup>> serializers = [
     PolicyGroupAwsQuerySerializer()
   ];
 
@@ -62,15 +62,15 @@ abstract class PolicyGroup
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PolicyGroup');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'groupId',
-      groupId,
-    );
+    final helper = newBuiltValueToStringHelper('PolicyGroup')
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'groupId',
+        groupId,
+      );
     return helper.toString();
   }
 }

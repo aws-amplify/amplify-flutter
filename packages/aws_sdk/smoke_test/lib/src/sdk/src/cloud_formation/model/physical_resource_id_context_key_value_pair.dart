@@ -35,9 +35,8 @@ abstract class PhysicalResourceIdContextKeyValuePair
 
   const PhysicalResourceIdContextKeyValuePair._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PhysicalResourceIdContextKeyValuePairAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<PhysicalResourceIdContextKeyValuePair>>
+      serializers = [PhysicalResourceIdContextKeyValuePairAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PhysicalResourceIdContextKeyValuePairBuilder b) {}
@@ -55,15 +54,15 @@ abstract class PhysicalResourceIdContextKeyValuePair
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PhysicalResourceIdContextKeyValuePair');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'value',
-      value,
-    );
+        newBuiltValueToStringHelper('PhysicalResourceIdContextKeyValuePair')
+          ..add(
+            'key',
+            key,
+          )
+          ..add(
+            'value',
+            value,
+          );
     return helper.toString();
   }
 }

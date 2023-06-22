@@ -54,9 +54,8 @@ abstract class TransactWriteItemsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TransactWriteItemsInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<TransactWriteItemsInput>> serializers =
+      [TransactWriteItemsInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TransactWriteItemsInputBuilder b) {
@@ -103,23 +102,23 @@ abstract class TransactWriteItemsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TransactWriteItemsInput');
-    helper.add(
-      'transactItems',
-      transactItems,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'returnItemCollectionMetrics',
-      returnItemCollectionMetrics,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
+    final helper = newBuiltValueToStringHelper('TransactWriteItemsInput')
+      ..add(
+        'transactItems',
+        transactItems,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      )
+      ..add(
+        'returnItemCollectionMetrics',
+        returnItemCollectionMetrics,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      );
     return helper.toString();
   }
 }

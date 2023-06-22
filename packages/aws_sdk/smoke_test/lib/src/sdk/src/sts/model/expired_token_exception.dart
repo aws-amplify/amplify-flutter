@@ -37,7 +37,7 @@ abstract class ExpiredTokenException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ExpiredTokenException>> serializers = [
     ExpiredTokenExceptionAwsQuerySerializer()
   ];
 
@@ -64,11 +64,11 @@ abstract class ExpiredTokenException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExpiredTokenException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ExpiredTokenException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

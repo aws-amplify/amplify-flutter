@@ -39,7 +39,7 @@ abstract class EndpointLocation
 
   const EndpointLocation._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<EndpointLocation>> serializers = [
     EndpointLocationRestJson1Serializer()
   ];
 
@@ -74,31 +74,31 @@ abstract class EndpointLocation
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointLocation');
-    helper.add(
-      'city',
-      city,
-    );
-    helper.add(
-      'country',
-      country,
-    );
-    helper.add(
-      'latitude',
-      latitude,
-    );
-    helper.add(
-      'longitude',
-      longitude,
-    );
-    helper.add(
-      'postalCode',
-      postalCode,
-    );
-    helper.add(
-      'region',
-      region,
-    );
+    final helper = newBuiltValueToStringHelper('EndpointLocation')
+      ..add(
+        'city',
+        city,
+      )
+      ..add(
+        'country',
+        country,
+      )
+      ..add(
+        'latitude',
+        latitude,
+      )
+      ..add(
+        'longitude',
+        longitude,
+      )
+      ..add(
+        'postalCode',
+        postalCode,
+      )
+      ..add(
+        'region',
+        region,
+      );
     return helper.toString();
   }
 }

@@ -53,9 +53,8 @@ abstract class RecordHandlerProgressInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    RecordHandlerProgressInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<RecordHandlerProgressInput>>
+      serializers = [RecordHandlerProgressInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RecordHandlerProgressInputBuilder b) {}
@@ -94,35 +93,35 @@ abstract class RecordHandlerProgressInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RecordHandlerProgressInput');
-    helper.add(
-      'bearerToken',
-      bearerToken,
-    );
-    helper.add(
-      'operationStatus',
-      operationStatus,
-    );
-    helper.add(
-      'currentOperationStatus',
-      currentOperationStatus,
-    );
-    helper.add(
-      'statusMessage',
-      statusMessage,
-    );
-    helper.add(
-      'errorCode',
-      errorCode,
-    );
-    helper.add(
-      'resourceModel',
-      resourceModel,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
+    final helper = newBuiltValueToStringHelper('RecordHandlerProgressInput')
+      ..add(
+        'bearerToken',
+        bearerToken,
+      )
+      ..add(
+        'operationStatus',
+        operationStatus,
+      )
+      ..add(
+        'currentOperationStatus',
+        currentOperationStatus,
+      )
+      ..add(
+        'statusMessage',
+        statusMessage,
+      )
+      ..add(
+        'errorCode',
+        errorCode,
+      )
+      ..add(
+        'resourceModel',
+        resourceModel,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      );
     return helper.toString();
   }
 }

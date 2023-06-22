@@ -39,9 +39,8 @@ abstract class KinesisDataStreamDestination
 
   const KinesisDataStreamDestination._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    KinesisDataStreamDestinationAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<KinesisDataStreamDestination>>
+      serializers = [KinesisDataStreamDestinationAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(KinesisDataStreamDestinationBuilder b) {}
@@ -62,19 +61,19 @@ abstract class KinesisDataStreamDestination
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('KinesisDataStreamDestination');
-    helper.add(
-      'streamArn',
-      streamArn,
-    );
-    helper.add(
-      'destinationStatus',
-      destinationStatus,
-    );
-    helper.add(
-      'destinationStatusDescription',
-      destinationStatusDescription,
-    );
+    final helper = newBuiltValueToStringHelper('KinesisDataStreamDestination')
+      ..add(
+        'streamArn',
+        streamArn,
+      )
+      ..add(
+        'destinationStatus',
+        destinationStatus,
+      )
+      ..add(
+        'destinationStatusDescription',
+        destinationStatusDescription,
+      );
     return helper.toString();
   }
 }

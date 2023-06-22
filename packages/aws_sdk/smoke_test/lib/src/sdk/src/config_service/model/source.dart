@@ -41,7 +41,7 @@ abstract class Source
 
   const Source._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<Source>> serializers = [
     SourceAwsJson11Serializer()
   ];
 
@@ -78,23 +78,23 @@ abstract class Source
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Source');
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
-      'sourceIdentifier',
-      sourceIdentifier,
-    );
-    helper.add(
-      'sourceDetails',
-      sourceDetails,
-    );
-    helper.add(
-      'customPolicyDetails',
-      customPolicyDetails,
-    );
+    final helper = newBuiltValueToStringHelper('Source')
+      ..add(
+        'owner',
+        owner,
+      )
+      ..add(
+        'sourceIdentifier',
+        sourceIdentifier,
+      )
+      ..add(
+        'sourceDetails',
+        sourceDetails,
+      )
+      ..add(
+        'customPolicyDetails',
+        customPolicyDetails,
+      );
     return helper.toString();
   }
 }

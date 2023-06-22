@@ -54,9 +54,8 @@ abstract class TestInvokeMethodResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    TestInvokeMethodResponseRestJson1Serializer()
-  ];
+  static const List<_i4.SmithySerializer<TestInvokeMethodResponse>>
+      serializers = [TestInvokeMethodResponseRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestInvokeMethodResponseBuilder b) {
@@ -92,31 +91,31 @@ abstract class TestInvokeMethodResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestInvokeMethodResponse');
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'headers',
-      headers,
-    );
-    helper.add(
-      'multiValueHeaders',
-      multiValueHeaders,
-    );
-    helper.add(
-      'log',
-      log,
-    );
-    helper.add(
-      'latency',
-      latency,
-    );
+    final helper = newBuiltValueToStringHelper('TestInvokeMethodResponse')
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'headers',
+        headers,
+      )
+      ..add(
+        'multiValueHeaders',
+        multiValueHeaders,
+      )
+      ..add(
+        'log',
+        log,
+      )
+      ..add(
+        'latency',
+        latency,
+      );
     return helper.toString();
   }
 }

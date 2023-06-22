@@ -49,7 +49,7 @@ abstract class Event
 
   const Event._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Event>> serializers = [
     EventRestJson1Serializer()
   ];
 
@@ -100,47 +100,47 @@ abstract class Event
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Event');
-    helper.add(
-      'appPackageName',
-      appPackageName,
-    );
-    helper.add(
-      'appTitle',
-      appTitle,
-    );
-    helper.add(
-      'appVersionCode',
-      appVersionCode,
-    );
-    helper.add(
-      'attributes',
-      attributes,
-    );
-    helper.add(
-      'clientSdkVersion',
-      clientSdkVersion,
-    );
-    helper.add(
-      'eventType',
-      eventType,
-    );
-    helper.add(
-      'metrics',
-      metrics,
-    );
-    helper.add(
-      'sdkName',
-      sdkName,
-    );
-    helper.add(
-      'session',
-      session,
-    );
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
+    final helper = newBuiltValueToStringHelper('Event')
+      ..add(
+        'appPackageName',
+        appPackageName,
+      )
+      ..add(
+        'appTitle',
+        appTitle,
+      )
+      ..add(
+        'appVersionCode',
+        appVersionCode,
+      )
+      ..add(
+        'attributes',
+        attributes,
+      )
+      ..add(
+        'clientSdkVersion',
+        clientSdkVersion,
+      )
+      ..add(
+        'eventType',
+        eventType,
+      )
+      ..add(
+        'metrics',
+        metrics,
+      )
+      ..add(
+        'sdkName',
+        sdkName,
+      )
+      ..add(
+        'session',
+        session,
+      )
+      ..add(
+        'timestamp',
+        timestamp,
+      );
     return helper.toString();
   }
 }

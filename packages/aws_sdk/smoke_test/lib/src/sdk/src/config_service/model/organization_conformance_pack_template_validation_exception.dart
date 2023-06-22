@@ -43,7 +43,10 @@ abstract class OrganizationConformancePackTemplateValidationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<
+              OrganizationConformancePackTemplateValidationException>>
+      serializers = [
     OrganizationConformancePackTemplateValidationExceptionAwsJson11Serializer()
   ];
 
@@ -74,11 +77,11 @@ abstract class OrganizationConformancePackTemplateValidationException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'OrganizationConformancePackTemplateValidationException');
-    helper.add(
-      'message',
-      message,
-    );
+        'OrganizationConformancePackTemplateValidationException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

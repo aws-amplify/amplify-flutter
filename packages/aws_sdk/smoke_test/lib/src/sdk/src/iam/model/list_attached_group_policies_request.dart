@@ -44,9 +44,8 @@ abstract class ListAttachedGroupPoliciesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListAttachedGroupPoliciesRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListAttachedGroupPoliciesRequest>>
+      serializers = [ListAttachedGroupPoliciesRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListAttachedGroupPoliciesRequestBuilder b) {}
@@ -80,23 +79,23 @@ abstract class ListAttachedGroupPoliciesRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListAttachedGroupPoliciesRequest');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'pathPrefix',
-      pathPrefix,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+        newBuiltValueToStringHelper('ListAttachedGroupPoliciesRequest')
+          ..add(
+            'groupName',
+            groupName,
+          )
+          ..add(
+            'pathPrefix',
+            pathPrefix,
+          )
+          ..add(
+            'marker',
+            marker,
+          )
+          ..add(
+            'maxItems',
+            maxItems,
+          );
     return helper.toString();
   }
 }

@@ -56,9 +56,8 @@ abstract class DeleteGatewayResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteGatewayResponseRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteGatewayResponseRequestPayload>>
+      serializers = [DeleteGatewayResponseRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteGatewayResponseRequestBuilder b) {}
@@ -92,15 +91,15 @@ abstract class DeleteGatewayResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteGatewayResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'responseType',
-      responseType,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteGatewayResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'responseType',
+        responseType,
+      );
     return helper.toString();
   }
 }

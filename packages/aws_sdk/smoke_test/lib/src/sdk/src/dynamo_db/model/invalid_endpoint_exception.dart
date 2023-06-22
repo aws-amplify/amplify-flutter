@@ -34,9 +34,8 @@ abstract class InvalidEndpointException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidEndpointExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidEndpointException>>
+      serializers = [InvalidEndpointExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidEndpointExceptionBuilder b) {}
@@ -61,11 +60,11 @@ abstract class InvalidEndpointException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidEndpointException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidEndpointException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

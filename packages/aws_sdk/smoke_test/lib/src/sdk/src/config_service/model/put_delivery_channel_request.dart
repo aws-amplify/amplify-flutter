@@ -39,9 +39,8 @@ abstract class PutDeliveryChannelRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutDeliveryChannelRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutDeliveryChannelRequest>>
+      serializers = [PutDeliveryChannelRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutDeliveryChannelRequestBuilder b) {}
@@ -54,11 +53,11 @@ abstract class PutDeliveryChannelRequest
   List<Object?> get props => [deliveryChannel];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutDeliveryChannelRequest');
-    helper.add(
-      'deliveryChannel',
-      deliveryChannel,
-    );
+    final helper = newBuiltValueToStringHelper('PutDeliveryChannelRequest')
+      ..add(
+        'deliveryChannel',
+        deliveryChannel,
+      );
     return helper.toString();
   }
 }

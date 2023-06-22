@@ -35,7 +35,7 @@ abstract class ConfirmDeviceResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ConfirmDeviceResponse>> serializers = [
     ConfirmDeviceResponseAwsJson11Serializer()
   ];
 
@@ -50,11 +50,11 @@ abstract class ConfirmDeviceResponse
   List<Object?> get props => [userConfirmationNecessary];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfirmDeviceResponse');
-    helper.add(
-      'userConfirmationNecessary',
-      userConfirmationNecessary,
-    );
+    final helper = newBuiltValueToStringHelper('ConfirmDeviceResponse')
+      ..add(
+        'userConfirmationNecessary',
+        userConfirmationNecessary,
+      );
     return helper.toString();
   }
 }

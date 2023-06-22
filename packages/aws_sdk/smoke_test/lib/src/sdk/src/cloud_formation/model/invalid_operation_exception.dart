@@ -37,9 +37,8 @@ abstract class InvalidOperationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidOperationExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidOperationException>>
+      serializers = [InvalidOperationExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidOperationExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class InvalidOperationException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidOperationException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidOperationException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

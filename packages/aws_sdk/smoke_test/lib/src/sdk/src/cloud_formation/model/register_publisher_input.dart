@@ -38,9 +38,8 @@ abstract class RegisterPublisherInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    RegisterPublisherInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<RegisterPublisherInput>> serializers =
+      [RegisterPublisherInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RegisterPublisherInputBuilder b) {}
@@ -63,15 +62,15 @@ abstract class RegisterPublisherInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RegisterPublisherInput');
-    helper.add(
-      'acceptTermsAndConditions',
-      acceptTermsAndConditions,
-    );
-    helper.add(
-      'connectionArn',
-      connectionArn,
-    );
+    final helper = newBuiltValueToStringHelper('RegisterPublisherInput')
+      ..add(
+        'acceptTermsAndConditions',
+        acceptTermsAndConditions,
+      )
+      ..add(
+        'connectionArn',
+        connectionArn,
+      );
     return helper.toString();
   }
 }

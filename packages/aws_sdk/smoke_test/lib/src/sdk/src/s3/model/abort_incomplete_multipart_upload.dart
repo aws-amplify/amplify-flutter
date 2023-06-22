@@ -30,9 +30,8 @@ abstract class AbortIncompleteMultipartUpload
 
   const AbortIncompleteMultipartUpload._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    AbortIncompleteMultipartUploadRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<AbortIncompleteMultipartUpload>>
+      serializers = [AbortIncompleteMultipartUploadRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AbortIncompleteMultipartUploadBuilder b) {}
@@ -43,12 +42,11 @@ abstract class AbortIncompleteMultipartUpload
   List<Object?> get props => [daysAfterInitiation];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AbortIncompleteMultipartUpload');
-    helper.add(
-      'daysAfterInitiation',
-      daysAfterInitiation,
-    );
+    final helper = newBuiltValueToStringHelper('AbortIncompleteMultipartUpload')
+      ..add(
+        'daysAfterInitiation',
+        daysAfterInitiation,
+      );
     return helper.toString();
   }
 }

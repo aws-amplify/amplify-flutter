@@ -40,7 +40,7 @@ abstract class ListGlobalTablesInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListGlobalTablesInput>> serializers = [
     ListGlobalTablesInputAwsJson10Serializer()
   ];
 
@@ -67,19 +67,19 @@ abstract class ListGlobalTablesInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListGlobalTablesInput');
-    helper.add(
-      'exclusiveStartGlobalTableName',
-      exclusiveStartGlobalTableName,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'regionName',
-      regionName,
-    );
+    final helper = newBuiltValueToStringHelper('ListGlobalTablesInput')
+      ..add(
+        'exclusiveStartGlobalTableName',
+        exclusiveStartGlobalTableName,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'regionName',
+        regionName,
+      );
     return helper.toString();
   }
 }

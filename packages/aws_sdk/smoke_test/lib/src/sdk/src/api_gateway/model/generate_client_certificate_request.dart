@@ -44,9 +44,8 @@ abstract class GenerateClientCertificateRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GenerateClientCertificateRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GenerateClientCertificateRequest>>
+      serializers = [GenerateClientCertificateRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GenerateClientCertificateRequestBuilder b) {}
@@ -66,15 +65,15 @@ abstract class GenerateClientCertificateRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GenerateClientCertificateRequest');
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+        newBuiltValueToStringHelper('GenerateClientCertificateRequest')
+          ..add(
+            'description',
+            description,
+          )
+          ..add(
+            'tags',
+            tags,
+          );
     return helper.toString();
   }
 }

@@ -38,9 +38,8 @@ abstract class ImportNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ImportNotFoundExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ImportNotFoundException>> serializers =
+      [ImportNotFoundExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ImportNotFoundExceptionBuilder b) {}
@@ -65,11 +64,11 @@ abstract class ImportNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ImportNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ImportNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

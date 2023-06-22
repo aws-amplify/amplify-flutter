@@ -26,7 +26,7 @@ abstract class ObjectLockRule
 
   const ObjectLockRule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ObjectLockRule>> serializers = [
     ObjectLockRuleRestXmlSerializer()
   ];
 
@@ -39,11 +39,11 @@ abstract class ObjectLockRule
   List<Object?> get props => [defaultRetention];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ObjectLockRule');
-    helper.add(
-      'defaultRetention',
-      defaultRetention,
-    );
+    final helper = newBuiltValueToStringHelper('ObjectLockRule')
+      ..add(
+        'defaultRetention',
+        defaultRetention,
+      );
     return helper.toString();
   }
 }

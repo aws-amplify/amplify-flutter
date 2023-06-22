@@ -41,7 +41,7 @@ abstract class PublishTypeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<PublishTypeInput>> serializers = [
     PublishTypeInputAwsQuerySerializer()
   ];
 
@@ -86,23 +86,23 @@ abstract class PublishTypeInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PublishTypeInput');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'publicVersionNumber',
-      publicVersionNumber,
-    );
+    final helper = newBuiltValueToStringHelper('PublishTypeInput')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'publicVersionNumber',
+        publicVersionNumber,
+      );
     return helper.toString();
   }
 }

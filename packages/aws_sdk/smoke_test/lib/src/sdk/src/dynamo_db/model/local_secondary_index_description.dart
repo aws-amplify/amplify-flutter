@@ -48,9 +48,8 @@ abstract class LocalSecondaryIndexDescription
 
   const LocalSecondaryIndexDescription._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    LocalSecondaryIndexDescriptionAwsJson10Serializer()
-  ];
+  static const List<_i6.SmithySerializer<LocalSecondaryIndexDescription>>
+      serializers = [LocalSecondaryIndexDescriptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(LocalSecondaryIndexDescriptionBuilder b) {}
@@ -92,32 +91,31 @@ abstract class LocalSecondaryIndexDescription
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('LocalSecondaryIndexDescription');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'projection',
-      projection,
-    );
-    helper.add(
-      'indexSizeBytes',
-      indexSizeBytes,
-    );
-    helper.add(
-      'itemCount',
-      itemCount,
-    );
-    helper.add(
-      'indexArn',
-      indexArn,
-    );
+    final helper = newBuiltValueToStringHelper('LocalSecondaryIndexDescription')
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'keySchema',
+        keySchema,
+      )
+      ..add(
+        'projection',
+        projection,
+      )
+      ..add(
+        'indexSizeBytes',
+        indexSizeBytes,
+      )
+      ..add(
+        'itemCount',
+        itemCount,
+      )
+      ..add(
+        'indexArn',
+        indexArn,
+      );
     return helper.toString();
   }
 }

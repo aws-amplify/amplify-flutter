@@ -36,9 +36,8 @@ abstract class CodeDeliveryDetailsType
 
   const CodeDeliveryDetailsType._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    CodeDeliveryDetailsTypeAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<CodeDeliveryDetailsType>> serializers =
+      [CodeDeliveryDetailsTypeAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CodeDeliveryDetailsTypeBuilder b) {}
@@ -59,19 +58,19 @@ abstract class CodeDeliveryDetailsType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CodeDeliveryDetailsType');
-    helper.add(
-      'destination',
-      destination,
-    );
-    helper.add(
-      'deliveryMedium',
-      deliveryMedium,
-    );
-    helper.add(
-      'attributeName',
-      attributeName,
-    );
+    final helper = newBuiltValueToStringHelper('CodeDeliveryDetailsType')
+      ..add(
+        'destination',
+        destination,
+      )
+      ..add(
+        'deliveryMedium',
+        deliveryMedium,
+      )
+      ..add(
+        'attributeName',
+        attributeName,
+      );
     return helper.toString();
   }
 }

@@ -33,7 +33,7 @@ abstract class Metrics
 
   const Metrics._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Metrics>> serializers = [
     MetricsRestXmlSerializer()
   ];
 
@@ -52,15 +52,15 @@ abstract class Metrics
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Metrics');
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'eventThreshold',
-      eventThreshold,
-    );
+    final helper = newBuiltValueToStringHelper('Metrics')
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'eventThreshold',
+        eventThreshold,
+      );
     return helper.toString();
   }
 }

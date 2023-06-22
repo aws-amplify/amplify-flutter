@@ -47,7 +47,7 @@ abstract class GetShardIteratorInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetShardIteratorInput>> serializers = [
     GetShardIteratorInputAwsJson10Serializer()
   ];
 
@@ -84,23 +84,23 @@ abstract class GetShardIteratorInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetShardIteratorInput');
-    helper.add(
-      'streamArn',
-      streamArn,
-    );
-    helper.add(
-      'shardId',
-      shardId,
-    );
-    helper.add(
-      'shardIteratorType',
-      shardIteratorType,
-    );
-    helper.add(
-      'sequenceNumber',
-      sequenceNumber,
-    );
+    final helper = newBuiltValueToStringHelper('GetShardIteratorInput')
+      ..add(
+        'streamArn',
+        streamArn,
+      )
+      ..add(
+        'shardId',
+        shardId,
+      )
+      ..add(
+        'shardIteratorType',
+        shardIteratorType,
+      )
+      ..add(
+        'sequenceNumber',
+        sequenceNumber,
+      );
     return helper.toString();
   }
 }

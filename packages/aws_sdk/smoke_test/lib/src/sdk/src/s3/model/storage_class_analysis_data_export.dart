@@ -39,9 +39,8 @@ abstract class StorageClassAnalysisDataExport
 
   const StorageClassAnalysisDataExport._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    StorageClassAnalysisDataExportRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<StorageClassAnalysisDataExport>>
+      serializers = [StorageClassAnalysisDataExportRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StorageClassAnalysisDataExportBuilder b) {}
@@ -58,16 +57,15 @@ abstract class StorageClassAnalysisDataExport
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('StorageClassAnalysisDataExport');
-    helper.add(
-      'outputSchemaVersion',
-      outputSchemaVersion,
-    );
-    helper.add(
-      'destination',
-      destination,
-    );
+    final helper = newBuiltValueToStringHelper('StorageClassAnalysisDataExport')
+      ..add(
+        'outputSchemaVersion',
+        outputSchemaVersion,
+      )
+      ..add(
+        'destination',
+        destination,
+      );
     return helper.toString();
   }
 }

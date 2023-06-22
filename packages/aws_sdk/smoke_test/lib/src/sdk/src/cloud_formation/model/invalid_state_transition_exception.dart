@@ -39,9 +39,8 @@ abstract class InvalidStateTransitionException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidStateTransitionExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidStateTransitionException>>
+      serializers = [InvalidStateTransitionExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidStateTransitionExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class InvalidStateTransitionException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InvalidStateTransitionException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InvalidStateTransitionException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

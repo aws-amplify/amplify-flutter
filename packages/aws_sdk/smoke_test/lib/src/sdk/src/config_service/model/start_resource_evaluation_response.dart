@@ -34,9 +34,8 @@ abstract class StartResourceEvaluationResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    StartResourceEvaluationResponseAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<StartResourceEvaluationResponse>>
+      serializers = [StartResourceEvaluationResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StartResourceEvaluationResponseBuilder b) {}
@@ -48,11 +47,11 @@ abstract class StartResourceEvaluationResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('StartResourceEvaluationResponse');
-    helper.add(
-      'resourceEvaluationId',
-      resourceEvaluationId,
-    );
+        newBuiltValueToStringHelper('StartResourceEvaluationResponse')
+          ..add(
+            'resourceEvaluationId',
+            resourceEvaluationId,
+          );
     return helper.toString();
   }
 }

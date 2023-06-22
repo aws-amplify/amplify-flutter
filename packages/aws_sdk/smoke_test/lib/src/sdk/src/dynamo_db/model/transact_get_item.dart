@@ -26,7 +26,7 @@ abstract class TransactGetItem
 
   const TransactGetItem._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<TransactGetItem>> serializers = [
     TransactGetItemAwsJson10Serializer()
   ];
 
@@ -39,11 +39,11 @@ abstract class TransactGetItem
   List<Object?> get props => [get];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TransactGetItem');
-    helper.add(
-      'get',
-      get,
-    );
+    final helper = newBuiltValueToStringHelper('TransactGetItem')
+      ..add(
+        'get',
+        get,
+      );
     return helper.toString();
   }
 }

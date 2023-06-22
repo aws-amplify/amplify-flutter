@@ -81,7 +81,7 @@ abstract class PutObjectTaggingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Tagging>> serializers = [
     PutObjectTaggingRequestRestXmlSerializer()
   ];
 
@@ -148,39 +148,39 @@ abstract class PutObjectTaggingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutObjectTaggingRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'tagging',
-      tagging,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
+    final helper = newBuiltValueToStringHelper('PutObjectTaggingRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'tagging',
+        tagging,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      );
     return helper.toString();
   }
 }

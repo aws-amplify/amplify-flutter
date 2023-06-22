@@ -55,9 +55,8 @@ abstract class UpdateVpcLinkRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateVpcLinkRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateVpcLinkRequestPayload>>
+      serializers = [UpdateVpcLinkRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateVpcLinkRequestBuilder b) {}
@@ -92,15 +91,15 @@ abstract class UpdateVpcLinkRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateVpcLinkRequest');
-    helper.add(
-      'vpcLinkId',
-      vpcLinkId,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateVpcLinkRequest')
+      ..add(
+        'vpcLinkId',
+        vpcLinkId,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -125,11 +124,11 @@ abstract class UpdateVpcLinkRequestPayload
   List<Object?> get props => [patchOperations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateVpcLinkRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateVpcLinkRequestPayload')
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }

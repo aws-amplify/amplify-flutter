@@ -36,7 +36,7 @@ abstract class ResourceEvaluation
 
   const ResourceEvaluation._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ResourceEvaluation>> serializers = [
     ResourceEvaluationAwsJson11Serializer()
   ];
 
@@ -59,19 +59,19 @@ abstract class ResourceEvaluation
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceEvaluation');
-    helper.add(
-      'resourceEvaluationId',
-      resourceEvaluationId,
-    );
-    helper.add(
-      'evaluationMode',
-      evaluationMode,
-    );
-    helper.add(
-      'evaluationStartTimestamp',
-      evaluationStartTimestamp,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceEvaluation')
+      ..add(
+        'resourceEvaluationId',
+        resourceEvaluationId,
+      )
+      ..add(
+        'evaluationMode',
+        evaluationMode,
+      )
+      ..add(
+        'evaluationStartTimestamp',
+        evaluationStartTimestamp,
+      );
     return helper.toString();
   }
 }

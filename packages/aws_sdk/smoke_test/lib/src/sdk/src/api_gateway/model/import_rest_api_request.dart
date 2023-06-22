@@ -53,7 +53,7 @@ abstract class ImportRestApiRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List>> serializers = [
     ImportRestApiRequestRestJson1Serializer()
   ];
 
@@ -90,19 +90,19 @@ abstract class ImportRestApiRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ImportRestApiRequest');
-    helper.add(
-      'failOnWarnings',
-      failOnWarnings,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'body',
-      body,
-    );
+    final helper = newBuiltValueToStringHelper('ImportRestApiRequest')
+      ..add(
+        'failOnWarnings',
+        failOnWarnings,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'body',
+        body,
+      );
     return helper.toString();
   }
 }

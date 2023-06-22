@@ -51,9 +51,8 @@ abstract class IntelligentTieringConfiguration
 
   const IntelligentTieringConfiguration._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    IntelligentTieringConfigurationRestXmlSerializer()
-  ];
+  static const List<_i6.SmithySerializer<IntelligentTieringConfiguration>>
+      serializers = [IntelligentTieringConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(IntelligentTieringConfigurationBuilder b) {}
@@ -79,23 +78,23 @@ abstract class IntelligentTieringConfiguration
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('IntelligentTieringConfiguration');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'tierings',
-      tierings,
-    );
+        newBuiltValueToStringHelper('IntelligentTieringConfiguration')
+          ..add(
+            'id',
+            id,
+          )
+          ..add(
+            'filter',
+            filter,
+          )
+          ..add(
+            'status',
+            status,
+          )
+          ..add(
+            'tierings',
+            tierings,
+          );
     return helper.toString();
   }
 }

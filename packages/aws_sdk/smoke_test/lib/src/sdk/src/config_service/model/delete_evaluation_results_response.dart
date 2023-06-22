@@ -37,9 +37,8 @@ abstract class DeleteEvaluationResultsResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeleteEvaluationResultsResponseAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<DeleteEvaluationResultsResponse>>
+      serializers = [DeleteEvaluationResultsResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteEvaluationResultsResponseBuilder b) {}

@@ -35,7 +35,7 @@ abstract class DescribeStreamOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DescribeStreamOutput>> serializers = [
     DescribeStreamOutputAwsJson10Serializer()
   ];
 
@@ -48,11 +48,11 @@ abstract class DescribeStreamOutput
   List<Object?> get props => [streamDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeStreamOutput');
-    helper.add(
-      'streamDescription',
-      streamDescription,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeStreamOutput')
+      ..add(
+        'streamDescription',
+        streamDescription,
+      );
     return helper.toString();
   }
 }

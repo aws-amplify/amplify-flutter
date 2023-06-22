@@ -39,9 +39,8 @@ abstract class InvalidIdentityTokenException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidIdentityTokenExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidIdentityTokenException>>
+      serializers = [InvalidIdentityTokenExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidIdentityTokenExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class InvalidIdentityTokenException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidIdentityTokenException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidIdentityTokenException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

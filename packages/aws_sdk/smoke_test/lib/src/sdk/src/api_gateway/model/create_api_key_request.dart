@@ -57,7 +57,7 @@ abstract class CreateApiKeyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<CreateApiKeyRequest>> serializers = [
     CreateApiKeyRequestRestJson1Serializer()
   ];
 
@@ -105,39 +105,39 @@ abstract class CreateApiKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateApiKeyRequest');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'enabled',
-      enabled,
-    );
-    helper.add(
-      'generateDistinctId',
-      generateDistinctId,
-    );
-    helper.add(
-      'value',
-      value,
-    );
-    helper.add(
-      'stageKeys',
-      stageKeys,
-    );
-    helper.add(
-      'customerId',
-      customerId,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('CreateApiKeyRequest')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'enabled',
+        enabled,
+      )
+      ..add(
+        'generateDistinctId',
+        generateDistinctId,
+      )
+      ..add(
+        'value',
+        value,
+      )
+      ..add(
+        'stageKeys',
+        stageKeys,
+      )
+      ..add(
+        'customerId',
+        customerId,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

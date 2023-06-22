@@ -29,9 +29,8 @@ abstract class OpenIdConnectProviderListEntry
 
   const OpenIdConnectProviderListEntry._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    OpenIdConnectProviderListEntryAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<OpenIdConnectProviderListEntry>>
+      serializers = [OpenIdConnectProviderListEntryAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OpenIdConnectProviderListEntryBuilder b) {}
@@ -44,12 +43,11 @@ abstract class OpenIdConnectProviderListEntry
   List<Object?> get props => [arn];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('OpenIdConnectProviderListEntry');
-    helper.add(
-      'arn',
-      arn,
-    );
+    final helper = newBuiltValueToStringHelper('OpenIdConnectProviderListEntry')
+      ..add(
+        'arn',
+        arn,
+      );
     return helper.toString();
   }
 }

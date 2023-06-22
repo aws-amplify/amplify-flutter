@@ -27,7 +27,7 @@ abstract class BucketLoggingStatus
 
   const BucketLoggingStatus._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<BucketLoggingStatus>> serializers = [
     BucketLoggingStatusRestXmlSerializer()
   ];
 
@@ -40,11 +40,11 @@ abstract class BucketLoggingStatus
   List<Object?> get props => [loggingEnabled];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BucketLoggingStatus');
-    helper.add(
-      'loggingEnabled',
-      loggingEnabled,
-    );
+    final helper = newBuiltValueToStringHelper('BucketLoggingStatus')
+      ..add(
+        'loggingEnabled',
+        loggingEnabled,
+      );
     return helper.toString();
   }
 }

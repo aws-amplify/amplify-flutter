@@ -35,9 +35,8 @@ abstract class ActivateOrganizationsAccessInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ActivateOrganizationsAccessInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ActivateOrganizationsAccessInput>>
+      serializers = [ActivateOrganizationsAccessInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ActivateOrganizationsAccessInputBuilder b) {}

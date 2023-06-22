@@ -62,7 +62,7 @@ abstract class UserDetail
 
   const UserDetail._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<UserDetail>> serializers = [
     UserDetailAwsQuerySerializer()
   ];
 
@@ -117,47 +117,47 @@ abstract class UserDetail
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UserDetail');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'userId',
-      userId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'userPolicyList',
-      userPolicyList,
-    );
-    helper.add(
-      'groupList',
-      groupList,
-    );
-    helper.add(
-      'attachedManagedPolicies',
-      attachedManagedPolicies,
-    );
-    helper.add(
-      'permissionsBoundary',
-      permissionsBoundary,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('UserDetail')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'userId',
+        userId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'userPolicyList',
+        userPolicyList,
+      )
+      ..add(
+        'groupList',
+        groupList,
+      )
+      ..add(
+        'attachedManagedPolicies',
+        attachedManagedPolicies,
+      )
+      ..add(
+        'permissionsBoundary',
+        permissionsBoundary,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

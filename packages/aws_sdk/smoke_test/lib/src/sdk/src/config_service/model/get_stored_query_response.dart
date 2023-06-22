@@ -32,9 +32,8 @@ abstract class GetStoredQueryResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetStoredQueryResponseAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<GetStoredQueryResponse>> serializers =
+      [GetStoredQueryResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetStoredQueryResponseBuilder b) {}
@@ -45,11 +44,11 @@ abstract class GetStoredQueryResponse
   List<Object?> get props => [storedQuery];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetStoredQueryResponse');
-    helper.add(
-      'storedQuery',
-      storedQuery,
-    );
+    final helper = newBuiltValueToStringHelper('GetStoredQueryResponse')
+      ..add(
+        'storedQuery',
+        storedQuery,
+      );
     return helper.toString();
   }
 }

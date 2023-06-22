@@ -67,9 +67,8 @@ abstract class GetObjectAclRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetObjectAclRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetObjectAclRequestPayload>>
+      serializers = [GetObjectAclRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectAclRequestBuilder b) {}
@@ -116,27 +115,27 @@ abstract class GetObjectAclRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectAclRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectAclRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

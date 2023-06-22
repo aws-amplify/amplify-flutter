@@ -107,9 +107,8 @@ abstract class ListPartsOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ListPartsOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<ListPartsOutputPayload>> serializers =
+      [ListPartsOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListPartsOutputBuilder b) {}
@@ -201,67 +200,67 @@ abstract class ListPartsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListPartsOutput');
-    helper.add(
-      'abortDate',
-      abortDate,
-    );
-    helper.add(
-      'abortRuleId',
-      abortRuleId,
-    );
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'uploadId',
-      uploadId,
-    );
-    helper.add(
-      'partNumberMarker',
-      partNumberMarker,
-    );
-    helper.add(
-      'nextPartNumberMarker',
-      nextPartNumberMarker,
-    );
-    helper.add(
-      'maxParts',
-      maxParts,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'parts',
-      parts,
-    );
-    helper.add(
-      'initiator',
-      initiator,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
+    final helper = newBuiltValueToStringHelper('ListPartsOutput')
+      ..add(
+        'abortDate',
+        abortDate,
+      )
+      ..add(
+        'abortRuleId',
+        abortRuleId,
+      )
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'uploadId',
+        uploadId,
+      )
+      ..add(
+        'partNumberMarker',
+        partNumberMarker,
+      )
+      ..add(
+        'nextPartNumberMarker',
+        nextPartNumberMarker,
+      )
+      ..add(
+        'maxParts',
+        maxParts,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'parts',
+        parts,
+      )
+      ..add(
+        'initiator',
+        initiator,
+      )
+      ..add(
+        'owner',
+        owner,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      );
     return helper.toString();
   }
 }
@@ -331,55 +330,55 @@ abstract class ListPartsOutputPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListPartsOutputPayload');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'initiator',
-      initiator,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'maxParts',
-      maxParts,
-    );
-    helper.add(
-      'nextPartNumberMarker',
-      nextPartNumberMarker,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
-      'partNumberMarker',
-      partNumberMarker,
-    );
-    helper.add(
-      'parts',
-      parts,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'uploadId',
-      uploadId,
-    );
+    final helper = newBuiltValueToStringHelper('ListPartsOutputPayload')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'initiator',
+        initiator,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'maxParts',
+        maxParts,
+      )
+      ..add(
+        'nextPartNumberMarker',
+        nextPartNumberMarker,
+      )
+      ..add(
+        'owner',
+        owner,
+      )
+      ..add(
+        'partNumberMarker',
+        partNumberMarker,
+      )
+      ..add(
+        'parts',
+        parts,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'uploadId',
+        uploadId,
+      );
     return helper.toString();
   }
 }

@@ -58,7 +58,7 @@ abstract class InitiateAuthRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<InitiateAuthRequest>> serializers = [
     InitiateAuthRequestAwsJson11Serializer()
   ];
 
@@ -95,6 +95,9 @@ abstract class InitiateAuthRequest
   /// *   For `REFRESH\_TOKEN\_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required), `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
   ///
   /// *   For `CUSTOM_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app client is configured with client secret), `DEVICE_KEY`. To start the authentication flow with password verification, include `ChallengeName: SRP_A` and `SRP\_A: (The SRP\_A Value)`.
+  ///
+  ///
+  /// For more information about `SECRET_HASH`, see [Computing secret hash values](https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash).
   _i6.BuiltMap<String, String>? get authParameters;
 
   /// A map of custom key-value pairs that you can provide as input for certain custom workflows that this action triggers.
@@ -157,31 +160,31 @@ abstract class InitiateAuthRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InitiateAuthRequest');
-    helper.add(
-      'authFlow',
-      authFlow,
-    );
-    helper.add(
-      'authParameters',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'clientMetadata',
-      clientMetadata,
-    );
-    helper.add(
-      'clientId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'analyticsMetadata',
-      analyticsMetadata,
-    );
-    helper.add(
-      'userContextData',
-      userContextData,
-    );
+    final helper = newBuiltValueToStringHelper('InitiateAuthRequest')
+      ..add(
+        'authFlow',
+        authFlow,
+      )
+      ..add(
+        'authParameters',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'clientMetadata',
+        clientMetadata,
+      )
+      ..add(
+        'clientId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'analyticsMetadata',
+        analyticsMetadata,
+      )
+      ..add(
+        'userContextData',
+        userContextData,
+      );
     return helper.toString();
   }
 }

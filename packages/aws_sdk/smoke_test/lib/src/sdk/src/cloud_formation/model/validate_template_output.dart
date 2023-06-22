@@ -51,9 +51,8 @@ abstract class ValidateTemplateOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    ValidateTemplateOutputAwsQuerySerializer()
-  ];
+  static const List<_i5.SmithySerializer<ValidateTemplateOutput>> serializers =
+      [ValidateTemplateOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ValidateTemplateOutputBuilder b) {}
@@ -84,27 +83,27 @@ abstract class ValidateTemplateOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ValidateTemplateOutput');
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'capabilities',
-      capabilities,
-    );
-    helper.add(
-      'capabilitiesReason',
-      capabilitiesReason,
-    );
-    helper.add(
-      'declaredTransforms',
-      declaredTransforms,
-    );
+    final helper = newBuiltValueToStringHelper('ValidateTemplateOutput')
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'capabilities',
+        capabilities,
+      )
+      ..add(
+        'capabilitiesReason',
+        capabilitiesReason,
+      )
+      ..add(
+        'declaredTransforms',
+        declaredTransforms,
+      );
     return helper.toString();
   }
 }

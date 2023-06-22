@@ -52,7 +52,7 @@ abstract class ObjectVersion
 
   const ObjectVersion._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<ObjectVersion>> serializers = [
     ObjectVersionRestXmlSerializer()
   ];
 
@@ -99,43 +99,43 @@ abstract class ObjectVersion
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ObjectVersion');
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'size',
-      size,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'isLatest',
-      isLatest,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
+    final helper = newBuiltValueToStringHelper('ObjectVersion')
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'size',
+        size,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'isLatest',
+        isLatest,
+      )
+      ..add(
+        'lastModified',
+        lastModified,
+      )
+      ..add(
+        'owner',
+        owner,
+      );
     return helper.toString();
   }
 }

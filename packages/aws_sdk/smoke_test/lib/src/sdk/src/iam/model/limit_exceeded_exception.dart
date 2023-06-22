@@ -37,9 +37,8 @@ abstract class LimitExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    LimitExceededExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<LimitExceededException>> serializers =
+      [LimitExceededExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(LimitExceededExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class LimitExceededException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LimitExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('LimitExceededException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

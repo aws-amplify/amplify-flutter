@@ -38,7 +38,7 @@ abstract class LocalSecondaryIndex
 
   const LocalSecondaryIndex._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<LocalSecondaryIndex>> serializers = [
     LocalSecondaryIndexAwsJson10Serializer()
   ];
 
@@ -70,19 +70,19 @@ abstract class LocalSecondaryIndex
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LocalSecondaryIndex');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'projection',
-      projection,
-    );
+    final helper = newBuiltValueToStringHelper('LocalSecondaryIndex')
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'keySchema',
+        keySchema,
+      )
+      ..add(
+        'projection',
+        projection,
+      );
     return helper.toString();
   }
 }

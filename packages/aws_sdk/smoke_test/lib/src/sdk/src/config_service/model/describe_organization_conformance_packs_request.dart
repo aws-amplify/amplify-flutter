@@ -46,7 +46,9 @@ abstract class DescribeOrganizationConformancePacksRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DescribeOrganizationConformancePacksRequest>>
+      serializers = [
     DescribeOrganizationConformancePacksRequestAwsJson11Serializer()
   ];
 
@@ -74,19 +76,19 @@ abstract class DescribeOrganizationConformancePacksRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'DescribeOrganizationConformancePacksRequest');
-    helper.add(
-      'organizationConformancePackNames',
-      organizationConformancePackNames,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        'DescribeOrganizationConformancePacksRequest')
+      ..add(
+        'organizationConformancePackNames',
+        organizationConformancePackNames,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

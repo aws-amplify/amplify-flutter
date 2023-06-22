@@ -39,9 +39,8 @@ abstract class PutRemediationExceptionsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    PutRemediationExceptionsResponseAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<PutRemediationExceptionsResponse>>
+      serializers = [PutRemediationExceptionsResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutRemediationExceptionsResponseBuilder b) {}
@@ -53,11 +52,11 @@ abstract class PutRemediationExceptionsResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutRemediationExceptionsResponse');
-    helper.add(
-      'failedBatches',
-      failedBatches,
-    );
+        newBuiltValueToStringHelper('PutRemediationExceptionsResponse')
+          ..add(
+            'failedBatches',
+            failedBatches,
+          );
     return helper.toString();
   }
 }

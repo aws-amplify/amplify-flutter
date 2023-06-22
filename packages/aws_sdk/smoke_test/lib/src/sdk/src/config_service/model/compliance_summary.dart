@@ -35,7 +35,7 @@ abstract class ComplianceSummary
 
   const ComplianceSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ComplianceSummary>> serializers = [
     ComplianceSummaryAwsJson11Serializer()
   ];
 
@@ -58,19 +58,19 @@ abstract class ComplianceSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplianceSummary');
-    helper.add(
-      'compliantResourceCount',
-      compliantResourceCount,
-    );
-    helper.add(
-      'nonCompliantResourceCount',
-      nonCompliantResourceCount,
-    );
-    helper.add(
-      'complianceSummaryTimestamp',
-      complianceSummaryTimestamp,
-    );
+    final helper = newBuiltValueToStringHelper('ComplianceSummary')
+      ..add(
+        'compliantResourceCount',
+        compliantResourceCount,
+      )
+      ..add(
+        'nonCompliantResourceCount',
+        nonCompliantResourceCount,
+      )
+      ..add(
+        'complianceSummaryTimestamp',
+        complianceSummaryTimestamp,
+      );
     return helper.toString();
   }
 }

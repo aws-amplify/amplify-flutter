@@ -36,9 +36,8 @@ abstract class DeleteRetentionConfigurationRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteRetentionConfigurationRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteRetentionConfigurationRequest>>
+      serializers = [DeleteRetentionConfigurationRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteRetentionConfigurationRequestBuilder b) {}
@@ -52,11 +51,11 @@ abstract class DeleteRetentionConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteRetentionConfigurationRequest');
-    helper.add(
-      'retentionConfigurationName',
-      retentionConfigurationName,
-    );
+        newBuiltValueToStringHelper('DeleteRetentionConfigurationRequest')
+          ..add(
+            'retentionConfigurationName',
+            retentionConfigurationName,
+          );
     return helper.toString();
   }
 }

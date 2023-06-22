@@ -92,9 +92,8 @@ abstract class ListMultipartUploadsOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ListMultipartUploadsOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<ListMultipartUploadsOutputPayload>>
+      serializers = [ListMultipartUploadsOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListMultipartUploadsOutputBuilder b) {}
@@ -179,59 +178,59 @@ abstract class ListMultipartUploadsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListMultipartUploadsOutput');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'keyMarker',
-      keyMarker,
-    );
-    helper.add(
-      'uploadIdMarker',
-      uploadIdMarker,
-    );
-    helper.add(
-      'nextKeyMarker',
-      nextKeyMarker,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'nextUploadIdMarker',
-      nextUploadIdMarker,
-    );
-    helper.add(
-      'maxUploads',
-      maxUploads,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'uploads',
-      uploads,
-    );
-    helper.add(
-      'commonPrefixes',
-      commonPrefixes,
-    );
-    helper.add(
-      'encodingType',
-      encodingType,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('ListMultipartUploadsOutput')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'keyMarker',
+        keyMarker,
+      )
+      ..add(
+        'uploadIdMarker',
+        uploadIdMarker,
+      )
+      ..add(
+        'nextKeyMarker',
+        nextKeyMarker,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'delimiter',
+        delimiter,
+      )
+      ..add(
+        'nextUploadIdMarker',
+        nextUploadIdMarker,
+      )
+      ..add(
+        'maxUploads',
+        maxUploads,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'uploads',
+        uploads,
+      )
+      ..add(
+        'commonPrefixes',
+        commonPrefixes,
+      )
+      ..add(
+        'encodingType',
+        encodingType,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }
@@ -309,55 +308,55 @@ abstract class ListMultipartUploadsOutputPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListMultipartUploadsOutputPayload');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'commonPrefixes',
-      commonPrefixes,
-    );
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'encodingType',
-      encodingType,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'keyMarker',
-      keyMarker,
-    );
-    helper.add(
-      'maxUploads',
-      maxUploads,
-    );
-    helper.add(
-      'nextKeyMarker',
-      nextKeyMarker,
-    );
-    helper.add(
-      'nextUploadIdMarker',
-      nextUploadIdMarker,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'uploadIdMarker',
-      uploadIdMarker,
-    );
-    helper.add(
-      'uploads',
-      uploads,
-    );
+        newBuiltValueToStringHelper('ListMultipartUploadsOutputPayload')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'commonPrefixes',
+            commonPrefixes,
+          )
+          ..add(
+            'delimiter',
+            delimiter,
+          )
+          ..add(
+            'encodingType',
+            encodingType,
+          )
+          ..add(
+            'isTruncated',
+            isTruncated,
+          )
+          ..add(
+            'keyMarker',
+            keyMarker,
+          )
+          ..add(
+            'maxUploads',
+            maxUploads,
+          )
+          ..add(
+            'nextKeyMarker',
+            nextKeyMarker,
+          )
+          ..add(
+            'nextUploadIdMarker',
+            nextUploadIdMarker,
+          )
+          ..add(
+            'prefix',
+            prefix,
+          )
+          ..add(
+            'uploadIdMarker',
+            uploadIdMarker,
+          )
+          ..add(
+            'uploads',
+            uploads,
+          );
     return helper.toString();
   }
 }

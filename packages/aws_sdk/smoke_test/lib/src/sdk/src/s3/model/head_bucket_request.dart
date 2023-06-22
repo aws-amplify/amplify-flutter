@@ -49,9 +49,8 @@ abstract class HeadBucketRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HeadBucketRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<HeadBucketRequestPayload>>
+      serializers = [HeadBucketRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HeadBucketRequestBuilder b) {}
@@ -88,15 +87,15 @@ abstract class HeadBucketRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HeadBucketRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('HeadBucketRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

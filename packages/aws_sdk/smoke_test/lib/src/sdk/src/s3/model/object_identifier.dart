@@ -31,7 +31,7 @@ abstract class ObjectIdentifier
 
   const ObjectIdentifier._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ObjectIdentifier>> serializers = [
     ObjectIdentifierRestXmlSerializer()
   ];
 
@@ -52,15 +52,15 @@ abstract class ObjectIdentifier
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ObjectIdentifier');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
+    final helper = newBuiltValueToStringHelper('ObjectIdentifier')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      );
     return helper.toString();
   }
 }

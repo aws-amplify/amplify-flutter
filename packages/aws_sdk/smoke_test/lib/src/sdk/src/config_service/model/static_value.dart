@@ -26,7 +26,7 @@ abstract class StaticValue
 
   const StaticValue._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<StaticValue>> serializers = [
     StaticValueAwsJson11Serializer()
   ];
 
@@ -39,11 +39,11 @@ abstract class StaticValue
   List<Object?> get props => [values];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StaticValue');
-    helper.add(
-      'values',
-      values,
-    );
+    final helper = newBuiltValueToStringHelper('StaticValue')
+      ..add(
+        'values',
+        values,
+      );
     return helper.toString();
   }
 }

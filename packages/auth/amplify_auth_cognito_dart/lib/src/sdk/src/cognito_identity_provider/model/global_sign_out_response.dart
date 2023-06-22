@@ -35,7 +35,7 @@ abstract class GlobalSignOutResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<GlobalSignOutResponse>> serializers = [
     GlobalSignOutResponseAwsJson11Serializer()
   ];
 

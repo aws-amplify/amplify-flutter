@@ -38,9 +38,8 @@ abstract class InvalidSnsTopicArnException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidSnsTopicArnExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidSnsTopicArnException>>
+      serializers = [InvalidSnsTopicArnExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidSnsTopicArnExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class InvalidSnsTopicArnException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidSnsTopicArnException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidSnsTopicArnException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

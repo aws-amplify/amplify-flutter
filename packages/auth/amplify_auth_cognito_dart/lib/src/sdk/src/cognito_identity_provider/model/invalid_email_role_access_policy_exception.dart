@@ -39,7 +39,8 @@ abstract class InvalidEmailRoleAccessPolicyException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<InvalidEmailRoleAccessPolicyException>>
+      serializers = [
     InvalidEmailRoleAccessPolicyExceptionAwsJson11Serializer()
   ];
 
@@ -69,11 +70,11 @@ abstract class InvalidEmailRoleAccessPolicyException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InvalidEmailRoleAccessPolicyException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InvalidEmailRoleAccessPolicyException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

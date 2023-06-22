@@ -41,9 +41,8 @@ abstract class UpdateAccessKeyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateAccessKeyRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateAccessKeyRequest>> serializers =
+      [UpdateAccessKeyRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateAccessKeyRequestBuilder b) {}
@@ -70,19 +69,19 @@ abstract class UpdateAccessKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateAccessKeyRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'accessKeyId',
-      accessKeyId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateAccessKeyRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'accessKeyId',
+        accessKeyId,
+      )
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

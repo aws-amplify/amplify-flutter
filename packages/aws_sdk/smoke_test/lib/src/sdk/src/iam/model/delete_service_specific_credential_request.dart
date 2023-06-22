@@ -40,7 +40,9 @@ abstract class DeleteServiceSpecificCredentialRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DeleteServiceSpecificCredentialRequest>>
+      serializers = [
     DeleteServiceSpecificCredentialRequestAwsQuerySerializer()
   ];
 
@@ -66,15 +68,15 @@ abstract class DeleteServiceSpecificCredentialRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteServiceSpecificCredentialRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'serviceSpecificCredentialId',
-      serviceSpecificCredentialId,
-    );
+        newBuiltValueToStringHelper('DeleteServiceSpecificCredentialRequest')
+          ..add(
+            'userName',
+            userName,
+          )
+          ..add(
+            'serviceSpecificCredentialId',
+            serviceSpecificCredentialId,
+          );
     return helper.toString();
   }
 }

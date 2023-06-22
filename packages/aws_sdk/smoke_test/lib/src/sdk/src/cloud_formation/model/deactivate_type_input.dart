@@ -42,7 +42,7 @@ abstract class DeactivateTypeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeactivateTypeInput>> serializers = [
     DeactivateTypeInputAwsQuerySerializer()
   ];
 
@@ -73,19 +73,19 @@ abstract class DeactivateTypeInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeactivateTypeInput');
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
+    final helper = newBuiltValueToStringHelper('DeactivateTypeInput')
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'arn',
+        arn,
+      );
     return helper.toString();
   }
 }

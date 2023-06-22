@@ -43,7 +43,7 @@ abstract class TransactGetItemsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<TransactGetItemsInput>> serializers = [
     TransactGetItemsInputAwsJson10Serializer()
   ];
 
@@ -64,15 +64,15 @@ abstract class TransactGetItemsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TransactGetItemsInput');
-    helper.add(
-      'transactItems',
-      transactItems,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
+    final helper = newBuiltValueToStringHelper('TransactGetItemsInput')
+      ..add(
+        'transactItems',
+        transactItems,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      );
     return helper.toString();
   }
 }

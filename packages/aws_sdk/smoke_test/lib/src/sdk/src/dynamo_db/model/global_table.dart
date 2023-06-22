@@ -34,7 +34,7 @@ abstract class GlobalTable
 
   const GlobalTable._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<GlobalTable>> serializers = [
     GlobalTableAwsJson10Serializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class GlobalTable
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GlobalTable');
-    helper.add(
-      'globalTableName',
-      globalTableName,
-    );
-    helper.add(
-      'replicationGroup',
-      replicationGroup,
-    );
+    final helper = newBuiltValueToStringHelper('GlobalTable')
+      ..add(
+        'globalTableName',
+        globalTableName,
+      )
+      ..add(
+        'replicationGroup',
+        replicationGroup,
+      );
     return helper.toString();
   }
 }

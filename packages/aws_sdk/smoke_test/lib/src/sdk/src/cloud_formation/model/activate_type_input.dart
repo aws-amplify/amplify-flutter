@@ -58,7 +58,7 @@ abstract class ActivateTypeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ActivateTypeInput>> serializers = [
     ActivateTypeInputAwsQuerySerializer()
   ];
 
@@ -129,47 +129,47 @@ abstract class ActivateTypeInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ActivateTypeInput');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'publicTypeArn',
-      publicTypeArn,
-    );
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'typeNameAlias',
-      typeNameAlias,
-    );
-    helper.add(
-      'autoUpdate',
-      autoUpdate,
-    );
-    helper.add(
-      'loggingConfig',
-      loggingConfig,
-    );
-    helper.add(
-      'executionRoleArn',
-      executionRoleArn,
-    );
-    helper.add(
-      'versionBump',
-      versionBump,
-    );
-    helper.add(
-      'majorVersion',
-      majorVersion,
-    );
+    final helper = newBuiltValueToStringHelper('ActivateTypeInput')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'publicTypeArn',
+        publicTypeArn,
+      )
+      ..add(
+        'publisherId',
+        publisherId,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'typeNameAlias',
+        typeNameAlias,
+      )
+      ..add(
+        'autoUpdate',
+        autoUpdate,
+      )
+      ..add(
+        'loggingConfig',
+        loggingConfig,
+      )
+      ..add(
+        'executionRoleArn',
+        executionRoleArn,
+      )
+      ..add(
+        'versionBump',
+        versionBump,
+      )
+      ..add(
+        'majorVersion',
+        majorVersion,
+      );
     return helper.toString();
   }
 }

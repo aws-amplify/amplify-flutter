@@ -47,7 +47,7 @@ abstract class SignalResourceInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<SignalResourceInput>> serializers = [
     SignalResourceInputAwsQuerySerializer()
   ];
 
@@ -76,23 +76,23 @@ abstract class SignalResourceInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SignalResourceInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
-    helper.add(
-      'uniqueId',
-      uniqueId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('SignalResourceInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      )
+      ..add(
+        'uniqueId',
+        uniqueId,
+      )
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

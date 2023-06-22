@@ -32,7 +32,7 @@ abstract class EndpointItemResponse
 
   const EndpointItemResponse._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<EndpointItemResponse>> serializers = [
     EndpointItemResponseRestJson1Serializer()
   ];
 
@@ -51,15 +51,15 @@ abstract class EndpointItemResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointItemResponse');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
+    final helper = newBuiltValueToStringHelper('EndpointItemResponse')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      );
     return helper.toString();
   }
 }

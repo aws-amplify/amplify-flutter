@@ -45,9 +45,8 @@ abstract class DescribeTypeRegistrationOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    DescribeTypeRegistrationOutputAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<DescribeTypeRegistrationOutput>>
+      serializers = [DescribeTypeRegistrationOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeTypeRegistrationOutputBuilder b) {}
@@ -76,24 +75,23 @@ abstract class DescribeTypeRegistrationOutput
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DescribeTypeRegistrationOutput');
-    helper.add(
-      'progressStatus',
-      progressStatus,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'typeArn',
-      typeArn,
-    );
-    helper.add(
-      'typeVersionArn',
-      typeVersionArn,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeTypeRegistrationOutput')
+      ..add(
+        'progressStatus',
+        progressStatus,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'typeArn',
+        typeArn,
+      )
+      ..add(
+        'typeVersionArn',
+        typeVersionArn,
+      );
     return helper.toString();
   }
 }

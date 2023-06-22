@@ -41,7 +41,7 @@ abstract class DescribeStacksOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<DescribeStacksOutput>> serializers = [
     DescribeStacksOutputAwsQuerySerializer()
   ];
 
@@ -60,15 +60,15 @@ abstract class DescribeStacksOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeStacksOutput');
-    helper.add(
-      'stacks',
-      stacks,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeStacksOutput')
+      ..add(
+        'stacks',
+        stacks,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

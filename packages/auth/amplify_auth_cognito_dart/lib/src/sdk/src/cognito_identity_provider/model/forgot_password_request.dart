@@ -55,7 +55,7 @@ abstract class ForgotPasswordRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ForgotPasswordRequest>> serializers = [
     ForgotPasswordRequestAwsJson11Serializer()
   ];
 
@@ -104,31 +104,31 @@ abstract class ForgotPasswordRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ForgotPasswordRequest');
-    helper.add(
-      'clientId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'secretHash',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'userContextData',
-      userContextData,
-    );
-    helper.add(
-      'username',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'analyticsMetadata',
-      analyticsMetadata,
-    );
-    helper.add(
-      'clientMetadata',
-      clientMetadata,
-    );
+    final helper = newBuiltValueToStringHelper('ForgotPasswordRequest')
+      ..add(
+        'clientId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'secretHash',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'userContextData',
+        userContextData,
+      )
+      ..add(
+        'username',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'analyticsMetadata',
+        analyticsMetadata,
+      )
+      ..add(
+        'clientMetadata',
+        clientMetadata,
+      );
     return helper.toString();
   }
 }

@@ -50,7 +50,7 @@ abstract class GatewayResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<GatewayResponse>> serializers = [
     GatewayResponseRestJson1Serializer()
   ];
 
@@ -83,27 +83,27 @@ abstract class GatewayResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GatewayResponse');
-    helper.add(
-      'responseType',
-      responseType,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
-    helper.add(
-      'responseTemplates',
-      responseTemplates,
-    );
-    helper.add(
-      'defaultResponse',
-      defaultResponse,
-    );
+    final helper = newBuiltValueToStringHelper('GatewayResponse')
+      ..add(
+        'responseType',
+        responseType,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      )
+      ..add(
+        'responseParameters',
+        responseParameters,
+      )
+      ..add(
+        'responseTemplates',
+        responseTemplates,
+      )
+      ..add(
+        'defaultResponse',
+        defaultResponse,
+      );
     return helper.toString();
   }
 }

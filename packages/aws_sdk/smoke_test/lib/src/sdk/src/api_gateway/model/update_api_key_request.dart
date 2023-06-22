@@ -55,9 +55,8 @@ abstract class UpdateApiKeyRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateApiKeyRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateApiKeyRequestPayload>>
+      serializers = [UpdateApiKeyRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateApiKeyRequestBuilder b) {}
@@ -92,15 +91,15 @@ abstract class UpdateApiKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateApiKeyRequest');
-    helper.add(
-      'apiKey',
-      apiKey,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateApiKeyRequest')
+      ..add(
+        'apiKey',
+        apiKey,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -125,11 +124,11 @@ abstract class UpdateApiKeyRequestPayload
   List<Object?> get props => [patchOperations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateApiKeyRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateApiKeyRequestPayload')
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }

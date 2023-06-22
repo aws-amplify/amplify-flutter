@@ -35,9 +35,8 @@ abstract class RemediationExceptionResourceKey
 
   const RemediationExceptionResourceKey._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    RemediationExceptionResourceKeyAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<RemediationExceptionResourceKey>>
+      serializers = [RemediationExceptionResourceKeyAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RemediationExceptionResourceKeyBuilder b) {}
@@ -55,15 +54,15 @@ abstract class RemediationExceptionResourceKey
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('RemediationExceptionResourceKey');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
+        newBuiltValueToStringHelper('RemediationExceptionResourceKey')
+          ..add(
+            'resourceType',
+            resourceType,
+          )
+          ..add(
+            'resourceId',
+            resourceId,
+          );
     return helper.toString();
   }
 }

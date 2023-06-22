@@ -64,7 +64,7 @@ abstract class AccountLimit
 
   const AccountLimit._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AccountLimit>> serializers = [
     AccountLimitAwsQuerySerializer()
   ];
 
@@ -85,15 +85,15 @@ abstract class AccountLimit
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccountLimit');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('AccountLimit')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

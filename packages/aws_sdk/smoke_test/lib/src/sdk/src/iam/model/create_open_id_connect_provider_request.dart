@@ -46,9 +46,8 @@ abstract class CreateOpenIdConnectProviderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateOpenIdConnectProviderRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateOpenIdConnectProviderRequest>>
+      serializers = [CreateOpenIdConnectProviderRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateOpenIdConnectProviderRequestBuilder b) {}
@@ -90,23 +89,23 @@ abstract class CreateOpenIdConnectProviderRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateOpenIdConnectProviderRequest');
-    helper.add(
-      'url',
-      url,
-    );
-    helper.add(
-      'clientIdList',
-      clientIdList,
-    );
-    helper.add(
-      'thumbprintList',
-      thumbprintList,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+        newBuiltValueToStringHelper('CreateOpenIdConnectProviderRequest')
+          ..add(
+            'url',
+            url,
+          )
+          ..add(
+            'clientIdList',
+            clientIdList,
+          )
+          ..add(
+            'thumbprintList',
+            thumbprintList,
+          )
+          ..add(
+            'tags',
+            tags,
+          );
     return helper.toString();
   }
 }

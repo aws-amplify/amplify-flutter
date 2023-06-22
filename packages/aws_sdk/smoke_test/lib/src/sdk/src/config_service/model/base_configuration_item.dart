@@ -63,7 +63,7 @@ abstract class BaseConfigurationItem
 
   const BaseConfigurationItem._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<BaseConfigurationItem>> serializers = [
     BaseConfigurationItemAwsJson11Serializer()
   ];
 
@@ -143,63 +143,63 @@ abstract class BaseConfigurationItem
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BaseConfigurationItem');
-    helper.add(
-      'version',
-      version,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'configurationItemCaptureTime',
-      configurationItemCaptureTime,
-    );
-    helper.add(
-      'configurationItemStatus',
-      configurationItemStatus,
-    );
-    helper.add(
-      'configurationStateId',
-      configurationStateId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'resourceName',
-      resourceName,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
-    helper.add(
-      'availabilityZone',
-      availabilityZone,
-    );
-    helper.add(
-      'resourceCreationTime',
-      resourceCreationTime,
-    );
-    helper.add(
-      'configuration',
-      configuration,
-    );
-    helper.add(
-      'supplementaryConfiguration',
-      supplementaryConfiguration,
-    );
+    final helper = newBuiltValueToStringHelper('BaseConfigurationItem')
+      ..add(
+        'version',
+        version,
+      )
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'configurationItemCaptureTime',
+        configurationItemCaptureTime,
+      )
+      ..add(
+        'configurationItemStatus',
+        configurationItemStatus,
+      )
+      ..add(
+        'configurationStateId',
+        configurationStateId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'resourceName',
+        resourceName,
+      )
+      ..add(
+        'awsRegion',
+        awsRegion,
+      )
+      ..add(
+        'availabilityZone',
+        availabilityZone,
+      )
+      ..add(
+        'resourceCreationTime',
+        resourceCreationTime,
+      )
+      ..add(
+        'configuration',
+        configuration,
+      )
+      ..add(
+        'supplementaryConfiguration',
+        supplementaryConfiguration,
+      );
     return helper.toString();
   }
 }

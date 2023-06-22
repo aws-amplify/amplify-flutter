@@ -38,7 +38,7 @@ abstract class EntityDetails
 
   const EntityDetails._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<EntityDetails>> serializers = [
     EntityDetailsAwsQuerySerializer()
   ];
 
@@ -59,15 +59,15 @@ abstract class EntityDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EntityDetails');
-    helper.add(
-      'entityInfo',
-      entityInfo,
-    );
-    helper.add(
-      'lastAuthenticated',
-      lastAuthenticated,
-    );
+    final helper = newBuiltValueToStringHelper('EntityDetails')
+      ..add(
+        'entityInfo',
+        entityInfo,
+      )
+      ..add(
+        'lastAuthenticated',
+        lastAuthenticated,
+      );
     return helper.toString();
   }
 }

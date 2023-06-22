@@ -40,9 +40,8 @@ abstract class OversizedConfigurationItemException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    OversizedConfigurationItemExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<OversizedConfigurationItemException>>
+      serializers = [OversizedConfigurationItemExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OversizedConfigurationItemExceptionBuilder b) {}
@@ -70,11 +69,11 @@ abstract class OversizedConfigurationItemException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OversizedConfigurationItemException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('OversizedConfigurationItemException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

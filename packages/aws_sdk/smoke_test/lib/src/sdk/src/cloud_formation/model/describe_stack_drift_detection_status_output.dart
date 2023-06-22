@@ -53,7 +53,9 @@ abstract class DescribeStackDriftDetectionStatusOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<DescribeStackDriftDetectionStatusOutput>>
+      serializers = [
     DescribeStackDriftDetectionStatusOutputAwsQuerySerializer()
   ];
 
@@ -111,35 +113,35 @@ abstract class DescribeStackDriftDetectionStatusOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeStackDriftDetectionStatusOutput');
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'stackDriftDetectionId',
-      stackDriftDetectionId,
-    );
-    helper.add(
-      'stackDriftStatus',
-      stackDriftStatus,
-    );
-    helper.add(
-      'detectionStatus',
-      detectionStatus,
-    );
-    helper.add(
-      'detectionStatusReason',
-      detectionStatusReason,
-    );
-    helper.add(
-      'driftedStackResourceCount',
-      driftedStackResourceCount,
-    );
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
+        newBuiltValueToStringHelper('DescribeStackDriftDetectionStatusOutput')
+          ..add(
+            'stackId',
+            stackId,
+          )
+          ..add(
+            'stackDriftDetectionId',
+            stackDriftDetectionId,
+          )
+          ..add(
+            'stackDriftStatus',
+            stackDriftStatus,
+          )
+          ..add(
+            'detectionStatus',
+            detectionStatus,
+          )
+          ..add(
+            'detectionStatusReason',
+            detectionStatusReason,
+          )
+          ..add(
+            'driftedStackResourceCount',
+            driftedStackResourceCount,
+          )
+          ..add(
+            'timestamp',
+            timestamp,
+          );
     return helper.toString();
   }
 }

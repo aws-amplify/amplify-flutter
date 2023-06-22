@@ -34,7 +34,7 @@ abstract class TimeToLiveDescription
 
   const TimeToLiveDescription._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<TimeToLiveDescription>> serializers = [
     TimeToLiveDescriptionAwsJson10Serializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class TimeToLiveDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TimeToLiveDescription');
-    helper.add(
-      'timeToLiveStatus',
-      timeToLiveStatus,
-    );
-    helper.add(
-      'attributeName',
-      attributeName,
-    );
+    final helper = newBuiltValueToStringHelper('TimeToLiveDescription')
+      ..add(
+        'timeToLiveStatus',
+        timeToLiveStatus,
+      )
+      ..add(
+        'attributeName',
+        attributeName,
+      );
     return helper.toString();
   }
 }

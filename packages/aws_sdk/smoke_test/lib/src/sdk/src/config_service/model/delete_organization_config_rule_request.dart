@@ -36,9 +36,8 @@ abstract class DeleteOrganizationConfigRuleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteOrganizationConfigRuleRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteOrganizationConfigRuleRequest>>
+      serializers = [DeleteOrganizationConfigRuleRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteOrganizationConfigRuleRequestBuilder b) {}
@@ -52,11 +51,11 @@ abstract class DeleteOrganizationConfigRuleRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteOrganizationConfigRuleRequest');
-    helper.add(
-      'organizationConfigRuleName',
-      organizationConfigRuleName,
-    );
+        newBuiltValueToStringHelper('DeleteOrganizationConfigRuleRequest')
+          ..add(
+            'organizationConfigRuleName',
+            organizationConfigRuleName,
+          );
     return helper.toString();
   }
 }

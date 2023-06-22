@@ -47,9 +47,8 @@ abstract class AggregateEvaluationResult
 
   const AggregateEvaluationResult._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    AggregateEvaluationResultAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<AggregateEvaluationResult>>
+      serializers = [AggregateEvaluationResultAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AggregateEvaluationResultBuilder b) {}
@@ -88,35 +87,35 @@ abstract class AggregateEvaluationResult
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AggregateEvaluationResult');
-    helper.add(
-      'evaluationResultIdentifier',
-      evaluationResultIdentifier,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'resultRecordedTime',
-      resultRecordedTime,
-    );
-    helper.add(
-      'configRuleInvokedTime',
-      configRuleInvokedTime,
-    );
-    helper.add(
-      'annotation',
-      annotation,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
+    final helper = newBuiltValueToStringHelper('AggregateEvaluationResult')
+      ..add(
+        'evaluationResultIdentifier',
+        evaluationResultIdentifier,
+      )
+      ..add(
+        'complianceType',
+        complianceType,
+      )
+      ..add(
+        'resultRecordedTime',
+        resultRecordedTime,
+      )
+      ..add(
+        'configRuleInvokedTime',
+        configRuleInvokedTime,
+      )
+      ..add(
+        'annotation',
+        annotation,
+      )
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'awsRegion',
+        awsRegion,
+      );
     return helper.toString();
   }
 }

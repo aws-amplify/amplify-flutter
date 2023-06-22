@@ -37,7 +37,7 @@ abstract class DescribeLimitsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DescribeLimitsInput>> serializers = [
     DescribeLimitsInputAwsJson10Serializer()
   ];
 

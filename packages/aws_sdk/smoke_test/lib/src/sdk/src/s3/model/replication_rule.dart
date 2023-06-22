@@ -57,7 +57,7 @@ abstract class ReplicationRule
 
   const ReplicationRule._();
 
-  static const List<_i8.SmithySerializer> serializers = [
+  static const List<_i8.SmithySerializer<ReplicationRule>> serializers = [
     ReplicationRuleRestXmlSerializer()
   ];
 
@@ -114,43 +114,43 @@ abstract class ReplicationRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicationRule');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'priority',
-      priority,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'sourceSelectionCriteria',
-      sourceSelectionCriteria,
-    );
-    helper.add(
-      'existingObjectReplication',
-      existingObjectReplication,
-    );
-    helper.add(
-      'destination',
-      destination,
-    );
-    helper.add(
-      'deleteMarkerReplication',
-      deleteMarkerReplication,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicationRule')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'priority',
+        priority,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'filter',
+        filter,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'sourceSelectionCriteria',
+        sourceSelectionCriteria,
+      )
+      ..add(
+        'existingObjectReplication',
+        existingObjectReplication,
+      )
+      ..add(
+        'destination',
+        destination,
+      )
+      ..add(
+        'deleteMarkerReplication',
+        deleteMarkerReplication,
+      );
     return helper.toString();
   }
 }

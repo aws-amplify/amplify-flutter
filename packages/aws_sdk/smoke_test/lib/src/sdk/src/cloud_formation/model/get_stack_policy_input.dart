@@ -35,7 +35,7 @@ abstract class GetStackPolicyInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetStackPolicyInput>> serializers = [
     GetStackPolicyInputAwsQuerySerializer()
   ];
 
@@ -50,11 +50,11 @@ abstract class GetStackPolicyInput
   List<Object?> get props => [stackName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetStackPolicyInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
+    final helper = newBuiltValueToStringHelper('GetStackPolicyInput')
+      ..add(
+        'stackName',
+        stackName,
+      );
     return helper.toString();
   }
 }

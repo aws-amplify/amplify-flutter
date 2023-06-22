@@ -39,9 +39,8 @@ abstract class BatchStatementResponse
 
   const BatchStatementResponse._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    BatchStatementResponseAwsJson10Serializer()
-  ];
+  static const List<_i5.SmithySerializer<BatchStatementResponse>> serializers =
+      [BatchStatementResponseAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BatchStatementResponseBuilder b) {}
@@ -62,19 +61,19 @@ abstract class BatchStatementResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BatchStatementResponse');
-    helper.add(
-      'error',
-      error,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'item',
-      item,
-    );
+    final helper = newBuiltValueToStringHelper('BatchStatementResponse')
+      ..add(
+        'error',
+        error,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'item',
+        item,
+      );
     return helper.toString();
   }
 }

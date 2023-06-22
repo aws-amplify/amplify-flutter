@@ -52,7 +52,7 @@ abstract class UpdateEndpointRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.EndpointRequest>> serializers = [
     UpdateEndpointRequestRestJson1Serializer()
   ];
 
@@ -91,19 +91,19 @@ abstract class UpdateEndpointRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateEndpointRequest');
-    helper.add(
-      'applicationId',
-      applicationId,
-    );
-    helper.add(
-      'endpointId',
-      endpointId,
-    );
-    helper.add(
-      'endpointRequest',
-      endpointRequest,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateEndpointRequest')
+      ..add(
+        'applicationId',
+        applicationId,
+      )
+      ..add(
+        'endpointId',
+        endpointId,
+      )
+      ..add(
+        'endpointRequest',
+        endpointRequest,
+      );
     return helper.toString();
   }
 }

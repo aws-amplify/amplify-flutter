@@ -49,7 +49,7 @@ abstract class ConditionCheck
 
   const ConditionCheck._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<ConditionCheck>> serializers = [
     ConditionCheckAwsJson10Serializer()
   ];
 
@@ -85,31 +85,31 @@ abstract class ConditionCheck
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConditionCheck');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'conditionExpression',
-      conditionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'expressionAttributeValues',
-      expressionAttributeValues,
-    );
-    helper.add(
-      'returnValuesOnConditionCheckFailure',
-      returnValuesOnConditionCheckFailure,
-    );
+    final helper = newBuiltValueToStringHelper('ConditionCheck')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'conditionExpression',
+        conditionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      )
+      ..add(
+        'expressionAttributeValues',
+        expressionAttributeValues,
+      )
+      ..add(
+        'returnValuesOnConditionCheckFailure',
+        returnValuesOnConditionCheckFailure,
+      );
     return helper.toString();
   }
 }

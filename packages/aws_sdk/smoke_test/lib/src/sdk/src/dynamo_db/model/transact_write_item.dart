@@ -40,7 +40,7 @@ abstract class TransactWriteItem
 
   const TransactWriteItem._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<TransactWriteItem>> serializers = [
     TransactWriteItemAwsJson10Serializer()
   ];
 
@@ -67,23 +67,23 @@ abstract class TransactWriteItem
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TransactWriteItem');
-    helper.add(
-      'conditionCheck',
-      conditionCheck,
-    );
-    helper.add(
-      'put',
-      put,
-    );
-    helper.add(
-      'delete',
-      delete,
-    );
-    helper.add(
-      'update_',
-      update_,
-    );
+    final helper = newBuiltValueToStringHelper('TransactWriteItem')
+      ..add(
+        'conditionCheck',
+        conditionCheck,
+      )
+      ..add(
+        'put',
+        put,
+      )
+      ..add(
+        'delete',
+        delete,
+      )
+      ..add(
+        'update_',
+        update_,
+      );
     return helper.toString();
   }
 }

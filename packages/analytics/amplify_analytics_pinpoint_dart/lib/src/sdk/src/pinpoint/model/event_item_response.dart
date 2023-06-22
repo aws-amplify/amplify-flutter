@@ -31,7 +31,7 @@ abstract class EventItemResponse
 
   const EventItemResponse._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<EventItemResponse>> serializers = [
     EventItemResponseRestJson1Serializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class EventItemResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventItemResponse');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
+    final helper = newBuiltValueToStringHelper('EventItemResponse')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      );
     return helper.toString();
   }
 }

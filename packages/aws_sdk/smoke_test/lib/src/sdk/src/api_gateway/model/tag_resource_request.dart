@@ -50,9 +50,8 @@ abstract class TagResourceRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TagResourceRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<TagResourceRequestPayload>>
+      serializers = [TagResourceRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TagResourceRequestBuilder b) {}
@@ -85,15 +84,15 @@ abstract class TagResourceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagResourceRequest');
-    helper.add(
-      'resourceArn',
-      resourceArn,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagResourceRequest')
+      ..add(
+        'resourceArn',
+        resourceArn,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }
@@ -118,11 +117,11 @@ abstract class TagResourceRequestPayload
   List<Object?> get props => [tags];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagResourceRequestPayload');
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagResourceRequestPayload')
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

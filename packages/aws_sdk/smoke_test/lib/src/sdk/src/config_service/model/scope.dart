@@ -37,7 +37,7 @@ abstract class Scope
 
   const Scope._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Scope>> serializers = [
     ScopeAwsJson11Serializer()
   ];
 
@@ -64,23 +64,23 @@ abstract class Scope
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Scope');
-    helper.add(
-      'complianceResourceTypes',
-      complianceResourceTypes,
-    );
-    helper.add(
-      'tagKey',
-      tagKey,
-    );
-    helper.add(
-      'tagValue',
-      tagValue,
-    );
-    helper.add(
-      'complianceResourceId',
-      complianceResourceId,
-    );
+    final helper = newBuiltValueToStringHelper('Scope')
+      ..add(
+        'complianceResourceTypes',
+        complianceResourceTypes,
+      )
+      ..add(
+        'tagKey',
+        tagKey,
+      )
+      ..add(
+        'tagValue',
+        tagValue,
+      )
+      ..add(
+        'complianceResourceId',
+        complianceResourceId,
+      );
     return helper.toString();
   }
 }

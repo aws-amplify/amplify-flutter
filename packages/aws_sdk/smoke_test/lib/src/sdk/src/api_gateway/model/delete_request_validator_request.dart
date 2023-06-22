@@ -53,9 +53,8 @@ abstract class DeleteRequestValidatorRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteRequestValidatorRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteRequestValidatorRequestPayload>>
+      serializers = [DeleteRequestValidatorRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteRequestValidatorRequestBuilder b) {}
@@ -89,15 +88,15 @@ abstract class DeleteRequestValidatorRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteRequestValidatorRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'requestValidatorId',
-      requestValidatorId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteRequestValidatorRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'requestValidatorId',
+        requestValidatorId,
+      );
     return helper.toString();
   }
 }

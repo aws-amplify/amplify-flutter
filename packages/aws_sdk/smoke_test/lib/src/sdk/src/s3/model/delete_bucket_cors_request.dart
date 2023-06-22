@@ -50,9 +50,8 @@ abstract class DeleteBucketCorsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteBucketCorsRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteBucketCorsRequestPayload>>
+      serializers = [DeleteBucketCorsRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteBucketCorsRequestBuilder b) {}
@@ -84,15 +83,15 @@ abstract class DeleteBucketCorsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteBucketCorsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteBucketCorsRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

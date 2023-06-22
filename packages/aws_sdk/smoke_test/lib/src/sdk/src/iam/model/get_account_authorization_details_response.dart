@@ -60,7 +60,9 @@ abstract class GetAccountAuthorizationDetailsResponse
   ) =>
       payload;
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<
+          _i7.SmithySerializer<GetAccountAuthorizationDetailsResponse>>
+      serializers = [
     GetAccountAuthorizationDetailsResponseAwsQuerySerializer()
   ];
 
@@ -98,31 +100,31 @@ abstract class GetAccountAuthorizationDetailsResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetAccountAuthorizationDetailsResponse');
-    helper.add(
-      'userDetailList',
-      userDetailList,
-    );
-    helper.add(
-      'groupDetailList',
-      groupDetailList,
-    );
-    helper.add(
-      'roleDetailList',
-      roleDetailList,
-    );
-    helper.add(
-      'policies',
-      policies,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+        newBuiltValueToStringHelper('GetAccountAuthorizationDetailsResponse')
+          ..add(
+            'userDetailList',
+            userDetailList,
+          )
+          ..add(
+            'groupDetailList',
+            groupDetailList,
+          )
+          ..add(
+            'roleDetailList',
+            roleDetailList,
+          )
+          ..add(
+            'policies',
+            policies,
+          )
+          ..add(
+            'isTruncated',
+            isTruncated,
+          )
+          ..add(
+            'marker',
+            marker,
+          );
     return helper.toString();
   }
 }

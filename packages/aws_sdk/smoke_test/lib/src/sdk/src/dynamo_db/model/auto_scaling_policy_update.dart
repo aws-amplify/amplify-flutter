@@ -36,9 +36,8 @@ abstract class AutoScalingPolicyUpdate
 
   const AutoScalingPolicyUpdate._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AutoScalingPolicyUpdateAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<AutoScalingPolicyUpdate>> serializers =
+      [AutoScalingPolicyUpdateAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AutoScalingPolicyUpdateBuilder b) {}
@@ -56,15 +55,15 @@ abstract class AutoScalingPolicyUpdate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AutoScalingPolicyUpdate');
-    helper.add(
-      'policyName',
-      policyName,
-    );
-    helper.add(
-      'targetTrackingScalingPolicyConfiguration',
-      targetTrackingScalingPolicyConfiguration,
-    );
+    final helper = newBuiltValueToStringHelper('AutoScalingPolicyUpdate')
+      ..add(
+        'policyName',
+        policyName,
+      )
+      ..add(
+        'targetTrackingScalingPolicyConfiguration',
+        targetTrackingScalingPolicyConfiguration,
+      );
     return helper.toString();
   }
 }

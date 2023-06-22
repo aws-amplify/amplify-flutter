@@ -29,7 +29,7 @@ abstract class ParameterConstraints
 
   const ParameterConstraints._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ParameterConstraints>> serializers = [
     ParameterConstraintsAwsQuerySerializer()
   ];
 
@@ -42,11 +42,11 @@ abstract class ParameterConstraints
   List<Object?> get props => [allowedValues];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ParameterConstraints');
-    helper.add(
-      'allowedValues',
-      allowedValues,
-    );
+    final helper = newBuiltValueToStringHelper('ParameterConstraints')
+      ..add(
+        'allowedValues',
+        allowedValues,
+      );
     return helper.toString();
   }
 }

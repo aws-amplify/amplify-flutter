@@ -52,9 +52,8 @@ abstract class GetDomainNamesRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetDomainNamesRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetDomainNamesRequestPayload>>
+      serializers = [GetDomainNamesRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetDomainNamesRequestBuilder b) {}
@@ -73,15 +72,15 @@ abstract class GetDomainNamesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetDomainNamesRequest');
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+    final helper = newBuiltValueToStringHelper('GetDomainNamesRequest')
+      ..add(
+        'position',
+        position,
+      )
+      ..add(
+        'limit',
+        limit,
+      );
     return helper.toString();
   }
 }

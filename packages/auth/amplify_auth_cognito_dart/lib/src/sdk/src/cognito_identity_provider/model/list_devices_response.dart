@@ -42,7 +42,7 @@ abstract class ListDevicesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ListDevicesResponse>> serializers = [
     ListDevicesResponseAwsJson11Serializer()
   ];
 
@@ -61,15 +61,15 @@ abstract class ListDevicesResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListDevicesResponse');
-    helper.add(
-      'devices',
-      devices,
-    );
-    helper.add(
-      'paginationToken',
-      paginationToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListDevicesResponse')
+      ..add(
+        'devices',
+        devices,
+      )
+      ..add(
+        'paginationToken',
+        paginationToken,
+      );
     return helper.toString();
   }
 }

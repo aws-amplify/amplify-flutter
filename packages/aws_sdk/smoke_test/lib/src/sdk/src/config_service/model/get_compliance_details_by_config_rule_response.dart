@@ -43,7 +43,9 @@ abstract class GetComplianceDetailsByConfigRuleResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<GetComplianceDetailsByConfigRuleResponse>>
+      serializers = [
     GetComplianceDetailsByConfigRuleResponseAwsJson11Serializer()
   ];
 
@@ -63,15 +65,15 @@ abstract class GetComplianceDetailsByConfigRuleResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetComplianceDetailsByConfigRuleResponse');
-    helper.add(
-      'evaluationResults',
-      evaluationResults,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('GetComplianceDetailsByConfigRuleResponse')
+          ..add(
+            'evaluationResults',
+            evaluationResults,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

@@ -33,7 +33,7 @@ abstract class EndpointUser
 
   const EndpointUser._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<EndpointUser>> serializers = [
     EndpointUserRestJson1Serializer()
   ];
 
@@ -54,15 +54,15 @@ abstract class EndpointUser
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointUser');
-    helper.add(
-      'userAttributes',
-      userAttributes,
-    );
-    helper.add(
-      'userId',
-      userId,
-    );
+    final helper = newBuiltValueToStringHelper('EndpointUser')
+      ..add(
+        'userAttributes',
+        userAttributes,
+      )
+      ..add(
+        'userId',
+        userId,
+      );
     return helper.toString();
   }
 }

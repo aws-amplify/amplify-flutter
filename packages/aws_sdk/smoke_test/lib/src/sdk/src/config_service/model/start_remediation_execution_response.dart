@@ -42,9 +42,8 @@ abstract class StartRemediationExecutionResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    StartRemediationExecutionResponseAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<StartRemediationExecutionResponse>>
+      serializers = [StartRemediationExecutionResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StartRemediationExecutionResponseBuilder b) {}
@@ -62,15 +61,15 @@ abstract class StartRemediationExecutionResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('StartRemediationExecutionResponse');
-    helper.add(
-      'failureMessage',
-      failureMessage,
-    );
-    helper.add(
-      'failedItems',
-      failedItems,
-    );
+        newBuiltValueToStringHelper('StartRemediationExecutionResponse')
+          ..add(
+            'failureMessage',
+            failureMessage,
+          )
+          ..add(
+            'failedItems',
+            failedItems,
+          );
     return helper.toString();
   }
 }

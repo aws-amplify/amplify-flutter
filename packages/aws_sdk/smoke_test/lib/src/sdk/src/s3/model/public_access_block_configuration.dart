@@ -39,9 +39,8 @@ abstract class PublicAccessBlockConfiguration
 
   const PublicAccessBlockConfiguration._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PublicAccessBlockConfigurationRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<PublicAccessBlockConfiguration>>
+      serializers = [PublicAccessBlockConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PublicAccessBlockConfigurationBuilder b) {}
@@ -81,24 +80,23 @@ abstract class PublicAccessBlockConfiguration
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('PublicAccessBlockConfiguration');
-    helper.add(
-      'blockPublicAcls',
-      blockPublicAcls,
-    );
-    helper.add(
-      'ignorePublicAcls',
-      ignorePublicAcls,
-    );
-    helper.add(
-      'blockPublicPolicy',
-      blockPublicPolicy,
-    );
-    helper.add(
-      'restrictPublicBuckets',
-      restrictPublicBuckets,
-    );
+    final helper = newBuiltValueToStringHelper('PublicAccessBlockConfiguration')
+      ..add(
+        'blockPublicAcls',
+        blockPublicAcls,
+      )
+      ..add(
+        'ignorePublicAcls',
+        ignorePublicAcls,
+      )
+      ..add(
+        'blockPublicPolicy',
+        blockPublicPolicy,
+      )
+      ..add(
+        'restrictPublicBuckets',
+        restrictPublicBuckets,
+      );
     return helper.toString();
   }
 }

@@ -40,7 +40,9 @@ abstract class DeletePendingAggregationRequestRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DeletePendingAggregationRequestRequest>>
+      serializers = [
     DeletePendingAggregationRequestRequestAwsJson11Serializer()
   ];
 
@@ -62,15 +64,15 @@ abstract class DeletePendingAggregationRequestRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeletePendingAggregationRequestRequest');
-    helper.add(
-      'requesterAccountId',
-      requesterAccountId,
-    );
-    helper.add(
-      'requesterAwsRegion',
-      requesterAwsRegion,
-    );
+        newBuiltValueToStringHelper('DeletePendingAggregationRequestRequest')
+          ..add(
+            'requesterAccountId',
+            requesterAccountId,
+          )
+          ..add(
+            'requesterAwsRegion',
+            requesterAwsRegion,
+          );
     return helper.toString();
   }
 }

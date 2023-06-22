@@ -41,9 +41,8 @@ abstract class UpdateTerminationProtectionInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateTerminationProtectionInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateTerminationProtectionInput>>
+      serializers = [UpdateTerminationProtectionInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateTerminationProtectionInputBuilder b) {
@@ -65,15 +64,15 @@ abstract class UpdateTerminationProtectionInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateTerminationProtectionInput');
-    helper.add(
-      'enableTerminationProtection',
-      enableTerminationProtection,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
+        newBuiltValueToStringHelper('UpdateTerminationProtectionInput')
+          ..add(
+            'enableTerminationProtection',
+            enableTerminationProtection,
+          )
+          ..add(
+            'stackName',
+            stackName,
+          );
     return helper.toString();
   }
 }

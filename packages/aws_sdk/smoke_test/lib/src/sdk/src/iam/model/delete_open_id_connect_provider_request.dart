@@ -36,9 +36,8 @@ abstract class DeleteOpenIdConnectProviderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteOpenIdConnectProviderRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteOpenIdConnectProviderRequest>>
+      serializers = [DeleteOpenIdConnectProviderRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteOpenIdConnectProviderRequestBuilder b) {}
@@ -52,11 +51,11 @@ abstract class DeleteOpenIdConnectProviderRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteOpenIdConnectProviderRequest');
-    helper.add(
-      'openIdConnectProviderArn',
-      openIdConnectProviderArn,
-    );
+        newBuiltValueToStringHelper('DeleteOpenIdConnectProviderRequest')
+          ..add(
+            'openIdConnectProviderArn',
+            openIdConnectProviderArn,
+          );
     return helper.toString();
   }
 }

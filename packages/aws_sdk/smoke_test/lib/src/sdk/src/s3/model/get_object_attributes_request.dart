@@ -108,9 +108,8 @@ abstract class GetObjectAttributesRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetObjectAttributesRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetObjectAttributesRequestPayload>>
+      serializers = [GetObjectAttributesRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectAttributesRequestBuilder b) {}
@@ -184,51 +183,51 @@ abstract class GetObjectAttributesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectAttributesRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'maxParts',
-      maxParts,
-    );
-    helper.add(
-      'partNumberMarker',
-      partNumberMarker,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'objectAttributes',
-      objectAttributes,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectAttributesRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'maxParts',
+        maxParts,
+      )
+      ..add(
+        'partNumberMarker',
+        partNumberMarker,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      )
+      ..add(
+        'objectAttributes',
+        objectAttributes,
+      );
     return helper.toString();
   }
 }

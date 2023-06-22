@@ -43,7 +43,7 @@ abstract class AttachedPolicy
 
   const AttachedPolicy._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AttachedPolicy>> serializers = [
     AttachedPolicyAwsQuerySerializer()
   ];
 
@@ -64,15 +64,15 @@ abstract class AttachedPolicy
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AttachedPolicy');
-    helper.add(
-      'policyName',
-      policyName,
-    );
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
+    final helper = newBuiltValueToStringHelper('AttachedPolicy')
+      ..add(
+        'policyName',
+        policyName,
+      )
+      ..add(
+        'policyArn',
+        policyArn,
+      );
     return helper.toString();
   }
 }

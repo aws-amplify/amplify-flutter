@@ -34,9 +34,8 @@ abstract class GetServerCertificateRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetServerCertificateRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetServerCertificateRequest>>
+      serializers = [GetServerCertificateRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetServerCertificateRequestBuilder b) {}
@@ -51,11 +50,11 @@ abstract class GetServerCertificateRequest
   List<Object?> get props => [serverCertificateName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetServerCertificateRequest');
-    helper.add(
-      'serverCertificateName',
-      serverCertificateName,
-    );
+    final helper = newBuiltValueToStringHelper('GetServerCertificateRequest')
+      ..add(
+        'serverCertificateName',
+        serverCertificateName,
+      );
     return helper.toString();
   }
 }

@@ -36,9 +36,8 @@ abstract class DescribeOrganizationsAccessInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeOrganizationsAccessInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DescribeOrganizationsAccessInput>>
+      serializers = [DescribeOrganizationsAccessInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeOrganizationsAccessInputBuilder b) {}
@@ -60,11 +59,11 @@ abstract class DescribeOrganizationsAccessInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeOrganizationsAccessInput');
-    helper.add(
-      'callAs',
-      callAs,
-    );
+        newBuiltValueToStringHelper('DescribeOrganizationsAccessInput')
+          ..add(
+            'callAs',
+            callAs,
+          );
     return helper.toString();
   }
 }

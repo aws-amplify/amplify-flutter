@@ -26,7 +26,7 @@ abstract class EvaluationContext
 
   const EvaluationContext._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<EvaluationContext>> serializers = [
     EvaluationContextAwsJson11Serializer()
   ];
 
@@ -39,11 +39,11 @@ abstract class EvaluationContext
   List<Object?> get props => [evaluationContextIdentifier];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EvaluationContext');
-    helper.add(
-      'evaluationContextIdentifier',
-      evaluationContextIdentifier,
-    );
+    final helper = newBuiltValueToStringHelper('EvaluationContext')
+      ..add(
+        'evaluationContextIdentifier',
+        evaluationContextIdentifier,
+      );
     return helper.toString();
   }
 }

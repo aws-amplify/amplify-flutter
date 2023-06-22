@@ -37,9 +37,8 @@ abstract class InvalidCertificateException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidCertificateExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidCertificateException>>
+      serializers = [InvalidCertificateExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidCertificateExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class InvalidCertificateException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidCertificateException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidCertificateException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

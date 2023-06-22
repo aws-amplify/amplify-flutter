@@ -44,7 +44,7 @@ abstract class EndpointDemographic
 
   const EndpointDemographic._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<EndpointDemographic>> serializers = [
     EndpointDemographicRestJson1Serializer()
   ];
 
@@ -87,39 +87,39 @@ abstract class EndpointDemographic
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointDemographic');
-    helper.add(
-      'appVersion',
-      appVersion,
-    );
-    helper.add(
-      'locale',
-      locale,
-    );
-    helper.add(
-      'make',
-      make,
-    );
-    helper.add(
-      'model',
-      model,
-    );
-    helper.add(
-      'modelVersion',
-      modelVersion,
-    );
-    helper.add(
-      'platform',
-      platform,
-    );
-    helper.add(
-      'platformVersion',
-      platformVersion,
-    );
-    helper.add(
-      'timezone',
-      timezone,
-    );
+    final helper = newBuiltValueToStringHelper('EndpointDemographic')
+      ..add(
+        'appVersion',
+        appVersion,
+      )
+      ..add(
+        'locale',
+        locale,
+      )
+      ..add(
+        'make',
+        make,
+      )
+      ..add(
+        'model',
+        model,
+      )
+      ..add(
+        'modelVersion',
+        modelVersion,
+      )
+      ..add(
+        'platform',
+        platform,
+      )
+      ..add(
+        'platformVersion',
+        platformVersion,
+      )
+      ..add(
+        'timezone',
+        timezone,
+      );
     return helper.toString();
   }
 }

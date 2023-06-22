@@ -52,9 +52,8 @@ abstract class DetectStackSetDriftInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DetectStackSetDriftInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DetectStackSetDriftInput>>
+      serializers = [DetectStackSetDriftInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DetectStackSetDriftInputBuilder b) {
@@ -97,23 +96,23 @@ abstract class DetectStackSetDriftInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DetectStackSetDriftInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'operationPreferences',
-      operationPreferences,
-    );
-    helper.add(
-      'operationId',
-      operationId,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+    final helper = newBuiltValueToStringHelper('DetectStackSetDriftInput')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'operationPreferences',
+        operationPreferences,
+      )
+      ..add(
+        'operationId',
+        operationId,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      );
     return helper.toString();
   }
 }

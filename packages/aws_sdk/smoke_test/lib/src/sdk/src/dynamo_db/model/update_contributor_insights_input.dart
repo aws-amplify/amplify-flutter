@@ -44,9 +44,8 @@ abstract class UpdateContributorInsightsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateContributorInsightsInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateContributorInsightsInput>>
+      serializers = [UpdateContributorInsightsInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateContributorInsightsInputBuilder b) {}
@@ -69,20 +68,19 @@ abstract class UpdateContributorInsightsInput
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UpdateContributorInsightsInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'contributorInsightsAction',
-      contributorInsightsAction,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateContributorInsightsInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'contributorInsightsAction',
+        contributorInsightsAction,
+      );
     return helper.toString();
   }
 }

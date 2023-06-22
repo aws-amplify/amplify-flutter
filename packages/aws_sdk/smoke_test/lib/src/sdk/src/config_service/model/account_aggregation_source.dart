@@ -37,9 +37,8 @@ abstract class AccountAggregationSource
 
   const AccountAggregationSource._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AccountAggregationSourceAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<AccountAggregationSource>>
+      serializers = [AccountAggregationSourceAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AccountAggregationSourceBuilder b) {
@@ -62,19 +61,19 @@ abstract class AccountAggregationSource
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccountAggregationSource');
-    helper.add(
-      'accountIds',
-      accountIds,
-    );
-    helper.add(
-      'allAwsRegions',
-      allAwsRegions,
-    );
-    helper.add(
-      'awsRegions',
-      awsRegions,
-    );
+    final helper = newBuiltValueToStringHelper('AccountAggregationSource')
+      ..add(
+        'accountIds',
+        accountIds,
+      )
+      ..add(
+        'allAwsRegions',
+        allAwsRegions,
+      )
+      ..add(
+        'awsRegions',
+        awsRegions,
+      );
     return helper.toString();
   }
 }

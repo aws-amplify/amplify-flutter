@@ -40,9 +40,8 @@ abstract class RemoveRoleFromInstanceProfileRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    RemoveRoleFromInstanceProfileRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<RemoveRoleFromInstanceProfileRequest>>
+      serializers = [RemoveRoleFromInstanceProfileRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RemoveRoleFromInstanceProfileRequestBuilder b) {}
@@ -66,15 +65,15 @@ abstract class RemoveRoleFromInstanceProfileRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('RemoveRoleFromInstanceProfileRequest');
-    helper.add(
-      'instanceProfileName',
-      instanceProfileName,
-    );
-    helper.add(
-      'roleName',
-      roleName,
-    );
+        newBuiltValueToStringHelper('RemoveRoleFromInstanceProfileRequest')
+          ..add(
+            'instanceProfileName',
+            instanceProfileName,
+          )
+          ..add(
+            'roleName',
+            roleName,
+          );
     return helper.toString();
   }
 }

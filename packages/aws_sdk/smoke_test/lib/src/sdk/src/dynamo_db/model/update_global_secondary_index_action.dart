@@ -37,9 +37,8 @@ abstract class UpdateGlobalSecondaryIndexAction
 
   const UpdateGlobalSecondaryIndexAction._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    UpdateGlobalSecondaryIndexActionAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<UpdateGlobalSecondaryIndexAction>>
+      serializers = [UpdateGlobalSecondaryIndexActionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateGlobalSecondaryIndexActionBuilder b) {}
@@ -59,15 +58,15 @@ abstract class UpdateGlobalSecondaryIndexAction
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateGlobalSecondaryIndexAction');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
-    );
+        newBuiltValueToStringHelper('UpdateGlobalSecondaryIndexAction')
+          ..add(
+            'indexName',
+            indexName,
+          )
+          ..add(
+            'provisionedThroughput',
+            provisionedThroughput,
+          );
     return helper.toString();
   }
 }

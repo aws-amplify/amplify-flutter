@@ -44,9 +44,8 @@ abstract class GetAccountAuthorizationDetailsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetAccountAuthorizationDetailsRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetAccountAuthorizationDetailsRequest>>
+      serializers = [GetAccountAuthorizationDetailsRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetAccountAuthorizationDetailsRequestBuilder b) {}
@@ -74,19 +73,19 @@ abstract class GetAccountAuthorizationDetailsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetAccountAuthorizationDetailsRequest');
-    helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+        newBuiltValueToStringHelper('GetAccountAuthorizationDetailsRequest')
+          ..add(
+            'filter',
+            filter,
+          )
+          ..add(
+            'maxItems',
+            maxItems,
+          )
+          ..add(
+            'marker',
+            marker,
+          );
     return helper.toString();
   }
 }

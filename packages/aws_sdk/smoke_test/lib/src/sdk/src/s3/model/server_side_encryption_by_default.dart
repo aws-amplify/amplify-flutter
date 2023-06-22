@@ -37,9 +37,8 @@ abstract class ServerSideEncryptionByDefault
 
   const ServerSideEncryptionByDefault._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ServerSideEncryptionByDefaultRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<ServerSideEncryptionByDefault>>
+      serializers = [ServerSideEncryptionByDefaultRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ServerSideEncryptionByDefaultBuilder b) {}
@@ -67,15 +66,15 @@ abstract class ServerSideEncryptionByDefault
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServerSideEncryptionByDefault');
-    helper.add(
-      'sseAlgorithm',
-      sseAlgorithm,
-    );
-    helper.add(
-      'kmsMasterKeyId',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('ServerSideEncryptionByDefault')
+      ..add(
+        'sseAlgorithm',
+        sseAlgorithm,
+      )
+      ..add(
+        'kmsMasterKeyId',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }

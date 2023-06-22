@@ -47,9 +47,8 @@ abstract class AttachedPermissionsBoundary
 
   const AttachedPermissionsBoundary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AttachedPermissionsBoundaryAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<AttachedPermissionsBoundary>>
+      serializers = [AttachedPermissionsBoundaryAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AttachedPermissionsBoundaryBuilder b) {}
@@ -66,15 +65,15 @@ abstract class AttachedPermissionsBoundary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AttachedPermissionsBoundary');
-    helper.add(
-      'permissionsBoundaryType',
-      permissionsBoundaryType,
-    );
-    helper.add(
-      'permissionsBoundaryArn',
-      permissionsBoundaryArn,
-    );
+    final helper = newBuiltValueToStringHelper('AttachedPermissionsBoundary')
+      ..add(
+        'permissionsBoundaryType',
+        permissionsBoundaryType,
+      )
+      ..add(
+        'permissionsBoundaryArn',
+        permissionsBoundaryArn,
+      );
     return helper.toString();
   }
 }

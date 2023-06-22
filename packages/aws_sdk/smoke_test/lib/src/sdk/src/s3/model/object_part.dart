@@ -40,7 +40,7 @@ abstract class ObjectPart
 
   const ObjectPart._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ObjectPart>> serializers = [
     ObjectPartRestXmlSerializer()
   ];
 
@@ -75,31 +75,31 @@ abstract class ObjectPart
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ObjectPart');
-    helper.add(
-      'partNumber',
-      partNumber,
-    );
-    helper.add(
-      'size',
-      size,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
+    final helper = newBuiltValueToStringHelper('ObjectPart')
+      ..add(
+        'partNumber',
+        partNumber,
+      )
+      ..add(
+        'size',
+        size,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      );
     return helper.toString();
   }
 }

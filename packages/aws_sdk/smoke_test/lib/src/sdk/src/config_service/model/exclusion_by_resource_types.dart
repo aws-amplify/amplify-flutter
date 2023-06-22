@@ -32,9 +32,8 @@ abstract class ExclusionByResourceTypes
 
   const ExclusionByResourceTypes._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ExclusionByResourceTypesAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<ExclusionByResourceTypes>>
+      serializers = [ExclusionByResourceTypesAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExclusionByResourceTypesBuilder b) {}
@@ -45,11 +44,11 @@ abstract class ExclusionByResourceTypes
   List<Object?> get props => [resourceTypes];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExclusionByResourceTypes');
-    helper.add(
-      'resourceTypes',
-      resourceTypes,
-    );
+    final helper = newBuiltValueToStringHelper('ExclusionByResourceTypes')
+      ..add(
+        'resourceTypes',
+        resourceTypes,
+      );
     return helper.toString();
   }
 }

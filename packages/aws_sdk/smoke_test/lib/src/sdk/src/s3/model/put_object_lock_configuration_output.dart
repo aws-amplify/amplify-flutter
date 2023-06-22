@@ -43,9 +43,9 @@ abstract class PutObjectLockConfigurationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PutObjectLockConfigurationOutputRestXmlSerializer()
-  ];
+  static const List<
+          _i2.SmithySerializer<PutObjectLockConfigurationOutputPayload>>
+      serializers = [PutObjectLockConfigurationOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutObjectLockConfigurationOutputBuilder b) {}
@@ -60,11 +60,11 @@ abstract class PutObjectLockConfigurationOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutObjectLockConfigurationOutput');
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+        newBuiltValueToStringHelper('PutObjectLockConfigurationOutput')
+          ..add(
+            'requestCharged',
+            requestCharged,
+          );
     return helper.toString();
   }
 }

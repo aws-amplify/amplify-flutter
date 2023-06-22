@@ -38,7 +38,7 @@ abstract class EventContextDataType
 
   const EventContextDataType._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<EventContextDataType>> serializers = [
     EventContextDataTypeAwsJson11Serializer()
   ];
 
@@ -69,27 +69,27 @@ abstract class EventContextDataType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventContextDataType');
-    helper.add(
-      'ipAddress',
-      ipAddress,
-    );
-    helper.add(
-      'deviceName',
-      deviceName,
-    );
-    helper.add(
-      'timezone',
-      timezone,
-    );
-    helper.add(
-      'city',
-      city,
-    );
-    helper.add(
-      'country',
-      country,
-    );
+    final helper = newBuiltValueToStringHelper('EventContextDataType')
+      ..add(
+        'ipAddress',
+        ipAddress,
+      )
+      ..add(
+        'deviceName',
+        deviceName,
+      )
+      ..add(
+        'timezone',
+        timezone,
+      )
+      ..add(
+        'city',
+        city,
+      )
+      ..add(
+        'country',
+        country,
+      );
     return helper.toString();
   }
 }

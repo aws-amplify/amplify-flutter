@@ -28,7 +28,7 @@ abstract class DeleteRequest
 
   const DeleteRequest._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<DeleteRequest>> serializers = [
     DeleteRequestAwsJson10Serializer()
   ];
 
@@ -41,11 +41,11 @@ abstract class DeleteRequest
   List<Object?> get props => [key];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteRequest');
-    helper.add(
-      'key',
-      key,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteRequest')
+      ..add(
+        'key',
+        key,
+      );
     return helper.toString();
   }
 }

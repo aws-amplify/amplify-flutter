@@ -40,7 +40,7 @@ abstract class ListAccessKeysRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListAccessKeysRequest>> serializers = [
     ListAccessKeysRequestAwsQuerySerializer()
   ];
 
@@ -69,19 +69,19 @@ abstract class ListAccessKeysRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListAccessKeysRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListAccessKeysRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

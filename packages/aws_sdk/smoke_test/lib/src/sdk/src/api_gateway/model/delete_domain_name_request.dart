@@ -43,9 +43,8 @@ abstract class DeleteDomainNameRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteDomainNameRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteDomainNameRequestPayload>>
+      serializers = [DeleteDomainNameRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteDomainNameRequestBuilder b) {}
@@ -71,11 +70,11 @@ abstract class DeleteDomainNameRequest
   List<Object?> get props => [domainName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteDomainNameRequest');
-    helper.add(
-      'domainName',
-      domainName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteDomainNameRequest')
+      ..add(
+        'domainName',
+        domainName,
+      );
     return helper.toString();
   }
 }

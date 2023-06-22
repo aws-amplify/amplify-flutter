@@ -38,9 +38,8 @@ abstract class DuplicateItemException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DuplicateItemExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<DuplicateItemException>> serializers =
+      [DuplicateItemExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DuplicateItemExceptionBuilder b) {}
@@ -65,11 +64,11 @@ abstract class DuplicateItemException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DuplicateItemException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('DuplicateItemException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

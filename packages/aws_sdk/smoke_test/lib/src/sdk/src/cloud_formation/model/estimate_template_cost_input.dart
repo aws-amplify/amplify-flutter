@@ -47,9 +47,8 @@ abstract class EstimateTemplateCostInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    EstimateTemplateCostInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<EstimateTemplateCostInput>>
+      serializers = [EstimateTemplateCostInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EstimateTemplateCostInputBuilder b) {}
@@ -76,19 +75,19 @@ abstract class EstimateTemplateCostInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EstimateTemplateCostInput');
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateUrl',
-      templateUrl,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
+    final helper = newBuiltValueToStringHelper('EstimateTemplateCostInput')
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'templateUrl',
+        templateUrl,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      );
     return helper.toString();
   }
 }

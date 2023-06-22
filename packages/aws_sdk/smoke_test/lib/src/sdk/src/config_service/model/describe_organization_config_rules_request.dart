@@ -46,7 +46,9 @@ abstract class DescribeOrganizationConfigRulesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DescribeOrganizationConfigRulesRequest>>
+      serializers = [
     DescribeOrganizationConfigRulesRequestAwsJson11Serializer()
   ];
 
@@ -74,19 +76,19 @@ abstract class DescribeOrganizationConfigRulesRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeOrganizationConfigRulesRequest');
-    helper.add(
-      'organizationConfigRuleNames',
-      organizationConfigRuleNames,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('DescribeOrganizationConfigRulesRequest')
+          ..add(
+            'organizationConfigRuleNames',
+            organizationConfigRuleNames,
+          )
+          ..add(
+            'limit',
+            limit,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

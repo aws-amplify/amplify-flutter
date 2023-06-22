@@ -40,7 +40,9 @@ abstract class PointInTimeRecoveryUnavailableException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<PointInTimeRecoveryUnavailableException>>
+      serializers = [
     PointInTimeRecoveryUnavailableExceptionAwsJson10Serializer()
   ];
 
@@ -68,11 +70,11 @@ abstract class PointInTimeRecoveryUnavailableException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PointInTimeRecoveryUnavailableException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('PointInTimeRecoveryUnavailableException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

@@ -40,9 +40,8 @@ abstract class PutObjectLegalHoldOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PutObjectLegalHoldOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<PutObjectLegalHoldOutputPayload>>
+      serializers = [PutObjectLegalHoldOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutObjectLegalHoldOutputBuilder b) {}
@@ -56,11 +55,11 @@ abstract class PutObjectLegalHoldOutput
   List<Object?> get props => [requestCharged];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutObjectLegalHoldOutput');
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('PutObjectLegalHoldOutput')
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }

@@ -119,9 +119,8 @@ abstract class PutObjectAclRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutObjectAclRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.AccessControlPolicy?>>
+      serializers = [PutObjectAclRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutObjectAclRequestBuilder b) {}
@@ -223,63 +222,63 @@ abstract class PutObjectAclRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutObjectAclRequest');
-    helper.add(
-      'acl',
-      acl,
-    );
-    helper.add(
-      'accessControlPolicy',
-      accessControlPolicy,
-    );
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'grantFullControl',
-      grantFullControl,
-    );
-    helper.add(
-      'grantRead',
-      grantRead,
-    );
-    helper.add(
-      'grantReadAcp',
-      grantReadAcp,
-    );
-    helper.add(
-      'grantWrite',
-      grantWrite,
-    );
-    helper.add(
-      'grantWriteAcp',
-      grantWriteAcp,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutObjectAclRequest')
+      ..add(
+        'acl',
+        acl,
+      )
+      ..add(
+        'accessControlPolicy',
+        accessControlPolicy,
+      )
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'grantFullControl',
+        grantFullControl,
+      )
+      ..add(
+        'grantRead',
+        grantRead,
+      )
+      ..add(
+        'grantReadAcp',
+        grantReadAcp,
+      )
+      ..add(
+        'grantWrite',
+        grantWrite,
+      )
+      ..add(
+        'grantWriteAcp',
+        grantWriteAcp,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

@@ -37,7 +37,7 @@ abstract class CancellationReason
 
   const CancellationReason._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<CancellationReason>> serializers = [
     CancellationReasonAwsJson10Serializer()
   ];
 
@@ -60,19 +60,19 @@ abstract class CancellationReason
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CancellationReason');
-    helper.add(
-      'item',
-      item,
-    );
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('CancellationReason')
+      ..add(
+        'item',
+        item,
+      )
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

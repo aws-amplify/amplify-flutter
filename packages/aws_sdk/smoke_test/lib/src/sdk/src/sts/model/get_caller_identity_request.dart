@@ -34,9 +34,8 @@ abstract class GetCallerIdentityRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetCallerIdentityRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetCallerIdentityRequest>>
+      serializers = [GetCallerIdentityRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetCallerIdentityRequestBuilder b) {}

@@ -37,9 +37,8 @@ abstract class UpdateTableReplicaAutoScalingOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    UpdateTableReplicaAutoScalingOutputAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<UpdateTableReplicaAutoScalingOutput>>
+      serializers = [UpdateTableReplicaAutoScalingOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateTableReplicaAutoScalingOutputBuilder b) {}
@@ -51,11 +50,11 @@ abstract class UpdateTableReplicaAutoScalingOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateTableReplicaAutoScalingOutput');
-    helper.add(
-      'tableAutoScalingDescription',
-      tableAutoScalingDescription,
-    );
+        newBuiltValueToStringHelper('UpdateTableReplicaAutoScalingOutput')
+          ..add(
+            'tableAutoScalingDescription',
+            tableAutoScalingDescription,
+          );
     return helper.toString();
   }
 }

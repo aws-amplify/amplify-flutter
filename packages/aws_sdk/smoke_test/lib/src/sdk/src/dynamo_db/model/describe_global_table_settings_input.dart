@@ -35,9 +35,8 @@ abstract class DescribeGlobalTableSettingsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeGlobalTableSettingsInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DescribeGlobalTableSettingsInput>>
+      serializers = [DescribeGlobalTableSettingsInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeGlobalTableSettingsInputBuilder b) {}
@@ -51,11 +50,11 @@ abstract class DescribeGlobalTableSettingsInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeGlobalTableSettingsInput');
-    helper.add(
-      'globalTableName',
-      globalTableName,
-    );
+        newBuiltValueToStringHelper('DescribeGlobalTableSettingsInput')
+          ..add(
+            'globalTableName',
+            globalTableName,
+          );
     return helper.toString();
   }
 }

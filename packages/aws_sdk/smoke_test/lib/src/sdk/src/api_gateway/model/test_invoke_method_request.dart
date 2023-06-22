@@ -84,9 +84,8 @@ abstract class TestInvokeMethodRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TestInvokeMethodRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<TestInvokeMethodRequestPayload>>
+      serializers = [TestInvokeMethodRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestInvokeMethodRequestBuilder b) {}
@@ -163,43 +162,43 @@ abstract class TestInvokeMethodRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestInvokeMethodRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'pathWithQueryString',
-      pathWithQueryString,
-    );
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'headers',
-      headers,
-    );
-    helper.add(
-      'multiValueHeaders',
-      multiValueHeaders,
-    );
-    helper.add(
-      'clientCertificateId',
-      clientCertificateId,
-    );
-    helper.add(
-      'stageVariables',
-      stageVariables,
-    );
+    final helper = newBuiltValueToStringHelper('TestInvokeMethodRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'pathWithQueryString',
+        pathWithQueryString,
+      )
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'headers',
+        headers,
+      )
+      ..add(
+        'multiValueHeaders',
+        multiValueHeaders,
+      )
+      ..add(
+        'clientCertificateId',
+        clientCertificateId,
+      )
+      ..add(
+        'stageVariables',
+        stageVariables,
+      );
     return helper.toString();
   }
 }
@@ -248,32 +247,31 @@ abstract class TestInvokeMethodRequestPayload
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('TestInvokeMethodRequestPayload');
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'clientCertificateId',
-      clientCertificateId,
-    );
-    helper.add(
-      'headers',
-      headers,
-    );
-    helper.add(
-      'multiValueHeaders',
-      multiValueHeaders,
-    );
-    helper.add(
-      'pathWithQueryString',
-      pathWithQueryString,
-    );
-    helper.add(
-      'stageVariables',
-      stageVariables,
-    );
+    final helper = newBuiltValueToStringHelper('TestInvokeMethodRequestPayload')
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'clientCertificateId',
+        clientCertificateId,
+      )
+      ..add(
+        'headers',
+        headers,
+      )
+      ..add(
+        'multiValueHeaders',
+        multiValueHeaders,
+      )
+      ..add(
+        'pathWithQueryString',
+        pathWithQueryString,
+      )
+      ..add(
+        'stageVariables',
+        stageVariables,
+      );
     return helper.toString();
   }
 }
