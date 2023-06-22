@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.initiate_auth_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -213,63 +214,52 @@ class InitiateAuthRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AuthFlow':
           result.authFlow = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.AuthFlowType),
           ) as _i3.AuthFlowType);
-          break;
         case 'AuthParameters':
-          if (value != null) {
-            result.authParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
+          result.authParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
         case 'ClientMetadata':
-          if (value != null) {
-            result.clientMetadata.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
+          result.clientMetadata.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
         case 'ClientId':
           result.clientId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'AnalyticsMetadata':
-          if (value != null) {
-            result.analyticsMetadata.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.AnalyticsMetadataType),
-            ) as _i4.AnalyticsMetadataType));
-          }
-          break;
+          result.analyticsMetadata.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.AnalyticsMetadataType),
+          ) as _i4.AnalyticsMetadataType));
         case 'UserContextData':
-          if (value != null) {
-            result.userContextData.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.UserContextDataType),
-            ) as _i5.UserContextDataType));
-          }
-          break;
+          result.userContextData.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.UserContextDataType),
+          ) as _i5.UserContextDataType));
       }
     }
 
@@ -279,27 +269,35 @@ class InitiateAuthRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    InitiateAuthRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as InitiateAuthRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final InitiateAuthRequest(
+      :authFlow,
+      :authParameters,
+      :clientMetadata,
+      :clientId,
+      :analyticsMetadata,
+      :userContextData
+    ) = object;
+    result$.addAll([
       'AuthFlow',
       serializers.serialize(
-        payload.authFlow,
+        authFlow,
         specifiedType: const FullType(_i3.AuthFlowType),
       ),
       'ClientId',
       serializers.serialize(
-        payload.clientId,
+        clientId,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.authParameters != null) {
-      result
+    ]);
+    if (authParameters != null) {
+      result$
         ..add('AuthParameters')
         ..add(serializers.serialize(
-          payload.authParameters!,
+          authParameters,
           specifiedType: const FullType(
             _i6.BuiltMap,
             [
@@ -309,11 +307,11 @@ class InitiateAuthRequestAwsJson11Serializer
           ),
         ));
     }
-    if (payload.clientMetadata != null) {
-      result
+    if (clientMetadata != null) {
+      result$
         ..add('ClientMetadata')
         ..add(serializers.serialize(
-          payload.clientMetadata!,
+          clientMetadata,
           specifiedType: const FullType(
             _i6.BuiltMap,
             [
@@ -323,22 +321,22 @@ class InitiateAuthRequestAwsJson11Serializer
           ),
         ));
     }
-    if (payload.analyticsMetadata != null) {
-      result
+    if (analyticsMetadata != null) {
+      result$
         ..add('AnalyticsMetadata')
         ..add(serializers.serialize(
-          payload.analyticsMetadata!,
+          analyticsMetadata,
           specifiedType: const FullType(_i4.AnalyticsMetadataType),
         ));
     }
-    if (payload.userContextData != null) {
-      result
+    if (userContextData != null) {
+      result$
         ..add('UserContextData')
         ..add(serializers.serialize(
-          payload.userContextData!,
+          userContextData,
           specifiedType: const FullType(_i5.UserContextDataType),
         ));
     }
-    return result;
+    return result$;
   }
 }

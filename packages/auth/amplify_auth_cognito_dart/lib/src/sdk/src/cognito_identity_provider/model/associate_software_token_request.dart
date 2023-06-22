@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.associate_software_token_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,23 +103,20 @@ class AssociateSoftwareTokenRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AccessToken':
-          if (value != null) {
-            result.accessToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.accessToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Session':
-          if (value != null) {
-            result.session = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.session = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -128,27 +126,27 @@ class AssociateSoftwareTokenRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AssociateSoftwareTokenRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AssociateSoftwareTokenRequest);
-    final result = <Object?>[];
-    if (payload.accessToken != null) {
-      result
+    final result$ = <Object?>[];
+    final AssociateSoftwareTokenRequest(:accessToken, :session) = object;
+    if (accessToken != null) {
+      result$
         ..add('AccessToken')
         ..add(serializers.serialize(
-          payload.accessToken!,
+          accessToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.session != null) {
-      result
+    if (session != null) {
+      result$
         ..add('Session')
         ..add(serializers.serialize(
-          payload.session!,
+          session,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }
