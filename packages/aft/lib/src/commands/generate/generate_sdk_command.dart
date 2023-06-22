@@ -212,7 +212,7 @@ class GenerateSdkCommand extends AmplifyCommand {
           plugin,
           jsonEncode(generatedAst),
         ],
-        mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
+        mode: ProcessStartMode.inheritStdio,
       );
       final exitCode = await pluginCmd.exitCode;
       if (exitCode != 0) {
