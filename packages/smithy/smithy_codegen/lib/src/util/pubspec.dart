@@ -29,7 +29,7 @@ final dependencyVersions = {
   'smithy_codegen': const Dependency('^0.3.0', DependencyType.smithy),
   'aws_common': const Dependency('^0.4.0', DependencyType.aws),
   'aws_signature_v4': const Dependency('^0.3.0', DependencyType.aws),
-  'built_value': const Dependency('">=8.5.0 <8.6.0"'),
+  'built_value': const Dependency('">=8.6.0 <8.7.0"'),
   'built_collection': const Dependency('^5.0.0'),
   'fixnum': const Dependency('^1.0.0'),
   'meta': const Dependency('^1.7.0'),
@@ -42,7 +42,7 @@ final dependencyVersions = {
   'build_runner': const Dependency.dev('^2.4.0'),
   'build_web_compilers': const Dependency.dev('^4.0.0'),
   'build_test': const Dependency.dev('^2.1.5'),
-  'built_value_generator': const Dependency.dev('8.5.0'),
+  'built_value_generator': const Dependency.dev('8.6.1'),
   'lints': const Dependency.dev('^2.1.0'),
   'test': const Dependency.dev('^1.22.1'),
 };
