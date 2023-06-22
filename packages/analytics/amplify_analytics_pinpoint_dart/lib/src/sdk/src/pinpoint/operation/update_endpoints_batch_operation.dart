@@ -118,7 +118,7 @@ class UpdateEndpointsBatchOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.BadRequestException, _i11.BadRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'BadRequestException',
@@ -128,7 +128,7 @@ class UpdateEndpointsBatchOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i11.BadRequestException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ForbiddenException, _i12.ForbiddenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'ForbiddenException',
@@ -138,7 +138,8 @@ class UpdateEndpointsBatchOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i12.ForbiddenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.InternalServerErrorException,
+            _i13.InternalServerErrorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'InternalServerErrorException',
@@ -148,7 +149,8 @@ class UpdateEndpointsBatchOperation extends _i1.HttpOperation<
           statusCode: 500,
           builder: _i13.InternalServerErrorException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.MethodNotAllowedException,
+            _i14.MethodNotAllowedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'MethodNotAllowedException',
@@ -158,7 +160,7 @@ class UpdateEndpointsBatchOperation extends _i1.HttpOperation<
           statusCode: 405,
           builder: _i14.MethodNotAllowedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.NotFoundException, _i15.NotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'NotFoundException',
@@ -168,7 +170,8 @@ class UpdateEndpointsBatchOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i15.NotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.PayloadTooLargeException,
+            _i16.PayloadTooLargeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'PayloadTooLargeException',
@@ -178,7 +181,8 @@ class UpdateEndpointsBatchOperation extends _i1.HttpOperation<
           statusCode: 413,
           builder: _i16.PayloadTooLargeException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i17.TooManyRequestsException,
+            _i17.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'TooManyRequestsException',
@@ -211,7 +215,7 @@ class UpdateEndpointsBatchOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
       },
     );
   }

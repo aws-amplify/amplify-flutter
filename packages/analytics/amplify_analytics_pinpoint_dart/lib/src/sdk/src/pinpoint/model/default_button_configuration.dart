@@ -26,7 +26,6 @@ abstract class DefaultButtonConfiguration
     required String text,
     String? textColor,
   }) {
-    borderRadius ??= 0;
     return _$DefaultButtonConfiguration._(
       backgroundColor: backgroundColor,
       borderRadius: borderRadius,
@@ -49,15 +48,13 @@ abstract class DefaultButtonConfiguration
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DefaultButtonConfigurationBuilder b) {
-    b.borderRadius = 0;
-  }
+  static void _init(DefaultButtonConfigurationBuilder b) {}
 
   /// The background color of the button.
   String? get backgroundColor;
 
   /// The border radius of the button.
-  int get borderRadius;
+  int? get borderRadius;
 
   /// Action triggered by the button.
   _i2.ButtonAction get buttonAction;
@@ -195,11 +192,6 @@ class DefaultButtonConfigurationRestJson1Serializer
       :textColor
     ) = object;
     result$.addAll([
-      'BorderRadius',
-      serializers.serialize(
-        borderRadius,
-        specifiedType: const FullType(int),
-      ),
       'ButtonAction',
       serializers.serialize(
         buttonAction,
@@ -217,6 +209,14 @@ class DefaultButtonConfigurationRestJson1Serializer
         ..add(serializers.serialize(
           backgroundColor,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (borderRadius != null) {
+      result$
+        ..add('BorderRadius')
+        ..add(serializers.serialize(
+          borderRadius,
+          specifiedType: const FullType(int),
         ));
     }
     if (link != null) {

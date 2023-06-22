@@ -21,7 +21,6 @@ abstract class Session
     required String startTimestamp,
     String? stopTimestamp,
   }) {
-    duration ??= 0;
     return _$Session._(
       duration: duration,
       id: id,
@@ -40,12 +39,10 @@ abstract class Session
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(SessionBuilder b) {
-    b.duration = 0;
-  }
+  static void _init(SessionBuilder b) {}
 
   /// The duration of the session, in milliseconds.
-  int get duration;
+  int? get duration;
 
   /// The unique identifier for the session.
   String get id;
@@ -152,11 +149,6 @@ class SessionRestJson1Serializer
     final result$ = <Object?>[];
     final Session(:duration, :id, :startTimestamp, :stopTimestamp) = object;
     result$.addAll([
-      'Duration',
-      serializers.serialize(
-        duration,
-        specifiedType: const FullType(int),
-      ),
       'Id',
       serializers.serialize(
         id,
@@ -168,6 +160,14 @@ class SessionRestJson1Serializer
         specifiedType: const FullType(String),
       ),
     ]);
+    if (duration != null) {
+      result$
+        ..add('Duration')
+        ..add(serializers.serialize(
+          duration,
+          specifiedType: const FullType(int),
+        ));
+    }
     if (stopTimestamp != null) {
       result$
         ..add('StopTimestamp')
