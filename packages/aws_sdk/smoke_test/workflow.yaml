@@ -7,10 +7,12 @@ on:
       - next
     paths:
       - "packages/aws_sdk/**/*.dart"
+      - "packages/aws_sdk/smoke_test/workflow.yaml"
       - "packages/smithy/**/*.dart"
   pull_request:
     paths:
       - "packages/aws_sdk/**/*.dart"
+      - "packages/aws_sdk/smoke_test/workflow.yaml"
       - "packages/smithy/**/*.dart"
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
