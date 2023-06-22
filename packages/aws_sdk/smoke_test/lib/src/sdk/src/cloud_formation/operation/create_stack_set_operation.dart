@@ -122,7 +122,8 @@ class CreateStackSetOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.CreatedButModifiedException,
+            _i9.CreatedButModifiedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'CreatedButModifiedException',
@@ -132,7 +133,8 @@ class CreateStackSetOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i9.CreatedButModifiedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.LimitExceededException,
+            _i10.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'LimitExceededException',
@@ -142,7 +144,8 @@ class CreateStackSetOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i10.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NameAlreadyExistsException,
+            _i11.NameAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'NameAlreadyExistsException',

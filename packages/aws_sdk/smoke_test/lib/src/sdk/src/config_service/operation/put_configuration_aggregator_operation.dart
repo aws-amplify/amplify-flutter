@@ -132,7 +132,8 @@ class PutConfigurationAggregatorOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidParameterValueException,
+            _i9.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -141,7 +142,7 @@ class PutConfigurationAggregatorOperation extends _i1.HttpOperation<
           _i9.InvalidParameterValueException,
           builder: _i9.InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidRoleException, _i10.InvalidRoleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidRoleException',
@@ -150,7 +151,8 @@ class PutConfigurationAggregatorOperation extends _i1.HttpOperation<
           _i10.InvalidRoleException,
           builder: _i10.InvalidRoleException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.LimitExceededException,
+            _i11.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'LimitExceededException',
@@ -159,7 +161,8 @@ class PutConfigurationAggregatorOperation extends _i1.HttpOperation<
           _i11.LimitExceededException,
           builder: _i11.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.NoAvailableOrganizationException,
+            _i12.NoAvailableOrganizationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoAvailableOrganizationException',
@@ -168,7 +171,8 @@ class PutConfigurationAggregatorOperation extends _i1.HttpOperation<
           _i12.NoAvailableOrganizationException,
           builder: _i12.NoAvailableOrganizationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.OrganizationAccessDeniedException,
+            _i13.OrganizationAccessDeniedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAccessDeniedException',
@@ -177,7 +181,8 @@ class PutConfigurationAggregatorOperation extends _i1.HttpOperation<
           _i13.OrganizationAccessDeniedException,
           builder: _i13.OrganizationAccessDeniedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.OrganizationAllFeaturesNotEnabledException,
+            _i14.OrganizationAllFeaturesNotEnabledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAllFeaturesNotEnabledException',

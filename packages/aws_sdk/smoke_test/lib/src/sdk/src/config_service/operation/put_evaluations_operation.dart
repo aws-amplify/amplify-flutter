@@ -107,7 +107,8 @@ class PutEvaluationsOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidParameterValueException,
+            _i9.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -116,7 +117,8 @@ class PutEvaluationsOperation extends _i1.HttpOperation<
           _i9.InvalidParameterValueException,
           builder: _i9.InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidResultTokenException,
+            _i10.InvalidResultTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidResultTokenException',
@@ -125,7 +127,8 @@ class PutEvaluationsOperation extends _i1.HttpOperation<
           _i10.InvalidResultTokenException,
           builder: _i10.InvalidResultTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NoSuchConfigRuleException,
+            _i11.NoSuchConfigRuleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigRuleException',

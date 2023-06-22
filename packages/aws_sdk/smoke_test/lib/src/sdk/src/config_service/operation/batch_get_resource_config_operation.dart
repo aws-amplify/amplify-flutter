@@ -116,7 +116,8 @@ class BatchGetResourceConfigOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoAvailableConfigurationRecorderException,
+            _i9.NoAvailableConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoAvailableConfigurationRecorderException',
@@ -125,7 +126,7 @@ class BatchGetResourceConfigOperation extends _i1.HttpOperation<
           _i9.NoAvailableConfigurationRecorderException,
           builder: _i9.NoAvailableConfigurationRecorderException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ValidationException, _i10.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',

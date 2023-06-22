@@ -118,7 +118,8 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.GlobalTableNotFoundException,
+            _i9.GlobalTableNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'GlobalTableNotFoundException',
@@ -127,7 +128,8 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
           _i9.GlobalTableNotFoundException,
           builder: _i9.GlobalTableNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.IndexNotFoundException,
+            _i10.IndexNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'IndexNotFoundException',
@@ -136,7 +138,7 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
           _i10.IndexNotFoundException,
           builder: _i10.IndexNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InternalServerError, _i11.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -145,7 +147,8 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
           _i11.InternalServerError,
           builder: _i11.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidEndpointException,
+            _i12.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -155,7 +158,8 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
           statusCode: 421,
           builder: _i12.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.LimitExceededException,
+            _i13.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
@@ -164,7 +168,8 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
           _i13.LimitExceededException,
           builder: _i13.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.ReplicaNotFoundException,
+            _i14.ReplicaNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ReplicaNotFoundException',
@@ -173,7 +178,8 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
           _i14.ReplicaNotFoundException,
           builder: _i14.ReplicaNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.ResourceInUseException,
+            _i15.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceInUseException',

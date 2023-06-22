@@ -111,7 +111,8 @@ class ListStoredQueriesOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidNextTokenException,
+            _i9.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -120,7 +121,7 @@ class ListStoredQueriesOperation extends _i1.PaginatedHttpOperation<
           _i9.InvalidNextTokenException,
           builder: _i9.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ValidationException, _i10.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',

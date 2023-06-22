@@ -292,7 +292,7 @@ class CreateBucketOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.BucketAlreadyExists, _i10.BucketAlreadyExists>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.s3',
             shape: 'BucketAlreadyExists',
@@ -301,7 +301,8 @@ class CreateBucketOperation extends _i1.HttpOperation<
           _i10.BucketAlreadyExists,
           builder: _i10.BucketAlreadyExists.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.BucketAlreadyOwnedByYou,
+            _i11.BucketAlreadyOwnedByYou>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.s3',
             shape: 'BucketAlreadyOwnedByYou',

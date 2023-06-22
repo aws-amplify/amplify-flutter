@@ -141,7 +141,7 @@ class PutRolePermissionsBoundaryOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.InvalidInputException, _i8.InvalidInputException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidInputException',
@@ -151,7 +151,7 @@ class PutRolePermissionsBoundaryOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i8.InvalidInputException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoSuchEntityException, _i9.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -161,7 +161,8 @@ class PutRolePermissionsBoundaryOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i9.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.PolicyNotAttachableException,
+            _i10.PolicyNotAttachableException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'PolicyNotAttachableException',
@@ -171,7 +172,8 @@ class PutRolePermissionsBoundaryOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i10.PolicyNotAttachableException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ServiceFailureException,
+            _i11.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -181,7 +183,8 @@ class PutRolePermissionsBoundaryOperation extends _i1.HttpOperation<
           statusCode: 500,
           builder: _i11.ServiceFailureException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.UnmodifiableEntityException,
+            _i12.UnmodifiableEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'UnmodifiableEntityException',

@@ -120,7 +120,8 @@ class UpdateStackOperation extends _i1.HttpOperation<_i2.UpdateStackInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InsufficientCapabilitiesException,
+            _i9.InsufficientCapabilitiesException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'InsufficientCapabilitiesException',
@@ -130,7 +131,8 @@ class UpdateStackOperation extends _i1.HttpOperation<_i2.UpdateStackInput,
           statusCode: 400,
           builder: _i9.InsufficientCapabilitiesException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.TokenAlreadyExistsException,
+            _i10.TokenAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'TokenAlreadyExistsException',

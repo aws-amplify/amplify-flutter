@@ -102,7 +102,8 @@ class DeleteConfigurationAggregatorOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.NoSuchConfigurationAggregatorException,
+            _i8.NoSuchConfigurationAggregatorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigurationAggregatorException',

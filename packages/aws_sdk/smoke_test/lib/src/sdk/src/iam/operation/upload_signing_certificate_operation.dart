@@ -164,7 +164,8 @@ class UploadSigningCertificateOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.DuplicateCertificateException,
+            _i9.DuplicateCertificateException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'DuplicateCertificateException',
@@ -174,7 +175,8 @@ class UploadSigningCertificateOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i9.DuplicateCertificateException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.EntityAlreadyExistsException,
+            _i10.EntityAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'EntityAlreadyExistsException',
@@ -184,7 +186,8 @@ class UploadSigningCertificateOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i10.EntityAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidCertificateException,
+            _i11.InvalidCertificateException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidCertificateException',
@@ -194,7 +197,8 @@ class UploadSigningCertificateOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i11.InvalidCertificateException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.LimitExceededException,
+            _i12.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -204,7 +208,8 @@ class UploadSigningCertificateOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i12.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.MalformedCertificateException,
+            _i13.MalformedCertificateException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'MalformedCertificateException',
@@ -214,7 +219,7 @@ class UploadSigningCertificateOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i13.MalformedCertificateException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.NoSuchEntityException, _i14.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -224,7 +229,8 @@ class UploadSigningCertificateOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i14.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.ServiceFailureException,
+            _i15.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',

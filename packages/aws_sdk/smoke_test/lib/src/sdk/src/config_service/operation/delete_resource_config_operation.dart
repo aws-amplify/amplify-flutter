@@ -100,7 +100,8 @@ class DeleteResourceConfigOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.NoRunningConfigurationRecorderException,
+            _i8.NoRunningConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoRunningConfigurationRecorderException',
@@ -109,7 +110,7 @@ class DeleteResourceConfigOperation extends _i1.HttpOperation<
           _i8.NoRunningConfigurationRecorderException,
           builder: _i8.NoRunningConfigurationRecorderException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ValidationException, _i9.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',

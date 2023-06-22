@@ -376,7 +376,8 @@ class RestoreObjectOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ObjectAlreadyInActiveTierError,
+            _i10.ObjectAlreadyInActiveTierError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.s3',
             shape: 'ObjectAlreadyInActiveTierError',

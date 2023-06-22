@@ -104,7 +104,8 @@ class DeleteDeliveryChannelOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.LastDeliveryChannelDeleteFailedException,
+            _i8.LastDeliveryChannelDeleteFailedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'LastDeliveryChannelDeleteFailedException',
@@ -113,7 +114,8 @@ class DeleteDeliveryChannelOperation extends _i1.HttpOperation<
           _i8.LastDeliveryChannelDeleteFailedException,
           builder: _i8.LastDeliveryChannelDeleteFailedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoSuchDeliveryChannelException,
+            _i9.NoSuchDeliveryChannelException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchDeliveryChannelException',

@@ -106,7 +106,7 @@ class DeleteMethodOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.ConflictException, _i8.ConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'ConflictException',
@@ -116,7 +116,7 @@ class DeleteMethodOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i8.ConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NotFoundException, _i9.NotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'NotFoundException',
@@ -126,7 +126,8 @@ class DeleteMethodOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i9.NotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.TooManyRequestsExceptionPayload,
+            _i10.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'TooManyRequestsException',
@@ -136,7 +137,7 @@ class DeleteMethodOperation extends _i1.HttpOperation<
           statusCode: 429,
           builder: _i10.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.UnauthorizedException, _i11.UnauthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'UnauthorizedException',

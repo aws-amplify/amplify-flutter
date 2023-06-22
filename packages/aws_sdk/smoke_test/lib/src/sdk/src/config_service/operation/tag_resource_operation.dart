@@ -99,7 +99,8 @@ class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceRequest,
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.ResourceNotFoundException,
+            _i8.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceNotFoundException',
@@ -108,7 +109,7 @@ class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceRequest,
           _i8.ResourceNotFoundException,
           builder: _i8.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.TooManyTagsException, _i9.TooManyTagsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'TooManyTagsException',
@@ -117,7 +118,7 @@ class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceRequest,
           _i9.TooManyTagsException,
           builder: _i9.TooManyTagsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ValidationException, _i10.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',

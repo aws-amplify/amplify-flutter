@@ -104,7 +104,8 @@ class ImportTableOperation extends _i1.HttpOperation<_i2.ImportTableInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ImportConflictException,
+            _i9.ImportConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ImportConflictException',
@@ -113,7 +114,8 @@ class ImportTableOperation extends _i1.HttpOperation<_i2.ImportTableInput,
           _i9.ImportConflictException,
           builder: _i9.ImportConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.LimitExceededException,
+            _i10.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
@@ -122,7 +124,8 @@ class ImportTableOperation extends _i1.HttpOperation<_i2.ImportTableInput,
           _i10.LimitExceededException,
           builder: _i10.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ResourceInUseException,
+            _i11.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceInUseException',

@@ -141,7 +141,8 @@ class ExecuteChangeSetOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ChangeSetNotFoundException,
+            _i9.ChangeSetNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'ChangeSetNotFoundException',
@@ -151,7 +152,8 @@ class ExecuteChangeSetOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i9.ChangeSetNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InsufficientCapabilitiesException,
+            _i10.InsufficientCapabilitiesException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'InsufficientCapabilitiesException',
@@ -161,7 +163,8 @@ class ExecuteChangeSetOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i10.InsufficientCapabilitiesException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidChangeSetStatusException,
+            _i11.InvalidChangeSetStatusException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'InvalidChangeSetStatusException',
@@ -171,7 +174,8 @@ class ExecuteChangeSetOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i11.InvalidChangeSetStatusException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.TokenAlreadyExistsException,
+            _i12.TokenAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'TokenAlreadyExistsException',

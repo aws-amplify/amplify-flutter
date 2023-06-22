@@ -113,7 +113,8 @@ class DeleteOrganizationConfigRuleOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.NoSuchOrganizationConfigRuleException,
+            _i8.NoSuchOrganizationConfigRuleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchOrganizationConfigRuleException',
@@ -122,7 +123,8 @@ class DeleteOrganizationConfigRuleOperation extends _i1.HttpOperation<
           _i8.NoSuchOrganizationConfigRuleException,
           builder: _i8.NoSuchOrganizationConfigRuleException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.OrganizationAccessDeniedException,
+            _i9.OrganizationAccessDeniedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAccessDeniedException',
@@ -131,7 +133,8 @@ class DeleteOrganizationConfigRuleOperation extends _i1.HttpOperation<
           _i9.OrganizationAccessDeniedException,
           builder: _i9.OrganizationAccessDeniedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ResourceInUseException,
+            _i10.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceInUseException',

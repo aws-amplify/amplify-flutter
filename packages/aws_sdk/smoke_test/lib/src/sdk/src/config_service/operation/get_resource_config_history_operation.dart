@@ -130,7 +130,7 @@ class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidLimitException, _i11.InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
@@ -139,7 +139,8 @@ class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
           _i11.InvalidLimitException,
           builder: _i11.InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidNextTokenException,
+            _i12.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -148,7 +149,8 @@ class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
           _i12.InvalidNextTokenException,
           builder: _i12.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.InvalidTimeRangeException,
+            _i13.InvalidTimeRangeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidTimeRangeException',
@@ -157,7 +159,8 @@ class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
           _i13.InvalidTimeRangeException,
           builder: _i13.InvalidTimeRangeException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.NoAvailableConfigurationRecorderException,
+            _i14.NoAvailableConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoAvailableConfigurationRecorderException',
@@ -166,7 +169,8 @@ class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
           _i14.NoAvailableConfigurationRecorderException,
           builder: _i14.NoAvailableConfigurationRecorderException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.ResourceNotDiscoveredException,
+            _i15.ResourceNotDiscoveredException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceNotDiscoveredException',
@@ -175,7 +179,7 @@ class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
           _i15.ResourceNotDiscoveredException,
           builder: _i15.ResourceNotDiscoveredException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.ValidationException, _i16.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',

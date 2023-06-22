@@ -176,7 +176,8 @@ class CreateGlobalTableOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.GlobalTableAlreadyExistsException,
+            _i9.GlobalTableAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'GlobalTableAlreadyExistsException',
@@ -185,7 +186,7 @@ class CreateGlobalTableOperation extends _i1.HttpOperation<
           _i9.GlobalTableAlreadyExistsException,
           builder: _i9.GlobalTableAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InternalServerError, _i10.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -194,7 +195,8 @@ class CreateGlobalTableOperation extends _i1.HttpOperation<
           _i10.InternalServerError,
           builder: _i10.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidEndpointException,
+            _i11.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -204,7 +206,8 @@ class CreateGlobalTableOperation extends _i1.HttpOperation<
           statusCode: 421,
           builder: _i11.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.LimitExceededException,
+            _i12.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
@@ -213,7 +216,8 @@ class CreateGlobalTableOperation extends _i1.HttpOperation<
           _i12.LimitExceededException,
           builder: _i12.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.TableNotFoundException,
+            _i13.TableNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TableNotFoundException',

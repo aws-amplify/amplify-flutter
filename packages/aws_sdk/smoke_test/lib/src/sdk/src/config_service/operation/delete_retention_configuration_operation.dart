@@ -103,7 +103,8 @@ class DeleteRetentionConfigurationOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.InvalidParameterValueException,
+            _i8.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -112,7 +113,8 @@ class DeleteRetentionConfigurationOperation extends _i1.HttpOperation<
           _i8.InvalidParameterValueException,
           builder: _i8.InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoSuchRetentionConfigurationException,
+            _i9.NoSuchRetentionConfigurationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchRetentionConfigurationException',
