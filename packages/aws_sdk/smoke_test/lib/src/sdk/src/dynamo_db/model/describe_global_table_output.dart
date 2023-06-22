@@ -35,9 +35,8 @@ abstract class DescribeGlobalTableOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    DescribeGlobalTableOutputAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<DescribeGlobalTableOutput>>
+      serializers = [DescribeGlobalTableOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeGlobalTableOutputBuilder b) {}
@@ -48,11 +47,11 @@ abstract class DescribeGlobalTableOutput
   List<Object?> get props => [globalTableDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeGlobalTableOutput');
-    helper.add(
-      'globalTableDescription',
-      globalTableDescription,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeGlobalTableOutput')
+      ..add(
+        'globalTableDescription',
+        globalTableDescription,
+      );
     return helper.toString();
   }
 }

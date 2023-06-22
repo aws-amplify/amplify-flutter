@@ -33,7 +33,7 @@ abstract class RedirectAllRequestsTo
 
   const RedirectAllRequestsTo._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<RedirectAllRequestsTo>> serializers = [
     RedirectAllRequestsToRestXmlSerializer()
   ];
 
@@ -52,15 +52,15 @@ abstract class RedirectAllRequestsTo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RedirectAllRequestsTo');
-    helper.add(
-      'hostName',
-      hostName,
-    );
-    helper.add(
-      'protocol',
-      protocol,
-    );
+    final helper = newBuiltValueToStringHelper('RedirectAllRequestsTo')
+      ..add(
+        'hostName',
+        hostName,
+      )
+      ..add(
+        'protocol',
+        protocol,
+      );
     return helper.toString();
   }
 }

@@ -39,7 +39,7 @@ abstract class ListTypesOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ListTypesOutput>> serializers = [
     ListTypesOutputAwsQuerySerializer()
   ];
 
@@ -58,15 +58,15 @@ abstract class ListTypesOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTypesOutput');
-    helper.add(
-      'typeSummaries',
-      typeSummaries,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListTypesOutput')
+      ..add(
+        'typeSummaries',
+        typeSummaries,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

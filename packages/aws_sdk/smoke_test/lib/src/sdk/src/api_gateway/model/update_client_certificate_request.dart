@@ -56,9 +56,8 @@ abstract class UpdateClientCertificateRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateClientCertificateRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateClientCertificateRequestPayload>>
+      serializers = [UpdateClientCertificateRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateClientCertificateRequestBuilder b) {}
@@ -94,16 +93,15 @@ abstract class UpdateClientCertificateRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UpdateClientCertificateRequest');
-    helper.add(
-      'clientCertificateId',
-      clientCertificateId,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateClientCertificateRequest')
+      ..add(
+        'clientCertificateId',
+        clientCertificateId,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -131,11 +129,11 @@ abstract class UpdateClientCertificateRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateClientCertificateRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateClientCertificateRequestPayload')
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }

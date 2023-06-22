@@ -36,9 +36,8 @@ abstract class PutEvaluationsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    PutEvaluationsResponseAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<PutEvaluationsResponse>> serializers =
+      [PutEvaluationsResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutEvaluationsResponseBuilder b) {}
@@ -49,11 +48,11 @@ abstract class PutEvaluationsResponse
   List<Object?> get props => [failedEvaluations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutEvaluationsResponse');
-    helper.add(
-      'failedEvaluations',
-      failedEvaluations,
-    );
+    final helper = newBuiltValueToStringHelper('PutEvaluationsResponse')
+      ..add(
+        'failedEvaluations',
+        failedEvaluations,
+      );
     return helper.toString();
   }
 }

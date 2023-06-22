@@ -35,9 +35,8 @@ abstract class ConformancePackInputParameter
 
   const ConformancePackInputParameter._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ConformancePackInputParameterAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ConformancePackInputParameter>>
+      serializers = [ConformancePackInputParameterAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackInputParameterBuilder b) {}
@@ -54,15 +53,15 @@ abstract class ConformancePackInputParameter
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConformancePackInputParameter');
-    helper.add(
-      'parameterName',
-      parameterName,
-    );
-    helper.add(
-      'parameterValue',
-      parameterValue,
-    );
+    final helper = newBuiltValueToStringHelper('ConformancePackInputParameter')
+      ..add(
+        'parameterName',
+        parameterName,
+      )
+      ..add(
+        'parameterValue',
+        parameterValue,
+      );
     return helper.toString();
   }
 }

@@ -51,7 +51,9 @@ abstract class GetBucketNotificationConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+      _i1.SmithySerializer<
+          GetBucketNotificationConfigurationRequestPayload>> serializers = [
     GetBucketNotificationConfigurationRequestRestXmlSerializer()
   ];
 
@@ -89,16 +91,16 @@ abstract class GetBucketNotificationConfigurationRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'GetBucketNotificationConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper =
+        newBuiltValueToStringHelper('GetBucketNotificationConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }

@@ -37,7 +37,9 @@ abstract class ResetServiceSpecificCredentialResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<
+          _i3.SmithySerializer<ResetServiceSpecificCredentialResponse>>
+      serializers = [
     ResetServiceSpecificCredentialResponseAwsQuerySerializer()
   ];
 
@@ -53,11 +55,11 @@ abstract class ResetServiceSpecificCredentialResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ResetServiceSpecificCredentialResponse');
-    helper.add(
-      'serviceSpecificCredential',
-      serviceSpecificCredential,
-    );
+        newBuiltValueToStringHelper('ResetServiceSpecificCredentialResponse')
+          ..add(
+            'serviceSpecificCredential',
+            serviceSpecificCredential,
+          );
     return helper.toString();
   }
 }

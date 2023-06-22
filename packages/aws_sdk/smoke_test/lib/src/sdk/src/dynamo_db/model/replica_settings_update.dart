@@ -51,7 +51,7 @@ abstract class ReplicaSettingsUpdate
 
   const ReplicaSettingsUpdate._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<ReplicaSettingsUpdate>> serializers = [
     ReplicaSettingsUpdateAwsJson10Serializer()
   ];
 
@@ -84,27 +84,27 @@ abstract class ReplicaSettingsUpdate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicaSettingsUpdate');
-    helper.add(
-      'regionName',
-      regionName,
-    );
-    helper.add(
-      'replicaProvisionedReadCapacityUnits',
-      replicaProvisionedReadCapacityUnits,
-    );
-    helper.add(
-      'replicaProvisionedReadCapacityAutoScalingSettingsUpdate',
-      replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
-    );
-    helper.add(
-      'replicaGlobalSecondaryIndexSettingsUpdate',
-      replicaGlobalSecondaryIndexSettingsUpdate,
-    );
-    helper.add(
-      'replicaTableClass',
-      replicaTableClass,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicaSettingsUpdate')
+      ..add(
+        'regionName',
+        regionName,
+      )
+      ..add(
+        'replicaProvisionedReadCapacityUnits',
+        replicaProvisionedReadCapacityUnits,
+      )
+      ..add(
+        'replicaProvisionedReadCapacityAutoScalingSettingsUpdate',
+        replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
+      )
+      ..add(
+        'replicaGlobalSecondaryIndexSettingsUpdate',
+        replicaGlobalSecondaryIndexSettingsUpdate,
+      )
+      ..add(
+        'replicaTableClass',
+        replicaTableClass,
+      );
     return helper.toString();
   }
 }

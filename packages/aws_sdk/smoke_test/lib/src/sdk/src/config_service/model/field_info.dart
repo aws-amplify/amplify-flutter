@@ -25,7 +25,7 @@ abstract class FieldInfo
 
   const FieldInfo._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<FieldInfo>> serializers = [
     FieldInfoAwsJson11Serializer()
   ];
 
@@ -38,11 +38,11 @@ abstract class FieldInfo
   List<Object?> get props => [name];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FieldInfo');
-    helper.add(
-      'name',
-      name,
-    );
+    final helper = newBuiltValueToStringHelper('FieldInfo')
+      ..add(
+        'name',
+        name,
+      );
     return helper.toString();
   }
 }

@@ -35,7 +35,7 @@ abstract class Projection
 
   const Projection._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Projection>> serializers = [
     ProjectionAwsJson10Serializer()
   ];
 
@@ -62,15 +62,15 @@ abstract class Projection
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Projection');
-    helper.add(
-      'projectionType',
-      projectionType,
-    );
-    helper.add(
-      'nonKeyAttributes',
-      nonKeyAttributes,
-    );
+    final helper = newBuiltValueToStringHelper('Projection')
+      ..add(
+        'projectionType',
+        projectionType,
+      )
+      ..add(
+        'nonKeyAttributes',
+        nonKeyAttributes,
+      );
     return helper.toString();
   }
 }

@@ -34,9 +34,8 @@ abstract class ComplianceByConfigRule
 
   const ComplianceByConfigRule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ComplianceByConfigRuleAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<ComplianceByConfigRule>> serializers =
+      [ComplianceByConfigRuleAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplianceByConfigRuleBuilder b) {}
@@ -53,15 +52,15 @@ abstract class ComplianceByConfigRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplianceByConfigRule');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'compliance',
-      compliance,
-    );
+    final helper = newBuiltValueToStringHelper('ComplianceByConfigRule')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'compliance',
+        compliance,
+      );
     return helper.toString();
   }
 }

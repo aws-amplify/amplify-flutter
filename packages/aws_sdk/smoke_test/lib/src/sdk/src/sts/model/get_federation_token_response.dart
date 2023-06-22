@@ -44,9 +44,8 @@ abstract class GetFederationTokenResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetFederationTokenResponseAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<GetFederationTokenResponse>>
+      serializers = [GetFederationTokenResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetFederationTokenResponseBuilder b) {}
@@ -69,19 +68,19 @@ abstract class GetFederationTokenResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetFederationTokenResponse');
-    helper.add(
-      'credentials',
-      credentials,
-    );
-    helper.add(
-      'federatedUser',
-      federatedUser,
-    );
-    helper.add(
-      'packedPolicySize',
-      packedPolicySize,
-    );
+    final helper = newBuiltValueToStringHelper('GetFederationTokenResponse')
+      ..add(
+        'credentials',
+        credentials,
+      )
+      ..add(
+        'federatedUser',
+        federatedUser,
+      )
+      ..add(
+        'packedPolicySize',
+        packedPolicySize,
+      );
     return helper.toString();
   }
 }

@@ -39,9 +39,8 @@ abstract class OrganizationAggregationSource
 
   const OrganizationAggregationSource._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    OrganizationAggregationSourceAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<OrganizationAggregationSource>>
+      serializers = [OrganizationAggregationSourceAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationAggregationSourceBuilder b) {
@@ -64,19 +63,19 @@ abstract class OrganizationAggregationSource
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OrganizationAggregationSource');
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'awsRegions',
-      awsRegions,
-    );
-    helper.add(
-      'allAwsRegions',
-      allAwsRegions,
-    );
+    final helper = newBuiltValueToStringHelper('OrganizationAggregationSource')
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'awsRegions',
+        awsRegions,
+      )
+      ..add(
+        'allAwsRegions',
+        allAwsRegions,
+      );
     return helper.toString();
   }
 }

@@ -32,7 +32,7 @@ abstract class SequenceNumberRange
 
   const SequenceNumberRange._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<SequenceNumberRange>> serializers = [
     SequenceNumberRangeAwsJson10Serializer()
   ];
 
@@ -51,15 +51,15 @@ abstract class SequenceNumberRange
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SequenceNumberRange');
-    helper.add(
-      'startingSequenceNumber',
-      startingSequenceNumber,
-    );
-    helper.add(
-      'endingSequenceNumber',
-      endingSequenceNumber,
-    );
+    final helper = newBuiltValueToStringHelper('SequenceNumberRange')
+      ..add(
+        'startingSequenceNumber',
+        startingSequenceNumber,
+      )
+      ..add(
+        'endingSequenceNumber',
+        endingSequenceNumber,
+      );
     return helper.toString();
   }
 }

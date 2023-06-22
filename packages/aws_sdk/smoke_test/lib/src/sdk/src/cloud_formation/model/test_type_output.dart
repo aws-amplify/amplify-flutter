@@ -29,7 +29,7 @@ abstract class TestTypeOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<TestTypeOutput>> serializers = [
     TestTypeOutputAwsQuerySerializer()
   ];
 
@@ -42,11 +42,11 @@ abstract class TestTypeOutput
   List<Object?> get props => [typeVersionArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestTypeOutput');
-    helper.add(
-      'typeVersionArn',
-      typeVersionArn,
-    );
+    final helper = newBuiltValueToStringHelper('TestTypeOutput')
+      ..add(
+        'typeVersionArn',
+        typeVersionArn,
+      );
     return helper.toString();
   }
 }

@@ -35,9 +35,8 @@ abstract class ReplicationConfiguration
 
   const ReplicationConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ReplicationConfigurationRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<ReplicationConfiguration>>
+      serializers = [ReplicationConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ReplicationConfigurationBuilder b) {}
@@ -54,15 +53,15 @@ abstract class ReplicationConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicationConfiguration');
-    helper.add(
-      'role',
-      role,
-    );
-    helper.add(
-      'rules',
-      rules,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicationConfiguration')
+      ..add(
+        'role',
+        role,
+      )
+      ..add(
+        'rules',
+        rules,
+      );
     return helper.toString();
   }
 }

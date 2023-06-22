@@ -32,9 +32,8 @@ abstract class SetTypeDefaultVersionOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    SetTypeDefaultVersionOutputAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<SetTypeDefaultVersionOutput>>
+      serializers = [SetTypeDefaultVersionOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SetTypeDefaultVersionOutputBuilder b) {}

@@ -49,7 +49,7 @@ abstract class ListPoliciesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListPoliciesRequest>> serializers = [
     ListPoliciesRequestAwsQuerySerializer()
   ];
 
@@ -100,31 +100,31 @@ abstract class ListPoliciesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListPoliciesRequest');
-    helper.add(
-      'scope',
-      scope,
-    );
-    helper.add(
-      'onlyAttached',
-      onlyAttached,
-    );
-    helper.add(
-      'pathPrefix',
-      pathPrefix,
-    );
-    helper.add(
-      'policyUsageFilter',
-      policyUsageFilter,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListPoliciesRequest')
+      ..add(
+        'scope',
+        scope,
+      )
+      ..add(
+        'onlyAttached',
+        onlyAttached,
+      )
+      ..add(
+        'pathPrefix',
+        pathPrefix,
+      )
+      ..add(
+        'policyUsageFilter',
+        policyUsageFilter,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

@@ -31,9 +31,8 @@ abstract class SetTypeConfigurationOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    SetTypeConfigurationOutputAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<SetTypeConfigurationOutput>>
+      serializers = [SetTypeConfigurationOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SetTypeConfigurationOutputBuilder b) {}
@@ -46,11 +45,11 @@ abstract class SetTypeConfigurationOutput
   List<Object?> get props => [configurationArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SetTypeConfigurationOutput');
-    helper.add(
-      'configurationArn',
-      configurationArn,
-    );
+    final helper = newBuiltValueToStringHelper('SetTypeConfigurationOutput')
+      ..add(
+        'configurationArn',
+        configurationArn,
+      );
     return helper.toString();
   }
 }

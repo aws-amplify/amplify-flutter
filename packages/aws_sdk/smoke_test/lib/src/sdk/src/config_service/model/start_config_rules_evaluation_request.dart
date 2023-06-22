@@ -37,9 +37,8 @@ abstract class StartConfigRulesEvaluationRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    StartConfigRulesEvaluationRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<StartConfigRulesEvaluationRequest>>
+      serializers = [StartConfigRulesEvaluationRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StartConfigRulesEvaluationRequestBuilder b) {}
@@ -53,11 +52,11 @@ abstract class StartConfigRulesEvaluationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('StartConfigRulesEvaluationRequest');
-    helper.add(
-      'configRuleNames',
-      configRuleNames,
-    );
+        newBuiltValueToStringHelper('StartConfigRulesEvaluationRequest')
+          ..add(
+            'configRuleNames',
+            configRuleNames,
+          );
     return helper.toString();
   }
 }

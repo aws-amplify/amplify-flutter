@@ -35,7 +35,7 @@ abstract class AccessControlPolicy
 
   const AccessControlPolicy._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<AccessControlPolicy>> serializers = [
     AccessControlPolicyRestXmlSerializer()
   ];
 
@@ -54,15 +54,15 @@ abstract class AccessControlPolicy
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccessControlPolicy');
-    helper.add(
-      'grants',
-      grants,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
+    final helper = newBuiltValueToStringHelper('AccessControlPolicy')
+      ..add(
+        'grants',
+        grants,
+      )
+      ..add(
+        'owner',
+        owner,
+      );
     return helper.toString();
   }
 }

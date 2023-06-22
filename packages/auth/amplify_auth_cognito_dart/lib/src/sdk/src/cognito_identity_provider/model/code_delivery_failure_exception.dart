@@ -39,9 +39,8 @@ abstract class CodeDeliveryFailureException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    CodeDeliveryFailureExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<CodeDeliveryFailureException>>
+      serializers = [CodeDeliveryFailureExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CodeDeliveryFailureExceptionBuilder b) {}
@@ -68,11 +67,11 @@ abstract class CodeDeliveryFailureException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CodeDeliveryFailureException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('CodeDeliveryFailureException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

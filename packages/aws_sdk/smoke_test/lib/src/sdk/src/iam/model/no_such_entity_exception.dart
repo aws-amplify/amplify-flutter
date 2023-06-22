@@ -37,7 +37,7 @@ abstract class NoSuchEntityException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<NoSuchEntityException>> serializers = [
     NoSuchEntityExceptionAwsQuerySerializer()
   ];
 
@@ -64,11 +64,11 @@ abstract class NoSuchEntityException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NoSuchEntityException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('NoSuchEntityException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

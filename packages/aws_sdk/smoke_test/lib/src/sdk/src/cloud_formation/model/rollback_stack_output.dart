@@ -30,7 +30,7 @@ abstract class RollbackStackOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<RollbackStackOutput>> serializers = [
     RollbackStackOutputAwsQuerySerializer()
   ];
 
@@ -43,11 +43,11 @@ abstract class RollbackStackOutput
   List<Object?> get props => [stackId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RollbackStackOutput');
-    helper.add(
-      'stackId',
-      stackId,
-    );
+    final helper = newBuiltValueToStringHelper('RollbackStackOutput')
+      ..add(
+        'stackId',
+        stackId,
+      );
     return helper.toString();
   }
 }

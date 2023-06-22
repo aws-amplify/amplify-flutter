@@ -33,7 +33,7 @@ abstract class ThrottleSettings
 
   const ThrottleSettings._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ThrottleSettings>> serializers = [
     ThrottleSettingsRestJson1Serializer()
   ];
 
@@ -55,15 +55,15 @@ abstract class ThrottleSettings
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ThrottleSettings');
-    helper.add(
-      'burstLimit',
-      burstLimit,
-    );
-    helper.add(
-      'rateLimit',
-      rateLimit,
-    );
+    final helper = newBuiltValueToStringHelper('ThrottleSettings')
+      ..add(
+        'burstLimit',
+        burstLimit,
+      )
+      ..add(
+        'rateLimit',
+        rateLimit,
+      );
     return helper.toString();
   }
 }

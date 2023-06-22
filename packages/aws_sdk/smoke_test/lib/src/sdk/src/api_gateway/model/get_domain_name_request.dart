@@ -43,9 +43,8 @@ abstract class GetDomainNameRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetDomainNameRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetDomainNameRequestPayload>>
+      serializers = [GetDomainNameRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetDomainNameRequestBuilder b) {}
@@ -70,11 +69,11 @@ abstract class GetDomainNameRequest
   List<Object?> get props => [domainName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetDomainNameRequest');
-    helper.add(
-      'domainName',
-      domainName,
-    );
+    final helper = newBuiltValueToStringHelper('GetDomainNameRequest')
+      ..add(
+        'domainName',
+        domainName,
+      );
     return helper.toString();
   }
 }

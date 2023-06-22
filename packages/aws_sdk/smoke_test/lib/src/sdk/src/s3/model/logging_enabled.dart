@@ -35,7 +35,7 @@ abstract class LoggingEnabled
 
   const LoggingEnabled._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<LoggingEnabled>> serializers = [
     LoggingEnabledRestXmlSerializer()
   ];
 
@@ -60,19 +60,19 @@ abstract class LoggingEnabled
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LoggingEnabled');
-    helper.add(
-      'targetBucket',
-      targetBucket,
-    );
-    helper.add(
-      'targetGrants',
-      targetGrants,
-    );
-    helper.add(
-      'targetPrefix',
-      targetPrefix,
-    );
+    final helper = newBuiltValueToStringHelper('LoggingEnabled')
+      ..add(
+        'targetBucket',
+        targetBucket,
+      )
+      ..add(
+        'targetGrants',
+        targetGrants,
+      )
+      ..add(
+        'targetPrefix',
+        targetPrefix,
+      );
     return helper.toString();
   }
 }

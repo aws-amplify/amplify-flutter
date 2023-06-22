@@ -32,9 +32,8 @@ abstract class DescribePublisherInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribePublisherInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DescribePublisherInput>> serializers =
+      [DescribePublisherInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribePublisherInputBuilder b) {}
@@ -49,11 +48,11 @@ abstract class DescribePublisherInput
   List<Object?> get props => [publisherId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribePublisherInput');
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
+    final helper = newBuiltValueToStringHelper('DescribePublisherInput')
+      ..add(
+        'publisherId',
+        publisherId,
+      );
     return helper.toString();
   }
 }

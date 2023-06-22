@@ -60,7 +60,8 @@ abstract class PutBucketIntelligentTieringConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.IntelligentTieringConfiguration>>
+      serializers = [
     PutBucketIntelligentTieringConfigurationRequestRestXmlSerializer()
   ];
 
@@ -99,19 +100,19 @@ abstract class PutBucketIntelligentTieringConfigurationRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'PutBucketIntelligentTieringConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'intelligentTieringConfiguration',
-      intelligentTieringConfiguration,
-    );
+        'PutBucketIntelligentTieringConfigurationRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'intelligentTieringConfiguration',
+        intelligentTieringConfiguration,
+      );
     return helper.toString();
   }
 }

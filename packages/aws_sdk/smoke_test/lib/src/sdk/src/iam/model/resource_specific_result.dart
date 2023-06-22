@@ -57,9 +57,8 @@ abstract class ResourceSpecificResult
 
   const ResourceSpecificResult._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    ResourceSpecificResultAwsQuerySerializer()
-  ];
+  static const List<_i6.SmithySerializer<ResourceSpecificResult>> serializers =
+      [ResourceSpecificResultAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceSpecificResultBuilder b) {}
@@ -93,31 +92,31 @@ abstract class ResourceSpecificResult
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceSpecificResult');
-    helper.add(
-      'evalResourceName',
-      evalResourceName,
-    );
-    helper.add(
-      'evalResourceDecision',
-      evalResourceDecision,
-    );
-    helper.add(
-      'matchedStatements',
-      matchedStatements,
-    );
-    helper.add(
-      'missingContextValues',
-      missingContextValues,
-    );
-    helper.add(
-      'evalDecisionDetails',
-      evalDecisionDetails,
-    );
-    helper.add(
-      'permissionsBoundaryDecisionDetail',
-      permissionsBoundaryDecisionDetail,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceSpecificResult')
+      ..add(
+        'evalResourceName',
+        evalResourceName,
+      )
+      ..add(
+        'evalResourceDecision',
+        evalResourceDecision,
+      )
+      ..add(
+        'matchedStatements',
+        matchedStatements,
+      )
+      ..add(
+        'missingContextValues',
+        missingContextValues,
+      )
+      ..add(
+        'evalDecisionDetails',
+        evalDecisionDetails,
+      )
+      ..add(
+        'permissionsBoundaryDecisionDetail',
+        permissionsBoundaryDecisionDetail,
+      );
     return helper.toString();
   }
 }

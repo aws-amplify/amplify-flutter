@@ -27,7 +27,7 @@ abstract class InputFormatOptions
 
   const InputFormatOptions._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<InputFormatOptions>> serializers = [
     InputFormatOptionsAwsJson10Serializer()
   ];
 
@@ -40,11 +40,11 @@ abstract class InputFormatOptions
   List<Object?> get props => [csv];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InputFormatOptions');
-    helper.add(
-      'csv',
-      csv,
-    );
+    final helper = newBuiltValueToStringHelper('InputFormatOptions')
+      ..add(
+        'csv',
+        csv,
+      );
     return helper.toString();
   }
 }

@@ -66,9 +66,8 @@ abstract class GetApiKeysRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetApiKeysRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetApiKeysRequestPayload>>
+      serializers = [GetApiKeysRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetApiKeysRequestBuilder b) {}
@@ -99,27 +98,27 @@ abstract class GetApiKeysRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetApiKeysRequest');
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nameQuery',
-      nameQuery,
-    );
-    helper.add(
-      'customerId',
-      customerId,
-    );
-    helper.add(
-      'includeValues',
-      includeValues,
-    );
+    final helper = newBuiltValueToStringHelper('GetApiKeysRequest')
+      ..add(
+        'position',
+        position,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'nameQuery',
+        nameQuery,
+      )
+      ..add(
+        'customerId',
+        customerId,
+      )
+      ..add(
+        'includeValues',
+        includeValues,
+      );
     return helper.toString();
   }
 }

@@ -37,7 +37,7 @@ abstract class BatchStatementRequest
 
   const BatchStatementRequest._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<BatchStatementRequest>> serializers = [
     BatchStatementRequestAwsJson10Serializer()
   ];
 
@@ -60,19 +60,19 @@ abstract class BatchStatementRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BatchStatementRequest');
-    helper.add(
-      'statement',
-      statement,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'consistentRead',
-      consistentRead,
-    );
+    final helper = newBuiltValueToStringHelper('BatchStatementRequest')
+      ..add(
+        'statement',
+        statement,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'consistentRead',
+        consistentRead,
+      );
     return helper.toString();
   }
 }

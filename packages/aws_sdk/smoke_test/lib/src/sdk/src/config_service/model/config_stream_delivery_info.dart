@@ -39,9 +39,8 @@ abstract class ConfigStreamDeliveryInfo
 
   const ConfigStreamDeliveryInfo._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ConfigStreamDeliveryInfoAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<ConfigStreamDeliveryInfo>>
+      serializers = [ConfigStreamDeliveryInfoAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigStreamDeliveryInfoBuilder b) {}
@@ -68,23 +67,23 @@ abstract class ConfigStreamDeliveryInfo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfigStreamDeliveryInfo');
-    helper.add(
-      'lastStatus',
-      lastStatus,
-    );
-    helper.add(
-      'lastErrorCode',
-      lastErrorCode,
-    );
-    helper.add(
-      'lastErrorMessage',
-      lastErrorMessage,
-    );
-    helper.add(
-      'lastStatusChangeTime',
-      lastStatusChangeTime,
-    );
+    final helper = newBuiltValueToStringHelper('ConfigStreamDeliveryInfo')
+      ..add(
+        'lastStatus',
+        lastStatus,
+      )
+      ..add(
+        'lastErrorCode',
+        lastErrorCode,
+      )
+      ..add(
+        'lastErrorMessage',
+        lastErrorMessage,
+      )
+      ..add(
+        'lastStatusChangeTime',
+        lastStatusChangeTime,
+      );
     return helper.toString();
   }
 }

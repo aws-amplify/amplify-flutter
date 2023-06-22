@@ -46,7 +46,7 @@ abstract class Record
 
   const Record._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<Record>> serializers = [
     RecordAwsJson10Serializer()
   ];
 
@@ -101,35 +101,35 @@ abstract class Record
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Record');
-    helper.add(
-      'eventId',
-      eventId,
-    );
-    helper.add(
-      'eventName',
-      eventName,
-    );
-    helper.add(
-      'eventVersion',
-      eventVersion,
-    );
-    helper.add(
-      'eventSource',
-      eventSource,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
-    helper.add(
-      'dynamodb',
-      dynamodb,
-    );
-    helper.add(
-      'userIdentity',
-      userIdentity,
-    );
+    final helper = newBuiltValueToStringHelper('Record')
+      ..add(
+        'eventId',
+        eventId,
+      )
+      ..add(
+        'eventName',
+        eventName,
+      )
+      ..add(
+        'eventVersion',
+        eventVersion,
+      )
+      ..add(
+        'eventSource',
+        eventSource,
+      )
+      ..add(
+        'awsRegion',
+        awsRegion,
+      )
+      ..add(
+        'dynamodb',
+        dynamodb,
+      )
+      ..add(
+        'userIdentity',
+        userIdentity,
+      );
     return helper.toString();
   }
 }

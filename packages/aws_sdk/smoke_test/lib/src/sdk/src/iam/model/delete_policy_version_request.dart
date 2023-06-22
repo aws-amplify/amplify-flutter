@@ -39,9 +39,8 @@ abstract class DeletePolicyVersionRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeletePolicyVersionRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeletePolicyVersionRequest>>
+      serializers = [DeletePolicyVersionRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeletePolicyVersionRequestBuilder b) {}
@@ -66,15 +65,15 @@ abstract class DeletePolicyVersionRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeletePolicyVersionRequest');
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
+    final helper = newBuiltValueToStringHelper('DeletePolicyVersionRequest')
+      ..add(
+        'policyArn',
+        policyArn,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      );
     return helper.toString();
   }
 }

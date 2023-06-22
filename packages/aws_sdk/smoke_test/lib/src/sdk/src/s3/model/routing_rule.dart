@@ -33,7 +33,7 @@ abstract class RoutingRule
 
   const RoutingRule._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<RoutingRule>> serializers = [
     RoutingRuleRestXmlSerializer()
   ];
 
@@ -52,15 +52,15 @@ abstract class RoutingRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RoutingRule');
-    helper.add(
-      'condition',
-      condition,
-    );
-    helper.add(
-      'redirect',
-      redirect,
-    );
+    final helper = newBuiltValueToStringHelper('RoutingRule')
+      ..add(
+        'condition',
+        condition,
+      )
+      ..add(
+        'redirect',
+        redirect,
+      );
     return helper.toString();
   }
 }

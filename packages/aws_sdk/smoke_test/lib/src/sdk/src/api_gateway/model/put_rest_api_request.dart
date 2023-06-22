@@ -63,7 +63,7 @@ abstract class PutRestApiRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List>> serializers = [
     PutRestApiRequestRestJson1Serializer()
   ];
 
@@ -110,27 +110,27 @@ abstract class PutRestApiRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutRestApiRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'mode',
-      mode,
-    );
-    helper.add(
-      'failOnWarnings',
-      failOnWarnings,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'body',
-      body,
-    );
+    final helper = newBuiltValueToStringHelper('PutRestApiRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'mode',
+        mode,
+      )
+      ..add(
+        'failOnWarnings',
+        failOnWarnings,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'body',
+        body,
+      );
     return helper.toString();
   }
 }

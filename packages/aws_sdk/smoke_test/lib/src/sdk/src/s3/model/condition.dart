@@ -31,7 +31,7 @@ abstract class Condition
 
   const Condition._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Condition>> serializers = [
     ConditionRestXmlSerializer()
   ];
 
@@ -52,15 +52,15 @@ abstract class Condition
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Condition');
-    helper.add(
-      'httpErrorCodeReturnedEquals',
-      httpErrorCodeReturnedEquals,
-    );
-    helper.add(
-      'keyPrefixEquals',
-      keyPrefixEquals,
-    );
+    final helper = newBuiltValueToStringHelper('Condition')
+      ..add(
+        'httpErrorCodeReturnedEquals',
+        httpErrorCodeReturnedEquals,
+      )
+      ..add(
+        'keyPrefixEquals',
+        keyPrefixEquals,
+      );
     return helper.toString();
   }
 }

@@ -25,7 +25,7 @@ abstract class IndexDocument
 
   const IndexDocument._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<IndexDocument>> serializers = [
     IndexDocumentRestXmlSerializer()
   ];
 
@@ -40,11 +40,11 @@ abstract class IndexDocument
   List<Object?> get props => [suffix];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('IndexDocument');
-    helper.add(
-      'suffix',
-      suffix,
-    );
+    final helper = newBuiltValueToStringHelper('IndexDocument')
+      ..add(
+        'suffix',
+        suffix,
+      );
     return helper.toString();
   }
 }

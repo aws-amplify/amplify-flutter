@@ -92,9 +92,8 @@ abstract class PutObjectRetentionRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutObjectRetentionRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.ObjectLockRetention?>>
+      serializers = [PutObjectRetentionRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutObjectRetentionRequestBuilder b) {}
@@ -162,43 +161,43 @@ abstract class PutObjectRetentionRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutObjectRetentionRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'retention',
-      retention,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'bypassGovernanceRetention',
-      bypassGovernanceRetention,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutObjectRetentionRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'retention',
+        retention,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'bypassGovernanceRetention',
+        bypassGovernanceRetention,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

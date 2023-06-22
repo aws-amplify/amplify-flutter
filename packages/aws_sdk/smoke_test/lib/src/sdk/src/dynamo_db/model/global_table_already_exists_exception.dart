@@ -40,9 +40,8 @@ abstract class GlobalTableAlreadyExistsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GlobalTableAlreadyExistsExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<GlobalTableAlreadyExistsException>>
+      serializers = [GlobalTableAlreadyExistsExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GlobalTableAlreadyExistsExceptionBuilder b) {}
@@ -68,11 +67,11 @@ abstract class GlobalTableAlreadyExistsException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GlobalTableAlreadyExistsException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('GlobalTableAlreadyExistsException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

@@ -39,9 +39,8 @@ abstract class UserPoolAddOnNotEnabledException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UserPoolAddOnNotEnabledExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<UserPoolAddOnNotEnabledException>>
+      serializers = [UserPoolAddOnNotEnabledExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UserPoolAddOnNotEnabledExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class UserPoolAddOnNotEnabledException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UserPoolAddOnNotEnabledException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('UserPoolAddOnNotEnabledException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

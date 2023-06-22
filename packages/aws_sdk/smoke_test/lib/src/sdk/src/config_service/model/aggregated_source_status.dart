@@ -46,9 +46,8 @@ abstract class AggregatedSourceStatus
 
   const AggregatedSourceStatus._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    AggregatedSourceStatusAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<AggregatedSourceStatus>> serializers =
+      [AggregatedSourceStatusAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AggregatedSourceStatusBuilder b) {}
@@ -91,35 +90,35 @@ abstract class AggregatedSourceStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AggregatedSourceStatus');
-    helper.add(
-      'sourceId',
-      sourceId,
-    );
-    helper.add(
-      'sourceType',
-      sourceType,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
-    helper.add(
-      'lastUpdateStatus',
-      lastUpdateStatus,
-    );
-    helper.add(
-      'lastUpdateTime',
-      lastUpdateTime,
-    );
-    helper.add(
-      'lastErrorCode',
-      lastErrorCode,
-    );
-    helper.add(
-      'lastErrorMessage',
-      lastErrorMessage,
-    );
+    final helper = newBuiltValueToStringHelper('AggregatedSourceStatus')
+      ..add(
+        'sourceId',
+        sourceId,
+      )
+      ..add(
+        'sourceType',
+        sourceType,
+      )
+      ..add(
+        'awsRegion',
+        awsRegion,
+      )
+      ..add(
+        'lastUpdateStatus',
+        lastUpdateStatus,
+      )
+      ..add(
+        'lastUpdateTime',
+        lastUpdateTime,
+      )
+      ..add(
+        'lastErrorCode',
+        lastErrorCode,
+      )
+      ..add(
+        'lastErrorMessage',
+        lastErrorMessage,
+      );
     return helper.toString();
   }
 }

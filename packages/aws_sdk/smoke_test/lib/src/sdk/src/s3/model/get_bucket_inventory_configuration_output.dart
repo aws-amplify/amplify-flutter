@@ -51,9 +51,8 @@ abstract class GetBucketInventoryConfigurationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketInventoryConfigurationOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<_i3.InventoryConfiguration?>>
+      serializers = [GetBucketInventoryConfigurationOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketInventoryConfigurationOutputBuilder b) {}
@@ -67,11 +66,11 @@ abstract class GetBucketInventoryConfigurationOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketInventoryConfigurationOutput');
-    helper.add(
-      'inventoryConfiguration',
-      inventoryConfiguration,
-    );
+        newBuiltValueToStringHelper('GetBucketInventoryConfigurationOutput')
+          ..add(
+            'inventoryConfiguration',
+            inventoryConfiguration,
+          );
     return helper.toString();
   }
 }

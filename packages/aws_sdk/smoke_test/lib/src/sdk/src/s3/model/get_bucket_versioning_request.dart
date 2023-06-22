@@ -50,9 +50,8 @@ abstract class GetBucketVersioningRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketVersioningRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetBucketVersioningRequestPayload>>
+      serializers = [GetBucketVersioningRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketVersioningRequestBuilder b) {}
@@ -84,15 +83,15 @@ abstract class GetBucketVersioningRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketVersioningRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketVersioningRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

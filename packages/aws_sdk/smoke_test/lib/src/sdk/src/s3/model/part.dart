@@ -43,7 +43,7 @@ abstract class Part
 
   const Part._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Part>> serializers = [
     PartRestXmlSerializer()
   ];
 
@@ -86,39 +86,39 @@ abstract class Part
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Part');
-    helper.add(
-      'partNumber',
-      partNumber,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'size',
-      size,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
+    final helper = newBuiltValueToStringHelper('Part')
+      ..add(
+        'partNumber',
+        partNumber,
+      )
+      ..add(
+        'lastModified',
+        lastModified,
+      )
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'size',
+        size,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      );
     return helper.toString();
   }
 }

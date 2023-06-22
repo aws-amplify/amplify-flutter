@@ -57,9 +57,8 @@ abstract class OrganizationCustomRuleMetadata
 
   const OrganizationCustomRuleMetadata._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    OrganizationCustomRuleMetadataAwsJson11Serializer()
-  ];
+  static const List<_i5.SmithySerializer<OrganizationCustomRuleMetadata>>
+      serializers = [OrganizationCustomRuleMetadataAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationCustomRuleMetadataBuilder b) {}
@@ -113,44 +112,43 @@ abstract class OrganizationCustomRuleMetadata
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('OrganizationCustomRuleMetadata');
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'lambdaFunctionArn',
-      lambdaFunctionArn,
-    );
-    helper.add(
-      'organizationConfigRuleTriggerTypes',
-      organizationConfigRuleTriggerTypes,
-    );
-    helper.add(
-      'inputParameters',
-      inputParameters,
-    );
-    helper.add(
-      'maximumExecutionFrequency',
-      maximumExecutionFrequency,
-    );
-    helper.add(
-      'resourceTypesScope',
-      resourceTypesScope,
-    );
-    helper.add(
-      'resourceIdScope',
-      resourceIdScope,
-    );
-    helper.add(
-      'tagKeyScope',
-      tagKeyScope,
-    );
-    helper.add(
-      'tagValueScope',
-      tagValueScope,
-    );
+    final helper = newBuiltValueToStringHelper('OrganizationCustomRuleMetadata')
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'lambdaFunctionArn',
+        lambdaFunctionArn,
+      )
+      ..add(
+        'organizationConfigRuleTriggerTypes',
+        organizationConfigRuleTriggerTypes,
+      )
+      ..add(
+        'inputParameters',
+        inputParameters,
+      )
+      ..add(
+        'maximumExecutionFrequency',
+        maximumExecutionFrequency,
+      )
+      ..add(
+        'resourceTypesScope',
+        resourceTypesScope,
+      )
+      ..add(
+        'resourceIdScope',
+        resourceIdScope,
+      )
+      ..add(
+        'tagKeyScope',
+        tagKeyScope,
+      )
+      ..add(
+        'tagValueScope',
+        tagValueScope,
+      );
     return helper.toString();
   }
 }

@@ -40,7 +40,9 @@ abstract class ResourceConcurrentModificationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<ResourceConcurrentModificationException>>
+      serializers = [
     ResourceConcurrentModificationExceptionAwsJson11Serializer()
   ];
 
@@ -68,11 +70,11 @@ abstract class ResourceConcurrentModificationException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ResourceConcurrentModificationException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('ResourceConcurrentModificationException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

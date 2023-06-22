@@ -46,7 +46,9 @@ abstract class DescribeConfigurationAggregatorsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DescribeConfigurationAggregatorsRequest>>
+      serializers = [
     DescribeConfigurationAggregatorsRequestAwsJson11Serializer()
   ];
 
@@ -74,19 +76,19 @@ abstract class DescribeConfigurationAggregatorsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeConfigurationAggregatorsRequest');
-    helper.add(
-      'configurationAggregatorNames',
-      configurationAggregatorNames,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+        newBuiltValueToStringHelper('DescribeConfigurationAggregatorsRequest')
+          ..add(
+            'configurationAggregatorNames',
+            configurationAggregatorNames,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          )
+          ..add(
+            'limit',
+            limit,
+          );
     return helper.toString();
   }
 }

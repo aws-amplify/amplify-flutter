@@ -42,9 +42,8 @@ abstract class ResyncMfaDeviceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ResyncMfaDeviceRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ResyncMfaDeviceRequest>> serializers =
+      [ResyncMfaDeviceRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResyncMfaDeviceRequestBuilder b) {}
@@ -79,23 +78,23 @@ abstract class ResyncMfaDeviceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResyncMfaDeviceRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
-    helper.add(
-      'authenticationCode1',
-      authenticationCode1,
-    );
-    helper.add(
-      'authenticationCode2',
-      authenticationCode2,
-    );
+    final helper = newBuiltValueToStringHelper('ResyncMfaDeviceRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'serialNumber',
+        serialNumber,
+      )
+      ..add(
+        'authenticationCode1',
+        authenticationCode1,
+      )
+      ..add(
+        'authenticationCode2',
+        authenticationCode2,
+      );
     return helper.toString();
   }
 }

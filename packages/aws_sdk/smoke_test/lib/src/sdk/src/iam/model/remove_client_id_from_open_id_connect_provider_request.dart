@@ -40,7 +40,9 @@ abstract class RemoveClientIdFromOpenIdConnectProviderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<RemoveClientIdFromOpenIdConnectProviderRequest>>
+      serializers = [
     RemoveClientIdFromOpenIdConnectProviderRequestAwsQuerySerializer()
   ];
 
@@ -64,15 +66,15 @@ abstract class RemoveClientIdFromOpenIdConnectProviderRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'RemoveClientIdFromOpenIdConnectProviderRequest');
-    helper.add(
-      'openIdConnectProviderArn',
-      openIdConnectProviderArn,
-    );
-    helper.add(
-      'clientId',
-      clientId,
-    );
+        'RemoveClientIdFromOpenIdConnectProviderRequest')
+      ..add(
+        'openIdConnectProviderArn',
+        openIdConnectProviderArn,
+      )
+      ..add(
+        'clientId',
+        clientId,
+      );
     return helper.toString();
   }
 }

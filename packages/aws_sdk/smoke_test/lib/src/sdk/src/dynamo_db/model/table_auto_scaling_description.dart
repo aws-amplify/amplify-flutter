@@ -40,9 +40,8 @@ abstract class TableAutoScalingDescription
 
   const TableAutoScalingDescription._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    TableAutoScalingDescriptionAwsJson10Serializer()
-  ];
+  static const List<_i5.SmithySerializer<TableAutoScalingDescription>>
+      serializers = [TableAutoScalingDescriptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TableAutoScalingDescriptionBuilder b) {}
@@ -71,19 +70,19 @@ abstract class TableAutoScalingDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TableAutoScalingDescription');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'tableStatus',
-      tableStatus,
-    );
-    helper.add(
-      'replicas',
-      replicas,
-    );
+    final helper = newBuiltValueToStringHelper('TableAutoScalingDescription')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'tableStatus',
+        tableStatus,
+      )
+      ..add(
+        'replicas',
+        replicas,
+      );
     return helper.toString();
   }
 }

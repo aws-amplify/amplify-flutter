@@ -38,7 +38,7 @@ abstract class Grantee
 
   const Grantee._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Grantee>> serializers = [
     GranteeRestXmlSerializer()
   ];
 
@@ -90,27 +90,27 @@ abstract class Grantee
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Grantee');
-    helper.add(
-      'displayName',
-      displayName,
-    );
-    helper.add(
-      'emailAddress',
-      emailAddress,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'uri',
-      uri,
-    );
-    helper.add(
-      'type',
-      type,
-    );
+    final helper = newBuiltValueToStringHelper('Grantee')
+      ..add(
+        'displayName',
+        displayName,
+      )
+      ..add(
+        'emailAddress',
+        emailAddress,
+      )
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'uri',
+        uri,
+      )
+      ..add(
+        'type',
+        type,
+      );
     return helper.toString();
   }
 }

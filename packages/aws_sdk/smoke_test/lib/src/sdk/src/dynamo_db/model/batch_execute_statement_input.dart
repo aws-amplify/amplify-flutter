@@ -44,9 +44,8 @@ abstract class BatchExecuteStatementInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    BatchExecuteStatementInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<BatchExecuteStatementInput>>
+      serializers = [BatchExecuteStatementInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BatchExecuteStatementInputBuilder b) {}
@@ -73,15 +72,15 @@ abstract class BatchExecuteStatementInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BatchExecuteStatementInput');
-    helper.add(
-      'statements',
-      statements,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
+    final helper = newBuiltValueToStringHelper('BatchExecuteStatementInput')
+      ..add(
+        'statements',
+        statements,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      );
     return helper.toString();
   }
 }

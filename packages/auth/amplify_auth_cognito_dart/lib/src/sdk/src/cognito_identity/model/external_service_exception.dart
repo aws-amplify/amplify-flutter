@@ -37,9 +37,8 @@ abstract class ExternalServiceException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ExternalServiceExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ExternalServiceException>>
+      serializers = [ExternalServiceExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExternalServiceExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class ExternalServiceException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExternalServiceException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ExternalServiceException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

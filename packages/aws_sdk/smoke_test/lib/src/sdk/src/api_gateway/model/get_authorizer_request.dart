@@ -52,9 +52,8 @@ abstract class GetAuthorizerRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetAuthorizerRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetAuthorizerRequestPayload>>
+      serializers = [GetAuthorizerRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetAuthorizerRequestBuilder b) {}
@@ -87,15 +86,15 @@ abstract class GetAuthorizerRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetAuthorizerRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'authorizerId',
-      authorizerId,
-    );
+    final helper = newBuiltValueToStringHelper('GetAuthorizerRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'authorizerId',
+        authorizerId,
+      );
     return helper.toString();
   }
 }

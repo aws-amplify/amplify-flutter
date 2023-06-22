@@ -49,9 +49,8 @@ abstract class OrganizationConformancePack
 
   const OrganizationConformancePack._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    OrganizationConformancePackAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<OrganizationConformancePack>>
+      serializers = [OrganizationConformancePackAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationConformancePackBuilder b) {}
@@ -93,35 +92,35 @@ abstract class OrganizationConformancePack
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OrganizationConformancePack');
-    helper.add(
-      'organizationConformancePackName',
-      organizationConformancePackName,
-    );
-    helper.add(
-      'organizationConformancePackArn',
-      organizationConformancePackArn,
-    );
-    helper.add(
-      'deliveryS3Bucket',
-      deliveryS3Bucket,
-    );
-    helper.add(
-      'deliveryS3KeyPrefix',
-      deliveryS3KeyPrefix,
-    );
-    helper.add(
-      'conformancePackInputParameters',
-      conformancePackInputParameters,
-    );
-    helper.add(
-      'excludedAccounts',
-      excludedAccounts,
-    );
-    helper.add(
-      'lastUpdateTime',
-      lastUpdateTime,
-    );
+    final helper = newBuiltValueToStringHelper('OrganizationConformancePack')
+      ..add(
+        'organizationConformancePackName',
+        organizationConformancePackName,
+      )
+      ..add(
+        'organizationConformancePackArn',
+        organizationConformancePackArn,
+      )
+      ..add(
+        'deliveryS3Bucket',
+        deliveryS3Bucket,
+      )
+      ..add(
+        'deliveryS3KeyPrefix',
+        deliveryS3KeyPrefix,
+      )
+      ..add(
+        'conformancePackInputParameters',
+        conformancePackInputParameters,
+      )
+      ..add(
+        'excludedAccounts',
+        excludedAccounts,
+      )
+      ..add(
+        'lastUpdateTime',
+        lastUpdateTime,
+      );
     return helper.toString();
   }
 }

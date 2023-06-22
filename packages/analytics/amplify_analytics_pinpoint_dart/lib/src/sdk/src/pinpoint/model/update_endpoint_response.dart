@@ -36,7 +36,7 @@ abstract class UpdateEndpointResponse
         b.messageBody.replace(payload);
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.MessageBody>> serializers = [
     UpdateEndpointResponseRestJson1Serializer()
   ];
 
@@ -51,11 +51,11 @@ abstract class UpdateEndpointResponse
   List<Object?> get props => [messageBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateEndpointResponse');
-    helper.add(
-      'messageBody',
-      messageBody,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateEndpointResponse')
+      ..add(
+        'messageBody',
+        messageBody,
+      );
     return helper.toString();
   }
 }

@@ -36,7 +36,7 @@ abstract class PatchOperation
 
   const PatchOperation._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<PatchOperation>> serializers = [
     PatchOperationRestJson1Serializer()
   ];
 
@@ -63,23 +63,23 @@ abstract class PatchOperation
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PatchOperation');
-    helper.add(
-      'op',
-      op,
-    );
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'value',
-      value,
-    );
-    helper.add(
-      'from',
-      from,
-    );
+    final helper = newBuiltValueToStringHelper('PatchOperation')
+      ..add(
+        'op',
+        op,
+      )
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'value',
+        value,
+      )
+      ..add(
+        'from',
+        from,
+      );
     return helper.toString();
   }
 }

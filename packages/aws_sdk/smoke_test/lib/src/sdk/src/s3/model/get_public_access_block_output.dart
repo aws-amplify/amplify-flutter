@@ -40,9 +40,8 @@ abstract class GetPublicAccessBlockOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetPublicAccessBlockOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<_i3.PublicAccessBlockConfiguration?>>
+      serializers = [GetPublicAccessBlockOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetPublicAccessBlockOutputBuilder b) {}
@@ -56,11 +55,11 @@ abstract class GetPublicAccessBlockOutput
   List<Object?> get props => [publicAccessBlockConfiguration];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetPublicAccessBlockOutput');
-    helper.add(
-      'publicAccessBlockConfiguration',
-      publicAccessBlockConfiguration,
-    );
+    final helper = newBuiltValueToStringHelper('GetPublicAccessBlockOutput')
+      ..add(
+        'publicAccessBlockConfiguration',
+        publicAccessBlockConfiguration,
+      );
     return helper.toString();
   }
 }

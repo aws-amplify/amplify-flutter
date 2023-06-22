@@ -41,7 +41,9 @@ abstract class UpdateOpenIdConnectProviderThumbprintRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<UpdateOpenIdConnectProviderThumbprintRequest>>
+      serializers = [
     UpdateOpenIdConnectProviderThumbprintRequestAwsQuerySerializer()
   ];
 
@@ -65,15 +67,15 @@ abstract class UpdateOpenIdConnectProviderThumbprintRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'UpdateOpenIdConnectProviderThumbprintRequest');
-    helper.add(
-      'openIdConnectProviderArn',
-      openIdConnectProviderArn,
-    );
-    helper.add(
-      'thumbprintList',
-      thumbprintList,
-    );
+        'UpdateOpenIdConnectProviderThumbprintRequest')
+      ..add(
+        'openIdConnectProviderArn',
+        openIdConnectProviderArn,
+      )
+      ..add(
+        'thumbprintList',
+        thumbprintList,
+      );
     return helper.toString();
   }
 }

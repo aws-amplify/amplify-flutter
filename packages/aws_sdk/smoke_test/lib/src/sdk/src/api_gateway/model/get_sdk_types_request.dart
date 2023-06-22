@@ -52,9 +52,8 @@ abstract class GetSdkTypesRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetSdkTypesRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetSdkTypesRequestPayload>>
+      serializers = [GetSdkTypesRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetSdkTypesRequestBuilder b) {}
@@ -73,15 +72,15 @@ abstract class GetSdkTypesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetSdkTypesRequest');
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+    final helper = newBuiltValueToStringHelper('GetSdkTypesRequest')
+      ..add(
+        'position',
+        position,
+      )
+      ..add(
+        'limit',
+        limit,
+      );
     return helper.toString();
   }
 }

@@ -28,9 +28,8 @@ abstract class AccessControlTranslation
 
   const AccessControlTranslation._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AccessControlTranslationRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<AccessControlTranslation>>
+      serializers = [AccessControlTranslationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AccessControlTranslationBuilder b) {}
@@ -41,11 +40,11 @@ abstract class AccessControlTranslation
   List<Object?> get props => [owner];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccessControlTranslation');
-    helper.add(
-      'owner',
-      owner,
-    );
+    final helper = newBuiltValueToStringHelper('AccessControlTranslation')
+      ..add(
+        'owner',
+        owner,
+      );
     return helper.toString();
   }
 }

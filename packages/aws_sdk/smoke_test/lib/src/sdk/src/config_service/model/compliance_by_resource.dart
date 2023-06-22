@@ -36,7 +36,7 @@ abstract class ComplianceByResource
 
   const ComplianceByResource._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ComplianceByResource>> serializers = [
     ComplianceByResourceAwsJson11Serializer()
   ];
 
@@ -59,19 +59,19 @@ abstract class ComplianceByResource
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplianceByResource');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'compliance',
-      compliance,
-    );
+    final helper = newBuiltValueToStringHelper('ComplianceByResource')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'compliance',
+        compliance,
+      );
     return helper.toString();
   }
 }

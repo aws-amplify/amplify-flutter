@@ -44,9 +44,8 @@ abstract class DescribePublisherOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    DescribePublisherOutputAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<DescribePublisherOutput>> serializers =
+      [DescribePublisherOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribePublisherOutputBuilder b) {}
@@ -71,23 +70,23 @@ abstract class DescribePublisherOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribePublisherOutput');
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
-    helper.add(
-      'publisherStatus',
-      publisherStatus,
-    );
-    helper.add(
-      'identityProvider',
-      identityProvider,
-    );
-    helper.add(
-      'publisherProfile',
-      publisherProfile,
-    );
+    final helper = newBuiltValueToStringHelper('DescribePublisherOutput')
+      ..add(
+        'publisherId',
+        publisherId,
+      )
+      ..add(
+        'publisherStatus',
+        publisherStatus,
+      )
+      ..add(
+        'identityProvider',
+        identityProvider,
+      )
+      ..add(
+        'publisherProfile',
+        publisherProfile,
+      );
     return helper.toString();
   }
 }

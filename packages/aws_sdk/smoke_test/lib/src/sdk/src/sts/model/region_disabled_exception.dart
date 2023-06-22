@@ -37,9 +37,8 @@ abstract class RegionDisabledException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    RegionDisabledExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<RegionDisabledException>> serializers =
+      [RegionDisabledExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RegionDisabledExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class RegionDisabledException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RegionDisabledException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('RegionDisabledException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

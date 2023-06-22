@@ -42,7 +42,7 @@ abstract class PutStoredQueryRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<PutStoredQueryRequest>> serializers = [
     PutStoredQueryRequestAwsJson11Serializer()
   ];
 
@@ -65,15 +65,15 @@ abstract class PutStoredQueryRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutStoredQueryRequest');
-    helper.add(
-      'storedQuery',
-      storedQuery,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('PutStoredQueryRequest')
+      ..add(
+        'storedQuery',
+        storedQuery,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

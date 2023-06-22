@@ -36,9 +36,8 @@ abstract class SourceSelectionCriteria
 
   const SourceSelectionCriteria._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    SourceSelectionCriteriaRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<SourceSelectionCriteria>> serializers =
+      [SourceSelectionCriteriaRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SourceSelectionCriteriaBuilder b) {}
@@ -57,15 +56,15 @@ abstract class SourceSelectionCriteria
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SourceSelectionCriteria');
-    helper.add(
-      'sseKmsEncryptedObjects',
-      sseKmsEncryptedObjects,
-    );
-    helper.add(
-      'replicaModifications',
-      replicaModifications,
-    );
+    final helper = newBuiltValueToStringHelper('SourceSelectionCriteria')
+      ..add(
+        'sseKmsEncryptedObjects',
+        sseKmsEncryptedObjects,
+      )
+      ..add(
+        'replicaModifications',
+        replicaModifications,
+      );
     return helper.toString();
   }
 }

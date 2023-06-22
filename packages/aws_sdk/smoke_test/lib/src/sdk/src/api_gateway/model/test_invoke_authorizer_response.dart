@@ -57,9 +57,8 @@ abstract class TestInvokeAuthorizerResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    TestInvokeAuthorizerResponseRestJson1Serializer()
-  ];
+  static const List<_i4.SmithySerializer<TestInvokeAuthorizerResponse>>
+      serializers = [TestInvokeAuthorizerResponseRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestInvokeAuthorizerResponseBuilder b) {
@@ -99,35 +98,35 @@ abstract class TestInvokeAuthorizerResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestInvokeAuthorizerResponse');
-    helper.add(
-      'clientStatus',
-      clientStatus,
-    );
-    helper.add(
-      'log',
-      log,
-    );
-    helper.add(
-      'latency',
-      latency,
-    );
-    helper.add(
-      'principalId',
-      principalId,
-    );
-    helper.add(
-      'policy',
-      policy,
-    );
-    helper.add(
-      'authorization',
-      authorization,
-    );
-    helper.add(
-      'claims',
-      claims,
-    );
+    final helper = newBuiltValueToStringHelper('TestInvokeAuthorizerResponse')
+      ..add(
+        'clientStatus',
+        clientStatus,
+      )
+      ..add(
+        'log',
+        log,
+      )
+      ..add(
+        'latency',
+        latency,
+      )
+      ..add(
+        'principalId',
+        principalId,
+      )
+      ..add(
+        'policy',
+        policy,
+      )
+      ..add(
+        'authorization',
+        authorization,
+      )
+      ..add(
+        'claims',
+        claims,
+      );
     return helper.toString();
   }
 }

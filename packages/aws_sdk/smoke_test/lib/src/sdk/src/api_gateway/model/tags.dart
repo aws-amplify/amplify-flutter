@@ -32,7 +32,7 @@ abstract class Tags
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Tags>> serializers = [
     TagsRestJson1Serializer()
   ];
 
@@ -45,11 +45,11 @@ abstract class Tags
   List<Object?> get props => [tags];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Tags');
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('Tags')
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

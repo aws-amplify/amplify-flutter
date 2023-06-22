@@ -32,7 +32,7 @@ abstract class DeactivateTypeOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<DeactivateTypeOutput>> serializers = [
     DeactivateTypeOutputAwsQuerySerializer()
   ];
 

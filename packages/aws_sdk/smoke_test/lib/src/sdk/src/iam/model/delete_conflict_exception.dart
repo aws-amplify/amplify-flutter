@@ -37,9 +37,8 @@ abstract class DeleteConflictException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeleteConflictExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<DeleteConflictException>> serializers =
+      [DeleteConflictExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteConflictExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class DeleteConflictException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteConflictException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteConflictException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

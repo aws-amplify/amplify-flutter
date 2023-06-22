@@ -31,9 +31,8 @@ abstract class GetAccessKeyInfoResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetAccessKeyInfoResponseAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<GetAccessKeyInfoResponse>>
+      serializers = [GetAccessKeyInfoResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetAccessKeyInfoResponseBuilder b) {}
@@ -44,11 +43,11 @@ abstract class GetAccessKeyInfoResponse
   List<Object?> get props => [account];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetAccessKeyInfoResponse');
-    helper.add(
-      'account',
-      account,
-    );
+    final helper = newBuiltValueToStringHelper('GetAccessKeyInfoResponse')
+      ..add(
+        'account',
+        account,
+      );
     return helper.toString();
   }
 }

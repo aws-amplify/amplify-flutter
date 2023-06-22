@@ -40,9 +40,8 @@ abstract class InvalidParameterValueException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidParameterValueExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidParameterValueException>>
+      serializers = [InvalidParameterValueExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidParameterValueExceptionBuilder b) {}
@@ -69,12 +68,11 @@ abstract class InvalidParameterValueException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InvalidParameterValueException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidParameterValueException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

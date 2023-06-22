@@ -48,7 +48,9 @@ abstract class ListBucketInventoryConfigurationsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<ListBucketInventoryConfigurationsOutput>>
+      serializers = [
     ListBucketInventoryConfigurationsOutputRestXmlSerializer()
   ];
 
@@ -76,23 +78,23 @@ abstract class ListBucketInventoryConfigurationsOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListBucketInventoryConfigurationsOutput');
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'inventoryConfigurationList',
-      inventoryConfigurationList,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'nextContinuationToken',
-      nextContinuationToken,
-    );
+        newBuiltValueToStringHelper('ListBucketInventoryConfigurationsOutput')
+          ..add(
+            'continuationToken',
+            continuationToken,
+          )
+          ..add(
+            'inventoryConfigurationList',
+            inventoryConfigurationList,
+          )
+          ..add(
+            'isTruncated',
+            isTruncated,
+          )
+          ..add(
+            'nextContinuationToken',
+            nextContinuationToken,
+          );
     return helper.toString();
   }
 }

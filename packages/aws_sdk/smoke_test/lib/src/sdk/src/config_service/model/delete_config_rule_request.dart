@@ -32,9 +32,8 @@ abstract class DeleteConfigRuleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteConfigRuleRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteConfigRuleRequest>> serializers =
+      [DeleteConfigRuleRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteConfigRuleRequestBuilder b) {}
@@ -47,11 +46,11 @@ abstract class DeleteConfigRuleRequest
   List<Object?> get props => [configRuleName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteConfigRuleRequest');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteConfigRuleRequest')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      );
     return helper.toString();
   }
 }

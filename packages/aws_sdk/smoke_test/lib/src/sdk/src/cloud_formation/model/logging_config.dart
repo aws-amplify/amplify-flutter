@@ -31,7 +31,7 @@ abstract class LoggingConfig
 
   const LoggingConfig._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<LoggingConfig>> serializers = [
     LoggingConfigAwsQuerySerializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class LoggingConfig
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LoggingConfig');
-    helper.add(
-      'logRoleArn',
-      logRoleArn,
-    );
-    helper.add(
-      'logGroupName',
-      logGroupName,
-    );
+    final helper = newBuiltValueToStringHelper('LoggingConfig')
+      ..add(
+        'logRoleArn',
+        logRoleArn,
+      )
+      ..add(
+        'logGroupName',
+        logGroupName,
+      );
     return helper.toString();
   }
 }

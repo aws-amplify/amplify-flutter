@@ -52,9 +52,8 @@ abstract class GetRequestValidatorRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetRequestValidatorRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetRequestValidatorRequestPayload>>
+      serializers = [GetRequestValidatorRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetRequestValidatorRequestBuilder b) {}
@@ -88,15 +87,15 @@ abstract class GetRequestValidatorRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetRequestValidatorRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'requestValidatorId',
-      requestValidatorId,
-    );
+    final helper = newBuiltValueToStringHelper('GetRequestValidatorRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'requestValidatorId',
+        requestValidatorId,
+      );
     return helper.toString();
   }
 }

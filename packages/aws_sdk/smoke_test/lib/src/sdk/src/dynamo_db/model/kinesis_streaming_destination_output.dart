@@ -43,9 +43,8 @@ abstract class KinesisStreamingDestinationOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    KinesisStreamingDestinationOutputAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<KinesisStreamingDestinationOutput>>
+      serializers = [KinesisStreamingDestinationOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(KinesisStreamingDestinationOutputBuilder b) {}
@@ -67,19 +66,19 @@ abstract class KinesisStreamingDestinationOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('KinesisStreamingDestinationOutput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'streamArn',
-      streamArn,
-    );
-    helper.add(
-      'destinationStatus',
-      destinationStatus,
-    );
+        newBuiltValueToStringHelper('KinesisStreamingDestinationOutput')
+          ..add(
+            'tableName',
+            tableName,
+          )
+          ..add(
+            'streamArn',
+            streamArn,
+          )
+          ..add(
+            'destinationStatus',
+            destinationStatus,
+          );
     return helper.toString();
   }
 }

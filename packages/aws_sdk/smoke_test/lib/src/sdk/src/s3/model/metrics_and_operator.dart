@@ -36,7 +36,7 @@ abstract class MetricsAndOperator
 
   const MetricsAndOperator._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<MetricsAndOperator>> serializers = [
     MetricsAndOperatorRestXmlSerializer()
   ];
 
@@ -59,19 +59,19 @@ abstract class MetricsAndOperator
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MetricsAndOperator');
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'accessPointArn',
-      accessPointArn,
-    );
+    final helper = newBuiltValueToStringHelper('MetricsAndOperator')
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'accessPointArn',
+        accessPointArn,
+      );
     return helper.toString();
   }
 }

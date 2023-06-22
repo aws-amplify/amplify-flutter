@@ -65,9 +65,8 @@ abstract class GetTemplateSummaryOutput
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
-    GetTemplateSummaryOutputAwsQuerySerializer()
-  ];
+  static const List<_i6.SmithySerializer<GetTemplateSummaryOutput>>
+      serializers = [GetTemplateSummaryOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetTemplateSummaryOutputBuilder b) {}
@@ -114,43 +113,43 @@ abstract class GetTemplateSummaryOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetTemplateSummaryOutput');
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'capabilities',
-      capabilities,
-    );
-    helper.add(
-      'capabilitiesReason',
-      capabilitiesReason,
-    );
-    helper.add(
-      'resourceTypes',
-      resourceTypes,
-    );
-    helper.add(
-      'version',
-      version,
-    );
-    helper.add(
-      'metadata',
-      metadata,
-    );
-    helper.add(
-      'declaredTransforms',
-      declaredTransforms,
-    );
-    helper.add(
-      'resourceIdentifierSummaries',
-      resourceIdentifierSummaries,
-    );
+    final helper = newBuiltValueToStringHelper('GetTemplateSummaryOutput')
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'capabilities',
+        capabilities,
+      )
+      ..add(
+        'capabilitiesReason',
+        capabilitiesReason,
+      )
+      ..add(
+        'resourceTypes',
+        resourceTypes,
+      )
+      ..add(
+        'version',
+        version,
+      )
+      ..add(
+        'metadata',
+        metadata,
+      )
+      ..add(
+        'declaredTransforms',
+        declaredTransforms,
+      )
+      ..add(
+        'resourceIdentifierSummaries',
+        resourceIdentifierSummaries,
+      );
     return helper.toString();
   }
 }

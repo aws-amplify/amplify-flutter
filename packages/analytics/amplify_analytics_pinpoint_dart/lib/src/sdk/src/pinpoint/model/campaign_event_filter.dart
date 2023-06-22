@@ -36,7 +36,7 @@ abstract class CampaignEventFilter
 
   const CampaignEventFilter._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<CampaignEventFilter>> serializers = [
     CampaignEventFilterRestJson1Serializer()
   ];
 
@@ -55,15 +55,15 @@ abstract class CampaignEventFilter
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CampaignEventFilter');
-    helper.add(
-      'dimensions',
-      dimensions,
-    );
-    helper.add(
-      'filterType',
-      filterType,
-    );
+    final helper = newBuiltValueToStringHelper('CampaignEventFilter')
+      ..add(
+        'dimensions',
+        dimensions,
+      )
+      ..add(
+        'filterType',
+        filterType,
+      );
     return helper.toString();
   }
 }

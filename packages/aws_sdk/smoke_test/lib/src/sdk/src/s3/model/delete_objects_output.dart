@@ -56,9 +56,8 @@ abstract class DeleteObjectsOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeleteObjectsOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<DeleteObjectsOutputPayload>>
+      serializers = [DeleteObjectsOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteObjectsOutputBuilder b) {}
@@ -88,19 +87,19 @@ abstract class DeleteObjectsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteObjectsOutput');
-    helper.add(
-      'deleted',
-      deleted,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
-      'errors',
-      errors,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteObjectsOutput')
+      ..add(
+        'deleted',
+        deleted,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      )
+      ..add(
+        'errors',
+        errors,
+      );
     return helper.toString();
   }
 }
@@ -131,15 +130,15 @@ abstract class DeleteObjectsOutputPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteObjectsOutputPayload');
-    helper.add(
-      'deleted',
-      deleted,
-    );
-    helper.add(
-      'errors',
-      errors,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteObjectsOutputPayload')
+      ..add(
+        'deleted',
+        deleted,
+      )
+      ..add(
+        'errors',
+        errors,
+      );
     return helper.toString();
   }
 }

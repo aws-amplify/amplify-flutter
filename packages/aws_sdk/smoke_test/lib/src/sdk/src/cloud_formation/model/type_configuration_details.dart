@@ -49,9 +49,8 @@ abstract class TypeConfigurationDetails
 
   const TypeConfigurationDetails._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TypeConfigurationDetailsAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<TypeConfigurationDetails>>
+      serializers = [TypeConfigurationDetailsAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TypeConfigurationDetailsBuilder b) {}
@@ -94,35 +93,35 @@ abstract class TypeConfigurationDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TypeConfigurationDetails');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'alias',
-      alias,
-    );
-    helper.add(
-      'configuration',
-      configuration,
-    );
-    helper.add(
-      'lastUpdated',
-      lastUpdated,
-    );
-    helper.add(
-      'typeArn',
-      typeArn,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'isDefaultConfiguration',
-      isDefaultConfiguration,
-    );
+    final helper = newBuiltValueToStringHelper('TypeConfigurationDetails')
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'alias',
+        alias,
+      )
+      ..add(
+        'configuration',
+        configuration,
+      )
+      ..add(
+        'lastUpdated',
+        lastUpdated,
+      )
+      ..add(
+        'typeArn',
+        typeArn,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'isDefaultConfiguration',
+        isDefaultConfiguration,
+      );
     return helper.toString();
   }
 }

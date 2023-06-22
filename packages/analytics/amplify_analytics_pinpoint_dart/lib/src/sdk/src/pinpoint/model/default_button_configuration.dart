@@ -43,9 +43,8 @@ abstract class DefaultButtonConfiguration
 
   const DefaultButtonConfiguration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    DefaultButtonConfigurationRestJson1Serializer()
-  ];
+  static const List<_i3.SmithySerializer<DefaultButtonConfiguration>>
+      serializers = [DefaultButtonConfigurationRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DefaultButtonConfigurationBuilder b) {}
@@ -78,31 +77,31 @@ abstract class DefaultButtonConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DefaultButtonConfiguration');
-    helper.add(
-      'backgroundColor',
-      backgroundColor,
-    );
-    helper.add(
-      'borderRadius',
-      borderRadius,
-    );
-    helper.add(
-      'buttonAction',
-      buttonAction,
-    );
-    helper.add(
-      'link',
-      link,
-    );
-    helper.add(
-      'text',
-      text,
-    );
-    helper.add(
-      'textColor',
-      textColor,
-    );
+    final helper = newBuiltValueToStringHelper('DefaultButtonConfiguration')
+      ..add(
+        'backgroundColor',
+        backgroundColor,
+      )
+      ..add(
+        'borderRadius',
+        borderRadius,
+      )
+      ..add(
+        'buttonAction',
+        buttonAction,
+      )
+      ..add(
+        'link',
+        link,
+      )
+      ..add(
+        'text',
+        text,
+      )
+      ..add(
+        'textColor',
+        textColor,
+      );
     return helper.toString();
   }
 }

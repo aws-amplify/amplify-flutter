@@ -40,7 +40,7 @@ abstract class UpdateAccountRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UpdateAccountRequest>> serializers = [
     UpdateAccountRequestRestJson1Serializer()
   ];
 
@@ -55,11 +55,11 @@ abstract class UpdateAccountRequest
   List<Object?> get props => [patchOperations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateAccountRequest');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateAccountRequest')
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }

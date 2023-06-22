@@ -53,9 +53,8 @@ abstract class StackSetOperationSummary
 
   const StackSetOperationSummary._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    StackSetOperationSummaryAwsQuerySerializer()
-  ];
+  static const List<_i6.SmithySerializer<StackSetOperationSummary>>
+      serializers = [StackSetOperationSummaryAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StackSetOperationSummaryBuilder b) {}
@@ -110,39 +109,39 @@ abstract class StackSetOperationSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackSetOperationSummary');
-    helper.add(
-      'operationId',
-      operationId,
-    );
-    helper.add(
-      'action',
-      action,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'creationTimestamp',
-      creationTimestamp,
-    );
-    helper.add(
-      'endTimestamp',
-      endTimestamp,
-    );
-    helper.add(
-      'statusReason',
-      statusReason,
-    );
-    helper.add(
-      'statusDetails',
-      statusDetails,
-    );
-    helper.add(
-      'operationPreferences',
-      operationPreferences,
-    );
+    final helper = newBuiltValueToStringHelper('StackSetOperationSummary')
+      ..add(
+        'operationId',
+        operationId,
+      )
+      ..add(
+        'action',
+        action,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'creationTimestamp',
+        creationTimestamp,
+      )
+      ..add(
+        'endTimestamp',
+        endTimestamp,
+      )
+      ..add(
+        'statusReason',
+        statusReason,
+      )
+      ..add(
+        'statusDetails',
+        statusDetails,
+      )
+      ..add(
+        'operationPreferences',
+        operationPreferences,
+      );
     return helper.toString();
   }
 }

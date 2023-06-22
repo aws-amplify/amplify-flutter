@@ -29,7 +29,7 @@ abstract class StorageClassAnalysis
 
   const StorageClassAnalysis._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<StorageClassAnalysis>> serializers = [
     StorageClassAnalysisRestXmlSerializer()
   ];
 
@@ -42,11 +42,11 @@ abstract class StorageClassAnalysis
   List<Object?> get props => [dataExport];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StorageClassAnalysis');
-    helper.add(
-      'dataExport',
-      dataExport,
-    );
+    final helper = newBuiltValueToStringHelper('StorageClassAnalysis')
+      ..add(
+        'dataExport',
+        dataExport,
+      );
     return helper.toString();
   }
 }

@@ -35,9 +35,8 @@ abstract class VerifyUserAttributeResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    VerifyUserAttributeResponseAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<VerifyUserAttributeResponse>>
+      serializers = [VerifyUserAttributeResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(VerifyUserAttributeResponseBuilder b) {}

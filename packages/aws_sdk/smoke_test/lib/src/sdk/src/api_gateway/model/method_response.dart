@@ -43,7 +43,7 @@ abstract class MethodResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<MethodResponse>> serializers = [
     MethodResponseRestJson1Serializer()
   ];
 
@@ -66,19 +66,19 @@ abstract class MethodResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MethodResponse');
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
-    helper.add(
-      'responseModels',
-      responseModels,
-    );
+    final helper = newBuiltValueToStringHelper('MethodResponse')
+      ..add(
+        'statusCode',
+        statusCode,
+      )
+      ..add(
+        'responseParameters',
+        responseParameters,
+      )
+      ..add(
+        'responseModels',
+        responseModels,
+      );
     return helper.toString();
   }
 }

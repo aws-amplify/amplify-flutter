@@ -40,9 +40,8 @@ abstract class UntagSamlProviderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UntagSamlProviderRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<UntagSamlProviderRequest>>
+      serializers = [UntagSamlProviderRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UntagSamlProviderRequestBuilder b) {}
@@ -63,15 +62,15 @@ abstract class UntagSamlProviderRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UntagSamlProviderRequest');
-    helper.add(
-      'samlProviderArn',
-      samlProviderArn,
-    );
-    helper.add(
-      'tagKeys',
-      tagKeys,
-    );
+    final helper = newBuiltValueToStringHelper('UntagSamlProviderRequest')
+      ..add(
+        'samlProviderArn',
+        samlProviderArn,
+      )
+      ..add(
+        'tagKeys',
+        tagKeys,
+      );
     return helper.toString();
   }
 }

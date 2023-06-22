@@ -39,9 +39,8 @@ abstract class ResourceIdentifierSummary
 
   const ResourceIdentifierSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ResourceIdentifierSummaryAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<ResourceIdentifierSummary>>
+      serializers = [ResourceIdentifierSummaryAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceIdentifierSummaryBuilder b) {}
@@ -62,19 +61,19 @@ abstract class ResourceIdentifierSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceIdentifierSummary');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'logicalResourceIds',
-      logicalResourceIds,
-    );
-    helper.add(
-      'resourceIdentifiers',
-      resourceIdentifiers,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceIdentifierSummary')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'logicalResourceIds',
+        logicalResourceIds,
+      )
+      ..add(
+        'resourceIdentifiers',
+        resourceIdentifiers,
+      );
     return helper.toString();
   }
 }

@@ -39,9 +39,8 @@ abstract class IdpCommunicationErrorException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    IdpCommunicationErrorExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<IdpCommunicationErrorException>>
+      serializers = [IdpCommunicationErrorExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(IdpCommunicationErrorExceptionBuilder b) {}
@@ -66,12 +65,11 @@ abstract class IdpCommunicationErrorException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('IdpCommunicationErrorException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('IdpCommunicationErrorException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

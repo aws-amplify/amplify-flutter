@@ -44,9 +44,8 @@ abstract class PutAggregationAuthorizationRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutAggregationAuthorizationRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutAggregationAuthorizationRequest>>
+      serializers = [PutAggregationAuthorizationRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutAggregationAuthorizationRequestBuilder b) {}
@@ -70,19 +69,19 @@ abstract class PutAggregationAuthorizationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutAggregationAuthorizationRequest');
-    helper.add(
-      'authorizedAccountId',
-      authorizedAccountId,
-    );
-    helper.add(
-      'authorizedAwsRegion',
-      authorizedAwsRegion,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+        newBuiltValueToStringHelper('PutAggregationAuthorizationRequest')
+          ..add(
+            'authorizedAccountId',
+            authorizedAccountId,
+          )
+          ..add(
+            'authorizedAwsRegion',
+            authorizedAwsRegion,
+          )
+          ..add(
+            'tags',
+            tags,
+          );
     return helper.toString();
   }
 }

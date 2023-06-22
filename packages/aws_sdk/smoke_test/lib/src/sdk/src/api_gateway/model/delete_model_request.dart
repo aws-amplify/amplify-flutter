@@ -52,9 +52,8 @@ abstract class DeleteModelRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteModelRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteModelRequestPayload>>
+      serializers = [DeleteModelRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteModelRequestBuilder b) {}
@@ -87,15 +86,15 @@ abstract class DeleteModelRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteModelRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'modelName',
-      modelName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteModelRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'modelName',
+        modelName,
+      );
     return helper.toString();
   }
 }

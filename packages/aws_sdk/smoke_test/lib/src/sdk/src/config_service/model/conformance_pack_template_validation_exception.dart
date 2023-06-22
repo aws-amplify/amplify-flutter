@@ -40,7 +40,9 @@ abstract class ConformancePackTemplateValidationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<ConformancePackTemplateValidationException>>
+      serializers = [
     ConformancePackTemplateValidationExceptionAwsJson11Serializer()
   ];
 
@@ -70,11 +72,11 @@ abstract class ConformancePackTemplateValidationException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'ConformancePackTemplateValidationException');
-    helper.add(
-      'message',
-      message,
-    );
+        'ConformancePackTemplateValidationException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

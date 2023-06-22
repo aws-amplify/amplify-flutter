@@ -41,9 +41,8 @@ abstract class AggregateResourceIdentifier
 
   const AggregateResourceIdentifier._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AggregateResourceIdentifierAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<AggregateResourceIdentifier>>
+      serializers = [AggregateResourceIdentifierAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AggregateResourceIdentifierBuilder b) {}
@@ -72,27 +71,27 @@ abstract class AggregateResourceIdentifier
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AggregateResourceIdentifier');
-    helper.add(
-      'sourceAccountId',
-      sourceAccountId,
-    );
-    helper.add(
-      'sourceRegion',
-      sourceRegion,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceName',
-      resourceName,
-    );
+    final helper = newBuiltValueToStringHelper('AggregateResourceIdentifier')
+      ..add(
+        'sourceAccountId',
+        sourceAccountId,
+      )
+      ..add(
+        'sourceRegion',
+        sourceRegion,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceName',
+        resourceName,
+      );
     return helper.toString();
   }
 }

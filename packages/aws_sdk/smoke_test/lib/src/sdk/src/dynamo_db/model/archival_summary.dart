@@ -33,7 +33,7 @@ abstract class ArchivalSummary
 
   const ArchivalSummary._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ArchivalSummary>> serializers = [
     ArchivalSummaryAwsJson10Serializer()
   ];
 
@@ -58,19 +58,19 @@ abstract class ArchivalSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ArchivalSummary');
-    helper.add(
-      'archivalDateTime',
-      archivalDateTime,
-    );
-    helper.add(
-      'archivalReason',
-      archivalReason,
-    );
-    helper.add(
-      'archivalBackupArn',
-      archivalBackupArn,
-    );
+    final helper = newBuiltValueToStringHelper('ArchivalSummary')
+      ..add(
+        'archivalDateTime',
+        archivalDateTime,
+      )
+      ..add(
+        'archivalReason',
+        archivalReason,
+      )
+      ..add(
+        'archivalBackupArn',
+        archivalBackupArn,
+      );
     return helper.toString();
   }
 }

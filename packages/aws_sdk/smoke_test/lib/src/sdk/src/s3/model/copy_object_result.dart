@@ -39,7 +39,7 @@ abstract class CopyObjectResult
 
   const CopyObjectResult._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<CopyObjectResult>> serializers = [
     CopyObjectResultRestXmlSerializer()
   ];
 
@@ -74,31 +74,31 @@ abstract class CopyObjectResult
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CopyObjectResult');
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
+    final helper = newBuiltValueToStringHelper('CopyObjectResult')
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'lastModified',
+        lastModified,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      );
     return helper.toString();
   }
 }

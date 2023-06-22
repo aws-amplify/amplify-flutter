@@ -59,9 +59,8 @@ abstract class GetResourceEvaluationSummaryResponse
   ) =>
       payload;
 
-  static const List<_i7.SmithySerializer> serializers = [
-    GetResourceEvaluationSummaryResponseAwsJson11Serializer()
-  ];
+  static const List<_i7.SmithySerializer<GetResourceEvaluationSummaryResponse>>
+      serializers = [GetResourceEvaluationSummaryResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetResourceEvaluationSummaryResponseBuilder b) {}
@@ -99,35 +98,35 @@ abstract class GetResourceEvaluationSummaryResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetResourceEvaluationSummaryResponse');
-    helper.add(
-      'resourceEvaluationId',
-      resourceEvaluationId,
-    );
-    helper.add(
-      'evaluationMode',
-      evaluationMode,
-    );
-    helper.add(
-      'evaluationStatus',
-      evaluationStatus,
-    );
-    helper.add(
-      'evaluationStartTimestamp',
-      evaluationStartTimestamp,
-    );
-    helper.add(
-      'compliance',
-      compliance,
-    );
-    helper.add(
-      'evaluationContext',
-      evaluationContext,
-    );
-    helper.add(
-      'resourceDetails',
-      resourceDetails,
-    );
+        newBuiltValueToStringHelper('GetResourceEvaluationSummaryResponse')
+          ..add(
+            'resourceEvaluationId',
+            resourceEvaluationId,
+          )
+          ..add(
+            'evaluationMode',
+            evaluationMode,
+          )
+          ..add(
+            'evaluationStatus',
+            evaluationStatus,
+          )
+          ..add(
+            'evaluationStartTimestamp',
+            evaluationStartTimestamp,
+          )
+          ..add(
+            'compliance',
+            compliance,
+          )
+          ..add(
+            'evaluationContext',
+            evaluationContext,
+          )
+          ..add(
+            'resourceDetails',
+            resourceDetails,
+          );
     return helper.toString();
   }
 }

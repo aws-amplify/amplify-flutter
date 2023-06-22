@@ -45,9 +45,8 @@ abstract class ListAccessKeysResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListAccessKeysResponseAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<ListAccessKeysResponse>> serializers =
+      [ListAccessKeysResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListAccessKeysResponseBuilder b) {
@@ -70,19 +69,19 @@ abstract class ListAccessKeysResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListAccessKeysResponse');
-    helper.add(
-      'accessKeyMetadata',
-      accessKeyMetadata,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper = newBuiltValueToStringHelper('ListAccessKeysResponse')
+      ..add(
+        'accessKeyMetadata',
+        accessKeyMetadata,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      );
     return helper.toString();
   }
 }

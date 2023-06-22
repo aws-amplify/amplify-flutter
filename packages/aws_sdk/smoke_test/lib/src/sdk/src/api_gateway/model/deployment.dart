@@ -54,7 +54,7 @@ abstract class Deployment
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Deployment>> serializers = [
     DeploymentRestJson1Serializer()
   ];
 
@@ -82,23 +82,23 @@ abstract class Deployment
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Deployment');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
-    );
-    helper.add(
-      'apiSummary',
-      apiSummary,
-    );
+    final helper = newBuiltValueToStringHelper('Deployment')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'createdDate',
+        createdDate,
+      )
+      ..add(
+        'apiSummary',
+        apiSummary,
+      );
     return helper.toString();
   }
 }

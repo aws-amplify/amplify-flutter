@@ -39,9 +39,8 @@ abstract class StopConfigurationRecorderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    StopConfigurationRecorderRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<StopConfigurationRecorderRequest>>
+      serializers = [StopConfigurationRecorderRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StopConfigurationRecorderRequestBuilder b) {}
@@ -55,11 +54,11 @@ abstract class StopConfigurationRecorderRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('StopConfigurationRecorderRequest');
-    helper.add(
-      'configurationRecorderName',
-      configurationRecorderName,
-    );
+        newBuiltValueToStringHelper('StopConfigurationRecorderRequest')
+          ..add(
+            'configurationRecorderName',
+            configurationRecorderName,
+          );
     return helper.toString();
   }
 }

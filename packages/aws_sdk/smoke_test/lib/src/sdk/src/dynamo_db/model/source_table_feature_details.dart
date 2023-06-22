@@ -54,9 +54,8 @@ abstract class SourceTableFeatureDetails
 
   const SourceTableFeatureDetails._();
 
-  static const List<_i8.SmithySerializer> serializers = [
-    SourceTableFeatureDetailsAwsJson10Serializer()
-  ];
+  static const List<_i8.SmithySerializer<SourceTableFeatureDetails>>
+      serializers = [SourceTableFeatureDetailsAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SourceTableFeatureDetailsBuilder b) {}
@@ -85,27 +84,27 @@ abstract class SourceTableFeatureDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SourceTableFeatureDetails');
-    helper.add(
-      'localSecondaryIndexes',
-      localSecondaryIndexes,
-    );
-    helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
-    helper.add(
-      'streamDescription',
-      streamDescription,
-    );
-    helper.add(
-      'timeToLiveDescription',
-      timeToLiveDescription,
-    );
-    helper.add(
-      'sseDescription',
-      sseDescription,
-    );
+    final helper = newBuiltValueToStringHelper('SourceTableFeatureDetails')
+      ..add(
+        'localSecondaryIndexes',
+        localSecondaryIndexes,
+      )
+      ..add(
+        'globalSecondaryIndexes',
+        globalSecondaryIndexes,
+      )
+      ..add(
+        'streamDescription',
+        streamDescription,
+      )
+      ..add(
+        'timeToLiveDescription',
+        timeToLiveDescription,
+      )
+      ..add(
+        'sseDescription',
+        sseDescription,
+      );
     return helper.toString();
   }
 }

@@ -43,7 +43,7 @@ abstract class BadRequestException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<BadRequestException>> serializers = [
     BadRequestExceptionRestJson1Serializer()
   ];
 
@@ -78,15 +78,15 @@ abstract class BadRequestException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BadRequestException');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'requestId',
-      requestId,
-    );
+    final helper = newBuiltValueToStringHelper('BadRequestException')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'requestId',
+        requestId,
+      );
     return helper.toString();
   }
 }

@@ -37,9 +37,8 @@ abstract class TooManyRequestsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TooManyRequestsExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<TooManyRequestsException>>
+      serializers = [TooManyRequestsExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TooManyRequestsExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class TooManyRequestsException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TooManyRequestsException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('TooManyRequestsException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

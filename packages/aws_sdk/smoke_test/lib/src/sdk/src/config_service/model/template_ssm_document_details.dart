@@ -39,9 +39,8 @@ abstract class TemplateSsmDocumentDetails
 
   const TemplateSsmDocumentDetails._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TemplateSsmDocumentDetailsAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<TemplateSsmDocumentDetails>>
+      serializers = [TemplateSsmDocumentDetailsAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TemplateSsmDocumentDetailsBuilder b) {}
@@ -60,15 +59,15 @@ abstract class TemplateSsmDocumentDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TemplateSsmDocumentDetails');
-    helper.add(
-      'documentName',
-      documentName,
-    );
-    helper.add(
-      'documentVersion',
-      documentVersion,
-    );
+    final helper = newBuiltValueToStringHelper('TemplateSsmDocumentDetails')
+      ..add(
+        'documentName',
+        documentName,
+      )
+      ..add(
+        'documentVersion',
+        documentVersion,
+      );
     return helper.toString();
   }
 }

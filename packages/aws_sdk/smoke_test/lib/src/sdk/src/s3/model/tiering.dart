@@ -32,7 +32,7 @@ abstract class Tiering
 
   const Tiering._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Tiering>> serializers = [
     TieringRestXmlSerializer()
   ];
 
@@ -51,15 +51,15 @@ abstract class Tiering
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Tiering');
-    helper.add(
-      'days',
-      days,
-    );
-    helper.add(
-      'accessTier',
-      accessTier,
-    );
+    final helper = newBuiltValueToStringHelper('Tiering')
+      ..add(
+        'days',
+        days,
+      )
+      ..add(
+        'accessTier',
+        accessTier,
+      );
     return helper.toString();
   }
 }

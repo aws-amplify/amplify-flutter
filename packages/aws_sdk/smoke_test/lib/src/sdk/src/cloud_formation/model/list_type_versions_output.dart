@@ -41,9 +41,8 @@ abstract class ListTypeVersionsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListTypeVersionsOutputAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<ListTypeVersionsOutput>> serializers =
+      [ListTypeVersionsOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListTypeVersionsOutputBuilder b) {}
@@ -60,15 +59,15 @@ abstract class ListTypeVersionsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTypeVersionsOutput');
-    helper.add(
-      'typeVersionSummaries',
-      typeVersionSummaries,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListTypeVersionsOutput')
+      ..add(
+        'typeVersionSummaries',
+        typeVersionSummaries,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

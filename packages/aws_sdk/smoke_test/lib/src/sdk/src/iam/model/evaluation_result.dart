@@ -68,7 +68,7 @@ abstract class EvaluationResult
 
   const EvaluationResult._();
 
-  static const List<_i8.SmithySerializer> serializers = [
+  static const List<_i8.SmithySerializer<EvaluationResult>> serializers = [
     EvaluationResultAwsQuerySerializer()
   ];
 
@@ -122,43 +122,43 @@ abstract class EvaluationResult
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EvaluationResult');
-    helper.add(
-      'evalActionName',
-      evalActionName,
-    );
-    helper.add(
-      'evalResourceName',
-      evalResourceName,
-    );
-    helper.add(
-      'evalDecision',
-      evalDecision,
-    );
-    helper.add(
-      'matchedStatements',
-      matchedStatements,
-    );
-    helper.add(
-      'missingContextValues',
-      missingContextValues,
-    );
-    helper.add(
-      'organizationsDecisionDetail',
-      organizationsDecisionDetail,
-    );
-    helper.add(
-      'permissionsBoundaryDecisionDetail',
-      permissionsBoundaryDecisionDetail,
-    );
-    helper.add(
-      'evalDecisionDetails',
-      evalDecisionDetails,
-    );
-    helper.add(
-      'resourceSpecificResults',
-      resourceSpecificResults,
-    );
+    final helper = newBuiltValueToStringHelper('EvaluationResult')
+      ..add(
+        'evalActionName',
+        evalActionName,
+      )
+      ..add(
+        'evalResourceName',
+        evalResourceName,
+      )
+      ..add(
+        'evalDecision',
+        evalDecision,
+      )
+      ..add(
+        'matchedStatements',
+        matchedStatements,
+      )
+      ..add(
+        'missingContextValues',
+        missingContextValues,
+      )
+      ..add(
+        'organizationsDecisionDetail',
+        organizationsDecisionDetail,
+      )
+      ..add(
+        'permissionsBoundaryDecisionDetail',
+        permissionsBoundaryDecisionDetail,
+      )
+      ..add(
+        'evalDecisionDetails',
+        evalDecisionDetails,
+      )
+      ..add(
+        'resourceSpecificResults',
+        resourceSpecificResults,
+      );
     return helper.toString();
   }
 }

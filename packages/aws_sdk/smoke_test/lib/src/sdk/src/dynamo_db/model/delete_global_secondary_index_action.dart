@@ -29,9 +29,8 @@ abstract class DeleteGlobalSecondaryIndexAction
 
   const DeleteGlobalSecondaryIndexAction._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeleteGlobalSecondaryIndexActionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<DeleteGlobalSecondaryIndexAction>>
+      serializers = [DeleteGlobalSecondaryIndexActionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteGlobalSecondaryIndexActionBuilder b) {}
@@ -43,11 +42,11 @@ abstract class DeleteGlobalSecondaryIndexAction
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteGlobalSecondaryIndexAction');
-    helper.add(
-      'indexName',
-      indexName,
-    );
+        newBuiltValueToStringHelper('DeleteGlobalSecondaryIndexAction')
+          ..add(
+            'indexName',
+            indexName,
+          );
     return helper.toString();
   }
 }

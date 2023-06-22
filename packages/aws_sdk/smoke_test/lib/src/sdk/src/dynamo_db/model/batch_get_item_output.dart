@@ -59,7 +59,7 @@ abstract class BatchGetItemOutput
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<BatchGetItemOutput>> serializers = [
     BatchGetItemOutputAwsJson10Serializer()
   ];
 
@@ -100,19 +100,19 @@ abstract class BatchGetItemOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BatchGetItemOutput');
-    helper.add(
-      'responses',
-      responses,
-    );
-    helper.add(
-      'unprocessedKeys',
-      unprocessedKeys,
-    );
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
+    final helper = newBuiltValueToStringHelper('BatchGetItemOutput')
+      ..add(
+        'responses',
+        responses,
+      )
+      ..add(
+        'unprocessedKeys',
+        unprocessedKeys,
+      )
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      );
     return helper.toString();
   }
 }

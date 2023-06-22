@@ -38,7 +38,7 @@ abstract class InvalidLimitException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<InvalidLimitException>> serializers = [
     InvalidLimitExceptionAwsJson11Serializer()
   ];
 
@@ -67,11 +67,11 @@ abstract class InvalidLimitException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidLimitException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidLimitException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

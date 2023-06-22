@@ -27,7 +27,7 @@ abstract class ExecutionControls
 
   const ExecutionControls._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ExecutionControls>> serializers = [
     ExecutionControlsAwsJson11Serializer()
   ];
 
@@ -40,11 +40,11 @@ abstract class ExecutionControls
   List<Object?> get props => [ssmControls];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExecutionControls');
-    helper.add(
-      'ssmControls',
-      ssmControls,
-    );
+    final helper = newBuiltValueToStringHelper('ExecutionControls')
+      ..add(
+        'ssmControls',
+        ssmControls,
+      );
     return helper.toString();
   }
 }

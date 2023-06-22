@@ -56,9 +56,8 @@ abstract class PutOrganizationConfigRuleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutOrganizationConfigRuleRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutOrganizationConfigRuleRequest>>
+      serializers = [PutOrganizationConfigRuleRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutOrganizationConfigRuleRequestBuilder b) {}
@@ -91,27 +90,27 @@ abstract class PutOrganizationConfigRuleRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutOrganizationConfigRuleRequest');
-    helper.add(
-      'organizationConfigRuleName',
-      organizationConfigRuleName,
-    );
-    helper.add(
-      'organizationManagedRuleMetadata',
-      organizationManagedRuleMetadata,
-    );
-    helper.add(
-      'organizationCustomRuleMetadata',
-      organizationCustomRuleMetadata,
-    );
-    helper.add(
-      'excludedAccounts',
-      excludedAccounts,
-    );
-    helper.add(
-      'organizationCustomPolicyRuleMetadata',
-      organizationCustomPolicyRuleMetadata,
-    );
+        newBuiltValueToStringHelper('PutOrganizationConfigRuleRequest')
+          ..add(
+            'organizationConfigRuleName',
+            organizationConfigRuleName,
+          )
+          ..add(
+            'organizationManagedRuleMetadata',
+            organizationManagedRuleMetadata,
+          )
+          ..add(
+            'organizationCustomRuleMetadata',
+            organizationCustomRuleMetadata,
+          )
+          ..add(
+            'excludedAccounts',
+            excludedAccounts,
+          )
+          ..add(
+            'organizationCustomPolicyRuleMetadata',
+            organizationCustomPolicyRuleMetadata,
+          );
     return helper.toString();
   }
 }

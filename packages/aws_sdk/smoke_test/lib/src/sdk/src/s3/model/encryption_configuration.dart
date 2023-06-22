@@ -26,9 +26,8 @@ abstract class EncryptionConfiguration
 
   const EncryptionConfiguration._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    EncryptionConfigurationRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<EncryptionConfiguration>> serializers =
+      [EncryptionConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EncryptionConfigurationBuilder b) {}
@@ -39,11 +38,11 @@ abstract class EncryptionConfiguration
   List<Object?> get props => [replicaKmsKeyId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EncryptionConfiguration');
-    helper.add(
-      'replicaKmsKeyId',
-      replicaKmsKeyId,
-    );
+    final helper = newBuiltValueToStringHelper('EncryptionConfiguration')
+      ..add(
+        'replicaKmsKeyId',
+        replicaKmsKeyId,
+      );
     return helper.toString();
   }
 }

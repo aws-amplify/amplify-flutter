@@ -40,7 +40,9 @@ abstract class NoRunningConfigurationRecorderException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<NoRunningConfigurationRecorderException>>
+      serializers = [
     NoRunningConfigurationRecorderExceptionAwsJson11Serializer()
   ];
 
@@ -70,11 +72,11 @@ abstract class NoRunningConfigurationRecorderException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('NoRunningConfigurationRecorderException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('NoRunningConfigurationRecorderException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

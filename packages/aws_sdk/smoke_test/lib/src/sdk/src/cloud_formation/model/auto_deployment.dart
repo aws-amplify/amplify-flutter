@@ -31,7 +31,7 @@ abstract class AutoDeployment
 
   const AutoDeployment._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AutoDeployment>> serializers = [
     AutoDeploymentAwsQuerySerializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class AutoDeployment
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AutoDeployment');
-    helper.add(
-      'enabled',
-      enabled,
-    );
-    helper.add(
-      'retainStacksOnAccountRemoval',
-      retainStacksOnAccountRemoval,
-    );
+    final helper = newBuiltValueToStringHelper('AutoDeployment')
+      ..add(
+        'enabled',
+        enabled,
+      )
+      ..add(
+        'retainStacksOnAccountRemoval',
+        retainStacksOnAccountRemoval,
+      );
     return helper.toString();
   }
 }

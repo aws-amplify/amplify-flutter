@@ -24,7 +24,7 @@ abstract class EndEvent
 
   const EndEvent._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<EndEvent>> serializers = [
     EndEventRestXmlSerializer()
   ];
 

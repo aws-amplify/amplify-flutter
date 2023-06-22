@@ -43,9 +43,8 @@ abstract class OrganizationConformancePackStatus
 
   const OrganizationConformancePackStatus._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    OrganizationConformancePackStatusAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<OrganizationConformancePackStatus>>
+      serializers = [OrganizationConformancePackStatusAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationConformancePackStatusBuilder b) {}
@@ -95,27 +94,27 @@ abstract class OrganizationConformancePackStatus
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OrganizationConformancePackStatus');
-    helper.add(
-      'organizationConformancePackName',
-      organizationConformancePackName,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'errorCode',
-      errorCode,
-    );
-    helper.add(
-      'errorMessage',
-      errorMessage,
-    );
-    helper.add(
-      'lastUpdateTime',
-      lastUpdateTime,
-    );
+        newBuiltValueToStringHelper('OrganizationConformancePackStatus')
+          ..add(
+            'organizationConformancePackName',
+            organizationConformancePackName,
+          )
+          ..add(
+            'status',
+            status,
+          )
+          ..add(
+            'errorCode',
+            errorCode,
+          )
+          ..add(
+            'errorMessage',
+            errorMessage,
+          )
+          ..add(
+            'lastUpdateTime',
+            lastUpdateTime,
+          );
     return helper.toString();
   }
 }

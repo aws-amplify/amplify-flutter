@@ -46,9 +46,8 @@ abstract class RemediationExecutionStatus
 
   const RemediationExecutionStatus._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    RemediationExecutionStatusAwsJson11Serializer()
-  ];
+  static const List<_i6.SmithySerializer<RemediationExecutionStatus>>
+      serializers = [RemediationExecutionStatusAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RemediationExecutionStatusBuilder b) {}
@@ -77,27 +76,27 @@ abstract class RemediationExecutionStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RemediationExecutionStatus');
-    helper.add(
-      'resourceKey',
-      resourceKey,
-    );
-    helper.add(
-      'state',
-      state,
-    );
-    helper.add(
-      'stepDetails',
-      stepDetails,
-    );
-    helper.add(
-      'invocationTime',
-      invocationTime,
-    );
-    helper.add(
-      'lastUpdatedTime',
-      lastUpdatedTime,
-    );
+    final helper = newBuiltValueToStringHelper('RemediationExecutionStatus')
+      ..add(
+        'resourceKey',
+        resourceKey,
+      )
+      ..add(
+        'state',
+        state,
+      )
+      ..add(
+        'stepDetails',
+        stepDetails,
+      )
+      ..add(
+        'invocationTime',
+        invocationTime,
+      )
+      ..add(
+        'lastUpdatedTime',
+        lastUpdatedTime,
+      );
     return helper.toString();
   }
 }

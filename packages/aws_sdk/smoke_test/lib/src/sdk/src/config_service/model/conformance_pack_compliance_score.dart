@@ -37,9 +37,8 @@ abstract class ConformancePackComplianceScore
 
   const ConformancePackComplianceScore._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ConformancePackComplianceScoreAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ConformancePackComplianceScore>>
+      serializers = [ConformancePackComplianceScoreAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackComplianceScoreBuilder b) {}
@@ -60,20 +59,19 @@ abstract class ConformancePackComplianceScore
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ConformancePackComplianceScore');
-    helper.add(
-      'score',
-      score,
-    );
-    helper.add(
-      'conformancePackName',
-      conformancePackName,
-    );
-    helper.add(
-      'lastUpdatedTime',
-      lastUpdatedTime,
-    );
+    final helper = newBuiltValueToStringHelper('ConformancePackComplianceScore')
+      ..add(
+        'score',
+        score,
+      )
+      ..add(
+        'conformancePackName',
+        conformancePackName,
+      )
+      ..add(
+        'lastUpdatedTime',
+        lastUpdatedTime,
+      );
     return helper.toString();
   }
 }

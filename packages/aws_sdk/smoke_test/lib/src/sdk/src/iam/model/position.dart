@@ -38,7 +38,7 @@ abstract class Position
 
   const Position._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Position>> serializers = [
     PositionAwsQuerySerializer()
   ];
 
@@ -60,15 +60,15 @@ abstract class Position
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Position');
-    helper.add(
-      'line',
-      line,
-    );
-    helper.add(
-      'column',
-      column,
-    );
+    final helper = newBuiltValueToStringHelper('Position')
+      ..add(
+        'line',
+        line,
+      )
+      ..add(
+        'column',
+        column,
+      );
     return helper.toString();
   }
 }

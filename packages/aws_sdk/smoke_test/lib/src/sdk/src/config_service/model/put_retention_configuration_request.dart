@@ -36,9 +36,8 @@ abstract class PutRetentionConfigurationRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutRetentionConfigurationRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutRetentionConfigurationRequest>>
+      serializers = [PutRetentionConfigurationRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutRetentionConfigurationRequestBuilder b) {
@@ -56,11 +55,11 @@ abstract class PutRetentionConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutRetentionConfigurationRequest');
-    helper.add(
-      'retentionPeriodInDays',
-      retentionPeriodInDays,
-    );
+        newBuiltValueToStringHelper('PutRetentionConfigurationRequest')
+          ..add(
+            'retentionPeriodInDays',
+            retentionPeriodInDays,
+          );
     return helper.toString();
   }
 }

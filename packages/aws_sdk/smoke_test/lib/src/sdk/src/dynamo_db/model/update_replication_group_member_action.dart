@@ -49,9 +49,8 @@ abstract class UpdateReplicationGroupMemberAction
 
   const UpdateReplicationGroupMemberAction._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    UpdateReplicationGroupMemberActionAwsJson10Serializer()
-  ];
+  static const List<_i6.SmithySerializer<UpdateReplicationGroupMemberAction>>
+      serializers = [UpdateReplicationGroupMemberActionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateReplicationGroupMemberActionBuilder b) {}
@@ -81,27 +80,27 @@ abstract class UpdateReplicationGroupMemberAction
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateReplicationGroupMemberAction');
-    helper.add(
-      'regionName',
-      regionName,
-    );
-    helper.add(
-      'kmsMasterKeyId',
-      kmsMasterKeyId,
-    );
-    helper.add(
-      'provisionedThroughputOverride',
-      provisionedThroughputOverride,
-    );
-    helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
-    helper.add(
-      'tableClassOverride',
-      tableClassOverride,
-    );
+        newBuiltValueToStringHelper('UpdateReplicationGroupMemberAction')
+          ..add(
+            'regionName',
+            regionName,
+          )
+          ..add(
+            'kmsMasterKeyId',
+            kmsMasterKeyId,
+          )
+          ..add(
+            'provisionedThroughputOverride',
+            provisionedThroughputOverride,
+          )
+          ..add(
+            'globalSecondaryIndexes',
+            globalSecondaryIndexes,
+          )
+          ..add(
+            'tableClassOverride',
+            tableClassOverride,
+          );
     return helper.toString();
   }
 }

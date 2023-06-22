@@ -56,9 +56,8 @@ abstract class GetModelsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetModelsRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetModelsRequestPayload>> serializers =
+      [GetModelsRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetModelsRequestBuilder b) {}
@@ -93,19 +92,19 @@ abstract class GetModelsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetModelsRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+    final helper = newBuiltValueToStringHelper('GetModelsRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'position',
+        position,
+      )
+      ..add(
+        'limit',
+        limit,
+      );
     return helper.toString();
   }
 }

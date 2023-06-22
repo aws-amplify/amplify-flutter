@@ -30,7 +30,7 @@ abstract class DeleteGroupRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeleteGroupRequest>> serializers = [
     DeleteGroupRequestAwsQuerySerializer()
   ];
 
@@ -47,11 +47,11 @@ abstract class DeleteGroupRequest
   List<Object?> get props => [groupName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteGroupRequest');
-    helper.add(
-      'groupName',
-      groupName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteGroupRequest')
+      ..add(
+        'groupName',
+        groupName,
+      );
     return helper.toString();
   }
 }

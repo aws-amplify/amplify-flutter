@@ -37,7 +37,7 @@ abstract class TagResourceInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<TagResourceInput>> serializers = [
     TagResourceInputAwsJson10Serializer()
   ];
 
@@ -58,15 +58,15 @@ abstract class TagResourceInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagResourceInput');
-    helper.add(
-      'resourceArn',
-      resourceArn,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagResourceInput')
+      ..add(
+        'resourceArn',
+        resourceArn,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

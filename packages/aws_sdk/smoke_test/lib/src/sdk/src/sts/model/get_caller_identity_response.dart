@@ -42,9 +42,8 @@ abstract class GetCallerIdentityResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetCallerIdentityResponseAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<GetCallerIdentityResponse>>
+      serializers = [GetCallerIdentityResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetCallerIdentityResponseBuilder b) {}
@@ -65,19 +64,19 @@ abstract class GetCallerIdentityResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetCallerIdentityResponse');
-    helper.add(
-      'userId',
-      userId,
-    );
-    helper.add(
-      'account',
-      account,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
+    final helper = newBuiltValueToStringHelper('GetCallerIdentityResponse')
+      ..add(
+        'userId',
+        userId,
+      )
+      ..add(
+        'account',
+        account,
+      )
+      ..add(
+        'arn',
+        arn,
+      );
     return helper.toString();
   }
 }

@@ -26,7 +26,7 @@ abstract class PolicyDescriptorType
 
   const PolicyDescriptorType._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PolicyDescriptorType>> serializers = [
     PolicyDescriptorTypeAwsQuerySerializer()
   ];
 
@@ -39,11 +39,11 @@ abstract class PolicyDescriptorType
   List<Object?> get props => [arn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PolicyDescriptorType');
-    helper.add(
-      'arn',
-      arn,
-    );
+    final helper = newBuiltValueToStringHelper('PolicyDescriptorType')
+      ..add(
+        'arn',
+        arn,
+      );
     return helper.toString();
   }
 }

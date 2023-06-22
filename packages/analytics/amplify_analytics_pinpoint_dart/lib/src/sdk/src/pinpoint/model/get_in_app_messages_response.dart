@@ -38,9 +38,8 @@ abstract class GetInAppMessagesResponse
         b.inAppMessagesResponse.replace(payload);
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetInAppMessagesResponseRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<_i3.InAppMessagesResponse>>
+      serializers = [GetInAppMessagesResponseRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetInAppMessagesResponseBuilder b) {}
@@ -53,11 +52,11 @@ abstract class GetInAppMessagesResponse
   List<Object?> get props => [inAppMessagesResponse];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetInAppMessagesResponse');
-    helper.add(
-      'inAppMessagesResponse',
-      inAppMessagesResponse,
-    );
+    final helper = newBuiltValueToStringHelper('GetInAppMessagesResponse')
+      ..add(
+        'inAppMessagesResponse',
+        inAppMessagesResponse,
+      );
     return helper.toString();
   }
 }

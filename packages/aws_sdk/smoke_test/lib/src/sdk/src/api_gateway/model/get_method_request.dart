@@ -56,9 +56,8 @@ abstract class GetMethodRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetMethodRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetMethodRequestPayload>> serializers =
+      [GetMethodRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetMethodRequestBuilder b) {}
@@ -97,19 +96,19 @@ abstract class GetMethodRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetMethodRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
+    final helper = newBuiltValueToStringHelper('GetMethodRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      );
     return helper.toString();
   }
 }

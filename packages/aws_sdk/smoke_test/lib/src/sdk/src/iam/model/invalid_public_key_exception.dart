@@ -37,9 +37,8 @@ abstract class InvalidPublicKeyException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidPublicKeyExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidPublicKeyException>>
+      serializers = [InvalidPublicKeyExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidPublicKeyExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class InvalidPublicKeyException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidPublicKeyException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidPublicKeyException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -37,9 +37,8 @@ abstract class TokenAlreadyExistsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TokenAlreadyExistsExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<TokenAlreadyExistsException>>
+      serializers = [TokenAlreadyExistsExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TokenAlreadyExistsExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class TokenAlreadyExistsException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TokenAlreadyExistsException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('TokenAlreadyExistsException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

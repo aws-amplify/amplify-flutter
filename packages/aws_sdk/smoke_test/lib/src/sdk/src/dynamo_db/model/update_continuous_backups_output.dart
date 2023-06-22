@@ -37,9 +37,8 @@ abstract class UpdateContinuousBackupsOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    UpdateContinuousBackupsOutputAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<UpdateContinuousBackupsOutput>>
+      serializers = [UpdateContinuousBackupsOutputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateContinuousBackupsOutputBuilder b) {}
@@ -50,11 +49,11 @@ abstract class UpdateContinuousBackupsOutput
   List<Object?> get props => [continuousBackupsDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateContinuousBackupsOutput');
-    helper.add(
-      'continuousBackupsDescription',
-      continuousBackupsDescription,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateContinuousBackupsOutput')
+      ..add(
+        'continuousBackupsDescription',
+        continuousBackupsDescription,
+      );
     return helper.toString();
   }
 }

@@ -53,7 +53,7 @@ abstract class ReplicaUpdate
 
   const ReplicaUpdate._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ReplicaUpdate>> serializers = [
     ReplicaUpdateAwsJson10Serializer()
   ];
 
@@ -72,15 +72,15 @@ abstract class ReplicaUpdate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicaUpdate');
-    helper.add(
-      'create',
-      create,
-    );
-    helper.add(
-      'delete',
-      delete,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicaUpdate')
+      ..add(
+        'create',
+        create,
+      )
+      ..add(
+        'delete',
+        delete,
+      );
     return helper.toString();
   }
 }

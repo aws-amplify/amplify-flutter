@@ -50,9 +50,8 @@ abstract class GetBucketReplicationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketReplicationRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetBucketReplicationRequestPayload>>
+      serializers = [GetBucketReplicationRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketReplicationRequestBuilder b) {}
@@ -84,15 +83,15 @@ abstract class GetBucketReplicationRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketReplicationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketReplicationRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

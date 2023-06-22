@@ -39,9 +39,8 @@ abstract class EntityAlreadyExistsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    EntityAlreadyExistsExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<EntityAlreadyExistsException>>
+      serializers = [EntityAlreadyExistsExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EntityAlreadyExistsExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class EntityAlreadyExistsException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EntityAlreadyExistsException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('EntityAlreadyExistsException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

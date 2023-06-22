@@ -78,9 +78,8 @@ abstract class DeleteObjectRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteObjectRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteObjectRequestPayload>>
+      serializers = [DeleteObjectRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteObjectRequestBuilder b) {}
@@ -137,35 +136,35 @@ abstract class DeleteObjectRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteObjectRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'mfa',
-      mfa,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'bypassGovernanceRetention',
-      bypassGovernanceRetention,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteObjectRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'mfa',
+        mfa,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'bypassGovernanceRetention',
+        bypassGovernanceRetention,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

@@ -70,7 +70,7 @@ abstract class RoleDetail
 
   const RoleDetail._();
 
-  static const List<_i9.SmithySerializer> serializers = [
+  static const List<_i9.SmithySerializer<RoleDetail>> serializers = [
     RoleDetailAwsQuerySerializer()
   ];
 
@@ -133,55 +133,55 @@ abstract class RoleDetail
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RoleDetail');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'roleName',
-      roleName,
-    );
-    helper.add(
-      'roleId',
-      roleId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'assumeRolePolicyDocument',
-      assumeRolePolicyDocument,
-    );
-    helper.add(
-      'instanceProfileList',
-      instanceProfileList,
-    );
-    helper.add(
-      'rolePolicyList',
-      rolePolicyList,
-    );
-    helper.add(
-      'attachedManagedPolicies',
-      attachedManagedPolicies,
-    );
-    helper.add(
-      'permissionsBoundary',
-      permissionsBoundary,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'roleLastUsed',
-      roleLastUsed,
-    );
+    final helper = newBuiltValueToStringHelper('RoleDetail')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'roleName',
+        roleName,
+      )
+      ..add(
+        'roleId',
+        roleId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'assumeRolePolicyDocument',
+        assumeRolePolicyDocument,
+      )
+      ..add(
+        'instanceProfileList',
+        instanceProfileList,
+      )
+      ..add(
+        'rolePolicyList',
+        rolePolicyList,
+      )
+      ..add(
+        'attachedManagedPolicies',
+        attachedManagedPolicies,
+      )
+      ..add(
+        'permissionsBoundary',
+        permissionsBoundary,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'roleLastUsed',
+        roleLastUsed,
+      );
     return helper.toString();
   }
 }

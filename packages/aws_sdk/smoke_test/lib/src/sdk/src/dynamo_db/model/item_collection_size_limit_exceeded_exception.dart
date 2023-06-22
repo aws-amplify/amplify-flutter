@@ -40,7 +40,9 @@ abstract class ItemCollectionSizeLimitExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<ItemCollectionSizeLimitExceededException>>
+      serializers = [
     ItemCollectionSizeLimitExceededExceptionAwsJson10Serializer()
   ];
 
@@ -70,11 +72,11 @@ abstract class ItemCollectionSizeLimitExceededException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ItemCollectionSizeLimitExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('ItemCollectionSizeLimitExceededException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

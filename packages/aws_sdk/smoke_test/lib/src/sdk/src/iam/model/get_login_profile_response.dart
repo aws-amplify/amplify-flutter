@@ -34,9 +34,8 @@ abstract class GetLoginProfileResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetLoginProfileResponseAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<GetLoginProfileResponse>> serializers =
+      [GetLoginProfileResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetLoginProfileResponseBuilder b) {}
@@ -47,11 +46,11 @@ abstract class GetLoginProfileResponse
   List<Object?> get props => [loginProfile];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetLoginProfileResponse');
-    helper.add(
-      'loginProfile',
-      loginProfile,
-    );
+    final helper = newBuiltValueToStringHelper('GetLoginProfileResponse')
+      ..add(
+        'loginProfile',
+        loginProfile,
+      );
     return helper.toString();
   }
 }

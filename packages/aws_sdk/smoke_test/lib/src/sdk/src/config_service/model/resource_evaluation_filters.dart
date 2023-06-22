@@ -39,9 +39,8 @@ abstract class ResourceEvaluationFilters
 
   const ResourceEvaluationFilters._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ResourceEvaluationFiltersAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<ResourceEvaluationFilters>>
+      serializers = [ResourceEvaluationFiltersAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceEvaluationFiltersBuilder b) {}
@@ -62,19 +61,19 @@ abstract class ResourceEvaluationFilters
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceEvaluationFilters');
-    helper.add(
-      'evaluationMode',
-      evaluationMode,
-    );
-    helper.add(
-      'timeWindow',
-      timeWindow,
-    );
-    helper.add(
-      'evaluationContextIdentifier',
-      evaluationContextIdentifier,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceEvaluationFilters')
+      ..add(
+        'evaluationMode',
+        evaluationMode,
+      )
+      ..add(
+        'timeWindow',
+        timeWindow,
+      )
+      ..add(
+        'evaluationContextIdentifier',
+        evaluationContextIdentifier,
+      );
     return helper.toString();
   }
 }

@@ -46,7 +46,7 @@ abstract class GetGroupResponse
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<GetGroupResponse>> serializers = [
     GetGroupResponseAwsQuerySerializer()
   ];
 
@@ -75,23 +75,23 @@ abstract class GetGroupResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetGroupResponse');
-    helper.add(
-      'group',
-      group,
-    );
-    helper.add(
-      'users',
-      users,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper = newBuiltValueToStringHelper('GetGroupResponse')
+      ..add(
+        'group',
+        group,
+      )
+      ..add(
+        'users',
+        users,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      );
     return helper.toString();
   }
 }

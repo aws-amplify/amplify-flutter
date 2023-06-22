@@ -40,9 +40,8 @@ abstract class GlobalTableNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GlobalTableNotFoundExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<GlobalTableNotFoundException>>
+      serializers = [GlobalTableNotFoundExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GlobalTableNotFoundExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class GlobalTableNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GlobalTableNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('GlobalTableNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

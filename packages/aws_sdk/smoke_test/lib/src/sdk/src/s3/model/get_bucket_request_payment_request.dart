@@ -51,9 +51,8 @@ abstract class GetBucketRequestPaymentRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketRequestPaymentRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetBucketRequestPaymentRequestPayload>>
+      serializers = [GetBucketRequestPaymentRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketRequestPaymentRequestBuilder b) {}
@@ -85,16 +84,15 @@ abstract class GetBucketRequestPaymentRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetBucketRequestPaymentRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketRequestPaymentRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

@@ -41,7 +41,7 @@ abstract class ValidateTemplateInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ValidateTemplateInput>> serializers = [
     ValidateTemplateInputAwsQuerySerializer()
   ];
 
@@ -66,15 +66,15 @@ abstract class ValidateTemplateInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ValidateTemplateInput');
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateUrl',
-      templateUrl,
-    );
+    final helper = newBuiltValueToStringHelper('ValidateTemplateInput')
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'templateUrl',
+        templateUrl,
+      );
     return helper.toString();
   }
 }

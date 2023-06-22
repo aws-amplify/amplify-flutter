@@ -33,7 +33,7 @@ abstract class Stats
 
   const Stats._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Stats>> serializers = [
     StatsRestXmlSerializer()
   ];
 
@@ -56,19 +56,19 @@ abstract class Stats
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Stats');
-    helper.add(
-      'bytesScanned',
-      bytesScanned,
-    );
-    helper.add(
-      'bytesProcessed',
-      bytesProcessed,
-    );
-    helper.add(
-      'bytesReturned',
-      bytesReturned,
-    );
+    final helper = newBuiltValueToStringHelper('Stats')
+      ..add(
+        'bytesScanned',
+        bytesScanned,
+      )
+      ..add(
+        'bytesProcessed',
+        bytesProcessed,
+      )
+      ..add(
+        'bytesReturned',
+        bytesReturned,
+      );
     return helper.toString();
   }
 }

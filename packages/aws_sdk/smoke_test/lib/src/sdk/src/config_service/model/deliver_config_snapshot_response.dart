@@ -37,9 +37,8 @@ abstract class DeliverConfigSnapshotResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeliverConfigSnapshotResponseAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<DeliverConfigSnapshotResponse>>
+      serializers = [DeliverConfigSnapshotResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeliverConfigSnapshotResponseBuilder b) {}
@@ -50,11 +49,11 @@ abstract class DeliverConfigSnapshotResponse
   List<Object?> get props => [configSnapshotId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeliverConfigSnapshotResponse');
-    helper.add(
-      'configSnapshotId',
-      configSnapshotId,
-    );
+    final helper = newBuiltValueToStringHelper('DeliverConfigSnapshotResponse')
+      ..add(
+        'configSnapshotId',
+        configSnapshotId,
+      );
     return helper.toString();
   }
 }

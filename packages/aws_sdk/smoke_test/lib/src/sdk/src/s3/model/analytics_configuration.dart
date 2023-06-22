@@ -37,9 +37,8 @@ abstract class AnalyticsConfiguration
 
   const AnalyticsConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    AnalyticsConfigurationRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<AnalyticsConfiguration>> serializers =
+      [AnalyticsConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AnalyticsConfigurationBuilder b) {}
@@ -60,19 +59,19 @@ abstract class AnalyticsConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AnalyticsConfiguration');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
-      'storageClassAnalysis',
-      storageClassAnalysis,
-    );
+    final helper = newBuiltValueToStringHelper('AnalyticsConfiguration')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'filter',
+        filter,
+      )
+      ..add(
+        'storageClassAnalysis',
+        storageClassAnalysis,
+      );
     return helper.toString();
   }
 }

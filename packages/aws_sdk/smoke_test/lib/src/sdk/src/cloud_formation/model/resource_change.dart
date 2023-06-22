@@ -56,7 +56,7 @@ abstract class ResourceChange
 
   const ResourceChange._();
 
-  static const List<_i8.SmithySerializer> serializers = [
+  static const List<_i8.SmithySerializer<ResourceChange>> serializers = [
     ResourceChangeAwsQuerySerializer()
   ];
 
@@ -105,43 +105,43 @@ abstract class ResourceChange
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceChange');
-    helper.add(
-      'action',
-      action,
-    );
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
-    helper.add(
-      'physicalResourceId',
-      physicalResourceId,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'replacement',
-      replacement,
-    );
-    helper.add(
-      'scope',
-      scope,
-    );
-    helper.add(
-      'details',
-      details,
-    );
-    helper.add(
-      'changeSetId',
-      changeSetId,
-    );
-    helper.add(
-      'moduleInfo',
-      moduleInfo,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceChange')
+      ..add(
+        'action',
+        action,
+      )
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      )
+      ..add(
+        'physicalResourceId',
+        physicalResourceId,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'replacement',
+        replacement,
+      )
+      ..add(
+        'scope',
+        scope,
+      )
+      ..add(
+        'details',
+        details,
+      )
+      ..add(
+        'changeSetId',
+        changeSetId,
+      )
+      ..add(
+        'moduleInfo',
+        moduleInfo,
+      );
     return helper.toString();
   }
 }

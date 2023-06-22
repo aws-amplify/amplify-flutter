@@ -35,9 +35,8 @@ abstract class AggregateComplianceCount
 
   const AggregateComplianceCount._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AggregateComplianceCountAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<AggregateComplianceCount>>
+      serializers = [AggregateComplianceCountAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AggregateComplianceCountBuilder b) {}
@@ -54,15 +53,15 @@ abstract class AggregateComplianceCount
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AggregateComplianceCount');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'complianceSummary',
-      complianceSummary,
-    );
+    final helper = newBuiltValueToStringHelper('AggregateComplianceCount')
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'complianceSummary',
+        complianceSummary,
+      );
     return helper.toString();
   }
 }

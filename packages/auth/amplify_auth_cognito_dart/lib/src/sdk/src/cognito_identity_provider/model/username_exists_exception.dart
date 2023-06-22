@@ -37,9 +37,8 @@ abstract class UsernameExistsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UsernameExistsExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<UsernameExistsException>> serializers =
+      [UsernameExistsExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UsernameExistsExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class UsernameExistsException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UsernameExistsException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('UsernameExistsException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

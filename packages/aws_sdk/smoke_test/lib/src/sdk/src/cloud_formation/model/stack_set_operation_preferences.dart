@@ -52,9 +52,8 @@ abstract class StackSetOperationPreferences
 
   const StackSetOperationPreferences._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    StackSetOperationPreferencesAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<StackSetOperationPreferences>>
+      serializers = [StackSetOperationPreferencesAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StackSetOperationPreferencesBuilder b) {}
@@ -111,31 +110,31 @@ abstract class StackSetOperationPreferences
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackSetOperationPreferences');
-    helper.add(
-      'regionConcurrencyType',
-      regionConcurrencyType,
-    );
-    helper.add(
-      'regionOrder',
-      regionOrder,
-    );
-    helper.add(
-      'failureToleranceCount',
-      failureToleranceCount,
-    );
-    helper.add(
-      'failureTolerancePercentage',
-      failureTolerancePercentage,
-    );
-    helper.add(
-      'maxConcurrentCount',
-      maxConcurrentCount,
-    );
-    helper.add(
-      'maxConcurrentPercentage',
-      maxConcurrentPercentage,
-    );
+    final helper = newBuiltValueToStringHelper('StackSetOperationPreferences')
+      ..add(
+        'regionConcurrencyType',
+        regionConcurrencyType,
+      )
+      ..add(
+        'regionOrder',
+        regionOrder,
+      )
+      ..add(
+        'failureToleranceCount',
+        failureToleranceCount,
+      )
+      ..add(
+        'failureTolerancePercentage',
+        failureTolerancePercentage,
+      )
+      ..add(
+        'maxConcurrentCount',
+        maxConcurrentCount,
+      )
+      ..add(
+        'maxConcurrentPercentage',
+        maxConcurrentPercentage,
+      );
     return helper.toString();
   }
 }

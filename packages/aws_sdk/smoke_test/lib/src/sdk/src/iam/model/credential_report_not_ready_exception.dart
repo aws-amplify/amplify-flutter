@@ -39,9 +39,8 @@ abstract class CredentialReportNotReadyException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    CredentialReportNotReadyExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<CredentialReportNotReadyException>>
+      serializers = [CredentialReportNotReadyExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CredentialReportNotReadyExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class CredentialReportNotReadyException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CredentialReportNotReadyException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('CredentialReportNotReadyException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

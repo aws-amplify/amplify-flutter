@@ -46,7 +46,7 @@ abstract class InAppMessageContent
 
   const InAppMessageContent._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<InAppMessageContent>> serializers = [
     InAppMessageContentRestJson1Serializer()
   ];
 
@@ -81,31 +81,31 @@ abstract class InAppMessageContent
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessageContent');
-    helper.add(
-      'backgroundColor',
-      backgroundColor,
-    );
-    helper.add(
-      'bodyConfig',
-      bodyConfig,
-    );
-    helper.add(
-      'headerConfig',
-      headerConfig,
-    );
-    helper.add(
-      'imageUrl',
-      imageUrl,
-    );
-    helper.add(
-      'primaryBtn',
-      primaryBtn,
-    );
-    helper.add(
-      'secondaryBtn',
-      secondaryBtn,
-    );
+    final helper = newBuiltValueToStringHelper('InAppMessageContent')
+      ..add(
+        'backgroundColor',
+        backgroundColor,
+      )
+      ..add(
+        'bodyConfig',
+        bodyConfig,
+      )
+      ..add(
+        'headerConfig',
+        headerConfig,
+      )
+      ..add(
+        'imageUrl',
+        imageUrl,
+      )
+      ..add(
+        'primaryBtn',
+        primaryBtn,
+      )
+      ..add(
+        'secondaryBtn',
+        secondaryBtn,
+      );
     return helper.toString();
   }
 }

@@ -38,7 +38,7 @@ abstract class InternalServerError
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<InternalServerError>> serializers = [
     InternalServerErrorAwsJson10Serializer()
   ];
 
@@ -67,11 +67,11 @@ abstract class InternalServerError
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InternalServerError');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InternalServerError')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

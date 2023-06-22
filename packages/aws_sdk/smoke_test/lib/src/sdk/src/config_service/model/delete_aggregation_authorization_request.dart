@@ -40,7 +40,8 @@ abstract class DeleteAggregationAuthorizationRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeleteAggregationAuthorizationRequest>>
+      serializers = [
     DeleteAggregationAuthorizationRequestAwsJson11Serializer()
   ];
 
@@ -62,15 +63,15 @@ abstract class DeleteAggregationAuthorizationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteAggregationAuthorizationRequest');
-    helper.add(
-      'authorizedAccountId',
-      authorizedAccountId,
-    );
-    helper.add(
-      'authorizedAwsRegion',
-      authorizedAwsRegion,
-    );
+        newBuiltValueToStringHelper('DeleteAggregationAuthorizationRequest')
+          ..add(
+            'authorizedAccountId',
+            authorizedAccountId,
+          )
+          ..add(
+            'authorizedAwsRegion',
+            authorizedAwsRegion,
+          );
     return helper.toString();
   }
 }

@@ -46,7 +46,7 @@ abstract class SdkType
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<SdkType>> serializers = [
     SdkTypeRestJson1Serializer()
   ];
 
@@ -73,23 +73,23 @@ abstract class SdkType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SdkType');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'friendlyName',
-      friendlyName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'configurationProperties',
-      configurationProperties,
-    );
+    final helper = newBuiltValueToStringHelper('SdkType')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'friendlyName',
+        friendlyName,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'configurationProperties',
+        configurationProperties,
+      );
     return helper.toString();
   }
 }

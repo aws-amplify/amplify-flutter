@@ -54,7 +54,7 @@ abstract class GetTagsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetTagsRequestPayload>> serializers = [
     GetTagsRequestRestJson1Serializer()
   ];
 
@@ -91,19 +91,19 @@ abstract class GetTagsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetTagsRequest');
-    helper.add(
-      'resourceArn',
-      resourceArn,
-    );
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+    final helper = newBuiltValueToStringHelper('GetTagsRequest')
+      ..add(
+        'resourceArn',
+        resourceArn,
+      )
+      ..add(
+        'position',
+        position,
+      )
+      ..add(
+        'limit',
+        limit,
+      );
     return helper.toString();
   }
 }

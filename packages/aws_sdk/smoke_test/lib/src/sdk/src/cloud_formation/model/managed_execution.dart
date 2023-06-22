@@ -25,7 +25,7 @@ abstract class ManagedExecution
 
   const ManagedExecution._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ManagedExecution>> serializers = [
     ManagedExecutionAwsQuerySerializer()
   ];
 
@@ -44,11 +44,11 @@ abstract class ManagedExecution
   List<Object?> get props => [active];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ManagedExecution');
-    helper.add(
-      'active',
-      active,
-    );
+    final helper = newBuiltValueToStringHelper('ManagedExecution')
+      ..add(
+        'active',
+        active,
+      );
     return helper.toString();
   }
 }

@@ -69,7 +69,8 @@ abstract class PutBucketNotificationConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.NotificationConfiguration>>
+      serializers = [
     PutBucketNotificationConfigurationRequestRestXmlSerializer()
   ];
 
@@ -110,24 +111,24 @@ abstract class PutBucketNotificationConfigurationRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'PutBucketNotificationConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'notificationConfiguration',
-      notificationConfiguration,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'skipDestinationValidation',
-      skipDestinationValidation,
-    );
+    final helper =
+        newBuiltValueToStringHelper('PutBucketNotificationConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'notificationConfiguration',
+            notificationConfiguration,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          )
+          ..add(
+            'skipDestinationValidation',
+            skipDestinationValidation,
+          );
     return helper.toString();
   }
 }

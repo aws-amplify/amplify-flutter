@@ -45,7 +45,7 @@ abstract class ListBackupsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListBackupsInput>> serializers = [
     ListBackupsInputAwsJson10Serializer()
   ];
 
@@ -90,31 +90,31 @@ abstract class ListBackupsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListBackupsInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'timeRangeLowerBound',
-      timeRangeLowerBound,
-    );
-    helper.add(
-      'timeRangeUpperBound',
-      timeRangeUpperBound,
-    );
-    helper.add(
-      'exclusiveStartBackupArn',
-      exclusiveStartBackupArn,
-    );
-    helper.add(
-      'backupType',
-      backupType,
-    );
+    final helper = newBuiltValueToStringHelper('ListBackupsInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'timeRangeLowerBound',
+        timeRangeLowerBound,
+      )
+      ..add(
+        'timeRangeUpperBound',
+        timeRangeUpperBound,
+      )
+      ..add(
+        'exclusiveStartBackupArn',
+        exclusiveStartBackupArn,
+      )
+      ..add(
+        'backupType',
+        backupType,
+      );
     return helper.toString();
   }
 }

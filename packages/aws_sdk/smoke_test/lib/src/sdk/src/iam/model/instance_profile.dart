@@ -74,7 +74,7 @@ abstract class InstanceProfile
 
   const InstanceProfile._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<InstanceProfile>> serializers = [
     InstanceProfileAwsQuerySerializer()
   ];
 
@@ -113,35 +113,35 @@ abstract class InstanceProfile
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InstanceProfile');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'instanceProfileName',
-      instanceProfileName,
-    );
-    helper.add(
-      'instanceProfileId',
-      instanceProfileId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'roles',
-      roles,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('InstanceProfile')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'instanceProfileName',
+        instanceProfileName,
+      )
+      ..add(
+        'instanceProfileId',
+        instanceProfileId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'roles',
+        roles,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

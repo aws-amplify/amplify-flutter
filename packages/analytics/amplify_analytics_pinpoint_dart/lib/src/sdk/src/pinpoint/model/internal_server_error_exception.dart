@@ -45,9 +45,8 @@ abstract class InternalServerErrorException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InternalServerErrorExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InternalServerErrorException>>
+      serializers = [InternalServerErrorExceptionRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InternalServerErrorExceptionBuilder b) {}
@@ -80,15 +79,15 @@ abstract class InternalServerErrorException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InternalServerErrorException');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'requestId',
-      requestId,
-    );
+    final helper = newBuiltValueToStringHelper('InternalServerErrorException')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'requestId',
+        requestId,
+      );
     return helper.toString();
   }
 }

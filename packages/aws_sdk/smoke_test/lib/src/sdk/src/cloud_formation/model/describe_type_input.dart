@@ -45,7 +45,7 @@ abstract class DescribeTypeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DescribeTypeInput>> serializers = [
     DescribeTypeInputAwsQuerySerializer()
   ];
 
@@ -92,31 +92,31 @@ abstract class DescribeTypeInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeTypeInput');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
-    helper.add(
-      'publicVersionNumber',
-      publicVersionNumber,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeTypeInput')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'publisherId',
+        publisherId,
+      )
+      ..add(
+        'publicVersionNumber',
+        publicVersionNumber,
+      );
     return helper.toString();
   }
 }

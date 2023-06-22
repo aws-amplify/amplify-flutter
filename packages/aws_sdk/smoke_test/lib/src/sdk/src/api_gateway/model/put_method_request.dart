@@ -90,9 +90,8 @@ abstract class PutMethodRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutMethodRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutMethodRequestPayload>> serializers =
+      [PutMethodRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutMethodRequestBuilder b) {
@@ -180,51 +179,51 @@ abstract class PutMethodRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutMethodRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'authorizationType',
-      authorizationType,
-    );
-    helper.add(
-      'authorizerId',
-      authorizerId,
-    );
-    helper.add(
-      'apiKeyRequired',
-      apiKeyRequired,
-    );
-    helper.add(
-      'operationName',
-      operationName,
-    );
-    helper.add(
-      'requestParameters',
-      requestParameters,
-    );
-    helper.add(
-      'requestModels',
-      requestModels,
-    );
-    helper.add(
-      'requestValidatorId',
-      requestValidatorId,
-    );
-    helper.add(
-      'authorizationScopes',
-      authorizationScopes,
-    );
+    final helper = newBuiltValueToStringHelper('PutMethodRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'authorizationType',
+        authorizationType,
+      )
+      ..add(
+        'authorizerId',
+        authorizerId,
+      )
+      ..add(
+        'apiKeyRequired',
+        apiKeyRequired,
+      )
+      ..add(
+        'operationName',
+        operationName,
+      )
+      ..add(
+        'requestParameters',
+        requestParameters,
+      )
+      ..add(
+        'requestModels',
+        requestModels,
+      )
+      ..add(
+        'requestValidatorId',
+        requestValidatorId,
+      )
+      ..add(
+        'authorizationScopes',
+        authorizationScopes,
+      );
     return helper.toString();
   }
 }
@@ -280,39 +279,39 @@ abstract class PutMethodRequestPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutMethodRequestPayload');
-    helper.add(
-      'apiKeyRequired',
-      apiKeyRequired,
-    );
-    helper.add(
-      'authorizationScopes',
-      authorizationScopes,
-    );
-    helper.add(
-      'authorizationType',
-      authorizationType,
-    );
-    helper.add(
-      'authorizerId',
-      authorizerId,
-    );
-    helper.add(
-      'operationName',
-      operationName,
-    );
-    helper.add(
-      'requestModels',
-      requestModels,
-    );
-    helper.add(
-      'requestParameters',
-      requestParameters,
-    );
-    helper.add(
-      'requestValidatorId',
-      requestValidatorId,
-    );
+    final helper = newBuiltValueToStringHelper('PutMethodRequestPayload')
+      ..add(
+        'apiKeyRequired',
+        apiKeyRequired,
+      )
+      ..add(
+        'authorizationScopes',
+        authorizationScopes,
+      )
+      ..add(
+        'authorizationType',
+        authorizationType,
+      )
+      ..add(
+        'authorizerId',
+        authorizerId,
+      )
+      ..add(
+        'operationName',
+        operationName,
+      )
+      ..add(
+        'requestModels',
+        requestModels,
+      )
+      ..add(
+        'requestParameters',
+        requestParameters,
+      )
+      ..add(
+        'requestValidatorId',
+        requestValidatorId,
+      );
     return helper.toString();
   }
 }

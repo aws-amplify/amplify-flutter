@@ -41,9 +41,8 @@ abstract class UpdateGlobalTableInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateGlobalTableInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateGlobalTableInput>> serializers =
+      [UpdateGlobalTableInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateGlobalTableInputBuilder b) {}
@@ -62,15 +61,15 @@ abstract class UpdateGlobalTableInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateGlobalTableInput');
-    helper.add(
-      'globalTableName',
-      globalTableName,
-    );
-    helper.add(
-      'replicaUpdates',
-      replicaUpdates,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateGlobalTableInput')
+      ..add(
+        'globalTableName',
+        globalTableName,
+      )
+      ..add(
+        'replicaUpdates',
+        replicaUpdates,
+      );
     return helper.toString();
   }
 }

@@ -39,9 +39,8 @@ abstract class UnsupportedOperationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UnsupportedOperationExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<UnsupportedOperationException>>
+      serializers = [UnsupportedOperationExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UnsupportedOperationExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class UnsupportedOperationException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UnsupportedOperationException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('UnsupportedOperationException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

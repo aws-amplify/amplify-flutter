@@ -39,9 +39,8 @@ abstract class MalformedCertificateException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    MalformedCertificateExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<MalformedCertificateException>>
+      serializers = [MalformedCertificateExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedCertificateExceptionBuilder b) {}
@@ -66,11 +65,11 @@ abstract class MalformedCertificateException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedCertificateException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedCertificateException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

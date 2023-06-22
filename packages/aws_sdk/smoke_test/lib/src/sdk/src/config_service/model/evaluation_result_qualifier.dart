@@ -39,9 +39,8 @@ abstract class EvaluationResultQualifier
 
   const EvaluationResultQualifier._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    EvaluationResultQualifierAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<EvaluationResultQualifier>>
+      serializers = [EvaluationResultQualifierAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EvaluationResultQualifierBuilder b) {}
@@ -66,23 +65,23 @@ abstract class EvaluationResultQualifier
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EvaluationResultQualifier');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'evaluationMode',
-      evaluationMode,
-    );
+    final helper = newBuiltValueToStringHelper('EvaluationResultQualifier')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'evaluationMode',
+        evaluationMode,
+      );
     return helper.toString();
   }
 }

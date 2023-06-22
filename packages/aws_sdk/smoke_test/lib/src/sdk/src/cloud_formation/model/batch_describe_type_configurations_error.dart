@@ -39,9 +39,8 @@ abstract class BatchDescribeTypeConfigurationsError
 
   const BatchDescribeTypeConfigurationsError._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    BatchDescribeTypeConfigurationsErrorAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<BatchDescribeTypeConfigurationsError>>
+      serializers = [BatchDescribeTypeConfigurationsErrorAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BatchDescribeTypeConfigurationsErrorBuilder b) {}
@@ -63,19 +62,19 @@ abstract class BatchDescribeTypeConfigurationsError
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('BatchDescribeTypeConfigurationsError');
-    helper.add(
-      'errorCode',
-      errorCode,
-    );
-    helper.add(
-      'errorMessage',
-      errorMessage,
-    );
-    helper.add(
-      'typeConfigurationIdentifier',
-      typeConfigurationIdentifier,
-    );
+        newBuiltValueToStringHelper('BatchDescribeTypeConfigurationsError')
+          ..add(
+            'errorCode',
+            errorCode,
+          )
+          ..add(
+            'errorMessage',
+            errorMessage,
+          )
+          ..add(
+            'typeConfigurationIdentifier',
+            typeConfigurationIdentifier,
+          );
     return helper.toString();
   }
 }

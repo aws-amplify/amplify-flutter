@@ -38,9 +38,8 @@ abstract class InternalErrorException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InternalErrorExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InternalErrorException>> serializers =
+      [InternalErrorExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InternalErrorExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class InternalErrorException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InternalErrorException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InternalErrorException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -37,9 +37,8 @@ abstract class KeyPairMismatchException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    KeyPairMismatchExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<KeyPairMismatchException>>
+      serializers = [KeyPairMismatchExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(KeyPairMismatchExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class KeyPairMismatchException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('KeyPairMismatchException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('KeyPairMismatchException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

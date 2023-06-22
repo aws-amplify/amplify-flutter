@@ -52,9 +52,8 @@ abstract class InventoryConfiguration
 
   const InventoryConfiguration._();
 
-  static const List<_i8.SmithySerializer> serializers = [
-    InventoryConfigurationRestXmlSerializer()
-  ];
+  static const List<_i8.SmithySerializer<InventoryConfiguration>> serializers =
+      [InventoryConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InventoryConfigurationBuilder b) {}
@@ -91,35 +90,35 @@ abstract class InventoryConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InventoryConfiguration');
-    helper.add(
-      'destination',
-      destination,
-    );
-    helper.add(
-      'isEnabled',
-      isEnabled,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'includedObjectVersions',
-      includedObjectVersions,
-    );
-    helper.add(
-      'optionalFields',
-      optionalFields,
-    );
-    helper.add(
-      'schedule',
-      schedule,
-    );
+    final helper = newBuiltValueToStringHelper('InventoryConfiguration')
+      ..add(
+        'destination',
+        destination,
+      )
+      ..add(
+        'isEnabled',
+        isEnabled,
+      )
+      ..add(
+        'filter',
+        filter,
+      )
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'includedObjectVersions',
+        includedObjectVersions,
+      )
+      ..add(
+        'optionalFields',
+        optionalFields,
+      )
+      ..add(
+        'schedule',
+        schedule,
+      );
     return helper.toString();
   }
 }

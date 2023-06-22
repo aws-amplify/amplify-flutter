@@ -46,7 +46,7 @@ abstract class Resource
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Resource>> serializers = [
     ResourceRestJson1Serializer()
   ];
 
@@ -77,27 +77,27 @@ abstract class Resource
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Resource');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'parentId',
-      parentId,
-    );
-    helper.add(
-      'pathPart',
-      pathPart,
-    );
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'resourceMethods',
-      resourceMethods,
-    );
+    final helper = newBuiltValueToStringHelper('Resource')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'parentId',
+        parentId,
+      )
+      ..add(
+        'pathPart',
+        pathPart,
+      )
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'resourceMethods',
+        resourceMethods,
+      );
     return helper.toString();
   }
 }

@@ -43,7 +43,9 @@ abstract class UpdateServiceSpecificCredentialRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<UpdateServiceSpecificCredentialRequest>>
+      serializers = [
     UpdateServiceSpecificCredentialRequestAwsQuerySerializer()
   ];
 
@@ -73,19 +75,19 @@ abstract class UpdateServiceSpecificCredentialRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateServiceSpecificCredentialRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'serviceSpecificCredentialId',
-      serviceSpecificCredentialId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
+        newBuiltValueToStringHelper('UpdateServiceSpecificCredentialRequest')
+          ..add(
+            'userName',
+            userName,
+          )
+          ..add(
+            'serviceSpecificCredentialId',
+            serviceSpecificCredentialId,
+          )
+          ..add(
+            'status',
+            status,
+          );
     return helper.toString();
   }
 }

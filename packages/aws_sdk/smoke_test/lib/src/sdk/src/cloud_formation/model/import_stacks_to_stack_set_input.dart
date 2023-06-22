@@ -61,9 +61,8 @@ abstract class ImportStacksToStackSetInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ImportStacksToStackSetInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ImportStacksToStackSetInput>>
+      serializers = [ImportStacksToStackSetInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ImportStacksToStackSetInputBuilder b) {
@@ -118,35 +117,35 @@ abstract class ImportStacksToStackSetInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ImportStacksToStackSetInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'stackIds',
-      stackIds,
-    );
-    helper.add(
-      'stackIdsUrl',
-      stackIdsUrl,
-    );
-    helper.add(
-      'organizationalUnitIds',
-      organizationalUnitIds,
-    );
-    helper.add(
-      'operationPreferences',
-      operationPreferences,
-    );
-    helper.add(
-      'operationId',
-      operationId,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+    final helper = newBuiltValueToStringHelper('ImportStacksToStackSetInput')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'stackIds',
+        stackIds,
+      )
+      ..add(
+        'stackIdsUrl',
+        stackIdsUrl,
+      )
+      ..add(
+        'organizationalUnitIds',
+        organizationalUnitIds,
+      )
+      ..add(
+        'operationPreferences',
+        operationPreferences,
+      )
+      ..add(
+        'operationId',
+        operationId,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      );
     return helper.toString();
   }
 }

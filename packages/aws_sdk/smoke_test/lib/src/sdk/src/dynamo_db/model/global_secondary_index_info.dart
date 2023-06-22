@@ -43,9 +43,8 @@ abstract class GlobalSecondaryIndexInfo
 
   const GlobalSecondaryIndexInfo._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    GlobalSecondaryIndexInfoAwsJson10Serializer()
-  ];
+  static const List<_i6.SmithySerializer<GlobalSecondaryIndexInfo>>
+      serializers = [GlobalSecondaryIndexInfoAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GlobalSecondaryIndexInfoBuilder b) {}
@@ -79,23 +78,23 @@ abstract class GlobalSecondaryIndexInfo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GlobalSecondaryIndexInfo');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'projection',
-      projection,
-    );
-    helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
-    );
+    final helper = newBuiltValueToStringHelper('GlobalSecondaryIndexInfo')
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'keySchema',
+        keySchema,
+      )
+      ..add(
+        'projection',
+        projection,
+      )
+      ..add(
+        'provisionedThroughput',
+        provisionedThroughput,
+      );
     return helper.toString();
   }
 }

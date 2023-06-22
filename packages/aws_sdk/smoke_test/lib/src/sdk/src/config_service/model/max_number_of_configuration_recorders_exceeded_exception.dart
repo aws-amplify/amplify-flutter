@@ -42,7 +42,9 @@ abstract class MaxNumberOfConfigurationRecordersExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+      _i2.SmithySerializer<
+          MaxNumberOfConfigurationRecordersExceededException>> serializers = [
     MaxNumberOfConfigurationRecordersExceededExceptionAwsJson11Serializer()
   ];
 
@@ -73,11 +75,11 @@ abstract class MaxNumberOfConfigurationRecordersExceededException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MaxNumberOfConfigurationRecordersExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+        'MaxNumberOfConfigurationRecordersExceededException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

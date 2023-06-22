@@ -49,9 +49,8 @@ abstract class GetFederationTokenRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetFederationTokenRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetFederationTokenRequest>>
+      serializers = [GetFederationTokenRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetFederationTokenRequestBuilder b) {}
@@ -114,27 +113,27 @@ abstract class GetFederationTokenRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetFederationTokenRequest');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'policy',
-      policy,
-    );
-    helper.add(
-      'policyArns',
-      policyArns,
-    );
-    helper.add(
-      'durationSeconds',
-      durationSeconds,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('GetFederationTokenRequest')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'policy',
+        policy,
+      )
+      ..add(
+        'policyArns',
+        policyArns,
+      )
+      ..add(
+        'durationSeconds',
+        durationSeconds,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

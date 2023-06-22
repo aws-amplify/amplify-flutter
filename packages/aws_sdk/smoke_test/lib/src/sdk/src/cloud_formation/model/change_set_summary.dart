@@ -55,7 +55,7 @@ abstract class ChangeSetSummary
 
   const ChangeSetSummary._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ChangeSetSummary>> serializers = [
     ChangeSetSummaryAwsQuerySerializer()
   ];
 
@@ -114,55 +114,55 @@ abstract class ChangeSetSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ChangeSetSummary');
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'changeSetId',
-      changeSetId,
-    );
-    helper.add(
-      'changeSetName',
-      changeSetName,
-    );
-    helper.add(
-      'executionStatus',
-      executionStatus,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'statusReason',
-      statusReason,
-    );
-    helper.add(
-      'creationTime',
-      creationTime,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'includeNestedStacks',
-      includeNestedStacks,
-    );
-    helper.add(
-      'parentChangeSetId',
-      parentChangeSetId,
-    );
-    helper.add(
-      'rootChangeSetId',
-      rootChangeSetId,
-    );
+    final helper = newBuiltValueToStringHelper('ChangeSetSummary')
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'changeSetId',
+        changeSetId,
+      )
+      ..add(
+        'changeSetName',
+        changeSetName,
+      )
+      ..add(
+        'executionStatus',
+        executionStatus,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'statusReason',
+        statusReason,
+      )
+      ..add(
+        'creationTime',
+        creationTime,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'includeNestedStacks',
+        includeNestedStacks,
+      )
+      ..add(
+        'parentChangeSetId',
+        parentChangeSetId,
+      )
+      ..add(
+        'rootChangeSetId',
+        rootChangeSetId,
+      );
     return helper.toString();
   }
 }

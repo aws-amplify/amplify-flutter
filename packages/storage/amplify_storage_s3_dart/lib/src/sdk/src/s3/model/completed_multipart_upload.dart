@@ -31,9 +31,8 @@ abstract class CompletedMultipartUpload
 
   const CompletedMultipartUpload._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    CompletedMultipartUploadRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<CompletedMultipartUpload>>
+      serializers = [CompletedMultipartUploadRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CompletedMultipartUploadBuilder b) {}
@@ -46,11 +45,11 @@ abstract class CompletedMultipartUpload
   List<Object?> get props => [parts];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CompletedMultipartUpload');
-    helper.add(
-      'parts',
-      parts,
-    );
+    final helper = newBuiltValueToStringHelper('CompletedMultipartUpload')
+      ..add(
+        'parts',
+        parts,
+      );
     return helper.toString();
   }
 }

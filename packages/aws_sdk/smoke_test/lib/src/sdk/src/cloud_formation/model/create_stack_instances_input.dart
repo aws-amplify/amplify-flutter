@@ -66,9 +66,8 @@ abstract class CreateStackInstancesInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateStackInstancesInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateStackInstancesInput>>
+      serializers = [CreateStackInstancesInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateStackInstancesInputBuilder b) {
@@ -150,39 +149,39 @@ abstract class CreateStackInstancesInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateStackInstancesInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'accounts',
-      accounts,
-    );
-    helper.add(
-      'deploymentTargets',
-      deploymentTargets,
-    );
-    helper.add(
-      'regions',
-      regions,
-    );
-    helper.add(
-      'parameterOverrides',
-      parameterOverrides,
-    );
-    helper.add(
-      'operationPreferences',
-      operationPreferences,
-    );
-    helper.add(
-      'operationId',
-      operationId,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+    final helper = newBuiltValueToStringHelper('CreateStackInstancesInput')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'accounts',
+        accounts,
+      )
+      ..add(
+        'deploymentTargets',
+        deploymentTargets,
+      )
+      ..add(
+        'regions',
+        regions,
+      )
+      ..add(
+        'parameterOverrides',
+        parameterOverrides,
+      )
+      ..add(
+        'operationPreferences',
+        operationPreferences,
+      )
+      ..add(
+        'operationId',
+        operationId,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      );
     return helper.toString();
   }
 }

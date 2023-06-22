@@ -43,7 +43,7 @@ abstract class EvaluationResult
 
   const EvaluationResult._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<EvaluationResult>> serializers = [
     EvaluationResultAwsJson11Serializer()
   ];
 
@@ -80,31 +80,31 @@ abstract class EvaluationResult
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EvaluationResult');
-    helper.add(
-      'evaluationResultIdentifier',
-      evaluationResultIdentifier,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'resultRecordedTime',
-      resultRecordedTime,
-    );
-    helper.add(
-      'configRuleInvokedTime',
-      configRuleInvokedTime,
-    );
-    helper.add(
-      'annotation',
-      annotation,
-    );
-    helper.add(
-      'resultToken',
-      resultToken,
-    );
+    final helper = newBuiltValueToStringHelper('EvaluationResult')
+      ..add(
+        'evaluationResultIdentifier',
+        evaluationResultIdentifier,
+      )
+      ..add(
+        'complianceType',
+        complianceType,
+      )
+      ..add(
+        'resultRecordedTime',
+        resultRecordedTime,
+      )
+      ..add(
+        'configRuleInvokedTime',
+        configRuleInvokedTime,
+      )
+      ..add(
+        'annotation',
+        annotation,
+      )
+      ..add(
+        'resultToken',
+        resultToken,
+      );
     return helper.toString();
   }
 }

@@ -47,7 +47,9 @@ abstract class GetUserAttributeVerificationCodeRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<GetUserAttributeVerificationCodeRequest>>
+      serializers = [
     GetUserAttributeVerificationCodeRequestAwsJson11Serializer()
   ];
 
@@ -85,19 +87,19 @@ abstract class GetUserAttributeVerificationCodeRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetUserAttributeVerificationCodeRequest');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'attributeName',
-      attributeName,
-    );
-    helper.add(
-      'clientMetadata',
-      clientMetadata,
-    );
+        newBuiltValueToStringHelper('GetUserAttributeVerificationCodeRequest')
+          ..add(
+            'accessToken',
+            '***SENSITIVE***',
+          )
+          ..add(
+            'attributeName',
+            attributeName,
+          )
+          ..add(
+            'clientMetadata',
+            clientMetadata,
+          );
     return helper.toString();
   }
 }

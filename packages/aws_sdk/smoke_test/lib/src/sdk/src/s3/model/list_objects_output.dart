@@ -81,9 +81,8 @@ abstract class ListObjectsOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ListObjectsOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<ListObjectsOutputPayload>>
+      serializers = [ListObjectsOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListObjectsOutputBuilder b) {}
@@ -161,51 +160,51 @@ abstract class ListObjectsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListObjectsOutput');
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'nextMarker',
-      nextMarker,
-    );
-    helper.add(
-      'contents',
-      contents,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'maxKeys',
-      maxKeys,
-    );
-    helper.add(
-      'commonPrefixes',
-      commonPrefixes,
-    );
-    helper.add(
-      'encodingType',
-      encodingType,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('ListObjectsOutput')
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'nextMarker',
+        nextMarker,
+      )
+      ..add(
+        'contents',
+        contents,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'delimiter',
+        delimiter,
+      )
+      ..add(
+        'maxKeys',
+        maxKeys,
+      )
+      ..add(
+        'commonPrefixes',
+        commonPrefixes,
+      )
+      ..add(
+        'encodingType',
+        encodingType,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }
@@ -276,47 +275,47 @@ abstract class ListObjectsOutputPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListObjectsOutputPayload');
-    helper.add(
-      'commonPrefixes',
-      commonPrefixes,
-    );
-    helper.add(
-      'contents',
-      contents,
-    );
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'encodingType',
-      encodingType,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxKeys',
-      maxKeys,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'nextMarker',
-      nextMarker,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
+    final helper = newBuiltValueToStringHelper('ListObjectsOutputPayload')
+      ..add(
+        'commonPrefixes',
+        commonPrefixes,
+      )
+      ..add(
+        'contents',
+        contents,
+      )
+      ..add(
+        'delimiter',
+        delimiter,
+      )
+      ..add(
+        'encodingType',
+        encodingType,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxKeys',
+        maxKeys,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'nextMarker',
+        nextMarker,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      );
     return helper.toString();
   }
 }

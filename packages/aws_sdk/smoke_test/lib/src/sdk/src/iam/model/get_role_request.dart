@@ -29,7 +29,7 @@ abstract class GetRoleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetRoleRequest>> serializers = [
     GetRoleRequestAwsQuerySerializer()
   ];
 
@@ -46,11 +46,11 @@ abstract class GetRoleRequest
   List<Object?> get props => [roleName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetRoleRequest');
-    helper.add(
-      'roleName',
-      roleName,
-    );
+    final helper = newBuiltValueToStringHelper('GetRoleRequest')
+      ..add(
+        'roleName',
+        roleName,
+      );
     return helper.toString();
   }
 }

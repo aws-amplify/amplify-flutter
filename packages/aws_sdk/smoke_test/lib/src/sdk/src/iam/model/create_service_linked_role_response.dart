@@ -34,9 +34,8 @@ abstract class CreateServiceLinkedRoleResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    CreateServiceLinkedRoleResponseAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<CreateServiceLinkedRoleResponse>>
+      serializers = [CreateServiceLinkedRoleResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateServiceLinkedRoleResponseBuilder b) {}
@@ -48,11 +47,11 @@ abstract class CreateServiceLinkedRoleResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateServiceLinkedRoleResponse');
-    helper.add(
-      'role',
-      role,
-    );
+        newBuiltValueToStringHelper('CreateServiceLinkedRoleResponse')
+          ..add(
+            'role',
+            role,
+          );
     return helper.toString();
   }
 }

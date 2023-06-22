@@ -37,9 +37,8 @@ abstract class ChangeSetNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ChangeSetNotFoundExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<ChangeSetNotFoundException>>
+      serializers = [ChangeSetNotFoundExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ChangeSetNotFoundExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class ChangeSetNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ChangeSetNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ChangeSetNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

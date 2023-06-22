@@ -32,7 +32,7 @@ abstract class Endpoint
 
   const Endpoint._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Endpoint>> serializers = [
     EndpointAwsJson10Serializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class Endpoint
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Endpoint');
-    helper.add(
-      'address',
-      address,
-    );
-    helper.add(
-      'cachePeriodInMinutes',
-      cachePeriodInMinutes,
-    );
+    final helper = newBuiltValueToStringHelper('Endpoint')
+      ..add(
+        'address',
+        address,
+      )
+      ..add(
+        'cachePeriodInMinutes',
+        cachePeriodInMinutes,
+      );
     return helper.toString();
   }
 }

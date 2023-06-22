@@ -39,9 +39,8 @@ abstract class UploadSshPublicKeyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UploadSshPublicKeyRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<UploadSshPublicKeyRequest>>
+      serializers = [UploadSshPublicKeyRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadSshPublicKeyRequestBuilder b) {}
@@ -70,15 +69,15 @@ abstract class UploadSshPublicKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadSshPublicKeyRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'sshPublicKeyBody',
-      sshPublicKeyBody,
-    );
+    final helper = newBuiltValueToStringHelper('UploadSshPublicKeyRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'sshPublicKeyBody',
+        sshPublicKeyBody,
+      );
     return helper.toString();
   }
 }

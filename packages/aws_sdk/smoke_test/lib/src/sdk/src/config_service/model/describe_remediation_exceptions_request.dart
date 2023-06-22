@@ -48,9 +48,8 @@ abstract class DescribeRemediationExceptionsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeRemediationExceptionsRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DescribeRemediationExceptionsRequest>>
+      serializers = [DescribeRemediationExceptionsRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeRemediationExceptionsRequestBuilder b) {
@@ -80,23 +79,23 @@ abstract class DescribeRemediationExceptionsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeRemediationExceptionsRequest');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'resourceKeys',
-      resourceKeys,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('DescribeRemediationExceptionsRequest')
+          ..add(
+            'configRuleName',
+            configRuleName,
+          )
+          ..add(
+            'resourceKeys',
+            resourceKeys,
+          )
+          ..add(
+            'limit',
+            limit,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

@@ -31,9 +31,8 @@ abstract class ProvisionedThroughputOverride
 
   const ProvisionedThroughputOverride._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ProvisionedThroughputOverrideAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<ProvisionedThroughputOverride>>
+      serializers = [ProvisionedThroughputOverrideAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ProvisionedThroughputOverrideBuilder b) {}
@@ -44,11 +43,11 @@ abstract class ProvisionedThroughputOverride
   List<Object?> get props => [readCapacityUnits];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ProvisionedThroughputOverride');
-    helper.add(
-      'readCapacityUnits',
-      readCapacityUnits,
-    );
+    final helper = newBuiltValueToStringHelper('ProvisionedThroughputOverride')
+      ..add(
+        'readCapacityUnits',
+        readCapacityUnits,
+      );
     return helper.toString();
   }
 }

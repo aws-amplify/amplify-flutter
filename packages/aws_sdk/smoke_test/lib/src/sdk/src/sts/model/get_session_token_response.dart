@@ -34,9 +34,8 @@ abstract class GetSessionTokenResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetSessionTokenResponseAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<GetSessionTokenResponse>> serializers =
+      [GetSessionTokenResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetSessionTokenResponseBuilder b) {}
@@ -49,11 +48,11 @@ abstract class GetSessionTokenResponse
   List<Object?> get props => [credentials];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetSessionTokenResponse');
-    helper.add(
-      'credentials',
-      credentials,
-    );
+    final helper = newBuiltValueToStringHelper('GetSessionTokenResponse')
+      ..add(
+        'credentials',
+        credentials,
+      );
     return helper.toString();
   }
 }

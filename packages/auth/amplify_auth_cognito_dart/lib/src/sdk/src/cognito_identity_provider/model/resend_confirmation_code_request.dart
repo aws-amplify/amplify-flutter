@@ -57,9 +57,8 @@ abstract class ResendConfirmationCodeRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ResendConfirmationCodeRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<ResendConfirmationCodeRequest>>
+      serializers = [ResendConfirmationCodeRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResendConfirmationCodeRequestBuilder b) {}
@@ -106,31 +105,31 @@ abstract class ResendConfirmationCodeRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResendConfirmationCodeRequest');
-    helper.add(
-      'clientId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'secretHash',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'userContextData',
-      userContextData,
-    );
-    helper.add(
-      'username',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'analyticsMetadata',
-      analyticsMetadata,
-    );
-    helper.add(
-      'clientMetadata',
-      clientMetadata,
-    );
+    final helper = newBuiltValueToStringHelper('ResendConfirmationCodeRequest')
+      ..add(
+        'clientId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'secretHash',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'userContextData',
+        userContextData,
+      )
+      ..add(
+        'username',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'analyticsMetadata',
+        analyticsMetadata,
+      )
+      ..add(
+        'clientMetadata',
+        clientMetadata,
+      );
     return helper.toString();
   }
 }

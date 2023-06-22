@@ -41,9 +41,8 @@ abstract class GetGroupPolicyResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetGroupPolicyResponseAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<GetGroupPolicyResponse>> serializers =
+      [GetGroupPolicyResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetGroupPolicyResponseBuilder b) {}
@@ -66,19 +65,19 @@ abstract class GetGroupPolicyResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetGroupPolicyResponse');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'policyName',
-      policyName,
-    );
-    helper.add(
-      'policyDocument',
-      policyDocument,
-    );
+    final helper = newBuiltValueToStringHelper('GetGroupPolicyResponse')
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'policyName',
+        policyName,
+      )
+      ..add(
+        'policyDocument',
+        policyDocument,
+      );
     return helper.toString();
   }
 }

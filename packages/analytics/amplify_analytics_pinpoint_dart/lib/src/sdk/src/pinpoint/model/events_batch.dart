@@ -36,7 +36,7 @@ abstract class EventsBatch
 
   const EventsBatch._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<EventsBatch>> serializers = [
     EventsBatchRestJson1Serializer()
   ];
 
@@ -55,15 +55,15 @@ abstract class EventsBatch
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventsBatch');
-    helper.add(
-      'endpoint',
-      endpoint,
-    );
-    helper.add(
-      'events',
-      events,
-    );
+    final helper = newBuiltValueToStringHelper('EventsBatch')
+      ..add(
+        'endpoint',
+        endpoint,
+      )
+      ..add(
+        'events',
+        events,
+      );
     return helper.toString();
   }
 }

@@ -35,7 +35,7 @@ abstract class Compliance
 
   const Compliance._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Compliance>> serializers = [
     ComplianceAwsJson11Serializer()
   ];
 
@@ -62,15 +62,15 @@ abstract class Compliance
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Compliance');
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'complianceContributorCount',
-      complianceContributorCount,
-    );
+    final helper = newBuiltValueToStringHelper('Compliance')
+      ..add(
+        'complianceType',
+        complianceType,
+      )
+      ..add(
+        'complianceContributorCount',
+        complianceContributorCount,
+      );
     return helper.toString();
   }
 }

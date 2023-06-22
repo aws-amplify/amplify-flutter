@@ -44,9 +44,8 @@ abstract class ServiceSpecificCredentialMetadata
 
   const ServiceSpecificCredentialMetadata._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ServiceSpecificCredentialMetadataAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<ServiceSpecificCredentialMetadata>>
+      serializers = [ServiceSpecificCredentialMetadataAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ServiceSpecificCredentialMetadataBuilder b) {}
@@ -80,31 +79,31 @@ abstract class ServiceSpecificCredentialMetadata
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ServiceSpecificCredentialMetadata');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'serviceUserName',
-      serviceUserName,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'serviceSpecificCredentialId',
-      serviceSpecificCredentialId,
-    );
-    helper.add(
-      'serviceName',
-      serviceName,
-    );
+        newBuiltValueToStringHelper('ServiceSpecificCredentialMetadata')
+          ..add(
+            'userName',
+            userName,
+          )
+          ..add(
+            'status',
+            status,
+          )
+          ..add(
+            'serviceUserName',
+            serviceUserName,
+          )
+          ..add(
+            'createDate',
+            createDate,
+          )
+          ..add(
+            'serviceSpecificCredentialId',
+            serviceSpecificCredentialId,
+          )
+          ..add(
+            'serviceName',
+            serviceName,
+          );
     return helper.toString();
   }
 }

@@ -56,9 +56,8 @@ abstract class CreateBasePathMappingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateBasePathMappingRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateBasePathMappingRequestPayload>>
+      serializers = [CreateBasePathMappingRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateBasePathMappingRequestBuilder b) {}
@@ -102,23 +101,23 @@ abstract class CreateBasePathMappingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateBasePathMappingRequest');
-    helper.add(
-      'domainName',
-      domainName,
-    );
-    helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stage',
-      stage,
-    );
+    final helper = newBuiltValueToStringHelper('CreateBasePathMappingRequest')
+      ..add(
+        'domainName',
+        domainName,
+      )
+      ..add(
+        'basePath',
+        basePath,
+      )
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stage',
+        stage,
+      );
     return helper.toString();
   }
 }
@@ -156,19 +155,19 @@ abstract class CreateBasePathMappingRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateBasePathMappingRequestPayload');
-    helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stage',
-      stage,
-    );
+        newBuiltValueToStringHelper('CreateBasePathMappingRequestPayload')
+          ..add(
+            'basePath',
+            basePath,
+          )
+          ..add(
+            'restApiId',
+            restApiId,
+          )
+          ..add(
+            'stage',
+            stage,
+          );
     return helper.toString();
   }
 }

@@ -53,9 +53,8 @@ abstract class DeleteBasePathMappingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteBasePathMappingRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteBasePathMappingRequestPayload>>
+      serializers = [DeleteBasePathMappingRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteBasePathMappingRequestBuilder b) {}
@@ -91,15 +90,15 @@ abstract class DeleteBasePathMappingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteBasePathMappingRequest');
-    helper.add(
-      'domainName',
-      domainName,
-    );
-    helper.add(
-      'basePath',
-      basePath,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteBasePathMappingRequest')
+      ..add(
+        'domainName',
+        domainName,
+      )
+      ..add(
+        'basePath',
+        basePath,
+      );
     return helper.toString();
   }
 }

@@ -29,7 +29,7 @@ abstract class DeleteBackupInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeleteBackupInput>> serializers = [
     DeleteBackupInputAwsJson10Serializer()
   ];
 
@@ -44,11 +44,11 @@ abstract class DeleteBackupInput
   List<Object?> get props => [backupArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteBackupInput');
-    helper.add(
-      'backupArn',
-      backupArn,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteBackupInput')
+      ..add(
+        'backupArn',
+        backupArn,
+      );
     return helper.toString();
   }
 }

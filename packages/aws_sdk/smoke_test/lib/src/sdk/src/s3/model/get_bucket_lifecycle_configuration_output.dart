@@ -37,9 +37,8 @@ abstract class GetBucketLifecycleConfigurationOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetBucketLifecycleConfigurationOutputRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<GetBucketLifecycleConfigurationOutput>>
+      serializers = [GetBucketLifecycleConfigurationOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketLifecycleConfigurationOutputBuilder b) {}
@@ -51,11 +50,11 @@ abstract class GetBucketLifecycleConfigurationOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketLifecycleConfigurationOutput');
-    helper.add(
-      'rules',
-      rules,
-    );
+        newBuiltValueToStringHelper('GetBucketLifecycleConfigurationOutput')
+          ..add(
+            'rules',
+            rules,
+          );
     return helper.toString();
   }
 }

@@ -67,9 +67,8 @@ abstract class PutBucketRequestPaymentRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketRequestPaymentRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.RequestPaymentConfiguration>>
+      serializers = [PutBucketRequestPaymentRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutBucketRequestPaymentRequestBuilder b) {}
@@ -116,28 +115,27 @@ abstract class PutBucketRequestPaymentRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('PutBucketRequestPaymentRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'requestPaymentConfiguration',
-      requestPaymentConfiguration,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutBucketRequestPaymentRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'requestPaymentConfiguration',
+        requestPaymentConfiguration,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

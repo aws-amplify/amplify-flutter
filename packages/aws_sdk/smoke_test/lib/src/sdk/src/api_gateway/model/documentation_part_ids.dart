@@ -40,7 +40,7 @@ abstract class DocumentationPartIds
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DocumentationPartIds>> serializers = [
     DocumentationPartIdsRestJson1Serializer()
   ];
 
@@ -59,15 +59,15 @@ abstract class DocumentationPartIds
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DocumentationPartIds');
-    helper.add(
-      'ids',
-      ids,
-    );
-    helper.add(
-      'warnings',
-      warnings,
-    );
+    final helper = newBuiltValueToStringHelper('DocumentationPartIds')
+      ..add(
+        'ids',
+        ids,
+      )
+      ..add(
+        'warnings',
+        warnings,
+      );
     return helper.toString();
   }
 }

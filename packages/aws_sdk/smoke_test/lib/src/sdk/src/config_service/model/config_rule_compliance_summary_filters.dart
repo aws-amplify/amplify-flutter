@@ -35,9 +35,8 @@ abstract class ConfigRuleComplianceSummaryFilters
 
   const ConfigRuleComplianceSummaryFilters._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ConfigRuleComplianceSummaryFiltersAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ConfigRuleComplianceSummaryFilters>>
+      serializers = [ConfigRuleComplianceSummaryFiltersAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigRuleComplianceSummaryFiltersBuilder b) {}
@@ -55,15 +54,15 @@ abstract class ConfigRuleComplianceSummaryFilters
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ConfigRuleComplianceSummaryFilters');
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
+        newBuiltValueToStringHelper('ConfigRuleComplianceSummaryFilters')
+          ..add(
+            'accountId',
+            accountId,
+          )
+          ..add(
+            'awsRegion',
+            awsRegion,
+          );
     return helper.toString();
   }
 }

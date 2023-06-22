@@ -39,9 +39,8 @@ abstract class PasswordResetRequiredException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PasswordResetRequiredExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<PasswordResetRequiredException>>
+      serializers = [PasswordResetRequiredExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PasswordResetRequiredExceptionBuilder b) {}
@@ -68,12 +67,11 @@ abstract class PasswordResetRequiredException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('PasswordResetRequiredException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('PasswordResetRequiredException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

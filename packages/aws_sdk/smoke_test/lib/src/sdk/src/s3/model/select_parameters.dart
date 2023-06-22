@@ -40,7 +40,7 @@ abstract class SelectParameters
 
   const SelectParameters._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<SelectParameters>> serializers = [
     SelectParametersRestXmlSerializer()
   ];
 
@@ -67,23 +67,23 @@ abstract class SelectParameters
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SelectParameters');
-    helper.add(
-      'inputSerialization',
-      inputSerialization,
-    );
-    helper.add(
-      'expressionType',
-      expressionType,
-    );
-    helper.add(
-      'expression',
-      expression,
-    );
-    helper.add(
-      'outputSerialization',
-      outputSerialization,
-    );
+    final helper = newBuiltValueToStringHelper('SelectParameters')
+      ..add(
+        'inputSerialization',
+        inputSerialization,
+      )
+      ..add(
+        'expressionType',
+        expressionType,
+      )
+      ..add(
+        'expression',
+        expression,
+      )
+      ..add(
+        'outputSerialization',
+        outputSerialization,
+      );
     return helper.toString();
   }
 }

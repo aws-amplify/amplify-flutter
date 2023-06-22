@@ -38,7 +38,7 @@ abstract class RevokeTokenRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<RevokeTokenRequest>> serializers = [
     RevokeTokenRequestAwsJson11Serializer()
   ];
 
@@ -63,19 +63,19 @@ abstract class RevokeTokenRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RevokeTokenRequest');
-    helper.add(
-      'token',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'clientId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'clientSecret',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('RevokeTokenRequest')
+      ..add(
+        'token',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'clientId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'clientSecret',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }

@@ -34,7 +34,7 @@ abstract class OperationResultFilter
 
   const OperationResultFilter._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<OperationResultFilter>> serializers = [
     OperationResultFilterAwsQuerySerializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class OperationResultFilter
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OperationResultFilter');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'values',
-      values,
-    );
+    final helper = newBuiltValueToStringHelper('OperationResultFilter')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'values',
+        values,
+      );
     return helper.toString();
   }
 }

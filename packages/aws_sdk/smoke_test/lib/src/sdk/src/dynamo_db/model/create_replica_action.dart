@@ -26,7 +26,7 @@ abstract class CreateReplicaAction
 
   const CreateReplicaAction._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<CreateReplicaAction>> serializers = [
     CreateReplicaActionAwsJson10Serializer()
   ];
 
@@ -39,11 +39,11 @@ abstract class CreateReplicaAction
   List<Object?> get props => [regionName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateReplicaAction');
-    helper.add(
-      'regionName',
-      regionName,
-    );
+    final helper = newBuiltValueToStringHelper('CreateReplicaAction')
+      ..add(
+        'regionName',
+        regionName,
+      );
     return helper.toString();
   }
 }

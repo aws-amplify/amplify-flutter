@@ -37,9 +37,8 @@ abstract class NameAlreadyExistsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    NameAlreadyExistsExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<NameAlreadyExistsException>>
+      serializers = [NameAlreadyExistsExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NameAlreadyExistsExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class NameAlreadyExistsException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NameAlreadyExistsException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('NameAlreadyExistsException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

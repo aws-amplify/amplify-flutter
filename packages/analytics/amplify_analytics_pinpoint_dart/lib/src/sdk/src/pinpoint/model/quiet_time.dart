@@ -31,7 +31,7 @@ abstract class QuietTime
 
   const QuietTime._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<QuietTime>> serializers = [
     QuietTimeRestJson1Serializer()
   ];
 
@@ -50,15 +50,15 @@ abstract class QuietTime
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QuietTime');
-    helper.add(
-      'end',
-      end,
-    );
-    helper.add(
-      'start',
-      start,
-    );
+    final helper = newBuiltValueToStringHelper('QuietTime')
+      ..add(
+        'end',
+        end,
+      )
+      ..add(
+        'start',
+        start,
+      );
     return helper.toString();
   }
 }

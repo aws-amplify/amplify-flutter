@@ -40,7 +40,7 @@ abstract class DetectStackDriftInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DetectStackDriftInput>> serializers = [
     DetectStackDriftInputAwsQuerySerializer()
   ];
 
@@ -61,15 +61,15 @@ abstract class DetectStackDriftInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DetectStackDriftInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'logicalResourceIds',
-      logicalResourceIds,
-    );
+    final helper = newBuiltValueToStringHelper('DetectStackDriftInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'logicalResourceIds',
+        logicalResourceIds,
+      );
     return helper.toString();
   }
 }

@@ -37,7 +37,7 @@ abstract class CfnRegistryException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<CfnRegistryException>> serializers = [
     CfnRegistryExceptionAwsQuerySerializer()
   ];
 
@@ -64,11 +64,11 @@ abstract class CfnRegistryException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CfnRegistryException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('CfnRegistryException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

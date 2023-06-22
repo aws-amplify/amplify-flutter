@@ -28,7 +28,7 @@ abstract class S3KeyFilter
 
   const S3KeyFilter._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<S3KeyFilter>> serializers = [
     S3KeyFilterRestXmlSerializer()
   ];
 
@@ -41,11 +41,11 @@ abstract class S3KeyFilter
   List<Object?> get props => [filterRules];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('S3KeyFilter');
-    helper.add(
-      'filterRules',
-      filterRules,
-    );
+    final helper = newBuiltValueToStringHelper('S3KeyFilter')
+      ..add(
+        'filterRules',
+        filterRules,
+      );
     return helper.toString();
   }
 }

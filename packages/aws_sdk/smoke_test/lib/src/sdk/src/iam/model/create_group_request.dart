@@ -36,7 +36,7 @@ abstract class CreateGroupRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<CreateGroupRequest>> serializers = [
     CreateGroupRequestAwsQuerySerializer()
   ];
 
@@ -63,15 +63,15 @@ abstract class CreateGroupRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateGroupRequest');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'groupName',
-      groupName,
-    );
+    final helper = newBuiltValueToStringHelper('CreateGroupRequest')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'groupName',
+        groupName,
+      );
     return helper.toString();
   }
 }

@@ -44,7 +44,7 @@ abstract class ListPoliciesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ListPoliciesResponse>> serializers = [
     ListPoliciesResponseAwsQuerySerializer()
   ];
 
@@ -69,19 +69,19 @@ abstract class ListPoliciesResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListPoliciesResponse');
-    helper.add(
-      'policies',
-      policies,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper = newBuiltValueToStringHelper('ListPoliciesResponse')
+      ..add(
+        'policies',
+        policies,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      );
     return helper.toString();
   }
 }

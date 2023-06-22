@@ -63,9 +63,8 @@ abstract class ExpectedAttributeValue
 
   const ExpectedAttributeValue._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    ExpectedAttributeValueAwsJson10Serializer()
-  ];
+  static const List<_i5.SmithySerializer<ExpectedAttributeValue>> serializers =
+      [ExpectedAttributeValueAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExpectedAttributeValueBuilder b) {}
@@ -177,23 +176,23 @@ abstract class ExpectedAttributeValue
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExpectedAttributeValue');
-    helper.add(
-      'value',
-      value,
-    );
-    helper.add(
-      'exists',
-      exists,
-    );
-    helper.add(
-      'comparisonOperator',
-      comparisonOperator,
-    );
-    helper.add(
-      'attributeValueList',
-      attributeValueList,
-    );
+    final helper = newBuiltValueToStringHelper('ExpectedAttributeValue')
+      ..add(
+        'value',
+        value,
+      )
+      ..add(
+        'exists',
+        exists,
+      )
+      ..add(
+        'comparisonOperator',
+        comparisonOperator,
+      )
+      ..add(
+        'attributeValueList',
+        attributeValueList,
+      );
     return helper.toString();
   }
 }

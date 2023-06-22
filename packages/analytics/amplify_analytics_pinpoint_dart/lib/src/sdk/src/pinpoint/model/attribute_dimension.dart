@@ -35,7 +35,7 @@ abstract class AttributeDimension
 
   const AttributeDimension._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<AttributeDimension>> serializers = [
     AttributeDimensionRestJson1Serializer()
   ];
 
@@ -62,15 +62,15 @@ abstract class AttributeDimension
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AttributeDimension');
-    helper.add(
-      'attributeType',
-      attributeType,
-    );
-    helper.add(
-      'values',
-      values,
-    );
+    final helper = newBuiltValueToStringHelper('AttributeDimension')
+      ..add(
+        'attributeType',
+        attributeType,
+      )
+      ..add(
+        'values',
+        values,
+      );
     return helper.toString();
   }
 }

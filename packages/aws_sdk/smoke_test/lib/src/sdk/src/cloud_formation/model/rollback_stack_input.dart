@@ -38,7 +38,7 @@ abstract class RollbackStackInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<RollbackStackInput>> serializers = [
     RollbackStackInputAwsQuerySerializer()
   ];
 
@@ -63,19 +63,19 @@ abstract class RollbackStackInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RollbackStackInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
+    final helper = newBuiltValueToStringHelper('RollbackStackInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      );
     return helper.toString();
   }
 }

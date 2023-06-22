@@ -33,7 +33,9 @@ abstract class GenerateServiceLastAccessedDetailsResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<GenerateServiceLastAccessedDetailsResponse>>
+      serializers = [
     GenerateServiceLastAccessedDetailsResponseAwsQuerySerializer()
   ];
 
@@ -47,11 +49,11 @@ abstract class GenerateServiceLastAccessedDetailsResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GenerateServiceLastAccessedDetailsResponse');
-    helper.add(
-      'jobId',
-      jobId,
-    );
+        'GenerateServiceLastAccessedDetailsResponse')
+      ..add(
+        'jobId',
+        jobId,
+      );
     return helper.toString();
   }
 }

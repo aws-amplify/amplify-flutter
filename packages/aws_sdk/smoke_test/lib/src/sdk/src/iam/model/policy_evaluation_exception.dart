@@ -37,9 +37,8 @@ abstract class PolicyEvaluationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PolicyEvaluationExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<PolicyEvaluationException>>
+      serializers = [PolicyEvaluationExceptionAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PolicyEvaluationExceptionBuilder b) {}
@@ -64,11 +63,11 @@ abstract class PolicyEvaluationException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PolicyEvaluationException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('PolicyEvaluationException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

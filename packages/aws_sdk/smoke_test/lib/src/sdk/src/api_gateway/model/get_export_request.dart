@@ -64,9 +64,8 @@ abstract class GetExportRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetExportRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetExportRequestPayload>> serializers =
+      [GetExportRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetExportRequestBuilder b) {}
@@ -113,27 +112,27 @@ abstract class GetExportRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetExportRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'exportType',
-      exportType,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'accepts',
-      accepts,
-    );
+    final helper = newBuiltValueToStringHelper('GetExportRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      )
+      ..add(
+        'exportType',
+        exportType,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'accepts',
+        accepts,
+      );
     return helper.toString();
   }
 }

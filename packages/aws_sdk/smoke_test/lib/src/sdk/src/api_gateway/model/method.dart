@@ -64,7 +64,7 @@ abstract class Method
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<Method>> serializers = [
     MethodRestJson1Serializer()
   ];
 
@@ -119,51 +119,51 @@ abstract class Method
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Method');
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'authorizationType',
-      authorizationType,
-    );
-    helper.add(
-      'authorizerId',
-      authorizerId,
-    );
-    helper.add(
-      'apiKeyRequired',
-      apiKeyRequired,
-    );
-    helper.add(
-      'requestValidatorId',
-      requestValidatorId,
-    );
-    helper.add(
-      'operationName',
-      operationName,
-    );
-    helper.add(
-      'requestParameters',
-      requestParameters,
-    );
-    helper.add(
-      'requestModels',
-      requestModels,
-    );
-    helper.add(
-      'methodResponses',
-      methodResponses,
-    );
-    helper.add(
-      'methodIntegration',
-      methodIntegration,
-    );
-    helper.add(
-      'authorizationScopes',
-      authorizationScopes,
-    );
+    final helper = newBuiltValueToStringHelper('Method')
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'authorizationType',
+        authorizationType,
+      )
+      ..add(
+        'authorizerId',
+        authorizerId,
+      )
+      ..add(
+        'apiKeyRequired',
+        apiKeyRequired,
+      )
+      ..add(
+        'requestValidatorId',
+        requestValidatorId,
+      )
+      ..add(
+        'operationName',
+        operationName,
+      )
+      ..add(
+        'requestParameters',
+        requestParameters,
+      )
+      ..add(
+        'requestModels',
+        requestModels,
+      )
+      ..add(
+        'methodResponses',
+        methodResponses,
+      )
+      ..add(
+        'methodIntegration',
+        methodIntegration,
+      )
+      ..add(
+        'authorizationScopes',
+        authorizationScopes,
+      );
     return helper.toString();
   }
 }

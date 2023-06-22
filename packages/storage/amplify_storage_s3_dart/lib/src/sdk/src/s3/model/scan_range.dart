@@ -32,7 +32,7 @@ abstract class ScanRange
 
   const ScanRange._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ScanRange>> serializers = [
     ScanRangeRestXmlSerializer()
   ];
 
@@ -51,15 +51,15 @@ abstract class ScanRange
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ScanRange');
-    helper.add(
-      'start',
-      start,
-    );
-    helper.add(
-      'end',
-      end,
-    );
+    final helper = newBuiltValueToStringHelper('ScanRange')
+      ..add(
+        'start',
+        start,
+      )
+      ..add(
+        'end',
+        end,
+      );
     return helper.toString();
   }
 }

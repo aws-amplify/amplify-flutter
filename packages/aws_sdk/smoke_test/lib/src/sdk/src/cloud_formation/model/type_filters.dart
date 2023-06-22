@@ -35,7 +35,7 @@ abstract class TypeFilters
 
   const TypeFilters._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<TypeFilters>> serializers = [
     TypeFiltersAwsQuerySerializer()
   ];
 
@@ -72,19 +72,19 @@ abstract class TypeFilters
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TypeFilters');
-    helper.add(
-      'category',
-      category,
-    );
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
-    helper.add(
-      'typeNamePrefix',
-      typeNamePrefix,
-    );
+    final helper = newBuiltValueToStringHelper('TypeFilters')
+      ..add(
+        'category',
+        category,
+      )
+      ..add(
+        'publisherId',
+        publisherId,
+      )
+      ..add(
+        'typeNamePrefix',
+        typeNamePrefix,
+      );
     return helper.toString();
   }
 }

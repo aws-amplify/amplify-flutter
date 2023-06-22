@@ -38,7 +38,9 @@ abstract class ReplicaGlobalSecondaryIndexAutoScalingUpdate
 
   const ReplicaGlobalSecondaryIndexAutoScalingUpdate._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<
+          _i3.SmithySerializer<ReplicaGlobalSecondaryIndexAutoScalingUpdate>>
+      serializers = [
     ReplicaGlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer()
   ];
 
@@ -58,15 +60,15 @@ abstract class ReplicaGlobalSecondaryIndexAutoScalingUpdate
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'ReplicaGlobalSecondaryIndexAutoScalingUpdate');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'provisionedReadCapacityAutoScalingUpdate',
-      provisionedReadCapacityAutoScalingUpdate,
-    );
+        'ReplicaGlobalSecondaryIndexAutoScalingUpdate')
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'provisionedReadCapacityAutoScalingUpdate',
+        provisionedReadCapacityAutoScalingUpdate,
+      );
     return helper.toString();
   }
 }

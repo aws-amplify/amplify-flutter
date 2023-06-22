@@ -36,9 +36,8 @@ abstract class DescribeAccountLimitsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeAccountLimitsInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DescribeAccountLimitsInput>>
+      serializers = [DescribeAccountLimitsInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeAccountLimitsInputBuilder b) {}
@@ -51,11 +50,11 @@ abstract class DescribeAccountLimitsInput
   List<Object?> get props => [nextToken];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeAccountLimitsInput');
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeAccountLimitsInput')
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

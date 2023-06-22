@@ -39,9 +39,8 @@ abstract class PointInTimeRecoveryDescription
 
   const PointInTimeRecoveryDescription._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    PointInTimeRecoveryDescriptionAwsJson10Serializer()
-  ];
+  static const List<_i3.SmithySerializer<PointInTimeRecoveryDescription>>
+      serializers = [PointInTimeRecoveryDescriptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PointInTimeRecoveryDescriptionBuilder b) {}
@@ -66,20 +65,19 @@ abstract class PointInTimeRecoveryDescription
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('PointInTimeRecoveryDescription');
-    helper.add(
-      'pointInTimeRecoveryStatus',
-      pointInTimeRecoveryStatus,
-    );
-    helper.add(
-      'earliestRestorableDateTime',
-      earliestRestorableDateTime,
-    );
-    helper.add(
-      'latestRestorableDateTime',
-      latestRestorableDateTime,
-    );
+    final helper = newBuiltValueToStringHelper('PointInTimeRecoveryDescription')
+      ..add(
+        'pointInTimeRecoveryStatus',
+        pointInTimeRecoveryStatus,
+      )
+      ..add(
+        'earliestRestorableDateTime',
+        earliestRestorableDateTime,
+      )
+      ..add(
+        'latestRestorableDateTime',
+        latestRestorableDateTime,
+      );
     return helper.toString();
   }
 }

@@ -62,9 +62,8 @@ abstract class PutBucketAnalyticsConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketAnalyticsConfigurationRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.AnalyticsConfiguration>>
+      serializers = [PutBucketAnalyticsConfigurationRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutBucketAnalyticsConfigurationRequestBuilder b) {}
@@ -104,23 +103,23 @@ abstract class PutBucketAnalyticsConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutBucketAnalyticsConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'analyticsConfiguration',
-      analyticsConfiguration,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('PutBucketAnalyticsConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'id',
+            id,
+          )
+          ..add(
+            'analyticsConfiguration',
+            analyticsConfiguration,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }

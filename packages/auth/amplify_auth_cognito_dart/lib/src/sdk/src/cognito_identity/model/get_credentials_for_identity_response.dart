@@ -44,9 +44,8 @@ abstract class GetCredentialsForIdentityResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetCredentialsForIdentityResponseAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<GetCredentialsForIdentityResponse>>
+      serializers = [GetCredentialsForIdentityResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetCredentialsForIdentityResponseBuilder b) {}
@@ -64,15 +63,15 @@ abstract class GetCredentialsForIdentityResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetCredentialsForIdentityResponse');
-    helper.add(
-      'identityId',
-      identityId,
-    );
-    helper.add(
-      'credentials',
-      credentials,
-    );
+        newBuiltValueToStringHelper('GetCredentialsForIdentityResponse')
+          ..add(
+            'identityId',
+            identityId,
+          )
+          ..add(
+            'credentials',
+            credentials,
+          );
     return helper.toString();
   }
 }

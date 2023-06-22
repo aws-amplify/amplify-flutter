@@ -39,9 +39,8 @@ abstract class TooManyFailedAttemptsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TooManyFailedAttemptsExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<TooManyFailedAttemptsException>>
+      serializers = [TooManyFailedAttemptsExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TooManyFailedAttemptsExceptionBuilder b) {}
@@ -68,12 +67,11 @@ abstract class TooManyFailedAttemptsException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('TooManyFailedAttemptsException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('TooManyFailedAttemptsException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

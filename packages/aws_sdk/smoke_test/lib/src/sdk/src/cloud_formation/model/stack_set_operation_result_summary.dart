@@ -47,9 +47,8 @@ abstract class StackSetOperationResultSummary
 
   const StackSetOperationResultSummary._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    StackSetOperationResultSummaryAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<StackSetOperationResultSummary>>
+      serializers = [StackSetOperationResultSummaryAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StackSetOperationResultSummaryBuilder b) {}
@@ -94,32 +93,31 @@ abstract class StackSetOperationResultSummary
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('StackSetOperationResultSummary');
-    helper.add(
-      'account',
-      account,
-    );
-    helper.add(
-      'region',
-      region,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'statusReason',
-      statusReason,
-    );
-    helper.add(
-      'accountGateResult',
-      accountGateResult,
-    );
-    helper.add(
-      'organizationalUnitId',
-      organizationalUnitId,
-    );
+    final helper = newBuiltValueToStringHelper('StackSetOperationResultSummary')
+      ..add(
+        'account',
+        account,
+      )
+      ..add(
+        'region',
+        region,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'statusReason',
+        statusReason,
+      )
+      ..add(
+        'accountGateResult',
+        accountGateResult,
+      )
+      ..add(
+        'organizationalUnitId',
+        organizationalUnitId,
+      );
     return helper.toString();
   }
 }

@@ -38,9 +38,8 @@ abstract class DescribeStackResourceOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    DescribeStackResourceOutputAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<DescribeStackResourceOutput>>
+      serializers = [DescribeStackResourceOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeStackResourceOutputBuilder b) {}
@@ -51,11 +50,11 @@ abstract class DescribeStackResourceOutput
   List<Object?> get props => [stackResourceDetail];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeStackResourceOutput');
-    helper.add(
-      'stackResourceDetail',
-      stackResourceDetail,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeStackResourceOutput')
+      ..add(
+        'stackResourceDetail',
+        stackResourceDetail,
+      );
     return helper.toString();
   }
 }

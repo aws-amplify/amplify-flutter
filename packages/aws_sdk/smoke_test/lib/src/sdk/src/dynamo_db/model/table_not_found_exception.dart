@@ -38,9 +38,8 @@ abstract class TableNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TableNotFoundExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<TableNotFoundException>> serializers =
+      [TableNotFoundExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TableNotFoundExceptionBuilder b) {}
@@ -65,11 +64,11 @@ abstract class TableNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TableNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('TableNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

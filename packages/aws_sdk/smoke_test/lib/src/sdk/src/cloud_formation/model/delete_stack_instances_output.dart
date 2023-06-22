@@ -31,9 +31,8 @@ abstract class DeleteStackInstancesOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeleteStackInstancesOutputAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<DeleteStackInstancesOutput>>
+      serializers = [DeleteStackInstancesOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteStackInstancesOutputBuilder b) {}
@@ -44,11 +43,11 @@ abstract class DeleteStackInstancesOutput
   List<Object?> get props => [operationId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteStackInstancesOutput');
-    helper.add(
-      'operationId',
-      operationId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteStackInstancesOutput')
+      ..add(
+        'operationId',
+        operationId,
+      );
     return helper.toString();
   }
 }

@@ -43,7 +43,9 @@ abstract class GetServiceLinkedRoleDeletionStatusResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<GetServiceLinkedRoleDeletionStatusResponse>>
+      serializers = [
     GetServiceLinkedRoleDeletionStatusResponseAwsQuerySerializer()
   ];
 
@@ -63,15 +65,15 @@ abstract class GetServiceLinkedRoleDeletionStatusResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetServiceLinkedRoleDeletionStatusResponse');
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'reason',
-      reason,
-    );
+        'GetServiceLinkedRoleDeletionStatusResponse')
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'reason',
+        reason,
+      );
     return helper.toString();
   }
 }

@@ -32,9 +32,8 @@ abstract class StackInstanceComprehensiveStatus
 
   const StackInstanceComprehensiveStatus._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    StackInstanceComprehensiveStatusAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<StackInstanceComprehensiveStatus>>
+      serializers = [StackInstanceComprehensiveStatusAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StackInstanceComprehensiveStatusBuilder b) {}
@@ -58,11 +57,11 @@ abstract class StackInstanceComprehensiveStatus
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('StackInstanceComprehensiveStatus');
-    helper.add(
-      'detailedStatus',
-      detailedStatus,
-    );
+        newBuiltValueToStringHelper('StackInstanceComprehensiveStatus')
+          ..add(
+            'detailedStatus',
+            detailedStatus,
+          );
     return helper.toString();
   }
 }

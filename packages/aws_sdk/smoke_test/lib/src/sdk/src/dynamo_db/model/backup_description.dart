@@ -39,7 +39,7 @@ abstract class BackupDescription
 
   const BackupDescription._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<BackupDescription>> serializers = [
     BackupDescriptionAwsJson10Serializer()
   ];
 
@@ -62,19 +62,19 @@ abstract class BackupDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BackupDescription');
-    helper.add(
-      'backupDetails',
-      backupDetails,
-    );
-    helper.add(
-      'sourceTableDetails',
-      sourceTableDetails,
-    );
-    helper.add(
-      'sourceTableFeatureDetails',
-      sourceTableFeatureDetails,
-    );
+    final helper = newBuiltValueToStringHelper('BackupDescription')
+      ..add(
+        'backupDetails',
+        backupDetails,
+      )
+      ..add(
+        'sourceTableDetails',
+        sourceTableDetails,
+      )
+      ..add(
+        'sourceTableFeatureDetails',
+        sourceTableFeatureDetails,
+      );
     return helper.toString();
   }
 }

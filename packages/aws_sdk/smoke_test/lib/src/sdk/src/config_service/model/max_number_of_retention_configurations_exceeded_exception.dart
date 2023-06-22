@@ -42,7 +42,9 @@ abstract class MaxNumberOfRetentionConfigurationsExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+      _i2.SmithySerializer<
+          MaxNumberOfRetentionConfigurationsExceededException>> serializers = [
     MaxNumberOfRetentionConfigurationsExceededExceptionAwsJson11Serializer()
   ];
 
@@ -73,11 +75,11 @@ abstract class MaxNumberOfRetentionConfigurationsExceededException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MaxNumberOfRetentionConfigurationsExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+        'MaxNumberOfRetentionConfigurationsExceededException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

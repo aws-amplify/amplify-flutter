@@ -49,9 +49,8 @@ abstract class GetInAppMessagesRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetInAppMessagesRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetInAppMessagesRequestPayload>>
+      serializers = [GetInAppMessagesRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetInAppMessagesRequestBuilder b) {}
@@ -85,15 +84,15 @@ abstract class GetInAppMessagesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetInAppMessagesRequest');
-    helper.add(
-      'applicationId',
-      applicationId,
-    );
-    helper.add(
-      'endpointId',
-      endpointId,
-    );
+    final helper = newBuiltValueToStringHelper('GetInAppMessagesRequest')
+      ..add(
+        'applicationId',
+        applicationId,
+      )
+      ..add(
+        'endpointId',
+        endpointId,
+      );
     return helper.toString();
   }
 }

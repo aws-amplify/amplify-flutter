@@ -37,7 +37,7 @@ abstract class Relationship
 
   const Relationship._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Relationship>> serializers = [
     RelationshipAwsJson11Serializer()
   ];
 
@@ -64,23 +64,23 @@ abstract class Relationship
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Relationship');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'resourceName',
-      resourceName,
-    );
-    helper.add(
-      'relationshipName',
-      relationshipName,
-    );
+    final helper = newBuiltValueToStringHelper('Relationship')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'resourceName',
+        resourceName,
+      )
+      ..add(
+        'relationshipName',
+        relationshipName,
+      );
     return helper.toString();
   }
 }

@@ -39,7 +39,9 @@ abstract class InvalidSmsRoleTrustRelationshipException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<InvalidSmsRoleTrustRelationshipException>>
+      serializers = [
     InvalidSmsRoleTrustRelationshipExceptionAwsJson11Serializer()
   ];
 
@@ -69,11 +71,11 @@ abstract class InvalidSmsRoleTrustRelationshipException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InvalidSmsRoleTrustRelationshipException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InvalidSmsRoleTrustRelationshipException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

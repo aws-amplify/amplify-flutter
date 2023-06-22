@@ -42,7 +42,9 @@ abstract class GlobalTableGlobalSecondaryIndexSettingsUpdate
 
   const GlobalTableGlobalSecondaryIndexSettingsUpdate._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<GlobalTableGlobalSecondaryIndexSettingsUpdate>>
+      serializers = [
     GlobalTableGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer()
   ];
 
@@ -67,19 +69,19 @@ abstract class GlobalTableGlobalSecondaryIndexSettingsUpdate
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GlobalTableGlobalSecondaryIndexSettingsUpdate');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'provisionedWriteCapacityUnits',
-      provisionedWriteCapacityUnits,
-    );
-    helper.add(
-      'provisionedWriteCapacityAutoScalingSettingsUpdate',
-      provisionedWriteCapacityAutoScalingSettingsUpdate,
-    );
+        'GlobalTableGlobalSecondaryIndexSettingsUpdate')
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'provisionedWriteCapacityUnits',
+        provisionedWriteCapacityUnits,
+      )
+      ..add(
+        'provisionedWriteCapacityAutoScalingSettingsUpdate',
+        provisionedWriteCapacityAutoScalingSettingsUpdate,
+      );
     return helper.toString();
   }
 }

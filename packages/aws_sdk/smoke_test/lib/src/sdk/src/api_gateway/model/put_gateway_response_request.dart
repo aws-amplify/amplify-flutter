@@ -70,9 +70,8 @@ abstract class PutGatewayResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutGatewayResponseRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutGatewayResponseRequestPayload>>
+      serializers = [PutGatewayResponseRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutGatewayResponseRequestBuilder b) {}
@@ -126,27 +125,27 @@ abstract class PutGatewayResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutGatewayResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'responseType',
-      responseType,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
-    helper.add(
-      'responseTemplates',
-      responseTemplates,
-    );
+    final helper = newBuiltValueToStringHelper('PutGatewayResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'responseType',
+        responseType,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      )
+      ..add(
+        'responseParameters',
+        responseParameters,
+      )
+      ..add(
+        'responseTemplates',
+        responseTemplates,
+      );
     return helper.toString();
   }
 }
@@ -184,19 +183,19 @@ abstract class PutGatewayResponseRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutGatewayResponseRequestPayload');
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
-    helper.add(
-      'responseTemplates',
-      responseTemplates,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
+        newBuiltValueToStringHelper('PutGatewayResponseRequestPayload')
+          ..add(
+            'responseParameters',
+            responseParameters,
+          )
+          ..add(
+            'responseTemplates',
+            responseTemplates,
+          )
+          ..add(
+            'statusCode',
+            statusCode,
+          );
     return helper.toString();
   }
 }

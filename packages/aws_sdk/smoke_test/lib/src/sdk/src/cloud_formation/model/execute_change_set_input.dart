@@ -45,7 +45,7 @@ abstract class ExecuteChangeSetInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ExecuteChangeSetInput>> serializers = [
     ExecuteChangeSetInputAwsQuerySerializer()
   ];
 
@@ -81,23 +81,23 @@ abstract class ExecuteChangeSetInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExecuteChangeSetInput');
-    helper.add(
-      'changeSetName',
-      changeSetName,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
-    helper.add(
-      'disableRollback',
-      disableRollback,
-    );
+    final helper = newBuiltValueToStringHelper('ExecuteChangeSetInput')
+      ..add(
+        'changeSetName',
+        changeSetName,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      )
+      ..add(
+        'disableRollback',
+        disableRollback,
+      );
     return helper.toString();
   }
 }

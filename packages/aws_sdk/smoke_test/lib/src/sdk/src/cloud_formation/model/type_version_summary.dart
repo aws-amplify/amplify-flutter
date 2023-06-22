@@ -46,7 +46,7 @@ abstract class TypeVersionSummary
 
   const TypeVersionSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<TypeVersionSummary>> serializers = [
     TypeVersionSummaryAwsQuerySerializer()
   ];
 
@@ -93,39 +93,39 @@ abstract class TypeVersionSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TypeVersionSummary');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'isDefaultVersion',
-      isDefaultVersion,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'timeCreated',
-      timeCreated,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'publicVersionNumber',
-      publicVersionNumber,
-    );
+    final helper = newBuiltValueToStringHelper('TypeVersionSummary')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'isDefaultVersion',
+        isDefaultVersion,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'timeCreated',
+        timeCreated,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'publicVersionNumber',
+        publicVersionNumber,
+      );
     return helper.toString();
   }
 }

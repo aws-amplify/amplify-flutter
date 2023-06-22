@@ -43,7 +43,9 @@ abstract class DescribeConfigurationRecorderStatusResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<DescribeConfigurationRecorderStatusResponse>>
+      serializers = [
     DescribeConfigurationRecorderStatusResponseAwsJson11Serializer()
   ];
 
@@ -58,11 +60,11 @@ abstract class DescribeConfigurationRecorderStatusResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'DescribeConfigurationRecorderStatusResponse');
-    helper.add(
-      'configurationRecordersStatus',
-      configurationRecordersStatus,
-    );
+        'DescribeConfigurationRecorderStatusResponse')
+      ..add(
+        'configurationRecordersStatus',
+        configurationRecordersStatus,
+      );
     return helper.toString();
   }
 }

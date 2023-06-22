@@ -38,9 +38,8 @@ abstract class ReplicaNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ReplicaNotFoundExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ReplicaNotFoundException>>
+      serializers = [ReplicaNotFoundExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ReplicaNotFoundExceptionBuilder b) {}
@@ -65,11 +64,11 @@ abstract class ReplicaNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicaNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicaNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

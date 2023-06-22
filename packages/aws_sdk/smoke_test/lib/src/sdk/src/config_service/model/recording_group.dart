@@ -83,7 +83,7 @@ abstract class RecordingGroup
 
   const RecordingGroup._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<RecordingGroup>> serializers = [
     RecordingGroupAwsJson11Serializer()
   ];
 
@@ -160,27 +160,27 @@ abstract class RecordingGroup
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RecordingGroup');
-    helper.add(
-      'allSupported',
-      allSupported,
-    );
-    helper.add(
-      'includeGlobalResourceTypes',
-      includeGlobalResourceTypes,
-    );
-    helper.add(
-      'resourceTypes',
-      resourceTypes,
-    );
-    helper.add(
-      'exclusionByResourceTypes',
-      exclusionByResourceTypes,
-    );
-    helper.add(
-      'recordingStrategy',
-      recordingStrategy,
-    );
+    final helper = newBuiltValueToStringHelper('RecordingGroup')
+      ..add(
+        'allSupported',
+        allSupported,
+      )
+      ..add(
+        'includeGlobalResourceTypes',
+        includeGlobalResourceTypes,
+      )
+      ..add(
+        'resourceTypes',
+        resourceTypes,
+      )
+      ..add(
+        'exclusionByResourceTypes',
+        exclusionByResourceTypes,
+      )
+      ..add(
+        'recordingStrategy',
+        recordingStrategy,
+      );
     return helper.toString();
   }
 }

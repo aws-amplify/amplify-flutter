@@ -53,7 +53,7 @@ abstract class Role
 
   const Role._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<Role>> serializers = [
     RoleAwsQuerySerializer()
   ];
 
@@ -110,51 +110,51 @@ abstract class Role
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Role');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'roleName',
-      roleName,
-    );
-    helper.add(
-      'roleId',
-      roleId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'assumeRolePolicyDocument',
-      assumeRolePolicyDocument,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'maxSessionDuration',
-      maxSessionDuration,
-    );
-    helper.add(
-      'permissionsBoundary',
-      permissionsBoundary,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'roleLastUsed',
-      roleLastUsed,
-    );
+    final helper = newBuiltValueToStringHelper('Role')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'roleName',
+        roleName,
+      )
+      ..add(
+        'roleId',
+        roleId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'assumeRolePolicyDocument',
+        assumeRolePolicyDocument,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'maxSessionDuration',
+        maxSessionDuration,
+      )
+      ..add(
+        'permissionsBoundary',
+        permissionsBoundary,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'roleLastUsed',
+        roleLastUsed,
+      );
     return helper.toString();
   }
 }

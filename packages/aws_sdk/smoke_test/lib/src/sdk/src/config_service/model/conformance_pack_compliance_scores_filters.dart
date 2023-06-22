@@ -32,7 +32,9 @@ abstract class ConformancePackComplianceScoresFilters
 
   const ConformancePackComplianceScoresFilters._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<
+          _i3.SmithySerializer<ConformancePackComplianceScoresFilters>>
+      serializers = [
     ConformancePackComplianceScoresFiltersAwsJson11Serializer()
   ];
 
@@ -46,11 +48,11 @@ abstract class ConformancePackComplianceScoresFilters
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ConformancePackComplianceScoresFilters');
-    helper.add(
-      'conformancePackNames',
-      conformancePackNames,
-    );
+        newBuiltValueToStringHelper('ConformancePackComplianceScoresFilters')
+          ..add(
+            'conformancePackNames',
+            conformancePackNames,
+          );
     return helper.toString();
   }
 }

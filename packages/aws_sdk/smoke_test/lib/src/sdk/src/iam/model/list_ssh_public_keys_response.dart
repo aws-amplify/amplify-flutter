@@ -47,9 +47,8 @@ abstract class ListSshPublicKeysResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListSshPublicKeysResponseAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<ListSshPublicKeysResponse>>
+      serializers = [ListSshPublicKeysResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListSshPublicKeysResponseBuilder b) {
@@ -72,19 +71,19 @@ abstract class ListSshPublicKeysResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListSshPublicKeysResponse');
-    helper.add(
-      'sshPublicKeys',
-      sshPublicKeys,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper = newBuiltValueToStringHelper('ListSshPublicKeysResponse')
+      ..add(
+        'sshPublicKeys',
+        sshPublicKeys,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      );
     return helper.toString();
   }
 }

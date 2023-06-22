@@ -38,9 +38,8 @@ abstract class InvalidExportTimeException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidExportTimeExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidExportTimeException>>
+      serializers = [InvalidExportTimeExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidExportTimeExceptionBuilder b) {}
@@ -65,11 +64,11 @@ abstract class InvalidExportTimeException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidExportTimeException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidExportTimeException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

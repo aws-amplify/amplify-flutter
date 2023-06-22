@@ -37,7 +37,7 @@ abstract class UserNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<UserNotFoundException>> serializers = [
     UserNotFoundExceptionAwsJson11Serializer()
   ];
 
@@ -66,11 +66,11 @@ abstract class UserNotFoundException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UserNotFoundException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('UserNotFoundException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

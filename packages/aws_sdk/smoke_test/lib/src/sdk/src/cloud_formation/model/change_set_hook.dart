@@ -45,7 +45,7 @@ abstract class ChangeSetHook
 
   const ChangeSetHook._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<ChangeSetHook>> serializers = [
     ChangeSetHookAwsQuerySerializer()
   ];
 
@@ -100,31 +100,31 @@ abstract class ChangeSetHook
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ChangeSetHook');
-    helper.add(
-      'invocationPoint',
-      invocationPoint,
-    );
-    helper.add(
-      'failureMode',
-      failureMode,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'typeVersionId',
-      typeVersionId,
-    );
-    helper.add(
-      'typeConfigurationVersionId',
-      typeConfigurationVersionId,
-    );
-    helper.add(
-      'targetDetails',
-      targetDetails,
-    );
+    final helper = newBuiltValueToStringHelper('ChangeSetHook')
+      ..add(
+        'invocationPoint',
+        invocationPoint,
+      )
+      ..add(
+        'failureMode',
+        failureMode,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'typeVersionId',
+        typeVersionId,
+      )
+      ..add(
+        'typeConfigurationVersionId',
+        typeConfigurationVersionId,
+      )
+      ..add(
+        'targetDetails',
+        targetDetails,
+      );
     return helper.toString();
   }
 }

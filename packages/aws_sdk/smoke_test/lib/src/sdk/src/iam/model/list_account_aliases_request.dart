@@ -39,9 +39,8 @@ abstract class ListAccountAliasesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListAccountAliasesRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListAccountAliasesRequest>>
+      serializers = [ListAccountAliasesRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListAccountAliasesRequestBuilder b) {}
@@ -62,15 +61,15 @@ abstract class ListAccountAliasesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListAccountAliasesRequest');
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListAccountAliasesRequest')
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

@@ -28,9 +28,8 @@ abstract class RequestPaymentConfiguration
 
   const RequestPaymentConfiguration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    RequestPaymentConfigurationRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<RequestPaymentConfiguration>>
+      serializers = [RequestPaymentConfigurationRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RequestPaymentConfigurationBuilder b) {}
@@ -41,11 +40,11 @@ abstract class RequestPaymentConfiguration
   List<Object?> get props => [payer];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RequestPaymentConfiguration');
-    helper.add(
-      'payer',
-      payer,
-    );
+    final helper = newBuiltValueToStringHelper('RequestPaymentConfiguration')
+      ..add(
+        'payer',
+        payer,
+      );
     return helper.toString();
   }
 }

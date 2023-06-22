@@ -42,7 +42,7 @@ abstract class UsagePlanKey
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<UsagePlanKey>> serializers = [
     UsagePlanKeyRestJson1Serializer()
   ];
 
@@ -69,23 +69,23 @@ abstract class UsagePlanKey
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UsagePlanKey');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'value',
-      value,
-    );
-    helper.add(
-      'name',
-      name,
-    );
+    final helper = newBuiltValueToStringHelper('UsagePlanKey')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'value',
+        value,
+      )
+      ..add(
+        'name',
+        name,
+      );
     return helper.toString();
   }
 }

@@ -64,9 +64,8 @@ abstract class UpdateGatewayResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateGatewayResponseRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateGatewayResponseRequestPayload>>
+      serializers = [UpdateGatewayResponseRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateGatewayResponseRequestBuilder b) {}
@@ -108,19 +107,19 @@ abstract class UpdateGatewayResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateGatewayResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'responseType',
-      responseType,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateGatewayResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'responseType',
+        responseType,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -148,11 +147,11 @@ abstract class UpdateGatewayResponseRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateGatewayResponseRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateGatewayResponseRequestPayload')
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }

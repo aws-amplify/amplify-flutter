@@ -26,7 +26,7 @@ abstract class Tagging
 
   const Tagging._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Tagging>> serializers = [
     TaggingRestXmlSerializer()
   ];
 
@@ -39,11 +39,11 @@ abstract class Tagging
   List<Object?> get props => [tagSet];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Tagging');
-    helper.add(
-      'tagSet',
-      tagSet,
-    );
+    final helper = newBuiltValueToStringHelper('Tagging')
+      ..add(
+        'tagSet',
+        tagSet,
+      );
     return helper.toString();
   }
 }

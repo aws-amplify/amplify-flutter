@@ -40,9 +40,8 @@ abstract class ReplicaAlreadyExistsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ReplicaAlreadyExistsExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ReplicaAlreadyExistsException>>
+      serializers = [ReplicaAlreadyExistsExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ReplicaAlreadyExistsExceptionBuilder b) {}
@@ -67,11 +66,11 @@ abstract class ReplicaAlreadyExistsException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicaAlreadyExistsException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicaAlreadyExistsException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -48,9 +48,8 @@ abstract class PutResourceConfigRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutResourceConfigRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutResourceConfigRequest>>
+      serializers = [PutResourceConfigRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutResourceConfigRequestBuilder b) {}
@@ -91,31 +90,31 @@ abstract class PutResourceConfigRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutResourceConfigRequest');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'schemaVersionId',
-      schemaVersionId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'resourceName',
-      resourceName,
-    );
-    helper.add(
-      'configuration',
-      configuration,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('PutResourceConfigRequest')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'schemaVersionId',
+        schemaVersionId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'resourceName',
+        resourceName,
+      )
+      ..add(
+        'configuration',
+        configuration,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

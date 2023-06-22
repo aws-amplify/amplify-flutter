@@ -64,9 +64,8 @@ abstract class RestoreTableFromBackupInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    RestoreTableFromBackupInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<RestoreTableFromBackupInput>>
+      serializers = [RestoreTableFromBackupInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RestoreTableFromBackupInputBuilder b) {}
@@ -105,35 +104,35 @@ abstract class RestoreTableFromBackupInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RestoreTableFromBackupInput');
-    helper.add(
-      'targetTableName',
-      targetTableName,
-    );
-    helper.add(
-      'backupArn',
-      backupArn,
-    );
-    helper.add(
-      'billingModeOverride',
-      billingModeOverride,
-    );
-    helper.add(
-      'globalSecondaryIndexOverride',
-      globalSecondaryIndexOverride,
-    );
-    helper.add(
-      'localSecondaryIndexOverride',
-      localSecondaryIndexOverride,
-    );
-    helper.add(
-      'provisionedThroughputOverride',
-      provisionedThroughputOverride,
-    );
-    helper.add(
-      'sseSpecificationOverride',
-      sseSpecificationOverride,
-    );
+    final helper = newBuiltValueToStringHelper('RestoreTableFromBackupInput')
+      ..add(
+        'targetTableName',
+        targetTableName,
+      )
+      ..add(
+        'backupArn',
+        backupArn,
+      )
+      ..add(
+        'billingModeOverride',
+        billingModeOverride,
+      )
+      ..add(
+        'globalSecondaryIndexOverride',
+        globalSecondaryIndexOverride,
+      )
+      ..add(
+        'localSecondaryIndexOverride',
+        localSecondaryIndexOverride,
+      )
+      ..add(
+        'provisionedThroughputOverride',
+        provisionedThroughputOverride,
+      )
+      ..add(
+        'sseSpecificationOverride',
+        sseSpecificationOverride,
+      );
     return helper.toString();
   }
 }

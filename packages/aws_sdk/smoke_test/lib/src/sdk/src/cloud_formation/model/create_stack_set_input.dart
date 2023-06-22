@@ -83,7 +83,7 @@ abstract class CreateStackSetInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<CreateStackSetInput>> serializers = [
     CreateStackSetInputAwsQuerySerializer()
   ];
 
@@ -229,67 +229,67 @@ abstract class CreateStackSetInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateStackSetInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateUrl',
-      templateUrl,
-    );
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'capabilities',
-      capabilities,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'administrationRoleArn',
-      administrationRoleArn,
-    );
-    helper.add(
-      'executionRoleName',
-      executionRoleName,
-    );
-    helper.add(
-      'permissionModel',
-      permissionModel,
-    );
-    helper.add(
-      'autoDeployment',
-      autoDeployment,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
-    helper.add(
-      'managedExecution',
-      managedExecution,
-    );
+    final helper = newBuiltValueToStringHelper('CreateStackSetInput')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'templateUrl',
+        templateUrl,
+      )
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'capabilities',
+        capabilities,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'administrationRoleArn',
+        administrationRoleArn,
+      )
+      ..add(
+        'executionRoleName',
+        executionRoleName,
+      )
+      ..add(
+        'permissionModel',
+        permissionModel,
+      )
+      ..add(
+        'autoDeployment',
+        autoDeployment,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      )
+      ..add(
+        'managedExecution',
+        managedExecution,
+      );
     return helper.toString();
   }
 }

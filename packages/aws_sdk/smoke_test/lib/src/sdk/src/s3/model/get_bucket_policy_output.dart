@@ -34,7 +34,7 @@ abstract class GetBucketPolicyOutput
         b.policy = payload;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<String?>> serializers = [
     GetBucketPolicyOutputRestXmlSerializer()
   ];
 
@@ -49,11 +49,11 @@ abstract class GetBucketPolicyOutput
   List<Object?> get props => [policy];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketPolicyOutput');
-    helper.add(
-      'policy',
-      policy,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketPolicyOutput')
+      ..add(
+        'policy',
+        policy,
+      );
     return helper.toString();
   }
 }

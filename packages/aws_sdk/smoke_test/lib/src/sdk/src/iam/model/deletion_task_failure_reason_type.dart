@@ -44,9 +44,8 @@ abstract class DeletionTaskFailureReasonType
 
   const DeletionTaskFailureReasonType._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    DeletionTaskFailureReasonTypeAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<DeletionTaskFailureReasonType>>
+      serializers = [DeletionTaskFailureReasonTypeAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeletionTaskFailureReasonTypeBuilder b) {}
@@ -63,15 +62,15 @@ abstract class DeletionTaskFailureReasonType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeletionTaskFailureReasonType');
-    helper.add(
-      'reason',
-      reason,
-    );
-    helper.add(
-      'roleUsageList',
-      roleUsageList,
-    );
+    final helper = newBuiltValueToStringHelper('DeletionTaskFailureReasonType')
+      ..add(
+        'reason',
+        reason,
+      )
+      ..add(
+        'roleUsageList',
+        roleUsageList,
+      );
     return helper.toString();
   }
 }

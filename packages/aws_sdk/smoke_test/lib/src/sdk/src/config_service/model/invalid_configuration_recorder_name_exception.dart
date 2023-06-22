@@ -40,7 +40,9 @@ abstract class InvalidConfigurationRecorderNameException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<InvalidConfigurationRecorderNameException>>
+      serializers = [
     InvalidConfigurationRecorderNameExceptionAwsJson11Serializer()
   ];
 
@@ -69,12 +71,12 @@ abstract class InvalidConfigurationRecorderNameException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'InvalidConfigurationRecorderNameException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper =
+        newBuiltValueToStringHelper('InvalidConfigurationRecorderNameException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

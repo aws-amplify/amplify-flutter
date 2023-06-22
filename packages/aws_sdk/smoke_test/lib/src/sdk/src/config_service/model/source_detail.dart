@@ -39,7 +39,7 @@ abstract class SourceDetail
 
   const SourceDetail._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<SourceDetail>> serializers = [
     SourceDetailAwsJson11Serializer()
   ];
 
@@ -77,19 +77,19 @@ abstract class SourceDetail
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SourceDetail');
-    helper.add(
-      'eventSource',
-      eventSource,
-    );
-    helper.add(
-      'messageType',
-      messageType,
-    );
-    helper.add(
-      'maximumExecutionFrequency',
-      maximumExecutionFrequency,
-    );
+    final helper = newBuiltValueToStringHelper('SourceDetail')
+      ..add(
+        'eventSource',
+        eventSource,
+      )
+      ..add(
+        'messageType',
+        messageType,
+      )
+      ..add(
+        'maximumExecutionFrequency',
+        maximumExecutionFrequency,
+      );
     return helper.toString();
   }
 }

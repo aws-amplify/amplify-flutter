@@ -60,9 +60,8 @@ abstract class DeleteObjectTaggingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteObjectTaggingRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteObjectTaggingRequestPayload>>
+      serializers = [DeleteObjectTaggingRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteObjectTaggingRequestBuilder b) {}
@@ -108,23 +107,23 @@ abstract class DeleteObjectTaggingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteObjectTaggingRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteObjectTaggingRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

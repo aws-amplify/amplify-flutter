@@ -37,7 +37,7 @@ abstract class UntagPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UntagPolicyRequest>> serializers = [
     UntagPolicyRequestAwsQuerySerializer()
   ];
 
@@ -60,15 +60,15 @@ abstract class UntagPolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UntagPolicyRequest');
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
-    helper.add(
-      'tagKeys',
-      tagKeys,
-    );
+    final helper = newBuiltValueToStringHelper('UntagPolicyRequest')
+      ..add(
+        'policyArn',
+        policyArn,
+      )
+      ..add(
+        'tagKeys',
+        tagKeys,
+      );
     return helper.toString();
   }
 }

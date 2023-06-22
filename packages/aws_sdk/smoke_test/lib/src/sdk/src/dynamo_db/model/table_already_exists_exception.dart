@@ -38,9 +38,8 @@ abstract class TableAlreadyExistsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TableAlreadyExistsExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<TableAlreadyExistsException>>
+      serializers = [TableAlreadyExistsExceptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TableAlreadyExistsExceptionBuilder b) {}
@@ -65,11 +64,11 @@ abstract class TableAlreadyExistsException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TableAlreadyExistsException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('TableAlreadyExistsException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

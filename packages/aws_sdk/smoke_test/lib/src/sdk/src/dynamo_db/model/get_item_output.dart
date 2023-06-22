@@ -43,7 +43,7 @@ abstract class GetItemOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<GetItemOutput>> serializers = [
     GetItemOutputAwsJson10Serializer()
   ];
 
@@ -62,15 +62,15 @@ abstract class GetItemOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetItemOutput');
-    helper.add(
-      'item',
-      item,
-    );
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
+    final helper = newBuiltValueToStringHelper('GetItemOutput')
+      ..add(
+        'item',
+        item,
+      )
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      );
     return helper.toString();
   }
 }

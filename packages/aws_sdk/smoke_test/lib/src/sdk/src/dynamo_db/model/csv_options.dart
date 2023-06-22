@@ -32,7 +32,7 @@ abstract class CsvOptions
 
   const CsvOptions._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<CsvOptions>> serializers = [
     CsvOptionsAwsJson10Serializer()
   ];
 
@@ -51,15 +51,15 @@ abstract class CsvOptions
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CsvOptions');
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'headerList',
-      headerList,
-    );
+    final helper = newBuiltValueToStringHelper('CsvOptions')
+      ..add(
+        'delimiter',
+        delimiter,
+      )
+      ..add(
+        'headerList',
+        headerList,
+      );
     return helper.toString();
   }
 }

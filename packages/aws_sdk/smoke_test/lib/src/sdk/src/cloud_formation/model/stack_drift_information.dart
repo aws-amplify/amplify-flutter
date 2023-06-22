@@ -34,7 +34,7 @@ abstract class StackDriftInformation
 
   const StackDriftInformation._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<StackDriftInformation>> serializers = [
     StackDriftInformationAwsQuerySerializer()
   ];
 
@@ -61,15 +61,15 @@ abstract class StackDriftInformation
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackDriftInformation');
-    helper.add(
-      'stackDriftStatus',
-      stackDriftStatus,
-    );
-    helper.add(
-      'lastCheckTimestamp',
-      lastCheckTimestamp,
-    );
+    final helper = newBuiltValueToStringHelper('StackDriftInformation')
+      ..add(
+        'stackDriftStatus',
+        stackDriftStatus,
+      )
+      ..add(
+        'lastCheckTimestamp',
+        lastCheckTimestamp,
+      );
     return helper.toString();
   }
 }

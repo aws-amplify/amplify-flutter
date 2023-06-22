@@ -30,7 +30,7 @@ abstract class CreateStackSetOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<CreateStackSetOutput>> serializers = [
     CreateStackSetOutputAwsQuerySerializer()
   ];
 
@@ -43,11 +43,11 @@ abstract class CreateStackSetOutput
   List<Object?> get props => [stackSetId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateStackSetOutput');
-    helper.add(
-      'stackSetId',
-      stackSetId,
-    );
+    final helper = newBuiltValueToStringHelper('CreateStackSetOutput')
+      ..add(
+        'stackSetId',
+        stackSetId,
+      );
     return helper.toString();
   }
 }

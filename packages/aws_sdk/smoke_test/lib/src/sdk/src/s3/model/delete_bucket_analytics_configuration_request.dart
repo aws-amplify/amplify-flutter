@@ -56,7 +56,9 @@ abstract class DeleteBucketAnalyticsConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+      _i1.SmithySerializer<
+          DeleteBucketAnalyticsConfigurationRequestPayload>> serializers = [
     DeleteBucketAnalyticsConfigurationRequestRestXmlSerializer()
   ];
 
@@ -94,20 +96,20 @@ abstract class DeleteBucketAnalyticsConfigurationRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'DeleteBucketAnalyticsConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper =
+        newBuiltValueToStringHelper('DeleteBucketAnalyticsConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'id',
+            id,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }

@@ -41,7 +41,7 @@ abstract class ProvisionedThroughput
 
   const ProvisionedThroughput._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ProvisionedThroughput>> serializers = [
     ProvisionedThroughputAwsJson10Serializer()
   ];
 
@@ -67,15 +67,15 @@ abstract class ProvisionedThroughput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ProvisionedThroughput');
-    helper.add(
-      'readCapacityUnits',
-      readCapacityUnits,
-    );
-    helper.add(
-      'writeCapacityUnits',
-      writeCapacityUnits,
-    );
+    final helper = newBuiltValueToStringHelper('ProvisionedThroughput')
+      ..add(
+        'readCapacityUnits',
+        readCapacityUnits,
+      )
+      ..add(
+        'writeCapacityUnits',
+        writeCapacityUnits,
+      );
     return helper.toString();
   }
 }

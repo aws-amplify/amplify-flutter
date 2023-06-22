@@ -58,9 +58,9 @@ abstract class GetDocumentationVersionsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetDocumentationVersionsRequestRestJson1Serializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<GetDocumentationVersionsRequestPayload>>
+      serializers = [GetDocumentationVersionsRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetDocumentationVersionsRequestBuilder b) {}
@@ -97,19 +97,19 @@ abstract class GetDocumentationVersionsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetDocumentationVersionsRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+        newBuiltValueToStringHelper('GetDocumentationVersionsRequest')
+          ..add(
+            'restApiId',
+            restApiId,
+          )
+          ..add(
+            'position',
+            position,
+          )
+          ..add(
+            'limit',
+            limit,
+          );
     return helper.toString();
   }
 }

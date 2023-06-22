@@ -37,9 +37,8 @@ abstract class PutRetentionConfigurationResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    PutRetentionConfigurationResponseAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<PutRetentionConfigurationResponse>>
+      serializers = [PutRetentionConfigurationResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutRetentionConfigurationResponseBuilder b) {}
@@ -51,11 +50,11 @@ abstract class PutRetentionConfigurationResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutRetentionConfigurationResponse');
-    helper.add(
-      'retentionConfiguration',
-      retentionConfiguration,
-    );
+        newBuiltValueToStringHelper('PutRetentionConfigurationResponse')
+          ..add(
+            'retentionConfiguration',
+            retentionConfiguration,
+          );
     return helper.toString();
   }
 }

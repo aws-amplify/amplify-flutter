@@ -49,9 +49,8 @@ abstract class LimitExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    LimitExceededExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<LimitExceededExceptionPayload>>
+      serializers = [LimitExceededExceptionRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(LimitExceededExceptionBuilder b) {}
@@ -85,15 +84,15 @@ abstract class LimitExceededException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LimitExceededException');
-    helper.add(
-      'retryAfterSeconds',
-      retryAfterSeconds,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('LimitExceededException')
+      ..add(
+        'retryAfterSeconds',
+        retryAfterSeconds,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }
@@ -118,11 +117,11 @@ abstract class LimitExceededExceptionPayload
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LimitExceededExceptionPayload');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('LimitExceededExceptionPayload')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

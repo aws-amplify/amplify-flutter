@@ -40,7 +40,7 @@ abstract class TopicConfiguration
 
   const TopicConfiguration._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<TopicConfiguration>> serializers = [
     TopicConfigurationRestXmlSerializer()
   ];
 
@@ -67,23 +67,23 @@ abstract class TopicConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TopicConfiguration');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'topicArn',
-      topicArn,
-    );
-    helper.add(
-      'events',
-      events,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
+    final helper = newBuiltValueToStringHelper('TopicConfiguration')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'topicArn',
+        topicArn,
+      )
+      ..add(
+        'events',
+        events,
+      )
+      ..add(
+        'filter',
+        filter,
+      );
     return helper.toString();
   }
 }

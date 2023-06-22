@@ -37,9 +37,8 @@ abstract class ConfirmForgotPasswordResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ConfirmForgotPasswordResponseAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ConfirmForgotPasswordResponse>>
+      serializers = [ConfirmForgotPasswordResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfirmForgotPasswordResponseBuilder b) {}

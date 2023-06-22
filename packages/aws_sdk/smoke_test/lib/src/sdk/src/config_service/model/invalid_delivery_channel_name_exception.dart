@@ -40,9 +40,8 @@ abstract class InvalidDeliveryChannelNameException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidDeliveryChannelNameExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidDeliveryChannelNameException>>
+      serializers = [InvalidDeliveryChannelNameExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidDeliveryChannelNameExceptionBuilder b) {}
@@ -70,11 +69,11 @@ abstract class InvalidDeliveryChannelNameException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InvalidDeliveryChannelNameException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InvalidDeliveryChannelNameException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

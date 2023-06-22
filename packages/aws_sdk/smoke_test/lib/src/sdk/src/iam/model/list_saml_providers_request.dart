@@ -34,9 +34,8 @@ abstract class ListSamlProvidersRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListSamlProvidersRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListSamlProvidersRequest>>
+      serializers = [ListSamlProvidersRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListSamlProvidersRequestBuilder b) {}

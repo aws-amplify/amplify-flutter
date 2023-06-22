@@ -80,7 +80,7 @@ abstract class CreateStackInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<CreateStackInput>> serializers = [
     CreateStackInputAwsQuerySerializer()
   ];
 
@@ -225,75 +225,75 @@ abstract class CreateStackInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateStackInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateUrl',
-      templateUrl,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'disableRollback',
-      disableRollback,
-    );
-    helper.add(
-      'rollbackConfiguration',
-      rollbackConfiguration,
-    );
-    helper.add(
-      'timeoutInMinutes',
-      timeoutInMinutes,
-    );
-    helper.add(
-      'notificationArNs',
-      notificationArNs,
-    );
-    helper.add(
-      'capabilities',
-      capabilities,
-    );
-    helper.add(
-      'resourceTypes',
-      resourceTypes,
-    );
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'onFailure',
-      onFailure,
-    );
-    helper.add(
-      'stackPolicyBody',
-      stackPolicyBody,
-    );
-    helper.add(
-      'stackPolicyUrl',
-      stackPolicyUrl,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
-    helper.add(
-      'enableTerminationProtection',
-      enableTerminationProtection,
-    );
+    final helper = newBuiltValueToStringHelper('CreateStackInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'templateUrl',
+        templateUrl,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'disableRollback',
+        disableRollback,
+      )
+      ..add(
+        'rollbackConfiguration',
+        rollbackConfiguration,
+      )
+      ..add(
+        'timeoutInMinutes',
+        timeoutInMinutes,
+      )
+      ..add(
+        'notificationArNs',
+        notificationArNs,
+      )
+      ..add(
+        'capabilities',
+        capabilities,
+      )
+      ..add(
+        'resourceTypes',
+        resourceTypes,
+      )
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'onFailure',
+        onFailure,
+      )
+      ..add(
+        'stackPolicyBody',
+        stackPolicyBody,
+      )
+      ..add(
+        'stackPolicyUrl',
+        stackPolicyUrl,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      )
+      ..add(
+        'enableTerminationProtection',
+        enableTerminationProtection,
+      );
     return helper.toString();
   }
 }

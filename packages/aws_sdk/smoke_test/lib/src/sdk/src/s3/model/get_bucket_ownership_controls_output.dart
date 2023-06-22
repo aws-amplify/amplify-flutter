@@ -44,9 +44,8 @@ abstract class GetBucketOwnershipControlsOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketOwnershipControlsOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<_i3.OwnershipControls?>> serializers =
+      [GetBucketOwnershipControlsOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketOwnershipControlsOutputBuilder b) {}
@@ -60,11 +59,11 @@ abstract class GetBucketOwnershipControlsOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketOwnershipControlsOutput');
-    helper.add(
-      'ownershipControls',
-      ownershipControls,
-    );
+        newBuiltValueToStringHelper('GetBucketOwnershipControlsOutput')
+          ..add(
+            'ownershipControls',
+            ownershipControls,
+          );
     return helper.toString();
   }
 }

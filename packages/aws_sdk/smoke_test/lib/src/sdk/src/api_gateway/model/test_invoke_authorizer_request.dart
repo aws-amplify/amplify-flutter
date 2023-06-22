@@ -82,9 +82,8 @@ abstract class TestInvokeAuthorizerRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TestInvokeAuthorizerRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<TestInvokeAuthorizerRequestPayload>>
+      serializers = [TestInvokeAuthorizerRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestInvokeAuthorizerRequestBuilder b) {}
@@ -157,39 +156,39 @@ abstract class TestInvokeAuthorizerRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestInvokeAuthorizerRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'authorizerId',
-      authorizerId,
-    );
-    helper.add(
-      'headers',
-      headers,
-    );
-    helper.add(
-      'multiValueHeaders',
-      multiValueHeaders,
-    );
-    helper.add(
-      'pathWithQueryString',
-      pathWithQueryString,
-    );
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'stageVariables',
-      stageVariables,
-    );
-    helper.add(
-      'additionalContext',
-      additionalContext,
-    );
+    final helper = newBuiltValueToStringHelper('TestInvokeAuthorizerRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'authorizerId',
+        authorizerId,
+      )
+      ..add(
+        'headers',
+        headers,
+      )
+      ..add(
+        'multiValueHeaders',
+        multiValueHeaders,
+      )
+      ..add(
+        'pathWithQueryString',
+        pathWithQueryString,
+      )
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'stageVariables',
+        stageVariables,
+      )
+      ..add(
+        'additionalContext',
+        additionalContext,
+      );
     return helper.toString();
   }
 }
@@ -239,31 +238,31 @@ abstract class TestInvokeAuthorizerRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('TestInvokeAuthorizerRequestPayload');
-    helper.add(
-      'additionalContext',
-      additionalContext,
-    );
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'headers',
-      headers,
-    );
-    helper.add(
-      'multiValueHeaders',
-      multiValueHeaders,
-    );
-    helper.add(
-      'pathWithQueryString',
-      pathWithQueryString,
-    );
-    helper.add(
-      'stageVariables',
-      stageVariables,
-    );
+        newBuiltValueToStringHelper('TestInvokeAuthorizerRequestPayload')
+          ..add(
+            'additionalContext',
+            additionalContext,
+          )
+          ..add(
+            'body',
+            body,
+          )
+          ..add(
+            'headers',
+            headers,
+          )
+          ..add(
+            'multiValueHeaders',
+            multiValueHeaders,
+          )
+          ..add(
+            'pathWithQueryString',
+            pathWithQueryString,
+          )
+          ..add(
+            'stageVariables',
+            stageVariables,
+          );
     return helper.toString();
   }
 }

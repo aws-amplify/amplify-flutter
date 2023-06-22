@@ -37,9 +37,8 @@ abstract class IntelligentTieringAndOperator
 
   const IntelligentTieringAndOperator._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    IntelligentTieringAndOperatorRestXmlSerializer()
-  ];
+  static const List<_i4.SmithySerializer<IntelligentTieringAndOperator>>
+      serializers = [IntelligentTieringAndOperatorRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(IntelligentTieringAndOperatorBuilder b) {}
@@ -56,15 +55,15 @@ abstract class IntelligentTieringAndOperator
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('IntelligentTieringAndOperator');
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('IntelligentTieringAndOperator')
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

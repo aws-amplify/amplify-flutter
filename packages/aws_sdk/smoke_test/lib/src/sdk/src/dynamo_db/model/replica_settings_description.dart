@@ -68,9 +68,8 @@ abstract class ReplicaSettingsDescription
 
   const ReplicaSettingsDescription._();
 
-  static const List<_i9.SmithySerializer> serializers = [
-    ReplicaSettingsDescriptionAwsJson10Serializer()
-  ];
+  static const List<_i9.SmithySerializer<ReplicaSettingsDescription>>
+      serializers = [ReplicaSettingsDescriptionAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ReplicaSettingsDescriptionBuilder b) {}
@@ -126,43 +125,43 @@ abstract class ReplicaSettingsDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicaSettingsDescription');
-    helper.add(
-      'regionName',
-      regionName,
-    );
-    helper.add(
-      'replicaStatus',
-      replicaStatus,
-    );
-    helper.add(
-      'replicaBillingModeSummary',
-      replicaBillingModeSummary,
-    );
-    helper.add(
-      'replicaProvisionedReadCapacityUnits',
-      replicaProvisionedReadCapacityUnits,
-    );
-    helper.add(
-      'replicaProvisionedReadCapacityAutoScalingSettings',
-      replicaProvisionedReadCapacityAutoScalingSettings,
-    );
-    helper.add(
-      'replicaProvisionedWriteCapacityUnits',
-      replicaProvisionedWriteCapacityUnits,
-    );
-    helper.add(
-      'replicaProvisionedWriteCapacityAutoScalingSettings',
-      replicaProvisionedWriteCapacityAutoScalingSettings,
-    );
-    helper.add(
-      'replicaGlobalSecondaryIndexSettings',
-      replicaGlobalSecondaryIndexSettings,
-    );
-    helper.add(
-      'replicaTableClassSummary',
-      replicaTableClassSummary,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicaSettingsDescription')
+      ..add(
+        'regionName',
+        regionName,
+      )
+      ..add(
+        'replicaStatus',
+        replicaStatus,
+      )
+      ..add(
+        'replicaBillingModeSummary',
+        replicaBillingModeSummary,
+      )
+      ..add(
+        'replicaProvisionedReadCapacityUnits',
+        replicaProvisionedReadCapacityUnits,
+      )
+      ..add(
+        'replicaProvisionedReadCapacityAutoScalingSettings',
+        replicaProvisionedReadCapacityAutoScalingSettings,
+      )
+      ..add(
+        'replicaProvisionedWriteCapacityUnits',
+        replicaProvisionedWriteCapacityUnits,
+      )
+      ..add(
+        'replicaProvisionedWriteCapacityAutoScalingSettings',
+        replicaProvisionedWriteCapacityAutoScalingSettings,
+      )
+      ..add(
+        'replicaGlobalSecondaryIndexSettings',
+        replicaGlobalSecondaryIndexSettings,
+      )
+      ..add(
+        'replicaTableClassSummary',
+        replicaTableClassSummary,
+      );
     return helper.toString();
   }
 }

@@ -42,9 +42,8 @@ abstract class DescribeDeliveryChannelStatusRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeDeliveryChannelStatusRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DescribeDeliveryChannelStatusRequest>>
+      serializers = [DescribeDeliveryChannelStatusRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeDeliveryChannelStatusRequestBuilder b) {}
@@ -58,11 +57,11 @@ abstract class DescribeDeliveryChannelStatusRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeDeliveryChannelStatusRequest');
-    helper.add(
-      'deliveryChannelNames',
-      deliveryChannelNames,
-    );
+        newBuiltValueToStringHelper('DescribeDeliveryChannelStatusRequest')
+          ..add(
+            'deliveryChannelNames',
+            deliveryChannelNames,
+          );
     return helper.toString();
   }
 }

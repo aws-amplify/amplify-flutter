@@ -39,9 +39,8 @@ abstract class DetachGroupPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DetachGroupPolicyRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DetachGroupPolicyRequest>>
+      serializers = [DetachGroupPolicyRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DetachGroupPolicyRequestBuilder b) {}
@@ -64,15 +63,15 @@ abstract class DetachGroupPolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DetachGroupPolicyRequest');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
+    final helper = newBuiltValueToStringHelper('DetachGroupPolicyRequest')
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'policyArn',
+        policyArn,
+      );
     return helper.toString();
   }
 }

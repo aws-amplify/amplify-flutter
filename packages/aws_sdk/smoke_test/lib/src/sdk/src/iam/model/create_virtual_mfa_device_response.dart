@@ -40,9 +40,8 @@ abstract class CreateVirtualMfaDeviceResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    CreateVirtualMfaDeviceResponseAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<CreateVirtualMfaDeviceResponse>>
+      serializers = [CreateVirtualMfaDeviceResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateVirtualMfaDeviceResponseBuilder b) {}
@@ -53,12 +52,11 @@ abstract class CreateVirtualMfaDeviceResponse
   List<Object?> get props => [virtualMfaDevice];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CreateVirtualMfaDeviceResponse');
-    helper.add(
-      'virtualMfaDevice',
-      virtualMfaDevice,
-    );
+    final helper = newBuiltValueToStringHelper('CreateVirtualMfaDeviceResponse')
+      ..add(
+        'virtualMfaDevice',
+        virtualMfaDevice,
+      );
     return helper.toString();
   }
 }

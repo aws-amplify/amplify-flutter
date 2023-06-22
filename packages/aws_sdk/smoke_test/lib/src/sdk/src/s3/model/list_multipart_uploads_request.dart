@@ -89,9 +89,8 @@ abstract class ListMultipartUploadsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListMultipartUploadsRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListMultipartUploadsRequestPayload>>
+      serializers = [ListMultipartUploadsRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListMultipartUploadsRequestBuilder b) {}
@@ -161,43 +160,43 @@ abstract class ListMultipartUploadsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListMultipartUploadsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'encodingType',
-      encodingType,
-    );
-    helper.add(
-      'keyMarker',
-      keyMarker,
-    );
-    helper.add(
-      'maxUploads',
-      maxUploads,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'uploadIdMarker',
-      uploadIdMarker,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
+    final helper = newBuiltValueToStringHelper('ListMultipartUploadsRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'delimiter',
+        delimiter,
+      )
+      ..add(
+        'encodingType',
+        encodingType,
+      )
+      ..add(
+        'keyMarker',
+        keyMarker,
+      )
+      ..add(
+        'maxUploads',
+        maxUploads,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'uploadIdMarker',
+        uploadIdMarker,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      );
     return helper.toString();
   }
 }

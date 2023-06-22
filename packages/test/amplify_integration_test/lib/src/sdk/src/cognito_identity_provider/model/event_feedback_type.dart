@@ -35,14 +35,14 @@ abstract class EventFeedbackType
 
   const EventFeedbackType._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<EventFeedbackType>> serializers = [
     EventFeedbackTypeAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EventFeedbackTypeBuilder b) {}
 
-  /// The event feedback value.
+  /// The authentication event feedback value. When you provide a `FeedbackValue` value of `valid`, you tell Amazon Cognito that you trust a user session where Amazon Cognito has evaluated some level of risk. When you provide a `FeedbackValue` value of `invalid`, you tell Amazon Cognito that you don't trust a user session, or you don't believe that Amazon Cognito evaluated a high-enough risk level.
   _i2.FeedbackValueType get feedbackValue;
 
   /// The provider.
@@ -58,19 +58,19 @@ abstract class EventFeedbackType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventFeedbackType');
-    helper.add(
-      'feedbackValue',
-      feedbackValue,
-    );
-    helper.add(
-      'provider',
-      provider,
-    );
-    helper.add(
-      'feedbackDate',
-      feedbackDate,
-    );
+    final helper = newBuiltValueToStringHelper('EventFeedbackType')
+      ..add(
+        'feedbackValue',
+        feedbackValue,
+      )
+      ..add(
+        'provider',
+        provider,
+      )
+      ..add(
+        'feedbackDate',
+        feedbackDate,
+      );
     return helper.toString();
   }
 }

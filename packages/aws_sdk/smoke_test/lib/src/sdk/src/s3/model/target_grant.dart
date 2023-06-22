@@ -40,7 +40,7 @@ abstract class TargetGrant
 
   const TargetGrant._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<TargetGrant>> serializers = [
     TargetGrantRestXmlSerializer()
   ];
 
@@ -59,15 +59,15 @@ abstract class TargetGrant
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TargetGrant');
-    helper.add(
-      'grantee',
-      grantee,
-    );
-    helper.add(
-      'permission',
-      permission,
-    );
+    final helper = newBuiltValueToStringHelper('TargetGrant')
+      ..add(
+        'grantee',
+        grantee,
+      )
+      ..add(
+        'permission',
+        permission,
+      );
     return helper.toString();
   }
 }

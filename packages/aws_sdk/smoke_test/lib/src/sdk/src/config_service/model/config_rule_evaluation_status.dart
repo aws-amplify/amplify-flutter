@@ -66,9 +66,8 @@ abstract class ConfigRuleEvaluationStatus
 
   const ConfigRuleEvaluationStatus._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ConfigRuleEvaluationStatusAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ConfigRuleEvaluationStatus>>
+      serializers = [ConfigRuleEvaluationStatusAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigRuleEvaluationStatusBuilder b) {
@@ -143,67 +142,67 @@ abstract class ConfigRuleEvaluationStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfigRuleEvaluationStatus');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'configRuleArn',
-      configRuleArn,
-    );
-    helper.add(
-      'configRuleId',
-      configRuleId,
-    );
-    helper.add(
-      'lastSuccessfulInvocationTime',
-      lastSuccessfulInvocationTime,
-    );
-    helper.add(
-      'lastFailedInvocationTime',
-      lastFailedInvocationTime,
-    );
-    helper.add(
-      'lastSuccessfulEvaluationTime',
-      lastSuccessfulEvaluationTime,
-    );
-    helper.add(
-      'lastFailedEvaluationTime',
-      lastFailedEvaluationTime,
-    );
-    helper.add(
-      'firstActivatedTime',
-      firstActivatedTime,
-    );
-    helper.add(
-      'lastDeactivatedTime',
-      lastDeactivatedTime,
-    );
-    helper.add(
-      'lastErrorCode',
-      lastErrorCode,
-    );
-    helper.add(
-      'lastErrorMessage',
-      lastErrorMessage,
-    );
-    helper.add(
-      'firstEvaluationStarted',
-      firstEvaluationStarted,
-    );
-    helper.add(
-      'lastDebugLogDeliveryStatus',
-      lastDebugLogDeliveryStatus,
-    );
-    helper.add(
-      'lastDebugLogDeliveryStatusReason',
-      lastDebugLogDeliveryStatusReason,
-    );
-    helper.add(
-      'lastDebugLogDeliveryTime',
-      lastDebugLogDeliveryTime,
-    );
+    final helper = newBuiltValueToStringHelper('ConfigRuleEvaluationStatus')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'configRuleArn',
+        configRuleArn,
+      )
+      ..add(
+        'configRuleId',
+        configRuleId,
+      )
+      ..add(
+        'lastSuccessfulInvocationTime',
+        lastSuccessfulInvocationTime,
+      )
+      ..add(
+        'lastFailedInvocationTime',
+        lastFailedInvocationTime,
+      )
+      ..add(
+        'lastSuccessfulEvaluationTime',
+        lastSuccessfulEvaluationTime,
+      )
+      ..add(
+        'lastFailedEvaluationTime',
+        lastFailedEvaluationTime,
+      )
+      ..add(
+        'firstActivatedTime',
+        firstActivatedTime,
+      )
+      ..add(
+        'lastDeactivatedTime',
+        lastDeactivatedTime,
+      )
+      ..add(
+        'lastErrorCode',
+        lastErrorCode,
+      )
+      ..add(
+        'lastErrorMessage',
+        lastErrorMessage,
+      )
+      ..add(
+        'firstEvaluationStarted',
+        firstEvaluationStarted,
+      )
+      ..add(
+        'lastDebugLogDeliveryStatus',
+        lastDebugLogDeliveryStatus,
+      )
+      ..add(
+        'lastDebugLogDeliveryStatusReason',
+        lastDebugLogDeliveryStatusReason,
+      )
+      ..add(
+        'lastDebugLogDeliveryTime',
+        lastDebugLogDeliveryTime,
+      );
     return helper.toString();
   }
 }

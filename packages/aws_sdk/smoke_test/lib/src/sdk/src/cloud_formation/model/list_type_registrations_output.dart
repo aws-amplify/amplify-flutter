@@ -40,9 +40,8 @@ abstract class ListTypeRegistrationsOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ListTypeRegistrationsOutputAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<ListTypeRegistrationsOutput>>
+      serializers = [ListTypeRegistrationsOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListTypeRegistrationsOutputBuilder b) {}
@@ -61,15 +60,15 @@ abstract class ListTypeRegistrationsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTypeRegistrationsOutput');
-    helper.add(
-      'registrationTokenList',
-      registrationTokenList,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListTypeRegistrationsOutput')
+      ..add(
+        'registrationTokenList',
+        registrationTokenList,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

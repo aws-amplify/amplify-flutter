@@ -34,7 +34,7 @@ abstract class WriteRequest
 
   const WriteRequest._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<WriteRequest>> serializers = [
     WriteRequestAwsJson10Serializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class WriteRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('WriteRequest');
-    helper.add(
-      'putRequest',
-      putRequest,
-    );
-    helper.add(
-      'deleteRequest',
-      deleteRequest,
-    );
+    final helper = newBuiltValueToStringHelper('WriteRequest')
+      ..add(
+        'putRequest',
+        putRequest,
+      )
+      ..add(
+        'deleteRequest',
+        deleteRequest,
+      );
     return helper.toString();
   }
 }

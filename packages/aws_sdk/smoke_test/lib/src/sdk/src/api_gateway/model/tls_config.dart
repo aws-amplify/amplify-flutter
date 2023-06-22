@@ -26,7 +26,7 @@ abstract class TlsConfig
 
   const TlsConfig._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<TlsConfig>> serializers = [
     TlsConfigRestJson1Serializer()
   ];
 
@@ -43,11 +43,11 @@ abstract class TlsConfig
   List<Object?> get props => [insecureSkipVerification];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TlsConfig');
-    helper.add(
-      'insecureSkipVerification',
-      insecureSkipVerification,
-    );
+    final helper = newBuiltValueToStringHelper('TlsConfig')
+      ..add(
+        'insecureSkipVerification',
+        insecureSkipVerification,
+      );
     return helper.toString();
   }
 }

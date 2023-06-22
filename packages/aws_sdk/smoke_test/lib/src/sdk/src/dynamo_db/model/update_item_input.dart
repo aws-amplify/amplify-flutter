@@ -78,7 +78,7 @@ abstract class UpdateItemInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UpdateItemInput>> serializers = [
     UpdateItemInputAwsJson10Serializer()
   ];
 
@@ -258,55 +258,55 @@ abstract class UpdateItemInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateItemInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'attributeUpdates',
-      attributeUpdates,
-    );
-    helper.add(
-      'expected',
-      expected,
-    );
-    helper.add(
-      'conditionalOperator',
-      conditionalOperator,
-    );
-    helper.add(
-      'returnValues',
-      returnValues,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'returnItemCollectionMetrics',
-      returnItemCollectionMetrics,
-    );
-    helper.add(
-      'updateExpression',
-      updateExpression,
-    );
-    helper.add(
-      'conditionExpression',
-      conditionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'expressionAttributeValues',
-      expressionAttributeValues,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateItemInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'attributeUpdates',
+        attributeUpdates,
+      )
+      ..add(
+        'expected',
+        expected,
+      )
+      ..add(
+        'conditionalOperator',
+        conditionalOperator,
+      )
+      ..add(
+        'returnValues',
+        returnValues,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      )
+      ..add(
+        'returnItemCollectionMetrics',
+        returnItemCollectionMetrics,
+      )
+      ..add(
+        'updateExpression',
+        updateExpression,
+      )
+      ..add(
+        'conditionExpression',
+        conditionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      )
+      ..add(
+        'expressionAttributeValues',
+        expressionAttributeValues,
+      );
     return helper.toString();
   }
 }

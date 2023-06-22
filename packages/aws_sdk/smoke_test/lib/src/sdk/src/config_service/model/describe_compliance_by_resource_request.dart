@@ -51,9 +51,8 @@ abstract class DescribeComplianceByResourceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeComplianceByResourceRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DescribeComplianceByResourceRequest>>
+      serializers = [DescribeComplianceByResourceRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeComplianceByResourceRequestBuilder b) {
@@ -87,27 +86,27 @@ abstract class DescribeComplianceByResourceRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeComplianceByResourceRequest');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'complianceTypes',
-      complianceTypes,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('DescribeComplianceByResourceRequest')
+          ..add(
+            'resourceType',
+            resourceType,
+          )
+          ..add(
+            'resourceId',
+            resourceId,
+          )
+          ..add(
+            'complianceTypes',
+            complianceTypes,
+          )
+          ..add(
+            'limit',
+            limit,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }
