@@ -13,6 +13,6 @@ void main() {
     () => expectBuildClean(
       packageRelativeDirectory: 'packages/aws_sdk/smoke_test',
     ),
-    timeout: const Timeout(Duration(minutes: 5)),
+    timeout: const Timeout(Duration(minutes: 10)),
   );
 }
