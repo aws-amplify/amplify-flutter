@@ -1,5 +1,5 @@
-name: 'Log Metric'
-description: 'Log data point to a metric with the provided value. If the metric is not there, it will create one.'
+name: Log Metric
+description: Log data point to a metric with the provided value. If the metric is not there, it will create one
 inputs:
   aws-region:
     required: true
@@ -8,10 +8,10 @@ inputs:
     required: true
     description: The role to assume in the STS session
   metric-name:
-    description: 'target metric name'
+    description: Name of the metric to track in Cloudwatch.
     required: true
   value:
-    description: 'the value to log to the metric'
+    description: Value of the metric to track in Cloudwatch.
     required: true
 runs:
   using: 'composite'
@@ -24,29 +24,17 @@ runs:
         role-duration-seconds: 900
 
     - name: Create AWS profile
-      run: ./build-support/create_aws_test_profile.sh
+      run: ./tool/create_test_profile.sh
       shell: bash
 
-    - name: Put metric data
-      shell: bash
-      # Run bash script to put metric data.
+    - name: Setup Dart
+      uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d # main
+      with:
+        sdk: stable
+
+    - name: Run Dart script
+      # Run a Dart script to put metric data.
       # First trim the input by removing trailing or leading spaces, then removing any new line characters.
       # Then, we do regex test to match against expected input shape. Finally, put metric data using aws cli.
-      run: |
-        metric_name_trimmed="$(echo -e "${metric_name}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | tr -d '\n')"
-        value_trimmed="$(echo -e "${value}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | tr -d '\n')"
-
-        if ! [[ "$metric_name_trimmed" =~ ^[a-zA-Z0-9\ \_\-]+$ ]]; then
-          echo "Metric name can only contain alphanumeric characters, space character, -, and _."
-          exit 1
-        fi
-
-        if ! [[ "$value_trimmed" =~ ^[-+]?[0-9]+\.?[0-9]*$ ]]; then
-          echo "Metric value must be a valid number"
-          exit 1
-        fi
-
-        aws cloudwatch put-metric-data --metric-name "$metric_name" --namespace GithubCanaryApps --value "$value"
-      env:
-        metric_name: ${{ inputs.metric-name }}
-        value: ${{ inputs.value }}
+      run: dart ./tool/send_metric_data.dart ${{ inputs.metric-name }} ${{ inputs.value }}
+      shell: bash
