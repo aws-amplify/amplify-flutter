@@ -8,23 +8,28 @@ part of 'canary_settings.dart';
 
 class _$CanarySettings extends CanarySettings {
   @override
-  final double? percentTraffic;
+  final double percentTraffic;
   @override
   final String? deploymentId;
   @override
   final _i2.BuiltMap<String, String>? stageVariableOverrides;
   @override
-  final bool? useStageCache;
+  final bool useStageCache;
 
   factory _$CanarySettings([void Function(CanarySettingsBuilder)? updates]) =>
       (new CanarySettingsBuilder()..update(updates))._build();
 
   _$CanarySettings._(
-      {this.percentTraffic,
+      {required this.percentTraffic,
       this.deploymentId,
       this.stageVariableOverrides,
-      this.useStageCache})
-      : super._();
+      required this.useStageCache})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        percentTraffic, r'CanarySettings', 'percentTraffic');
+    BuiltValueNullFieldError.checkNotNull(
+        useStageCache, r'CanarySettings', 'useStageCache');
+  }
 
   @override
   CanarySettings rebuild(void Function(CanarySettingsBuilder) updates) =>
@@ -116,10 +121,12 @@ class CanarySettingsBuilder
     try {
       _$result = _$v ??
           new _$CanarySettings._(
-              percentTraffic: percentTraffic,
+              percentTraffic: BuiltValueNullFieldError.checkNotNull(
+                  percentTraffic, r'CanarySettings', 'percentTraffic'),
               deploymentId: deploymentId,
               stageVariableOverrides: _stageVariableOverrides?.build(),
-              useStageCache: useStageCache);
+              useStageCache: BuiltValueNullFieldError.checkNotNull(
+                  useStageCache, r'CanarySettings', 'useStageCache'));
     } catch (_) {
       late String _$failedField;
       try {

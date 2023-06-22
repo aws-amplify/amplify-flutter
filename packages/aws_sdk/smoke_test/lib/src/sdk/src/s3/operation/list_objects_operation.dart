@@ -35,7 +35,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/no_such_bucket.dart' as _i9;
 class ListObjectsOperation extends _i1.HttpOperation<
     _i2.ListObjectsRequestPayload,
     _i2.ListObjectsRequest,
-    _i3.ListObjectsOutput,
+    _i3.ListObjectsOutputPayload,
     _i3.ListObjectsOutput> {
   /// Returns some or all (up to 1,000) of the objects in a bucket. You can use the request parameters as selection criteria to return a subset of the objects in a bucket. A 200 OK response can contain valid or invalid XML. Be sure to design your application to parse the contents of the response and handle it appropriately.
   ///
@@ -70,7 +70,7 @@ class ListObjectsOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<_i2.ListObjectsRequestPayload, _i2.ListObjectsRequest,
-          _i3.ListObjectsOutput, _i3.ListObjectsOutput>> protocols = [
+          _i3.ListObjectsOutputPayload, _i3.ListObjectsOutput>> protocols = [
     _i4.RestXmlProtocol(
       serializers: _i6.serializers,
       builderFactories: _i6.builderFactories,
@@ -161,7 +161,7 @@ class ListObjectsOperation extends _i1.HttpOperation<
   int successCode([_i3.ListObjectsOutput? output]) => 200;
   @override
   _i3.ListObjectsOutput buildOutput(
-    _i3.ListObjectsOutput payload,
+    _i3.ListObjectsOutputPayload payload,
     _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ListObjectsOutput.fromResponse(

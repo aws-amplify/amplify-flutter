@@ -32,6 +32,7 @@ abstract class StackInstanceSummary
     String? organizationalUnitId,
     _i4.StackDriftStatus? driftStatus,
     DateTime? lastDriftCheckTimestamp,
+    String? lastOperationId,
   }) {
     return _$StackInstanceSummary._(
       stackSetId: stackSetId,
@@ -44,6 +45,7 @@ abstract class StackInstanceSummary
       organizationalUnitId: organizationalUnitId,
       driftStatus: driftStatus,
       lastDriftCheckTimestamp: lastDriftCheckTimestamp,
+      lastOperationId: lastOperationId,
     );
   }
 
@@ -108,6 +110,9 @@ abstract class StackInstanceSummary
 
   /// Most recent time when CloudFormation performed a drift detection operation on the stack instance. This value will be `NULL` for any stack instance on which drift detection hasn't yet been performed.
   DateTime? get lastDriftCheckTimestamp;
+
+  /// The last unique ID of a StackSet operation performed on a stack instance.
+  String? get lastOperationId;
   @override
   List<Object?> get props => [
         stackSetId,
@@ -120,6 +125,7 @@ abstract class StackInstanceSummary
         organizationalUnitId,
         driftStatus,
         lastDriftCheckTimestamp,
+        lastOperationId,
       ];
   @override
   String toString() {
@@ -163,6 +169,10 @@ abstract class StackInstanceSummary
     helper.add(
       'lastDriftCheckTimestamp',
       lastDriftCheckTimestamp,
+    );
+    helper.add(
+      'lastOperationId',
+      lastOperationId,
     );
     return helper.toString();
   }
@@ -251,6 +261,11 @@ class StackInstanceSummaryAwsQuerySerializer
             value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
+        case 'LastOperationId':
+          result.lastOperationId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -279,7 +294,8 @@ class StackInstanceSummaryAwsQuerySerializer
       :stackInstanceStatus,
       :organizationalUnitId,
       :driftStatus,
-      :lastDriftCheckTimestamp
+      :lastDriftCheckTimestamp,
+      :lastOperationId
     ) = object;
     if (stackSetId != null) {
       result$
@@ -359,6 +375,14 @@ class StackInstanceSummaryAwsQuerySerializer
         ..add(serializers.serialize(
           lastDriftCheckTimestamp,
           specifiedType: const FullType.nullable(DateTime),
+        ));
+    }
+    if (lastOperationId != null) {
+      result$
+        ..add(const _i5.XmlElementName('LastOperationId'))
+        ..add(serializers.serialize(
+          lastOperationId,
+          specifiedType: const FullType(String),
         ));
     }
     return result$;

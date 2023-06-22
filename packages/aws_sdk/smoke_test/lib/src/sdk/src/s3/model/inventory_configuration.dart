@@ -33,7 +33,6 @@ abstract class InventoryConfiguration
     List<_i5.InventoryOptionalField>? optionalFields,
     required _i6.InventorySchedule schedule,
   }) {
-    isEnabled ??= false;
     return _$InventoryConfiguration._(
       destination: destination,
       isEnabled: isEnabled,
@@ -58,15 +57,13 @@ abstract class InventoryConfiguration
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(InventoryConfigurationBuilder b) {
-    b.isEnabled = false;
-  }
+  static void _init(InventoryConfigurationBuilder b) {}
 
   /// Contains information about where to publish the inventory results.
   _i2.InventoryDestination get destination;
 
   /// Specifies whether the inventory is enabled or disabled. If set to `True`, an inventory list is generated. If set to `False`, no inventory list is generated.
-  bool get isEnabled;
+  bool? get isEnabled;
 
   /// Specifies an inventory filter. The inventory only includes objects that meet the filter's criteria.
   _i3.InventoryFilter? get filter;
@@ -255,12 +252,14 @@ class InventoryConfigurationRestXmlSerializer
         specifiedType:
             const FullType.nullable(_i4.InventoryIncludedObjectVersions),
       ));
-    result$
-      ..add(const _i8.XmlElementName('IsEnabled'))
-      ..add(serializers.serialize(
-        isEnabled,
-        specifiedType: const FullType.nullable(bool),
-      ));
+    if (isEnabled != null) {
+      result$
+        ..add(const _i8.XmlElementName('IsEnabled'))
+        ..add(serializers.serialize(
+          isEnabled,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (optionalFields != null) {
       result$
         ..add(const _i8.XmlElementName('OptionalFields'))

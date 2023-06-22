@@ -44,9 +44,9 @@ abstract class TypeFilters
 
   /// The category of extensions to return.
   ///
-  /// *   `REGISTERED`: Private extensions that have been registered for this account and region.
+  /// *   `REGISTERED`: Private extensions that have been registered for this account and Region.
   ///
-  /// *   `ACTIVATED`: Public extensions that have been activated for this account and region.
+  /// *   `ACTIVATED`: Public extensions that have been activated for this account and Region.
   ///
   /// *   `THIRD_PARTY`: Extensions available for use from publishers other than Amazon. This includes:
   ///

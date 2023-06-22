@@ -10,7 +10,7 @@ class _$ListGroupsResponse extends ListGroupsResponse {
   @override
   final _i3.BuiltList<_i2.Group> groups;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -18,10 +18,13 @@ class _$ListGroupsResponse extends ListGroupsResponse {
           [void Function(ListGroupsResponseBuilder)? updates]) =>
       (new ListGroupsResponseBuilder()..update(updates))._build();
 
-  _$ListGroupsResponse._({required this.groups, this.isTruncated, this.marker})
+  _$ListGroupsResponse._(
+      {required this.groups, required this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         groups, r'ListGroupsResponse', 'groups');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListGroupsResponse', 'isTruncated');
   }
 
   @override
@@ -104,7 +107,10 @@ class ListGroupsResponseBuilder
     try {
       _$result = _$v ??
           new _$ListGroupsResponse._(
-              groups: groups.build(), isTruncated: isTruncated, marker: marker);
+              groups: groups.build(),
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListGroupsResponse', 'isTruncated'),
+              marker: marker);
     } catch (_) {
       late String _$failedField;
       try {

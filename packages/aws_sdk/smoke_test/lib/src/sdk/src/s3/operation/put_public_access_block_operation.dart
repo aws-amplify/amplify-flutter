@@ -22,7 +22,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_public_access_block_request.
 ///
 /// For more information about when Amazon S3 considers a bucket or an object public, see [The Meaning of "Public"](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status).
 ///
-/// **Related Resources**
+/// The following operations are related to `PutPublicAccessBlock`:
 ///
 /// *   [GetPublicAccessBlock](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetPublicAccessBlock.html)
 ///
@@ -42,7 +42,7 @@ class PutPublicAccessBlockOperation extends _i1.HttpOperation<
   ///
   /// For more information about when Amazon S3 considers a bucket or an object public, see [The Meaning of "Public"](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status).
   ///
-  /// **Related Resources**
+  /// The following operations are related to `PutPublicAccessBlock`:
   ///
   /// *   [GetPublicAccessBlock](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetPublicAccessBlock.html)
   ///

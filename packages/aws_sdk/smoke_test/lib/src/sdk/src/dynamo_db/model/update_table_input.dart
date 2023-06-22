@@ -42,6 +42,7 @@ abstract class UpdateTableInput
     _i8.SseSpecification? sseSpecification,
     List<_i9.ReplicationGroupUpdate>? replicaUpdates,
     _i10.TableClass? tableClass,
+    bool? deletionProtectionEnabled,
   }) {
     return _$UpdateTableInput._(
       attributeDefinitions: attributeDefinitions == null
@@ -58,6 +59,7 @@ abstract class UpdateTableInput
       replicaUpdates:
           replicaUpdates == null ? null : _i11.BuiltList(replicaUpdates),
       tableClass: tableClass,
+      deletionProtectionEnabled: deletionProtectionEnabled,
     );
   }
 
@@ -122,11 +124,14 @@ abstract class UpdateTableInput
 
   /// A list of replica update actions (create, delete, or update) for the table.
   ///
-  /// This property only applies to [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+  /// This property only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
   _i11.BuiltList<_i9.ReplicationGroupUpdate>? get replicaUpdates;
 
   /// The table class of the table to be updated. Valid values are `STANDARD` and `STANDARD\_INFREQUENT\_ACCESS`.
   _i10.TableClass? get tableClass;
+
+  /// Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
+  bool? get deletionProtectionEnabled;
   @override
   UpdateTableInput getPayload() => this;
   @override
@@ -140,6 +145,7 @@ abstract class UpdateTableInput
         sseSpecification,
         replicaUpdates,
         tableClass,
+        deletionProtectionEnabled,
       ];
   @override
   String toString() {
@@ -179,6 +185,10 @@ abstract class UpdateTableInput
     helper.add(
       'tableClass',
       tableClass,
+    );
+    helper.add(
+      'deletionProtectionEnabled',
+      deletionProtectionEnabled,
     );
     return helper.toString();
   }
@@ -270,6 +280,11 @@ class UpdateTableInputAwsJson10Serializer
             value,
             specifiedType: const FullType(_i10.TableClass),
           ) as _i10.TableClass);
+        case 'DeletionProtectionEnabled':
+          result.deletionProtectionEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -292,7 +307,8 @@ class UpdateTableInputAwsJson10Serializer
       :streamSpecification,
       :sseSpecification,
       :replicaUpdates,
-      :tableClass
+      :tableClass,
+      :deletionProtectionEnabled
     ) = object;
     result$.addAll([
       'TableName',
@@ -372,6 +388,14 @@ class UpdateTableInputAwsJson10Serializer
         ..add(serializers.serialize(
           tableClass,
           specifiedType: const FullType(_i10.TableClass),
+        ));
+    }
+    if (deletionProtectionEnabled != null) {
+      result$
+        ..add('DeletionProtectionEnabled')
+        ..add(serializers.serialize(
+          deletionProtectionEnabled,
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

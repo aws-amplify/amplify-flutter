@@ -31,11 +31,11 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_type_outpu
 ///
 /// For more information about how to develop extensions and ready them for registration, see [Creating Resource Providers](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-types.html) in the _CloudFormation CLI User Guide_.
 ///
-/// You can have a maximum of 50 resource extension versions registered at a time. This maximum is per account and per region. Use [DeregisterType](AWSCloudFormation/latest/APIReference/API_DeregisterType.html) to deregister specific extension versions if necessary.
+/// You can have a maximum of 50 resource extension versions registered at a time. This maximum is per account and per Region. Use [DeregisterType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeregisterType.html) to deregister specific extension versions if necessary.
 ///
-/// Once you have initiated a registration request using `RegisterType` , you can use `DescribeTypeRegistration` to monitor the progress of the registration request.
+/// Once you have initiated a registration request using RegisterType, you can use DescribeTypeRegistration to monitor the progress of the registration request.
 ///
-/// Once you have registered a private extension in your account and region, use [SetTypeConfiguration](AWSCloudFormation/latest/APIReference/API_SetTypeConfiguration.html) to specify configuration properties for the extension. For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
+/// Once you have registered a private extension in your account and Region, use [SetTypeConfiguration](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_SetTypeConfiguration.html) to specify configuration properties for the extension. For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
 class RegisterTypeOperation extends _i1.HttpOperation<_i2.RegisterTypeInput,
     _i2.RegisterTypeInput, _i3.RegisterTypeOutput, _i3.RegisterTypeOutput> {
   /// Registers an extension with the CloudFormation service. Registering an extension makes it available for use in CloudFormation templates in your Amazon Web Services account, and includes:
@@ -49,11 +49,11 @@ class RegisterTypeOperation extends _i1.HttpOperation<_i2.RegisterTypeInput,
   ///
   /// For more information about how to develop extensions and ready them for registration, see [Creating Resource Providers](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-types.html) in the _CloudFormation CLI User Guide_.
   ///
-  /// You can have a maximum of 50 resource extension versions registered at a time. This maximum is per account and per region. Use [DeregisterType](AWSCloudFormation/latest/APIReference/API_DeregisterType.html) to deregister specific extension versions if necessary.
+  /// You can have a maximum of 50 resource extension versions registered at a time. This maximum is per account and per Region. Use [DeregisterType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeregisterType.html) to deregister specific extension versions if necessary.
   ///
-  /// Once you have initiated a registration request using `RegisterType` , you can use `DescribeTypeRegistration` to monitor the progress of the registration request.
+  /// Once you have initiated a registration request using RegisterType, you can use DescribeTypeRegistration to monitor the progress of the registration request.
   ///
-  /// Once you have registered a private extension in your account and region, use [SetTypeConfiguration](AWSCloudFormation/latest/APIReference/API_SetTypeConfiguration.html) to specify configuration properties for the extension. For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
+  /// Once you have registered a private extension in your account and Region, use [SetTypeConfiguration](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_SetTypeConfiguration.html) to specify configuration properties for the extension. For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
   RegisterTypeOperation({
     required String region,
     Uri? baseUri,

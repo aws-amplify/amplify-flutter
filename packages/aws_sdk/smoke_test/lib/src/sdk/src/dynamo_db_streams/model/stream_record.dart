@@ -54,7 +54,7 @@ abstract class StreamRecord
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StreamRecordBuilder b) {}
 
-  /// The approximate date and time when the stream record was created, in [UNIX epoch time](http://www.epochconverter.com/) format.
+  /// The approximate date and time when the stream record was created, in [UNIX epoch time](http://www.epochconverter.com/) format and rounded down to the closest second.
   DateTime? get approximateCreationDateTime;
 
   /// The primary key attribute(s) for the DynamoDB item that was modified.

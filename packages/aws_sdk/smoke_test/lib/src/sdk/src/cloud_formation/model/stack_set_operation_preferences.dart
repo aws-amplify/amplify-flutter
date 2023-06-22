@@ -62,7 +62,7 @@ abstract class StackSetOperationPreferences
   /// The concurrency type of deploying StackSets operations in Regions, could be in parallel or one Region at a time.
   _i2.RegionConcurrencyType? get regionConcurrencyType;
 
-  /// The order of the Regions in where you want to perform the stack operation.
+  /// The order of the Regions where you want to perform the stack operation.
   _i3.BuiltList<String>? get regionOrder;
 
   /// The number of accounts, per Region, for which this operation can fail before CloudFormation stops the operation in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the operation in any subsequent Regions.

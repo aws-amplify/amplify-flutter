@@ -68,104 +68,110 @@ class BucketLocationConstraint
     'ap-southeast-2',
   );
 
-  static const caCentral1 = BucketLocationConstraint._(
+  static const apSoutheast3 = BucketLocationConstraint._(
     8,
+    'ap_southeast_3',
+    'ap-southeast-3',
+  );
+
+  static const caCentral1 = BucketLocationConstraint._(
+    9,
     'ca_central_1',
     'ca-central-1',
   );
 
   static const cnNorth1 = BucketLocationConstraint._(
-    9,
+    10,
     'cn_north_1',
     'cn-north-1',
   );
 
   static const cnNorthwest1 = BucketLocationConstraint._(
-    10,
+    11,
     'cn_northwest_1',
     'cn-northwest-1',
   );
 
   static const eu = BucketLocationConstraint._(
-    11,
+    12,
     'EU',
     'EU',
   );
 
   static const euCentral1 = BucketLocationConstraint._(
-    12,
+    13,
     'eu_central_1',
     'eu-central-1',
   );
 
   static const euNorth1 = BucketLocationConstraint._(
-    13,
+    14,
     'eu_north_1',
     'eu-north-1',
   );
 
   static const euSouth1 = BucketLocationConstraint._(
-    14,
+    15,
     'eu_south_1',
     'eu-south-1',
   );
 
   static const euWest1 = BucketLocationConstraint._(
-    15,
+    16,
     'eu_west_1',
     'eu-west-1',
   );
 
   static const euWest2 = BucketLocationConstraint._(
-    16,
+    17,
     'eu_west_2',
     'eu-west-2',
   );
 
   static const euWest3 = BucketLocationConstraint._(
-    17,
+    18,
     'eu_west_3',
     'eu-west-3',
   );
 
   static const meSouth1 = BucketLocationConstraint._(
-    18,
+    19,
     'me_south_1',
     'me-south-1',
   );
 
   static const saEast1 = BucketLocationConstraint._(
-    19,
+    20,
     'sa_east_1',
     'sa-east-1',
   );
 
   static const usEast2 = BucketLocationConstraint._(
-    20,
+    21,
     'us_east_2',
     'us-east-2',
   );
 
   static const usGovEast1 = BucketLocationConstraint._(
-    21,
+    22,
     'us_gov_east_1',
     'us-gov-east-1',
   );
 
   static const usGovWest1 = BucketLocationConstraint._(
-    22,
+    23,
     'us_gov_west_1',
     'us-gov-west-1',
   );
 
   static const usWest1 = BucketLocationConstraint._(
-    23,
+    24,
     'us_west_1',
     'us-west-1',
   );
 
   static const usWest2 = BucketLocationConstraint._(
-    24,
+    25,
     'us_west_2',
     'us-west-2',
   );
@@ -180,6 +186,7 @@ class BucketLocationConstraint
     BucketLocationConstraint.apSouth1,
     BucketLocationConstraint.apSoutheast1,
     BucketLocationConstraint.apSoutheast2,
+    BucketLocationConstraint.apSoutheast3,
     BucketLocationConstraint.caCentral1,
     BucketLocationConstraint.cnNorth1,
     BucketLocationConstraint.cnNorthwest1,

@@ -8,11 +8,11 @@ part of 'test_invoke_authorizer_response.dart';
 
 class _$TestInvokeAuthorizerResponse extends TestInvokeAuthorizerResponse {
   @override
-  final int? clientStatus;
+  final int clientStatus;
   @override
   final String? log;
   @override
-  final _i2.Int64? latency;
+  final _i2.Int64 latency;
   @override
   final String? principalId;
   @override
@@ -27,14 +27,19 @@ class _$TestInvokeAuthorizerResponse extends TestInvokeAuthorizerResponse {
       (new TestInvokeAuthorizerResponseBuilder()..update(updates))._build();
 
   _$TestInvokeAuthorizerResponse._(
-      {this.clientStatus,
+      {required this.clientStatus,
       this.log,
-      this.latency,
+      required this.latency,
       this.principalId,
       this.policy,
       this.authorization,
       this.claims})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        clientStatus, r'TestInvokeAuthorizerResponse', 'clientStatus');
+    BuiltValueNullFieldError.checkNotNull(
+        latency, r'TestInvokeAuthorizerResponse', 'latency');
+  }
 
   @override
   TestInvokeAuthorizerResponse rebuild(
@@ -148,9 +153,11 @@ class TestInvokeAuthorizerResponseBuilder
     try {
       _$result = _$v ??
           new _$TestInvokeAuthorizerResponse._(
-              clientStatus: clientStatus,
+              clientStatus: BuiltValueNullFieldError.checkNotNull(clientStatus,
+                  r'TestInvokeAuthorizerResponse', 'clientStatus'),
               log: log,
-              latency: latency,
+              latency: BuiltValueNullFieldError.checkNotNull(
+                  latency, r'TestInvokeAuthorizerResponse', 'latency'),
               principalId: principalId,
               policy: policy,
               authorization: _authorization?.build(),

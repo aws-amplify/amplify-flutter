@@ -28,6 +28,7 @@ abstract class GetAggregateConformancePackComplianceSummaryRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetAggregateConformancePackComplianceSummaryRequest._(
       configurationAggregatorName: configurationAggregatorName,
       filters: filters,
@@ -56,7 +57,9 @@ abstract class GetAggregateConformancePackComplianceSummaryRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(
-      GetAggregateConformancePackComplianceSummaryRequestBuilder b) {}
+      GetAggregateConformancePackComplianceSummaryRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
@@ -68,7 +71,7 @@ abstract class GetAggregateConformancePackComplianceSummaryRequest
   _i4.AggregateConformancePackComplianceSummaryGroupKey? get groupByKey;
 
   /// The maximum number of results returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -197,6 +200,11 @@ class GetAggregateConformancePackComplianceSummaryRequestAwsJson11Serializer
         configurationAggregatorName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
     if (filters != null) {
       result$
@@ -214,14 +222,6 @@ class GetAggregateConformancePackComplianceSummaryRequestAwsJson11Serializer
           groupByKey,
           specifiedType: const FullType(
               _i4.AggregateConformancePackComplianceSummaryGroupKey),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

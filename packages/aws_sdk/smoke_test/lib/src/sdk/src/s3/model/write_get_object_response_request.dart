@@ -72,6 +72,7 @@ abstract class WriteGetObjectResponseRequest
     String? versionId,
     bool? bucketKeyEnabled,
   }) {
+    body ??= const _i2.Stream.empty();
     return _$WriteGetObjectResponseRequest._(
       requestRoute: requestRoute,
       requestToken: requestToken,
@@ -309,7 +310,9 @@ abstract class WriteGetObjectResponseRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(WriteGetObjectResponseRequestBuilder b) {}
+  static void _init(WriteGetObjectResponseRequestBuilder b) {
+    b.body = const _i2.Stream.empty();
+  }
 
   /// Route prefix to the HTTP URL generated.
   String get requestRoute;
@@ -320,9 +323,7 @@ abstract class WriteGetObjectResponseRequest
   /// The object data.
   _i2.Stream<List<int>>? get body;
 
-  /// The integer status code for an HTTP response of a corresponding `GetObject` request.
-  ///
-  /// **Status Codes**
+  /// The integer status code for an HTTP response of a corresponding `GetObject` request. The following is a list of status codes.
   ///
   /// *   `200 - OK`
   ///
@@ -445,13 +446,13 @@ abstract class WriteGetObjectResponseRequest
   /// Provides information about object restoration operation and expiration time of the restored object copy.
   String? get restore;
 
-  /// The server-side encryption algorithm used when storing requested object in Amazon S3 (for example, AES256, aws:kms).
+  /// The server-side encryption algorithm used when storing requested object in Amazon S3 (for example, AES256, `aws:kms`).
   _i9.ServerSideEncryption? get serverSideEncryption;
 
   /// Encryption algorithm used if server-side encryption with a customer-provided encryption key was specified for object stored in Amazon S3.
   String? get sseCustomerAlgorithm;
 
-  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for stored in Amazon S3 object.
+  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric encryption customer managed key that was used for stored in Amazon S3 object.
   String? get ssekmsKeyId;
 
   /// 128-bit MD5 digest of customer-provided encryption key used in Amazon S3 to encrypt data stored in S3. For more information, see [Protecting data using server-side encryption with customer-provided encryption keys (SSE-C)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html).

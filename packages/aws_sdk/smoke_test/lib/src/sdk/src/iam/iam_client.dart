@@ -980,7 +980,7 @@ class IamClient {
     );
   }
 
-  /// Creates an alias for your Amazon Web Services account. For information about using an Amazon Web Services account alias, see [Using an alias for your Amazon Web Services account ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html) in the _IAM User Guide_.
+  /// Creates an alias for your Amazon Web Services account. For information about using an Amazon Web Services account alias, see [Creating, deleting, and listing an Amazon Web Services account alias](https://docs.aws.amazon.com/signin/latest/userguide/CreateAccountAlias.html) in the _Amazon Web Services Sign-In User Guide_.
   _i3.SmithyOperation<void> createAccountAlias(
     _i21.CreateAccountAliasRequest input, {
     _i1.AWSHttpClient? client,
@@ -1072,12 +1072,14 @@ class IamClient {
   ///
   /// *   A list of client IDs (also known as audiences) that identify the application or applications allowed to authenticate using the OIDC provider
   ///
+  /// *   A list of tags that are attached to the specified IAM OIDC provider
+  ///
   /// *   A list of thumbprints of one or more server certificates that the IdP uses
   ///
   ///
   /// You get all of this information from the OIDC IdP you want to use to access Amazon Web Services.
   ///
-  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Google, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
+  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Google, Auth0, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
   ///
   /// The trust for the OIDC provider is derived from the IAM provider that this operation creates. Therefore, it is best to limit access to the CreateOpenIDConnectProvider operation to highly privileged users.
   _i3.SmithyOperation<_i32.CreateOpenIdConnectProviderResponse>
@@ -1319,7 +1321,7 @@ class IamClient {
     );
   }
 
-  /// Deletes the specified Amazon Web Services account alias. For information about using an Amazon Web Services account alias, see [Using an alias for your Amazon Web Services account ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html) in the _IAM User Guide_.
+  /// Deletes the specified Amazon Web Services account alias. For information about using an Amazon Web Services account alias, see [Creating, deleting, and listing an Amazon Web Services account alias](https://docs.aws.amazon.com/signin/latest/userguide/CreateAccountAlias.html) in the _Amazon Web Services Sign-In User Guide_.
   _i3.SmithyOperation<void> deleteAccountAlias(
     _i63.DeleteAccountAliasRequest input, {
     _i1.AWSHttpClient? client,
@@ -1414,7 +1416,7 @@ class IamClient {
     );
   }
 
-  /// Deletes the password for the specified IAM user, which terminates the user's ability to access Amazon Web Services services through the Amazon Web Services Management Console.
+  /// Deletes the password for the specified IAM user, For more information, see [Managing passwords for IAM users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_admin-change-user.html).
   ///
   /// You can use the CLI, the Amazon Web Services API, or the **Users** page in the IAM console to delete a password for any IAM user. You can use ChangePassword to update, but not delete, your own password in the **My Security Credentials** page in the Amazon Web Services Management Console.
   ///
@@ -1509,7 +1511,16 @@ class IamClient {
     );
   }
 
-  /// Deletes the specified role. The role must not have any policies attached. For more information about roles, see [Working with roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
+  /// Deletes the specified role. Unlike the Amazon Web Services Management Console, when you delete a role programmatically, you must delete the items attached to the role manually, or the deletion fails. For more information, see [Deleting an IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_delete.html#roles-managingrole-deleting-cli). Before attempting to delete a role, remove the following attached items:
+  ///
+  /// *   Inline policies (DeleteRolePolicy)
+  ///
+  /// *   Attached managed policies (DetachRolePolicy)
+  ///
+  /// *   Instance profile (RemoveRoleFromInstanceProfile)
+  ///
+  /// *   Optional – Delete instance profile after detaching from role for resource clean up (DeleteInstanceProfile)
+  ///
   ///
   /// Make sure that you do not have any Amazon EC2 instances running with the role you are about to delete. Deleting a role or instance profile that is associated with a running instance will break any applications running on the instance.
   _i3.SmithyOperation<void> deleteRole(
@@ -1530,6 +1541,8 @@ class IamClient {
   }
 
   /// Deletes the permissions boundary for the specified IAM role.
+  ///
+  /// You cannot set the boundary for a service-linked role.
   ///
   /// Deleting the permissions boundary for a role might increase its permissions. For example, it might allow anyone who assumes the role to perform all the actions granted in its permissions policies.
   _i3.SmithyOperation<void> deleteRolePermissionsBoundary(
@@ -2231,7 +2244,7 @@ class IamClient {
   ///
   /// To call this operation, you must be signed in to the management account in your organization. SCPs must be enabled for your organization root. You must have permissions to perform this operation. For more information, see [Refining permissions using service last accessed data](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html) in the _IAM User Guide_.
   ///
-  /// For each service that principals in an account (root users, IAM users, or IAM roles) could access using SCPs, the operation returns details about the most recent access attempt. If there was no attempt, the service is listed without details about the most recent attempt to access the service. If the operation fails, it returns the reason that it failed.
+  /// For each service that principals in an account (root user, IAM users, or IAM roles) could access using SCPs, the operation returns details about the most recent access attempt. If there was no attempt, the service is listed without details about the most recent attempt to access the service. If the operation fails, it returns the reason that it failed.
   ///
   /// By default, the list is sorted by service namespace.
   _i3.SmithyOperation<_i156.GetOrganizationsAccessReportResponse>
@@ -2567,7 +2580,7 @@ class IamClient {
     );
   }
 
-  /// Lists the account alias associated with the Amazon Web Services account (Note: you can have only one). For information about using an Amazon Web Services account alias, see [Using an alias for your Amazon Web Services account ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html) in the _IAM User Guide_.
+  /// Lists the account alias associated with the Amazon Web Services account (Note: you can have only one). For information about using an Amazon Web Services account alias, see [Creating, deleting, and listing an Amazon Web Services account alias](https://docs.aws.amazon.com/signin/latest/userguide/CreateAccountAlias.html) in the _Amazon Web Services Sign-In User Guide_.
   _i3.SmithyOperation<_i3.PaginatedResult<_i140.BuiltList<String>, int, String>>
       listAccountAliases(
     _i198.ListAccountAliasesRequest input, {
@@ -3041,7 +3054,16 @@ class IamClient {
 
   /// Lists the IAM roles that have the specified path prefix. If there are none, the operation returns an empty list. For more information about roles, see [Working with roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
   ///
-  /// IAM resource-listing operations return a subset of the available attributes for the resource. For example, this operation does not return tags, even though they are an attribute of the returned object. To view all of the information for a role, see GetRole.
+  /// IAM resource-listing operations return a subset of the available attributes for the resource. This operation does not return the following attributes, even though they are an attribute of the returned object:
+  ///
+  /// *   PermissionsBoundary
+  ///
+  /// *   RoleLastUsed
+  ///
+  /// *   Tags
+  ///
+  ///
+  /// To view all of the information for a role, see GetRole.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   _i3.SmithyOperation<
@@ -3261,7 +3283,14 @@ class IamClient {
 
   /// Lists the IAM users that have the specified path prefix. If no path prefix is specified, the operation returns all users in the Amazon Web Services account. If there are none, the operation returns an empty list.
   ///
-  /// IAM resource-listing operations return a subset of the available attributes for the resource. For example, this operation does not return tags, even though they are an attribute of the returned object. To view all of the information for a user, see GetUser.
+  /// IAM resource-listing operations return a subset of the available attributes for the resource. This operation does not return the following attributes, even though they are an attribute of the returned object:
+  ///
+  /// *   PermissionsBoundary
+  ///
+  /// *   Tags
+  ///
+  ///
+  /// To view all of the information for a user, see GetUser.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   _i3.SmithyOperation<
@@ -3577,7 +3606,7 @@ class IamClient {
   ///
   /// If the output is long, you can use `MaxItems` and `Marker` parameters to paginate the results.
   ///
-  /// For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
+  /// The IAM policy simulator evaluates statements in the identity-based policy and the inputs that you provide during simulation. The policy simulator results can differ from your live Amazon Web Services environment. We recommend that you check your policies against your live Amazon Web Services environment after testing using the policy simulator to confirm that you have the desired results. For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
   _i3.SmithyOperation<
       _i3.PaginatedResult<_i140.BuiltList<_i313.EvaluationResult>, int,
           String>> simulateCustomPolicy(
@@ -3601,7 +3630,7 @@ class IamClient {
   ///
   /// You can optionally include a list of one or more additional policies specified as strings to include in the simulation. If you want to simulate only policies specified as strings, use SimulateCustomPolicy instead.
   ///
-  /// You can also optionally include one resource-based policy to be evaluated with each of the resources included in the simulation.
+  /// You can also optionally include one resource-based policy to be evaluated with each of the resources included in the simulation for IAM users only.
   ///
   /// The simulation does not perform the API operations; it only checks the authorization to determine if the simulated policies allow or deny the operations.
   ///
@@ -3611,7 +3640,7 @@ class IamClient {
   ///
   /// If the output is long, you can use the `MaxItems` and `Marker` parameters to paginate the results.
   ///
-  /// For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
+  /// The IAM policy simulator evaluates statements in the identity-based policy and the inputs that you provide during simulation. The policy simulator results can differ from your live Amazon Web Services environment. We recommend that you check your policies against your live Amazon Web Services environment after testing using the policy simulator to confirm that you have the desired results. For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
   _i3.SmithyOperation<
       _i3.PaginatedResult<_i140.BuiltList<_i313.EvaluationResult>, int,
           String>> simulatePrincipalPolicy(
@@ -3695,7 +3724,7 @@ class IamClient {
   ///
   /// *   **Administrative grouping and discovery** \- Attach tags to resources to aid in organization and search. For example, you could search for all resources with the key name _Project_ and the value _MyImportantProject_. Or search for all resources with the key name _Cost Center_ and the value _41200_.
   ///
-  /// *   **Access control** \- Include tags in IAM user-based and resource-based policies. You can use tags to restrict access to only an OIDC provider that has a specified tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
+  /// *   **Access control** \- Include tags in IAM identity-based and resource-based policies. You can use tags to restrict access to only an OIDC provider that has a specified tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
   ///
   ///
   /// *   If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request fails and the resource is not created. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
@@ -3849,7 +3878,7 @@ class IamClient {
   ///
   /// *   **Administrative grouping and discovery** \- Attach tags to resources to aid in organization and search. For example, you could search for all resources with the key name _Project_ and the value _MyImportantProject_. Or search for all resources with the key name _Cost Center_ and the value _41200_.
   ///
-  /// *   **Access control** \- Include tags in IAM user-based and resource-based policies. You can use tags to restrict access to only an IAM requesting user that has a specified tag attached. You can also restrict access to only those resources that have a certain tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
+  /// *   **Access control** \- Include tags in IAM identity-based and resource-based policies. You can use tags to restrict access to only an IAM requesting user that has a specified tag attached. You can also restrict access to only those resources that have a certain tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
   ///
   /// *   **Cost allocation** \- Use tags to help track which individuals and teams are using which Amazon Web Services resources.
   ///
@@ -4133,7 +4162,7 @@ class IamClient {
   ///
   /// Typically, you need to update a thumbprint only when the identity provider certificate changes, which occurs rarely. However, if the provider's certificate _does_ change, any attempt to assume an IAM role that specifies the OIDC provider as a principal fails until the certificate thumbprint is updated.
   ///
-  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Google, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
+  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Google, Auth0, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
   ///
   /// Trust for the OIDC provider is derived from the provider certificate and is validated by the thumbprint. Therefore, it is best to limit access to the `UpdateOpenIDConnectProviderThumbprint` operation to highly privileged users.
   _i3.SmithyOperation<void> updateOpenIdConnectProviderThumbprint(

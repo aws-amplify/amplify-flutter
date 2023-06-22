@@ -24,25 +24,25 @@ import 'package:smoke_test/src/sdk/src/config_service/model/max_number_of_config
 import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_recorder_request.dart'
     as _i2;
 
-/// Creates a new configuration recorder to record the selected resource configurations.
+/// Creates a new configuration recorder to record configuration changes for specified resource types.
 ///
-/// You can use this action to change the role `roleARN` or the `recordingGroup` of an existing recorder. To change the role, call the action on the existing configuration recorder and specify a role.
+/// You can also use this action to change the `roleARN` or the `recordingGroup` of an existing recorder. For more information, see [**Managing the Configuration Recorder**](https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html) in the _Config Developer Guide_.
 ///
-/// Currently, you can specify only one configuration recorder per region in your account.
+/// You can specify only one configuration recorder for each Amazon Web Services Region for each account.
 ///
-/// If `ConfigurationRecorder` does not have the **recordingGroup** parameter specified, the default is to record all supported resource types.
+/// If the configuration recorder does not have the `recordingGroup` field specified, the default is to record all supported resource types.
 class PutConfigurationRecorderOperation extends _i1.HttpOperation<
     _i2.PutConfigurationRecorderRequest,
     _i2.PutConfigurationRecorderRequest,
     _i1.Unit,
     _i1.Unit> {
-  /// Creates a new configuration recorder to record the selected resource configurations.
+  /// Creates a new configuration recorder to record configuration changes for specified resource types.
   ///
-  /// You can use this action to change the role `roleARN` or the `recordingGroup` of an existing recorder. To change the role, call the action on the existing configuration recorder and specify a role.
+  /// You can also use this action to change the `roleARN` or the `recordingGroup` of an existing recorder. For more information, see [**Managing the Configuration Recorder**](https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html) in the _Config Developer Guide_.
   ///
-  /// Currently, you can specify only one configuration recorder per region in your account.
+  /// You can specify only one configuration recorder for each Amazon Web Services Region for each account.
   ///
-  /// If `ConfigurationRecorder` does not have the **recordingGroup** parameter specified, the default is to record all supported resource types.
+  /// If the configuration recorder does not have the `recordingGroup` field specified, the default is to record all supported resource types.
   PutConfigurationRecorderOperation({
     required String region,
     Uri? baseUri,

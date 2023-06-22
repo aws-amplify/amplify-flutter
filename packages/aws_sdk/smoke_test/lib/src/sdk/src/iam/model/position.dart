@@ -23,6 +23,8 @@ abstract class Position
     int? line,
     int? column,
   }) {
+    line ??= 0;
+    column ??= 0;
     return _$Position._(
       line: line,
       column: column,
@@ -41,13 +43,16 @@ abstract class Position
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PositionBuilder b) {}
+  static void _init(PositionBuilder b) {
+    b.line = 0;
+    b.column = 0;
+  }
 
   /// The line containing the specified position in the document.
-  int? get line;
+  int get line;
 
   /// The column in the line containing the specified position in the document.
-  int? get column;
+  int get column;
   @override
   List<Object?> get props => [
         line,
@@ -129,22 +134,18 @@ class PositionAwsQuerySerializer
       )
     ];
     final Position(:line, :column) = object;
-    if (line != null) {
-      result$
-        ..add(const _i2.XmlElementName('Line'))
-        ..add(serializers.serialize(
-          line,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
-    if (column != null) {
-      result$
-        ..add(const _i2.XmlElementName('Column'))
-        ..add(serializers.serialize(
-          column,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
+    result$
+      ..add(const _i2.XmlElementName('Line'))
+      ..add(serializers.serialize(
+        line,
+        specifiedType: const FullType(int),
+      ));
+    result$
+      ..add(const _i2.XmlElementName('Column'))
+      ..add(serializers.serialize(
+        column,
+        specifiedType: const FullType(int),
+      ));
     return result$;
   }
 }

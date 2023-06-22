@@ -21,6 +21,8 @@ abstract class RequestValidator
     bool? validateRequestBody,
     bool? validateRequestParameters,
   }) {
+    validateRequestBody ??= false;
+    validateRequestParameters ??= false;
     return _$RequestValidator._(
       id: id,
       name: name,
@@ -47,7 +49,10 @@ abstract class RequestValidator
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(RequestValidatorBuilder b) {}
+  static void _init(RequestValidatorBuilder b) {
+    b.validateRequestBody = false;
+    b.validateRequestParameters = false;
+  }
 
   /// The identifier of this RequestValidator.
   String? get id;
@@ -56,10 +61,10 @@ abstract class RequestValidator
   String? get name;
 
   /// A Boolean flag to indicate whether to validate a request body according to the configured Model schema.
-  bool? get validateRequestBody;
+  bool get validateRequestBody;
 
   /// A Boolean flag to indicate whether to validate request parameters (`true`) or not (`false`).
-  bool? get validateRequestParameters;
+  bool get validateRequestParameters;
   @override
   List<Object?> get props => [
         id,
@@ -161,6 +166,18 @@ class RequestValidatorRestJson1Serializer
       :validateRequestBody,
       :validateRequestParameters
     ) = object;
+    result$.addAll([
+      'validateRequestBody',
+      serializers.serialize(
+        validateRequestBody,
+        specifiedType: const FullType(bool),
+      ),
+      'validateRequestParameters',
+      serializers.serialize(
+        validateRequestParameters,
+        specifiedType: const FullType(bool),
+      ),
+    ]);
     if (id != null) {
       result$
         ..add('id')
@@ -175,22 +192,6 @@ class RequestValidatorRestJson1Serializer
         ..add(serializers.serialize(
           name,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (validateRequestBody != null) {
-      result$
-        ..add('validateRequestBody')
-        ..add(serializers.serialize(
-          validateRequestBody,
-          specifiedType: const FullType(bool),
-        ));
-    }
-    if (validateRequestParameters != null) {
-      result$
-        ..add('validateRequestParameters')
-        ..add(serializers.serialize(
-          validateRequestParameters,
-          specifiedType: const FullType(bool),
         ));
     }
     return result$;

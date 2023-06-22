@@ -29,6 +29,7 @@ abstract class PolicyVersion
     bool? isDefaultVersion,
     DateTime? createDate,
   }) {
+    isDefaultVersion ??= false;
     return _$PolicyVersion._(
       document: document,
       versionId: versionId,
@@ -52,7 +53,9 @@ abstract class PolicyVersion
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyVersionBuilder b) {}
+  static void _init(PolicyVersionBuilder b) {
+    b.isDefaultVersion = false;
+  }
 
   /// The policy document.
   ///
@@ -67,7 +70,7 @@ abstract class PolicyVersion
   String? get versionId;
 
   /// Specifies whether the policy version is set as the policy's default version.
-  bool? get isDefaultVersion;
+  bool get isDefaultVersion;
 
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the policy version was created.
   DateTime? get createDate;
@@ -189,14 +192,12 @@ class PolicyVersionAwsQuerySerializer
           specifiedType: const FullType(String),
         ));
     }
-    if (isDefaultVersion != null) {
-      result$
-        ..add(const _i2.XmlElementName('IsDefaultVersion'))
-        ..add(serializers.serialize(
-          isDefaultVersion,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i2.XmlElementName('IsDefaultVersion'))
+      ..add(serializers.serialize(
+        isDefaultVersion,
+        specifiedType: const FullType(bool),
+      ));
     if (createDate != null) {
       result$
         ..add(const _i2.XmlElementName('CreateDate'))

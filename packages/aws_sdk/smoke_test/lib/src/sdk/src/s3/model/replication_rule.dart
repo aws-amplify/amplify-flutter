@@ -88,6 +88,7 @@ abstract class ReplicationRule
   /// A container that describes additional filters for identifying the source objects that you want to replicate. You can choose to enable or disable the replication of these objects. Currently, Amazon S3 supports only the filter that you can specify for objects created with server-side encryption using a customer managed key stored in Amazon Web Services Key Management Service (SSE-KMS).
   _i4.SourceSelectionCriteria? get sourceSelectionCriteria;
 
+  /// Optional configuration to replicate existing source bucket objects. For more information, see [Replicating Existing Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-what-is-isnot-replicated.html#existing-object-replication) in the _Amazon S3 User Guide_.
   _i5.ExistingObjectReplication? get existingObjectReplication;
 
   /// A container for information about the replication destination and its configurations including enabling the S3 Replication Time Control (S3 RTC).

@@ -25,6 +25,7 @@ abstract class DescribeAggregateComplianceByConformancePacksRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$DescribeAggregateComplianceByConformancePacksRequest._(
       configurationAggregatorName: configurationAggregatorName,
       filters: filters,
@@ -53,7 +54,9 @@ abstract class DescribeAggregateComplianceByConformancePacksRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(
-      DescribeAggregateComplianceByConformancePacksRequestBuilder b) {}
+      DescribeAggregateComplianceByConformancePacksRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
@@ -62,7 +65,7 @@ abstract class DescribeAggregateComplianceByConformancePacksRequest
   _i3.AggregateConformancePackComplianceFilters? get filters;
 
   /// The maximum number of conformance packs compliance details returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -180,6 +183,11 @@ class DescribeAggregateComplianceByConformancePacksRequestAwsJson11Serializer
         configurationAggregatorName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
     if (filters != null) {
       result$
@@ -188,14 +196,6 @@ class DescribeAggregateComplianceByConformancePacksRequestAwsJson11Serializer
           filters,
           specifiedType:
               const FullType(_i3.AggregateConformancePackComplianceFilters),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

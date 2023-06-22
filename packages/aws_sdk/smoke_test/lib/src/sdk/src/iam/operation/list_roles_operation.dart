@@ -23,7 +23,16 @@ import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
 
 /// Lists the IAM roles that have the specified path prefix. If there are none, the operation returns an empty list. For more information about roles, see [Working with roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
 ///
-/// IAM resource-listing operations return a subset of the available attributes for the resource. For example, this operation does not return tags, even though they are an attribute of the returned object. To view all of the information for a role, see GetRole.
+/// IAM resource-listing operations return a subset of the available attributes for the resource. This operation does not return the following attributes, even though they are an attribute of the returned object:
+///
+/// *   PermissionsBoundary
+///
+/// *   RoleLastUsed
+///
+/// *   Tags
+///
+///
+/// To view all of the information for a role, see GetRole.
 ///
 /// You can paginate the results using the `MaxItems` and `Marker` parameters.
 class ListRolesOperation extends _i1.PaginatedHttpOperation<
@@ -36,7 +45,16 @@ class ListRolesOperation extends _i1.PaginatedHttpOperation<
     _i4.BuiltList<_i5.Role>> {
   /// Lists the IAM roles that have the specified path prefix. If there are none, the operation returns an empty list. For more information about roles, see [Working with roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
   ///
-  /// IAM resource-listing operations return a subset of the available attributes for the resource. For example, this operation does not return tags, even though they are an attribute of the returned object. To view all of the information for a role, see GetRole.
+  /// IAM resource-listing operations return a subset of the available attributes for the resource. This operation does not return the following attributes, even though they are an attribute of the returned object:
+  ///
+  /// *   PermissionsBoundary
+  ///
+  /// *   RoleLastUsed
+  ///
+  /// *   Tags
+  ///
+  ///
+  /// To view all of the information for a role, see GetRole.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   ListRolesOperation({

@@ -12,11 +12,11 @@ import 'package:smoke_test/src/sdk/src/config_service/model/recording_group.dart
 
 part 'configuration_recorder.g.dart';
 
-/// An object that represents the recording of configuration changes of an Amazon Web Services resource.
+/// Records configuration changes to specified resource types. For more information about the configuration recorder, see [**Managing the Configuration Recorder**](https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html) in the _Config Developer Guide_.
 abstract class ConfigurationRecorder
     with _i1.AWSEquatable<ConfigurationRecorder>
     implements Built<ConfigurationRecorder, ConfigurationRecorderBuilder> {
-  /// An object that represents the recording of configuration changes of an Amazon Web Services resource.
+  /// Records configuration changes to specified resource types. For more information about the configuration recorder, see [**Managing the Configuration Recorder**](https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html) in the _Config Developer Guide_.
   factory ConfigurationRecorder({
     String? name,
     String? roleArn,
@@ -29,7 +29,7 @@ abstract class ConfigurationRecorder
     );
   }
 
-  /// An object that represents the recording of configuration changes of an Amazon Web Services resource.
+  /// Records configuration changes to specified resource types. For more information about the configuration recorder, see [**Managing the Configuration Recorder**](https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html) in the _Config Developer Guide_.
   factory ConfigurationRecorder.build(
           [void Function(ConfigurationRecorderBuilder) updates]) =
       _$ConfigurationRecorder;
@@ -43,15 +43,29 @@ abstract class ConfigurationRecorder
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigurationRecorderBuilder b) {}
 
-  /// The name of the recorder. By default, Config automatically assigns the name "default" when creating the configuration recorder. You cannot change the assigned name.
+  /// The name of the configuration recorder. Config automatically assigns the name of "default" when creating the configuration recorder.
+  ///
+  /// You cannot change the name of the configuration recorder after it has been created. To change the configuration recorder name, you must delete it and create a new configuration recorder with a new name.
   String? get name;
 
-  /// Amazon Resource Name (ARN) of the IAM role used to describe the Amazon Web Services resources associated with the account.
+  /// Amazon Resource Name (ARN) of the IAM role assumed by Config and used by the configuration recorder.
   ///
-  /// While the API model does not require this field, the server will reject a request without a defined roleARN for the configuration recorder.
+  /// While the API model does not require this field, the server will reject a request without a defined `roleARN` for the configuration recorder.
+  ///
+  /// **Pre-existing Config role**
+  ///
+  /// If you have used an Amazon Web Services service that uses Config, such as Security Hub or Control Tower, and an Config role has already been created, make sure that the IAM role that you use when setting up Config keeps the same minimum permissions as the already created Config role. You must do this so that the other Amazon Web Services service continues to run as expected.
+  ///
+  /// For example, if Control Tower has an IAM role that allows Config to read Amazon Simple Storage Service (Amazon S3) objects, make sure that the same permissions are granted within the IAM role you use when setting up Config. Otherwise, it may interfere with how Control Tower operates. For more information about IAM roles for Config, see [**Identity and Access Management for Config**](https://docs.aws.amazon.com/config/latest/developerguide/security-iam.html) in the _Config Developer Guide_.
   String? get roleArn;
 
-  /// Specifies the types of Amazon Web Services resources for which Config records configuration changes.
+  /// Specifies which resource types Config records for configuration changes.
+  ///
+  /// **High Number of Config Evaluations**
+  ///
+  /// You may notice increased activity in your account during your initial month recording with Config when compared to subsequent months. During the initial bootstrapping process, Config runs evaluations on all the resources in your account that you have selected for Config to record.
+  ///
+  /// If you are running ephemeral workloads, you may see increased activity from Config as it records configuration changes associated with creating and deleting these temporary resources. An _ephemeral workload_ is a temporary use of computing resources that are loaded and run when needed. Examples include Amazon Elastic Compute Cloud (Amazon EC2) Spot Instances, Amazon EMR jobs, and Auto Scaling. If you want to avoid the increased activity from running ephemeral workloads, you can run these types of workloads in a separate account with Config turned off to avoid increased configuration recording and rule evaluations.
   _i2.RecordingGroup? get recordingGroup;
   @override
   List<Object?> get props => [

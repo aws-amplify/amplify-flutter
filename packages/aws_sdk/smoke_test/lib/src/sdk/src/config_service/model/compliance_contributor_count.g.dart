@@ -8,16 +8,22 @@ part of 'compliance_contributor_count.dart';
 
 class _$ComplianceContributorCount extends ComplianceContributorCount {
   @override
-  final int? cappedCount;
+  final int cappedCount;
   @override
-  final bool? capExceeded;
+  final bool capExceeded;
 
   factory _$ComplianceContributorCount(
           [void Function(ComplianceContributorCountBuilder)? updates]) =>
       (new ComplianceContributorCountBuilder()..update(updates))._build();
 
-  _$ComplianceContributorCount._({this.cappedCount, this.capExceeded})
-      : super._();
+  _$ComplianceContributorCount._(
+      {required this.cappedCount, required this.capExceeded})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        cappedCount, r'ComplianceContributorCount', 'cappedCount');
+    BuiltValueNullFieldError.checkNotNull(
+        capExceeded, r'ComplianceContributorCount', 'capExceeded');
+  }
 
   @override
   ComplianceContributorCount rebuild(
@@ -90,7 +96,10 @@ class ComplianceContributorCountBuilder
   _$ComplianceContributorCount _build() {
     final _$result = _$v ??
         new _$ComplianceContributorCount._(
-            cappedCount: cappedCount, capExceeded: capExceeded);
+            cappedCount: BuiltValueNullFieldError.checkNotNull(
+                cappedCount, r'ComplianceContributorCount', 'cappedCount'),
+            capExceeded: BuiltValueNullFieldError.checkNotNull(
+                capExceeded, r'ComplianceContributorCount', 'capExceeded'));
     replace(_$result);
     return _$result;
   }

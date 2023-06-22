@@ -69,7 +69,7 @@ abstract class Credentials
     );
     helper.add(
       'secretAccessKey',
-      secretAccessKey,
+      '***SENSITIVE***',
     );
     helper.add(
       'sessionToken',

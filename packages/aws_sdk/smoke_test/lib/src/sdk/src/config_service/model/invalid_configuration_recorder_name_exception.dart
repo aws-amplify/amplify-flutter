@@ -10,7 +10,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'invalid_configuration_recorder_name_exception.g.dart';
 
-/// You have provided a configuration recorder name that is not valid.
+/// You have provided a name for the configuration recorder that is not valid.
 abstract class InvalidConfigurationRecorderNameException
     with
         _i1.AWSEquatable<InvalidConfigurationRecorderNameException>
@@ -18,12 +18,12 @@ abstract class InvalidConfigurationRecorderNameException
         Built<InvalidConfigurationRecorderNameException,
             InvalidConfigurationRecorderNameExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// You have provided a configuration recorder name that is not valid.
+  /// You have provided a name for the configuration recorder that is not valid.
   factory InvalidConfigurationRecorderNameException({String? message}) {
     return _$InvalidConfigurationRecorderNameException._(message: message);
   }
 
-  /// You have provided a configuration recorder name that is not valid.
+  /// You have provided a name for the configuration recorder that is not valid.
   factory InvalidConfigurationRecorderNameException.build(
       [void Function(InvalidConfigurationRecorderNameExceptionBuilder)
           updates]) = _$InvalidConfigurationRecorderNameException;

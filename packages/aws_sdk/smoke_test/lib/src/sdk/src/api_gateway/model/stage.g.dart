@@ -16,7 +16,7 @@ class _$Stage extends Stage {
   @override
   final String? description;
   @override
-  final bool? cacheClusterEnabled;
+  final bool cacheClusterEnabled;
   @override
   final _i2.CacheClusterSize? cacheClusterSize;
   @override
@@ -32,7 +32,7 @@ class _$Stage extends Stage {
   @override
   final _i6.CanarySettings? canarySettings;
   @override
-  final bool? tracingEnabled;
+  final bool tracingEnabled;
   @override
   final String? webAclArn;
   @override
@@ -50,7 +50,7 @@ class _$Stage extends Stage {
       this.clientCertificateId,
       this.stageName,
       this.description,
-      this.cacheClusterEnabled,
+      required this.cacheClusterEnabled,
       this.cacheClusterSize,
       this.cacheClusterStatus,
       this.methodSettings,
@@ -58,12 +58,17 @@ class _$Stage extends Stage {
       this.documentationVersion,
       this.accessLogSettings,
       this.canarySettings,
-      this.tracingEnabled,
+      required this.tracingEnabled,
       this.webAclArn,
       this.tags,
       this.createdDate,
       this.lastUpdatedDate})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        cacheClusterEnabled, r'Stage', 'cacheClusterEnabled');
+    BuiltValueNullFieldError.checkNotNull(
+        tracingEnabled, r'Stage', 'tracingEnabled');
+  }
 
   @override
   Stage rebuild(void Function(StageBuilder) updates) =>
@@ -261,7 +266,8 @@ class StageBuilder implements Builder<Stage, StageBuilder> {
               clientCertificateId: clientCertificateId,
               stageName: stageName,
               description: description,
-              cacheClusterEnabled: cacheClusterEnabled,
+              cacheClusterEnabled: BuiltValueNullFieldError.checkNotNull(
+                  cacheClusterEnabled, r'Stage', 'cacheClusterEnabled'),
               cacheClusterSize: cacheClusterSize,
               cacheClusterStatus: cacheClusterStatus,
               methodSettings: _methodSettings?.build(),
@@ -269,7 +275,8 @@ class StageBuilder implements Builder<Stage, StageBuilder> {
               documentationVersion: documentationVersion,
               accessLogSettings: _accessLogSettings?.build(),
               canarySettings: _canarySettings?.build(),
-              tracingEnabled: tracingEnabled,
+              tracingEnabled: BuiltValueNullFieldError.checkNotNull(
+                  tracingEnabled, r'Stage', 'tracingEnabled'),
               webAclArn: webAclArn,
               tags: _tags?.build(),
               createdDate: createdDate,

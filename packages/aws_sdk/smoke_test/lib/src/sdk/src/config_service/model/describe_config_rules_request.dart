@@ -4,10 +4,12 @@
 library smoke_test.config_service.model.describe_config_rules_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_config_rules_filters.dart'
+    as _i3;
 
 part 'describe_config_rules_request.g.dart';
 
@@ -20,11 +22,13 @@ abstract class DescribeConfigRulesRequest
   factory DescribeConfigRulesRequest({
     List<String>? configRuleNames,
     String? nextToken,
+    _i3.DescribeConfigRulesFilters? filters,
   }) {
     return _$DescribeConfigRulesRequest._(
       configRuleNames:
-          configRuleNames == null ? null : _i3.BuiltList(configRuleNames),
+          configRuleNames == null ? null : _i4.BuiltList(configRuleNames),
       nextToken: nextToken,
+      filters: filters,
     );
   }
 
@@ -49,16 +53,20 @@ abstract class DescribeConfigRulesRequest
   static void _init(DescribeConfigRulesRequestBuilder b) {}
 
   /// The names of the Config rules for which you want details. If you do not specify any names, Config returns details for all your rules.
-  _i3.BuiltList<String>? get configRuleNames;
+  _i4.BuiltList<String>? get configRuleNames;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
+
+  /// Returns a list of Detective or Proactive Config rules. By default, this API returns an unfiltered list. For more information on Detective or Proactive Config rules, see [**Evaluation Mode**](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config-rules.html) in the _Config Developer Guide_.
+  _i3.DescribeConfigRulesFilters? get filters;
   @override
   DescribeConfigRulesRequest getPayload() => this;
   @override
   List<Object?> get props => [
         configRuleNames,
         nextToken,
+        filters,
       ];
   @override
   String toString() {
@@ -70,6 +78,10 @@ abstract class DescribeConfigRulesRequest
     helper.add(
       'nextToken',
       nextToken,
+    );
+    helper.add(
+      'filters',
+      filters,
     );
     return helper.toString();
   }
@@ -112,15 +124,20 @@ class DescribeConfigRulesRequestAwsJson11Serializer
           result.configRuleNames.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i4.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i4.BuiltList<String>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String);
+        case 'Filters':
+          result.filters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.DescribeConfigRulesFilters),
+          ) as _i3.DescribeConfigRulesFilters));
       }
     }
 
@@ -134,14 +151,15 @@ class DescribeConfigRulesRequestAwsJson11Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[];
-    final DescribeConfigRulesRequest(:configRuleNames, :nextToken) = object;
+    final DescribeConfigRulesRequest(:configRuleNames, :nextToken, :filters) =
+        object;
     if (configRuleNames != null) {
       result$
         ..add('ConfigRuleNames')
         ..add(serializers.serialize(
           configRuleNames,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i4.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -152,6 +170,14 @@ class DescribeConfigRulesRequestAwsJson11Serializer
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (filters != null) {
+      result$
+        ..add('Filters')
+        ..add(serializers.serialize(
+          filters,
+          specifiedType: const FullType(_i3.DescribeConfigRulesFilters),
         ));
     }
     return result$;
