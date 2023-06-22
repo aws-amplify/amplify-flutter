@@ -16,10 +16,23 @@ sealed class AnalyticsFilter extends _i1.SmithyUnion<AnalyticsFilter> {
 
   const factory AnalyticsFilter.prefix(String prefix) = AnalyticsFilterPrefix;
 
-  const factory AnalyticsFilter.tag(_i2.Tag tag) = AnalyticsFilterTag;
+  factory AnalyticsFilter.tag({
+    required String key,
+    required String value,
+  }) =>
+      AnalyticsFilterTag(_i2.Tag(
+        key: key,
+        value: value,
+      ));
 
-  const factory AnalyticsFilter.and(_i3.AnalyticsAndOperator and) =
-      AnalyticsFilterAnd;
+  factory AnalyticsFilter.and({
+    String? prefix,
+    List<_i2.Tag>? tags,
+  }) =>
+      AnalyticsFilterAnd(_i3.AnalyticsAndOperator(
+        prefix: prefix,
+        tags: tags,
+      ));
 
   const factory AnalyticsFilter.sdkUnknown(
     String name,

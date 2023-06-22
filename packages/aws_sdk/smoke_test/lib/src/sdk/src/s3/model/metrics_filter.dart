@@ -16,13 +16,28 @@ sealed class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
 
   const factory MetricsFilter.prefix(String prefix) = MetricsFilterPrefix;
 
-  const factory MetricsFilter.tag(_i2.Tag tag) = MetricsFilterTag;
+  factory MetricsFilter.tag({
+    required String key,
+    required String value,
+  }) =>
+      MetricsFilterTag(_i2.Tag(
+        key: key,
+        value: value,
+      ));
 
   const factory MetricsFilter.accessPointArn(String accessPointArn) =
       MetricsFilterAccessPointArn;
 
-  const factory MetricsFilter.and(_i3.MetricsAndOperator and) =
-      MetricsFilterAnd;
+  factory MetricsFilter.and({
+    String? prefix,
+    List<_i2.Tag>? tags,
+    String? accessPointArn,
+  }) =>
+      MetricsFilterAnd(_i3.MetricsAndOperator(
+        prefix: prefix,
+        tags: tags,
+        accessPointArn: accessPointArn,
+      ));
 
   const factory MetricsFilter.sdkUnknown(
     String name,
