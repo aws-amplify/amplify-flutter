@@ -97,7 +97,7 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.ErrorWithMembers, _i8.ErrorWithMembers>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json',
             shape: 'ErrorWithMembers',
@@ -106,7 +106,7 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
           _i8.ErrorWithMembers,
           builder: _i8.ErrorWithMembers.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ErrorWithoutMembers, _i9.ErrorWithoutMembers>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json',
             shape: 'ErrorWithoutMembers',
