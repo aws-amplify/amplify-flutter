@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_integration_test.cognito_identity_provider.model.user_pool_add_on_not_enabled_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -104,15 +105,15 @@ class UserPoolAddOnNotEnabledExceptionAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -122,19 +123,19 @@ class UserPoolAddOnNotEnabledExceptionAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UserPoolAddOnNotEnabledException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UserPoolAddOnNotEnabledException);
-    final result = <Object?>[];
-    if (payload.message != null) {
-      result
+    final result$ = <Object?>[];
+    final UserPoolAddOnNotEnabledException(:message) = object;
+    if (message != null) {
+      result$
         ..add('message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }
