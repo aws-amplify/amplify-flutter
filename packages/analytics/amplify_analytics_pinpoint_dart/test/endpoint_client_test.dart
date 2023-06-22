@@ -105,8 +105,8 @@ void main() {
       final location = endpointRequest.location!;
 
       expect(location.country, mockDeviceContextInfo.countryCode);
-      expect(location.latitude, 0.0);
-      expect(location.longitude, 0.0);
+      expect(location.latitude, isNull);
+      expect(location.longitude, isNull);
     });
 
     test('channelType, address, and optOut sent in updateEndpointRequest',
