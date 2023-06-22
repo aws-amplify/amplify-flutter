@@ -20,22 +20,22 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i5;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i4;
 
-/// The HEAD action retrieves metadata from an object without returning the object itself. This action is useful if you're only interested in an object's metadata. To use HEAD, you must have READ access to the object.
+/// The `HEAD` action retrieves metadata from an object without returning the object itself. This action is useful if you're only interested in an object's metadata. To use `HEAD`, you must have READ access to the object.
 ///
-/// A `HEAD` request has the same options as a `GET` action on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic `404 Not Found` or `403 Forbidden` code. It is not possible to retrieve the exact exception beyond these error codes.
+/// A `HEAD` request has the same options as a `GET` action on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic `400 Bad Request`, `403 Forbidden` or `404 Not Found` code. It is not possible to retrieve the exact exception beyond these error codes.
 ///
 /// If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the metadata from the object, you must use the following headers:
 ///
-/// *   x-amz-server-side-encryption-customer-algorithm
+/// *   `x-amz-server-side-encryption-customer-algorithm`
 ///
-/// *   x-amz-server-side-encryption-customer-key
+/// *   `x-amz-server-side-encryption-customer-key`
 ///
-/// *   x-amz-server-side-encryption-customer-key-MD5
+/// *   `x-amz-server-side-encryption-customer-key-MD5`
 ///
 ///
 /// For more information about SSE-C, see [Server-Side Encryption (Using Customer-Provided Encryption Keys)](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
 ///
-/// *   Encryption request headers, like `x-amz-server-side-encryption`, should not be sent for GET requests if your object uses server-side encryption with KMS keys (SSE-KMS) or server-side encryption with Amazon S3–managed encryption keys (SSE-S3). If your object does use these types of keys, you’ll get an HTTP 400 BadRequest error.
+/// *   Encryption request headers, like `x-amz-server-side-encryption`, should not be sent for `GET` requests if your object uses server-side encryption with Key Management Service (KMS) keys (SSE-KMS), dual-layer server-side encryption with Amazon Web Services KMS keys (DSSE-KMS), or server-side encryption with Amazon S3 managed encryption keys (SSE-S3). If your object does use these types of keys, you’ll get an HTTP 400 Bad Request error.
 ///
 /// *   The last modified property in this case is the creation date of the object.
 ///
@@ -65,13 +65,13 @@ import 'package:smithy_aws/smithy_aws.dart' as _i4;
 ///
 /// For more information about conditional requests, see [RFC 7232](https://tools.ietf.org/html/rfc7232).
 ///
-/// **Permissions**
+/// Permissions
 ///
-/// You need the relevant read object (or version) permission for this operation. For more information, see [Specifying Permissions in a Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html). If the object you request does not exist, the error Amazon S3 returns depends on whether you also have the s3:ListBucket permission.
+/// You need the relevant read object (or version) permission for this operation. For more information, see [Actions, resources, and condition keys for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/list_amazons3.html). If the object you request doesn't exist, the error that Amazon S3 returns depends on whether you also have the s3:ListBucket permission.
 ///
-/// *   If you have the `s3:ListBucket` permission on the bucket, Amazon S3 returns an HTTP status code 404 ("no such key") error.
+/// *   If you have the `s3:ListBucket` permission on the bucket, Amazon S3 returns an HTTP status code 404 error.
 ///
-/// *   If you don’t have the `s3:ListBucket` permission, Amazon S3 returns an HTTP status code 403 ("access denied") error.
+/// *   If you don’t have the `s3:ListBucket` permission, Amazon S3 returns an HTTP status code 403 error.
 ///
 ///
 /// The following actions are related to `HeadObject`:
@@ -84,22 +84,22 @@ class HeadObjectOperation extends _i1.HttpOperation<
     _i2.HeadObjectRequest,
     _i3.HeadObjectOutputPayload,
     _i3.HeadObjectOutput> {
-  /// The HEAD action retrieves metadata from an object without returning the object itself. This action is useful if you're only interested in an object's metadata. To use HEAD, you must have READ access to the object.
+  /// The `HEAD` action retrieves metadata from an object without returning the object itself. This action is useful if you're only interested in an object's metadata. To use `HEAD`, you must have READ access to the object.
   ///
-  /// A `HEAD` request has the same options as a `GET` action on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic `404 Not Found` or `403 Forbidden` code. It is not possible to retrieve the exact exception beyond these error codes.
+  /// A `HEAD` request has the same options as a `GET` action on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic `400 Bad Request`, `403 Forbidden` or `404 Not Found` code. It is not possible to retrieve the exact exception beyond these error codes.
   ///
   /// If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the metadata from the object, you must use the following headers:
   ///
-  /// *   x-amz-server-side-encryption-customer-algorithm
+  /// *   `x-amz-server-side-encryption-customer-algorithm`
   ///
-  /// *   x-amz-server-side-encryption-customer-key
+  /// *   `x-amz-server-side-encryption-customer-key`
   ///
-  /// *   x-amz-server-side-encryption-customer-key-MD5
+  /// *   `x-amz-server-side-encryption-customer-key-MD5`
   ///
   ///
   /// For more information about SSE-C, see [Server-Side Encryption (Using Customer-Provided Encryption Keys)](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
   ///
-  /// *   Encryption request headers, like `x-amz-server-side-encryption`, should not be sent for GET requests if your object uses server-side encryption with KMS keys (SSE-KMS) or server-side encryption with Amazon S3–managed encryption keys (SSE-S3). If your object does use these types of keys, you’ll get an HTTP 400 BadRequest error.
+  /// *   Encryption request headers, like `x-amz-server-side-encryption`, should not be sent for `GET` requests if your object uses server-side encryption with Key Management Service (KMS) keys (SSE-KMS), dual-layer server-side encryption with Amazon Web Services KMS keys (DSSE-KMS), or server-side encryption with Amazon S3 managed encryption keys (SSE-S3). If your object does use these types of keys, you’ll get an HTTP 400 Bad Request error.
   ///
   /// *   The last modified property in this case is the creation date of the object.
   ///
@@ -129,13 +129,13 @@ class HeadObjectOperation extends _i1.HttpOperation<
   ///
   /// For more information about conditional requests, see [RFC 7232](https://tools.ietf.org/html/rfc7232).
   ///
-  /// **Permissions**
+  /// Permissions
   ///
-  /// You need the relevant read object (or version) permission for this operation. For more information, see [Specifying Permissions in a Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html). If the object you request does not exist, the error Amazon S3 returns depends on whether you also have the s3:ListBucket permission.
+  /// You need the relevant read object (or version) permission for this operation. For more information, see [Actions, resources, and condition keys for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/list_amazons3.html). If the object you request doesn't exist, the error that Amazon S3 returns depends on whether you also have the s3:ListBucket permission.
   ///
-  /// *   If you have the `s3:ListBucket` permission on the bucket, Amazon S3 returns an HTTP status code 404 ("no such key") error.
+  /// *   If you have the `s3:ListBucket` permission on the bucket, Amazon S3 returns an HTTP status code 404 error.
   ///
-  /// *   If you don’t have the `s3:ListBucket` permission, Amazon S3 returns an HTTP status code 403 ("access denied") error.
+  /// *   If you don’t have the `s3:ListBucket` permission, Amazon S3 returns an HTTP status code 403 error.
   ///
   ///
   /// The following actions are related to `HeadObject`:
