@@ -107,7 +107,10 @@ mixin StructureGenerationContext<U> on ShapeGenerator<StructureShape, U>
       shape.httpOutputTraits(context);
 
   /// The resolved HTTP error traits.
-  late final HttpErrorTraits? httpErrorTraits = shape.httpErrorTraits(context);
+  late final HttpErrorTraits? httpErrorTraits = shape.httpErrorTraits(
+    context,
+    shape.httpPayload(context).symbol,
+  );
 
   /// The member shape to serialize when [HttpPayloadTrait] is used.
   late final MemberShape? payloadMember = shape.httpPayload(context).member;
@@ -147,7 +150,7 @@ mixin OperationGenerationContext<U> on ShapeGenerator<OperationShape, U> {
     ...shape.errors,
   ].whereType<ShapeRef>().map((error) {
     final shape = context.shapeFor(error.target) as StructureShape;
-    return shape.httpErrorTraits(context)!;
+    return shape.httpErrorTraits(context, shape.httpPayload(context).symbol)!;
   }).toList();
 
   late final HttpTrait? httpTrait = shape.httpTrait(context);
