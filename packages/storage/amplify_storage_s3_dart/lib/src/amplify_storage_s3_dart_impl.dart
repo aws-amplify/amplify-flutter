@@ -143,6 +143,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     final s3Options = StorageListOptions(
       accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
+      nextToken: options?.nextToken,
+      pageSize: options?.pageSize ?? 1000,
     );
 
     return S3ListOperation(
