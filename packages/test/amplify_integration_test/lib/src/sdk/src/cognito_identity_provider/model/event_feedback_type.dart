@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_integration_test.cognito_identity_provider.model.event_feedback_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,27 +103,25 @@ class EventFeedbackTypeAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'FeedbackValue':
           result.feedbackValue = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.FeedbackValueType),
           ) as _i2.FeedbackValueType);
-          break;
         case 'Provider':
           result.provider = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'FeedbackDate':
-          if (value != null) {
-            result.feedbackDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.feedbackDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -132,30 +131,31 @@ class EventFeedbackTypeAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    EventFeedbackType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as EventFeedbackType);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final EventFeedbackType(:feedbackValue, :provider, :feedbackDate) = object;
+    result$.addAll([
       'FeedbackValue',
       serializers.serialize(
-        payload.feedbackValue,
+        feedbackValue,
         specifiedType: const FullType(_i2.FeedbackValueType),
       ),
       'Provider',
       serializers.serialize(
-        payload.provider,
+        provider,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.feedbackDate != null) {
-      result
+    ]);
+    if (feedbackDate != null) {
+      result$
         ..add('FeedbackDate')
         ..add(serializers.serialize(
-          payload.feedbackDate!,
+          feedbackDate,
           specifiedType: const FullType(DateTime),
         ));
     }
-    return result;
+    return result$;
   }
 }
