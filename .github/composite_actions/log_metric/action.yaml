@@ -1,6 +1,12 @@
 name: Log Metric
 description: Log data point to a metric with the provided value. If the metric is not there, it will create one
 inputs:
+  aws-region:
+    required: true
+    description: The AWS region
+  role-to-assume:
+    required: true
+    description: The role to assume in the STS session
   metric-name:
     description: Name of the metric to track in Cloudwatch.
     required: true
@@ -17,8 +23,8 @@ runs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838 # 1.7.0
       with:
-        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-        aws-region: ${{ secrets.AWS_REGION }}
+        role-to-assume: ${{ inputs.role-to-assume }}
+        aws-region: ${{ inputs.aws-region }}
         role-duration-seconds: 900
 
     - name: Setup Dart
