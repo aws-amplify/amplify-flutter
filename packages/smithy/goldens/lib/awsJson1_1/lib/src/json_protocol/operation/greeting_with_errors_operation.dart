@@ -99,7 +99,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.ComplexError, _i8.ComplexError>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json',
             shape: 'ComplexError',
@@ -108,7 +108,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
           _i8.ComplexError,
           builder: _i8.ComplexError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.FooError, _i9.FooError>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json',
             shape: 'FooError',
@@ -117,7 +117,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
           _i9.FooError,
           builder: _i9.FooError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidGreeting, _i10.InvalidGreeting>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json',
             shape: 'InvalidGreeting',
