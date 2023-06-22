@@ -34,9 +34,8 @@ abstract class RecursiveShapesInputOutputNested2
 
   const RecursiveShapesInputOutputNested2._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    RecursiveShapesInputOutputNested2RestJson1Serializer()
-  ];
+  static const List<_i3.SmithySerializer<RecursiveShapesInputOutputNested2>>
+      serializers = [RecursiveShapesInputOutputNested2RestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RecursiveShapesInputOutputNested2Builder b) {}
@@ -50,15 +49,15 @@ abstract class RecursiveShapesInputOutputNested2
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('RecursiveShapesInputOutputNested2');
-    helper.add(
-      'bar',
-      bar,
-    );
-    helper.add(
-      'recursiveMember',
-      recursiveMember,
-    );
+        newBuiltValueToStringHelper('RecursiveShapesInputOutputNested2')
+          ..add(
+            'bar',
+            bar,
+          )
+          ..add(
+            'recursiveMember',
+            recursiveMember,
+          );
     return helper.toString();
   }
 }

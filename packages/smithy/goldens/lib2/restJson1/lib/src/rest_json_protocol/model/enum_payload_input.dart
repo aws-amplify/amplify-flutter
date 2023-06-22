@@ -44,7 +44,7 @@ abstract class EnumPayloadInput
         b.payload = payload;
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.StringEnum?>> serializers = [
     EnumPayloadInputRestJson1Serializer()
   ];
 
@@ -57,11 +57,11 @@ abstract class EnumPayloadInput
   List<Object?> get props => [payload];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EnumPayloadInput');
-    helper.add(
-      'payload',
-      payload,
-    );
+    final helper = newBuiltValueToStringHelper('EnumPayloadInput')
+      ..add(
+        'payload',
+        payload,
+      );
     return helper.toString();
   }
 }

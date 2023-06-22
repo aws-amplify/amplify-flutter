@@ -42,9 +42,8 @@ abstract class RequestTimeoutException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    RequestTimeoutExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<RequestTimeoutException>> serializers =
+      [RequestTimeoutExceptionRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RequestTimeoutExceptionBuilder b) {}
@@ -75,19 +74,19 @@ abstract class RequestTimeoutException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RequestTimeoutException');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('RequestTimeoutException')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

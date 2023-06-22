@@ -34,7 +34,7 @@ abstract class S3Config
 
   const S3Config._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<S3Config>> serializers = [
     S3ConfigAwsJson11Serializer()
   ];
 
@@ -53,19 +53,19 @@ abstract class S3Config
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('S3Config');
-    helper.add(
-      'addressingStyle',
-      addressingStyle,
-    );
-    helper.add(
-      'useAccelerateEndpoint',
-      useAccelerateEndpoint,
-    );
-    helper.add(
-      'useDualstackEndpoint',
-      useDualstackEndpoint,
-    );
+    final helper = newBuiltValueToStringHelper('S3Config')
+      ..add(
+        'addressingStyle',
+        addressingStyle,
+      )
+      ..add(
+        'useAccelerateEndpoint',
+        useAccelerateEndpoint,
+      )
+      ..add(
+        'useDualstackEndpoint',
+        useDualstackEndpoint,
+      );
     return helper.toString();
   }
 }

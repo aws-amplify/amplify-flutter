@@ -44,9 +44,8 @@ abstract class MissingParameterValueException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    MissingParameterValueExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<MissingParameterValueException>>
+      serializers = [MissingParameterValueExceptionRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MissingParameterValueExceptionBuilder b) {}
@@ -77,20 +76,19 @@ abstract class MissingParameterValueException
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MissingParameterValueException');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('MissingParameterValueException')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

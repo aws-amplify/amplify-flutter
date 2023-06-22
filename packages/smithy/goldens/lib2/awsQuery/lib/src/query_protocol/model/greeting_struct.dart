@@ -22,7 +22,7 @@ abstract class GreetingStruct
 
   const GreetingStruct._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<GreetingStruct>> serializers = [
     GreetingStructAwsQuerySerializer()
   ];
 
@@ -33,11 +33,11 @@ abstract class GreetingStruct
   List<Object?> get props => [hi];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GreetingStruct');
-    helper.add(
-      'hi',
-      hi,
-    );
+    final helper = newBuiltValueToStringHelper('GreetingStruct')
+      ..add(
+        'hi',
+        hi,
+      );
     return helper.toString();
   }
 }

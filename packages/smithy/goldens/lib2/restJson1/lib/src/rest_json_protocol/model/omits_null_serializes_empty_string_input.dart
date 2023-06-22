@@ -50,9 +50,9 @@ abstract class OmitsNullSerializesEmptyStringInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    OmitsNullSerializesEmptyStringInputRestJson1Serializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<OmitsNullSerializesEmptyStringInputPayload>>
+      serializers = [OmitsNullSerializesEmptyStringInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OmitsNullSerializesEmptyStringInputBuilder b) {}
@@ -69,15 +69,15 @@ abstract class OmitsNullSerializesEmptyStringInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OmitsNullSerializesEmptyStringInput');
-    helper.add(
-      'nullValue',
-      nullValue,
-    );
-    helper.add(
-      'emptyString',
-      emptyString,
-    );
+        newBuiltValueToStringHelper('OmitsNullSerializesEmptyStringInput')
+          ..add(
+            'nullValue',
+            nullValue,
+          )
+          ..add(
+            'emptyString',
+            emptyString,
+          );
     return helper.toString();
   }
 }

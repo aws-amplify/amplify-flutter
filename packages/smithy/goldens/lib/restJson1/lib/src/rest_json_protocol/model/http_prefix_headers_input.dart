@@ -56,9 +56,8 @@ abstract class HttpPrefixHeadersInput
                 )));
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HttpPrefixHeadersInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<HttpPrefixHeadersInputPayload>>
+      serializers = [HttpPrefixHeadersInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpPrefixHeadersInputBuilder b) {}
@@ -73,15 +72,15 @@ abstract class HttpPrefixHeadersInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HttpPrefixHeadersInput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'fooMap',
-      fooMap,
-    );
+    final helper = newBuiltValueToStringHelper('HttpPrefixHeadersInput')
+      ..add(
+        'foo',
+        foo,
+      )
+      ..add(
+        'fooMap',
+        fooMap,
+      );
     return helper.toString();
   }
 }

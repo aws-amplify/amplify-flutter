@@ -36,9 +36,8 @@ abstract class HttpResponseCodeOutput
         b.status = response.statusCode;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    HttpResponseCodeOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<HttpResponseCodeOutputPayload>>
+      serializers = [HttpResponseCodeOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpResponseCodeOutputBuilder b) {}
@@ -49,11 +48,11 @@ abstract class HttpResponseCodeOutput
   List<Object?> get props => [status];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HttpResponseCodeOutput');
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('HttpResponseCodeOutput')
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

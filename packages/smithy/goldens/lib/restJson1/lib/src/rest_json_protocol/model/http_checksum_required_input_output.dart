@@ -41,9 +41,8 @@ abstract class HttpChecksumRequiredInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HttpChecksumRequiredInputOutputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<HttpChecksumRequiredInputOutput>>
+      serializers = [HttpChecksumRequiredInputOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpChecksumRequiredInputOutputBuilder b) {}
@@ -55,11 +54,11 @@ abstract class HttpChecksumRequiredInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('HttpChecksumRequiredInputOutput');
-    helper.add(
-      'foo',
-      foo,
-    );
+        newBuiltValueToStringHelper('HttpChecksumRequiredInputOutput')
+          ..add(
+            'foo',
+            foo,
+          );
     return helper.toString();
   }
 }

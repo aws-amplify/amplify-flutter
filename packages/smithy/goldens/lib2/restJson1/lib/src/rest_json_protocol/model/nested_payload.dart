@@ -28,7 +28,7 @@ abstract class NestedPayload
 
   const NestedPayload._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<NestedPayload>> serializers = [
     NestedPayloadRestJson1Serializer()
   ];
 
@@ -43,15 +43,15 @@ abstract class NestedPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NestedPayload');
-    helper.add(
-      'greeting',
-      greeting,
-    );
-    helper.add(
-      'name',
-      name,
-    );
+    final helper = newBuiltValueToStringHelper('NestedPayload')
+      ..add(
+        'greeting',
+        greeting,
+      )
+      ..add(
+        'name',
+        name,
+      );
     return helper.toString();
   }
 }

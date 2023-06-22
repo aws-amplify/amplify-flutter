@@ -31,7 +31,7 @@ abstract class PredictOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<PredictOutput>> serializers = [
     PredictOutputAwsJson11Serializer()
   ];
 
@@ -42,11 +42,11 @@ abstract class PredictOutput
   List<Object?> get props => [prediction];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PredictOutput');
-    helper.add(
-      'prediction',
-      prediction,
-    );
+    final helper = newBuiltValueToStringHelper('PredictOutput')
+      ..add(
+        'prediction',
+        prediction,
+      );
     return helper.toString();
   }
 }

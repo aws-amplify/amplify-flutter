@@ -40,9 +40,8 @@ abstract class LimitExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    LimitExceededExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<LimitExceededException>> serializers =
+      [LimitExceededExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(LimitExceededExceptionBuilder b) {}
@@ -71,15 +70,15 @@ abstract class LimitExceededException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LimitExceededException');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'code',
-      code,
-    );
+    final helper = newBuiltValueToStringHelper('LimitExceededException')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'code',
+        code,
+      );
     return helper.toString();
   }
 }

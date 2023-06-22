@@ -22,7 +22,7 @@ abstract class PayloadConfig
 
   const PayloadConfig._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PayloadConfig>> serializers = [
     PayloadConfigRestJson1Serializer()
   ];
 
@@ -33,11 +33,11 @@ abstract class PayloadConfig
   List<Object?> get props => [data];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PayloadConfig');
-    helper.add(
-      'data',
-      data,
-    );
+    final helper = newBuiltValueToStringHelper('PayloadConfig')
+      ..add(
+        'data',
+        data,
+      );
     return helper.toString();
   }
 }

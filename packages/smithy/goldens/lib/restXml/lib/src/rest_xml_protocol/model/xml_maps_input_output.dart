@@ -41,7 +41,7 @@ abstract class XmlMapsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<XmlMapsInputOutput>> serializers = [
     XmlMapsInputOutputRestXmlSerializer()
   ];
 
@@ -54,11 +54,11 @@ abstract class XmlMapsInputOutput
   List<Object?> get props => [myMap];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlMapsInputOutput');
-    helper.add(
-      'myMap',
-      myMap,
-    );
+    final helper = newBuiltValueToStringHelper('XmlMapsInputOutput')
+      ..add(
+        'myMap',
+        myMap,
+      );
     return helper.toString();
   }
 }

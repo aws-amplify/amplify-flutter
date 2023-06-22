@@ -29,7 +29,7 @@ abstract class AwsConfig
 
   const AwsConfig._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<AwsConfig>> serializers = [
     AwsConfigRestJson1Serializer()
   ];
 
@@ -48,15 +48,15 @@ abstract class AwsConfig
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AwsConfig');
-    helper.add(
-      'clockTime',
-      clockTime,
-    );
-    helper.add(
-      'scopedConfig',
-      scopedConfig,
-    );
+    final helper = newBuiltValueToStringHelper('AwsConfig')
+      ..add(
+        'clockTime',
+        clockTime,
+      )
+      ..add(
+        'scopedConfig',
+        scopedConfig,
+      );
     return helper.toString();
   }
 }

@@ -35,9 +35,8 @@ abstract class RecursiveStructuresInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    RecursiveStructuresInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<RecursiveStructuresInput>>
+      serializers = [RecursiveStructuresInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RecursiveStructuresInputBuilder b) {}
@@ -48,11 +47,11 @@ abstract class RecursiveStructuresInput
   List<Object?> get props => [union];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RecursiveStructuresInput');
-    helper.add(
-      'union',
-      union,
-    );
+    final helper = newBuiltValueToStringHelper('RecursiveStructuresInput')
+      ..add(
+        'union',
+        union,
+      );
     return helper.toString();
   }
 }

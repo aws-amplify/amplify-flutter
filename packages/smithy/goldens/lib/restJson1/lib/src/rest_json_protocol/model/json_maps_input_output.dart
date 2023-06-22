@@ -74,7 +74,7 @@ abstract class JsonMapsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<JsonMapsInputOutput>> serializers = [
     JsonMapsInputOutputRestJson1Serializer()
   ];
 
@@ -107,47 +107,47 @@ abstract class JsonMapsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonMapsInputOutput');
-    helper.add(
-      'denseStructMap',
-      denseStructMap,
-    );
-    helper.add(
-      'sparseStructMap',
-      sparseStructMap,
-    );
-    helper.add(
-      'denseNumberMap',
-      denseNumberMap,
-    );
-    helper.add(
-      'denseBooleanMap',
-      denseBooleanMap,
-    );
-    helper.add(
-      'denseStringMap',
-      denseStringMap,
-    );
-    helper.add(
-      'sparseNumberMap',
-      sparseNumberMap,
-    );
-    helper.add(
-      'sparseBooleanMap',
-      sparseBooleanMap,
-    );
-    helper.add(
-      'sparseStringMap',
-      sparseStringMap,
-    );
-    helper.add(
-      'denseSetMap',
-      denseSetMap,
-    );
-    helper.add(
-      'sparseSetMap',
-      sparseSetMap,
-    );
+    final helper = newBuiltValueToStringHelper('JsonMapsInputOutput')
+      ..add(
+        'denseStructMap',
+        denseStructMap,
+      )
+      ..add(
+        'sparseStructMap',
+        sparseStructMap,
+      )
+      ..add(
+        'denseNumberMap',
+        denseNumberMap,
+      )
+      ..add(
+        'denseBooleanMap',
+        denseBooleanMap,
+      )
+      ..add(
+        'denseStringMap',
+        denseStringMap,
+      )
+      ..add(
+        'sparseNumberMap',
+        sparseNumberMap,
+      )
+      ..add(
+        'sparseBooleanMap',
+        sparseBooleanMap,
+      )
+      ..add(
+        'sparseStringMap',
+        sparseStringMap,
+      )
+      ..add(
+        'denseSetMap',
+        denseSetMap,
+      )
+      ..add(
+        'sparseSetMap',
+        sparseSetMap,
+      );
     return helper.toString();
   }
 }

@@ -56,9 +56,8 @@ abstract class SimpleInputParamsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    SimpleInputParamsInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<SimpleInputParamsInput>> serializers =
+      [SimpleInputParamsInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SimpleInputParamsInputBuilder b) {}
@@ -87,43 +86,43 @@ abstract class SimpleInputParamsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SimpleInputParamsInput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'bar',
-      bar,
-    );
-    helper.add(
-      'baz',
-      baz,
-    );
-    helper.add(
-      'bam',
-      bam,
-    );
-    helper.add(
-      'floatValue',
-      floatValue,
-    );
-    helper.add(
-      'boo',
-      boo,
-    );
-    helper.add(
-      'qux',
-      qux,
-    );
-    helper.add(
-      'fooEnum',
-      fooEnum,
-    );
-    helper.add(
-      'integerEnum',
-      integerEnum,
-    );
+    final helper = newBuiltValueToStringHelper('SimpleInputParamsInput')
+      ..add(
+        'foo',
+        foo,
+      )
+      ..add(
+        'bar',
+        bar,
+      )
+      ..add(
+        'baz',
+        baz,
+      )
+      ..add(
+        'bam',
+        bam,
+      )
+      ..add(
+        'floatValue',
+        floatValue,
+      )
+      ..add(
+        'boo',
+        boo,
+      )
+      ..add(
+        'qux',
+        qux,
+      )
+      ..add(
+        'fooEnum',
+        fooEnum,
+      )
+      ..add(
+        'integerEnum',
+        integerEnum,
+      );
     return helper.toString();
   }
 }

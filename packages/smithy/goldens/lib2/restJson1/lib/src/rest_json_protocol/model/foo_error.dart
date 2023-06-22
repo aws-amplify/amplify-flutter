@@ -36,7 +36,7 @@ abstract class FooError
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<FooError>> serializers = [
     FooErrorRestJson1Serializer()
   ];
 

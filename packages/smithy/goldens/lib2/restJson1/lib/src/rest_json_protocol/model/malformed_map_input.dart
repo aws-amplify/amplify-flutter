@@ -31,7 +31,7 @@ abstract class MalformedMapInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<MalformedMapInput>> serializers = [
     MalformedMapInputRestJson1Serializer()
   ];
 
@@ -44,11 +44,11 @@ abstract class MalformedMapInput
   List<Object?> get props => [bodyMap];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedMapInput');
-    helper.add(
-      'bodyMap',
-      bodyMap,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedMapInput')
+      ..add(
+        'bodyMap',
+        bodyMap,
+      );
     return helper.toString();
   }
 }

@@ -38,9 +38,8 @@ abstract class GreetingWithErrorsOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GreetingWithErrorsOutputRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<GreetingWithErrorsOutputPayload>>
+      serializers = [GreetingWithErrorsOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GreetingWithErrorsOutputBuilder b) {}
@@ -52,11 +51,11 @@ abstract class GreetingWithErrorsOutput
   List<Object?> get props => [greeting];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GreetingWithErrorsOutput');
-    helper.add(
-      'greeting',
-      greeting,
-    );
+    final helper = newBuiltValueToStringHelper('GreetingWithErrorsOutput')
+      ..add(
+        'greeting',
+        greeting,
+      );
     return helper.toString();
   }
 }

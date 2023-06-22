@@ -42,9 +42,8 @@ abstract class XmlNamespacesInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    XmlNamespacesInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<XmlNamespacesInputOutput>>
+      serializers = [XmlNamespacesInputOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(XmlNamespacesInputOutputBuilder b) {}
@@ -55,11 +54,11 @@ abstract class XmlNamespacesInputOutput
   List<Object?> get props => [nested];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlNamespacesInputOutput');
-    helper.add(
-      'nested',
-      nested,
-    );
+    final helper = newBuiltValueToStringHelper('XmlNamespacesInputOutput')
+      ..add(
+        'nested',
+        nested,
+      );
     return helper.toString();
   }
 }

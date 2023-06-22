@@ -42,9 +42,8 @@ abstract class BodyWithXmlNameInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    BodyWithXmlNameInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<BodyWithXmlNameInputOutput>>
+      serializers = [BodyWithXmlNameInputOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BodyWithXmlNameInputOutputBuilder b) {}
@@ -55,11 +54,11 @@ abstract class BodyWithXmlNameInputOutput
   List<Object?> get props => [nested];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BodyWithXmlNameInputOutput');
-    helper.add(
-      'nested',
-      nested,
-    );
+    final helper = newBuiltValueToStringHelper('BodyWithXmlNameInputOutput')
+      ..add(
+        'nested',
+        nested,
+      );
     return helper.toString();
   }
 }

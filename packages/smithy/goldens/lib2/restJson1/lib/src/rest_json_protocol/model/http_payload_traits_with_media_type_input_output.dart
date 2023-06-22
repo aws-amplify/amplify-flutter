@@ -60,7 +60,7 @@ abstract class HttpPayloadTraitsWithMediaTypeInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List?>> serializers = [
     HttpPayloadTraitsWithMediaTypeInputOutputRestJson1Serializer()
   ];
 
@@ -77,16 +77,16 @@ abstract class HttpPayloadTraitsWithMediaTypeInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'HttpPayloadTraitsWithMediaTypeInputOutput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'blob',
-      blob,
-    );
+    final helper =
+        newBuiltValueToStringHelper('HttpPayloadTraitsWithMediaTypeInputOutput')
+          ..add(
+            'foo',
+            foo,
+          )
+          ..add(
+            'blob',
+            blob,
+          );
     return helper.toString();
   }
 }

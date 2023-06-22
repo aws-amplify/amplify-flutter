@@ -26,7 +26,7 @@ abstract class OperationConfig
 
   const OperationConfig._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<OperationConfig>> serializers = [
     OperationConfigAwsJson11Serializer()
   ];
 
@@ -39,11 +39,11 @@ abstract class OperationConfig
   List<Object?> get props => [s3];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OperationConfig');
-    helper.add(
-      's3',
-      s3,
-    );
+    final helper = newBuiltValueToStringHelper('OperationConfig')
+      ..add(
+        's3',
+        s3,
+      );
     return helper.toString();
   }
 }

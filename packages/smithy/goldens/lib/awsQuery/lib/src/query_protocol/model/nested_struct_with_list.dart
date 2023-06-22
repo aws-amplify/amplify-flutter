@@ -25,7 +25,7 @@ abstract class NestedStructWithList
 
   const NestedStructWithList._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<NestedStructWithList>> serializers = [
     NestedStructWithListAwsQuerySerializer()
   ];
 
@@ -36,11 +36,11 @@ abstract class NestedStructWithList
   List<Object?> get props => [listArg];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NestedStructWithList');
-    helper.add(
-      'listArg',
-      listArg,
-    );
+    final helper = newBuiltValueToStringHelper('NestedStructWithList')
+      ..add(
+        'listArg',
+        listArg,
+      );
     return helper.toString();
   }
 }

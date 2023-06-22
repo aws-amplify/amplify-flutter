@@ -43,9 +43,8 @@ abstract class RecursiveShapesInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    RecursiveShapesInputOutputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<RecursiveShapesInputOutput>>
+      serializers = [RecursiveShapesInputOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RecursiveShapesInputOutputBuilder b) {}
@@ -56,11 +55,11 @@ abstract class RecursiveShapesInputOutput
   List<Object?> get props => [nested];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RecursiveShapesInputOutput');
-    helper.add(
-      'nested',
-      nested,
-    );
+    final helper = newBuiltValueToStringHelper('RecursiveShapesInputOutput')
+      ..add(
+        'nested',
+        nested,
+      );
     return helper.toString();
   }
 }

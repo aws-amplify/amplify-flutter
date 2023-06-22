@@ -34,7 +34,7 @@ abstract class PostPlayerActionInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<PostPlayerActionInput>> serializers = [
     PostPlayerActionInputRestJson1Serializer()
   ];
 
@@ -47,11 +47,11 @@ abstract class PostPlayerActionInput
   List<Object?> get props => [action];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PostPlayerActionInput');
-    helper.add(
-      'action',
-      action,
-    );
+    final helper = newBuiltValueToStringHelper('PostPlayerActionInput')
+      ..add(
+        'action',
+        action,
+      );
     return helper.toString();
   }
 }

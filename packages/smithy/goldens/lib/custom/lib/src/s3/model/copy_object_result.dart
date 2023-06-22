@@ -22,7 +22,7 @@ abstract class CopyObjectResult
 
   const CopyObjectResult._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<CopyObjectResult>> serializers = [
     CopyObjectResultRestXmlSerializer()
   ];
 
@@ -33,11 +33,11 @@ abstract class CopyObjectResult
   List<Object?> get props => [eTag];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CopyObjectResult');
-    helper.add(
-      'eTag',
-      eTag,
-    );
+    final helper = newBuiltValueToStringHelper('CopyObjectResult')
+      ..add(
+        'eTag',
+        eTag,
+      );
     return helper.toString();
   }
 }

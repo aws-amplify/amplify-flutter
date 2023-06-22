@@ -44,7 +44,7 @@ abstract class FileConfigSettings
 
   const FileConfigSettings._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<FileConfigSettings>> serializers = [
     FileConfigSettingsRestXmlSerializer()
   ];
 
@@ -73,35 +73,35 @@ abstract class FileConfigSettings
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FileConfigSettings');
-    helper.add(
-      'awsAccessKeyId',
-      awsAccessKeyId,
-    );
-    helper.add(
-      'awsSecretAccessKey',
-      awsSecretAccessKey,
-    );
-    helper.add(
-      'awsSessionToken',
-      awsSessionToken,
-    );
-    helper.add(
-      'region',
-      region,
-    );
-    helper.add(
-      's3',
-      s3,
-    );
-    helper.add(
-      'retryMode',
-      retryMode,
-    );
-    helper.add(
-      'maxAttempts',
-      maxAttempts,
-    );
+    final helper = newBuiltValueToStringHelper('FileConfigSettings')
+      ..add(
+        'awsAccessKeyId',
+        awsAccessKeyId,
+      )
+      ..add(
+        'awsSecretAccessKey',
+        awsSecretAccessKey,
+      )
+      ..add(
+        'awsSessionToken',
+        awsSessionToken,
+      )
+      ..add(
+        'region',
+        region,
+      )
+      ..add(
+        's3',
+        s3,
+      )
+      ..add(
+        'retryMode',
+        retryMode,
+      )
+      ..add(
+        'maxAttempts',
+        maxAttempts,
+      );
     return helper.toString();
   }
 }

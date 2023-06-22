@@ -49,7 +49,7 @@ abstract class DocumentTypeAsPayloadInputOutput
         b.documentValue = payload;
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.JsonObject?>> serializers = [
     DocumentTypeAsPayloadInputOutputRestJson1Serializer()
   ];
 
@@ -63,11 +63,11 @@ abstract class DocumentTypeAsPayloadInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DocumentTypeAsPayloadInputOutput');
-    helper.add(
-      'documentValue',
-      documentValue,
-    );
+        newBuiltValueToStringHelper('DocumentTypeAsPayloadInputOutput')
+          ..add(
+            'documentValue',
+            documentValue,
+          );
     return helper.toString();
   }
 }

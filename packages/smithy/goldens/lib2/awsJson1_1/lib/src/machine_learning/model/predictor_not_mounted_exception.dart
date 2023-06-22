@@ -36,9 +36,8 @@ abstract class PredictorNotMountedException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PredictorNotMountedExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<PredictorNotMountedException>>
+      serializers = [PredictorNotMountedExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PredictorNotMountedExceptionBuilder b) {}
@@ -63,11 +62,11 @@ abstract class PredictorNotMountedException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PredictorNotMountedException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('PredictorNotMountedException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

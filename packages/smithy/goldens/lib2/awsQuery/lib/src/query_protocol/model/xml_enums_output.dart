@@ -45,7 +45,7 @@ abstract class XmlEnumsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<XmlEnumsOutput>> serializers = [
     XmlEnumsOutputAwsQuerySerializer()
   ];
 
@@ -68,31 +68,31 @@ abstract class XmlEnumsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlEnumsOutput');
-    helper.add(
-      'fooEnum1',
-      fooEnum1,
-    );
-    helper.add(
-      'fooEnum2',
-      fooEnum2,
-    );
-    helper.add(
-      'fooEnum3',
-      fooEnum3,
-    );
-    helper.add(
-      'fooEnumList',
-      fooEnumList,
-    );
-    helper.add(
-      'fooEnumSet',
-      fooEnumSet,
-    );
-    helper.add(
-      'fooEnumMap',
-      fooEnumMap,
-    );
+    final helper = newBuiltValueToStringHelper('XmlEnumsOutput')
+      ..add(
+        'fooEnum1',
+        fooEnum1,
+      )
+      ..add(
+        'fooEnum2',
+        fooEnum2,
+      )
+      ..add(
+        'fooEnum3',
+        fooEnum3,
+      )
+      ..add(
+        'fooEnumList',
+        fooEnumList,
+      )
+      ..add(
+        'fooEnumSet',
+        fooEnumSet,
+      )
+      ..add(
+        'fooEnumMap',
+        fooEnumMap,
+      );
     return helper.toString();
   }
 }

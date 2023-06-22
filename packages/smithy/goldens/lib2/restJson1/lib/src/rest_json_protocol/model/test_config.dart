@@ -22,7 +22,7 @@ abstract class TestConfig
 
   const TestConfig._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<TestConfig>> serializers = [
     TestConfigRestJson1Serializer()
   ];
 
@@ -33,11 +33,11 @@ abstract class TestConfig
   List<Object?> get props => [timeout];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestConfig');
-    helper.add(
-      'timeout',
-      timeout,
-    );
+    final helper = newBuiltValueToStringHelper('TestConfig')
+      ..add(
+        'timeout',
+        timeout,
+      );
     return helper.toString();
   }
 }

@@ -53,9 +53,8 @@ abstract class GetObjectRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetObjectRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetObjectRequestPayload>> serializers =
+      [GetObjectRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectRequestBuilder b) {}
@@ -86,19 +85,19 @@ abstract class GetObjectRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'range',
-      range,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'range',
+        range,
+      );
     return helper.toString();
   }
 }

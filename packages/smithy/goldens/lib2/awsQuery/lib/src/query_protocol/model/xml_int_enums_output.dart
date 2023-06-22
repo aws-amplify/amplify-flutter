@@ -45,7 +45,7 @@ abstract class XmlIntEnumsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<XmlIntEnumsOutput>> serializers = [
     XmlIntEnumsOutputAwsQuerySerializer()
   ];
 
@@ -68,31 +68,31 @@ abstract class XmlIntEnumsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlIntEnumsOutput');
-    helper.add(
-      'intEnum1',
-      intEnum1,
-    );
-    helper.add(
-      'intEnum2',
-      intEnum2,
-    );
-    helper.add(
-      'intEnum3',
-      intEnum3,
-    );
-    helper.add(
-      'intEnumList',
-      intEnumList,
-    );
-    helper.add(
-      'intEnumSet',
-      intEnumSet,
-    );
-    helper.add(
-      'intEnumMap',
-      intEnumMap,
-    );
+    final helper = newBuiltValueToStringHelper('XmlIntEnumsOutput')
+      ..add(
+        'intEnum1',
+        intEnum1,
+      )
+      ..add(
+        'intEnum2',
+        intEnum2,
+      )
+      ..add(
+        'intEnum3',
+        intEnum3,
+      )
+      ..add(
+        'intEnumList',
+        intEnumList,
+      )
+      ..add(
+        'intEnumSet',
+        intEnumSet,
+      )
+      ..add(
+        'intEnumMap',
+        intEnumMap,
+      );
     return helper.toString();
   }
 }

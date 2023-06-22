@@ -29,7 +29,7 @@ abstract class StructureListMember
 
   const StructureListMember._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<StructureListMember>> serializers = [
     StructureListMemberRestJson1Serializer()
   ];
 
@@ -44,15 +44,15 @@ abstract class StructureListMember
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StructureListMember');
-    helper.add(
-      'a',
-      a,
-    );
-    helper.add(
-      'b',
-      b,
-    );
+    final helper = newBuiltValueToStringHelper('StructureListMember')
+      ..add(
+        'a',
+        a,
+      )
+      ..add(
+        'b',
+        b,
+      );
     return helper.toString();
   }
 }

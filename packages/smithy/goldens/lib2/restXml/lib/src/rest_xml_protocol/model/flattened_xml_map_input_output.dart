@@ -43,9 +43,8 @@ abstract class FlattenedXmlMapInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    FlattenedXmlMapInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<FlattenedXmlMapInputOutput>>
+      serializers = [FlattenedXmlMapInputOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FlattenedXmlMapInputOutputBuilder b) {}
@@ -56,11 +55,11 @@ abstract class FlattenedXmlMapInputOutput
   List<Object?> get props => [myMap];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FlattenedXmlMapInputOutput');
-    helper.add(
-      'myMap',
-      myMap,
-    );
+    final helper = newBuiltValueToStringHelper('FlattenedXmlMapInputOutput')
+      ..add(
+        'myMap',
+        myMap,
+      );
     return helper.toString();
   }
 }

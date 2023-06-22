@@ -96,7 +96,9 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+      _i1.SmithySerializer<
+          HttpRequestWithLabelsAndTimestampFormatInputPayload>> serializers = [
     HttpRequestWithLabelsAndTimestampFormatInputRestJson1Serializer()
   ];
 
@@ -163,35 +165,35 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'HttpRequestWithLabelsAndTimestampFormatInput');
-    helper.add(
-      'memberEpochSeconds',
-      memberEpochSeconds,
-    );
-    helper.add(
-      'memberHttpDate',
-      memberHttpDate,
-    );
-    helper.add(
-      'memberDateTime',
-      memberDateTime,
-    );
-    helper.add(
-      'defaultFormat',
-      defaultFormat,
-    );
-    helper.add(
-      'targetEpochSeconds',
-      targetEpochSeconds,
-    );
-    helper.add(
-      'targetHttpDate',
-      targetHttpDate,
-    );
-    helper.add(
-      'targetDateTime',
-      targetDateTime,
-    );
+        'HttpRequestWithLabelsAndTimestampFormatInput')
+      ..add(
+        'memberEpochSeconds',
+        memberEpochSeconds,
+      )
+      ..add(
+        'memberHttpDate',
+        memberHttpDate,
+      )
+      ..add(
+        'memberDateTime',
+        memberDateTime,
+      )
+      ..add(
+        'defaultFormat',
+        defaultFormat,
+      )
+      ..add(
+        'targetEpochSeconds',
+        targetEpochSeconds,
+      )
+      ..add(
+        'targetHttpDate',
+        targetHttpDate,
+      )
+      ..add(
+        'targetDateTime',
+        targetDateTime,
+      );
     return helper.toString();
   }
 }

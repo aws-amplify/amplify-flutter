@@ -38,7 +38,7 @@ abstract class MalformedAcceptWithPayloadOutput
         b.payload = payload;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.Uint8List?>> serializers = [
     MalformedAcceptWithPayloadOutputRestJson1Serializer()
   ];
 
@@ -52,11 +52,11 @@ abstract class MalformedAcceptWithPayloadOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('MalformedAcceptWithPayloadOutput');
-    helper.add(
-      'payload',
-      payload,
-    );
+        newBuiltValueToStringHelper('MalformedAcceptWithPayloadOutput')
+          ..add(
+            'payload',
+            payload,
+          );
     return helper.toString();
   }
 }

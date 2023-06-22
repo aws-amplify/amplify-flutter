@@ -37,7 +37,7 @@ abstract class S3Object
 
   const S3Object._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<S3Object>> serializers = [
     ObjectRestXmlSerializer()
   ];
 
@@ -60,31 +60,31 @@ abstract class S3Object
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('S3Object');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'size',
-      size,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
+    final helper = newBuiltValueToStringHelper('S3Object')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'lastModified',
+        lastModified,
+      )
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'size',
+        size,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'owner',
+        owner,
+      );
     return helper.toString();
   }
 }

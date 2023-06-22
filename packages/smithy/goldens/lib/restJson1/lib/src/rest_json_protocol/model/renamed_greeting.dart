@@ -22,7 +22,7 @@ abstract class RenamedGreeting
 
   const RenamedGreeting._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<RenamedGreeting>> serializers = [
     RenamedGreetingRestJson1Serializer()
   ];
 
@@ -33,11 +33,11 @@ abstract class RenamedGreeting
   List<Object?> get props => [salutation];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RenamedGreeting');
-    helper.add(
-      'salutation',
-      salutation,
-    );
+    final helper = newBuiltValueToStringHelper('RenamedGreeting')
+      ..add(
+        'salutation',
+        salutation,
+      );
     return helper.toString();
   }
 }

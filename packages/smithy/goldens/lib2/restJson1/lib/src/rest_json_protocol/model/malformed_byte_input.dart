@@ -57,9 +57,8 @@ abstract class MalformedByteInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedByteInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedByteInputPayload>>
+      serializers = [MalformedByteInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedByteInputBuilder b) {
@@ -95,23 +94,23 @@ abstract class MalformedByteInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedByteInput');
-    helper.add(
-      'byteInBody',
-      byteInBody,
-    );
-    helper.add(
-      'byteInPath',
-      byteInPath,
-    );
-    helper.add(
-      'byteInQuery',
-      byteInQuery,
-    );
-    helper.add(
-      'byteInHeader',
-      byteInHeader,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedByteInput')
+      ..add(
+        'byteInBody',
+        byteInBody,
+      )
+      ..add(
+        'byteInPath',
+        byteInPath,
+      )
+      ..add(
+        'byteInQuery',
+        byteInQuery,
+      )
+      ..add(
+        'byteInHeader',
+        byteInHeader,
+      );
     return helper.toString();
   }
 }
@@ -134,11 +133,11 @@ abstract class MalformedByteInputPayload
   List<Object?> get props => [byteInBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedByteInputPayload');
-    helper.add(
-      'byteInBody',
-      byteInBody,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedByteInputPayload')
+      ..add(
+        'byteInBody',
+        byteInBody,
+      );
     return helper.toString();
   }
 }

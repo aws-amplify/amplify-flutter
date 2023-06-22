@@ -37,7 +37,7 @@ abstract class MalformedContentTypeWithGenericStringInput
         b.payload = payload;
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<String?>> serializers = [
     MalformedContentTypeWithGenericStringInputRestJson1Serializer()
   ];
 
@@ -51,11 +51,11 @@ abstract class MalformedContentTypeWithGenericStringInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MalformedContentTypeWithGenericStringInput');
-    helper.add(
-      'payload',
-      payload,
-    );
+        'MalformedContentTypeWithGenericStringInput')
+      ..add(
+        'payload',
+        payload,
+      );
     return helper.toString();
   }
 }

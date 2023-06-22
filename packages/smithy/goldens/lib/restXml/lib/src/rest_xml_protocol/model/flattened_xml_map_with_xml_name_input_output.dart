@@ -43,9 +43,8 @@ abstract class FlattenedXmlMapWithXmlNameInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<FlattenedXmlMapWithXmlNameInputOutput>>
+      serializers = [FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FlattenedXmlMapWithXmlNameInputOutputBuilder b) {}
@@ -57,11 +56,11 @@ abstract class FlattenedXmlMapWithXmlNameInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('FlattenedXmlMapWithXmlNameInputOutput');
-    helper.add(
-      'myMap',
-      myMap,
-    );
+        newBuiltValueToStringHelper('FlattenedXmlMapWithXmlNameInputOutput')
+          ..add(
+            'myMap',
+            myMap,
+          );
     return helper.toString();
   }
 }

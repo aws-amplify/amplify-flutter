@@ -29,7 +29,7 @@ abstract class HostLabelInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<HostLabelInput>> serializers = [
     HostLabelInputRestJson1Serializer()
   ];
 
@@ -54,11 +54,11 @@ abstract class HostLabelInput
   List<Object?> get props => [label];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HostLabelInput');
-    helper.add(
-      'label',
-      label,
-    );
+    final helper = newBuiltValueToStringHelper('HostLabelInput')
+      ..add(
+        'label',
+        label,
+      );
     return helper.toString();
   }
 }
