@@ -142,7 +142,8 @@ class UploadSshPublicKeyOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.DuplicateSshPublicKeyException,
+            _i9.DuplicateSshPublicKeyException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'DuplicateSSHPublicKeyException',
@@ -152,7 +153,8 @@ class UploadSshPublicKeyOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.DuplicateSshPublicKeyException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidPublicKeyException,
+            _i10.InvalidPublicKeyException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidPublicKeyException',
@@ -162,7 +164,8 @@ class UploadSshPublicKeyOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i10.InvalidPublicKeyException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.LimitExceededException,
+            _i11.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -172,7 +175,7 @@ class UploadSshPublicKeyOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i11.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.NoSuchEntityException, _i12.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -182,7 +185,8 @@ class UploadSshPublicKeyOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i12.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.UnrecognizedPublicKeyEncodingException,
+            _i13.UnrecognizedPublicKeyEncodingException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'UnrecognizedPublicKeyEncodingException',

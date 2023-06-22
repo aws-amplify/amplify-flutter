@@ -141,7 +141,8 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InsufficientPermissionsException,
+            _i9.InsufficientPermissionsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InsufficientPermissionsException',
@@ -150,7 +151,9 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           _i9.InsufficientPermissionsException,
           builder: _i9.InsufficientPermissionsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<
+            _i10.MaxNumberOfOrganizationConformancePacksExceededException,
+            _i10.MaxNumberOfOrganizationConformancePacksExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'MaxNumberOfOrganizationConformancePacksExceededException',
@@ -160,7 +163,8 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           builder: _i10.MaxNumberOfOrganizationConformancePacksExceededException
               .fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NoAvailableOrganizationException,
+            _i11.NoAvailableOrganizationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoAvailableOrganizationException',
@@ -169,7 +173,8 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           _i11.NoAvailableOrganizationException,
           builder: _i11.NoAvailableOrganizationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.OrganizationAccessDeniedException,
+            _i12.OrganizationAccessDeniedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAccessDeniedException',
@@ -178,7 +183,8 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           _i12.OrganizationAccessDeniedException,
           builder: _i12.OrganizationAccessDeniedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.OrganizationAllFeaturesNotEnabledException,
+            _i13.OrganizationAllFeaturesNotEnabledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAllFeaturesNotEnabledException',
@@ -187,7 +193,9 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           _i13.OrganizationAllFeaturesNotEnabledException,
           builder: _i13.OrganizationAllFeaturesNotEnabledException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<
+            _i14.OrganizationConformancePackTemplateValidationException,
+            _i14.OrganizationConformancePackTemplateValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationConformancePackTemplateValidationException',
@@ -197,7 +205,8 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           builder: _i14.OrganizationConformancePackTemplateValidationException
               .fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.ResourceInUseException,
+            _i15.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceInUseException',
@@ -206,7 +215,7 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           _i15.ResourceInUseException,
           builder: _i15.ResourceInUseException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.ValidationException, _i16.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',

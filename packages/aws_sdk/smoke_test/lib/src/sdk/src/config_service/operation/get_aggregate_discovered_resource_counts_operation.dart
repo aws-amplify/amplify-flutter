@@ -122,7 +122,7 @@ class GetAggregateDiscoveredResourceCountsOperation
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidLimitException, _i9.InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
@@ -131,7 +131,8 @@ class GetAggregateDiscoveredResourceCountsOperation
           _i9.InvalidLimitException,
           builder: _i9.InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidNextTokenException,
+            _i10.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -140,7 +141,8 @@ class GetAggregateDiscoveredResourceCountsOperation
           _i10.InvalidNextTokenException,
           builder: _i10.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NoSuchConfigurationAggregatorException,
+            _i11.NoSuchConfigurationAggregatorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigurationAggregatorException',
@@ -149,7 +151,7 @@ class GetAggregateDiscoveredResourceCountsOperation
           _i11.NoSuchConfigurationAggregatorException,
           builder: _i11.NoSuchConfigurationAggregatorException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ValidationException, _i12.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',

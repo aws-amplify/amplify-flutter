@@ -107,7 +107,7 @@ class CreateVpcLinkOperation extends _i1.HttpOperation<_i2.CreateVpcLinkRequest,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.BadRequestException, _i9.BadRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'BadRequestException',
@@ -117,7 +117,7 @@ class CreateVpcLinkOperation extends _i1.HttpOperation<_i2.CreateVpcLinkRequest,
           statusCode: 400,
           builder: _i9.BadRequestException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ConflictException, _i10.ConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'ConflictException',
@@ -127,7 +127,8 @@ class CreateVpcLinkOperation extends _i1.HttpOperation<_i2.CreateVpcLinkRequest,
           statusCode: 409,
           builder: _i10.ConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.LimitExceededExceptionPayload,
+            _i11.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'LimitExceededException',
@@ -137,7 +138,8 @@ class CreateVpcLinkOperation extends _i1.HttpOperation<_i2.CreateVpcLinkRequest,
           statusCode: 429,
           builder: _i11.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.TooManyRequestsExceptionPayload,
+            _i12.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'TooManyRequestsException',
@@ -147,7 +149,7 @@ class CreateVpcLinkOperation extends _i1.HttpOperation<_i2.CreateVpcLinkRequest,
           statusCode: 429,
           builder: _i12.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.UnauthorizedException, _i13.UnauthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'UnauthorizedException',

@@ -109,7 +109,8 @@ class GetOrganizationCustomRulePolicyOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoSuchOrganizationConfigRuleException,
+            _i9.NoSuchOrganizationConfigRuleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchOrganizationConfigRuleException',
@@ -118,7 +119,8 @@ class GetOrganizationCustomRulePolicyOperation extends _i1.HttpOperation<
           _i9.NoSuchOrganizationConfigRuleException,
           builder: _i9.NoSuchOrganizationConfigRuleException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.OrganizationAccessDeniedException,
+            _i10.OrganizationAccessDeniedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAccessDeniedException',

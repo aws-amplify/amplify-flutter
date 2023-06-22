@@ -113,7 +113,8 @@ class UntagRoleOperation extends _i1.HttpOperation<_i2.UntagRoleRequest,
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.ConcurrentModificationException,
+            _i8.ConcurrentModificationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ConcurrentModificationException',
@@ -123,7 +124,7 @@ class UntagRoleOperation extends _i1.HttpOperation<_i2.UntagRoleRequest,
           statusCode: 409,
           builder: _i8.ConcurrentModificationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoSuchEntityException, _i9.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -133,7 +134,8 @@ class UntagRoleOperation extends _i1.HttpOperation<_i2.UntagRoleRequest,
           statusCode: 404,
           builder: _i9.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ServiceFailureException,
+            _i10.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',

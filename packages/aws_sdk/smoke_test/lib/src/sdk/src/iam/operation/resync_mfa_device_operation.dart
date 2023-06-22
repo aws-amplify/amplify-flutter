@@ -127,7 +127,8 @@ class ResyncMfaDeviceOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.InvalidAuthenticationCodeException,
+            _i8.InvalidAuthenticationCodeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidAuthenticationCodeException',
@@ -137,7 +138,7 @@ class ResyncMfaDeviceOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i8.InvalidAuthenticationCodeException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.LimitExceededException, _i9.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -147,7 +148,7 @@ class ResyncMfaDeviceOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i9.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NoSuchEntityException, _i10.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -157,7 +158,8 @@ class ResyncMfaDeviceOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i10.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ServiceFailureException,
+            _i11.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',

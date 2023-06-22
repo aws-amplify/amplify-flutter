@@ -237,7 +237,7 @@ class AssumeRoleWithSamlOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ExpiredTokenException, _i9.ExpiredTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'ExpiredTokenException',
@@ -247,7 +247,8 @@ class AssumeRoleWithSamlOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.ExpiredTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.IdpRejectedClaimException,
+            _i10.IdpRejectedClaimException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'IDPRejectedClaimException',
@@ -257,7 +258,8 @@ class AssumeRoleWithSamlOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i10.IdpRejectedClaimException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidIdentityTokenException,
+            _i11.InvalidIdentityTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'InvalidIdentityTokenException',
@@ -267,7 +269,8 @@ class AssumeRoleWithSamlOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i11.InvalidIdentityTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.MalformedPolicyDocumentException,
+            _i12.MalformedPolicyDocumentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'MalformedPolicyDocumentException',
@@ -277,7 +280,8 @@ class AssumeRoleWithSamlOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i12.MalformedPolicyDocumentException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.PackedPolicyTooLargeException,
+            _i13.PackedPolicyTooLargeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'PackedPolicyTooLargeException',
@@ -287,7 +291,8 @@ class AssumeRoleWithSamlOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i13.PackedPolicyTooLargeException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.RegionDisabledException,
+            _i14.RegionDisabledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'RegionDisabledException',

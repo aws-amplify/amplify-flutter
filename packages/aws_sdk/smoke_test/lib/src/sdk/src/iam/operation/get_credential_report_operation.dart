@@ -121,7 +121,8 @@ class GetCredentialReportOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.CredentialReportExpiredException,
+            _i8.CredentialReportExpiredException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'CredentialReportExpiredException',
@@ -131,7 +132,8 @@ class GetCredentialReportOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
           statusCode: 410,
           builder: _i8.CredentialReportExpiredException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.CredentialReportNotPresentException,
+            _i9.CredentialReportNotPresentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'CredentialReportNotPresentException',
@@ -141,7 +143,8 @@ class GetCredentialReportOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
           statusCode: 410,
           builder: _i9.CredentialReportNotPresentException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.CredentialReportNotReadyException,
+            _i10.CredentialReportNotReadyException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'CredentialReportNotReadyException',
@@ -151,7 +154,8 @@ class GetCredentialReportOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
           statusCode: 404,
           builder: _i10.CredentialReportNotReadyException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ServiceFailureException,
+            _i11.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',

@@ -123,7 +123,7 @@ class DescribeConfigurationAggregatorSourcesStatusOperation
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidLimitException, _i11.InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
@@ -132,7 +132,8 @@ class DescribeConfigurationAggregatorSourcesStatusOperation
           _i11.InvalidLimitException,
           builder: _i11.InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidNextTokenException,
+            _i12.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -141,7 +142,8 @@ class DescribeConfigurationAggregatorSourcesStatusOperation
           _i12.InvalidNextTokenException,
           builder: _i12.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.InvalidParameterValueException,
+            _i13.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -150,7 +152,8 @@ class DescribeConfigurationAggregatorSourcesStatusOperation
           _i13.InvalidParameterValueException,
           builder: _i13.InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.NoSuchConfigurationAggregatorException,
+            _i14.NoSuchConfigurationAggregatorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigurationAggregatorException',

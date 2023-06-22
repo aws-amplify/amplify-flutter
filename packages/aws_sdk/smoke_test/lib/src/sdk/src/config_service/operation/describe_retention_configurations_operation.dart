@@ -122,7 +122,8 @@ class DescribeRetentionConfigurationsOperation
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidNextTokenException,
+            _i11.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -131,7 +132,8 @@ class DescribeRetentionConfigurationsOperation
           _i11.InvalidNextTokenException,
           builder: _i11.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidParameterValueException,
+            _i12.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -140,7 +142,8 @@ class DescribeRetentionConfigurationsOperation
           _i12.InvalidParameterValueException,
           builder: _i12.InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.NoSuchRetentionConfigurationException,
+            _i13.NoSuchRetentionConfigurationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchRetentionConfigurationException',

@@ -118,7 +118,7 @@ class ListServiceSpecificCredentialsOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoSuchEntityException, _i9.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -128,7 +128,8 @@ class ListServiceSpecificCredentialsOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i9.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ServiceNotSupportedException,
+            _i10.ServiceNotSupportedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceNotSupportedException',

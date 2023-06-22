@@ -116,7 +116,8 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ExportConflictException,
+            _i9.ExportConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ExportConflictException',
@@ -125,7 +126,7 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
           _i9.ExportConflictException,
           builder: _i9.ExportConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InternalServerError, _i10.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -134,7 +135,8 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
           _i10.InternalServerError,
           builder: _i10.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidExportTimeException,
+            _i11.InvalidExportTimeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidExportTimeException',
@@ -143,7 +145,8 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
           _i11.InvalidExportTimeException,
           builder: _i11.InvalidExportTimeException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.LimitExceededException,
+            _i12.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
@@ -152,7 +155,8 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
           _i12.LimitExceededException,
           builder: _i12.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.PointInTimeRecoveryUnavailableException,
+            _i13.PointInTimeRecoveryUnavailableException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'PointInTimeRecoveryUnavailableException',
@@ -161,7 +165,8 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
           _i13.PointInTimeRecoveryUnavailableException,
           builder: _i13.PointInTimeRecoveryUnavailableException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.TableNotFoundException,
+            _i14.TableNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TableNotFoundException',

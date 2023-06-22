@@ -120,7 +120,7 @@ class ListConformancePackComplianceScoresOperation
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidLimitException, _i9.InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
@@ -129,7 +129,8 @@ class ListConformancePackComplianceScoresOperation
           _i9.InvalidLimitException,
           builder: _i9.InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidNextTokenException,
+            _i10.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -138,7 +139,8 @@ class ListConformancePackComplianceScoresOperation
           _i10.InvalidNextTokenException,
           builder: _i10.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidParameterValueException,
+            _i11.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',

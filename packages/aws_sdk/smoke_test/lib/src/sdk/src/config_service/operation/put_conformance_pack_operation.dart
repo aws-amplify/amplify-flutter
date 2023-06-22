@@ -122,7 +122,8 @@ class PutConformancePackOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ConformancePackTemplateValidationException,
+            _i9.ConformancePackTemplateValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ConformancePackTemplateValidationException',
@@ -131,7 +132,8 @@ class PutConformancePackOperation extends _i1.HttpOperation<
           _i9.ConformancePackTemplateValidationException,
           builder: _i9.ConformancePackTemplateValidationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InsufficientPermissionsException,
+            _i10.InsufficientPermissionsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InsufficientPermissionsException',
@@ -140,7 +142,8 @@ class PutConformancePackOperation extends _i1.HttpOperation<
           _i10.InsufficientPermissionsException,
           builder: _i10.InsufficientPermissionsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidParameterValueException,
+            _i11.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -149,7 +152,8 @@ class PutConformancePackOperation extends _i1.HttpOperation<
           _i11.InvalidParameterValueException,
           builder: _i11.InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.MaxNumberOfConformancePacksExceededException,
+            _i12.MaxNumberOfConformancePacksExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'MaxNumberOfConformancePacksExceededException',
@@ -159,7 +163,8 @@ class PutConformancePackOperation extends _i1.HttpOperation<
           builder:
               _i12.MaxNumberOfConformancePacksExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ResourceInUseException,
+            _i13.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceInUseException',

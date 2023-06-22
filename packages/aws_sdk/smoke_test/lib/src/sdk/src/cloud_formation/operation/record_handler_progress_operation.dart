@@ -122,7 +122,8 @@ class RecordHandlerProgressOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidStateTransitionException,
+            _i9.InvalidStateTransitionException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'InvalidStateTransitionException',
@@ -132,7 +133,8 @@ class RecordHandlerProgressOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.InvalidStateTransitionException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.OperationStatusCheckFailedException,
+            _i10.OperationStatusCheckFailedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'OperationStatusCheckFailedException',

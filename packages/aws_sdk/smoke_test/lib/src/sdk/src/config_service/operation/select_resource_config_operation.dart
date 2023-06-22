@@ -118,7 +118,8 @@ class SelectResourceConfigOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidExpressionException,
+            _i10.InvalidExpressionException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidExpressionException',
@@ -127,7 +128,7 @@ class SelectResourceConfigOperation extends _i1.PaginatedHttpOperation<
           _i10.InvalidExpressionException,
           builder: _i10.InvalidExpressionException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidLimitException, _i11.InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
@@ -136,7 +137,8 @@ class SelectResourceConfigOperation extends _i1.PaginatedHttpOperation<
           _i11.InvalidLimitException,
           builder: _i11.InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidNextTokenException,
+            _i12.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',

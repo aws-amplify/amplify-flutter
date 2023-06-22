@@ -115,7 +115,8 @@ class DeleteStackSetOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.OperationInProgressException,
+            _i9.OperationInProgressException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'OperationInProgressException',
@@ -125,7 +126,8 @@ class DeleteStackSetOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i9.OperationInProgressException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.StackSetNotEmptyException,
+            _i10.StackSetNotEmptyException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StackSetNotEmptyException',

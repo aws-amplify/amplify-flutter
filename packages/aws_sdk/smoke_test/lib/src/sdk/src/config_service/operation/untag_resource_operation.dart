@@ -97,7 +97,8 @@ class UntagResourceOperation extends _i1.HttpOperation<_i2.UntagResourceRequest,
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.ResourceNotFoundException,
+            _i8.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceNotFoundException',
@@ -106,7 +107,7 @@ class UntagResourceOperation extends _i1.HttpOperation<_i2.UntagResourceRequest,
           _i8.ResourceNotFoundException,
           builder: _i8.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ValidationException, _i9.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',
