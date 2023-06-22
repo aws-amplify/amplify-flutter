@@ -116,7 +116,8 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidParameterValueException,
+            _i10.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.glacier',
             shape: 'InvalidParameterValueException',
@@ -126,7 +127,8 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i10.InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.MissingParameterValueException,
+            _i11.MissingParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.glacier',
             shape: 'MissingParameterValueException',
@@ -136,7 +138,8 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i11.MissingParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.RequestTimeoutException,
+            _i12.RequestTimeoutException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.glacier',
             shape: 'RequestTimeoutException',
@@ -146,7 +149,8 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
           statusCode: 408,
           builder: _i12.RequestTimeoutException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ResourceNotFoundException,
+            _i13.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.glacier',
             shape: 'ResourceNotFoundException',
@@ -156,7 +160,8 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i13.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.ServiceUnavailableException,
+            _i14.ServiceUnavailableException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.glacier',
             shape: 'ServiceUnavailableException',

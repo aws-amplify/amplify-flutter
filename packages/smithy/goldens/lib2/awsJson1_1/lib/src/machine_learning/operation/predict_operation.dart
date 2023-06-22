@@ -105,7 +105,8 @@ class PredictOperation extends _i1.HttpOperation<_i2.PredictInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InternalServerException,
+            _i9.InternalServerException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.machinelearning',
             shape: 'InternalServerException',
@@ -115,7 +116,7 @@ class PredictOperation extends _i1.HttpOperation<_i2.PredictInput,
           statusCode: 500,
           builder: _i9.InternalServerException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidInputException, _i10.InvalidInputException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.machinelearning',
             shape: 'InvalidInputException',
@@ -125,7 +126,8 @@ class PredictOperation extends _i1.HttpOperation<_i2.PredictInput,
           statusCode: 400,
           builder: _i10.InvalidInputException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.LimitExceededException,
+            _i11.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.machinelearning',
             shape: 'LimitExceededException',
@@ -135,7 +137,8 @@ class PredictOperation extends _i1.HttpOperation<_i2.PredictInput,
           statusCode: 417,
           builder: _i11.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.PredictorNotMountedException,
+            _i12.PredictorNotMountedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.machinelearning',
             shape: 'PredictorNotMountedException',
@@ -145,7 +148,8 @@ class PredictOperation extends _i1.HttpOperation<_i2.PredictInput,
           statusCode: 400,
           builder: _i12.PredictorNotMountedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ResourceNotFoundException,
+            _i13.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.machinelearning',
             shape: 'ResourceNotFoundException',
