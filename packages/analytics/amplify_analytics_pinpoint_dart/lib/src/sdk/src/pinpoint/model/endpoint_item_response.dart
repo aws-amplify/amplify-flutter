@@ -19,7 +19,6 @@ abstract class EndpointItemResponse
     String? message,
     int? statusCode,
   }) {
-    statusCode ??= 0;
     return _$EndpointItemResponse._(
       message: message,
       statusCode: statusCode,
@@ -38,15 +37,13 @@ abstract class EndpointItemResponse
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointItemResponseBuilder b) {
-    b.statusCode = 0;
-  }
+  static void _init(EndpointItemResponseBuilder b) {}
 
   /// The custom message that's returned in the response as a result of processing the endpoint data.
   String? get message;
 
   /// The status code that's returned in the response as a result of processing the endpoint data.
-  int get statusCode;
+  int? get statusCode;
   @override
   List<Object?> get props => [
         message,
@@ -124,19 +121,20 @@ class EndpointItemResponseRestJson1Serializer
   }) {
     final result$ = <Object?>[];
     final EndpointItemResponse(:message, :statusCode) = object;
-    result$.addAll([
-      'StatusCode',
-      serializers.serialize(
-        statusCode,
-        specifiedType: const FullType(int),
-      ),
-    ]);
     if (message != null) {
       result$
         ..add('Message')
         ..add(serializers.serialize(
           message,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (statusCode != null) {
+      result$
+        ..add('StatusCode')
+        ..add(serializers.serialize(
+          statusCode,
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

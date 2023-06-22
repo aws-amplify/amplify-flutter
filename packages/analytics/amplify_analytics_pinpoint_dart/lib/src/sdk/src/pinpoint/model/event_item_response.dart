@@ -19,7 +19,6 @@ abstract class EventItemResponse
     String? message,
     int? statusCode,
   }) {
-    statusCode ??= 0;
     return _$EventItemResponse._(
       message: message,
       statusCode: statusCode,
@@ -37,15 +36,13 @@ abstract class EventItemResponse
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventItemResponseBuilder b) {
-    b.statusCode = 0;
-  }
+  static void _init(EventItemResponseBuilder b) {}
 
   /// A custom message that's returned in the response as a result of processing the event.
   String? get message;
 
   /// The status code that's returned in the response as a result of processing the event. Possible values are: 202, for events that were accepted; and, 400, for events that weren't valid.
-  int get statusCode;
+  int? get statusCode;
   @override
   List<Object?> get props => [
         message,
@@ -122,19 +119,20 @@ class EventItemResponseRestJson1Serializer
   }) {
     final result$ = <Object?>[];
     final EventItemResponse(:message, :statusCode) = object;
-    result$.addAll([
-      'StatusCode',
-      serializers.serialize(
-        statusCode,
-        specifiedType: const FullType(int),
-      ),
-    ]);
     if (message != null) {
       result$
         ..add('Message')
         ..add(serializers.serialize(
           message,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (statusCode != null) {
+      result$
+        ..add('StatusCode')
+        ..add(serializers.serialize(
+          statusCode,
+          specifiedType: const FullType(int),
         ));
     }
     return result$;
