@@ -737,12 +737,16 @@ extension StructureShapeUtil on StructureShape {
     return builder.build();
   }
 
-  HttpErrorTraits? httpErrorTraits(CodegenContext context) {
+  HttpErrorTraits? httpErrorTraits(
+    CodegenContext context, [
+    Reference? payloadSymbol,
+  ]) {
     if (!isError) {
       return null;
     }
     final builder = HttpErrorTraitsBuilder()
       ..symbol = context.symbolFor(shapeId)
+      ..payloadSymbol = payloadSymbol
       ..shapeId = shapeId;
     final errorTrait = expectTrait<ErrorTrait>();
     builder.kind = errorTrait.type;
@@ -825,8 +829,11 @@ extension StructureShapeUtil on StructureShape {
       return true;
     }
     return (isInputShape || isOutputShape || isError) &&
-        (metadataMembers(context).isNotEmpty ||
-            members.values.any((shape) => shape.hasTrait<HttpPayloadTrait>()));
+        (members.values.any(
+          (shape) =>
+              shape.hasTrait<HttpPayloadTrait>() ||
+              metadataMembers(context).isNotEmpty,
+        ));
   }
 
   /// Whether the structure needs a payload struct.

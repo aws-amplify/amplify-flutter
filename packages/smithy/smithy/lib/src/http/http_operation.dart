@@ -305,15 +305,11 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
         );
       }
       final errorType = smithyError.type;
-      final builder = smithyError.builder;
       final errorPayload = await protocol.wireSerializer.deserialize(
         await response.bodyBytes,
         specifiedType: FullType(errorType),
       );
-      final smithyException =
-          // ignore: avoid_dynamic_calls
-          builder(errorPayload, response) as SmithyException;
-      throw smithyException;
+      throw smithyError.build(errorPayload, response);
     } finally {
       // Close the response so that the underlying subscription created by
       // `split` is cancelled as well.

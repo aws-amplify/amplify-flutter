@@ -23,7 +23,8 @@ class RetryConfig with AWSEquatable<RetryConfig> {
 }
 
 @immutable
-class SmithyError with AWSEquatable<SmithyError> {
+class SmithyError<Payload extends Object?, T extends SmithyException>
+    with AWSEquatable<SmithyError<Payload, T>> {
   const SmithyError(
     this.shapeId,
     this.kind,
@@ -37,7 +38,11 @@ class SmithyError with AWSEquatable<SmithyError> {
   final ErrorKind kind;
   final Type type;
   final RetryConfig? retryConfig;
-  final Function builder;
+  final T Function(Payload, AWSBaseHttpResponse) builder;
+
+  T build(Object? payload, AWSBaseHttpResponse response) {
+    return builder(payload as Payload, response);
+  }
 
   final int? _statusCode;
   int get statusCode => _statusCode ?? (kind == ErrorKind.client ? 400 : 500);
