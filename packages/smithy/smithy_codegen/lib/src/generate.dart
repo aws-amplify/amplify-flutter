@@ -119,20 +119,22 @@ Map<ShapeId, GeneratedOutput> generateForAst(
       generateServer: generateServer,
     );
 
-    // Generate libraries for relevant shape types.
-    //
-    // Build service shapes last, since they aggregate generated types.
-    final operations = context.shapes.values.whereType<OperationShape>();
-    final visitor = LibraryVisitor(context);
-    final libraries = [
-      ...operations,
-      ...additionalShapes.map(context.shapeFor),
-      serviceShape
-    ].expand<GeneratedLibrary>((shape) => shape.accept(visitor) ?? const []);
-    outputs[serviceShape.shapeId] = GeneratedOutput(
-      context: context,
-      libraries: libraries.toSet().toList(),
-    );
+    context.run(() {
+      // Generate libraries for relevant shape types.
+      //
+      // Build service shapes last, since they aggregate generated types.
+      final operations = context.shapes.values.whereType<OperationShape>();
+      final visitor = LibraryVisitor(context);
+      final libraries = [
+        ...operations,
+        ...additionalShapes.map(context.shapeFor),
+        serviceShape
+      ].expand<GeneratedLibrary>((shape) => shape.accept(visitor) ?? const []);
+      outputs[serviceShape.shapeId] = GeneratedOutput(
+        context: context,
+        libraries: libraries.toSet().toList(),
+      );
+    });
   }
 
   return outputs;
