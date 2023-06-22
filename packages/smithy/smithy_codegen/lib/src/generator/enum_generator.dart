@@ -23,7 +23,7 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
 
   late final List<MemberShape> sortedDefinitions = shape.enumValues.toList()
     ..sort((a, b) {
-      return a.variantName.compareTo(b.variantName);
+      return a.enumVariantName.compareTo(b.enumVariantName);
     });
 
   late final List<EnumValueTrait> sortedEnumValues = sortedDefinitions
@@ -140,7 +140,7 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
           f
             ..static = true
             ..modifier = FieldModifier.constant
-            ..name = definition.variantName
+            ..name = definition.enumVariantName
             ..assignment = symbol.newInstanceNamed('_', [
               literalNum(index),
               literalString(definition.memberName),
@@ -157,7 +157,7 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
           ..name = 'values'
           ..docs.add('/// All values of [$className].')
           ..assignment = literalList(
-            sortedDefinitions.map((e) => symbol.property(e.variantName)),
+            sortedDefinitions.map((e) => symbol.property(e.enumVariantName)),
             symbol,
           ).code,
       );
@@ -263,5 +263,6 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
 
 extension EnumVariantName on MemberShape {
   /// The name of the enum variant.
-  String get variantName => memberName.camelCase.nameEscaped(ShapeType.enum_);
+  String get enumVariantName =>
+      memberName.camelCase.nameEscaped(ShapeType.enum_);
 }
