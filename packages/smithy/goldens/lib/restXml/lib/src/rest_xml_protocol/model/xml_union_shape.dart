@@ -39,8 +39,26 @@ sealed class XmlUnionShape extends _i1.SmithyUnion<XmlUnionShape> {
   const factory XmlUnionShape.unionValue(XmlUnionShape unionValue) =
       XmlUnionShapeUnionValue;
 
-  const factory XmlUnionShape.structValue(
-      _i3.XmlNestedUnionStruct structValue) = XmlUnionShapeStructValue;
+  factory XmlUnionShape.structValue({
+    String? stringValue,
+    bool? booleanValue,
+    int? byteValue,
+    int? shortValue,
+    int? integerValue,
+    _i2.Int64? longValue,
+    double? floatValue,
+    double? doubleValue,
+  }) =>
+      XmlUnionShapeStructValue(_i3.XmlNestedUnionStruct(
+        stringValue: stringValue,
+        booleanValue: booleanValue,
+        byteValue: byteValue,
+        shortValue: shortValue,
+        integerValue: integerValue,
+        longValue: longValue,
+        floatValue: floatValue,
+        doubleValue: doubleValue,
+      ));
 
   const factory XmlUnionShape.sdkUnknown(
     String name,
