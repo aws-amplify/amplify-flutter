@@ -300,7 +300,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
   Constructor get fromResponseConstructor {
     final Code output;
     if (payloadSymbol == symbol) {
-      if (httpErrorTraits == null) {
+      if (!shape.isError) {
         output = refer('payload').code;
       } else {
         output = refer('payload').property('rebuild').call([

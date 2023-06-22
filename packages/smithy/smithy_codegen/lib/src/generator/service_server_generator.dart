@@ -234,7 +234,10 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
 
     for (final error in operation.errors) {
       final errorShape = context.shapeFor(error.target) as StructureShape;
-      final errorTrait = errorShape.httpErrorTraits(context);
+      final errorTrait = errorShape.httpErrorTraits(
+        context,
+        errorShape.httpPayload(context).symbol,
+      );
       if (errorTrait == null) continue;
 
       final errorSymbol = context.symbolFor(error.target);
