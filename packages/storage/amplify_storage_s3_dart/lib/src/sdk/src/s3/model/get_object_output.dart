@@ -69,6 +69,7 @@ abstract class GetObjectOutput
     DateTime? objectLockRetainUntilDate,
     _i10.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
   }) {
+    body ??= const _i3.Stream.empty();
     return _$GetObjectOutput._(
       body: body,
       deleteMarker: deleteMarker,
@@ -267,7 +268,9 @@ abstract class GetObjectOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectOutputBuilder b) {}
+  static void _init(GetObjectOutputBuilder b) {
+    b.body = const _i3.Stream.empty();
+  }
 
   /// Object data.
   _i3.Stream<List<int>>? get body;
@@ -335,7 +338,7 @@ abstract class GetObjectOutput
   /// If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or to an external URL. Amazon S3 stores the value of this header in the object metadata.
   String? get websiteRedirectLocation;
 
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`, `aws:kms:dsse`).
   _i5.ServerSideEncryption? get serverSideEncryption;
 
   /// A map of metadata to store with the object in S3.
@@ -347,10 +350,10 @@ abstract class GetObjectOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for the object.
+  /// If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
   String? get ssekmsKeyId;
 
-  /// Indicates whether the object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
+  /// Indicates whether the object uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys (SSE-KMS).
   bool? get bucketKeyEnabled;
 
   /// Provides storage class information of the object. Amazon S3 returns this header for all objects except for S3 Standard storage class objects.

@@ -58,7 +58,7 @@ import 'package:smithy_aws/smithy_aws.dart' as _i5;
 ///     Amazon S3 returns `412 Precondition Failed` response code.
 ///
 ///
-/// **Versioning**
+/// Versioning
 ///
 /// If your bucket has versioning enabled, you could have multiple versions of the same object. By default, `x-amz-copy-source` identifies the current version of the object to copy. If the current version is a delete marker and you don't specify a versionId in the `x-amz-copy-source`, Amazon S3 returns a 404 error, because the object does not exist. If you specify versionId in the `x-amz-copy-source` and the versionId is a delete marker, Amazon S3 returns an HTTP 400 error, because you are not allowed to specify a delete marker as a version for the `x-amz-copy-source`.
 ///
@@ -66,7 +66,7 @@ import 'package:smithy_aws/smithy_aws.dart' as _i5;
 ///
 /// `x-amz-copy-source: /bucket/object?versionId=version id`
 ///
-/// **Special Errors**
+/// Special errors
 ///
 /// *   *   _Code: NoSuchUpload_
 ///
@@ -81,7 +81,7 @@ import 'package:smithy_aws/smithy_aws.dart' as _i5;
 ///     *   _HTTP Status Code: 400 Bad Request_
 ///
 ///
-/// **Related Resources**
+/// The following operations are related to `UploadPartCopy`:
 ///
 /// *   [CreateMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html)
 ///
@@ -137,7 +137,7 @@ class UploadPartCopyOperation extends _i1.HttpOperation<
   ///     Amazon S3 returns `412 Precondition Failed` response code.
   ///
   ///
-  /// **Versioning**
+  /// Versioning
   ///
   /// If your bucket has versioning enabled, you could have multiple versions of the same object. By default, `x-amz-copy-source` identifies the current version of the object to copy. If the current version is a delete marker and you don't specify a versionId in the `x-amz-copy-source`, Amazon S3 returns a 404 error, because the object does not exist. If you specify versionId in the `x-amz-copy-source` and the versionId is a delete marker, Amazon S3 returns an HTTP 400 error, because you are not allowed to specify a delete marker as a version for the `x-amz-copy-source`.
   ///
@@ -145,7 +145,7 @@ class UploadPartCopyOperation extends _i1.HttpOperation<
   ///
   /// `x-amz-copy-source: /bucket/object?versionId=version id`
   ///
-  /// **Special Errors**
+  /// Special errors
   ///
   /// *   *   _Code: NoSuchUpload_
   ///
@@ -160,7 +160,7 @@ class UploadPartCopyOperation extends _i1.HttpOperation<
   ///     *   _HTTP Status Code: 400 Bad Request_
   ///
   ///
-  /// **Related Resources**
+  /// The following operations are related to `UploadPartCopy`:
   ///
   /// *   [CreateMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html)
   ///
@@ -329,10 +329,12 @@ class UploadPartCopyOperation extends _i1.HttpOperation<
                 input.expectedSourceBucketOwner!;
           }
         }
-        b.queryParameters.add(
-          'partNumber',
-          input.partNumber.toString(),
-        );
+        if (input.partNumber != null) {
+          b.queryParameters.add(
+            'partNumber',
+            input.partNumber!.toString(),
+          );
+        }
         b.queryParameters.add(
           'uploadId',
           input.uploadId,

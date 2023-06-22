@@ -31,10 +31,17 @@ class ServerSideEncryption extends _i1.SmithyEnum<ServerSideEncryption> {
     'aws:kms',
   );
 
+  static const awsKmsDsse = ServerSideEncryption._(
+    2,
+    'aws_kms_dsse',
+    'aws:kms:dsse',
+  );
+
   /// All values of [ServerSideEncryption].
   static const values = <ServerSideEncryption>[
     ServerSideEncryption.aes256,
     ServerSideEncryption.awsKms,
+    ServerSideEncryption.awsKmsDsse,
   ];
 
   static const List<_i1.SmithySerializer<ServerSideEncryption>> serializers = [

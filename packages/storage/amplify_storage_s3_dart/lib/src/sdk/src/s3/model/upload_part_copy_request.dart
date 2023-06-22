@@ -42,7 +42,6 @@ abstract class UploadPartCopyRequest
     String? expectedBucketOwner,
     String? expectedSourceBucketOwner,
   }) {
-    partNumber ??= 0;
     return _$UploadPartCopyRequest._(
       bucket: bucket,
       copySource: copySource,
@@ -168,15 +167,13 @@ abstract class UploadPartCopyRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadPartCopyRequestBuilder b) {
-    b.partNumber = 0;
-  }
+  static void _init(UploadPartCopyRequestBuilder b) {}
 
   /// The bucket name.
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   ///
-  /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
   /// Specifies the source object for the copy operation. You specify the value in one of two formats, depending on whether you want to access the source object through an [access point](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points.html):
@@ -212,7 +209,7 @@ abstract class UploadPartCopyRequest
   String get key;
 
   /// Part number of part being copied. This is a positive integer between 1 and 10,000.
-  int get partNumber;
+  int? get partNumber;
 
   /// Upload ID identifying the multipart upload whose part is being copied.
   String get uploadId;
