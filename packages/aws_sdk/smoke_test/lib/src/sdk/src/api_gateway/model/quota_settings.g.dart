@@ -8,16 +8,20 @@ part of 'quota_settings.dart';
 
 class _$QuotaSettings extends QuotaSettings {
   @override
-  final int? limit;
+  final int limit;
   @override
-  final int? offset;
+  final int offset;
   @override
   final _i2.QuotaPeriodType? period;
 
   factory _$QuotaSettings([void Function(QuotaSettingsBuilder)? updates]) =>
       (new QuotaSettingsBuilder()..update(updates))._build();
 
-  _$QuotaSettings._({this.limit, this.offset, this.period}) : super._();
+  _$QuotaSettings._({required this.limit, required this.offset, this.period})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(limit, r'QuotaSettings', 'limit');
+    BuiltValueNullFieldError.checkNotNull(offset, r'QuotaSettings', 'offset');
+  }
 
   @override
   QuotaSettings rebuild(void Function(QuotaSettingsBuilder) updates) =>
@@ -93,7 +97,12 @@ class QuotaSettingsBuilder
 
   _$QuotaSettings _build() {
     final _$result = _$v ??
-        new _$QuotaSettings._(limit: limit, offset: offset, period: period);
+        new _$QuotaSettings._(
+            limit: BuiltValueNullFieldError.checkNotNull(
+                limit, r'QuotaSettings', 'limit'),
+            offset: BuiltValueNullFieldError.checkNotNull(
+                offset, r'QuotaSettings', 'offset'),
+            period: period);
     replace(_$result);
     return _$result;
   }

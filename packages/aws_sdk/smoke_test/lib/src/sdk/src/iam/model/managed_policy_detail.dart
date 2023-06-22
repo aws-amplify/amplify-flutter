@@ -39,6 +39,7 @@ abstract class ManagedPolicyDetail
     DateTime? updateDate,
     List<_i2.PolicyVersion>? policyVersionList,
   }) {
+    isAttachable ??= false;
     return _$ManagedPolicyDetail._(
       policyName: policyName,
       policyId: policyId,
@@ -72,7 +73,9 @@ abstract class ManagedPolicyDetail
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ManagedPolicyDetailBuilder b) {}
+  static void _init(ManagedPolicyDetailBuilder b) {
+    b.isAttachable = false;
+  }
 
   /// The friendly name (not ARN) identifying the policy.
   String? get policyName;
@@ -106,7 +109,7 @@ abstract class ManagedPolicyDetail
   int? get permissionsBoundaryUsageCount;
 
   /// Specifies whether the policy can be attached to an IAM user, group, or role.
-  bool? get isAttachable;
+  bool get isAttachable;
 
   /// A friendly description of the policy.
   String? get description;
@@ -377,14 +380,12 @@ class ManagedPolicyDetailAwsQuerySerializer
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (isAttachable != null) {
-      result$
-        ..add(const _i4.XmlElementName('IsAttachable'))
-        ..add(serializers.serialize(
-          isAttachable,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i4.XmlElementName('IsAttachable'))
+      ..add(serializers.serialize(
+        isAttachable,
+        specifiedType: const FullType(bool),
+      ));
     if (description != null) {
       result$
         ..add(const _i4.XmlElementName('Description'))

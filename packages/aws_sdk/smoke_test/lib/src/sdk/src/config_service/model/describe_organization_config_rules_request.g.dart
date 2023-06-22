@@ -11,7 +11,7 @@ class _$DescribeOrganizationConfigRulesRequest
   @override
   final _i3.BuiltList<String>? organizationConfigRuleNames;
   @override
-  final int? limit;
+  final int limit;
   @override
   final String? nextToken;
 
@@ -22,8 +22,11 @@ class _$DescribeOrganizationConfigRulesRequest
           ._build();
 
   _$DescribeOrganizationConfigRulesRequest._(
-      {this.organizationConfigRuleNames, this.limit, this.nextToken})
-      : super._();
+      {this.organizationConfigRuleNames, required this.limit, this.nextToken})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'DescribeOrganizationConfigRulesRequest', 'limit');
+  }
 
   @override
   DescribeOrganizationConfigRulesRequest rebuild(
@@ -114,7 +117,8 @@ class DescribeOrganizationConfigRulesRequestBuilder
           new _$DescribeOrganizationConfigRulesRequest._(
               organizationConfigRuleNames:
                   _organizationConfigRuleNames?.build(),
-              limit: limit,
+              limit: BuiltValueNullFieldError.checkNotNull(
+                  limit, r'DescribeOrganizationConfigRulesRequest', 'limit'),
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

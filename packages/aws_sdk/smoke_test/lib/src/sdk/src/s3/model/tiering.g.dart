@@ -8,15 +8,14 @@ part of 'tiering.dart';
 
 class _$Tiering extends Tiering {
   @override
-  final int days;
+  final int? days;
   @override
   final _i2.IntelligentTieringAccessTier accessTier;
 
   factory _$Tiering([void Function(TieringBuilder)? updates]) =>
       (new TieringBuilder()..update(updates))._build();
 
-  _$Tiering._({required this.days, required this.accessTier}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(days, r'Tiering', 'days');
+  _$Tiering._({this.days, required this.accessTier}) : super._() {
     BuiltValueNullFieldError.checkNotNull(accessTier, r'Tiering', 'accessTier');
   }
 
@@ -88,8 +87,7 @@ class TieringBuilder implements Builder<Tiering, TieringBuilder> {
   _$Tiering _build() {
     final _$result = _$v ??
         new _$Tiering._(
-            days:
-                BuiltValueNullFieldError.checkNotNull(days, r'Tiering', 'days'),
+            days: days,
             accessTier: BuiltValueNullFieldError.checkNotNull(
                 accessTier, r'Tiering', 'accessTier'));
     replace(_$result);

@@ -29,6 +29,8 @@ abstract class TestInvokeAuthorizerResponse
     Map<String, List<String>>? authorization,
     Map<String, String>? claims,
   }) {
+    clientStatus ??= 0;
+    latency ??= _i2.Int64.ZERO;
     return _$TestInvokeAuthorizerResponse._(
       clientStatus: clientStatus,
       log: log,
@@ -60,16 +62,19 @@ abstract class TestInvokeAuthorizerResponse
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestInvokeAuthorizerResponseBuilder b) {}
+  static void _init(TestInvokeAuthorizerResponseBuilder b) {
+    b.clientStatus = 0;
+    b.latency = _i2.Int64.ZERO;
+  }
 
   /// The HTTP status code that the client would have received. Value is 0 if the authorizer succeeded.
-  int? get clientStatus;
+  int get clientStatus;
 
   /// The API Gateway execution log for the test authorizer request.
   String? get log;
 
   /// The execution latency of the test authorizer request.
-  _i2.Int64? get latency;
+  _i2.Int64 get latency;
 
   /// The principal identity returned by the Authorizer
   String? get principalId;
@@ -229,6 +234,18 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
       :policy,
       :principalId
     ) = object;
+    result$.addAll([
+      'clientStatus',
+      serializers.serialize(
+        clientStatus,
+        specifiedType: const FullType(int),
+      ),
+      'latency',
+      serializers.serialize(
+        latency,
+        specifiedType: const FullType(_i2.Int64),
+      ),
+    ]);
     if (authorization != null) {
       result$
         ..add('authorization')
@@ -255,22 +272,6 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
               FullType(String),
             ],
           ),
-        ));
-    }
-    if (clientStatus != null) {
-      result$
-        ..add('clientStatus')
-        ..add(serializers.serialize(
-          clientStatus,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (latency != null) {
-      result$
-        ..add('latency')
-        ..add(serializers.serialize(
-          latency,
-          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (log != null) {

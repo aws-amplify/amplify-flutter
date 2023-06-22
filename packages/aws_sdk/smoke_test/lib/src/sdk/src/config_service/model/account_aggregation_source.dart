@@ -22,6 +22,7 @@ abstract class AccountAggregationSource
     bool? allAwsRegions,
     List<String>? awsRegions,
   }) {
+    allAwsRegions ??= false;
     return _$AccountAggregationSource._(
       accountIds: _i2.BuiltList(accountIds),
       allAwsRegions: allAwsRegions,
@@ -41,13 +42,15 @@ abstract class AccountAggregationSource
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccountAggregationSourceBuilder b) {}
+  static void _init(AccountAggregationSourceBuilder b) {
+    b.allAwsRegions = false;
+  }
 
   /// The 12-digit account ID of the account being aggregated.
   _i2.BuiltList<String> get accountIds;
 
   /// If true, aggregate existing Config regions and future regions.
-  bool? get allAwsRegions;
+  bool get allAwsRegions;
 
   /// The source regions being aggregated.
   _i2.BuiltList<String>? get awsRegions;
@@ -154,15 +157,12 @@ class AccountAggregationSourceAwsJson11Serializer
           [FullType(String)],
         ),
       ),
+      'AllAwsRegions',
+      serializers.serialize(
+        allAwsRegions,
+        specifiedType: const FullType(bool),
+      ),
     ]);
-    if (allAwsRegions != null) {
-      result$
-        ..add('AllAwsRegions')
-        ..add(serializers.serialize(
-          allAwsRegions,
-          specifiedType: const FullType(bool),
-        ));
-    }
     if (awsRegions != null) {
       result$
         ..add('AwsRegions')

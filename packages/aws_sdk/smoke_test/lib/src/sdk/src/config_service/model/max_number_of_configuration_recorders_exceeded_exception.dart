@@ -10,7 +10,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'max_number_of_configuration_recorders_exceeded_exception.g.dart';
 
-/// You have reached the limit of the number of recorders you can create.
+/// You have reached the limit of the number of configuration recorders you can create.
 abstract class MaxNumberOfConfigurationRecordersExceededException
     with
         _i1.AWSEquatable<MaxNumberOfConfigurationRecordersExceededException>
@@ -18,14 +18,14 @@ abstract class MaxNumberOfConfigurationRecordersExceededException
         Built<MaxNumberOfConfigurationRecordersExceededException,
             MaxNumberOfConfigurationRecordersExceededExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// You have reached the limit of the number of recorders you can create.
+  /// You have reached the limit of the number of configuration recorders you can create.
   factory MaxNumberOfConfigurationRecordersExceededException(
       {String? message}) {
     return _$MaxNumberOfConfigurationRecordersExceededException._(
         message: message);
   }
 
-  /// You have reached the limit of the number of recorders you can create.
+  /// You have reached the limit of the number of configuration recorders you can create.
   factory MaxNumberOfConfigurationRecordersExceededException.build(
       [void Function(MaxNumberOfConfigurationRecordersExceededExceptionBuilder)
           updates]) = _$MaxNumberOfConfigurationRecordersExceededException;

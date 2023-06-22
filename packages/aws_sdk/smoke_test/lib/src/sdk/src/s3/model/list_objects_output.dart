@@ -4,43 +4,49 @@
 library smoke_test.s3.model.list_objects_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i7;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/common_prefix.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/object.dart' as _i2;
+import 'package:meta/meta.dart' as _i8;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/common_prefix.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/object.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i6;
 
 part 'list_objects_output.g.dart';
 
 abstract class ListObjectsOutput
     with _i1.AWSEquatable<ListObjectsOutput>
-    implements Built<ListObjectsOutput, ListObjectsOutputBuilder> {
+    implements
+        Built<ListObjectsOutput, ListObjectsOutputBuilder>,
+        _i2.HasPayload<ListObjectsOutputPayload> {
   factory ListObjectsOutput({
     bool? isTruncated,
     String? marker,
     String? nextMarker,
-    List<_i2.S3Object>? contents,
+    List<_i3.S3Object>? contents,
     String? name,
     String? prefix,
     String? delimiter,
     int? maxKeys,
-    List<_i3.CommonPrefix>? commonPrefixes,
-    _i4.EncodingType? encodingType,
+    List<_i4.CommonPrefix>? commonPrefixes,
+    _i5.EncodingType? encodingType,
+    _i6.RequestCharged? requestCharged,
   }) {
     return _$ListObjectsOutput._(
       isTruncated: isTruncated,
       marker: marker,
       nextMarker: nextMarker,
-      contents: contents == null ? null : _i5.BuiltList(contents),
+      contents: contents == null ? null : _i7.BuiltList(contents),
       name: name,
       prefix: prefix,
       delimiter: delimiter,
       maxKeys: maxKeys,
       commonPrefixes:
-          commonPrefixes == null ? null : _i5.BuiltList(commonPrefixes),
+          commonPrefixes == null ? null : _i7.BuiltList(commonPrefixes),
       encodingType: encodingType,
+      requestCharged: requestCharged,
     );
   }
 
@@ -51,12 +57,31 @@ abstract class ListObjectsOutput
 
   /// Constructs a [ListObjectsOutput] from a [payload] and [response].
   factory ListObjectsOutput.fromResponse(
-    ListObjectsOutput payload,
+    ListObjectsOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
-      payload;
+      ListObjectsOutput.build((b) {
+        if (payload.commonPrefixes != null) {
+          b.commonPrefixes.replace(payload.commonPrefixes!);
+        }
+        if (payload.contents != null) {
+          b.contents.replace(payload.contents!);
+        }
+        b.delimiter = payload.delimiter;
+        b.encodingType = payload.encodingType;
+        b.isTruncated = payload.isTruncated;
+        b.marker = payload.marker;
+        b.maxKeys = payload.maxKeys;
+        b.name = payload.name;
+        b.nextMarker = payload.nextMarker;
+        b.prefix = payload.prefix;
+        if (response.headers['x-amz-request-charged'] != null) {
+          b.requestCharged = _i6.RequestCharged.values
+              .byValue(response.headers['x-amz-request-charged']!);
+        }
+      });
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer> serializers = [
     ListObjectsOutputRestXmlSerializer()
   ];
 
@@ -73,7 +98,7 @@ abstract class ListObjectsOutput
   String? get nextMarker;
 
   /// Metadata about each object returned.
-  _i5.BuiltList<_i2.S3Object>? get contents;
+  _i7.BuiltList<_i3.S3Object>? get contents;
 
   /// The bucket name.
   String? get name;
@@ -96,10 +121,30 @@ abstract class ListObjectsOutput
   /// CommonPrefixes lists keys that act like subdirectories in the directory specified by Prefix.
   ///
   /// For example, if the prefix is notes/ and the delimiter is a slash (/) as in notes/summer/july, the common prefix is notes/summer/. All of the keys that roll up into a common prefix count as a single return when calculating the number of returns.
-  _i5.BuiltList<_i3.CommonPrefix>? get commonPrefixes;
+  _i7.BuiltList<_i4.CommonPrefix>? get commonPrefixes;
 
   /// Encoding type used by Amazon S3 to encode object keys in the response.
-  _i4.EncodingType? get encodingType;
+  _i5.EncodingType? get encodingType;
+
+  /// If present, indicates that the requester was successfully charged for the request.
+  _i6.RequestCharged? get requestCharged;
+  @override
+  ListObjectsOutputPayload getPayload() => ListObjectsOutputPayload((b) {
+        if (commonPrefixes != null) {
+          b.commonPrefixes.replace(commonPrefixes!);
+        }
+        if (contents != null) {
+          b.contents.replace(contents!);
+        }
+        b.delimiter = delimiter;
+        b.encodingType = encodingType;
+        b.isTruncated = isTruncated;
+        b.marker = marker;
+        b.maxKeys = maxKeys;
+        b.name = name;
+        b.nextMarker = nextMarker;
+        b.prefix = prefix;
+      });
   @override
   List<Object?> get props => [
         isTruncated,
@@ -112,6 +157,7 @@ abstract class ListObjectsOutput
         maxKeys,
         commonPrefixes,
         encodingType,
+        requestCharged,
       ];
   @override
   String toString() {
@@ -156,33 +202,150 @@ abstract class ListObjectsOutput
       'encodingType',
       encodingType,
     );
+    helper.add(
+      'requestCharged',
+      requestCharged,
+    );
+    return helper.toString();
+  }
+}
+
+@_i8.internal
+abstract class ListObjectsOutputPayload
+    with _i1.AWSEquatable<ListObjectsOutputPayload>
+    implements
+        Built<ListObjectsOutputPayload, ListObjectsOutputPayloadBuilder> {
+  factory ListObjectsOutputPayload(
+          [void Function(ListObjectsOutputPayloadBuilder) updates]) =
+      _$ListObjectsOutputPayload;
+
+  const ListObjectsOutputPayload._();
+
+  @BuiltValueHook(initializeBuilder: true)
+  static void _init(ListObjectsOutputPayloadBuilder b) {}
+
+  /// All of the keys (up to 1,000) rolled up in a common prefix count as a single return when calculating the number of returns.
+  ///
+  /// A response can contain CommonPrefixes only if you specify a delimiter.
+  ///
+  /// CommonPrefixes contains all (if there are any) keys between Prefix and the next occurrence of the string specified by the delimiter.
+  ///
+  /// CommonPrefixes lists keys that act like subdirectories in the directory specified by Prefix.
+  ///
+  /// For example, if the prefix is notes/ and the delimiter is a slash (/) as in notes/summer/july, the common prefix is notes/summer/. All of the keys that roll up into a common prefix count as a single return when calculating the number of returns.
+  _i7.BuiltList<_i4.CommonPrefix>? get commonPrefixes;
+
+  /// Metadata about each object returned.
+  _i7.BuiltList<_i3.S3Object>? get contents;
+
+  /// Causes keys that contain the same string between the prefix and the first occurrence of the delimiter to be rolled up into a single result element in the `CommonPrefixes` collection. These rolled-up keys are not returned elsewhere in the response. Each rolled-up result counts as only one return against the `MaxKeys` value.
+  String? get delimiter;
+
+  /// Encoding type used by Amazon S3 to encode object keys in the response.
+  _i5.EncodingType? get encodingType;
+
+  /// A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria.
+  bool? get isTruncated;
+
+  /// Indicates where in the bucket listing begins. Marker is included in the response if it was sent with the request.
+  String? get marker;
+
+  /// The maximum number of keys returned in the response body.
+  int? get maxKeys;
+
+  /// The bucket name.
+  String? get name;
+
+  /// When response is truncated (the IsTruncated element value in the response is true), you can use the key name in this field as marker in the subsequent request to get next set of objects. Amazon S3 lists objects in alphabetical order Note: This element is returned only if you have delimiter request parameter specified. If response does not include the NextMarker and it is truncated, you can use the value of the last Key in the response as the marker in the subsequent request to get the next set of object keys.
+  String? get nextMarker;
+
+  /// Keys that begin with the indicated prefix.
+  String? get prefix;
+  @override
+  List<Object?> get props => [
+        commonPrefixes,
+        contents,
+        delimiter,
+        encodingType,
+        isTruncated,
+        marker,
+        maxKeys,
+        name,
+        nextMarker,
+        prefix,
+      ];
+  @override
+  String toString() {
+    final helper = newBuiltValueToStringHelper('ListObjectsOutputPayload');
+    helper.add(
+      'commonPrefixes',
+      commonPrefixes,
+    );
+    helper.add(
+      'contents',
+      contents,
+    );
+    helper.add(
+      'delimiter',
+      delimiter,
+    );
+    helper.add(
+      'encodingType',
+      encodingType,
+    );
+    helper.add(
+      'isTruncated',
+      isTruncated,
+    );
+    helper.add(
+      'marker',
+      marker,
+    );
+    helper.add(
+      'maxKeys',
+      maxKeys,
+    );
+    helper.add(
+      'name',
+      name,
+    );
+    helper.add(
+      'nextMarker',
+      nextMarker,
+    );
+    helper.add(
+      'prefix',
+      prefix,
+    );
     return helper.toString();
   }
 }
 
 class ListObjectsOutputRestXmlSerializer
-    extends _i6.StructuredSmithySerializer<ListObjectsOutput> {
+    extends _i2.StructuredSmithySerializer<ListObjectsOutputPayload> {
   const ListObjectsOutputRestXmlSerializer() : super('ListObjectsOutput');
 
   @override
   Iterable<Type> get types => const [
         ListObjectsOutput,
         _$ListObjectsOutput,
+        ListObjectsOutputPayload,
+        _$ListObjectsOutputPayload,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  ListObjectsOutput deserialize(
+  ListObjectsOutputPayload deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = ListObjectsOutputBuilder();
+    final result = ListObjectsOutputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -195,13 +358,13 @@ class ListObjectsOutputRestXmlSerializer
         case 'CommonPrefixes':
           result.commonPrefixes.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.CommonPrefix),
-          ) as _i3.CommonPrefix));
+            specifiedType: const FullType(_i4.CommonPrefix),
+          ) as _i4.CommonPrefix));
         case 'Contents':
           result.contents.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.S3Object),
-          ) as _i2.S3Object));
+            specifiedType: const FullType(_i3.S3Object),
+          ) as _i3.S3Object));
         case 'Delimiter':
           result.delimiter = (serializers.deserialize(
             value,
@@ -210,8 +373,8 @@ class ListObjectsOutputRestXmlSerializer
         case 'EncodingType':
           result.encodingType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.EncodingType),
-          ) as _i4.EncodingType);
+            specifiedType: const FullType(_i5.EncodingType),
+          ) as _i5.EncodingType);
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -251,16 +414,16 @@ class ListObjectsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    ListObjectsOutput object, {
+    ListObjectsOutputPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i6.XmlElementName(
+      const _i2.XmlElementName(
         'ListBucketResult',
-        _i6.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final ListObjectsOutput(
+    final ListObjectsOutputPayload(
       :commonPrefixes,
       :contents,
       :delimiter,
@@ -274,30 +437,30 @@ class ListObjectsOutputRestXmlSerializer
     ) = object;
     if (commonPrefixes != null) {
       result$.addAll(
-          const _i6.XmlBuiltListSerializer(memberName: 'CommonPrefixes')
+          const _i2.XmlBuiltListSerializer(memberName: 'CommonPrefixes')
               .serialize(
         serializers,
         commonPrefixes,
         specifiedType: const FullType.nullable(
-          _i5.BuiltList,
-          [FullType(_i3.CommonPrefix)],
+          _i7.BuiltList,
+          [FullType(_i4.CommonPrefix)],
         ),
       ));
     }
     if (contents != null) {
       result$.addAll(
-          const _i6.XmlBuiltListSerializer(memberName: 'Contents').serialize(
+          const _i2.XmlBuiltListSerializer(memberName: 'Contents').serialize(
         serializers,
         contents,
         specifiedType: const FullType.nullable(
-          _i5.BuiltList,
-          [FullType(_i2.S3Object)],
+          _i7.BuiltList,
+          [FullType(_i3.S3Object)],
         ),
       ));
     }
     if (delimiter != null) {
       result$
-        ..add(const _i6.XmlElementName('Delimiter'))
+        ..add(const _i2.XmlElementName('Delimiter'))
         ..add(serializers.serialize(
           delimiter,
           specifiedType: const FullType(String),
@@ -305,15 +468,15 @@ class ListObjectsOutputRestXmlSerializer
     }
     if (encodingType != null) {
       result$
-        ..add(const _i6.XmlElementName('EncodingType'))
+        ..add(const _i2.XmlElementName('EncodingType'))
         ..add(serializers.serialize(
           encodingType,
-          specifiedType: const FullType.nullable(_i4.EncodingType),
+          specifiedType: const FullType.nullable(_i5.EncodingType),
         ));
     }
     if (isTruncated != null) {
       result$
-        ..add(const _i6.XmlElementName('IsTruncated'))
+        ..add(const _i2.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
           specifiedType: const FullType.nullable(bool),
@@ -321,7 +484,7 @@ class ListObjectsOutputRestXmlSerializer
     }
     if (marker != null) {
       result$
-        ..add(const _i6.XmlElementName('Marker'))
+        ..add(const _i2.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
@@ -329,7 +492,7 @@ class ListObjectsOutputRestXmlSerializer
     }
     if (maxKeys != null) {
       result$
-        ..add(const _i6.XmlElementName('MaxKeys'))
+        ..add(const _i2.XmlElementName('MaxKeys'))
         ..add(serializers.serialize(
           maxKeys,
           specifiedType: const FullType.nullable(int),
@@ -337,7 +500,7 @@ class ListObjectsOutputRestXmlSerializer
     }
     if (name != null) {
       result$
-        ..add(const _i6.XmlElementName('Name'))
+        ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
           specifiedType: const FullType(String),
@@ -345,7 +508,7 @@ class ListObjectsOutputRestXmlSerializer
     }
     if (nextMarker != null) {
       result$
-        ..add(const _i6.XmlElementName('NextMarker'))
+        ..add(const _i2.XmlElementName('NextMarker'))
         ..add(serializers.serialize(
           nextMarker,
           specifiedType: const FullType(String),
@@ -353,7 +516,7 @@ class ListObjectsOutputRestXmlSerializer
     }
     if (prefix != null) {
       result$
-        ..add(const _i6.XmlElementName('Prefix'))
+        ..add(const _i2.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
           specifiedType: const FullType(String),

@@ -48,7 +48,7 @@ abstract class PutConfigurationRecorderRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutConfigurationRecorderRequestBuilder b) {}
 
-  /// The configuration recorder object that records each configuration change made to the resources.
+  /// An object for the configuration recorder to record configuration changes for specified resource types.
   _i3.ConfigurationRecorder get configurationRecorder;
   @override
   PutConfigurationRecorderRequest getPayload() => this;

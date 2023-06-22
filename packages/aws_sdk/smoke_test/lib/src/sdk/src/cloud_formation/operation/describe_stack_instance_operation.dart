@@ -22,17 +22,17 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_not_
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_not_found_exception.dart'
     as _i10;
 
-/// Returns the stack instance that's associated with the specified stack set, Amazon Web Services account, and Region.
+/// Returns the stack instance that's associated with the specified StackSet, Amazon Web Services account, and Amazon Web Services Region.
 ///
-/// For a list of stack instances that are associated with a specific stack set, use ListStackInstances.
+/// For a list of stack instances that are associated with a specific StackSet, use ListStackInstances.
 class DescribeStackInstanceOperation extends _i1.HttpOperation<
     _i2.DescribeStackInstanceInput,
     _i2.DescribeStackInstanceInput,
     _i3.DescribeStackInstanceOutput,
     _i3.DescribeStackInstanceOutput> {
-  /// Returns the stack instance that's associated with the specified stack set, Amazon Web Services account, and Region.
+  /// Returns the stack instance that's associated with the specified StackSet, Amazon Web Services account, and Amazon Web Services Region.
   ///
-  /// For a list of stack instances that are associated with a specific stack set, use ListStackInstances.
+  /// For a list of stack instances that are associated with a specific StackSet, use ListStackInstances.
   DescribeStackInstanceOperation({
     required String region,
     Uri? baseUri,

@@ -70,7 +70,7 @@ abstract class Record
   /// Client applications must not assume that `eventVersion` will remain at a particular value, as this number is subject to change at any time. In general, `eventVersion` will only increase as the low-level DynamoDB Streams API evolves.
   String? get eventVersion;
 
-  /// The AWS service from which the stream record originated. For DynamoDB Streams, this is `aws:dynamodb`.
+  /// The Amazon Web Services service from which the stream record originated. For DynamoDB Streams, this is `aws:dynamodb`.
   String? get eventSource;
 
   /// The region in which the `GetRecords` request was received.

@@ -20,13 +20,13 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/describe_stack_set_
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_not_found_exception.dart'
     as _i9;
 
-/// Returns the description of the specified stack set.
+/// Returns the description of the specified StackSet.
 class DescribeStackSet extends _i1.HttpOperation<
     _i2.DescribeStackSetInput,
     _i2.DescribeStackSetInput,
     _i3.DescribeStackSetOutput,
     _i3.DescribeStackSetOutput> {
-  /// Returns the description of the specified stack set.
+  /// Returns the description of the specified StackSet.
   DescribeStackSet({
     required String region,
     Uri? baseUri,

@@ -8,13 +8,17 @@ part of 'organizations_decision_detail.dart';
 
 class _$OrganizationsDecisionDetail extends OrganizationsDecisionDetail {
   @override
-  final bool? allowedByOrganizations;
+  final bool allowedByOrganizations;
 
   factory _$OrganizationsDecisionDetail(
           [void Function(OrganizationsDecisionDetailBuilder)? updates]) =>
       (new OrganizationsDecisionDetailBuilder()..update(updates))._build();
 
-  _$OrganizationsDecisionDetail._({this.allowedByOrganizations}) : super._();
+  _$OrganizationsDecisionDetail._({required this.allowedByOrganizations})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(allowedByOrganizations,
+        r'OrganizationsDecisionDetail', 'allowedByOrganizations');
+  }
 
   @override
   OrganizationsDecisionDetail rebuild(
@@ -82,7 +86,10 @@ class OrganizationsDecisionDetailBuilder
   _$OrganizationsDecisionDetail _build() {
     final _$result = _$v ??
         new _$OrganizationsDecisionDetail._(
-            allowedByOrganizations: allowedByOrganizations);
+            allowedByOrganizations: BuiltValueNullFieldError.checkNotNull(
+                allowedByOrganizations,
+                r'OrganizationsDecisionDetail',
+                'allowedByOrganizations'));
     replace(_$result);
     return _$result;
   }

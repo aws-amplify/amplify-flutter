@@ -121,7 +121,8 @@ export 'package:smoke_test/src/sdk/src/s3/model/expression_type.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/file_header_info.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/filter_rule.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/filter_rule_name.dart';
-export 'package:smoke_test/src/sdk/src/s3/model/get_bucket_accelerate_configuration_output.dart';
+export 'package:smoke_test/src/sdk/src/s3/model/get_bucket_accelerate_configuration_output.dart'
+    hide GetBucketAccelerateConfigurationOutputPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/get_bucket_accelerate_configuration_request.dart'
     hide GetBucketAccelerateConfigurationRequestPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/get_bucket_acl_output.dart';
@@ -260,16 +261,20 @@ export 'package:smoke_test/src/sdk/src/s3/model/list_bucket_metrics_configuratio
 export 'package:smoke_test/src/sdk/src/s3/model/list_bucket_metrics_configurations_request.dart'
     hide ListBucketMetricsConfigurationsRequestPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/list_buckets_output.dart';
-export 'package:smoke_test/src/sdk/src/s3/model/list_multipart_uploads_output.dart';
+export 'package:smoke_test/src/sdk/src/s3/model/list_multipart_uploads_output.dart'
+    hide ListMultipartUploadsOutputPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/list_multipart_uploads_request.dart'
     hide ListMultipartUploadsRequestPayload;
-export 'package:smoke_test/src/sdk/src/s3/model/list_object_versions_output.dart';
+export 'package:smoke_test/src/sdk/src/s3/model/list_object_versions_output.dart'
+    hide ListObjectVersionsOutputPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/list_object_versions_request.dart'
     hide ListObjectVersionsRequestPayload;
-export 'package:smoke_test/src/sdk/src/s3/model/list_objects_output.dart';
+export 'package:smoke_test/src/sdk/src/s3/model/list_objects_output.dart'
+    hide ListObjectsOutputPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/list_objects_request.dart'
     hide ListObjectsRequestPayload;
-export 'package:smoke_test/src/sdk/src/s3/model/list_objects_v2_output.dart';
+export 'package:smoke_test/src/sdk/src/s3/model/list_objects_v2_output.dart'
+    hide ListObjectsV2OutputPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/list_objects_v2_request.dart'
     hide ListObjectsV2RequestPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/list_parts_output.dart'

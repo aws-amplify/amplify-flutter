@@ -10,7 +10,7 @@ class _$ListSamlProviderTagsResponse extends ListSamlProviderTagsResponse {
   @override
   final _i3.BuiltList<_i2.Tag> tags;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -19,10 +19,12 @@ class _$ListSamlProviderTagsResponse extends ListSamlProviderTagsResponse {
       (new ListSamlProviderTagsResponseBuilder()..update(updates))._build();
 
   _$ListSamlProviderTagsResponse._(
-      {required this.tags, this.isTruncated, this.marker})
+      {required this.tags, required this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         tags, r'ListSamlProviderTagsResponse', 'tags');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListSamlProviderTagsResponse', 'isTruncated');
   }
 
   @override
@@ -107,7 +109,10 @@ class ListSamlProviderTagsResponseBuilder
     try {
       _$result = _$v ??
           new _$ListSamlProviderTagsResponse._(
-              tags: tags.build(), isTruncated: isTruncated, marker: marker);
+              tags: tags.build(),
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListSamlProviderTagsResponse', 'isTruncated'),
+              marker: marker);
     } catch (_) {
       late String _$failedField;
       try {

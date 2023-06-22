@@ -19,6 +19,8 @@ abstract class ThrottleSettings
     int? burstLimit,
     double? rateLimit,
   }) {
+    burstLimit ??= 0;
+    rateLimit ??= 0;
     return _$ThrottleSettings._(
       burstLimit: burstLimit,
       rateLimit: rateLimit,
@@ -36,13 +38,16 @@ abstract class ThrottleSettings
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ThrottleSettingsBuilder b) {}
+  static void _init(ThrottleSettingsBuilder b) {
+    b.burstLimit = 0;
+    b.rateLimit = 0;
+  }
 
   /// The API target request burst rate limit. This allows more requests through for a period of time than the target rate limit.
-  int? get burstLimit;
+  int get burstLimit;
 
   /// The API target request rate limit.
-  double? get rateLimit;
+  double get rateLimit;
   @override
   List<Object?> get props => [
         burstLimit,
@@ -119,22 +124,18 @@ class ThrottleSettingsRestJson1Serializer
   }) {
     final result$ = <Object?>[];
     final ThrottleSettings(:burstLimit, :rateLimit) = object;
-    if (burstLimit != null) {
-      result$
-        ..add('burstLimit')
-        ..add(serializers.serialize(
-          burstLimit,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (rateLimit != null) {
-      result$
-        ..add('rateLimit')
-        ..add(serializers.serialize(
-          rateLimit,
-          specifiedType: const FullType(double),
-        ));
-    }
+    result$.addAll([
+      'burstLimit',
+      serializers.serialize(
+        burstLimit,
+        specifiedType: const FullType(int),
+      ),
+      'rateLimit',
+      serializers.serialize(
+        rateLimit,
+        specifiedType: const FullType(double),
+      ),
+    ]);
     return result$;
   }
 }

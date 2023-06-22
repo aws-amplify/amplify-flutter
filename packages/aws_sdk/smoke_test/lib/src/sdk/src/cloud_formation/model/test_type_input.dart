@@ -69,7 +69,7 @@ abstract class TestTypeInput
   ///
   /// You can specify the version id with either `Arn`, or with `TypeName` and `Type`.
   ///
-  /// If you don't specify a version, CloudFormation uses the default version of the extension in this account and region for testing.
+  /// If you don't specify a version, CloudFormation uses the default version of the extension in this account and Region for testing.
   String? get versionId;
 
   /// The S3 bucket to which CloudFormation delivers the contract test execution logs.

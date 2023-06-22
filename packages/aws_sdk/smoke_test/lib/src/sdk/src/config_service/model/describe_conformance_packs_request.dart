@@ -23,6 +23,7 @@ abstract class DescribeConformancePacksRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$DescribeConformancePacksRequest._(
       conformancePackNames: conformancePackNames == null
           ? null
@@ -50,13 +51,15 @@ abstract class DescribeConformancePacksRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConformancePacksRequestBuilder b) {}
+  static void _init(DescribeConformancePacksRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// Comma-separated list of conformance pack names for which you want details. If you do not specify any names, Config returns details for all your conformance packs.
   _i3.BuiltList<String>? get conformancePackNames;
 
   /// The maximum number of conformance packs returned on each page.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -157,6 +160,13 @@ class DescribeConformancePacksRequestAwsJson11Serializer
       :limit,
       :nextToken
     ) = object;
+    result$.addAll([
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (conformancePackNames != null) {
       result$
         ..add('ConformancePackNames')
@@ -166,14 +176,6 @@ class DescribeConformancePacksRequestAwsJson11Serializer
             _i3.BuiltList,
             [FullType(String)],
           ),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

@@ -21,6 +21,7 @@ abstract class CreateLoginProfileRequest
     required String password,
     bool? passwordResetRequired,
   }) {
+    passwordResetRequired ??= false;
     return _$CreateLoginProfileRequest._(
       userName: userName,
       password: password,
@@ -46,7 +47,9 @@ abstract class CreateLoginProfileRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateLoginProfileRequestBuilder b) {}
+  static void _init(CreateLoginProfileRequestBuilder b) {
+    b.passwordResetRequired = false;
+  }
 
   /// The name of the IAM user to create a password for. The user must already exist.
   ///
@@ -59,7 +62,7 @@ abstract class CreateLoginProfileRequest
   String get password;
 
   /// Specifies whether the user is required to set a new password on next sign-in.
-  bool? get passwordResetRequired;
+  bool get passwordResetRequired;
   @override
   CreateLoginProfileRequest getPayload() => this;
   @override
@@ -170,14 +173,12 @@ class CreateLoginProfileRequestAwsQuerySerializer
         password,
         specifiedType: const FullType(String),
       ));
-    if (passwordResetRequired != null) {
-      result$
-        ..add(const _i1.XmlElementName('PasswordResetRequired'))
-        ..add(serializers.serialize(
-          passwordResetRequired,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i1.XmlElementName('PasswordResetRequired'))
+      ..add(serializers.serialize(
+        passwordResetRequired,
+        specifiedType: const FullType(bool),
+      ));
     return result$;
   }
 }

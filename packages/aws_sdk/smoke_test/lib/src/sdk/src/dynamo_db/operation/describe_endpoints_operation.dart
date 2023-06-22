@@ -18,13 +18,13 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_endpoints_reques
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_endpoints_response.dart'
     as _i3;
 
-/// Returns the regional endpoint information.
+/// Returns the regional endpoint information. For more information on policy permissions, please see [Internetwork traffic privacy](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/inter-network-traffic-privacy.html#inter-network-traffic-DescribeEndpoints).
 class DescribeEndpointsOperation extends _i1.HttpOperation<
     _i2.DescribeEndpointsRequest,
     _i2.DescribeEndpointsRequest,
     _i3.DescribeEndpointsResponse,
     _i3.DescribeEndpointsResponse> {
-  /// Returns the regional endpoint information.
+  /// Returns the regional endpoint information. For more information on policy permissions, please see [Internetwork traffic privacy](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/inter-network-traffic-privacy.html#inter-network-traffic-DescribeEndpoints).
   DescribeEndpointsOperation({
     required String region,
     Uri? baseUri,

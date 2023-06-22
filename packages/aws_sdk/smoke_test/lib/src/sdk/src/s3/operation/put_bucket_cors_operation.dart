@@ -34,7 +34,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_cors_request.dart'
 ///
 /// For more information about CORS, go to [Enabling Cross-Origin Resource Sharing](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html) in the _Amazon S3 User Guide_.
 ///
-/// **Related Resources**
+/// The following operations are related to `PutBucketCors`:
 ///
 /// *   [GetBucketCors](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketCors.html)
 ///
@@ -62,7 +62,7 @@ class PutBucketCorsOperation extends _i1.HttpOperation<_i2.CorsConfiguration,
   ///
   /// For more information about CORS, go to [Enabling Cross-Origin Resource Sharing](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html) in the _Amazon S3 User Guide_.
   ///
-  /// **Related Resources**
+  /// The following operations are related to `PutBucketCors`:
   ///
   /// *   [GetBucketCors](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketCors.html)
   ///

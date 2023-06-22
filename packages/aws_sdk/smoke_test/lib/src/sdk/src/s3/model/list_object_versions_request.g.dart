@@ -23,6 +23,8 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
   final String? versionIdMarker;
   @override
   final String? expectedBucketOwner;
+  @override
+  final _i4.RequestPayer? requestPayer;
 
   factory _$ListObjectVersionsRequest(
           [void Function(ListObjectVersionsRequestBuilder)? updates]) =>
@@ -36,7 +38,8 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
       this.maxKeys,
       this.prefix,
       this.versionIdMarker,
-      this.expectedBucketOwner})
+      this.expectedBucketOwner,
+      this.requestPayer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'ListObjectVersionsRequest', 'bucket');
@@ -62,7 +65,8 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
         maxKeys == other.maxKeys &&
         prefix == other.prefix &&
         versionIdMarker == other.versionIdMarker &&
-        expectedBucketOwner == other.expectedBucketOwner;
+        expectedBucketOwner == other.expectedBucketOwner &&
+        requestPayer == other.requestPayer;
   }
 
   @override
@@ -76,6 +80,7 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
     _$hash = $jc(_$hash, prefix.hashCode);
     _$hash = $jc(_$hash, versionIdMarker.hashCode);
     _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -121,6 +126,11 @@ class ListObjectVersionsRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
+  _i4.RequestPayer? _requestPayer;
+  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(_i4.RequestPayer? requestPayer) =>
+      _$this._requestPayer = requestPayer;
+
   ListObjectVersionsRequestBuilder() {
     ListObjectVersionsRequest._init(this);
   }
@@ -136,6 +146,7 @@ class ListObjectVersionsRequestBuilder
       _prefix = $v.prefix;
       _versionIdMarker = $v.versionIdMarker;
       _expectedBucketOwner = $v.expectedBucketOwner;
+      _requestPayer = $v.requestPayer;
       _$v = null;
     }
     return this;
@@ -166,7 +177,8 @@ class ListObjectVersionsRequestBuilder
             maxKeys: maxKeys,
             prefix: prefix,
             versionIdMarker: versionIdMarker,
-            expectedBucketOwner: expectedBucketOwner);
+            expectedBucketOwner: expectedBucketOwner,
+            requestPayer: requestPayer);
     replace(_$result);
     return _$result;
   }

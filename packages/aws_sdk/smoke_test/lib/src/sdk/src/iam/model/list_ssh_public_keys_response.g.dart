@@ -10,7 +10,7 @@ class _$ListSshPublicKeysResponse extends ListSshPublicKeysResponse {
   @override
   final _i3.BuiltList<_i2.SshPublicKeyMetadata>? sshPublicKeys;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -19,8 +19,11 @@ class _$ListSshPublicKeysResponse extends ListSshPublicKeysResponse {
       (new ListSshPublicKeysResponseBuilder()..update(updates))._build();
 
   _$ListSshPublicKeysResponse._(
-      {this.sshPublicKeys, this.isTruncated, this.marker})
-      : super._();
+      {this.sshPublicKeys, required this.isTruncated, this.marker})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListSshPublicKeysResponse', 'isTruncated');
+  }
 
   @override
   ListSshPublicKeysResponse rebuild(
@@ -105,7 +108,8 @@ class ListSshPublicKeysResponseBuilder
       _$result = _$v ??
           new _$ListSshPublicKeysResponse._(
               sshPublicKeys: _sshPublicKeys?.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListSshPublicKeysResponse', 'isTruncated'),
               marker: marker);
     } catch (_) {
       late String _$failedField;

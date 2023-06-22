@@ -21,7 +21,7 @@ part 'organization_access_denied_exception.g.dart';
 /// *   You are not a registered delegated administrator for Config with permissions to call `ListDelegatedAdministrators` API. Ensure that the management account registers delagated administrator for Config service principle name before the delegated administrator creates an aggregator.
 ///
 ///
-/// For all `OrganizationConfigRule` and `OrganizationConformancePack` APIs, Config throws an exception if APIs are called from member accounts. All APIs must be called from organization master account.
+/// For all `OrganizationConfigRule` and `OrganizationConformancePack` APIs, Config throws an exception if APIs are called from member accounts. All APIs must be called from organization management account.
 abstract class OrganizationAccessDeniedException
     with
         _i1.AWSEquatable<OrganizationAccessDeniedException>
@@ -40,7 +40,7 @@ abstract class OrganizationAccessDeniedException
   /// *   You are not a registered delegated administrator for Config with permissions to call `ListDelegatedAdministrators` API. Ensure that the management account registers delagated administrator for Config service principle name before the delegated administrator creates an aggregator.
   ///
   ///
-  /// For all `OrganizationConfigRule` and `OrganizationConformancePack` APIs, Config throws an exception if APIs are called from member accounts. All APIs must be called from organization master account.
+  /// For all `OrganizationConfigRule` and `OrganizationConformancePack` APIs, Config throws an exception if APIs are called from member accounts. All APIs must be called from organization management account.
   factory OrganizationAccessDeniedException({String? message}) {
     return _$OrganizationAccessDeniedException._(message: message);
   }
@@ -56,7 +56,7 @@ abstract class OrganizationAccessDeniedException
   /// *   You are not a registered delegated administrator for Config with permissions to call `ListDelegatedAdministrators` API. Ensure that the management account registers delagated administrator for Config service principle name before the delegated administrator creates an aggregator.
   ///
   ///
-  /// For all `OrganizationConfigRule` and `OrganizationConformancePack` APIs, Config throws an exception if APIs are called from member accounts. All APIs must be called from organization master account.
+  /// For all `OrganizationConfigRule` and `OrganizationConformancePack` APIs, Config throws an exception if APIs are called from member accounts. All APIs must be called from organization management account.
   factory OrganizationAccessDeniedException.build(
           [void Function(OrganizationAccessDeniedExceptionBuilder) updates]) =
       _$OrganizationAccessDeniedException;

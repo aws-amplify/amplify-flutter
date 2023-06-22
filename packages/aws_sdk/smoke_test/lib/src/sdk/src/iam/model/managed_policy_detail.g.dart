@@ -22,7 +22,7 @@ class _$ManagedPolicyDetail extends ManagedPolicyDetail {
   @override
   final int? permissionsBoundaryUsageCount;
   @override
-  final bool? isAttachable;
+  final bool isAttachable;
   @override
   final String? description;
   @override
@@ -44,12 +44,15 @@ class _$ManagedPolicyDetail extends ManagedPolicyDetail {
       this.defaultVersionId,
       this.attachmentCount,
       this.permissionsBoundaryUsageCount,
-      this.isAttachable,
+      required this.isAttachable,
       this.description,
       this.createDate,
       this.updateDate,
       this.policyVersionList})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isAttachable, r'ManagedPolicyDetail', 'isAttachable');
+  }
 
   @override
   ManagedPolicyDetail rebuild(
@@ -207,7 +210,8 @@ class ManagedPolicyDetailBuilder
               defaultVersionId: defaultVersionId,
               attachmentCount: attachmentCount,
               permissionsBoundaryUsageCount: permissionsBoundaryUsageCount,
-              isAttachable: isAttachable,
+              isAttachable: BuiltValueNullFieldError.checkNotNull(
+                  isAttachable, r'ManagedPolicyDetail', 'isAttachable'),
               description: description,
               createDate: createDate,
               updateDate: updateDate,

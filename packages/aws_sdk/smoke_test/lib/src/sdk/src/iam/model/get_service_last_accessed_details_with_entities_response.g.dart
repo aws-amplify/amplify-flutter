@@ -17,7 +17,7 @@ class _$GetServiceLastAccessedDetailsWithEntitiesResponse
   @override
   final _i5.BuiltList<_i3.EntityDetails> entityDetailsList;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
   @override
@@ -36,7 +36,7 @@ class _$GetServiceLastAccessedDetailsWithEntitiesResponse
       required this.jobCreationDate,
       required this.jobCompletionDate,
       required this.entityDetailsList,
-      this.isTruncated,
+      required this.isTruncated,
       this.marker,
       this.error})
       : super._() {
@@ -54,6 +54,8 @@ class _$GetServiceLastAccessedDetailsWithEntitiesResponse
         entityDetailsList,
         r'GetServiceLastAccessedDetailsWithEntitiesResponse',
         'entityDetailsList');
+    BuiltValueNullFieldError.checkNotNull(isTruncated,
+        r'GetServiceLastAccessedDetailsWithEntitiesResponse', 'isTruncated');
   }
 
   @override
@@ -189,7 +191,10 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseBuilder
                   r'GetServiceLastAccessedDetailsWithEntitiesResponse',
                   'jobCompletionDate'),
               entityDetailsList: entityDetailsList.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated,
+                  r'GetServiceLastAccessedDetailsWithEntitiesResponse',
+                  'isTruncated'),
               marker: marker,
               error: _error?.build());
     } catch (_) {

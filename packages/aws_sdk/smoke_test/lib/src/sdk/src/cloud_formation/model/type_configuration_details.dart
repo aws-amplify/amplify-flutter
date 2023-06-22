@@ -10,14 +10,14 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'type_configuration_details.g.dart';
 
-/// Detailed information concerning the specification of a CloudFormation extension in a given account and region.
+/// Detailed information concerning the specification of a CloudFormation extension in a given account and Region.
 ///
 /// For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
 abstract class TypeConfigurationDetails
     with _i1.AWSEquatable<TypeConfigurationDetails>
     implements
         Built<TypeConfigurationDetails, TypeConfigurationDetailsBuilder> {
-  /// Detailed information concerning the specification of a CloudFormation extension in a given account and region.
+  /// Detailed information concerning the specification of a CloudFormation extension in a given account and Region.
   ///
   /// For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
   factory TypeConfigurationDetails({
@@ -40,7 +40,7 @@ abstract class TypeConfigurationDetails
     );
   }
 
-  /// Detailed information concerning the specification of a CloudFormation extension in a given account and region.
+  /// Detailed information concerning the specification of a CloudFormation extension in a given account and Region.
   ///
   /// For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
   factory TypeConfigurationDetails.build(
@@ -56,13 +56,13 @@ abstract class TypeConfigurationDetails
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TypeConfigurationDetailsBuilder b) {}
 
-  /// The Amazon Resource Name (ARN) for the configuration data, in this account and region.
+  /// The Amazon Resource Name (ARN) for the configuration data, in this account and Region.
   String? get arn;
 
   /// The alias specified for this configuration, if one was specified when the configuration was set.
   String? get alias;
 
-  /// A JSON string specifying the configuration data for the extension, in this account and region.
+  /// A JSON string specifying the configuration data for the extension, in this account and Region.
   ///
   /// If a configuration hasn't been set for a specified extension, CloudFormation returns `{}`.
   String? get configuration;
@@ -72,9 +72,9 @@ abstract class TypeConfigurationDetails
   /// If a configuration hasn't been set for a specified extension, CloudFormation returns `null`.
   DateTime? get lastUpdated;
 
-  /// The Amazon Resource Name (ARN) for the extension, in this account and region.
+  /// The Amazon Resource Name (ARN) for the extension, in this account and Region.
   ///
-  /// For public extensions, this will be the ARN assigned when you [activate the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html) in this account and region. For private extensions, this will be the ARN assigned when you [register the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html) in this account and region.
+  /// For public extensions, this will be the ARN assigned when you [activate the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html) in this account and Region. For private extensions, this will be the ARN assigned when you [register the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html) in this account and Region.
   String? get typeArn;
 
   /// The name of the extension.

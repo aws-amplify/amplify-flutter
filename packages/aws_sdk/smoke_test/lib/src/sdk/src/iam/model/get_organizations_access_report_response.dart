@@ -31,6 +31,7 @@ abstract class GetOrganizationsAccessReportResponse
     String? marker,
     _i4.ErrorDetails? errorDetails,
   }) {
+    isTruncated ??= false;
     return _$GetOrganizationsAccessReportResponse._(
       jobStatus: jobStatus,
       jobCreationDate: jobCreationDate,
@@ -63,7 +64,9 @@ abstract class GetOrganizationsAccessReportResponse
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetOrganizationsAccessReportResponseBuilder b) {}
+  static void _init(GetOrganizationsAccessReportResponseBuilder b) {
+    b.isTruncated = false;
+  }
 
   /// The status of the job.
   _i2.JobStatusType get jobStatus;
@@ -86,7 +89,7 @@ abstract class GetOrganizationsAccessReportResponse
   _i5.BuiltList<_i3.AccessDetail>? get accessDetails;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a subsequent pagination request.
   String? get marker;
@@ -314,14 +317,12 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
           ),
         ));
     }
-    if (isTruncated != null) {
-      result$
-        ..add(const _i6.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i6.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (marker != null) {
       result$
         ..add(const _i6.XmlElementName('Marker'))

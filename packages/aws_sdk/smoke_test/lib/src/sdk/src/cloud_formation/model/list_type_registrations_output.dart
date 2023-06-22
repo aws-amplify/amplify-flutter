@@ -49,7 +49,7 @@ abstract class ListTypeRegistrationsOutput
 
   /// A list of extension registration tokens.
   ///
-  /// Use `DescribeTypeRegistration` to return detailed information about a type registration request.
+  /// Use DescribeTypeRegistration to return detailed information about a type registration request.
   _i2.BuiltList<String>? get registrationTokenList;
 
   /// If the request doesn't return all the remaining results, `NextToken` is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's `NextToken` parameter. If the request returns all results, `NextToken` is set to `null`.

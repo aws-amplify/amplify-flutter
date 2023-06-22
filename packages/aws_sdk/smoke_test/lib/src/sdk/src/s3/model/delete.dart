@@ -39,7 +39,7 @@ abstract class Delete
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteBuilder b) {}
 
-  /// The objects to delete.
+  /// The object to delete.
   _i3.BuiltList<_i2.ObjectIdentifier> get objects;
 
   /// Element to enable quiet mode for the request. When you add this element, you must set its value to true.

@@ -22,7 +22,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/delete_object_tagging_request.da
 ///
 /// To delete tags of a specific object version, add the `versionId` query parameter in the request. You will need permission for the `s3:DeleteObjectVersionTagging` action.
 ///
-/// The following operations are related to `DeleteBucketMetricsConfiguration`:
+/// The following operations are related to `DeleteObjectTagging`:
 ///
 /// *   [PutObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html)
 ///
@@ -38,7 +38,7 @@ class DeleteObjectTaggingOperation extends _i1.HttpOperation<
   ///
   /// To delete tags of a specific object version, add the `versionId` query parameter in the request. You will need permission for the `s3:DeleteObjectVersionTagging` action.
   ///
-  /// The following operations are related to `DeleteBucketMetricsConfiguration`:
+  /// The following operations are related to `DeleteObjectTagging`:
   ///
   /// *   [PutObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html)
   ///

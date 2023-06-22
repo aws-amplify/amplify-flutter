@@ -10,7 +10,19 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'invalid_recording_group_exception.g.dart';
 
-/// Config throws an exception if the recording group does not contain a valid list of resource types. Invalid values might also be incorrectly formatted.
+/// Indicates one of the following errors:
+///
+/// *   You have provided a combination of parameter values that is not valid. For example:
+///
+///     *   Setting the `allSupported` field of [RecordingGroup](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingGroup.html) to `true`, but providing a non-empty list for the `resourceTypes`field of [RecordingGroup](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingGroup.html).
+///
+///     *   Setting the `allSupported` field of [RecordingGroup](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingGroup.html) to `true`, but also setting the `useOnly` field of [RecordingStrategy](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingStrategy.html) to `EXCLUSION\_BY\_RESOURCE_TYPES`.
+///
+/// *   Every parameter is either null, false, or empty.
+///
+/// *   You have reached the limit of the number of resource types you can provide for the recording group.
+///
+/// *   You have provided resource types or a recording strategy that are not valid.
 abstract class InvalidRecordingGroupException
     with
         _i1.AWSEquatable<InvalidRecordingGroupException>
@@ -18,12 +30,36 @@ abstract class InvalidRecordingGroupException
         Built<InvalidRecordingGroupException,
             InvalidRecordingGroupExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// Config throws an exception if the recording group does not contain a valid list of resource types. Invalid values might also be incorrectly formatted.
+  /// Indicates one of the following errors:
+  ///
+  /// *   You have provided a combination of parameter values that is not valid. For example:
+  ///
+  ///     *   Setting the `allSupported` field of [RecordingGroup](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingGroup.html) to `true`, but providing a non-empty list for the `resourceTypes`field of [RecordingGroup](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingGroup.html).
+  ///
+  ///     *   Setting the `allSupported` field of [RecordingGroup](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingGroup.html) to `true`, but also setting the `useOnly` field of [RecordingStrategy](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingStrategy.html) to `EXCLUSION\_BY\_RESOURCE_TYPES`.
+  ///
+  /// *   Every parameter is either null, false, or empty.
+  ///
+  /// *   You have reached the limit of the number of resource types you can provide for the recording group.
+  ///
+  /// *   You have provided resource types or a recording strategy that are not valid.
   factory InvalidRecordingGroupException({String? message}) {
     return _$InvalidRecordingGroupException._(message: message);
   }
 
-  /// Config throws an exception if the recording group does not contain a valid list of resource types. Invalid values might also be incorrectly formatted.
+  /// Indicates one of the following errors:
+  ///
+  /// *   You have provided a combination of parameter values that is not valid. For example:
+  ///
+  ///     *   Setting the `allSupported` field of [RecordingGroup](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingGroup.html) to `true`, but providing a non-empty list for the `resourceTypes`field of [RecordingGroup](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingGroup.html).
+  ///
+  ///     *   Setting the `allSupported` field of [RecordingGroup](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingGroup.html) to `true`, but also setting the `useOnly` field of [RecordingStrategy](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingStrategy.html) to `EXCLUSION\_BY\_RESOURCE_TYPES`.
+  ///
+  /// *   Every parameter is either null, false, or empty.
+  ///
+  /// *   You have reached the limit of the number of resource types you can provide for the recording group.
+  ///
+  /// *   You have provided resource types or a recording strategy that are not valid.
   factory InvalidRecordingGroupException.build(
           [void Function(InvalidRecordingGroupExceptionBuilder) updates]) =
       _$InvalidRecordingGroupException;

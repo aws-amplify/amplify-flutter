@@ -34,6 +34,7 @@ abstract class PutMethodRequest
     String? requestValidatorId,
     List<String>? authorizationScopes,
   }) {
+    apiKeyRequired ??= false;
     return _$PutMethodRequest._(
       restApiId: restApiId,
       resourceId: resourceId,
@@ -94,7 +95,9 @@ abstract class PutMethodRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutMethodRequestBuilder b) {}
+  static void _init(PutMethodRequestBuilder b) {
+    b.apiKeyRequired = false;
+  }
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -112,7 +115,7 @@ abstract class PutMethodRequest
   String? get authorizerId;
 
   /// Specifies whether the method required a valid ApiKey.
-  bool? get apiKeyRequired;
+  bool get apiKeyRequired;
 
   /// A human-friendly operation identifier for the method. For example, you can assign the `operationName` of `ListPets` for the `GET /pets` method in the `PetStore` example.
   String? get operationName;
@@ -237,10 +240,12 @@ abstract class PutMethodRequestPayload
   const PutMethodRequestPayload._();
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutMethodRequestPayloadBuilder b) {}
+  static void _init(PutMethodRequestPayloadBuilder b) {
+    b.apiKeyRequired = false;
+  }
 
   /// Specifies whether the method required a valid ApiKey.
-  bool? get apiKeyRequired;
+  bool get apiKeyRequired;
 
   /// A list of authorization scopes configured on the method. The scopes are used with a `COGNITO\_USER\_POOLS` authorizer to authorize the method invocation. The authorization works by matching the method scopes against the scopes parsed from the access token in the incoming request. The method invocation is authorized if any method scopes matches a claimed scope in the access token. Otherwise, the invocation is not authorized. When the method scope is configured, the client must provide an access token instead of an identity token for authorization purposes.
   _i3.BuiltList<String>? get authorizationScopes;
@@ -425,20 +430,17 @@ class PutMethodRequestRestJson1Serializer
       :requestValidatorId
     ) = object;
     result$.addAll([
+      'apiKeyRequired',
+      serializers.serialize(
+        apiKeyRequired,
+        specifiedType: const FullType(bool),
+      ),
       'authorizationType',
       serializers.serialize(
         authorizationType,
         specifiedType: const FullType(String),
       ),
     ]);
-    if (apiKeyRequired != null) {
-      result$
-        ..add('apiKeyRequired')
-        ..add(serializers.serialize(
-          apiKeyRequired,
-          specifiedType: const FullType(bool),
-        ));
-    }
     if (authorizationScopes != null) {
       result$
         ..add('authorizationScopes')

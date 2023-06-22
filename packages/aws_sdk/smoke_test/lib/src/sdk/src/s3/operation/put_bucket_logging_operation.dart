@@ -22,28 +22,28 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_logging_request.dart'
 ///
 /// If the target bucket for log delivery uses the bucket owner enforced setting for S3 Object Ownership, you can't use the `Grantee` request element to grant access to others. Permissions can only be granted using policies. For more information, see [Permissions for server access log delivery](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html#grant-log-delivery-permissions-general) in the _Amazon S3 User Guide_.
 ///
-/// **Grantee Values**
+/// Grantee Values
 ///
-/// You can specify the person (grantee) to whom you're assigning access rights (using request elements) in the following ways:
+/// You can specify the person (grantee) to whom you're assigning access rights (by using request elements) in the following ways:
 ///
 /// *   By the person's ID:
 ///
 ///     `<>ID<><>GranteesEmail<>`
 ///
-///     DisplayName is optional and ignored in the request.
+///     `DisplayName` is optional and ignored in the request.
 ///
 /// *   By Email address:
 ///
 ///     `<>Grantees@email.com<>`
 ///
-///     The grantee is resolved to the CanonicalUser and, in a response to a GET Object acl request, appears as the CanonicalUser.
+///     The grantee is resolved to the `CanonicalUser` and, in a response to a `GETObjectAcl` request, appears as the CanonicalUser.
 ///
 /// *   By URI:
 ///
 ///     `<>http://acs.amazonaws.com/groups/global/AuthenticatedUsers<>`
 ///
 ///
-/// To enable logging, you use LoggingEnabled and its children request elements. To disable logging, you use an empty BucketLoggingStatus request element:
+/// To enable logging, you use `LoggingEnabled` and its children request elements. To disable logging, you use an empty `BucketLoggingStatus` request element:
 ///
 /// For more information about server access logging, see [Server Access Logging](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html) in the _Amazon S3 User Guide_.
 ///
@@ -66,28 +66,28 @@ class PutBucketLoggingOperation extends _i1.HttpOperation<
   ///
   /// If the target bucket for log delivery uses the bucket owner enforced setting for S3 Object Ownership, you can't use the `Grantee` request element to grant access to others. Permissions can only be granted using policies. For more information, see [Permissions for server access log delivery](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html#grant-log-delivery-permissions-general) in the _Amazon S3 User Guide_.
   ///
-  /// **Grantee Values**
+  /// Grantee Values
   ///
-  /// You can specify the person (grantee) to whom you're assigning access rights (using request elements) in the following ways:
+  /// You can specify the person (grantee) to whom you're assigning access rights (by using request elements) in the following ways:
   ///
   /// *   By the person's ID:
   ///
   ///     `<>ID<><>GranteesEmail<>`
   ///
-  ///     DisplayName is optional and ignored in the request.
+  ///     `DisplayName` is optional and ignored in the request.
   ///
   /// *   By Email address:
   ///
   ///     `<>Grantees@email.com<>`
   ///
-  ///     The grantee is resolved to the CanonicalUser and, in a response to a GET Object acl request, appears as the CanonicalUser.
+  ///     The grantee is resolved to the `CanonicalUser` and, in a response to a `GETObjectAcl` request, appears as the CanonicalUser.
   ///
   /// *   By URI:
   ///
   ///     `<>http://acs.amazonaws.com/groups/global/AuthenticatedUsers<>`
   ///
   ///
-  /// To enable logging, you use LoggingEnabled and its children request elements. To disable logging, you use an empty BucketLoggingStatus request element:
+  /// To enable logging, you use `LoggingEnabled` and its children request elements. To disable logging, you use an empty `BucketLoggingStatus` request element:
   ///
   /// For more information about server access logging, see [Server Access Logging](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html) in the _Amazon S3 User Guide_.
   ///

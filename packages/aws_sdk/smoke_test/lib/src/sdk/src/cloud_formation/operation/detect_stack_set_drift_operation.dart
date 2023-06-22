@@ -26,22 +26,22 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_not_found
 
 /// Detect drift on a stack set. When CloudFormation performs drift detection on a stack set, it performs drift detection on the stack associated with each stack instance in the stack set. For more information, see [How CloudFormation performs drift detection on a stack set](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html).
 ///
-/// `DetectStackSetDrift` returns the `OperationId` of the stack set drift detection operation. Use this operation id with `DescribeStackSetOperation` to monitor the progress of the drift detection operation. The drift detection operation may take some time, depending on the number of stack instances included in the stack set, in addition to the number of resources included in each stack.
+/// `DetectStackSetDrift` returns the `OperationId` of the stack set drift detection operation. Use this operation id with DescribeStackSetOperation to monitor the progress of the drift detection operation. The drift detection operation may take some time, depending on the number of stack instances included in the stack set, in addition to the number of resources included in each stack.
 ///
 /// Once the operation has completed, use the following actions to return drift information:
 ///
-/// *   Use `DescribeStackSet` to return detailed information about the stack set, including detailed information about the last _completed_ drift operation performed on the stack set. (Information about drift operations that are in progress isn't included.)
+/// *   Use DescribeStackSet to return detailed information about the stack set, including detailed information about the last _completed_ drift operation performed on the stack set. (Information about drift operations that are in progress isn't included.)
 ///
-/// *   Use `ListStackInstances` to return a list of stack instances belonging to the stack set, including the drift status and last drift time checked of each instance.
+/// *   Use ListStackInstances to return a list of stack instances belonging to the stack set, including the drift status and last drift time checked of each instance.
 ///
-/// *   Use `DescribeStackInstance` to return detailed information about a specific stack instance, including its drift status and last drift time checked.
+/// *   Use DescribeStackInstance to return detailed information about a specific stack instance, including its drift status and last drift time checked.
 ///
 ///
 /// For more information about performing a drift detection operation on a stack set, see [Detecting unmanaged changes in stack sets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html).
 ///
 /// You can only run a single drift detection operation on a given stack set at one time.
 ///
-/// To stop a drift detection stack set operation, use `StopStackSetOperation` .
+/// To stop a drift detection stack set operation, use StopStackSetOperation.
 class DetectStackSetDriftOperation extends _i1.HttpOperation<
     _i2.DetectStackSetDriftInput,
     _i2.DetectStackSetDriftInput,
@@ -49,22 +49,22 @@ class DetectStackSetDriftOperation extends _i1.HttpOperation<
     _i3.DetectStackSetDriftOutput> {
   /// Detect drift on a stack set. When CloudFormation performs drift detection on a stack set, it performs drift detection on the stack associated with each stack instance in the stack set. For more information, see [How CloudFormation performs drift detection on a stack set](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html).
   ///
-  /// `DetectStackSetDrift` returns the `OperationId` of the stack set drift detection operation. Use this operation id with `DescribeStackSetOperation` to monitor the progress of the drift detection operation. The drift detection operation may take some time, depending on the number of stack instances included in the stack set, in addition to the number of resources included in each stack.
+  /// `DetectStackSetDrift` returns the `OperationId` of the stack set drift detection operation. Use this operation id with DescribeStackSetOperation to monitor the progress of the drift detection operation. The drift detection operation may take some time, depending on the number of stack instances included in the stack set, in addition to the number of resources included in each stack.
   ///
   /// Once the operation has completed, use the following actions to return drift information:
   ///
-  /// *   Use `DescribeStackSet` to return detailed information about the stack set, including detailed information about the last _completed_ drift operation performed on the stack set. (Information about drift operations that are in progress isn't included.)
+  /// *   Use DescribeStackSet to return detailed information about the stack set, including detailed information about the last _completed_ drift operation performed on the stack set. (Information about drift operations that are in progress isn't included.)
   ///
-  /// *   Use `ListStackInstances` to return a list of stack instances belonging to the stack set, including the drift status and last drift time checked of each instance.
+  /// *   Use ListStackInstances to return a list of stack instances belonging to the stack set, including the drift status and last drift time checked of each instance.
   ///
-  /// *   Use `DescribeStackInstance` to return detailed information about a specific stack instance, including its drift status and last drift time checked.
+  /// *   Use DescribeStackInstance to return detailed information about a specific stack instance, including its drift status and last drift time checked.
   ///
   ///
   /// For more information about performing a drift detection operation on a stack set, see [Detecting unmanaged changes in stack sets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html).
   ///
   /// You can only run a single drift detection operation on a given stack set at one time.
   ///
-  /// To stop a drift detection stack set operation, use `StopStackSetOperation` .
+  /// To stop a drift detection stack set operation, use StopStackSetOperation.
   DetectStackSetDriftOperation({
     required String region,
     Uri? baseUri,

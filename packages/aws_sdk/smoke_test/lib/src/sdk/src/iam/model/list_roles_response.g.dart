@@ -10,7 +10,7 @@ class _$ListRolesResponse extends ListRolesResponse {
   @override
   final _i3.BuiltList<_i2.Role> roles;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -18,9 +18,12 @@ class _$ListRolesResponse extends ListRolesResponse {
           [void Function(ListRolesResponseBuilder)? updates]) =>
       (new ListRolesResponseBuilder()..update(updates))._build();
 
-  _$ListRolesResponse._({required this.roles, this.isTruncated, this.marker})
+  _$ListRolesResponse._(
+      {required this.roles, required this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(roles, r'ListRolesResponse', 'roles');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListRolesResponse', 'isTruncated');
   }
 
   @override
@@ -102,7 +105,10 @@ class ListRolesResponseBuilder
     try {
       _$result = _$v ??
           new _$ListRolesResponse._(
-              roles: roles.build(), isTruncated: isTruncated, marker: marker);
+              roles: roles.build(),
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListRolesResponse', 'isTruncated'),
+              marker: marker);
     } catch (_) {
       late String _$failedField;
       try {

@@ -22,6 +22,7 @@ abstract class ResourceCount
     _i2.ResourceType? resourceType,
     _i3.Int64? count,
   }) {
+    count ??= _i3.Int64.ZERO;
     return _$ResourceCount._(
       resourceType: resourceType,
       count: count,
@@ -39,13 +40,15 @@ abstract class ResourceCount
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceCountBuilder b) {}
+  static void _init(ResourceCountBuilder b) {
+    b.count = _i3.Int64.ZERO;
+  }
 
   /// The resource type (for example, `"AWS::EC2::Instance"`).
   _i2.ResourceType? get resourceType;
 
   /// The number of resources.
-  _i3.Int64? get count;
+  _i3.Int64 get count;
   @override
   List<Object?> get props => [
         resourceType,
@@ -122,20 +125,19 @@ class ResourceCountAwsJson11Serializer
   }) {
     final result$ = <Object?>[];
     final ResourceCount(:resourceType, :count) = object;
+    result$.addAll([
+      'count',
+      serializers.serialize(
+        count,
+        specifiedType: const FullType(_i3.Int64),
+      ),
+    ]);
     if (resourceType != null) {
       result$
         ..add('resourceType')
         ..add(serializers.serialize(
           resourceType,
           specifiedType: const FullType(_i2.ResourceType),
-        ));
-    }
-    if (count != null) {
-      result$
-        ..add('count')
-        ..add(serializers.serialize(
-          count,
-          specifiedType: const FullType(_i3.Int64),
         ));
     }
     return result$;

@@ -23,6 +23,7 @@ abstract class SdkConfigurationProperty
     bool? required,
     String? defaultValue,
   }) {
+    required ??= false;
     return _$SdkConfigurationProperty._(
       name: name,
       friendlyName: friendlyName,
@@ -44,7 +45,9 @@ abstract class SdkConfigurationProperty
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(SdkConfigurationPropertyBuilder b) {}
+  static void _init(SdkConfigurationPropertyBuilder b) {
+    b.required = false;
+  }
 
   /// The name of a an SdkType configuration property.
   String? get name;
@@ -56,7 +59,7 @@ abstract class SdkConfigurationProperty
   String? get description;
 
   /// A boolean flag of an SdkType configuration property to indicate if the associated SDK configuration property is required (`true`) or not (`false`).
-  bool? get required;
+  bool get required;
 
   /// The default value of an SdkType configuration property.
   String? get defaultValue;
@@ -173,6 +176,13 @@ class SdkConfigurationPropertyRestJson1Serializer
       :name,
       :required
     ) = object;
+    result$.addAll([
+      'required',
+      serializers.serialize(
+        required,
+        specifiedType: const FullType(bool),
+      ),
+    ]);
     if (defaultValue != null) {
       result$
         ..add('defaultValue')
@@ -203,14 +213,6 @@ class SdkConfigurationPropertyRestJson1Serializer
         ..add(serializers.serialize(
           name,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (required != null) {
-      result$
-        ..add('required')
-        ..add(serializers.serialize(
-          required,
-          specifiedType: const FullType(bool),
         ));
     }
     return result$;

@@ -51,7 +51,7 @@ abstract class Parameter
   /// During a stack update, use the existing parameter value that the stack is using for a given parameter key. If you specify `true`, do not specify a parameter value.
   bool? get usePreviousValue;
 
-  /// Read-only. The value that corresponds to a SSM parameter key. This field is returned only for [`SSM`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types) parameter types in the template.
+  /// Read-only. The value that corresponds to a SSM parameter key. This field is returned only for [SSM](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types) parameter types in the template.
   String? get resolvedValue;
   @override
   List<Object?> get props => [

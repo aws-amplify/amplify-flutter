@@ -37,7 +37,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/no_such_bucket.dart' as _i9;
 class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
     _i2.ListObjectsV2RequestPayload,
     _i2.ListObjectsV2Request,
-    _i3.ListObjectsV2Output,
+    _i3.ListObjectsV2OutputPayload,
     _i3.ListObjectsV2Output,
     String,
     int,
@@ -79,7 +79,7 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
       _i1.HttpProtocol<
           _i2.ListObjectsV2RequestPayload,
           _i2.ListObjectsV2Request,
-          _i3.ListObjectsV2Output,
+          _i3.ListObjectsV2OutputPayload,
           _i3.ListObjectsV2Output>> protocols = [
     _i4.RestXmlProtocol(
       serializers: _i6.serializers,
@@ -185,7 +185,7 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
   int successCode([_i3.ListObjectsV2Output? output]) => 200;
   @override
   _i3.ListObjectsV2Output buildOutput(
-    _i3.ListObjectsV2Output payload,
+    _i3.ListObjectsV2OutputPayload payload,
     _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ListObjectsV2Output.fromResponse(

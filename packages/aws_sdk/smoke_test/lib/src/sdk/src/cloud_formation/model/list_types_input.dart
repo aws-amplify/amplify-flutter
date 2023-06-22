@@ -66,11 +66,11 @@ abstract class ListTypesInput
   ///
   /// Valid values include:
   ///
-  /// *   `PRIVATE`: Extensions that are visible and usable within this account and region. This includes:
+  /// *   `PRIVATE`: Extensions that are visible and usable within this account and Region. This includes:
   ///
-  ///     *   Private extensions you have registered in this account and region.
+  ///     *   Private extensions you have registered in this account and Region.
   ///
-  ///     *   Public extensions that you have activated in this account and region.
+  ///     *   Public extensions that you have activated in this account and Region.
   ///
   /// *   `PUBLIC`: Extensions that are publicly visible and available to be activated within any Amazon Web Services account. This includes extensions from Amazon Web Services, in addition to third-party publishers.
   ///

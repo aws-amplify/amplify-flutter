@@ -23,6 +23,7 @@ abstract class DescribeOrganizationConfigRuleStatusesRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$DescribeOrganizationConfigRuleStatusesRequest._(
       organizationConfigRuleNames: organizationConfigRuleNames == null
           ? null
@@ -50,13 +51,15 @@ abstract class DescribeOrganizationConfigRuleStatusesRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeOrganizationConfigRuleStatusesRequestBuilder b) {}
+  static void _init(DescribeOrganizationConfigRuleStatusesRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The names of organization Config rules for which you want status details. If you do not specify any names, Config returns details for all your organization Config rules.
   _i3.BuiltList<String>? get organizationConfigRuleNames;
 
   /// The maximum number of `OrganizationConfigRuleStatuses` returned on each page. If you do no specify a number, Config uses the default. The default is 100.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -158,6 +161,13 @@ class DescribeOrganizationConfigRuleStatusesRequestAwsJson11Serializer
       :limit,
       :nextToken
     ) = object;
+    result$.addAll([
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (organizationConfigRuleNames != null) {
       result$
         ..add('OrganizationConfigRuleNames')
@@ -167,14 +177,6 @@ class DescribeOrganizationConfigRuleStatusesRequestAwsJson11Serializer
             _i3.BuiltList,
             [FullType(String)],
           ),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

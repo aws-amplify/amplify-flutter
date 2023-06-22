@@ -29,12 +29,12 @@ import 'package:smoke_test/src/sdk/src/iam/model/attach_role_policy_request.dart
 import 'package:smoke_test/src/sdk/src/iam/model/attach_user_policy_request.dart'
     as _i14;
 import 'package:smoke_test/src/sdk/src/iam/model/attached_permissions_boundary.dart'
-    as _i30;
+    as _i31;
 import 'package:smoke_test/src/sdk/src/iam/model/attached_policy.dart' as _i108;
 import 'package:smoke_test/src/sdk/src/iam/model/change_password_request.dart'
     as _i15;
 import 'package:smoke_test/src/sdk/src/iam/model/concurrent_modification_exception.dart'
-    as _i35;
+    as _i24;
 import 'package:smoke_test/src/sdk/src/iam/model/context_entry.dart' as _i278;
 import 'package:smoke_test/src/sdk/src/iam/model/context_key_type_enum.dart'
     as _i277;
@@ -45,13 +45,13 @@ import 'package:smoke_test/src/sdk/src/iam/model/create_access_key_response.dart
 import 'package:smoke_test/src/sdk/src/iam/model/create_account_alias_request.dart'
     as _i23;
 import 'package:smoke_test/src/sdk/src/iam/model/create_group_request.dart'
-    as _i24;
+    as _i25;
 import 'package:smoke_test/src/sdk/src/iam/model/create_group_response.dart'
-    as _i26;
+    as _i27;
 import 'package:smoke_test/src/sdk/src/iam/model/create_instance_profile_request.dart'
-    as _i28;
+    as _i29;
 import 'package:smoke_test/src/sdk/src/iam/model/create_instance_profile_response.dart'
-    as _i34;
+    as _i35;
 import 'package:smoke_test/src/sdk/src/iam/model/create_login_profile_request.dart'
     as _i36;
 import 'package:smoke_test/src/sdk/src/iam/model/create_login_profile_response.dart'
@@ -279,9 +279,9 @@ import 'package:smoke_test/src/sdk/src/iam/model/get_user_response.dart'
     as _i176;
 import 'package:smoke_test/src/sdk/src/iam/model/global_endpoint_token_version.dart'
     as _i275;
-import 'package:smoke_test/src/sdk/src/iam/model/group.dart' as _i25;
+import 'package:smoke_test/src/sdk/src/iam/model/group.dart' as _i26;
 import 'package:smoke_test/src/sdk/src/iam/model/group_detail.dart' as _i110;
-import 'package:smoke_test/src/sdk/src/iam/model/instance_profile.dart' as _i33;
+import 'package:smoke_test/src/sdk/src/iam/model/instance_profile.dart' as _i34;
 import 'package:smoke_test/src/sdk/src/iam/model/invalid_authentication_code_exception.dart'
     as _i93;
 import 'package:smoke_test/src/sdk/src/iam/model/invalid_certificate_exception.dart'
@@ -453,7 +453,7 @@ import 'package:smoke_test/src/sdk/src/iam/model/password_policy.dart' as _i114;
 import 'package:smoke_test/src/sdk/src/iam/model/password_policy_violation_exception.dart'
     as _i18;
 import 'package:smoke_test/src/sdk/src/iam/model/permissions_boundary_attachment_type.dart'
-    as _i29;
+    as _i30;
 import 'package:smoke_test/src/sdk/src/iam/model/permissions_boundary_decision_detail.dart'
     as _i285;
 import 'package:smoke_test/src/sdk/src/iam/model/policy.dart' as _i42;
@@ -510,9 +510,9 @@ import 'package:smoke_test/src/sdk/src/iam/model/resource_specific_result.dart'
     as _i286;
 import 'package:smoke_test/src/sdk/src/iam/model/resync_mfa_device_request.dart'
     as _i273;
-import 'package:smoke_test/src/sdk/src/iam/model/role.dart' as _i32;
+import 'package:smoke_test/src/sdk/src/iam/model/role.dart' as _i33;
 import 'package:smoke_test/src/sdk/src/iam/model/role_detail.dart' as _i111;
-import 'package:smoke_test/src/sdk/src/iam/model/role_last_used.dart' as _i31;
+import 'package:smoke_test/src/sdk/src/iam/model/role_last_used.dart' as _i32;
 import 'package:smoke_test/src/sdk/src/iam/model/role_usage_type.dart' as _i172;
 import 'package:smoke_test/src/sdk/src/iam/model/saml_provider_list_entry.dart'
     as _i239;
@@ -550,7 +550,7 @@ import 'package:smoke_test/src/sdk/src/iam/model/statement.dart' as _i283;
 import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart' as _i20;
 import 'package:smoke_test/src/sdk/src/iam/model/summary_key_type.dart'
     as _i116;
-import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i27;
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i28;
 import 'package:smoke_test/src/sdk/src/iam/model/tag_instance_profile_request.dart'
     as _i291;
 import 'package:smoke_test/src/sdk/src/iam/model/tag_mfa_device_request.dart'
@@ -663,18 +663,18 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i21.AccessKey.serializers,
   ..._i22.CreateAccessKeyResponse.serializers,
   ..._i23.CreateAccountAliasRequest.serializers,
-  ..._i24.CreateGroupRequest.serializers,
-  ..._i25.Group.serializers,
-  ..._i26.CreateGroupResponse.serializers,
-  ..._i27.Tag.serializers,
-  ..._i28.CreateInstanceProfileRequest.serializers,
-  ..._i29.PermissionsBoundaryAttachmentType.serializers,
-  ..._i30.AttachedPermissionsBoundary.serializers,
-  ..._i31.RoleLastUsed.serializers,
-  ..._i32.Role.serializers,
-  ..._i33.InstanceProfile.serializers,
-  ..._i34.CreateInstanceProfileResponse.serializers,
-  ..._i35.ConcurrentModificationException.serializers,
+  ..._i24.ConcurrentModificationException.serializers,
+  ..._i25.CreateGroupRequest.serializers,
+  ..._i26.Group.serializers,
+  ..._i27.CreateGroupResponse.serializers,
+  ..._i28.Tag.serializers,
+  ..._i29.CreateInstanceProfileRequest.serializers,
+  ..._i30.PermissionsBoundaryAttachmentType.serializers,
+  ..._i31.AttachedPermissionsBoundary.serializers,
+  ..._i32.RoleLastUsed.serializers,
+  ..._i33.Role.serializers,
+  ..._i34.InstanceProfile.serializers,
+  ..._i35.CreateInstanceProfileResponse.serializers,
   ..._i36.CreateLoginProfileRequest.serializers,
   ..._i37.LoginProfile.serializers,
   ..._i38.CreateLoginProfileResponse.serializers,
@@ -979,12 +979,12 @@ const List<_i1.SmithySerializer> serializers = [
 final Map<FullType, Function> builderFactories = {
   const FullType(
     _i336.BuiltList,
-    [FullType(_i27.Tag)],
-  ): _i336.ListBuilder<_i27.Tag>.new,
+    [FullType(_i28.Tag)],
+  ): _i336.ListBuilder<_i28.Tag>.new,
   const FullType(
     _i336.BuiltList,
-    [FullType(_i32.Role)],
-  ): _i336.ListBuilder<_i32.Role>.new,
+    [FullType(_i33.Role)],
+  ): _i336.ListBuilder<_i33.Role>.new,
   const FullType(
     _i336.BuiltList,
     [FullType(String)],
@@ -1003,8 +1003,8 @@ final Map<FullType, Function> builderFactories = {
   ): _i336.ListBuilder<_i107.PolicyDetail>.new,
   const FullType(
     _i336.BuiltList,
-    [FullType(_i33.InstanceProfile)],
-  ): _i336.ListBuilder<_i33.InstanceProfile>.new,
+    [FullType(_i34.InstanceProfile)],
+  ): _i336.ListBuilder<_i34.InstanceProfile>.new,
   const FullType(
     _i336.BuiltList,
     [FullType(_i46.PolicyVersion)],
@@ -1074,8 +1074,8 @@ final Map<FullType, Function> builderFactories = {
   ): _i336.ListBuilder<_i193.PolicyUser>.new,
   const FullType(
     _i336.BuiltList,
-    [FullType(_i25.Group)],
-  ): _i336.ListBuilder<_i25.Group>.new,
+    [FullType(_i26.Group)],
+  ): _i336.ListBuilder<_i26.Group>.new,
   const FullType(
     _i336.BuiltList,
     [FullType(_i211.MfaDevice)],

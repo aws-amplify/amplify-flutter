@@ -10,18 +10,18 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'invalid_role_exception.g.dart';
 
-/// You have provided a null or empty role ARN.
+/// You have provided a null or empty Amazon Resource Name (ARN) for the IAM role assumed by Config and used by the configuration recorder.
 abstract class InvalidRoleException
     with _i1.AWSEquatable<InvalidRoleException>
     implements
         Built<InvalidRoleException, InvalidRoleExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// You have provided a null or empty role ARN.
+  /// You have provided a null or empty Amazon Resource Name (ARN) for the IAM role assumed by Config and used by the configuration recorder.
   factory InvalidRoleException({String? message}) {
     return _$InvalidRoleException._(message: message);
   }
 
-  /// You have provided a null or empty role ARN.
+  /// You have provided a null or empty Amazon Resource Name (ARN) for the IAM role assumed by Config and used by the configuration recorder.
   factory InvalidRoleException.build(
           [void Function(InvalidRoleExceptionBuilder) updates]) =
       _$InvalidRoleException;

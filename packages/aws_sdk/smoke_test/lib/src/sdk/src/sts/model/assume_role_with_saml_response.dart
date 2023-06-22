@@ -97,7 +97,7 @@ abstract class AssumeRoleWithSamlResponse
   /// *   The friendly name (the last part of the ARN) of the SAML provider in IAM.
   ///
   ///
-  /// The combination of `NameQualifier` and `Subject` can be used to uniquely identify a federated user.
+  /// The combination of `NameQualifier` and `Subject` can be used to uniquely identify a user.
   ///
   /// The following pseudocode shows how the hash value is calculated:
   ///

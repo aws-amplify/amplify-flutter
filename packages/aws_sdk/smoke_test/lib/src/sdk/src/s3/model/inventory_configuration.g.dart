@@ -10,7 +10,7 @@ class _$InventoryConfiguration extends InventoryConfiguration {
   @override
   final _i2.InventoryDestination destination;
   @override
-  final bool isEnabled;
+  final bool? isEnabled;
   @override
   final _i3.InventoryFilter? filter;
   @override
@@ -28,7 +28,7 @@ class _$InventoryConfiguration extends InventoryConfiguration {
 
   _$InventoryConfiguration._(
       {required this.destination,
-      required this.isEnabled,
+      this.isEnabled,
       this.filter,
       required this.id,
       required this.includedObjectVersions,
@@ -37,8 +37,6 @@ class _$InventoryConfiguration extends InventoryConfiguration {
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         destination, r'InventoryConfiguration', 'destination');
-    BuiltValueNullFieldError.checkNotNull(
-        isEnabled, r'InventoryConfiguration', 'isEnabled');
     BuiltValueNullFieldError.checkNotNull(id, r'InventoryConfiguration', 'id');
     BuiltValueNullFieldError.checkNotNull(includedObjectVersions,
         r'InventoryConfiguration', 'includedObjectVersions');
@@ -166,8 +164,7 @@ class InventoryConfigurationBuilder
       _$result = _$v ??
           new _$InventoryConfiguration._(
               destination: destination.build(),
-              isEnabled: BuiltValueNullFieldError.checkNotNull(
-                  isEnabled, r'InventoryConfiguration', 'isEnabled'),
+              isEnabled: isEnabled,
               filter: _filter?.build(),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'InventoryConfiguration', 'id'),

@@ -24,7 +24,7 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
   @override
   final String key;
   @override
-  final int partNumber;
+  final int? partNumber;
   @override
   final String uploadId;
   @override
@@ -59,7 +59,7 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
       this.copySourceIfUnmodifiedSince,
       this.copySourceRange,
       required this.key,
-      required this.partNumber,
+      this.partNumber,
       required this.uploadId,
       this.sseCustomerAlgorithm,
       this.sseCustomerKey,
@@ -76,8 +76,6 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
     BuiltValueNullFieldError.checkNotNull(
         copySource, r'UploadPartCopyRequest', 'copySource');
     BuiltValueNullFieldError.checkNotNull(key, r'UploadPartCopyRequest', 'key');
-    BuiltValueNullFieldError.checkNotNull(
-        partNumber, r'UploadPartCopyRequest', 'partNumber');
     BuiltValueNullFieldError.checkNotNull(
         uploadId, r'UploadPartCopyRequest', 'uploadId');
   }
@@ -300,8 +298,7 @@ class UploadPartCopyRequestBuilder
             copySourceRange: copySourceRange,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'UploadPartCopyRequest', 'key'),
-            partNumber: BuiltValueNullFieldError.checkNotNull(
-                partNumber, r'UploadPartCopyRequest', 'partNumber'),
+            partNumber: partNumber,
             uploadId: BuiltValueNullFieldError.checkNotNull(
                 uploadId, r'UploadPartCopyRequest', 'uploadId'),
             sseCustomerAlgorithm: sseCustomerAlgorithm,

@@ -29,7 +29,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/tagging.dart' as _i2;
 ///
 /// For information about the Amazon S3 object tagging feature, see [Object Tagging](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html).
 ///
-/// **Special Errors**
+/// `PutObjectTagging` has the following special errors:
 ///
 /// *   *   _Code: InvalidTagError_
 ///
@@ -48,7 +48,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/tagging.dart' as _i2;
 ///     *   _Cause: The service was unable to apply the provided tag to the object._
 ///
 ///
-/// **Related Resources**
+/// The following operations are related to `PutObjectTagging`:
 ///
 /// *   [GetObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html)
 ///
@@ -70,7 +70,7 @@ class PutObjectTaggingOperation extends _i1.HttpOperation<
   ///
   /// For information about the Amazon S3 object tagging feature, see [Object Tagging](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html).
   ///
-  /// **Special Errors**
+  /// `PutObjectTagging` has the following special errors:
   ///
   /// *   *   _Code: InvalidTagError_
   ///
@@ -89,7 +89,7 @@ class PutObjectTaggingOperation extends _i1.HttpOperation<
   ///     *   _Cause: The service was unable to apply the provided tag to the object._
   ///
   ///
-  /// **Related Resources**
+  /// The following operations are related to `PutObjectTagging`:
   ///
   /// *   [GetObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html)
   ///

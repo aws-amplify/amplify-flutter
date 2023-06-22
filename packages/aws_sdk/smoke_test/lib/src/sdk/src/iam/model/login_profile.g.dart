@@ -12,7 +12,7 @@ class _$LoginProfile extends LoginProfile {
   @override
   final DateTime createDate;
   @override
-  final bool? passwordResetRequired;
+  final bool passwordResetRequired;
 
   factory _$LoginProfile([void Function(LoginProfileBuilder)? updates]) =>
       (new LoginProfileBuilder()..update(updates))._build();
@@ -20,12 +20,14 @@ class _$LoginProfile extends LoginProfile {
   _$LoginProfile._(
       {required this.userName,
       required this.createDate,
-      this.passwordResetRequired})
+      required this.passwordResetRequired})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         userName, r'LoginProfile', 'userName');
     BuiltValueNullFieldError.checkNotNull(
         createDate, r'LoginProfile', 'createDate');
+    BuiltValueNullFieldError.checkNotNull(
+        passwordResetRequired, r'LoginProfile', 'passwordResetRequired');
   }
 
   @override
@@ -108,7 +110,10 @@ class LoginProfileBuilder
                 userName, r'LoginProfile', 'userName'),
             createDate: BuiltValueNullFieldError.checkNotNull(
                 createDate, r'LoginProfile', 'createDate'),
-            passwordResetRequired: passwordResetRequired);
+            passwordResetRequired: BuiltValueNullFieldError.checkNotNull(
+                passwordResetRequired,
+                r'LoginProfile',
+                'passwordResetRequired'));
     replace(_$result);
     return _$result;
   }

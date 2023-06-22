@@ -11,10 +11,14 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'lifecycle_expiration.g.dart';
 
 /// Container for the expiration for the lifecycle of the object.
+///
+/// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
 abstract class LifecycleExpiration
     with _i1.AWSEquatable<LifecycleExpiration>
     implements Built<LifecycleExpiration, LifecycleExpirationBuilder> {
   /// Container for the expiration for the lifecycle of the object.
+  ///
+  /// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
   factory LifecycleExpiration({
     DateTime? date,
     int? days,
@@ -28,6 +32,8 @@ abstract class LifecycleExpiration
   }
 
   /// Container for the expiration for the lifecycle of the object.
+  ///
+  /// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
   factory LifecycleExpiration.build(
           [void Function(LifecycleExpirationBuilder) updates]) =
       _$LifecycleExpiration;
@@ -41,7 +47,7 @@ abstract class LifecycleExpiration
   @BuiltValueHook(initializeBuilder: true)
   static void _init(LifecycleExpirationBuilder b) {}
 
-  /// Indicates at what date the object is to be moved or deleted. Should be in GMT ISO 8601 Format.
+  /// Indicates at what date the object is to be moved or deleted. The date value must conform to the ISO 8601 format. The time is always midnight UTC.
   DateTime? get date;
 
   /// Indicates the lifetime, in days, of the objects that are subject to the rule. The value must be a non-zero positive integer.

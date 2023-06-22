@@ -49,7 +49,7 @@ abstract class Stream
   ///
   /// Note that `LatestStreamLabel` is not a unique identifier for the stream, because it is possible that a stream from another table might have the same timestamp. However, the combination of the following three elements is guaranteed to be unique:
   ///
-  /// *   the AWS customer ID.
+  /// *   the Amazon Web Services customer ID.
   ///
   /// *   the table name
   ///

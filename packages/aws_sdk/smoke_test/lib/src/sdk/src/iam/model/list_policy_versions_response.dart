@@ -23,6 +23,7 @@ abstract class ListPolicyVersionsResponse
     bool? isTruncated,
     String? marker,
   }) {
+    isTruncated ??= false;
     return _$ListPolicyVersionsResponse._(
       versions: versions == null ? null : _i3.BuiltList(versions),
       isTruncated: isTruncated,
@@ -49,7 +50,9 @@ abstract class ListPolicyVersionsResponse
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListPolicyVersionsResponseBuilder b) {}
+  static void _init(ListPolicyVersionsResponseBuilder b) {
+    b.isTruncated = false;
+  }
 
   /// A list of policy versions.
   ///
@@ -57,7 +60,7 @@ abstract class ListPolicyVersionsResponse
   _i3.BuiltList<_i2.PolicyVersion>? get versions;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a subsequent pagination request.
   String? get marker;
@@ -173,14 +176,12 @@ class ListPolicyVersionsResponseAwsQuerySerializer
           ),
         ));
     }
-    if (isTruncated != null) {
-      result$
-        ..add(const _i4.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (marker != null) {
       result$
         ..add(const _i4.XmlElementName('Marker'))

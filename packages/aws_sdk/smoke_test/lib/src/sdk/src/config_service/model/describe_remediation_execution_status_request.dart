@@ -26,6 +26,7 @@ abstract class DescribeRemediationExecutionStatusRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$DescribeRemediationExecutionStatusRequest._(
       configRuleName: configRuleName,
       resourceKeys: resourceKeys == null ? null : _i4.BuiltList(resourceKeys),
@@ -52,7 +53,9 @@ abstract class DescribeRemediationExecutionStatusRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeRemediationExecutionStatusRequestBuilder b) {}
+  static void _init(DescribeRemediationExecutionStatusRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// A list of Config rule names.
   String get configRuleName;
@@ -61,7 +64,7 @@ abstract class DescribeRemediationExecutionStatusRequest
   _i4.BuiltList<_i3.ResourceKey>? get resourceKeys;
 
   /// The maximum number of RemediationExecutionStatuses returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -179,6 +182,11 @@ class DescribeRemediationExecutionStatusRequestAwsJson11Serializer extends _i1
         configRuleName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
     if (resourceKeys != null) {
       result$
@@ -189,14 +197,6 @@ class DescribeRemediationExecutionStatusRequestAwsJson11Serializer extends _i1
             _i4.BuiltList,
             [FullType(_i3.ResourceKey)],
           ),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

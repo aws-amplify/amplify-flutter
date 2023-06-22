@@ -10,7 +10,7 @@ class _$ListUsersResponse extends ListUsersResponse {
   @override
   final _i3.BuiltList<_i2.User> users;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -18,9 +18,12 @@ class _$ListUsersResponse extends ListUsersResponse {
           [void Function(ListUsersResponseBuilder)? updates]) =>
       (new ListUsersResponseBuilder()..update(updates))._build();
 
-  _$ListUsersResponse._({required this.users, this.isTruncated, this.marker})
+  _$ListUsersResponse._(
+      {required this.users, required this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(users, r'ListUsersResponse', 'users');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListUsersResponse', 'isTruncated');
   }
 
   @override
@@ -102,7 +105,10 @@ class ListUsersResponseBuilder
     try {
       _$result = _$v ??
           new _$ListUsersResponse._(
-              users: users.build(), isTruncated: isTruncated, marker: marker);
+              users: users.build(),
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListUsersResponse', 'isTruncated'),
+              marker: marker);
     } catch (_) {
       late String _$failedField;
       try {

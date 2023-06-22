@@ -24,10 +24,14 @@ import 'package:smoke_test/src/sdk/src/s3/model/transition.dart' as _i5;
 part 'lifecycle_rule.g.dart';
 
 /// A lifecycle rule for individual objects in an Amazon S3 bucket.
+///
+/// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
 abstract class LifecycleRule
     with _i1.AWSEquatable<LifecycleRule>
     implements Built<LifecycleRule, LifecycleRuleBuilder> {
   /// A lifecycle rule for individual objects in an Amazon S3 bucket.
+  ///
+  /// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
   factory LifecycleRule({
     _i2.LifecycleExpiration? expiration,
     String? id,
@@ -56,6 +60,8 @@ abstract class LifecycleRule
   }
 
   /// A lifecycle rule for individual objects in an Amazon S3 bucket.
+  ///
+  /// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
   factory LifecycleRule.build([void Function(LifecycleRuleBuilder) updates]) =
       _$LifecycleRule;
 
@@ -97,7 +103,7 @@ abstract class LifecycleRule
   /// Specifies when noncurrent object versions expire. Upon expiration, Amazon S3 permanently deletes the noncurrent object versions. You set this lifecycle configuration action on a bucket that has versioning enabled (or suspended) to request that Amazon S3 delete noncurrent object versions at a specific period in the object's lifetime.
   _i7.NoncurrentVersionExpiration? get noncurrentVersionExpiration;
 
-  /// Specifies the days since the initiation of an incomplete multipart upload that Amazon S3 will wait before permanently removing all parts of the upload. For more information, see [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config) in the _Amazon S3 User Guide_.
+  /// Specifies the days since the initiation of an incomplete multipart upload that Amazon S3 will wait before permanently removing all parts of the upload. For more information, see [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config) in the _Amazon S3 User Guide_.
   _i8.AbortIncompleteMultipartUpload? get abortIncompleteMultipartUpload;
   @override
   List<Object?> get props => [

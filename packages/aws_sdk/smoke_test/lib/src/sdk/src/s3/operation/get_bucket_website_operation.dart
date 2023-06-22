@@ -20,7 +20,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_website_request.dart'
 ///
 /// This GET action requires the `S3:GetBucketWebsite` permission. By default, only the bucket owner can read the bucket website configuration. However, bucket owners can allow other users to read the website configuration by writing a bucket policy granting them the `S3:GetBucketWebsite` permission.
 ///
-/// The following operations are related to `DeleteBucketWebsite`:
+/// The following operations are related to `GetBucketWebsite`:
 ///
 /// *   [DeleteBucketWebsite](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketWebsite.html)
 ///
@@ -34,7 +34,7 @@ class GetBucketWebsiteOperation extends _i1.HttpOperation<
   ///
   /// This GET action requires the `S3:GetBucketWebsite` permission. By default, only the bucket owner can read the bucket website configuration. However, bucket owners can allow other users to read the website configuration by writing a bucket policy granting them the `S3:GetBucketWebsite` permission.
   ///
-  /// The following operations are related to `DeleteBucketWebsite`:
+  /// The following operations are related to `GetBucketWebsite`:
   ///
   /// *   [DeleteBucketWebsite](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketWebsite.html)
   ///

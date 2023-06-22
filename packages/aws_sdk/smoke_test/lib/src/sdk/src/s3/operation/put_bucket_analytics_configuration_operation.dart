@@ -24,7 +24,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_analytics_configurati
 ///
 /// To use this operation, you must have permissions to perform the `s3:PutAnalyticsConfiguration` action. The bucket owner has this permission by default. The bucket owner can grant this permission to others. For more information about permissions, see [Permissions Related to Bucket Subresource Operations](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources) and [Managing Access Permissions to Your Amazon S3 Resources](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html).
 ///
-/// **Special Errors**
+/// `PutBucketAnalyticsConfiguration` has the following special errors:
 ///
 /// *   *   _HTTP Error: HTTP 400 Bad Request_
 ///
@@ -45,7 +45,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_analytics_configurati
 ///     *   _Cause: You are not the owner of the specified bucket, or you do not have the s3:PutAnalyticsConfiguration bucket permission to set the configuration on the bucket._
 ///
 ///
-/// **Related Resources**
+/// The following operations are related to `PutBucketAnalyticsConfiguration`:
 ///
 /// *   [GetBucketAnalyticsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketAnalyticsConfiguration.html)
 ///
@@ -65,7 +65,7 @@ class PutBucketAnalyticsConfigurationOperation extends _i1.HttpOperation<
   ///
   /// To use this operation, you must have permissions to perform the `s3:PutAnalyticsConfiguration` action. The bucket owner has this permission by default. The bucket owner can grant this permission to others. For more information about permissions, see [Permissions Related to Bucket Subresource Operations](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources) and [Managing Access Permissions to Your Amazon S3 Resources](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html).
   ///
-  /// **Special Errors**
+  /// `PutBucketAnalyticsConfiguration` has the following special errors:
   ///
   /// *   *   _HTTP Error: HTTP 400 Bad Request_
   ///
@@ -86,7 +86,7 @@ class PutBucketAnalyticsConfigurationOperation extends _i1.HttpOperation<
   ///     *   _Cause: You are not the owner of the specified bucket, or you do not have the s3:PutAnalyticsConfiguration bucket permission to set the configuration on the bucket._
   ///
   ///
-  /// **Related Resources**
+  /// The following operations are related to `PutBucketAnalyticsConfiguration`:
   ///
   /// *   [GetBucketAnalyticsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketAnalyticsConfiguration.html)
   ///

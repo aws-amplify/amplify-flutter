@@ -8,15 +8,21 @@ part of 'throttle_settings.dart';
 
 class _$ThrottleSettings extends ThrottleSettings {
   @override
-  final int? burstLimit;
+  final int burstLimit;
   @override
-  final double? rateLimit;
+  final double rateLimit;
 
   factory _$ThrottleSettings(
           [void Function(ThrottleSettingsBuilder)? updates]) =>
       (new ThrottleSettingsBuilder()..update(updates))._build();
 
-  _$ThrottleSettings._({this.burstLimit, this.rateLimit}) : super._();
+  _$ThrottleSettings._({required this.burstLimit, required this.rateLimit})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        burstLimit, r'ThrottleSettings', 'burstLimit');
+    BuiltValueNullFieldError.checkNotNull(
+        rateLimit, r'ThrottleSettings', 'rateLimit');
+  }
 
   @override
   ThrottleSettings rebuild(void Function(ThrottleSettingsBuilder) updates) =>
@@ -86,7 +92,11 @@ class ThrottleSettingsBuilder
 
   _$ThrottleSettings _build() {
     final _$result = _$v ??
-        new _$ThrottleSettings._(burstLimit: burstLimit, rateLimit: rateLimit);
+        new _$ThrottleSettings._(
+            burstLimit: BuiltValueNullFieldError.checkNotNull(
+                burstLimit, r'ThrottleSettings', 'burstLimit'),
+            rateLimit: BuiltValueNullFieldError.checkNotNull(
+                rateLimit, r'ThrottleSettings', 'rateLimit'));
     replace(_$result);
     return _$result;
   }

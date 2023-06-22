@@ -22,9 +22,9 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_configurat
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_not_found_exception.dart'
     as _i10;
 
-/// Specifies the configuration data for a registered CloudFormation extension, in the given account and region.
+/// Specifies the configuration data for a registered CloudFormation extension, in the given account and Region.
 ///
-/// To view the current configuration data for an extension, refer to the `ConfigurationSchema` element of [DescribeType](AWSCloudFormation/latest/APIReference/API_DescribeType.html). For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
+/// To view the current configuration data for an extension, refer to the `ConfigurationSchema` element of [DescribeType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html). For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
 ///
 /// It's strongly recommended that you use dynamic references to restrict sensitive configuration definitions, such as third-party credentials. For more details on dynamic references, see [Using dynamic references to specify template values](https://docs.aws.amazon.com/) in the _CloudFormation User Guide_.
 class SetTypeConfigurationOperation extends _i1.HttpOperation<
@@ -32,9 +32,9 @@ class SetTypeConfigurationOperation extends _i1.HttpOperation<
     _i2.SetTypeConfigurationInput,
     _i3.SetTypeConfigurationOutput,
     _i3.SetTypeConfigurationOutput> {
-  /// Specifies the configuration data for a registered CloudFormation extension, in the given account and region.
+  /// Specifies the configuration data for a registered CloudFormation extension, in the given account and Region.
   ///
-  /// To view the current configuration data for an extension, refer to the `ConfigurationSchema` element of [DescribeType](AWSCloudFormation/latest/APIReference/API_DescribeType.html). For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
+  /// To view the current configuration data for an extension, refer to the `ConfigurationSchema` element of [DescribeType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html). For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
   ///
   /// It's strongly recommended that you use dynamic references to restrict sensitive configuration definitions, such as third-party credentials. For more details on dynamic references, see [Using dynamic references to specify template values](https://docs.aws.amazon.com/) in the _CloudFormation User Guide_.
   SetTypeConfigurationOperation({

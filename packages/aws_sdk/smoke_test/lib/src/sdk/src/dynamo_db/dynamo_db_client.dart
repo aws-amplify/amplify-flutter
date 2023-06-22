@@ -380,7 +380,7 @@ class DynamoDbClient {
 
   /// The `BatchGetItem` operation returns the attributes of one or more items from one or more tables. You identify requested items by primary key.
   ///
-  /// A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items. `BatchGetItem` returns a partial result if the response size limit is exceeded, the table's provisioned throughput is exceeded, or an internal processing failure occurs. If a partial result is returned, the operation returns a value for `UnprocessedKeys`. You can use this value to retry the operation starting with the next item to get.
+  /// A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items. `BatchGetItem` returns a partial result if the response size limit is exceeded, the table's provisioned throughput is exceeded, more than 1MB per partition is requested, or an internal processing failure occurs. If a partial result is returned, the operation returns a value for `UnprocessedKeys`. You can use this value to retry the operation starting with the next item to get.
   ///
   /// If you request more than 100 items, `BatchGetItem` returns a `ValidationException` with the message "Too many items requested for the BatchGetItem call."
   ///
@@ -394,7 +394,7 @@ class DynamoDbClient {
   ///
   /// By default, `BatchGetItem` performs eventually consistent reads on every table in the request. If you want strongly consistent reads instead, you can set `ConsistentRead` to `true` for any or all tables.
   ///
-  /// In order to minimize response latency, `BatchGetItem` retrieves items in parallel.
+  /// In order to minimize response latency, `BatchGetItem` may retrieve items in parallel.
   ///
   /// When designing your application, keep in mind that DynamoDB does not return items in any particular order. To help parse the response by item, include the primary key values for the items in your request in the `ProjectionExpression` parameter.
   ///
@@ -418,7 +418,7 @@ class DynamoDbClient {
 
   /// The `BatchWriteItem` operation puts or deletes multiple items in one or more tables. A single call to `BatchWriteItem` can transmit up to 16MB of data over the network, consisting of up to 25 item put or delete operations. While individual items can be up to 400 KB once stored, it's important to note that an item's representation might be greater than 400KB while being sent in DynamoDB's JSON format for the API call. For more details on this distinction, see [Naming Rules and Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html).
   ///
-  /// `BatchWriteItem` cannot update items. To update items, use the `UpdateItem` action.
+  /// `BatchWriteItem` cannot update items. If you perform a `BatchWriteItem` operation on an existing item, that item's values will be overwritten by the operation and it will appear like it was updated. To update items, we recommend you use the `UpdateItem` action.
   ///
   /// The individual `PutItem` and `DeleteItem` operations specified in `BatchWriteItem` are atomic; however `BatchWriteItem` as a whole is not. If any requested operations fail because the table's provisioned throughput is exceeded or an internal processing failure occurs, the failed operations are returned in the `UnprocessedItems` response parameter. You can investigate and optionally resend the requests. Typically, you would call `BatchWriteItem` in a loop. Each iteration would check for unprocessed items and submit a new `BatchWriteItem` request with those unprocessed items until all items have been processed.
   ///
@@ -506,7 +506,7 @@ class DynamoDbClient {
 
   /// Creates a global table from an existing table. A global table creates a replication relationship between two or more DynamoDB tables with the same table name in the provided Regions.
   ///
-  /// This operation only applies to [Version 2017.11.29](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables.
+  /// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
   ///
   /// If you want to add a new replica table to a global table, each of the following conditions must be true:
   ///
@@ -623,6 +623,8 @@ class DynamoDbClient {
 
   /// The `DeleteTable` operation deletes a table and all of its items. After a `DeleteTable` request, the specified table is in the `DELETING` state until DynamoDB completes the deletion. If the table is in the `ACTIVE` state, you can delete it. If a table is in `CREATING` or `UPDATING` states, then DynamoDB returns a `ResourceInUseException`. If the specified table does not exist, DynamoDB returns a `ResourceNotFoundException`. If table is already in the `DELETING` state, no error is returned.
   ///
+  /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+  ///
   /// DynamoDB might continue to accept data read and write operations, such as `GetItem` and `PutItem`, on a table in the `DELETING` state until the table deletion is complete.
   ///
   /// When you delete a table, any indexes on that table are also deleted.
@@ -692,7 +694,7 @@ class DynamoDbClient {
     );
   }
 
-  /// Returns information about contributor insights, for a given table or global secondary index.
+  /// Returns information about contributor insights for a given table or global secondary index.
   _i3.SmithyOperation<_i37.DescribeContributorInsightsOutput>
       describeContributorInsights(
     _i38.DescribeContributorInsightsInput input, {
@@ -711,7 +713,7 @@ class DynamoDbClient {
     );
   }
 
-  /// Returns the regional endpoint information.
+  /// Returns the regional endpoint information. For more information on policy permissions, please see [Internetwork traffic privacy](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/inter-network-traffic-privacy.html#inter-network-traffic-DescribeEndpoints).
   _i3.SmithyOperation<_i40.DescribeEndpointsResponse> describeEndpoints(
     _i41.DescribeEndpointsRequest input, {
     _i1.AWSHttpClient? client,
@@ -749,7 +751,7 @@ class DynamoDbClient {
 
   /// Returns information about the specified global table.
   ///
-  /// This operation only applies to [Version 2017.11.29](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. If you are using global tables [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) you can use [DescribeTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html) instead.
+  /// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
   _i3.SmithyOperation<_i46.DescribeGlobalTableOutput> describeGlobalTable(
     _i47.DescribeGlobalTableInput input, {
     _i1.AWSHttpClient? client,
@@ -769,7 +771,7 @@ class DynamoDbClient {
 
   /// Describes Region-specific settings for a global table.
   ///
-  /// This operation only applies to [Version 2017.11.29](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables.
+  /// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
   _i3.SmithyOperation<_i49.DescribeGlobalTableSettingsOutput>
       describeGlobalTableSettings(
     _i50.DescribeGlobalTableSettingsInput input, {
@@ -878,6 +880,8 @@ class DynamoDbClient {
 
   /// Returns information about the table, including the current status of the table, when it was created, the primary key schema, and any indexes on the table.
   ///
+  /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+  ///
   /// If you issue a `DescribeTable` request immediately after a `CreateTable` request, DynamoDB might return a `ResourceNotFoundException`. This is because `DescribeTable` uses an eventually consistent query, and the metadata for your table might not be available at that moment. Wait for a few seconds, and then try the `DescribeTable` request again.
   _i3.SmithyOperation<_i61.DescribeTableOutput> describeTable(
     _i62.DescribeTableInput input, {
@@ -898,7 +902,7 @@ class DynamoDbClient {
 
   /// Describes auto scaling settings across replicas of the global table at once.
   ///
-  /// This operation only applies to [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+  /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
   _i3.SmithyOperation<_i64.DescribeTableReplicaAutoScalingOutput>
       describeTableReplicaAutoScaling(
     _i65.DescribeTableReplicaAutoScalingInput input, {
@@ -977,7 +981,7 @@ class DynamoDbClient {
   ///
   /// For PartiQL reads (`SELECT` statement), if the total number of processed items exceeds the maximum dataset size limit of 1 MB, the read stops and results are returned to the user as a `LastEvaluatedKey` value to continue the read in a subsequent operation. If the filter criteria in `WHERE` clause does not match any data, the read will return an empty result set.
   ///
-  /// A single `SELECT` statement response can return up to the maximum number of items (if using the Limit parameter) or a maximum of 1 MB of data (and then apply any filtering to the results using `WHERE` clause). If `LastEvaluatedKey` is present in the response, you need to paginate the result set.
+  /// A single `SELECT` statement response can return up to the maximum number of items (if using the Limit parameter) or a maximum of 1 MB of data (and then apply any filtering to the results using `WHERE` clause). If `LastEvaluatedKey` is present in the response, you need to paginate the result set. If `NextToken` is present, you need to paginate the result set and include `NextToken`.
   _i3.SmithyOperation<_i74.ExecuteStatementOutput> executeStatement(
     _i75.ExecuteStatementInput input, {
     _i1.AWSHttpClient? client,
@@ -1135,7 +1139,7 @@ class DynamoDbClient {
 
   /// Lists all global tables that have a replica in the specified Region.
   ///
-  /// This operation only applies to [Version 2017.11.29](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables.
+  /// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
   _i3.SmithyOperation<_i98.ListGlobalTablesOutput> listGlobalTables(
     _i99.ListGlobalTablesInput input, {
     _i1.AWSHttpClient? client,
@@ -1213,7 +1217,7 @@ class DynamoDbClient {
 
   /// Creates a new item, or replaces an old item with a new item. If an item that has the same primary key as the new item already exists in the specified table, the new item completely replaces the existing item. You can perform a conditional put operation (add a new item if one with the specified primary key doesn't exist), or replace an existing item if it has certain attribute values. You can return the item's attribute values in the same operation, using the `ReturnValues` parameter.
   ///
-  /// When you add an item, the primary key attributes are the only required attributes. Attribute values cannot be null.
+  /// When you add an item, the primary key attributes are the only required attributes.
   ///
   /// Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have a length greater than zero if the attribute is used as a key attribute for a table or index. Set type attributes cannot be empty.
   ///
@@ -1277,7 +1281,7 @@ class DynamoDbClient {
     );
   }
 
-  /// Creates a new table from an existing backup. Any number of users can execute up to 4 concurrent restores (any type of restore) in a given account.
+  /// Creates a new table from an existing backup. Any number of users can execute up to 50 concurrent restores (any type of restore) in a given account.
   ///
   /// You can call `RestoreTableFromBackup` at a maximum rate of 10 times per second.
   ///
@@ -1422,7 +1426,7 @@ class DynamoDbClient {
   ///
   /// *   There is a user error, such as an invalid data format.
   ///
-  /// *   The aggregate size of the items in the transaction cannot exceed 4 MB.
+  /// *   The aggregate size of the items in the transaction exceeded 4 MB.
   _i3.SmithyOperation<_i126.TransactGetItemsOutput> transactGetItems(
     _i127.TransactGetItemsInput input, {
     _i1.AWSHttpClient? client,
@@ -1547,6 +1551,10 @@ class DynamoDbClient {
 
   /// Adds or removes replicas in the specified global table. The global table must already exist to be able to use this operation. Any replica to be added must be empty, have the same name as the global table, have the same key schema, have DynamoDB Streams enabled, and have the same provisioned and maximum write capacity units.
   ///
+  /// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
+  ///
+  /// This operation only applies to [Version 2017.11.29](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. If you are using global tables [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) you can use [DescribeTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html) instead.
+  ///
   /// Although you can use `UpdateGlobalTable` to add replicas and remove replicas in a single request, for simplicity we recommend that you issue separate requests for adding or removing replicas.
   ///
   /// If global secondary indexes are specified, then the following conditions must also be met:
@@ -1574,6 +1582,8 @@ class DynamoDbClient {
   }
 
   /// Updates settings for a global table.
+  ///
+  /// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
   _i3.SmithyOperation<_i143.UpdateGlobalTableSettingsOutput>
       updateGlobalTableSettings(
     _i144.UpdateGlobalTableSettingsInput input, {
@@ -1614,6 +1624,8 @@ class DynamoDbClient {
 
   /// Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given table.
   ///
+  /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+  ///
   /// You can only perform one of the following operations at once:
   ///
   /// *   Modify the provisioned throughput settings of the table.
@@ -1643,7 +1655,7 @@ class DynamoDbClient {
 
   /// Updates auto scaling settings on your global tables at once.
   ///
-  /// This operation only applies to [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+  /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
   _i3.SmithyOperation<_i152.UpdateTableReplicaAutoScalingOutput>
       updateTableReplicaAutoScaling(
     _i153.UpdateTableReplicaAutoScalingInput input, {

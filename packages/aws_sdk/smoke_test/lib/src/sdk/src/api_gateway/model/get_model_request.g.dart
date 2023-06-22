@@ -12,18 +12,20 @@ class _$GetModelRequest extends GetModelRequest {
   @override
   final String modelName;
   @override
-  final bool? flatten;
+  final bool flatten;
 
   factory _$GetModelRequest([void Function(GetModelRequestBuilder)? updates]) =>
       (new GetModelRequestBuilder()..update(updates))._build();
 
   _$GetModelRequest._(
-      {required this.restApiId, required this.modelName, this.flatten})
+      {required this.restApiId, required this.modelName, required this.flatten})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetModelRequest', 'restApiId');
     BuiltValueNullFieldError.checkNotNull(
         modelName, r'GetModelRequest', 'modelName');
+    BuiltValueNullFieldError.checkNotNull(
+        flatten, r'GetModelRequest', 'flatten');
   }
 
   @override
@@ -106,7 +108,8 @@ class GetModelRequestBuilder
                 restApiId, r'GetModelRequest', 'restApiId'),
             modelName: BuiltValueNullFieldError.checkNotNull(
                 modelName, r'GetModelRequest', 'modelName'),
-            flatten: flatten);
+            flatten: BuiltValueNullFieldError.checkNotNull(
+                flatten, r'GetModelRequest', 'flatten'));
     replace(_$result);
     return _$result;
   }

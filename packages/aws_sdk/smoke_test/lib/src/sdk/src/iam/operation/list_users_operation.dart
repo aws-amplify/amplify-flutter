@@ -23,7 +23,14 @@ import 'package:smoke_test/src/sdk/src/iam/model/user.dart' as _i5;
 
 /// Lists the IAM users that have the specified path prefix. If no path prefix is specified, the operation returns all users in the Amazon Web Services account. If there are none, the operation returns an empty list.
 ///
-/// IAM resource-listing operations return a subset of the available attributes for the resource. For example, this operation does not return tags, even though they are an attribute of the returned object. To view all of the information for a user, see GetUser.
+/// IAM resource-listing operations return a subset of the available attributes for the resource. This operation does not return the following attributes, even though they are an attribute of the returned object:
+///
+/// *   PermissionsBoundary
+///
+/// *   Tags
+///
+///
+/// To view all of the information for a user, see GetUser.
 ///
 /// You can paginate the results using the `MaxItems` and `Marker` parameters.
 class ListUsersOperation extends _i1.PaginatedHttpOperation<
@@ -36,7 +43,14 @@ class ListUsersOperation extends _i1.PaginatedHttpOperation<
     _i4.BuiltList<_i5.User>> {
   /// Lists the IAM users that have the specified path prefix. If no path prefix is specified, the operation returns all users in the Amazon Web Services account. If there are none, the operation returns an empty list.
   ///
-  /// IAM resource-listing operations return a subset of the available attributes for the resource. For example, this operation does not return tags, even though they are an attribute of the returned object. To view all of the information for a user, see GetUser.
+  /// IAM resource-listing operations return a subset of the available attributes for the resource. This operation does not return the following attributes, even though they are an attribute of the returned object:
+  ///
+  /// *   PermissionsBoundary
+  ///
+  /// *   Tags
+  ///
+  ///
+  /// To view all of the information for a user, see GetUser.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   ListUsersOperation({
