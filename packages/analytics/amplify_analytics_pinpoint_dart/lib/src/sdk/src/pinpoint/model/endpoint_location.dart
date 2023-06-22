@@ -23,8 +23,6 @@ abstract class EndpointLocation
     String? postalCode,
     String? region,
   }) {
-    latitude ??= 0;
-    longitude ??= 0;
     return _$EndpointLocation._(
       city: city,
       country: country,
@@ -46,10 +44,7 @@ abstract class EndpointLocation
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointLocationBuilder b) {
-    b.latitude = 0;
-    b.longitude = 0;
-  }
+  static void _init(EndpointLocationBuilder b) {}
 
   /// The name of the city where the endpoint is located.
   String? get city;
@@ -58,10 +53,10 @@ abstract class EndpointLocation
   String? get country;
 
   /// The latitude coordinate of the endpoint location, rounded to one decimal place.
-  double get latitude;
+  double? get latitude;
 
   /// The longitude coordinate of the endpoint location, rounded to one decimal place.
-  double get longitude;
+  double? get longitude;
 
   /// The postal or ZIP code for the area where the endpoint is located.
   String? get postalCode;
@@ -191,18 +186,6 @@ class EndpointLocationRestJson1Serializer
       :postalCode,
       :region
     ) = object;
-    result$.addAll([
-      'Latitude',
-      serializers.serialize(
-        latitude,
-        specifiedType: const FullType(double),
-      ),
-      'Longitude',
-      serializers.serialize(
-        longitude,
-        specifiedType: const FullType(double),
-      ),
-    ]);
     if (city != null) {
       result$
         ..add('City')
@@ -217,6 +200,22 @@ class EndpointLocationRestJson1Serializer
         ..add(serializers.serialize(
           country,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (latitude != null) {
+      result$
+        ..add('Latitude')
+        ..add(serializers.serialize(
+          latitude,
+          specifiedType: const FullType(double),
+        ));
+    }
+    if (longitude != null) {
+      result$
+        ..add('Longitude')
+        ..add(serializers.serialize(
+          longitude,
+          specifiedType: const FullType(double),
         ));
     }
     if (postalCode != null) {

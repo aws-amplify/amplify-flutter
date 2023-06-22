@@ -10,16 +10,13 @@ class _$EventItemResponse extends EventItemResponse {
   @override
   final String? message;
   @override
-  final int statusCode;
+  final int? statusCode;
 
   factory _$EventItemResponse(
           [void Function(EventItemResponseBuilder)? updates]) =>
       (new EventItemResponseBuilder()..update(updates))._build();
 
-  _$EventItemResponse._({this.message, required this.statusCode}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        statusCode, r'EventItemResponse', 'statusCode');
-  }
+  _$EventItemResponse._({this.message, this.statusCode}) : super._();
 
   @override
   EventItemResponse rebuild(void Function(EventItemResponseBuilder) updates) =>
@@ -89,10 +86,7 @@ class EventItemResponseBuilder
 
   _$EventItemResponse _build() {
     final _$result = _$v ??
-        new _$EventItemResponse._(
-            message: message,
-            statusCode: BuiltValueNullFieldError.checkNotNull(
-                statusCode, r'EventItemResponse', 'statusCode'));
+        new _$EventItemResponse._(message: message, statusCode: statusCode);
     replace(_$result);
     return _$result;
   }
