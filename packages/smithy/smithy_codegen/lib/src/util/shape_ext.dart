@@ -113,6 +113,26 @@ extension MemberShapeUtils on MemberShape {
 }
 
 extension ShapeUtils on Shape {
+  /// Whether the shape is a primitive value (more specifically, a bool or number)
+  /// in an S3 service closure.
+  ///
+  /// S3 models incorrectly label these values as boxed and until this is fixed,
+  /// we must work around this by explicitly unboxing them.
+  // TOOD(dnys1): Remove when S3 models are fixed.
+  bool isS3Primitive(CodegenContext context) {
+    final isS3 = context.serviceShapeId?.namespace == 'com.amazonaws.s3';
+    const primitiveTypes = [
+      ShapeType.boolean,
+      ShapeType.integer,
+      ShapeType.long
+    ];
+    final targetShape = switch (this) {
+      final MemberShape member => context.shapeFor(member.target),
+      _ => this,
+    };
+    return isS3 && primitiveTypes.contains(targetShape.getType());
+  }
+
   bool isNullable(CodegenContext context, [Shape? parent]) {
     final isMemberShape = parent != null;
     if (!isMemberShape) {
@@ -144,7 +164,8 @@ extension ShapeUtils on Shape {
             ? context.shapeFor((this as MemberShape).target)
             : this;
         final isBoxed = targetShape.isBoxed;
-        return isNotRequired && (targetShape.hasDefaultValue ? isBoxed : true);
+        return isS3Primitive(context) ||
+            isNotRequired && (targetShape.hasDefaultValue ? isBoxed : true);
 
       // All but one value in a union is non-null. We represent all values
       // with nullable getters, though.
@@ -241,6 +262,9 @@ extension ShapeUtils on Shape {
   /// The default value of this shape when not boxed.
   Expression? defaultValue(CodegenContext context) {
     if (isBoxed) {
+      return null;
+    }
+    if (isS3Primitive(context)) {
       return null;
     }
     final targetShape = this is MemberShape
