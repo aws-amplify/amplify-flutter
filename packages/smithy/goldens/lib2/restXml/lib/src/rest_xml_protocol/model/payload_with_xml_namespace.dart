@@ -23,9 +23,8 @@ abstract class PayloadWithXmlNamespace
 
   const PayloadWithXmlNamespace._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PayloadWithXmlNamespaceRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<PayloadWithXmlNamespace>> serializers =
+      [PayloadWithXmlNamespaceRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PayloadWithXmlNamespaceBuilder b) {}
@@ -34,11 +33,11 @@ abstract class PayloadWithXmlNamespace
   List<Object?> get props => [name];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PayloadWithXmlNamespace');
-    helper.add(
-      'name',
-      name,
-    );
+    final helper = newBuiltValueToStringHelper('PayloadWithXmlNamespace')
+      ..add(
+        'name',
+        name,
+      );
     return helper.toString();
   }
 }

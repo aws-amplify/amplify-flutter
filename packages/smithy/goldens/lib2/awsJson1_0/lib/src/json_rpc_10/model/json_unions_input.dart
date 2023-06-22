@@ -30,7 +30,7 @@ abstract class JsonUnionsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<JsonUnionsInput>> serializers = [
     JsonUnionsInputAwsJson10Serializer()
   ];
 
@@ -45,11 +45,11 @@ abstract class JsonUnionsInput
   List<Object?> get props => [contents];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonUnionsInput');
-    helper.add(
-      'contents',
-      contents,
-    );
+    final helper = newBuiltValueToStringHelper('JsonUnionsInput')
+      ..add(
+        'contents',
+        contents,
+      );
     return helper.toString();
   }
 }

@@ -39,9 +39,8 @@ abstract class MalformedRequestBodyInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedRequestBodyInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedRequestBodyInput>>
+      serializers = [MalformedRequestBodyInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedRequestBodyInputBuilder b) {}
@@ -56,15 +55,15 @@ abstract class MalformedRequestBodyInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedRequestBodyInput');
-    helper.add(
-      'int_',
-      int_,
-    );
-    helper.add(
-      'float',
-      float,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedRequestBodyInput')
+      ..add(
+        'int_',
+        int_,
+      )
+      ..add(
+        'float',
+        float,
+      );
     return helper.toString();
   }
 }

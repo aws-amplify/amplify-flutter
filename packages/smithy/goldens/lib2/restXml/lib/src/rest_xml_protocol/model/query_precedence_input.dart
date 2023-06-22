@@ -47,9 +47,8 @@ abstract class QueryPrecedenceInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    QueryPrecedenceInputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<QueryPrecedenceInputPayload>>
+      serializers = [QueryPrecedenceInputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(QueryPrecedenceInputBuilder b) {}
@@ -64,15 +63,15 @@ abstract class QueryPrecedenceInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueryPrecedenceInput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'baz',
-      baz,
-    );
+    final helper = newBuiltValueToStringHelper('QueryPrecedenceInput')
+      ..add(
+        'foo',
+        foo,
+      )
+      ..add(
+        'baz',
+        baz,
+      );
     return helper.toString();
   }
 }

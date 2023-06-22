@@ -41,7 +41,7 @@ abstract class XmlBlobsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<XmlBlobsInputOutput>> serializers = [
     XmlBlobsInputOutputRestXmlSerializer()
   ];
 
@@ -54,11 +54,11 @@ abstract class XmlBlobsInputOutput
   List<Object?> get props => [data];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlBlobsInputOutput');
-    helper.add(
-      'data',
-      data,
-    );
+    final helper = newBuiltValueToStringHelper('XmlBlobsInputOutput')
+      ..add(
+        'data',
+        data,
+      );
     return helper.toString();
   }
 }

@@ -74,9 +74,8 @@ abstract class NullAndEmptyHeadersIo
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    NullAndEmptyHeadersIoRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<NullAndEmptyHeadersIoPayload>>
+      serializers = [NullAndEmptyHeadersIoRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NullAndEmptyHeadersIoBuilder b) {}
@@ -93,19 +92,19 @@ abstract class NullAndEmptyHeadersIo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NullAndEmptyHeadersIo');
-    helper.add(
-      'a',
-      a,
-    );
-    helper.add(
-      'b',
-      b,
-    );
-    helper.add(
-      'c',
-      c,
-    );
+    final helper = newBuiltValueToStringHelper('NullAndEmptyHeadersIo')
+      ..add(
+        'a',
+        a,
+      )
+      ..add(
+        'b',
+        b,
+      )
+      ..add(
+        'c',
+        c,
+      );
     return helper.toString();
   }
 }

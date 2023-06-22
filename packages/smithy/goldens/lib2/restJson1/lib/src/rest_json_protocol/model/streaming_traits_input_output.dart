@@ -60,9 +60,8 @@ abstract class StreamingTraitsInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    StreamingTraitsInputOutputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
+      [StreamingTraitsInputOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StreamingTraitsInputOutputBuilder b) {
@@ -80,15 +79,15 @@ abstract class StreamingTraitsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StreamingTraitsInputOutput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'blob',
-      blob,
-    );
+    final helper = newBuiltValueToStringHelper('StreamingTraitsInputOutput')
+      ..add(
+        'foo',
+        foo,
+      )
+      ..add(
+        'blob',
+        blob,
+      );
     return helper.toString();
   }
 }

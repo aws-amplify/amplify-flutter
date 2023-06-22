@@ -40,9 +40,8 @@ abstract class XmlEmptyStringsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    XmlEmptyStringsInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<XmlEmptyStringsInputOutput>>
+      serializers = [XmlEmptyStringsInputOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(XmlEmptyStringsInputOutputBuilder b) {}
@@ -53,11 +52,11 @@ abstract class XmlEmptyStringsInputOutput
   List<Object?> get props => [emptyString];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlEmptyStringsInputOutput');
-    helper.add(
-      'emptyString',
-      emptyString,
-    );
+    final helper = newBuiltValueToStringHelper('XmlEmptyStringsInputOutput')
+      ..add(
+        'emptyString',
+        emptyString,
+      );
     return helper.toString();
   }
 }

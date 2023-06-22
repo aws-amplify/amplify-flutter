@@ -32,9 +32,8 @@ abstract class GreetingWithErrorsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GreetingWithErrorsInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GreetingWithErrorsInput>> serializers =
+      [GreetingWithErrorsInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GreetingWithErrorsInputBuilder b) {}
@@ -45,11 +44,11 @@ abstract class GreetingWithErrorsInput
   List<Object?> get props => [greeting];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GreetingWithErrorsInput');
-    helper.add(
-      'greeting',
-      greeting,
-    );
+    final helper = newBuiltValueToStringHelper('GreetingWithErrorsInput')
+      ..add(
+        'greeting',
+        greeting,
+      );
     return helper.toString();
   }
 }

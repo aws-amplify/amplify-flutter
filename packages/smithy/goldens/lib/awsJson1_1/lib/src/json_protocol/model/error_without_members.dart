@@ -36,7 +36,7 @@ abstract class ErrorWithoutMembers
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ErrorWithoutMembers>> serializers = [
     ErrorWithoutMembersAwsJson11Serializer()
   ];
 

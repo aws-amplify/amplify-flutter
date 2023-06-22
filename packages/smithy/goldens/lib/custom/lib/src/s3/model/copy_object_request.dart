@@ -53,9 +53,8 @@ abstract class CopyObjectRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CopyObjectRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<CopyObjectRequestPayload>>
+      serializers = [CopyObjectRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CopyObjectRequestBuilder b) {}
@@ -86,19 +85,19 @@ abstract class CopyObjectRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CopyObjectRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'copySource',
-      copySource,
-    );
-    helper.add(
-      'key',
-      key,
-    );
+    final helper = newBuiltValueToStringHelper('CopyObjectRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'copySource',
+        copySource,
+      )
+      ..add(
+        'key',
+        key,
+      );
     return helper.toString();
   }
 }

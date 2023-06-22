@@ -58,9 +58,8 @@ abstract class MalformedBooleanInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedBooleanInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedBooleanInputPayload>>
+      serializers = [MalformedBooleanInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedBooleanInputBuilder b) {
@@ -97,23 +96,23 @@ abstract class MalformedBooleanInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedBooleanInput');
-    helper.add(
-      'booleanInBody',
-      booleanInBody,
-    );
-    helper.add(
-      'booleanInPath',
-      booleanInPath,
-    );
-    helper.add(
-      'booleanInQuery',
-      booleanInQuery,
-    );
-    helper.add(
-      'booleanInHeader',
-      booleanInHeader,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedBooleanInput')
+      ..add(
+        'booleanInBody',
+        booleanInBody,
+      )
+      ..add(
+        'booleanInPath',
+        booleanInPath,
+      )
+      ..add(
+        'booleanInQuery',
+        booleanInQuery,
+      )
+      ..add(
+        'booleanInHeader',
+        booleanInHeader,
+      );
     return helper.toString();
   }
 }
@@ -138,11 +137,11 @@ abstract class MalformedBooleanInputPayload
   List<Object?> get props => [booleanInBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedBooleanInputPayload');
-    helper.add(
-      'booleanInBody',
-      booleanInBody,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedBooleanInputPayload')
+      ..add(
+        'booleanInBody',
+        booleanInBody,
+      );
     return helper.toString();
   }
 }

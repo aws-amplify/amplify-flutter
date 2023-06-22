@@ -66,9 +66,8 @@ abstract class NestedXmlMapsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    NestedXmlMapsInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<NestedXmlMapsInputOutput>>
+      serializers = [NestedXmlMapsInputOutputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NestedXmlMapsInputOutputBuilder b) {}
@@ -83,15 +82,15 @@ abstract class NestedXmlMapsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NestedXmlMapsInputOutput');
-    helper.add(
-      'nestedMap',
-      nestedMap,
-    );
-    helper.add(
-      'flatNestedMap',
-      flatNestedMap,
-    );
+    final helper = newBuiltValueToStringHelper('NestedXmlMapsInputOutput')
+      ..add(
+        'nestedMap',
+        nestedMap,
+      )
+      ..add(
+        'flatNestedMap',
+        flatNestedMap,
+      );
     return helper.toString();
   }
 }

@@ -47,9 +47,8 @@ abstract class MalformedPatternOverrideInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedPatternOverrideInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedPatternOverrideInput>>
+      serializers = [MalformedPatternOverrideInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedPatternOverrideInputBuilder b) {}
@@ -68,23 +67,23 @@ abstract class MalformedPatternOverrideInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedPatternOverrideInput');
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'list',
-      list,
-    );
-    helper.add(
-      'map',
-      map,
-    );
-    helper.add(
-      'union',
-      union,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedPatternOverrideInput')
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'list',
+        list,
+      )
+      ..add(
+        'map',
+        map,
+      )
+      ..add(
+        'union',
+        union,
+      );
     return helper.toString();
   }
 }

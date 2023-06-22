@@ -22,7 +22,7 @@ abstract class SimpleStruct
 
   const SimpleStruct._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<SimpleStruct>> serializers = [
     SimpleStructAwsJson11Serializer()
   ];
 
@@ -33,11 +33,11 @@ abstract class SimpleStruct
   List<Object?> get props => [value];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SimpleStruct');
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('SimpleStruct')
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

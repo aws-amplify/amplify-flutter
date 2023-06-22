@@ -53,7 +53,7 @@ abstract class ErrorWithMembers
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ErrorWithMembers>> serializers = [
     ErrorWithMembersAwsJson11Serializer()
   ];
 
@@ -96,35 +96,35 @@ abstract class ErrorWithMembers
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ErrorWithMembers');
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'complexData',
-      complexData,
-    );
-    helper.add(
-      'integerField',
-      integerField,
-    );
-    helper.add(
-      'listField',
-      listField,
-    );
-    helper.add(
-      'mapField',
-      mapField,
-    );
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'stringField',
-      stringField,
-    );
+    final helper = newBuiltValueToStringHelper('ErrorWithMembers')
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'complexData',
+        complexData,
+      )
+      ..add(
+        'integerField',
+        integerField,
+      )
+      ..add(
+        'listField',
+        listField,
+      )
+      ..add(
+        'mapField',
+        mapField,
+      )
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'stringField',
+        stringField,
+      );
     return helper.toString();
   }
 }

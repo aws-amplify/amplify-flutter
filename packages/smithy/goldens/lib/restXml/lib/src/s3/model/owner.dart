@@ -27,7 +27,7 @@ abstract class Owner
 
   const Owner._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Owner>> serializers = [
     OwnerRestXmlSerializer()
   ];
 
@@ -42,15 +42,15 @@ abstract class Owner
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Owner');
-    helper.add(
-      'displayName',
-      displayName,
-    );
-    helper.add(
-      'id',
-      id,
-    );
+    final helper = newBuiltValueToStringHelper('Owner')
+      ..add(
+        'displayName',
+        displayName,
+      )
+      ..add(
+        'id',
+        id,
+      );
     return helper.toString();
   }
 }

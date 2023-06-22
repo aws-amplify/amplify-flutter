@@ -36,9 +36,8 @@ abstract class FractionalSecondsOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    FractionalSecondsOutputRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<FractionalSecondsOutput>> serializers =
+      [FractionalSecondsOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FractionalSecondsOutputBuilder b) {}
@@ -51,15 +50,15 @@ abstract class FractionalSecondsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FractionalSecondsOutput');
-    helper.add(
-      'datetime',
-      datetime,
-    );
-    helper.add(
-      'httpdate',
-      httpdate,
-    );
+    final helper = newBuiltValueToStringHelper('FractionalSecondsOutput')
+      ..add(
+        'datetime',
+        datetime,
+      )
+      ..add(
+        'httpdate',
+        httpdate,
+      );
     return helper.toString();
   }
 }

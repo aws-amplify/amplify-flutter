@@ -41,7 +41,7 @@ abstract class XmlUnionsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<XmlUnionsInputOutput>> serializers = [
     XmlUnionsInputOutputRestXmlSerializer()
   ];
 
@@ -54,11 +54,11 @@ abstract class XmlUnionsInputOutput
   List<Object?> get props => [unionValue];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlUnionsInputOutput');
-    helper.add(
-      'unionValue',
-      unionValue,
-    );
+    final helper = newBuiltValueToStringHelper('XmlUnionsInputOutput')
+      ..add(
+        'unionValue',
+        unionValue,
+      );
     return helper.toString();
   }
 }

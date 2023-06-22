@@ -22,7 +22,7 @@ abstract class CommonPrefix
 
   const CommonPrefix._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<CommonPrefix>> serializers = [
     CommonPrefixRestXmlSerializer()
   ];
 
@@ -33,11 +33,11 @@ abstract class CommonPrefix
   List<Object?> get props => [prefix];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CommonPrefix');
-    helper.add(
-      'prefix',
-      prefix,
-    );
+    final helper = newBuiltValueToStringHelper('CommonPrefix')
+      ..add(
+        'prefix',
+        prefix,
+      );
     return helper.toString();
   }
 }

@@ -47,7 +47,7 @@ abstract class ValidationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ValidationException>> serializers = [
     ValidationExceptionRestJson1Serializer()
   ];
 
@@ -82,15 +82,15 @@ abstract class ValidationException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ValidationException');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'fieldList',
-      fieldList,
-    );
+    final helper = newBuiltValueToStringHelper('ValidationException')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'fieldList',
+        fieldList,
+      );
     return helper.toString();
   }
 }

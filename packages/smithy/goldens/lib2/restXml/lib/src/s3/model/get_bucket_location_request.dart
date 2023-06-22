@@ -40,9 +40,8 @@ abstract class GetBucketLocationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketLocationRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetBucketLocationRequestPayload>>
+      serializers = [GetBucketLocationRequestRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketLocationRequestBuilder b) {}
@@ -66,11 +65,11 @@ abstract class GetBucketLocationRequest
   List<Object?> get props => [bucket];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketLocationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketLocationRequest')
+      ..add(
+        'bucket',
+        bucket,
+      );
     return helper.toString();
   }
 }

@@ -23,9 +23,8 @@ abstract class ComplexNestedErrorData
 
   const ComplexNestedErrorData._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ComplexNestedErrorDataAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<ComplexNestedErrorData>> serializers =
+      [ComplexNestedErrorDataAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplexNestedErrorDataBuilder b) {}
@@ -34,11 +33,11 @@ abstract class ComplexNestedErrorData
   List<Object?> get props => [foo];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplexNestedErrorData');
-    helper.add(
-      'foo',
-      foo,
-    );
+    final helper = newBuiltValueToStringHelper('ComplexNestedErrorData')
+      ..add(
+        'foo',
+        foo,
+      );
     return helper.toString();
   }
 }

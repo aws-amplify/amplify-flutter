@@ -47,9 +47,8 @@ abstract class DocumentTypeInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DocumentTypeInputOutputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<DocumentTypeInputOutput>> serializers =
+      [DocumentTypeInputOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DocumentTypeInputOutputBuilder b) {}
@@ -64,15 +63,15 @@ abstract class DocumentTypeInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DocumentTypeInputOutput');
-    helper.add(
-      'stringValue',
-      stringValue,
-    );
-    helper.add(
-      'documentValue',
-      documentValue,
-    );
+    final helper = newBuiltValueToStringHelper('DocumentTypeInputOutput')
+      ..add(
+        'stringValue',
+        stringValue,
+      )
+      ..add(
+        'documentValue',
+        documentValue,
+      );
     return helper.toString();
   }
 }

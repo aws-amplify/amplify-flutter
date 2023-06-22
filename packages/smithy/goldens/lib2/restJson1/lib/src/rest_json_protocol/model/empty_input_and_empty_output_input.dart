@@ -35,9 +35,8 @@ abstract class EmptyInputAndEmptyOutputInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    EmptyInputAndEmptyOutputInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<EmptyInputAndEmptyOutputInput>>
+      serializers = [EmptyInputAndEmptyOutputInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EmptyInputAndEmptyOutputInputBuilder b) {}

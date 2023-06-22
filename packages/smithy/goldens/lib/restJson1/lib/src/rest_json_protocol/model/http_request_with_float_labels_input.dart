@@ -52,9 +52,9 @@ abstract class HttpRequestWithFloatLabelsInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HttpRequestWithFloatLabelsInputRestJson1Serializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<HttpRequestWithFloatLabelsInputPayload>>
+      serializers = [HttpRequestWithFloatLabelsInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpRequestWithFloatLabelsInputBuilder b) {
@@ -89,15 +89,15 @@ abstract class HttpRequestWithFloatLabelsInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('HttpRequestWithFloatLabelsInput');
-    helper.add(
-      'float',
-      float,
-    );
-    helper.add(
-      'double_',
-      double_,
-    );
+        newBuiltValueToStringHelper('HttpRequestWithFloatLabelsInput')
+          ..add(
+            'float',
+            float,
+          )
+          ..add(
+            'double_',
+            double_,
+          );
     return helper.toString();
   }
 }

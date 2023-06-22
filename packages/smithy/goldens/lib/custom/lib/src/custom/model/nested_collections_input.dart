@@ -45,9 +45,8 @@ abstract class NestedCollectionsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    NestedCollectionsInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<NestedCollectionsInput>> serializers =
+      [NestedCollectionsInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NestedCollectionsInputBuilder b) {}
@@ -59,11 +58,11 @@ abstract class NestedCollectionsInput
   List<Object?> get props => [mapOfListOfMapOfLists];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NestedCollectionsInput');
-    helper.add(
-      'mapOfListOfMapOfLists',
-      mapOfListOfMapOfLists,
-    );
+    final helper = newBuiltValueToStringHelper('NestedCollectionsInput')
+      ..add(
+        'mapOfListOfMapOfLists',
+        mapOfListOfMapOfLists,
+      );
     return helper.toString();
   }
 }

@@ -41,9 +41,9 @@ abstract class HttpRequestWithRegexLiteralInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HttpRequestWithRegexLiteralInputRestJson1Serializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<HttpRequestWithRegexLiteralInputPayload>>
+      serializers = [HttpRequestWithRegexLiteralInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpRequestWithRegexLiteralInputBuilder b) {}
@@ -68,11 +68,11 @@ abstract class HttpRequestWithRegexLiteralInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('HttpRequestWithRegexLiteralInput');
-    helper.add(
-      'str',
-      str,
-    );
+        newBuiltValueToStringHelper('HttpRequestWithRegexLiteralInput')
+          ..add(
+            'str',
+            str,
+          );
     return helper.toString();
   }
 }

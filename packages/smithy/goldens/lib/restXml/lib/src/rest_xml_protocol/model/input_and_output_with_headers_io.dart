@@ -222,9 +222,8 @@ abstract class InputAndOutputWithHeadersIo
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    InputAndOutputWithHeadersIoRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<InputAndOutputWithHeadersIoPayload>>
+      serializers = [InputAndOutputWithHeadersIoRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InputAndOutputWithHeadersIoBuilder b) {}
@@ -268,71 +267,71 @@ abstract class InputAndOutputWithHeadersIo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InputAndOutputWithHeadersIo');
-    helper.add(
-      'headerString',
-      headerString,
-    );
-    helper.add(
-      'headerByte',
-      headerByte,
-    );
-    helper.add(
-      'headerShort',
-      headerShort,
-    );
-    helper.add(
-      'headerInteger',
-      headerInteger,
-    );
-    helper.add(
-      'headerLong',
-      headerLong,
-    );
-    helper.add(
-      'headerFloat',
-      headerFloat,
-    );
-    helper.add(
-      'headerDouble',
-      headerDouble,
-    );
-    helper.add(
-      'headerTrueBool',
-      headerTrueBool,
-    );
-    helper.add(
-      'headerFalseBool',
-      headerFalseBool,
-    );
-    helper.add(
-      'headerStringList',
-      headerStringList,
-    );
-    helper.add(
-      'headerStringSet',
-      headerStringSet,
-    );
-    helper.add(
-      'headerIntegerList',
-      headerIntegerList,
-    );
-    helper.add(
-      'headerBooleanList',
-      headerBooleanList,
-    );
-    helper.add(
-      'headerTimestampList',
-      headerTimestampList,
-    );
-    helper.add(
-      'headerEnum',
-      headerEnum,
-    );
-    helper.add(
-      'headerEnumList',
-      headerEnumList,
-    );
+    final helper = newBuiltValueToStringHelper('InputAndOutputWithHeadersIo')
+      ..add(
+        'headerString',
+        headerString,
+      )
+      ..add(
+        'headerByte',
+        headerByte,
+      )
+      ..add(
+        'headerShort',
+        headerShort,
+      )
+      ..add(
+        'headerInteger',
+        headerInteger,
+      )
+      ..add(
+        'headerLong',
+        headerLong,
+      )
+      ..add(
+        'headerFloat',
+        headerFloat,
+      )
+      ..add(
+        'headerDouble',
+        headerDouble,
+      )
+      ..add(
+        'headerTrueBool',
+        headerTrueBool,
+      )
+      ..add(
+        'headerFalseBool',
+        headerFalseBool,
+      )
+      ..add(
+        'headerStringList',
+        headerStringList,
+      )
+      ..add(
+        'headerStringSet',
+        headerStringSet,
+      )
+      ..add(
+        'headerIntegerList',
+        headerIntegerList,
+      )
+      ..add(
+        'headerBooleanList',
+        headerBooleanList,
+      )
+      ..add(
+        'headerTimestampList',
+        headerTimestampList,
+      )
+      ..add(
+        'headerEnum',
+        headerEnum,
+      )
+      ..add(
+        'headerEnumList',
+        headerEnumList,
+      );
     return helper.toString();
   }
 }

@@ -52,9 +52,8 @@ abstract class ArchiveCreationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ArchiveCreationOutputRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ArchiveCreationOutputPayload>>
+      serializers = [ArchiveCreationOutputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ArchiveCreationOutputBuilder b) {}
@@ -71,19 +70,19 @@ abstract class ArchiveCreationOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ArchiveCreationOutput');
-    helper.add(
-      'location',
-      location,
-    );
-    helper.add(
-      'checksum',
-      checksum,
-    );
-    helper.add(
-      'archiveId',
-      archiveId,
-    );
+    final helper = newBuiltValueToStringHelper('ArchiveCreationOutput')
+      ..add(
+        'location',
+        location,
+      )
+      ..add(
+        'checksum',
+        checksum,
+      )
+      ..add(
+        'archiveId',
+        archiveId,
+      );
     return helper.toString();
   }
 }

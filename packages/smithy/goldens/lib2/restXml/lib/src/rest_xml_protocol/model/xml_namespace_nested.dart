@@ -30,7 +30,7 @@ abstract class XmlNamespaceNested
 
   const XmlNamespaceNested._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<XmlNamespaceNested>> serializers = [
     XmlNamespaceNestedRestXmlSerializer()
   ];
 
@@ -45,15 +45,15 @@ abstract class XmlNamespaceNested
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlNamespaceNested');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'values',
-      values,
-    );
+    final helper = newBuiltValueToStringHelper('XmlNamespaceNested')
+      ..add(
+        'foo',
+        foo,
+      )
+      ..add(
+        'values',
+        values,
+      );
     return helper.toString();
   }
 }

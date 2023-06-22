@@ -35,9 +35,8 @@ abstract class FlattenedXmlMapWithXmlNameOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<FlattenedXmlMapWithXmlNameOutput>>
+      serializers = [FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FlattenedXmlMapWithXmlNameOutputBuilder b) {}
@@ -47,11 +46,11 @@ abstract class FlattenedXmlMapWithXmlNameOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('FlattenedXmlMapWithXmlNameOutput');
-    helper.add(
-      'myMap',
-      myMap,
-    );
+        newBuiltValueToStringHelper('FlattenedXmlMapWithXmlNameOutput')
+          ..add(
+            'myMap',
+            myMap,
+          );
     return helper.toString();
   }
 }

@@ -62,9 +62,8 @@ abstract class UploadArchiveInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UploadArchiveInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
+      [UploadArchiveInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadArchiveInputBuilder b) {}
@@ -99,27 +98,27 @@ abstract class UploadArchiveInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadArchiveInput');
-    helper.add(
-      'vaultName',
-      vaultName,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'archiveDescription',
-      archiveDescription,
-    );
-    helper.add(
-      'checksum',
-      checksum,
-    );
-    helper.add(
-      'body',
-      body,
-    );
+    final helper = newBuiltValueToStringHelper('UploadArchiveInput')
+      ..add(
+        'vaultName',
+        vaultName,
+      )
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'archiveDescription',
+        archiveDescription,
+      )
+      ..add(
+        'checksum',
+        checksum,
+      )
+      ..add(
+        'body',
+        body,
+      );
     return helper.toString();
   }
 }

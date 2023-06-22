@@ -32,7 +32,7 @@ abstract class XmlNamespacesOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<XmlNamespacesOutput>> serializers = [
     XmlNamespacesOutputAwsQuerySerializer()
   ];
 
@@ -43,11 +43,11 @@ abstract class XmlNamespacesOutput
   List<Object?> get props => [nested];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlNamespacesOutput');
-    helper.add(
-      'nested',
-      nested,
-    );
+    final helper = newBuiltValueToStringHelper('XmlNamespacesOutput')
+      ..add(
+        'nested',
+        nested,
+      );
     return helper.toString();
   }
 }

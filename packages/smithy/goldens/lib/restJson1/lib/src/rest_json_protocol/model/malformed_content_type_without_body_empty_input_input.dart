@@ -41,7 +41,10 @@ abstract class MalformedContentTypeWithoutBodyEmptyInputInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<
+              MalformedContentTypeWithoutBodyEmptyInputInputPayload>>
+      serializers = [
     MalformedContentTypeWithoutBodyEmptyInputInputRestJson1Serializer()
   ];
 
@@ -56,11 +59,11 @@ abstract class MalformedContentTypeWithoutBodyEmptyInputInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MalformedContentTypeWithoutBodyEmptyInputInput');
-    helper.add(
-      'header',
-      header,
-    );
+        'MalformedContentTypeWithoutBodyEmptyInputInput')
+      ..add(
+        'header',
+        header,
+      );
     return helper.toString();
   }
 }

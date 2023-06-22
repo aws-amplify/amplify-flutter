@@ -44,9 +44,9 @@ abstract class MalformedTimestampPathHttpDateInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedTimestampPathHttpDateInputRestJson1Serializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<MalformedTimestampPathHttpDateInputPayload>>
+      serializers = [MalformedTimestampPathHttpDateInputRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedTimestampPathHttpDateInputBuilder b) {}
@@ -73,11 +73,11 @@ abstract class MalformedTimestampPathHttpDateInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('MalformedTimestampPathHttpDateInput');
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
+        newBuiltValueToStringHelper('MalformedTimestampPathHttpDateInput')
+          ..add(
+            'timestamp',
+            timestamp,
+          );
     return helper.toString();
   }
 }

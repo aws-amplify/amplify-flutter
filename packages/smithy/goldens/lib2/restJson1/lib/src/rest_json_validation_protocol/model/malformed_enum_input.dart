@@ -45,7 +45,7 @@ abstract class MalformedEnumInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<MalformedEnumInput>> serializers = [
     MalformedEnumInputRestJson1Serializer()
   ];
 
@@ -66,23 +66,23 @@ abstract class MalformedEnumInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedEnumInput');
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'list',
-      list,
-    );
-    helper.add(
-      'map',
-      map,
-    );
-    helper.add(
-      'union',
-      union,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedEnumInput')
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'list',
+        list,
+      )
+      ..add(
+        'map',
+        map,
+      )
+      ..add(
+        'union',
+        union,
+      );
     return helper.toString();
   }
 }

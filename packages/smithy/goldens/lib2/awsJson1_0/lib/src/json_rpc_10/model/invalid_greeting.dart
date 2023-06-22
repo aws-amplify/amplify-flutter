@@ -37,7 +37,7 @@ abstract class InvalidGreeting
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<InvalidGreeting>> serializers = [
     InvalidGreetingAwsJson10Serializer()
   ];
 
@@ -64,11 +64,11 @@ abstract class InvalidGreeting
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidGreeting');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidGreeting')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -55,7 +55,7 @@ abstract class XmlEnumsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<XmlEnumsInputOutput>> serializers = [
     XmlEnumsInputOutputRestXmlSerializer()
   ];
 
@@ -80,31 +80,31 @@ abstract class XmlEnumsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlEnumsInputOutput');
-    helper.add(
-      'fooEnum1',
-      fooEnum1,
-    );
-    helper.add(
-      'fooEnum2',
-      fooEnum2,
-    );
-    helper.add(
-      'fooEnum3',
-      fooEnum3,
-    );
-    helper.add(
-      'fooEnumList',
-      fooEnumList,
-    );
-    helper.add(
-      'fooEnumSet',
-      fooEnumSet,
-    );
-    helper.add(
-      'fooEnumMap',
-      fooEnumMap,
-    );
+    final helper = newBuiltValueToStringHelper('XmlEnumsInputOutput')
+      ..add(
+        'fooEnum1',
+        fooEnum1,
+      )
+      ..add(
+        'fooEnum2',
+        fooEnum2,
+      )
+      ..add(
+        'fooEnum3',
+        fooEnum3,
+      )
+      ..add(
+        'fooEnumList',
+        fooEnumList,
+      )
+      ..add(
+        'fooEnumSet',
+        fooEnumSet,
+      )
+      ..add(
+        'fooEnumMap',
+        fooEnumMap,
+      );
     return helper.toString();
   }
 }

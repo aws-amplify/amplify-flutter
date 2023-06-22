@@ -36,7 +36,7 @@ abstract class MalformedAcceptWithGenericStringOutput
         b.payload = payload;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<String?>> serializers = [
     MalformedAcceptWithGenericStringOutputRestJson1Serializer()
   ];
 
@@ -50,11 +50,11 @@ abstract class MalformedAcceptWithGenericStringOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('MalformedAcceptWithGenericStringOutput');
-    helper.add(
-      'payload',
-      payload,
-    );
+        newBuiltValueToStringHelper('MalformedAcceptWithGenericStringOutput')
+          ..add(
+            'payload',
+            payload,
+          );
     return helper.toString();
   }
 }

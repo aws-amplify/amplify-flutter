@@ -34,7 +34,7 @@ abstract class CustomCodeError
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<CustomCodeError>> serializers = [
     CustomCodeErrorAwsQuerySerializer()
   ];
 
@@ -61,11 +61,11 @@ abstract class CustomCodeError
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CustomCodeError');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('CustomCodeError')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

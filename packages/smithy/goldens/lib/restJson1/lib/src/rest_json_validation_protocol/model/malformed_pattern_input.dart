@@ -47,7 +47,7 @@ abstract class MalformedPatternInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<MalformedPatternInput>> serializers = [
     MalformedPatternInputRestJson1Serializer()
   ];
 
@@ -70,27 +70,27 @@ abstract class MalformedPatternInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedPatternInput');
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'evilString',
-      evilString,
-    );
-    helper.add(
-      'list',
-      list,
-    );
-    helper.add(
-      'map',
-      map,
-    );
-    helper.add(
-      'union',
-      union,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedPatternInput')
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'evilString',
+        evilString,
+      )
+      ..add(
+        'list',
+        list,
+      )
+      ..add(
+        'map',
+        map,
+      )
+      ..add(
+        'union',
+        union,
+      );
     return helper.toString();
   }
 }

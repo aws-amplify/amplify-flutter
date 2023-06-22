@@ -34,7 +34,7 @@ abstract class MalformedUnionInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<MalformedUnionInput>> serializers = [
     MalformedUnionInputRestJson1Serializer()
   ];
 
@@ -47,11 +47,11 @@ abstract class MalformedUnionInput
   List<Object?> get props => [union];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedUnionInput');
-    helper.add(
-      'union',
-      union,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedUnionInput')
+      ..add(
+        'union',
+        union,
+      );
     return helper.toString();
   }
 }

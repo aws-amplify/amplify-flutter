@@ -41,7 +41,7 @@ abstract class UnionInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UnionInputOutput>> serializers = [
     UnionInputOutputRestJson1Serializer()
   ];
 
@@ -56,11 +56,11 @@ abstract class UnionInputOutput
   List<Object?> get props => [contents];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UnionInputOutput');
-    helper.add(
-      'contents',
-      contents,
-    );
+    final helper = newBuiltValueToStringHelper('UnionInputOutput')
+      ..add(
+        'contents',
+        contents,
+      );
     return helper.toString();
   }
 }
