@@ -7,6 +7,7 @@ import 'package:smithy_codegen/smithy_codegen.dart';
 import 'package:smithy_codegen/src/generator/generation_context.dart';
 import 'package:smithy_codegen/src/generator/generator.dart';
 import 'package:smithy_codegen/src/generator/serialization/union_serializer_generator.dart';
+import 'package:smithy_codegen/src/generator/structure_generator.dart';
 import 'package:smithy_codegen/src/generator/types.dart';
 import 'package:smithy_codegen/src/util/shape_ext.dart';
 import 'package:smithy_codegen/src/util/symbol_ext.dart';
@@ -109,27 +110,47 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
   Iterable<Constructor> get _factoryConstructors sync* {
     for (final member in members) {
       final memberSymbol = memberSymbols[member]!;
+      final transformedSymbol = memberSymbol.transformedSymbol;
+      final targetShape = context.shapeFor(member.target);
+      final isStructureShape =
+          targetShape is StructureShape && member.target != Shape.unit;
       final requiresTransformation =
-          memberSymbol.requiresConstructorTransformation;
-      var transformedSymbol = memberSymbol;
-      if (requiresTransformation) {
-        transformedSymbol = memberSymbol.transformedSymbol;
-      }
-      yield Constructor(
-        (c) => c
+          memberSymbol.requiresConstructorTransformation || isStructureShape;
+      yield Constructor((c) {
+        c
           ..constant = !requiresTransformation
           ..factory = true
-          ..name = variantName(member)
-          ..requiredParameters.addAll([
-            if (member.target != Shape.unit)
-              Parameter(
-                (p) => p
-                  ..type = transformedSymbol.unboxed
-                  ..name = variantName(member),
-              ),
-          ])
-          ..redirect = refer(variantClassName(member)),
-      );
+          ..name = variantName(member);
+
+        switch (targetShape) {
+          case final StructureShape struct when isStructureShape:
+            final structGenerator = StructureGenerator(struct, context);
+            c.optionalParameters.addAll(
+              structGenerator.members.map(structGenerator.memberParameter),
+            );
+            final memberNames = structGenerator.members
+                .map((member) => member.dartName(ShapeType.structure));
+            final constructorInvocation =
+                structGenerator.symbol.newInstance([], {
+              for (final member in memberNames) member: refer(member),
+            });
+            c
+              ..lambda = true
+              ..body = refer(variantClassName(member))
+                  .newInstance([constructorInvocation]).code;
+          case _:
+            if (member.target != Shape.unit) {
+              c.requiredParameters.add(
+                Parameter(
+                  (p) => p
+                    ..type = transformedSymbol.unboxed
+                    ..name = variantName(member),
+                ),
+              );
+            }
+            c.redirect = refer(variantClassName(member));
+        }
+      });
     }
 
     yield Constructor(
@@ -173,10 +194,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
       final memberSymbol = memberSymbols[member]!;
       final requiresTransformation =
           memberSymbol.requiresConstructorTransformation;
-      var transformedSymbol = memberSymbol;
-      if (requiresTransformation) {
-        transformedSymbol = memberSymbol.transformedSymbol;
-      }
+      final transformedSymbol = memberSymbol.transformedSymbol;
       final variantName = this.variantName(member);
       final ctor = Constructor(
         (ctor) => ctor

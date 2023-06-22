@@ -179,7 +179,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         ..docs.addAll([
           if (shape.hasDocs(context)) shape.formattedDocs(context),
         ])
-        ..optionalParameters.addAll(members.map(_memberParameter))
+        ..optionalParameters.addAll(members.map(memberParameter))
         ..body = body,
     );
   }
@@ -210,7 +210,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       );
 
   /// Creates a constructor [Parameter] for [member].
-  Parameter _memberParameter(MemberShape member) {
+  Parameter memberParameter(MemberShape member) {
     final deprecatedAnnotation = member.deprecatedAnnotation ??
         context.shapeFor(member.target).deprecatedAnnotation;
     final symbol = memberSymbols[member]!.transformFromInternal();
