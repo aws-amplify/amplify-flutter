@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_integration_test.cognito_identity_provider.operation.admin_list_user_auth_events_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -123,7 +124,8 @@ class AdminListUserAuthEventsOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InternalErrorException,
+            _i11.InternalErrorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InternalErrorException',
@@ -132,7 +134,8 @@ class AdminListUserAuthEventsOperation extends _i1.PaginatedHttpOperation<
           _i11.InternalErrorException,
           builder: _i11.InternalErrorException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidParameterException,
+            _i12.InvalidParameterException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidParameterException',
@@ -142,7 +145,8 @@ class AdminListUserAuthEventsOperation extends _i1.PaginatedHttpOperation<
           statusCode: 400,
           builder: _i12.InvalidParameterException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.NotAuthorizedException,
+            _i13.NotAuthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'NotAuthorizedException',
@@ -152,7 +156,8 @@ class AdminListUserAuthEventsOperation extends _i1.PaginatedHttpOperation<
           statusCode: 403,
           builder: _i13.NotAuthorizedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.ResourceNotFoundException,
+            _i14.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ResourceNotFoundException',
@@ -162,7 +167,8 @@ class AdminListUserAuthEventsOperation extends _i1.PaginatedHttpOperation<
           statusCode: 404,
           builder: _i14.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.TooManyRequestsException,
+            _i15.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'TooManyRequestsException',
@@ -172,7 +178,7 @@ class AdminListUserAuthEventsOperation extends _i1.PaginatedHttpOperation<
           statusCode: 429,
           builder: _i15.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.UserNotFoundException, _i16.UserNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UserNotFoundException',
@@ -182,7 +188,8 @@ class AdminListUserAuthEventsOperation extends _i1.PaginatedHttpOperation<
           statusCode: 404,
           builder: _i16.UserNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i17.UserPoolAddOnNotEnabledException,
+            _i17.UserPoolAddOnNotEnabledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UserPoolAddOnNotEnabledException',
@@ -215,7 +222,7 @@ class AdminListUserAuthEventsOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
       },
     );
   }
