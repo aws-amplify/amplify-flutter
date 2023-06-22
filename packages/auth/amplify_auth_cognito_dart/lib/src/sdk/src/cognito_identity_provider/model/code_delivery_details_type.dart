@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.code_delivery_details_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -104,31 +105,25 @@ class CodeDeliveryDetailsTypeAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Destination':
-          if (value != null) {
-            result.destination = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.destination = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DeliveryMedium':
-          if (value != null) {
-            result.deliveryMedium = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.DeliveryMediumType),
-            ) as _i2.DeliveryMediumType);
-          }
-          break;
+          result.deliveryMedium = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.DeliveryMediumType),
+          ) as _i2.DeliveryMediumType);
         case 'AttributeName':
-          if (value != null) {
-            result.attributeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.attributeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -138,35 +133,39 @@ class CodeDeliveryDetailsTypeAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    CodeDeliveryDetailsType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as CodeDeliveryDetailsType);
-    final result = <Object?>[];
-    if (payload.destination != null) {
-      result
+    final result$ = <Object?>[];
+    final CodeDeliveryDetailsType(
+      :destination,
+      :deliveryMedium,
+      :attributeName
+    ) = object;
+    if (destination != null) {
+      result$
         ..add('Destination')
         ..add(serializers.serialize(
-          payload.destination!,
+          destination,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.deliveryMedium != null) {
-      result
+    if (deliveryMedium != null) {
+      result$
         ..add('DeliveryMedium')
         ..add(serializers.serialize(
-          payload.deliveryMedium!,
+          deliveryMedium,
           specifiedType: const FullType(_i2.DeliveryMediumType),
         ));
     }
-    if (payload.attributeName != null) {
-      result
+    if (attributeName != null) {
+      result$
         ..add('AttributeName')
         ..add(serializers.serialize(
-          payload.attributeName!,
+          attributeName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

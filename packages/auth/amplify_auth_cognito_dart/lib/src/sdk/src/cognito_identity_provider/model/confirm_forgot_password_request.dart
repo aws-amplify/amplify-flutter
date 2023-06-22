@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_forgot_password_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -183,69 +184,56 @@ class ConfirmForgotPasswordRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ClientId':
           result.clientId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SecretHash':
-          if (value != null) {
-            result.secretHash = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.secretHash = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Username':
           result.username = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ConfirmationCode':
           result.confirmationCode = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Password':
           result.password = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'AnalyticsMetadata':
-          if (value != null) {
-            result.analyticsMetadata.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AnalyticsMetadataType),
-            ) as _i3.AnalyticsMetadataType));
-          }
-          break;
+          result.analyticsMetadata.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AnalyticsMetadataType),
+          ) as _i3.AnalyticsMetadataType));
         case 'UserContextData':
-          if (value != null) {
-            result.userContextData.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.UserContextDataType),
-            ) as _i4.UserContextDataType));
-          }
-          break;
+          result.userContextData.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.UserContextDataType),
+          ) as _i4.UserContextDataType));
         case 'ClientMetadata':
-          if (value != null) {
-            result.clientMetadata.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, String>));
-          }
-          break;
+          result.clientMetadata.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, String>));
       }
     }
 
@@ -255,61 +243,71 @@ class ConfirmForgotPasswordRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ConfirmForgotPasswordRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ConfirmForgotPasswordRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ConfirmForgotPasswordRequest(
+      :clientId,
+      :secretHash,
+      :username,
+      :confirmationCode,
+      :password,
+      :analyticsMetadata,
+      :userContextData,
+      :clientMetadata
+    ) = object;
+    result$.addAll([
       'ClientId',
       serializers.serialize(
-        payload.clientId,
+        clientId,
         specifiedType: const FullType(String),
       ),
       'Username',
       serializers.serialize(
-        payload.username,
+        username,
         specifiedType: const FullType(String),
       ),
       'ConfirmationCode',
       serializers.serialize(
-        payload.confirmationCode,
+        confirmationCode,
         specifiedType: const FullType(String),
       ),
       'Password',
       serializers.serialize(
-        payload.password,
+        password,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.secretHash != null) {
-      result
+    ]);
+    if (secretHash != null) {
+      result$
         ..add('SecretHash')
         ..add(serializers.serialize(
-          payload.secretHash!,
+          secretHash,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.analyticsMetadata != null) {
-      result
+    if (analyticsMetadata != null) {
+      result$
         ..add('AnalyticsMetadata')
         ..add(serializers.serialize(
-          payload.analyticsMetadata!,
+          analyticsMetadata,
           specifiedType: const FullType(_i3.AnalyticsMetadataType),
         ));
     }
-    if (payload.userContextData != null) {
-      result
+    if (userContextData != null) {
+      result$
         ..add('UserContextData')
         ..add(serializers.serialize(
-          payload.userContextData!,
+          userContextData,
           specifiedType: const FullType(_i4.UserContextDataType),
         ));
     }
-    if (payload.clientMetadata != null) {
-      result
+    if (clientMetadata != null) {
+      result$
         ..add('ClientMetadata')
         ..add(serializers.serialize(
-          payload.clientMetadata!,
+          clientMetadata,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -319,6 +317,6 @@ class ConfirmForgotPasswordRequestAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

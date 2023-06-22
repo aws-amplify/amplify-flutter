@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.confirm_device_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -127,7 +128,7 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ForbiddenException, _i9.ForbiddenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ForbiddenException',
@@ -137,7 +138,8 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i9.ForbiddenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InternalErrorException,
+            _i10.InternalErrorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InternalErrorException',
@@ -146,7 +148,8 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
           _i10.InternalErrorException,
           builder: _i10.InternalErrorException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidLambdaResponseException,
+            _i11.InvalidLambdaResponseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidLambdaResponseException',
@@ -156,7 +159,8 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i11.InvalidLambdaResponseException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidParameterException,
+            _i12.InvalidParameterException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidParameterException',
@@ -166,7 +170,8 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i12.InvalidParameterException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.InvalidPasswordException,
+            _i13.InvalidPasswordException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidPasswordException',
@@ -176,7 +181,8 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i13.InvalidPasswordException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.InvalidUserPoolConfigurationException,
+            _i14.InvalidUserPoolConfigurationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidUserPoolConfigurationException',
@@ -186,7 +192,8 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i14.InvalidUserPoolConfigurationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.NotAuthorizedException,
+            _i15.NotAuthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'NotAuthorizedException',
@@ -196,7 +203,8 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i15.NotAuthorizedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.PasswordResetRequiredException,
+            _i16.PasswordResetRequiredException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'PasswordResetRequiredException',
@@ -206,7 +214,8 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i16.PasswordResetRequiredException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i17.ResourceNotFoundException,
+            _i17.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ResourceNotFoundException',
@@ -216,7 +225,8 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i17.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i18.TooManyRequestsException,
+            _i18.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'TooManyRequestsException',
@@ -226,7 +236,8 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
           statusCode: 429,
           builder: _i18.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i19.UsernameExistsException,
+            _i19.UsernameExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UsernameExistsException',
@@ -236,7 +247,8 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i19.UsernameExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i20.UserNotConfirmedException,
+            _i20.UserNotConfirmedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UserNotConfirmedException',
@@ -246,7 +258,7 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i20.UserNotConfirmedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i21.UserNotFoundException, _i21.UserNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UserNotFoundException',
@@ -279,7 +291,7 @@ class ConfirmDeviceOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }
