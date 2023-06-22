@@ -37,11 +37,11 @@ sealed class MyUnion extends _i1.SmithyUnion<MyUnion> {
 
   factory MyUnion.mapValue(Map<String, String> mapValue) = MyUnionMapValue;
 
-  const factory MyUnion.structureValue(_i4.GreetingStruct structureValue) =
-      MyUnionStructureValue;
+  factory MyUnion.structureValue({String? hi}) =>
+      MyUnionStructureValue(_i4.GreetingStruct(hi: hi));
 
-  const factory MyUnion.renamedStructureValue(
-      _i5.RenamedGreeting renamedStructureValue) = MyUnionRenamedStructureValue;
+  factory MyUnion.renamedStructureValue({String? salutation}) =>
+      MyUnionRenamedStructureValue(_i5.RenamedGreeting(salutation: salutation));
 
   const factory MyUnion.sdkUnknown(
     String name,
