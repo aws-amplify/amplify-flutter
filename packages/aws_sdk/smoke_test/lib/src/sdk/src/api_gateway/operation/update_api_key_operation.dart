@@ -112,7 +112,7 @@ class UpdateApiKeyOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.BadRequestException, _i9.BadRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'BadRequestException',
@@ -122,7 +122,7 @@ class UpdateApiKeyOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.BadRequestException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ConflictException, _i10.ConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'ConflictException',
@@ -132,7 +132,8 @@ class UpdateApiKeyOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i10.ConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.LimitExceededExceptionPayload,
+            _i11.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'LimitExceededException',
@@ -142,7 +143,7 @@ class UpdateApiKeyOperation extends _i1.HttpOperation<
           statusCode: 429,
           builder: _i11.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.NotFoundException, _i12.NotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'NotFoundException',
@@ -152,7 +153,8 @@ class UpdateApiKeyOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i12.NotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.TooManyRequestsExceptionPayload,
+            _i13.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'TooManyRequestsException',
@@ -162,7 +164,7 @@ class UpdateApiKeyOperation extends _i1.HttpOperation<
           statusCode: 429,
           builder: _i13.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.UnauthorizedException, _i14.UnauthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'UnauthorizedException',

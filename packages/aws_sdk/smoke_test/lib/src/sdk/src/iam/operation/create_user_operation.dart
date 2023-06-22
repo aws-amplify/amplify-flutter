@@ -143,7 +143,8 @@ class CreateUserOperation extends _i1.HttpOperation<_i2.CreateUserRequest,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ConcurrentModificationException,
+            _i9.ConcurrentModificationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ConcurrentModificationException',
@@ -153,7 +154,8 @@ class CreateUserOperation extends _i1.HttpOperation<_i2.CreateUserRequest,
           statusCode: 409,
           builder: _i9.ConcurrentModificationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.EntityAlreadyExistsException,
+            _i10.EntityAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'EntityAlreadyExistsException',
@@ -163,7 +165,7 @@ class CreateUserOperation extends _i1.HttpOperation<_i2.CreateUserRequest,
           statusCode: 409,
           builder: _i10.EntityAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidInputException, _i11.InvalidInputException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidInputException',
@@ -173,7 +175,8 @@ class CreateUserOperation extends _i1.HttpOperation<_i2.CreateUserRequest,
           statusCode: 400,
           builder: _i11.InvalidInputException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.LimitExceededException,
+            _i12.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -183,7 +186,7 @@ class CreateUserOperation extends _i1.HttpOperation<_i2.CreateUserRequest,
           statusCode: 409,
           builder: _i12.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.NoSuchEntityException, _i13.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -193,7 +196,8 @@ class CreateUserOperation extends _i1.HttpOperation<_i2.CreateUserRequest,
           statusCode: 404,
           builder: _i13.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.ServiceFailureException,
+            _i14.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',

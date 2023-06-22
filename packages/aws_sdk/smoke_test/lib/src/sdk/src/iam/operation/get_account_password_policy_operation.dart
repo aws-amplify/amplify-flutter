@@ -110,7 +110,7 @@ class GetAccountPasswordPolicyOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.NoSuchEntityException, _i8.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -120,7 +120,8 @@ class GetAccountPasswordPolicyOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i8.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ServiceFailureException,
+            _i9.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',

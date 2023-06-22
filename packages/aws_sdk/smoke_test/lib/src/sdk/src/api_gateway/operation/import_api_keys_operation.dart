@@ -121,7 +121,7 @@ class ImportApiKeysOperation extends _i1.HttpOperation<_i2.Uint8List,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.BadRequestException, _i10.BadRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'BadRequestException',
@@ -131,7 +131,7 @@ class ImportApiKeysOperation extends _i1.HttpOperation<_i2.Uint8List,
           statusCode: 400,
           builder: _i10.BadRequestException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ConflictException, _i11.ConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'ConflictException',
@@ -141,7 +141,8 @@ class ImportApiKeysOperation extends _i1.HttpOperation<_i2.Uint8List,
           statusCode: 409,
           builder: _i11.ConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.LimitExceededExceptionPayload,
+            _i12.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'LimitExceededException',
@@ -151,7 +152,7 @@ class ImportApiKeysOperation extends _i1.HttpOperation<_i2.Uint8List,
           statusCode: 429,
           builder: _i12.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.NotFoundException, _i13.NotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'NotFoundException',
@@ -161,7 +162,8 @@ class ImportApiKeysOperation extends _i1.HttpOperation<_i2.Uint8List,
           statusCode: 404,
           builder: _i13.NotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.TooManyRequestsExceptionPayload,
+            _i14.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'TooManyRequestsException',
@@ -171,7 +173,7 @@ class ImportApiKeysOperation extends _i1.HttpOperation<_i2.Uint8List,
           statusCode: 429,
           builder: _i14.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.UnauthorizedException, _i15.UnauthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'UnauthorizedException',

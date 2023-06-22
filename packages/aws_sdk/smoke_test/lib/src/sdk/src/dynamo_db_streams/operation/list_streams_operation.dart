@@ -106,7 +106,7 @@ class ListStreamsOperation extends _i1.HttpOperation<_i2.ListStreamsInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InternalServerError, _i9.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodbstreams',
             shape: 'InternalServerError',
@@ -115,7 +115,8 @@ class ListStreamsOperation extends _i1.HttpOperation<_i2.ListStreamsInput,
           _i9.InternalServerError,
           builder: _i9.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ResourceNotFoundException,
+            _i10.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodbstreams',
             shape: 'ResourceNotFoundException',

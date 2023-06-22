@@ -133,7 +133,8 @@ class RollbackStackOperation extends _i1.HttpOperation<_i2.RollbackStackInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.TokenAlreadyExistsException,
+            _i9.TokenAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'TokenAlreadyExistsException',

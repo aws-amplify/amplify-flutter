@@ -136,7 +136,7 @@ class UpdateOpenIdConnectProviderThumbprintOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.InvalidInputException, _i8.InvalidInputException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidInputException',
@@ -146,7 +146,7 @@ class UpdateOpenIdConnectProviderThumbprintOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i8.InvalidInputException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoSuchEntityException, _i9.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -156,7 +156,8 @@ class UpdateOpenIdConnectProviderThumbprintOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i9.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ServiceFailureException,
+            _i10.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',

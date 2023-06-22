@@ -122,7 +122,8 @@ class DeliverConfigSnapshotOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoAvailableConfigurationRecorderException,
+            _i9.NoAvailableConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoAvailableConfigurationRecorderException',
@@ -131,7 +132,8 @@ class DeliverConfigSnapshotOperation extends _i1.HttpOperation<
           _i9.NoAvailableConfigurationRecorderException,
           builder: _i9.NoAvailableConfigurationRecorderException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NoRunningConfigurationRecorderException,
+            _i10.NoRunningConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoRunningConfigurationRecorderException',
@@ -140,7 +142,8 @@ class DeliverConfigSnapshotOperation extends _i1.HttpOperation<
           _i10.NoRunningConfigurationRecorderException,
           builder: _i10.NoRunningConfigurationRecorderException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NoSuchDeliveryChannelException,
+            _i11.NoSuchDeliveryChannelException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchDeliveryChannelException',

@@ -124,7 +124,8 @@ class ListStackSetOperationResultsOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.OperationNotFoundException,
+            _i11.OperationNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'OperationNotFoundException',
@@ -134,7 +135,8 @@ class ListStackSetOperationResultsOperation extends _i1.PaginatedHttpOperation<
           statusCode: 404,
           builder: _i11.OperationNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.StackSetNotFoundException,
+            _i12.StackSetNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StackSetNotFoundException',

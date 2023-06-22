@@ -182,7 +182,7 @@ class RestoreTableToPointInTimeOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InternalServerError, _i9.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -191,7 +191,8 @@ class RestoreTableToPointInTimeOperation extends _i1.HttpOperation<
           _i9.InternalServerError,
           builder: _i9.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidEndpointException,
+            _i10.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -201,7 +202,8 @@ class RestoreTableToPointInTimeOperation extends _i1.HttpOperation<
           statusCode: 421,
           builder: _i10.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidRestoreTimeException,
+            _i11.InvalidRestoreTimeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidRestoreTimeException',
@@ -210,7 +212,8 @@ class RestoreTableToPointInTimeOperation extends _i1.HttpOperation<
           _i11.InvalidRestoreTimeException,
           builder: _i11.InvalidRestoreTimeException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.LimitExceededException,
+            _i12.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
@@ -219,7 +222,8 @@ class RestoreTableToPointInTimeOperation extends _i1.HttpOperation<
           _i12.LimitExceededException,
           builder: _i12.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.PointInTimeRecoveryUnavailableException,
+            _i13.PointInTimeRecoveryUnavailableException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'PointInTimeRecoveryUnavailableException',
@@ -228,7 +232,8 @@ class RestoreTableToPointInTimeOperation extends _i1.HttpOperation<
           _i13.PointInTimeRecoveryUnavailableException,
           builder: _i13.PointInTimeRecoveryUnavailableException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.TableAlreadyExistsException,
+            _i14.TableAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TableAlreadyExistsException',
@@ -237,7 +242,7 @@ class RestoreTableToPointInTimeOperation extends _i1.HttpOperation<
           _i14.TableAlreadyExistsException,
           builder: _i14.TableAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.TableInUseException, _i15.TableInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TableInUseException',
@@ -246,7 +251,8 @@ class RestoreTableToPointInTimeOperation extends _i1.HttpOperation<
           _i15.TableInUseException,
           builder: _i15.TableInUseException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.TableNotFoundException,
+            _i16.TableNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TableNotFoundException',

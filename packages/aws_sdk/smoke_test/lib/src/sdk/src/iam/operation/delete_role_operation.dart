@@ -138,7 +138,8 @@ class DeleteRoleOperation extends _i1.HttpOperation<_i2.DeleteRoleRequest,
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.ConcurrentModificationException,
+            _i8.ConcurrentModificationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ConcurrentModificationException',
@@ -148,7 +149,8 @@ class DeleteRoleOperation extends _i1.HttpOperation<_i2.DeleteRoleRequest,
           statusCode: 409,
           builder: _i8.ConcurrentModificationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.DeleteConflictException,
+            _i9.DeleteConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'DeleteConflictException',
@@ -158,7 +160,8 @@ class DeleteRoleOperation extends _i1.HttpOperation<_i2.DeleteRoleRequest,
           statusCode: 409,
           builder: _i9.DeleteConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.LimitExceededException,
+            _i10.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -168,7 +171,7 @@ class DeleteRoleOperation extends _i1.HttpOperation<_i2.DeleteRoleRequest,
           statusCode: 409,
           builder: _i10.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NoSuchEntityException, _i11.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -178,7 +181,8 @@ class DeleteRoleOperation extends _i1.HttpOperation<_i2.DeleteRoleRequest,
           statusCode: 404,
           builder: _i11.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ServiceFailureException,
+            _i12.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -188,7 +192,8 @@ class DeleteRoleOperation extends _i1.HttpOperation<_i2.DeleteRoleRequest,
           statusCode: 500,
           builder: _i12.ServiceFailureException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.UnmodifiableEntityException,
+            _i13.UnmodifiableEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'UnmodifiableEntityException',

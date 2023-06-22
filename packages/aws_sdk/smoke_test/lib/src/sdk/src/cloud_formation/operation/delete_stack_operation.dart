@@ -100,7 +100,8 @@ class DeleteStackOperation extends _i1.HttpOperation<_i2.DeleteStackInput,
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.TokenAlreadyExistsException,
+            _i8.TokenAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'TokenAlreadyExistsException',

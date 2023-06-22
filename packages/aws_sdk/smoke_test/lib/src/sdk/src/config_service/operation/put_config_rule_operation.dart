@@ -127,7 +127,8 @@ class PutConfigRuleOperation extends _i1.HttpOperation<_i2.PutConfigRuleRequest,
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.InsufficientPermissionsException,
+            _i8.InsufficientPermissionsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InsufficientPermissionsException',
@@ -136,7 +137,8 @@ class PutConfigRuleOperation extends _i1.HttpOperation<_i2.PutConfigRuleRequest,
           _i8.InsufficientPermissionsException,
           builder: _i8.InsufficientPermissionsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidParameterValueException,
+            _i9.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -145,7 +147,8 @@ class PutConfigRuleOperation extends _i1.HttpOperation<_i2.PutConfigRuleRequest,
           _i9.InvalidParameterValueException,
           builder: _i9.InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.MaxNumberOfConfigRulesExceededException,
+            _i10.MaxNumberOfConfigRulesExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'MaxNumberOfConfigRulesExceededException',
@@ -154,7 +157,8 @@ class PutConfigRuleOperation extends _i1.HttpOperation<_i2.PutConfigRuleRequest,
           _i10.MaxNumberOfConfigRulesExceededException,
           builder: _i10.MaxNumberOfConfigRulesExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NoAvailableConfigurationRecorderException,
+            _i11.NoAvailableConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoAvailableConfigurationRecorderException',
@@ -163,7 +167,8 @@ class PutConfigRuleOperation extends _i1.HttpOperation<_i2.PutConfigRuleRequest,
           _i11.NoAvailableConfigurationRecorderException,
           builder: _i11.NoAvailableConfigurationRecorderException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ResourceInUseException,
+            _i12.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceInUseException',

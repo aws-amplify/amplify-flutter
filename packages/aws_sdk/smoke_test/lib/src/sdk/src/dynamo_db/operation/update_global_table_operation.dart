@@ -136,7 +136,8 @@ class UpdateGlobalTableOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.GlobalTableNotFoundException,
+            _i9.GlobalTableNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'GlobalTableNotFoundException',
@@ -145,7 +146,7 @@ class UpdateGlobalTableOperation extends _i1.HttpOperation<
           _i9.GlobalTableNotFoundException,
           builder: _i9.GlobalTableNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InternalServerError, _i10.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -154,7 +155,8 @@ class UpdateGlobalTableOperation extends _i1.HttpOperation<
           _i10.InternalServerError,
           builder: _i10.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidEndpointException,
+            _i11.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -164,7 +166,8 @@ class UpdateGlobalTableOperation extends _i1.HttpOperation<
           statusCode: 421,
           builder: _i11.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ReplicaAlreadyExistsException,
+            _i12.ReplicaAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ReplicaAlreadyExistsException',
@@ -173,7 +176,8 @@ class UpdateGlobalTableOperation extends _i1.HttpOperation<
           _i12.ReplicaAlreadyExistsException,
           builder: _i12.ReplicaAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ReplicaNotFoundException,
+            _i13.ReplicaNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ReplicaNotFoundException',
@@ -182,7 +186,8 @@ class UpdateGlobalTableOperation extends _i1.HttpOperation<
           _i13.ReplicaNotFoundException,
           builder: _i13.ReplicaNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.TableNotFoundException,
+            _i14.TableNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TableNotFoundException',

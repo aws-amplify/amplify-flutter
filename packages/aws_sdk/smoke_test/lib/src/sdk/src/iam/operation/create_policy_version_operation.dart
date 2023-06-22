@@ -146,7 +146,7 @@ class CreatePolicyVersionOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidInputException, _i9.InvalidInputException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidInputException',
@@ -156,7 +156,8 @@ class CreatePolicyVersionOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.InvalidInputException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.LimitExceededException,
+            _i10.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -166,7 +167,8 @@ class CreatePolicyVersionOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i10.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.MalformedPolicyDocumentException,
+            _i11.MalformedPolicyDocumentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'MalformedPolicyDocumentException',
@@ -176,7 +178,7 @@ class CreatePolicyVersionOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i11.MalformedPolicyDocumentException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.NoSuchEntityException, _i12.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -186,7 +188,8 @@ class CreatePolicyVersionOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i12.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ServiceFailureException,
+            _i13.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',

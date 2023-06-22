@@ -163,7 +163,8 @@ class DeleteUserOperation extends _i1.HttpOperation<_i2.DeleteUserRequest,
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.ConcurrentModificationException,
+            _i8.ConcurrentModificationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ConcurrentModificationException',
@@ -173,7 +174,8 @@ class DeleteUserOperation extends _i1.HttpOperation<_i2.DeleteUserRequest,
           statusCode: 409,
           builder: _i8.ConcurrentModificationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.DeleteConflictException,
+            _i9.DeleteConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'DeleteConflictException',
@@ -183,7 +185,8 @@ class DeleteUserOperation extends _i1.HttpOperation<_i2.DeleteUserRequest,
           statusCode: 409,
           builder: _i9.DeleteConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.LimitExceededException,
+            _i10.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -193,7 +196,7 @@ class DeleteUserOperation extends _i1.HttpOperation<_i2.DeleteUserRequest,
           statusCode: 409,
           builder: _i10.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NoSuchEntityException, _i11.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -203,7 +206,8 @@ class DeleteUserOperation extends _i1.HttpOperation<_i2.DeleteUserRequest,
           statusCode: 404,
           builder: _i11.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ServiceFailureException,
+            _i12.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',

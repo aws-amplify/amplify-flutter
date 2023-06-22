@@ -125,7 +125,8 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ConditionalCheckFailedException,
+            _i9.ConditionalCheckFailedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ConditionalCheckFailedException',
@@ -134,7 +135,8 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i9.ConditionalCheckFailedException,
           builder: _i9.ConditionalCheckFailedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.DuplicateItemException,
+            _i10.DuplicateItemException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'DuplicateItemException',
@@ -143,7 +145,7 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i10.DuplicateItemException,
           builder: _i10.DuplicateItemException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InternalServerError, _i11.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -152,7 +154,8 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i11.InternalServerError,
           builder: _i11.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ItemCollectionSizeLimitExceededException,
+            _i12.ItemCollectionSizeLimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ItemCollectionSizeLimitExceededException',
@@ -161,7 +164,8 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i12.ItemCollectionSizeLimitExceededException,
           builder: _i12.ItemCollectionSizeLimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ProvisionedThroughputExceededException,
+            _i13.ProvisionedThroughputExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ProvisionedThroughputExceededException',
@@ -170,7 +174,7 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i13.ProvisionedThroughputExceededException,
           builder: _i13.ProvisionedThroughputExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.RequestLimitExceeded, _i14.RequestLimitExceeded>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'RequestLimitExceeded',
@@ -179,7 +183,8 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i14.RequestLimitExceeded,
           builder: _i14.RequestLimitExceeded.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.ResourceNotFoundException,
+            _i15.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
@@ -188,7 +193,8 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i15.ResourceNotFoundException,
           builder: _i15.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.TransactionConflictException,
+            _i16.TransactionConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TransactionConflictException',

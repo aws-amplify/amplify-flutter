@@ -143,7 +143,7 @@ class PutRolePolicyOperation extends _i1.HttpOperation<_i2.PutRolePolicyRequest,
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.LimitExceededException, _i8.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -153,7 +153,8 @@ class PutRolePolicyOperation extends _i1.HttpOperation<_i2.PutRolePolicyRequest,
           statusCode: 409,
           builder: _i8.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.MalformedPolicyDocumentException,
+            _i9.MalformedPolicyDocumentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'MalformedPolicyDocumentException',
@@ -163,7 +164,7 @@ class PutRolePolicyOperation extends _i1.HttpOperation<_i2.PutRolePolicyRequest,
           statusCode: 400,
           builder: _i9.MalformedPolicyDocumentException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NoSuchEntityException, _i10.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -173,7 +174,8 @@ class PutRolePolicyOperation extends _i1.HttpOperation<_i2.PutRolePolicyRequest,
           statusCode: 404,
           builder: _i10.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ServiceFailureException,
+            _i11.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -183,7 +185,8 @@ class PutRolePolicyOperation extends _i1.HttpOperation<_i2.PutRolePolicyRequest,
           statusCode: 500,
           builder: _i11.ServiceFailureException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.UnmodifiableEntityException,
+            _i12.UnmodifiableEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'UnmodifiableEntityException',

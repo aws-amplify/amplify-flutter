@@ -112,7 +112,8 @@ class GetAggregateResourceConfigOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoSuchConfigurationAggregatorException,
+            _i9.NoSuchConfigurationAggregatorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigurationAggregatorException',
@@ -121,7 +122,8 @@ class GetAggregateResourceConfigOperation extends _i1.HttpOperation<
           _i9.NoSuchConfigurationAggregatorException,
           builder: _i9.NoSuchConfigurationAggregatorException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.OversizedConfigurationItemException,
+            _i10.OversizedConfigurationItemException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OversizedConfigurationItemException',
@@ -130,7 +132,8 @@ class GetAggregateResourceConfigOperation extends _i1.HttpOperation<
           _i10.OversizedConfigurationItemException,
           builder: _i10.OversizedConfigurationItemException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ResourceNotDiscoveredException,
+            _i11.ResourceNotDiscoveredException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceNotDiscoveredException',
@@ -139,7 +142,7 @@ class GetAggregateResourceConfigOperation extends _i1.HttpOperation<
           _i11.ResourceNotDiscoveredException,
           builder: _i11.ResourceNotDiscoveredException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ValidationException, _i12.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',

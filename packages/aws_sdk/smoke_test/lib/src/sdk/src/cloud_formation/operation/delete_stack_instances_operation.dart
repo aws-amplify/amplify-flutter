@@ -139,7 +139,8 @@ class DeleteStackInstancesOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidOperationException,
+            _i9.InvalidOperationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'InvalidOperationException',
@@ -149,7 +150,8 @@ class DeleteStackInstancesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.InvalidOperationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.OperationIdAlreadyExistsException,
+            _i10.OperationIdAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'OperationIdAlreadyExistsException',
@@ -159,7 +161,8 @@ class DeleteStackInstancesOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i10.OperationIdAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.OperationInProgressException,
+            _i11.OperationInProgressException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'OperationInProgressException',
@@ -169,7 +172,8 @@ class DeleteStackInstancesOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i11.OperationInProgressException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.StackSetNotFoundException,
+            _i12.StackSetNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StackSetNotFoundException',
@@ -179,7 +183,7 @@ class DeleteStackInstancesOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i12.StackSetNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.StaleRequestException, _i13.StaleRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StaleRequestException',

@@ -134,7 +134,7 @@ class CreateChangeSetOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.AlreadyExistsException, _i9.AlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'AlreadyExistsException',
@@ -144,7 +144,8 @@ class CreateChangeSetOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.AlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InsufficientCapabilitiesException,
+            _i10.InsufficientCapabilitiesException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'InsufficientCapabilitiesException',
@@ -154,7 +155,8 @@ class CreateChangeSetOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i10.InsufficientCapabilitiesException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.LimitExceededException,
+            _i11.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'LimitExceededException',

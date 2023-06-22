@@ -107,7 +107,8 @@ class PutStoredQueryOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ResourceConcurrentModificationException,
+            _i9.ResourceConcurrentModificationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceConcurrentModificationException',
@@ -116,7 +117,7 @@ class PutStoredQueryOperation extends _i1.HttpOperation<
           _i9.ResourceConcurrentModificationException,
           builder: _i9.ResourceConcurrentModificationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.TooManyTagsException, _i10.TooManyTagsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'TooManyTagsException',
@@ -125,7 +126,7 @@ class PutStoredQueryOperation extends _i1.HttpOperation<
           _i10.TooManyTagsException,
           builder: _i10.TooManyTagsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ValidationException, _i11.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',

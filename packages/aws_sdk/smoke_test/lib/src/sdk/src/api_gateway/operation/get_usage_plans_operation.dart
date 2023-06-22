@@ -137,7 +137,7 @@ class GetUsagePlansOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.BadRequestException, _i11.BadRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'BadRequestException',
@@ -147,7 +147,7 @@ class GetUsagePlansOperation extends _i1.PaginatedHttpOperation<
           statusCode: 400,
           builder: _i11.BadRequestException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.NotFoundException, _i12.NotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'NotFoundException',
@@ -157,7 +157,8 @@ class GetUsagePlansOperation extends _i1.PaginatedHttpOperation<
           statusCode: 404,
           builder: _i12.NotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.TooManyRequestsExceptionPayload,
+            _i13.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'TooManyRequestsException',
@@ -167,7 +168,7 @@ class GetUsagePlansOperation extends _i1.PaginatedHttpOperation<
           statusCode: 429,
           builder: _i13.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.UnauthorizedException, _i14.UnauthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'UnauthorizedException',

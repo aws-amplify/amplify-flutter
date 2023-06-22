@@ -148,7 +148,7 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InternalServerError, _i9.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -157,7 +157,8 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
           _i9.InternalServerError,
           builder: _i9.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidEndpointException,
+            _i10.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -167,7 +168,8 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
           statusCode: 421,
           builder: _i10.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ProvisionedThroughputExceededException,
+            _i11.ProvisionedThroughputExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ProvisionedThroughputExceededException',
@@ -176,7 +178,7 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
           _i11.ProvisionedThroughputExceededException,
           builder: _i11.ProvisionedThroughputExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.RequestLimitExceeded, _i12.RequestLimitExceeded>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'RequestLimitExceeded',
@@ -185,7 +187,8 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
           _i12.RequestLimitExceeded,
           builder: _i12.RequestLimitExceeded.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ResourceNotFoundException,
+            _i13.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',

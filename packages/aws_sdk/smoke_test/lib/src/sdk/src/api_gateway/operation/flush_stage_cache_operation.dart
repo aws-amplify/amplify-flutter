@@ -109,7 +109,7 @@ class FlushStageCacheOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.BadRequestException, _i8.BadRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'BadRequestException',
@@ -119,7 +119,7 @@ class FlushStageCacheOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i8.BadRequestException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ConflictException, _i9.ConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'ConflictException',
@@ -129,7 +129,8 @@ class FlushStageCacheOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i9.ConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.LimitExceededExceptionPayload,
+            _i10.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'LimitExceededException',
@@ -139,7 +140,7 @@ class FlushStageCacheOperation extends _i1.HttpOperation<
           statusCode: 429,
           builder: _i10.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NotFoundException, _i11.NotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'NotFoundException',
@@ -149,7 +150,8 @@ class FlushStageCacheOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i11.NotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.TooManyRequestsExceptionPayload,
+            _i12.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'TooManyRequestsException',
@@ -159,7 +161,7 @@ class FlushStageCacheOperation extends _i1.HttpOperation<
           statusCode: 429,
           builder: _i12.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.UnauthorizedException, _i13.UnauthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'UnauthorizedException',
