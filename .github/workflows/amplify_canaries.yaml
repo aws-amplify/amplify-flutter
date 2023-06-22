@@ -167,6 +167,12 @@ jobs:
     needs: build
     if: ${{ failure() }}
     steps:
+      # Flutter requires Java 11 to build android apps with Gradle.
+      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
+        with:
+          distribution: "corretto" # Amazon Corretto Build of OpenJDK
+          java-version: "11"
+
       - name: Log failure data point to metric CanaryTestFailure
         uses: ./.github/composite_actions/log_metric
         with:
@@ -182,6 +188,12 @@ jobs:
     needs: build
     # if: ${{ success() }}
     steps:
+      # Flutter requires Java 11 to build android apps with Gradle.
+      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
+        with:
+          distribution: "corretto" # Amazon Corretto Build of OpenJDK
+          java-version: "11"
+          
       - name: Log success data point to metric CanaryTestFailure
         uses: ./.github/composite_actions/log_metric
         with:
