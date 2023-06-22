@@ -371,7 +371,7 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidObjectState, _i10.InvalidObjectState>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.s3',
             shape: 'InvalidObjectState',
@@ -380,7 +380,7 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
           _i10.InvalidObjectState,
           builder: _i10.InvalidObjectState.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NoSuchKey, _i11.NoSuchKey>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.s3',
             shape: 'NoSuchKey',
@@ -428,7 +428,7 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
+        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)},
       },
     );
   }
