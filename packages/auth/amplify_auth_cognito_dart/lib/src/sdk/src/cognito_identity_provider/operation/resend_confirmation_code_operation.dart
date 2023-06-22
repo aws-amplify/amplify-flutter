@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.resend_confirmation_code_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -142,7 +143,8 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.CodeDeliveryFailureException,
+            _i9.CodeDeliveryFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'CodeDeliveryFailureException',
@@ -152,7 +154,7 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.CodeDeliveryFailureException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ForbiddenException, _i10.ForbiddenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ForbiddenException',
@@ -162,7 +164,8 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i10.ForbiddenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InternalErrorException,
+            _i11.InternalErrorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InternalErrorException',
@@ -171,7 +174,8 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           _i11.InternalErrorException,
           builder: _i11.InternalErrorException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidEmailRoleAccessPolicyException,
+            _i12.InvalidEmailRoleAccessPolicyException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidEmailRoleAccessPolicyException',
@@ -181,7 +185,8 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i12.InvalidEmailRoleAccessPolicyException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.InvalidLambdaResponseException,
+            _i13.InvalidLambdaResponseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidLambdaResponseException',
@@ -191,7 +196,8 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i13.InvalidLambdaResponseException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.InvalidParameterException,
+            _i14.InvalidParameterException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidParameterException',
@@ -201,7 +207,8 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i14.InvalidParameterException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.InvalidSmsRoleAccessPolicyException,
+            _i15.InvalidSmsRoleAccessPolicyException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidSmsRoleAccessPolicyException',
@@ -211,7 +218,8 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i15.InvalidSmsRoleAccessPolicyException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.InvalidSmsRoleTrustRelationshipException,
+            _i16.InvalidSmsRoleTrustRelationshipException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidSmsRoleTrustRelationshipException',
@@ -221,7 +229,8 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i16.InvalidSmsRoleTrustRelationshipException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i17.LimitExceededException,
+            _i17.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'LimitExceededException',
@@ -231,7 +240,8 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i17.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i18.NotAuthorizedException,
+            _i18.NotAuthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'NotAuthorizedException',
@@ -241,7 +251,8 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i18.NotAuthorizedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i19.ResourceNotFoundException,
+            _i19.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ResourceNotFoundException',
@@ -251,7 +262,8 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i19.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i20.TooManyRequestsException,
+            _i20.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'TooManyRequestsException',
@@ -261,7 +273,8 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           statusCode: 429,
           builder: _i20.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i21.UnexpectedLambdaException,
+            _i21.UnexpectedLambdaException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UnexpectedLambdaException',
@@ -271,7 +284,8 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i21.UnexpectedLambdaException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i22.UserLambdaValidationException,
+            _i22.UserLambdaValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UserLambdaValidationException',
@@ -281,7 +295,7 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i22.UserLambdaValidationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i23.UserNotFoundException, _i23.UserNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UserNotFoundException',
@@ -314,7 +328,7 @@ class ResendConfirmationCodeOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

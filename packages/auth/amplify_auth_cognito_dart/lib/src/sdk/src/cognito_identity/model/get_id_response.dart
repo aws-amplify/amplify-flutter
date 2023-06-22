@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity.model.get_id_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -81,15 +82,15 @@ class GetIdResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IdentityId':
-          if (value != null) {
-            result.identityId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.identityId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -99,19 +100,19 @@ class GetIdResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetIdResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetIdResponse);
-    final result = <Object?>[];
-    if (payload.identityId != null) {
-      result
+    final result$ = <Object?>[];
+    final GetIdResponse(:identityId) = object;
+    if (identityId != null) {
+      result$
         ..add('IdentityId')
         ..add(serializers.serialize(
-          payload.identityId!,
+          identityId,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

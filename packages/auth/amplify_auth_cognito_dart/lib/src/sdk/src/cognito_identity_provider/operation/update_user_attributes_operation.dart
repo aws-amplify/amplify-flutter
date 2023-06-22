@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.update_user_attributes_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -150,7 +151,7 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.AliasExistsException, _i9.AliasExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'AliasExistsException',
@@ -160,7 +161,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.AliasExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.CodeDeliveryFailureException,
+            _i10.CodeDeliveryFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'CodeDeliveryFailureException',
@@ -170,7 +172,7 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i10.CodeDeliveryFailureException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.CodeMismatchException, _i11.CodeMismatchException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'CodeMismatchException',
@@ -180,7 +182,7 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i11.CodeMismatchException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ExpiredCodeException, _i12.ExpiredCodeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ExpiredCodeException',
@@ -190,7 +192,7 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i12.ExpiredCodeException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ForbiddenException, _i13.ForbiddenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ForbiddenException',
@@ -200,7 +202,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i13.ForbiddenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.InternalErrorException,
+            _i14.InternalErrorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InternalErrorException',
@@ -209,7 +212,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           _i14.InternalErrorException,
           builder: _i14.InternalErrorException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.InvalidEmailRoleAccessPolicyException,
+            _i15.InvalidEmailRoleAccessPolicyException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidEmailRoleAccessPolicyException',
@@ -219,7 +223,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i15.InvalidEmailRoleAccessPolicyException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.InvalidLambdaResponseException,
+            _i16.InvalidLambdaResponseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidLambdaResponseException',
@@ -229,7 +234,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i16.InvalidLambdaResponseException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i17.InvalidParameterException,
+            _i17.InvalidParameterException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidParameterException',
@@ -239,7 +245,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i17.InvalidParameterException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i18.InvalidSmsRoleAccessPolicyException,
+            _i18.InvalidSmsRoleAccessPolicyException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidSmsRoleAccessPolicyException',
@@ -249,7 +256,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i18.InvalidSmsRoleAccessPolicyException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i19.InvalidSmsRoleTrustRelationshipException,
+            _i19.InvalidSmsRoleTrustRelationshipException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidSmsRoleTrustRelationshipException',
@@ -259,7 +267,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i19.InvalidSmsRoleTrustRelationshipException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i20.NotAuthorizedException,
+            _i20.NotAuthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'NotAuthorizedException',
@@ -269,7 +278,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i20.NotAuthorizedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i21.PasswordResetRequiredException,
+            _i21.PasswordResetRequiredException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'PasswordResetRequiredException',
@@ -279,7 +289,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i21.PasswordResetRequiredException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i22.ResourceNotFoundException,
+            _i22.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ResourceNotFoundException',
@@ -289,7 +300,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i22.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i23.TooManyRequestsException,
+            _i23.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'TooManyRequestsException',
@@ -299,7 +311,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 429,
           builder: _i23.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i24.UnexpectedLambdaException,
+            _i24.UnexpectedLambdaException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UnexpectedLambdaException',
@@ -309,7 +322,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i24.UnexpectedLambdaException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i25.UserLambdaValidationException,
+            _i25.UserLambdaValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UserLambdaValidationException',
@@ -319,7 +333,8 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i25.UserLambdaValidationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i26.UserNotConfirmedException,
+            _i26.UserNotConfirmedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UserNotConfirmedException',
@@ -329,7 +344,7 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i26.UserNotConfirmedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i27.UserNotFoundException, _i27.UserNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UserNotFoundException',
@@ -362,7 +377,7 @@ class UpdateUserAttributesOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }
