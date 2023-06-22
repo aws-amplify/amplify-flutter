@@ -10,17 +10,13 @@ class _$EndpointItemResponse extends EndpointItemResponse {
   @override
   final String? message;
   @override
-  final int statusCode;
+  final int? statusCode;
 
   factory _$EndpointItemResponse(
           [void Function(EndpointItemResponseBuilder)? updates]) =>
       (new EndpointItemResponseBuilder()..update(updates))._build();
 
-  _$EndpointItemResponse._({this.message, required this.statusCode})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        statusCode, r'EndpointItemResponse', 'statusCode');
-  }
+  _$EndpointItemResponse._({this.message, this.statusCode}) : super._();
 
   @override
   EndpointItemResponse rebuild(
@@ -91,10 +87,7 @@ class EndpointItemResponseBuilder
 
   _$EndpointItemResponse _build() {
     final _$result = _$v ??
-        new _$EndpointItemResponse._(
-            message: message,
-            statusCode: BuiltValueNullFieldError.checkNotNull(
-                statusCode, r'EndpointItemResponse', 'statusCode'));
+        new _$EndpointItemResponse._(message: message, statusCode: statusCode);
     replace(_$result);
     return _$result;
   }
