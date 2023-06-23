@@ -7,13 +7,13 @@ import 'package:test/test.dart';
 void main() {
   group('TotpSetupDetails', () {
     const details =
-        TotpSetupDetails(secretCode: 'secretCode', username: 'username');
+        TotpSetupDetails(sharedSecret: 'sharedSecret', username: 'username');
 
     test('Correct encodes appName/issuer', () {
       final setupUri = details.getSetupUri(appName: 'My Application');
       expect(
         setupUri.toString(),
-        'otpauth://totp/My%20Application:username?secret=secretCode&issuer=My%20Application',
+        'otpauth://totp/My%20Application:username?secret=sharedSecret&issuer=My%20Application',
       );
     });
   });

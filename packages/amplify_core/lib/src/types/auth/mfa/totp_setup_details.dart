@@ -14,20 +14,20 @@ class TotpSetupDetails
         AWSDebuggable {
   /// {@macro amplify_core.auth.totp_setup_details}
   const TotpSetupDetails({
-    required this.secretCode,
+    required this.sharedSecret,
     required String username,
   }) : _username = username;
 
   /// {@macro amplify_core.auth.totp_setup_details}
   factory TotpSetupDetails.fromJson(Map<String, Object?> json) {
     return TotpSetupDetails(
-      secretCode: json['secretCode'] as String,
+      sharedSecret: json['sharedSecret'] as String,
       username: json['username'] as String,
     );
   }
 
   /// The secret code.
-  final String secretCode;
+  final String sharedSecret;
 
   /// The authenticated user's username.
   final String _username;
@@ -47,7 +47,7 @@ class TotpSetupDetails
         host: 'totp',
         path: '/$appName:${accountName ?? _username}',
         query: _encodeQueryParameters({
-          'secret': secretCode,
+          'secret': sharedSecret,
           'issuer': appName,
         }),
       );
@@ -67,14 +67,14 @@ class TotpSetupDetails
   }
 
   @override
-  List<Object?> get props => [secretCode];
+  List<Object?> get props => [sharedSecret];
 
   @override
   String get runtimeTypeName => 'TotpSetupDetails';
 
   @override
   Map<String, Object?> toJson() => {
-        'secretCode': secretCode,
+        'sharedSecret': sharedSecret,
         'username': _username,
       };
 }

@@ -41,15 +41,15 @@ Future<int> get _nextTotpTime async {
   return nextTime.millisecondsSinceEpoch;
 }
 
-String? _secretCode;
+String? _sharedSecret;
 Future<void> setUpTotp() async {
-  if (_secretCode != null) {
+  if (_sharedSecret != null) {
     throw StateError('Cannot reconfigure TOTP');
   }
-  addTearDown(() => _secretCode = null);
+  addTearDown(() => _sharedSecret = null);
 
   final totpSetupResult = await Amplify.Auth.setUpTotp();
-  _secretCode = totpSetupResult.secretCode;
+  _sharedSecret = totpSetupResult.sharedSecret;
   await Amplify.Auth.verifyTotpSetup(
     await generateTotpCode(),
     options: const VerifyTotpSetupOptions(
@@ -60,10 +60,10 @@ Future<void> setUpTotp() async {
   );
 }
 
-/// Generates a TOTP code for the given [secretCode] assigned by Cognito.
-Future<String> generateTotpCode([String? secretCode]) async =>
+/// Generates a TOTP code for the given [sharedSecret] assigned by Cognito.
+Future<String> generateTotpCode([String? sharedSecret]) async =>
     OTP.generateTOTPCodeString(
-      secretCode ?? _secretCode!,
+      sharedSecret ?? _sharedSecret!,
       await _nextTotpTime,
 
       // These parameters are needed to match what Cognito expects.

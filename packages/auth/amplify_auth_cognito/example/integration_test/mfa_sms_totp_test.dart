@@ -423,9 +423,9 @@ void main() {
               'no phone number is registered',
         ).equals(AuthSignInStep.continueSignInWithTotpSetup);
 
-        final secretCode = signInRes.nextStep.totpSetupDetails!.secretCode;
+        final sharedSecret = signInRes.nextStep.totpSetupDetails!.sharedSecret;
         final setupRes = await Amplify.Auth.confirmSignIn(
-          confirmationValue: await generateTotpCode(secretCode),
+          confirmationValue: await generateTotpCode(sharedSecret),
           options: const ConfirmSignInOptions(
             pluginOptions: CognitoConfirmSignInPluginOptions(
               friendlyDeviceName: friendlyDeviceName,
@@ -455,7 +455,7 @@ void main() {
           ..has((d) => d.destination, 'destination').equals(friendlyDeviceName);
 
         final confirmRes = await Amplify.Auth.confirmSignIn(
-          confirmationValue: await generateTotpCode(secretCode),
+          confirmationValue: await generateTotpCode(sharedSecret),
         );
         check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
       });
