@@ -1,5 +1,9 @@
 name: Log Metric
 description: Log data point to a metric with the provided value. If the metric is not there, it will create one
+# To avoid 'Credentials could not be loaded' calling workflows must include:
+# permissions:
+#  id-token: write
+#  contents: read
 inputs:
   aws-region:
     required: true

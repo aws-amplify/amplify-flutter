@@ -1,5 +1,9 @@
 name: "Fetch backends"
 description: "Downloads Amplify configurations after getting temporary AWS credentials"
+# To avoid 'Credentials could not be loaded' calling workflows must include:
+# permissions:
+#  id-token: write
+#  contents: read
 inputs:
   aws-region:
     required: true

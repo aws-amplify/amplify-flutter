@@ -15,6 +15,10 @@ jobs:
   # Ensure an app pulling in published Amplify libraries can build properly
   build:
     runs-on: macos-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
     strategy:
       fail-fast: false
       matrix:
