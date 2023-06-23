@@ -63,7 +63,7 @@ final class TotpSetupStateMachine
       TotpSetupState.requiresVerification(
         TotpSetupDetails(
           username: CognitoIdToken(tokens.idToken).username,
-          secretCode: response.secretCode!,
+          sharedSecret: response.secretCode!,
         ),
       ),
     );
