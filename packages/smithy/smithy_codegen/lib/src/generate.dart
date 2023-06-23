@@ -36,6 +36,7 @@ CodegenContext buildContext(
   Iterable<ShapeId> includeShapes = const [],
   Iterable<ShapeId> additionalShapes = const [],
   bool generateServer = false,
+  Map<ShapeId, Reference>? symbolOverrides,
 }) {
   // Builds a service closure with just one service shape. All the other
   // shapes can remain - they will not be generated for services which do
@@ -58,6 +59,7 @@ CodegenContext buildContext(
     serviceName: serviceName,
     additionalShapes: additionalShapes,
     generateServer: generateServer,
+    symbolOverrides: symbolOverrides,
   );
 }
 
@@ -85,6 +87,7 @@ Map<ShapeId, GeneratedOutput> generateForAst(
   Iterable<ShapeId> includeShapes = const [],
   Iterable<ShapeId> additionalShapes = const [],
   bool generateServer = false,
+  Map<ShapeId, Reference>? symbolOverrides,
 }) {
   const transformers = <ShapeVisitor<void>>[
     _OptionalAuthVisitor(),
@@ -117,6 +120,7 @@ Map<ShapeId, GeneratedOutput> generateForAst(
       includeShapes: includeShapes,
       additionalShapes: additionalShapes,
       generateServer: generateServer,
+      symbolOverrides: symbolOverrides,
     );
 
     context.run(() {

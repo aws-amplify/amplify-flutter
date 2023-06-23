@@ -223,6 +223,9 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
     if (Shape.preludeShapes.keys.contains(shape.shapeId)) {
       return;
     }
+    if (context.symbolOverrides.containsKey(shape.shapeId)) {
+      return;
+    }
     yield* _foreignMembers(shape.members.values.map((member) => member.target));
     yield _buildLibrary(
       shape,
