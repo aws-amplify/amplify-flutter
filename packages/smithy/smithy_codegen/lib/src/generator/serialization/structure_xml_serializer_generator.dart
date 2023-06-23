@@ -356,12 +356,7 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       final wireName = memberWireName(member);
       var memberSymbol = memberSymbols[member]!;
       final targetShape = context.shapeFor(member.target);
-      final hasNestedBuilder = [
-        ShapeType.map,
-        ShapeType.list,
-        ShapeType.set,
-        ShapeType.structure,
-      ].contains(targetShape.getType());
+      final hasNestedBuilder = targetShape.hasNestedBuilder;
       final isFlattened = flattenedMembers.contains(member);
       var targetMember = member;
       var nestedMethod = 'replace';

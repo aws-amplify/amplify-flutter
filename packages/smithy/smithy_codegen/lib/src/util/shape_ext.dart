@@ -396,6 +396,20 @@ extension ShapeUtils on Shape {
         ..pageSizePath = trait.pageSize,
     );
   }
+
+  /// Whether the type generates a built_value builder.
+  bool get hasNestedBuilder {
+    if (context.symbolOverrides.containsKey(shapeId)) {
+      // We can't assume these types are built_value types.
+      return false;
+    }
+    return const [
+      ShapeType.map,
+      ShapeType.list,
+      ShapeType.set,
+      ShapeType.structure,
+    ].contains(getType());
+  }
 }
 
 extension NamedMembersShapeUtil on NamedMembersShape {
