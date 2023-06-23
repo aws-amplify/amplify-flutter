@@ -244,12 +244,7 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
       final wireName = memberWireName(member);
       final memberSymbol = memberSymbols[member]!;
       final targetShape = context.shapeFor(member.target);
-      final hasNestedBuilder = [
-        ShapeType.map,
-        ShapeType.list,
-        ShapeType.set,
-        ShapeType.structure,
-      ].contains(targetShape.getType());
+      final hasNestedBuilder = targetShape.hasNestedBuilder;
       final value = refer('value');
       yield Block.of([
         const Code('case '),
