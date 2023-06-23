@@ -46,11 +46,25 @@ class TotpSetupDetails
         scheme: 'otpauth',
         host: 'totp',
         path: '/$appName:${accountName ?? _username}',
-        queryParameters: {
+        query: _encodeQueryParameters({
           'secret': secretCode,
           'issuer': appName,
-        },
+        }),
       );
+
+  /// Encodes query parameters to match path encoding on non-http URIs
+  /// so that Authenticator apps can correctly match the `appName` and
+  /// `issuer` when registering a TOTP device.
+  ///
+  /// See issue: https://github.com/dart-lang/sdk/issues/43838
+  String? _encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map(
+          (e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
+        )
+        .join('&');
+  }
 
   @override
   List<Object?> get props => [secretCode];
