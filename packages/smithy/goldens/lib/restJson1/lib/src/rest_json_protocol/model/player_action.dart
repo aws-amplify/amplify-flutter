@@ -39,15 +39,12 @@ sealed class PlayerAction extends _i1.SmithyUnion<PlayerAction> {
 }
 
 final class PlayerActionQuit extends PlayerAction {
-  const PlayerActionQuit()
-      : quit = const _i1.Unit(),
-        super._();
-
-  @override
-  final _i1.Unit quit;
+  const PlayerActionQuit() : super._();
 
   @override
   String get name => 'quit';
+  @override
+  _i1.Unit get quit => const _i1.Unit();
 }
 
 final class PlayerActionSdkUnknown extends PlayerAction {
