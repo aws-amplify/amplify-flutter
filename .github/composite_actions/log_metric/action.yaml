@@ -31,14 +31,7 @@ runs:
         aws-region: ${{ inputs.aws-region }}
         role-duration-seconds: 900
 
-    - name: Setup Dart
-      uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d # main
-      with:
-        sdk: stable
-
     - name: Run Dart script
       # Run a Dart script to put metric data.
-      # First trim the input by removing trailing or leading spaces, then removing any new line characters.
-      # Then, we do regex test to match against expected input shape. Finally, put metric data using aws cli.
       run: dart ./tool/send_metric_data.dart ${{ inputs.metric-name }} ${{ inputs.value }} ${{ inputs.dimensions }}
       shell: bash

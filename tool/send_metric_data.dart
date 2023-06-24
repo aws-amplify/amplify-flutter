@@ -1,5 +1,9 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'dart:io';
 
+/// Parse and send metric data using AWS CLI
 void main(List<String> args) {
   final metricName = args[0];
   final value = args[1];
@@ -22,10 +26,9 @@ void main(List<String> args) {
     print('Metric value must be a valid number');
     exit(1);
   }
-  if(!dimensionsRegex.hasMatch(dimensionsTrimmed)) {
+  if (!dimensionsRegex.hasMatch(dimensionsTrimmed)) {
     print(
-      'Dimensions must be empty or be in format string=string,string=string,...'
-    );
+        'Dimensions must be empty or be in format string=string,string=string,...');
     exit(1);
   }
 
@@ -40,7 +43,7 @@ void main(List<String> args) {
     value,
   ];
 
-  if(!dimensionsTrimmed.isEmpty){
+  if (!dimensionsTrimmed.isEmpty) {
     cloudArgs.add('--dimensions');
     cloudArgs.add(dimensionsTrimmed);
   }
