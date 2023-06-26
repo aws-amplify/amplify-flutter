@@ -58,7 +58,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           metric-name: BuildCanaryTestFailure
           value: 1
-          dimensions: channel=${{ matrix.channel }}
+          dimensions: channel=${{ matrix.channel }},label=Canary Build Failures
       - name: Log succeeding builds
         if: ${{ success() }}
         uses: ./.github/composite_actions/log_metric
@@ -67,7 +67,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           metric-name: BuildCanaryTestFailure
           value: 0
-          dimensions: channel=${{ matrix.channel }}
+          dimensions: channel=${{ matrix.channel }},label=Canary Build Failures
 
 
   e2e-android:
@@ -133,7 +133,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           metric-name: E2ECanaryTestFailure
           value: 1
-          dimensions: channel=${{ matrix.channel }},platform=android
+          dimensions: channel=${{ matrix.channel }},platform=android,label=E2E Canary Failures
       - name: Log succeeding android runs
         if: ${{ success() }}
         uses: ./.github/composite_actions/log_metric
@@ -142,7 +142,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           metric-name: E2ECanaryTestFailure
           value: 0
-          dimensions: channel=${{ matrix.channel }},platform=android
+          dimensions: channel=${{ matrix.channel }},platform=android,label=E2E Canary Failures
 
   e2e-ios:
     runs-on: macos-latest
@@ -208,7 +208,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           metric-name: e2eCanaryTestFailure
           value: 1
-          dimensions: channel=${{ matrix.channel }},platform=ios
+          dimensions: channel=${{ matrix.channel }},platform=ios,label=E2E Canary Failures
       - name: Log succeeding ios runs
         if: ${{ success() }}
         uses: ./.github/composite_actions/log_metric
@@ -217,4 +217,4 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           metric-name: e2eCanaryTestFailure
           value: 0
-          dimensions: channel=${{ matrix.channel }},platform=ios
+          dimensions: channel=${{ matrix.channel }},platform=ios,label=E2E Canary Failures
