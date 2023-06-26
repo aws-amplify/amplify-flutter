@@ -1,5 +1,9 @@
 name: "Fetch backends"
 description: "Downloads Amplify configurations after getting temporary AWS credentials"
+# To avoid 'Credentials could not be loaded' calling workflows must include:
+# permissions:
+#  id-token: write
+#  contents: read
 inputs:
   aws-region:
     required: true
@@ -25,7 +29,7 @@ runs:
         role-duration-seconds: 900
 
     - name: Create AWS profile
-      run: ./build-support/create_integration_test_profile.sh
+      run: ./tool/create_test_profile.sh
       shell: bash
 
     - name: Get Amplify App IDs / bucket ARNs from Secrets Manager
