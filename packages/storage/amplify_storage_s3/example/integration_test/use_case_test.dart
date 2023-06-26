@@ -774,10 +774,11 @@ void main() {
             const filesToUpload = 2;
             const filesToList = 1;
             const accessLevel = StorageAccessLevel.private;
+            final keyPrefix = 'testObjectList${uuid()}';
             final uploadedKeys = <String>[];
             // Upload some files to test.
             for (var i = filesToUpload; i > 0; i--) {
-              final fileKey = 'testObjectKey${uuid()}';
+              final fileKey = '$keyPrefix/uploadToList${uuid()}';
               uploadedKeys.add(fileKey);
               final fileNameTemp = 'userPrivate${uuid()}.txt';
               await Amplify.Storage.uploadData(
@@ -797,7 +798,7 @@ void main() {
 
             String? lastNextToken;
             var timesCalled = 0;
-            while (lastNextToken != null || timesCalled == 0) {
+            do {
               // Call list() until nextToken is null and ensure we paginated expected times.
               final listResult = await Amplify.Storage.list(
                 options: StorageListOptions(
@@ -805,11 +806,12 @@ void main() {
                   pageSize: filesToList,
                   nextToken: lastNextToken,
                 ),
+                path: keyPrefix,
               ).result;
               lastNextToken = listResult.nextToken;
               timesCalled++;
-            }
-            expect(timesCalled, greaterThanOrEqualTo(filesToUpload));
+            } while (lastNextToken != null);
+            expect(timesCalled, equals(filesToUpload));
             // Clean up files from this test.
             await Amplify.Storage.removeMany(
               keys: uploadedKeys,
