@@ -131,7 +131,7 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}
-          metric-name: e2eCanaryTestFailure
+          metric-name: E2ECanaryTestFailure
           value: 1
           dimensions: channel=${{ matrix.channel }},platform=android
       - name: Log succeeding android runs
@@ -140,7 +140,7 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}
-          metric-name: e2eCanaryTestFailure
+          metric-name: E2ECanaryTestFailure
           value: 0
           dimensions: channel=${{ matrix.channel }},platform=android
 
