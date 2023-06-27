@@ -38,10 +38,8 @@ Future<void> _handleSignUpResult(SignUpResult result) async {
     case AuthSignUpStep.confirmSignUp:
       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
       _handleCodeDelivery(codeDeliveryDetails);
-      break;
     case AuthSignUpStep.done:
       safePrint('Sign up is complete');
-      break;
   }
 }
 // #enddocregion handle-signup
@@ -114,19 +112,16 @@ Future<void> _handleSignInResult(SignInResult result) async {
     case AuthSignInStep.confirmSignInWithSmsMfaCode:
       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
       _handleCodeDelivery(codeDeliveryDetails);
-      break;
     // #enddocregion handle-confirm-signin-sms
     // #docregion handle-confirm-signin-new-password
     case AuthSignInStep.confirmSignInWithNewPassword:
       safePrint('Enter a new password to continue signing in');
-      break;
     // #enddocregion handle-confirm-signin-new-password
     // #docregion handle-confirm-signin-custom-challenge
     case AuthSignInStep.confirmSignInWithCustomChallenge:
       final parameters = result.nextStep.additionalInfo;
       final prompt = parameters['prompt']!;
       safePrint(prompt);
-      break;
     // #enddocregion handle-confirm-signin-custom-challenge
     // #docregion handle-confirm-signin-reset-password
     case AuthSignInStep.resetPassword:
@@ -134,7 +129,6 @@ Future<void> _handleSignInResult(SignInResult result) async {
         username: username,
       );
       await _handleResetPasswordResult(resetResult);
-      break;
     // #enddocregion handle-confirm-signin-reset-password
     // #docregion handle-confirm-signin-confirm-signup
     case AuthSignInStep.confirmSignUp:
@@ -143,12 +137,10 @@ Future<void> _handleSignInResult(SignInResult result) async {
         username: username,
       );
       _handleCodeDelivery(resendResult.codeDeliveryDetails);
-      break;
     // #enddocregion handle-confirm-signin-confirm-signup
     // #docregion handle-confirm-signin-done
     case AuthSignInStep.done:
       safePrint('Sign in is complete');
-      break;
     // #enddocregion handle-confirm-signin-done
     // #docregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done
   }
@@ -188,10 +180,8 @@ Future<void> _handleResetPasswordResult(ResetPasswordResult result) async {
     case AuthResetPasswordStep.confirmResetPasswordWithCode:
       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
       _handleCodeDelivery(codeDeliveryDetails);
-      break;
     case AuthResetPasswordStep.done:
       safePrint('Successfully reset password');
-      break;
   }
 }
 // #enddocregion handle-reset-password
@@ -344,10 +334,8 @@ void _handleUpdateUserAttributeResult(
     case AuthUpdateAttributeStep.confirmAttributeWithCode:
       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
       _handleCodeDelivery(codeDeliveryDetails);
-      break;
     case AuthUpdateAttributeStep.done:
       safePrint('Successfully updated attribute');
-      break;
   }
 }
 // #enddocregion handle-update-user-attribute
@@ -389,10 +377,8 @@ Future<void> updateUserAttributes() async {
         case AuthUpdateAttributeStep.confirmAttributeWithCode:
           final destination = value.nextStep.codeDeliveryDetails?.destination;
           safePrint('Confirmation code sent to $destination for $key');
-          break;
         case AuthUpdateAttributeStep.done:
           safePrint('Update completed for $key');
-          break;
       }
     });
   } on AuthException catch (e) {
