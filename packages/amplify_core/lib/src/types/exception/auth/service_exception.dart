@@ -3,6 +3,7 @@
 
 part of '../amplify_exception.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.auth.service_exception}
 /// Exception thrown when some error occurs in the underlying service.
 ///

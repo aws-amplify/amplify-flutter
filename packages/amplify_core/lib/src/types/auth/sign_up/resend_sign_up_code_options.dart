@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.auth.resend_sign_up_code_options}
 /// The shared resend sign up code options among all Auth plugins.
 /// {@endtemplate}
@@ -25,6 +26,7 @@ class ResendSignUpCodeOptions
   @override
   String get runtimeTypeName => 'ResendSignUpCodeOptions';
 
+  /// @nodoc
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
 
@@ -34,6 +36,7 @@ class ResendSignUpCodeOptions
       };
 }
 
+/// @nodoc
 /// {@template amplify_core.auth.sign_up_plugin_options}
 /// Plugin-specific options for `Amplify.Auth.resendSignUpCode`.
 /// {@endtemplate}

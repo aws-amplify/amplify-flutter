@@ -3,6 +3,7 @@
 
 part of '../amplify_exception.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.auth.auth_exception}
 /// The class for Auth category exceptions.
 /// {@endtemplate}
