@@ -1,6 +1,9 @@
 name: Amplify Canaries
 on:
-  schedule:    
+  pull_request:
+    paths:
+      - ".github/workflows/amplify_canaries.yaml"
+  schedule:
     # 6am pacific time daily, only runs on default branch
     - cron: "0 13 * * *"
 
@@ -68,7 +71,6 @@ jobs:
           metric-name: BuildCanaryTestFailure
           value: 0
           dimensions: channel=${{ matrix.channel }}
-
 
   e2e-android:
     runs-on: macos-latest
@@ -188,8 +190,20 @@ jobs:
           scope: amplified_todo
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      - name: Launch iOS simulator
+      # Launching the iOS simulator is flaky. Try twice and fail if both
+      # attempts timeout.
+      - name: Launch iOS simulator (attempt 1)
+        id: launch
         uses: ./.github/composite_actions/launch_ios_simulator
+        timeout-minutes: 15
+        continue-on-error: true
+        with:
+          ios-version: ${{ matrix.ios-version }}
+
+      - name: Launch iOS simulator (attempt 2)
+        if: steps.launch.outcome == 'failure'
+        uses: ./.github/composite_actions/launch_ios_simulator
+        timeout-minutes: 15
         with:
           ios-version: ${{ matrix.ios-version }}
 
@@ -198,7 +212,7 @@ jobs:
         working-directory: canaries
         run: |
           flutter build ios --simulator --target=integration_test/main_test.dart
-          flutter test -d test integration_test/main_test.dart
+          flutter test -d test integration_test/main_test.dart --verbose
 
       - name: Log failing ios runs
         if: ${{ failure() }}
