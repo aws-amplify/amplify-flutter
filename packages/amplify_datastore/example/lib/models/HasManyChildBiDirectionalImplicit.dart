@@ -1,26 +1,35 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
-
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
+import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-/// This is an auto generated class representing the HasManyChildBiDirectionalImplicit type in your schema.
-@immutable
-class HasManyChildBiDirectionalImplicit extends Model {
-  static const classType = _HasManyChildBiDirectionalImplicitModelType();
+/** This is an auto generated class representing the HasManyChildBiDirectionalImplicit type in your schema. */
+class HasManyChildBiDirectionalImplicit extends amplify_core.Model {
+  static const classType = const _HasManyChildBiDirectionalImplicitModelType();
   final String id;
   final String? _name;
   final HasManyParentBiDirectionalImplicit? _hasManyParent;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
+  final amplify_core.TemporalDateTime? _createdAt;
+  final amplify_core.TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -42,11 +51,11 @@ class HasManyChildBiDirectionalImplicit extends Model {
     return _hasManyParent;
   }
 
-  TemporalDateTime? get createdAt {
+  amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
 
-  TemporalDateTime? get updatedAt {
+  amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
 
@@ -62,7 +71,7 @@ class HasManyChildBiDirectionalImplicit extends Model {
       String? name,
       HasManyParentBiDirectionalImplicit? hasManyParent}) {
     return HasManyChildBiDirectionalImplicit._internal(
-        id: id == null ? UUID.getUUID() : id,
+        id: id == null ? amplify_core.UUID.getUUID() : id,
         name: name,
         hasManyParent: hasManyParent);
   }
@@ -85,7 +94,7 @@ class HasManyChildBiDirectionalImplicit extends Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("HasManyChildBiDirectionalImplicit {");
     buffer.write("id=" + "$id" + ", ");
@@ -111,19 +120,29 @@ class HasManyChildBiDirectionalImplicit extends Model {
         hasManyParent: hasManyParent ?? this.hasManyParent);
   }
 
+  HasManyChildBiDirectionalImplicit copyWithModelFieldValues(
+      {ModelFieldValue<String?>? name,
+      ModelFieldValue<HasManyParentBiDirectionalImplicit?>? hasManyParent}) {
+    return HasManyChildBiDirectionalImplicit._internal(
+        id: id,
+        name: name == null ? this.name : name.value,
+        hasManyParent:
+            hasManyParent == null ? this.hasManyParent : hasManyParent.value);
+  }
+
   HasManyChildBiDirectionalImplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
         _hasManyParent = json['hasManyParent']?['serializedData'] != null
             ? HasManyParentBiDirectionalImplicit.fromJson(
-                Map<String, dynamic>.from(
+                new Map<String, dynamic>.from(
                     json['hasManyParent']['serializedData']))
             : null,
         _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
         _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -142,67 +161,80 @@ class HasManyChildBiDirectionalImplicit extends Model {
         'updatedAt': _updatedAt
       };
 
-  static final QueryModelIdentifier<
+  static final amplify_core.QueryModelIdentifier<
           HasManyChildBiDirectionalImplicitModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<HasManyChildBiDirectionalImplicitModelIdentifier>();
-  static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField HASMANYPARENT = QueryField(
+      amplify_core.QueryModelIdentifier<
+          HasManyChildBiDirectionalImplicitModelIdentifier>();
+  static final ID = amplify_core.QueryField(fieldName: "id");
+  static final NAME = amplify_core.QueryField(fieldName: "name");
+  static final HASMANYPARENT = amplify_core.QueryField(
       fieldName: "hasManyParent",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (HasManyParentBiDirectionalImplicit).toString()));
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'HasManyParentBiDirectionalImplicit'));
+  static var schema = amplify_core.Model.defineSchema(
+      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasManyChildBiDirectionalImplicit";
     modelSchemaDefinition.pluralName = "HasManyChildBiDirectionalImplicits";
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.id());
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: HasManyChildBiDirectionalImplicit.NAME,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
         key: HasManyChildBiDirectionalImplicit.HASMANYPARENT,
         isRequired: false,
         targetNames: [
-          "hasManyParentBiDirectionalImplicitBiDirectionalImplicitChildrenId"
+          'hasManyParentBiDirectionalImplicitBiDirectionalImplicitChildrenId'
         ],
-        ofModelName: (HasManyParentBiDirectionalImplicit).toString()));
+        ofModelName: 'HasManyParentBiDirectionalImplicit'));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'createdAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'createdAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'updatedAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'updatedAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
   });
 }
 
 class _HasManyChildBiDirectionalImplicitModelType
-    extends ModelType<HasManyChildBiDirectionalImplicit> {
+    extends amplify_core.ModelType<HasManyChildBiDirectionalImplicit> {
   const _HasManyChildBiDirectionalImplicitModelType();
 
   @override
   HasManyChildBiDirectionalImplicit fromJson(Map<String, dynamic> jsonData) {
     return HasManyChildBiDirectionalImplicit.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'HasManyChildBiDirectionalImplicit';
+  }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [HasManyChildBiDirectionalImplicit] in your schema.
-@immutable
+/**
+ * This is an auto generated class representing the model identifier
+ * of [HasManyChildBiDirectionalImplicit] in your schema.
+ */
 class HasManyChildBiDirectionalImplicitModelIdentifier
-    implements ModelIdentifier<HasManyChildBiDirectionalImplicit> {
+    implements amplify_core.ModelIdentifier<HasManyChildBiDirectionalImplicit> {
   final String id;
 
-  /// Create an instance of HasManyChildBiDirectionalImplicitModelIdentifier using [id] the primary key.
+  /** Create an instance of HasManyChildBiDirectionalImplicitModelIdentifier using [id] the primary key. */
   const HasManyChildBiDirectionalImplicitModelIdentifier({required this.id});
 
   @override

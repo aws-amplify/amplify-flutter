@@ -1,20 +1,29 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
-
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
+import 'package:amplify_core/amplify_core.dart' as amplify_core;
+import 'package:collection/collection.dart';
 
-/// This is an auto generated class representing the CustomTypeWithAppsyncScalarTypes type in your schema.
-@immutable
+/** This is an auto generated class representing the CustomTypeWithAppsyncScalarTypes type in your schema. */
 class CustomTypeWithAppsyncScalarTypes {
   final String? _stringValue;
   final List<String>? _listOfStringValue;
@@ -24,14 +33,14 @@ class CustomTypeWithAppsyncScalarTypes {
   final List<double>? _listOfFloatValue;
   final bool? _booleanValue;
   final List<bool>? _listOfBooleanValue;
-  final TemporalDate? _awsDateValue;
-  final List<TemporalDate>? _listOfAWSDateValue;
-  final TemporalDateTime? _awsDateTimeValue;
-  final List<TemporalDateTime>? _listOfAWSDateTimeValue;
-  final TemporalTime? _awsTimeValue;
-  final List<TemporalTime>? _listOfAWSTimeValue;
-  final TemporalTimestamp? _awsTimestampValue;
-  final List<TemporalTimestamp>? _listOfAWSTimestampValue;
+  final amplify_core.TemporalDate? _awsDateValue;
+  final List<amplify_core.TemporalDate>? _listOfAWSDateValue;
+  final amplify_core.TemporalDateTime? _awsDateTimeValue;
+  final List<amplify_core.TemporalDateTime>? _listOfAWSDateTimeValue;
+  final amplify_core.TemporalTime? _awsTimeValue;
+  final List<amplify_core.TemporalTime>? _listOfAWSTimeValue;
+  final amplify_core.TemporalTimestamp? _awsTimestampValue;
+  final List<amplify_core.TemporalTimestamp>? _listOfAWSTimestampValue;
   final String? _awsEmailValue;
   final List<String>? _listOfAWSEmailValue;
   final String? _awsJsonValue;
@@ -79,35 +88,35 @@ class CustomTypeWithAppsyncScalarTypes {
     return _listOfBooleanValue;
   }
 
-  TemporalDate? get awsDateValue {
+  amplify_core.TemporalDate? get awsDateValue {
     return _awsDateValue;
   }
 
-  List<TemporalDate>? get listOfAWSDateValue {
+  List<amplify_core.TemporalDate>? get listOfAWSDateValue {
     return _listOfAWSDateValue;
   }
 
-  TemporalDateTime? get awsDateTimeValue {
+  amplify_core.TemporalDateTime? get awsDateTimeValue {
     return _awsDateTimeValue;
   }
 
-  List<TemporalDateTime>? get listOfAWSDateTimeValue {
+  List<amplify_core.TemporalDateTime>? get listOfAWSDateTimeValue {
     return _listOfAWSDateTimeValue;
   }
 
-  TemporalTime? get awsTimeValue {
+  amplify_core.TemporalTime? get awsTimeValue {
     return _awsTimeValue;
   }
 
-  List<TemporalTime>? get listOfAWSTimeValue {
+  List<amplify_core.TemporalTime>? get listOfAWSTimeValue {
     return _listOfAWSTimeValue;
   }
 
-  TemporalTimestamp? get awsTimestampValue {
+  amplify_core.TemporalTimestamp? get awsTimestampValue {
     return _awsTimestampValue;
   }
 
-  List<TemporalTimestamp>? get listOfAWSTimestampValue {
+  List<amplify_core.TemporalTimestamp>? get listOfAWSTimestampValue {
     return _listOfAWSTimestampValue;
   }
 
@@ -238,14 +247,14 @@ class CustomTypeWithAppsyncScalarTypes {
       List<double>? listOfFloatValue,
       bool? booleanValue,
       List<bool>? listOfBooleanValue,
-      TemporalDate? awsDateValue,
-      List<TemporalDate>? listOfAWSDateValue,
-      TemporalDateTime? awsDateTimeValue,
-      List<TemporalDateTime>? listOfAWSDateTimeValue,
-      TemporalTime? awsTimeValue,
-      List<TemporalTime>? listOfAWSTimeValue,
-      TemporalTimestamp? awsTimestampValue,
-      List<TemporalTimestamp>? listOfAWSTimestampValue,
+      amplify_core.TemporalDate? awsDateValue,
+      List<amplify_core.TemporalDate>? listOfAWSDateValue,
+      amplify_core.TemporalDateTime? awsDateTimeValue,
+      List<amplify_core.TemporalDateTime>? listOfAWSDateTimeValue,
+      amplify_core.TemporalTime? awsTimeValue,
+      List<amplify_core.TemporalTime>? listOfAWSTimeValue,
+      amplify_core.TemporalTimestamp? awsTimestampValue,
+      List<amplify_core.TemporalTimestamp>? listOfAWSTimestampValue,
       String? awsEmailValue,
       List<String>? listOfAWSEmailValue,
       String? awsJsonValue,
@@ -279,19 +288,21 @@ class CustomTypeWithAppsyncScalarTypes {
             : listOfBooleanValue,
         awsDateValue: awsDateValue,
         listOfAWSDateValue: listOfAWSDateValue != null
-            ? List<TemporalDate>.unmodifiable(listOfAWSDateValue)
+            ? List<amplify_core.TemporalDate>.unmodifiable(listOfAWSDateValue)
             : listOfAWSDateValue,
         awsDateTimeValue: awsDateTimeValue,
         listOfAWSDateTimeValue: listOfAWSDateTimeValue != null
-            ? List<TemporalDateTime>.unmodifiable(listOfAWSDateTimeValue)
+            ? List<amplify_core.TemporalDateTime>.unmodifiable(
+                listOfAWSDateTimeValue)
             : listOfAWSDateTimeValue,
         awsTimeValue: awsTimeValue,
         listOfAWSTimeValue: listOfAWSTimeValue != null
-            ? List<TemporalTime>.unmodifiable(listOfAWSTimeValue)
+            ? List<amplify_core.TemporalTime>.unmodifiable(listOfAWSTimeValue)
             : listOfAWSTimeValue,
         awsTimestampValue: awsTimestampValue,
         listOfAWSTimestampValue: listOfAWSTimestampValue != null
-            ? List<TemporalTimestamp>.unmodifiable(listOfAWSTimestampValue)
+            ? List<amplify_core.TemporalTimestamp>.unmodifiable(
+                listOfAWSTimestampValue)
             : listOfAWSTimestampValue,
         awsEmailValue: awsEmailValue,
         listOfAWSEmailValue: listOfAWSEmailValue != null
@@ -383,7 +394,7 @@ class CustomTypeWithAppsyncScalarTypes {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CustomTypeWithAppsyncScalarTypes {");
     buffer.write("stringValue=" + "$_stringValue" + ", ");
@@ -471,11 +482,13 @@ class CustomTypeWithAppsyncScalarTypes {
             : "null") +
         ", ");
     buffer.write("enumValue=" +
-        (_enumValue != null ? enumToString(_enumValue)! : "null") +
+        (_enumValue != null ? amplify_core.enumToString(_enumValue)! : "null") +
         ", ");
     buffer.write("listOfEnumValue=" +
         (_listOfEnumValue != null
-            ? _listOfEnumValue!.map((e) => enumToString(e)).toString()
+            ? _listOfEnumValue!
+                .map((e) => amplify_core.enumToString(e))
+                .toString()
             : "null") +
         ", ");
     buffer.write("customTypeValue=" +
@@ -499,14 +512,14 @@ class CustomTypeWithAppsyncScalarTypes {
       List<double>? listOfFloatValue,
       bool? booleanValue,
       List<bool>? listOfBooleanValue,
-      TemporalDate? awsDateValue,
-      List<TemporalDate>? listOfAWSDateValue,
-      TemporalDateTime? awsDateTimeValue,
-      List<TemporalDateTime>? listOfAWSDateTimeValue,
-      TemporalTime? awsTimeValue,
-      List<TemporalTime>? listOfAWSTimeValue,
-      TemporalTimestamp? awsTimestampValue,
-      List<TemporalTimestamp>? listOfAWSTimestampValue,
+      amplify_core.TemporalDate? awsDateValue,
+      List<amplify_core.TemporalDate>? listOfAWSDateValue,
+      amplify_core.TemporalDateTime? awsDateTimeValue,
+      List<amplify_core.TemporalDateTime>? listOfAWSDateTimeValue,
+      amplify_core.TemporalTime? awsTimeValue,
+      List<amplify_core.TemporalTime>? listOfAWSTimeValue,
+      amplify_core.TemporalTimestamp? awsTimestampValue,
+      List<amplify_core.TemporalTimestamp>? listOfAWSTimestampValue,
       String? awsEmailValue,
       List<String>? listOfAWSEmailValue,
       String? awsJsonValue,
@@ -558,6 +571,115 @@ class CustomTypeWithAppsyncScalarTypes {
             listOfCustomTypeValue ?? this.listOfCustomTypeValue);
   }
 
+  CustomTypeWithAppsyncScalarTypes copyWithModelFieldValues(
+      {ModelFieldValue<String?>? stringValue,
+      ModelFieldValue<List<String>?>? listOfStringValue,
+      ModelFieldValue<int?>? intValue,
+      ModelFieldValue<List<int>?>? listOfIntValue,
+      ModelFieldValue<double?>? floatValue,
+      ModelFieldValue<List<double>?>? listOfFloatValue,
+      ModelFieldValue<bool?>? booleanValue,
+      ModelFieldValue<List<bool>?>? listOfBooleanValue,
+      ModelFieldValue<amplify_core.TemporalDate?>? awsDateValue,
+      ModelFieldValue<List<amplify_core.TemporalDate>?>? listOfAWSDateValue,
+      ModelFieldValue<amplify_core.TemporalDateTime?>? awsDateTimeValue,
+      ModelFieldValue<List<amplify_core.TemporalDateTime>?>?
+          listOfAWSDateTimeValue,
+      ModelFieldValue<amplify_core.TemporalTime?>? awsTimeValue,
+      ModelFieldValue<List<amplify_core.TemporalTime>?>? listOfAWSTimeValue,
+      ModelFieldValue<amplify_core.TemporalTimestamp?>? awsTimestampValue,
+      ModelFieldValue<List<amplify_core.TemporalTimestamp>?>?
+          listOfAWSTimestampValue,
+      ModelFieldValue<String?>? awsEmailValue,
+      ModelFieldValue<List<String>?>? listOfAWSEmailValue,
+      ModelFieldValue<String?>? awsJsonValue,
+      ModelFieldValue<List<String>?>? listOfAWSJsonValue,
+      ModelFieldValue<String?>? awsPhoneValue,
+      ModelFieldValue<List<String>?>? listOfAWSPhoneValue,
+      ModelFieldValue<String?>? awsURLValue,
+      ModelFieldValue<List<String>?>? listOfAWSURLValue,
+      ModelFieldValue<String?>? awsIPAddressValue,
+      ModelFieldValue<List<String>?>? listOfAWSIPAddressValue,
+      ModelFieldValue<EnumField?>? enumValue,
+      ModelFieldValue<List<EnumField>?>? listOfEnumValue,
+      ModelFieldValue<SimpleCustomType?>? customTypeValue,
+      ModelFieldValue<List<SimpleCustomType>?>? listOfCustomTypeValue}) {
+    return CustomTypeWithAppsyncScalarTypes._internal(
+        stringValue: stringValue == null ? this.stringValue : stringValue.value,
+        listOfStringValue: listOfStringValue == null
+            ? this.listOfStringValue
+            : listOfStringValue.value,
+        intValue: intValue == null ? this.intValue : intValue.value,
+        listOfIntValue:
+            listOfIntValue == null ? this.listOfIntValue : listOfIntValue.value,
+        floatValue: floatValue == null ? this.floatValue : floatValue.value,
+        listOfFloatValue: listOfFloatValue == null
+            ? this.listOfFloatValue
+            : listOfFloatValue.value,
+        booleanValue:
+            booleanValue == null ? this.booleanValue : booleanValue.value,
+        listOfBooleanValue: listOfBooleanValue == null
+            ? this.listOfBooleanValue
+            : listOfBooleanValue.value,
+        awsDateValue:
+            awsDateValue == null ? this.awsDateValue : awsDateValue.value,
+        listOfAWSDateValue: listOfAWSDateValue == null
+            ? this.listOfAWSDateValue
+            : listOfAWSDateValue.value,
+        awsDateTimeValue: awsDateTimeValue == null
+            ? this.awsDateTimeValue
+            : awsDateTimeValue.value,
+        listOfAWSDateTimeValue: listOfAWSDateTimeValue == null
+            ? this.listOfAWSDateTimeValue
+            : listOfAWSDateTimeValue.value,
+        awsTimeValue:
+            awsTimeValue == null ? this.awsTimeValue : awsTimeValue.value,
+        listOfAWSTimeValue: listOfAWSTimeValue == null
+            ? this.listOfAWSTimeValue
+            : listOfAWSTimeValue.value,
+        awsTimestampValue: awsTimestampValue == null
+            ? this.awsTimestampValue
+            : awsTimestampValue.value,
+        listOfAWSTimestampValue: listOfAWSTimestampValue == null
+            ? this.listOfAWSTimestampValue
+            : listOfAWSTimestampValue.value,
+        awsEmailValue:
+            awsEmailValue == null ? this.awsEmailValue : awsEmailValue.value,
+        listOfAWSEmailValue: listOfAWSEmailValue == null
+            ? this.listOfAWSEmailValue
+            : listOfAWSEmailValue.value,
+        awsJsonValue:
+            awsJsonValue == null ? this.awsJsonValue : awsJsonValue.value,
+        listOfAWSJsonValue: listOfAWSJsonValue == null
+            ? this.listOfAWSJsonValue
+            : listOfAWSJsonValue.value,
+        awsPhoneValue:
+            awsPhoneValue == null ? this.awsPhoneValue : awsPhoneValue.value,
+        listOfAWSPhoneValue: listOfAWSPhoneValue == null
+            ? this.listOfAWSPhoneValue
+            : listOfAWSPhoneValue.value,
+        awsURLValue: awsURLValue == null ? this.awsURLValue : awsURLValue.value,
+        listOfAWSURLValue: listOfAWSURLValue == null
+            ? this.listOfAWSURLValue
+            : listOfAWSURLValue.value,
+        awsIPAddressValue: awsIPAddressValue == null
+            ? this.awsIPAddressValue
+            : awsIPAddressValue.value,
+        listOfAWSIPAddressValue: listOfAWSIPAddressValue == null
+            ? this.listOfAWSIPAddressValue
+            : listOfAWSIPAddressValue.value,
+        enumValue: enumValue == null ? this.enumValue : enumValue.value,
+        listOfEnumValue: listOfEnumValue == null
+            ? this.listOfEnumValue
+            : listOfEnumValue.value,
+        customTypeValue: customTypeValue == null
+            ? this.customTypeValue
+            : customTypeValue.value,
+        listOfCustomTypeValue: listOfCustomTypeValue == null
+            ? this.listOfCustomTypeValue
+            : listOfCustomTypeValue.value);
+  }
+
   CustomTypeWithAppsyncScalarTypes.fromJson(Map<String, dynamic> json)
       : _stringValue = json['stringValue'],
         _listOfStringValue = json['listOfStringValue']?.cast<String>(),
@@ -572,28 +694,29 @@ class CustomTypeWithAppsyncScalarTypes {
         _booleanValue = json['booleanValue'],
         _listOfBooleanValue = json['listOfBooleanValue']?.cast<bool>(),
         _awsDateValue = json['awsDateValue'] != null
-            ? TemporalDate.fromString(json['awsDateValue'])
+            ? amplify_core.TemporalDate.fromString(json['awsDateValue'])
             : null,
         _listOfAWSDateValue = (json['listOfAWSDateValue'] as List?)
-            ?.map((e) => TemporalDate.fromString(e))
+            ?.map((e) => amplify_core.TemporalDate.fromString(e))
             .toList(),
         _awsDateTimeValue = json['awsDateTimeValue'] != null
-            ? TemporalDateTime.fromString(json['awsDateTimeValue'])
+            ? amplify_core.TemporalDateTime.fromString(json['awsDateTimeValue'])
             : null,
         _listOfAWSDateTimeValue = (json['listOfAWSDateTimeValue'] as List?)
-            ?.map((e) => TemporalDateTime.fromString(e))
+            ?.map((e) => amplify_core.TemporalDateTime.fromString(e))
             .toList(),
         _awsTimeValue = json['awsTimeValue'] != null
-            ? TemporalTime.fromString(json['awsTimeValue'])
+            ? amplify_core.TemporalTime.fromString(json['awsTimeValue'])
             : null,
         _listOfAWSTimeValue = (json['listOfAWSTimeValue'] as List?)
-            ?.map((e) => TemporalTime.fromString(e))
+            ?.map((e) => amplify_core.TemporalTime.fromString(e))
             .toList(),
         _awsTimestampValue = json['awsTimestampValue'] != null
-            ? TemporalTimestamp.fromSeconds(json['awsTimestampValue'])
+            ? amplify_core.TemporalTimestamp.fromSeconds(
+                json['awsTimestampValue'])
             : null,
         _listOfAWSTimestampValue = (json['listOfAWSTimestampValue'] as List?)
-            ?.map((e) => TemporalTimestamp.fromSeconds(e))
+            ?.map((e) => amplify_core.TemporalTimestamp.fromSeconds(e))
             .toList(),
         _awsEmailValue = json['awsEmailValue'],
         _listOfAWSEmailValue = json['listOfAWSEmailValue']?.cast<String>(),
@@ -606,22 +729,23 @@ class CustomTypeWithAppsyncScalarTypes {
         _awsIPAddressValue = json['awsIPAddressValue'],
         _listOfAWSIPAddressValue =
             json['listOfAWSIPAddressValue']?.cast<String>(),
-        _enumValue =
-            enumFromString<EnumField>(json['enumValue'], EnumField.values),
+        _enumValue = amplify_core.enumFromString<EnumField>(
+            json['enumValue'], EnumField.values),
         _listOfEnumValue = json['listOfEnumValue'] is List
             ? (json['listOfEnumValue'] as List)
-                .map((e) => enumFromString<EnumField>(e, EnumField.values)!)
+                .map((e) => amplify_core.enumFromString<EnumField>(
+                    e, EnumField.values)!)
                 .toList()
             : null,
         _customTypeValue = json['customTypeValue']?['serializedData'] != null
-            ? SimpleCustomType.fromJson(Map<String, dynamic>.from(
+            ? SimpleCustomType.fromJson(new Map<String, dynamic>.from(
                 json['customTypeValue']['serializedData']))
             : null,
         _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
             ? (json['listOfCustomTypeValue'] as List)
                 .where((e) => e != null)
                 .map((e) => SimpleCustomType.fromJson(
-                    Map<String, dynamic>.from(e['serializedData'])))
+                    new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null;
 
@@ -656,9 +780,9 @@ class CustomTypeWithAppsyncScalarTypes {
         'listOfAWSURLValue': _listOfAWSURLValue,
         'awsIPAddressValue': _awsIPAddressValue,
         'listOfAWSIPAddressValue': _listOfAWSIPAddressValue,
-        'enumValue': enumToString(_enumValue),
+        'enumValue': amplify_core.enumToString(_enumValue),
         'listOfEnumValue':
-            _listOfEnumValue?.map((e) => enumToString(e)).toList(),
+            _listOfEnumValue?.map((e) => amplify_core.enumToString(e)).toList(),
         'customTypeValue': _customTypeValue?.toJson(),
         'listOfCustomTypeValue': _listOfCustomTypeValue
             ?.map((SimpleCustomType? e) => e?.toJson())
@@ -698,190 +822,249 @@ class CustomTypeWithAppsyncScalarTypes {
         'listOfCustomTypeValue': _listOfCustomTypeValue
       };
 
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = amplify_core.Model.defineSchema(
+      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "CustomTypeWithAppsyncScalarTypes";
     modelSchemaDefinition.pluralName = "CustomTypeWithAppsyncScalarTypes";
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'stringValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'stringValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfStringValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfStringValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName: amplify_core.ModelFieldTypeEnum.string.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'intValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.int)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'intValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.int)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfIntValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.int))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfIntValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName: amplify_core.ModelFieldTypeEnum.int.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'floatValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.double)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'floatValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.double)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfFloatValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.double))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfFloatValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName: amplify_core.ModelFieldTypeEnum.double.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'booleanValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.bool)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'booleanValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.bool)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfBooleanValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.bool))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfBooleanValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName: amplify_core.ModelFieldTypeEnum.bool.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'awsDateValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.date)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'awsDateValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.date)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfAWSDateValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.date))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfAWSDateValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName: amplify_core.ModelFieldTypeEnum.date.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'awsDateTimeValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'awsDateTimeValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfAWSDateTimeValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.dateTime))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfAWSDateTimeValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName: amplify_core.ModelFieldTypeEnum.dateTime.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'awsTimeValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.time)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'awsTimeValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.time)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfAWSTimeValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.time))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfAWSTimeValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName: amplify_core.ModelFieldTypeEnum.time.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'awsTimestampValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.timestamp)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'awsTimestampValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.timestamp)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfAWSTimestampValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.timestamp))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfAWSTimestampValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName: amplify_core.ModelFieldTypeEnum.timestamp.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'awsEmailValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'awsEmailValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfAWSEmailValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfAWSEmailValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName: amplify_core.ModelFieldTypeEnum.string.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'awsJsonValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'awsJsonValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfAWSJsonValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfAWSJsonValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName: amplify_core.ModelFieldTypeEnum.string.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'awsPhoneValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'awsPhoneValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfAWSPhoneValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfAWSPhoneValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName: amplify_core.ModelFieldTypeEnum.string.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'awsURLValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'awsURLValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfAWSURLValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfAWSURLValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName: amplify_core.ModelFieldTypeEnum.string.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'awsIPAddressValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'awsIPAddressValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfAWSIPAddressValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfAWSIPAddressValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName: amplify_core.ModelFieldTypeEnum.string.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'enumValue',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'enumValue',
+            isRequired: false,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.enumeration)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'listOfEnumValue',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: describeEnum(ModelFieldTypeEnum.enumeration))));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.customTypeField(
+            fieldName: 'listOfEnumValue',
+            isRequired: false,
+            isArray: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.collection,
+                ofModelName:
+                    amplify_core.ModelFieldTypeEnum.enumeration.name)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.embedded(
         fieldName: 'customTypeValue',
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.embedded,
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.embedded,
             ofCustomTypeName: 'SimpleCustomType')));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.embedded(
         fieldName: 'listOfCustomTypeValue',
         isRequired: false,
         isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.embeddedCollection,
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.embeddedCollection,
             ofCustomTypeName: 'SimpleCustomType')));
   });
 }
