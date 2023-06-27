@@ -1,0 +1,21 @@
+dartdoc:
+  categories:
+    Auth:
+      markdown: doc/static/Auth.md
+  categoryOrder:
+    - Auth
+  favicon: doc/static/favicon.png
+  nodoc:
+    - lib/src/config/analytics/**
+    - lib/src/config/api/**
+    - lib/src/config/auth/**
+    - lib/src/config/notifications/**
+    - lib/src/config/storage/**
+    - lib/src/config/amplify_plugin_config.dart
+    - lib/src/config/amplify_plugin_registry.dart
+    - lib/src/config/config_map.dart
+    - lib/src/http/**
+    - lib/src/platform/**
+    - lib/src/plugin/**
+    - lib/src/state_machine/**
+    - lib/src/util/**

@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.sign_out_options}
 /// The shared sign out options among all Auth plugins.
 /// {@endtemplate}
@@ -32,6 +33,7 @@ class SignOutOptions
   @override
   String get runtimeTypeName => 'SignOutOptions';
 
+  /// @nodoc
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
 
@@ -42,6 +44,7 @@ class SignOutOptions
       };
 }
 
+/// @nodoc
 /// {@template amplify_core.auth.sign_out_plugin_options}
 /// Plugin-specific options for `Amplify.Auth.signOut`.
 /// {@endtemplate}
