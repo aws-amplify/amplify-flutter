@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.resend_user_attribute_confirmation_code_options}
 /// The shared resend user attribute confirmation code options among all Auth
 /// plugins.
@@ -26,6 +27,7 @@ class ResendUserAttributeConfirmationCodeOptions
   @override
   String get runtimeTypeName => 'ResendUserAttributeConfirmationCodeOptions';
 
+  /// @nodoc
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
 
@@ -35,6 +37,7 @@ class ResendUserAttributeConfirmationCodeOptions
       };
 }
 
+/// @nodoc
 /// {@template amplify_core.auth.resend_user_attribute_confirmation_code_plugin_options}
 /// Plugin-specific options for `Amplify.Auth.resendUserAttributeConfirmationCode`.
 /// {@endtemplate}

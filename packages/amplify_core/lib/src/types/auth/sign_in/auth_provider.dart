@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@category Auth}
 class AuthProvider
     with
         AWSEquatable<AuthProvider>,

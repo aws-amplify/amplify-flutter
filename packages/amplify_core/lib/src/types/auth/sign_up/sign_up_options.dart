@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.auth.sign_up_options}
 /// Options for `Amplify.Auth.signUp`.
 /// {@endtemplate}
@@ -40,6 +41,7 @@ class SignUpOptions
   @override
   String get runtimeTypeName => 'SignUpOptions';
 
+  /// @nodoc
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
 
@@ -50,6 +52,7 @@ class SignUpOptions
       };
 }
 
+/// @nodoc
 /// {@template amplify_core.auth.sign_up_plugin_options}
 /// Plugin-specific options for `Amplify.Auth.signUp`.
 /// {@endtemplate}
