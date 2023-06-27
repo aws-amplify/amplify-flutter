@@ -9,6 +9,8 @@ import 'package:aft/src/options/fail_fast_option.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:glob/glob.dart';
+import 'package:glob/list_local_fs.dart';
 import 'package:mason_logger/mason_logger.dart';
 import 'package:mustache_template/mustache_template.dart';
 import 'package:path/path.dart' as p;
@@ -128,9 +130,12 @@ abstract class _DocsSubcommand extends AmplifyCommand
   Future<Directory> _buildDocs(
     PackageInfo package,
     String outputDir, {
+    bool rebuild = false,
     Progress? progress,
   }) async {
-    progress ??= mLogger.progress('Pre-building docs for ${package.name}');
+    progress ??= mLogger.progress(
+      '${rebuild ? 'Rebuilding' : 'Pre-building'} docs for ${package.name}',
+    );
     await _prebuildDocs(package, progress: progress);
     progress.update('Running `dart doc` for ${package.name}');
     final buildDir = await _dartDoc(package);
@@ -139,7 +144,9 @@ abstract class _DocsSubcommand extends AmplifyCommand
     );
     progress.update('Copying docs to root dir');
     await _copyDir(buildDir, packageOutputDir);
-    progress.complete('Built docs for ${package.name}!');
+    progress.complete(
+      '${rebuild ? 'Rebuilt' : 'Built'} docs for ${package.name}!',
+    );
     return packageOutputDir;
   }
 
@@ -254,10 +261,8 @@ class _DocsServeSubcommand extends _DocsSubcommand {
         _PackageWatcher(
           package,
           onChange: () async {
-            logger.info('Rebuilding docs for ${package.name}...');
             try {
-              await _buildDocs(package, outputDir);
-              logger.info('Rebuilt docs for ${package.name}.');
+              await _buildDocs(package, outputDir, rebuild: true);
             } on Exception catch (e) {
               logger.error('Error rebuilding docs for ${package.name}:', e);
             }
@@ -300,22 +305,38 @@ class _PackageWatcher implements Closeable {
   late final StreamSubscription<FileSystemEvent> _subscription;
 
   void _listenForEvents() {
-    final directoriesToWatch = [
-      for (final subpath in const ['doc/lib', 'lib'])
-        Directory(p.join(package.path, subpath)),
-    ].where((dir) => dir.existsSync());
+    final entitiesToWatch = const [
+      'doc/*.yaml',
+      'doc/lib/**',
+      'doc/static/**',
+      'lib/**',
+      '*.yaml',
+    ]
+        .map((path) => p.join(package.path, path))
+        .expand((subpath) => Glob(subpath).listSync());
     final eventStream = StreamGroup.merge([
-      for (final directory in directoriesToWatch)
-        directory.watch(
-          events: FileSystemEvent.all,
-          recursive: true,
-        ),
+      for (final entity in entitiesToWatch)
+        entity.watch(events: FileSystemEvent.all),
     ]);
+
     Future<void>? currentOperation;
+    CancelableOperation<void>? nextOperation;
     _subscription = eventStream.listen((_) {
-      currentOperation ??= onChange().whenComplete(() {
-        currentOperation = null;
-      });
+      if (currentOperation == null) {
+        currentOperation = onChange();
+        return;
+      }
+
+      var canceled = false;
+      nextOperation?.cancel();
+      nextOperation = CancelableOperation.fromFuture(
+        currentOperation!.whenComplete(() {
+          if (canceled) return;
+          currentOperation = onChange();
+          nextOperation = null;
+        }),
+        onCancel: () => canceled = true,
+      );
     });
   }
 
