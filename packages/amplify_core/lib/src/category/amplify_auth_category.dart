@@ -109,10 +109,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     case AuthSignUpStep.confirmSignUp:
   ///       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
   ///       _handleCodeDelivery(codeDeliveryDetails);
-  ///       break;
   ///     case AuthSignUpStep.done:
   ///       safePrint('Sign up is complete');
-  ///       break;
   ///   }
   /// }
   /// ```
@@ -190,10 +188,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     case AuthSignUpStep.confirmSignUp:
   ///       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
   ///       _handleCodeDelivery(codeDeliveryDetails);
-  ///       break;
   ///     case AuthSignUpStep.done:
   ///       safePrint('Sign up is complete');
-  ///       break;
   ///   }
   /// }
   /// ```
@@ -337,7 +333,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     case AuthSignInStep.confirmSignInWithSmsMfaCode:
   ///       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
   ///       _handleCodeDelivery(codeDeliveryDetails);
-  ///       break;
   ///     // ···
   ///   }
   /// }
@@ -363,7 +358,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     // ···
   ///     case AuthSignInStep.confirmSignInWithNewPassword:
   ///       safePrint('Enter a new password to continue signing in');
-  ///       break;
   ///     // ···
   ///   }
   /// }
@@ -383,7 +377,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///       final parameters = result.nextStep.additionalInfo;
   ///       final prompt = parameters['prompt']!;
   ///       safePrint(prompt);
-  ///       break;
   ///     // ···
   ///   }
   /// }
@@ -403,7 +396,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///         username: username,
   ///       );
   ///       await _handleResetPasswordResult(resetResult);
-  ///       break;
   ///     // ···
   ///   }
   /// }
@@ -416,10 +408,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     case AuthResetPasswordStep.confirmResetPasswordWithCode:
   ///       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
   ///       _handleCodeDelivery(codeDeliveryDetails);
-  ///       break;
   ///     case AuthResetPasswordStep.done:
   ///       safePrint('Successfully reset password');
-  ///       break;
   ///   }
   /// }
   /// ```
@@ -439,7 +429,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///         username: username,
   ///       );
   ///       _handleCodeDelivery(resendResult.codeDeliveryDetails);
-  ///       break;
   ///     // ···
   ///   }
   /// }
@@ -465,7 +454,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     // ···
   ///     case AuthSignInStep.done:
   ///       safePrint('Sign in is complete');
-  ///       break;
   ///     // ···
   ///   }
   /// }
@@ -704,10 +692,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     case AuthResetPasswordStep.confirmResetPasswordWithCode:
   ///       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
   ///       _handleCodeDelivery(codeDeliveryDetails);
-  ///       break;
   ///     case AuthResetPasswordStep.done:
   ///       safePrint('Successfully reset password');
-  ///       break;
   ///   }
   /// }
   /// ```
@@ -1045,10 +1031,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     case AuthUpdateAttributeStep.confirmAttributeWithCode:
   ///       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
   ///       _handleCodeDelivery(codeDeliveryDetails);
-  ///       break;
   ///     case AuthUpdateAttributeStep.done:
   ///       safePrint('Successfully updated attribute');
-  ///       break;
   ///   }
   /// }
   /// ```
@@ -1108,10 +1092,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///         case AuthUpdateAttributeStep.confirmAttributeWithCode:
   ///           final destination = value.nextStep.codeDeliveryDetails?.destination;
   ///           safePrint('Confirmation code sent to $destination for $key');
-  ///           break;
   ///         case AuthUpdateAttributeStep.done:
   ///           safePrint('Update completed for $key');
-  ///           break;
   ///       }
   ///     });
   ///   } on AuthException catch (e) {
