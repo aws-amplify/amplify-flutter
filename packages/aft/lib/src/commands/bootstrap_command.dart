@@ -71,13 +71,20 @@ const amplifyEnvironments = <String, String>{};
     await super.run();
     await linkPackages();
 
-    final bootstrapPackages = commandPackages.values.where(
-      // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
-      // run with the native command, and running it again with the embedded
-      // command could cause issues later on, esp. when the native `pub`
-      // command is significantly newer/older than the embedded one.
-      (pkg) => pkg.name != 'aft',
-    );
+    final bootstrapPackages = commandPackages.values
+        .where(
+          // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
+          // run with the native command, and running it again with the embedded
+          // command could cause issues later on, esp. when the native `pub`
+          // command is significantly newer/older than the embedded one.
+          (pkg) => pkg.name != 'aft',
+        )
+        .expand(
+          (pkg) => [
+            pkg,
+            if (pkg.example case final example?) example,
+          ],
+        );
     for (final package in bootstrapPackages) {
       await pubAction(
         arguments: [if (upgrade) 'upgrade' else 'get'],
@@ -85,25 +92,25 @@ const amplifyEnvironments = <String, String>{};
       );
     }
     await Future.wait([
-      for (final package in bootstrapPackages.expand(
-        (pkg) => [
-          pkg,
-          if (pkg.example case final example?) example,
-        ],
-      ))
-        _createEmptyConfig(package),
+      for (final package in bootstrapPackages) _createEmptyConfig(package),
     ]);
     if (build) {
       // Packages which must be built because they vendor assets required for
       // running all downstream packages.
-      const mustBuild = [
+      final mustBuild = [
         'amplify_auth_cognito_dart',
         'amplify_secure_storage_dart'
+      ].map((pkgName) => repo.allPackages[pkgName]!);
+      final buildPackages = [
+        ...commandPackages.values,
+
+        // Include "must build" packages if any of the command packages depend
+        // on them.
+        for (final mustBuildPkg in mustBuild)
+          if (commandPackages.values
+              .any((pkg) => pkg.dependsOn(mustBuildPkg, repo)))
+            mustBuildPkg,
       ];
-      final buildPackages = repo.allPackages.values.where(
-        (pkg) =>
-            bootstrapPackages.contains(pkg) || mustBuild.contains(pkg.name),
-      );
       for (final package in buildPackages) {
         // Only run build_runner for packages which need it for development,
         // i.e. those packages which specify worker JS files in their assets.

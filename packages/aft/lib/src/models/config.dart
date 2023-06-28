@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:aft/src/changelog/changelog.dart';
 import 'package:aft/src/models.dart';
+import 'package:aft/src/repo.dart';
 import 'package:aft/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
@@ -221,6 +222,19 @@ class PackageInfo
     return p.basename(path).endsWith('_test') ||
         path.contains('goldens') ||
         p.basename(path).contains('e2e');
+  }
+
+  /// Whether [package] is a direct or transitive dependency of `this`.
+  bool dependsOn(PackageInfo package, Repo repo) {
+    var found = false;
+    dfs(
+      repo.getPackageGraph(includeDevDependencies: true),
+      root: this,
+      (pkg) {
+        if (pkg == package) found = true;
+      },
+    );
+    return found;
   }
 
   /// The parsed `CHANGELOG.md`.
