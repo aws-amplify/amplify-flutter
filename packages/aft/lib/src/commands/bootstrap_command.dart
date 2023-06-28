@@ -91,31 +91,27 @@ const amplifyEnvironments = <String, String>{};
       for (final package in bootstrapPackages) _createEmptyConfig(package),
     ]);
     if (build) {
-      // Packages which must be built because they vendor assets required for
-      // running all downstream packages.
-      final mustBuild = [
-        'amplify_auth_cognito_dart',
-        'amplify_secure_storage_dart'
-      ].map((pkgName) => repo.allPackages[pkgName]!);
-      final buildPackages = [
-        ...bootstrapPackages,
-
-        // Include "must build" packages if any of the command packages depend
-        // on them.
-        for (final mustBuildPkg in mustBuild)
-          if (bootstrapPackages.any((pkg) => pkg.dependsOn(mustBuildPkg, repo)))
-            mustBuildPkg,
-      ];
+      final buildPackages = <PackageInfo>{};
+      final packageGraph = repo.getPackageGraph(includeDevDependencies: true);
+      for (final package in bootstrapPackages) {
+        dfs(
+          packageGraph,
+          root: package,
+          (package) {
+            // Only run build_runner for packages which need it for development,
+            // i.e. those packages which specify worker JS files in their assets.
+            final needsBuild = package.needsBuildRunner &&
+                (package.pubspecInfo.pubspec.flutter?.containsKey('assets') ??
+                    false) &&
+                package.flavor == PackageFlavor.dart;
+            if (needsBuild) {
+              buildPackages.add(package);
+            }
+          },
+        );
+      }
       for (final package in buildPackages) {
-        // Only run build_runner for packages which need it for development,
-        // i.e. those packages which specify worker JS files in their assets.
-        final needsBuild = package.needsBuildRunner &&
-            (package.pubspecInfo.pubspec.flutter?.containsKey('assets') ??
-                false) &&
-            package.flavor == PackageFlavor.dart;
-        if (needsBuild) {
-          await runBuildRunner(package, logger: logger, verbose: verbose);
-        }
+        await runBuildRunner(package, logger: logger, verbose: verbose);
       }
     }
 
