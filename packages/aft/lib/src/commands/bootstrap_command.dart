@@ -79,7 +79,7 @@ const amplifyEnvironments = <String, String>{};
           // command is significantly newer/older than the embedded one.
           (pkg) => pkg.name != 'aft',
         )
-        .expand((pkg) => [pkg, pkg.example])
+        .expand((pkg) => [pkg, pkg.example, pkg.docs])
         .nonNulls;
     for (final package in bootstrapPackages) {
       await pubAction(
