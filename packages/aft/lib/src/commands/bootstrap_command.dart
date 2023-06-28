@@ -84,9 +84,15 @@ const amplifyEnvironments = <String, String>{};
         package: package,
       );
     }
-    await Future.wait(
-      [for (final package in bootstrapPackages) _createEmptyConfig(package)],
-    );
+    await Future.wait([
+      for (final package in bootstrapPackages.expand(
+        (pkg) => [
+          pkg,
+          if (pkg.example case final example?) example,
+        ],
+      ))
+        _createEmptyConfig(package),
+    ]);
     if (build) {
       // Packages which must be built because they vendor assets required for
       // running all downstream packages.
