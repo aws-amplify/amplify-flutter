@@ -164,6 +164,7 @@ jobs:
   test:
     uses: ./.github/workflows/$analyzeAndTestWorkflow
     with:
+      package-name: ${package.name}
       working-directory: $repoRelativePath
 ''',
       );
@@ -175,6 +176,7 @@ jobs:
     needs: test
     uses: ./.github/workflows/$nativeWorkflow
     with:
+      package-name: ${package.name}
       working-directory: $repoRelativePath
 ''',
         );
@@ -186,11 +188,13 @@ jobs:
     needs: test
     uses: ./.github/workflows/$ddcWorkflow
     with:
+      package-name: ${package.name}
       working-directory: $repoRelativePath
   dart2js_test:
     needs: test
     uses: ./.github/workflows/$dart2JsWorkflow
     with:
+      package-name: ${package.name}
       working-directory: $repoRelativePath
 ''',
           );

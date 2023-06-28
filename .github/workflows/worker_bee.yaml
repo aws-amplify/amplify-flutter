@@ -28,4 +28,5 @@ jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
     with:
+      package-name: worker_bee
       working-directory: packages/worker_bee/worker_bee

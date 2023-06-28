@@ -34,4 +34,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
     with:
+      package-name: amplify_secure_storage
       working-directory: packages/secure_storage/amplify_secure_storage

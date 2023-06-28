@@ -35,9 +35,11 @@ jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
     with:
+      package-name: smithy_codegen
       working-directory: packages/smithy/smithy_codegen
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
     with:
+      package-name: smithy_codegen
       working-directory: packages/smithy/smithy_codegen

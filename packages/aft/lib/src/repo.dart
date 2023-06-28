@@ -90,7 +90,7 @@ class Repo {
 
   /// Returns the directed graph of packages to the packages it depends on.
   ///
-  /// Will include dev dependencies if [includeDevDependencies] is true.
+  /// Will include dev dependencies if [includeDevDependencies] is `true`.
   Map<PackageInfo, List<PackageInfo>> getPackageGraph({
     bool includeDevDependencies = false,
   }) =>
@@ -114,8 +114,18 @@ class Repo {
   ///
   /// Provides a mapping from each packages to the packages which directly
   /// depend on it.
-  late final Map<PackageInfo, List<PackageInfo>> reversedPackageGraph = () {
-    final packageGraph = this.packageGraph;
+  late final Map<PackageInfo, List<PackageInfo>> reversedPackageGraph =
+      getReversedPackageGraph();
+
+  /// Returns the directed graph of packages to the packages which depend on it.
+  ///
+  /// Will include dev dependencies if [includeDevDependencies] is `true`.
+  Map<PackageInfo, List<PackageInfo>> getReversedPackageGraph({
+    bool includeDevDependencies = false,
+  }) {
+    final packageGraph = getPackageGraph(
+      includeDevDependencies: includeDevDependencies,
+    );
     final reversedPackageGraph = <PackageInfo, List<PackageInfo>>{
       for (final package in allPackages.values) package: [],
     };
@@ -125,7 +135,7 @@ class Repo {
       }
     }
     return UnmodifiableMapView(reversedPackageGraph);
-  }();
+  }
 
   /// The git diff between [oldTree] and [newTree].
   ///
