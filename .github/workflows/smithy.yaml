@@ -29,9 +29,11 @@ jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
     with:
+      package-name: smithy
       working-directory: packages/smithy/smithy
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
     with:
+      package-name: smithy
       working-directory: packages/smithy/smithy

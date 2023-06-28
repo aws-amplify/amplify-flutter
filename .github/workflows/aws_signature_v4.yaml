@@ -32,19 +32,23 @@ jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
     with:
+      package-name: aws_signature_v4
       working-directory: packages/aws_signature_v4
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
     with:
+      package-name: aws_signature_v4
       working-directory: packages/aws_signature_v4
   ddc_test:
     needs: test
     uses: ./.github/workflows/dart_ddc.yaml
     with:
+      package-name: aws_signature_v4
       working-directory: packages/aws_signature_v4
   dart2js_test:
     needs: test
     uses: ./.github/workflows/dart_dart2js.yaml
     with:
+      package-name: aws_signature_v4
       working-directory: packages/aws_signature_v4

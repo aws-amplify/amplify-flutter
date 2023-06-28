@@ -26,4 +26,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
     with:
+      package-name: amplify_native_legacy_wrapper
       working-directory: packages/amplify_native_legacy_wrapper

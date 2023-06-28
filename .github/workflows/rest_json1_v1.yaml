@@ -38,19 +38,23 @@ jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
     with:
+      package-name: rest_json1_v1
       working-directory: packages/smithy/goldens/lib/restJson1
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
     with:
+      package-name: rest_json1_v1
       working-directory: packages/smithy/goldens/lib/restJson1
   ddc_test:
     needs: test
     uses: ./.github/workflows/dart_ddc.yaml
     with:
+      package-name: rest_json1_v1
       working-directory: packages/smithy/goldens/lib/restJson1
   dart2js_test:
     needs: test
     uses: ./.github/workflows/dart_dart2js.yaml
     with:
+      package-name: rest_json1_v1
       working-directory: packages/smithy/goldens/lib/restJson1
