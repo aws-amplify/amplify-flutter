@@ -128,6 +128,7 @@ class PackageInfo
     required this.pubspecInfo,
     required this.flavor,
     this.example,
+    this.docs,
   });
 
   factory PackageInfo.fromJson(Map<String, Object?> json) =>
@@ -158,12 +159,17 @@ class PackageInfo
       example ??= PackageInfo.fromDirectory(categoryExampleDir);
     }
 
+    // Look for docs package
+    final docsDir = Directory.fromUri(dir.uri.resolve('doc/'));
+    final docs = PackageInfo.fromDirectory(docsDir);
+
     return PackageInfo(
       name: pubspec.name,
       path: dir.path,
       pubspecInfo: pubspecInfo,
       flavor: pubspec.flavor,
       example: example,
+      docs: docs,
     );
   }
 
@@ -181,6 +187,9 @@ class PackageInfo
 
   /// The example for this package, if any.
   final PackageInfo? example;
+
+  /// The docs package, if any.
+  final PackageInfo? docs;
 
   /// The unit test directory within the enclosing directory, if any
   Directory? get unitTestDirectory {
