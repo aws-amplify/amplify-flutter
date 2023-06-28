@@ -2,6 +2,10 @@ name: Dart (VM)
 on:
   workflow_call:
     inputs:
+      package-name:
+        description: The name of the package being tested
+        required: true
+        type: string
       working-directory:
         description: The working directory relative to the repo root
         required: true
@@ -56,7 +60,7 @@ jobs:
       - name: Bootstrap
         id: bootstrap
         timeout-minutes: 20
-        run: aft bootstrap --fail-fast
+        run: aft bootstrap --fail-fast --include=${{ inputs.package-name }}
 
       - name: Check Formatting
         if: "always() && steps.bootstrap.conclusion == 'success' && matrix.sdk == 'stable'"
