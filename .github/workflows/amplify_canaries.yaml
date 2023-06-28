@@ -175,6 +175,7 @@ jobs:
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
         with:
+          channel: ${{ matrix.channel }}
           flutter-version: ${{ matrix.flutter-version }}
 
       # Must be run before `fetch_backends` so that `pubspec.lock` is present.
