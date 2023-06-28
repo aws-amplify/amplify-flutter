@@ -116,7 +116,10 @@ class AftComponent with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
 /// {@endtemplate}
 @yamlSerializable
 class PackageInfo
-    with AWSSerializable<Map<String, Object?>>, AWSDebuggable
+    with
+        AWSEquatable<PackageInfo>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable
     implements Comparable<PackageInfo> {
   /// {@macro amplify_tools.package_info}
   const PackageInfo({
@@ -237,6 +240,19 @@ class PackageInfo
     return found;
   }
 
+  /// Whether [package] has `this` as a direct or transitive dependency.
+  bool isDependedOnBy(PackageInfo package, Repo repo) {
+    var found = false;
+    dfs(
+      repo.getReversedPackageGraph(includeDevDependencies: true),
+      root: this,
+      (pkg) {
+        if (pkg == package) found = true;
+      },
+    );
+    return found;
+  }
+
   /// The parsed `CHANGELOG.md`.
   Changelog get changelog {
     final changelogMd = File(p.join(path, 'CHANGELOG.md')).readAsStringSync();
@@ -260,6 +276,9 @@ class PackageInfo
         getEnv('FLUTTER_ROOT') == null &&
         flavor == PackageFlavor.flutter;
   }
+
+  @override
+  List<Object?> get props => [name];
 
   @override
   int compareTo(PackageInfo other) {
