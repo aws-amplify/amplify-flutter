@@ -98,13 +98,12 @@ const amplifyEnvironments = <String, String>{};
         'amplify_secure_storage_dart'
       ].map((pkgName) => repo.allPackages[pkgName]!);
       final buildPackages = [
-        ...commandPackages.values,
+        ...bootstrapPackages,
 
         // Include "must build" packages if any of the command packages depend
         // on them.
         for (final mustBuildPkg in mustBuild)
-          if (commandPackages.values
-              .any((pkg) => pkg.dependsOn(mustBuildPkg, repo)))
+          if (bootstrapPackages.any((pkg) => pkg.dependsOn(mustBuildPkg, repo)))
             mustBuildPkg,
       ];
       for (final package in buildPackages) {
