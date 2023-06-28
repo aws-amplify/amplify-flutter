@@ -60,4 +60,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
     with:
+      package-name: amplify_authenticator
       working-directory: packages/authenticator/amplify_authenticator

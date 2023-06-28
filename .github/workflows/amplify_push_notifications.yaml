@@ -43,4 +43,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
     with:
+      package-name: amplify_push_notifications
       working-directory: packages/notifications/push/amplify_push_notifications

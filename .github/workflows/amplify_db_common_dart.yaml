@@ -36,19 +36,23 @@ jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
     with:
+      package-name: amplify_db_common_dart
       working-directory: packages/common/amplify_db_common_dart
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
     with:
+      package-name: amplify_db_common_dart
       working-directory: packages/common/amplify_db_common_dart
   ddc_test:
     needs: test
     uses: ./.github/workflows/dart_ddc.yaml
     with:
+      package-name: amplify_db_common_dart
       working-directory: packages/common/amplify_db_common_dart
   dart2js_test:
     needs: test
     uses: ./.github/workflows/dart_dart2js.yaml
     with:
+      package-name: amplify_db_common_dart
       working-directory: packages/common/amplify_db_common_dart

@@ -88,7 +88,17 @@ const amplifyEnvironments = <String, String>{};
       [for (final package in bootstrapPackages) _createEmptyConfig(package)],
     );
     if (build) {
-      for (final package in bootstrapPackages) {
+      // Packages which must be built because they vendor assets required for
+      // running all downstream packages.
+      const mustBuild = [
+        'amplify_auth_cognito_dart',
+        'amplify_secure_storage_dart'
+      ];
+      final buildPackages = repo.allPackages.values.where(
+        (pkg) =>
+            bootstrapPackages.contains(pkg) || mustBuild.contains(pkg.name),
+      );
+      for (final package in buildPackages) {
         // Only run build_runner for packages which need it for development,
         // i.e. those packages which specify worker JS files in their assets.
         final needsBuild = package.needsBuildRunner &&

@@ -50,4 +50,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
     with:
+      package-name: amplify_analytics_pinpoint
       working-directory: packages/analytics/amplify_analytics_pinpoint
