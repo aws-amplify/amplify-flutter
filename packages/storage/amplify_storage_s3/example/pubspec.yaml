@@ -25,6 +25,7 @@ dev_dependencies:
   amplify_storage_s3_dart: any
   aws_common: any
   drift: ">=2.9.0 <2.10.0"
+  file_picker: any
   flutter_driver:
     sdk: flutter
   flutter_test:
@@ -33,6 +34,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   path: any
+  path_provider: any
   stack_trace: ^1.10.0
   test: ^1.22.1
 

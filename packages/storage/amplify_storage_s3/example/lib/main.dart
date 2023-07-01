@@ -1,14 +1,18 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:io' show Platform;
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:path_provider/path_provider.dart';
 
 final AmplifyLogger _logger = AmplifyLogger('MyStorageApp');
 
@@ -105,19 +109,203 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var list = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _checkAuthStatus();
+    _listAllPublicFiles();
+  }
+
+  // sign out of the app
+  Future<void> _signOut() async {
+    try {
+      await Amplify.Auth.signOut();
+      _logger.debug('Signed out');
+    } on AuthException catch (e) {
+      _logger.debug('Could not sign out - ${e.message}');
+    }
+  }
+
+  // check if the user is signed in
+  Future<void> _checkAuthStatus() async {
+    try {
+      final session = await Amplify.Auth.fetchAuthSession();
+      _logger.debug('Signed in: ${session.isSignedIn}');
+    } on AuthException catch (e) {
+      _logger.debug('Could not check auth status - ${e.message}');
+    }
+  }
+
+  // upload a file to the S3 bucket
+  Future<void> _uploadFile() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'png', 'doc', 'pdf'],
+      withReadStream: true,
+      withData: false,
+    );
+
+    if (result == null) {
+      _logger.debug('No file selected');
+      return;
+    }
+
+    final platformFile = result.files.single;
+
+    try {
+      final result = await Amplify.Storage.uploadFile(
+        localFile: AWSFile.fromStream(
+          platformFile.readStream!,
+          size: platformFile.size,
+        ),
+        key: platformFile.name,
+        onProgress: (p) =>
+            _logger.debug('Uploading: ${p.transferredBytes}/${p.totalBytes}'),
+      ).result;
+      await _listAllPublicFiles();
+    } on StorageException catch (e) {
+      _logger.debug('Error uploading file - ${e.message}');
+    }
+  }
+
+  // list all files in the S3 bucket
+  Future<void> _listAllPublicFiles() async {
+    try {
+      final result = await Amplify.Storage.list(
+        options: const StorageListOptions(
+          accessLevel: StorageAccessLevel.guest,
+          pluginOptions: S3ListPluginOptions.listAll(),
+        ),
+      ).result;
+      setState(() {
+        list = result.items;
+      });
+    } on StorageException catch (e) {
+      _logger.debug('List error - ${e.message}');
+    }
+  }
+
+  // download file on mobile
+  Future<void> downloadFileMobile(String key) async {
+    final documentsDir = await getApplicationDocumentsDirectory();
+    final filepath = '${documentsDir.path}/$key';
+    try {
+      final result = await Amplify.Storage.downloadFile(
+        key: key,
+        localFile: AWSFile.fromPath(filepath),
+        onProgress: (p0) => _logger
+            .debug('Progress: ${p0.transferredBytes} / ${p0.totalBytes}%)'),
+      ).result;
+      await _listAllPublicFiles();
+    } on StorageException catch (e) {
+      _logger.debug('Download error - ${e.message}');
+    }
+  }
+
+  // download file on web
+  Future<void> downloadFileWeb(String key) async {
+    try {
+      final result = await Amplify.Storage.downloadFile(
+        key: key,
+        localFile: AWSFile.fromPath(key),
+      ).result;
+      await _listAllPublicFiles();
+    } on StorageException catch (e) {
+      _logger.debug('Download error - ${e.message}');
+    }
+  }
+
+  // delete file from S3 bucket
+  Future<void> removeFile({
+    required String key,
+    required StorageAccessLevel accessLevel,
+  }) async {
+    try {
+      final result = await Amplify.Storage.remove(
+        key: key,
+        options: StorageRemoveOptions(accessLevel: accessLevel),
+      ).result;
+      await _listAllPublicFiles();
+    } on StorageException catch (e) {
+      _logger.debug('Delete error - ${e.message}');
+      rethrow;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Amplify Storage Example'),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Examples are coming...'),
-          ],
-        ),
+      body: Stack(
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: ListView(
+                children: [
+                  for (var item in list)
+                    ListTile(
+                      title: Text(item.key as String),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () {
+                              removeFile(
+                                key: item.key as String,
+                                accessLevel: StorageAccessLevel.guest,
+                              );
+                            },
+                            color: Colors.red,
+                          ),
+                        ],
+                      ),
+                      leading: IconButton(
+                        icon: const Icon(Icons.download),
+                        onPressed: () {
+                          if (Platform.isAndroid ||
+                              Platform.isIOS ||
+                              Platform.isMacOS) {
+                            downloadFileWeb(item.key as String);
+                          } else {
+                            downloadFileMobile(item.key as String);
+                          }
+                        },
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: ElevatedButton(
+                onPressed: _uploadFile,
+                child: const Text('Upload File'),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                ),
+                onPressed: _signOut,
+                child: const Icon(Icons.logout),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
