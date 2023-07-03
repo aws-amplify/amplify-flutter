@@ -77,7 +77,7 @@ dependencies {
     implementation "com.amplifyframework:aws-datastore:2.8.6"
     implementation "com.amplifyframework:aws-api-appsync:2.8.6"
     implementation 'com.google.code.gson:gson:2.8.9'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:5.4.0'
