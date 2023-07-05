@@ -1,3 +1,8 @@
+## 1.2.1
+
+### Fixes
+- fix(analytics): Disallowed unauth access
+
 ## 1.2.0
 
 - Minor bug fixes and improvements

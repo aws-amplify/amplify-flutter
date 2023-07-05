@@ -1,3 +1,8 @@
+## 0.3.1+1
+
+### Fixes
+- fix(storage): list options pageSize and nextToken params got lost ([#3291](https://github.com/aws-amplify/amplify-flutter/pull/3291))
+
 ## 0.3.1
 
 ### Fixes
