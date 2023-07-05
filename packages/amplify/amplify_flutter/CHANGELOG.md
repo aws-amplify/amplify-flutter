@@ -1,3 +1,9 @@
+## 1.2.1
+
+### Fixes
+- fix(analytics): Disallowed unauth access
+- fix(storage): list options pageSize and nextToken params got lost ([#3291](https://github.com/aws-amplify/amplify-flutter/pull/3291))
+
 ## 1.2.0
 
 ### Fixes

@@ -1,3 +1,7 @@
+## 1.2.0-supports-only-mobile+1
+
+- chore(datastore): Amplify Swift version bump to 1.30.4 (#3327). Fixes #663, addresses #1693 and #2527 on iOS.
+
 ## 1.2.0-supports-only-mobile
 
 - Minor bug fixes and improvements
