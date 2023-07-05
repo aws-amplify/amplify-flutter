@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:io' show Platform;
-
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -10,6 +8,7 @@ import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:path_provider/path_provider.dart';
@@ -268,12 +267,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       leading: IconButton(
                         icon: const Icon(Icons.download),
                         onPressed: () {
-                          if (Platform.isAndroid ||
-                              Platform.isIOS ||
-                              Platform.isMacOS) {
-                            downloadFileWeb(item.key as String);
-                          } else {
+                          if (defaultTargetPlatform == TargetPlatform.iOS ||
+                              defaultTargetPlatform == TargetPlatform.android) {
                             downloadFileMobile(item.key as String);
+                          } else {
+                            downloadFileWeb(item.key as String);
                           }
                         },
                       ),
