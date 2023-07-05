@@ -4,6 +4,7 @@
 import Flutter
 import Foundation
 import Amplify
+import AWSPluginsCore
 
 struct FlutterModelSchema {
     let name: String
@@ -97,4 +98,12 @@ struct FlutterModelSchema {
 
         return (fields, name)
     }
+}
+
+// This enables custom selection set behavior within Amplify-Swift v1.
+// Which allows models to be decoded when created on Android and received to iOS 
+extension FlutterModelSchema: SubscriptionSelectionSetBehavior {
+    public var includePrimaryKeysOnly: Bool {
+        return true
+    }    
 }
