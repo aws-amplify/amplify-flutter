@@ -159,10 +159,16 @@ final class SignInStateMachine
   // Current flow state
   AuthenticationResultType? _authenticationResult;
   ChallengeNameType? _challengeName;
-  BuiltMap<String, String> _challengeParameters = BuiltMap();
+  BuiltMap<String, String?> _challengeParameters = BuiltMap();
   String? _session;
   SrpInitResult? _initResult;
   Map<CognitoUserAttributeKey, String>? _attributesNeedingUpdate;
+
+  Map<String, String> get _publicChallengeParameters {
+    final map = _challengeParameters.toMap()
+      ..removeWhere((_, value) => value == null);
+    return map.cast();
+  }
 
   /// Creates the `InitiateAuth` request.
   Future<InitiateAuthRequest> initiate(SignInInitiate event) async {
@@ -194,7 +200,7 @@ final class SignInStateMachine
   Future<RespondToAuthChallengeRequest?> respondToAuthChallenge(
     SignInEvent? event,
     ChallengeNameType challengeName,
-    BuiltMap<String, String> challengeParameters,
+    BuiltMap<String, String?> challengeParameters,
   ) async {
     if (authFlowType == AuthFlowType.customAuth &&
         event is SignInRespondToChallenge) {
@@ -216,7 +222,7 @@ final class SignInStateMachine
   /// Creates the password verifier request in a worker instance.
   @protected
   Future<RespondToAuthChallengeRequest> createPasswordVerifierRequest(
-    BuiltMap<String, String> challengeParameters,
+    BuiltMap<String, String?> challengeParameters,
   ) async {
     final username = parameters.username;
     final password = parameters.password;
@@ -237,7 +243,7 @@ final class SignInStateMachine
         ..clientSecret = config.appClientSecret
         ..poolId = config.poolId
         ..deviceKey = _user.deviceSecrets?.deviceKey
-        ..challengeParameters = challengeParameters
+        ..challengeParameters = BuiltMap(_publicChallengeParameters)
         ..parameters = SignInParameters(
           (b) => b
             ..username = username
@@ -272,7 +278,7 @@ final class SignInStateMachine
   /// Creates the device password verifier request in a worker instance.
   @protected
   Future<RespondToAuthChallengeRequest> createDevicePasswordVerifierRequest(
-    BuiltMap<String, String> challengeParameters,
+    BuiltMap<String, String?> challengeParameters,
   ) async {
     final username = parameters.username;
     final password = parameters.password;
@@ -287,7 +293,7 @@ final class SignInStateMachine
         ..initResult = _initResult
         ..clientId = config.appClientId
         ..clientSecret = config.appClientSecret
-        ..challengeParameters = challengeParameters
+        ..challengeParameters = BuiltMap(_publicChallengeParameters)
         ..parameters = SignInParameters(
           (b) => b
             ..username = username
@@ -465,7 +471,7 @@ final class SignInStateMachine
   Future<RespondToAuthChallengeRequest?> respondToSrpChallenge(
     SignInEvent? event,
     ChallengeNameType challengeName,
-    BuiltMap<String, String> challengeParameters,
+    BuiltMap<String, String?> challengeParameters,
   ) async {
     final hasUserResponse = event is SignInRespondToChallenge;
     return switch (challengeName) {
@@ -749,7 +755,7 @@ final class SignInStateMachine
       }
       return SignInState.challenge(
         _challengeName!,
-        _challengeParameters.toMap(),
+        _publicChallengeParameters,
         requiredAttributes,
       );
     }
@@ -825,7 +831,9 @@ final class SignInStateMachine
   }
 
   /// Updates the CognitoUser from challenge parameters.
-  Future<void> _updateUser(BuiltMap<String, String> challengeParameters) async {
+  Future<void> _updateUser(
+    BuiltMap<String, String?> challengeParameters,
+  ) async {
     // If a Cognito response returned a different username than what was used
     // to login, refresh the device secrets so that they are included in future
     // requests.

@@ -57,7 +57,7 @@ abstract class DeviceType
   /// The creation date of the device.
   DateTime? get deviceCreateDate;
 
-  /// The date and time, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format, when the item was modified.
+  /// The last modified date of the device.
   DateTime? get deviceLastModifiedDate;
 
   /// The date when the device was last authenticated.

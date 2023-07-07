@@ -41,16 +41,12 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i5;
 
 /// Changes the password for a specified user in a user pool.
-///
-/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests to this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
 class ChangePasswordOperation extends _i1.HttpOperation<
     _i2.ChangePasswordRequest,
     _i2.ChangePasswordRequest,
     _i3.ChangePasswordResponse,
     _i3.ChangePasswordResponse> {
   /// Changes the password for a specified user in a user pool.
-  ///
-  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests to this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
   ChangePasswordOperation({
     required String region,
     Uri? baseUri,
