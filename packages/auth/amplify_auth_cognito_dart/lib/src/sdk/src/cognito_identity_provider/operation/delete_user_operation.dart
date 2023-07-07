@@ -34,14 +34,10 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i4;
 
-/// Allows a user to delete their own user profile.
-///
-/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests to this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+/// Allows a user to delete himself or herself.
 class DeleteUserOperation extends _i1.HttpOperation<_i2.DeleteUserRequest,
     _i2.DeleteUserRequest, _i1.Unit, _i1.Unit> {
-  /// Allows a user to delete their own user profile.
-  ///
-  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests to this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+  /// Allows a user to delete himself or herself.
   DeleteUserOperation({
     required String region,
     Uri? baseUri,

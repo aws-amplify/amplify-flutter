@@ -291,6 +291,13 @@ final Map<FullType, Function> builderFactories = {
     [FullType(String)],
   ): _i89.ListBuilder<String>.new,
   const FullType(
+    _i89.BuiltMap,
+    [
+      FullType(String),
+      FullType.nullable(String),
+    ],
+  ): _i89.MapBuilder<String, String?>.new,
+  const FullType(
     _i89.BuiltList,
     [FullType(_i49.DeviceType)],
   ): _i89.ListBuilder<_i49.DeviceType>.new,

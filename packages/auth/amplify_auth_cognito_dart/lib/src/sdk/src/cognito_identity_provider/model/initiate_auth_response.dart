@@ -23,7 +23,7 @@ abstract class InitiateAuthResponse
   factory InitiateAuthResponse({
     _i2.ChallengeNameType? challengeName,
     String? session,
-    Map<String, String>? challengeParameters,
+    Map<String, String?>? challengeParameters,
     _i3.AuthenticationResultType? authenticationResult,
   }) {
     return _$InitiateAuthResponse._(
@@ -90,7 +90,7 @@ abstract class InitiateAuthResponse
   /// The challenge parameters. These are returned in the `InitiateAuth` response if you must pass another challenge. The responses in this parameter should be used to compute inputs to the next call (`RespondToAuthChallenge`).
   ///
   /// All challenges require `USERNAME` and `SECRET_HASH` (if applicable).
-  _i4.BuiltMap<String, String>? get challengeParameters;
+  _i4.BuiltMap<String, String?>? get challengeParameters;
 
   /// The result of the authentication response. This result is only returned if the caller doesn't need to pass another challenge. If the caller does need to pass another challenge before it gets tokens, `ChallengeName`, `ChallengeParameters`, and `Session` are returned.
   _i3.AuthenticationResultType? get authenticationResult;
@@ -174,10 +174,10 @@ class InitiateAuthResponseAwsJson11Serializer
               _i4.BuiltMap,
               [
                 FullType(String),
-                FullType(String),
+                FullType.nullable(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String?>));
         case 'AuthenticationResult':
           result.authenticationResult.replace((serializers.deserialize(
             value,
@@ -227,7 +227,7 @@ class InitiateAuthResponseAwsJson11Serializer
             _i4.BuiltMap,
             [
               FullType(String),
-              FullType(String),
+              FullType.nullable(String),
             ],
           ),
         ));

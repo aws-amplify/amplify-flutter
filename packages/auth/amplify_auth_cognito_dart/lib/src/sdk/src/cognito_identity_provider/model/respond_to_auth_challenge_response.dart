@@ -26,7 +26,7 @@ abstract class RespondToAuthChallengeResponse
   factory RespondToAuthChallengeResponse({
     _i2.ChallengeNameType? challengeName,
     String? session,
-    Map<String, String>? challengeParameters,
+    Map<String, String?>? challengeParameters,
     _i3.AuthenticationResultType? authenticationResult,
   }) {
     return _$RespondToAuthChallengeResponse._(
@@ -66,7 +66,7 @@ abstract class RespondToAuthChallengeResponse
   String? get session;
 
   /// The challenge parameters. For more information, see [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html).
-  _i4.BuiltMap<String, String>? get challengeParameters;
+  _i4.BuiltMap<String, String?>? get challengeParameters;
 
   /// The result returned by the server in response to the request to respond to the authentication challenge.
   _i3.AuthenticationResultType? get authenticationResult;
@@ -150,10 +150,10 @@ class RespondToAuthChallengeResponseAwsJson11Serializer
               _i4.BuiltMap,
               [
                 FullType(String),
-                FullType(String),
+                FullType.nullable(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String?>));
         case 'AuthenticationResult':
           result.authenticationResult.replace((serializers.deserialize(
             value,
@@ -203,7 +203,7 @@ class RespondToAuthChallengeResponseAwsJson11Serializer
             _i4.BuiltMap,
             [
               FullType(String),
-              FullType(String),
+              FullType.nullable(String),
             ],
           ),
         ));
