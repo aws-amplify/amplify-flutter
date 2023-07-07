@@ -137,7 +137,9 @@ Future<SignInResult> _processSignInResult(
       while (true) {
         final smsOrTotp =
             prompt('Which MFA method would you prefer (SMS/TOTP)? ');
-        if (smsOrTotp.toLowerCase() case 'sms' || 'totp') {
+        if (MfaType.values
+            .map((t) => t.name)
+            .contains(smsOrTotp.toLowerCase())) {
           return confirmSignIn(smsOrTotp);
         }
       }

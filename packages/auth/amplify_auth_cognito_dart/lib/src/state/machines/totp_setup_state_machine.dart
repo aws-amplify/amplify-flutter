@@ -78,7 +78,6 @@ final class TotpSetupStateMachine
             accessToken: accessToken,
             session: _session,
             userCode: event.code,
-            // TODO(dnys1): Default name?
             friendlyDeviceName: event.friendlyDeviceName,
           ),
         )

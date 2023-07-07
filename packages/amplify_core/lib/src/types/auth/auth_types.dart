@@ -38,10 +38,10 @@ export 'auth_next_step.dart';
 /// Hub
 export 'hub/auth_hub_event.dart';
 export 'mfa/mfa_preference.dart';
-export 'mfa/totp_setup_details.dart';
-export 'mfa/totp_setup_options.dart';
 
 /// MFA
+export 'mfa/totp_setup_details.dart';
+export 'mfa/totp_setup_options.dart';
 export 'mfa/user_mfa_preference.dart';
 export 'mfa/verify_totp_setup_options.dart';
 
