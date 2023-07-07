@@ -124,8 +124,8 @@ jobs:
         timeout-minutes: 45
         uses: ./.github/composite_actions/launch_android_emulator
         with:
-          script: |
-            cd canaries && flutter test -d emulator-5554 integration_test/main_test.dart
+          # Perform a build to reduce startup time of `flutter test` and prevent timeout
+          script: cd canaries && flutter build apk --debug && flutter test -d emulator-5554 integration_test/main_test.dart
 
       - name: Log failing android runs
         if: ${{ failure() }}
@@ -147,7 +147,7 @@ jobs:
           dimensions: channel=${{ matrix.channel }},platform=android
 
   e2e-ios:
-    runs-on: macos-latest
+    runs-on: macos-13
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -212,6 +212,7 @@ jobs:
         timeout-minutes: 45
         working-directory: canaries
         run: |
+          # Perform a build to reduce startup time of `flutter test` and prevent timeout 
           flutter build ios --simulator --target=integration_test/main_test.dart
           flutter test -d test integration_test/main_test.dart --verbose
 
