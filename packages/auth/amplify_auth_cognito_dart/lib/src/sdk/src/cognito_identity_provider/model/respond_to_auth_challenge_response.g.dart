@@ -12,7 +12,7 @@ class _$RespondToAuthChallengeResponse extends RespondToAuthChallengeResponse {
   @override
   final String? session;
   @override
-  final _i4.BuiltMap<String, String>? challengeParameters;
+  final _i4.BuiltMap<String, String?>? challengeParameters;
   @override
   final _i3.AuthenticationResultType? authenticationResult;
 
@@ -73,11 +73,11 @@ class RespondToAuthChallengeResponseBuilder
   String? get session => _$this._session;
   set session(String? session) => _$this._session = session;
 
-  _i4.MapBuilder<String, String>? _challengeParameters;
-  _i4.MapBuilder<String, String> get challengeParameters =>
-      _$this._challengeParameters ??= new _i4.MapBuilder<String, String>();
+  _i4.MapBuilder<String, String?>? _challengeParameters;
+  _i4.MapBuilder<String, String?> get challengeParameters =>
+      _$this._challengeParameters ??= new _i4.MapBuilder<String, String?>();
   set challengeParameters(
-          _i4.MapBuilder<String, String>? challengeParameters) =>
+          _i4.MapBuilder<String, String?>? challengeParameters) =>
       _$this._challengeParameters = challengeParameters;
 
   _i3.AuthenticationResultTypeBuilder? _authenticationResult;

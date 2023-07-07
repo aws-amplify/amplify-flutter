@@ -39,13 +39,9 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i5;
 
 /// Lists the sign-in devices that Amazon Cognito has registered to the current user.
-///
-/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests to this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
 class ListDevicesOperation extends _i1.HttpOperation<_i2.ListDevicesRequest,
     _i2.ListDevicesRequest, _i3.ListDevicesResponse, _i3.ListDevicesResponse> {
   /// Lists the sign-in devices that Amazon Cognito has registered to the current user.
-  ///
-  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests to this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
   ListDevicesOperation({
     required String region,
     Uri? baseUri,
