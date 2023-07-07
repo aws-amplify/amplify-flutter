@@ -11,6 +11,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
@@ -41,6 +45,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -50,6 +58,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "smithy"
@@ -61,6 +73,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -74,6 +90,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
@@ -103,6 +123,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_signature_v4"
@@ -111,6 +135,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
@@ -140,6 +168,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_datastore_plugin_interface"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
@@ -153,11 +185,20 @@ updates:
       # Ignore Kotlin updates since we should always match Flutter stable
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin"
+      
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
   - package-ecosystem: "pub"
     directory: "packages/amplify_datastore/example"
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_api"
       - dependency-name: "amplify_api_dart"
       - dependency-name: "amplify_core"
@@ -182,6 +223,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -190,11 +235,20 @@ updates:
     directory: "packages/amplify_lints"
     schedule:
       interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
   - package-ecosystem: "pub"
     directory: "packages/amplify_native_legacy_wrapper"
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_lints"
   - package-ecosystem: "gradle"
     directory: "packages/amplify_native_legacy_wrapper/android"
@@ -204,11 +258,20 @@ updates:
       # Ignore Kotlin updates since we should always match Flutter stable
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin"
+      
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
   - package-ecosystem: "pub"
     directory: "packages/amplify_native_legacy_wrapper/example"
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_native_legacy_wrapper"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_common"
@@ -217,6 +280,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
@@ -238,11 +305,20 @@ updates:
       # Ignore Kotlin updates since we should always match Flutter stable
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin"
+      
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
   - package-ecosystem: "pub"
     directory: "packages/analytics/amplify_analytics_pinpoint/example"
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
@@ -268,6 +344,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -283,6 +363,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_api_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
@@ -298,6 +382,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_api"
       - dependency-name: "amplify_api_dart"
       - dependency-name: "amplify_core"
@@ -324,6 +412,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -333,6 +425,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
@@ -358,11 +454,20 @@ updates:
       # Ignore Kotlin updates since we should always match Flutter stable
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin"
+      
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
   - package-ecosystem: "pub"
     directory: "packages/auth/amplify_auth_cognito/example"
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_api"
       - dependency-name: "amplify_api_dart"
       - dependency-name: "amplify_core"
@@ -390,6 +495,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
@@ -407,6 +516,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_auth_cognito_dart"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
@@ -427,6 +540,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
@@ -445,6 +562,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_auth_cognito"
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
@@ -468,6 +589,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_auth_cognito"
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
@@ -494,6 +619,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_authenticator"
       - dependency-name: "amplify_auth_cognito"
       - dependency-name: "amplify_analytics_pinpoint"
@@ -518,12 +647,20 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_lints"
   - package-ecosystem: "pub"
     directory: "packages/aws_sdk/smoke_test"
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_signature_v4"
@@ -534,6 +671,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
   - package-ecosystem: "pub"
@@ -541,6 +682,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_signature_v4"
@@ -549,6 +694,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
@@ -562,11 +711,20 @@ updates:
       # Ignore Kotlin updates since we should always match Flutter stable
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin"
+      
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
   - package-ecosystem: "pub"
     directory: "packages/common/amplify_db_common/example"
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_core"
@@ -578,6 +736,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -587,6 +749,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
@@ -598,12 +764,20 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_lints"
   - package-ecosystem: "pub"
     directory: "packages/example_common/example"
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "example_common"
       - dependency-name: "amplify_lints"
   - package-ecosystem: "pub"
@@ -611,6 +785,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -627,11 +805,20 @@ updates:
       # Ignore Kotlin updates since we should always match Flutter stable
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin"
+      
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
   - package-ecosystem: "pub"
     directory: "packages/notifications/push/amplify_push_notifications/example"
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_push_notifications"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
@@ -646,6 +833,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
@@ -670,6 +861,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_auth_cognito"
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
@@ -695,6 +890,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -708,11 +907,20 @@ updates:
       # Ignore Kotlin updates since we should always match Flutter stable
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin"
+      
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
   - package-ecosystem: "pub"
     directory: "packages/secure_storage/amplify_secure_storage/example"
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "aws_common"
@@ -724,6 +932,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "worker_bee"
@@ -733,6 +945,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -744,6 +960,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -754,6 +974,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "smithy"
@@ -765,6 +989,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -775,6 +1003,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -785,6 +1017,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -795,6 +1031,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -805,6 +1045,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -815,6 +1059,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -825,6 +1073,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -835,6 +1087,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -845,6 +1101,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -855,6 +1115,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -865,6 +1129,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -875,6 +1143,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -885,6 +1157,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -895,6 +1171,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -905,6 +1185,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
   - package-ecosystem: "pub"
@@ -912,6 +1196,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_signature_v4"
@@ -921,6 +1209,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_signature_v4"
@@ -931,6 +1223,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_signature_v4"
@@ -940,6 +1236,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -954,6 +1254,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_auth_cognito"
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
@@ -980,6 +1284,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -992,6 +1300,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_auth_cognito_dart"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
@@ -1012,6 +1324,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_api"
       - dependency-name: "amplify_api_dart"
       - dependency-name: "amplify_core"
@@ -1037,6 +1353,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_auth_cognito_dart"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
@@ -1055,6 +1375,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -1064,6 +1388,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "worker_bee"
@@ -1073,6 +1401,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "worker_bee"
@@ -1082,6 +1414,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_common"
       - dependency-name: "worker_bee"
@@ -1091,6 +1427,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
   - package-ecosystem: "pub"
@@ -1098,6 +1438,10 @@ updates:
     schedule:
       interval: "daily"
     ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
       - dependency-name: "worker_bee"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -1105,7 +1449,17 @@ updates:
     directory: "templates/dart-package/hooks"
     schedule:
       interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
   - package-ecosystem: "pub"
     directory: "templates/flutter-package/hooks"
     schedule:
       interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
