@@ -275,7 +275,7 @@ final class SignInStateMachine
     if (respondRequest == null) {
       return SignInState.challenge(
         _challengeName!,
-        _challengeParameters.toMap(),
+        _publicChallengeParameters,
         _requiredAttributes,
         _allowedMfaTypes,
         _totpSetupResult,
@@ -918,15 +918,14 @@ final class SignInStateMachine
     if (_allowedMfaTypes case final allowedMfaTypes?
         when _challengeParameters
             .containsKey(CognitoConstants.challengeParamMfasCanSetup)) {
-      if (allowedMfaTypes.contains(MfaType.totp)) {
-        _totpSetupResult ??= await associateSoftwareToken();
-      } else {
+      if (!allowedMfaTypes.contains(MfaType.totp)) {
         throw const SoftwareTokenMfaNotFoundException(
           'Cannot enable SMS MFA and TOTP MFA is not allowed',
           recoverySuggestion:
               'Contact an administrator to enable SMS MFA or allow TOTP MFA',
         );
       }
+      _totpSetupResult ??= await associateSoftwareToken();
     }
 
     // Query the state machine for a response given potential user input in

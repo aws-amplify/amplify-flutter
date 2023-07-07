@@ -144,8 +144,11 @@ class AuthTestRunner {
 }
 
 /// Signs out a user if one is signed in.
-Future<void> signOutUser() async {
+Future<void> signOutUser({bool assertComplete = false}) async {
   final result = await Amplify.Auth.signOut() as CognitoSignOutResult;
+  if (assertComplete) {
+    expect(result, isA<CognitoCompleteSignOut>());
+  }
   switch (result) {
     case CognitoCompleteSignOut _:
       _logger.debug('Successfully signed out user');
