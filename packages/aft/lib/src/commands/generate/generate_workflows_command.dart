@@ -58,10 +58,14 @@ updates:
     directory: "$repoRelativePath"
     schedule:
       interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
 ''');
       if (dependentPackages.isNotEmpty) {
         _dependabotConfig.write('''
-    ignore:
 ${dependentPackages.map((dep) => '      - dependency-name: "${dep.name}"').join('\n')}
 ''');
       }
@@ -274,6 +278,11 @@ jobs:
       # Ignore Kotlin updates since we should always match Flutter stable
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin"
+      
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
 ''');
 
     final appFacingAndroidTestDir =
