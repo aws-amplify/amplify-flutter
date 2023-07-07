@@ -70,7 +70,7 @@ abstract class ConfirmForgotPasswordRequest
   /// The app client ID of the app associated with the user pool.
   String get clientId;
 
-  /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message. For more information about `SecretHash`, see [Computing secret hash values](https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash).
+  /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message.
   String? get secretHash;
 
   /// The user name of the user for whom you want to enter a code to retrieve a forgotten password.

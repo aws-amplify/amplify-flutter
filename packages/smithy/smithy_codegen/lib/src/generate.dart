@@ -89,11 +89,13 @@ Map<ShapeId, GeneratedOutput> generateForAst(
   bool generateServer = false,
   Map<ShapeId, Reference>? symbolOverrides,
 }) {
-  const transformers = <ShapeVisitor<void>>[
-    _OptionalAuthVisitor(),
+  const transformers = <ShapeVisitor<Shape>>[
+    _CognitoWorkaroundVisitor(),
   ];
   for (final transformer in transformers) {
-    ast.shapes.forEach((_, shape) => shape.accept(transformer));
+    ast = ast.rebuild((ast) {
+      ast.shapes!.updateAll((_, shape) => shape.accept(transformer));
+    });
   }
 
   var serviceShapes = ast.shapes.values.whereType<ServiceShape>();
@@ -144,13 +146,14 @@ Map<ShapeId, GeneratedOutput> generateForAst(
   return outputs;
 }
 
-class _OptionalAuthVisitor extends CategoryShapeVisitor<void> {
-  const _OptionalAuthVisitor();
+/// Workarounds for issues with Cognito IDP Smithy models.
+// TODO(dnys1): Remove when fixed by Cognito
+class _CognitoWorkaroundVisitor extends CategoryShapeVisitor<Shape> {
+  const _CognitoWorkaroundVisitor();
 
   /// Cognito is currently missing some `@optionalAuth` traits in their service
   /// schema. This is awaiting a fix by Cognito and the current approach by
   /// AWS SDKs is to manually fix this inline.
-  // TODO(dnys1): Remove when fixed by Cognito
   static const missingOptionalAuth = [
     'com.amazonaws.cognitoidentityprovider#AssociateSoftwareToken',
     'com.amazonaws.cognitoidentityprovider#ConfirmDevice',
@@ -165,39 +168,46 @@ class _OptionalAuthVisitor extends CategoryShapeVisitor<void> {
   ];
 
   @override
-  void enumShape(EnumShape shape, [Shape? parent]) {}
+  EnumShape enumShape(EnumShape shape, [Shape? parent]) => shape;
 
   @override
-  void listShape(ListShape shape, [Shape? parent]) {}
+  ListShape listShape(ListShape shape, [Shape? parent]) => shape;
 
   @override
-  void mapShape(MapShape shape, [Shape? parent]) {}
-
-  @override
-  void memberShape(MemberShape shape, [Shape? parent]) {}
-
-  @override
-  void operationShape(OperationShape shape, [Shape? parent]) {
-    if (missingOptionalAuth.contains(shape.shapeId.toString())) {
-      shape.traits[OptionalAuthTrait.id] = const OptionalAuthTrait();
+  MapShape mapShape(MapShape shape, [Shape? parent]) {
+    if (shape.shapeId.toString() ==
+        'com.amazonaws.cognitoidentityprovider#ChallengeParametersType') {
+      shape.traits[SparseTrait.id] = const SparseTrait();
     }
+    return shape;
   }
 
   @override
-  void resourceShape(ResourceShape shape, [Shape? parent]) {}
+  MemberShape memberShape(MemberShape shape, [Shape? parent]) => shape;
 
   @override
-  void serviceShape(ServiceShape shape, [Shape? parent]) {}
+  OperationShape operationShape(OperationShape shape, [Shape? parent]) {
+    if (missingOptionalAuth.contains(shape.shapeId.toString())) {
+      shape.traits[OptionalAuthTrait.id] = const OptionalAuthTrait();
+    }
+    return shape;
+  }
 
   @override
-  void setShape(SetShape shape, [Shape? parent]) {}
+  ResourceShape resourceShape(ResourceShape shape, [Shape? parent]) => shape;
 
   @override
-  void simpleShape(SimpleShape shape, [Shape? parent]) {}
+  ServiceShape serviceShape(ServiceShape shape, [Shape? parent]) => shape;
 
   @override
-  void structureShape(StructureShape shape, [Shape? parent]) {}
+  SetShape setShape(SetShape shape, [Shape? parent]) => shape;
 
   @override
-  void unionShape(UnionShape shape, [Shape? parent]) {}
+  SimpleShape simpleShape(SimpleShape shape, [Shape? parent]) => shape;
+
+  @override
+  StructureShape structureShape(StructureShape shape, [Shape? parent]) => shape;
+
+  @override
+  UnionShape unionShape(UnionShape shape, [Shape? parent]) => shape;
 }
