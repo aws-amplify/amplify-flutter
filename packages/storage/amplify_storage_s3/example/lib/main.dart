@@ -329,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Align(
               alignment: Alignment.center,
               child: Text(
-                'Image URL: $imageUrl',
+                imageUrl,
                 style: const TextStyle(fontSize: 5),
               ),
             ),
