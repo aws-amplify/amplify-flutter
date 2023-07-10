@@ -1,3 +1,7 @@
+## 0.6.14
+
+- chore: bump amplify-android to 1.38.6 (#3050)
+
 ## 0.6.13 (2023-03-22)
 
 - chore: Bump Amplify Android to 1.38.2

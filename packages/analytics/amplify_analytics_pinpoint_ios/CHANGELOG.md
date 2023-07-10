@@ -1,3 +1,7 @@
+## 0.6.14
+
+- chore: Amplify Swift version bump to 1.30.4 (#3328)
+
 ## 0.6.13 (2023-03-22)
 
 - chore: Bump Amplify iOS to 1.29.1
