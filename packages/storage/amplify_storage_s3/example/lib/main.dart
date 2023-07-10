@@ -109,6 +109,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var list = [];
+  var imageUrl = '';
 
   @override
   void initState() {
@@ -233,6 +234,33 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // get the url of a file in the S3 bucket
+  Future<String> getUrl({
+    required String key,
+    required StorageAccessLevel accessLevel,
+  }) async {
+    try {
+      final result = await Amplify.Storage.getUrl(
+        key: key,
+        options: StorageGetUrlOptions(
+          accessLevel: accessLevel,
+          pluginOptions: const S3GetUrlPluginOptions(
+            validateObjectExistence: true,
+            expiresIn: Duration(minutes: 1),
+          ),
+        ),
+      ).result;
+      print('URL: ${result.url.toString()}');
+      setState(() {
+        imageUrl = result.url.toString();
+      });
+      return result.url.toString();
+    } on StorageException catch (e) {
+      _logger.debug('Get URL error - ${e.message}');
+      rethrow;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -248,6 +276,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   for (var item in list)
                     ListTile(
+                      onTap: () => {
+                        getUrl(
+                          key: item.key as String,
+                          accessLevel: StorageAccessLevel.guest,
+                        )
+                      },
                       title: Text(item.key as String),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -280,6 +314,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          if (imageUrl != '')
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(80),
+                child: Image.network(imageUrl, height: 200),
+              ),
+            ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
