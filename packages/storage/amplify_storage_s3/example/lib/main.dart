@@ -250,7 +250,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ).result;
-      print('URL: ${result.url.toString()}');
       setState(() {
         imageUrl = result.url.toString();
       });
@@ -314,6 +313,27 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          // display the url of the image but put Image Url: in a larger font on top of the url
+          if (imageUrl != '')
+            const Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'Image URL:',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
+          if (imageUrl != '')
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                'Image URL: $imageUrl',
+                style: const TextStyle(fontSize: 5),
+              ),
+            ),
+          // display the image with the url
           if (imageUrl != '')
             Align(
               alignment: Alignment.bottomCenter,
