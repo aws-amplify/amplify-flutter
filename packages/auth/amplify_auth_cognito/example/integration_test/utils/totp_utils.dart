@@ -42,7 +42,7 @@ Future<int> get _nextTotpTime async {
 }
 
 String? _sharedSecret;
-Future<void> setUpTotp() async {
+Future<void> setUpTotp({String? deviceName = friendlyDeviceName}) async {
   if (_sharedSecret != null) {
     throw StateError('Cannot reconfigure TOTP');
   }
@@ -52,9 +52,9 @@ Future<void> setUpTotp() async {
   _sharedSecret = totpSetupResult.sharedSecret;
   await Amplify.Auth.verifyTotpSetup(
     await generateTotpCode(),
-    options: const VerifyTotpSetupOptions(
+    options: VerifyTotpSetupOptions(
       pluginOptions: CognitoVerifyTotpSetupPluginOptions(
-        friendlyDeviceName: friendlyDeviceName,
+        friendlyDeviceName: deviceName,
       ),
     ),
   );
