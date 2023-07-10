@@ -34,7 +34,7 @@ void main() {
         because: 'MFA is optional',
       ).equals(AuthSignInStep.done);
 
-      await setUpTotp();
+      await setUpTotp(deviceName: friendlyDeviceName);
 
       await cognitoPlugin.updateMfaPreference(
         totp: MfaPreference.preferred,
