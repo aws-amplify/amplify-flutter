@@ -313,6 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          // display the url of the image
           if (imageUrl != '')
             Positioned(
               bottom: 300,
@@ -337,14 +338,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-          // if (imageUrl != '')
-          //   Align(
-          //     alignment: Alignment.center,
-          //     child: Text(
-          //       imageUrl,
-          //       style: const TextStyle(fontSize: 5),
-          //     ),
-          //   ),
           // display the image with the url
           if (imageUrl != '')
             Align(
@@ -354,6 +347,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Image.network(imageUrl, height: 200),
               ),
             ),
+          // upload file button
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -364,6 +358,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          // sign out button
           Align(
             alignment: Alignment.bottomLeft,
             child: Padding(
