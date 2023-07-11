@@ -25,7 +25,7 @@ interface CreateUserResponse {
 }
 
 const { USER_POOL_ID } = process.env;
-const CLIENT = new cognito.CognitoIdentityProvider({
+const CLIENT = new cognito.CognitoIdentityProviderClient({
   region: process.env.REGION,
 });
 
@@ -113,7 +113,9 @@ export const handler: lambda.AppSyncResolverHandler<
             PreferredMfa: true,
           },
         };
-        const resp = await CLIENT.adminSetUserMFAPreference(mfaParams);
+        const resp = await CLIENT.send(
+          new cognito.AdminSetUserMFAPreferenceCommand(mfaParams),
+        );
         console.log(`Successfully enabled MFA for ${username}`, resp);
       } catch (err: any) {
         console.log(`Could not enable MFA for ${username}`, err);
