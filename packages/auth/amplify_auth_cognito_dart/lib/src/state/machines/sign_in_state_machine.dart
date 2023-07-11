@@ -555,7 +555,8 @@ final class SignInStateMachine
   TotpSetupDetails _createTotpSetupResult(String sharedSecret) =>
       TotpSetupDetails(
         sharedSecret: sharedSecret,
-        username: _user.username!,
+        // The username passed to `Amplify.Auth.signIn`
+        username: parameters.username,
       );
 
   /// Initiates registration of a TOTP authenticator for use in TOTP MFA.
