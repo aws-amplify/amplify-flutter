@@ -278,6 +278,7 @@ jobs:
       # Ignore Kotlin updates since we should always match Flutter stable
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin_version"
+      - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
       
       # Ignore patch version bumps
       - dependency-name: "*"
