@@ -1,6 +1,18 @@
 {
   "dart.runPubGetOnPubspecChanges": "always",
-  "dart.analysisExcludedFolders": ["templates"],
+  "dart.analysisExcludedFolders": [
+    "templates",
+    // Ignore generated SDK files which hog resources when opening the monorepo.
+    // To get analysis on these files, open the packages individually in VSCode
+    // which will ignore these settings.
+    "packages/analytics/amplify_analytics_pinpoint_dart/lib/src/sdk/src",
+    "packages/auth/amplify_auth_cognito_dart/lib/src/sdk/src",
+    "packages/storage/amplify_storage_s3_dart/lib/src/sdk/src",
+    "packages/test/amplify_integration_test/lib/src/sdk/src",
+    "packages/aws_sdk/smoke_test/lib",
+    "packages/smithy/goldens/lib",
+    "packages/smithy/goldens/lib2"
+  ],
   "files.insertFinalNewline": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
