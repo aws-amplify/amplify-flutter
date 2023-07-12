@@ -57,17 +57,6 @@ Please use the latest version (v1) of Amplify Flutter. If you are currently usin
 
 ## Category / Platform Support
 
-### v0
-
-| Category       | Android | iOS | Web | Windows | MacOS | Linux |
-| -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
-| Analytics      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
-| API (REST)     |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
-| API (GraphQL)  |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
-| Authentication |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
-| DataStore      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
-| Storage        |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
-
 ### v1
 
 | Category       | Android | iOS | Web | Windows | MacOS | Linux |
@@ -78,6 +67,17 @@ Please use the latest version (v1) of Amplify Flutter. If you are currently usin
 | Authentication |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | DataStore      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
 | Storage        |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+
+### v0
+
+| Category       | Android | iOS | Web | Windows | MacOS | Linux |
+| -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
+| Analytics      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| API (REST)     |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| API (GraphQL)  |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Authentication |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| DataStore      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Storage        |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
 
 ### To Be Implemented
 
