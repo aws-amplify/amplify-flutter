@@ -47,6 +47,8 @@ abstract class AuthService {
 
   Future<ResendSignUpCodeResult> resendSignUpCode(String username);
 
+  Future<AuthCodeDeliveryDetails> resendMfaCode();
+
   Future<GetAttributeVerificationStatusResult> getAttributeVerificationStatus();
 
   Future<ResendUserAttributeConfirmationCodeResult>
@@ -116,6 +118,12 @@ class AmplifyAuthService
       () => Amplify.Auth.resendSignUpCode(username: username),
     );
   }
+
+  @override
+  Future<AuthCodeDeliveryDetails> resendMfaCode() => _withUserAgent(() async {
+        final result = await Amplify.Auth.resendSignInCode();
+        return result.codeDeliveryDetails;
+      });
 
   @override
   Future<SignUpResult> signUp(

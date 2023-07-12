@@ -485,6 +485,18 @@ abstract class _ConfirmSignInFormFieldState<FieldValue extends Object>
         return super.errorMaxLines;
     }
   }
+
+  @override
+  Widget? get companionWidget {
+    switch (widget.field) {
+      case ConfirmSignInField.code:
+        final resendCodeButton =
+            InheritedForms.of(context).confirmSignInMFAForm.resendCodeButton;
+        return resendCodeButton ?? const LostCodeButton(key: keyLostCodeButton);
+      default:
+        return null;
+    }
+  }
 }
 
 class _ConfirmSignInPhoneField extends ConfirmSignInFormField<String> {

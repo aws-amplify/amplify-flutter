@@ -350,7 +350,12 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
             ),
           ),
           TextButton(
-            onPressed: state.resendSignUpCode,
+            onPressed: switch (state.currentStep) {
+              AuthenticatorStep.confirmSignUp => state.resendSignUpCode,
+              AuthenticatorStep.confirmSignInMfa => state.resendMfaCode,
+              final invalidState =>
+                throw StateError('Invalid state: $invalidState'),
+            },
             child: Text(
               buttonResolver.sendCode(context),
               style: const TextStyle(fontSize: fontSize),

@@ -470,6 +470,12 @@ class AuthenticatorState extends ChangeNotifier {
     await nextBlocEvent();
   }
 
+  /// Resend sign in code for the user with the given [username]
+  Future<void> resendMfaCode() async {
+    _authBloc.add(const AuthResendMfaCode());
+    await nextBlocEvent();
+  }
+
   Future<void> confirmVerifyUser(
     CognitoUserAttributeKey userAttributeKey,
   ) async {

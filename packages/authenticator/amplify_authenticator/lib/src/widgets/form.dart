@@ -549,7 +549,8 @@ class ConfirmSignInCustomAuthForm extends AuthenticatorForm {
 class ConfirmSignInMFAForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_sign_in_mfa_form}
   ConfirmSignInMFAForm({super.key})
-      : super._(
+      : resendCodeButton = null,
+        super._(
           fields: [
             ConfirmSignInFormField.verificationCode(),
           ],
@@ -558,6 +559,23 @@ class ConfirmSignInMFAForm extends AuthenticatorForm {
             BackToSignInButton(),
           ],
         );
+
+  /// A custom Confirm Sign In w/ MFA form.
+  const ConfirmSignInMFAForm.custom({
+    super.key,
+    required super.fields,
+    this.resendCodeButton,
+  }) : super._(
+          actions: const [
+            ConfirmSignInMFAButton(),
+            BackToSignInButton(),
+          ],
+        );
+
+  /// Widget to show for resending the MFA code.
+  ///
+  /// Typically a [TextButton].
+  final Widget? resendCodeButton;
 
   @override
   AuthenticatorFormState<ConfirmSignInMFAForm> createState() =>

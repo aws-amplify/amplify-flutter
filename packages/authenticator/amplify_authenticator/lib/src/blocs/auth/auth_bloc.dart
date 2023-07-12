@@ -122,6 +122,8 @@ class StateMachineBloc
       yield const AuthenticatedState();
     } else if (event is AuthResendSignUpCode) {
       yield* _resendSignUpCode(event.username);
+    } else if (event is AuthResendMfaCode) {
+      yield* _resendMfaCode();
     }
   }
 
@@ -483,6 +485,18 @@ class StateMachineBloc
     try {
       final result = await _authService.resendSignUpCode(username);
       _notifyCodeSent(result.codeDeliveryDetails.destination);
+      yield currentState;
+    } on Exception catch (e) {
+      _exceptionController.add(AuthenticatorException(e));
+    }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
+  }
+
+  Stream<AuthState> _resendMfaCode() async* {
+    try {
+      final result = await _authService.resendMfaCode();
+      _notifyCodeSent(result.destination);
       yield currentState;
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e));

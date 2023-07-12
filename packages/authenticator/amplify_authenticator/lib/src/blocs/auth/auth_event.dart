@@ -87,3 +87,7 @@ class AuthResendSignUpCode extends AuthEvent {
 
   final String username;
 }
+
+class AuthResendMfaCode extends AuthEvent {
+  const AuthResendMfaCode();
+}
