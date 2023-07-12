@@ -307,16 +307,16 @@ class _PackageWatcher implements Closeable {
   void _listenForEvents() {
     final entitiesToWatch = const [
       'doc/*.yaml',
-      'doc/lib/**',
-      'doc/static/**',
-      'lib/**',
+      'doc/lib/',
+      'doc/static/',
+      'lib/',
       '*.yaml',
     ]
         .map((path) => p.join(package.path, path))
         .expand((subpath) => Glob(subpath).listSync());
     final eventStream = StreamGroup.merge([
       for (final entity in entitiesToWatch)
-        entity.watch(events: FileSystemEvent.all),
+        entity.watch(events: FileSystemEvent.all, recursive: true),
     ]);
 
     Future<void>? currentOperation;
