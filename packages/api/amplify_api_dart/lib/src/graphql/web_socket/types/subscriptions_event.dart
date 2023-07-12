@@ -11,18 +11,29 @@ abstract class SubscriptionEvent extends WebSocketEvent {
 
   /// The associated subscription id
   final String subscriptionId;
+
+  @override
+  Map<String, Object?> toJson() => {
+        'subscriptionId': subscriptionId,
+      };
 }
 
 /// Web Socket Subscription start ack message event
 class SubscriptionStartAckEvent extends SubscriptionEvent {
   /// Creates a start ack event
   const SubscriptionStartAckEvent(super.subscriptionId);
+
+  @override
+  String get runtimeTypeName => 'SubscriptionStartAckEvent';
 }
 
 /// Web Socket Subscription pending event
 class SubscriptionPendingEvent extends SubscriptionEvent {
   /// Creates a pending event
   const SubscriptionPendingEvent(super.subscriptionId);
+
+  @override
+  String get runtimeTypeName => 'SubscriptionPendingEvent';
 }
 
 /// Web Socket Subscription data message event
@@ -36,6 +47,15 @@ class SubscriptionDataEvent extends SubscriptionEvent {
 
   /// The data [payload]
   final SubscriptionDataPayload payload;
+
+  @override
+  String get runtimeTypeName => 'SubscriptionDataEvent';
+
+  @override
+  Map<String, Object?> toJson() => {
+        'subscriptionId': subscriptionId,
+        'payload': payload.toJson(),
+      };
 }
 
 /// Web Socket Subscription complete message event
@@ -45,6 +65,9 @@ class SubscriptionComplete extends SubscriptionEvent {
   const SubscriptionComplete(
     super.subscriptionId,
   );
+
+  @override
+  String get runtimeTypeName => 'SubscriptionComplete';
 }
 
 /// Web Socket Subscription event message event
@@ -58,4 +81,13 @@ class SubscriptionErrorEvent extends SubscriptionEvent {
 
   /// The web socket error
   final WebSocketError wsError;
+
+  @override
+  String get runtimeTypeName => 'SubscriptionErrorEvent';
+
+  @override
+  Map<String, Object?> toJson() => {
+        'subscriptionId': subscriptionId,
+        'wsError': wsError.toJson(),
+      };
 }
