@@ -44,6 +44,7 @@ sealed class SignInState extends AuthState<SignInStateType> {
     ChallengeNameType challengeName,
     Map<String, String> challengeParameters,
     List<CognitoUserAttributeKey> requiredAttributes,
+    AuthCodeDeliveryDetails? codeDeliveryDetails,
     Set<MfaType>? allowedMfaTypes,
     TotpSetupDetails? totpSetupResult,
   ) = SignInChallenge;
@@ -102,6 +103,7 @@ final class SignInChallenge extends SignInState {
     this.challengeName,
     this.challengeParameters,
     this.requiredAttributes,
+    this.codeDeliveryDetails,
     this.allowedMfaTypes,
     this.totpSetupResult,
   );
@@ -114,6 +116,9 @@ final class SignInChallenge extends SignInState {
 
   /// Required user attributes which have not been previously provided.
   final List<CognitoUserAttributeKey> requiredAttributes;
+
+  /// The code delivery details for the challenge code if triggered in this challenge.
+  final AuthCodeDeliveryDetails? codeDeliveryDetails;
 
   /// The allowed MFA types.
   final Set<MfaType>? allowedMfaTypes;
@@ -131,6 +136,7 @@ final class SignInChallenge extends SignInState {
         challengeName,
         challengeParameters,
         requiredAttributes,
+        codeDeliveryDetails,
         allowedMfaTypes,
         totpSetupResult,
       ];

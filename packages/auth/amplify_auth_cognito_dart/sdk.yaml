@@ -14,6 +14,7 @@ apis:
     - com.amazonaws.cognitoidentityprovider#GlobalSignOut
     - com.amazonaws.cognitoidentityprovider#InitiateAuth
     - com.amazonaws.cognitoidentityprovider#ListDevices
+    - com.amazonaws.cognitoidentityprovider#ResendAuthChallengeCode
     - com.amazonaws.cognitoidentityprovider#ResendConfirmationCode
     - com.amazonaws.cognitoidentityprovider#RespondToAuthChallenge
     - com.amazonaws.cognitoidentityprovider#RevokeToken

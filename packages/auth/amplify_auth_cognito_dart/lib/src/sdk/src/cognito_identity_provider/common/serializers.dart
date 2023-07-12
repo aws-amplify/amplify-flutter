@@ -48,13 +48,13 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/delivery_medium_type.dart'
     as _i40;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/device_remembered_status_type.dart'
-    as _i82;
+    as _i84;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/device_secret_verifier_config_type.dart'
     as _i19;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/device_type.dart'
     as _i49;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/enable_software_token_mfa_exception.dart'
-    as _i90;
+    as _i92;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/expired_code_exception.dart'
     as _i30;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/forbidden_exception.dart'
@@ -108,7 +108,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/list_devices_response.dart'
     as _i65;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/mfa_method_not_found_exception.dart'
-    as _i70;
+    as _i72;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/mfa_option_type.dart'
     as _i52;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/new_device_metadata_type.dart'
@@ -117,54 +117,58 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
     as _i8;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/password_reset_required_exception.dart'
     as _i15;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_confirmation_code_request.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_auth_challenge_code_request.dart'
     as _i66;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_confirmation_code_response.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_auth_challenge_code_response.dart'
     as _i67;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_confirmation_code_request.dart'
+    as _i68;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_confirmation_code_response.dart'
+    as _i69;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resource_not_found_exception.dart'
     as _i9;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/respond_to_auth_challenge_request.dart'
-    as _i68;
+    as _i70;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/respond_to_auth_challenge_response.dart'
-    as _i69;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/revoke_token_request.dart'
     as _i71;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/revoke_token_request.dart'
+    as _i73;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/revoke_token_response.dart'
-    as _i72;
+    as _i74;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/set_user_mfa_preference_request.dart'
-    as _i78;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/set_user_mfa_preference_response.dart'
-    as _i79;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/sign_up_request.dart'
     as _i80;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/sign_up_response.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/set_user_mfa_preference_response.dart'
     as _i81;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/sign_up_request.dart'
+    as _i82;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/sign_up_response.dart'
+    as _i83;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/sms_mfa_settings_type.dart'
-    as _i76;
+    as _i78;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/software_token_mfa_not_found_exception.dart'
     as _i10;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/software_token_mfa_settings_type.dart'
-    as _i77;
+    as _i79;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/too_many_failed_attempts_exception.dart'
     as _i31;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/too_many_requests_exception.dart'
     as _i16;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/unauthorized_exception.dart'
-    as _i73;
+    as _i75;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/unexpected_lambda_exception.dart'
     as _i32;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/unsupported_operation_exception.dart'
-    as _i74;
+    as _i76;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/unsupported_token_type_exception.dart'
-    as _i75;
+    as _i77;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_device_status_request.dart'
-    as _i83;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_device_status_response.dart'
-    as _i84;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_user_attributes_request.dart'
     as _i85;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_user_attributes_response.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_device_status_response.dart'
     as _i86;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_user_attributes_request.dart'
+    as _i87;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_user_attributes_response.dart'
+    as _i88;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_context_data_type.dart'
     as _i26;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_lambda_validation_exception.dart'
@@ -176,16 +180,16 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/username_exists_exception.dart'
     as _i24;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_software_token_request.dart'
-    as _i87;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_software_token_response.dart'
     as _i89;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_software_token_response_type.dart'
-    as _i88;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_user_attribute_request.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_software_token_response.dart'
     as _i91;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_software_token_response_type.dart'
+    as _i90;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_user_attribute_request.dart'
+    as _i93;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_user_attribute_response.dart'
-    as _i92;
-import 'package:built_collection/built_collection.dart' as _i93;
+    as _i94;
+import 'package:built_collection/built_collection.dart' as _i95;
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
@@ -254,67 +258,69 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i63.InitiateAuthResponse.serializers,
   ..._i64.ListDevicesRequest.serializers,
   ..._i65.ListDevicesResponse.serializers,
-  ..._i66.ResendConfirmationCodeRequest.serializers,
-  ..._i67.ResendConfirmationCodeResponse.serializers,
-  ..._i68.RespondToAuthChallengeRequest.serializers,
-  ..._i69.RespondToAuthChallengeResponse.serializers,
-  ..._i70.MfaMethodNotFoundException.serializers,
-  ..._i71.RevokeTokenRequest.serializers,
-  ..._i72.RevokeTokenResponse.serializers,
-  ..._i73.UnauthorizedException.serializers,
-  ..._i74.UnsupportedOperationException.serializers,
-  ..._i75.UnsupportedTokenTypeException.serializers,
-  ..._i76.SmsMfaSettingsType.serializers,
-  ..._i77.SoftwareTokenMfaSettingsType.serializers,
-  ..._i78.SetUserMfaPreferenceRequest.serializers,
-  ..._i79.SetUserMfaPreferenceResponse.serializers,
-  ..._i80.SignUpRequest.serializers,
-  ..._i81.SignUpResponse.serializers,
-  ..._i82.DeviceRememberedStatusType.serializers,
-  ..._i83.UpdateDeviceStatusRequest.serializers,
-  ..._i84.UpdateDeviceStatusResponse.serializers,
-  ..._i85.UpdateUserAttributesRequest.serializers,
-  ..._i86.UpdateUserAttributesResponse.serializers,
-  ..._i87.VerifySoftwareTokenRequest.serializers,
-  ..._i88.VerifySoftwareTokenResponseType.serializers,
-  ..._i89.VerifySoftwareTokenResponse.serializers,
-  ..._i90.EnableSoftwareTokenMfaException.serializers,
-  ..._i91.VerifyUserAttributeRequest.serializers,
-  ..._i92.VerifyUserAttributeResponse.serializers,
+  ..._i66.ResendAuthChallengeCodeRequest.serializers,
+  ..._i67.ResendAuthChallengeCodeResponse.serializers,
+  ..._i68.ResendConfirmationCodeRequest.serializers,
+  ..._i69.ResendConfirmationCodeResponse.serializers,
+  ..._i70.RespondToAuthChallengeRequest.serializers,
+  ..._i71.RespondToAuthChallengeResponse.serializers,
+  ..._i72.MfaMethodNotFoundException.serializers,
+  ..._i73.RevokeTokenRequest.serializers,
+  ..._i74.RevokeTokenResponse.serializers,
+  ..._i75.UnauthorizedException.serializers,
+  ..._i76.UnsupportedOperationException.serializers,
+  ..._i77.UnsupportedTokenTypeException.serializers,
+  ..._i78.SmsMfaSettingsType.serializers,
+  ..._i79.SoftwareTokenMfaSettingsType.serializers,
+  ..._i80.SetUserMfaPreferenceRequest.serializers,
+  ..._i81.SetUserMfaPreferenceResponse.serializers,
+  ..._i82.SignUpRequest.serializers,
+  ..._i83.SignUpResponse.serializers,
+  ..._i84.DeviceRememberedStatusType.serializers,
+  ..._i85.UpdateDeviceStatusRequest.serializers,
+  ..._i86.UpdateDeviceStatusResponse.serializers,
+  ..._i87.UpdateUserAttributesRequest.serializers,
+  ..._i88.UpdateUserAttributesResponse.serializers,
+  ..._i89.VerifySoftwareTokenRequest.serializers,
+  ..._i90.VerifySoftwareTokenResponseType.serializers,
+  ..._i91.VerifySoftwareTokenResponse.serializers,
+  ..._i92.EnableSoftwareTokenMfaException.serializers,
+  ..._i93.VerifyUserAttributeRequest.serializers,
+  ..._i94.VerifyUserAttributeResponse.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
   const FullType(
-    _i93.BuiltMap,
+    _i95.BuiltMap,
     [
       FullType(String),
       FullType(String),
     ],
-  ): _i93.MapBuilder<String, String>.new,
+  ): _i95.MapBuilder<String, String>.new,
   const FullType(
-    _i93.BuiltList,
+    _i95.BuiltList,
     [FullType(_i48.AttributeType)],
-  ): _i93.ListBuilder<_i48.AttributeType>.new,
+  ): _i95.ListBuilder<_i48.AttributeType>.new,
   const FullType(
-    _i93.BuiltList,
+    _i95.BuiltList,
     [FullType(_i52.MfaOptionType)],
-  ): _i93.ListBuilder<_i52.MfaOptionType>.new,
+  ): _i95.ListBuilder<_i52.MfaOptionType>.new,
   const FullType(
-    _i93.BuiltList,
+    _i95.BuiltList,
     [FullType(String)],
-  ): _i93.ListBuilder<String>.new,
+  ): _i95.ListBuilder<String>.new,
   const FullType(
-    _i93.BuiltMap,
+    _i95.BuiltMap,
     [
       FullType(String),
       FullType.nullable(String),
     ],
-  ): _i93.MapBuilder<String, String?>.new,
+  ): _i95.MapBuilder<String, String?>.new,
   const FullType(
-    _i93.BuiltList,
+    _i95.BuiltList,
     [FullType(_i49.DeviceType)],
-  ): _i93.ListBuilder<_i49.DeviceType>.new,
+  ): _i95.ListBuilder<_i49.DeviceType>.new,
   const FullType(
-    _i93.BuiltList,
+    _i95.BuiltList,
     [FullType(_i41.CodeDeliveryDetailsType)],
-  ): _i93.ListBuilder<_i41.CodeDeliveryDetailsType>.new,
+  ): _i95.ListBuilder<_i41.CodeDeliveryDetailsType>.new,
 };

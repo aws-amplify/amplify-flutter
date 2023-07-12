@@ -1292,6 +1292,12 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
             ),
           );
 
+  /// {@template amplify_core.amplify_auth_category.resend_sign_in_code}
+  /// Resends an MFA code for the active sign-in session.
+  /// {@endtemplate}
+  Future<ResendSignInCodeResult> resendSignInCode() =>
+      defaultPlugin.resendSignInCode();
+
   /// {@template amplify_core.amplify_auth_category.set_up_totp}
   /// Initiates setup of a time-based one-time passcode (TOTP) MFA method for the
   /// current user.

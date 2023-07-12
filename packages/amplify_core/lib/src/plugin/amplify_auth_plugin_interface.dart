@@ -164,6 +164,11 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
     );
   }
 
+  /// {@macro amplify_core.amplify_auth_category.resend_sign_in_code}
+  Future<ResendSignInCodeResult> resendSignInCode() {
+    throw UnimplementedError('resendSignInCode() has not been implemented.');
+  }
+
   /// {@macro amplify_core.amplify_auth_category.set_up_totp}
   Future<TotpSetupDetails> setUpTotp({
     TotpSetupOptions? options,

@@ -53,6 +53,48 @@ void main() {
             );
           },
         );
+
+        asyncTest('can resend MFA code', (_) async {
+          final username = generateUsername();
+          final password = generatePassword();
+          final phoneNumber = generatePhoneNumber();
+
+          final otpResult = await getOtpCode(UserAttribute.phone(phoneNumber));
+
+          await adminCreateUser(
+            username,
+            password,
+            autoConfirm: true,
+            verifyAttributes: true,
+            enableMfa: true,
+            attributes: {
+              AuthUserAttributeKey.phoneNumber: phoneNumber,
+            },
+          );
+
+          final signInRes = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
+          check(signInRes.nextStep.signInStep)
+              .equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
+
+          // Drop original code
+          final _ = await otpResult.code;
+
+          final newCode = await getOtpCode(UserAttribute.phone(phoneNumber));
+
+          final resendResult = await Amplify.Auth.resendSignInCode();
+          check(resendResult.codeDeliveryDetails)
+            ..has((details) => details.deliveryMedium, 'deliveryMedium')
+                .equals(DeliveryMedium.sms)
+            ..has((details) => details.destination, 'destination').isNotNull();
+
+          final confirmRes = await Amplify.Auth.confirmSignIn(
+            confirmationValue: await newCode.code,
+          );
+          check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
+        });
       });
     }
 

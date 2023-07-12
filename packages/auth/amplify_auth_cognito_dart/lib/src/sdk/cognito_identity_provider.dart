@@ -68,6 +68,8 @@ export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/new_device_metadata_type.dart';
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/not_authorized_exception.dart';
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/password_reset_required_exception.dart';
+export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_auth_challenge_code_request.dart';
+export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_auth_challenge_code_response.dart';
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_confirmation_code_request.dart';
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_confirmation_code_response.dart';
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resource_not_found_exception.dart';

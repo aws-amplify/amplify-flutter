@@ -54,6 +54,9 @@ class MockCognitoIdentityProviderClient
     Future<VerifySoftwareTokenResponse> Function()? verifySoftwareToken,
     Future<VerifyUserAttributeResponse> Function()? verifyUserAttribute,
     Future<SetUserMfaPreferenceResponse> Function()? setUserMfaPreference,
+    Future<ResendAuthChallengeCodeResponse> Function(
+      ResendAuthChallengeCodeRequest,
+    )? resendAuthChallengeCode,
   })  : _associateSoftwareToken = associateSoftwareToken,
         _changePassword = changePassword,
         _confirmDevice = confirmDevice,
@@ -76,7 +79,8 @@ class MockCognitoIdentityProviderClient
         _updateUserAttributes = updateUserAttributes,
         _verifySoftwareToken = verifySoftwareToken,
         _verifyUserAttribute = verifyUserAttribute,
-        _setUserMfaPreference = setUserMfaPreference;
+        _setUserMfaPreference = setUserMfaPreference,
+        _resendAuthChallengeCode = resendAuthChallengeCode;
 
   final Future<AssociateSoftwareTokenResponse> Function()?
       _associateSoftwareToken;
@@ -108,6 +112,9 @@ class MockCognitoIdentityProviderClient
   final Future<VerifySoftwareTokenResponse> Function()? _verifySoftwareToken;
   final Future<VerifyUserAttributeResponse> Function()? _verifyUserAttribute;
   final Future<SetUserMfaPreferenceResponse> Function()? _setUserMfaPreference;
+  final Future<ResendAuthChallengeCodeResponse> Function(
+    ResendAuthChallengeCodeRequest,
+  )? _resendAuthChallengeCode;
 
   @override
   SmithyOperation<AssociateSoftwareTokenResponse> associateSoftwareToken(
@@ -299,6 +306,18 @@ class MockCognitoIdentityProviderClient
     AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_setUserMfaPreference);
+
+  @override
+  SmithyOperation<ResendAuthChallengeCodeResponse> resendAuthChallengeCode(
+    ResendAuthChallengeCodeRequest input, {
+    AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
+  }) =>
+      _mockIfProvided(
+        _resendAuthChallengeCode == null
+            ? null
+            : () => _resendAuthChallengeCode!(input),
+      );
 }
 
 class MockCognitoIdentityClient implements CognitoIdentityClient {

@@ -8,7 +8,6 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoi
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
-import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_stub.dart'
@@ -21,7 +20,6 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
     as cognito
     show
         AttributeType,
-        ChallengeNameType,
         ChangePasswordRequest,
         CodeDeliveryDetailsType,
         CognitoIdentityProviderClient,
@@ -245,38 +243,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     await _init();
     await _stateMachine.acceptAndComplete<Configured>(
       ConfigurationEvent.configure(config),
-    );
-  }
-
-  /// Retrieves the code delivery details from the challenge parameters.
-  AuthCodeDeliveryDetails? _getChallengeDeliveryDetails(
-    cognito.ChallengeNameType challengeName,
-    Map<String, String> challengeParameters,
-  ) {
-    final deliveryMedium = switch (challengeName) {
-      // Multiple values are returned for SELECT_MFA_TYPE but they will be
-      // narrowed once a selection is made.
-      cognito.ChallengeNameType.selectMfaType => null,
-      cognito.ChallengeNameType.softwareTokenMfa => DeliveryMedium.totp,
-      _ => switch (challengeParameters[
-            CognitoConstants.challengeParamDeliveryMedium]) {
-          null => null,
-          'SMS' => DeliveryMedium.sms,
-          'EMAIL' => DeliveryMedium.email,
-          _ => DeliveryMedium.unknown,
-        }
-    };
-    if (deliveryMedium == null) {
-      return null;
-    }
-    final destination = switch (deliveryMedium) {
-      DeliveryMedium.totp =>
-        challengeParameters[CognitoConstants.challengeParamFriendlyDeviceName],
-      _ => challengeParameters[CognitoConstants.challengeParamDeliveryDest],
-    };
-    return AuthCodeDeliveryDetails(
-      deliveryMedium: deliveryMedium,
-      destination: destination,
     );
   }
 
@@ -527,6 +493,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       SignInChallenge(
         :final challengeName,
         :final challengeParameters,
+        :final codeDeliveryDetails,
         :final requiredAttributes,
         :final allowedMfaTypes,
         :final totpSetupResult,
@@ -535,10 +502,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
           isSignedIn: false,
           nextStep: AuthNextSignInStep(
             signInStep: challengeName.signInStep,
-            codeDeliveryDetails: _getChallengeDeliveryDetails(
-              challengeName,
-              challengeParameters,
-            ),
+            codeDeliveryDetails: codeDeliveryDetails,
             additionalInfo: challengeParameters,
             missingAttributes: requiredAttributes,
             allowedMfaTypes: allowedMfaTypes,
@@ -761,6 +725,20 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     }
     return ResendUserAttributeConfirmationCodeResult(
       codeDeliveryDetails: codeDeliveryDetails,
+    );
+  }
+
+  @override
+  Future<ResendSignInCodeResult> resendSignInCode() {
+    return identifyCall(
+      AuthCategoryMethod.resendSignInCode,
+      () async {
+        final result = await _stateMachine.acceptAndComplete<SignInChallenge>(
+          const SignInEvent.resendChallengeCode(),
+        );
+        final SignInChallenge(:codeDeliveryDetails) = result;
+        return ResendSignInCodeResult(codeDeliveryDetails!);
+      },
     );
   }
 

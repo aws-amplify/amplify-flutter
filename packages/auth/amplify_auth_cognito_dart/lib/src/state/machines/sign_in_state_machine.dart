@@ -215,6 +215,35 @@ final class SignInStateMachine
     return map.cast();
   }
 
+  /// The code delivery details for the most recent challenge code.
+  AuthCodeDeliveryDetails? get _codeDeliveryDetails {
+    final deliveryMedium = switch (_challengeName) {
+      // Multiple values are returned for SELECT_MFA_TYPE but they will be
+      // narrowed once a selection is made.
+      ChallengeNameType.selectMfaType => null,
+      ChallengeNameType.softwareTokenMfa => DeliveryMedium.totp,
+      _ => switch (_challengeParameters[
+            CognitoConstants.challengeParamDeliveryMedium]) {
+          null => null,
+          'SMS' => DeliveryMedium.sms,
+          'EMAIL' => DeliveryMedium.email,
+          _ => DeliveryMedium.unknown,
+        }
+    };
+    if (deliveryMedium == null) {
+      return null;
+    }
+    final destination = switch (deliveryMedium) {
+      DeliveryMedium.totp =>
+        _challengeParameters[CognitoConstants.challengeParamFriendlyDeviceName],
+      _ => _challengeParameters[CognitoConstants.challengeParamDeliveryDest],
+    };
+    return AuthCodeDeliveryDetails(
+      deliveryMedium: deliveryMedium,
+      destination: destination,
+    );
+  }
+
   /// Creates the `InitiateAuth` request.
   Future<InitiateAuthRequest> initiate(SignInInitiate event) async {
     String expectPassword() {
@@ -277,6 +306,7 @@ final class SignInStateMachine
         _challengeName!,
         _publicChallengeParameters,
         _requiredAttributes,
+        _codeDeliveryDetails,
         _allowedMfaTypes,
         _totpSetupResult,
       );
@@ -672,6 +702,45 @@ final class SignInStateMachine
     });
   }
 
+  /// Requests a new MFA challenge code.
+  Future<void> resendChallengeCode() async {
+    final session = switch (_session) {
+      final session? => session,
+      _ => throw const InvalidStateException(
+          'Must call signIn first',
+          recoverySuggestion:
+              'Call `Amplify.Auth.signIn` to restart the sign-in flow.',
+        ),
+    };
+    final result = await cognitoIdentityProvider
+        .resendAuthChallengeCode(
+          ResendAuthChallengeCodeRequest(session: session),
+        )
+        .result;
+    switch (result) {
+      case ResendAuthChallengeCodeResponse(
+          :final session?,
+          :final codeDeliveryDetails?
+        ):
+        _session = session;
+        return emit(
+          SignInState.challenge(
+            _challengeName!,
+            _publicChallengeParameters,
+            _requiredAttributes,
+            codeDeliveryDetails.asAuthCodeDeliveryDetails,
+            null,
+            null,
+          ),
+        );
+      default:
+        throw UnknownException(
+          'Could not resend MFA code',
+          underlyingException: result,
+        );
+    }
+  }
+
   /// Adds the session info from [result] to the user.
   Future<String> _saveAuthResult(AuthenticationResultType result) async {
     final accessToken = result.accessToken;
@@ -1027,6 +1096,8 @@ final class SignInStateMachine
       case SignInRespondToChallenge _:
         final stopState = await _processChallenge(event);
         emit(stopState);
+      case SignInResendChallengeCode _:
+        await resendChallengeCode();
       case SignInCancelled _:
         emit(const SignInState.cancelling());
         _reset();
@@ -1039,6 +1110,17 @@ final class SignInStateMachine
   @override
   SignInState? resolveError(Object error, StackTrace st) {
     if (error is Exception) {
+      error = switch (error) {
+        // Transform `NotAuthorizedException`s returned from Cognito with a recovery suggestion which
+        // makes it clear this is a terminal response.
+        NotAuthorizedServiceException _ => NotAuthorizedServiceException(
+            error.message,
+            recoverySuggestion:
+                'Call `Amplify.Auth.signIn` to restart the sign-in flow.',
+            underlyingException: error.underlyingException,
+          ),
+        _ => error,
+      };
       return SignInFailure(
         previousState: currentState,
         exception: error,

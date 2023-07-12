@@ -13,6 +13,9 @@ enum SignInEventType {
   /// {@macro amplify_auth_cognito.sign_in_respond_to_challenge}
   respondToChallenge,
 
+  /// {@macro amplify_auth_cognito.sign_in_resend_challenge_code}
+  resendChallengeCode,
+
   /// {@macro amplify_auth_cognito.sign_in_cancelled}
   cancelled,
 
@@ -42,6 +45,9 @@ sealed class SignInEvent extends AuthEvent<SignInEventType, SignInStateType> {
     String? friendlyDeviceName,
   }) = SignInRespondToChallenge;
 
+  /// {@macro amplify_auth_cognito.sign_in_resend_challenge_code}
+  const factory SignInEvent.resendChallengeCode() = SignInResendChallengeCode;
+
   /// {@macro amplify_auth_cognito.sign_in_cancelled}
   const factory SignInEvent.cancelled() = SignInCancelled;
 
@@ -53,6 +59,32 @@ sealed class SignInEvent extends AuthEvent<SignInEventType, SignInStateType> {
 
   @override
   PreconditionException? checkPrecondition(SignInState currentState) => null;
+
+  /// Whether the state machine is in either 1) in a challenge state; or
+  /// 2) in a failure state but was previously in a challenge state (since the
+  /// machine may have moved to a failure state as the result of an expected,
+  /// recoverable exception.)
+  bool _inChallengeState(SignInState currentState) => switch (currentState) {
+        SignInChallenge _ => true,
+
+        // If the state machine was in a respond to challenge state when
+        // the exception was raised, further attempts to confirm sign in should
+        // be allowed.
+        //
+        // Recoverable exceptions are expected at this stage, such as
+        // CodeMismatchException and InvalidPasswordException. These exceptions
+        // prompt the user to retry if they've provided an invalid code or weak
+        // password, for example. It is not feasible to determine which exception
+        // types are non-recoverable, though. For all others, it is better to
+        // allow confirm sign in attempts and have Cognito continue to throw the
+        // exception.
+        SignInFailure(:final previousState) => _inChallengeState(previousState),
+
+        // If the state machine did not reach a challenge state before the
+        // exception was thrown, then any attempts to confirm sign in should
+        // not be allowed and the entire flow must be restarted by the user.
+        _ => false,
+      };
 
   @override
   String get runtimeTypeName => 'SignInEvent';
@@ -133,33 +165,38 @@ final class SignInRespondToChallenge extends SignInEvent {
 
   @override
   PreconditionException? checkPrecondition(SignInState currentState) {
-    if (currentState is SignInFailure) {
-      // If the state machine did not reach a challenge state before the
-      // exception was thrown, then any attempts to confirm sign in should
-      // not be allowed and the entire flow must be restarted by the user.
-      if (currentState.previousState.type != SignInStateType.challenge) {
-        return AuthPreconditionException(
-          'Sign-in previously failed',
-          recoverySuggestion:
-              'Restart the sign-in flow by calling Amplify.Auth.signIn',
-          underlyingException: currentState.exception,
-        );
-      }
-      // However, if the state machine was in a respond to challenge state when
-      // the exception was raised, further attempts to confirm sign in should
-      // be allowed.
-      //
-      // Recoverable exceptions are expected at this stage, such as
-      // CodeMismatchException and InvalidPasswordException. These exceptions
-      // prompt the user to retry if they've provided an invalid code or weak
-      // password, for example. It is not feasible to determine which exception
-      // types are non-recoverable, though. For all others, it is better to
-      // allow confirm sign in attempts and have Cognito continue to throw the
-      // exception.
-      return null;
+    if (!_inChallengeState(currentState)) {
+      return const AuthPreconditionException(
+        'Cannot call `confirmSignIn` without an active sign-in session.',
+        recoverySuggestion:
+            'Call `Amplify.Auth.signIn` to (re)start the sign-in flow.',
+      );
     }
-    if (currentState.type != SignInStateType.challenge) {
-      return const AuthPreconditionException('There is no active challenge');
+    return null;
+  }
+}
+
+/// {@template amplify_auth_cognito.sign_in_resend_challenge_code}
+/// Requests a new MFA challenge code.
+/// {@endtemplate}
+final class SignInResendChallengeCode extends SignInEvent {
+  /// {@macro amplify_auth_cognito.sign_in_resend_challenge_code}
+  const SignInResendChallengeCode() : super._();
+
+  @override
+  SignInEventType get type => SignInEventType.resendChallengeCode;
+
+  @override
+  List<Object?> get props => [type];
+
+  @override
+  PreconditionException? checkPrecondition(SignInState currentState) {
+    if (!_inChallengeState(currentState)) {
+      return const AuthPreconditionException(
+        'Cannot call `resendMfaCode` without an active sign-in session.',
+        recoverySuggestion:
+            'Call `Amplify.Auth.signIn` to (re)start the sign-in flow.',
+      );
     }
     return null;
   }

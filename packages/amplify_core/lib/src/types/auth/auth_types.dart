@@ -37,9 +37,9 @@ export 'auth_next_step.dart';
 
 /// Hub
 export 'hub/auth_hub_event.dart';
-export 'mfa/mfa_preference.dart';
 
 /// MFA
+export 'mfa/mfa_preference.dart';
 export 'mfa/totp_setup_details.dart';
 export 'mfa/totp_setup_options.dart';
 export 'mfa/user_mfa_preference.dart';
@@ -66,6 +66,7 @@ export 'sign_in/auth_next_sign_in_step.dart';
 export 'sign_in/auth_provider.dart';
 export 'sign_in/auth_sign_in_step.dart';
 export 'sign_in/confirm_sign_in_options.dart';
+export 'sign_in/resend_sign_in_code_result.dart';
 export 'sign_in/sign_in_options.dart';
 export 'sign_in/sign_in_result.dart';
 export 'sign_in/sign_in_with_web_ui_options.dart';

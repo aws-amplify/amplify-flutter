@@ -55,42 +55,46 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
     as _i42;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/list_devices_response.dart'
     as _i41;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_confirmation_code_request.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_auth_challenge_code_request.dart'
     as _i45;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_confirmation_code_response.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_auth_challenge_code_response.dart'
     as _i44;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/respond_to_auth_challenge_request.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_confirmation_code_request.dart'
     as _i48;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/respond_to_auth_challenge_response.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_confirmation_code_response.dart'
     as _i47;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/revoke_token_request.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/respond_to_auth_challenge_request.dart'
     as _i51;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/revoke_token_response.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/respond_to_auth_challenge_response.dart'
     as _i50;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/set_user_mfa_preference_request.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/revoke_token_request.dart'
     as _i54;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/set_user_mfa_preference_response.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/revoke_token_response.dart'
     as _i53;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/sign_up_request.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/set_user_mfa_preference_request.dart'
     as _i57;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/sign_up_response.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/set_user_mfa_preference_response.dart'
     as _i56;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_device_status_request.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/sign_up_request.dart'
     as _i60;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_device_status_response.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/sign_up_response.dart'
     as _i59;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_user_attributes_request.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_device_status_request.dart'
     as _i63;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_user_attributes_response.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_device_status_response.dart'
     as _i62;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_software_token_request.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_user_attributes_request.dart'
     as _i66;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_software_token_response.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/update_user_attributes_response.dart'
     as _i65;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_user_attribute_request.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_software_token_request.dart'
     as _i69;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_user_attribute_response.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_software_token_response.dart'
     as _i68;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_user_attribute_request.dart'
+    as _i72;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_user_attribute_response.dart'
+    as _i71;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/associate_software_token_operation.dart'
     as _i6;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/change_password_operation.dart'
@@ -119,24 +123,26 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
     as _i40;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/list_devices_operation.dart'
     as _i43;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/resend_confirmation_code_operation.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/resend_auth_challenge_code_operation.dart'
     as _i46;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/respond_to_auth_challenge_operation.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/resend_confirmation_code_operation.dart'
     as _i49;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/revoke_token_operation.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/respond_to_auth_challenge_operation.dart'
     as _i52;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/set_user_mfa_preference_operation.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/revoke_token_operation.dart'
     as _i55;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/sign_up_operation.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/set_user_mfa_preference_operation.dart'
     as _i58;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/update_device_status_operation.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/sign_up_operation.dart'
     as _i61;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/update_user_attributes_operation.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/update_device_status_operation.dart'
     as _i64;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/verify_software_token_operation.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/update_user_attributes_operation.dart'
     as _i67;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/verify_user_attribute_operation.dart'
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/verify_software_token_operation.dart'
     as _i70;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/operation/verify_user_attribute_operation.dart'
+    as _i73;
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i3;
@@ -449,18 +455,43 @@ class CognitoIdentityProviderClient {
     );
   }
 
+  /// Generates and sends a new one-time password (OTP). With this operation, users with multi-factor authentication (MFA) who didn't successfully submit an MFA code can get a new code and try again. This operation doesn't apply to users who have configured time-based one-time password (TOTP, or authenticator app) MFA.
+  ///
+  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests to this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+  ///
+  /// This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Amazon Cognito uses the registered number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up, activate their accounts, or sign in.
+  ///
+  /// If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon Simple Notification Service might place your account in the SMS sandbox. In _[sandbox mode](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html)_ , you can send messages only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the sandbox and into production. For more information, see [SMS message settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-sms-settings.html) in the _Amazon Cognito Developer Guide_.
+  _i3.SmithyOperation<_i44.ResendAuthChallengeCodeResponse>
+      resendAuthChallengeCode(
+    _i45.ResendAuthChallengeCodeRequest input, {
+    _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
+  }) {
+    return _i46.ResendAuthChallengeCodeOperation(
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
+  }
+
   /// Resends the confirmation (for confirmation of registration) to a specific user in the user pool.
   ///
   /// This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Amazon Cognito uses the registered number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up, activate their accounts, or sign in.
   ///
   /// If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon Simple Notification Service might place your account in the SMS sandbox. In _[sandbox mode](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html)_ , you can send messages only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the sandbox and into production. For more information, see [SMS message settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html) in the _Amazon Cognito Developer Guide_.
-  _i3.SmithyOperation<_i44.ResendConfirmationCodeResponse>
+  _i3.SmithyOperation<_i47.ResendConfirmationCodeResponse>
       resendConfirmationCode(
-    _i45.ResendConfirmationCodeRequest input, {
+    _i48.ResendConfirmationCodeRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i46.ResendConfirmationCodeOperation(
+    return _i49.ResendConfirmationCodeOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -477,13 +508,13 @@ class CognitoIdentityProviderClient {
   /// This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Amazon Cognito uses the registered number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up, activate their accounts, or sign in.
   ///
   /// If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon Simple Notification Service might place your account in the SMS sandbox. In _[sandbox mode](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html)_ , you can send messages only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the sandbox and into production. For more information, see [SMS message settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html) in the _Amazon Cognito Developer Guide_.
-  _i3.SmithyOperation<_i47.RespondToAuthChallengeResponse>
+  _i3.SmithyOperation<_i50.RespondToAuthChallengeResponse>
       respondToAuthChallenge(
-    _i48.RespondToAuthChallengeRequest input, {
+    _i51.RespondToAuthChallengeRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i49.RespondToAuthChallengeOperation(
+    return _i52.RespondToAuthChallengeOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -496,12 +527,12 @@ class CognitoIdentityProviderClient {
   }
 
   /// Revokes all of the access tokens generated by, and at the same time as, the specified refresh token. After a token is revoked, you can't use the revoked token to access Amazon Cognito user APIs, or to authorize access to your resource server.
-  _i3.SmithyOperation<_i50.RevokeTokenResponse> revokeToken(
-    _i51.RevokeTokenRequest input, {
+  _i3.SmithyOperation<_i53.RevokeTokenResponse> revokeToken(
+    _i54.RevokeTokenRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i52.RevokeTokenOperation(
+    return _i55.RevokeTokenOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -514,12 +545,12 @@ class CognitoIdentityProviderClient {
   }
 
   /// Set the user's multi-factor authentication (MFA) method preference, including which MFA factors are activated and if any are preferred. Only one factor can be set as preferred. The preferred MFA factor will be used to authenticate a user if multiple factors are activated. If multiple options are activated and no preference is set, a challenge to choose an MFA option will be returned during sign-in. If an MFA type is activated for a user, the user will be prompted for MFA during all sign-in attempts unless device tracking is turned on and the device has been trusted. If you want MFA to be applied selectively based on the assessed risk level of sign-in attempts, deactivate MFA for users and turn on Adaptive Authentication for the user pool.
-  _i3.SmithyOperation<_i53.SetUserMfaPreferenceResponse> setUserMfaPreference(
-    _i54.SetUserMfaPreferenceRequest input, {
+  _i3.SmithyOperation<_i56.SetUserMfaPreferenceResponse> setUserMfaPreference(
+    _i57.SetUserMfaPreferenceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i55.SetUserMfaPreferenceOperation(
+    return _i58.SetUserMfaPreferenceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -536,12 +567,12 @@ class CognitoIdentityProviderClient {
   /// This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Amazon Cognito uses the registered number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up, activate their accounts, or sign in.
   ///
   /// If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon Simple Notification Service might place your account in the SMS sandbox. In _[sandbox mode](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html)_ , you can send messages only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the sandbox and into production. For more information, see [SMS message settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html) in the _Amazon Cognito Developer Guide_.
-  _i3.SmithyOperation<_i56.SignUpResponse> signUp(
-    _i57.SignUpRequest input, {
+  _i3.SmithyOperation<_i59.SignUpResponse> signUp(
+    _i60.SignUpRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i58.SignUpOperation(
+    return _i61.SignUpOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -554,12 +585,12 @@ class CognitoIdentityProviderClient {
   }
 
   /// Updates the device status.
-  _i3.SmithyOperation<_i59.UpdateDeviceStatusResponse> updateDeviceStatus(
-    _i60.UpdateDeviceStatusRequest input, {
+  _i3.SmithyOperation<_i62.UpdateDeviceStatusResponse> updateDeviceStatus(
+    _i63.UpdateDeviceStatusRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i61.UpdateDeviceStatusOperation(
+    return _i64.UpdateDeviceStatusOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -576,12 +607,12 @@ class CognitoIdentityProviderClient {
   /// This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Amazon Cognito uses the registered number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up, activate their accounts, or sign in.
   ///
   /// If you have never used SMS text messages with Amazon Cognito or any other Amazon Web Service, Amazon Simple Notification Service might place your account in the SMS sandbox. In _[sandbox mode](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html)_ , you can send messages only to verified phone numbers. After you test your app while in the sandbox environment, you can move out of the sandbox and into production. For more information, see [SMS message settings for Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html) in the _Amazon Cognito Developer Guide_.
-  _i3.SmithyOperation<_i62.UpdateUserAttributesResponse> updateUserAttributes(
-    _i63.UpdateUserAttributesRequest input, {
+  _i3.SmithyOperation<_i65.UpdateUserAttributesResponse> updateUserAttributes(
+    _i66.UpdateUserAttributesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i64.UpdateUserAttributesOperation(
+    return _i67.UpdateUserAttributesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -594,12 +625,12 @@ class CognitoIdentityProviderClient {
   }
 
   /// Use this API to register a user's entered time-based one-time password (TOTP) code and mark the user's software token MFA status as "verified" if successful. The request takes an access token or a session string, but not both.
-  _i3.SmithyOperation<_i65.VerifySoftwareTokenResponse> verifySoftwareToken(
-    _i66.VerifySoftwareTokenRequest input, {
+  _i3.SmithyOperation<_i68.VerifySoftwareTokenResponse> verifySoftwareToken(
+    _i69.VerifySoftwareTokenRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i67.VerifySoftwareTokenOperation(
+    return _i70.VerifySoftwareTokenOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -614,12 +645,12 @@ class CognitoIdentityProviderClient {
   /// Verifies the specified user attributes in the user pool.
   ///
   /// If your user pool requires verification before Amazon Cognito updates the attribute value, VerifyUserAttribute updates the affected attribute to its pending value. For more information, see [UserAttributeUpdateSettingsType](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UserAttributeUpdateSettingsType.html).
-  _i3.SmithyOperation<_i68.VerifyUserAttributeResponse> verifyUserAttribute(
-    _i69.VerifyUserAttributeRequest input, {
+  _i3.SmithyOperation<_i71.VerifyUserAttributeResponse> verifyUserAttribute(
+    _i72.VerifyUserAttributeRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i70.VerifyUserAttributeOperation(
+    return _i73.VerifyUserAttributeOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,

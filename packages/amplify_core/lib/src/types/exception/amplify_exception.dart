@@ -86,7 +86,10 @@ abstract class AmplifyException
         if (recoverySuggestion != null)
           'recoverySuggestion': recoverySuggestion,
         if (underlyingException != null)
-          'underlyingException': underlyingException.toString(),
+          'underlyingException': switch (underlyingException) {
+            final AWSSerializable serializable => serializable.toJson(),
+            _ => underlyingException.toString(),
+          },
       };
 }
 
