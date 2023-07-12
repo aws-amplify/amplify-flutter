@@ -341,7 +341,7 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
                 member,
                 memberRef,
                 memberSymbol: context.symbolFor(member.target, shape).unboxed,
-              )
+              ),
             ])
             .statement
             .wrapWithBlockIf(memberRef.notEqualTo(literalNull), true),

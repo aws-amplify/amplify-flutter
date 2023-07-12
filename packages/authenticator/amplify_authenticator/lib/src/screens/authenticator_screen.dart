@@ -247,7 +247,7 @@ class _AuthenticatorTabViewState
         TabBar(
           controller: _controller,
           tabs: [
-            for (var tab in widget.tabs)
+            for (final tab in widget.tabs)
               Tab(
                 key: ValueKey(tab),
                 text: stringResolver.buttons.resolve(context, tab.tabTitle),

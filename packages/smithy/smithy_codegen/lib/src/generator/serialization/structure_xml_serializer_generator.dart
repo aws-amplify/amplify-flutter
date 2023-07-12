@@ -192,8 +192,8 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
           [
             DartTypes.smithy.xmlElementName.constInstance([
               literalString(payloadResponseName),
-              if (namespace != null) namespace.constructedInstance
-            ])
+              if (namespace != null) namespace.constructedInstance,
+            ]),
           ],
           DartTypes.core.object.boxed,
         ),

@@ -189,7 +189,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                     items: <AuthProvider>[
                       AuthProvider.google,
                       AuthProvider.facebook,
-                      AuthProvider.amazon
+                      AuthProvider.amazon,
                     ].map<DropdownMenuItem<AuthProvider>>((AuthProvider value) {
                       return DropdownMenuItem<AuthProvider>(
                         value: value,
@@ -198,7 +198,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                     }).toList(),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),

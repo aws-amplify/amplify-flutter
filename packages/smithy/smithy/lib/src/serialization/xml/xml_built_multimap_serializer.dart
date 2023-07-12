@@ -46,7 +46,7 @@ class XmlBuiltMultimapSerializer
       if (specifiedType.parameters.isEmpty)
         FullType.unspecified
       else
-        specifiedType.parameters[1]
+        specifiedType.parameters[1],
     ]);
 
     var index = 0;
@@ -86,7 +86,7 @@ class XmlBuiltMultimapSerializer
       if (specifiedType.parameters.isEmpty)
         FullType.unspecified
       else
-        specifiedType.parameters[1]
+        specifiedType.parameters[1],
     ]);
 
     final result = isUnderspecified

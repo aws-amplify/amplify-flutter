@@ -449,7 +449,7 @@ class Repo {
       dependent.pubspecInfo.pubspecYamlEditor.update(
         [
           if (hasDependency) 'dependencies' else 'dev_dependencies',
-          package.name
+          package.name,
         ],
         newConstraint,
       );

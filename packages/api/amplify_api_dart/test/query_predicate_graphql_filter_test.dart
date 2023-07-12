@@ -26,7 +26,7 @@ void main() {
     test('simple query predicate converts to expected filter', () {
       const expectedTitle = 'Blog name ABC';
       const expectedFilter = {
-        'name': {'eq': expectedTitle}
+        'name': {'eq': expectedTitle},
       };
 
       final queryPredicate = Blog.NAME.eq(expectedTitle);
@@ -44,12 +44,12 @@ void main() {
       const expectedFilter = {
         'and': [
           {
-            'id': {'eq': 'id'}
+            'id': {'eq': 'id'},
           },
           {
-            'created': {'eq': dateString}
+            'created': {'eq': dateString},
           },
-        ]
+        ],
       };
       testQueryPredicateTranslation(
         queryPredicate,
@@ -62,8 +62,8 @@ void main() {
       final queryPredicate = not(Blog.ID.eq('id'));
       const expectedFilter = {
         'not': {
-          'id': {'eq': 'id'}
-        }
+          'id': {'eq': 'id'},
+        },
       };
       testQueryPredicateTranslation(
         queryPredicate,
@@ -89,35 +89,35 @@ void main() {
       const expectedFilter = {
         'and': [
           {
-            'id': {'ne': 'id'}
+            'id': {'ne': 'id'},
           },
           {
-            'id': {'eq': 'id'}
+            'id': {'eq': 'id'},
           },
           {
-            'id': {'lt': 'id'}
+            'id': {'lt': 'id'},
           },
           {
-            'id': {'le': 'id'}
+            'id': {'le': 'id'},
           },
           {
-            'id': {'gt': 'id'}
+            'id': {'gt': 'id'},
           },
           {
-            'id': {'ge': 'id'}
+            'id': {'ge': 'id'},
           },
           {
-            'id': {'contains': 'id'}
+            'id': {'contains': 'id'},
           },
           {
             'id': {
-              'between': ['id', 'id']
-            }
+              'between': ['id', 'id'],
+            },
           },
           {
-            'id': {'beginsWith': 'id'}
+            'id': {'beginsWith': 'id'},
           }
-        ]
+        ],
       };
       testQueryPredicateTranslation(
         queryPredicate,
@@ -132,19 +132,19 @@ void main() {
       const expectedFilter = {
         'and': [
           {
-            'id': {'eq': 'id'}
+            'id': {'eq': 'id'},
           },
           {
             'or': [
               {
-                'name': {'beginsWith': 'Title'}
+                'name': {'beginsWith': 'Title'},
               },
               {
-                'name': {'contains': 'Turtles'}
+                'name': {'contains': 'Turtles'},
               }
-            ]
+            ],
           }
-        ]
+        ],
       };
       testQueryPredicateTranslation(
         queryPredicate,
@@ -159,19 +159,19 @@ void main() {
       const expectedFilter = {
         'or': [
           {
-            'id': {'eq': 'id'}
+            'id': {'eq': 'id'},
           },
           {
             'and': [
               {
-                'name': {'beginsWith': 'Title'}
+                'name': {'beginsWith': 'Title'},
               },
               {
-                'name': {'contains': 'Turtles'}
+                'name': {'contains': 'Turtles'},
               }
-            ]
+            ],
           },
-        ]
+        ],
       };
       testQueryPredicateTranslation(
         queryPredicate,
@@ -184,7 +184,7 @@ void main() {
       const dateString = '2019-11-23T02:06:50.689000000Z';
       final exampleValue = TemporalDateTime(DateTime.parse(dateString));
       const expectedFilter = {
-        'created': {'le': dateString}
+        'created': {'le': dateString},
       };
       final queryPredicate = Post.CREATED.le(exampleValue);
 
@@ -199,7 +199,7 @@ void main() {
       const dateString = '2019-11-23';
       final exampleValue = TemporalDate(DateTime.parse(dateString));
       const expectedFilter = {
-        'created': {'le': dateString}
+        'created': {'le': dateString},
       };
       final queryPredicate = Post.CREATED.le(exampleValue);
 
@@ -214,7 +214,7 @@ void main() {
       const dateString = '02:06:50.689000000';
       final exampleValue = TemporalTime.fromString(dateString);
       const expectedFilter = {
-        'created': {'le': dateString}
+        'created': {'le': dateString},
       };
       final queryPredicate = Post.CREATED.le(exampleValue);
 
@@ -229,7 +229,7 @@ void main() {
       const dateString = '2019-11-23T02:06:50.689000000Z';
       final exampleValue = DateTime.parse(dateString);
       const expectedFilter = {
-        'created': {'le': dateString}
+        'created': {'le': dateString},
       };
       final queryPredicate = Post.CREATED.le(exampleValue);
 
@@ -244,7 +244,7 @@ void main() {
       const blogId = 'blog-123';
       final queryPredicate = Post.BLOG.eq(blogId);
       final expectedFilter = {
-        'blogID': {'eq': blogId}
+        'blogID': {'eq': blogId},
       };
 
       testQueryPredicateTranslation(
@@ -259,7 +259,7 @@ void main() {
       // expect this predicate to translate as follows.
       final queryPredicate = Post.TITLE.eq(Size.medium);
       final expectedFilter = {
-        'title': {'eq': Size.medium.name}
+        'title': {'eq': Size.medium.name},
       };
 
       testQueryPredicateTranslation(

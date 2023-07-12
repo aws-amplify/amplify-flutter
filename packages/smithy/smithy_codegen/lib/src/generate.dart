@@ -134,7 +134,7 @@ Map<ShapeId, GeneratedOutput> generateForAst(
       final libraries = [
         ...operations,
         ...additionalShapes.map(context.shapeFor),
-        serviceShape
+        serviceShape,
       ].expand<GeneratedLibrary>((shape) => shape.accept(visitor) ?? const []);
       outputs[serviceShape.shapeId] = GeneratedOutput(
         context: context,

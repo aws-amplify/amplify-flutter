@@ -70,7 +70,7 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
                         ..lambda = true
                         ..body = symbol.newInstance([], {
                           for (final parameter in constructorParams)
-                            parameter.name: refer(parameter.name)
+                            parameter.name: refer(parameter.name),
                         }).code,
                     ).closure,
                   }).code,
@@ -186,7 +186,7 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
                             ..body = refer('el')
                                 .equalTo(literalString(matcher.expected))
                                 .code,
-                        ).closure
+                        ).closure,
                       ]),
                     ),
               )

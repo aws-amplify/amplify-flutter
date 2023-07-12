@@ -84,7 +84,7 @@ class AppComponent extends StatefulComponent {
               ButtonComponent(
                 innerHtml: 'Add',
                 onClick: _insert,
-              )
+              ),
             ],
           ),
           RowComponent(
@@ -92,7 +92,7 @@ class AppComponent extends StatefulComponent {
               ButtonComponent(
                 innerHtml: 'Re-query Database',
                 onClick: _query,
-              )
+              ),
             ],
           ),
           if (_loading) TextComponent('Loading ...'),
@@ -106,7 +106,7 @@ class AppComponent extends StatefulComponent {
                   rows: _todos.map((e) => [e.title, e.content]).toList(),
                 ),
               ),
-            )
+            ),
         ],
       ),
     );

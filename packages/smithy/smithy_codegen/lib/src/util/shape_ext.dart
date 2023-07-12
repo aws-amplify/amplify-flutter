@@ -125,7 +125,7 @@ extension ShapeUtils on Shape {
     const primitiveTypes = [
       ShapeType.boolean,
       ShapeType.integer,
-      ShapeType.long
+      ShapeType.long,
     ];
     final targetShape = switch (this) {
       final MemberShape member => context.shapeFor(member.target),
@@ -842,7 +842,7 @@ extension StructureShapeUtil on StructureShape {
 
   /// Member shapes and their [Reference] types.
   Map<MemberShape, Reference> memberSymbols(CodegenContext context) => {
-        for (var member in sortedMembers)
+        for (final member in sortedMembers)
           member: context
               .symbolFor(member.target, this)
               .withBoxed(member.isNullable(context, this)),

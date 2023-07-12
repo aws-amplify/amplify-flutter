@@ -37,7 +37,7 @@ void main() {
         request.queryParametersAll,
         equals({
           'abc': ['123', '456'],
-          'def': ['000']
+          'def': ['000'],
         }),
       );
 
@@ -91,7 +91,7 @@ void main() {
     Stream<List<int>> makeBody() => Stream.fromIterable([
           [0],
           [1],
-          [2]
+          [2],
         ]);
     final emitsBody = emitsInOrder(<Matcher>[
       orderedEquals(<int>[0]),
@@ -127,7 +127,7 @@ void main() {
         request.queryParametersAll,
         equals({
           'abc': ['123', '456'],
-          'def': ['000']
+          'def': ['000'],
         }),
       );
 

@@ -75,7 +75,7 @@ class _ViewUserAttributesScreenState extends State<ViewUserAttributesScreen> {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () => _fetchAttributes(isRefresh: true),
-          )
+          ),
         ],
       ),
       body: Builder(

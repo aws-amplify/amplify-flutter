@@ -146,7 +146,7 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
                   _serializedData: transformAppSyncJsonToModelJson(
                     e as Map<String, dynamic>,
                     parentSchema,
-                  )
+                  ),
                 },
               )
               .toList();
@@ -155,7 +155,7 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
           _serializedData: transformAppSyncJsonToModelJson(
             parentData as Map<String, dynamic>,
             parentSchema,
-          )
+          ),
         };
       });
     }
@@ -174,7 +174,7 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
               _serializedData: transformAppSyncJsonToModelJson(
                 item as Map<String, dynamic>,
                 childSchema,
-              )
+              ),
             },
           )
           .toList();

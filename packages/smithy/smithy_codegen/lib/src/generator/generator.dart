@@ -102,7 +102,7 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
           if (format == TimestampFormat.epochSeconds)
             DartTypes.core.int.property('parse').call([ref])
           else
-            ref
+            ref,
         ], {
           'format': DartTypes.smithy.timestampFormat.property(format.name),
         }).property('asDateTime');
@@ -117,7 +117,7 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
         final memberTarget = context.shapeFor(memberShape.target);
         return DartTypes.smithy.parseHeader
             .call([
-              ref
+              ref,
             ], {
               if (memberTarget is TimestampShape)
                 'isTimestampList': literalTrue,
@@ -229,12 +229,12 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
                 ..requiredParameters.add(Parameter((p) => p..name = 'el'))
                 ..lambda = true
                 ..body = DartTypes.smithy.sanitizeHeader.call([
-                  refer('el')
+                  refer('el'),
                 ], {
                   if (memberTarget is TimestampShape)
                     'isTimestampList': literalTrue,
                 }).code,
-            ).closure
+            ).closure,
           ]);
         }
         if (isHeader) {

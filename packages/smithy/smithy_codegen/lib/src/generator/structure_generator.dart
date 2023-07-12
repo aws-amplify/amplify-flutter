@@ -509,7 +509,10 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       if (hasNestedBuilder) {
         block.statements.add(
           builder.property(memberName).property('replace').call([
-            if (isNullable) refer(memberName).nullChecked else refer(memberName)
+            if (isNullable)
+              refer(memberName).nullChecked
+            else
+              refer(memberName),
           ]).wrapWithBlockIf(
             refer(memberName).notEqualTo(literalNull),
             isNullable,
@@ -668,7 +671,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
               DartTypes.core.override,
               DartTypes.builtValue.builtValueField.newInstance([], {
                 'compare': literalFalse,
-              })
+              }),
             ])
             ..returns = DartTypes.core.int.withBoxed(statusCode == null)
             ..type = MethodType.getter
@@ -687,7 +690,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
           DartTypes.core.override,
           DartTypes.builtValue.builtValueField.newInstance([], {
             'compare': literalFalse,
-          })
+          }),
         ])
         ..returns = DartTypes.core
             .map(
@@ -722,7 +725,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         ShapeType.map,
         ShapeType.list,
         ShapeType.set,
-        ShapeType.structure
+        ShapeType.structure,
       ].contains(targetShapeType);
       if (isNestedBuilder) {
         final isNullable = member.isNullable(context, shape);
@@ -733,7 +736,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
               if (isNullable && member != payloadShape)
                 payloadProp.nullChecked
               else
-                payloadProp
+                payloadProp,
             ])
             .statement
             .wrapWithBlockIf(payloadProp.notEqualTo(literalNull), isNullable);
@@ -793,7 +796,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
                         .property('key')
                         .property('startsWith')
                         .call([literalString(prefixHeaders.trait.value)]).code,
-                ).closure
+                ).closure,
               ])
               .property('map')
               .call([
@@ -812,7 +815,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
                       refer('el').property('value'),
                     ]).code,
                 ).closure,
-              ])
+              ]),
       ]).statement;
     }
 

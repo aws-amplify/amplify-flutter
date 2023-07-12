@@ -19,7 +19,7 @@ void main() {
 
     for (final environmentName in const [
       'no-unauth-access',
-      'no-unauth-identities'
+      'no-unauth-identities',
     ]) {
       testWidgets(environmentName, (_) async {
         storageFactory(scope) => mockPersistedSecuredStorage;

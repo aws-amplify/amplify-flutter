@@ -25,7 +25,7 @@ class DataStoreSyncExpression {
     return <String, dynamic>{
       'id': id,
       'modelName': _modelType.modelName(),
-      'queryPredicate': _queryPredicateResolver().serializeAsMap()
+      'queryPredicate': _queryPredicateResolver().serializeAsMap(),
     };
   }
 }

@@ -22,7 +22,7 @@ void main() {
           bucket: '123',
           region: 'west-2',
           defaultAccessLevel: testDefaultStorageAccessLevel,
-        )
+        ),
       },
     ),
   );

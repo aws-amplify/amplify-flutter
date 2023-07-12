@@ -86,7 +86,7 @@ class ConfirmNewPasswordFormComponent extends StatefulComponent {
               onClick: _confirmPassword,
             ),
           ],
-        )
+        ),
       ],
     );
   }

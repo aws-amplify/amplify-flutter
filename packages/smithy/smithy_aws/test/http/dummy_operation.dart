@@ -38,7 +38,7 @@ class DummyHttpOperation extends HttpOperation<Unit, Unit, Unit, Unit> {
           DummySmithyException,
           statusCode: 500,
           builder: DummySmithyException.fromResponse,
-        )
+        ),
       ];
 
   @override
