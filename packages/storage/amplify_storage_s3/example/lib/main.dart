@@ -273,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(20),
               child: ListView(
                 children: [
-                  for (var item in list)
+                  for (final item in list)
                     ListTile(
                       onTap: () => {
                         getUrl(
