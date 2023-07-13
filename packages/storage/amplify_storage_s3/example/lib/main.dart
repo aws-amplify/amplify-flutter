@@ -192,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final documentsDir = await getApplicationDocumentsDirectory();
     final filepath = '${documentsDir.path}/$key';
     try {
-      final result = await Amplify.Storage.downloadFile(
+     await Amplify.Storage.downloadFile(
         key: key,
         localFile: AWSFile.fromPath(filepath),
         onProgress: (p0) => _logger
