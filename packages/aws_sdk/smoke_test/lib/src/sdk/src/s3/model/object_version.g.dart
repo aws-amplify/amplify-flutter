@@ -10,7 +10,7 @@ class _$ObjectVersion extends ObjectVersion {
   @override
   final String? eTag;
   @override
-  final _i6.BuiltList<_i2.ChecksumAlgorithm>? checksumAlgorithm;
+  final _i7.BuiltList<_i2.ChecksumAlgorithm>? checksumAlgorithm;
   @override
   final _i3.Int64? size;
   @override
@@ -25,6 +25,8 @@ class _$ObjectVersion extends ObjectVersion {
   final DateTime? lastModified;
   @override
   final _i5.Owner? owner;
+  @override
+  final _i6.RestoreStatus? restoreStatus;
 
   factory _$ObjectVersion([void Function(ObjectVersionBuilder)? updates]) =>
       (new ObjectVersionBuilder()..update(updates))._build();
@@ -38,7 +40,8 @@ class _$ObjectVersion extends ObjectVersion {
       this.versionId,
       this.isLatest,
       this.lastModified,
-      this.owner})
+      this.owner,
+      this.restoreStatus})
       : super._();
 
   @override
@@ -60,7 +63,8 @@ class _$ObjectVersion extends ObjectVersion {
         versionId == other.versionId &&
         isLatest == other.isLatest &&
         lastModified == other.lastModified &&
-        owner == other.owner;
+        owner == other.owner &&
+        restoreStatus == other.restoreStatus;
   }
 
   @override
@@ -75,6 +79,7 @@ class _$ObjectVersion extends ObjectVersion {
     _$hash = $jc(_$hash, isLatest.hashCode);
     _$hash = $jc(_$hash, lastModified.hashCode);
     _$hash = $jc(_$hash, owner.hashCode);
+    _$hash = $jc(_$hash, restoreStatus.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -88,12 +93,12 @@ class ObjectVersionBuilder
   String? get eTag => _$this._eTag;
   set eTag(String? eTag) => _$this._eTag = eTag;
 
-  _i6.ListBuilder<_i2.ChecksumAlgorithm>? _checksumAlgorithm;
-  _i6.ListBuilder<_i2.ChecksumAlgorithm> get checksumAlgorithm =>
+  _i7.ListBuilder<_i2.ChecksumAlgorithm>? _checksumAlgorithm;
+  _i7.ListBuilder<_i2.ChecksumAlgorithm> get checksumAlgorithm =>
       _$this._checksumAlgorithm ??=
-          new _i6.ListBuilder<_i2.ChecksumAlgorithm>();
+          new _i7.ListBuilder<_i2.ChecksumAlgorithm>();
   set checksumAlgorithm(
-          _i6.ListBuilder<_i2.ChecksumAlgorithm>? checksumAlgorithm) =>
+          _i7.ListBuilder<_i2.ChecksumAlgorithm>? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   _i3.Int64? _size;
@@ -126,6 +131,12 @@ class ObjectVersionBuilder
   _i5.OwnerBuilder get owner => _$this._owner ??= new _i5.OwnerBuilder();
   set owner(_i5.OwnerBuilder? owner) => _$this._owner = owner;
 
+  _i6.RestoreStatusBuilder? _restoreStatus;
+  _i6.RestoreStatusBuilder get restoreStatus =>
+      _$this._restoreStatus ??= new _i6.RestoreStatusBuilder();
+  set restoreStatus(_i6.RestoreStatusBuilder? restoreStatus) =>
+      _$this._restoreStatus = restoreStatus;
+
   ObjectVersionBuilder() {
     ObjectVersion._init(this);
   }
@@ -142,6 +153,7 @@ class ObjectVersionBuilder
       _isLatest = $v.isLatest;
       _lastModified = $v.lastModified;
       _owner = $v.owner?.toBuilder();
+      _restoreStatus = $v.restoreStatus?.toBuilder();
       _$v = null;
     }
     return this;
@@ -174,7 +186,8 @@ class ObjectVersionBuilder
               versionId: versionId,
               isLatest: isLatest,
               lastModified: lastModified,
-              owner: _owner?.build());
+              owner: _owner?.build(),
+              restoreStatus: _restoreStatus?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -183,6 +196,8 @@ class ObjectVersionBuilder
 
         _$failedField = 'owner';
         _owner?.build();
+        _$failedField = 'restoreStatus';
+        _restoreStatus?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ObjectVersion', _$failedField, e.toString());

@@ -18,9 +18,9 @@ import 'package:smoke_test/src/sdk/src/s3/model/list_object_versions_request.dar
 
 /// Returns metadata about all versions of the objects in a bucket. You can also use request parameters as selection criteria to return metadata about a subset of all the object versions.
 ///
-/// To use this operation, you must have permissions to perform the `s3:ListBucketVersions` action. Be aware of the name difference.
+/// To use this operation, you must have permission to perform the `s3:ListBucketVersions` action. Be aware of the name difference.
 ///
-/// A 200 OK response can contain valid or invalid XML. Make sure to design your application to parse the contents of the response and handle it appropriately.
+/// A `200 OK` response can contain valid or invalid XML. Make sure to design your application to parse the contents of the response and handle it appropriately.
 ///
 /// To use this operation, you must have READ access to the bucket.
 ///
@@ -42,9 +42,9 @@ class ListObjectVersionsOperation extends _i1.HttpOperation<
     _i3.ListObjectVersionsOutput> {
   /// Returns metadata about all versions of the objects in a bucket. You can also use request parameters as selection criteria to return metadata about a subset of all the object versions.
   ///
-  /// To use this operation, you must have permissions to perform the `s3:ListBucketVersions` action. Be aware of the name difference.
+  /// To use this operation, you must have permission to perform the `s3:ListBucketVersions` action. Be aware of the name difference.
   ///
-  /// A 200 OK response can contain valid or invalid XML. Make sure to design your application to parse the contents of the response and handle it appropriately.
+  /// A `200 OK` response can contain valid or invalid XML. Make sure to design your application to parse the contents of the response and handle it appropriately.
   ///
   /// To use this operation, you must have READ access to the bucket.
   ///
@@ -137,6 +137,15 @@ class ListObjectVersionsOperation extends _i1.HttpOperation<
         }
         if (input.requestPayer != null) {
           b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+        }
+        if (input.optionalObjectAttributes != null) {
+          if (input.optionalObjectAttributes!.isNotEmpty) {
+            b.headers['x-amz-optional-object-attributes'] = input
+                .optionalObjectAttributes!
+                .map((el) => el.value)
+                .map((el) => _i1.sanitizeHeader(el))
+                .join(', ');
+          }
         }
         if (input.delimiter != null) {
           b.queryParameters.add(

@@ -27,7 +27,7 @@ import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
 
 /// Attaches the specified managed policy to the specified IAM group.
 ///
-/// You use this operation to attach a managed policy to a group. To embed an inline policy in a group, use PutGroupPolicy.
+/// You use this operation to attach a managed policy to a group. To embed an inline policy in a group, use [`PutGroupPolicy`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutGroupPolicy.html) .
 ///
 /// As a best practice, you can validate your IAM policies. To learn more, see [Validating IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_policy-validator.html) in the _IAM User Guide_.
 ///
@@ -39,7 +39,7 @@ class AttachGroupPolicyOperation extends _i1.HttpOperation<
     _i1.Unit> {
   /// Attaches the specified managed policy to the specified IAM group.
   ///
-  /// You use this operation to attach a managed policy to a group. To embed an inline policy in a group, use PutGroupPolicy.
+  /// You use this operation to attach a managed policy to a group. To embed an inline policy in a group, use [`PutGroupPolicy`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutGroupPolicy.html) .
   ///
   /// As a best practice, you can validate your IAM policies. To learn more, see [Validating IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_policy-validator.html) in the _IAM User Guide_.
   ///

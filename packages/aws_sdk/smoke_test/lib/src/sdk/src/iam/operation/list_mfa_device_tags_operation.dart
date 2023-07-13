@@ -3,38 +3,43 @@
 
 library smoke_test.iam.operation.list_mfa_device_tags_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i12;
+import 'dart:async' as _i14;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i9;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
+import 'package:smithy_aws/smithy_aws.dart' as _i7;
 import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart' as _i6;
+    as _i10;
+import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart' as _i8;
 import 'package:smoke_test/src/sdk/src/iam/model/invalid_input_exception.dart'
-    as _i9;
+    as _i11;
 import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_device_tags_request.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_device_tags_response.dart'
     as _i3;
 import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
-    as _i10;
+    as _i12;
 import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
-    as _i11;
+    as _i13;
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i5;
 
 /// Lists the tags that are attached to the specified IAM virtual multi-factor authentication (MFA) device. The returned list of tags is sorted by tag key. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-class ListMfaDeviceTagsOperation extends _i1.HttpOperation<
+class ListMfaDeviceTagsOperation extends _i1.PaginatedHttpOperation<
     _i2.ListMfaDeviceTagsRequest,
     _i2.ListMfaDeviceTagsRequest,
     _i3.ListMfaDeviceTagsResponse,
-    _i3.ListMfaDeviceTagsResponse> {
+    _i3.ListMfaDeviceTagsResponse,
+    String,
+    int,
+    _i4.BuiltList<_i5.Tag>> {
   /// Lists the tags that are attached to the specified IAM virtual multi-factor authentication (MFA) device. The returned list of tags is sorted by tag key. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
   ListMfaDeviceTagsOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i6.AWSCredentialsProvider credentialsProvider =
+        const _i6.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -50,20 +55,20 @@ class ListMfaDeviceTagsOperation extends _i1.HttpOperation<
           _i2.ListMfaDeviceTagsRequest,
           _i3.ListMfaDeviceTagsResponse,
           _i3.ListMfaDeviceTagsResponse>> protocols = [
-    _i5.AwsQueryProtocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+    _i7.AwsQueryProtocol(
+      serializers: _i8.serializers,
+      builderFactories: _i8.builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            _i5.WithSigV4(
+            _i7.WithSigV4(
               region: _region,
-              service: _i7.AWSService.iam,
+              service: _i9.AWSService.iam,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i7.WithSdkInvocationId(),
+            const _i7.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -71,17 +76,17 @@ class ListMfaDeviceTagsOperation extends _i1.HttpOperation<
       action: 'ListMFADeviceTags',
       version: '2010-05-08',
       awsQueryErrors: const [
-        _i5.AwsQueryError(
+        _i7.AwsQueryError(
           shape: 'InvalidInputException',
           code: 'InvalidInput',
           httpResponseCode: 400,
         ),
-        _i5.AwsQueryError(
+        _i7.AwsQueryError(
           shape: 'NoSuchEntityException',
           code: 'NoSuchEntity',
           httpResponseCode: 404,
         ),
-        _i5.AwsQueryError(
+        _i7.AwsQueryError(
           shape: 'ServiceFailureException',
           code: 'ServiceFailure',
           httpResponseCode: 500,
@@ -90,8 +95,8 @@ class ListMfaDeviceTagsOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i7.AWSEndpoint _awsEndpoint = _i10.endpointResolver.resolve(
+    _i10.sdkId,
     _region,
   );
 
@@ -99,7 +104,7 @@ class ListMfaDeviceTagsOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i6.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
@@ -116,7 +121,7 @@ class ListMfaDeviceTagsOperation extends _i1.HttpOperation<
   @override
   _i3.ListMfaDeviceTagsResponse buildOutput(
     _i3.ListMfaDeviceTagsResponse payload,
-    _i7.AWSBaseHttpResponse response,
+    _i9.AWSBaseHttpResponse response,
   ) =>
       _i3.ListMfaDeviceTagsResponse.fromResponse(
         payload,
@@ -124,42 +129,42 @@ class ListMfaDeviceTagsOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.InvalidInputException, _i9.InvalidInputException>(
+        _i1.SmithyError<_i11.InvalidInputException, _i11.InvalidInputException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidInputException',
           ),
           _i1.ErrorKind.client,
-          _i9.InvalidInputException,
+          _i11.InvalidInputException,
           statusCode: 400,
-          builder: _i9.InvalidInputException.fromResponse,
+          builder: _i11.InvalidInputException.fromResponse,
         ),
-        _i1.SmithyError<_i10.NoSuchEntityException, _i10.NoSuchEntityException>(
+        _i1.SmithyError<_i12.NoSuchEntityException, _i12.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
           ),
           _i1.ErrorKind.client,
-          _i10.NoSuchEntityException,
+          _i12.NoSuchEntityException,
           statusCode: 404,
-          builder: _i10.NoSuchEntityException.fromResponse,
+          builder: _i12.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError<_i11.ServiceFailureException,
-            _i11.ServiceFailureException>(
+        _i1.SmithyError<_i13.ServiceFailureException,
+            _i13.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
           ),
           _i1.ErrorKind.server,
-          _i11.ServiceFailureException,
+          _i13.ServiceFailureException,
           statusCode: 500,
-          builder: _i11.ServiceFailureException.fromResponse,
+          builder: _i13.ServiceFailureException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'ListMFADeviceTags';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i7.AWSRetryer get retryer => _i7.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
@@ -167,10 +172,10 @@ class ListMfaDeviceTagsOperation extends _i1.HttpOperation<
   @override
   _i1.SmithyOperation<_i3.ListMfaDeviceTagsResponse> run(
     _i2.ListMfaDeviceTagsRequest input, {
-    _i7.AWSHttpClient? client,
+    _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i12.runZoned(
+    return _i14.runZoned(
       () => super.run(
         input,
         client: client,
@@ -178,8 +183,26 @@ class ListMfaDeviceTagsOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
       },
     );
   }
+
+  @override
+  String? getToken(_i3.ListMfaDeviceTagsResponse output) => output.marker;
+  @override
+  _i4.BuiltList<_i5.Tag> getItems(_i3.ListMfaDeviceTagsResponse output) =>
+      output.tags;
+  @override
+  _i2.ListMfaDeviceTagsRequest rebuildInput(
+    _i2.ListMfaDeviceTagsRequest input,
+    String token,
+    int? pageSize,
+  ) =>
+      input.rebuild((b) {
+        b.marker = token;
+        if (pageSize != null) {
+          b.maxItems = pageSize;
+        }
+      });
 }

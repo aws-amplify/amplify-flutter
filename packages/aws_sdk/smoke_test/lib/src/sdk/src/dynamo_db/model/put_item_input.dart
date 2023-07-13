@@ -4,7 +4,7 @@
 library smoke_test.dynamo_db.model.put_item_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i9;
+import 'package:built_collection/built_collection.dart' as _i10;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -20,6 +20,8 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_item_collection_me
     as _i7;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_value.dart'
     as _i5;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_values_on_condition_check_failure.dart'
+    as _i9;
 
 part 'put_item_input.g.dart';
 
@@ -39,11 +41,13 @@ abstract class PutItemInput
     String? conditionExpression,
     Map<String, String>? expressionAttributeNames,
     Map<String, _i3.AttributeValue>? expressionAttributeValues,
+    _i9.ReturnValuesOnConditionCheckFailure?
+        returnValuesOnConditionCheckFailure,
   }) {
     return _$PutItemInput._(
       tableName: tableName,
-      item: _i9.BuiltMap(item),
-      expected: expected == null ? null : _i9.BuiltMap(expected),
+      item: _i10.BuiltMap(item),
+      expected: expected == null ? null : _i10.BuiltMap(expected),
       returnValues: returnValues,
       returnConsumedCapacity: returnConsumedCapacity,
       returnItemCollectionMetrics: returnItemCollectionMetrics,
@@ -51,10 +55,11 @@ abstract class PutItemInput
       conditionExpression: conditionExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
-          : _i9.BuiltMap(expressionAttributeNames),
+          : _i10.BuiltMap(expressionAttributeNames),
       expressionAttributeValues: expressionAttributeValues == null
           ? null
-          : _i9.BuiltMap(expressionAttributeValues),
+          : _i10.BuiltMap(expressionAttributeValues),
+      returnValuesOnConditionCheckFailure: returnValuesOnConditionCheckFailure,
     );
   }
 
@@ -92,10 +97,10 @@ abstract class PutItemInput
   /// For more information about primary keys, see [Primary Key](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey) in the _Amazon DynamoDB Developer Guide_.
   ///
   /// Each element in the `Item` map is an `AttributeValue` object.
-  _i9.BuiltMap<String, _i3.AttributeValue> get item;
+  _i10.BuiltMap<String, _i3.AttributeValue> get item;
 
   /// This is a legacy parameter. Use `ConditionExpression` instead. For more information, see [Expected](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.Expected.html) in the _Amazon DynamoDB Developer Guide_.
-  _i9.BuiltMap<String, _i4.ExpectedAttributeValue>? get expected;
+  _i10.BuiltMap<String, _i4.ExpectedAttributeValue>? get expected;
 
   /// Use `ReturnValues` if you want to get the item attributes as they appeared before they were updated with the `PutItem` request. For `PutItem`, the valid values are:
   ///
@@ -171,7 +176,7 @@ abstract class PutItemInput
   /// Tokens that begin with the **:** character are _expression attribute values_, which are placeholders for the actual value at runtime.
   ///
   /// For more information on expression attribute names, see [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
-  _i9.BuiltMap<String, String>? get expressionAttributeNames;
+  _i10.BuiltMap<String, String>? get expressionAttributeNames;
 
   /// One or more values that can be substituted in an expression.
   ///
@@ -188,7 +193,13 @@ abstract class PutItemInput
   /// `ProductStatus IN (:avail, :back, :disc)`
   ///
   /// For more information on expression attribute values, see [Condition Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html) in the _Amazon DynamoDB Developer Guide_.
-  _i9.BuiltMap<String, _i3.AttributeValue>? get expressionAttributeValues;
+  _i10.BuiltMap<String, _i3.AttributeValue>? get expressionAttributeValues;
+
+  /// An optional parameter that returns the item attributes for a `PutItem` operation that failed a condition check.
+  ///
+  /// There is no additional cost associated with requesting a return value aside from the small network and processing overhead of receiving a larger response. No read capacity units are consumed.
+  _i9.ReturnValuesOnConditionCheckFailure?
+      get returnValuesOnConditionCheckFailure;
   @override
   PutItemInput getPayload() => this;
   @override
@@ -203,6 +214,7 @@ abstract class PutItemInput
         conditionExpression,
         expressionAttributeNames,
         expressionAttributeValues,
+        returnValuesOnConditionCheckFailure,
       ];
   @override
   String toString() {
@@ -246,6 +258,10 @@ abstract class PutItemInput
       ..add(
         'expressionAttributeValues',
         expressionAttributeValues,
+      )
+      ..add(
+        'returnValuesOnConditionCheckFailure',
+        returnValuesOnConditionCheckFailure,
       );
     return helper.toString();
   }
@@ -292,24 +308,24 @@ class PutItemInputAwsJson10Serializer
           result.item.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltMap,
+              _i10.BuiltMap,
               [
                 FullType(String),
                 FullType(_i3.AttributeValue),
               ],
             ),
-          ) as _i9.BuiltMap<String, _i3.AttributeValue>));
+          ) as _i10.BuiltMap<String, _i3.AttributeValue>));
         case 'Expected':
           result.expected.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltMap,
+              _i10.BuiltMap,
               [
                 FullType(String),
                 FullType(_i4.ExpectedAttributeValue),
               ],
             ),
-          ) as _i9.BuiltMap<String, _i4.ExpectedAttributeValue>));
+          ) as _i10.BuiltMap<String, _i4.ExpectedAttributeValue>));
         case 'ReturnValues':
           result.returnValues = (serializers.deserialize(
             value,
@@ -339,24 +355,30 @@ class PutItemInputAwsJson10Serializer
           result.expressionAttributeNames.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltMap,
+              _i10.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i9.BuiltMap<String, String>));
+          ) as _i10.BuiltMap<String, String>));
         case 'ExpressionAttributeValues':
           result.expressionAttributeValues.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltMap,
+              _i10.BuiltMap,
               [
                 FullType(String),
                 FullType(_i3.AttributeValue),
               ],
             ),
-          ) as _i9.BuiltMap<String, _i3.AttributeValue>));
+          ) as _i10.BuiltMap<String, _i3.AttributeValue>));
+        case 'ReturnValuesOnConditionCheckFailure':
+          result.returnValuesOnConditionCheckFailure = (serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i9.ReturnValuesOnConditionCheckFailure),
+          ) as _i9.ReturnValuesOnConditionCheckFailure);
       }
     }
 
@@ -380,7 +402,8 @@ class PutItemInputAwsJson10Serializer
       :conditionalOperator,
       :conditionExpression,
       :expressionAttributeNames,
-      :expressionAttributeValues
+      :expressionAttributeValues,
+      :returnValuesOnConditionCheckFailure
     ) = object;
     result$.addAll([
       'TableName',
@@ -392,7 +415,7 @@ class PutItemInputAwsJson10Serializer
       serializers.serialize(
         item,
         specifiedType: const FullType(
-          _i9.BuiltMap,
+          _i10.BuiltMap,
           [
             FullType(String),
             FullType(_i3.AttributeValue),
@@ -406,7 +429,7 @@ class PutItemInputAwsJson10Serializer
         ..add(serializers.serialize(
           expected,
           specifiedType: const FullType(
-            _i9.BuiltMap,
+            _i10.BuiltMap,
             [
               FullType(String),
               FullType(_i4.ExpectedAttributeValue),
@@ -460,7 +483,7 @@ class PutItemInputAwsJson10Serializer
         ..add(serializers.serialize(
           expressionAttributeNames,
           specifiedType: const FullType(
-            _i9.BuiltMap,
+            _i10.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -474,12 +497,21 @@ class PutItemInputAwsJson10Serializer
         ..add(serializers.serialize(
           expressionAttributeValues,
           specifiedType: const FullType(
-            _i9.BuiltMap,
+            _i10.BuiltMap,
             [
               FullType(String),
               FullType(_i3.AttributeValue),
             ],
           ),
+        ));
+    }
+    if (returnValuesOnConditionCheckFailure != null) {
+      result$
+        ..add('ReturnValuesOnConditionCheckFailure')
+        ..add(serializers.serialize(
+          returnValuesOnConditionCheckFailure,
+          specifiedType:
+              const FullType(_i9.ReturnValuesOnConditionCheckFailure),
         ));
     }
     return result$;

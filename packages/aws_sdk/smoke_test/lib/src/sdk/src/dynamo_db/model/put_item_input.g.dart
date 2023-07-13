@@ -10,9 +10,9 @@ class _$PutItemInput extends PutItemInput {
   @override
   final String tableName;
   @override
-  final _i9.BuiltMap<String, _i3.AttributeValue> item;
+  final _i10.BuiltMap<String, _i3.AttributeValue> item;
   @override
-  final _i9.BuiltMap<String, _i4.ExpectedAttributeValue>? expected;
+  final _i10.BuiltMap<String, _i4.ExpectedAttributeValue>? expected;
   @override
   final _i5.ReturnValue? returnValues;
   @override
@@ -24,9 +24,12 @@ class _$PutItemInput extends PutItemInput {
   @override
   final String? conditionExpression;
   @override
-  final _i9.BuiltMap<String, String>? expressionAttributeNames;
+  final _i10.BuiltMap<String, String>? expressionAttributeNames;
   @override
-  final _i9.BuiltMap<String, _i3.AttributeValue>? expressionAttributeValues;
+  final _i10.BuiltMap<String, _i3.AttributeValue>? expressionAttributeValues;
+  @override
+  final _i9.ReturnValuesOnConditionCheckFailure?
+      returnValuesOnConditionCheckFailure;
 
   factory _$PutItemInput([void Function(PutItemInputBuilder)? updates]) =>
       (new PutItemInputBuilder()..update(updates))._build();
@@ -41,7 +44,8 @@ class _$PutItemInput extends PutItemInput {
       this.conditionalOperator,
       this.conditionExpression,
       this.expressionAttributeNames,
-      this.expressionAttributeValues})
+      this.expressionAttributeValues,
+      this.returnValuesOnConditionCheckFailure})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         tableName, r'PutItemInput', 'tableName');
@@ -68,7 +72,9 @@ class _$PutItemInput extends PutItemInput {
         conditionalOperator == other.conditionalOperator &&
         conditionExpression == other.conditionExpression &&
         expressionAttributeNames == other.expressionAttributeNames &&
-        expressionAttributeValues == other.expressionAttributeValues;
+        expressionAttributeValues == other.expressionAttributeValues &&
+        returnValuesOnConditionCheckFailure ==
+            other.returnValuesOnConditionCheckFailure;
   }
 
   @override
@@ -84,6 +90,7 @@ class _$PutItemInput extends PutItemInput {
     _$hash = $jc(_$hash, conditionExpression.hashCode);
     _$hash = $jc(_$hash, expressionAttributeNames.hashCode);
     _$hash = $jc(_$hash, expressionAttributeValues.hashCode);
+    _$hash = $jc(_$hash, returnValuesOnConditionCheckFailure.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -97,17 +104,17 @@ class PutItemInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i9.MapBuilder<String, _i3.AttributeValue>? _item;
-  _i9.MapBuilder<String, _i3.AttributeValue> get item =>
-      _$this._item ??= new _i9.MapBuilder<String, _i3.AttributeValue>();
-  set item(_i9.MapBuilder<String, _i3.AttributeValue>? item) =>
+  _i10.MapBuilder<String, _i3.AttributeValue>? _item;
+  _i10.MapBuilder<String, _i3.AttributeValue> get item =>
+      _$this._item ??= new _i10.MapBuilder<String, _i3.AttributeValue>();
+  set item(_i10.MapBuilder<String, _i3.AttributeValue>? item) =>
       _$this._item = item;
 
-  _i9.MapBuilder<String, _i4.ExpectedAttributeValue>? _expected;
-  _i9.MapBuilder<String, _i4.ExpectedAttributeValue> get expected =>
+  _i10.MapBuilder<String, _i4.ExpectedAttributeValue>? _expected;
+  _i10.MapBuilder<String, _i4.ExpectedAttributeValue> get expected =>
       _$this._expected ??=
-          new _i9.MapBuilder<String, _i4.ExpectedAttributeValue>();
-  set expected(_i9.MapBuilder<String, _i4.ExpectedAttributeValue>? expected) =>
+          new _i10.MapBuilder<String, _i4.ExpectedAttributeValue>();
+  set expected(_i10.MapBuilder<String, _i4.ExpectedAttributeValue>? expected) =>
       _$this._expected = expected;
 
   _i5.ReturnValue? _returnValues;
@@ -140,21 +147,32 @@ class PutItemInputBuilder
   set conditionExpression(String? conditionExpression) =>
       _$this._conditionExpression = conditionExpression;
 
-  _i9.MapBuilder<String, String>? _expressionAttributeNames;
-  _i9.MapBuilder<String, String> get expressionAttributeNames =>
-      _$this._expressionAttributeNames ??= new _i9.MapBuilder<String, String>();
+  _i10.MapBuilder<String, String>? _expressionAttributeNames;
+  _i10.MapBuilder<String, String> get expressionAttributeNames =>
+      _$this._expressionAttributeNames ??=
+          new _i10.MapBuilder<String, String>();
   set expressionAttributeNames(
-          _i9.MapBuilder<String, String>? expressionAttributeNames) =>
+          _i10.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
-  _i9.MapBuilder<String, _i3.AttributeValue>? _expressionAttributeValues;
-  _i9.MapBuilder<String, _i3.AttributeValue> get expressionAttributeValues =>
+  _i10.MapBuilder<String, _i3.AttributeValue>? _expressionAttributeValues;
+  _i10.MapBuilder<String, _i3.AttributeValue> get expressionAttributeValues =>
       _$this._expressionAttributeValues ??=
-          new _i9.MapBuilder<String, _i3.AttributeValue>();
+          new _i10.MapBuilder<String, _i3.AttributeValue>();
   set expressionAttributeValues(
-          _i9.MapBuilder<String, _i3.AttributeValue>?
+          _i10.MapBuilder<String, _i3.AttributeValue>?
               expressionAttributeValues) =>
       _$this._expressionAttributeValues = expressionAttributeValues;
+
+  _i9.ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
+  _i9.ReturnValuesOnConditionCheckFailure?
+      get returnValuesOnConditionCheckFailure =>
+          _$this._returnValuesOnConditionCheckFailure;
+  set returnValuesOnConditionCheckFailure(
+          _i9.ReturnValuesOnConditionCheckFailure?
+              returnValuesOnConditionCheckFailure) =>
+      _$this._returnValuesOnConditionCheckFailure =
+          returnValuesOnConditionCheckFailure;
 
   PutItemInputBuilder() {
     PutItemInput._init(this);
@@ -173,6 +191,8 @@ class PutItemInputBuilder
       _conditionExpression = $v.conditionExpression;
       _expressionAttributeNames = $v.expressionAttributeNames?.toBuilder();
       _expressionAttributeValues = $v.expressionAttributeValues?.toBuilder();
+      _returnValuesOnConditionCheckFailure =
+          $v.returnValuesOnConditionCheckFailure;
       _$v = null;
     }
     return this;
@@ -207,7 +227,9 @@ class PutItemInputBuilder
               conditionalOperator: conditionalOperator,
               conditionExpression: conditionExpression,
               expressionAttributeNames: _expressionAttributeNames?.build(),
-              expressionAttributeValues: _expressionAttributeValues?.build());
+              expressionAttributeValues: _expressionAttributeValues?.build(),
+              returnValuesOnConditionCheckFailure:
+                  returnValuesOnConditionCheckFailure);
     } catch (_) {
       late String _$failedField;
       try {

@@ -4,12 +4,14 @@
 library smoke_test.dynamo_db.model.batch_statement_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
     as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_values_on_condition_check_failure.dart'
+    as _i3;
 
 part 'batch_statement_request.g.dart';
 
@@ -22,11 +24,14 @@ abstract class BatchStatementRequest
     required String statement,
     List<_i2.AttributeValue>? parameters,
     bool? consistentRead,
+    _i3.ReturnValuesOnConditionCheckFailure?
+        returnValuesOnConditionCheckFailure,
   }) {
     return _$BatchStatementRequest._(
       statement: statement,
-      parameters: parameters == null ? null : _i3.BuiltList(parameters),
+      parameters: parameters == null ? null : _i4.BuiltList(parameters),
       consistentRead: consistentRead,
+      returnValuesOnConditionCheckFailure: returnValuesOnConditionCheckFailure,
     );
   }
 
@@ -37,7 +42,7 @@ abstract class BatchStatementRequest
 
   const BatchStatementRequest._();
 
-  static const List<_i4.SmithySerializer<BatchStatementRequest>> serializers = [
+  static const List<_i5.SmithySerializer<BatchStatementRequest>> serializers = [
     BatchStatementRequestAwsJson10Serializer()
   ];
 
@@ -48,15 +53,22 @@ abstract class BatchStatementRequest
   String get statement;
 
   /// The parameters associated with a PartiQL statement in the batch request.
-  _i3.BuiltList<_i2.AttributeValue>? get parameters;
+  _i4.BuiltList<_i2.AttributeValue>? get parameters;
 
   /// The read consistency of the PartiQL batch request.
   bool? get consistentRead;
+
+  /// An optional parameter that returns the item attributes for a PartiQL batch request operation that failed a condition check.
+  ///
+  /// There is no additional cost associated with requesting a return value aside from the small network and processing overhead of receiving a larger response. No read capacity units are consumed.
+  _i3.ReturnValuesOnConditionCheckFailure?
+      get returnValuesOnConditionCheckFailure;
   @override
   List<Object?> get props => [
         statement,
         parameters,
         consistentRead,
+        returnValuesOnConditionCheckFailure,
       ];
   @override
   String toString() {
@@ -72,13 +84,17 @@ abstract class BatchStatementRequest
       ..add(
         'consistentRead',
         consistentRead,
+      )
+      ..add(
+        'returnValuesOnConditionCheckFailure',
+        returnValuesOnConditionCheckFailure,
       );
     return helper.toString();
   }
 }
 
 class BatchStatementRequestAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<BatchStatementRequest> {
+    extends _i5.StructuredSmithySerializer<BatchStatementRequest> {
   const BatchStatementRequestAwsJson10Serializer()
       : super('BatchStatementRequest');
 
@@ -88,8 +104,8 @@ class BatchStatementRequestAwsJson10Serializer
         _$BatchStatementRequest,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i5.ShapeId> get supportedProtocols => const [
+        _i5.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -119,15 +135,21 @@ class BatchStatementRequestAwsJson10Serializer
           result.parameters.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i4.BuiltList,
               [FullType(_i2.AttributeValue)],
             ),
-          ) as _i3.BuiltList<_i2.AttributeValue>));
+          ) as _i4.BuiltList<_i2.AttributeValue>));
         case 'ConsistentRead':
           result.consistentRead = (serializers.deserialize(
             value,
             specifiedType: const FullType(bool),
           ) as bool);
+        case 'ReturnValuesOnConditionCheckFailure':
+          result.returnValuesOnConditionCheckFailure = (serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i3.ReturnValuesOnConditionCheckFailure),
+          ) as _i3.ReturnValuesOnConditionCheckFailure);
       }
     }
 
@@ -141,8 +163,12 @@ class BatchStatementRequestAwsJson10Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[];
-    final BatchStatementRequest(:statement, :parameters, :consistentRead) =
-        object;
+    final BatchStatementRequest(
+      :statement,
+      :parameters,
+      :consistentRead,
+      :returnValuesOnConditionCheckFailure
+    ) = object;
     result$.addAll([
       'Statement',
       serializers.serialize(
@@ -156,7 +182,7 @@ class BatchStatementRequestAwsJson10Serializer
         ..add(serializers.serialize(
           parameters,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i4.BuiltList,
             [FullType(_i2.AttributeValue)],
           ),
         ));
@@ -167,6 +193,15 @@ class BatchStatementRequestAwsJson10Serializer
         ..add(serializers.serialize(
           consistentRead,
           specifiedType: const FullType(bool),
+        ));
+    }
+    if (returnValuesOnConditionCheckFailure != null) {
+      result$
+        ..add('ReturnValuesOnConditionCheckFailure')
+        ..add(serializers.serialize(
+          returnValuesOnConditionCheckFailure,
+          specifiedType:
+              const FullType(_i3.ReturnValuesOnConditionCheckFailure),
         ));
     }
     return result$;

@@ -121,6 +121,8 @@ export 'package:smoke_test/src/sdk/src/iam/model/get_instance_profile_request.da
 export 'package:smoke_test/src/sdk/src/iam/model/get_instance_profile_response.dart';
 export 'package:smoke_test/src/sdk/src/iam/model/get_login_profile_request.dart';
 export 'package:smoke_test/src/sdk/src/iam/model/get_login_profile_response.dart';
+export 'package:smoke_test/src/sdk/src/iam/model/get_mfa_device_request.dart';
+export 'package:smoke_test/src/sdk/src/iam/model/get_mfa_device_response.dart';
 export 'package:smoke_test/src/sdk/src/iam/model/get_open_id_connect_provider_request.dart';
 export 'package:smoke_test/src/sdk/src/iam/model/get_open_id_connect_provider_response.dart';
 export 'package:smoke_test/src/sdk/src/iam/model/get_organizations_access_report_request.dart';

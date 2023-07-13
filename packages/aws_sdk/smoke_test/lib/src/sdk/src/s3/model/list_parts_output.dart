@@ -129,7 +129,7 @@ abstract class ListPartsOutput
   /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the part-number-marker request parameter in a subsequent request.
   String? get partNumberMarker;
 
-  /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the part-number-marker request parameter in a subsequent request.
+  /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the `part-number-marker` request parameter in a subsequent request.
   String? get nextPartNumberMarker;
 
   /// Maximum number of parts that were allowed in the response.
@@ -292,7 +292,7 @@ abstract class ListPartsOutputPayload
   /// Maximum number of parts that were allowed in the response.
   int? get maxParts;
 
-  /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the part-number-marker request parameter in a subsequent request.
+  /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the `part-number-marker` request parameter in a subsequent request.
   String? get nextPartNumberMarker;
 
   /// Container element that identifies the object owner, after the object is created. If multipart upload is initiated by an IAM user, this element provides the parent account ID and display name.
