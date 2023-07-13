@@ -29,6 +29,10 @@ enum LogLevel implements Comparable<LogLevel> {
   /// Prevents any logs from being emitted.
   none;
 
+  /// Parses a log level from a string value.
+  static LogLevel parse(String logLevel) =>
+      values.firstWhere((el) => el.name == logLevel.toLowerCase());
+
   @override
   int compareTo(LogLevel other) {
     return index - other.index;

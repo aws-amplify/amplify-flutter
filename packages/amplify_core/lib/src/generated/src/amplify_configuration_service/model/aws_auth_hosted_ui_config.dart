@@ -1,0 +1,264 @@
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+
+library amplify_core.amplify_configuration_service.model.aws_auth_hosted_ui_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
+
+import 'package:aws_common/aws_common.dart' as _i1;
+import 'package:built_collection/built_collection.dart' as _i2;
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+import 'package:smithy/smithy.dart' as _i3;
+
+part 'aws_auth_hosted_ui_config.g.dart';
+
+abstract class AWSAuthHostedUiConfig
+    with _i1.AWSEquatable<AWSAuthHostedUiConfig>
+    implements Built<AWSAuthHostedUiConfig, AWSAuthHostedUiConfigBuilder> {
+  factory AWSAuthHostedUiConfig({
+    required String domainName,
+    required List<Uri> signInRedirectUris,
+    required List<Uri> signOutRedirectUris,
+    required List<String> scopes,
+    Uri? signInUri,
+    Uri? signOutUri,
+    Uri? tokenUri,
+  }) {
+    return _$AWSAuthHostedUiConfig._(
+      domainName: domainName,
+      signInRedirectUris: _i2.BuiltList(signInRedirectUris),
+      signOutRedirectUris: _i2.BuiltList(signOutRedirectUris),
+      scopes: _i2.BuiltList(scopes),
+      signInUri: signInUri,
+      signOutUri: signOutUri,
+      tokenUri: tokenUri,
+    );
+  }
+
+  factory AWSAuthHostedUiConfig.build(
+          [void Function(AWSAuthHostedUiConfigBuilder) updates]) =
+      _$AWSAuthHostedUiConfig;
+
+  const AWSAuthHostedUiConfig._();
+
+  static const List<_i3.SmithySerializer<AWSAuthHostedUiConfig>> serializers = [
+    AWSAuthHostedUiConfigSerializer()
+  ];
+
+  @BuiltValueHook(initializeBuilder: true)
+  static void _init(AWSAuthHostedUiConfigBuilder b) {}
+
+  /// The host component of a URI
+  String get domainName;
+  _i2.BuiltList<Uri> get signInRedirectUris;
+  _i2.BuiltList<Uri> get signOutRedirectUris;
+  _i2.BuiltList<String> get scopes;
+
+  /// A valid RFC 3986 URI
+  Uri? get signInUri;
+
+  /// A valid RFC 3986 URI
+  Uri? get signOutUri;
+
+  /// A valid RFC 3986 URI
+  Uri? get tokenUri;
+  @override
+  List<Object?> get props => [
+        domainName,
+        signInRedirectUris,
+        signOutRedirectUris,
+        scopes,
+        signInUri,
+        signOutUri,
+        tokenUri,
+      ];
+  @override
+  String toString() {
+    final helper = newBuiltValueToStringHelper('AWSAuthHostedUiConfig')
+      ..add(
+        'domainName',
+        domainName,
+      )
+      ..add(
+        'signInRedirectUris',
+        signInRedirectUris,
+      )
+      ..add(
+        'signOutRedirectUris',
+        signOutRedirectUris,
+      )
+      ..add(
+        'scopes',
+        scopes,
+      )
+      ..add(
+        'signInUri',
+        signInUri,
+      )
+      ..add(
+        'signOutUri',
+        signOutUri,
+      )
+      ..add(
+        'tokenUri',
+        tokenUri,
+      );
+    return helper.toString();
+  }
+}
+
+class AWSAuthHostedUiConfigSerializer
+    extends _i3.StructuredSmithySerializer<AWSAuthHostedUiConfig> {
+  const AWSAuthHostedUiConfigSerializer() : super('AWSAuthHostedUiConfig');
+
+  @override
+  Iterable<Type> get types => const [
+        AWSAuthHostedUiConfig,
+        _$AWSAuthHostedUiConfig,
+      ];
+  @override
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'smithy.dart',
+          shape: 'genericProtocol',
+        )
+      ];
+  @override
+  AWSAuthHostedUiConfig deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = AWSAuthHostedUiConfigBuilder();
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
+        case 'domainName':
+          result.domainName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'scopes':
+          result.scopes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
+        case 'signInRedirectUris':
+          result.signInRedirectUris.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(Uri)],
+            ),
+          ) as _i2.BuiltList<Uri>));
+        case 'signInUri':
+          result.signInUri = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(Uri),
+          ) as Uri);
+        case 'signOutRedirectUris':
+          result.signOutRedirectUris.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(Uri)],
+            ),
+          ) as _i2.BuiltList<Uri>));
+        case 'signOutUri':
+          result.signOutUri = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(Uri),
+          ) as Uri);
+        case 'tokenUri':
+          result.tokenUri = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(Uri),
+          ) as Uri);
+      }
+    }
+
+    return result.build();
+  }
+
+  @override
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    AWSAuthHostedUiConfig object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result$ = <Object?>[];
+    final AWSAuthHostedUiConfig(
+      :domainName,
+      :scopes,
+      :signInRedirectUris,
+      :signInUri,
+      :signOutRedirectUris,
+      :signOutUri,
+      :tokenUri
+    ) = object;
+    result$.addAll([
+      'domainName',
+      serializers.serialize(
+        domainName,
+        specifiedType: const FullType(String),
+      ),
+      'scopes',
+      serializers.serialize(
+        scopes,
+        specifiedType: const FullType(
+          _i2.BuiltList,
+          [FullType(String)],
+        ),
+      ),
+      'signInRedirectUris',
+      serializers.serialize(
+        signInRedirectUris,
+        specifiedType: const FullType(
+          _i2.BuiltList,
+          [FullType(Uri)],
+        ),
+      ),
+      'signOutRedirectUris',
+      serializers.serialize(
+        signOutRedirectUris,
+        specifiedType: const FullType(
+          _i2.BuiltList,
+          [FullType(Uri)],
+        ),
+      ),
+    ]);
+    if (signInUri != null) {
+      result$
+        ..add('signInUri')
+        ..add(serializers.serialize(
+          signInUri,
+          specifiedType: const FullType(Uri),
+        ));
+    }
+    if (signOutUri != null) {
+      result$
+        ..add('signOutUri')
+        ..add(serializers.serialize(
+          signOutUri,
+          specifiedType: const FullType(Uri),
+        ));
+    }
+    if (tokenUri != null) {
+      result$
+        ..add('tokenUri')
+        ..add(serializers.serialize(
+          tokenUri,
+          specifiedType: const FullType(Uri),
+        ));
+    }
+    return result$;
+  }
+}

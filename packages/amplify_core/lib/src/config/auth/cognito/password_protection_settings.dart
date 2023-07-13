@@ -43,6 +43,7 @@ class PasswordProtectionSettings
   Map<String, Object?> toJson() => _$PasswordProtectionSettingsToJson(this);
 }
 
+@JsonEnum(alwaysCreate: true)
 enum PasswordPolicyCharacters {
   @JsonValue('REQUIRES_LOWERCASE')
   requiresLowercase,
@@ -54,7 +55,12 @@ enum PasswordPolicyCharacters {
   requiresNumbers,
 
   @JsonValue('REQUIRES_SYMBOLS')
-  requiresSymbols
+  requiresSymbols;
+
+  static PasswordPolicyCharacters fromJson(String json) =>
+      _$PasswordPolicyCharactersEnumMap.entries
+          .firstWhere((el) => json == el.value || json == el.key.name)
+          .key;
 }
 
 class _PasswordPolicyMinLengthConverter

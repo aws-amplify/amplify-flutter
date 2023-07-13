@@ -52,6 +52,10 @@ enum Category {
   /// Push Notifications
   pushNotifications;
 
+  /// Parses a category from a string value.
+  static Category parse(String category) =>
+      values.firstWhere((el) => el.name == category.camelCase);
+
   String get name => switch (this) {
         Category.analytics => 'Analytics',
         Category.api => 'API',
