@@ -25,6 +25,8 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
   final String? expectedBucketOwner;
   @override
   final _i4.RequestPayer? requestPayer;
+  @override
+  final _i6.BuiltList<_i5.OptionalObjectAttributes>? optionalObjectAttributes;
 
   factory _$ListObjectVersionsRequest(
           [void Function(ListObjectVersionsRequestBuilder)? updates]) =>
@@ -39,7 +41,8 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
       this.prefix,
       this.versionIdMarker,
       this.expectedBucketOwner,
-      this.requestPayer})
+      this.requestPayer,
+      this.optionalObjectAttributes})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'ListObjectVersionsRequest', 'bucket');
@@ -66,7 +69,8 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
         prefix == other.prefix &&
         versionIdMarker == other.versionIdMarker &&
         expectedBucketOwner == other.expectedBucketOwner &&
-        requestPayer == other.requestPayer;
+        requestPayer == other.requestPayer &&
+        optionalObjectAttributes == other.optionalObjectAttributes;
   }
 
   @override
@@ -81,6 +85,7 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
     _$hash = $jc(_$hash, versionIdMarker.hashCode);
     _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, optionalObjectAttributes.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -131,6 +136,15 @@ class ListObjectVersionsRequestBuilder
   set requestPayer(_i4.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
+  _i6.ListBuilder<_i5.OptionalObjectAttributes>? _optionalObjectAttributes;
+  _i6.ListBuilder<_i5.OptionalObjectAttributes> get optionalObjectAttributes =>
+      _$this._optionalObjectAttributes ??=
+          new _i6.ListBuilder<_i5.OptionalObjectAttributes>();
+  set optionalObjectAttributes(
+          _i6.ListBuilder<_i5.OptionalObjectAttributes>?
+              optionalObjectAttributes) =>
+      _$this._optionalObjectAttributes = optionalObjectAttributes;
+
   ListObjectVersionsRequestBuilder() {
     ListObjectVersionsRequest._init(this);
   }
@@ -147,6 +161,7 @@ class ListObjectVersionsRequestBuilder
       _versionIdMarker = $v.versionIdMarker;
       _expectedBucketOwner = $v.expectedBucketOwner;
       _requestPayer = $v.requestPayer;
+      _optionalObjectAttributes = $v.optionalObjectAttributes?.toBuilder();
       _$v = null;
     }
     return this;
@@ -167,18 +182,32 @@ class ListObjectVersionsRequestBuilder
   ListObjectVersionsRequest build() => _build();
 
   _$ListObjectVersionsRequest _build() {
-    final _$result = _$v ??
-        new _$ListObjectVersionsRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'ListObjectVersionsRequest', 'bucket'),
-            delimiter: delimiter,
-            encodingType: encodingType,
-            keyMarker: keyMarker,
-            maxKeys: maxKeys,
-            prefix: prefix,
-            versionIdMarker: versionIdMarker,
-            expectedBucketOwner: expectedBucketOwner,
-            requestPayer: requestPayer);
+    _$ListObjectVersionsRequest _$result;
+    try {
+      _$result = _$v ??
+          new _$ListObjectVersionsRequest._(
+              bucket: BuiltValueNullFieldError.checkNotNull(
+                  bucket, r'ListObjectVersionsRequest', 'bucket'),
+              delimiter: delimiter,
+              encodingType: encodingType,
+              keyMarker: keyMarker,
+              maxKeys: maxKeys,
+              prefix: prefix,
+              versionIdMarker: versionIdMarker,
+              expectedBucketOwner: expectedBucketOwner,
+              requestPayer: requestPayer,
+              optionalObjectAttributes: _optionalObjectAttributes?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'optionalObjectAttributes';
+        _optionalObjectAttributes?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'ListObjectVersionsRequest', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

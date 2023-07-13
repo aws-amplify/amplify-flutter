@@ -85,6 +85,7 @@ export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_lock_legal_h
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_lock_mode.dart';
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_not_in_active_tier_error.dart';
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_storage_class.dart';
+export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/optional_object_attributes.dart';
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/output_serialization.dart';
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/owner.dart';
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/parquet_input.dart';
@@ -100,6 +101,7 @@ export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/replication_status.
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_charged.dart';
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_payer.dart';
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_progress.dart';
+export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/restore_status.dart';
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/scan_range.dart';
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/select_object_content_event_stream.dart';
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/select_object_content_output.dart';

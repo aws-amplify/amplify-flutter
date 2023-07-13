@@ -126,6 +126,15 @@ class ListObjectsOperation extends _i1.HttpOperation<
                 input.expectedBucketOwner!;
           }
         }
+        if (input.optionalObjectAttributes != null) {
+          if (input.optionalObjectAttributes!.isNotEmpty) {
+            b.headers['x-amz-optional-object-attributes'] = input
+                .optionalObjectAttributes!
+                .map((el) => el.value)
+                .map((el) => _i1.sanitizeHeader(el))
+                .join(', ');
+          }
+        }
         if (input.delimiter != null) {
           b.queryParameters.add(
             'delimiter',

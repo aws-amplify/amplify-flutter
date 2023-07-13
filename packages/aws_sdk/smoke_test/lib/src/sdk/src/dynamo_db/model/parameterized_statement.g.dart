@@ -10,13 +10,19 @@ class _$ParameterizedStatement extends ParameterizedStatement {
   @override
   final String statement;
   @override
-  final _i3.BuiltList<_i2.AttributeValue>? parameters;
+  final _i4.BuiltList<_i2.AttributeValue>? parameters;
+  @override
+  final _i3.ReturnValuesOnConditionCheckFailure?
+      returnValuesOnConditionCheckFailure;
 
   factory _$ParameterizedStatement(
           [void Function(ParameterizedStatementBuilder)? updates]) =>
       (new ParameterizedStatementBuilder()..update(updates))._build();
 
-  _$ParameterizedStatement._({required this.statement, this.parameters})
+  _$ParameterizedStatement._(
+      {required this.statement,
+      this.parameters,
+      this.returnValuesOnConditionCheckFailure})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         statement, r'ParameterizedStatement', 'statement');
@@ -36,7 +42,9 @@ class _$ParameterizedStatement extends ParameterizedStatement {
     if (identical(other, this)) return true;
     return other is ParameterizedStatement &&
         statement == other.statement &&
-        parameters == other.parameters;
+        parameters == other.parameters &&
+        returnValuesOnConditionCheckFailure ==
+            other.returnValuesOnConditionCheckFailure;
   }
 
   @override
@@ -44,6 +52,7 @@ class _$ParameterizedStatement extends ParameterizedStatement {
     var _$hash = 0;
     _$hash = $jc(_$hash, statement.hashCode);
     _$hash = $jc(_$hash, parameters.hashCode);
+    _$hash = $jc(_$hash, returnValuesOnConditionCheckFailure.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,11 +66,21 @@ class ParameterizedStatementBuilder
   String? get statement => _$this._statement;
   set statement(String? statement) => _$this._statement = statement;
 
-  _i3.ListBuilder<_i2.AttributeValue>? _parameters;
-  _i3.ListBuilder<_i2.AttributeValue> get parameters =>
-      _$this._parameters ??= new _i3.ListBuilder<_i2.AttributeValue>();
-  set parameters(_i3.ListBuilder<_i2.AttributeValue>? parameters) =>
+  _i4.ListBuilder<_i2.AttributeValue>? _parameters;
+  _i4.ListBuilder<_i2.AttributeValue> get parameters =>
+      _$this._parameters ??= new _i4.ListBuilder<_i2.AttributeValue>();
+  set parameters(_i4.ListBuilder<_i2.AttributeValue>? parameters) =>
       _$this._parameters = parameters;
+
+  _i3.ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
+  _i3.ReturnValuesOnConditionCheckFailure?
+      get returnValuesOnConditionCheckFailure =>
+          _$this._returnValuesOnConditionCheckFailure;
+  set returnValuesOnConditionCheckFailure(
+          _i3.ReturnValuesOnConditionCheckFailure?
+              returnValuesOnConditionCheckFailure) =>
+      _$this._returnValuesOnConditionCheckFailure =
+          returnValuesOnConditionCheckFailure;
 
   ParameterizedStatementBuilder() {
     ParameterizedStatement._init(this);
@@ -72,6 +91,8 @@ class ParameterizedStatementBuilder
     if ($v != null) {
       _statement = $v.statement;
       _parameters = $v.parameters?.toBuilder();
+      _returnValuesOnConditionCheckFailure =
+          $v.returnValuesOnConditionCheckFailure;
       _$v = null;
     }
     return this;
@@ -98,7 +119,9 @@ class ParameterizedStatementBuilder
           new _$ParameterizedStatement._(
               statement: BuiltValueNullFieldError.checkNotNull(
                   statement, r'ParameterizedStatement', 'statement'),
-              parameters: _parameters?.build());
+              parameters: _parameters?.build(),
+              returnValuesOnConditionCheckFailure:
+                  returnValuesOnConditionCheckFailure);
     } catch (_) {
       late String _$failedField;
       try {

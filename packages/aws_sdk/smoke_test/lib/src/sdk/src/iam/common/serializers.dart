@@ -3,17 +3,17 @@
 
 library smoke_test.iam.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:built_collection/built_collection.dart' as _i336;
+import 'package:built_collection/built_collection.dart' as _i338;
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/iam/model/access_advisor_usage_granularity_type.dart'
     as _i99;
-import 'package:smoke_test/src/sdk/src/iam/model/access_detail.dart' as _i139;
+import 'package:smoke_test/src/sdk/src/iam/model/access_detail.dart' as _i141;
 import 'package:smoke_test/src/sdk/src/iam/model/access_key.dart' as _i21;
 import 'package:smoke_test/src/sdk/src/iam/model/access_key_last_used.dart'
     as _i103;
 import 'package:smoke_test/src/sdk/src/iam/model/access_key_metadata.dart'
-    as _i180;
+    as _i182;
 import 'package:smoke_test/src/sdk/src/iam/model/add_client_id_to_open_id_connect_provider_request.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/iam/model/add_role_to_instance_profile_request.dart'
@@ -21,7 +21,7 @@ import 'package:smoke_test/src/sdk/src/iam/model/add_role_to_instance_profile_re
 import 'package:smoke_test/src/sdk/src/iam/model/add_user_to_group_request.dart'
     as _i10;
 import 'package:smoke_test/src/sdk/src/iam/model/assignment_status_type.dart'
-    as _i260;
+    as _i262;
 import 'package:smoke_test/src/sdk/src/iam/model/attach_group_policy_request.dart'
     as _i11;
 import 'package:smoke_test/src/sdk/src/iam/model/attach_role_policy_request.dart'
@@ -35,9 +35,9 @@ import 'package:smoke_test/src/sdk/src/iam/model/change_password_request.dart'
     as _i15;
 import 'package:smoke_test/src/sdk/src/iam/model/concurrent_modification_exception.dart'
     as _i24;
-import 'package:smoke_test/src/sdk/src/iam/model/context_entry.dart' as _i278;
+import 'package:smoke_test/src/sdk/src/iam/model/context_entry.dart' as _i280;
 import 'package:smoke_test/src/sdk/src/iam/model/context_key_type_enum.dart'
-    as _i277;
+    as _i279;
 import 'package:smoke_test/src/sdk/src/iam/model/create_access_key_request.dart'
     as _i19;
 import 'package:smoke_test/src/sdk/src/iam/model/create_access_key_response.dart'
@@ -149,9 +149,9 @@ import 'package:smoke_test/src/sdk/src/iam/model/delete_user_request.dart'
 import 'package:smoke_test/src/sdk/src/iam/model/delete_virtual_mfa_device_request.dart'
     as _i88;
 import 'package:smoke_test/src/sdk/src/iam/model/deletion_task_failure_reason_type.dart'
-    as _i173;
+    as _i175;
 import 'package:smoke_test/src/sdk/src/iam/model/deletion_task_status_type.dart'
-    as _i171;
+    as _i173;
 import 'package:smoke_test/src/sdk/src/iam/model/detach_group_policy_request.dart'
     as _i89;
 import 'package:smoke_test/src/sdk/src/iam/model/detach_role_policy_request.dart'
@@ -159,22 +159,22 @@ import 'package:smoke_test/src/sdk/src/iam/model/detach_role_policy_request.dart
 import 'package:smoke_test/src/sdk/src/iam/model/detach_user_policy_request.dart'
     as _i91;
 import 'package:smoke_test/src/sdk/src/iam/model/duplicate_certificate_exception.dart'
-    as _i334;
+    as _i336;
 import 'package:smoke_test/src/sdk/src/iam/model/duplicate_ssh_public_key_exception.dart'
-    as _i326;
+    as _i328;
 import 'package:smoke_test/src/sdk/src/iam/model/enable_mfa_device_request.dart'
     as _i92;
-import 'package:smoke_test/src/sdk/src/iam/model/encoding_type.dart' as _i152;
+import 'package:smoke_test/src/sdk/src/iam/model/encoding_type.dart' as _i154;
 import 'package:smoke_test/src/sdk/src/iam/model/entity_already_exists_exception.dart'
     as _i8;
-import 'package:smoke_test/src/sdk/src/iam/model/entity_details.dart' as _i168;
-import 'package:smoke_test/src/sdk/src/iam/model/entity_info.dart' as _i167;
+import 'package:smoke_test/src/sdk/src/iam/model/entity_details.dart' as _i170;
+import 'package:smoke_test/src/sdk/src/iam/model/entity_info.dart' as _i169;
 import 'package:smoke_test/src/sdk/src/iam/model/entity_temporarily_unmodifiable_exception.dart'
     as _i16;
 import 'package:smoke_test/src/sdk/src/iam/model/entity_type.dart' as _i105;
-import 'package:smoke_test/src/sdk/src/iam/model/error_details.dart' as _i140;
+import 'package:smoke_test/src/sdk/src/iam/model/error_details.dart' as _i142;
 import 'package:smoke_test/src/sdk/src/iam/model/evaluation_result.dart'
-    as _i287;
+    as _i289;
 import 'package:smoke_test/src/sdk/src/iam/model/generate_credential_report_response.dart'
     as _i95;
 import 'package:smoke_test/src/sdk/src/iam/model/generate_organizations_access_report_request.dart'
@@ -221,281 +221,285 @@ import 'package:smoke_test/src/sdk/src/iam/model/get_login_profile_request.dart'
     as _i132;
 import 'package:smoke_test/src/sdk/src/iam/model/get_login_profile_response.dart'
     as _i133;
-import 'package:smoke_test/src/sdk/src/iam/model/get_open_id_connect_provider_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/get_mfa_device_request.dart'
     as _i134;
-import 'package:smoke_test/src/sdk/src/iam/model/get_open_id_connect_provider_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/get_mfa_device_response.dart'
     as _i135;
-import 'package:smoke_test/src/sdk/src/iam/model/get_organizations_access_report_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/get_open_id_connect_provider_request.dart'
+    as _i136;
+import 'package:smoke_test/src/sdk/src/iam/model/get_open_id_connect_provider_response.dart'
     as _i137;
+import 'package:smoke_test/src/sdk/src/iam/model/get_organizations_access_report_request.dart'
+    as _i139;
 import 'package:smoke_test/src/sdk/src/iam/model/get_organizations_access_report_response.dart'
-    as _i141;
-import 'package:smoke_test/src/sdk/src/iam/model/get_policy_request.dart'
-    as _i142;
-import 'package:smoke_test/src/sdk/src/iam/model/get_policy_response.dart'
     as _i143;
-import 'package:smoke_test/src/sdk/src/iam/model/get_policy_version_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/get_policy_request.dart'
     as _i144;
-import 'package:smoke_test/src/sdk/src/iam/model/get_policy_version_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/get_policy_response.dart'
     as _i145;
-import 'package:smoke_test/src/sdk/src/iam/model/get_role_policy_request.dart'
-    as _i148;
-import 'package:smoke_test/src/sdk/src/iam/model/get_role_policy_response.dart'
-    as _i149;
-import 'package:smoke_test/src/sdk/src/iam/model/get_role_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/get_policy_version_request.dart'
     as _i146;
-import 'package:smoke_test/src/sdk/src/iam/model/get_role_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/get_policy_version_response.dart'
     as _i147;
-import 'package:smoke_test/src/sdk/src/iam/model/get_saml_provider_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/get_role_policy_request.dart'
     as _i150;
-import 'package:smoke_test/src/sdk/src/iam/model/get_saml_provider_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/get_role_policy_response.dart'
     as _i151;
-import 'package:smoke_test/src/sdk/src/iam/model/get_server_certificate_request.dart'
-    as _i157;
-import 'package:smoke_test/src/sdk/src/iam/model/get_server_certificate_response.dart'
-    as _i160;
-import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_request.dart'
-    as _i161;
-import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_response.dart'
-    as _i164;
-import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_with_entities_request.dart'
-    as _i165;
-import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_with_entities_response.dart'
-    as _i169;
-import 'package:smoke_test/src/sdk/src/iam/model/get_service_linked_role_deletion_status_request.dart'
-    as _i170;
-import 'package:smoke_test/src/sdk/src/iam/model/get_service_linked_role_deletion_status_response.dart'
-    as _i174;
-import 'package:smoke_test/src/sdk/src/iam/model/get_ssh_public_key_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/get_role_request.dart'
+    as _i148;
+import 'package:smoke_test/src/sdk/src/iam/model/get_role_response.dart'
+    as _i149;
+import 'package:smoke_test/src/sdk/src/iam/model/get_saml_provider_request.dart'
+    as _i152;
+import 'package:smoke_test/src/sdk/src/iam/model/get_saml_provider_response.dart'
     as _i153;
-import 'package:smoke_test/src/sdk/src/iam/model/get_ssh_public_key_response.dart'
-    as _i155;
-import 'package:smoke_test/src/sdk/src/iam/model/get_user_policy_request.dart'
-    as _i177;
-import 'package:smoke_test/src/sdk/src/iam/model/get_user_policy_response.dart'
-    as _i178;
-import 'package:smoke_test/src/sdk/src/iam/model/get_user_request.dart'
-    as _i175;
-import 'package:smoke_test/src/sdk/src/iam/model/get_user_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/get_server_certificate_request.dart'
+    as _i159;
+import 'package:smoke_test/src/sdk/src/iam/model/get_server_certificate_response.dart'
+    as _i162;
+import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_request.dart'
+    as _i163;
+import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_response.dart'
+    as _i166;
+import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_with_entities_request.dart'
+    as _i167;
+import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_with_entities_response.dart'
+    as _i171;
+import 'package:smoke_test/src/sdk/src/iam/model/get_service_linked_role_deletion_status_request.dart'
+    as _i172;
+import 'package:smoke_test/src/sdk/src/iam/model/get_service_linked_role_deletion_status_response.dart'
     as _i176;
+import 'package:smoke_test/src/sdk/src/iam/model/get_ssh_public_key_request.dart'
+    as _i155;
+import 'package:smoke_test/src/sdk/src/iam/model/get_ssh_public_key_response.dart'
+    as _i157;
+import 'package:smoke_test/src/sdk/src/iam/model/get_user_policy_request.dart'
+    as _i179;
+import 'package:smoke_test/src/sdk/src/iam/model/get_user_policy_response.dart'
+    as _i180;
+import 'package:smoke_test/src/sdk/src/iam/model/get_user_request.dart'
+    as _i177;
+import 'package:smoke_test/src/sdk/src/iam/model/get_user_response.dart'
+    as _i178;
 import 'package:smoke_test/src/sdk/src/iam/model/global_endpoint_token_version.dart'
-    as _i275;
+    as _i277;
 import 'package:smoke_test/src/sdk/src/iam/model/group.dart' as _i26;
 import 'package:smoke_test/src/sdk/src/iam/model/group_detail.dart' as _i110;
 import 'package:smoke_test/src/sdk/src/iam/model/instance_profile.dart' as _i34;
 import 'package:smoke_test/src/sdk/src/iam/model/invalid_authentication_code_exception.dart'
     as _i93;
 import 'package:smoke_test/src/sdk/src/iam/model/invalid_certificate_exception.dart'
-    as _i335;
+    as _i337;
 import 'package:smoke_test/src/sdk/src/iam/model/invalid_input_exception.dart'
     as _i3;
 import 'package:smoke_test/src/sdk/src/iam/model/invalid_public_key_exception.dart'
-    as _i327;
+    as _i329;
 import 'package:smoke_test/src/sdk/src/iam/model/invalid_user_type_exception.dart'
     as _i17;
-import 'package:smoke_test/src/sdk/src/iam/model/job_status_type.dart' as _i138;
+import 'package:smoke_test/src/sdk/src/iam/model/job_status_type.dart' as _i140;
 import 'package:smoke_test/src/sdk/src/iam/model/key_pair_mismatch_exception.dart'
-    as _i330;
+    as _i332;
 import 'package:smoke_test/src/sdk/src/iam/model/limit_exceeded_exception.dart'
     as _i4;
 import 'package:smoke_test/src/sdk/src/iam/model/list_access_keys_request.dart'
-    as _i179;
-import 'package:smoke_test/src/sdk/src/iam/model/list_access_keys_response.dart'
     as _i181;
-import 'package:smoke_test/src/sdk/src/iam/model/list_account_aliases_request.dart'
-    as _i182;
-import 'package:smoke_test/src/sdk/src/iam/model/list_account_aliases_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_access_keys_response.dart'
     as _i183;
-import 'package:smoke_test/src/sdk/src/iam/model/list_attached_group_policies_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_account_aliases_request.dart'
     as _i184;
-import 'package:smoke_test/src/sdk/src/iam/model/list_attached_group_policies_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_account_aliases_response.dart'
     as _i185;
-import 'package:smoke_test/src/sdk/src/iam/model/list_attached_role_policies_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_attached_group_policies_request.dart'
     as _i186;
-import 'package:smoke_test/src/sdk/src/iam/model/list_attached_role_policies_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_attached_group_policies_response.dart'
     as _i187;
-import 'package:smoke_test/src/sdk/src/iam/model/list_attached_user_policies_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_attached_role_policies_request.dart'
     as _i188;
-import 'package:smoke_test/src/sdk/src/iam/model/list_attached_user_policies_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_attached_role_policies_response.dart'
     as _i189;
-import 'package:smoke_test/src/sdk/src/iam/model/list_entities_for_policy_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_attached_user_policies_request.dart'
+    as _i190;
+import 'package:smoke_test/src/sdk/src/iam/model/list_attached_user_policies_response.dart'
     as _i191;
+import 'package:smoke_test/src/sdk/src/iam/model/list_entities_for_policy_request.dart'
+    as _i193;
 import 'package:smoke_test/src/sdk/src/iam/model/list_entities_for_policy_response.dart'
-    as _i195;
-import 'package:smoke_test/src/sdk/src/iam/model/list_group_policies_request.dart'
-    as _i196;
-import 'package:smoke_test/src/sdk/src/iam/model/list_group_policies_response.dart'
     as _i197;
-import 'package:smoke_test/src/sdk/src/iam/model/list_groups_for_user_request.dart'
-    as _i200;
-import 'package:smoke_test/src/sdk/src/iam/model/list_groups_for_user_response.dart'
-    as _i201;
-import 'package:smoke_test/src/sdk/src/iam/model/list_groups_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_group_policies_request.dart'
     as _i198;
-import 'package:smoke_test/src/sdk/src/iam/model/list_groups_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_group_policies_response.dart'
     as _i199;
-import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profile_tags_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_groups_for_user_request.dart'
     as _i202;
-import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profile_tags_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_groups_for_user_response.dart'
     as _i203;
-import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profiles_for_role_request.dart'
-    as _i206;
-import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profiles_for_role_response.dart'
-    as _i207;
-import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profiles_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_groups_request.dart'
+    as _i200;
+import 'package:smoke_test/src/sdk/src/iam/model/list_groups_response.dart'
+    as _i201;
+import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profile_tags_request.dart'
     as _i204;
-import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profiles_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profile_tags_response.dart'
     as _i205;
-import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_device_tags_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profiles_for_role_request.dart'
     as _i208;
-import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_device_tags_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profiles_for_role_response.dart'
     as _i209;
-import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_devices_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profiles_request.dart'
+    as _i206;
+import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profiles_response.dart'
+    as _i207;
+import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_device_tags_request.dart'
     as _i210;
-import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_devices_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_device_tags_response.dart'
+    as _i211;
+import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_devices_request.dart'
     as _i212;
-import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_provider_tags_request.dart'
-    as _i213;
-import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_provider_tags_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_devices_response.dart'
     as _i214;
-import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_providers_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_provider_tags_request.dart'
     as _i215;
-import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_providers_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_provider_tags_response.dart'
+    as _i216;
+import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_providers_request.dart'
     as _i217;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policies_granting_service_access_entry.dart'
-    as _i224;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policies_granting_service_access_request.dart'
-    as _i221;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policies_granting_service_access_response.dart'
-    as _i225;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policies_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_providers_response.dart'
     as _i219;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policies_response.dart'
-    as _i220;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policy_tags_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_policies_granting_service_access_entry.dart'
     as _i226;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policy_tags_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_policies_granting_service_access_request.dart'
+    as _i223;
+import 'package:smoke_test/src/sdk/src/iam/model/list_policies_granting_service_access_response.dart'
     as _i227;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policy_versions_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_policies_request.dart'
+    as _i221;
+import 'package:smoke_test/src/sdk/src/iam/model/list_policies_response.dart'
+    as _i222;
+import 'package:smoke_test/src/sdk/src/iam/model/list_policy_tags_request.dart'
     as _i228;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policy_versions_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_policy_tags_response.dart'
     as _i229;
-import 'package:smoke_test/src/sdk/src/iam/model/list_role_policies_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_policy_versions_request.dart'
     as _i230;
-import 'package:smoke_test/src/sdk/src/iam/model/list_role_policies_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_policy_versions_response.dart'
     as _i231;
-import 'package:smoke_test/src/sdk/src/iam/model/list_role_tags_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_role_policies_request.dart'
     as _i232;
-import 'package:smoke_test/src/sdk/src/iam/model/list_role_tags_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_role_policies_response.dart'
     as _i233;
-import 'package:smoke_test/src/sdk/src/iam/model/list_roles_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_role_tags_request.dart'
     as _i234;
-import 'package:smoke_test/src/sdk/src/iam/model/list_roles_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_role_tags_response.dart'
     as _i235;
-import 'package:smoke_test/src/sdk/src/iam/model/list_saml_provider_tags_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_roles_request.dart'
     as _i236;
-import 'package:smoke_test/src/sdk/src/iam/model/list_saml_provider_tags_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_roles_response.dart'
     as _i237;
-import 'package:smoke_test/src/sdk/src/iam/model/list_saml_providers_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_saml_provider_tags_request.dart'
     as _i238;
-import 'package:smoke_test/src/sdk/src/iam/model/list_saml_providers_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_saml_provider_tags_response.dart'
+    as _i239;
+import 'package:smoke_test/src/sdk/src/iam/model/list_saml_providers_request.dart'
     as _i240;
+import 'package:smoke_test/src/sdk/src/iam/model/list_saml_providers_response.dart'
+    as _i242;
 import 'package:smoke_test/src/sdk/src/iam/model/list_server_certificate_tags_request.dart'
-    as _i244;
-import 'package:smoke_test/src/sdk/src/iam/model/list_server_certificate_tags_response.dart'
-    as _i245;
-import 'package:smoke_test/src/sdk/src/iam/model/list_server_certificates_request.dart'
     as _i246;
-import 'package:smoke_test/src/sdk/src/iam/model/list_server_certificates_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_server_certificate_tags_response.dart'
     as _i247;
-import 'package:smoke_test/src/sdk/src/iam/model/list_service_specific_credentials_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_server_certificates_request.dart'
     as _i248;
-import 'package:smoke_test/src/sdk/src/iam/model/list_service_specific_credentials_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_server_certificates_response.dart'
+    as _i249;
+import 'package:smoke_test/src/sdk/src/iam/model/list_service_specific_credentials_request.dart'
     as _i250;
+import 'package:smoke_test/src/sdk/src/iam/model/list_service_specific_credentials_response.dart'
+    as _i252;
 import 'package:smoke_test/src/sdk/src/iam/model/list_signing_certificates_request.dart'
-    as _i251;
-import 'package:smoke_test/src/sdk/src/iam/model/list_signing_certificates_response.dart'
     as _i253;
-import 'package:smoke_test/src/sdk/src/iam/model/list_ssh_public_keys_request.dart'
-    as _i241;
-import 'package:smoke_test/src/sdk/src/iam/model/list_ssh_public_keys_response.dart'
-    as _i243;
-import 'package:smoke_test/src/sdk/src/iam/model/list_user_policies_request.dart'
-    as _i254;
-import 'package:smoke_test/src/sdk/src/iam/model/list_user_policies_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_signing_certificates_response.dart'
     as _i255;
-import 'package:smoke_test/src/sdk/src/iam/model/list_user_tags_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_ssh_public_keys_request.dart'
+    as _i243;
+import 'package:smoke_test/src/sdk/src/iam/model/list_ssh_public_keys_response.dart'
+    as _i245;
+import 'package:smoke_test/src/sdk/src/iam/model/list_user_policies_request.dart'
     as _i256;
-import 'package:smoke_test/src/sdk/src/iam/model/list_user_tags_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_user_policies_response.dart'
     as _i257;
-import 'package:smoke_test/src/sdk/src/iam/model/list_users_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_user_tags_request.dart'
     as _i258;
-import 'package:smoke_test/src/sdk/src/iam/model/list_users_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_user_tags_response.dart'
     as _i259;
-import 'package:smoke_test/src/sdk/src/iam/model/list_virtual_mfa_devices_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/list_users_request.dart'
+    as _i260;
+import 'package:smoke_test/src/sdk/src/iam/model/list_users_response.dart'
     as _i261;
+import 'package:smoke_test/src/sdk/src/iam/model/list_virtual_mfa_devices_request.dart'
+    as _i263;
 import 'package:smoke_test/src/sdk/src/iam/model/list_virtual_mfa_devices_response.dart'
-    as _i262;
+    as _i264;
 import 'package:smoke_test/src/sdk/src/iam/model/login_profile.dart' as _i37;
 import 'package:smoke_test/src/sdk/src/iam/model/malformed_certificate_exception.dart'
-    as _i331;
+    as _i333;
 import 'package:smoke_test/src/sdk/src/iam/model/malformed_policy_document_exception.dart'
     as _i44;
 import 'package:smoke_test/src/sdk/src/iam/model/managed_policy_detail.dart'
     as _i112;
-import 'package:smoke_test/src/sdk/src/iam/model/mfa_device.dart' as _i211;
+import 'package:smoke_test/src/sdk/src/iam/model/mfa_device.dart' as _i213;
 import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
     as _i5;
 import 'package:smoke_test/src/sdk/src/iam/model/open_id_connect_provider_list_entry.dart'
-    as _i216;
+    as _i218;
 import 'package:smoke_test/src/sdk/src/iam/model/organizations_decision_detail.dart'
-    as _i284;
+    as _i286;
 import 'package:smoke_test/src/sdk/src/iam/model/password_policy.dart' as _i114;
 import 'package:smoke_test/src/sdk/src/iam/model/password_policy_violation_exception.dart'
     as _i18;
 import 'package:smoke_test/src/sdk/src/iam/model/permissions_boundary_attachment_type.dart'
     as _i30;
 import 'package:smoke_test/src/sdk/src/iam/model/permissions_boundary_decision_detail.dart'
-    as _i285;
+    as _i287;
 import 'package:smoke_test/src/sdk/src/iam/model/policy.dart' as _i42;
 import 'package:smoke_test/src/sdk/src/iam/model/policy_detail.dart' as _i107;
 import 'package:smoke_test/src/sdk/src/iam/model/policy_evaluation_decision_type.dart'
-    as _i280;
+    as _i282;
 import 'package:smoke_test/src/sdk/src/iam/model/policy_evaluation_exception.dart'
-    as _i289;
+    as _i291;
 import 'package:smoke_test/src/sdk/src/iam/model/policy_granting_service_access.dart'
-    as _i223;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_group.dart' as _i192;
+    as _i225;
+import 'package:smoke_test/src/sdk/src/iam/model/policy_group.dart' as _i194;
 import 'package:smoke_test/src/sdk/src/iam/model/policy_not_attachable_exception.dart'
     as _i12;
 import 'package:smoke_test/src/sdk/src/iam/model/policy_owner_entity_type.dart'
-    as _i166;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_role.dart' as _i194;
+    as _i168;
+import 'package:smoke_test/src/sdk/src/iam/model/policy_role.dart' as _i196;
 import 'package:smoke_test/src/sdk/src/iam/model/policy_scope_type.dart'
-    as _i218;
+    as _i220;
 import 'package:smoke_test/src/sdk/src/iam/model/policy_source_type.dart'
-    as _i281;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_type.dart' as _i222;
+    as _i283;
+import 'package:smoke_test/src/sdk/src/iam/model/policy_type.dart' as _i224;
 import 'package:smoke_test/src/sdk/src/iam/model/policy_usage_type.dart'
-    as _i190;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_user.dart' as _i193;
+    as _i192;
+import 'package:smoke_test/src/sdk/src/iam/model/policy_user.dart' as _i195;
 import 'package:smoke_test/src/sdk/src/iam/model/policy_version.dart' as _i46;
-import 'package:smoke_test/src/sdk/src/iam/model/position.dart' as _i282;
+import 'package:smoke_test/src/sdk/src/iam/model/position.dart' as _i284;
 import 'package:smoke_test/src/sdk/src/iam/model/put_group_policy_request.dart'
-    as _i263;
-import 'package:smoke_test/src/sdk/src/iam/model/put_role_permissions_boundary_request.dart'
-    as _i264;
-import 'package:smoke_test/src/sdk/src/iam/model/put_role_policy_request.dart'
     as _i265;
-import 'package:smoke_test/src/sdk/src/iam/model/put_user_permissions_boundary_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/put_role_permissions_boundary_request.dart'
     as _i266;
-import 'package:smoke_test/src/sdk/src/iam/model/put_user_policy_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/put_role_policy_request.dart'
     as _i267;
-import 'package:smoke_test/src/sdk/src/iam/model/remove_client_id_from_open_id_connect_provider_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/put_user_permissions_boundary_request.dart'
     as _i268;
-import 'package:smoke_test/src/sdk/src/iam/model/remove_role_from_instance_profile_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/put_user_policy_request.dart'
     as _i269;
-import 'package:smoke_test/src/sdk/src/iam/model/remove_user_from_group_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/remove_client_id_from_open_id_connect_provider_request.dart'
     as _i270;
+import 'package:smoke_test/src/sdk/src/iam/model/remove_role_from_instance_profile_request.dart'
+    as _i271;
+import 'package:smoke_test/src/sdk/src/iam/model/remove_user_from_group_request.dart'
+    as _i272;
 import 'package:smoke_test/src/sdk/src/iam/model/report_format_type.dart'
     as _i121;
 import 'package:smoke_test/src/sdk/src/iam/model/report_generation_limit_exceeded_exception.dart'
@@ -503,138 +507,138 @@ import 'package:smoke_test/src/sdk/src/iam/model/report_generation_limit_exceede
 import 'package:smoke_test/src/sdk/src/iam/model/report_state_type.dart'
     as _i94;
 import 'package:smoke_test/src/sdk/src/iam/model/reset_service_specific_credential_request.dart'
-    as _i271;
-import 'package:smoke_test/src/sdk/src/iam/model/reset_service_specific_credential_response.dart'
-    as _i272;
-import 'package:smoke_test/src/sdk/src/iam/model/resource_specific_result.dart'
-    as _i286;
-import 'package:smoke_test/src/sdk/src/iam/model/resync_mfa_device_request.dart'
     as _i273;
+import 'package:smoke_test/src/sdk/src/iam/model/reset_service_specific_credential_response.dart'
+    as _i274;
+import 'package:smoke_test/src/sdk/src/iam/model/resource_specific_result.dart'
+    as _i288;
+import 'package:smoke_test/src/sdk/src/iam/model/resync_mfa_device_request.dart'
+    as _i275;
 import 'package:smoke_test/src/sdk/src/iam/model/role.dart' as _i33;
 import 'package:smoke_test/src/sdk/src/iam/model/role_detail.dart' as _i111;
 import 'package:smoke_test/src/sdk/src/iam/model/role_last_used.dart' as _i32;
-import 'package:smoke_test/src/sdk/src/iam/model/role_usage_type.dart' as _i172;
+import 'package:smoke_test/src/sdk/src/iam/model/role_usage_type.dart' as _i174;
 import 'package:smoke_test/src/sdk/src/iam/model/saml_provider_list_entry.dart'
-    as _i239;
+    as _i241;
 import 'package:smoke_test/src/sdk/src/iam/model/server_certificate.dart'
-    as _i159;
+    as _i161;
 import 'package:smoke_test/src/sdk/src/iam/model/server_certificate_metadata.dart'
-    as _i158;
+    as _i160;
 import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
     as _i6;
 import 'package:smoke_test/src/sdk/src/iam/model/service_last_accessed.dart'
-    as _i163;
+    as _i165;
 import 'package:smoke_test/src/sdk/src/iam/model/service_not_supported_exception.dart'
     as _i57;
 import 'package:smoke_test/src/sdk/src/iam/model/service_specific_credential.dart'
     as _i55;
 import 'package:smoke_test/src/sdk/src/iam/model/service_specific_credential_metadata.dart'
-    as _i249;
+    as _i251;
 import 'package:smoke_test/src/sdk/src/iam/model/set_default_policy_version_request.dart'
-    as _i274;
-import 'package:smoke_test/src/sdk/src/iam/model/set_security_token_service_preferences_request.dart'
     as _i276;
+import 'package:smoke_test/src/sdk/src/iam/model/set_security_token_service_preferences_request.dart'
+    as _i278;
 import 'package:smoke_test/src/sdk/src/iam/model/signing_certificate.dart'
-    as _i252;
+    as _i254;
 import 'package:smoke_test/src/sdk/src/iam/model/simulate_custom_policy_request.dart'
-    as _i279;
+    as _i281;
 import 'package:smoke_test/src/sdk/src/iam/model/simulate_policy_response.dart'
-    as _i288;
-import 'package:smoke_test/src/sdk/src/iam/model/simulate_principal_policy_request.dart'
     as _i290;
-import 'package:smoke_test/src/sdk/src/iam/model/sort_key_type.dart' as _i136;
-import 'package:smoke_test/src/sdk/src/iam/model/ssh_public_key.dart' as _i154;
+import 'package:smoke_test/src/sdk/src/iam/model/simulate_principal_policy_request.dart'
+    as _i292;
+import 'package:smoke_test/src/sdk/src/iam/model/sort_key_type.dart' as _i138;
+import 'package:smoke_test/src/sdk/src/iam/model/ssh_public_key.dart' as _i156;
 import 'package:smoke_test/src/sdk/src/iam/model/ssh_public_key_metadata.dart'
-    as _i242;
-import 'package:smoke_test/src/sdk/src/iam/model/statement.dart' as _i283;
+    as _i244;
+import 'package:smoke_test/src/sdk/src/iam/model/statement.dart' as _i285;
 import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart' as _i20;
 import 'package:smoke_test/src/sdk/src/iam/model/summary_key_type.dart'
     as _i116;
 import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i28;
 import 'package:smoke_test/src/sdk/src/iam/model/tag_instance_profile_request.dart'
-    as _i291;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_mfa_device_request.dart'
-    as _i292;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_open_id_connect_provider_request.dart'
     as _i293;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_policy_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/tag_mfa_device_request.dart'
     as _i294;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_role_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/tag_open_id_connect_provider_request.dart'
     as _i295;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_saml_provider_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/tag_policy_request.dart'
     as _i296;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_server_certificate_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/tag_role_request.dart'
     as _i297;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_user_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/tag_saml_provider_request.dart'
     as _i298;
+import 'package:smoke_test/src/sdk/src/iam/model/tag_server_certificate_request.dart'
+    as _i299;
+import 'package:smoke_test/src/sdk/src/iam/model/tag_user_request.dart'
+    as _i300;
 import 'package:smoke_test/src/sdk/src/iam/model/tracked_action_last_accessed.dart'
-    as _i162;
+    as _i164;
 import 'package:smoke_test/src/sdk/src/iam/model/unmodifiable_entity_exception.dart'
     as _i9;
 import 'package:smoke_test/src/sdk/src/iam/model/unrecognized_public_key_encoding_exception.dart'
-    as _i156;
+    as _i158;
 import 'package:smoke_test/src/sdk/src/iam/model/untag_instance_profile_request.dart'
-    as _i299;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_mfa_device_request.dart'
-    as _i300;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_open_id_connect_provider_request.dart'
     as _i301;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_policy_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/untag_mfa_device_request.dart'
     as _i302;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_role_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/untag_open_id_connect_provider_request.dart'
     as _i303;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_saml_provider_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/untag_policy_request.dart'
     as _i304;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_server_certificate_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/untag_role_request.dart'
     as _i305;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_user_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/untag_saml_provider_request.dart'
     as _i306;
-import 'package:smoke_test/src/sdk/src/iam/model/update_access_key_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/untag_server_certificate_request.dart'
     as _i307;
-import 'package:smoke_test/src/sdk/src/iam/model/update_account_password_policy_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/untag_user_request.dart'
     as _i308;
-import 'package:smoke_test/src/sdk/src/iam/model/update_assume_role_policy_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/update_access_key_request.dart'
     as _i309;
-import 'package:smoke_test/src/sdk/src/iam/model/update_group_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/update_account_password_policy_request.dart'
     as _i310;
-import 'package:smoke_test/src/sdk/src/iam/model/update_login_profile_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/update_assume_role_policy_request.dart'
     as _i311;
-import 'package:smoke_test/src/sdk/src/iam/model/update_open_id_connect_provider_thumbprint_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/update_group_request.dart'
     as _i312;
-import 'package:smoke_test/src/sdk/src/iam/model/update_role_description_request.dart'
-    as _i315;
-import 'package:smoke_test/src/sdk/src/iam/model/update_role_description_response.dart'
-    as _i316;
-import 'package:smoke_test/src/sdk/src/iam/model/update_role_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/update_login_profile_request.dart'
     as _i313;
-import 'package:smoke_test/src/sdk/src/iam/model/update_role_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/update_open_id_connect_provider_thumbprint_request.dart'
     as _i314;
-import 'package:smoke_test/src/sdk/src/iam/model/update_saml_provider_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/update_role_description_request.dart'
     as _i317;
-import 'package:smoke_test/src/sdk/src/iam/model/update_saml_provider_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/update_role_description_response.dart'
     as _i318;
-import 'package:smoke_test/src/sdk/src/iam/model/update_server_certificate_request.dart'
-    as _i320;
-import 'package:smoke_test/src/sdk/src/iam/model/update_service_specific_credential_request.dart'
-    as _i321;
-import 'package:smoke_test/src/sdk/src/iam/model/update_signing_certificate_request.dart'
-    as _i322;
-import 'package:smoke_test/src/sdk/src/iam/model/update_ssh_public_key_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/update_role_request.dart'
+    as _i315;
+import 'package:smoke_test/src/sdk/src/iam/model/update_role_response.dart'
+    as _i316;
+import 'package:smoke_test/src/sdk/src/iam/model/update_saml_provider_request.dart'
     as _i319;
-import 'package:smoke_test/src/sdk/src/iam/model/update_user_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/update_saml_provider_response.dart'
+    as _i320;
+import 'package:smoke_test/src/sdk/src/iam/model/update_server_certificate_request.dart'
+    as _i322;
+import 'package:smoke_test/src/sdk/src/iam/model/update_service_specific_credential_request.dart'
     as _i323;
-import 'package:smoke_test/src/sdk/src/iam/model/upload_server_certificate_request.dart'
-    as _i328;
-import 'package:smoke_test/src/sdk/src/iam/model/upload_server_certificate_response.dart'
-    as _i329;
-import 'package:smoke_test/src/sdk/src/iam/model/upload_signing_certificate_request.dart'
-    as _i332;
-import 'package:smoke_test/src/sdk/src/iam/model/upload_signing_certificate_response.dart'
-    as _i333;
-import 'package:smoke_test/src/sdk/src/iam/model/upload_ssh_public_key_request.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/update_signing_certificate_request.dart'
     as _i324;
-import 'package:smoke_test/src/sdk/src/iam/model/upload_ssh_public_key_response.dart'
+import 'package:smoke_test/src/sdk/src/iam/model/update_ssh_public_key_request.dart'
+    as _i321;
+import 'package:smoke_test/src/sdk/src/iam/model/update_user_request.dart'
     as _i325;
+import 'package:smoke_test/src/sdk/src/iam/model/upload_server_certificate_request.dart'
+    as _i330;
+import 'package:smoke_test/src/sdk/src/iam/model/upload_server_certificate_response.dart'
+    as _i331;
+import 'package:smoke_test/src/sdk/src/iam/model/upload_signing_certificate_request.dart'
+    as _i334;
+import 'package:smoke_test/src/sdk/src/iam/model/upload_signing_certificate_response.dart'
+    as _i335;
+import 'package:smoke_test/src/sdk/src/iam/model/upload_ssh_public_key_request.dart'
+    as _i326;
+import 'package:smoke_test/src/sdk/src/iam/model/upload_ssh_public_key_response.dart'
+    as _i327;
 import 'package:smoke_test/src/sdk/src/iam/model/user.dart' as _i59;
 import 'package:smoke_test/src/sdk/src/iam/model/user_detail.dart' as _i109;
 import 'package:smoke_test/src/sdk/src/iam/model/virtual_mfa_device.dart'
@@ -773,374 +777,383 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i131.GetInstanceProfileResponse.serializers,
   ..._i132.GetLoginProfileRequest.serializers,
   ..._i133.GetLoginProfileResponse.serializers,
-  ..._i134.GetOpenIdConnectProviderRequest.serializers,
-  ..._i135.GetOpenIdConnectProviderResponse.serializers,
-  ..._i136.SortKeyType.serializers,
-  ..._i137.GetOrganizationsAccessReportRequest.serializers,
-  ..._i138.JobStatusType.serializers,
-  ..._i139.AccessDetail.serializers,
-  ..._i140.ErrorDetails.serializers,
-  ..._i141.GetOrganizationsAccessReportResponse.serializers,
-  ..._i142.GetPolicyRequest.serializers,
-  ..._i143.GetPolicyResponse.serializers,
-  ..._i144.GetPolicyVersionRequest.serializers,
-  ..._i145.GetPolicyVersionResponse.serializers,
-  ..._i146.GetRoleRequest.serializers,
-  ..._i147.GetRoleResponse.serializers,
-  ..._i148.GetRolePolicyRequest.serializers,
-  ..._i149.GetRolePolicyResponse.serializers,
-  ..._i150.GetSamlProviderRequest.serializers,
-  ..._i151.GetSamlProviderResponse.serializers,
-  ..._i152.EncodingType.serializers,
-  ..._i153.GetSshPublicKeyRequest.serializers,
-  ..._i154.SshPublicKey.serializers,
-  ..._i155.GetSshPublicKeyResponse.serializers,
-  ..._i156.UnrecognizedPublicKeyEncodingException.serializers,
-  ..._i157.GetServerCertificateRequest.serializers,
-  ..._i158.ServerCertificateMetadata.serializers,
-  ..._i159.ServerCertificate.serializers,
-  ..._i160.GetServerCertificateResponse.serializers,
-  ..._i161.GetServiceLastAccessedDetailsRequest.serializers,
-  ..._i162.TrackedActionLastAccessed.serializers,
-  ..._i163.ServiceLastAccessed.serializers,
-  ..._i164.GetServiceLastAccessedDetailsResponse.serializers,
-  ..._i165.GetServiceLastAccessedDetailsWithEntitiesRequest.serializers,
-  ..._i166.PolicyOwnerEntityType.serializers,
-  ..._i167.EntityInfo.serializers,
-  ..._i168.EntityDetails.serializers,
-  ..._i169.GetServiceLastAccessedDetailsWithEntitiesResponse.serializers,
-  ..._i170.GetServiceLinkedRoleDeletionStatusRequest.serializers,
-  ..._i171.DeletionTaskStatusType.serializers,
-  ..._i172.RoleUsageType.serializers,
-  ..._i173.DeletionTaskFailureReasonType.serializers,
-  ..._i174.GetServiceLinkedRoleDeletionStatusResponse.serializers,
-  ..._i175.GetUserRequest.serializers,
-  ..._i176.GetUserResponse.serializers,
-  ..._i177.GetUserPolicyRequest.serializers,
-  ..._i178.GetUserPolicyResponse.serializers,
-  ..._i179.ListAccessKeysRequest.serializers,
-  ..._i180.AccessKeyMetadata.serializers,
-  ..._i181.ListAccessKeysResponse.serializers,
-  ..._i182.ListAccountAliasesRequest.serializers,
-  ..._i183.ListAccountAliasesResponse.serializers,
-  ..._i184.ListAttachedGroupPoliciesRequest.serializers,
-  ..._i185.ListAttachedGroupPoliciesResponse.serializers,
-  ..._i186.ListAttachedRolePoliciesRequest.serializers,
-  ..._i187.ListAttachedRolePoliciesResponse.serializers,
-  ..._i188.ListAttachedUserPoliciesRequest.serializers,
-  ..._i189.ListAttachedUserPoliciesResponse.serializers,
-  ..._i190.PolicyUsageType.serializers,
-  ..._i191.ListEntitiesForPolicyRequest.serializers,
-  ..._i192.PolicyGroup.serializers,
-  ..._i193.PolicyUser.serializers,
-  ..._i194.PolicyRole.serializers,
-  ..._i195.ListEntitiesForPolicyResponse.serializers,
-  ..._i196.ListGroupPoliciesRequest.serializers,
-  ..._i197.ListGroupPoliciesResponse.serializers,
-  ..._i198.ListGroupsRequest.serializers,
-  ..._i199.ListGroupsResponse.serializers,
-  ..._i200.ListGroupsForUserRequest.serializers,
-  ..._i201.ListGroupsForUserResponse.serializers,
-  ..._i202.ListInstanceProfileTagsRequest.serializers,
-  ..._i203.ListInstanceProfileTagsResponse.serializers,
-  ..._i204.ListInstanceProfilesRequest.serializers,
-  ..._i205.ListInstanceProfilesResponse.serializers,
-  ..._i206.ListInstanceProfilesForRoleRequest.serializers,
-  ..._i207.ListInstanceProfilesForRoleResponse.serializers,
-  ..._i208.ListMfaDeviceTagsRequest.serializers,
-  ..._i209.ListMfaDeviceTagsResponse.serializers,
-  ..._i210.ListMfaDevicesRequest.serializers,
-  ..._i211.MfaDevice.serializers,
-  ..._i212.ListMfaDevicesResponse.serializers,
-  ..._i213.ListOpenIdConnectProviderTagsRequest.serializers,
-  ..._i214.ListOpenIdConnectProviderTagsResponse.serializers,
-  ..._i215.ListOpenIdConnectProvidersRequest.serializers,
-  ..._i216.OpenIdConnectProviderListEntry.serializers,
-  ..._i217.ListOpenIdConnectProvidersResponse.serializers,
-  ..._i218.PolicyScopeType.serializers,
-  ..._i219.ListPoliciesRequest.serializers,
-  ..._i220.ListPoliciesResponse.serializers,
-  ..._i221.ListPoliciesGrantingServiceAccessRequest.serializers,
-  ..._i222.PolicyType.serializers,
-  ..._i223.PolicyGrantingServiceAccess.serializers,
-  ..._i224.ListPoliciesGrantingServiceAccessEntry.serializers,
-  ..._i225.ListPoliciesGrantingServiceAccessResponse.serializers,
-  ..._i226.ListPolicyTagsRequest.serializers,
-  ..._i227.ListPolicyTagsResponse.serializers,
-  ..._i228.ListPolicyVersionsRequest.serializers,
-  ..._i229.ListPolicyVersionsResponse.serializers,
-  ..._i230.ListRolePoliciesRequest.serializers,
-  ..._i231.ListRolePoliciesResponse.serializers,
-  ..._i232.ListRoleTagsRequest.serializers,
-  ..._i233.ListRoleTagsResponse.serializers,
-  ..._i234.ListRolesRequest.serializers,
-  ..._i235.ListRolesResponse.serializers,
-  ..._i236.ListSamlProviderTagsRequest.serializers,
-  ..._i237.ListSamlProviderTagsResponse.serializers,
-  ..._i238.ListSamlProvidersRequest.serializers,
-  ..._i239.SamlProviderListEntry.serializers,
-  ..._i240.ListSamlProvidersResponse.serializers,
-  ..._i241.ListSshPublicKeysRequest.serializers,
-  ..._i242.SshPublicKeyMetadata.serializers,
-  ..._i243.ListSshPublicKeysResponse.serializers,
-  ..._i244.ListServerCertificateTagsRequest.serializers,
-  ..._i245.ListServerCertificateTagsResponse.serializers,
-  ..._i246.ListServerCertificatesRequest.serializers,
-  ..._i247.ListServerCertificatesResponse.serializers,
-  ..._i248.ListServiceSpecificCredentialsRequest.serializers,
-  ..._i249.ServiceSpecificCredentialMetadata.serializers,
-  ..._i250.ListServiceSpecificCredentialsResponse.serializers,
-  ..._i251.ListSigningCertificatesRequest.serializers,
-  ..._i252.SigningCertificate.serializers,
-  ..._i253.ListSigningCertificatesResponse.serializers,
-  ..._i254.ListUserPoliciesRequest.serializers,
-  ..._i255.ListUserPoliciesResponse.serializers,
-  ..._i256.ListUserTagsRequest.serializers,
-  ..._i257.ListUserTagsResponse.serializers,
-  ..._i258.ListUsersRequest.serializers,
-  ..._i259.ListUsersResponse.serializers,
-  ..._i260.AssignmentStatusType.serializers,
-  ..._i261.ListVirtualMfaDevicesRequest.serializers,
-  ..._i262.ListVirtualMfaDevicesResponse.serializers,
-  ..._i263.PutGroupPolicyRequest.serializers,
-  ..._i264.PutRolePermissionsBoundaryRequest.serializers,
-  ..._i265.PutRolePolicyRequest.serializers,
-  ..._i266.PutUserPermissionsBoundaryRequest.serializers,
-  ..._i267.PutUserPolicyRequest.serializers,
-  ..._i268.RemoveClientIdFromOpenIdConnectProviderRequest.serializers,
-  ..._i269.RemoveRoleFromInstanceProfileRequest.serializers,
-  ..._i270.RemoveUserFromGroupRequest.serializers,
-  ..._i271.ResetServiceSpecificCredentialRequest.serializers,
-  ..._i272.ResetServiceSpecificCredentialResponse.serializers,
-  ..._i273.ResyncMfaDeviceRequest.serializers,
-  ..._i274.SetDefaultPolicyVersionRequest.serializers,
-  ..._i275.GlobalEndpointTokenVersion.serializers,
-  ..._i276.SetSecurityTokenServicePreferencesRequest.serializers,
-  ..._i277.ContextKeyTypeEnum.serializers,
-  ..._i278.ContextEntry.serializers,
-  ..._i279.SimulateCustomPolicyRequest.serializers,
-  ..._i280.PolicyEvaluationDecisionType.serializers,
-  ..._i281.PolicySourceType.serializers,
-  ..._i282.Position.serializers,
-  ..._i283.Statement.serializers,
-  ..._i284.OrganizationsDecisionDetail.serializers,
-  ..._i285.PermissionsBoundaryDecisionDetail.serializers,
-  ..._i286.ResourceSpecificResult.serializers,
-  ..._i287.EvaluationResult.serializers,
-  ..._i288.SimulatePolicyResponse.serializers,
-  ..._i289.PolicyEvaluationException.serializers,
-  ..._i290.SimulatePrincipalPolicyRequest.serializers,
-  ..._i291.TagInstanceProfileRequest.serializers,
-  ..._i292.TagMfaDeviceRequest.serializers,
-  ..._i293.TagOpenIdConnectProviderRequest.serializers,
-  ..._i294.TagPolicyRequest.serializers,
-  ..._i295.TagRoleRequest.serializers,
-  ..._i296.TagSamlProviderRequest.serializers,
-  ..._i297.TagServerCertificateRequest.serializers,
-  ..._i298.TagUserRequest.serializers,
-  ..._i299.UntagInstanceProfileRequest.serializers,
-  ..._i300.UntagMfaDeviceRequest.serializers,
-  ..._i301.UntagOpenIdConnectProviderRequest.serializers,
-  ..._i302.UntagPolicyRequest.serializers,
-  ..._i303.UntagRoleRequest.serializers,
-  ..._i304.UntagSamlProviderRequest.serializers,
-  ..._i305.UntagServerCertificateRequest.serializers,
-  ..._i306.UntagUserRequest.serializers,
-  ..._i307.UpdateAccessKeyRequest.serializers,
-  ..._i308.UpdateAccountPasswordPolicyRequest.serializers,
-  ..._i309.UpdateAssumeRolePolicyRequest.serializers,
-  ..._i310.UpdateGroupRequest.serializers,
-  ..._i311.UpdateLoginProfileRequest.serializers,
-  ..._i312.UpdateOpenIdConnectProviderThumbprintRequest.serializers,
-  ..._i313.UpdateRoleRequest.serializers,
-  ..._i314.UpdateRoleResponse.serializers,
-  ..._i315.UpdateRoleDescriptionRequest.serializers,
-  ..._i316.UpdateRoleDescriptionResponse.serializers,
-  ..._i317.UpdateSamlProviderRequest.serializers,
-  ..._i318.UpdateSamlProviderResponse.serializers,
-  ..._i319.UpdateSshPublicKeyRequest.serializers,
-  ..._i320.UpdateServerCertificateRequest.serializers,
-  ..._i321.UpdateServiceSpecificCredentialRequest.serializers,
-  ..._i322.UpdateSigningCertificateRequest.serializers,
-  ..._i323.UpdateUserRequest.serializers,
-  ..._i324.UploadSshPublicKeyRequest.serializers,
-  ..._i325.UploadSshPublicKeyResponse.serializers,
-  ..._i326.DuplicateSshPublicKeyException.serializers,
-  ..._i327.InvalidPublicKeyException.serializers,
-  ..._i328.UploadServerCertificateRequest.serializers,
-  ..._i329.UploadServerCertificateResponse.serializers,
-  ..._i330.KeyPairMismatchException.serializers,
-  ..._i331.MalformedCertificateException.serializers,
-  ..._i332.UploadSigningCertificateRequest.serializers,
-  ..._i333.UploadSigningCertificateResponse.serializers,
-  ..._i334.DuplicateCertificateException.serializers,
-  ..._i335.InvalidCertificateException.serializers,
+  ..._i134.GetMfaDeviceRequest.serializers,
+  ..._i135.GetMfaDeviceResponse.serializers,
+  ..._i136.GetOpenIdConnectProviderRequest.serializers,
+  ..._i137.GetOpenIdConnectProviderResponse.serializers,
+  ..._i138.SortKeyType.serializers,
+  ..._i139.GetOrganizationsAccessReportRequest.serializers,
+  ..._i140.JobStatusType.serializers,
+  ..._i141.AccessDetail.serializers,
+  ..._i142.ErrorDetails.serializers,
+  ..._i143.GetOrganizationsAccessReportResponse.serializers,
+  ..._i144.GetPolicyRequest.serializers,
+  ..._i145.GetPolicyResponse.serializers,
+  ..._i146.GetPolicyVersionRequest.serializers,
+  ..._i147.GetPolicyVersionResponse.serializers,
+  ..._i148.GetRoleRequest.serializers,
+  ..._i149.GetRoleResponse.serializers,
+  ..._i150.GetRolePolicyRequest.serializers,
+  ..._i151.GetRolePolicyResponse.serializers,
+  ..._i152.GetSamlProviderRequest.serializers,
+  ..._i153.GetSamlProviderResponse.serializers,
+  ..._i154.EncodingType.serializers,
+  ..._i155.GetSshPublicKeyRequest.serializers,
+  ..._i156.SshPublicKey.serializers,
+  ..._i157.GetSshPublicKeyResponse.serializers,
+  ..._i158.UnrecognizedPublicKeyEncodingException.serializers,
+  ..._i159.GetServerCertificateRequest.serializers,
+  ..._i160.ServerCertificateMetadata.serializers,
+  ..._i161.ServerCertificate.serializers,
+  ..._i162.GetServerCertificateResponse.serializers,
+  ..._i163.GetServiceLastAccessedDetailsRequest.serializers,
+  ..._i164.TrackedActionLastAccessed.serializers,
+  ..._i165.ServiceLastAccessed.serializers,
+  ..._i166.GetServiceLastAccessedDetailsResponse.serializers,
+  ..._i167.GetServiceLastAccessedDetailsWithEntitiesRequest.serializers,
+  ..._i168.PolicyOwnerEntityType.serializers,
+  ..._i169.EntityInfo.serializers,
+  ..._i170.EntityDetails.serializers,
+  ..._i171.GetServiceLastAccessedDetailsWithEntitiesResponse.serializers,
+  ..._i172.GetServiceLinkedRoleDeletionStatusRequest.serializers,
+  ..._i173.DeletionTaskStatusType.serializers,
+  ..._i174.RoleUsageType.serializers,
+  ..._i175.DeletionTaskFailureReasonType.serializers,
+  ..._i176.GetServiceLinkedRoleDeletionStatusResponse.serializers,
+  ..._i177.GetUserRequest.serializers,
+  ..._i178.GetUserResponse.serializers,
+  ..._i179.GetUserPolicyRequest.serializers,
+  ..._i180.GetUserPolicyResponse.serializers,
+  ..._i181.ListAccessKeysRequest.serializers,
+  ..._i182.AccessKeyMetadata.serializers,
+  ..._i183.ListAccessKeysResponse.serializers,
+  ..._i184.ListAccountAliasesRequest.serializers,
+  ..._i185.ListAccountAliasesResponse.serializers,
+  ..._i186.ListAttachedGroupPoliciesRequest.serializers,
+  ..._i187.ListAttachedGroupPoliciesResponse.serializers,
+  ..._i188.ListAttachedRolePoliciesRequest.serializers,
+  ..._i189.ListAttachedRolePoliciesResponse.serializers,
+  ..._i190.ListAttachedUserPoliciesRequest.serializers,
+  ..._i191.ListAttachedUserPoliciesResponse.serializers,
+  ..._i192.PolicyUsageType.serializers,
+  ..._i193.ListEntitiesForPolicyRequest.serializers,
+  ..._i194.PolicyGroup.serializers,
+  ..._i195.PolicyUser.serializers,
+  ..._i196.PolicyRole.serializers,
+  ..._i197.ListEntitiesForPolicyResponse.serializers,
+  ..._i198.ListGroupPoliciesRequest.serializers,
+  ..._i199.ListGroupPoliciesResponse.serializers,
+  ..._i200.ListGroupsRequest.serializers,
+  ..._i201.ListGroupsResponse.serializers,
+  ..._i202.ListGroupsForUserRequest.serializers,
+  ..._i203.ListGroupsForUserResponse.serializers,
+  ..._i204.ListInstanceProfileTagsRequest.serializers,
+  ..._i205.ListInstanceProfileTagsResponse.serializers,
+  ..._i206.ListInstanceProfilesRequest.serializers,
+  ..._i207.ListInstanceProfilesResponse.serializers,
+  ..._i208.ListInstanceProfilesForRoleRequest.serializers,
+  ..._i209.ListInstanceProfilesForRoleResponse.serializers,
+  ..._i210.ListMfaDeviceTagsRequest.serializers,
+  ..._i211.ListMfaDeviceTagsResponse.serializers,
+  ..._i212.ListMfaDevicesRequest.serializers,
+  ..._i213.MfaDevice.serializers,
+  ..._i214.ListMfaDevicesResponse.serializers,
+  ..._i215.ListOpenIdConnectProviderTagsRequest.serializers,
+  ..._i216.ListOpenIdConnectProviderTagsResponse.serializers,
+  ..._i217.ListOpenIdConnectProvidersRequest.serializers,
+  ..._i218.OpenIdConnectProviderListEntry.serializers,
+  ..._i219.ListOpenIdConnectProvidersResponse.serializers,
+  ..._i220.PolicyScopeType.serializers,
+  ..._i221.ListPoliciesRequest.serializers,
+  ..._i222.ListPoliciesResponse.serializers,
+  ..._i223.ListPoliciesGrantingServiceAccessRequest.serializers,
+  ..._i224.PolicyType.serializers,
+  ..._i225.PolicyGrantingServiceAccess.serializers,
+  ..._i226.ListPoliciesGrantingServiceAccessEntry.serializers,
+  ..._i227.ListPoliciesGrantingServiceAccessResponse.serializers,
+  ..._i228.ListPolicyTagsRequest.serializers,
+  ..._i229.ListPolicyTagsResponse.serializers,
+  ..._i230.ListPolicyVersionsRequest.serializers,
+  ..._i231.ListPolicyVersionsResponse.serializers,
+  ..._i232.ListRolePoliciesRequest.serializers,
+  ..._i233.ListRolePoliciesResponse.serializers,
+  ..._i234.ListRoleTagsRequest.serializers,
+  ..._i235.ListRoleTagsResponse.serializers,
+  ..._i236.ListRolesRequest.serializers,
+  ..._i237.ListRolesResponse.serializers,
+  ..._i238.ListSamlProviderTagsRequest.serializers,
+  ..._i239.ListSamlProviderTagsResponse.serializers,
+  ..._i240.ListSamlProvidersRequest.serializers,
+  ..._i241.SamlProviderListEntry.serializers,
+  ..._i242.ListSamlProvidersResponse.serializers,
+  ..._i243.ListSshPublicKeysRequest.serializers,
+  ..._i244.SshPublicKeyMetadata.serializers,
+  ..._i245.ListSshPublicKeysResponse.serializers,
+  ..._i246.ListServerCertificateTagsRequest.serializers,
+  ..._i247.ListServerCertificateTagsResponse.serializers,
+  ..._i248.ListServerCertificatesRequest.serializers,
+  ..._i249.ListServerCertificatesResponse.serializers,
+  ..._i250.ListServiceSpecificCredentialsRequest.serializers,
+  ..._i251.ServiceSpecificCredentialMetadata.serializers,
+  ..._i252.ListServiceSpecificCredentialsResponse.serializers,
+  ..._i253.ListSigningCertificatesRequest.serializers,
+  ..._i254.SigningCertificate.serializers,
+  ..._i255.ListSigningCertificatesResponse.serializers,
+  ..._i256.ListUserPoliciesRequest.serializers,
+  ..._i257.ListUserPoliciesResponse.serializers,
+  ..._i258.ListUserTagsRequest.serializers,
+  ..._i259.ListUserTagsResponse.serializers,
+  ..._i260.ListUsersRequest.serializers,
+  ..._i261.ListUsersResponse.serializers,
+  ..._i262.AssignmentStatusType.serializers,
+  ..._i263.ListVirtualMfaDevicesRequest.serializers,
+  ..._i264.ListVirtualMfaDevicesResponse.serializers,
+  ..._i265.PutGroupPolicyRequest.serializers,
+  ..._i266.PutRolePermissionsBoundaryRequest.serializers,
+  ..._i267.PutRolePolicyRequest.serializers,
+  ..._i268.PutUserPermissionsBoundaryRequest.serializers,
+  ..._i269.PutUserPolicyRequest.serializers,
+  ..._i270.RemoveClientIdFromOpenIdConnectProviderRequest.serializers,
+  ..._i271.RemoveRoleFromInstanceProfileRequest.serializers,
+  ..._i272.RemoveUserFromGroupRequest.serializers,
+  ..._i273.ResetServiceSpecificCredentialRequest.serializers,
+  ..._i274.ResetServiceSpecificCredentialResponse.serializers,
+  ..._i275.ResyncMfaDeviceRequest.serializers,
+  ..._i276.SetDefaultPolicyVersionRequest.serializers,
+  ..._i277.GlobalEndpointTokenVersion.serializers,
+  ..._i278.SetSecurityTokenServicePreferencesRequest.serializers,
+  ..._i279.ContextKeyTypeEnum.serializers,
+  ..._i280.ContextEntry.serializers,
+  ..._i281.SimulateCustomPolicyRequest.serializers,
+  ..._i282.PolicyEvaluationDecisionType.serializers,
+  ..._i283.PolicySourceType.serializers,
+  ..._i284.Position.serializers,
+  ..._i285.Statement.serializers,
+  ..._i286.OrganizationsDecisionDetail.serializers,
+  ..._i287.PermissionsBoundaryDecisionDetail.serializers,
+  ..._i288.ResourceSpecificResult.serializers,
+  ..._i289.EvaluationResult.serializers,
+  ..._i290.SimulatePolicyResponse.serializers,
+  ..._i291.PolicyEvaluationException.serializers,
+  ..._i292.SimulatePrincipalPolicyRequest.serializers,
+  ..._i293.TagInstanceProfileRequest.serializers,
+  ..._i294.TagMfaDeviceRequest.serializers,
+  ..._i295.TagOpenIdConnectProviderRequest.serializers,
+  ..._i296.TagPolicyRequest.serializers,
+  ..._i297.TagRoleRequest.serializers,
+  ..._i298.TagSamlProviderRequest.serializers,
+  ..._i299.TagServerCertificateRequest.serializers,
+  ..._i300.TagUserRequest.serializers,
+  ..._i301.UntagInstanceProfileRequest.serializers,
+  ..._i302.UntagMfaDeviceRequest.serializers,
+  ..._i303.UntagOpenIdConnectProviderRequest.serializers,
+  ..._i304.UntagPolicyRequest.serializers,
+  ..._i305.UntagRoleRequest.serializers,
+  ..._i306.UntagSamlProviderRequest.serializers,
+  ..._i307.UntagServerCertificateRequest.serializers,
+  ..._i308.UntagUserRequest.serializers,
+  ..._i309.UpdateAccessKeyRequest.serializers,
+  ..._i310.UpdateAccountPasswordPolicyRequest.serializers,
+  ..._i311.UpdateAssumeRolePolicyRequest.serializers,
+  ..._i312.UpdateGroupRequest.serializers,
+  ..._i313.UpdateLoginProfileRequest.serializers,
+  ..._i314.UpdateOpenIdConnectProviderThumbprintRequest.serializers,
+  ..._i315.UpdateRoleRequest.serializers,
+  ..._i316.UpdateRoleResponse.serializers,
+  ..._i317.UpdateRoleDescriptionRequest.serializers,
+  ..._i318.UpdateRoleDescriptionResponse.serializers,
+  ..._i319.UpdateSamlProviderRequest.serializers,
+  ..._i320.UpdateSamlProviderResponse.serializers,
+  ..._i321.UpdateSshPublicKeyRequest.serializers,
+  ..._i322.UpdateServerCertificateRequest.serializers,
+  ..._i323.UpdateServiceSpecificCredentialRequest.serializers,
+  ..._i324.UpdateSigningCertificateRequest.serializers,
+  ..._i325.UpdateUserRequest.serializers,
+  ..._i326.UploadSshPublicKeyRequest.serializers,
+  ..._i327.UploadSshPublicKeyResponse.serializers,
+  ..._i328.DuplicateSshPublicKeyException.serializers,
+  ..._i329.InvalidPublicKeyException.serializers,
+  ..._i330.UploadServerCertificateRequest.serializers,
+  ..._i331.UploadServerCertificateResponse.serializers,
+  ..._i332.KeyPairMismatchException.serializers,
+  ..._i333.MalformedCertificateException.serializers,
+  ..._i334.UploadSigningCertificateRequest.serializers,
+  ..._i335.UploadSigningCertificateResponse.serializers,
+  ..._i336.DuplicateCertificateException.serializers,
+  ..._i337.InvalidCertificateException.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
   const FullType(
-    _i336.BuiltList,
+    _i338.BuiltList,
     [FullType(_i28.Tag)],
-  ): _i336.ListBuilder<_i28.Tag>.new,
+  ): _i338.ListBuilder<_i28.Tag>.new,
   const FullType(
-    _i336.BuiltList,
+    _i338.BuiltList,
     [FullType(_i33.Role)],
-  ): _i336.ListBuilder<_i33.Role>.new,
+  ): _i338.ListBuilder<_i33.Role>.new,
   const FullType(
-    _i336.BuiltList,
+    _i338.BuiltList,
     [FullType(String)],
-  ): _i336.ListBuilder<String>.new,
+  ): _i338.ListBuilder<String>.new,
   const FullType(
-    _i336.BuiltList,
+    _i338.BuiltList,
     [FullType(_i105.EntityType)],
-  ): _i336.ListBuilder<_i105.EntityType>.new,
+  ): _i338.ListBuilder<_i105.EntityType>.new,
   const FullType(
-    _i336.BuiltList,
+    _i338.BuiltList,
     [FullType(_i108.AttachedPolicy)],
-  ): _i336.ListBuilder<_i108.AttachedPolicy>.new,
+  ): _i338.ListBuilder<_i108.AttachedPolicy>.new,
   const FullType(
-    _i336.BuiltList,
+    _i338.BuiltList,
     [FullType(_i107.PolicyDetail)],
-  ): _i336.ListBuilder<_i107.PolicyDetail>.new,
+  ): _i338.ListBuilder<_i107.PolicyDetail>.new,
   const FullType(
-    _i336.BuiltList,
+    _i338.BuiltList,
     [FullType(_i34.InstanceProfile)],
-  ): _i336.ListBuilder<_i34.InstanceProfile>.new,
+  ): _i338.ListBuilder<_i34.InstanceProfile>.new,
   const FullType(
-    _i336.BuiltList,
+    _i338.BuiltList,
     [FullType(_i46.PolicyVersion)],
-  ): _i336.ListBuilder<_i46.PolicyVersion>.new,
+  ): _i338.ListBuilder<_i46.PolicyVersion>.new,
   const FullType(
-    _i336.BuiltList,
+    _i338.BuiltList,
     [FullType(_i110.GroupDetail)],
-  ): _i336.ListBuilder<_i110.GroupDetail>.new,
+  ): _i338.ListBuilder<_i110.GroupDetail>.new,
   const FullType(
-    _i336.BuiltList,
+    _i338.BuiltList,
     [FullType(_i112.ManagedPolicyDetail)],
-  ): _i336.ListBuilder<_i112.ManagedPolicyDetail>.new,
+  ): _i338.ListBuilder<_i112.ManagedPolicyDetail>.new,
   const FullType(
-    _i336.BuiltList,
+    _i338.BuiltList,
     [FullType(_i111.RoleDetail)],
-  ): _i336.ListBuilder<_i111.RoleDetail>.new,
+  ): _i338.ListBuilder<_i111.RoleDetail>.new,
   const FullType(
-    _i336.BuiltList,
+    _i338.BuiltList,
     [FullType(_i109.UserDetail)],
-  ): _i336.ListBuilder<_i109.UserDetail>.new,
+  ): _i338.ListBuilder<_i109.UserDetail>.new,
   const FullType(
-    _i336.BuiltMap,
+    _i338.BuiltMap,
     [
       FullType(_i116.SummaryKeyType),
       FullType(int),
     ],
-  ): _i336.MapBuilder<_i116.SummaryKeyType, int>.new,
+  ): _i338.MapBuilder<_i116.SummaryKeyType, int>.new,
   const FullType(
-    _i336.BuiltList,
+    _i338.BuiltList,
     [FullType(_i59.User)],
-  ): _i336.ListBuilder<_i59.User>.new,
+  ): _i338.ListBuilder<_i59.User>.new,
   const FullType(
-    _i336.BuiltList,
-    [FullType(_i139.AccessDetail)],
-  ): _i336.ListBuilder<_i139.AccessDetail>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i162.TrackedActionLastAccessed)],
-  ): _i336.ListBuilder<_i162.TrackedActionLastAccessed>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i163.ServiceLastAccessed)],
-  ): _i336.ListBuilder<_i163.ServiceLastAccessed>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i168.EntityDetails)],
-  ): _i336.ListBuilder<_i168.EntityDetails>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i172.RoleUsageType)],
-  ): _i336.ListBuilder<_i172.RoleUsageType>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i180.AccessKeyMetadata)],
-  ): _i336.ListBuilder<_i180.AccessKeyMetadata>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i192.PolicyGroup)],
-  ): _i336.ListBuilder<_i192.PolicyGroup>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i194.PolicyRole)],
-  ): _i336.ListBuilder<_i194.PolicyRole>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i193.PolicyUser)],
-  ): _i336.ListBuilder<_i193.PolicyUser>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i26.Group)],
-  ): _i336.ListBuilder<_i26.Group>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i211.MfaDevice)],
-  ): _i336.ListBuilder<_i211.MfaDevice>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i216.OpenIdConnectProviderListEntry)],
-  ): _i336.ListBuilder<_i216.OpenIdConnectProviderListEntry>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i42.Policy)],
-  ): _i336.ListBuilder<_i42.Policy>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i223.PolicyGrantingServiceAccess)],
-  ): _i336.ListBuilder<_i223.PolicyGrantingServiceAccess>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i224.ListPoliciesGrantingServiceAccessEntry)],
-  ): _i336.ListBuilder<_i224.ListPoliciesGrantingServiceAccessEntry>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i239.SamlProviderListEntry)],
-  ): _i336.ListBuilder<_i239.SamlProviderListEntry>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i242.SshPublicKeyMetadata)],
-  ): _i336.ListBuilder<_i242.SshPublicKeyMetadata>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i158.ServerCertificateMetadata)],
-  ): _i336.ListBuilder<_i158.ServerCertificateMetadata>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i249.ServiceSpecificCredentialMetadata)],
-  ): _i336.ListBuilder<_i249.ServiceSpecificCredentialMetadata>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i252.SigningCertificate)],
-  ): _i336.ListBuilder<_i252.SigningCertificate>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i62.VirtualMfaDevice)],
-  ): _i336.ListBuilder<_i62.VirtualMfaDevice>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i287.EvaluationResult)],
-  ): _i336.ListBuilder<_i287.EvaluationResult>.new,
-  const FullType(
-    _i336.BuiltList,
-    [FullType(_i278.ContextEntry)],
-  ): _i336.ListBuilder<_i278.ContextEntry>.new,
-  const FullType(
-    _i336.BuiltMap,
+    _i338.BuiltMap,
     [
       FullType(String),
-      FullType(_i280.PolicyEvaluationDecisionType),
+      FullType(String),
     ],
-  ): _i336.MapBuilder<String, _i280.PolicyEvaluationDecisionType>.new,
+  ): _i338.MapBuilder<String, String>.new,
   const FullType(
-    _i336.BuiltList,
-    [FullType(_i283.Statement)],
-  ): _i336.ListBuilder<_i283.Statement>.new,
+    _i338.BuiltList,
+    [FullType(_i141.AccessDetail)],
+  ): _i338.ListBuilder<_i141.AccessDetail>.new,
   const FullType(
-    _i336.BuiltList,
-    [FullType(_i286.ResourceSpecificResult)],
-  ): _i336.ListBuilder<_i286.ResourceSpecificResult>.new,
+    _i338.BuiltList,
+    [FullType(_i164.TrackedActionLastAccessed)],
+  ): _i338.ListBuilder<_i164.TrackedActionLastAccessed>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i165.ServiceLastAccessed)],
+  ): _i338.ListBuilder<_i165.ServiceLastAccessed>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i170.EntityDetails)],
+  ): _i338.ListBuilder<_i170.EntityDetails>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i174.RoleUsageType)],
+  ): _i338.ListBuilder<_i174.RoleUsageType>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i182.AccessKeyMetadata)],
+  ): _i338.ListBuilder<_i182.AccessKeyMetadata>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i194.PolicyGroup)],
+  ): _i338.ListBuilder<_i194.PolicyGroup>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i196.PolicyRole)],
+  ): _i338.ListBuilder<_i196.PolicyRole>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i195.PolicyUser)],
+  ): _i338.ListBuilder<_i195.PolicyUser>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i26.Group)],
+  ): _i338.ListBuilder<_i26.Group>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i213.MfaDevice)],
+  ): _i338.ListBuilder<_i213.MfaDevice>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i218.OpenIdConnectProviderListEntry)],
+  ): _i338.ListBuilder<_i218.OpenIdConnectProviderListEntry>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i42.Policy)],
+  ): _i338.ListBuilder<_i42.Policy>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i225.PolicyGrantingServiceAccess)],
+  ): _i338.ListBuilder<_i225.PolicyGrantingServiceAccess>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i226.ListPoliciesGrantingServiceAccessEntry)],
+  ): _i338.ListBuilder<_i226.ListPoliciesGrantingServiceAccessEntry>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i241.SamlProviderListEntry)],
+  ): _i338.ListBuilder<_i241.SamlProviderListEntry>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i244.SshPublicKeyMetadata)],
+  ): _i338.ListBuilder<_i244.SshPublicKeyMetadata>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i160.ServerCertificateMetadata)],
+  ): _i338.ListBuilder<_i160.ServerCertificateMetadata>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i251.ServiceSpecificCredentialMetadata)],
+  ): _i338.ListBuilder<_i251.ServiceSpecificCredentialMetadata>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i254.SigningCertificate)],
+  ): _i338.ListBuilder<_i254.SigningCertificate>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i62.VirtualMfaDevice)],
+  ): _i338.ListBuilder<_i62.VirtualMfaDevice>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i289.EvaluationResult)],
+  ): _i338.ListBuilder<_i289.EvaluationResult>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i280.ContextEntry)],
+  ): _i338.ListBuilder<_i280.ContextEntry>.new,
+  const FullType(
+    _i338.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i282.PolicyEvaluationDecisionType),
+    ],
+  ): _i338.MapBuilder<String, _i282.PolicyEvaluationDecisionType>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i285.Statement)],
+  ): _i338.ListBuilder<_i285.Statement>.new,
+  const FullType(
+    _i338.BuiltList,
+    [FullType(_i288.ResourceSpecificResult)],
+  ): _i338.ListBuilder<_i288.ResourceSpecificResult>.new,
 };

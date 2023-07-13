@@ -70,7 +70,7 @@ abstract class AuthEventType
   /// The event type.
   _i2.EventType? get eventType;
 
-  /// The date and time, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format, when the item was created.
+  /// The creation date
   DateTime? get creationDate;
 
   /// The event response.

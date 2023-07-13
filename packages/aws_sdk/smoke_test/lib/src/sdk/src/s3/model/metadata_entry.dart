@@ -38,10 +38,10 @@ abstract class MetadataEntry
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MetadataEntryBuilder b) {}
 
-  /// Name of the Object.
+  /// Name of the object.
   String? get name;
 
-  /// Value of the Object.
+  /// Value of the object.
   String? get value;
   @override
   List<Object?> get props => [
