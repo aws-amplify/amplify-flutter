@@ -155,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final platformFile = result.files.single;
 
     try {
-      final result = await Amplify.Storage.uploadFile(
+      await Amplify.Storage.uploadFile(
         localFile: AWSFile.fromStream(
           platformFile.readStream!,
           size: platformFile.size,
