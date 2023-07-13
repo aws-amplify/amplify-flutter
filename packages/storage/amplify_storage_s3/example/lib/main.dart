@@ -108,7 +108,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var list = [];
+  List<StorageItem> list = [];
   var imageUrl = '';
 
   @override
