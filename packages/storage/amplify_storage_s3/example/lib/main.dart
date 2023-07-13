@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
       await Amplify.Auth.signOut();
       _logger.debug('Signed out');
     } on AuthException catch (e) {
-      _logger.debug('Could not sign out - ${e.message}');
+      _logger.error('Could not sign out - ${e.message}');
     }
   }
 
