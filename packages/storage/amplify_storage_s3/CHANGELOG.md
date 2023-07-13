@@ -1,3 +1,8 @@
+## 0.6.14
+
+- chore: Amplify Swift version bump to 1.30.4 (#3328)
+- chore: bump amplify-android to 1.38.6 (#3050)
+
 ## 0.6.13 (2023-03-22)
 
 ## 0.6.12 (2023-01-24)
