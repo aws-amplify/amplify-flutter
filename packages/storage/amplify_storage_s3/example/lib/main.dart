@@ -207,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // download file on web
   Future<void> downloadFileWeb(String key) async {
     try {
-      final result = await Amplify.Storage.downloadFile(
+      await Amplify.Storage.downloadFile(
         key: key,
         localFile: AWSFile.fromPath(key),
       ).result;
