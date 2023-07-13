@@ -223,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
     required StorageAccessLevel accessLevel,
   }) async {
     try {
-      final result = await Amplify.Storage.remove(
+      await Amplify.Storage.remove(
         key: key,
         options: StorageRemoveOptions(accessLevel: accessLevel),
       ).result;
