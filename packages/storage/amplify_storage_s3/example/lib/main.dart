@@ -277,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ListTile(
                       onTap: () => {
                         getUrl(
-                          key: item.key as String,
+                          key: item.key,
                           accessLevel: StorageAccessLevel.guest,
                         )
                       },
