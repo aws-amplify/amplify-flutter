@@ -4,11 +4,14 @@
 library smoke_test.s3.model.list_object_versions_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
+import 'package:meta/meta.dart' as _i7;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/optional_object_attributes.dart'
+    as _i5;
 import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i4;
 
 part 'list_object_versions_request.g.dart';
@@ -31,6 +34,7 @@ abstract class ListObjectVersionsRequest
     String? versionIdMarker,
     String? expectedBucketOwner,
     _i4.RequestPayer? requestPayer,
+    List<_i5.OptionalObjectAttributes>? optionalObjectAttributes,
   }) {
     return _$ListObjectVersionsRequest._(
       bucket: bucket,
@@ -42,6 +46,9 @@ abstract class ListObjectVersionsRequest
       versionIdMarker: versionIdMarker,
       expectedBucketOwner: expectedBucketOwner,
       requestPayer: requestPayer,
+      optionalObjectAttributes: optionalObjectAttributes == null
+          ? null
+          : _i6.BuiltList(optionalObjectAttributes),
     );
   }
 
@@ -64,6 +71,12 @@ abstract class ListObjectVersionsRequest
         if (request.headers['x-amz-request-payer'] != null) {
           b.requestPayer = _i4.RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
+        }
+        if (request.headers['x-amz-optional-object-attributes'] != null) {
+          b.optionalObjectAttributes.addAll(_i1
+              .parseHeader(request.headers['x-amz-optional-object-attributes']!)
+              .map((el) =>
+                  _i5.OptionalObjectAttributes.values.byValue(el.trim())));
         }
         if (request.queryParameters['delimiter'] != null) {
           b.delimiter = request.queryParameters['delimiter']!;
@@ -98,19 +111,19 @@ abstract class ListObjectVersionsRequest
   /// The bucket name that contains the objects.
   String get bucket;
 
-  /// A delimiter is a character that you specify to group keys. All keys that contain the same string between the `prefix` and the first occurrence of the delimiter are grouped under a single result element in CommonPrefixes. These groups are counted as one result against the max-keys limitation. These keys are not returned elsewhere in the response.
+  /// A delimiter is a character that you specify to group keys. All keys that contain the same string between the `prefix` and the first occurrence of the delimiter are grouped under a single result element in `CommonPrefixes`. These groups are counted as one result against the `max-keys` limitation. These keys are not returned elsewhere in the response.
   String? get delimiter;
 
-  /// Requests Amazon S3 to encode the object keys in the response and specifies the encoding method to use. An object key may contain any Unicode character; however, XML 1.0 parser cannot parse some characters, such as characters with an ASCII value from 0 to 10. For characters that are not supported in XML 1.0, you can add this parameter to request that Amazon S3 encode the keys in the response.
+  /// Requests Amazon S3 to encode the object keys in the response and specifies the encoding method to use. An object key can contain any Unicode character; however, the XML 1.0 parser cannot parse some characters, such as characters with an ASCII value from 0 to 10. For characters that are not supported in XML 1.0, you can add this parameter to request that Amazon S3 encode the keys in the response.
   _i3.EncodingType? get encodingType;
 
   /// Specifies the key to start with when listing objects in a bucket.
   String? get keyMarker;
 
-  /// Sets the maximum number of keys returned in the response. By default the action returns up to 1,000 key names. The response might contain fewer keys but will never contain more. If additional keys satisfy the search criteria, but were not returned because max-keys was exceeded, the response contains true. To return the additional keys, see key-marker and version-id-marker.
+  /// Sets the maximum number of keys returned in the response. By default, the action returns up to 1,000 key names. The response might contain fewer keys but will never contain more. If additional keys satisfy the search criteria, but were not returned because `max-keys` was exceeded, the response contains `true`. To return the additional keys, see `key-marker` and `version-id-marker`.
   int? get maxKeys;
 
-  /// Use this parameter to select only those keys that begin with the specified prefix. You can use prefixes to separate a bucket into different groupings of keys. (You can think of using prefix to make groups in the same way you'd use a folder in a file system.) You can use prefix with delimiter to roll up numerous objects into a single result under CommonPrefixes.
+  /// Use this parameter to select only those keys that begin with the specified prefix. You can use prefixes to separate a bucket into different groupings of keys. (You can think of using `prefix` to make groups in the same way that you'd use a folder in a file system.) You can use `prefix` with `delimiter` to roll up numerous objects into a single result under `CommonPrefixes`.
   String? get prefix;
 
   /// Specifies the object version you want to start listing from.
@@ -121,6 +134,9 @@ abstract class ListObjectVersionsRequest
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
   _i4.RequestPayer? get requestPayer;
+
+  /// Specifies the optional fields that you want returned in the response. Fields that you do not specify are not returned.
+  _i6.BuiltList<_i5.OptionalObjectAttributes>? get optionalObjectAttributes;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -147,6 +163,7 @@ abstract class ListObjectVersionsRequest
         versionIdMarker,
         expectedBucketOwner,
         requestPayer,
+        optionalObjectAttributes,
       ];
   @override
   String toString() {
@@ -186,12 +203,16 @@ abstract class ListObjectVersionsRequest
       ..add(
         'requestPayer',
         requestPayer,
+      )
+      ..add(
+        'optionalObjectAttributes',
+        optionalObjectAttributes,
       );
     return helper.toString();
   }
 }
 
-@_i5.internal
+@_i7.internal
 abstract class ListObjectVersionsRequestPayload
     with
         _i2.AWSEquatable<ListObjectVersionsRequestPayload>

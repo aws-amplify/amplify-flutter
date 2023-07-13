@@ -10,9 +10,9 @@ class _$DeleteItemInput extends DeleteItemInput {
   @override
   final String tableName;
   @override
-  final _i9.BuiltMap<String, _i3.AttributeValue> key;
+  final _i10.BuiltMap<String, _i3.AttributeValue> key;
   @override
-  final _i9.BuiltMap<String, _i4.ExpectedAttributeValue>? expected;
+  final _i10.BuiltMap<String, _i4.ExpectedAttributeValue>? expected;
   @override
   final _i5.ConditionalOperator? conditionalOperator;
   @override
@@ -24,9 +24,12 @@ class _$DeleteItemInput extends DeleteItemInput {
   @override
   final String? conditionExpression;
   @override
-  final _i9.BuiltMap<String, String>? expressionAttributeNames;
+  final _i10.BuiltMap<String, String>? expressionAttributeNames;
   @override
-  final _i9.BuiltMap<String, _i3.AttributeValue>? expressionAttributeValues;
+  final _i10.BuiltMap<String, _i3.AttributeValue>? expressionAttributeValues;
+  @override
+  final _i9.ReturnValuesOnConditionCheckFailure?
+      returnValuesOnConditionCheckFailure;
 
   factory _$DeleteItemInput([void Function(DeleteItemInputBuilder)? updates]) =>
       (new DeleteItemInputBuilder()..update(updates))._build();
@@ -41,7 +44,8 @@ class _$DeleteItemInput extends DeleteItemInput {
       this.returnItemCollectionMetrics,
       this.conditionExpression,
       this.expressionAttributeNames,
-      this.expressionAttributeValues})
+      this.expressionAttributeValues,
+      this.returnValuesOnConditionCheckFailure})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         tableName, r'DeleteItemInput', 'tableName');
@@ -69,7 +73,9 @@ class _$DeleteItemInput extends DeleteItemInput {
         returnItemCollectionMetrics == other.returnItemCollectionMetrics &&
         conditionExpression == other.conditionExpression &&
         expressionAttributeNames == other.expressionAttributeNames &&
-        expressionAttributeValues == other.expressionAttributeValues;
+        expressionAttributeValues == other.expressionAttributeValues &&
+        returnValuesOnConditionCheckFailure ==
+            other.returnValuesOnConditionCheckFailure;
   }
 
   @override
@@ -85,6 +91,7 @@ class _$DeleteItemInput extends DeleteItemInput {
     _$hash = $jc(_$hash, conditionExpression.hashCode);
     _$hash = $jc(_$hash, expressionAttributeNames.hashCode);
     _$hash = $jc(_$hash, expressionAttributeValues.hashCode);
+    _$hash = $jc(_$hash, returnValuesOnConditionCheckFailure.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -98,16 +105,17 @@ class DeleteItemInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i9.MapBuilder<String, _i3.AttributeValue>? _key;
-  _i9.MapBuilder<String, _i3.AttributeValue> get key =>
-      _$this._key ??= new _i9.MapBuilder<String, _i3.AttributeValue>();
-  set key(_i9.MapBuilder<String, _i3.AttributeValue>? key) => _$this._key = key;
+  _i10.MapBuilder<String, _i3.AttributeValue>? _key;
+  _i10.MapBuilder<String, _i3.AttributeValue> get key =>
+      _$this._key ??= new _i10.MapBuilder<String, _i3.AttributeValue>();
+  set key(_i10.MapBuilder<String, _i3.AttributeValue>? key) =>
+      _$this._key = key;
 
-  _i9.MapBuilder<String, _i4.ExpectedAttributeValue>? _expected;
-  _i9.MapBuilder<String, _i4.ExpectedAttributeValue> get expected =>
+  _i10.MapBuilder<String, _i4.ExpectedAttributeValue>? _expected;
+  _i10.MapBuilder<String, _i4.ExpectedAttributeValue> get expected =>
       _$this._expected ??=
-          new _i9.MapBuilder<String, _i4.ExpectedAttributeValue>();
-  set expected(_i9.MapBuilder<String, _i4.ExpectedAttributeValue>? expected) =>
+          new _i10.MapBuilder<String, _i4.ExpectedAttributeValue>();
+  set expected(_i10.MapBuilder<String, _i4.ExpectedAttributeValue>? expected) =>
       _$this._expected = expected;
 
   _i5.ConditionalOperator? _conditionalOperator;
@@ -140,21 +148,32 @@ class DeleteItemInputBuilder
   set conditionExpression(String? conditionExpression) =>
       _$this._conditionExpression = conditionExpression;
 
-  _i9.MapBuilder<String, String>? _expressionAttributeNames;
-  _i9.MapBuilder<String, String> get expressionAttributeNames =>
-      _$this._expressionAttributeNames ??= new _i9.MapBuilder<String, String>();
+  _i10.MapBuilder<String, String>? _expressionAttributeNames;
+  _i10.MapBuilder<String, String> get expressionAttributeNames =>
+      _$this._expressionAttributeNames ??=
+          new _i10.MapBuilder<String, String>();
   set expressionAttributeNames(
-          _i9.MapBuilder<String, String>? expressionAttributeNames) =>
+          _i10.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
-  _i9.MapBuilder<String, _i3.AttributeValue>? _expressionAttributeValues;
-  _i9.MapBuilder<String, _i3.AttributeValue> get expressionAttributeValues =>
+  _i10.MapBuilder<String, _i3.AttributeValue>? _expressionAttributeValues;
+  _i10.MapBuilder<String, _i3.AttributeValue> get expressionAttributeValues =>
       _$this._expressionAttributeValues ??=
-          new _i9.MapBuilder<String, _i3.AttributeValue>();
+          new _i10.MapBuilder<String, _i3.AttributeValue>();
   set expressionAttributeValues(
-          _i9.MapBuilder<String, _i3.AttributeValue>?
+          _i10.MapBuilder<String, _i3.AttributeValue>?
               expressionAttributeValues) =>
       _$this._expressionAttributeValues = expressionAttributeValues;
+
+  _i9.ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
+  _i9.ReturnValuesOnConditionCheckFailure?
+      get returnValuesOnConditionCheckFailure =>
+          _$this._returnValuesOnConditionCheckFailure;
+  set returnValuesOnConditionCheckFailure(
+          _i9.ReturnValuesOnConditionCheckFailure?
+              returnValuesOnConditionCheckFailure) =>
+      _$this._returnValuesOnConditionCheckFailure =
+          returnValuesOnConditionCheckFailure;
 
   DeleteItemInputBuilder() {
     DeleteItemInput._init(this);
@@ -173,6 +192,8 @@ class DeleteItemInputBuilder
       _conditionExpression = $v.conditionExpression;
       _expressionAttributeNames = $v.expressionAttributeNames?.toBuilder();
       _expressionAttributeValues = $v.expressionAttributeValues?.toBuilder();
+      _returnValuesOnConditionCheckFailure =
+          $v.returnValuesOnConditionCheckFailure;
       _$v = null;
     }
     return this;
@@ -207,7 +228,9 @@ class DeleteItemInputBuilder
               returnItemCollectionMetrics: returnItemCollectionMetrics,
               conditionExpression: conditionExpression,
               expressionAttributeNames: _expressionAttributeNames?.build(),
-              expressionAttributeValues: _expressionAttributeValues?.build());
+              expressionAttributeValues: _expressionAttributeValues?.build(),
+              returnValuesOnConditionCheckFailure:
+                  returnValuesOnConditionCheckFailure);
     } catch (_) {
       late String _$failedField;
       try {

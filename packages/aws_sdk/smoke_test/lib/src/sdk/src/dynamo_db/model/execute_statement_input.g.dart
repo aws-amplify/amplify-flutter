@@ -10,7 +10,7 @@ class _$ExecuteStatementInput extends ExecuteStatementInput {
   @override
   final String statement;
   @override
-  final _i5.BuiltList<_i3.AttributeValue>? parameters;
+  final _i6.BuiltList<_i3.AttributeValue>? parameters;
   @override
   final bool? consistentRead;
   @override
@@ -19,6 +19,9 @@ class _$ExecuteStatementInput extends ExecuteStatementInput {
   final _i4.ReturnConsumedCapacity? returnConsumedCapacity;
   @override
   final int? limit;
+  @override
+  final _i5.ReturnValuesOnConditionCheckFailure?
+      returnValuesOnConditionCheckFailure;
 
   factory _$ExecuteStatementInput(
           [void Function(ExecuteStatementInputBuilder)? updates]) =>
@@ -30,7 +33,8 @@ class _$ExecuteStatementInput extends ExecuteStatementInput {
       this.consistentRead,
       this.nextToken,
       this.returnConsumedCapacity,
-      this.limit})
+      this.limit,
+      this.returnValuesOnConditionCheckFailure})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         statement, r'ExecuteStatementInput', 'statement');
@@ -54,7 +58,9 @@ class _$ExecuteStatementInput extends ExecuteStatementInput {
         consistentRead == other.consistentRead &&
         nextToken == other.nextToken &&
         returnConsumedCapacity == other.returnConsumedCapacity &&
-        limit == other.limit;
+        limit == other.limit &&
+        returnValuesOnConditionCheckFailure ==
+            other.returnValuesOnConditionCheckFailure;
   }
 
   @override
@@ -66,6 +72,7 @@ class _$ExecuteStatementInput extends ExecuteStatementInput {
     _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, returnConsumedCapacity.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
+    _$hash = $jc(_$hash, returnValuesOnConditionCheckFailure.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -79,10 +86,10 @@ class ExecuteStatementInputBuilder
   String? get statement => _$this._statement;
   set statement(String? statement) => _$this._statement = statement;
 
-  _i5.ListBuilder<_i3.AttributeValue>? _parameters;
-  _i5.ListBuilder<_i3.AttributeValue> get parameters =>
-      _$this._parameters ??= new _i5.ListBuilder<_i3.AttributeValue>();
-  set parameters(_i5.ListBuilder<_i3.AttributeValue>? parameters) =>
+  _i6.ListBuilder<_i3.AttributeValue>? _parameters;
+  _i6.ListBuilder<_i3.AttributeValue> get parameters =>
+      _$this._parameters ??= new _i6.ListBuilder<_i3.AttributeValue>();
+  set parameters(_i6.ListBuilder<_i3.AttributeValue>? parameters) =>
       _$this._parameters = parameters;
 
   bool? _consistentRead;
@@ -105,6 +112,16 @@ class ExecuteStatementInputBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
+  _i5.ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
+  _i5.ReturnValuesOnConditionCheckFailure?
+      get returnValuesOnConditionCheckFailure =>
+          _$this._returnValuesOnConditionCheckFailure;
+  set returnValuesOnConditionCheckFailure(
+          _i5.ReturnValuesOnConditionCheckFailure?
+              returnValuesOnConditionCheckFailure) =>
+      _$this._returnValuesOnConditionCheckFailure =
+          returnValuesOnConditionCheckFailure;
+
   ExecuteStatementInputBuilder() {
     ExecuteStatementInput._init(this);
   }
@@ -118,6 +135,8 @@ class ExecuteStatementInputBuilder
       _nextToken = $v.nextToken;
       _returnConsumedCapacity = $v.returnConsumedCapacity;
       _limit = $v.limit;
+      _returnValuesOnConditionCheckFailure =
+          $v.returnValuesOnConditionCheckFailure;
       _$v = null;
     }
     return this;
@@ -148,7 +167,9 @@ class ExecuteStatementInputBuilder
               consistentRead: consistentRead,
               nextToken: nextToken,
               returnConsumedCapacity: returnConsumedCapacity,
-              limit: limit);
+              limit: limit,
+              returnValuesOnConditionCheckFailure:
+                  returnValuesOnConditionCheckFailure);
     } catch (_) {
       late String _$failedField;
       try {

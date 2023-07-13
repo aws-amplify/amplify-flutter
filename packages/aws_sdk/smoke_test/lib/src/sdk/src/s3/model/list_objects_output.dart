@@ -93,7 +93,9 @@ abstract class ListObjectsOutput
   /// Indicates where in the bucket listing begins. Marker is included in the response if it was sent with the request.
   String? get marker;
 
-  /// When response is truncated (the IsTruncated element value in the response is true), you can use the key name in this field as marker in the subsequent request to get next set of objects. Amazon S3 lists objects in alphabetical order Note: This element is returned only if you have delimiter request parameter specified. If response does not include the NextMarker and it is truncated, you can use the value of the last Key in the response as the marker in the subsequent request to get the next set of object keys.
+  /// When the response is truncated (the `IsTruncated` element value in the response is `true`), you can use the key name in this field as the `marker` parameter in the subsequent request to get the next set of objects. Amazon S3 lists objects in alphabetical order.
+  ///
+  /// This element is returned only if you have the `delimiter` request parameter specified. If the response does not include the `NextMarker` element and it is truncated, you can use the value of the last `Key` element in the response as the `marker` parameter in the subsequent request to get the next set of object keys.
   String? get nextMarker;
 
   /// Metadata about each object returned.
@@ -113,13 +115,13 @@ abstract class ListObjectsOutput
 
   /// All of the keys (up to 1,000) rolled up in a common prefix count as a single return when calculating the number of returns.
   ///
-  /// A response can contain CommonPrefixes only if you specify a delimiter.
+  /// A response can contain `CommonPrefixes` only if you specify a delimiter.
   ///
-  /// CommonPrefixes contains all (if there are any) keys between Prefix and the next occurrence of the string specified by the delimiter.
+  /// `CommonPrefixes` contains all (if there are any) keys between `Prefix` and the next occurrence of the string specified by the delimiter.
   ///
-  /// CommonPrefixes lists keys that act like subdirectories in the directory specified by Prefix.
+  /// `CommonPrefixes` lists keys that act like subdirectories in the directory specified by `Prefix`.
   ///
-  /// For example, if the prefix is notes/ and the delimiter is a slash (/) as in notes/summer/july, the common prefix is notes/summer/. All of the keys that roll up into a common prefix count as a single return when calculating the number of returns.
+  /// For example, if the prefix is `notes/` and the delimiter is a slash (`/`), as in `notes/summer/july`, the common prefix is `notes/summer/`. All of the keys that roll up into a common prefix count as a single return when calculating the number of returns.
   _i7.BuiltList<_i4.CommonPrefix>? get commonPrefixes;
 
   /// Encoding type used by Amazon S3 to encode object keys in the response.
@@ -225,13 +227,13 @@ abstract class ListObjectsOutputPayload
 
   /// All of the keys (up to 1,000) rolled up in a common prefix count as a single return when calculating the number of returns.
   ///
-  /// A response can contain CommonPrefixes only if you specify a delimiter.
+  /// A response can contain `CommonPrefixes` only if you specify a delimiter.
   ///
-  /// CommonPrefixes contains all (if there are any) keys between Prefix and the next occurrence of the string specified by the delimiter.
+  /// `CommonPrefixes` contains all (if there are any) keys between `Prefix` and the next occurrence of the string specified by the delimiter.
   ///
-  /// CommonPrefixes lists keys that act like subdirectories in the directory specified by Prefix.
+  /// `CommonPrefixes` lists keys that act like subdirectories in the directory specified by `Prefix`.
   ///
-  /// For example, if the prefix is notes/ and the delimiter is a slash (/) as in notes/summer/july, the common prefix is notes/summer/. All of the keys that roll up into a common prefix count as a single return when calculating the number of returns.
+  /// For example, if the prefix is `notes/` and the delimiter is a slash (`/`), as in `notes/summer/july`, the common prefix is `notes/summer/`. All of the keys that roll up into a common prefix count as a single return when calculating the number of returns.
   _i7.BuiltList<_i4.CommonPrefix>? get commonPrefixes;
 
   /// Metadata about each object returned.
@@ -255,7 +257,9 @@ abstract class ListObjectsOutputPayload
   /// The bucket name.
   String? get name;
 
-  /// When response is truncated (the IsTruncated element value in the response is true), you can use the key name in this field as marker in the subsequent request to get next set of objects. Amazon S3 lists objects in alphabetical order Note: This element is returned only if you have delimiter request parameter specified. If response does not include the NextMarker and it is truncated, you can use the value of the last Key in the response as the marker in the subsequent request to get the next set of object keys.
+  /// When the response is truncated (the `IsTruncated` element value in the response is `true`), you can use the key name in this field as the `marker` parameter in the subsequent request to get the next set of objects. Amazon S3 lists objects in alphabetical order.
+  ///
+  /// This element is returned only if you have the `delimiter` request parameter specified. If the response does not include the `NextMarker` element and it is truncated, you can use the value of the last `Key` element in the response as the `marker` parameter in the subsequent request to get the next set of object keys.
   String? get nextMarker;
 
   /// Keys that begin with the indicated prefix.

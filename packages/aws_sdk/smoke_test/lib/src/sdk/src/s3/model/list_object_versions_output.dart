@@ -102,7 +102,7 @@ abstract class ListObjectVersionsOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListObjectVersionsOutputBuilder b) {}
 
-  /// A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria. If your results were truncated, you can make a follow-up paginated request using the NextKeyMarker and NextVersionIdMarker response parameters as a starting place in another request to return the rest of the results.
+  /// A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria. If your results were truncated, you can make a follow-up paginated request by using the `NextKeyMarker` and `NextVersionIdMarker` response parameters as a starting place in another request to return the rest of the results.
   bool? get isTruncated;
 
   /// Marks the last key returned in a truncated response.
@@ -114,7 +114,7 @@ abstract class ListObjectVersionsOutput
   /// When the number of responses exceeds the value of `MaxKeys`, `NextKeyMarker` specifies the first key not returned that satisfies the search criteria. Use this value for the key-marker request parameter in a subsequent request.
   String? get nextKeyMarker;
 
-  /// When the number of responses exceeds the value of `MaxKeys`, `NextVersionIdMarker` specifies the first object version not returned that satisfies the search criteria. Use this value for the version-id-marker request parameter in a subsequent request.
+  /// When the number of responses exceeds the value of `MaxKeys`, `NextVersionIdMarker` specifies the first object version not returned that satisfies the search criteria. Use this value for the `version-id-marker` request parameter in a subsequent request.
   String? get nextVersionIdMarker;
 
   /// Container for version information.
@@ -129,7 +129,7 @@ abstract class ListObjectVersionsOutput
   /// Selects objects that start with the value supplied by this parameter.
   String? get prefix;
 
-  /// The delimiter grouping the included keys. A delimiter is a character that you specify to group keys. All keys that contain the same string between the prefix and the first occurrence of the delimiter are grouped under a single result element in `CommonPrefixes`. These groups are counted as one result against the max-keys limitation. These keys are not returned elsewhere in the response.
+  /// The delimiter grouping the included keys. A delimiter is a character that you specify to group keys. All keys that contain the same string between the prefix and the first occurrence of the delimiter are grouped under a single result element in `CommonPrefixes`. These groups are counted as one result against the `max-keys` limitation. These keys are not returned elsewhere in the response.
   String? get delimiter;
 
   /// Specifies the maximum number of objects to return.
@@ -140,7 +140,7 @@ abstract class ListObjectVersionsOutput
 
   /// Encoding type used by Amazon S3 to encode object key names in the XML response.
   ///
-  /// If you specify encoding-type request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
+  /// If you specify the `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
   ///
   /// `KeyMarker, NextKeyMarker, Prefix, Key`, and `Delimiter`.
   _i6.EncodingType? get encodingType;
@@ -272,17 +272,17 @@ abstract class ListObjectVersionsOutputPayload
   /// Container for an object that is a delete marker.
   _i8.BuiltList<_i4.DeleteMarkerEntry>? get deleteMarkers;
 
-  /// The delimiter grouping the included keys. A delimiter is a character that you specify to group keys. All keys that contain the same string between the prefix and the first occurrence of the delimiter are grouped under a single result element in `CommonPrefixes`. These groups are counted as one result against the max-keys limitation. These keys are not returned elsewhere in the response.
+  /// The delimiter grouping the included keys. A delimiter is a character that you specify to group keys. All keys that contain the same string between the prefix and the first occurrence of the delimiter are grouped under a single result element in `CommonPrefixes`. These groups are counted as one result against the `max-keys` limitation. These keys are not returned elsewhere in the response.
   String? get delimiter;
 
   /// Encoding type used by Amazon S3 to encode object key names in the XML response.
   ///
-  /// If you specify encoding-type request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
+  /// If you specify the `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
   ///
   /// `KeyMarker, NextKeyMarker, Prefix, Key`, and `Delimiter`.
   _i6.EncodingType? get encodingType;
 
-  /// A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria. If your results were truncated, you can make a follow-up paginated request using the NextKeyMarker and NextVersionIdMarker response parameters as a starting place in another request to return the rest of the results.
+  /// A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria. If your results were truncated, you can make a follow-up paginated request by using the `NextKeyMarker` and `NextVersionIdMarker` response parameters as a starting place in another request to return the rest of the results.
   bool? get isTruncated;
 
   /// Marks the last key returned in a truncated response.
@@ -297,7 +297,7 @@ abstract class ListObjectVersionsOutputPayload
   /// When the number of responses exceeds the value of `MaxKeys`, `NextKeyMarker` specifies the first key not returned that satisfies the search criteria. Use this value for the key-marker request parameter in a subsequent request.
   String? get nextKeyMarker;
 
-  /// When the number of responses exceeds the value of `MaxKeys`, `NextVersionIdMarker` specifies the first object version not returned that satisfies the search criteria. Use this value for the version-id-marker request parameter in a subsequent request.
+  /// When the number of responses exceeds the value of `MaxKeys`, `NextVersionIdMarker` specifies the first object version not returned that satisfies the search criteria. Use this value for the `version-id-marker` request parameter in a subsequent request.
   String? get nextVersionIdMarker;
 
   /// Selects objects that start with the value supplied by this parameter.
