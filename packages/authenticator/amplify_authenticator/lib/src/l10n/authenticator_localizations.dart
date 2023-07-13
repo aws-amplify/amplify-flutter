@@ -26,7 +26,7 @@ abstract class AuthenticatorLocalizations {
     AuthenticatorButtonLocalizations.delegate,
     AuthenticatorTitleLocalizations.delegate,
     AuthenticatorInputLocalizations.delegate,
-    AuthenticatorCountryLocalizations.delegate
+    AuthenticatorCountryLocalizations.delegate,
   ];
 
   static final _buttonsFallback = AuthenticatorButtonLocalizationsEn();

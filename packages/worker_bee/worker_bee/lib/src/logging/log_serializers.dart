@@ -109,7 +109,7 @@ class LogEntrySerializer implements StructuredSerializer<LogEntry> {
       if (object is WorkerLogEntry) ...[
         'local',
         object.local,
-      ]
+      ],
     ];
   }
 }

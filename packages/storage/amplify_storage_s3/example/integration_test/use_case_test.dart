@@ -482,7 +482,7 @@ void main() {
                   targetAccessLevel: StorageAccessLevel.private,
                   uploadSource: AWSFile.fromData(testLargeFileBytes),
                   referenceBytes: testLargeFileBytes,
-                )
+                ),
               ],
             );
           });

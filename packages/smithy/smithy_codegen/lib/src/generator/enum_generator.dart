@@ -182,8 +182,8 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
             'supportedProtocols': literalConstList([
               for (final protocol in context.serviceProtocols)
                 if (!protocol.isSynthetic) protocol.shapeId.constructed,
-            ])
-          })
+            ]),
+          }),
         ]).code,
     );
   }
@@ -235,7 +235,7 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
                 ..returns = symbol
                 ..name = 'byValue'
                 ..docs.addAll([
-                  '/// Returns the value of [$className] whose value matches [value].'
+                  '/// Returns the value of [$className] whose value matches [value].',
                 ])
                 ..requiredParameters.add(
                   Parameter(

@@ -68,10 +68,9 @@ class DeploymentBuilder implements Builder<Deployment, DeploymentBuilder> {
   set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
 
   _i3.MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>? _apiSummary;
-  _i3.MapBuilder<String,
-      _i3.BuiltMap<String, _i2.MethodSnapshot>> get apiSummary => _$this
-          ._apiSummary ??=
-      new _i3.MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>();
+  _i3.MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>
+      get apiSummary => _$this._apiSummary ??= new _i3
+          .MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>();
   set apiSummary(
           _i3.MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>?
               apiSummary) =>

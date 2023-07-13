@@ -59,7 +59,7 @@ void main() {
       );
 
       expect(log, <Matcher>[
-        isMethodCall('amplifyBackgroundProcessorFinished', arguments: null)
+        isMethodCall('amplifyBackgroundProcessorFinished', arguments: null),
       ]);
     });
   });

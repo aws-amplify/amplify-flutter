@@ -311,7 +311,7 @@ class Authenticator extends StatefulWidget {
               ErrorSummary('Invalid initialStep'),
               ErrorDescription(
                 'initialStep must be one of the following values: \n - ${validInitialAuthenticatorSteps.join('\n -')}',
-              )
+              ),
             ]);
           }
           return true;

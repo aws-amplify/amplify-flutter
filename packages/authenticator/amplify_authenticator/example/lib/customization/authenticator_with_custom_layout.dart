@@ -236,7 +236,7 @@ class TermsAndConditionsCheckBox extends FormField<bool> {
                       );
                     },
                     child: const Text('terms and conditions'),
-                  )
+                  ),
                 ],
               ),
               value: state.value,

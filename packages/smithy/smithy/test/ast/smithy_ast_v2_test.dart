@@ -101,7 +101,7 @@ void main() {
             ..memberName = 'member'
             ..traits = TraitMap({
               DocumentationTrait.id:
-                  const DocumentationTrait('Member documentation')
+                  const DocumentationTrait('Member documentation'),
             });
         });
 
@@ -113,7 +113,7 @@ void main() {
                 (b) => b
                   ..shapeId = listId
                   ..member.replace(memberShape),
-              )
+              ),
             }),
         );
 
@@ -214,7 +214,7 @@ void main() {
                         ..target = integerId,
                     ),
                   }),
-              )
+              ),
             }),
         );
 
@@ -264,11 +264,11 @@ void main() {
                         ..traits = TraitMap({
                           DocumentationTrait.id: const DocumentationTrait(
                             'My documentation string',
-                          )
+                          ),
                         }),
-                    )
+                    ),
                   }),
-              )
+              ),
             }),
         );
 
