@@ -192,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final documentsDir = await getApplicationDocumentsDirectory();
     final filepath = '${documentsDir.path}/$key';
     try {
-     await Amplify.Storage.downloadFile(
+      await Amplify.Storage.downloadFile(
         key: key,
         localFile: AWSFile.fromPath(filepath),
         onProgress: (p0) => _logger
@@ -281,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           accessLevel: StorageAccessLevel.guest,
                         )
                       },
-                      title: Text(item.key as String),
+                      title: Text(item.key),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -289,7 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             icon: const Icon(Icons.delete),
                             onPressed: () {
                               removeFile(
-                                key: item.key as String,
+                                key: item.key,
                                 accessLevel: StorageAccessLevel.guest,
                               );
                             },
@@ -302,9 +302,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: () {
                           if (defaultTargetPlatform == TargetPlatform.iOS ||
                               defaultTargetPlatform == TargetPlatform.android) {
-                            downloadFileMobile(item.key as String);
+                            downloadFileMobile(item.key);
                           } else {
-                            downloadFileWeb(item.key as String);
+                            downloadFileWeb(item.key);
                           }
                         },
                       ),
@@ -368,7 +368,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   backgroundColor: MaterialStateProperty.all(Colors.red),
                 ),
                 onPressed: _signOut,
-                child: const Icon(Icons.logout),
+                child: const Icon(Icons.logout, color: Colors.white),
               ),
             ),
           ),
