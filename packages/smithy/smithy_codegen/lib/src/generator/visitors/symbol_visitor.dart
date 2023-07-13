@@ -94,6 +94,9 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
 
   @override
   Reference operationShape(OperationShape shape, [Shape? parent]) {
+    if (context.hasOverrideFor(shape)) {
+      throw ArgumentError('Cannot specify overrides for operation shapes');
+    }
     final library = shape.smithyLibrary(context);
     return Reference(shape.dartName(context), library.libraryUrl);
   }
@@ -105,6 +108,9 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
 
   @override
   Reference serviceShape(ServiceShape shape, [Shape? parent]) {
+    if (context.hasOverrideFor(shape)) {
+      throw ArgumentError('Cannot specify overrides for service shapes');
+    }
     // Returns the service client's shape.
     return Reference(
       context.serviceClientName,
