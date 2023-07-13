@@ -24,7 +24,7 @@ void main() {
     Stream<List<int>> makeBody() => Stream.fromIterable([
           [0],
           [1],
-          [2]
+          [2],
         ]);
 
     group('base service configuration', () {

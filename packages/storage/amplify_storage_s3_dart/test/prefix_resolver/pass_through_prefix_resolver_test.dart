@@ -11,7 +11,7 @@ void main() {
     for (final accessLevel in [
       StorageAccessLevel.guest,
       StorageAccessLevel.private,
-      StorageAccessLevel.protected
+      StorageAccessLevel.protected,
     ]) {
       test('should resolve as empty string for $accessLevel', () async {
         final result = await prefixResolver.resolvePrefix(

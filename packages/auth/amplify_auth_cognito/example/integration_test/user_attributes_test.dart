@@ -57,7 +57,7 @@ void main() {
               AuthUserAttribute(
                 userAttributeKey: AuthUserAttributeKey.phoneNumber,
                 value: phoneNumber,
-              )
+              ),
             ],
           );
 

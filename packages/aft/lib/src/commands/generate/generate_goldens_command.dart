@@ -22,7 +22,7 @@ const awsProtocols = [
   'awsQuery',
   'restJson1',
   'restXml',
-  'restXmlWithNamespace'
+  'restXmlWithNamespace',
 ];
 
 /// Command for generating the AWS SDK for a given package and `sdk.yaml` file.

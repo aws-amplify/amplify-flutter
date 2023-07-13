@@ -456,7 +456,7 @@ class StorageS3Service {
         logger: _logger,
         accessLevel: destination.accessLevel,
         identityId: destination.targetIdentityId,
-      )
+      ),
     ]);
     final sourceKey = '${resolvedPrefixes[0]}${source.storageItem.key}';
     final destinationKey =

@@ -18,7 +18,7 @@ void main() {
     MessageTypeTestEntry(
       {
         'type': 'connection_ack',
-        'payload': {'connectionTimeoutMs': 300000}
+        'payload': {'connectionTimeoutMs': 300000},
       },
       MessageType.connectionAck,
     ),
@@ -42,11 +42,11 @@ void main() {
               'id': 'def-789',
               'name': 'Integration Test Blog - subscription create',
               'createdAt': '2022-09-26T21:41:14.711Z',
-              'updatedAt': '2022-09-26T21:41:14.711Z'
-            }
+              'updatedAt': '2022-09-26T21:41:14.711Z',
+            },
           },
-          'errors': null
-        }
+          'errors': null,
+        },
       },
       MessageType.data,
     ),
@@ -58,10 +58,10 @@ void main() {
           'errors': [
             {
               'errorType': 'UnknownOperationError',
-              'message': 'Unknown operation id abc-456'
+              'message': 'Unknown operation id abc-456',
             }
-          ]
-        }
+          ],
+        },
       },
       MessageType.error,
     ),
@@ -83,13 +83,13 @@ void main() {
       final errors = [
         {
           'message': errorMessage,
-          'path': ['onCreateBlog', 'updatedAt']
+          'path': ['onCreateBlog', 'updatedAt'],
         }
       ];
       final entry = {
         'id': 'xyz-456',
         'type': 'data',
-        'payload': {'data': null, 'errors': errors}
+        'payload': {'data': null, 'errors': errors},
       };
       final message = WebSocketMessage.fromJson(entry);
       expect(message.messageType, MessageType.data);

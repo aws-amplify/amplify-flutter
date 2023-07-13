@@ -301,7 +301,7 @@ void main() {
         const expectedDocument =
             'query listBlogs(\$filter: ModelBlogFilterInput, \$limit: Int, \$nextToken: String) { listBlogs(filter: \$filter, limit: \$limit, nextToken: \$nextToken) { items { $blogSelectionSet } nextToken } }';
         const expectedFilter = {
-          'name': {'eq': expectedTitle}
+          'name': {'eq': expectedTitle},
         };
 
         final queryPredicate = Blog.NAME.eq(expectedTitle);
@@ -320,7 +320,7 @@ void main() {
         const limit = 2;
         const expectedTitle = 'Test Blog 1';
         const expectedFilter = {
-          'name': {'eq': expectedTitle}
+          'name': {'eq': expectedTitle},
         };
 
         final queryPredicate = Blog.NAME.eq(expectedTitle);
@@ -427,7 +427,7 @@ void main() {
 
         final Blog blog = Blog(id: id, name: name);
         final expectedVars = {
-          'input': {'id': id, 'name': name}
+          'input': {'id': id, 'name': name},
         };
         const expectedDoc =
             'mutation createBlog(\$input: CreateBlogInput!, \$condition:  ModelBlogConditionInput) { createBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -471,8 +471,8 @@ void main() {
             'title': title,
             'rating': rating,
             'created': null,
-            'blogID': blogId
-          }
+            'blogID': blogId,
+          },
         };
         const expectedDoc =
             'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating created createdAt updatedAt blog { $blogSelectionSet } blogID } }';
@@ -524,7 +524,7 @@ void main() {
 
         final expectedVars = {
           'input': {'id': id},
-          'condition': null
+          'condition': null,
         };
         const expectedDoc =
             'mutation deleteBlog(\$input: DeleteBlogInput!, \$condition:  ModelBlogConditionInput) { deleteBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -560,7 +560,7 @@ void main() {
 
         final expectedVars = {
           'input': {'id': id},
-          'condition': null
+          'condition': null,
         };
         const expectedDoc =
             'mutation deleteBlog(\$input: DeleteBlogInput!, \$condition:  ModelBlogConditionInput) { deleteBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -602,7 +602,7 @@ void main() {
 
         final expectedVars = {
           'input': {'id': id, 'name': name},
-          'condition': null
+          'condition': null,
         };
         const expectedDoc =
             'mutation updateBlog(\$input: UpdateBlogInput!, \$condition:  ModelBlogConditionInput) { updateBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -634,9 +634,9 @@ void main() {
             'title': title,
             'rating': rating,
             'created': null,
-            'blogID': blogId
+            'blogID': blogId,
           },
-          'condition': null
+          'condition': null,
         };
         const expectedDoc =
             'mutation updatePost(\$input: UpdatePostInput!, \$condition:  ModelPostConditionInput) { updatePost(input: \$input, condition: \$condition) { id title rating created createdAt updatedAt blog { $blogSelectionSet } blogID } }';
@@ -657,8 +657,8 @@ void main() {
         final expectedVars = {
           'input': {'id': id, 'name': name},
           'condition': {
-            'name': {'lt': 'zzz'}
-          }
+            'name': {'lt': 'zzz'},
+          },
         };
         const expectedDoc =
             'mutation updateBlog(\$input: UpdateBlogInput!, \$condition:  ModelBlogConditionInput) { updateBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -695,8 +695,8 @@ void main() {
         final expectedVars = {
           'input': {'id': id},
           'condition': {
-            'name': {'lt': 'zzz'}
-          }
+            'name': {'lt': 'zzz'},
+          },
         };
         const expectedDoc =
             'mutation deleteBlog(\$input: DeleteBlogInput!, \$condition:  ModelBlogConditionInput) { deleteBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -738,8 +738,8 @@ void main() {
               'cpkOneToOneBidirectionalParentCDImplicitChildId': null,
               'cpkOneToOneBidirectionalParentCDImplicitChildName': null,
               'cpkOneToOneBidirectionalParentCDExplicitChildId': null,
-              'cpkOneToOneBidirectionalParentCDExplicitChildName': null
-            }
+              'cpkOneToOneBidirectionalParentCDExplicitChildName': null,
+            },
           };
           expect(deepEquals(req.variables, expectedVars), isTrue);
         },
@@ -765,7 +765,7 @@ void main() {
             'name': child.name,
             'belongsToParentID': customParentId,
             'belongsToParentName': parent.name,
-          }
+          },
         };
         expect(deepEquals(req.variables, expectedVars), isTrue);
       });
@@ -798,8 +798,8 @@ void main() {
         );
         final expectedFilter = {
           'filter': {
-            'name': {'eq': 'sample'}
-          }
+            'name': {'eq': 'sample'},
+          },
         };
 
         expect(req.document, expected);
@@ -835,8 +835,8 @@ void main() {
         );
         final expectedFilter = {
           'filter': {
-            'name': {'eq': 'sample'}
-          }
+            'name': {'eq': 'sample'},
+          },
         };
 
         expect(req.apiName, _exampleApiName);
@@ -871,8 +871,8 @@ void main() {
         );
         final expectedFilter = {
           'filter': {
-            'name': {'eq': 'sample'}
-          }
+            'name': {'eq': 'sample'},
+          },
         };
 
         expect(req.apiName, _exampleApiName);
@@ -896,7 +896,7 @@ void main() {
         final blogInput = <String, dynamic>{
           'id': 'abc123',
           'name': 'Lorem Ipsum',
-          'posts': null
+          'posts': null,
         };
         final blogOutput =
             transformAppSyncJsonToModelJson(blogInput, Blog.schema);
@@ -907,7 +907,7 @@ void main() {
           'title': 'Lorem Ipsum',
           'rating': 0,
           'comments': null,
-          'blog': null
+          'blog': null,
         };
         final postOutput =
             transformAppSyncJsonToModelJson(postInput, Post.schema);
@@ -920,9 +920,9 @@ void main() {
           'name': 'Lorem Ipsum',
           'posts': {
             'items': [
-              {'id': 'xyz456', 'rating': 0, 'title': 'Lorem ipsum'}
-            ]
-          }
+              {'id': 'xyz456', 'rating': 0, 'title': 'Lorem ipsum'},
+            ],
+          },
         };
         final expectedOutput = <String, dynamic>{
           'id': 'abc123',
@@ -932,10 +932,10 @@ void main() {
               'serializedData': {
                 'id': 'xyz456',
                 'rating': 0,
-                'title': 'Lorem ipsum'
-              }
+                'title': 'Lorem ipsum',
+              },
             }
-          ]
+          ],
         };
         final output = transformAppSyncJsonToModelJson(input, Blog.schema);
         expect(output, expectedOutput);
@@ -948,10 +948,10 @@ void main() {
           'rating': 0,
           'comments': {
             'items': [
-              {'id': 'def456', 'content': 'Worst... post... ever!'}
-            ]
+              {'id': 'def456', 'content': 'Worst... post... ever!'},
+            ],
           },
-          'blog': {'id': 'abc123', 'title': 'blog about life'}
+          'blog': {'id': 'abc123', 'title': 'blog about life'},
         };
         final expectedOutput = <String, dynamic>{
           'id': 'xyz456',
@@ -961,13 +961,13 @@ void main() {
             {
               'serializedData': {
                 'id': 'def456',
-                'content': 'Worst... post... ever!'
-              }
+                'content': 'Worst... post... ever!',
+              },
             }
           ],
           'blog': {
-            'serializedData': {'id': 'abc123', 'title': 'blog about life'}
-          }
+            'serializedData': {'id': 'abc123', 'title': 'blog about life'},
+          },
         };
         final output = transformAppSyncJsonToModelJson(input, Post.schema);
         expect(output, expectedOutput);
@@ -980,15 +980,15 @@ void main() {
               'id': 'xyz456',
               'title': 'Lorem Ipsum',
               'rating': 0,
-              'blog': {'id': 'abc123', 'title': 'blog about life'}
+              'blog': {'id': 'abc123', 'title': 'blog about life'},
             },
             {
               'id': 'lmn456',
               'title': 'Lorem Ipsum better',
               'rating': 0,
-              'blog': {'id': 'abc123', 'title': 'blog about life'}
+              'blog': {'id': 'abc123', 'title': 'blog about life'},
             }
-          ]
+          ],
         };
         final expectedOutput = <String, dynamic>{
           'items': [
@@ -997,18 +997,18 @@ void main() {
               'title': 'Lorem Ipsum',
               'rating': 0,
               'blog': {
-                'serializedData': {'id': 'abc123', 'title': 'blog about life'}
-              }
+                'serializedData': {'id': 'abc123', 'title': 'blog about life'},
+              },
             },
             {
               'id': 'lmn456',
               'title': 'Lorem Ipsum better',
               'rating': 0,
               'blog': {
-                'serializedData': {'id': 'abc123', 'title': 'blog about life'}
-              }
+                'serializedData': {'id': 'abc123', 'title': 'blog about life'},
+              },
             }
-          ]
+          ],
         };
         final output = transformAppSyncJsonToModelJson(
           input,
@@ -1025,10 +1025,10 @@ void main() {
               'id': 'xyz456',
               'title': 'Lorem Ipsum',
               'rating': 0,
-              'blog': {'id': 'abc123', 'title': 'blog about life'}
+              'blog': {'id': 'abc123', 'title': 'blog about life'},
             },
-            null
-          ]
+            null,
+          ],
         };
         final expectedOutput = <String, dynamic>{
           'items': [
@@ -1037,11 +1037,11 @@ void main() {
               'title': 'Lorem Ipsum',
               'rating': 0,
               'blog': {
-                'serializedData': {'id': 'abc123', 'title': 'blog about life'}
-              }
+                'serializedData': {'id': 'abc123', 'title': 'blog about life'},
+              },
             },
-            null
-          ]
+            null,
+          ],
         };
         final output = transformAppSyncJsonToModelJson(
           input,
@@ -1058,10 +1058,10 @@ void main() {
           'rating': 0,
           'comments': {
             'items': [
-              {'id': 'def456', 'content': 'Worst... post... ever!'}
-            ]
+              {'id': 'def456', 'content': 'Worst... post... ever!'},
+            ],
           },
-          'blog': {'id': 'abc123', 'title': 'blog about life'}
+          'blog': {'id': 'abc123', 'title': 'blog about life'},
         };
         final output = transformAppSyncJsonToModelJson(input, Comment.schema);
         expect(output, input);
@@ -1070,13 +1070,13 @@ void main() {
       test('should translate custom type model', () {
         final input = <String, dynamic>{
           'id': 'xyz456',
-          'customTypeValue': {'stringValue': 'abc123'}
+          'customTypeValue': {'stringValue': 'abc123'},
         };
         final expectedOutput = <String, dynamic>{
           'id': 'xyz456',
           'customTypeValue': {
-            'serializedData': {'stringValue': 'abc123'}
-          }
+            'serializedData': {'stringValue': 'abc123'},
+          },
         };
         final output = transformAppSyncJsonToModelJson(
           input,

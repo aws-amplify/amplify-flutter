@@ -14,7 +14,7 @@ class WorkerCopyBuilder extends Builder {
     '.debug.dart.js': ['.js'],
     '.release.dart.js': ['.min.js'],
     '.debug.dart.js.map': ['.js.map'],
-    '.release.dart.js.map': ['.min.js.map']
+    '.release.dart.js.map': ['.min.js.map'],
   };
 
   static final _sourceMapUrl = RegExp(r'sourceMappingURL=[\w\.]*');

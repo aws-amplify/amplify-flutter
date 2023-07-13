@@ -12,7 +12,7 @@ CodegenContext createTestContext(
 }) {
   return CodegenContext(
     smithyVersion: SmithyVersion.v2,
-    shapes: ShapeMap({for (var shape in shapes) shape.shapeId: shape}),
+    shapes: ShapeMap({for (final shape in shapes) shape.shapeId: shape}),
     packageName: packageName,
     serviceName: serviceName,
   );
