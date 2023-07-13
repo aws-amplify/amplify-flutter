@@ -68,7 +68,7 @@ abstract class ListBucketAnalyticsConfigurationsRequest
   /// The name of the bucket from which analytics configurations are retrieved.
   String get bucket;
 
-  /// The ContinuationToken that represents a placeholder from where this request should begin.
+  /// The `ContinuationToken` that represents a placeholder from where this request should begin.
   String? get continuationToken;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).

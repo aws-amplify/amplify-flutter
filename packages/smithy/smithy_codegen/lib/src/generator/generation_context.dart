@@ -51,7 +51,7 @@ mixin UnionGenerationContext<U> on ShapeGenerator<UnionShape, U>
 
   /// The name of the union variant's private class name.
   String variantClassName(MemberShape member) =>
-      '_${className}_${member.memberName}'.pascalCase;
+      '${'_${className}_${member.memberName}'.pascalCase}\$';
 }
 
 /// Useful properties when generating structure shapes.

@@ -10,12 +10,12 @@ import 'package:smithy/smithy.dart' as _i1;
 sealed class PlayerAction extends _i1.SmithyUnion<PlayerAction> {
   const PlayerAction._();
 
-  const factory PlayerAction.quit() = PlayerActionQuit;
+  const factory PlayerAction.quit() = PlayerActionQuit$;
 
   const factory PlayerAction.sdkUnknown(
     String name,
     Object value,
-  ) = PlayerActionSdkUnknown;
+  ) = PlayerActionSdkUnknown$;
 
   static const List<_i1.SmithySerializer<PlayerAction>> serializers = [
     PlayerActionRestJson1Serializer()
@@ -38,8 +38,8 @@ sealed class PlayerAction extends _i1.SmithyUnion<PlayerAction> {
   }
 }
 
-final class PlayerActionQuit extends PlayerAction {
-  const PlayerActionQuit() : super._();
+final class PlayerActionQuit$ extends PlayerAction {
+  const PlayerActionQuit$() : super._();
 
   @override
   String get name => 'quit';
@@ -47,8 +47,8 @@ final class PlayerActionQuit extends PlayerAction {
   _i1.Unit get quit => const _i1.Unit();
 }
 
-final class PlayerActionSdkUnknown extends PlayerAction {
-  const PlayerActionSdkUnknown(
+final class PlayerActionSdkUnknown$ extends PlayerAction {
+  const PlayerActionSdkUnknown$(
     this.name,
     this.value,
   ) : super._();
@@ -67,7 +67,7 @@ class PlayerActionRestJson1Serializer
   @override
   Iterable<Type> get types => const [
         PlayerAction,
-        PlayerActionQuit,
+        PlayerActionQuit$,
       ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
@@ -85,7 +85,7 @@ class PlayerActionRestJson1Serializer
     final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'quit':
-        return const PlayerActionQuit();
+        return const PlayerActionQuit$();
     }
     return PlayerAction.sdkUnknown(
       key,
@@ -102,11 +102,11 @@ class PlayerActionRestJson1Serializer
     return [
       object.name,
       switch (object) {
-        PlayerActionQuit(:final value) => serializers.serialize(
+        PlayerActionQuit$(:final value) => serializers.serialize(
             value,
             specifiedType: const FullType(_i1.Unit),
           ),
-        PlayerActionSdkUnknown(:final value) => value,
+        PlayerActionSdkUnknown$(:final value) => value,
       },
     ];
   }

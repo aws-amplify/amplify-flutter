@@ -68,7 +68,7 @@ abstract class ListBucketInventoryConfigurationsRequest
   /// The name of the bucket containing the inventory configurations to retrieve.
   String get bucket;
 
-  /// The marker used to continue an inventory configuration listing that has been truncated. Use the NextContinuationToken from a previously truncated list response to continue the listing. The continuation token is an opaque value that Amazon S3 understands.
+  /// The marker used to continue an inventory configuration listing that has been truncated. Use the `NextContinuationToken` from a previously truncated list response to continue the listing. The continuation token is an opaque value that Amazon S3 understands.
   String? get continuationToken;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).

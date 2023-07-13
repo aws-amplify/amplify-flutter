@@ -11,6 +11,8 @@ class _$ConditionalCheckFailedException
   @override
   final String? message;
   @override
+  final _i4.BuiltMap<String, _i3.AttributeValue>? item;
+  @override
   final int? statusCode;
   @override
   final Map<String, String>? headers;
@@ -20,7 +22,7 @@ class _$ConditionalCheckFailedException
       (new ConditionalCheckFailedExceptionBuilder()..update(updates))._build();
 
   _$ConditionalCheckFailedException._(
-      {this.message, this.statusCode, this.headers})
+      {this.message, this.item, this.statusCode, this.headers})
       : super._();
 
   @override
@@ -35,13 +37,16 @@ class _$ConditionalCheckFailedException
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is ConditionalCheckFailedException && message == other.message;
+    return other is ConditionalCheckFailedException &&
+        message == other.message &&
+        item == other.item;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, message.hashCode);
+    _$hash = $jc(_$hash, item.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -56,6 +61,12 @@ class ConditionalCheckFailedExceptionBuilder
   String? _message;
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
+
+  _i4.MapBuilder<String, _i3.AttributeValue>? _item;
+  _i4.MapBuilder<String, _i3.AttributeValue> get item =>
+      _$this._item ??= new _i4.MapBuilder<String, _i3.AttributeValue>();
+  set item(_i4.MapBuilder<String, _i3.AttributeValue>? item) =>
+      _$this._item = item;
 
   int? _statusCode;
   int? get statusCode => _$this._statusCode;
@@ -73,6 +84,7 @@ class ConditionalCheckFailedExceptionBuilder
     final $v = _$v;
     if ($v != null) {
       _message = $v.message;
+      _item = $v.item?.toBuilder();
       _statusCode = $v.statusCode;
       _headers = $v.headers;
       _$v = null;
@@ -95,9 +107,25 @@ class ConditionalCheckFailedExceptionBuilder
   ConditionalCheckFailedException build() => _build();
 
   _$ConditionalCheckFailedException _build() {
-    final _$result = _$v ??
-        new _$ConditionalCheckFailedException._(
-            message: message, statusCode: statusCode, headers: headers);
+    _$ConditionalCheckFailedException _$result;
+    try {
+      _$result = _$v ??
+          new _$ConditionalCheckFailedException._(
+              message: message,
+              item: _item?.build(),
+              statusCode: statusCode,
+              headers: headers);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'item';
+        _item?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'ConditionalCheckFailedException', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
