@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _uploadFile() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'png', 'doc', 'pdf'],
+      allowedExtensions: ['jpg', 'png'],
       withReadStream: true,
       withData: false,
     );
