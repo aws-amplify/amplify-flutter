@@ -178,7 +178,7 @@ class _UpdateUserAttributesScreenState
                               size: 18,
                             ),
                             onPressed: () => _removeAttribute(element),
-                          )
+                          ),
                         ],
                       ),
                     ],

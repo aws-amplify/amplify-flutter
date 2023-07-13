@@ -103,7 +103,7 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
                 (p) => p
                   ..name = label.memberName
                   ..type = DartTypes.core.string,
-              )
+              ),
           ])
           ..modifier = MethodModifier.async
           ..body = Block.of(_serviceMethodBody(shape)),
@@ -155,8 +155,8 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
           ], {
             'labels': literalMap({
               for (final label in inputLabels)
-                label.memberName: refer(label.memberName)
-            })
+                label.memberName: refer(label.memberName),
+            }),
           });
     yield declareFinal('input').assign(input).statement;
 
@@ -206,7 +206,7 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
               .property('wireSerializer')
               .property('serialize')
               .call([
-            refer('output')
+            refer('output'),
           ], {
             'specifiedType': operation.outputSymbol(context).fullType([
               operation.outputShape(context).httpPayload(context).symbol,
@@ -257,7 +257,7 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
                 .property('wireSerializer')
                 .property('serialize')
                 .call([
-              refer('e')
+              refer('e'),
             ], {
               'specifiedType': errorSymbol.fullType([
                 errorShape.httpPayload(context).symbol,

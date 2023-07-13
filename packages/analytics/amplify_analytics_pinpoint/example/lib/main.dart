@@ -136,7 +136,7 @@ class _MyAppState extends State<MyApp> {
         ..addDoubleProperty('${_userId}_endpoint_doubleKey', 10)
         ..addBoolProperty('${_userId}_endpoint_boolKey', false),
       userAttributes: {
-        '${_userId}_user_stringKey': ['stringValue', 'anotherStringValue']
+        '${_userId}_user_stringKey': ['stringValue', 'anotherStringValue'],
       },
     );
 
@@ -175,7 +175,7 @@ class _MyAppState extends State<MyApp> {
                   Center(
                     child:
                         Text('Is Amplify Configured?: $_amplifyConfigured\n'),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -280,7 +280,7 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

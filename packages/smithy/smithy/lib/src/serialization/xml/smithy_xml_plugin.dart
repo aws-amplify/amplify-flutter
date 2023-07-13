@@ -136,7 +136,7 @@ class SmithyXmlPlugin implements SerializerPlugin {
       namespace = key.namespace;
     }
     final namespaces = <String, String>{
-      if (namespace != null) namespace.uri: namespace.prefix ?? ''
+      if (namespace != null) namespace.uri: namespace.prefix ?? '',
     };
 
     if (value is Iterable<XmlNode> || value is! Iterable<Object?>) {

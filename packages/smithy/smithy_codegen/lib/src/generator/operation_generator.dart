@@ -194,7 +194,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
             DartTypes.smithyAws.withChecksum.newInstance([
               (memberIsNullable ? inputProperty.nullChecked : inputProperty)
                   .property('value'),
-            ])
+            ]),
           ]).wrapWithBlockIf(
             inputProperty.notEqualTo(literalNull),
             memberIsNullable,
@@ -423,7 +423,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
         ..name = 'errorTypes'
         ..lambda = true
         ..body = literalConstList([
-          for (var error in errorSymbols) error.constInstance,
+          for (final error in errorSymbols) error.constInstance,
         ]).code,
     );
 
@@ -547,10 +547,10 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
                 Method(
                   (m) => m
                     ..body = refer('super').property('run').call([
-                      refer('input')
+                      refer('input'),
                     ], {
                       'client': refer('client'),
-                      'useProtocol': refer('useProtocol')
+                      'useProtocol': refer('useProtocol'),
                     }).code,
                 ).closure,
               ], {
@@ -586,7 +586,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
           )
           ..name = 'protocols'
           ..assignment = literalList([
-            for (var protocol in context.serviceProtocols)
+            for (final protocol in context.serviceProtocols)
               protocol.instantiableProtocolSymbol.newInstance([], {
                 'serializers': protocol.serializers(context),
                 'builderFactories': context.builderFactoriesRef,
@@ -702,7 +702,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
             (p) => p
               ..type = pageSize?.symbol.boxed ?? DartTypes.core.void$
               ..name = 'pageSize',
-          )
+          ),
         ])
         ..lambda = true
         ..body = refer('input').property('rebuild').call([
@@ -722,7 +722,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
                         pageSize.isNullable,
                       ),
               ]),
-          ).closure
+          ).closure,
         ]).code,
     );
   }

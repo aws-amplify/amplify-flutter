@@ -676,7 +676,7 @@ final class SignInStateMachine
                 ..userAttributes.addAll([
                   for (final MapEntry(:key, :value)
                       in _attributesNeedingUpdate!.entries)
-                    AttributeType(name: key.key, value: value)
+                    AttributeType(name: key.key, value: value),
                 ]),
             ),
           )

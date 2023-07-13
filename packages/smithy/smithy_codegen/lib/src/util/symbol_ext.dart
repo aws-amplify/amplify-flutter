@@ -34,7 +34,7 @@ extension ExpressionUtil on Expression {
         const Code(') {'),
       ],
       statement,
-      if (performCheck) const Code('}')
+      if (performCheck) const Code('}'),
     ]);
   }
 }
@@ -48,7 +48,7 @@ extension CodeHelpers on Code {
         const Code(') {'),
       ],
       this,
-      if (performCheck) const Code('}')
+      if (performCheck) const Code('}'),
     ]);
   }
 }

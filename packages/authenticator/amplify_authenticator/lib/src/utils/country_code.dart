@@ -260,7 +260,7 @@ const countryCodes = [
   Country('WF', '681', CountryResolverKey.wf$),
   Country('YE', '967', CountryResolverKey.ye$),
   Country('ZM', '260', CountryResolverKey.zm$),
-  Country('ZW', '263', CountryResolverKey.zw$)
+  Country('ZW', '263', CountryResolverKey.zw$),
 ];
 
 const initialCountryCode = Country('US', '1', CountryResolverKey.us$);

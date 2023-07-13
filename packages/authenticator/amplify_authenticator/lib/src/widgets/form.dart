@@ -118,7 +118,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
               ErrorDescription(
                 'If you are using prebuilt Form Field widgets to create a custom Authenticator UI, '
                 'ensure that they are a descendant of a AuthenticatorForm widget.',
-              )
+              ),
             ]),
           ),
         );
@@ -187,7 +187,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
               if (runtimeActions.isNotEmpty) ...[
                 const Divider(),
                 ...runtimeActions,
-              ]
+              ],
             ].spacedBy(const SizedBox(height: 12)),
           ),
         ],
@@ -636,7 +636,7 @@ class ConfirmResetPasswordForm extends AuthenticatorForm {
           fields: const [
             ResetPasswordFormField.verificationCode(),
             ResetPasswordFormField.newPassword(),
-            ResetPasswordFormField.passwordConfirmation()
+            ResetPasswordFormField.passwordConfirmation(),
           ],
           actions: const [
             ConfirmResetPasswordButton(),

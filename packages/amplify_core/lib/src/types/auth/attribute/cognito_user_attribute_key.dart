@@ -201,7 +201,7 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey {
     sub,
     updatedAt,
     website,
-    zoneinfo
+    zoneinfo,
   ];
 
   @override

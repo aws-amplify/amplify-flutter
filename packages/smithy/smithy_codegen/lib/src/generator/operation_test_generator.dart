@@ -82,7 +82,7 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
               literalString('https://${testCase.host ?? 'example.com'}'),
             ])
           else if (_testValues.containsKey(param.name))
-            param.name: _testValues[param.name]!
+            param.name: _testValues[param.name]!,
       });
 
   /// Tests to skip on Web. To be filled in during codegen since it depends
@@ -202,7 +202,7 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
             ).generate(),
             ..._collectSerializers(errorShape, protocol),
           ],
-      }
+      },
   };
 
   static const _vendorProtocol = GenericJsonProtocolDefinitionTrait();
@@ -319,7 +319,7 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
         }),
         'inputSerializers': literalConstList([
           for (final serializer in _uniqueSerializers(serializers))
-            refer(serializer.name).constInstance([])
+            refer(serializer.name).constInstance([]),
         ]),
       });
       yield _buildTest(testCase, testCall, type: TestType.request);
@@ -337,7 +337,7 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
         'testCase': _buildResponseTestCase(testCase),
         'outputSerializers': literalConstList([
           for (final serializer in _uniqueSerializers(serializers))
-            refer(serializer.name).constInstance([])
+            refer(serializer.name).constInstance([]),
         ]),
       });
       yield _buildTest(testCase, testCall, type: TestType.response);
@@ -358,7 +358,7 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
           'testCase': _buildResponseTestCase(testCase),
           'errorSerializers': literalConstList([
             for (final serializer in _uniqueSerializers(serializers))
-              refer(serializer.name).constInstance([])
+              refer(serializer.name).constInstance([]),
           ]),
         }, [
           inputPayload.symbol,
@@ -386,7 +386,7 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
       initBlock.addExpression(
         declareFinal('config').assign(
           refer('vendorSerializers').property('deserialize').call([
-            literalMap(testCase.vendorParams)
+            literalMap(testCase.vendorParams),
           ], {
             'specifiedType': vendorParamsSymbol.fullType(),
           }).asA(vendorParamsSymbol),
@@ -456,7 +456,7 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
                   DartTypes.awsSigV4.s3ServiceConfiguration.newInstance([], {
                 'signPayload': literalFalse,
                 'chunked': literalFalse,
-              })
+              }),
             }),
           ),
         );

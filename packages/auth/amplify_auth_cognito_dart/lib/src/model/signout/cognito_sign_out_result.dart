@@ -106,7 +106,7 @@ final class CognitoPartialSignOut extends CognitoSignOutResult {
         hostedUiException,
         globalSignOutException,
         revokeTokenException,
-        signedOutLocally
+        signedOutLocally,
       ];
 
   @override
