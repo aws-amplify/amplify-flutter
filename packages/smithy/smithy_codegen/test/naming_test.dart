@@ -191,7 +191,7 @@ void main() {
           (b) => b
             ..shapeId = ShapeId.parse('com.example#MyEnumBuilder')
             ..traits = TraitMap.fromTraits([
-              const EnumTrait([EnumDefinition(value: 'test')])
+              const EnumTrait([EnumDefinition(value: 'test')]),
             ]),
         );
         final shapes = [myEnum, myEnumBuilder];

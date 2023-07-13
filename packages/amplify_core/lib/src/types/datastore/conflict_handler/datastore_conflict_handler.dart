@@ -55,6 +55,6 @@ class ConflictResolutionDecision {
 
   Map<String, Object?> toJson() => <String, Object?>{
         'resolutionStrategy': _resolutionStrategy.name,
-        'customModel': customModel?.toJson()
+        'customModel': customModel?.toJson(),
       };
 }

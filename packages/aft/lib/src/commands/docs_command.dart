@@ -119,7 +119,7 @@ abstract class _DocsSubcommand extends AmplifyCommand
         '--fragment-dir-path=doc/.dart_tool/build/generated',
         '--yaml',
         '--write-in-place',
-        'lib'
+        'lib',
       ],
     );
   }

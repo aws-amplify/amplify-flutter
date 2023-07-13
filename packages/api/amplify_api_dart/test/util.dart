@@ -113,14 +113,14 @@ const mockSubscriptionData = {
       'createdAt': '2022-08-15T18:22:15.164Z',
       'file': null,
       'files': null,
-      'updatedAt': '2022-08-15T18:22:15.164Z'
-    }
-  }
+      'updatedAt': '2022-08-15T18:22:15.164Z',
+    },
+  },
 };
 
 const mockAckMessage = {
   'type': 'connection_ack',
-  'payload': {'connectionTimeoutMs': 300000}
+  'payload': {'connectionTimeoutMs': 300000},
 };
 
 final isATestPost = isA<Post>().having(

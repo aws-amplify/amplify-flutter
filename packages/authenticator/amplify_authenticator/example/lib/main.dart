@@ -121,7 +121,7 @@ class _MyAppState extends State<MyApp> {
           SignUpFormField.custom(
             title: 'Age',
             attributeKey: const CognitoUserAttributeKey.custom('age'),
-          )
+          ),
         ],
       ),
 

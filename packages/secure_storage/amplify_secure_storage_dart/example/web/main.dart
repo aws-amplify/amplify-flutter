@@ -96,9 +96,9 @@ class AppComponent extends StatefulComponent {
                     onClick: _delete,
                   ),
                 ],
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

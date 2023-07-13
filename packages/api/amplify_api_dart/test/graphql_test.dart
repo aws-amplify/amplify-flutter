@@ -28,11 +28,11 @@ const _expectedQuerySuccessResponseBody = {
         {
           'id': 'TEST_ID',
           'name': 'Test App Blog',
-          'createdAt': '2022-06-28T17:36:52.460Z'
+          'createdAt': '2022-06-28T17:36:52.460Z',
         }
-      ]
-    }
-  }
+      ],
+    },
+  },
 };
 
 final _modelQueryId = uuid();
@@ -41,30 +41,30 @@ final _expectedModelQueryResult = {
     'getBlog': {
       'createdAt': '2021-07-21T22:23:33.707Z',
       'id': _modelQueryId,
-      'name': 'Test App Blog'
-    }
-  }
+      'name': 'Test App Blog',
+    },
+  },
 };
 const _expectedMutateSuccessResponseBody = {
   'data': {
     'createBlog': {
       'id': 'TEST_ID',
       'name': 'Test App Blog',
-      'createdAt': '2022-07-06T18:42:26.126Z'
-    }
-  }
+      'createdAt': '2022-07-06T18:42:26.126Z',
+    },
+  },
 };
 
 // Error Mocks
 const _errorMessage = 'Unable to parse GraphQL query.';
 const _errorLocations = [
   {'line': 2, 'column': 3},
-  {'line': 4, 'column': 5}
+  {'line': 4, 'column': 5},
 ];
 const _errorPath = ['a', 1, 'b'];
 const _errorExtensions = {
   'a': 'blah',
-  'b': {'c': 'd'}
+  'b': {'c': 'd'},
 };
 const _errorType = 'DynamoDB:ConditionalCheckFailedException';
 const _errorInfo = {'a': 'b'};
@@ -79,7 +79,7 @@ const _expectedErrorResponseBody = {
       'errorType': _errorType,
       'errorInfo': _errorInfo,
     },
-  ]
+  ],
 };
 
 const _authErrorMessage = 'Not authorized';
@@ -89,7 +89,7 @@ const _expectedAuthErrorResponseBody = {
     {
       'message': _authErrorMessage,
     },
-  ]
+  ],
 };
 
 final mockHttpClient = MockAWSHttpClient((request, _) async {

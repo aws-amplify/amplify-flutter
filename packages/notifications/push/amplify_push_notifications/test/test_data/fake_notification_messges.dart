@@ -14,8 +14,8 @@ const standardAndroidPushMessage = {
     'pinpoint.notification.title': 'TITTLE',
     'pinpoint.notification.body': 'BODY',
     'pinpoint.campaign.campaign_id': '_DIRECT',
-    'pinpoint.notification.silentPush': 0
-  }
+    'pinpoint.notification.silentPush': 0,
+  },
 };
 
 const urlsAndroidMessage = {
@@ -31,8 +31,8 @@ const urlsAndroidMessage = {
     'pinpoint.notification.title': 'TITTLE',
     'pinpoint.notification.body': 'BODY',
     'pinpoint.campaign.campaign_id': '_DIRECT',
-    'pinpoint.notification.silentPush': 0
-  }
+    'pinpoint.notification.silentPush': 0,
+  },
 };
 
 const imageUrlAndroidPushMessage = {
@@ -48,8 +48,8 @@ const imageUrlAndroidPushMessage = {
     'pinpoint.notification.title': 'TITTLE',
     'pinpoint.notification.body': 'BODY',
     'pinpoint.campaign.campaign_id': '_DIRECT',
-    'pinpoint.notification.silentPush': 0
-  }
+    'pinpoint.notification.silentPush': 0,
+  },
 };
 
 const standardiOSMessage = {
@@ -57,7 +57,7 @@ const standardiOSMessage = {
     'alert': {'title': 'TITTLE', 'body': 'BODY'},
     'mutable-content': 0,
     'content-available': 1,
-  }
+  },
 };
 
 const imageUrliOSMessage = {
@@ -68,16 +68,16 @@ const imageUrliOSMessage = {
     'alert': {'title': 'TITTLE', 'body': 'BODY'},
     'mutable-content': 0,
     'content-available': 1,
-  }
+  },
 };
 
 const urlsiOSMessage = {
   'data': {
-    'pinpoint': {'deeplink': 'URL'}
+    'pinpoint': {'deeplink': 'URL'},
   },
   'aps': {
     'alert': {'title': 'TITTLE', 'body': 'BODY'},
     'mutable-content': 0,
-    'content-available': 1
-  }
+    'content-available': 1,
+  },
 };

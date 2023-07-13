@@ -49,7 +49,7 @@ abstract class QueryFieldOperator<T> {
   ) {
     return <String, dynamic>{
       'operatorName': operatorName,
-      'value': serializeDynamicValue(value)
+      'value': serializeDynamicValue(value),
     };
   }
 
@@ -360,7 +360,7 @@ class BetweenQueryOperator<T extends Comparable<Object?>>
     return <String, dynamic>{
       'operatorName': QueryFieldOperatorType.between.toShortString(),
       'start': serializeDynamicValue(start),
-      'end': serializeDynamicValue(end)
+      'end': serializeDynamicValue(end),
     };
   }
 }

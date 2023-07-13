@@ -179,7 +179,7 @@ const expected = <String, CognitoAuthConfig>{
         'email',
         'openid',
         'profile',
-        'aws.cognito.signin.user.admin'
+        'aws.cognito.signin.user.admin',
       ],
       signInRedirectUri: OAUTH_SIGNIN,
       signOutRedirectUri: OAUTH_SIGNOUT,

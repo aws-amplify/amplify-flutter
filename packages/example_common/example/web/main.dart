@@ -11,7 +11,7 @@ void main() {
           labelText: 'Example Form Field',
           onChanged: (_) {},
         ),
-        ButtonComponent(innerHtml: 'Example Button', onClick: () {})
+        ButtonComponent(innerHtml: 'Example Button', onClick: () {}),
       ],
     ),
   );

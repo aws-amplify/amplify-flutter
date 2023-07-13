@@ -66,7 +66,7 @@ class InheritedForms extends InheritedWidget {
           ErrorSummary('No InheritedForms widget found.'),
           ErrorDescription(
             'Make sure your app is wrapped with an Authenticator widget.',
-          )
+          ),
         ]);
       }
       return true;
