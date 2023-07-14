@@ -53,6 +53,10 @@
     "@skip": {
         "description": "Label of button to skip the current step or action."
     },
+    "totpApp": "Open Authenticator App",
+    "@totpApp": {
+        "description": "Label of button to open the users default authentication app."
+    },
     "signOut": "Sign Out",
     "@signOut": {
         "description": "Label of button to sign out the user"

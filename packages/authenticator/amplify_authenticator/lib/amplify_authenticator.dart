@@ -16,6 +16,7 @@ import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/models/authenticator_builder.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
+import 'package:amplify_authenticator/src/models/totp_options.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
@@ -46,6 +47,7 @@ export 'package:amplify_flutter/amplify_flutter.dart'
 export 'src/enums/enums.dart' show AuthenticatorStep, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
+export 'src/models/totp_options.dart';
 export 'src/models/username_input.dart'
     show UsernameType, UsernameInput, UsernameSelection;
 export 'src/state/authenticator_state.dart';
@@ -74,6 +76,9 @@ export 'src/widgets/form.dart'
         ConfirmSignInCustomAuthForm,
         ConfirmSignInMFAForm,
         ConfirmSignInNewPasswordForm,
+        ContinueSignInWithMfaSelectionForm,
+        ContinueSignInWithTotpSetupForm,
+        ConfirmSignInWithTotpMfaCodeForm,
         ConfirmSignUpForm,
         ResetPasswordForm,
         ConfirmResetPasswordForm,
@@ -165,7 +170,7 @@ export 'src/widgets/form_field.dart'
 ///
 /// ## Customization
 ///
-/// ### Themeing
+/// ### Theming
 ///
 /// By default, the Authenticator uses your app's Material theme for its styling.
 ///
@@ -250,7 +255,7 @@ export 'src/widgets/form_field.dart'
 /// {@template amplify_authenticator.custom_builder}
 /// The authenticator provides prebuilt widgets for each step
 /// of the authentication flow based on the amplify config for
-/// your app. Some customizations can be acheived by providing
+/// your app. Some customizations can be achieved by providing
 /// custom forms (see [signInForm] and [signUpForm]) or through
 /// theming. To fully customize the authenticator UI,
 /// you can provide a custom builder method.
@@ -309,6 +314,7 @@ class Authenticator extends StatefulWidget {
     this.authenticatorBuilder,
     this.padding = const EdgeInsets.all(32),
     this.dialCodeOptions = const DialCodeOptions(),
+    this.totpOptions,
   }) :
         // ignore: prefer_asserts_with_message
         assert(() {
@@ -351,6 +357,9 @@ class Authenticator extends StatefulWidget {
   // Padding around each authenticator view
   final EdgeInsets padding;
 
+  /// The totp options for authenticator
+  final TotpOptions? totpOptions;
+
   /// A method to build a custom UI for the authenticator
   ///
   /// {@macro amplify_authenticator.custom_builder}
@@ -382,7 +391,7 @@ class Authenticator extends StatefulWidget {
   /// To fully customize the UI, see authenticatorBuilder
   final SignUpForm? signUpForm;
 
-  /// The form displayed when promted for a password change upon signing in.
+  /// The form displayed when prompted for a password change upon signing in.
   ///
   /// This will be shown to users that are in the state `FORCE_CHANGE_PASSWORD`.
   /// By default, the form will require the user to enter and confirm a new password.
@@ -417,7 +426,7 @@ class Authenticator extends StatefulWidget {
   /// The initial step that the authenticator will display if the user is not
   /// already authenticated.
   ///
-  /// Defauls to AuthenticatorStep.signIn. Other acceptable values are:
+  /// Defaults to AuthenticatorStep.signIn. Other acceptable values are:
   /// AuthenticatorStep.signUp, AuthenticatorStep.resetPassword, and
   /// AuthenticatorStep.onboarding.
   ///
@@ -475,7 +484,8 @@ class Authenticator extends StatefulWidget {
           'dialCodeOptions',
           dialCodeOptions,
         ),
-      );
+      )
+      ..add(DiagnosticsProperty<TotpOptions>('totpOptions', totpOptions));
   }
 }
 
@@ -667,6 +677,7 @@ class _AuthenticatorState extends State<Authenticator> {
       child: InheritedConfig(
         amplifyConfig: _config,
         padding: widget.padding,
+        totpOptions: widget.totpOptions,
         child: InheritedAuthenticatorState(
           key: keyInheritedAuthenticatorState,
           state: _authenticatorState,
@@ -685,6 +696,12 @@ class _AuthenticatorState extends State<Authenticator> {
                 confirmSignUpForm: ConfirmSignUpForm(),
                 confirmSignInCustomAuthForm: ConfirmSignInCustomAuthForm(),
                 confirmSignInMFAForm: ConfirmSignInMFAForm(),
+                continueSignInWithMfaSelectionForm:
+                    ContinueSignInWithMfaSelectionForm(),
+                continueSignInWithTotpSetupForm:
+                    ContinueSignInWithTotpSetupForm(),
+                confirmSignInWithTotpMfaCodeForm:
+                    ConfirmSignInWithTotpMfaCodeForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),
                 child: widget.child,

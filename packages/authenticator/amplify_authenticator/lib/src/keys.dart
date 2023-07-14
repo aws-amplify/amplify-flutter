@@ -50,6 +50,11 @@ const keyCodeConfirmSignUpFormField = Key('codeConfirmSignUpFormField');
 const keyCodeConfirmSignInFormField = Key('codeConfirmSignInFormField');
 const keyCustomChallengeConfirmSignInFormField =
     Key('customChallengeConfirmSignInFormField');
+const keyMfaSelectionTotpSignInFormField =
+    Key('mfaSelectionTotpSignInFormField');
+const keyMfaSelectionSmsSignInFormField = Key('mfaSelectionSmsSignInFormField');
+const keyTotpSetupSignInFormField = Key('totpSetupSignInFormField');
+const keyTotpAppSignInButton = Key('totpAppSignInButton');
 const keyUsernameConfirmSignInFormField = Key('usernameConfirmSignInFormField');
 const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
 const keyNewPasswordConfirmSignInFormField =
@@ -103,6 +108,8 @@ const keyBackToSignInButton = Key('backToSignInButton');
 const keyGoToSignUpButton = Key('goToSignUpButton');
 const keyGoToSignInButton = Key('goToSignInButton');
 const keyConfirmSignInButton = Key('confirmSignInButton');
+const keyConfirmSignInMfaSelectionButton =
+    Key('confirmSignInMfaSelectionButton');
 const keyConfirmSignInCustomButton = Key('confirmSignInCustomButton');
 const keyLostCodeButton = Key('lostCodeButton');
 const keySendCodeButton = Key('sendCodeButton');

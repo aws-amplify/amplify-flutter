@@ -31,6 +31,24 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
         .confirmSignInNewPassword;
   }
 
+  /// The title for the continue sign in (mfa selection) Widget.
+  String continueSignInWithMfaSelection(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context)
+        .continueSignInWithMfaSelection;
+  }
+
+  /// The title for the continue sign in (totp setup) Widget.
+  String continueSignInWithTotpSetup(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context)
+        .continueSignInWithTotpSetup;
+  }
+
+  /// The title for the confirm sign in (totp MFA code) Widget.
+  String confirmSignInWithTotpMfaCode(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context)
+        .confirmSignInWithTotpMfaCode;
+  }
+
   /// The title for the reset password Widget.
   String resetPassword(BuildContext context) {
     return AuthenticatorLocalizations.titlesOf(context).resetPassword;
@@ -57,6 +75,12 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
         return confirmSignInMfa(context);
       case AuthenticatorStep.confirmSignInNewPassword:
         return confirmSignInNewPassword(context);
+      case AuthenticatorStep.continueSignInWithMfaSelection:
+        return continueSignInWithMfaSelection(context);
+      case AuthenticatorStep.continueSignInWithTotpSetup:
+        return continueSignInWithTotpSetup(context);
+      case AuthenticatorStep.confirmSignInWithTotpMfaCode:
+        return confirmSignInWithTotpMfaCode(context);
       case AuthenticatorStep.resetPassword:
         return resetPassword(context);
       case AuthenticatorStep.confirmResetPassword:

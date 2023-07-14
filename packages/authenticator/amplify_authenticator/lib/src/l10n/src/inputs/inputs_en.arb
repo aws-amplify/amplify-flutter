@@ -177,6 +177,14 @@
             }
         }
     },
+    "smsSelection": "Text Message (SMS)",
+    "@smsSelection": {
+        "description": "Label for the radio button to select the user's mfa method."
+    },
+    "totpSelection": "Authenticator App (TOTP)",
+    "@totpSelection": {
+        "description": "Label for the radio button to select the user's mfa method."
+    },
     "passwordsDoNotMatch": "Passwords do not match.",
     "@passwordsDoNotMatch": {
         "description": "Message for conflicting password and confirm password fields."

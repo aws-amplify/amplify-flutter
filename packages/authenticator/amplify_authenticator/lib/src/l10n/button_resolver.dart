@@ -24,6 +24,7 @@ enum ButtonResolverKeyType {
   confirmResetPassword,
   backTo,
   skip,
+  openTotpApp,
 }
 
 class ButtonResolverKey {
@@ -60,6 +61,8 @@ class ButtonResolverKey {
   static const confirmResetPassword =
       ButtonResolverKey._(ButtonResolverKeyType.confirmResetPassword);
   static const skip = ButtonResolverKey._(ButtonResolverKeyType.skip);
+  static const openTotpApp =
+      ButtonResolverKey._(ButtonResolverKeyType.openTotpApp);
 
   @override
   String toString() => describeEnum(type);
@@ -151,6 +154,11 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
     return AuthenticatorLocalizations.buttonsOf(context).skip;
   }
 
+  /// Label of button to open the users default authentication app.
+  String totpApp(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).totpApp;
+  }
+
   @override
   String resolve(BuildContext context, ButtonResolverKey key) {
     switch (key.type) {
@@ -186,6 +194,8 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
         return backTo(context, key.previousStep!);
       case ButtonResolverKeyType.skip:
         return skip(context);
+      case ButtonResolverKeyType.openTotpApp:
+        return totpApp(context);
     }
   }
 }

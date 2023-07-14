@@ -26,7 +26,9 @@ enum ConfirmSignInField {
   // updatedAt,
   // website,
   custom,
-  customChallenge
+  customChallenge,
+  mfaSelection,
+  totpSetup,
 }
 
 extension ConfirmSignInFieldX on ConfirmSignInField {

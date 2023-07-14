@@ -95,7 +95,9 @@ abstract class AuthenticatorMessageLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+  ];
 
   /// The message that is displayed after a new confirmation code is sent via Email/SMS.
   ///

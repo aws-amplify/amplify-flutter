@@ -231,6 +231,27 @@ class ConfirmSignInCustomButton extends ConfirmSignInMFAButton {
 }
 
 /// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.continue_sign_in_mfa_selection_button}
+/// A prebuilt button for Sign In with MFA selection.
+///
+/// Uses [ButtonResolverKey.confirm] for localization
+/// {@endtemplate}
+class ContinueSignInMFASelectionButton extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.continue_sign_in_mfa_selection_button}
+  const ContinueSignInMFASelectionButton({Key? key})
+      : super(
+          key: key ?? keyConfirmSignInMfaSelectionButton,
+        );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.confirm;
+
+  @override
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.continueSignInWithMfaSelection();
+}
+
+/// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.confirm_sign_in_mfa_button}
 /// A prebuilt button for completing Sign In with and MFA code.
 ///

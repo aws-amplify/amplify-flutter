@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -139,6 +139,36 @@ class AuthenticatorState extends ChangeNotifier {
   }
 
   String _confirmationCode = '';
+
+  MfaType? get selectedMfaMethod => _selectedMfaMethod;
+
+  /// The value for the MFA selection form field
+  ///
+  /// This value will be used during confirm sign up with MFA selection
+  set selectedMfaMethod(MfaType? value) {
+    _selectedMfaMethod = value;
+    notifyListeners();
+  }
+
+  MfaType? _selectedMfaMethod;
+
+  TotpSetupDetails? get totpSetupDetails {
+    final state = _authBloc.currentState;
+
+    if (state is ContinueSignInTotpSetup) {
+      return state.totpSetupDetails;
+    }
+    return null;
+  }
+
+  Uri? get totpSetupUri {
+    final state = _authBloc.currentState;
+
+    if (state is ContinueSignInTotpSetup) {
+      return state.totpSetupUri;
+    }
+    return null;
+  }
 
   /// The publicChallengeParameters received from the CreateAuthChallenge lambda during custom auth
   ///
@@ -311,6 +341,44 @@ class AuthenticatorState extends ChangeNotifier {
   /// Complete MFA using the values for [confirmationCode],
   /// [rememberDevice], and any user attributes.
   Future<void> confirmSignInMFA() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    _setIsBusy(true);
+
+    TextInput.finishAutofillContext(shouldSave: true);
+
+    final confirm = AuthConfirmSignInData(
+      confirmationValue: _confirmationCode.trim(),
+      attributes: authAttributes,
+    );
+
+    _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
+    await nextBlocEvent();
+    _setIsBusy(false);
+  }
+
+  /// Select MFA preference using the values for [selectedMfaMethod]
+  Future<void> continueSignInWithMfaSelection() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    _setIsBusy(true);
+
+    final confirm = AuthConfirmSignInData(
+      confirmationValue: _selectedMfaMethod!.name,
+    );
+
+    _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
+    await nextBlocEvent();
+    _setIsBusy(false);
+  }
+
+  /// Complete TOTP setup using the values for [confirmationCode]
+  /// [rememberDevice], and any user attributes.
+  Future<void> confirmTotp() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -558,6 +626,7 @@ class AuthenticatorState extends ChangeNotifier {
     _newPassword = '';
     authAttributes.clear();
     _publicChallengeParams.clear();
+    _selectedMfaMethod = null;
   }
 
   void _resetFormKey() {

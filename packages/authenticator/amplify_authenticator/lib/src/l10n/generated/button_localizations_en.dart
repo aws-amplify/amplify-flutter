@@ -49,6 +49,9 @@ class AuthenticatorButtonLocalizationsEn
   String get skip => 'Skip';
 
   @override
+  String get totpApp => 'Open Authentication App';
+
+  @override
   String get signOut => 'Sign Out';
 
   @override

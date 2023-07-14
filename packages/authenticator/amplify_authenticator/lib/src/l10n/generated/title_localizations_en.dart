@@ -21,6 +21,16 @@ class AuthenticatorTitleLocalizationsEn
   String get confirmSignInNewPassword => 'Change your password to sign in';
 
   @override
+  String get continueSignInWithMfaSelection =>
+      'Select your preferred MFA Method';
+
+  @override
+  String get continueSignInWithTotpSetup => 'Setup an Authentication App';
+
+  @override
+  String get confirmSignInWithTotpMfaCode => 'Enter your Authentication code';
+
+  @override
   String get resetPassword => 'Send Code';
 
   @override

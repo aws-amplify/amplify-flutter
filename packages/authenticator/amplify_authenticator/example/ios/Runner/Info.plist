@@ -47,5 +47,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+  <key>LSApplicationQueriesSchemes</key>
+  <array>
+    <string>otpauth</string>
+  </array>
 </dict>
 </plist>
