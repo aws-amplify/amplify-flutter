@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.get_instance_profile_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,13 +21,13 @@ import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
 import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
     as _i10;
 
-/// Retrieves information about the specified instance profile, including the instance profile's path, GUID, ARN, and role. For more information about instance profiles, see [About instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html) in the _IAM User Guide_.
+/// Retrieves information about the specified instance profile, including the instance profile's path, GUID, ARN, and role. For more information about instance profiles, see [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
 class GetInstanceProfileOperation extends _i1.HttpOperation<
     _i2.GetInstanceProfileRequest,
     _i2.GetInstanceProfileRequest,
     _i3.GetInstanceProfileResponse,
     _i3.GetInstanceProfileResponse> {
-  /// Retrieves information about the specified instance profile, including the instance profile's path, GUID, ARN, and role. For more information about instance profiles, see [About instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html) in the _IAM User Guide_.
+  /// Retrieves information about the specified instance profile, including the instance profile's path, GUID, ARN, and role. For more information about instance profiles, see [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
   GetInstanceProfileOperation({
     required String region,
     Uri? baseUri,
