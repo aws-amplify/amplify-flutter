@@ -269,10 +269,13 @@ Future<void> runBuildRunner(
   if (!package.needsBuildRunner && !force) {
     return;
   }
-  final dartTool = Directory(p.join(package.path, '.dart_tool'));
-  if (!dartTool.existsSync()) {
-    await runPub(package.flavor, ['get'], package);
-  }
+  // Run `pub get` to ensure `build_runner` is available.
+  await runPub(
+    package.flavor,
+    ['get'],
+    package,
+    verbose: verbose,
+  );
   logger.debug('Running build_runner for ${package.name}...');
   final buildRunnerCmd = await Process.start(
     package.flavor.entrypoint,
@@ -283,6 +286,7 @@ Future<void> runBuildRunner(
       'build',
       '--delete-conflicting-outputs',
     ],
+    runInShell: true,
     workingDirectory: package.path,
   );
   final output = StringBuffer();
