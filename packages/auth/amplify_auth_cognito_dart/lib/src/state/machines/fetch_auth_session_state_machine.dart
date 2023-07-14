@@ -17,6 +17,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
@@ -52,10 +53,10 @@ final class FetchAuthSessionStateMachine
   CognitoIdentityClient get _cognitoIdentityClient => expect();
 
   /// The registered user pool config.
-  CognitoUserPoolConfig? get _userPoolConfig => get();
+  AWSAuthUserPoolConfig? get _userPoolConfig => get();
 
   /// The registered identity pool config
-  CognitoIdentityCredentialsProvider? get _identityPoolConfig => get();
+  AWSAuthIdentityPoolConfig? get _identityPoolConfig => get();
 
   /// Invalidates the current session, forcing a refresh on the next retrieval
   /// of credentials.
@@ -128,7 +129,7 @@ final class FetchAuthSessionStateMachine
 
   /// Gets the identity ID from the authorization state machine.
   Future<String> _getIdentityId({
-    required CognitoIdentityCredentialsProvider config,
+    required AWSAuthIdentityPoolConfig config,
     _FederatedIdentity? federatedIdentity,
   }) async {
     final resp = await _withZoneOverrides(
@@ -517,18 +518,18 @@ final class FetchAuthSessionStateMachine
     final refreshRequest = cognito_idp.InitiateAuthRequest.build((b) {
       b
         ..authFlow = cognito_idp.AuthFlowType.refreshTokenAuth
-        ..clientId = config.appClientId
+        ..clientId = config.clientId
         ..authParameters.addAll({
           CognitoConstants.refreshToken: userPoolTokens.refreshToken,
         })
         ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
-      if (config.appClientSecret != null) {
+      if (config.clientSecret case final clientSecret?) {
         b.authParameters[CognitoConstants.challengeParamSecretHash] =
             computeSecretHash(
           userPoolTokens.username,
-          config.appClientId,
-          config.appClientSecret!,
+          config.clientId,
+          clientSecret,
         );
       }
 

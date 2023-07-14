@@ -3,11 +3,11 @@
 
 library amplify_core.amplify_configuration_service.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_core/amplify_core.dart' as _i38;
+import 'package:amplify_core/amplify_core.dart' as _i35;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/amplify_logging_constraints.dart'
-    as _i25;
+    as _i24;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/amplify_sub_category.dart'
-    as _i34;
+    as _i33;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_analytics_config.dart'
     as _i3;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_analytics_pinpoint_config.dart'
@@ -23,58 +23,52 @@ import 'package:amplify_core/src/generated/src/amplify_configuration_service/mod
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_app_sync_endpoint_config.dart'
     as _i5;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_cognito_config.dart'
-    as _i21;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_config.dart'
-    as _i22;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_flow_type.dart'
-    as _i10;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_hosted_ui_config.dart'
-    as _i18;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_identity_pool_config.dart'
     as _i20;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_mfa_configuration.dart'
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_config.dart'
+    as _i21;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_hosted_ui_config.dart'
     as _i17;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_password_protection_settings.dart'
-    as _i16;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_provider.dart'
-    as _i14;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_provider_custom.dart'
-    as _i13;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_provider_oidc.dart'
-    as _i11;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_provider_saml.dart'
-    as _i12;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_user_pool_config.dart'
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_identity_pool_config.dart'
     as _i19;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_username_attribute.dart'
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_mfa_configuration.dart'
+    as _i16;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_password_protection_settings.dart'
     as _i15;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_provider.dart'
+    as _i13;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_provider_custom.dart'
+    as _i12;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_provider_oidc.dart'
+    as _i10;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_provider_saml.dart'
+    as _i11;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_user_pool_config.dart'
+    as _i18;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_username_attribute.dart'
+    as _i14;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_logging_cloud_watch_config.dart'
-    as _i26;
+    as _i25;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_logging_config.dart'
-    as _i27;
+    as _i26;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_notifications_config.dart'
-    as _i30;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_push_notifications_config.dart'
     as _i29;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_push_notifications_pinpoint_config.dart'
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_push_notifications_config.dart'
     as _i28;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_push_notifications_pinpoint_config.dart'
+    as _i27;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_rest_endpoint_config.dart'
     as _i7;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_storage_config.dart'
-    as _i33;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_storage_s3_bucket.dart'
-    as _i31;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_storage_s3_config.dart'
     as _i32;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_storage_s3_bucket.dart'
+    as _i30;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_storage_s3_config.dart'
+    as _i31;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/logging_remote_configuration.dart'
-    as _i23;
+    as _i22;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/user_log_level.dart'
-    as _i24;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/validation_exception.dart'
-    as _i36;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/validation_exception_field.dart'
-    as _i35;
-import 'package:built_collection/built_collection.dart' as _i37;
+    as _i23;
+import 'package:built_collection/built_collection.dart' as _i34;
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
@@ -87,97 +81,90 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i7.AWSRestEndpointConfig.serializers,
   ..._i8.AWSApiEndpointConfig.serializers,
   ..._i9.AWSApiConfig.serializers,
-  ..._i10.AWSAuthFlowType.serializers,
-  ..._i11.AWSAuthProviderOidc.serializers,
-  ..._i12.AWSAuthProviderSaml.serializers,
-  ..._i13.AWSAuthProviderCustom.serializers,
-  ..._i14.AWSAuthProvider.serializers,
-  ..._i15.AWSAuthUsernameAttribute.serializers,
-  ..._i16.AWSAuthPasswordProtectionSettings.serializers,
-  ..._i17.AWSAuthMfaConfiguration.serializers,
-  ..._i18.AWSAuthHostedUiConfig.serializers,
-  ..._i19.AWSAuthUserPoolConfig.serializers,
-  ..._i20.AWSAuthIdentityPoolConfig.serializers,
-  ..._i21.AWSAuthCognitoConfig.serializers,
-  ..._i22.AWSAuthConfig.serializers,
-  ..._i23.LoggingRemoteConfiguration.serializers,
-  ..._i24.UserLogLevel.serializers,
-  ..._i25.AmplifyLoggingConstraints.serializers,
-  ..._i26.AWSLoggingCloudWatchConfig.serializers,
-  ..._i27.AWSLoggingConfig.serializers,
-  ..._i28.AWSPushNotificationsPinpointConfig.serializers,
-  ..._i29.AWSPushNotificationsConfig.serializers,
-  ..._i30.AWSNotificationsConfig.serializers,
-  ..._i31.AWSStorageS3Bucket.serializers,
-  ..._i32.AWSStorageS3Config.serializers,
-  ..._i33.AWSStorageConfig.serializers,
-  ..._i34.AmplifySubCategory.serializers,
-  ..._i35.ValidationExceptionField.serializers,
-  ..._i36.ValidationException.serializers,
+  ..._i10.AWSAuthProviderOidc.serializers,
+  ..._i11.AWSAuthProviderSaml.serializers,
+  ..._i12.AWSAuthProviderCustom.serializers,
+  ..._i13.AWSAuthProvider.serializers,
+  ..._i14.AWSAuthUsernameAttribute.serializers,
+  ..._i15.AWSAuthPasswordProtectionSettings.serializers,
+  ..._i16.AWSAuthMfaConfiguration.serializers,
+  ..._i17.AWSAuthHostedUiConfig.serializers,
+  ..._i18.AWSAuthUserPoolConfig.serializers,
+  ..._i19.AWSAuthIdentityPoolConfig.serializers,
+  ..._i20.AWSAuthCognitoConfig.serializers,
+  ..._i21.AWSAuthConfig.serializers,
+  ..._i22.LoggingRemoteConfiguration.serializers,
+  ..._i23.UserLogLevel.serializers,
+  ..._i24.AmplifyLoggingConstraints.serializers,
+  ..._i25.AWSLoggingCloudWatchConfig.serializers,
+  ..._i26.AWSLoggingConfig.serializers,
+  ..._i27.AWSPushNotificationsPinpointConfig.serializers,
+  ..._i28.AWSPushNotificationsConfig.serializers,
+  ..._i29.AWSNotificationsConfig.serializers,
+  ..._i30.AWSStorageS3Bucket.serializers,
+  ..._i31.AWSStorageS3Config.serializers,
+  ..._i32.AWSStorageConfig.serializers,
+  ..._i33.AmplifySubCategory.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
   const FullType(
-    _i37.BuiltList,
+    _i34.BuiltList,
     [FullType(_i4.AWSApiAuthorizationMode)],
-  ): _i37.ListBuilder<_i4.AWSApiAuthorizationMode>.new,
+  ): _i34.ListBuilder<_i4.AWSApiAuthorizationMode>.new,
   const FullType(
-    _i37.BuiltMap,
+    _i34.BuiltMap,
     [
       FullType(String),
       FullType(_i8.AWSApiEndpointConfig),
     ],
-  ): _i37.MapBuilder<String, _i8.AWSApiEndpointConfig>.new,
+  ): _i34.MapBuilder<String, _i8.AWSApiEndpointConfig>.new,
   const FullType(
-    _i37.BuiltList,
-    [FullType(_i38.PasswordPolicyCharacters)],
-  ): _i37.ListBuilder<_i38.PasswordPolicyCharacters>.new,
+    _i34.BuiltList,
+    [FullType(_i35.PasswordPolicyCharacters)],
+  ): _i34.ListBuilder<_i35.PasswordPolicyCharacters>.new,
   const FullType(
-    _i37.BuiltSet,
-    [FullType(_i38.MfaType)],
-  ): _i37.SetBuilder<_i38.MfaType>.new,
+    _i34.BuiltSet,
+    [FullType(_i35.MfaType)],
+  ): _i34.SetBuilder<_i35.MfaType>.new,
   const FullType(
-    _i37.BuiltList,
+    _i34.BuiltList,
     [FullType(Uri)],
-  ): _i37.ListBuilder<Uri>.new,
+  ): _i34.ListBuilder<Uri>.new,
   const FullType(
-    _i37.BuiltList,
+    _i34.BuiltList,
     [FullType(String)],
-  ): _i37.ListBuilder<String>.new,
+  ): _i34.ListBuilder<String>.new,
   const FullType(
-    _i37.BuiltList,
-    [FullType(_i14.AWSAuthProvider)],
-  ): _i37.ListBuilder<_i14.AWSAuthProvider>.new,
+    _i34.BuiltList,
+    [FullType(_i13.AWSAuthProvider)],
+  ): _i34.ListBuilder<_i13.AWSAuthProvider>.new,
   const FullType(
-    _i37.BuiltSet,
-    [FullType(_i15.AWSAuthUsernameAttribute)],
-  ): _i37.SetBuilder<_i15.AWSAuthUsernameAttribute>.new,
+    _i34.BuiltSet,
+    [FullType(_i14.AWSAuthUsernameAttribute)],
+  ): _i34.SetBuilder<_i14.AWSAuthUsernameAttribute>.new,
   const FullType(
-    _i37.BuiltSet,
-    [FullType(_i38.CognitoUserAttributeKey)],
-  ): _i37.SetBuilder<_i38.CognitoUserAttributeKey>.new,
+    _i34.BuiltSet,
+    [FullType(_i35.CognitoUserAttributeKey)],
+  ): _i34.SetBuilder<_i35.CognitoUserAttributeKey>.new,
   const FullType(
-    _i37.BuiltMap,
+    _i34.BuiltMap,
     [
-      FullType(_i38.Category),
-      FullType(_i38.LogLevel),
+      FullType(_i35.Category),
+      FullType(_i35.LogLevel),
     ],
-  ): _i37.MapBuilder<_i38.Category, _i38.LogLevel>.new,
+  ): _i34.MapBuilder<_i35.Category, _i35.LogLevel>.new,
   const FullType(
-    _i37.BuiltMap,
-    [
-      FullType(String),
-      FullType(_i24.UserLogLevel),
-    ],
-  ): _i37.MapBuilder<String, _i24.UserLogLevel>.new,
-  const FullType(
-    _i37.BuiltMap,
+    _i34.BuiltMap,
     [
       FullType(String),
-      FullType(_i31.AWSStorageS3Bucket),
+      FullType(_i23.UserLogLevel),
     ],
-  ): _i37.MapBuilder<String, _i31.AWSStorageS3Bucket>.new,
+  ): _i34.MapBuilder<String, _i23.UserLogLevel>.new,
   const FullType(
-    _i37.BuiltList,
-    [FullType(_i35.ValidationExceptionField)],
-  ): _i37.ListBuilder<_i35.ValidationExceptionField>.new,
+    _i34.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i30.AWSStorageS3Bucket),
+    ],
+  ): _i34.MapBuilder<String, _i30.AWSStorageS3Bucket>.new,
 };

@@ -3,7 +3,6 @@
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform.dart';
-import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:aws_common/src/js/common.dart';
 import 'package:path/path.dart' show url;

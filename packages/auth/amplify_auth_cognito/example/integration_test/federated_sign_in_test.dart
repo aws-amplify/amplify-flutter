@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:convert';
-
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 // ignore: invalid_use_of_internal_member
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
@@ -12,6 +10,7 @@ import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -30,9 +29,8 @@ void main() {
     // `federateWithIdentityPool` with `AuthProvider.custom` allows testing
     // the critical code paths related to federated sign-in, even though on
     // the surface it resembles an ordinary call to fetchAuthSession.
-    final userPoolConfig = AmplifyConfig.fromJson(
-      jsonDecode(amplifyconfig) as Map<String, Object?>,
-    ).auth!.awsPlugin!.cognitoUserPool!.default$!;
+    final userPoolConfig =
+        AWSAmplifyConfig.parse(amplifyconfig).auth!.cognito!.userPool!;
     final provider = AuthProvider.custom(
       'cognito-idp.${userPoolConfig.region}.amazonaws.com/${userPoolConfig.poolId}',
     );

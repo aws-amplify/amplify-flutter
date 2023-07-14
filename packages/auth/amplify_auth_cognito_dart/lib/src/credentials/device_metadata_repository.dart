@@ -4,6 +4,7 @@
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
@@ -26,7 +27,7 @@ class DeviceMetadataRepository {
         dependencies.getOrCreate(),
       );
 
-  final CognitoUserPoolConfig _userPoolConfig;
+  final AWSAuthUserPoolConfig _userPoolConfig;
   final SecureStorageInterface _secureStorage;
 
   /// Retrieves the device secrets for [username].

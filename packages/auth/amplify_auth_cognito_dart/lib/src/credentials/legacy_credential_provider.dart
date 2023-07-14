@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito_dart/src/state/state/auth_state.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/amplify_config.dart';
 
 /// {@template amplify_auth_cognito_dart.legacy_credential_provider}
 /// Provides methods to fetch and delete legacy credentials if they exist.
@@ -13,15 +13,15 @@ abstract interface class LegacyCredentialProvider {
 
   /// Fetches legacy credentials if they are present.
   Future<CredentialStoreData?> fetchLegacyCredentials({
-    CognitoUserPoolConfig? userPoolConfig,
-    CognitoIdentityCredentialsProvider? identityPoolConfig,
-    CognitoOAuthConfig? hostedUiConfig,
+    AWSAuthUserPoolConfig? userPoolConfig,
+    AWSAuthIdentityPoolConfig? identityPoolConfig,
+    AWSAuthHostedUiConfig? hostedUiConfig,
   });
 
   /// Deletes legacy credentials if they are present.
   Future<void> deleteLegacyCredentials({
-    CognitoUserPoolConfig? userPoolConfig,
-    CognitoIdentityCredentialsProvider? identityPoolConfig,
-    CognitoOAuthConfig? hostedUiConfig,
+    AWSAuthUserPoolConfig? userPoolConfig,
+    AWSAuthIdentityPoolConfig? identityPoolConfig,
+    AWSAuthHostedUiConfig? hostedUiConfig,
   });
 }

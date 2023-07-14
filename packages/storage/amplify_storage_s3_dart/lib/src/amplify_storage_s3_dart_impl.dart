@@ -4,6 +4,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart'
     as db_common;
@@ -54,7 +55,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   /// The [S3PluginConfig] of the [AmplifyStorageS3Dart] plugin.
   @protected
-  late final S3PluginConfig s3pluginConfig;
+  late final AWSStorageS3Bucket s3pluginConfig;
 
   S3PrefixResolver? _prefixResolver;
 
@@ -70,15 +71,18 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    final s3PluginConfig = config?.storage?.awsPlugin;
-
+    final s3PluginConfig = config?.storage?.s3;
     if (s3PluginConfig == null) {
       throw ConfigurationError('No Storage S3 plugin config detected.');
     }
-    s3pluginConfig = s3PluginConfig;
+    final singleBucket = s3PluginConfig.buckets.values.singleOrNull;
+    if (singleBucket == null) {
+      throw ConfigurationError('Multiple buckets are not supported');
+    }
+    s3pluginConfig = singleBucket;
 
     final identityProvider = authProviderRepo
         .getAuthProvider(APIAuthorizationType.userPools.authProviderToken);
@@ -114,7 +118,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       ..addInstance<StorageS3Service>(
         StorageS3Service(
           credentialsProvider: credentialsProvider,
-          s3PluginConfig: s3PluginConfig,
+          s3PluginConfig: singleBucket,
           delimiter: _delimiter,
           prefixResolver: _prefixResolver!,
           logger: logger,
@@ -273,7 +277,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       key: key,
       localFile: localFile,
       options: options,
-      s3pluginConfig: s3pluginConfig,
       storageS3Service: storageS3Service,
       appPathProvider: _appPathProvider,
       onProgress: onProgress,

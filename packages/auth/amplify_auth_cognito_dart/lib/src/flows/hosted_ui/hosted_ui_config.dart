@@ -1,10 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 
-/// Configuration helpers for [CognitoUserPoolConfig].
-extension HostedUiJwks on CognitoUserPoolConfig {
+/// Configuration helpers for [AWSAuthUserPoolConfig].
+extension HostedUiJwks on AWSAuthUserPoolConfig {
   /// The JSON Web Key (JWK) URI.
   ///
   /// References:
@@ -17,17 +18,17 @@ extension HostedUiJwks on CognitoUserPoolConfig {
 /// Configuration helpers for [CognitoOAuthConfig].
 ///
 /// [Reference](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html)
-extension HostedUiConfig on CognitoOAuthConfig {
-  /// The parsed [webDomain] URI.
+extension HostedUiConfig on AWSAuthHostedUiConfig {
+  /// The parsed [domainName] URI.
   ///
-  /// If [webDomain] specifies a scheme, it is honored in requests in the same
+  /// If [domainName] specifies a scheme, it is honored in requests in the same
   /// way that it is honored for [signInUri], [tokenUri], and [signOutUri]. If
-  /// no scheme is specified, it defaults to `https` and [webDomain] is
+  /// no scheme is specified, it defaults to `https` and [domainName] is
   /// interpreted as a host string.
   Uri get _webDomain {
-    final uri = Uri.parse(webDomain);
+    final uri = Uri.parse(domainName);
     if (uri.hasScheme) return uri;
-    return Uri(scheme: 'https', host: webDomain);
+    return Uri(scheme: 'https', host: domainName);
   }
 
   /// The sign in URI.
@@ -37,15 +38,14 @@ extension HostedUiConfig on CognitoOAuthConfig {
   /// - https://docs.aws.amazon.com/cognito/latest/developerguide/login-endpoint.html
   Uri signInUri([AuthProvider? provider]) {
     Uri baseUri;
-    if (this.signInUri != null) {
-      baseUri = Uri.parse(this.signInUri!);
+    if (this.signInUri case final signInUri?) {
+      baseUri = signInUri;
     } else {
       baseUri = _webDomain.replace(path: '/oauth2/authorize');
     }
     return baseUri.replace(
       queryParameters: <String, String>{
         if (provider != null) 'identity_provider': provider.uriParameter,
-        ...?signInUriQueryParameters,
       },
     );
   }
@@ -58,8 +58,7 @@ extension HostedUiConfig on CognitoOAuthConfig {
     return _webDomain.replace(
       path: '/logout',
       queryParameters: <String, String>{
-        ...?signOutUriQueryParameters,
-        'client_id': appClientId,
+        'client_id': clientId!,
       },
     );
   }
@@ -78,17 +77,10 @@ extension HostedUiConfig on CognitoOAuthConfig {
   ///
   /// References:
   /// - https://docs.aws.amazon.com/cognito/latest/developerguide/token-endpoint.html
-  Uri get tokenUri {
-    Uri baseUri;
-    if (this.tokenUri != null) {
-      baseUri = Uri.parse(this.tokenUri!);
-    } else {
-      baseUri = _webDomain.replace(path: '/oauth2/token');
-    }
-    return baseUri.replace(
-      queryParameters: tokenUriQueryParameters,
-    );
-  }
+  Uri get tokenUri => switch (this.tokenUri) {
+        final tokenUri? => tokenUri,
+        _ => _webDomain.replace(path: '/oauth2/token'),
+      };
 
   /// The `revoke` URI.
   ///

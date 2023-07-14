@@ -141,6 +141,14 @@ list AWSAuthMfaTypes {
 }
 
 structure AWSAuthHostedUiConfig {
+    // Defaults to the value in AWSAuthUserPoolConfig
+    @clientOptional
+    clientId: String
+
+    // Defaults to the value in AWSAuthUserPoolConfig
+    @clientOptional
+    clientSecret: String
+
     @required
     domainName: DomainName
 

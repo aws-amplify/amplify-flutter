@@ -6,6 +6,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
     hide UserNotFoundException;
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.sign_out_state_machine}
@@ -46,7 +47,7 @@ final class SignOutStateMachine
   CognitoIdentityProviderClient get _cognitoIdp => expect();
 
   /// The Cognito user pool configuration.
-  CognitoUserPoolConfig get _userPoolConfig => expect();
+  AWSAuthUserPoolConfig get _userPoolConfig => expect();
 
   Future<void> _onInitiate(SignOutInitiate event) async {
     final options = event.options;
@@ -126,8 +127,8 @@ final class SignOutStateMachine
         await _cognitoIdp
             .revokeToken(
               RevokeTokenRequest(
-                clientId: _userPoolConfig.appClientId,
-                clientSecret: _userPoolConfig.appClientSecret,
+                clientId: _userPoolConfig.clientId,
+                clientSecret: _userPoolConfig.clientSecret,
                 token: tokens.refreshToken,
               ),
             )

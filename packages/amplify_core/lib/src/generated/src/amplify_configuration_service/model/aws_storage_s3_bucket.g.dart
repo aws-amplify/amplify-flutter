@@ -12,19 +12,23 @@ class _$AWSStorageS3Bucket extends AWSStorageS3Bucket {
   @override
   final String region;
   @override
-  final _i2.StorageAccessLevel? defaultAccessLevel;
+  final _i2.StorageAccessLevel defaultAccessLevel;
 
   factory _$AWSStorageS3Bucket(
           [void Function(AWSStorageS3BucketBuilder)? updates]) =>
       (new AWSStorageS3BucketBuilder()..update(updates))._build();
 
   _$AWSStorageS3Bucket._(
-      {required this.bucketName, required this.region, this.defaultAccessLevel})
+      {required this.bucketName,
+      required this.region,
+      required this.defaultAccessLevel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucketName, r'AWSStorageS3Bucket', 'bucketName');
     BuiltValueNullFieldError.checkNotNull(
         region, r'AWSStorageS3Bucket', 'region');
+    BuiltValueNullFieldError.checkNotNull(
+        defaultAccessLevel, r'AWSStorageS3Bucket', 'defaultAccessLevel');
   }
 
   @override
@@ -109,7 +113,10 @@ class AWSStorageS3BucketBuilder
                 bucketName, r'AWSStorageS3Bucket', 'bucketName'),
             region: BuiltValueNullFieldError.checkNotNull(
                 region, r'AWSStorageS3Bucket', 'region'),
-            defaultAccessLevel: defaultAccessLevel);
+            defaultAccessLevel: BuiltValueNullFieldError.checkNotNull(
+                defaultAccessLevel,
+                r'AWSStorageS3Bucket',
+                'defaultAccessLevel'));
     replace(_$result);
     return _$result;
   }

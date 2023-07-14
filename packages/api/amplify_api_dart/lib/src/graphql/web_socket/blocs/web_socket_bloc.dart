@@ -11,6 +11,7 @@ import 'package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_s
 import 'package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/subscriptions_event.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart' hide SubscriptionEvent;
 import 'package:async/async.dart';
 import 'package:meta/meta.dart';
@@ -26,7 +27,7 @@ part '../types/web_socket_event.dart';
 class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   /// {@macro api.web_socket_bloc}
   WebSocketBloc({
-    required AWSApiConfig config,
+    required AWSAppSyncEndpointConfig config,
     required AmplifyAuthProviderRepository authProviderRepo,
     required WebSocketService wsService,
     required GraphQLSubscriptionOptions subscriptionOptions,

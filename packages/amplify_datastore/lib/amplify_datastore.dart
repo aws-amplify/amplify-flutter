@@ -4,6 +4,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/src/amplify_datastore_stream_controller.dart';
 import 'package:amplify_datastore/src/method_channel_datastore.dart';
@@ -60,7 +61,7 @@ class AmplifyDataStore extends DataStorePluginInterface
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     if (config == null) {
@@ -110,9 +111,8 @@ class AmplifyDataStore extends DataStorePluginInterface
     }
 
     final apiPlugin = Amplify.API.plugins.firstOrNull;
-    final gqlConfig = config.api?.awsPlugin?.all.values.firstWhereOrNull(
-      (config) => config.endpointType == EndpointType.graphQL,
-    );
+    final gqlConfig =
+        config.api?.apis.values.map((v) => v.appSync).nonNulls.firstOrNull;
     if (apiPlugin != null && gqlConfig != null) {
       // ignore: invalid_use_of_protected_member
       final authProviders = apiPlugin.authProviders;

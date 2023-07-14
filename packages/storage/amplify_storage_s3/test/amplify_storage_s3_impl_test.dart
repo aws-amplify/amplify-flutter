@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3/src/utils/app_path_provider/app_path_provider.dart';
@@ -12,11 +13,11 @@ import 'test_utils/test_token_provider.dart';
 
 void main() {
   group('AmplifyStorageS3', () {
-    const testConfig = AmplifyConfig(
-      storage: StorageConfig(
-        plugins: {
-          S3PluginConfig.pluginKey: S3PluginConfig(
-            bucket: '123',
+    final testConfig = AWSAmplifyConfig(
+      storage: AWSStorageConfig.s3(
+        buckets: {
+          '123': AWSStorageS3Bucket(
+            bucketName: '123',
             region: 'west-2',
           ),
         },

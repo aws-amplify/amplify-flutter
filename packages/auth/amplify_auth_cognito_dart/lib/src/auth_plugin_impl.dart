@@ -44,6 +44,7 @@ import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_iam_auth_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_user_pools_auth_provider.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports, invalid_use_of_internal_member
 import 'package:amplify_core/src/http/amplify_category_method.dart';
@@ -122,8 +123,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
   /// The Cognito user pool configuration.
-  CognitoUserPoolConfig get _userPoolConfig {
-    final userPoolConfig = _stateMachine.get<CognitoUserPoolConfig>();
+  AWSAuthUserPoolConfig get _userPoolConfig {
+    final userPoolConfig = _stateMachine.get<AWSAuthUserPoolConfig>();
     if (userPoolConfig == null) {
       throw const InvalidAccountTypeException.noUserPool();
     }
@@ -131,8 +132,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
   /// The Cognito identity pool configuration.
-  CognitoIdentityCredentialsProvider? get _identityPoolConfig =>
-      _stateMachine.get();
+  AWSAuthIdentityPoolConfig? get _identityPoolConfig => _stateMachine.get();
 
   /// The device metadata repository, used for handling device operations.
   DeviceMetadataRepository get _deviceRepo => _stateMachine.getOrCreate();
@@ -213,7 +213,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     if (config == null) {
@@ -471,15 +471,15 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     final result = await _cognitoIdp.resendConfirmationCode(
       cognito.ResendConfirmationCodeRequest.build((b) {
         b
-          ..clientId = _userPoolConfig.appClientId
+          ..clientId = _userPoolConfig.clientId
           ..username = username
           ..analyticsMetadata = _analyticsMetadata?.toBuilder();
 
-        final clientSecret = _userPoolConfig.appClientSecret;
+        final clientSecret = _userPoolConfig.clientSecret;
         if (clientSecret != null) {
           b.secretHash = computeSecretHash(
             username,
-            _userPoolConfig.appClientId,
+            _userPoolConfig.clientId,
             clientSecret,
           );
         }
@@ -779,16 +779,16 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     final result = await _cognitoIdp.forgotPassword(
       cognito.ForgotPasswordRequest.build((b) {
         b
-          ..clientId = _userPoolConfig.appClientId
+          ..clientId = _userPoolConfig.clientId
           ..username = username
           ..analyticsMetadata = _analyticsMetadata?.toBuilder()
           ..clientMetadata.addAll(pluginOptions.clientMetadata);
 
-        final clientSecret = _userPoolConfig.appClientSecret;
+        final clientSecret = _userPoolConfig.clientSecret;
         if (clientSecret != null) {
           b.secretHash = computeSecretHash(
             username,
-            _userPoolConfig.appClientId,
+            _userPoolConfig.clientId,
             clientSecret,
           );
         }
@@ -833,15 +833,15 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
           ..username = username
           ..password = newPassword
           ..confirmationCode = confirmationCode
-          ..clientId = _userPoolConfig.appClientId
+          ..clientId = _userPoolConfig.clientId
           ..clientMetadata.addAll(pluginOptions.clientMetadata)
           ..analyticsMetadata = _analyticsMetadata?.toBuilder();
 
-        final clientSecret = _userPoolConfig.appClientSecret;
+        final clientSecret = _userPoolConfig.clientSecret;
         if (clientSecret != null) {
           b.secretHash = computeSecretHash(
             username,
-            _userPoolConfig.appClientId,
+            _userPoolConfig.clientId,
             clientSecret,
           );
         }

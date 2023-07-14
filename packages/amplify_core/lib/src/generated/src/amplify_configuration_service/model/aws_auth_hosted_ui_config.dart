@@ -15,6 +15,8 @@ abstract class AWSAuthHostedUiConfig
     with _i1.AWSEquatable<AWSAuthHostedUiConfig>
     implements Built<AWSAuthHostedUiConfig, AWSAuthHostedUiConfigBuilder> {
   factory AWSAuthHostedUiConfig({
+    String? clientId,
+    String? clientSecret,
     required String domainName,
     required List<Uri> signInRedirectUris,
     required List<Uri> signOutRedirectUris,
@@ -24,6 +26,8 @@ abstract class AWSAuthHostedUiConfig
     Uri? tokenUri,
   }) {
     return _$AWSAuthHostedUiConfig._(
+      clientId: clientId,
+      clientSecret: clientSecret,
       domainName: domainName,
       signInRedirectUris: _i2.BuiltList(signInRedirectUris),
       signOutRedirectUris: _i2.BuiltList(signOutRedirectUris),
@@ -46,6 +50,8 @@ abstract class AWSAuthHostedUiConfig
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AWSAuthHostedUiConfigBuilder b) {}
+  String? get clientId;
+  String? get clientSecret;
 
   /// The host component of a URI
   String get domainName;
@@ -63,6 +69,8 @@ abstract class AWSAuthHostedUiConfig
   Uri? get tokenUri;
   @override
   List<Object?> get props => [
+        clientId,
+        clientSecret,
         domainName,
         signInRedirectUris,
         signOutRedirectUris,
@@ -74,6 +82,14 @@ abstract class AWSAuthHostedUiConfig
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AWSAuthHostedUiConfig')
+      ..add(
+        'clientId',
+        clientId,
+      )
+      ..add(
+        'clientSecret',
+        clientSecret,
+      )
       ..add(
         'domainName',
         domainName,
@@ -138,6 +154,16 @@ class AWSAuthHostedUiConfigSerializer
         continue;
       }
       switch (key) {
+        case 'clientId':
+          result.clientId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'clientSecret':
+          result.clientSecret = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'domainName':
           result.domainName = (serializers.deserialize(
             value,
@@ -196,6 +222,8 @@ class AWSAuthHostedUiConfigSerializer
   }) {
     final result$ = <Object?>[];
     final AWSAuthHostedUiConfig(
+      :clientId,
+      :clientSecret,
       :domainName,
       :scopes,
       :signInRedirectUris,
@@ -235,6 +263,22 @@ class AWSAuthHostedUiConfigSerializer
         ),
       ),
     ]);
+    if (clientId != null) {
+      result$
+        ..add('clientId')
+        ..add(serializers.serialize(
+          clientId,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (clientSecret != null) {
+      result$
+        ..add('clientSecret')
+        ..add(serializers.serialize(
+          clientSecret,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (signInUri != null) {
       result$
         ..add('signInUri')

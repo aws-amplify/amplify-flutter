@@ -18,6 +18,7 @@ structure AWSStorageS3Bucket {
     @required
     region: AWSRegion
 
+    @required
     defaultAccessLevel: AWSStorageAccessLevel = "guest"
 }
 

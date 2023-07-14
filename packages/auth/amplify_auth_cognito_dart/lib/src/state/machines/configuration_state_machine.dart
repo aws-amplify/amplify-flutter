@@ -6,12 +6,12 @@ import 'dart:async';
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credentials_provider.dart';
-import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.configuration_state_machine}
@@ -64,16 +64,14 @@ final class ConfigurationStateMachine
 
   /// State machine callback for the [Configure] event.
   Future<void> onConfigure(Configure event) async {
-    final cognitoConfig = event.config.auth?.awsPlugin;
-    if (cognitoConfig == null) {
+    final config = event.config.auth?.cognito;
+    if (config == null) {
       throw ConfigurationError('No Cognito plugin config available');
     }
-    addInstance(cognitoConfig);
-    final config = AuthConfiguration.fromConfig(cognitoConfig);
     addInstance(config);
 
     final waiters = <Future<void>>[];
-    final userPoolConfig = config.userPoolConfig;
+    final userPoolConfig = config.userPool;
     if (userPoolConfig != null) {
       addInstance(userPoolConfig);
       addInstance<CognitoIdentityProviderClient>(
@@ -81,19 +79,19 @@ final class ConfigurationStateMachine
           region: userPoolConfig.region,
           credentialsProvider: _credentialsProvider,
           dependencyManager: this,
-          endpoint: userPoolConfig.endpoint,
+          endpoint: userPoolConfig.endpoint?.toString(),
         ),
       );
     }
 
     // Configure HostedUI, if available
-    final hostedUiConfig = config.hostedUiConfig;
+    final hostedUiConfig = config.userPool?.hostedUi;
     if (hostedUiConfig != null) {
       addInstance(hostedUiConfig);
       waiters.add(manager.configureHostedUI());
     }
 
-    final identityPoolConfig = config.identityPoolConfig;
+    final identityPoolConfig = config.identityPool;
     if (identityPoolConfig != null) {
       addInstance(identityPoolConfig);
       addInstance<CognitoIdentityClient>(
@@ -107,14 +105,14 @@ final class ConfigurationStateMachine
 
     waiters.add(manager.loadCredentials());
 
-    await _waitForConfiguration(cognitoConfig, waiters);
+    await _waitForConfiguration(config, waiters);
 
     // Setup AnalyticsMetadataType
     await _registerAnalyticsMetadata(config);
   }
 
   Future<void> _waitForConfiguration(
-    CognitoPluginConfig config,
+    AWSAuthCognitoConfig config,
     List<Future<void>> futures,
   ) async {
     await Future.wait<void>(futures, eagerError: true);
@@ -124,8 +122,8 @@ final class ConfigurationStateMachine
   /// State machine callback for the [ConfigureSucceeded] event.
   Future<void> onConfigureSucceeded(ConfigureSucceeded event) async {}
 
-  Future<void> _registerAnalyticsMetadata(AuthConfiguration config) async {
-    final analyticsConfig = config.pinpointConfig;
+  Future<void> _registerAnalyticsMetadata(AWSAuthCognitoConfig config) async {
+    final analyticsConfig = config.userPool?.pinpointConfig;
     if (analyticsConfig == null) {
       return;
     }

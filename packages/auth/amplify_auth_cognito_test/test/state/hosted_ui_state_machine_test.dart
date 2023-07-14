@@ -11,6 +11,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:http/http.dart' as http;
@@ -70,7 +71,7 @@ class FailingHostedUiPlatform extends HostedUiPlatform {
 
 void main() {
   AWSLogger().logLevel = LogLevel.verbose;
-  const keys = HostedUiKeys(hostedUiConfig);
+  final keys = HostedUiKeys(hostedUiConfig);
 
   group('HostedUiStateMachine', () {
     late MockOAuthServer server;
@@ -93,7 +94,7 @@ void main() {
         ..addInstance<Dispatcher<AuthEvent, AuthState>>(
           const MockDispatcher(),
         )
-        ..addInstance<CognitoOAuthConfig>(hostedUiConfig);
+        ..addInstance<AWSAuthHostedUiConfig>(hostedUiConfig);
 
       final platform = stateMachine.create<HostedUiPlatform>();
       final authorizationUri = await platform.getSignInUri();

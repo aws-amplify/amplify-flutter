@@ -10,6 +10,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform
 import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
@@ -31,7 +32,7 @@ final class HostedUiStateMachine
   @override
   String get runtimeTypeName => 'HostedUiStateMachine';
 
-  CognitoOAuthConfig get _config => expect();
+  AWSAuthHostedUiConfig get _config => expect();
   HostedUiKeys get _keys => HostedUiKeys(_config);
   SecureStorageInterface get _secureStorage => getOrCreate();
 
@@ -39,7 +40,7 @@ final class HostedUiStateMachine
   late final HostedUiPlatform _platform = getOrCreate();
 
   /// The configured identity pool.
-  CognitoIdentityCredentialsProvider? get _identityPoolConfig => get();
+  AWSAuthIdentityPoolConfig? get _identityPoolConfig => get();
 
   @override
   Future<void> resolve(HostedUiEvent event) async {

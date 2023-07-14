@@ -4,6 +4,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart'
@@ -30,15 +31,14 @@ const testDateTimeNowOverride = #_testDateTimeNowOverride;
 class StorageS3Service {
   /// {@macro amplify_storage_s3.storage_s3_service}
   factory StorageS3Service({
-    required S3PluginConfig s3PluginConfig,
+    required AWSStorageS3Bucket s3PluginConfig,
     required S3PrefixResolver prefixResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
     required DependencyManager dependencyManager,
     String? delimiter,
   }) {
-    final usePathStyle = s3PluginConfig.bucket.contains('.');
-
+    final usePathStyle = s3PluginConfig.bucketName.contains('.');
     if (usePathStyle) {
       logger.warn(
           'Since your bucket name contains dots (`"."`), the StorageS3 plugin'
@@ -65,7 +65,7 @@ class StorageS3Service {
   }
 
   StorageS3Service._({
-    required S3PluginConfig s3PluginConfig,
+    required AWSStorageS3Bucket s3PluginConfig,
     required smithy_aws.S3ClientConfig s3ClientConfig,
     required S3PrefixResolver prefixResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
@@ -97,7 +97,7 @@ class StorageS3Service {
   static final _defaultS3SignerConfiguration =
       sigv4.S3ServiceConfiguration(signPayload: false);
 
-  final S3PluginConfig _s3PluginConfig;
+  final AWSStorageS3Bucket _s3PluginConfig;
   final String _delimiter;
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
   final s3.S3Client _defaultS3Client;
@@ -142,7 +142,7 @@ class StorageS3Service {
     if (!s3PluginOptions.listAll) {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
-          ..bucket = _s3PluginConfig.bucket
+          ..bucket = _s3PluginConfig.bucketName
           ..prefix = listTargetPrefix
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
@@ -168,7 +168,7 @@ class StorageS3Service {
     try {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
-          ..bucket = _s3PluginConfig.bucket
+          ..bucket = _s3PluginConfig.bucketName
           ..prefix = listTargetPrefix
           ..delimiter = s3PluginOptions.excludeSubPaths ? _delimiter : null;
       });
@@ -225,7 +225,7 @@ class StorageS3Service {
       storageItem: S3Item.fromHeadObjectOutput(
         await headObject(
           s3client: _defaultS3Client,
-          bucket: _s3PluginConfig.bucket,
+          bucket: _s3PluginConfig.bucketName,
           key: keyToGetProperties,
         ),
         key: key,
@@ -282,11 +282,11 @@ class StorageS3Service {
     }
 
     var host =
-        '${_s3PluginConfig.bucket}.${_getS3EndpointHost(region: _s3PluginConfig.region)}';
+        '${_s3PluginConfig.bucketName}.${_getS3EndpointHost(region: _s3PluginConfig.region)}';
 
     if (_defaultS3ClientConfig.usePathStyle) {
-      host = host.replaceFirst('${_s3PluginConfig.bucket}.', '');
-      keyToGetUrl = '/${_s3PluginConfig.bucket}$keyToGetUrl';
+      host = host.replaceFirst('${_s3PluginConfig.bucketName}.', '');
+      keyToGetUrl = '/${_s3PluginConfig.bucketName}$keyToGetUrl';
     } else if (s3PluginOptions.useAccelerateEndpoint) {
       // https: //docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration-getting-started.html
       host = host
@@ -336,7 +336,7 @@ class StorageS3Service {
     final downloadDataTask = S3DownloadTask(
       s3Client: _defaultS3Client,
       defaultS3ClientConfig: _defaultS3ClientConfig,
-      bucket: _s3PluginConfig.bucket,
+      bucket: _s3PluginConfig.bucketName,
       defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
       key: key,
       options: options,
@@ -369,7 +369,7 @@ class StorageS3Service {
       dataPayload,
       s3Client: _defaultS3Client,
       defaultS3ClientConfig: _defaultS3ClientConfig,
-      bucket: _s3PluginConfig.bucket,
+      bucket: _s3PluginConfig.bucketName,
       defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
       key: key,
       options: options,
@@ -409,7 +409,7 @@ class StorageS3Service {
       localFile,
       s3Client: _defaultS3Client,
       defaultS3ClientConfig: _defaultS3ClientConfig,
-      bucket: _s3PluginConfig.bucket,
+      bucket: _s3PluginConfig.bucketName,
       defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
       key: key,
       options: uploadDataOptions,
@@ -464,8 +464,8 @@ class StorageS3Service {
 
     final copyRequest = s3.CopyObjectRequest.build((builder) {
       builder
-        ..bucket = _s3PluginConfig.bucket
-        ..copySource = '${_s3PluginConfig.bucket}/$sourceKey'
+        ..bucket = _s3PluginConfig.bucketName
+        ..copySource = '${_s3PluginConfig.bucketName}/$sourceKey'
         ..key = destinationKey
         ..metadataDirective = s3.MetadataDirective.copy;
     });
@@ -484,7 +484,7 @@ class StorageS3Service {
           ? S3Item.fromHeadObjectOutput(
               await headObject(
                 s3client: _defaultS3Client,
-                bucket: _s3PluginConfig.bucket,
+                bucket: _s3PluginConfig.bucketName,
                 key: destinationKey,
               ),
               key: destination.storageItem.key,
@@ -550,7 +550,7 @@ class StorageS3Service {
     try {
       await _deleteObject(
         s3client: _defaultS3Client,
-        bucket: _s3PluginConfig.bucket,
+        bucket: _s3PluginConfig.bucketName,
         key: keyToRemove,
       );
     } on StorageException catch (error) {
@@ -585,7 +585,7 @@ class StorageS3Service {
 
     await _deleteObject(
       s3client: _defaultS3Client,
-      bucket: _s3PluginConfig.bucket,
+      bucket: _s3PluginConfig.bucketName,
       key: keyToRemove,
     );
 
@@ -629,7 +629,7 @@ class StorageS3Service {
       );
       final request = s3.DeleteObjectsRequest.build((builder) {
         builder
-          ..bucket = _s3PluginConfig.bucket
+          ..bucket = _s3PluginConfig.bucketName
           // force to use sha256 instead of md5
           ..checksumAlgorithm = s3.ChecksumAlgorithm.sha256
           ..delete = s3.Delete.build((builder) {
@@ -763,7 +763,7 @@ class StorageS3Service {
     for (final record in records) {
       final request = s3.AbortMultipartUploadRequest.build((builder) {
         builder
-          ..bucket = _s3PluginConfig.bucket
+          ..bucket = _s3PluginConfig.bucketName
           ..key = record.objectKey
           ..uploadId = record.uploadId;
       });

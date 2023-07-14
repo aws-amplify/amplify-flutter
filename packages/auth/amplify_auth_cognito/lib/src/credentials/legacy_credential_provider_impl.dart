@@ -11,6 +11,7 @@ import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_prov
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 // ignore: implementation_imports, invalid_use_of_internal_member
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.legacy_credential_provider_impl}
@@ -36,9 +37,9 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
 
   @override
   Future<CredentialStoreData?> fetchLegacyCredentials({
-    CognitoUserPoolConfig? userPoolConfig,
-    CognitoIdentityCredentialsProvider? identityPoolConfig,
-    CognitoOAuthConfig? hostedUiConfig,
+    AWSAuthUserPoolConfig? userPoolConfig,
+    AWSAuthIdentityPoolConfig? identityPoolConfig,
+    AWSAuthHostedUiConfig? hostedUiConfig,
   }) async {
     if (_instance == null) return null;
     return _instance!.fetchLegacyCredentials(
@@ -50,9 +51,9 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
 
   @override
   Future<void> deleteLegacyCredentials({
-    CognitoUserPoolConfig? userPoolConfig,
-    CognitoIdentityCredentialsProvider? identityPoolConfig,
-    CognitoOAuthConfig? hostedUiConfig,
+    AWSAuthUserPoolConfig? userPoolConfig,
+    AWSAuthIdentityPoolConfig? identityPoolConfig,
+    AWSAuthHostedUiConfig? hostedUiConfig,
   }) async {
     if (_instance == null) return;
     return _instance!.deleteLegacyCredentials(

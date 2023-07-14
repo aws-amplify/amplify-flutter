@@ -5,13 +5,14 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
+import 'package:amplify_core/amplify_config.dart' as _i6;
 import 'package:amplify_core/amplify_core.dart' as _i4;
 import 'package:amplify_push_notifications/src/native_push_notifications_plugin.g.dart'
     as _i2;
 import 'package:amplify_push_notifications/src/push_notifications_flutter_api.dart'
-    as _i7;
+    as _i8;
 import 'package:amplify_secure_storage/src/amplify_secure_storage.vm.dart'
-    as _i6;
+    as _i7;
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -153,7 +154,7 @@ class MockServiceProviderClient extends _i1.Mock
 
   @override
   _i5.Future<void> init({
-    required _i4.NotificationsPinpointPluginConfig? config,
+    required _i6.AWSPushNotificationsConfig? config,
     required _i4.AmplifyAuthProviderRepository? authProviderRepo,
   }) =>
       (super.noSuchMethod(
@@ -217,7 +218,7 @@ class MockServiceProviderClient extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAmplifySecureStorage extends _i1.Mock
-    implements _i6.AmplifySecureStorage {
+    implements _i7.AmplifySecureStorage {
   MockAmplifySecureStorage() {
     _i1.throwOnMissingStub(this);
   }
@@ -294,7 +295,7 @@ class MockAmplifySecureStorage extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAmplifyPushNotificationsFlutterApi extends _i1.Mock
-    implements _i7.AmplifyPushNotificationsFlutterApi {
+    implements _i8.AmplifyPushNotificationsFlutterApi {
   MockAmplifyPushNotificationsFlutterApi() {
     _i1.throwOnMissingStub(this);
   }

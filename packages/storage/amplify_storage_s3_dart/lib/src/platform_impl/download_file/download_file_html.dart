@@ -11,7 +11,6 @@ S3DownloadFileOperation downloadFile({
   required String key,
   required AWSFile localFile,
   required StorageDownloadFileOptions options,
-  required S3PluginConfig s3pluginConfig,
   required StorageS3Service storageS3Service,
   required AppPathProvider appPathProvider,
   void Function(S3TransferProgress)? onProgress,
@@ -28,7 +27,6 @@ S3DownloadFileOperation downloadFile({
       key: key,
       localFile: localFile,
       options: options,
-      s3pluginConfig: s3pluginConfig,
       storageS3Service: storageS3Service,
     ),
     // In Web the download process is managed by the browser so the operation
@@ -43,7 +41,6 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   required String key,
   required AWSFile localFile,
   required StorageDownloadFileOptions options,
-  required S3PluginConfig s3pluginConfig,
   required StorageS3Service storageS3Service,
 }) async {
   final s3PluginOptions = options.pluginOptions as S3DownloadFilePluginOptions;

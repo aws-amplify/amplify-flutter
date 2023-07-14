@@ -8,7 +8,7 @@ import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart';
-import 'package:amplify_api_dart/src/util/amplify_api_config.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_common/testing.dart';
 import 'package:collection/collection.dart';
@@ -144,7 +144,7 @@ class MockAmplifyAPI extends AmplifyAPIDart {
   });
 
   @override
-  WebSocketBloc createWebSocketBloc(EndpointConfig endpoint) {
+  WebSocketBloc createWebSocketBloc(AWSAppSyncEndpointConfig endpoint) {
     return mockWebSocketBloc!;
   }
 }

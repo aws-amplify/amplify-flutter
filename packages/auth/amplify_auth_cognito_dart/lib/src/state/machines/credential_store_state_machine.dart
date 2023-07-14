@@ -9,11 +9,11 @@ import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/secure_storage_extension.dart';
-import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
@@ -95,11 +95,11 @@ final class CredentialStoreStateMachine
 
   /// Loads the credential store from storage and returns the data.
   Future<CredentialStoreData> _loadCredentialStore() async {
-    final authConfig = expect<AuthConfiguration>();
+    final authConfig = expect<AWSAuthCognitoConfig>();
 
     CognitoSignInDetails? signInDetails;
     CognitoUserPoolTokens? userPoolTokens;
-    final userPoolConfig = authConfig.userPoolConfig;
+    final userPoolConfig = authConfig.userPool;
     if (userPoolConfig != null) {
       final keys = CognitoUserPoolKeys(userPoolConfig);
       final accessToken = await _secureStorage.read(
@@ -134,7 +134,7 @@ final class CredentialStoreStateMachine
       }
     }
 
-    final hostedUiConfig = authConfig.hostedUiConfig;
+    final hostedUiConfig = userPoolConfig?.hostedUi;
     if (hostedUiConfig != null) {
       final keys = HostedUiKeys(hostedUiConfig);
       final accessToken = await _secureStorage.read(
@@ -168,7 +168,7 @@ final class CredentialStoreStateMachine
 
     String? identityId;
     AWSCredentials? awsCredentials;
-    final identityPoolConfig = authConfig.identityPoolConfig;
+    final identityPoolConfig = authConfig.identityPool;
     if (identityPoolConfig != null) {
       final keys = CognitoIdentityPoolKeys(identityPoolConfig);
       identityId = await _secureStorage.read(
@@ -228,12 +228,12 @@ final class CredentialStoreStateMachine
     final identityId = data.identityId;
     final awsCredentials = data.awsCredentials;
     final signInDetails = data.signInDetails;
-    final authConfig = expect<AuthConfiguration>();
+    final authConfig = expect<AWSAuthCognitoConfig>();
 
     final items = <String, String>{};
     final deletions = <String>[];
 
-    final userPoolConfig = authConfig.userPoolConfig;
+    final userPoolConfig = authConfig.userPool;
     if (userPoolConfig != null) {
       final keys = CognitoUserPoolKeys(userPoolConfig);
       if (userPoolTokens != null &&
@@ -252,7 +252,7 @@ final class CredentialStoreStateMachine
       }
     }
 
-    final hostedUiConfig = authConfig.hostedUiConfig;
+    final hostedUiConfig = userPoolConfig?.hostedUi;
     if (hostedUiConfig != null) {
       final keys = HostedUiKeys(hostedUiConfig);
       if (userPoolTokens != null &&
@@ -269,7 +269,7 @@ final class CredentialStoreStateMachine
       }
     }
 
-    final identityPoolConfig = authConfig.identityPoolConfig;
+    final identityPoolConfig = authConfig.identityPool;
     if (identityPoolConfig != null) {
       final keys = CognitoIdentityPoolKeys(identityPoolConfig);
       if (identityId != null) {
@@ -319,13 +319,13 @@ final class CredentialStoreStateMachine
     emit(const CredentialStoreState.migratingLegacyStore());
     final legacyCredentialProvider = get<LegacyCredentialProvider>();
     if (legacyCredentialProvider != null) {
-      final authConfig = expect<AuthConfiguration>();
+      final authConfig = expect<AWSAuthCognitoConfig>();
       try {
         final legacyData =
             await legacyCredentialProvider.fetchLegacyCredentials(
-          userPoolConfig: authConfig.userPoolConfig,
-          identityPoolConfig: authConfig.identityPoolConfig,
-          hostedUiConfig: authConfig.hostedUiConfig,
+          userPoolConfig: authConfig.userPool,
+          identityPoolConfig: authConfig.identityPool,
+          hostedUiConfig: authConfig.userPool?.hostedUi,
         );
         if (legacyData != null) {
           await _storeCredentials(legacyData);
@@ -335,9 +335,9 @@ final class CredentialStoreStateMachine
       } finally {
         try {
           await legacyCredentialProvider.deleteLegacyCredentials(
-            userPoolConfig: authConfig.userPoolConfig,
-            identityPoolConfig: authConfig.identityPoolConfig,
-            hostedUiConfig: authConfig.hostedUiConfig,
+            userPoolConfig: authConfig.userPool,
+            identityPoolConfig: authConfig.identityPool,
+            hostedUiConfig: authConfig.userPool?.hostedUi,
           );
         } on Object catch (e, s) {
           logger.error('Error clearing legacy credentials', e, s);
@@ -370,14 +370,14 @@ final class CredentialStoreStateMachine
   Future<void> onClearCredentials(
     CredentialStoreClearCredentials event,
   ) async {
-    final authConfig = expect<AuthConfiguration>();
+    final authConfig = expect<AWSAuthCognitoConfig>();
 
     final clearKeys = event.keys;
     final deletions = <String>[];
     bool shouldDelete(String key) =>
         clearKeys.isEmpty || clearKeys.contains(key);
 
-    final userPoolConfig = authConfig.userPoolConfig;
+    final userPoolConfig = authConfig.userPool;
     if (userPoolConfig != null) {
       final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
       for (final key in userPoolKeys) {
@@ -387,7 +387,7 @@ final class CredentialStoreStateMachine
       }
     }
 
-    final hostedUiConfig = authConfig.hostedUiConfig;
+    final hostedUiConfig = userPoolConfig?.hostedUi;
     if (hostedUiConfig != null) {
       final hostedUiKeys = HostedUiKeys(hostedUiConfig);
       for (final key in hostedUiKeys) {
@@ -397,7 +397,7 @@ final class CredentialStoreStateMachine
       }
     }
 
-    final identityPoolConfig = authConfig.identityPoolConfig;
+    final identityPoolConfig = authConfig.identityPool;
     if (identityPoolConfig != null) {
       final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
       for (final key in identityPoolKeys) {

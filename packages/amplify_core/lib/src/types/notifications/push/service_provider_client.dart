@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_core.push.service_provider_client}
@@ -11,7 +12,7 @@ import 'package:amplify_core/amplify_core.dart';
 abstract class ServiceProviderClient {
   /// Initialize this client, used by the plugin during configuration.
   Future<void> init({
-    required NotificationsPinpointPluginConfig config,
+    required AWSPushNotificationsConfig config,
     required AmplifyAuthProviderRepository authProviderRepo,
   });
 

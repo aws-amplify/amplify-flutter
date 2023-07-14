@@ -87,21 +87,7 @@ abstract class AWSAmplifyConfig
 
               if (authConfig.auth?.default$ case final cliAuthConfig?) {
                 b.userPool
-                  ..authFlowType =
-                      switch (cliAuthConfig.authenticationFlowType) {
-                    AuthenticationFlowType.userSrpAuth =>
-                      AWSAuthFlowType.userSrpAuth,
-                    AuthenticationFlowType.userPasswordAuth =>
-                      AWSAuthFlowType.userPasswordAuth,
-                    AuthenticationFlowType.customAuthWithSrp =>
-                      AWSAuthFlowType.customAuthWithSrp,
-                    AuthenticationFlowType.customAuthWithoutSrp =>
-                      AWSAuthFlowType.customAuthWithoutSrp,
-                    // ignore: deprecated_member_use_from_same_package
-                    AuthenticationFlowType.customAuth =>
-                      AWSAuthFlowType.customAuth,
-                    null => null,
-                  }
+                  ..authFlowType = cliAuthConfig.authenticationFlowType
                   ..mfaConfiguration = switch ((
                     cliAuthConfig.mfaConfiguration,
                     cliAuthConfig.mfaTypes
@@ -159,6 +145,8 @@ abstract class AWSAmplifyConfig
 
               if (userPoolConfig.hostedUI case final hostedUiConfig?) {
                 b.userPool.hostedUi
+                  ..clientId = hostedUiConfig.appClientId
+                  ..clientSecret = hostedUiConfig.appClientSecret
                   ..domainName = hostedUiConfig.webDomain
                   ..signInRedirectUris.addAll(hostedUiConfig.signInRedirectUris)
                   ..signOutRedirectUris
@@ -288,7 +276,7 @@ abstract class AWSAmplifyConfig
     required String clientId,
     String? clientSecret,
     Uri? endpoint,
-    AWSAuthFlowType? authFlowType,
+    AuthenticationFlowType? authFlowType,
     Iterable<AWSAuthProvider>? socialProviders,
     Iterable<AWSAuthUsernameAttribute>? usernameAttributes,
     Iterable<CognitoUserAttributeKey>? signUpAttributes,
@@ -708,8 +696,8 @@ abstract class AWSAmplifyConfig
         case AWSAuthCognitoConfig(:final userPool, :final identityPool)) {
       final oAuthConfig = userPool?.hostedUi?.let(
         (hostedUi) => CognitoOAuthConfig(
-          appClientId: userPool.clientId,
-          appClientSecret: userPool.clientSecret,
+          appClientId: hostedUi.clientId ?? userPool.clientId,
+          appClientSecret: hostedUi.clientSecret ?? userPool.clientSecret,
           webDomain: hostedUi.domainName,
           scopes: hostedUi.scopes.toList(),
           signInRedirectUri: hostedUi.signInRedirectUris.join(','),
@@ -902,7 +890,7 @@ abstract class AWSAmplifyConfig
           S3PluginConfig.pluginKey: S3PluginConfig(
             bucket: bucketName,
             region: region,
-            defaultAccessLevel: defaultAccessLevel ?? StorageAccessLevel.guest,
+            defaultAccessLevel: defaultAccessLevel,
           ),
         },
       );
@@ -925,6 +913,10 @@ abstract class AWSAmplifyConfig
         // We need a built_value serializer for each overridden type
         _StandardEnumSerializer('LogLevel', LogLevel.values),
         _StandardEnumSerializer('Category', Category.values),
+        _StandardEnumSerializer(
+          'AuthenticationFlowType',
+          AuthenticationFlowType.values,
+        ),
         _StandardEnumSerializer('MfaType', MfaType.values),
         _StandardEnumSerializer(
           'MfaConfiguration',

@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:amplify_api_dart/amplify_api_dart.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_common/testing.dart';
 import 'package:test/test.dart';
@@ -38,9 +39,7 @@ void main() {
         APIAuthorizationType.iam.authProviderToken,
         TestIamAuthProvider(),
       );
-    final config = AmplifyConfig.fromJson(
-      jsonDecode(amplifyconfig) as Map<String, Object?>,
-    );
+    final config = AWSAmplifyConfig.parse(amplifyconfig);
     await apiPlugin.configure(
       config: config,
       authProviderRepo: authProviderRepo,

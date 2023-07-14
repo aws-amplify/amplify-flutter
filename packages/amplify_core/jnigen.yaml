@@ -4,8 +4,6 @@ preamble: |
 maven_downloads:
   source_deps:
     - software.amazon.smithy:smithy-model:1.34.0
-    - software.amazon.smithy:smithy-aws-traits:1.34.0
-    - software.amazon.smithy:smithy-validation-model:1.34.0
 classes:
   - software.amazon.smithy.model.Model
   - software.amazon.smithy.model.loader.ModelAssembler

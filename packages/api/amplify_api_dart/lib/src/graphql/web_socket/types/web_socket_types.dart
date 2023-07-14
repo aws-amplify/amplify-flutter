@@ -8,6 +8,7 @@ library amplify_api.graphql.ws.web_socket_types;
 
 import 'dart:convert';
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
@@ -99,7 +100,7 @@ class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
     required this.authorizationHeaders,
   });
   final GraphQLRequest<dynamic> request;
-  final AWSApiConfig config;
+  final AWSAppSyncEndpointConfig config;
   final Map<String, String> authorizationHeaders;
 
   @override

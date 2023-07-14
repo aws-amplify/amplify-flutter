@@ -8,6 +8,10 @@ part of 'aws_auth_hosted_ui_config.dart';
 
 class _$AWSAuthHostedUiConfig extends AWSAuthHostedUiConfig {
   @override
+  final String? clientId;
+  @override
+  final String? clientSecret;
+  @override
   final String domainName;
   @override
   final _i2.BuiltList<Uri> signInRedirectUris;
@@ -27,7 +31,9 @@ class _$AWSAuthHostedUiConfig extends AWSAuthHostedUiConfig {
       (new AWSAuthHostedUiConfigBuilder()..update(updates))._build();
 
   _$AWSAuthHostedUiConfig._(
-      {required this.domainName,
+      {this.clientId,
+      this.clientSecret,
+      required this.domainName,
       required this.signInRedirectUris,
       required this.signOutRedirectUris,
       required this.scopes,
@@ -58,6 +64,8 @@ class _$AWSAuthHostedUiConfig extends AWSAuthHostedUiConfig {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AWSAuthHostedUiConfig &&
+        clientId == other.clientId &&
+        clientSecret == other.clientSecret &&
         domainName == other.domainName &&
         signInRedirectUris == other.signInRedirectUris &&
         signOutRedirectUris == other.signOutRedirectUris &&
@@ -70,6 +78,8 @@ class _$AWSAuthHostedUiConfig extends AWSAuthHostedUiConfig {
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, clientId.hashCode);
+    _$hash = $jc(_$hash, clientSecret.hashCode);
     _$hash = $jc(_$hash, domainName.hashCode);
     _$hash = $jc(_$hash, signInRedirectUris.hashCode);
     _$hash = $jc(_$hash, signOutRedirectUris.hashCode);
@@ -85,6 +95,14 @@ class _$AWSAuthHostedUiConfig extends AWSAuthHostedUiConfig {
 class AWSAuthHostedUiConfigBuilder
     implements Builder<AWSAuthHostedUiConfig, AWSAuthHostedUiConfigBuilder> {
   _$AWSAuthHostedUiConfig? _$v;
+
+  String? _clientId;
+  String? get clientId => _$this._clientId;
+  set clientId(String? clientId) => _$this._clientId = clientId;
+
+  String? _clientSecret;
+  String? get clientSecret => _$this._clientSecret;
+  set clientSecret(String? clientSecret) => _$this._clientSecret = clientSecret;
 
   String? _domainName;
   String? get domainName => _$this._domainName;
@@ -126,6 +144,8 @@ class AWSAuthHostedUiConfigBuilder
   AWSAuthHostedUiConfigBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _clientId = $v.clientId;
+      _clientSecret = $v.clientSecret;
       _domainName = $v.domainName;
       _signInRedirectUris = $v.signInRedirectUris.toBuilder();
       _signOutRedirectUris = $v.signOutRedirectUris.toBuilder();
@@ -157,6 +177,8 @@ class AWSAuthHostedUiConfigBuilder
     try {
       _$result = _$v ??
           new _$AWSAuthHostedUiConfig._(
+              clientId: clientId,
+              clientSecret: clientSecret,
               domainName: BuiltValueNullFieldError.checkNotNull(
                   domainName, r'AWSAuthHostedUiConfig', 'domainName'),
               signInRedirectUris: signInRedirectUris.build(),

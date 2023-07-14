@@ -44,7 +44,7 @@ abstract class AWSStorageS3Bucket
 
   String get bucketName;
   String get region;
-  _i2.StorageAccessLevel? get defaultAccessLevel;
+  _i2.StorageAccessLevel get defaultAccessLevel;
   @override
   List<Object?> get props => [
         bucketName,
@@ -138,20 +138,17 @@ class AWSStorageS3BucketSerializer
         bucketName,
         specifiedType: const FullType(String),
       ),
+      'defaultAccessLevel',
+      serializers.serialize(
+        defaultAccessLevel,
+        specifiedType: const FullType(_i2.StorageAccessLevel),
+      ),
       'region',
       serializers.serialize(
         region,
         specifiedType: const FullType(String),
       ),
     ]);
-    if (defaultAccessLevel != null) {
-      result$
-        ..add('defaultAccessLevel')
-        ..add(serializers.serialize(
-          defaultAccessLevel,
-          specifiedType: const FullType(_i2.StorageAccessLevel),
-        ));
-    }
     return result$;
   }
 }

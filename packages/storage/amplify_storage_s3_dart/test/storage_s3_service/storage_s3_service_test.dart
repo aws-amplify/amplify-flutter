@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
@@ -37,8 +38,10 @@ void main() {
   group('StorageS3Service', () {
     const testBucket = 'bucket1';
     const testRegion = 'west-2';
-    const s3PluginConfig =
-        S3PluginConfig(bucket: testBucket, region: testRegion);
+    final s3PluginConfig = AWSStorageS3Bucket(
+      bucketName: testBucket,
+      region: testRegion,
+    );
 
     final testPrefixResolver = TestPrefixResolver();
     late DependencyManager dependencyManager;
@@ -65,8 +68,8 @@ void main() {
 
     test('log a warning when should use path style URLs', () {
       StorageS3Service(
-        s3PluginConfig: const S3PluginConfig(
-          bucket: 'bucket.name.has.dots.com',
+        s3PluginConfig: AWSStorageS3Bucket(
+          bucketName: 'bucket.name.has.dots.com',
           region: 'us-west-2',
         ),
         prefixResolver: testPrefixResolver,
@@ -852,8 +855,10 @@ void main() {
         late StorageS3Service pathStyleStorageS3Service;
         const pathStyleBucket = 'bucket.name.has.dots.com';
         const pathStyleRegion = 'west-2';
-        const pathStyleS3PluginConfig =
-            S3PluginConfig(bucket: pathStyleBucket, region: pathStyleRegion);
+        final pathStyleS3PluginConfig = AWSStorageS3Bucket(
+          bucketName: pathStyleBucket,
+          region: pathStyleRegion,
+        );
         final pathStyleURL = Uri(
           host: 's3.amazonaws.com',
           path: '/bucket.name.has.dots.com/album/1.jpg',

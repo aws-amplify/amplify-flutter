@@ -5,6 +5,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/session.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -89,20 +90,11 @@ void main() {
 
       await expectLater(
         plugin.configure(
-          config: const AmplifyConfig(
-            analytics: AnalyticsConfig(
-              plugins: {
-                PinpointPluginConfig.pluginKey: PinpointPluginConfig(
-                  pinpointAnalytics: PinpointAnalytics(
-                    appId: appId,
-                    region: region,
-                  ),
-                  pinpointTargeting: PinpointTargeting(
-                    region: region,
-                  ),
-                  autoFlushEventsInterval: autoFlushInterval,
-                ),
-              },
+          config: AWSAmplifyConfig(
+            analytics: AWSAnalyticsConfig.pinpoint(
+              appId: appId,
+              region: region,
+              autoFlushEventsInterval: autoFlushInterval,
             ),
           ),
           authProviderRepo: AmplifyAuthProviderRepository()
@@ -124,20 +116,11 @@ void main() {
       );
 
       await plugin.configure(
-        config: const AmplifyConfig(
-          analytics: AnalyticsConfig(
-            plugins: {
-              PinpointPluginConfig.pluginKey: PinpointPluginConfig(
-                pinpointAnalytics: PinpointAnalytics(
-                  appId: appId,
-                  region: region,
-                ),
-                pinpointTargeting: PinpointTargeting(
-                  region: region,
-                ),
-                autoFlushEventsInterval: autoFlushInterval,
-              ),
-            },
+        config: AWSAmplifyConfig(
+          analytics: AWSAnalyticsConfig.pinpoint(
+            appId: appId,
+            region: region,
+            autoFlushEventsInterval: autoFlushInterval,
           ),
         ),
         authProviderRepo: AmplifyAuthProviderRepository()
@@ -159,20 +142,11 @@ void main() {
       );
 
       await plugin.configure(
-        config: const AmplifyConfig(
-          analytics: AnalyticsConfig(
-            plugins: {
-              PinpointPluginConfig.pluginKey: PinpointPluginConfig(
-                pinpointAnalytics: PinpointAnalytics(
-                  appId: appId,
-                  region: region,
-                ),
-                pinpointTargeting: PinpointTargeting(
-                  region: region,
-                ),
-                autoFlushEventsInterval: autoFlushInterval,
-              ),
-            },
+        config: AWSAmplifyConfig(
+          analytics: AWSAnalyticsConfig.pinpoint(
+            appId: appId,
+            region: region,
+            autoFlushEventsInterval: autoFlushInterval,
           ),
         ),
         authProviderRepo: AmplifyAuthProviderRepository()

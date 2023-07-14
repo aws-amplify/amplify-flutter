@@ -9,7 +9,7 @@ import 'dart:collection';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     show AuthFlowType;
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_auth_cognito_dart.cognito_user_pool_key}
@@ -122,7 +122,7 @@ final class CognitoIdentityPoolKeys
 
   /// The Cognito identity pool configuration, used to determine the key
   /// prefixes.
-  final CognitoIdentityCredentialsProvider config;
+  final AWSAuthIdentityPoolConfig config;
 
   @override
   List<CognitoIdentityPoolKey> get _values => CognitoIdentityPoolKey.values;
@@ -140,13 +140,13 @@ final class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
   const CognitoUserPoolKeys(this.config);
 
   /// The Cognito user pool configuration, used to determine the key prefixes.
-  final CognitoUserPoolConfig config;
+  final AWSAuthUserPoolConfig config;
 
   @override
   List<CognitoUserPoolKey> get _values => CognitoUserPoolKey.values;
 
   @override
-  String get prefix => config.appClientId;
+  String get prefix => config.clientId;
 }
 
 /// {@template amplify_auth_cognito.cognito_user_pool_keys}
@@ -158,7 +158,7 @@ final class CognitoDeviceKeys extends CognitoKeys<CognitoDeviceKey> {
   const CognitoDeviceKeys(this.config, this.username);
 
   /// The Cognito user pool configuration, used to determine the key prefixes.
-  final CognitoUserPoolConfig config;
+  final AWSAuthUserPoolConfig config;
 
   /// Device keys are tracked by username.
   final String username;
@@ -167,7 +167,7 @@ final class CognitoDeviceKeys extends CognitoKeys<CognitoDeviceKey> {
   List<CognitoDeviceKey> get _values => CognitoDeviceKey.values;
 
   @override
-  String get prefix => '${config.appClientId}.$username';
+  String get prefix => '${config.clientId}.$username';
 }
 
 /// {@template amplify_auth_cognito.hosted_ui_keys}
@@ -179,13 +179,13 @@ final class HostedUiKeys extends CognitoKeys<HostedUiKey> {
   const HostedUiKeys(this.config);
 
   /// The Cognito OAuth configuration, used to determine the key prefixes.
-  final CognitoOAuthConfig config;
+  final AWSAuthHostedUiConfig config;
 
   @override
   List<HostedUiKey> get _values => HostedUiKey.values;
 
   @override
-  String get prefix => '${config.appClientId}.hostedUi';
+  String get prefix => '${config.clientId}.hostedUi';
 }
 
 /// {@template amplify_auth_cognito.cognito_keys}

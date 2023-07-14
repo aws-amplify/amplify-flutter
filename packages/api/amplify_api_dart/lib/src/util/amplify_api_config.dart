@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
+import 'package:amplify_core/amplify_config.dart';
+import 'package:amplify_core/amplify_core.dart' hide AWSApiConfig;
 import 'package:meta/meta.dart';
 
 const _slash = '/';
@@ -17,7 +17,7 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
   final String name;
 
   /// The value in the Amplify configuration file which as config details.
-  final AWSApiConfig config;
+  final AWSApiEndpointConfig config;
 
   @override
   List<Object?> get props => [name, config];
@@ -26,7 +26,21 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
   /// with [path] and [queryParameters] to return a full [Uri].
   Uri getUri({String? path, Map<String, dynamic>? queryParameters}) {
     path = path ?? '';
-    final parsed = Uri.parse(config.endpoint);
+    final parsed = switch (config) {
+      AWSApiEndpointConfigApiGateway$(
+        value: AWSApiGatewayEndpointConfig(:final endpoint)
+      ) =>
+        endpoint,
+      AWSApiEndpointConfigAppSync$(
+        value: AWSAppSyncEndpointConfig(:final endpoint)
+      ) =>
+        endpoint,
+      AWSApiEndpointConfigRest$(
+        value: AWSRestEndpointConfig(:final endpoint)
+      ) =>
+        endpoint,
+      _ => throw ArgumentError('Invalid API endpoint: $config'),
+    };
     // Remove leading slashes which are suggested in public documentation.
     // https://docs.amplify.aws/lib/restapi/getting-started/q/platform/flutter/#make-a-post-request
     if (path.startsWith(_slash)) {
@@ -46,23 +60,24 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
 
 /// Allows getting desired endpoint more easily.
 @internal
-extension AWSApiPluginConfigHelpers on AWSApiPluginConfig {
+extension AWSApiPluginConfigHelpers on AWSApiConfig {
   /// Finds the first endpoint matching the type and apiName.
   EndpointConfig getEndpoint({
     required EndpointType type,
     String? apiName,
   }) {
-    final typeConfigs =
-        entries.where((config) => config.value.endpointType == type);
     if (apiName != null) {
-      final config = typeConfigs.firstWhere(
-        (config) => config.key == apiName,
-        orElse: () => throw ConfigurationError(
+      final config = apis[apiName];
+      if (config == null || config.endpointType != type) {
+        throw ConfigurationError(
           'No API endpoint found matching apiName $apiName.',
-        ),
-      );
-      return EndpointConfig(config.key, config.value);
+        );
+      }
+      return EndpointConfig(apiName, config);
     }
+
+    final typeConfigs =
+        apis.entries.where((entry) => entry.value.endpointType == type);
     final onlyConfig = typeConfigs.singleOrNull;
     if (onlyConfig == null) {
       throw ConfigurationError(
@@ -72,4 +87,55 @@ extension AWSApiPluginConfigHelpers on AWSApiPluginConfig {
     }
     return EndpointConfig(onlyConfig.key, onlyConfig.value);
   }
+}
+
+/// Helpers for working with [AWSApiEndpointConfig].
+@internal
+extension AWSApiEndpointConfigHelpers on AWSApiEndpointConfig {
+  /// The endpoint type of this.
+  EndpointType get endpointType => switch (this) {
+        AWSApiEndpointConfigAppSync$ _ => EndpointType.graphQL,
+        AWSApiEndpointConfigApiGateway$ _ ||
+        AWSApiEndpointConfigRest$ _ =>
+          EndpointType.graphQL,
+        _ => throw ArgumentError('Invalid API: $this'),
+      };
+
+  /// The default API authorization mode.
+  AWSApiAuthorizationMode? get defaultAuthorizationMode => switch (this) {
+        AWSApiEndpointConfigRest$ _ => null,
+        AWSApiEndpointConfigApiGateway$(
+          apiGateway: AWSApiGatewayEndpointConfig(:final authMode)
+        ) ||
+        AWSApiEndpointConfigAppSync$(
+          appSync: AWSAppSyncEndpointConfig(:final authMode)
+        ) =>
+          authMode,
+        _ => throw ArgumentError('Invalid endpoint config: $this'),
+      };
+
+  /// The default API authorization type.
+  APIAuthorizationType get defaultAuthorizationType =>
+      switch (defaultAuthorizationMode) {
+        null => APIAuthorizationType.none,
+        final authMode => authMode.authorizationType,
+      };
+
+  /// The API key for the endpoint.
+  String? get apiKey => switch (defaultAuthorizationMode) {
+        AWSApiAuthorizationModeApiKey$(:final apiKey) => apiKey,
+        _ => null,
+      };
+}
+
+extension on AWSApiAuthorizationMode {
+  APIAuthorizationType get authorizationType => switch (this) {
+        AWSApiAuthorizationModeNone$ _ => APIAuthorizationType.none,
+        AWSApiAuthorizationModeApiKey$ _ => APIAuthorizationType.apiKey,
+        AWSApiAuthorizationModeIam$ _ => APIAuthorizationType.iam,
+        AWSApiAuthorizationModeUserPools$ _ => APIAuthorizationType.userPools,
+        AWSApiAuthorizationModeOidc$ _ => APIAuthorizationType.oidc,
+        AWSApiAuthorizationModeFunction$ _ => APIAuthorizationType.function,
+        _ => throw ArgumentError('Invalid authorization type: $this'),
+      };
 }

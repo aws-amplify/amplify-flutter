@@ -11,6 +11,7 @@ import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/flut
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analytics_client.dart';
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/channel_type.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_push_notifications_pinpoint/src/event_info_type.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
@@ -54,11 +55,17 @@ class PinpointProvider implements ServiceProviderClient {
 
   @override
   Future<void> init({
-    required NotificationsPinpointPluginConfig config,
+    required AWSPushNotificationsConfig config,
     required AmplifyAuthProviderRepository authProviderRepo,
     @visibleForTesting AnalyticsClient? analyticsClient,
   }) async {
     try {
+      final pinpointConfig = switch (config) {
+        AWSPushNotificationsConfigPinpoint$(:final pinpoint) => pinpoint,
+        _ => throw ArgumentError(
+            'Invalid Pinpoint notifications config: $config',
+          ),
+      };
       if (!_isInitialized) {
         final authProvider = authProviderRepo
             .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
@@ -68,8 +75,8 @@ class PinpointProvider implements ServiceProviderClient {
             'No AWSIamAmplifyAuthProvider available. Is Auth category added and configured?',
           );
         }
-        final region = config.region;
-        final appId = config.appId;
+        final region = pinpointConfig.region;
+        final appId = pinpointConfig.appId;
 
         final secureStorageFactory = AmplifySecureStorage.factoryFrom();
 

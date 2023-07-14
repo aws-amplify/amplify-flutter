@@ -5,6 +5,7 @@ import 'package:amplify_auth_cognito_dart/src/asf/asf_device_info_collector.dart
 import 'package:amplify_auth_cognito_dart/src/asf/asf_worker.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:async/async.dart';
@@ -23,7 +24,7 @@ final class ASFContextDataProvider with AWSDebuggable, AWSLoggerMixin {
   ASFDeviceInfoCollector get _platform => _dependencyManager.getOrCreate();
 
   /// The Cognito user pool configuration.
-  CognitoUserPoolConfig? get _userPoolConfig => _dependencyManager.get();
+  AWSAuthUserPoolConfig? get _userPoolConfig => _dependencyManager.get();
 
   SecureStorageInterface get _secureStorage => _dependencyManager.expect();
 
@@ -81,7 +82,7 @@ final class ASFContextDataProvider with AWSDebuggable, AWSLoggerMixin {
     logger.verbose('Got native context data: $nativeContextData');
     final deviceId = await _deviceId;
     final userPoolId = userPoolConfig.poolId;
-    final clientId = userPoolConfig.appClientId;
+    final clientId = userPoolConfig.clientId;
 
     final request = ASFWorkerRequest(
       userPoolId: userPoolId,

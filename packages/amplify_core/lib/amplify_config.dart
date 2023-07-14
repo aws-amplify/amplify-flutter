@@ -19,7 +19,6 @@ export 'src/generated/src/amplify_configuration_service/model/aws_api_gateway_en
 export 'src/generated/src/amplify_configuration_service/model/aws_app_sync_endpoint_config.dart';
 export 'src/generated/src/amplify_configuration_service/model/aws_auth_cognito_config.dart';
 export 'src/generated/src/amplify_configuration_service/model/aws_auth_config.dart';
-export 'src/generated/src/amplify_configuration_service/model/aws_auth_flow_type.dart';
 export 'src/generated/src/amplify_configuration_service/model/aws_auth_hosted_ui_config.dart';
 export 'src/generated/src/amplify_configuration_service/model/aws_auth_identity_pool_config.dart';
 export 'src/generated/src/amplify_configuration_service/model/aws_auth_mfa_configuration.dart';

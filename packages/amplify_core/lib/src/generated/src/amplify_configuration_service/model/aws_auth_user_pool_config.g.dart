@@ -18,23 +18,23 @@ class _$AWSAuthUserPoolConfig extends AWSAuthUserPoolConfig {
   @override
   final Uri? endpoint;
   @override
-  final _i2.AWSAuthFlowType? authFlowType;
+  final _i2.AuthenticationFlowType? authFlowType;
   @override
-  final _i10.BuiltList<_i3.AWSAuthProvider>? socialProviders;
+  final _i9.BuiltList<_i3.AWSAuthProvider>? socialProviders;
   @override
-  final _i10.BuiltSet<_i4.AWSAuthUsernameAttribute>? usernameAttributes;
+  final _i9.BuiltSet<_i4.AWSAuthUsernameAttribute>? usernameAttributes;
   @override
-  final _i10.BuiltSet<_i5.CognitoUserAttributeKey>? signUpAttributes;
+  final _i9.BuiltSet<_i2.CognitoUserAttributeKey>? signUpAttributes;
   @override
-  final _i10.BuiltSet<_i5.CognitoUserAttributeKey>? verificationMechanisms;
+  final _i9.BuiltSet<_i2.CognitoUserAttributeKey>? verificationMechanisms;
   @override
-  final _i6.AWSAnalyticsPinpointConfig? pinpointConfig;
+  final _i5.AWSAnalyticsPinpointConfig? pinpointConfig;
   @override
-  final _i7.AWSAuthPasswordProtectionSettings? passwordProtectionSettings;
+  final _i6.AWSAuthPasswordProtectionSettings? passwordProtectionSettings;
   @override
-  final _i8.AWSAuthMfaConfiguration? mfaConfiguration;
+  final _i7.AWSAuthMfaConfiguration? mfaConfiguration;
   @override
-  final _i9.AWSAuthHostedUiConfig? hostedUi;
+  final _i8.AWSAuthHostedUiConfig? hostedUi;
 
   factory _$AWSAuthUserPoolConfig(
           [void Function(AWSAuthUserPoolConfigBuilder)? updates]) =>
@@ -139,67 +139,67 @@ class AWSAuthUserPoolConfigBuilder
   Uri? get endpoint => _$this._endpoint;
   set endpoint(Uri? endpoint) => _$this._endpoint = endpoint;
 
-  _i2.AWSAuthFlowType? _authFlowType;
-  _i2.AWSAuthFlowType? get authFlowType => _$this._authFlowType;
-  set authFlowType(_i2.AWSAuthFlowType? authFlowType) =>
+  _i2.AuthenticationFlowType? _authFlowType;
+  _i2.AuthenticationFlowType? get authFlowType => _$this._authFlowType;
+  set authFlowType(_i2.AuthenticationFlowType? authFlowType) =>
       _$this._authFlowType = authFlowType;
 
-  _i10.ListBuilder<_i3.AWSAuthProvider>? _socialProviders;
-  _i10.ListBuilder<_i3.AWSAuthProvider> get socialProviders =>
-      _$this._socialProviders ??= new _i10.ListBuilder<_i3.AWSAuthProvider>();
-  set socialProviders(_i10.ListBuilder<_i3.AWSAuthProvider>? socialProviders) =>
+  _i9.ListBuilder<_i3.AWSAuthProvider>? _socialProviders;
+  _i9.ListBuilder<_i3.AWSAuthProvider> get socialProviders =>
+      _$this._socialProviders ??= new _i9.ListBuilder<_i3.AWSAuthProvider>();
+  set socialProviders(_i9.ListBuilder<_i3.AWSAuthProvider>? socialProviders) =>
       _$this._socialProviders = socialProviders;
 
-  _i10.SetBuilder<_i4.AWSAuthUsernameAttribute>? _usernameAttributes;
-  _i10.SetBuilder<_i4.AWSAuthUsernameAttribute> get usernameAttributes =>
+  _i9.SetBuilder<_i4.AWSAuthUsernameAttribute>? _usernameAttributes;
+  _i9.SetBuilder<_i4.AWSAuthUsernameAttribute> get usernameAttributes =>
       _$this._usernameAttributes ??=
-          new _i10.SetBuilder<_i4.AWSAuthUsernameAttribute>();
+          new _i9.SetBuilder<_i4.AWSAuthUsernameAttribute>();
   set usernameAttributes(
-          _i10.SetBuilder<_i4.AWSAuthUsernameAttribute>? usernameAttributes) =>
+          _i9.SetBuilder<_i4.AWSAuthUsernameAttribute>? usernameAttributes) =>
       _$this._usernameAttributes = usernameAttributes;
 
-  _i10.SetBuilder<_i5.CognitoUserAttributeKey>? _signUpAttributes;
-  _i10.SetBuilder<_i5.CognitoUserAttributeKey> get signUpAttributes =>
+  _i9.SetBuilder<_i2.CognitoUserAttributeKey>? _signUpAttributes;
+  _i9.SetBuilder<_i2.CognitoUserAttributeKey> get signUpAttributes =>
       _$this._signUpAttributes ??=
-          new _i10.SetBuilder<_i5.CognitoUserAttributeKey>();
+          new _i9.SetBuilder<_i2.CognitoUserAttributeKey>();
   set signUpAttributes(
-          _i10.SetBuilder<_i5.CognitoUserAttributeKey>? signUpAttributes) =>
+          _i9.SetBuilder<_i2.CognitoUserAttributeKey>? signUpAttributes) =>
       _$this._signUpAttributes = signUpAttributes;
 
-  _i10.SetBuilder<_i5.CognitoUserAttributeKey>? _verificationMechanisms;
-  _i10.SetBuilder<_i5.CognitoUserAttributeKey> get verificationMechanisms =>
+  _i9.SetBuilder<_i2.CognitoUserAttributeKey>? _verificationMechanisms;
+  _i9.SetBuilder<_i2.CognitoUserAttributeKey> get verificationMechanisms =>
       _$this._verificationMechanisms ??=
-          new _i10.SetBuilder<_i5.CognitoUserAttributeKey>();
+          new _i9.SetBuilder<_i2.CognitoUserAttributeKey>();
   set verificationMechanisms(
-          _i10.SetBuilder<_i5.CognitoUserAttributeKey>?
+          _i9.SetBuilder<_i2.CognitoUserAttributeKey>?
               verificationMechanisms) =>
       _$this._verificationMechanisms = verificationMechanisms;
 
-  _i6.AWSAnalyticsPinpointConfigBuilder? _pinpointConfig;
-  _i6.AWSAnalyticsPinpointConfigBuilder get pinpointConfig =>
-      _$this._pinpointConfig ??= new _i6.AWSAnalyticsPinpointConfigBuilder();
-  set pinpointConfig(_i6.AWSAnalyticsPinpointConfigBuilder? pinpointConfig) =>
+  _i5.AWSAnalyticsPinpointConfigBuilder? _pinpointConfig;
+  _i5.AWSAnalyticsPinpointConfigBuilder get pinpointConfig =>
+      _$this._pinpointConfig ??= new _i5.AWSAnalyticsPinpointConfigBuilder();
+  set pinpointConfig(_i5.AWSAnalyticsPinpointConfigBuilder? pinpointConfig) =>
       _$this._pinpointConfig = pinpointConfig;
 
-  _i7.AWSAuthPasswordProtectionSettingsBuilder? _passwordProtectionSettings;
-  _i7.AWSAuthPasswordProtectionSettingsBuilder get passwordProtectionSettings =>
+  _i6.AWSAuthPasswordProtectionSettingsBuilder? _passwordProtectionSettings;
+  _i6.AWSAuthPasswordProtectionSettingsBuilder get passwordProtectionSettings =>
       _$this._passwordProtectionSettings ??=
-          new _i7.AWSAuthPasswordProtectionSettingsBuilder();
+          new _i6.AWSAuthPasswordProtectionSettingsBuilder();
   set passwordProtectionSettings(
-          _i7.AWSAuthPasswordProtectionSettingsBuilder?
+          _i6.AWSAuthPasswordProtectionSettingsBuilder?
               passwordProtectionSettings) =>
       _$this._passwordProtectionSettings = passwordProtectionSettings;
 
-  _i8.AWSAuthMfaConfigurationBuilder? _mfaConfiguration;
-  _i8.AWSAuthMfaConfigurationBuilder get mfaConfiguration =>
-      _$this._mfaConfiguration ??= new _i8.AWSAuthMfaConfigurationBuilder();
-  set mfaConfiguration(_i8.AWSAuthMfaConfigurationBuilder? mfaConfiguration) =>
+  _i7.AWSAuthMfaConfigurationBuilder? _mfaConfiguration;
+  _i7.AWSAuthMfaConfigurationBuilder get mfaConfiguration =>
+      _$this._mfaConfiguration ??= new _i7.AWSAuthMfaConfigurationBuilder();
+  set mfaConfiguration(_i7.AWSAuthMfaConfigurationBuilder? mfaConfiguration) =>
       _$this._mfaConfiguration = mfaConfiguration;
 
-  _i9.AWSAuthHostedUiConfigBuilder? _hostedUi;
-  _i9.AWSAuthHostedUiConfigBuilder get hostedUi =>
-      _$this._hostedUi ??= new _i9.AWSAuthHostedUiConfigBuilder();
-  set hostedUi(_i9.AWSAuthHostedUiConfigBuilder? hostedUi) =>
+  _i8.AWSAuthHostedUiConfigBuilder? _hostedUi;
+  _i8.AWSAuthHostedUiConfigBuilder get hostedUi =>
+      _$this._hostedUi ??= new _i8.AWSAuthHostedUiConfigBuilder();
+  set hostedUi(_i8.AWSAuthHostedUiConfigBuilder? hostedUi) =>
       _$this._hostedUi = hostedUi;
 
   AWSAuthUserPoolConfigBuilder() {

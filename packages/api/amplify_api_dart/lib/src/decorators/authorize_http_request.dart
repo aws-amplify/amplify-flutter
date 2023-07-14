@@ -4,6 +4,8 @@
 import 'dart:async';
 
 import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_api_dart/src/util/amplify_api_config.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
@@ -12,11 +14,11 @@ import 'package:meta/meta.dart';
 @internal
 Future<AWSBaseHttpRequest> authorizeHttpRequest(
   AWSBaseHttpRequest request, {
-  required AWSApiConfig endpointConfig,
+  required AWSApiEndpointConfig endpointConfig,
   required AmplifyAuthProviderRepository authProviderRepo,
   APIAuthorizationType? authorizationMode,
 }) async {
-  final authType = authorizationMode ?? endpointConfig.authorizationType;
+  final authType = authorizationMode ?? endpointConfig.defaultAuthorizationType;
   if (request.headers.containsKey(AWSHeaders.authorization) ||
       (request.headers.containsKey(xApiKey) &&
           authType == APIAuthorizationType.apiKey)) {
@@ -31,7 +33,7 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
         ),
         authType,
       );
-      final apiKey = endpointConfig.apiKey;
+      final apiKey = endpointConfig.defaultAuthorizationMode?.apiKey;
       if (apiKey == null) {
         throw ConfigurationError(
           'Auth mode is API Key, but no API Key was found in config.',
@@ -60,7 +62,18 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
       final authorizedRequest = await authProvider.authorizeRequest(
         request,
         options: IamAuthProviderOptions(
-          region: endpointConfig.region,
+          region: switch (endpointConfig) {
+            AWSApiEndpointConfigApiGateway$(
+              apiGateway: AWSApiGatewayEndpointConfig(:final region)
+            ) ||
+            AWSApiEndpointConfigAppSync$(
+              appSync: AWSAppSyncEndpointConfig(:final region)
+            ) =>
+              region,
+            _ => throw ArgumentError(
+                'IAM authorization is not supported for this endpoint',
+              ),
+          },
           service: service,
           serviceConfiguration: serviceConfiguration,
         ),

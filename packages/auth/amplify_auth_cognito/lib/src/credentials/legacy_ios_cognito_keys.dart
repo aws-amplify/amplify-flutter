@@ -11,7 +11,7 @@ library amplify_auth_cognito.credentials.legacy_ios_cognito_keys;
 
 import 'dart:collection';
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:meta/meta.dart';
 
 /// Discrete keys stored for Legacy Cognito operations on iOS.
@@ -63,13 +63,13 @@ class LegacyCognitoUserKeys extends LegacyIOSCognitoKeys<LegacyCognitoKey> {
 
   /// The Cognito identity pool configuration, used to determine the key
   /// prefixes.
-  final CognitoUserPoolConfig config;
+  final AWSAuthUserPoolConfig config;
 
   @override
   List<LegacyCognitoKey> get _values => LegacyCognitoKey.values;
 
   @override
-  String? get prefix => config.appClientId;
+  String? get prefix => config.clientId;
 }
 
 /// {@template amplify_auth_cognito.legacy_cognito_identity_pool_keys}
@@ -100,7 +100,7 @@ class LegacyCognitoUserPoolKeys
 
   /// The Cognito identity pool configuration, used to determine the key
   /// prefixes.
-  final CognitoUserPoolConfig config;
+  final AWSAuthUserPoolConfig config;
 
   /// The current user ID, used to determine the key prefixes.
   final String currentUserId;
@@ -109,7 +109,7 @@ class LegacyCognitoUserPoolKeys
   List<LegacyCognitoUserPoolKey> get _values => LegacyCognitoUserPoolKey.values;
 
   @override
-  String get prefix => '${config.appClientId}.$currentUserId';
+  String get prefix => '${config.clientId}.$currentUserId';
 }
 
 /// {@template amplify_auth_cognito.cognito_keys}

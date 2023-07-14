@@ -13,6 +13,7 @@ import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_test/common/mock_clients.dart';
 import 'package:amplify_auth_cognito_test/common/mock_config.dart';
 import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -34,35 +35,17 @@ void main() {
     });
 
     test('can change flow at runtime', () async {
-      const config = AmplifyConfig(
-        auth: AuthConfig(
-          plugins: {
-            CognitoPluginConfig.pluginKey: CognitoPluginConfig(
-              auth: AWSConfigMap(
-                {
-                  'Default': CognitoAuthConfig(
-                    authenticationFlowType: AuthenticationFlowType.userSrpAuth,
-                  ),
-                },
-              ),
-              cognitoUserPool: AWSConfigMap(
-                {
-                  'Default': CognitoUserPoolConfig(
-                    poolId: testUserPoolId,
-                    appClientId: testAppClientId,
-                    region: testRegion,
-                  ),
-                },
-              ),
-            ),
-          },
+      final config = AWSAmplifyConfig(
+        auth: AWSAuthConfig.cognito(
+          userPool: AWSAuthUserPoolConfig(
+            poolId: testUserPoolId,
+            clientId: testAppClientId,
+            region: testRegion,
+            authFlowType: AuthenticationFlowType.userSrpAuth,
+          ),
         ),
       );
-      stateMachine
-          .dispatch(
-            const ConfigurationEvent.configure(config),
-          )
-          .ignore();
+      stateMachine.dispatch(ConfigurationEvent.configure(config)).ignore();
       await expectLater(
         stateMachine.stream.whereType<ConfigurationState>().firstWhere(
               (event) => event is Configured || event is ConfigureFailure,

@@ -122,6 +122,11 @@ Future<void> _generateFor({
           const Reference('LogLevel', 'package:amplify_core/amplify_core.dart'),
       ShapeId.parse('com.amazonaws.amplify.core#AmplifyCategory'):
           const Reference('Category', 'package:amplify_core/amplify_core.dart'),
+      ShapeId.parse('com.amazonaws.amplify.core#AWSAuthFlowType'):
+          const Reference(
+        'AuthenticationFlowType',
+        'package:amplify_core/amplify_core.dart',
+      ),
       ShapeId.parse('com.amazonaws.amplify.core#AWSAuthMfaType'):
           const Reference('MfaType', 'package:amplify_core/amplify_core.dart'),
       ShapeId.parse('com.amazonaws.amplify.core#AWSAuthMfaStatus'):

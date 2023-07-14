@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import 'dart:async';
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_db_common/amplify_db_common.dart' as db_common;
 import 'package:amplify_storage_s3/src/utils/app_path_provider/app_path_provider.dart';
@@ -24,7 +25,7 @@ class AmplifyStorageS3 extends AmplifyStorageS3Dart {
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     await super.configure(config: config, authProviderRepo: authProviderRepo);

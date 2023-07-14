@@ -23,6 +23,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:built_collection/built_collection.dart';
@@ -54,9 +55,8 @@ final class SignInStateMachine
   /// The default flow used to sign in.
   late final AuthFlowType defaultAuthFlowType = () {
     // Get the flow from the plugin config
-    final pluginFlowType =
-        expect<CognitoPluginConfig>().auth?.default$?.authenticationFlowType ??
-            AuthenticationFlowType.userSrpAuth;
+    final pluginFlowType = expect<AWSAuthUserPoolConfig>().authFlowType ??
+        AuthenticationFlowType.userSrpAuth;
     return pluginFlowType.sdkValue;
   }();
 
@@ -64,10 +64,10 @@ final class SignInStateMachine
   late SignInParameters parameters;
 
   /// The configured user pool.
-  late final CognitoUserPoolConfig config = expect();
+  late final AWSAuthUserPoolConfig config = expect();
 
   /// The configured identity pool.
-  CognitoIdentityCredentialsProvider? get identityPoolConfig => get();
+  AWSAuthIdentityPoolConfig? get identityPoolConfig => get();
 
   /// The Cognito Identity Provider service client.
   late final CognitoIdentityProviderClient cognitoIdentityProvider = expect();
@@ -243,7 +243,7 @@ final class SignInStateMachine
             if (_user.deviceSecrets?.deviceKey case final deviceKey?)
               CognitoConstants.challengeParamDeviceKey: deviceKey,
           })
-          ..clientId = config.appClientId
+          ..clientId = config.clientId
           ..clientMetadata.addAll(event.clientMetadata)
           ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder(),
       );
@@ -275,8 +275,8 @@ final class SignInStateMachine
     final workerMessage = SrpPasswordVerifierMessage((b) {
       b
         ..initResult = initResult
-        ..clientId = config.appClientId
-        ..clientSecret = config.appClientSecret
+        ..clientId = config.clientId
+        ..clientSecret = config.clientSecret
         ..poolId = config.poolId
         ..deviceKey = _user.deviceSecrets?.deviceKey
         ..challengeParameters = BuiltMap(_publicChallengeParameters)
@@ -299,7 +299,7 @@ final class SignInStateMachine
     }
     return RespondToAuthChallengeRequest.build((b) {
       b
-        ..clientId = config.appClientId
+        ..clientId = config.clientId
         ..challengeName = ChallengeNameType.deviceSrpAuth
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: username,
@@ -326,8 +326,8 @@ final class SignInStateMachine
       b
         ..deviceSecrets = _user.deviceSecrets!.build()
         ..initResult = _initResult
-        ..clientId = config.appClientId
-        ..clientSecret = config.appClientSecret
+        ..clientId = config.clientId
+        ..clientSecret = config.clientSecret
         ..challengeParameters = BuiltMap(_publicChallengeParameters)
         ..parameters = parameters;
     });
@@ -342,7 +342,7 @@ final class SignInStateMachine
   ) async {
     return RespondToAuthChallengeRequest.build((b) {
       b
-        ..clientId = config.appClientId
+        ..clientId = config.clientId
         ..challengeName = _challengeName
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: username,
@@ -359,7 +359,7 @@ final class SignInStateMachine
   ) async {
     return RespondToAuthChallengeRequest.build((b) {
       b
-        ..clientId = config.appClientId
+        ..clientId = config.clientId
         ..challengeName = _challengeName
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: username,
@@ -403,7 +403,7 @@ final class SignInStateMachine
     return InitiateAuthRequest.build((b) {
       b
         ..authFlow = AuthFlowType.userSrpAuth
-        ..clientId = config.appClientId
+        ..clientId = config.clientId
         ..authParameters.addAll({
           CognitoConstants.challengeParamUsername: parameters.username,
           CognitoConstants.challengeParamSrpA:
@@ -422,7 +422,7 @@ final class SignInStateMachine
     return InitiateAuthRequest.build((b) {
       b
         ..authFlow = AuthFlowType.userPasswordAuth
-        ..clientId = config.appClientId
+        ..clientId = config.clientId
         ..authParameters.addAll({
           CognitoConstants.challengeParamUsername: parameters.username,
           CognitoConstants.challengeParamPassword: password,
@@ -477,7 +477,7 @@ final class SignInStateMachine
         ..authFlow = AuthFlowType.customAuth
         ..authParameters[CognitoConstants.challengeParamUsername] =
             parameters.username
-        ..clientId = config.appClientId
+        ..clientId = config.clientId
         ..clientMetadata.addAll(event.clientMetadata);
     });
   }
@@ -606,12 +606,12 @@ final class SignInStateMachine
     initRequest = initRequest.rebuild((b) {
       b.analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
-      if (config.appClientSecret != null) {
+      if (config.clientSecret != null) {
         b.authParameters[CognitoConstants.challengeParamSecretHash] =
             computeSecretHash(
           parameters.username,
-          config.appClientId,
-          config.appClientSecret!,
+          config.clientId,
+          config.clientSecret!,
         );
       }
 
@@ -780,14 +780,12 @@ final class SignInStateMachine
         ..clientMetadata.replace(event?.clientMetadata ?? const {})
         ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
-      if (config.appClientSecret != null &&
-          b.challengeResponses[CognitoConstants.challengeParamSecretHash] ==
-              null) {
-        b.challengeResponses[CognitoConstants.challengeParamSecretHash] =
+      if (config.clientSecret != null) {
+        b.challengeResponses[CognitoConstants.challengeParamSecretHash] ??=
             computeSecretHash(
           username,
-          config.appClientId,
-          config.appClientSecret!,
+          config.clientId,
+          config.clientSecret!,
         );
       }
 

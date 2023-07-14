@@ -6,20 +6,22 @@ import 'dart:convert';
 import 'package:amplify_api_dart/src/decorators/authorize_http_request.dart';
 import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_api_dart/src/graphql/providers/oidc_function_api_auth_provider.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
 import 'util.dart';
 
 const _region = 'us-east-1';
-const _gqlEndpoint =
-    'https://abc123.appsync-api.$_region.amazonaws.com/graphql';
-const _restEndpoint = 'https://xyz456.execute-api.$_region.amazonaws.com/test';
+final _gqlEndpoint =
+    Uri.parse('https://abc123.appsync-api.$_region.amazonaws.com/graphql');
+final _restEndpoint =
+    Uri.parse('https://xyz456.execute-api.$_region.amazonaws.com/test');
 
-AWSHttpRequest _generateTestRequest(String url) {
+AWSHttpRequest _generateTestRequest(Uri uri) {
   return AWSHttpRequest(
     method: AWSHttpMethod.get,
-    uri: Uri.parse(url),
+    uri: uri,
   );
 }
 
@@ -52,11 +54,10 @@ void main() {
 
   group('authorizeHttpRequest', () {
     test('no-op for auth mode NONE', () async {
-      const endpointConfig = AWSApiConfig(
-        authorizationType: APIAuthorizationType.none,
+      final endpointConfig = AWSApiEndpointConfig.apiGateway(
         endpoint: _restEndpoint,
-        endpointType: EndpointType.rest,
         region: _region,
+        authMode: const AWSApiAuthorizationMode.none(),
       );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
 
@@ -73,10 +74,9 @@ void main() {
     });
 
     test('no-op for request with Authorization header already set', () async {
-      const endpointConfig = AWSApiConfig(
-        authorizationType: APIAuthorizationType.userPools,
+      final endpointConfig = AWSApiEndpointConfig.apiGateway(
+        authMode: const AWSApiAuthorizationMode.userPools(),
         endpoint: _restEndpoint,
-        endpointType: EndpointType.rest,
         region: _region,
       );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
@@ -97,10 +97,9 @@ void main() {
     });
 
     test('authorizes request with IAM auth provider', () async {
-      const endpointConfig = AWSApiConfig(
-        authorizationType: APIAuthorizationType.iam,
+      final endpointConfig = AWSApiEndpointConfig.appSync(
+        authMode: const AWSApiAuthorizationMode.iam(),
         endpoint: _gqlEndpoint,
-        endpointType: EndpointType.graphQL,
         region: _region,
       );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
@@ -113,10 +112,9 @@ void main() {
     });
 
     test('does not sign body of POST request with IAM REST API', () async {
-      const endpointConfig = AWSApiConfig(
-        authorizationType: APIAuthorizationType.iam,
+      final endpointConfig = AWSApiEndpointConfig.apiGateway(
+        authMode: const AWSApiAuthorizationMode.iam(),
         endpoint: _restEndpoint,
-        endpointType: EndpointType.rest,
         region: _region,
       );
       final inputRequest = AWSHttpRequest(
@@ -124,7 +122,7 @@ void main() {
         body: json.encode({
           'foo': 'bar',
         }).codeUnits,
-        uri: Uri.parse(endpointConfig.endpoint),
+        uri: endpointConfig.endpoint,
       );
       final authorizedRequest = await authorizeHttpRequest(
         inputRequest,
@@ -139,11 +137,9 @@ void main() {
 
     test('authorizes request with API key', () async {
       const testApiKey = 'abc-123-fake-key';
-      const endpointConfig = AWSApiConfig(
-        authorizationType: APIAuthorizationType.apiKey,
-        apiKey: testApiKey,
+      final endpointConfig = AWSApiEndpointConfig.appSync(
+        authMode: const AWSApiAuthorizationMode.apiKey(testApiKey),
         endpoint: _gqlEndpoint,
-        endpointType: EndpointType.graphQL,
         region: _region,
       );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
@@ -158,30 +154,10 @@ void main() {
       );
     });
 
-    test('throws when API key not in config', () async {
-      const endpointConfig = AWSApiConfig(
-        authorizationType: APIAuthorizationType.apiKey,
-        // no apiKey value provided
-        endpoint: _gqlEndpoint,
-        endpointType: EndpointType.graphQL,
-        region: _region,
-      );
-      final inputRequest = _generateTestRequest(endpointConfig.endpoint);
-      await expectLater(
-        authorizeHttpRequest(
-          inputRequest,
-          endpointConfig: endpointConfig,
-          authProviderRepo: authProviderRepo,
-        ),
-        throwsA(isA<ConfigurationError>()),
-      );
-    });
-
     test('authorizes with Cognito User Pools auth mode', () async {
-      const endpointConfig = AWSApiConfig(
-        authorizationType: APIAuthorizationType.userPools,
+      final endpointConfig = AWSApiEndpointConfig.appSync(
+        authMode: const AWSApiAuthorizationMode.userPools(),
         endpoint: _gqlEndpoint,
-        endpointType: EndpointType.graphQL,
         region: _region,
       );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
@@ -197,10 +173,9 @@ void main() {
     });
 
     test('authorizes with OIDC auth mode', () async {
-      const endpointConfig = AWSApiConfig(
-        authorizationType: APIAuthorizationType.oidc,
+      final endpointConfig = AWSApiEndpointConfig.appSync(
+        authMode: const AWSApiAuthorizationMode.oidc(),
         endpoint: _gqlEndpoint,
-        endpointType: EndpointType.graphQL,
         region: _region,
       );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
@@ -216,10 +191,9 @@ void main() {
     });
 
     test('authorizes with lambda (function) auth mode', () async {
-      const endpointConfig = AWSApiConfig(
-        authorizationType: APIAuthorizationType.function,
+      final endpointConfig = AWSApiEndpointConfig.appSync(
+        authMode: const AWSApiAuthorizationMode.function(),
         endpoint: _gqlEndpoint,
-        endpointType: EndpointType.graphQL,
         region: _region,
       );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
@@ -234,40 +208,11 @@ void main() {
       );
     });
 
-    test('authorizes with authorizationMode parameter that overrides config',
-        () async {
-      const testApiKey = 'abc-123-fake-key';
-      const endpointConfig = AWSApiConfig(
-        authorizationType: APIAuthorizationType.userPools,
-        apiKey: testApiKey,
-        endpoint: _gqlEndpoint,
-        endpointType: EndpointType.graphQL,
-        region: _region,
-      );
-      final inputRequest = _generateTestRequest(endpointConfig.endpoint);
-      final authorizedRequest = await authorizeHttpRequest(
-        inputRequest,
-        endpointConfig: endpointConfig,
-        authProviderRepo: authProviderRepo,
-        authorizationMode: APIAuthorizationType.apiKey,
-      );
-      expect(
-        authorizedRequest.headers[xApiKey],
-        testApiKey,
-      );
-      expect(
-        authorizedRequest.headers[AWSHeaders.authorization],
-        isNull,
-      );
-    });
-
     test('throws when no auth provider found', () async {
       final emptyAuthRepo = AmplifyAuthProviderRepository();
-      const endpointConfig = AWSApiConfig(
-        authorizationType: APIAuthorizationType.apiKey,
-        apiKey: 'abc-123-fake-key',
+      final endpointConfig = AWSApiEndpointConfig.appSync(
+        authMode: const AWSApiAuthorizationMode.apiKey('abc-123-fake-key'),
         endpoint: _gqlEndpoint,
-        endpointType: EndpointType.graphQL,
         region: _region,
       );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
@@ -281,4 +226,22 @@ void main() {
       );
     });
   });
+}
+
+extension on AWSApiEndpointConfig {
+  Uri get endpoint => switch (this) {
+        AWSApiEndpointConfigApiGateway$(
+          apiGateway: AWSApiGatewayEndpointConfig(:final endpoint)
+        ) =>
+          endpoint,
+        AWSApiEndpointConfigAppSync$(
+          appSync: AWSAppSyncEndpointConfig(:final endpoint)
+        ) =>
+          endpoint,
+        AWSApiEndpointConfigRest$(
+          rest: AWSRestEndpointConfig(:final endpoint)
+        ) =>
+          endpoint,
+        _ => throw ArgumentError('Invalid endpoint config: $this'),
+      };
 }

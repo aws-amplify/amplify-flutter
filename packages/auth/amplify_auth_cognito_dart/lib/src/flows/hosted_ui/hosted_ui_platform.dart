@@ -12,6 +12,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform
     if (dart.library.io) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_io.dart';
 import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:http/http.dart' as http;
@@ -37,7 +38,7 @@ abstract class HostedUiPlatform implements Closeable {
 
   /// The Hosted UI configuration.
   @protected
-  CognitoOAuthConfig get config => dependencyManager.expect();
+  AWSAuthHostedUiConfig get config => dependencyManager.expect();
 
   /// The Hosted UI storage keys.
   late final HostedUiKeys _keys = HostedUiKeys(config);
@@ -152,16 +153,16 @@ abstract class HostedUiPlatform implements Closeable {
   @visibleForTesting
   @nonVirtual
   oauth2.AuthorizationCodeGrant createGrant(
-    CognitoOAuthConfig config, {
+    AWSAuthHostedUiConfig config, {
     AuthProvider? provider,
     String? codeVerifier,
     http.Client? httpClient,
   }) {
     return oauth2.AuthorizationCodeGrant(
-      config.appClientId,
+      config.clientId!,
       HostedUiConfig(config).signInUri(provider),
       HostedUiConfig(config).tokenUri,
-      secret: config.appClientSecret,
+      secret: config.clientSecret,
       httpClient: httpClient,
       codeVerifier: codeVerifier,
 
@@ -177,7 +178,7 @@ abstract class HostedUiPlatform implements Closeable {
   @visibleForTesting
   @nonVirtual
   oauth2.AuthorizationCodeGrant restoreGrant(
-    CognitoOAuthConfig config, {
+    AWSAuthHostedUiConfig config, {
     required String state,
     required String codeVerifier,
     http.Client? httpClient,

@@ -13,6 +13,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interf
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
@@ -78,19 +79,17 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     // Parse config values from amplifyconfiguration.json
-    if (config == null ||
-        config.analytics == null ||
-        config.analytics?.awsPlugin == null) {
+    final pinpointConfig = config?.analytics?.pinpoint;
+    if (pinpointConfig == null) {
       throw ConfigurationError('No Pinpoint plugin config available.');
     }
 
-    final pinpointConfig = config.analytics!.awsPlugin!;
-    final pinpointAppId = pinpointConfig.pinpointAnalytics.appId;
-    final region = pinpointConfig.pinpointAnalytics.region;
+    final pinpointAppId = pinpointConfig.appId;
+    final region = pinpointConfig.region;
 
     // Prepare PinpointClient
     final authProvider = authProviderRepo
@@ -153,7 +152,9 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       },
     );
 
-    final autoFlushEventsInterval = pinpointConfig.autoFlushEventsInterval;
+    final autoFlushEventsInterval = Duration(
+      seconds: pinpointConfig.autoFlushEventsInterval,
+    );
 
     if (autoFlushEventsInterval.isNegative) {
       throw ConfigurationError(

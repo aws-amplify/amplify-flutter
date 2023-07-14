@@ -7,6 +7,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports, invalid_use_of_internal_member
 import 'package:amplify_core/src/http/amplify_category_method.dart';
@@ -205,10 +206,10 @@ abstract class AmplifyPushNotifications
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    final notificationsConfig = config?.notifications?.awsPlugin;
+    final notificationsConfig = config?.notifications?.push;
     if (notificationsConfig == null) {
       throw const PushNotificationException(
         'No Pinpoint plugin config available',

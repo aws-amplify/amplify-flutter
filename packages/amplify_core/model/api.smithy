@@ -49,6 +49,15 @@ structure AWSAppSyncEndpointConfig with [AWSBaseEndpointConfig] {
 
 structure AWSApiGatewayEndpointConfig with [AWSBaseEndpointConfig] {}
 
+// enum AWSApiAuthorizationMode {
+//     NONE
+//     API_KEY
+//     IAM
+//     USER_POOLS
+//     OIDC
+//     FUNCTION
+// }
+
 union AWSApiAuthorizationMode {
     none: Unit
     apiKey: ApiKey

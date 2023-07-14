@@ -5,6 +5,7 @@ import 'dart:async';
 
 import 'package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 
@@ -23,7 +24,7 @@ abstract class WebSocketState {
   );
 
   /// AWS Config
-  final AWSApiConfig config;
+  final AWSAppSyncEndpointConfig config;
 
   /// Amplify Auth Provider
   final AmplifyAuthProviderRepository authProviderRepo;
@@ -44,7 +45,7 @@ abstract class WebSocketState {
   final GraphQLSubscriptionOptions options;
 
   /// Poll URI
-  Uri get pollUri => Uri.parse(config.endpoint).replace(path: 'ping');
+  Uri get pollUri => config.endpoint.replace(path: 'ping');
 
   /// Move state to [ConnectingState]
   ConnectingState connecting({

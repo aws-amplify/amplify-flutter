@@ -4,7 +4,7 @@
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
-import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 const testUserPoolId = 'us-east-1_userPoolId';
@@ -13,53 +13,56 @@ const testIdentityPoolId = 'identityPoolId';
 const testRegion = 'region';
 const scopes = ['profile'];
 const testUrlScheme = 'authtest';
-const redirectUri = '$testUrlScheme:/,http://localhost:9999/';
+final redirectUris = [
+  Uri.parse('$testUrlScheme:/'),
+  Uri.parse('http://localhost:9999/'),
+];
 const webDomain = 'example.com';
 
 const testPinpointAppId = 'pinpointAppId';
 
-const hostedUiConfig = CognitoOAuthConfig(
-  appClientId: testAppClientId,
+final hostedUiConfig = AWSAuthHostedUiConfig(
+  clientId: testAppClientId,
   scopes: scopes,
-  signInRedirectUri: redirectUri,
-  signOutRedirectUri: redirectUri,
-  webDomain: webDomain,
+  signInRedirectUris: redirectUris,
+  signOutRedirectUris: redirectUris,
+  domainName: webDomain,
 );
 
-final userPoolOnlyConfig = AmplifyConfig(
-  auth: AuthConfig.cognito(
-    userPoolConfig: const CognitoUserPoolConfig(
+final userPoolOnlyConfig = AWSAmplifyConfig(
+  auth: AWSAuthConfig.cognito(
+    userPool: AWSAuthUserPoolConfig(
       poolId: testUserPoolId,
-      appClientId: testAppClientId,
+      clientId: testAppClientId,
       region: testRegion,
     ),
   ),
 );
-final mockConfig = AmplifyConfig(
-  auth: AuthConfig.cognito(
-    userPoolConfig: const CognitoUserPoolConfig(
+final mockConfig = AWSAmplifyConfig(
+  auth: AWSAuthConfig.cognito(
+    userPool: AWSAuthUserPoolConfig(
       poolId: testUserPoolId,
-      appClientId: testAppClientId,
+      clientId: testAppClientId,
       region: testRegion,
+      hostedUi: hostedUiConfig,
     ),
-    identityPoolConfig: const CognitoIdentityPoolConfig(
+    identityPool: AWSAuthIdentityPoolConfig(
       poolId: testIdentityPoolId,
       region: testRegion,
     ),
-    hostedUiConfig: hostedUiConfig,
   ),
 );
 
-final mockConfigWithPinpoint = AmplifyConfig(
-  auth: AuthConfig.cognito(
-    userPoolConfig: const CognitoUserPoolConfig(
+final mockConfigWithPinpoint = AWSAmplifyConfig(
+  auth: AWSAuthConfig.cognito(
+    userPool: AWSAuthUserPoolConfig(
       poolId: testUserPoolId,
-      appClientId: testAppClientId,
+      clientId: testAppClientId,
       region: testRegion,
-    ),
-    pinpointAnalyticsConfig: const CognitoPinpointAnalyticsConfig(
-      appId: testPinpointAppId,
-      region: testRegion,
+      pinpointConfig: AWSAnalyticsPinpointConfig(
+        appId: testPinpointAppId,
+        region: testRegion,
+      ),
     ),
   ),
 );
@@ -98,9 +101,9 @@ const deviceKey = 'deviceKey';
 const deviceGroupKey = 'deviceGroupKey';
 const devicePassword = 'devicePassword';
 
-final authConfig = AuthConfiguration.fromConfig(mockConfig.auth!.awsPlugin!);
-final userPoolConfig = authConfig.userPoolConfig!;
-final identityPoolConfig = authConfig.identityPoolConfig!;
+final authConfig = mockConfig.auth!.cognito!;
+final userPoolConfig = authConfig.userPool!;
+final identityPoolConfig = authConfig.identityPool!;
 final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
 final deviceKeys = CognitoDeviceKeys(userPoolConfig, userSub);
 final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);

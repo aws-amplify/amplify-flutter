@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/prefix_resolver/storage_access_level_aware_prefix_resolver.dart';
@@ -15,16 +16,10 @@ import 'test_utils/test_token_provider.dart';
 void main() {
   const testDefaultStorageAccessLevel = StorageAccessLevel.guest;
   const testAccessLevelProtected = StorageAccessLevel.protected;
-  const testConfig = AmplifyConfig(
-    storage: StorageConfig(
-      plugins: {
-        S3PluginConfig.pluginKey: S3PluginConfig(
-          bucket: '123',
-          region: 'west-2',
-          defaultAccessLevel: testDefaultStorageAccessLevel,
-        ),
-      },
-    ),
+  final testConfig = AWSAmplifyConfig().withStorageBucket(
+    bucketName: '123',
+    region: 'west-2',
+    defaultAccessLevel: testDefaultStorageAccessLevel,
   );
 
   final testAuthProviderRepo = AmplifyAuthProviderRepository()
