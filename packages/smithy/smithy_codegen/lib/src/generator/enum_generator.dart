@@ -81,27 +81,20 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
           ..requiredParameters.addAll([
             Parameter(
               (p) => p
-                ..name = 'index'
-                ..type = DartTypes.core.int,
+                ..toSuper = true
+                ..name = 'index',
             ),
             Parameter(
               (p) => p
-                ..name = 'name'
-                ..type = DartTypes.core.string,
+                ..toSuper = true
+                ..name = 'name',
             ),
             Parameter(
               (p) => p
-                ..name = 'value'
-                ..type = valueType,
+                ..toSuper = true
+                ..name = 'value',
             ),
-          ])
-          ..initializers.add(
-            refer('super').call([
-              refer('index'),
-              refer('name'),
-              refer('value'),
-            ]).code,
-          ),
+          ]),
       );
 
   /// The `sdkUnknown` constructor for values which do not match the
@@ -117,14 +110,12 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
           ..requiredParameters.add(
             Parameter(
               (p) => p
-                ..name = 'value'
-                ..type = valueType,
+                ..toSuper = true
+                ..name = 'value',
             ),
           )
           ..initializers.add(
-            refer('super').property('sdkUnknown').call([
-              refer('value'),
-            ]).code,
+            refer('super').property('sdkUnknown').call([]).code,
           ),
       );
 

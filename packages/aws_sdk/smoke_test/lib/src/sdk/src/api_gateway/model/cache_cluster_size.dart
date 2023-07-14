@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.cache_cluster_size; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,16 +8,12 @@ import 'package:smithy/smithy.dart' as _i1;
 /// Returns the size of the CacheCluster.
 class CacheClusterSize extends _i1.SmithyEnum<CacheClusterSize> {
   const CacheClusterSize._(
-    int index,
-    String name,
-    String value,
-  ) : super(
-          index,
-          name,
-          value,
-        );
+    super.index,
+    super.name,
+    super.value,
+  );
 
-  const CacheClusterSize._sdkUnknown(String value) : super.sdkUnknown(value);
+  const CacheClusterSize._sdkUnknown(super.value) : super.sdkUnknown();
 
   static const size0Point5Gb = CacheClusterSize._(
     0,

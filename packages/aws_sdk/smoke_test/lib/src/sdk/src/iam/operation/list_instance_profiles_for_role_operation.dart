@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.list_instance_profiles_for_role_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,7 +23,7 @@ import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
 import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
     as _i12;
 
-/// Lists the instance profiles that have the specified associated IAM role. If there are none, the operation returns an empty list. For more information about instance profiles, go to [About instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+/// Lists the instance profiles that have the specified associated IAM role. If there are none, the operation returns an empty list. For more information about instance profiles, go to [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
 ///
 /// You can paginate the results using the `MaxItems` and `Marker` parameters.
 class ListInstanceProfilesForRoleOperation extends _i1.PaginatedHttpOperation<
@@ -34,7 +34,7 @@ class ListInstanceProfilesForRoleOperation extends _i1.PaginatedHttpOperation<
     String,
     int,
     _i4.BuiltList<_i5.InstanceProfile>> {
-  /// Lists the instance profiles that have the specified associated IAM role. If there are none, the operation returns an empty list. For more information about instance profiles, go to [About instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+  /// Lists the instance profiles that have the specified associated IAM role. If there are none, the operation returns an empty list. For more information about instance profiles, go to [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   ListInstanceProfilesForRoleOperation({

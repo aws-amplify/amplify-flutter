@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.object_ownership; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -14,16 +14,12 @@ import 'package:smithy/smithy.dart' as _i1;
 /// BucketOwnerEnforced - Access control lists (ACLs) are disabled and no longer affect permissions. The bucket owner automatically owns and has full control over every object in the bucket. The bucket only accepts PUT requests that don't specify an ACL or bucket owner full control ACLs, such as the `bucket-owner-full-control` canned ACL or an equivalent form of this ACL expressed in the XML format.
 class ObjectOwnership extends _i1.SmithyEnum<ObjectOwnership> {
   const ObjectOwnership._(
-    int index,
-    String name,
-    String value,
-  ) : super(
-          index,
-          name,
-          value,
-        );
+    super.index,
+    super.name,
+    super.value,
+  );
 
-  const ObjectOwnership._sdkUnknown(String value) : super.sdkUnknown(value);
+  const ObjectOwnership._sdkUnknown(super.value) : super.sdkUnknown();
 
   static const bucketOwnerEnforced = ObjectOwnership._(
     0,
