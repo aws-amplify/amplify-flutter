@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.get_role_policy_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,7 +29,7 @@ import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
 ///
 /// For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
 ///
-/// For more information about roles, see [Using roles to delegate permissions and federate identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html).
+/// For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_.
 class GetRolePolicyOperation extends _i1.HttpOperation<
     _i2.GetRolePolicyRequest,
     _i2.GetRolePolicyRequest,
@@ -43,7 +43,7 @@ class GetRolePolicyOperation extends _i1.HttpOperation<
   ///
   /// For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   ///
-  /// For more information about roles, see [Using roles to delegate permissions and federate identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html).
+  /// For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_.
   GetRolePolicyOperation({
     required String region,
     Uri? baseUri,

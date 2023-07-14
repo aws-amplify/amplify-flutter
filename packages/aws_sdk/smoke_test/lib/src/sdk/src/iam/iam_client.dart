@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.iam_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -820,7 +820,7 @@ class IamClient {
   ///
   /// The caller of this operation must be granted the `PassRole` permission on the IAM role by a permissions policy.
   ///
-  /// For more information about roles, see [Working with roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html). For more information about instance profiles, see [About instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+  /// For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_. For more information about instance profiles, see [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> addRoleToInstanceProfile(
     _i6.AddRoleToInstanceProfileRequest input, {
     _i1.AWSHttpClient? client,
@@ -1071,7 +1071,7 @@ class IamClient {
   ///
   /// You get all of this information from the OIDC IdP you want to use to access Amazon Web Services.
   ///
-  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Google, Auth0, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
+  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted root certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Auth0, GitHub, Google, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
   ///
   /// The trust for the OIDC provider is derived from the IAM provider that this operation creates. Therefore, it is best to limit access to the CreateOpenIDConnectProvider operation to highly privileged users.
   _i3.SmithyOperation<_i32.CreateOpenIdConnectProviderResponse>
@@ -1138,7 +1138,9 @@ class IamClient {
     );
   }
 
-  /// Creates a new role for your Amazon Web Services account. For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html). For information about quotas for role names and the number of roles you can create, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
+  /// Creates a new role for your Amazon Web Services account.
+  ///
+  /// For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_. For information about quotas for role names and the number of roles you can create, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
   _i3.SmithyOperation<_i41.CreateRoleResponse> createRole(
     _i42.CreateRoleRequest input, {
     _i1.AWSHttpClient? client,
@@ -1390,7 +1392,7 @@ class IamClient {
   ///
   /// Make sure that you do not have any Amazon EC2 instances running with the instance profile you are about to delete. Deleting a role or instance profile that is associated with a running instance will break any applications running on the instance.
   ///
-  /// For more information about instance profiles, see [About instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+  /// For more information about instance profiles, see [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> deleteInstanceProfile(
     _i70.DeleteInstanceProfileRequest input, {
     _i1.AWSHttpClient? client,
@@ -2171,7 +2173,7 @@ class IamClient {
     );
   }
 
-  /// Retrieves information about the specified instance profile, including the instance profile's path, GUID, ARN, and role. For more information about instance profiles, see [About instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html) in the _IAM User Guide_.
+  /// Retrieves information about the specified instance profile, including the instance profile's path, GUID, ARN, and role. For more information about instance profiles, see [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
   _i3.SmithyOperation<_i147.GetInstanceProfileResponse> getInstanceProfile(
     _i148.GetInstanceProfileRequest input, {
     _i1.AWSHttpClient? client,
@@ -2325,7 +2327,7 @@ class IamClient {
     );
   }
 
-  /// Retrieves information about the specified role, including the role's path, GUID, ARN, and the role's trust policy that grants permission to assume the role. For more information about roles, see [Working with roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
+  /// Retrieves information about the specified role, including the role's path, GUID, ARN, and the role's trust policy that grants permission to assume the role. For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_.
   ///
   /// Policies returned by this operation are URL-encoded compliant with [RFC 3986](https://tools.ietf.org/html/rfc3986). You can use a URL decoding method to convert the policy back to plain JSON text. For example, if you use Java, you can use the `decode` method of the `java.net.URLDecoder` utility class in the Java SDK. Other languages and SDKs provide similar functionality.
   _i3.SmithyOperation<_i168.GetRoleResponse> getRole(
@@ -2353,7 +2355,7 @@ class IamClient {
   ///
   /// For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   ///
-  /// For more information about roles, see [Using roles to delegate permissions and federate identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html).
+  /// For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_.
   _i3.SmithyOperation<_i171.GetRolePolicyResponse> getRolePolicy(
     _i172.GetRolePolicyRequest input, {
     _i1.AWSHttpClient? client,
@@ -2792,7 +2794,7 @@ class IamClient {
     );
   }
 
-  /// Lists the instance profiles that have the specified path prefix. If there are none, the operation returns an empty list. For more information about instance profiles, see [About instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+  /// Lists the instance profiles that have the specified path prefix. If there are none, the operation returns an empty list. For more information about instance profiles, see [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
   ///
   /// IAM resource-listing operations return a subset of the available attributes for the resource. For example, this operation does not return tags, even though they are an attribute of the returned object. To view all of the information for an instance profile, see GetInstanceProfile.
   ///
@@ -2816,7 +2818,7 @@ class IamClient {
     );
   }
 
-  /// Lists the instance profiles that have the specified associated IAM role. If there are none, the operation returns an empty list. For more information about instance profiles, go to [About instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+  /// Lists the instance profiles that have the specified associated IAM role. If there are none, the operation returns an empty list. For more information about instance profiles, go to [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   _i3.SmithyOperation<
@@ -3070,7 +3072,7 @@ class IamClient {
     );
   }
 
-  /// Lists the IAM roles that have the specified path prefix. If there are none, the operation returns an empty list. For more information about roles, see [Working with roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
+  /// Lists the IAM roles that have the specified path prefix. If there are none, the operation returns an empty list. For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_.
   ///
   /// IAM resource-listing operations return a subset of the available attributes for the resource. This operation does not return the following attributes, even though they are an attribute of the returned object:
   ///
@@ -3404,7 +3406,7 @@ class IamClient {
 
   /// Adds or updates an inline policy document that is embedded in the specified IAM role.
   ///
-  /// When you embed an inline policy in a role, the inline policy is used as part of the role's access (permissions) policy. The role's trust policy is created at the same time as the role, using [`CreateRole`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html) . You can update a role's trust policy using [`UpdateAssumerolePolicy`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_UpdateAssumeRolePolicy.html) . For more information about IAM roles, see [Using roles to delegate permissions and federate identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html).
+  /// When you embed an inline policy in a role, the inline policy is used as part of the role's access (permissions) policy. The role's trust policy is created at the same time as the role, using [`CreateRole`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html) . You can update a role's trust policy using [`UpdateAssumeRolePolicy`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_UpdateAssumeRolePolicy.html) . For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html) in the _IAM User Guide_.
   ///
   /// A role can also have a managed policy attached to it. To attach a managed policy to a role, use [`AttachRolePolicy`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachRolePolicy.html) . To create a new managed policy, use [`CreatePolicy`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreatePolicy.html) . For information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   ///
@@ -3496,7 +3498,7 @@ class IamClient {
   ///
   /// Make sure that you do not have any Amazon EC2 instances running with the role you are about to remove from the instance profile. Removing a role from an instance profile that is associated with a running instance might break any applications running on the instance.
   ///
-  /// For more information about IAM roles, see [Working with roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html). For more information about instance profiles, see [About instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+  /// For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_. For more information about instance profiles, see [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> removeRoleFromInstanceProfile(
     _i296.RemoveRoleFromInstanceProfileRequest input, {
     _i1.AWSHttpClient? client,
@@ -4183,7 +4185,7 @@ class IamClient {
   ///
   /// Typically, you need to update a thumbprint only when the identity provider certificate changes, which occurs rarely. However, if the provider's certificate _does_ change, any attempt to assume an IAM role that specifies the OIDC provider as a principal fails until the certificate thumbprint is updated.
   ///
-  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Google, Auth0, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
+  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted root certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Auth0, GitHub, Google, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
   ///
   /// Trust for the OIDC provider is derived from the provider certificate and is validated by the thumbprint. Therefore, it is best to limit access to the `UpdateOpenIDConnectProviderThumbprint` operation to highly privileged users.
   _i3.SmithyOperation<void> updateOpenIdConnectProviderThumbprint(
