@@ -20,6 +20,7 @@ Thank you for your interest in contributing to our project! <3 Whether it's a bu
   - [Unit Tests](#unit-tests)
   - [Integration Tests](#integration-tests)
   - [Provision Resources For Integration Tests](#provision-resources-for-integration-tests)
+  - [Screenshot Tests](#screenshot-tests)
   - [Code of Conduct](#code-of-conduct)
   - [Security issue notifications](#security-issue-notifications)
   - [Licensing](#licensing)
@@ -248,6 +249,17 @@ $ tool/provision_integration_test_resources.sh
 ```
 
 This script can be re-run anytime the environments need to be updated. Further information can be found in the [infra](infra/README.md) package.
+
+## Screenshot Tests
+
+The Amplify Authenticator package contains a screenshot test suite called `goldens`. If your changes include UI changes within this package please regenerate the goldens.
+
+To regenerate, navigate to the root of the Authenticator package and run:
+
+```bash
+$ cd packages/authenticator/amplify_authenticator
+$ flutter test --update-goldens
+```
 
 ## Code of Conduct
 

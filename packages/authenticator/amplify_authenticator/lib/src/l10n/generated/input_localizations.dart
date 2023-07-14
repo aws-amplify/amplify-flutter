@@ -95,7 +95,9 @@ abstract class AuthenticatorInputLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+  ];
 
   /// User's chosen username.
   ///
@@ -252,6 +254,18 @@ abstract class AuthenticatorInputLocalizations {
   /// In en, this message translates to:
   /// **'at least {numCharacters, plural, =1{1{characterType} character} other{{numCharacters}{characterType} characters}}'**
   String passwordRequirementsAtLeast(int numCharacters, String characterType);
+
+  /// Label for the radio button to select the user's mfa method.
+  ///
+  /// In en, this message translates to:
+  /// **'Text Message (SMS)'**
+  String get smsSelection;
+
+  /// Label for the radio button to select the user's mfa method.
+  ///
+  /// In en, this message translates to:
+  /// **'Authenticator App (TOTP)'**
+  String get totpSelection;
 
   /// Message for conflicting password and confirm password fields.
   ///

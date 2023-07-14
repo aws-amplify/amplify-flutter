@@ -95,7 +95,9 @@ abstract class AuthenticatorTitleLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+  ];
 
   /// Title of the Confirm Sign Up step and form
   ///
@@ -120,6 +122,24 @@ abstract class AuthenticatorTitleLocalizations {
   /// In en, this message translates to:
   /// **'Change your password to sign in'**
   String get confirmSignInNewPassword;
+
+  /// Title of the SignIn with MFA selection step and form
+  ///
+  /// In en, this message translates to:
+  /// **'Select your preferred MFA Method'**
+  String get continueSignInWithMfaSelection;
+
+  /// Title of the SignIn with TOTP setup step and form
+  ///
+  /// In en, this message translates to:
+  /// **'Setup an Authentication App'**
+  String get continueSignInWithTotpSetup;
+
+  /// Title of the Confirm Sign In with Totp MFA Code step and form
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your Authentication code'**
+  String get confirmSignInWithTotpMfaCode;
 
   /// Title of the Reset Password step and form
   ///

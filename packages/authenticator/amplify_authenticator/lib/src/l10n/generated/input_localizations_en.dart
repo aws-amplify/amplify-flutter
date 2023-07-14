@@ -131,6 +131,12 @@ class AuthenticatorInputLocalizationsEn
   }
 
   @override
+  String get smsSelection => 'Text Message (SMS)';
+
+  @override
+  String get totpSelection => 'Authenticator App (TOTP)';
+
+  @override
   String get passwordsDoNotMatch => 'Passwords do not match.';
 
   @override

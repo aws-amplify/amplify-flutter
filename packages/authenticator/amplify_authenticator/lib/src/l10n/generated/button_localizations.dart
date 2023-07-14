@@ -95,7 +95,9 @@ abstract class AuthenticatorButtonLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+  ];
 
   /// Label of the button to sign in the user.
   ///
@@ -174,6 +176,12 @@ abstract class AuthenticatorButtonLocalizations {
   /// In en, this message translates to:
   /// **'Skip'**
   String get skip;
+
+  /// Label of button to open the users default authentication app.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Authentication App'**
+  String get totpApp;
 
   /// Label of button to sign out the user
   ///

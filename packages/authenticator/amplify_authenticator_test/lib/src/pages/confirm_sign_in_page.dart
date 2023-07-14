@@ -7,6 +7,7 @@ import 'package:amplify_authenticator/src/keys.dart';
 // ignore: implementation_imports
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator_test/src/pages/authenticator_page.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Confirm Sign In Page Object
@@ -22,6 +23,9 @@ class ConfirmSignInPage extends AuthenticatorPage {
       find.byKey(keyConfirmNewPasswordConfirmSignInFormField);
   Finder get verificationField => find.byKey(keyCodeConfirmSignInFormField);
   Finder get confirmSignInButton => find.byKey(keyConfirmSignInButton);
+  Finder get confirmSignInMfaSelectionButton =>
+      find.byKey(keyConfirmSignInMfaSelectionButton);
+  Finder get mfaSelection => find.byKey(keyMfaSelectionTotpSignInFormField);
   Finder get backToSignIn => find.byKey(keyBackToSignInButton);
 
   /// Then I see "Confirm Sign In - New Password"
@@ -41,6 +45,39 @@ class ConfirmSignInPage extends AuthenticatorPage {
       find.byType(AuthenticatorScreen),
     );
     expect(currentScreen.step, equals(AuthenticatorStep.confirmSignInMfa));
+  }
+
+  /// Then I see "Select your preferred MFA Method"
+  Future<void> expectConfirmSignInMfaSelectionIsPresent() async {
+    final currentScreen = tester.widget<AuthenticatorScreen>(
+      find.byType(AuthenticatorScreen),
+    );
+    expect(
+      currentScreen.step,
+      equals(AuthenticatorStep.continueSignInWithMfaSelection),
+    );
+  }
+
+  /// Then I see "Setup an Authentication App"
+  Future<void> expectSignInTotpSetupIsPresent() async {
+    final currentScreen = tester.widget<AuthenticatorScreen>(
+      find.byType(AuthenticatorScreen),
+    );
+    expect(
+      currentScreen.step,
+      equals(AuthenticatorStep.continueSignInWithTotpSetup),
+    );
+  }
+
+  /// Then I see "Enter your Authentication code"
+  Future<void> expectConfirmSignInWithTotpMfaCodeIsPresent() async {
+    final currentScreen = tester.widget<AuthenticatorScreen>(
+      find.byType(AuthenticatorScreen),
+    );
+    expect(
+      currentScreen.step,
+      equals(AuthenticatorStep.confirmSignInWithTotpMfaCode),
+    );
   }
 
   /// Then I see "New Password"
@@ -76,6 +113,28 @@ class ConfirmSignInPage extends AuthenticatorPage {
   Future<void> submitConfirmSignIn() async {
     await tester.ensureVisible(confirmSignInButton);
     await tester.tap(confirmSignInButton);
+    await tester.pumpAndSettle();
+  }
+
+  /// When I select a MFA method
+  Future<void> selectMfaMethod({
+    required MfaType mfaMethod,
+  }) async {
+    expect(mfaSelection, findsOneWidget);
+
+    final mfaMethodWidget = find.descendant(
+      of: mfaSelection,
+      matching: find.textContaining('(${mfaMethod.name.toUpperCase()})'),
+    );
+
+    await tester.tap(mfaMethodWidget);
+    await tester.pumpAndSettle();
+  }
+
+  /// When I click the "Confirm Sign In" button
+  Future<void> submitConfirmSignInMfaSelection() async {
+    await tester.ensureVisible(confirmSignInMfaSelectionButton);
+    await tester.tap(confirmSignInMfaSelectionButton);
     await tester.pumpAndSettle();
   }
 

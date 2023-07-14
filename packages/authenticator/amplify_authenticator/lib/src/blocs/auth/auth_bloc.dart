@@ -212,6 +212,20 @@ class StateMachineBloc
           );
         case AuthSignInStep.confirmSignInWithNewPassword:
           yield UnauthenticatedState.confirmSignInNewPassword;
+        case AuthSignInStep.confirmSignInWithTotpMfaCode:
+          yield UnauthenticatedState.confirmSignInWithTotpMfaCode;
+        case AuthSignInStep.continueSignInWithMfaSelection:
+          yield ContinueSignInWithMfaSelection(
+            allowedMfaTypes: result.nextStep.allowedMfaTypes,
+          );
+        case AuthSignInStep.continueSignInWithTotpSetup:
+          assert(
+            result.nextStep.totpSetupDetails != null,
+            'Sign In Result should have totpSetupDetails',
+          );
+          yield await ContinueSignInTotpSetup.setupURI(
+            result.nextStep.totpSetupDetails!,
+          );
         case AuthSignInStep.resetPassword:
           yield UnauthenticatedState.resetPassword;
         case AuthSignInStep.confirmSignUp:
@@ -296,6 +310,24 @@ class StateMachineBloc
         );
       case AuthSignInStep.confirmSignInWithNewPassword:
         _emit(UnauthenticatedState.confirmSignInNewPassword);
+      case AuthSignInStep.continueSignInWithMfaSelection:
+        _emit(
+          ContinueSignInWithMfaSelection(
+            allowedMfaTypes: result.nextStep.allowedMfaTypes,
+          ),
+        );
+      case AuthSignInStep.continueSignInWithTotpSetup:
+        assert(
+          result.nextStep.totpSetupDetails != null,
+          'Sign In Result should have totpSetupDetails',
+        );
+        _emit(
+          await ContinueSignInTotpSetup.setupURI(
+            result.nextStep.totpSetupDetails!,
+          ),
+        );
+      case AuthSignInStep.confirmSignInWithTotpMfaCode:
+        _emit(UnauthenticatedState.confirmSignInWithTotpMfaCode);
       case AuthSignInStep.resetPassword:
         _emit(UnauthenticatedState.confirmResetPassword);
       case AuthSignInStep.confirmSignUp:

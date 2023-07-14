@@ -21,6 +21,8 @@ enum InputField {
   givenName,
   // locale,
   middleName,
+  mfaSmsSelection,
+  mfaTotpSelection,
   name,
   nickname,
   phoneNumber,
@@ -156,6 +158,15 @@ class InputResolverKey {
   static const customAuthChallengeHint = InputResolverKey._(
     InputResolverKeyType.hint,
     field: InputField.customAuthChallenge,
+  );
+
+  static const mfaTotpSelectionTitle = InputResolverKey._(
+    InputResolverKeyType.title,
+    field: InputField.mfaTotpSelection,
+  );
+  static const mfaSmsSelectionTitle = InputResolverKey._(
+    InputResolverKeyType.title,
+    field: InputField.mfaSmsSelection,
   );
 
   static const verificationCodeTitle = InputResolverKey._(
@@ -432,6 +443,10 @@ class InputResolver extends Resolver<InputResolverKey> {
       //   break;
       // case InputField.website:
       //   break;
+      case InputField.mfaSmsSelection:
+        return AuthenticatorLocalizations.inputsOf(context).smsSelection;
+      case InputField.mfaTotpSelection:
+        return AuthenticatorLocalizations.inputsOf(context).totpSelection;
       case InputField.rememberDevice:
         return AuthenticatorLocalizations.inputsOf(context).rememberDevice;
       case InputField.usernameType:

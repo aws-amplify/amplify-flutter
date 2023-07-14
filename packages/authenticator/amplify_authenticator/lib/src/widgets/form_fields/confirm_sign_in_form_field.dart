@@ -79,6 +79,39 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
         autofillHints: autofillHints,
       );
 
+  /// Creates a mfa preference selection  component.
+  static ConfirmSignInFormField<MfaType> mfaSelection({
+    Key? key,
+    FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
+  }) =>
+      _MfaSelectionRadioField(
+        key: key ?? keyMfaSelectionTotpSignInFormField,
+        field: ConfirmSignInField.mfaSelection,
+      );
+
+  /// Creates a verification code component.
+  static ConfirmSignInFormField<String> totpSetup({
+    Key? key,
+    FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
+  }) =>
+      _ConfirmSignInTotpSetupField(
+        key: key ?? keyTotpSetupSignInFormField,
+        field: ConfirmSignInField.totpSetup,
+      );
+
+  /// Creates a button that opens the user's authenticator app.
+  static ConfirmSignInFormField<String> openTotpAppButton({
+    Key? key,
+    FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
+  }) =>
+      _ConfirmSignInTotpAppButtonField(
+        key: key ?? keyTotpAppSignInButton,
+        field: ConfirmSignInField.totpSetup,
+      );
+
   /// Creates a verification code component.
   static ConfirmSignInFormField<String> verificationCode({
     Key? key,
@@ -314,6 +347,8 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
         return 99;
       case ConfirmSignInField.code:
       case ConfirmSignInField.customChallenge:
+      case ConfirmSignInField.mfaSelection:
+      case ConfirmSignInField.totpSetup:
         return 10;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -338,6 +373,8 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
       case ConfirmSignInField.customChallenge:
       case ConfirmSignInField.newPassword:
       case ConfirmSignInField.confirmNewPassword:
+      case ConfirmSignInField.mfaSelection:
+      case ConfirmSignInField.totpSetup:
         return true;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -471,6 +508,8 @@ abstract class _ConfirmSignInFormFieldState<FieldValue extends Object>
         ];
       case ConfirmSignInField.custom:
       case ConfirmSignInField.customChallenge:
+      case ConfirmSignInField.mfaSelection:
+      case ConfirmSignInField.totpSetup:
         return null;
     }
   }
@@ -771,5 +810,54 @@ class _ConfirmSignInDateFieldState extends _ConfirmSignInFormFieldState<String>
       ),
       isOptional: isOptional,
     );
+  }
+}
+
+class _ConfirmSignInTotpSetupField extends ConfirmSignInFormField<String> {
+  const _ConfirmSignInTotpSetupField({
+    super.key,
+    required super.field,
+  }) : super._();
+
+  @override
+  _ConfirmSignInTotpSetupFieldState createState() =>
+      _ConfirmSignInTotpSetupFieldState();
+}
+
+class _ConfirmSignInTotpSetupFieldState
+    extends _ConfirmSignInFormFieldState<String> with TotpSetupForm {
+  @override
+  Uri get totpUri {
+    final totpOptions = InheritedConfig.of(context).totpOptions;
+    Uri? customSetupUri;
+
+    // Setup uri with custom TOTP appName if present in [InheritedConfig]
+    if (totpOptions?.issuer != null) {
+      customSetupUri =
+          state.totpSetupDetails?.getSetupUri(appName: totpOptions!.issuer);
+    }
+
+    return customSetupUri ?? state.totpSetupUri!;
+  }
+}
+
+class _ConfirmSignInTotpAppButtonField extends ConfirmSignInFormField<String> {
+  const _ConfirmSignInTotpAppButtonField({
+    super.key,
+    required super.field,
+  }) : super._();
+
+  @override
+  _ConfirmSignInTotpAppButtonFieldState createState() =>
+      _ConfirmSignInTotpAppButtonFieldState();
+}
+
+class _ConfirmSignInTotpAppButtonFieldState
+    extends _ConfirmSignInFormFieldState<String>
+    with OpenAuthenticationAppButton {
+  @override
+  Uri get totpUri {
+    // Setup uri with TOTP schema to access a user's authenticator app
+    return Uri.parse('otpauth://');
   }
 }

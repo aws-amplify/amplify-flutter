@@ -9,6 +9,7 @@ import 'package:amplify_authenticator/src/mixins/authenticator_username_field.da
 import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
+import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_button.dart';
@@ -599,6 +600,75 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
   @override
   AuthenticatorFormState<ConfirmSignInNewPasswordForm> createState() =>
       AuthenticatorFormState<ConfirmSignInNewPasswordForm>();
+}
+
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.continue_sign_in_with_mfa_selection_form}
+/// A prebuilt form for selecting MFA preference.
+/// {@endtemplate}
+class ContinueSignInWithMfaSelectionForm extends AuthenticatorForm {
+  /// {@macro amplify_authenticator.continue_sign_in_with_mfa_selection_form}
+  ContinueSignInWithMfaSelectionForm({super.key})
+      : super._(
+          fields: [
+            ConfirmSignInFormField.mfaSelection(),
+          ],
+          actions: const [
+            ContinueSignInMFASelectionButton(),
+            BackToSignInButton(),
+          ],
+        );
+
+  @override
+  AuthenticatorFormState<ContinueSignInWithMfaSelectionForm> createState() =>
+      AuthenticatorFormState<ContinueSignInWithMfaSelectionForm>();
+}
+
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.continue_sign_in_with_totp_setup_form}
+/// A prebuilt form for completing the totp setup process.
+/// {@endtemplate}
+class ContinueSignInWithTotpSetupForm extends AuthenticatorForm {
+  /// {@macro amplify_authenticator.continue_sign_in_with_totp_setup_form}
+  ContinueSignInWithTotpSetupForm({super.key})
+      : super._(
+          fields: [
+            ConfirmSignInFormField.openTotpAppButton(),
+            ConfirmSignInFormField.totpSetup(),
+            ConfirmSignInFormField.verificationCode(),
+          ],
+          actions: const [
+            ConfirmSignInMFAButton(),
+            BackToSignInButton(),
+          ],
+        );
+
+  @override
+  AuthenticatorFormState<ContinueSignInWithTotpSetupForm> createState() =>
+      AuthenticatorFormState<ContinueSignInWithTotpSetupForm>();
+}
+
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.confirm_sign_in_with_totp_mfa_form}
+/// A prebuilt form for completing the sign in process with a TOTP MFA code.
+/// {@endtemplate}
+class ConfirmSignInWithTotpMfaCodeForm extends AuthenticatorForm {
+  /// {@macro amplify_authenticator.confirm_sign_in_with_totp_mfa_form}
+  ConfirmSignInWithTotpMfaCodeForm({super.key})
+      : super._(
+          fields: [
+            ConfirmSignInFormField.openTotpAppButton(),
+            ConfirmSignInFormField.verificationCode(),
+          ],
+          actions: const [
+            ConfirmSignInMFAButton(),
+            BackToSignInButton(),
+          ],
+        );
+
+  @override
+  AuthenticatorFormState<ConfirmSignInWithTotpMfaCodeForm> createState() =>
+      AuthenticatorFormState<ConfirmSignInWithTotpMfaCodeForm>();
 }
 
 /// {@category Prebuilt Widgets}

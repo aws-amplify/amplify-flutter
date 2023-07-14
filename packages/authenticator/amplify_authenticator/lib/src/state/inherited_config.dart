@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_authenticator/src/models/totp_options.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +12,12 @@ class InheritedConfig extends InheritedWidget {
     required this.amplifyConfig,
     required this.padding,
     required super.child,
+    this.totpOptions,
   });
 
   final AmplifyConfig? amplifyConfig;
   final EdgeInsets padding;
+  final TotpOptions? totpOptions;
 
   static InheritedConfig of(BuildContext context) {
     final inheritedConfig =
@@ -59,7 +62,8 @@ class InheritedConfig extends InheritedWidget {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty<AmplifyConfig?>('config', amplifyConfig))
-      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding));
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DiagnosticsProperty<TotpOptions>('totpOptions', totpOptions));
   }
 }
 

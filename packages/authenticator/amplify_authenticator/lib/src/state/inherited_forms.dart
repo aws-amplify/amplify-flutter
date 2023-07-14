@@ -15,6 +15,9 @@ class InheritedForms extends InheritedWidget {
     required this.resetPasswordForm,
     required this.confirmResetPasswordForm,
     required this.confirmSignInNewPasswordForm,
+    required this.continueSignInWithMfaSelectionForm,
+    required this.continueSignInWithTotpSetupForm,
+    required this.confirmSignInWithTotpMfaCodeForm,
     required this.verifyUserForm,
     required this.confirmVerifyUserForm,
     required super.child,
@@ -26,6 +29,9 @@ class InheritedForms extends InheritedWidget {
   final ConfirmSignInCustomAuthForm confirmSignInCustomAuthForm;
   final ConfirmSignInMFAForm confirmSignInMFAForm;
   final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
+  final ContinueSignInWithMfaSelectionForm continueSignInWithMfaSelectionForm;
+  final ContinueSignInWithTotpSetupForm continueSignInWithTotpSetupForm;
+  final ConfirmSignInWithTotpMfaCodeForm confirmSignInWithTotpMfaCodeForm;
   final ResetPasswordForm resetPasswordForm;
   final ConfirmResetPasswordForm confirmResetPasswordForm;
   final VerifyUserForm verifyUserForm;
@@ -47,6 +53,12 @@ class InheritedForms extends InheritedWidget {
         return confirmSignInMFAForm;
       case AuthenticatorStep.confirmSignInNewPassword:
         return confirmSignInNewPasswordForm;
+      case AuthenticatorStep.continueSignInWithMfaSelection:
+        return continueSignInWithMfaSelectionForm;
+      case AuthenticatorStep.continueSignInWithTotpSetup:
+        return continueSignInWithTotpSetupForm;
+      case AuthenticatorStep.confirmSignInWithTotpMfaCode:
+        return confirmSignInWithTotpMfaCodeForm;
       case AuthenticatorStep.resetPassword:
         return resetPasswordForm;
       case AuthenticatorStep.confirmResetPassword:
@@ -86,7 +98,13 @@ class InheritedForms extends InheritedWidget {
         oldWidget.confirmSignInNewPasswordForm !=
             confirmSignInNewPasswordForm ||
         oldWidget.verifyUserForm != verifyUserForm ||
-        oldWidget.confirmVerifyUserForm != confirmVerifyUserForm;
+        oldWidget.confirmVerifyUserForm != confirmVerifyUserForm ||
+        oldWidget.continueSignInWithMfaSelectionForm !=
+            continueSignInWithMfaSelectionForm ||
+        oldWidget.continueSignInWithTotpSetupForm !=
+            continueSignInWithTotpSetupForm ||
+        oldWidget.confirmSignInWithTotpMfaCodeForm !=
+            confirmSignInWithTotpMfaCodeForm;
   }
 }
 
