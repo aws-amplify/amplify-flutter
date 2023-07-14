@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.conformance_pack_compliance_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,17 +8,13 @@ import 'package:smithy/smithy.dart' as _i1;
 class ConformancePackComplianceType
     extends _i1.SmithyEnum<ConformancePackComplianceType> {
   const ConformancePackComplianceType._(
-    int index,
-    String name,
-    String value,
-  ) : super(
-          index,
-          name,
-          value,
-        );
+    super.index,
+    super.name,
+    super.value,
+  );
 
-  const ConformancePackComplianceType._sdkUnknown(String value)
-      : super.sdkUnknown(value);
+  const ConformancePackComplianceType._sdkUnknown(super.value)
+      : super.sdkUnknown();
 
   static const compliant = ConformancePackComplianceType._(
     0,

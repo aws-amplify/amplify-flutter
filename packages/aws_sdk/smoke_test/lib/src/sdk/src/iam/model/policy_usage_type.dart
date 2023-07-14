@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.policy_usage_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,16 +10,12 @@ import 'package:smithy/smithy.dart' as _i1;
 /// For more information about permissions boundaries, see [Permissions boundaries for IAM identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html) in the _IAM User Guide_.
 class PolicyUsageType extends _i1.SmithyEnum<PolicyUsageType> {
   const PolicyUsageType._(
-    int index,
-    String name,
-    String value,
-  ) : super(
-          index,
-          name,
-          value,
-        );
+    super.index,
+    super.name,
+    super.value,
+  );
 
-  const PolicyUsageType._sdkUnknown(String value) : super.sdkUnknown(value);
+  const PolicyUsageType._sdkUnknown(super.value) : super.sdkUnknown();
 
   static const permissionsBoundary = PolicyUsageType._(
     0,

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.s3.model.s3_addressing_style; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,16 +8,12 @@ import 'package:smithy/smithy.dart' as _i1;
 /// Controls the S3 addressing bucket style.
 class S3AddressingStyle extends _i1.SmithyEnum<S3AddressingStyle> {
   const S3AddressingStyle._(
-    int index,
-    String name,
-    String value,
-  ) : super(
-          index,
-          name,
-          value,
-        );
+    super.index,
+    super.name,
+    super.value,
+  );
 
-  const S3AddressingStyle._sdkUnknown(String value) : super.sdkUnknown(value);
+  const S3AddressingStyle._sdkUnknown(super.value) : super.sdkUnknown();
 
   static const auto = S3AddressingStyle._(
     0,
