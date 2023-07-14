@@ -39,8 +39,7 @@ const _v4analytics = '''
         },
         "pinpointTargeting": {
           "region": "$REGION"
-        },
-        "autoFlushEventsInterval": $ANALYTICS_FLUSH_INTERVAL
+        }
       }
     }
   }
@@ -54,16 +53,14 @@ const _v4auth = '''
   "auth": {
     "plugins": {
       "awsCognitoAuthPlugin": {
-        "UserAgent": "aws-amplify/cli",
+        "UserAgent": "aws-amplify-cli/0.1.0",
         "Version": "0.1.0",
-        "IdentityManager": {
-          "Default": {}
-        },
         "Auth": {
           "Default": {
             "OAuth": {
               "WebDomain": "$OAUTH_DOMAIN",
               "AppClientId": "$APPCLIENT_ID",
+              "AppClientSecret": "$APPCLIENT_SECERT",
               "SignInRedirectURI": "$OAUTH_SIGNIN",
               "SignOutRedirectURI": "$OAUTH_SIGNOUT",
               "Scopes": [
@@ -74,20 +71,34 @@ const _v4auth = '''
                 "aws.cognito.signin.user.admin"
               ]
             },
-            "authenticationFlowType": "$AUTHFLOW_SRP"
-          },
-          "DefaultCustomAuth": {
-            "authenticationFlowType": "CUSTOM_AUTH"
+            "authenticationFlowType": "$AUTHFLOW_SRP",
+            "mfaConfiguration": "OPTIONAL",
+            "mfaTypes": [
+              "SMS",
+              "TOTP"
+            ],
+            "passwordProtectionSettings": {
+              "passwordPolicyCharacters": [
+                "REQUIRES_LOWERCASE"
+              ]
+            },
+            "socialProviders": [
+              "GOOGLE"
+            ],
+            "usernameAttributes": [
+              "EMAIL"
+            ],
+            "signupAttributes": [
+              "EMAIL",
+              "PHONE_NUMBER"
+            ],
+            "verificationMechanisms": [
+              "EMAIL",
+              "PHONE_NUMBER"
+            ]
           }
         },
         "CognitoUserPool": {
-          "CustomEndpoint": {
-            "AppClientId": "$APPCLIENT_ID",
-            "AppClientSecret": "$APPCLIENT_SECERT",
-            "Endpoint": "$OAUTH_DOMAIN",
-            "PoolId": "$USERPOOL_ID",
-            "Region": "$REGION"
-          },
           "Default": {
             "AppClientId": "$APPCLIENT_ID",
             "AppClientSecret": "$APPCLIENT_SECERT",
@@ -96,19 +107,16 @@ const _v4auth = '''
               "AppClientId": "$APPCLIENT_ID",
               "AppClientSecret": "$APPCLIENT_SECERT",
               "Scopes": [
+                "phone",
+                "email",
                 "openid",
-                "email"
+                "profile",
+                "aws.cognito.signin.user.admin"
               ],
               "SignInRedirectURI": "$OAUTH_SIGNIN",
               "SignOutRedirectURI": "$OAUTH_SIGNOUT",
               "WebDomain": "$OAUTH_DOMAIN"
             },
-            "PoolId": "$USERPOOL_ID"
-          },
-          "DefaultCustomAuth": {
-            "AppClientId": "$APPCLIENT_ID",
-            "AppClientSecret": "$APPCLIENT_SECERT",
-            "Region": "$REGION",
             "PoolId": "$USERPOOL_ID"
           }
         },
@@ -120,14 +128,6 @@ const _v4auth = '''
             }
           }
         },
-        "AppSync": {
-          "Default": {
-            "ApiUrl": "$GRAPHQL_ENDPOINT",
-            "Region": "$REGION",
-            "AuthMode": "$COGNITO_AUTH_TYPE",
-            "ClientDatabasePrefix": "$DATABASE_PREFIX"
-          }
-        },
         "PinpointAnalytics": {
           "Default": {
             "AppId": "$ANALYTICS_APP_ID",
@@ -136,12 +136,6 @@ const _v4auth = '''
         },
         "PinpointTargeting": {
           "Default": {
-            "Region": "$REGION"
-          }
-        },
-        "S3TransferUtility": {
-          "Default": {
-            "Bucket": "$BUCKET",
             "Region": "$REGION"
           }
         }
@@ -227,8 +221,7 @@ const _v5analytics = '''
         },
         "pinpointTargeting": {
           "region": "$REGION"
-        },
-        "autoFlushEventsInterval": $ANALYTICS_FLUSH_INTERVAL
+        }
       }
     }
   }
@@ -242,16 +235,14 @@ const _v5auth = '''
   "auth": {
     "plugins": {
       "awsCognitoAuthPlugin": {
-        "UserAgent": "aws-amplify/cli",
+        "UserAgent": "aws-amplify-cli/0.1.0",
         "Version": "0.1.0",
-        "IdentityManager": {
-          "Default": {}
-        },
         "Auth": {
           "Default": {
             "OAuth": {
               "WebDomain": "$OAUTH_DOMAIN",
               "AppClientId": "$APPCLIENT_ID",
+              "AppClientSecret": "$APPCLIENT_SECERT",
               "SignInRedirectURI": "$OAUTH_SIGNIN",
               "SignOutRedirectURI": "$OAUTH_SIGNOUT",
               "Scopes": [
@@ -262,20 +253,34 @@ const _v5auth = '''
                 "aws.cognito.signin.user.admin"
               ]
             },
-            "authenticationFlowType": "$AUTHFLOW_SRP"
-          },
-          "DefaultCustomAuth": {
-            "authenticationFlowType": "CUSTOM_AUTH"
+            "authenticationFlowType": "$AUTHFLOW_SRP",
+            "mfaConfiguration": "OPTIONAL",
+            "mfaTypes": [
+              "SMS",
+              "TOTP"
+            ],
+            "passwordProtectionSettings": {
+              "passwordPolicyCharacters": [
+                "REQUIRES_LOWERCASE"
+              ]
+            },
+            "socialProviders": [
+              "GOOGLE"
+            ],
+            "usernameAttributes": [
+              "EMAIL"
+            ],
+            "signupAttributes": [
+              "EMAIL",
+              "PHONE_NUMBER"
+            ],
+            "verificationMechanisms": [
+              "EMAIL",
+              "PHONE_NUMBER"
+            ]
           }
         },
         "CognitoUserPool": {
-          "CustomEndpoint": {
-            "AppClientId": "$APPCLIENT_ID",
-            "AppClientSecret": "$APPCLIENT_SECERT",
-            "Endpoint": "$OAUTH_DOMAIN",
-            "PoolId": "$USERPOOL_ID",
-            "Region": "$REGION"
-          },
           "Default": {
             "AppClientId": "$APPCLIENT_ID",
             "AppClientSecret": "$APPCLIENT_SECERT",
@@ -284,19 +289,16 @@ const _v5auth = '''
               "AppClientId": "$APPCLIENT_ID",
               "AppClientSecret": "$APPCLIENT_SECERT",
               "Scopes": [
+                "phone",
+                "email",
                 "openid",
-                "email"
+                "profile",
+                "aws.cognito.signin.user.admin"
               ],
               "SignInRedirectURI": "$OAUTH_SIGNIN",
               "SignOutRedirectURI": "$OAUTH_SIGNOUT",
               "WebDomain": "$OAUTH_DOMAIN"
             },
-            "PoolId": "$USERPOOL_ID"
-          },
-          "DefaultCustomAuth": {
-            "AppClientId": "$APPCLIENT_ID",
-            "AppClientSecret": "$APPCLIENT_SECERT",
-            "Region": "$REGION",
             "PoolId": "$USERPOOL_ID"
           }
         },
@@ -308,14 +310,6 @@ const _v5auth = '''
             }
           }
         },
-        "AppSync": {
-          "Default": {
-            "ApiUrl": "$GRAPHQL_ENDPOINT",
-            "Region": "$REGION",
-            "AuthMode": "$COGNITO_AUTH_TYPE",
-            "ClientDatabasePrefix": "$DATABASE_PREFIX"
-          }
-        },
         "PinpointAnalytics": {
           "Default": {
             "AppId": "$ANALYTICS_APP_ID",
@@ -324,12 +318,6 @@ const _v5auth = '''
         },
         "PinpointTargeting": {
           "Default": {
-            "Region": "$REGION"
-          }
-        },
-        "S3TransferUtility": {
-          "Default": {
-            "Bucket": "$BUCKET",
             "Region": "$REGION"
           }
         }
@@ -415,8 +403,7 @@ const _v6analytics = '''
         },
         "pinpointTargeting": {
           "region": "$REGION"
-        },
-        "autoFlushEventsInterval": $ANALYTICS_FLUSH_INTERVAL
+        }
       }
     }
   }
@@ -430,16 +417,14 @@ const _v6auth = '''
   "auth": {
     "plugins": {
       "awsCognitoAuthPlugin": {
-        "UserAgent": "aws-amplify/cli",
+        "UserAgent": "aws-amplify-cli/0.1.0",
         "Version": "0.1.0",
-        "IdentityManager": {
-          "Default": {}
-        },
         "Auth": {
           "Default": {
             "OAuth": {
               "WebDomain": "$OAUTH_DOMAIN",
               "AppClientId": "$APPCLIENT_ID",
+              "AppClientSecret": "$APPCLIENT_SECERT",
               "SignInRedirectURI": "$OAUTH_SIGNIN",
               "SignOutRedirectURI": "$OAUTH_SIGNOUT",
               "Scopes": [
@@ -450,20 +435,34 @@ const _v6auth = '''
                 "aws.cognito.signin.user.admin"
               ]
             },
-            "authenticationFlowType": "$AUTHFLOW_SRP"
-          },
-          "DefaultCustomAuth": {
-            "authenticationFlowType": "CUSTOM_AUTH"
+            "authenticationFlowType": "$AUTHFLOW_SRP",
+            "mfaConfiguration": "OPTIONAL",
+            "mfaTypes": [
+              "SMS",
+              "TOTP"
+            ],
+            "passwordProtectionSettings": {
+              "passwordPolicyCharacters": [
+                "REQUIRES_LOWERCASE"
+              ]
+            },
+            "socialProviders": [
+              "GOOGLE"
+            ],
+            "usernameAttributes": [
+              "EMAIL"
+            ],
+            "signupAttributes": [
+              "EMAIL",
+              "PHONE_NUMBER"
+            ],
+            "verificationMechanisms": [
+              "EMAIL",
+              "PHONE_NUMBER"
+            ]
           }
         },
         "CognitoUserPool": {
-          "CustomEndpoint": {
-            "AppClientId": "$APPCLIENT_ID",
-            "AppClientSecret": "$APPCLIENT_SECERT",
-            "Endpoint": "$OAUTH_DOMAIN",
-            "PoolId": "$USERPOOL_ID",
-            "Region": "$REGION"
-          },
           "Default": {
             "AppClientId": "$APPCLIENT_ID",
             "AppClientSecret": "$APPCLIENT_SECERT",
@@ -472,19 +471,16 @@ const _v6auth = '''
               "AppClientId": "$APPCLIENT_ID",
               "AppClientSecret": "$APPCLIENT_SECERT",
               "Scopes": [
+                "phone",
+                "email",
                 "openid",
-                "email"
+                "profile",
+                "aws.cognito.signin.user.admin"
               ],
               "SignInRedirectURI": "$OAUTH_SIGNIN",
               "SignOutRedirectURI": "$OAUTH_SIGNOUT",
               "WebDomain": "$OAUTH_DOMAIN"
             },
-            "PoolId": "$USERPOOL_ID"
-          },
-          "DefaultCustomAuth": {
-            "AppClientId": "$APPCLIENT_ID",
-            "AppClientSecret": "$APPCLIENT_SECERT",
-            "Region": "$REGION",
             "PoolId": "$USERPOOL_ID"
           }
         },
@@ -496,14 +492,6 @@ const _v6auth = '''
             }
           }
         },
-        "AppSync": {
-          "Default": {
-            "ApiUrl": "$GRAPHQL_ENDPOINT",
-            "Region": "$REGION",
-            "AuthMode": "$COGNITO_AUTH_TYPE",
-            "ClientDatabasePrefix": "$DATABASE_PREFIX"
-          }
-        },
         "PinpointAnalytics": {
           "Default": {
             "AppId": "$ANALYTICS_APP_ID",
@@ -512,12 +500,6 @@ const _v6auth = '''
         },
         "PinpointTargeting": {
           "Default": {
-            "Region": "$REGION"
-          }
-        },
-        "S3TransferUtility": {
-          "Default": {
-            "Bucket": "$BUCKET",
             "Region": "$REGION"
           }
         }
@@ -603,8 +585,7 @@ const _v7analytics = '''
         },
         "pinpointTargeting": {
           "region": "$REGION"
-        },
-        "autoFlushEventsInterval": $ANALYTICS_FLUSH_INTERVAL
+        }
       }
     }
   }
@@ -618,16 +599,14 @@ const _v7auth = '''
   "auth": {
     "plugins": {
       "awsCognitoAuthPlugin": {
-        "UserAgent": "aws-amplify/cli",
+        "UserAgent": "aws-amplify-cli/0.1.0",
         "Version": "0.1.0",
-        "IdentityManager": {
-          "Default": {}
-        },
         "Auth": {
           "Default": {
             "OAuth": {
               "WebDomain": "$OAUTH_DOMAIN",
               "AppClientId": "$APPCLIENT_ID",
+              "AppClientSecret": "$APPCLIENT_SECERT",
               "SignInRedirectURI": "$OAUTH_SIGNIN",
               "SignOutRedirectURI": "$OAUTH_SIGNOUT",
               "Scopes": [
@@ -638,20 +617,34 @@ const _v7auth = '''
                 "aws.cognito.signin.user.admin"
               ]
             },
-            "authenticationFlowType": "$AUTHFLOW_SRP"
-          },
-          "DefaultCustomAuth": {
-            "authenticationFlowType": "CUSTOM_AUTH"
+            "authenticationFlowType": "$AUTHFLOW_SRP",
+            "mfaConfiguration": "OPTIONAL",
+            "mfaTypes": [
+              "SMS",
+              "TOTP"
+            ],
+            "passwordProtectionSettings": {
+              "passwordPolicyCharacters": [
+                "REQUIRES_LOWERCASE"
+              ]
+            },
+            "socialProviders": [
+              "GOOGLE"
+            ],
+            "usernameAttributes": [
+              "EMAIL"
+            ],
+            "signupAttributes": [
+              "EMAIL",
+              "PHONE_NUMBER"
+            ],
+            "verificationMechanisms": [
+              "EMAIL",
+              "PHONE_NUMBER"
+            ]
           }
         },
         "CognitoUserPool": {
-          "CustomEndpoint": {
-            "AppClientId": "$APPCLIENT_ID",
-            "AppClientSecret": "$APPCLIENT_SECERT",
-            "Endpoint": "$OAUTH_DOMAIN",
-            "PoolId": "$USERPOOL_ID",
-            "Region": "$REGION"
-          },
           "Default": {
             "AppClientId": "$APPCLIENT_ID",
             "AppClientSecret": "$APPCLIENT_SECERT",
@@ -660,19 +653,16 @@ const _v7auth = '''
               "AppClientId": "$APPCLIENT_ID",
               "AppClientSecret": "$APPCLIENT_SECERT",
               "Scopes": [
+                "phone",
+                "email",
                 "openid",
-                "email"
+                "profile",
+                "aws.cognito.signin.user.admin"
               ],
               "SignInRedirectURI": "$OAUTH_SIGNIN",
               "SignOutRedirectURI": "$OAUTH_SIGNOUT",
               "WebDomain": "$OAUTH_DOMAIN"
             },
-            "PoolId": "$USERPOOL_ID"
-          },
-          "DefaultCustomAuth": {
-            "AppClientId": "$APPCLIENT_ID",
-            "AppClientSecret": "$APPCLIENT_SECERT",
-            "Region": "$REGION",
             "PoolId": "$USERPOOL_ID"
           }
         },
@@ -684,14 +674,6 @@ const _v7auth = '''
             }
           }
         },
-        "AppSync": {
-          "Default": {
-            "ApiUrl": "$GRAPHQL_ENDPOINT",
-            "Region": "$REGION",
-            "AuthMode": "$COGNITO_AUTH_TYPE",
-            "ClientDatabasePrefix": "$DATABASE_PREFIX"
-          }
-        },
         "PinpointAnalytics": {
           "Default": {
             "AppId": "$ANALYTICS_APP_ID",
@@ -700,12 +682,6 @@ const _v7auth = '''
         },
         "PinpointTargeting": {
           "Default": {
-            "Region": "$REGION"
-          }
-        },
-        "S3TransferUtility": {
-          "Default": {
-            "Bucket": "$BUCKET",
             "Region": "$REGION"
           }
         }
@@ -791,8 +767,7 @@ const _vlatestanalytics = '''
         },
         "pinpointTargeting": {
           "region": "$REGION"
-        },
-        "autoFlushEventsInterval": $ANALYTICS_FLUSH_INTERVAL
+        }
       }
     }
   }
@@ -806,16 +781,14 @@ const _vlatestauth = '''
   "auth": {
     "plugins": {
       "awsCognitoAuthPlugin": {
-        "UserAgent": "aws-amplify/cli",
+        "UserAgent": "aws-amplify-cli/0.1.0",
         "Version": "0.1.0",
-        "IdentityManager": {
-          "Default": {}
-        },
         "Auth": {
           "Default": {
             "OAuth": {
               "WebDomain": "$OAUTH_DOMAIN",
               "AppClientId": "$APPCLIENT_ID",
+              "AppClientSecret": "$APPCLIENT_SECERT",
               "SignInRedirectURI": "$OAUTH_SIGNIN",
               "SignOutRedirectURI": "$OAUTH_SIGNOUT",
               "Scopes": [
@@ -826,20 +799,34 @@ const _vlatestauth = '''
                 "aws.cognito.signin.user.admin"
               ]
             },
-            "authenticationFlowType": "$AUTHFLOW_SRP"
-          },
-          "DefaultCustomAuth": {
-            "authenticationFlowType": "CUSTOM_AUTH"
+            "authenticationFlowType": "$AUTHFLOW_SRP",
+            "mfaConfiguration": "OPTIONAL",
+            "mfaTypes": [
+              "SMS",
+              "TOTP"
+            ],
+            "passwordProtectionSettings": {
+              "passwordPolicyCharacters": [
+                "REQUIRES_LOWERCASE"
+              ]
+            },
+            "socialProviders": [
+              "GOOGLE"
+            ],
+            "usernameAttributes": [
+              "EMAIL"
+            ],
+            "signupAttributes": [
+              "EMAIL",
+              "PHONE_NUMBER"
+            ],
+            "verificationMechanisms": [
+              "EMAIL",
+              "PHONE_NUMBER"
+            ]
           }
         },
         "CognitoUserPool": {
-          "CustomEndpoint": {
-            "AppClientId": "$APPCLIENT_ID",
-            "AppClientSecret": "$APPCLIENT_SECERT",
-            "Endpoint": "$OAUTH_DOMAIN",
-            "PoolId": "$USERPOOL_ID",
-            "Region": "$REGION"
-          },
           "Default": {
             "AppClientId": "$APPCLIENT_ID",
             "AppClientSecret": "$APPCLIENT_SECERT",
@@ -848,19 +835,16 @@ const _vlatestauth = '''
               "AppClientId": "$APPCLIENT_ID",
               "AppClientSecret": "$APPCLIENT_SECERT",
               "Scopes": [
+                "phone",
+                "email",
                 "openid",
-                "email"
+                "profile",
+                "aws.cognito.signin.user.admin"
               ],
               "SignInRedirectURI": "$OAUTH_SIGNIN",
               "SignOutRedirectURI": "$OAUTH_SIGNOUT",
               "WebDomain": "$OAUTH_DOMAIN"
             },
-            "PoolId": "$USERPOOL_ID"
-          },
-          "DefaultCustomAuth": {
-            "AppClientId": "$APPCLIENT_ID",
-            "AppClientSecret": "$APPCLIENT_SECERT",
-            "Region": "$REGION",
             "PoolId": "$USERPOOL_ID"
           }
         },
@@ -872,14 +856,6 @@ const _vlatestauth = '''
             }
           }
         },
-        "AppSync": {
-          "Default": {
-            "ApiUrl": "$GRAPHQL_ENDPOINT",
-            "Region": "$REGION",
-            "AuthMode": "$COGNITO_AUTH_TYPE",
-            "ClientDatabasePrefix": "$DATABASE_PREFIX"
-          }
-        },
         "PinpointAnalytics": {
           "Default": {
             "AppId": "$ANALYTICS_APP_ID",
@@ -888,12 +864,6 @@ const _vlatestauth = '''
         },
         "PinpointTargeting": {
           "Default": {
-            "Region": "$REGION"
-          }
-        },
-        "S3TransferUtility": {
-          "Default": {
-            "Bucket": "$BUCKET",
             "Region": "$REGION"
           }
         }

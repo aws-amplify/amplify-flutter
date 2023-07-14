@@ -1,14 +1,12 @@
 {
-    "UserAgent": "aws-amplify/cli",
+    "UserAgent": "aws-amplify-cli/0.1.0",
     "Version": "0.1.0",
-    "IdentityManager": {
-        "Default": {}
-    },
     "Auth": {
         "Default": {
             "OAuth": {
                 "WebDomain": "$OAUTH_DOMAIN",
                 "AppClientId": "$APPCLIENT_ID",
+                "AppClientSecret": "$APPCLIENT_SECERT",
                 "SignInRedirectURI": "$OAUTH_SIGNIN",
                 "SignOutRedirectURI": "$OAUTH_SIGNOUT",
                 "Scopes": [
@@ -19,20 +17,34 @@
                     "aws.cognito.signin.user.admin"
                 ]
             },
-            "authenticationFlowType": "$AUTHFLOW_SRP"
-        },
-        "DefaultCustomAuth": {
-            "authenticationFlowType": "CUSTOM_AUTH"
+            "authenticationFlowType": "$AUTHFLOW_SRP",
+            "mfaConfiguration": "OPTIONAL",
+            "mfaTypes": [
+                "SMS",
+                "TOTP"
+            ],
+            "passwordProtectionSettings": {
+                "passwordPolicyCharacters": [
+                    "REQUIRES_LOWERCASE"
+                ]
+            },
+            "socialProviders": [
+                "GOOGLE"
+            ],
+            "usernameAttributes": [
+                "EMAIL"
+            ],
+            "signupAttributes": [
+                "EMAIL",
+                "PHONE_NUMBER"
+            ],
+            "verificationMechanisms": [
+                "EMAIL",
+                "PHONE_NUMBER"
+            ]
         }
     },
     "CognitoUserPool": {
-        "CustomEndpoint": {
-            "AppClientId": "$APPCLIENT_ID",
-            "AppClientSecret": "$APPCLIENT_SECERT",
-            "Endpoint": "$OAUTH_DOMAIN",
-            "PoolId": "$USERPOOL_ID",
-            "Region": "$REGION"
-        },
         "Default": {
             "AppClientId": "$APPCLIENT_ID",
             "AppClientSecret": "$APPCLIENT_SECERT",
@@ -41,19 +53,16 @@
                 "AppClientId": "$APPCLIENT_ID",
                 "AppClientSecret": "$APPCLIENT_SECERT",
                 "Scopes": [
+                    "phone",
+                    "email",
                     "openid",
-                    "email"
+                    "profile",
+                    "aws.cognito.signin.user.admin"
                 ],
                 "SignInRedirectURI": "$OAUTH_SIGNIN",
                 "SignOutRedirectURI": "$OAUTH_SIGNOUT",
                 "WebDomain": "$OAUTH_DOMAIN"
             },
-            "PoolId": "$USERPOOL_ID"
-        },
-        "DefaultCustomAuth": {
-            "AppClientId": "$APPCLIENT_ID",
-            "AppClientSecret": "$APPCLIENT_SECERT",
-            "Region": "$REGION",
             "PoolId": "$USERPOOL_ID"
         }
     },
@@ -65,14 +74,6 @@
             }
         }
     },
-    "AppSync": {
-        "Default": {
-            "ApiUrl": "$GRAPHQL_ENDPOINT",
-            "Region": "$REGION",
-            "AuthMode": "$COGNITO_AUTH_TYPE",
-            "ClientDatabasePrefix": "$DATABASE_PREFIX"
-        }
-    },
     "PinpointAnalytics": {
         "Default": {
             "AppId": "$ANALYTICS_APP_ID",
@@ -81,12 +82,6 @@
     },
     "PinpointTargeting": {
         "Default": {
-            "Region": "$REGION"
-        }
-    },
-    "S3TransferUtility": {
-        "Default": {
-            "Bucket": "$BUCKET",
             "Region": "$REGION"
         }
     }

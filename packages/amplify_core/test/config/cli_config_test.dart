@@ -1,8 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: avoid_dynamic_calls
+
 import 'dart:convert';
 
+import 'package:amplify_core/amplify_config.dart' hide AWSApiConfig;
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
@@ -15,17 +18,34 @@ void main() {
       group('Generated v${testSuite.version}', () {
         for (final testData in testSuite.tests) {
           final name = testData.name;
-          test(name, () {
-            final json = jsonDecode(testData.config) as Map<String, Object?>;
-            final parsed = AmplifyConfig.fromJson(json.cast());
+          final json = jsonDecode(testData.config) as Map<String, dynamic>;
+          addUserConfig(json);
+
+          test('AmplifyConfig ($name)', () {
+            final parsed = AmplifyConfig.fromJson(json);
             final expectedConfig = expected[name]!;
             expect(parsed, equals(expectedConfig));
             expect(expectedConfig.toJson(), equals(json));
+          });
+
+          test('AWSAmplifyConfig ($name)', () {
+            final parsed = AmplifyConfig.fromJson(json);
+            final awsConfig = AWSAmplifyConfig.from(parsed);
+            final cliConfig = awsConfig.toCli();
+            final expectedConfig = expected[name]!;
+            expect(cliConfig, equals(parsed));
+            expect(cliConfig, equals(expectedConfig));
           });
         }
       });
     }
   });
+}
+
+// Add values not supported by the CLI but added by the user after the fact.
+void addUserConfig(Map<String, dynamic> json) {
+  json['analytics']?['plugins']?['awsPinpointAnalyticsPlugin']
+      ?['autoFlushEventsInterval'] = ANALYTICS_FLUSH_INTERVAL;
 }
 
 const expected = {
@@ -75,15 +95,11 @@ const expected = {
     auth: AuthConfig(
       plugins: {
         CognitoPluginConfig.pluginKey: CognitoPluginConfig(
-          userAgent: 'aws-amplify/cli',
-          version: '0.1.0',
-          identityManager: AWSConfigMap({
-            'Default': CognitoIdentityManager(),
-          }),
           auth: AWSConfigMap({
             'Default': CognitoAuthConfig(
               oAuth: CognitoOAuthConfig(
                 appClientId: APPCLIENT_ID,
+                appClientSecret: APPCLIENT_SECERT,
                 scopes: [
                   'phone',
                   'email',
@@ -96,20 +112,26 @@ const expected = {
                 webDomain: OAUTH_DOMAIN,
               ),
               authenticationFlowType: AuthenticationFlowType.userSrpAuth,
-            ),
-            'DefaultCustomAuth': CognitoAuthConfig(
-              // ignore: deprecated_member_use_from_same_package
-              authenticationFlowType: AuthenticationFlowType.customAuth,
+              mfaConfiguration: MfaConfiguration.optional,
+              mfaTypes: [MfaType.sms, MfaType.totp],
+              passwordProtectionSettings: PasswordProtectionSettings(
+                passwordPolicyCharacters: [
+                  PasswordPolicyCharacters.requiresLowercase,
+                ],
+              ),
+              socialProviders: [SocialProvider.google],
+              usernameAttributes: [CognitoUserAttributeKey.email],
+              signupAttributes: [
+                CognitoUserAttributeKey.email,
+                CognitoUserAttributeKey.phoneNumber,
+              ],
+              verificationMechanisms: [
+                CognitoUserAttributeKey.email,
+                CognitoUserAttributeKey.phoneNumber,
+              ],
             ),
           }),
           cognitoUserPool: AWSConfigMap({
-            'CustomEndpoint': CognitoUserPoolConfig(
-              poolId: USERPOOL_ID,
-              appClientId: APPCLIENT_ID,
-              appClientSecret: APPCLIENT_SECERT,
-              endpoint: OAUTH_DOMAIN,
-              region: REGION,
-            ),
             'Default': CognitoUserPoolConfig(
               poolId: USERPOOL_ID,
               appClientId: APPCLIENT_ID,
@@ -118,17 +140,17 @@ const expected = {
               hostedUI: CognitoOAuthConfig(
                 appClientId: APPCLIENT_ID,
                 appClientSecret: APPCLIENT_SECERT,
-                scopes: ['openid', 'email'],
+                scopes: [
+                  'phone',
+                  'email',
+                  'openid',
+                  'profile',
+                  'aws.cognito.signin.user.admin',
+                ],
                 signInRedirectUri: OAUTH_SIGNIN,
                 signOutRedirectUri: OAUTH_SIGNOUT,
                 webDomain: OAUTH_DOMAIN,
               ),
-            ),
-            'DefaultCustomAuth': CognitoUserPoolConfig(
-              poolId: USERPOOL_ID,
-              appClientId: APPCLIENT_ID,
-              appClientSecret: APPCLIENT_SECERT,
-              region: REGION,
             ),
           }),
           credentialsProvider: CredentialsProviders({
@@ -139,14 +161,6 @@ const expected = {
               ),
             }),
           }),
-          appSync: AWSConfigMap({
-            'Default': CognitoAppSyncConfig(
-              apiUrl: GRAPHQL_ENDPOINT,
-              region: REGION,
-              authMode: APIAuthorizationType.userPools,
-              clientDatabasePrefix: DATABASE_PREFIX,
-            ),
-          }),
           pinpointAnalytics: AWSConfigMap({
             'Default': CognitoPinpointAnalyticsConfig(
               appId: ANALYTICS_APP_ID,
@@ -155,12 +169,6 @@ const expected = {
           }),
           pinpointTargeting: AWSConfigMap({
             'Default': CognitoPinpointTargetingConfig(
-              region: REGION,
-            ),
-          }),
-          s3TransferUtility: AWSConfigMap({
-            'Default': S3TransferUtility(
-              bucket: BUCKET,
               region: REGION,
             ),
           }),

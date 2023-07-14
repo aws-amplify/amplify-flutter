@@ -20,18 +20,6 @@ const amplifyconfig = ''' {
             "awsCognitoAuthPlugin": {
                 "UserAgent": "aws-amplify-cli/0.1.0",
                 "Version": "0.1.0",
-                "IdentityManager": {
-                    "Default": {}
-                },
-                "AppSync": {
-                    "Default": {
-                        "ApiUrl": "https://a7xz4kyolrg7tjcq6dvcprvpfy.appsync-api.us-west-2.amazonaws.com/graphql",
-                        "Region": "us-west-2",
-                        "AuthMode": "API_KEY",
-                        "ApiKey": "da2-wtkeqfdaqne3xmqymmuwe34rou",
-                        "ClientDatabasePrefix": "cliv6_API_KEY"
-                    }
-                },
                 "CredentialsProvider": {
                     "CognitoIdentity": {
                         "Default": {

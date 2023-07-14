@@ -83,4 +83,7 @@ class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
 
   @override
   Map<String, Object?> toJson() => _$AmplifyConfigToJson(this);
+
+  @override
+  String toString() => prettyPrintJson(toJson());
 }

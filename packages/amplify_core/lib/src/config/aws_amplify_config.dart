@@ -102,38 +102,6 @@ abstract class AWSAmplifyConfig
                       AWSAuthFlowType.customAuth,
                     null => null,
                   }
-                  ..socialProviders.addAll([
-                    for (final socialProvider
-                        in cliAuthConfig.socialProviders ??
-                            const <SocialProvider>[])
-                      switch (socialProvider) {
-                        SocialProvider.amazon => const AWSAuthProvider.amazon(),
-                        SocialProvider.apple => const AWSAuthProvider.apple(),
-                        SocialProvider.facebook =>
-                          const AWSAuthProvider.facebook(),
-                        SocialProvider.google => const AWSAuthProvider.google(),
-                      }
-                  ])
-                  ..usernameAttributes.addAll([
-                    for (final usernameAttribute
-                        in cliAuthConfig.usernameAttributes ??
-                            const <CognitoUserAttributeKey>[])
-                      switch (usernameAttribute) {
-                        CognitoUserAttributeKey.email =>
-                          AWSAuthUsernameAttribute.email,
-                        CognitoUserAttributeKey.phoneNumber =>
-                          AWSAuthUsernameAttribute.phoneNumber,
-                        _ => throw ArgumentError(
-                            'Invalid username attribute: $usernameAttribute',
-                          ),
-                      },
-                  ])
-                  ..verificationMechanisms.addAll(
-                    cliAuthConfig.verificationMechanisms ?? const [],
-                  )
-                  ..signUpAttributes.addAll(
-                    cliAuthConfig.signupAttributes ?? const [],
-                  )
                   ..mfaConfiguration = switch ((
                     cliAuthConfig.mfaConfiguration,
                     cliAuthConfig.mfaTypes
@@ -154,6 +122,39 @@ abstract class AWSAmplifyConfig
                             passwordSettings.passwordPolicyCharacters,
                           ),
                   );
+
+                cliAuthConfig.socialProviders?.let((socialProviders) {
+                  b.userPool.socialProviders.addAll([
+                    for (final socialProvider in socialProviders)
+                      switch (socialProvider) {
+                        SocialProvider.amazon => const AWSAuthProvider.amazon(),
+                        SocialProvider.apple => const AWSAuthProvider.apple(),
+                        SocialProvider.facebook =>
+                          const AWSAuthProvider.facebook(),
+                        SocialProvider.google => const AWSAuthProvider.google(),
+                      }
+                  ]);
+                });
+
+                cliAuthConfig.usernameAttributes?.let((usernameAttributes) {
+                  b.userPool.usernameAttributes.addAll([
+                    for (final usernameAttribute in usernameAttributes)
+                      switch (usernameAttribute) {
+                        CognitoUserAttributeKey.email =>
+                          AWSAuthUsernameAttribute.email,
+                        CognitoUserAttributeKey.phoneNumber =>
+                          AWSAuthUsernameAttribute.phoneNumber,
+                        _ => throw ArgumentError(
+                            'Invalid username attribute: $usernameAttribute',
+                          ),
+                      }
+                  ]);
+                });
+
+                cliAuthConfig.verificationMechanisms
+                    ?.let(b.userPool.verificationMechanisms.addAll);
+                cliAuthConfig.signupAttributes
+                    ?.let(b.userPool.signUpAttributes.addAll);
               }
 
               if (userPoolConfig.hostedUI case final hostedUiConfig?) {
@@ -180,9 +181,11 @@ abstract class AWSAmplifyConfig
                   );
               }
 
-              b.userPool.pinpointConfig
-                ..appId = authConfig.pinpointAnalytics?.default$?.appId
-                ..region = authConfig.pinpointAnalytics?.default$?.region;
+              authConfig.pinpointAnalytics?.default$?.let(
+                (pinpointConfig) => b.userPool.pinpointConfig
+                  ..appId = pinpointConfig.appId
+                  ..region = pinpointConfig.region,
+              );
             }
             if (authConfig.credentialsProvider?.default$
                 case final identityPoolConfig?) {
@@ -802,6 +805,13 @@ abstract class AWSAmplifyConfig
                 ),
               ),
             ),
+            pinpointTargeting: userPool?.pinpointConfig?.let(
+              (pinpointConfig) => AWSConfigMap.withDefault(
+                CognitoPinpointTargetingConfig(
+                  region: pinpointConfig.region,
+                ),
+              ),
+            ),
           ),
         },
       );
@@ -1061,7 +1071,7 @@ final class _CognitoUserAttributeKeySerializer
       String _ => serialized,
       _ => throw ArgumentError('Invalid attribute key: $serialized'),
     };
-    return CognitoUserAttributeKey.parse(key);
+    return CognitoUserAttributeKey.parse(key.toLowerCase());
   }
 
   @override
@@ -1070,7 +1080,7 @@ final class _CognitoUserAttributeKeySerializer
     CognitoUserAttributeKey object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return object.toJson();
+    return object.toJson().toUpperCase();
   }
 
   @override
