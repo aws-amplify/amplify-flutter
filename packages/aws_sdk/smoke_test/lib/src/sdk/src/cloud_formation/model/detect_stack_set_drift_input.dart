@@ -26,11 +26,9 @@ abstract class DetectStackSetDriftInput
     String? operationId,
     _i4.CallAs? callAs,
   }) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      operationId ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      operationId ??= _i2.uuid(secure: true);
-    }
+    operationId ??= const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
     return _$DetectStackSetDriftInput._(
       stackSetName: stackSetName,
       operationPreferences: operationPreferences,
@@ -57,11 +55,9 @@ abstract class DetectStackSetDriftInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DetectStackSetDriftInputBuilder b) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.operationId = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.operationId = _i2.uuid(secure: true);
-    }
+    b.operationId = const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
   }
 
   /// The name of the stack set on which to perform the drift detection operation.

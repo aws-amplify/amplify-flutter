@@ -25,11 +25,9 @@ abstract class ExecuteTransactionInput
     String? clientRequestToken,
     _i4.ReturnConsumedCapacity? returnConsumedCapacity,
   }) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      clientRequestToken ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      clientRequestToken ??= _i2.uuid(secure: true);
-    }
+    clientRequestToken ??= const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
     return _$ExecuteTransactionInput._(
       transactStatements: _i5.BuiltList(transactStatements),
       clientRequestToken: clientRequestToken,
@@ -55,11 +53,9 @@ abstract class ExecuteTransactionInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExecuteTransactionInputBuilder b) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.clientRequestToken = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.clientRequestToken = _i2.uuid(secure: true);
-    }
+    b.clientRequestToken = const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
   }
 
   /// The list of PartiQL statements representing the transaction to run.

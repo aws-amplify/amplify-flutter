@@ -63,8 +63,9 @@ abstract class CreateRequestValidatorRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateRequestValidatorRequestBuilder b) {
-    b.validateRequestBody = false;
-    b.validateRequestParameters = false;
+    b
+      ..validateRequestBody = false
+      ..validateRequestParameters = false;
   }
 
   /// The string identifier of the associated RestApi.
@@ -142,8 +143,9 @@ abstract class CreateRequestValidatorRequestPayload
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateRequestValidatorRequestPayloadBuilder b) {
-    b.validateRequestBody = false;
-    b.validateRequestParameters = false;
+    b
+      ..validateRequestBody = false
+      ..validateRequestParameters = false;
   }
 
   /// The name of the to-be-created RequestValidator.

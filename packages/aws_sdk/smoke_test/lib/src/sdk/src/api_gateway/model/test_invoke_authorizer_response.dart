@@ -62,8 +62,9 @@ abstract class TestInvokeAuthorizerResponse
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestInvokeAuthorizerResponseBuilder b) {
-    b.clientStatus = 0;
-    b.latency = _i2.Int64.ZERO;
+    b
+      ..clientStatus = 0
+      ..latency = _i2.Int64.ZERO;
   }
 
   /// The HTTP status code that the client would have received. Value is 0 if the authorizer succeeded.

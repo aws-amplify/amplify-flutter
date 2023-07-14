@@ -94,12 +94,13 @@ abstract class HttpRequestWithLabelsInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpRequestWithLabelsInputBuilder b) {
-    b.short = 0;
-    b.integer = 0;
-    b.long = _i3.Int64.ZERO;
-    b.float = 0;
-    b.double_ = 0;
-    b.boolean = false;
+    b
+      ..short = 0
+      ..integer = 0
+      ..long = _i3.Int64.ZERO
+      ..float = 0
+      ..double_ = 0
+      ..boolean = false;
   }
 
   String get string;

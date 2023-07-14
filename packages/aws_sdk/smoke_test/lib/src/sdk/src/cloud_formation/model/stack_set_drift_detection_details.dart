@@ -79,11 +79,12 @@ abstract class StackSetDriftDetectionDetails
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StackSetDriftDetectionDetailsBuilder b) {
-    b.totalStackInstancesCount = 0;
-    b.driftedStackInstancesCount = 0;
-    b.inSyncStackInstancesCount = 0;
-    b.inProgressStackInstancesCount = 0;
-    b.failedStackInstancesCount = 0;
+    b
+      ..totalStackInstancesCount = 0
+      ..driftedStackInstancesCount = 0
+      ..inSyncStackInstancesCount = 0
+      ..inProgressStackInstancesCount = 0
+      ..failedStackInstancesCount = 0;
   }
 
   /// Status of the stack set's actual configuration compared to its expected template and parameter configuration. A stack set is considered to have drifted if one or more of its stack instances have drifted from their expected template and parameter configuration.

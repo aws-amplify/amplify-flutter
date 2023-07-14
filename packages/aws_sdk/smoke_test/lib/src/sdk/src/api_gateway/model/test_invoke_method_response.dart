@@ -59,8 +59,9 @@ abstract class TestInvokeMethodResponse
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestInvokeMethodResponseBuilder b) {
-    b.status = 0;
-    b.latency = _i2.Int64.ZERO;
+    b
+      ..status = 0
+      ..latency = _i2.Int64.ZERO;
   }
 
   /// The HTTP status code.
