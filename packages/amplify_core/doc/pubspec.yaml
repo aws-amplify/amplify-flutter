@@ -14,6 +14,7 @@ dependencies:
   amplify_analytics_pinpoint: any
   amplify_api: any
   amplify_auth_cognito: any
+  amplify_core: any
   amplify_datastore: any
   amplify_flutter: any
   amplify_storage_s3: any

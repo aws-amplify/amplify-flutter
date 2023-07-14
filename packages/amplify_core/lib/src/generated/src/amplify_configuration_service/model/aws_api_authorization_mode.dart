@@ -7,6 +7,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
+/// An authorization mode of an AWS API. APIs may accept multiple authorization modes which must be configured independently.
 sealed class AWSApiAuthorizationMode
     extends _i1.SmithyUnion<AWSApiAuthorizationMode> {
   const AWSApiAuthorizationMode._();

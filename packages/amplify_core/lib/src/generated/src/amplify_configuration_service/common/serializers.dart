@@ -123,9 +123,9 @@ final Map<FullType, Function> builderFactories = {
     [FullType(_i35.PasswordPolicyCharacters)],
   ): _i34.ListBuilder<_i35.PasswordPolicyCharacters>.new,
   const FullType(
-    _i34.BuiltSet,
+    _i34.BuiltList,
     [FullType(_i35.MfaType)],
-  ): _i34.SetBuilder<_i35.MfaType>.new,
+  ): _i34.ListBuilder<_i35.MfaType>.new,
   const FullType(
     _i34.BuiltList,
     [FullType(Uri)],
@@ -139,13 +139,13 @@ final Map<FullType, Function> builderFactories = {
     [FullType(_i13.AWSAuthProvider)],
   ): _i34.ListBuilder<_i13.AWSAuthProvider>.new,
   const FullType(
-    _i34.BuiltSet,
+    _i34.BuiltList,
     [FullType(_i14.AWSAuthUsernameAttribute)],
-  ): _i34.SetBuilder<_i14.AWSAuthUsernameAttribute>.new,
+  ): _i34.ListBuilder<_i14.AWSAuthUsernameAttribute>.new,
   const FullType(
-    _i34.BuiltSet,
+    _i34.BuiltList,
     [FullType(_i35.CognitoUserAttributeKey)],
-  ): _i34.SetBuilder<_i35.CognitoUserAttributeKey>.new,
+  ): _i34.ListBuilder<_i35.CognitoUserAttributeKey>.new,
   const FullType(
     _i34.BuiltMap,
     [

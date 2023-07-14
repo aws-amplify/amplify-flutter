@@ -12,12 +12,12 @@ import 'package:smithy/smithy.dart' as _i3;
 
 part 'aws_api_gateway_endpoint_config.g.dart';
 
-/// Common configuration for a AWS API endpoints
+/// Configuration for an AWS API Gateway endpoint.
 abstract class AWSApiGatewayEndpointConfig
     with _i1.AWSEquatable<AWSApiGatewayEndpointConfig>
     implements
         Built<AWSApiGatewayEndpointConfig, AWSApiGatewayEndpointConfigBuilder> {
-  /// Common configuration for a AWS API endpoints
+  /// Configuration for an AWS API Gateway endpoint.
   factory AWSApiGatewayEndpointConfig({
     required Uri endpoint,
     required String region,
@@ -30,7 +30,7 @@ abstract class AWSApiGatewayEndpointConfig
     );
   }
 
-  /// Common configuration for a AWS API endpoints
+  /// Configuration for an AWS API Gateway endpoint.
   factory AWSApiGatewayEndpointConfig.build(
           [void Function(AWSApiGatewayEndpointConfigBuilder) updates]) =
       _$AWSApiGatewayEndpointConfig;
@@ -48,6 +48,8 @@ abstract class AWSApiGatewayEndpointConfig
 
   /// The AWS region where the API is hosted. Used for SigV4 signing.
   String get region;
+
+  /// An authorization mode of an AWS API. APIs may accept multiple authorization modes which must be configured independently.
   _i2.AWSApiAuthorizationMode get authMode;
   @override
   List<Object?> get props => [

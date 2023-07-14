@@ -10,7 +10,7 @@ class _$AWSAuthMfaConfiguration extends AWSAuthMfaConfiguration {
   @override
   final _i2.MfaConfiguration status;
   @override
-  final _i3.BuiltSet<_i2.MfaType> enabledTypes;
+  final _i3.BuiltList<_i2.MfaType> enabledTypes;
 
   factory _$AWSAuthMfaConfiguration(
           [void Function(AWSAuthMfaConfigurationBuilder)? updates]) =>
@@ -61,10 +61,10 @@ class AWSAuthMfaConfigurationBuilder
   _i2.MfaConfiguration? get status => _$this._status;
   set status(_i2.MfaConfiguration? status) => _$this._status = status;
 
-  _i3.SetBuilder<_i2.MfaType>? _enabledTypes;
-  _i3.SetBuilder<_i2.MfaType> get enabledTypes =>
-      _$this._enabledTypes ??= new _i3.SetBuilder<_i2.MfaType>();
-  set enabledTypes(_i3.SetBuilder<_i2.MfaType>? enabledTypes) =>
+  _i3.ListBuilder<_i2.MfaType>? _enabledTypes;
+  _i3.ListBuilder<_i2.MfaType> get enabledTypes =>
+      _$this._enabledTypes ??= new _i3.ListBuilder<_i2.MfaType>();
+  set enabledTypes(_i3.ListBuilder<_i2.MfaType>? enabledTypes) =>
       _$this._enabledTypes = enabledTypes;
 
   AWSAuthMfaConfigurationBuilder() {

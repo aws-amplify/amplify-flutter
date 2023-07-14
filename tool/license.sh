@@ -76,4 +76,5 @@ $ADDLICENSE -l apache \
     -ignore "**/*-Bridging-Header.h" \
     -ignore "**/*Plugin.h" \
     -ignore "**/*Plugin.m" \
+    -ignore "**/lib/src/generated/**" \
     $@ $PWD

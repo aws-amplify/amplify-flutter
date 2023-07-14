@@ -10,16 +10,16 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'aws_rest_endpoint_config.g.dart';
 
-/// Configuration for a non-AWS REST endpoint
+/// Configuration for a non-APIGW REST endpoint. Automatic authorization is not supported for these endpoints. To configure authorization, use a custom HTTP client which can add the required headers to each request.
 abstract class AWSRestEndpointConfig
     with _i1.AWSEquatable<AWSRestEndpointConfig>
     implements Built<AWSRestEndpointConfig, AWSRestEndpointConfigBuilder> {
-  /// Configuration for a non-AWS REST endpoint
+  /// Configuration for a non-APIGW REST endpoint. Automatic authorization is not supported for these endpoints. To configure authorization, use a custom HTTP client which can add the required headers to each request.
   factory AWSRestEndpointConfig({required Uri endpoint}) {
     return _$AWSRestEndpointConfig._(endpoint: endpoint);
   }
 
-  /// Configuration for a non-AWS REST endpoint
+  /// Configuration for a non-APIGW REST endpoint. Automatic authorization is not supported for these endpoints. To configure authorization, use a custom HTTP client which can add the required headers to each request.
   factory AWSRestEndpointConfig.build(
           [void Function(AWSRestEndpointConfigBuilder) updates]) =
       _$AWSRestEndpointConfig;

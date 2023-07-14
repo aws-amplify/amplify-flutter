@@ -18,7 +18,15 @@ union AWSApiEndpointConfig {
     rest: AWSRestEndpointConfig
 }
 
-@documentation("Configuration for a non-AWS REST endpoint")
+// TODO: JS allows setting both `service` and `custom_header` fields on top of `endpoint`
+// https://github.com/aws-amplify/amplify-js/blob/b5f8346a896b5f94dc75d5f53164ce1443e56df8/packages/api-rest/src/RestAPI.ts#L298
+
+@documentation("""
+    Configuration for a non-APIGW REST endpoint. 
+    
+    Automatic authorization is not supported for these endpoints. To configure authorization, use
+    a custom HTTP client which can add the required headers to each request.
+""")
 structure AWSRestEndpointConfig {
     @required
     endpoint: Uri
@@ -29,7 +37,7 @@ structure AWSRestEndpointConfig {
 }
 
 @mixin
-@documentation("Common configuration for a AWS API endpoints")
+@documentation("Common configuration for AWS API endpoints.")
 structure AWSBaseEndpointConfig {
     @required
     endpoint: Uri
@@ -42,32 +50,30 @@ structure AWSBaseEndpointConfig {
     authMode: AWSApiAuthorizationMode
 }
 
+@documentation("Configuration for an AWS AppSync endpoint.")
 structure AWSAppSyncEndpointConfig with [AWSBaseEndpointConfig] {
-    @documentation("Additional authorization modes supported by the API. Used by DataStore in multi-auth decisions.")
+    @documentation("Additional authorization modes supported by the API. Used by the API/DataStore categories for multi-auth decisions.")
     additionalAuthModes: AWSApiAuthorizationModes = []
 }
 
+@documentation("Configuration for an AWS API Gateway endpoint.")
 structure AWSApiGatewayEndpointConfig with [AWSBaseEndpointConfig] {}
 
-// enum AWSApiAuthorizationMode {
-//     NONE
-//     API_KEY
-//     IAM
-//     USER_POOLS
-//     OIDC
-//     FUNCTION
-// }
+@documentation("""
+    An authorization mode of an AWS API.
 
+    APIs may accept multiple authorization modes which must be configured independently.  
+""")
 union AWSApiAuthorizationMode {
     none: Unit
-    apiKey: ApiKey
+    apiKey: AWSApiKey
     iam: Unit
     oidc: Unit
     userPools: Unit
     function: Unit
 }
 
-string ApiKey
+string AWSApiKey
 
 list AWSApiAuthorizationModes {
     member: AWSApiAuthorizationMode

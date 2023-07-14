@@ -35,9 +35,9 @@ abstract class AWSAuthUserPoolConfig
     Uri? endpoint,
     _i2.AuthenticationFlowType? authFlowType,
     List<_i3.AWSAuthProvider>? socialProviders,
-    Set<_i4.AWSAuthUsernameAttribute>? usernameAttributes,
-    Set<_i2.CognitoUserAttributeKey>? signUpAttributes,
-    Set<_i2.CognitoUserAttributeKey>? verificationMechanisms,
+    List<_i4.AWSAuthUsernameAttribute>? usernameAttributes,
+    List<_i2.CognitoUserAttributeKey>? signUpAttributes,
+    List<_i2.CognitoUserAttributeKey>? verificationMechanisms,
     _i5.AWSAnalyticsPinpointConfig? pinpointConfig,
     _i6.AWSAuthPasswordProtectionSettings? passwordProtectionSettings,
     _i7.AWSAuthMfaConfiguration? mfaConfiguration,
@@ -53,12 +53,12 @@ abstract class AWSAuthUserPoolConfig
       socialProviders:
           socialProviders == null ? null : _i9.BuiltList(socialProviders),
       usernameAttributes:
-          usernameAttributes == null ? null : _i9.BuiltSet(usernameAttributes),
+          usernameAttributes == null ? null : _i9.BuiltList(usernameAttributes),
       signUpAttributes:
-          signUpAttributes == null ? null : _i9.BuiltSet(signUpAttributes),
+          signUpAttributes == null ? null : _i9.BuiltList(signUpAttributes),
       verificationMechanisms: verificationMechanisms == null
           ? null
-          : _i9.BuiltSet(verificationMechanisms),
+          : _i9.BuiltList(verificationMechanisms),
       pinpointConfig: pinpointConfig,
       passwordProtectionSettings: passwordProtectionSettings,
       mfaConfiguration: mfaConfiguration,
@@ -86,9 +86,9 @@ abstract class AWSAuthUserPoolConfig
   Uri? get endpoint;
   _i2.AuthenticationFlowType? get authFlowType;
   _i9.BuiltList<_i3.AWSAuthProvider>? get socialProviders;
-  _i9.BuiltSet<_i4.AWSAuthUsernameAttribute>? get usernameAttributes;
-  _i9.BuiltSet<_i2.CognitoUserAttributeKey>? get signUpAttributes;
-  _i9.BuiltSet<_i2.CognitoUserAttributeKey>? get verificationMechanisms;
+  _i9.BuiltList<_i4.AWSAuthUsernameAttribute>? get usernameAttributes;
+  _i9.BuiltList<_i2.CognitoUserAttributeKey>? get signUpAttributes;
+  _i9.BuiltList<_i2.CognitoUserAttributeKey>? get verificationMechanisms;
   _i5.AWSAnalyticsPinpointConfig? get pinpointConfig;
   _i6.AWSAuthPasswordProtectionSettings? get passwordProtectionSettings;
   _i7.AWSAuthMfaConfiguration? get mfaConfiguration;
@@ -260,10 +260,10 @@ class AWSAuthUserPoolConfigSerializer
           result.signUpAttributes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltSet,
+              _i9.BuiltList,
               [FullType(_i2.CognitoUserAttributeKey)],
             ),
-          ) as _i9.BuiltSet<_i2.CognitoUserAttributeKey>));
+          ) as _i9.BuiltList<_i2.CognitoUserAttributeKey>));
         case 'socialProviders':
           result.socialProviders.replace((serializers.deserialize(
             value,
@@ -276,18 +276,18 @@ class AWSAuthUserPoolConfigSerializer
           result.usernameAttributes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltSet,
+              _i9.BuiltList,
               [FullType(_i4.AWSAuthUsernameAttribute)],
             ),
-          ) as _i9.BuiltSet<_i4.AWSAuthUsernameAttribute>));
+          ) as _i9.BuiltList<_i4.AWSAuthUsernameAttribute>));
         case 'verificationMechanisms':
           result.verificationMechanisms.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltSet,
+              _i9.BuiltList,
               [FullType(_i2.CognitoUserAttributeKey)],
             ),
-          ) as _i9.BuiltSet<_i2.CognitoUserAttributeKey>));
+          ) as _i9.BuiltList<_i2.CognitoUserAttributeKey>));
       }
     }
 
@@ -396,7 +396,7 @@ class AWSAuthUserPoolConfigSerializer
         ..add(serializers.serialize(
           signUpAttributes,
           specifiedType: const FullType(
-            _i9.BuiltSet,
+            _i9.BuiltList,
             [FullType(_i2.CognitoUserAttributeKey)],
           ),
         ));
@@ -418,7 +418,7 @@ class AWSAuthUserPoolConfigSerializer
         ..add(serializers.serialize(
           usernameAttributes,
           specifiedType: const FullType(
-            _i9.BuiltSet,
+            _i9.BuiltList,
             [FullType(_i4.AWSAuthUsernameAttribute)],
           ),
         ));
@@ -429,7 +429,7 @@ class AWSAuthUserPoolConfigSerializer
         ..add(serializers.serialize(
           verificationMechanisms,
           specifiedType: const FullType(
-            _i9.BuiltSet,
+            _i9.BuiltList,
             [FullType(_i2.CognitoUserAttributeKey)],
           ),
         ));

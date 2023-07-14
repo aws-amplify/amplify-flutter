@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /// Experimental Amplify configuration object which supports non-Amplify CLI resources
 /// and easily amending CLI-generated configuration objects.
 ///

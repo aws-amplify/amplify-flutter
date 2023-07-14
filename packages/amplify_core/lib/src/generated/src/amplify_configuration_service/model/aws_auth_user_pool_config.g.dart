@@ -22,11 +22,11 @@ class _$AWSAuthUserPoolConfig extends AWSAuthUserPoolConfig {
   @override
   final _i9.BuiltList<_i3.AWSAuthProvider>? socialProviders;
   @override
-  final _i9.BuiltSet<_i4.AWSAuthUsernameAttribute>? usernameAttributes;
+  final _i9.BuiltList<_i4.AWSAuthUsernameAttribute>? usernameAttributes;
   @override
-  final _i9.BuiltSet<_i2.CognitoUserAttributeKey>? signUpAttributes;
+  final _i9.BuiltList<_i2.CognitoUserAttributeKey>? signUpAttributes;
   @override
-  final _i9.BuiltSet<_i2.CognitoUserAttributeKey>? verificationMechanisms;
+  final _i9.BuiltList<_i2.CognitoUserAttributeKey>? verificationMechanisms;
   @override
   final _i5.AWSAnalyticsPinpointConfig? pinpointConfig;
   @override
@@ -150,28 +150,28 @@ class AWSAuthUserPoolConfigBuilder
   set socialProviders(_i9.ListBuilder<_i3.AWSAuthProvider>? socialProviders) =>
       _$this._socialProviders = socialProviders;
 
-  _i9.SetBuilder<_i4.AWSAuthUsernameAttribute>? _usernameAttributes;
-  _i9.SetBuilder<_i4.AWSAuthUsernameAttribute> get usernameAttributes =>
+  _i9.ListBuilder<_i4.AWSAuthUsernameAttribute>? _usernameAttributes;
+  _i9.ListBuilder<_i4.AWSAuthUsernameAttribute> get usernameAttributes =>
       _$this._usernameAttributes ??=
-          new _i9.SetBuilder<_i4.AWSAuthUsernameAttribute>();
+          new _i9.ListBuilder<_i4.AWSAuthUsernameAttribute>();
   set usernameAttributes(
-          _i9.SetBuilder<_i4.AWSAuthUsernameAttribute>? usernameAttributes) =>
+          _i9.ListBuilder<_i4.AWSAuthUsernameAttribute>? usernameAttributes) =>
       _$this._usernameAttributes = usernameAttributes;
 
-  _i9.SetBuilder<_i2.CognitoUserAttributeKey>? _signUpAttributes;
-  _i9.SetBuilder<_i2.CognitoUserAttributeKey> get signUpAttributes =>
+  _i9.ListBuilder<_i2.CognitoUserAttributeKey>? _signUpAttributes;
+  _i9.ListBuilder<_i2.CognitoUserAttributeKey> get signUpAttributes =>
       _$this._signUpAttributes ??=
-          new _i9.SetBuilder<_i2.CognitoUserAttributeKey>();
+          new _i9.ListBuilder<_i2.CognitoUserAttributeKey>();
   set signUpAttributes(
-          _i9.SetBuilder<_i2.CognitoUserAttributeKey>? signUpAttributes) =>
+          _i9.ListBuilder<_i2.CognitoUserAttributeKey>? signUpAttributes) =>
       _$this._signUpAttributes = signUpAttributes;
 
-  _i9.SetBuilder<_i2.CognitoUserAttributeKey>? _verificationMechanisms;
-  _i9.SetBuilder<_i2.CognitoUserAttributeKey> get verificationMechanisms =>
+  _i9.ListBuilder<_i2.CognitoUserAttributeKey>? _verificationMechanisms;
+  _i9.ListBuilder<_i2.CognitoUserAttributeKey> get verificationMechanisms =>
       _$this._verificationMechanisms ??=
-          new _i9.SetBuilder<_i2.CognitoUserAttributeKey>();
+          new _i9.ListBuilder<_i2.CognitoUserAttributeKey>();
   set verificationMechanisms(
-          _i9.SetBuilder<_i2.CognitoUserAttributeKey>?
+          _i9.ListBuilder<_i2.CognitoUserAttributeKey>?
               verificationMechanisms) =>
       _$this._verificationMechanisms = verificationMechanisms;
 

@@ -101,7 +101,6 @@ union AWSAuthUserAttributeKey {
     custom: String
 }
 
-@uniqueItems
 list AWSAuthUserAttributeKeys {
     member: AWSAuthUserAttributeKey
 }
@@ -111,7 +110,6 @@ enum AWSAuthUsernameAttribute {
     PHONE_NUMBER = "phone_number"
 }
 
-@uniqueItems
 list AWSAuthUsernameAttributes {
     member: AWSAuthUsernameAttribute
 }
@@ -135,7 +133,6 @@ enum AWSAuthMfaType {
     TOTP
 }
 
-@uniqueItems
 list AWSAuthMfaTypes {
     member: AWSAuthMfaType
 }

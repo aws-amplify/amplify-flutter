@@ -13,12 +13,12 @@ import 'package:smithy/smithy.dart' as _i4;
 
 part 'aws_app_sync_endpoint_config.g.dart';
 
-/// Common configuration for a AWS API endpoints
+/// Configuration for an AWS AppSync endpoint.
 abstract class AWSAppSyncEndpointConfig
     with _i1.AWSEquatable<AWSAppSyncEndpointConfig>
     implements
         Built<AWSAppSyncEndpointConfig, AWSAppSyncEndpointConfigBuilder> {
-  /// Common configuration for a AWS API endpoints
+  /// Configuration for an AWS AppSync endpoint.
   factory AWSAppSyncEndpointConfig({
     required Uri endpoint,
     required String region,
@@ -35,7 +35,7 @@ abstract class AWSAppSyncEndpointConfig
     );
   }
 
-  /// Common configuration for a AWS API endpoints
+  /// Configuration for an AWS AppSync endpoint.
   factory AWSAppSyncEndpointConfig.build(
           [void Function(AWSAppSyncEndpointConfigBuilder) updates]) =
       _$AWSAppSyncEndpointConfig;
@@ -53,9 +53,11 @@ abstract class AWSAppSyncEndpointConfig
 
   /// The AWS region where the API is hosted. Used for SigV4 signing.
   String get region;
+
+  /// An authorization mode of an AWS API. APIs may accept multiple authorization modes which must be configured independently.
   _i2.AWSApiAuthorizationMode get authMode;
 
-  /// Additional authorization modes supported by the API. Used by DataStore in multi-auth decisions.
+  /// Additional authorization modes supported by the API. Used by the API/DataStore categories for multi-auth decisions.
   _i3.BuiltList<_i2.AWSApiAuthorizationMode>? get additionalAuthModes;
   @override
   List<Object?> get props => [

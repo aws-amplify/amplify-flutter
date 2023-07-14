@@ -5,8 +5,9 @@
 
 import 'dart:convert';
 
-import 'package:amplify_core/amplify_config.dart' hide AWSApiConfig;
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/amplify_config.dart';
+import 'package:amplify_core/amplify_core.dart' hide AWSApiConfig;
+import 'package:amplify_core/amplify_core.dart' as core;
 import 'package:test/test.dart';
 
 import 'testdata/cli_generated.dart';
@@ -21,20 +22,36 @@ void main() {
           final json = jsonDecode(testData.config) as Map<String, dynamic>;
           addUserConfig(json);
 
-          test('AmplifyConfig ($name)', () {
-            final parsed = AmplifyConfig.fromJson(json);
-            final expectedConfig = expected[name]!;
-            expect(parsed, equals(expectedConfig));
-            expect(expectedConfig.toJson(), equals(json));
-          });
+          final expectedCliConfig = expectedCliConfigs[name]!;
+          final expectedAwsConfig = expectedAwsConfigs[name]!;
 
-          test('AWSAmplifyConfig ($name)', () {
-            final parsed = AmplifyConfig.fromJson(json);
-            final awsConfig = AWSAmplifyConfig.from(parsed);
-            final cliConfig = awsConfig.toCli();
-            final expectedConfig = expected[name]!;
-            expect(cliConfig, equals(parsed));
-            expect(cliConfig, equals(expectedConfig));
+          group(name, () {
+            test('AmplifyConfig.fromJson', () {
+              final cliConfig = AmplifyConfig.fromJson(json);
+              expect(cliConfig, equals(expectedCliConfig));
+              expect(cliConfig.toJson(), equals(json));
+            });
+
+            test('AmplifyConfig.toJson', () {
+              final cliConfig = AmplifyConfig.fromJson(json);
+              expect(cliConfig.toJson(), equals(json));
+            });
+
+            test('AWSAmplifyConfig.from', () {
+              final cliConfig = AmplifyConfig.fromJson(json);
+              final awsConfig = AWSAmplifyConfig.from(cliConfig);
+              expect(awsConfig, equals(expectedAwsConfig));
+            });
+
+            test('AWSAmplifyConfig.toJson', () {
+              final awsConfig = AWSAmplifyConfig.parse(jsonEncode(json));
+              expect(awsConfig.toJson(), equals(expectedAwsConfig.toJson()));
+            });
+
+            test('AWSAmplifyConfig.toCli', () {
+              final awsConfig = AWSAmplifyConfig.parse(jsonEncode(json));
+              expect(awsConfig.toCli(), equals(expectedCliConfig));
+            });
           });
         }
       });
@@ -48,7 +65,7 @@ void addUserConfig(Map<String, dynamic> json) {
       ?['autoFlushEventsInterval'] = ANALYTICS_FLUSH_INTERVAL;
 }
 
-const expected = {
+const expectedCliConfigs = {
   'Empty': AmplifyConfig(),
   'Analytics': AmplifyConfig(
     analytics: AnalyticsConfig(
@@ -68,20 +85,20 @@ const expected = {
     api: ApiConfig(
       plugins: {
         AWSApiPluginConfig.pluginKey: AWSApiPluginConfig({
-          'myApi_API_KEY': AWSApiConfig(
+          'myApi_API_KEY': core.AWSApiConfig(
             endpointType: EndpointType.graphQL,
             endpoint: GRAPHQL_ENDPOINT,
             region: REGION,
             authorizationType: APIAuthorizationType.apiKey,
             apiKey: API_KEY,
           ),
-          'myApi_AWS_IAM': AWSApiConfig(
+          'myApi_AWS_IAM': core.AWSApiConfig(
             endpointType: EndpointType.graphQL,
             endpoint: GRAPHQL_ENDPOINT,
             region: REGION,
             authorizationType: APIAuthorizationType.iam,
           ),
-          'REST': AWSApiConfig(
+          'REST': core.AWSApiConfig(
             endpointType: EndpointType.rest,
             endpoint: REST_ENDPOINT,
             region: REGION,
@@ -181,6 +198,98 @@ const expected = {
       plugins: {
         S3PluginConfig.pluginKey: S3PluginConfig(
           bucket: BUCKET,
+          region: REGION,
+        ),
+      },
+    ),
+  ),
+};
+
+final expectedAwsConfigs = {
+  'Empty': AWSAmplifyConfig(),
+  'Analytics': AWSAmplifyConfig(
+    analytics: AWSAnalyticsConfig.pinpoint(
+      appId: ANALYTICS_APP_ID,
+      region: REGION,
+      autoFlushEventsInterval: ANALYTICS_FLUSH_INTERVAL,
+    ),
+  ),
+  'API': AWSAmplifyConfig(
+    api: AWSApiConfig(
+      apis: {
+        'myApi': AWSApiEndpointConfig.appSync(
+          endpoint: Uri.parse(GRAPHQL_ENDPOINT),
+          region: REGION,
+          authMode: const AWSApiAuthorizationMode.apiKey(API_KEY),
+          additionalAuthModes: [
+            const AWSApiAuthorizationMode.iam(),
+          ],
+        ),
+        'REST': AWSApiEndpointConfig.apiGateway(
+          endpoint: Uri.parse(REST_ENDPOINT),
+          region: REGION,
+          authMode: const AWSApiAuthorizationMode.userPools(),
+        ),
+      },
+    ),
+  ),
+  'Auth': AWSAmplifyConfig(
+    auth: AWSAuthConfig.cognito(
+      userPool: AWSAuthUserPoolConfig(
+        poolId: USERPOOL_ID,
+        region: REGION,
+        clientId: APPCLIENT_ID,
+        clientSecret: APPCLIENT_SECERT,
+        authFlowType: AuthenticationFlowType.userSrpAuth,
+        mfaConfiguration: AWSAuthMfaConfiguration(
+          status: MfaConfiguration.optional,
+          enabledTypes: [MfaType.sms, MfaType.totp],
+        ),
+        passwordProtectionSettings: AWSAuthPasswordProtectionSettings(
+          passwordPolicyCharacters: [
+            PasswordPolicyCharacters.requiresLowercase,
+          ],
+        ),
+        socialProviders: const [AWSAuthProvider.google()],
+        usernameAttributes: [AWSAuthUsernameAttribute.email],
+        signUpAttributes: [
+          CognitoUserAttributeKey.email,
+          CognitoUserAttributeKey.phoneNumber,
+        ],
+        verificationMechanisms: [
+          CognitoUserAttributeKey.email,
+          CognitoUserAttributeKey.phoneNumber,
+        ],
+        hostedUi: AWSAuthHostedUiConfig(
+          clientId: APPCLIENT_ID,
+          clientSecret: APPCLIENT_SECERT,
+          scopes: [
+            'phone',
+            'email',
+            'openid',
+            'profile',
+            'aws.cognito.signin.user.admin',
+          ],
+          signInRedirectUris: [Uri.parse(OAUTH_SIGNIN)],
+          signOutRedirectUris: [Uri.parse(OAUTH_SIGNOUT)],
+          domainName: OAUTH_DOMAIN,
+        ),
+        pinpointConfig: AWSAnalyticsPinpointConfig(
+          appId: ANALYTICS_APP_ID,
+          region: REGION,
+        ),
+      ),
+      identityPool: AWSAuthIdentityPoolConfig(
+        poolId: IDPOOL_ID,
+        region: REGION,
+      ),
+    ),
+  ),
+  'Storage': AWSAmplifyConfig(
+    storage: AWSStorageConfig.s3(
+      buckets: {
+        BUCKET: AWSStorageS3Bucket(
+          bucketName: BUCKET,
           region: REGION,
         ),
       },

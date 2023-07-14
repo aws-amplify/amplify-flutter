@@ -17,11 +17,11 @@ abstract class AWSAuthMfaConfiguration
     implements Built<AWSAuthMfaConfiguration, AWSAuthMfaConfigurationBuilder> {
   factory AWSAuthMfaConfiguration({
     required _i2.MfaConfiguration status,
-    required Set<_i2.MfaType> enabledTypes,
+    required List<_i2.MfaType> enabledTypes,
   }) {
     return _$AWSAuthMfaConfiguration._(
       status: status,
-      enabledTypes: _i3.BuiltSet(enabledTypes),
+      enabledTypes: _i3.BuiltList(enabledTypes),
     );
   }
 
@@ -37,7 +37,7 @@ abstract class AWSAuthMfaConfiguration
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AWSAuthMfaConfigurationBuilder b) {}
   _i2.MfaConfiguration get status;
-  _i3.BuiltSet<_i2.MfaType> get enabledTypes;
+  _i3.BuiltList<_i2.MfaType> get enabledTypes;
   @override
   List<Object?> get props => [
         status,
@@ -94,10 +94,10 @@ class AWSAuthMfaConfigurationSerializer
           result.enabledTypes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltSet,
+              _i3.BuiltList,
               [FullType(_i2.MfaType)],
             ),
-          ) as _i3.BuiltSet<_i2.MfaType>));
+          ) as _i3.BuiltList<_i2.MfaType>));
         case 'status':
           result.status = (serializers.deserialize(
             value,
@@ -122,7 +122,7 @@ class AWSAuthMfaConfigurationSerializer
       serializers.serialize(
         enabledTypes,
         specifiedType: const FullType(
-          _i3.BuiltSet,
+          _i3.BuiltList,
           [FullType(_i2.MfaType)],
         ),
       ),

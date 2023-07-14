@@ -9,9 +9,10 @@ part of 'api_config.dart';
 AWSApiConfig _$AWSApiConfigFromJson(Map<String, dynamic> json) => AWSApiConfig(
       endpointType: $enumDecode(_$EndpointTypeEnumMap, json['endpointType']),
       endpoint: json['endpoint'] as String,
-      region: json['region'] as String,
-      authorizationType:
-          $enumDecode(_$APIAuthorizationTypeEnumMap, json['authorizationType']),
+      region: json['region'] as String?,
+      authorizationType: $enumDecodeNullable(
+              _$APIAuthorizationTypeEnumMap, json['authorizationType']) ??
+          APIAuthorizationType.none,
       apiKey: json['apiKey'] as String?,
     );
 
@@ -19,9 +20,6 @@ Map<String, dynamic> _$AWSApiConfigToJson(AWSApiConfig instance) {
   final val = <String, dynamic>{
     'endpointType': _$EndpointTypeEnumMap[instance.endpointType]!,
     'endpoint': instance.endpoint,
-    'region': instance.region,
-    'authorizationType':
-        _$APIAuthorizationTypeEnumMap[instance.authorizationType]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -30,6 +28,9 @@ Map<String, dynamic> _$AWSApiConfigToJson(AWSApiConfig instance) {
     }
   }
 
+  writeNotNull('region', instance.region);
+  val['authorizationType'] =
+      _$APIAuthorizationTypeEnumMap[instance.authorizationType]!;
   writeNotNull('apiKey', instance.apiKey);
   return val;
 }

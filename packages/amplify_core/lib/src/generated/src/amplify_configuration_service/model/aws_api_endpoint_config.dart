@@ -55,13 +55,13 @@ sealed class AWSApiEndpointConfig
     AWSApiEndpointConfigSerializer()
   ];
 
-  /// Common configuration for a AWS API endpoints
+  /// Configuration for an AWS AppSync endpoint.
   _i3.AWSAppSyncEndpointConfig? get appSync => null;
 
-  /// Common configuration for a AWS API endpoints
+  /// Configuration for an AWS API Gateway endpoint.
   _i4.AWSApiGatewayEndpointConfig? get apiGateway => null;
 
-  /// Configuration for a non-AWS REST endpoint
+  /// Configuration for a non-APIGW REST endpoint. Automatic authorization is not supported for these endpoints. To configure authorization, use a custom HTTP client which can add the required headers to each request.
   _i5.AWSRestEndpointConfig? get rest => null;
   @override
   Object get value => (appSync ?? apiGateway ?? rest)!;
