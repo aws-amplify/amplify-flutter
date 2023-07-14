@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
       await Amplify.configure(amplifyconfig);
       _logger.debug('Successfully configured Amplify');
     } on Exception catch (error) {
-      _logger.debug('Something went wrong configuring Amplify: $error');
+      _logger.error('Something went wrong configuring Amplify: $error');
     }
   }
 
@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final session = await Amplify.Auth.fetchAuthSession();
       _logger.debug('Signed in: ${session.isSignedIn}');
     } on AuthException catch (e) {
-      _logger.debug('Could not check auth status - ${e.message}');
+      _logger.error('Could not check auth status - ${e.message}');
     }
   }
 
@@ -166,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ).result;
       await _listAllPublicFiles();
     } on StorageException catch (e) {
-      _logger.debug('Error uploading file - ${e.message}');
+      _logger.error('Error uploading file - ${e.message}');
     }
   }
 
@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
         list = result.items;
       });
     } on StorageException catch (e) {
-      _logger.debug('List error - ${e.message}');
+      _logger.error('List error - ${e.message}');
     }
   }
 
@@ -200,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ).result;
       await _listAllPublicFiles();
     } on StorageException catch (e) {
-      _logger.debug('Download error - ${e.message}');
+      _logger.error('Download error - ${e.message}');
     }
   }
 
@@ -213,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ).result;
       await _listAllPublicFiles();
     } on StorageException catch (e) {
-      _logger.debug('Download error - ${e.message}');
+      _logger.error('Download error - ${e.message}');
     }
   }
 
@@ -229,8 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ).result;
       await _listAllPublicFiles();
     } on StorageException catch (e) {
-      _logger.debug('Delete error - ${e.message}');
-      rethrow;
+      _logger.error('Delete error - ${e.message}');
     }
   }
 
@@ -255,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
       });
       return result.url.toString();
     } on StorageException catch (e) {
-      _logger.debug('Get URL error - ${e.message}');
+      _logger.error('Get URL error - ${e.message}');
       rethrow;
     }
   }
