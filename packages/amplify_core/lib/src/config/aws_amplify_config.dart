@@ -10,6 +10,7 @@ import 'package:amplify_core/src/generated/src/amplify_configuration_service/com
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
+import 'package:collection/collection.dart';
 
 part 'aws_amplify_config.g.dart';
 
@@ -51,24 +52,67 @@ abstract class AWSAmplifyConfig
         );
       }
       if (config.api?.awsPlugin case final apiConfig?) {
-        b.api.apis.addAll(
-          apiConfig.endpoints.map((key, api) {
-            // TODO(dnys1): multi-auth
-            final endpoint = switch (api.endpointType) {
-              EndpointType.graphQL => AWSApiEndpointConfig.appSync(
-                  endpoint: Uri.parse(api.endpoint),
-                  region: api.region,
-                  authMode: api.authorizationType.asAWSAuthMode(api.apiKey),
-                ),
-              EndpointType.rest => AWSApiEndpointConfig.apiGateway(
-                  endpoint: Uri.parse(api.endpoint),
-                  region: api.region,
-                  authMode: api.authorizationType.asAWSAuthMode(api.apiKey),
-                ),
-            };
-            return MapEntry(key, endpoint);
-          }),
-        );
+        final endpoints = Map.of(apiConfig.endpoints);
+        while (endpoints.isNotEmpty) {
+          var apiName = endpoints.keys.first;
+          final cliEndpoint = endpoints.remove(apiName)!;
+          final defaultAuthMode = cliEndpoint.defaultAuthMode;
+          final endpoint = Uri.parse(cliEndpoint.endpoint);
+          final config =
+              switch ((cliEndpoint.endpointType, cliEndpoint.region)) {
+            (EndpointType.graphQL, final region?) => () {
+                // Fix API name if it follows multi-auth naming of `<API_NAME>_<AUTH_MODE>`
+                for (final authType in APIAuthorizationType.values) {
+                  final suffix = '_${authType.rawValue}';
+                  if (apiName.endsWith(suffix)) {
+                    apiName = apiName.replaceAll(RegExp('$suffix\$'), '');
+                    break;
+                  }
+                }
+                // Search for additional authorization modes.
+                final additionalAuthModes = {
+                  // When an API key is specified but is not the primary auth mode.
+                  if (cliEndpoint.apiKey case final apiKey?
+                      when cliEndpoint.authorizationType !=
+                          APIAuthorizationType.apiKey)
+                    AWSApiAuthorizationMode.apiKey(apiKey),
+                };
+                // Check for other APIs which have the same endpoint but different auth modes.
+                for (final authType in APIAuthorizationType.values) {
+                  final secondaryEndpoint = endpoints.entries.firstWhereOrNull(
+                    (api) =>
+                        api.value.endpoint == cliEndpoint.endpoint &&
+                        api.value.endpointType == cliEndpoint.endpointType &&
+                        api.value.region == cliEndpoint.region &&
+                        api.value.authorizationType == authType,
+                  );
+                  if (secondaryEndpoint != null) {
+                    additionalAuthModes
+                        .add(secondaryEndpoint.value.defaultAuthMode);
+                    endpoints.remove(secondaryEndpoint.key);
+                  }
+                }
+                return AWSApiEndpointConfig.appSync(
+                  endpoint: endpoint,
+                  region: region,
+                  authMode: defaultAuthMode,
+                  additionalAuthModes: additionalAuthModes.toList(),
+                );
+              }(),
+            (EndpointType.rest, final region?) =>
+              AWSApiEndpointConfig.apiGateway(
+                endpoint: endpoint,
+                region: region,
+                authMode: defaultAuthMode,
+              ),
+            (EndpointType.rest, null) =>
+              AWSApiEndpointConfig.rest(endpoint: endpoint),
+            _ => throw ArgumentError(
+                'Invalid endpoint configuration: $cliEndpoint',
+              ),
+          };
+          b.api.apis[apiName] = config;
+        }
       }
       if (config.auth?.awsPlugin case final authConfig?) {
         b.auth = AWSAuthConfigCognito$(
@@ -654,39 +698,74 @@ abstract class AWSAmplifyConfig
 
     ApiConfig? api;
     if (this.api?.apis case final apis?) {
+      final endpoints = <String, core.AWSApiConfig>{};
+      void addEndpoint(String name, AWSApiEndpointConfig endpointConfig) {
+        final endpoint = switch (endpointConfig) {
+          AWSApiEndpointConfigAppSync$(:final appSync) => core.AWSApiConfig(
+              endpointType: EndpointType.graphQL,
+              endpoint: appSync.endpoint.toString(),
+              region: appSync.region,
+              authorizationType: appSync.authMode.asCli,
+              apiKey: switch (appSync.authMode) {
+                AWSApiAuthorizationModeApiKey$(:final apiKey) => apiKey,
+                _ => null,
+              },
+            ),
+          AWSApiEndpointConfigApiGateway$(:final apiGateway) =>
+            core.AWSApiConfig(
+              endpointType: EndpointType.rest,
+              endpoint: apiGateway.endpoint.toString(),
+              region: apiGateway.region,
+              authorizationType: apiGateway.authMode.asCli,
+              apiKey: switch (apiGateway.authMode) {
+                AWSApiAuthorizationModeApiKey$(:final apiKey) => apiKey,
+                _ => null,
+              },
+            ),
+          AWSApiEndpointConfigRest$(:final rest) => core.AWSApiConfig(
+              endpointType: EndpointType.rest,
+              endpoint: rest.endpoint.toString(),
+              authorizationType: APIAuthorizationType.none,
+            ),
+          _ => throw ArgumentError(
+              'Unsupported CLI endpoint type: $endpointConfig',
+            ),
+        };
+
+        // Add a multi-auth config as `<API_NAME>_<AUTH_MODE>` for each additional
+        // authorization mode.
+        if (endpointConfig
+            case AWSApiEndpointConfigAppSync$(
+              appSync: AWSAppSyncEndpointConfig(:final additionalAuthModes?)
+            ) when additionalAuthModes.isNotEmpty) {
+          for (final authMode in additionalAuthModes) {
+            final authType = authMode.asCli.rawValue;
+            addEndpoint(
+              '${name}_$authType',
+              AWSApiEndpointConfigAppSync$(
+                endpointConfig.appSync.rebuild(
+                  (b) => b
+                    ..authMode = authMode
+                    ..additionalAuthModes.clear(),
+                ),
+              ),
+            );
+          }
+          // Correct name for multi-auth scheme.
+          final suffix = '_${endpoint.authorizationType.rawValue}';
+          if (!name.endsWith(suffix)) {
+            name = '$name$suffix';
+          }
+        }
+        endpoints[name] = endpoint;
+      }
+
+      for (final MapEntry(key: name, value: endpointConfig) in apis.entries) {
+        addEndpoint(name, endpointConfig);
+      }
       api = ApiConfig(
         plugins: {
-          AWSApiPluginConfig.pluginKey: AWSApiPluginConfig({
-            for (final MapEntry(key: name, value: endpointConfig)
-                in apis.entries)
-              name: switch (endpointConfig) {
-                AWSApiEndpointConfigAppSync$(:final appSync) =>
-                  core.AWSApiConfig(
-                    endpointType: EndpointType.graphQL,
-                    endpoint: appSync.endpoint.toString(),
-                    region: appSync.region,
-                    authorizationType: appSync.authMode.asCli,
-                    apiKey: switch (appSync.authMode) {
-                      AWSApiAuthorizationModeApiKey$(:final apiKey) => apiKey,
-                      _ => null,
-                    },
-                  ),
-                AWSApiEndpointConfigApiGateway$(:final apiGateway) =>
-                  core.AWSApiConfig(
-                    endpointType: EndpointType.rest,
-                    endpoint: apiGateway.endpoint.toString(),
-                    region: apiGateway.region,
-                    authorizationType: apiGateway.authMode.asCli,
-                    apiKey: switch (apiGateway.authMode) {
-                      AWSApiAuthorizationModeApiKey$(:final apiKey) => apiKey,
-                      _ => null,
-                    },
-                  ),
-                _ => throw ArgumentError(
-                    'Unsupported CLI endpoint type: $endpointConfig',
-                  ),
-              }
-          })
+          AWSApiPluginConfig.pluginKey: AWSApiPluginConfig(endpoints),
         },
       );
     }
@@ -956,18 +1035,17 @@ extension<T extends Object> on T {
   R? let<R>(R Function(T) fn) => fn(this);
 }
 
-extension on APIAuthorizationType {
-  AWSApiAuthorizationMode asAWSAuthMode(String? apiKey) {
-    return switch (this) {
-      APIAuthorizationType.apiKey => AWSApiAuthorizationMode.apiKey(apiKey!),
-      APIAuthorizationType.iam => const AWSApiAuthorizationMode.iam(),
-      APIAuthorizationType.userPools =>
-        const AWSApiAuthorizationMode.userPools(),
-      APIAuthorizationType.oidc => const AWSApiAuthorizationMode.oidc(),
-      APIAuthorizationType.function => const AWSApiAuthorizationMode.function(),
-      APIAuthorizationType.none => const AWSApiAuthorizationMode.none(),
-    };
-  }
+extension on core.AWSApiConfig {
+  AWSApiAuthorizationMode get defaultAuthMode => switch (authorizationType) {
+        APIAuthorizationType.apiKey => AWSApiAuthorizationMode.apiKey(apiKey!),
+        APIAuthorizationType.iam => const AWSApiAuthorizationMode.iam(),
+        APIAuthorizationType.userPools =>
+          const AWSApiAuthorizationMode.userPools(),
+        APIAuthorizationType.oidc => const AWSApiAuthorizationMode.oidc(),
+        APIAuthorizationType.function =>
+          const AWSApiAuthorizationMode.function(),
+        APIAuthorizationType.none => const AWSApiAuthorizationMode.none(),
+      };
 }
 
 extension on AWSApiAuthorizationMode {

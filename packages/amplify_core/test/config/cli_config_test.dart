@@ -68,14 +68,14 @@ const expected = {
     api: ApiConfig(
       plugins: {
         AWSApiPluginConfig.pluginKey: AWSApiPluginConfig({
-          'API_KEY': AWSApiConfig(
+          'myApi_API_KEY': AWSApiConfig(
             endpointType: EndpointType.graphQL,
             endpoint: GRAPHQL_ENDPOINT,
             region: REGION,
             authorizationType: APIAuthorizationType.apiKey,
             apiKey: API_KEY,
           ),
-          'AWS_IAM': AWSApiConfig(
+          'myApi_AWS_IAM': AWSApiConfig(
             endpointType: EndpointType.graphQL,
             endpoint: GRAPHQL_ENDPOINT,
             region: REGION,

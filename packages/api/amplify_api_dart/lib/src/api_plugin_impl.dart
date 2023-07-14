@@ -82,22 +82,12 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     }
     for (final MapEntry(key: apiName, value: endpointConfig)
         in apiConfig.apis.entries) {
-      switch (endpointConfig) {
-        case AWSApiEndpointConfigApiGateway$(
-                appSync: AWSApiGatewayEndpointConfig(:final endpoint)
-              ) ||
-              AWSApiEndpointConfigAppSync$(
-                appSync: AWSAppSyncEndpointConfig(:final endpoint)
-              ):
-          if (endpoint.scheme != 'https') {
-            throw ConfigurationError(
-              'Non-HTTPS endpoint found for "$apiName" which is not supported.',
-              recoverySuggestion:
-                  'Ensure the configured endpoint for "$apiName" utilizes https.',
-            );
-          }
-        case _:
-          break;
+      if (endpointConfig.endpoint.scheme != 'https') {
+        throw ConfigurationError(
+          'Non-HTTPS endpoint found for "$apiName" which is not supported.',
+          recoverySuggestion:
+              'Ensure the configured endpoint for "$apiName" utilizes https.',
+        );
       }
     }
     _apiConfig = apiConfig;
@@ -114,31 +104,11 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   /// Register OIDC/Lambda set to _authProviders in constructor.
   void _registerApiPluginAuthProviders() {
     _apiConfig.apis.forEach((apiName, endpointConfig) {
-      switch (endpointConfig) {
-        // Check the presence of apiKey (not auth type) because other modes might
-        // have a key if not the primary auth mode.
-        case AWSApiEndpointConfigApiGateway$(
-                apiGateway: AWSApiGatewayEndpointConfig(
-                  authMode: AWSApiAuthorizationModeApiKey$ _
-                )
-              ) ||
-              AWSApiEndpointConfigAppSync$(
-                appSync: AWSAppSyncEndpointConfig(
-                  authMode: AWSApiAuthorizationModeApiKey$ _
-                )
-              ):
-        case AWSApiEndpointConfigAppSync$(
-              appSync: AWSAppSyncEndpointConfig(:final additionalAuthModes?)
-            )
-            when additionalAuthModes
-                .whereType<AWSApiAuthorizationModeApiKey$>()
-                .isNotEmpty:
-          _authProviderRepo.registerAuthProvider(
-            APIAuthorizationType.apiKey.authProviderToken,
-            AppSyncApiKeyAuthProvider(),
-          );
-        case _:
-          break;
+      if (endpointConfig.apiKey != null) {
+        _authProviderRepo.registerAuthProvider(
+          APIAuthorizationType.apiKey.authProviderToken,
+          AppSyncApiKeyAuthProvider(),
+        );
       }
     });
 
@@ -194,13 +164,15 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   }
 
   WebSocketBloc _webSocketBloc({String? apiName}) {
-    final endpoint = _apiConfig.getEndpoint(
-      type: EndpointType.graphQL,
-      apiName: apiName,
-    ) as AWSApiEndpointConfigAppSync$;
+    final endpoint = _apiConfig
+        .getEndpoint(
+          type: EndpointType.graphQL,
+          apiName: apiName,
+        )
+        .config;
 
     return _webSocketBlocPool[endpoint.name] ??=
-        createWebSocketBloc(endpoint.appSync)
+        createWebSocketBloc(endpoint.appSync!)
           ..stream.listen((event) {
             _emitHubEvent(event);
             if (event is PendingDisconnect) {

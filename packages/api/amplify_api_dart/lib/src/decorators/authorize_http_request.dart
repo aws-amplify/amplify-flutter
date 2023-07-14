@@ -33,7 +33,7 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
         ),
         authType,
       );
-      final apiKey = endpointConfig.defaultAuthorizationMode?.apiKey;
+      final apiKey = endpointConfig.apiKey;
       if (apiKey == null) {
         throw ConfigurationError(
           'Auth mode is API Key, but no API Key was found in config.',

@@ -92,10 +92,10 @@ const testVectors = [
         metadata: {
             ...defaultMetadata,
             api: {
-                API_KEY: {
+                myApi_API_KEY: {
                     ...makeAppSyncConfig(API_KEY_AUTH_TYPE)
                 },
-                AWS_IAM: {
+                myApi_AWS_IAM: {
                     ...makeAppSyncConfig(IAM_AUTH_TYPE)
                 },
                 REST: {

@@ -97,13 +97,13 @@ extension AWSApiEndpointConfigHelpers on AWSApiEndpointConfig {
         AWSApiEndpointConfigAppSync$ _ => EndpointType.graphQL,
         AWSApiEndpointConfigApiGateway$ _ ||
         AWSApiEndpointConfigRest$ _ =>
-          EndpointType.graphQL,
+          EndpointType.rest,
         _ => throw ArgumentError('Invalid API: $this'),
       };
 
   /// The default API authorization mode.
-  AWSApiAuthorizationMode? get defaultAuthorizationMode => switch (this) {
-        AWSApiEndpointConfigRest$ _ => null,
+  AWSApiAuthorizationMode get defaultAuthorizationMode => switch (this) {
+        AWSApiEndpointConfigRest$ _ => const AWSApiAuthorizationMode.none(),
         AWSApiEndpointConfigApiGateway$(
           apiGateway: AWSApiGatewayEndpointConfig(:final authMode)
         ) ||
@@ -116,15 +116,39 @@ extension AWSApiEndpointConfigHelpers on AWSApiEndpointConfig {
 
   /// The default API authorization type.
   APIAuthorizationType get defaultAuthorizationType =>
-      switch (defaultAuthorizationMode) {
-        null => APIAuthorizationType.none,
-        final authMode => authMode.authorizationType,
-      };
+      defaultAuthorizationMode.authorizationType;
+
+  /// All the auth modes for the API.
+  Iterable<AWSApiAuthorizationMode> get allAuthModes sync* {
+    yield defaultAuthorizationMode;
+    if (appSync case AWSAppSyncEndpointConfig(:final additionalAuthModes?)) {
+      yield* additionalAuthModes;
+    }
+  }
 
   /// The API key for the endpoint.
-  String? get apiKey => switch (defaultAuthorizationMode) {
-        AWSApiAuthorizationModeApiKey$(:final apiKey) => apiKey,
-        _ => null,
+  String? get apiKey {
+    for (final authMode in allAuthModes) {
+      if (authMode case AWSApiAuthorizationModeApiKey$(:final apiKey)) {
+        return apiKey;
+      }
+    }
+    return null;
+  }
+
+  /// The endpoint of the API.
+  Uri get endpoint => switch (this) {
+        AWSApiEndpointConfigAppSync$(
+          appSync: AWSAppSyncEndpointConfig(:final endpoint)
+        ) ||
+        AWSApiEndpointConfigApiGateway$(
+          apiGateway: AWSApiGatewayEndpointConfig(:final endpoint)
+        ) ||
+        AWSApiEndpointConfigRest$(
+          rest: AWSRestEndpointConfig(:final endpoint)
+        ) =>
+          endpoint,
+        _ => throw ArgumentError('Invalid endpoint config: $this'),
       };
 }
 

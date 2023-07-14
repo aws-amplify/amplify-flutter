@@ -236,7 +236,7 @@ abstract class AmplifyPushNotifications
       // Config is securely stored to be used to re-configure Amplify in the background processor function when the app is killed
       await _amplifySecureStorage.write(
         key: configSecureStorageKey,
-        value: jsonEncode(config),
+        value: jsonEncode(config!.toCli().toJson()),
       );
     }
 

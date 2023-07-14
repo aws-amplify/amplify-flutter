@@ -25,6 +25,8 @@ on:
       - 'packages/smithy/smithy/pubspec.yaml'
       - 'packages/smithy/smithy_aws/lib/**/*.dart'
       - 'packages/smithy/smithy_aws/pubspec.yaml'
+      - 'packages/smithy/smithy_codegen/lib/**/*.dart'
+      - 'packages/smithy/smithy_codegen/pubspec.yaml'
       - 'packages/storage/amplify_storage_s3/**/*.dart'
       - 'packages/storage/amplify_storage_s3/**/*.yaml'
       - 'packages/storage/amplify_storage_s3/lib/**/*'

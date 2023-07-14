@@ -152,14 +152,14 @@ const _v4api = '''
   "api": {
     "plugins": {
       "awsAPIPlugin": {
-        "API_KEY": {
+        "myApi_API_KEY": {
           "endpointType": "GraphQL",
           "endpoint": "$GRAPHQL_ENDPOINT",
           "region": "$REGION",
           "authorizationType": "API_KEY",
           "apiKey": "$API_KEY"
         },
-        "AWS_IAM": {
+        "myApi_AWS_IAM": {
           "endpointType": "GraphQL",
           "endpoint": "$GRAPHQL_ENDPOINT",
           "region": "$REGION",
@@ -334,14 +334,14 @@ const _v5api = '''
   "api": {
     "plugins": {
       "awsAPIPlugin": {
-        "API_KEY": {
+        "myApi_API_KEY": {
           "endpointType": "GraphQL",
           "endpoint": "$GRAPHQL_ENDPOINT",
           "region": "$REGION",
           "authorizationType": "API_KEY",
           "apiKey": "$API_KEY"
         },
-        "AWS_IAM": {
+        "myApi_AWS_IAM": {
           "endpointType": "GraphQL",
           "endpoint": "$GRAPHQL_ENDPOINT",
           "region": "$REGION",
@@ -516,14 +516,14 @@ const _v6api = '''
   "api": {
     "plugins": {
       "awsAPIPlugin": {
-        "API_KEY": {
+        "myApi_API_KEY": {
           "endpointType": "GraphQL",
           "endpoint": "$GRAPHQL_ENDPOINT",
           "region": "$REGION",
           "authorizationType": "API_KEY",
           "apiKey": "$API_KEY"
         },
-        "AWS_IAM": {
+        "myApi_AWS_IAM": {
           "endpointType": "GraphQL",
           "endpoint": "$GRAPHQL_ENDPOINT",
           "region": "$REGION",
@@ -698,14 +698,14 @@ const _v7api = '''
   "api": {
     "plugins": {
       "awsAPIPlugin": {
-        "API_KEY": {
+        "myApi_API_KEY": {
           "endpointType": "GraphQL",
           "endpoint": "$GRAPHQL_ENDPOINT",
           "region": "$REGION",
           "authorizationType": "API_KEY",
           "apiKey": "$API_KEY"
         },
-        "AWS_IAM": {
+        "myApi_AWS_IAM": {
           "endpointType": "GraphQL",
           "endpoint": "$GRAPHQL_ENDPOINT",
           "region": "$REGION",
@@ -880,14 +880,14 @@ const _vlatestapi = '''
   "api": {
     "plugins": {
       "awsAPIPlugin": {
-        "API_KEY": {
+        "myApi_API_KEY": {
           "endpointType": "GraphQL",
           "endpoint": "$GRAPHQL_ENDPOINT",
           "region": "$REGION",
           "authorizationType": "API_KEY",
           "apiKey": "$API_KEY"
         },
-        "AWS_IAM": {
+        "myApi_AWS_IAM": {
           "endpointType": "GraphQL",
           "endpoint": "$GRAPHQL_ENDPOINT",
           "region": "$REGION",
