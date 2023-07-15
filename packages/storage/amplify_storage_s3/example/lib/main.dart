@@ -227,6 +227,12 @@ class _HomeScreenState extends State<HomeScreen> {
         key: key,
         options: StorageRemoveOptions(accessLevel: accessLevel),
       ).result;
+      setState(() {
+        // set the imageUrl to empty if the deleted file is the one being displayed
+        if (imageUrl.contains(key)) {
+          imageUrl = '';
+        }
+      });
       await _listAllPublicFiles();
     } on StorageException catch (e) {
       _logger.error('Delete error - ${e.message}');
