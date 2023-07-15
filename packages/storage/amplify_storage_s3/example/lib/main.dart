@@ -318,31 +318,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          // display the url of the image
-          if (imageUrl != '')
-            Positioned(
-              bottom: 300,
-              left: 20,
-              right: 20,
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Text(
-                        'Image URL:',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                    Text(
-                      imageUrl,
-                      style: const TextStyle(fontSize: 5),
-                    ),
-                  ],
-                ),
-              ),
-            ),
           // display the image with the url
           if (imageUrl != '')
             Align(
