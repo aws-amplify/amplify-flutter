@@ -8,7 +8,6 @@ import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:path_provider/path_provider.dart';
@@ -196,7 +195,8 @@ class _HomeScreenState extends State<HomeScreen> {
         key: key,
         localFile: AWSFile.fromPath(filepath),
         onProgress: (p0) => _logger
-            .debug('Progress: ${p0.transferredBytes} / ${p0.totalBytes}%)'),
+            // .debug('Progress: ${p0.transferredBytes} / ${p0.totalBytes}%'),
+            .debug('Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%'),
       ).result;
       await _listAllPublicFiles();
     } on StorageException catch (e) {
@@ -274,40 +274,38 @@ class _HomeScreenState extends State<HomeScreen> {
           Center(
             child: Padding(
               padding: const EdgeInsets.all(20),
-              child: ListView(
-                children: [
-                  for (final item in list)
-                    ListTile(
-                      onTap: () => {
-                        getUrl(
+              child: ListView.builder(
+                itemCount: list.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final item = list[index];
+                  return ListTile(
+                    onTap: () {
+                      getUrl(
+                        key: item.key,
+                        accessLevel: StorageAccessLevel.guest,
+                      );
+                    },
+                    title: Text(item.key),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {
+                        removeFile(
                           key: item.key,
                           accessLevel: StorageAccessLevel.guest,
-                        )
+                        );
                       },
-                      title: Text(item.key),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () {
-                              removeFile(
-                                key: item.key,
-                                accessLevel: StorageAccessLevel.guest,
-                              );
-                            },
-                            color: Colors.red,
-                          ),
-                        ],
-                      ),
-                      leading: IconButton(
-                        icon: const Icon(Icons.download),
-                        onPressed: () => zIsWeb
-                            ? downloadFileWeb(item.key)
-                            : downloadFileMobile(item.key),
-                      ),
+                      color: Colors.red,
                     ),
-                ],
+                    leading: IconButton(
+                      icon: const Icon(Icons.download),
+                      onPressed: () {
+                        zIsWeb
+                            ? downloadFileWeb(item.key)
+                            : downloadFileMobile(item.key);
+                      },
+                    ),
+                  );
+                },
               ),
             ),
           ),
