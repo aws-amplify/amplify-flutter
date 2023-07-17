@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// Generated with `aft generate sdk`. Do not modify by hand.
+
 /// The enumeration of AWS services.
 ///
 /// This enumeration is used to configure the SigV4 signer. To use a service
