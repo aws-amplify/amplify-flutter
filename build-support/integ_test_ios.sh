@@ -64,6 +64,7 @@ do
     if flutter test \
         --no-pub \
         -d $deviceId \
+        --verbose \
         $TARGET;
     then
         resultsList+=(0)
@@ -106,6 +107,7 @@ for ENTRY in $TEST_ENTRIES; do
               --no-pub \
               --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
               -d $deviceId \
+              --verbose \
               $ENTRY;
         then
             resultsList+=(0)

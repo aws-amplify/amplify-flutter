@@ -10,6 +10,9 @@ on:
   pull_request:
     paths:
       - ".github/workflows/amplify_integration_tests.yaml"
+      - "build-support/integ_test_ios.sh"
+      - "build-support/integ_test.sh"
+      - "build-support/pull_backend_by_app_id.sh"
   schedule:
     # 6am pacific time daily, only runs on default branch
     - cron: "0 13 * * *"
