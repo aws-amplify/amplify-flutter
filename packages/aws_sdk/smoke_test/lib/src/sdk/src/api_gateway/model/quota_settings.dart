@@ -43,8 +43,9 @@ abstract class QuotaSettings
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(QuotaSettingsBuilder b) {
-    b.limit = 0;
-    b.offset = 0;
+    b
+      ..limit = 0
+      ..offset = 0;
   }
 
   /// The target maximum number of requests that can be made in a given time period.

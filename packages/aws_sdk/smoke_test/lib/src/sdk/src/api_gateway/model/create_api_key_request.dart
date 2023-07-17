@@ -63,8 +63,9 @@ abstract class CreateApiKeyRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateApiKeyRequestBuilder b) {
-    b.enabled = false;
-    b.generateDistinctId = false;
+    b
+      ..enabled = false
+      ..generateDistinctId = false;
   }
 
   /// The name of the ApiKey.

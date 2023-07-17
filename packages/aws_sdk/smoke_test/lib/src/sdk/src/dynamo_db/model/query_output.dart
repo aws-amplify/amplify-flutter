@@ -60,8 +60,9 @@ abstract class QueryOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(QueryOutputBuilder b) {
-    b.count = 0;
-    b.scannedCount = 0;
+    b
+      ..count = 0
+      ..scannedCount = 0;
   }
 
   /// An array of item attributes that match the query criteria. Each element in this array consists of an attribute name and the value for that attribute.

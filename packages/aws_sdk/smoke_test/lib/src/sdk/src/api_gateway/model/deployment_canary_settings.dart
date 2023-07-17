@@ -45,8 +45,9 @@ abstract class DeploymentCanarySettings
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeploymentCanarySettingsBuilder b) {
-    b.percentTraffic = 0;
-    b.useStageCache = false;
+    b
+      ..percentTraffic = 0
+      ..useStageCache = false;
   }
 
   /// The percentage (0.0-100.0) of traffic routed to the canary deployment.

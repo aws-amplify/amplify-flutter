@@ -39,8 +39,9 @@ abstract class ThrottleSettings
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ThrottleSettingsBuilder b) {
-    b.burstLimit = 0;
-    b.rateLimit = 0;
+    b
+      ..burstLimit = 0
+      ..rateLimit = 0;
   }
 
   /// The API target request burst rate limit. This allows more requests through for a period of time than the target rate limit.

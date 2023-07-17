@@ -47,8 +47,9 @@ abstract class ProvisionedThroughput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ProvisionedThroughputBuilder b) {
-    b.readCapacityUnits = _i2.Int64.ZERO;
-    b.writeCapacityUnits = _i2.Int64.ZERO;
+    b
+      ..readCapacityUnits = _i2.Int64.ZERO
+      ..writeCapacityUnits = _i2.Int64.ZERO;
   }
 
   /// The maximum number of strongly consistent reads consumed per second before DynamoDB returns a `ThrottlingException`. For more information, see [Specifying Read and Write Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html) in the _Amazon DynamoDB Developer Guide_.

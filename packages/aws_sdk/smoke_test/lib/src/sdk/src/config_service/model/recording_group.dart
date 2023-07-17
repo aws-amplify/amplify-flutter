@@ -89,8 +89,9 @@ abstract class RecordingGroup
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RecordingGroupBuilder b) {
-    b.allSupported = false;
-    b.includeGlobalResourceTypes = false;
+    b
+      ..allSupported = false
+      ..includeGlobalResourceTypes = false;
   }
 
   /// Specifies whether Config records configuration changes for all supported regional resource types.

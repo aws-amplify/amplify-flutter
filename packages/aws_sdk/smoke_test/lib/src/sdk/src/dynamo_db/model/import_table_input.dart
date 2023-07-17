@@ -31,11 +31,9 @@ abstract class ImportTableInput
     _i6.InputCompressionType? inputCompressionType,
     required _i7.TableCreationParameters tableCreationParameters,
   }) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      clientToken ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      clientToken ??= _i2.uuid(secure: true);
-    }
+    clientToken ??= const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
     return _$ImportTableInput._(
       clientToken: clientToken,
       s3BucketSource: s3BucketSource,
@@ -64,11 +62,9 @@ abstract class ImportTableInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ImportTableInputBuilder b) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.clientToken = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.clientToken = _i2.uuid(secure: true);
-    }
+    b.clientToken = const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
   }
 
   /// Providing a `ClientToken` makes the call to `ImportTableInput` idempotent, meaning that multiple identical calls have the same effect as one single call.

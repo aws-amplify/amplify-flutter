@@ -28,11 +28,9 @@ abstract class TransactWriteItemsInput
     _i5.ReturnItemCollectionMetrics? returnItemCollectionMetrics,
     String? clientRequestToken,
   }) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      clientRequestToken ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      clientRequestToken ??= _i2.uuid(secure: true);
-    }
+    clientRequestToken ??= const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
     return _$TransactWriteItemsInput._(
       transactItems: _i6.BuiltList(transactItems),
       returnConsumedCapacity: returnConsumedCapacity,
@@ -59,11 +57,9 @@ abstract class TransactWriteItemsInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TransactWriteItemsInputBuilder b) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.clientRequestToken = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.clientRequestToken = _i2.uuid(secure: true);
-    }
+    b.clientRequestToken = const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
   }
 
   /// An ordered array of up to 100 `TransactWriteItem` objects, each of which contains a `ConditionCheck`, `Put`, `Update`, or `Delete` object. These can operate on items in different tables, but the tables must reside in the same Amazon Web Services account and Region, and no two of them can operate on the same item.
