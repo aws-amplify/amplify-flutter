@@ -65,12 +65,13 @@ abstract class PasswordPolicy
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PasswordPolicyBuilder b) {
-    b.requireSymbols = false;
-    b.requireNumbers = false;
-    b.requireUppercaseCharacters = false;
-    b.requireLowercaseCharacters = false;
-    b.allowUsersToChangePassword = false;
-    b.expirePasswords = false;
+    b
+      ..requireSymbols = false
+      ..requireNumbers = false
+      ..requireUppercaseCharacters = false
+      ..requireLowercaseCharacters = false
+      ..allowUsersToChangePassword = false
+      ..expirePasswords = false;
   }
 
   /// Minimum length to require for IAM user passwords.

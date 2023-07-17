@@ -65,14 +65,15 @@ abstract class MethodSetting
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MethodSettingBuilder b) {
-    b.metricsEnabled = false;
-    b.dataTraceEnabled = false;
-    b.throttlingBurstLimit = 0;
-    b.throttlingRateLimit = 0;
-    b.cachingEnabled = false;
-    b.cacheTtlInSeconds = 0;
-    b.cacheDataEncrypted = false;
-    b.requireAuthorizationForCacheControl = false;
+    b
+      ..metricsEnabled = false
+      ..dataTraceEnabled = false
+      ..throttlingBurstLimit = 0
+      ..throttlingRateLimit = 0
+      ..cachingEnabled = false
+      ..cacheTtlInSeconds = 0
+      ..cacheDataEncrypted = false
+      ..requireAuthorizationForCacheControl = false;
   }
 
   /// Specifies whether Amazon CloudWatch metrics are enabled for this method. The PATCH path for this setting is `/{method\_setting\_key}/metrics/enabled`, and the value is a Boolean.

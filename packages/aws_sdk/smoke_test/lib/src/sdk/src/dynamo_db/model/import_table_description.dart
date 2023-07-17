@@ -87,9 +87,10 @@ abstract class ImportTableDescription
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ImportTableDescriptionBuilder b) {
-    b.errorCount = _i4.Int64.ZERO;
-    b.processedItemCount = _i4.Int64.ZERO;
-    b.importedItemCount = _i4.Int64.ZERO;
+    b
+      ..errorCount = _i4.Int64.ZERO
+      ..processedItemCount = _i4.Int64.ZERO
+      ..importedItemCount = _i4.Int64.ZERO;
   }
 
   /// The Amazon Resource Number (ARN) corresponding to the import request.

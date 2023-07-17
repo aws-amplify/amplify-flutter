@@ -40,8 +40,9 @@ abstract class ComplianceContributorCount
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplianceContributorCountBuilder b) {
-    b.cappedCount = 0;
-    b.capExceeded = false;
+    b
+      ..cappedCount = 0
+      ..capExceeded = false;
   }
 
   /// The number of Amazon Web Services resources or Config rules responsible for the current compliance of the item.

@@ -53,8 +53,9 @@ abstract class SelectAggregateResourceConfigRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SelectAggregateResourceConfigRequestBuilder b) {
-    b.limit = 0;
-    b.maxResults = 0;
+    b
+      ..limit = 0
+      ..maxResults = 0;
   }
 
   /// The SQL query SELECT command.

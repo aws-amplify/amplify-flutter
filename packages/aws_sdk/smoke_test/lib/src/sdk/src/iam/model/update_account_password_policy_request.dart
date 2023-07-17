@@ -64,11 +64,12 @@ abstract class UpdateAccountPasswordPolicyRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateAccountPasswordPolicyRequestBuilder b) {
-    b.requireSymbols = false;
-    b.requireNumbers = false;
-    b.requireUppercaseCharacters = false;
-    b.requireLowercaseCharacters = false;
-    b.allowUsersToChangePassword = false;
+    b
+      ..requireSymbols = false
+      ..requireNumbers = false
+      ..requireUppercaseCharacters = false
+      ..requireLowercaseCharacters = false
+      ..allowUsersToChangePassword = false;
   }
 
   /// The minimum number of characters allowed in an IAM user password.

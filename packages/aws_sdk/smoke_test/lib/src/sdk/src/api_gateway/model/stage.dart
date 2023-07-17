@@ -87,8 +87,9 @@ abstract class Stage
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StageBuilder b) {
-    b.cacheClusterEnabled = false;
-    b.tracingEnabled = false;
+    b
+      ..cacheClusterEnabled = false
+      ..tracingEnabled = false;
   }
 
   /// The identifier of the Deployment that the stage points to.

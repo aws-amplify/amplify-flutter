@@ -58,8 +58,9 @@ abstract class HttpRequestWithFloatLabelsInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpRequestWithFloatLabelsInputBuilder b) {
-    b.float = 0;
-    b.double_ = 0;
+    b
+      ..float = 0
+      ..double_ = 0;
   }
 
   double get float;

@@ -44,8 +44,9 @@ abstract class Position
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PositionBuilder b) {
-    b.line = 0;
-    b.column = 0;
+    b
+      ..line = 0
+      ..column = 0;
   }
 
   /// The line containing the specified position in the document.

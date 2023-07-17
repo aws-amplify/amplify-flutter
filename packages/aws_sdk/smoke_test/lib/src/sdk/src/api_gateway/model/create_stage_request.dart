@@ -94,8 +94,9 @@ abstract class CreateStageRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateStageRequestBuilder b) {
-    b.cacheClusterEnabled = false;
-    b.tracingEnabled = false;
+    b
+      ..cacheClusterEnabled = false
+      ..tracingEnabled = false;
   }
 
   /// The string identifier of the associated RestApi.
@@ -239,8 +240,9 @@ abstract class CreateStageRequestPayload
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateStageRequestPayloadBuilder b) {
-    b.cacheClusterEnabled = false;
-    b.tracingEnabled = false;
+    b
+      ..cacheClusterEnabled = false
+      ..tracingEnabled = false;
   }
 
   /// Whether cache clustering is enabled for the stage.
