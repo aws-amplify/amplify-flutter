@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.create_stack_set_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,11 +46,9 @@ abstract class CreateStackSetInput
     String? clientRequestToken,
     _i9.ManagedExecution? managedExecution,
   }) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      clientRequestToken ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      clientRequestToken ??= _i2.uuid(secure: true);
-    }
+    clientRequestToken ??= const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
     return _$CreateStackSetInput._(
       stackSetName: stackSetName,
       description: description,
@@ -89,11 +87,9 @@ abstract class CreateStackSetInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateStackSetInputBuilder b) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.clientRequestToken = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.clientRequestToken = _i2.uuid(secure: true);
-    }
+    b.clientRequestToken = const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
   }
 
   /// The name to associate with the stack set. The name must be unique in the Region where you create your stack set.

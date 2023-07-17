@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@category Auth}
 /// {@template amplify_common.hub.auth_hub_event_type}
 /// Hub Event types for the Auth category.
 /// {@endtemplate}
@@ -26,6 +27,7 @@ enum AuthHubEventType {
   final String eventName;
 }
 
+/// {@category Auth}
 /// The base class for hub events of the Auth category.
 ///
 /// One of [AuthHubEventType.values].

@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@category Auth}
 /// User attributes available for configuring via `Amplify.Auth.signUp`,
 /// or updating via `Amplify.Auth.updateUserAttribute` and
 /// `Amplify.Auth.updateUserAttributes`.
@@ -11,6 +12,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// [here](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html).
 ///
 /// Use [CognitoUserAttributeKey.custom] to create a custom Cognito attribute.
+/// {@hideConstantImplementations}
 class CognitoUserAttributeKey extends AuthUserAttributeKey {
   const CognitoUserAttributeKey._(this._key, {this.readOnly = false})
       : isCustom = false;
@@ -208,6 +210,7 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey {
   String get runtimeTypeName => 'CognitoUserAttributeKey';
 }
 
+/// @nodoc
 extension ToCognitoUserAttributeKey on AuthUserAttributeKey {
   CognitoUserAttributeKey toCognitoUserAttributeKey() {
     if (this is CognitoUserAttributeKey) {

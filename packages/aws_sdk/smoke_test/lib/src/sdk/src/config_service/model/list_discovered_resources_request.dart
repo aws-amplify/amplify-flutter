@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.list_discovered_resources_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -58,8 +58,9 @@ abstract class ListDiscoveredResourcesRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListDiscoveredResourcesRequestBuilder b) {
-    b.limit = 0;
-    b.includeDeletedResources = false;
+    b
+      ..limit = 0
+      ..includeDeletedResources = false;
   }
 
   /// The type of resources that you want Config to list in the response.
