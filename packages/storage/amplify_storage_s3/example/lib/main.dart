@@ -229,9 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ).result;
       setState(() {
         // set the imageUrl to empty if the deleted file is the one being displayed
-        if (imageUrl.contains(key)) {
-          imageUrl = '';
-        }
+        imageUrl = '';
       });
       await _listAllPublicFiles();
     } on StorageException catch (e) {
