@@ -8,7 +8,9 @@ import 'dart:io';
 import 'package:aft/aft.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:async/async.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:checked_yaml/checked_yaml.dart';
+import 'package:code_builder/code_builder.dart';
 import 'package:collection/collection.dart';
 import 'package:git/git.dart';
 import 'package:path/path.dart' as p;
@@ -146,6 +148,9 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
 
   /// Generates the SDK for [package].
   Future<void> _generateForPackage(PackageInfo package) async {
+    if (package.name == 'aws_common') {
+      return _generateAwsConfig(package);
+    }
     final configFile = File(p.join(package.path, 'sdk.yaml'));
     if (!await configFile.exists()) {
       return;
@@ -273,6 +278,112 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
     if (exitCode != 0) {
       exitError('`dart run build_runner build` failed: $exitCode.');
     }
+  }
+
+  /// Generates common AWS configuration files, e.g. `aws_service.dart`.
+  Future<void> _generateAwsConfig(PackageInfo awsCommon) async {
+    logger.info('Generating AWS configuration files...');
+    const classDocs = '''
+    /// The enumeration of AWS services.
+    /// 
+    /// This enumeration is used to configure the SigV4 signer. To use a service
+    /// that is not listed here, call [AWSService.new] directly.''';
+    final builder = LibraryBuilder();
+    final awsService = ClassBuilder()
+      ..name = 'AWSService'
+      ..docs.add(classDocs)
+      ..constructors.add(
+        Constructor(
+          (c) => c
+            ..constant = true
+            ..docs.add(
+              '/// Creates a new [AWSService] instance which can be passed to a SigV4 signer.',
+            )
+            ..requiredParameters.addAll([
+              Parameter(
+                (p) => p
+                  ..toThis = true
+                  ..name = 'service',
+              )
+            ]),
+        ),
+      )
+      ..fields.addAll([
+        Field(
+          (f) => f
+            ..modifier = FieldModifier.final$
+            ..docs.add('/// The SigV4 service name, used in signing.')
+            ..name = 'service'
+            ..type = refer('String'),
+        )
+      ]);
+
+    final modelsDir = await _modelsDirForRef('master');
+    final models = modelsDir.list().whereType<File>();
+    final services = <Field>[];
+    await for (final model in models) {
+      final astJson = await model.readAsString();
+      final ast = parseAstJson(astJson);
+      final serviceShape = ast.shapes.values.whereType<ServiceShape>().single;
+      final sigV4Trait = serviceShape.getTrait<SigV4Trait>();
+      final serviceTrait = serviceShape.expectTrait<ServiceTrait>();
+      final serviceName = serviceTrait.sdkId.camelCase;
+      final sigV4Service = sigV4Trait?.name;
+      if (sigV4Service == null) {
+        logger.warn('Skipping $serviceName (no SigV4 service name)');
+        continue;
+      }
+      final title = serviceShape.getTrait<TitleTrait>()?.value;
+      logger.debug('Found AWS service "$serviceName"');
+      services.add(
+        Field(
+          (f) => f
+            ..static = true
+            ..modifier = FieldModifier.constant
+            ..docs.addAll([if (title != null) '/// $title'])
+            ..name = serviceName
+            ..assignment = refer('AWSService').constInstance([
+              literalString(sigV4Service),
+            ]).code,
+        ),
+      );
+    }
+
+    awsService.fields.addAll(
+      services..sort((a, b) => a.name.compareTo(b.name)),
+    );
+    builder.body.add(awsService.build());
+
+    final library = builder.build();
+    final emitter = DartEmitter(
+      allocator: Allocator(),
+      orderDirectives: true,
+      useNullSafetySyntax: true,
+    );
+    final code = '''
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+// Generated with `aft generate sdk`. Do not modify by hand.
+
+${library.accept(emitter)}
+''';
+
+    final output = File(
+      p.join(
+        awsCommon.path,
+        'lib',
+        'src',
+        'config',
+        'aws_service.dart',
+      ),
+    );
+    await output.writeAsString(code);
+    await Process.run(
+      'dart',
+      ['format', output.path],
+      workingDirectory: awsCommon.path,
+    );
   }
 
   @override

@@ -1,11 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-/// {@template aws_common.aws_service}
-/// Enumeration of AWS services.
-/// {@endtemplate}
-final class AWSService {
-  /// {@macro aws_common.aws_service}
+// Generated with `aft generate sdk`. Do not modify by hand.
+
+/// The enumeration of AWS services.
+///
+/// This enumeration is used to configure the SigV4 signer. To use a service
+/// that is not listed here, call [AWSService.new] directly.
+class AWSService {
+  /// Creates a new [AWSService] instance which can be passed to a SigV4 signer.
   const AWSService(this.service);
 
   /// The SigV4 service name, used in signing.
@@ -52,6 +55,9 @@ final class AWSService {
 
   /// AWS AppConfig Data
   static const appConfigData = AWSService('appconfig');
+
+  /// AppFabric
+  static const appFabric = AWSService('appfabric');
 
   /// Amazon AppIntegrations Service
   static const appIntegrations = AWSService('app-integrations');
