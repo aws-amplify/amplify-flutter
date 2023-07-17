@@ -10,7 +10,6 @@ import 'package:amplify_core/src/generated/src/amplify_configuration_service/com
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
-import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart' hide Serializer;
 
@@ -142,6 +141,7 @@ abstract class AWSAmplifyConfig
         AWSLoggerMixin
     implements Built<AWSAmplifyConfig, AWSAmplifyConfigBuilder> {
   /// {@macro amplify_core.aws_amplify_config}
+  @experimental
   factory AWSAmplifyConfig({
     AWSAnalyticsConfig? analytics,
     AWSApiConfig? api,
@@ -161,11 +161,13 @@ abstract class AWSAmplifyConfig
   }
 
   /// Builds an [AWSAmplifyConfig] using an [AWSAmplifyConfigBuilder].
+  @experimental
   factory AWSAmplifyConfig.build([
     void Function(AWSAmplifyConfigBuilder) updates,
   ]) = _$AWSAmplifyConfig;
 
   /// Creates an [AWSAmplifyConfig] from an [core.AmplifyConfig].
+  @experimental
   factory AWSAmplifyConfig.from(AmplifyConfig config) {
     return AWSAmplifyConfig.build((b) {
       if (config.analytics?.awsPlugin case final analyticsConfig?) {
@@ -179,51 +181,18 @@ abstract class AWSAmplifyConfig
       if (config.api?.awsPlugin case final apiConfig?) {
         final endpoints = Map.of(apiConfig.endpoints);
         while (endpoints.isNotEmpty) {
-          var apiName = endpoints.keys.first;
+          final apiName = endpoints.keys.first;
           final cliEndpoint = endpoints.remove(apiName)!;
           final defaultAuthMode = cliEndpoint.defaultAuthMode;
           final endpoint = Uri.parse(cliEndpoint.endpoint);
           final config =
               switch ((cliEndpoint.endpointType, cliEndpoint.region)) {
-            (EndpointType.graphQL, final region?) => () {
-                // Fix API name if it follows multi-auth naming of `<API_NAME>_<AUTH_MODE>`
-                for (final authType in APIAuthorizationType.values) {
-                  final suffix = '_${authType.rawValue}';
-                  if (apiName.endsWith(suffix)) {
-                    apiName = apiName.replaceAll(RegExp('$suffix\$'), '');
-                    break;
-                  }
-                }
-                // Search for additional authorization modes.
-                final additionalAuthModes = {
-                  // When an API key is specified but is not the primary auth mode.
-                  if (cliEndpoint.apiKey case final apiKey?
-                      when cliEndpoint.authorizationType !=
-                          APIAuthorizationType.apiKey)
-                    AWSApiAuthorizationMode.apiKey(apiKey),
-                };
-                // Check for other APIs which have the same endpoint but different auth modes.
-                for (final authType in APIAuthorizationType.values) {
-                  final secondaryEndpoint = endpoints.entries.firstWhereOrNull(
-                    (api) =>
-                        api.value.endpoint == cliEndpoint.endpoint &&
-                        api.value.endpointType == cliEndpoint.endpointType &&
-                        api.value.region == cliEndpoint.region &&
-                        api.value.authorizationType == authType,
-                  );
-                  if (secondaryEndpoint != null) {
-                    additionalAuthModes
-                        .add(secondaryEndpoint.value.defaultAuthMode);
-                    endpoints.remove(secondaryEndpoint.key);
-                  }
-                }
-                return AWSApiEndpointConfig.appSync(
-                  endpoint: endpoint,
-                  region: region,
-                  authMode: defaultAuthMode,
-                  additionalAuthModes: additionalAuthModes.toList(),
-                );
-              }(),
+            (EndpointType.graphQL, final region?) =>
+              AWSApiEndpointConfig.appSync(
+                endpoint: endpoint,
+                region: region,
+                authMode: defaultAuthMode,
+              ),
             (EndpointType.rest, final region?) =>
               AWSApiEndpointConfig.apiGateway(
                 endpoint: endpoint,
@@ -419,6 +388,7 @@ abstract class AWSAmplifyConfig
 
   /// Parses an Amplify configuration from a generated `amplifyconfiguration.dart`
   /// file.
+  @experimental
   factory AWSAmplifyConfig.parse(String amplifyconfig) {
     final config = AmplifyConfig.fromJson(
       jsonDecode(amplifyconfig) as Map<String, dynamic>,
@@ -439,6 +409,7 @@ abstract class AWSAmplifyConfig
   AWSStorageConfig? get storage;
 
   /// Adds a user pool to the configuration or replaces the existing one.
+  @useResult
   AWSAmplifyConfig withUserPool({
     required String poolId,
     required String region,
@@ -486,6 +457,7 @@ abstract class AWSAmplifyConfig
       });
 
   /// Adds a user pool to the configuration or updates the existing one.
+  @useResult
   AWSAmplifyConfig updateUserPool(
     void Function(AWSAuthUserPoolConfigBuilder userPool) builder,
   ) =>
@@ -509,6 +481,7 @@ abstract class AWSAmplifyConfig
       });
 
   /// Adds an identity pool to the configuration or replaces the existing one.
+  @useResult
   AWSAmplifyConfig withIdentityPool({
     required String poolId,
     required String region,
@@ -536,6 +509,7 @@ abstract class AWSAmplifyConfig
       });
 
   /// Adds an identity pool to the configuration or updates the existing one.
+  @useResult
   AWSAmplifyConfig updateIdentityPool(
     void Function(AWSAuthIdentityPoolConfigBuilder identityPool) builder,
   ) =>
@@ -559,6 +533,7 @@ abstract class AWSAmplifyConfig
       });
 
   /// Adds a GraphQL API to the configuration or replaces the existing one.
+  @useResult
   AWSAmplifyConfig withGraphQlApi(
     String apiName, {
     required Uri endpoint,
@@ -571,31 +546,40 @@ abstract class AWSAmplifyConfig
           endpoint: endpoint,
           region: region,
           authMode: authMode,
+          additionalAuthModes: additionalAuthModes,
         );
         b.api.apis[apiName] = endpointConfig;
       });
 
   /// Adds a GraphQL API to the configuration or updates the existing one.
+  @useResult
   AWSAmplifyConfig updateGraphQlApi(
     String apiName,
     void Function(AWSAppSyncEndpointConfigBuilder api) builder,
   ) =>
       rebuild((b) {
-        b.api.apis.updateValue(apiName, (endpoint) {
-          switch (endpoint.value) {
-            case AWSApiEndpointConfigAppSync$(:final appSync):
-              return AWSApiEndpointConfigAppSync$(
-                appSync.rebuild(builder),
-              );
-            case final nonAppSyncEndpoint:
-              throw ArgumentError(
-                'A non-AppSync endpoint is already registered for $apiName: $nonAppSyncEndpoint',
-              );
-          }
-        });
+        b.api.apis.updateValue(
+          apiName,
+          (endpoint) {
+            switch (endpoint.value) {
+              case AWSApiEndpointConfigAppSync$(:final appSync):
+                return AWSApiEndpointConfigAppSync$(
+                  appSync.rebuild(builder),
+                );
+              case final nonAppSyncEndpoint:
+                throw ArgumentError(
+                  'A non-AppSync endpoint is already registered for $apiName: $nonAppSyncEndpoint',
+                );
+            }
+          },
+          ifAbsent: () => AWSApiEndpointConfigAppSync$(
+            AWSAppSyncEndpointConfig.build(builder),
+          ),
+        );
       });
 
   /// Adds a REST API to the configuration or replaces the existing one.
+  @useResult
   AWSAmplifyConfig withRestApi(
     String apiName, {
     required Uri endpoint,
@@ -612,26 +596,34 @@ abstract class AWSAmplifyConfig
       });
 
   /// Adds a REST API to the configuration or updates the existing one.
+  @useResult
   AWSAmplifyConfig updateRestApi(
     String apiName,
     void Function(AWSApiGatewayEndpointConfigBuilder api) builder,
   ) =>
       rebuild((b) {
-        b.api.apis.updateValue(apiName, (endpoint) {
-          switch (endpoint.value) {
-            case AWSApiEndpointConfigApiGateway$(:final apiGateway):
-              return AWSApiEndpointConfigApiGateway$(
-                apiGateway.rebuild(builder),
-              );
-            case final nonApiGatewayEndpoint:
-              throw ArgumentError(
-                'A non-API Gateway endpoint is already registered for $apiName: $nonApiGatewayEndpoint',
-              );
-          }
-        });
+        b.api.apis.updateValue(
+          apiName,
+          (endpoint) {
+            switch (endpoint.value) {
+              case AWSApiEndpointConfigApiGateway$(:final apiGateway):
+                return AWSApiEndpointConfigApiGateway$(
+                  apiGateway.rebuild(builder),
+                );
+              case final nonApiGatewayEndpoint:
+                throw ArgumentError(
+                  'A non-API Gateway endpoint is already registered for $apiName: $nonApiGatewayEndpoint',
+                );
+            }
+          },
+          ifAbsent: () => AWSApiEndpointConfigApiGateway$(
+            AWSApiGatewayEndpointConfig.build(builder),
+          ),
+        );
       });
 
   /// Adds a Pinpoint Analytics project to the configuration or replaces the existing one.
+  @useResult
   AWSAmplifyConfig withAnalytics({
     required String appId,
     required String region,
@@ -646,6 +638,7 @@ abstract class AWSAmplifyConfig
       });
 
   /// Adds a Pinpoint Analytics project to the configuration or updates the existing one.
+  @useResult
   AWSAmplifyConfig updateAnalytics(
     void Function(AWSAnalyticsPinpointConfigBuilder pinpoint) builder,
   ) =>
@@ -667,6 +660,7 @@ abstract class AWSAmplifyConfig
       });
 
   /// Adds a CloudWatch log group to the configuration or replaces the existing one.
+  @useResult
   AWSAmplifyConfig withLogging({
     required String logGroupName,
     required String region,
@@ -689,6 +683,7 @@ abstract class AWSAmplifyConfig
       });
 
   /// Adds a CloudWatch log group to the configuration or updates the existing one.
+  @useResult
   AWSAmplifyConfig updateLogging(
     void Function(AWSLoggingCloudWatchConfigBuilder cloudWatch) builder,
   ) =>
@@ -710,6 +705,7 @@ abstract class AWSAmplifyConfig
       });
 
   /// Adds a Pinpoint Push Notifications project to the configuration or replaces the existing one.
+  @useResult
   AWSAmplifyConfig withPushNotifications({
     required String appId,
     required String region,
@@ -721,6 +717,7 @@ abstract class AWSAmplifyConfig
       });
 
   /// Adds a Pinpoint Analytics project to the configuration or updates the existing one.
+  @useResult
   AWSAmplifyConfig updatePushNotifications(
     void Function(AWSPushNotificationsPinpointConfigBuilder push) builder,
   ) =>
@@ -744,6 +741,7 @@ abstract class AWSAmplifyConfig
       });
 
   /// Adds an S3 storage bucket with name [bucketName] or replaces the existing one.
+  @useResult
   AWSAmplifyConfig withStorageBucket({
     required String bucketName,
     required String region,
@@ -774,6 +772,7 @@ abstract class AWSAmplifyConfig
       });
 
   /// Adds an S3 storage bucket with name [bucketName] or updates the existing one.
+  @useResult
   AWSAmplifyConfig updateStorageBucket(
     String bucketName,
     void Function(AWSStorageS3BucketBuilder bucket) builder,
@@ -802,6 +801,7 @@ abstract class AWSAmplifyConfig
       });
 
   /// Converts this to a CLI-compatible representation.
+  @useResult
   AmplifyConfig toCli() {
     AnalyticsConfig? analytics;
     if (this.analytics?.pinpoint
@@ -830,7 +830,7 @@ abstract class AWSAmplifyConfig
               endpointType: EndpointType.graphQL,
               endpoint: appSync.endpoint.toString(),
               region: appSync.region,
-              authorizationType: appSync.authMode.asCli,
+              authorizationType: appSync.authMode.authorizationType,
               apiKey: switch (appSync.authMode) {
                 AWSApiAuthorizationModeApiKey$(:final apiKey) => apiKey,
                 _ => null,
@@ -841,7 +841,7 @@ abstract class AWSAmplifyConfig
               endpointType: EndpointType.rest,
               endpoint: apiGateway.endpoint.toString(),
               region: apiGateway.region,
-              authorizationType: apiGateway.authMode.asCli,
+              authorizationType: apiGateway.authMode.authorizationType,
               apiKey: switch (apiGateway.authMode) {
                 AWSApiAuthorizationModeApiKey$(:final apiKey) => apiKey,
                 _ => null,
@@ -856,32 +856,6 @@ abstract class AWSAmplifyConfig
               'Unsupported CLI endpoint type: $endpointConfig',
             ),
         };
-
-        // Add a multi-auth config as `<API_NAME>_<AUTH_MODE>` for each additional
-        // authorization mode.
-        if (endpointConfig
-            case AWSApiEndpointConfigAppSync$(
-              appSync: AWSAppSyncEndpointConfig(:final additionalAuthModes?)
-            ) when additionalAuthModes.isNotEmpty) {
-          for (final authMode in additionalAuthModes) {
-            final authType = authMode.asCli.rawValue;
-            addEndpoint(
-              '${name}_$authType',
-              AWSApiEndpointConfigAppSync$(
-                endpointConfig.appSync.rebuild(
-                  (b) => b
-                    ..authMode = authMode
-                    ..additionalAuthModes.clear(),
-                ),
-              ),
-            );
-          }
-          // Correct name for multi-auth scheme.
-          final suffix = '_${endpoint.authorizationType.rawValue}';
-          if (!name.endsWith(suffix)) {
-            name = '$name$suffix';
-          }
-        }
         endpoints[name] = endpoint;
       }
 
@@ -1169,6 +1143,84 @@ extension<T extends Object> on T {
   R? let<R>(R Function(T) fn) => fn(this);
 }
 
+/// Helpers for working with [AWSApiEndpointConfig].
+extension AWSApiEndpointConfigHelpers on AWSApiEndpointConfig {
+  /// The endpoint type of this.
+  EndpointType get endpointType => switch (this) {
+        AWSApiEndpointConfigAppSync$ _ => EndpointType.graphQL,
+        AWSApiEndpointConfigApiGateway$ _ ||
+        AWSApiEndpointConfigRest$ _ =>
+          EndpointType.rest,
+        _ => throw ArgumentError('Invalid API: $this'),
+      };
+
+  /// The default API authorization mode.
+  AWSApiAuthorizationMode get defaultAuthorizationMode => switch (this) {
+        AWSApiEndpointConfigRest$ _ => const AWSApiAuthorizationMode.none(),
+        AWSApiEndpointConfigApiGateway$(
+          apiGateway: AWSApiGatewayEndpointConfig(:final authMode)
+        ) =>
+          authMode,
+        AWSApiEndpointConfigAppSync$(
+          appSync: AWSAppSyncEndpointConfig(:final authMode)
+        ) =>
+          authMode,
+        _ => throw ArgumentError('Invalid endpoint config: $this'),
+      };
+
+  /// The default API authorization type.
+  APIAuthorizationType get defaultAuthorizationType =>
+      defaultAuthorizationMode.authorizationType;
+
+  /// All the auth modes for the API.
+  Iterable<AWSApiAuthorizationMode> get allAuthModes sync* {
+    yield defaultAuthorizationMode;
+    if (appSync case AWSAppSyncEndpointConfig(:final additionalAuthModes?)) {
+      yield* additionalAuthModes;
+    }
+  }
+
+  /// The API key for the endpoint.
+  String? get apiKey {
+    for (final authMode in allAuthModes) {
+      if (authMode case AWSApiAuthorizationModeApiKey$(:final apiKey)) {
+        return apiKey;
+      }
+    }
+    return null;
+  }
+
+  /// The endpoint of the API.
+  Uri get endpoint => switch (this) {
+        AWSApiEndpointConfigAppSync$(
+          appSync: AWSAppSyncEndpointConfig(:final endpoint)
+        ) =>
+          endpoint,
+        AWSApiEndpointConfigApiGateway$(
+          apiGateway: AWSApiGatewayEndpointConfig(:final endpoint)
+        ) =>
+          endpoint,
+        AWSApiEndpointConfigRest$(
+          rest: AWSRestEndpointConfig(:final endpoint)
+        ) =>
+          endpoint,
+        _ => throw ArgumentError('Invalid endpoint config: $this'),
+      };
+
+  /// The AWS region of the [endpoint].
+  String? get awsRegion => switch (this) {
+        AWSApiEndpointConfigApiGateway$(
+          apiGateway: AWSApiGatewayEndpointConfig(:final region)
+        ) =>
+          region,
+        AWSApiEndpointConfigAppSync$(
+          appSync: AWSAppSyncEndpointConfig(:final region)
+        ) =>
+          region,
+        _ => null,
+      };
+}
+
 extension on core.AWSApiConfig {
   AWSApiAuthorizationMode get defaultAuthMode => switch (authorizationType) {
         APIAuthorizationType.apiKey => AWSApiAuthorizationMode.apiKey(apiKey!),
@@ -1182,8 +1234,10 @@ extension on core.AWSApiConfig {
       };
 }
 
-extension on AWSApiAuthorizationMode {
-  APIAuthorizationType get asCli => switch (this) {
+/// Helpers for working with [AWSApiAuthorizationMode].
+extension AWSApiAuthorizationModeHelpers on AWSApiAuthorizationMode {
+  /// The CLI [APIAuthorizationType] of this.
+  APIAuthorizationType get authorizationType => switch (this) {
         AWSApiAuthorizationModeApiKey$ _ => APIAuthorizationType.apiKey,
         AWSApiAuthorizationModeIam$ _ => APIAuthorizationType.iam,
         AWSApiAuthorizationModeUserPools$ _ => APIAuthorizationType.userPools,

@@ -4,7 +4,6 @@
 import 'dart:async';
 
 import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api_dart/src/util/amplify_api_config.dart';
 import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
@@ -62,18 +61,10 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
       final authorizedRequest = await authProvider.authorizeRequest(
         request,
         options: IamAuthProviderOptions(
-          region: switch (endpointConfig) {
-            AWSApiEndpointConfigApiGateway$(
-              apiGateway: AWSApiGatewayEndpointConfig(:final region)
-            ) ||
-            AWSApiEndpointConfigAppSync$(
-              appSync: AWSAppSyncEndpointConfig(:final region)
-            ) =>
-              region,
-            _ => throw ArgumentError(
+          region: endpointConfig.awsRegion ??
+              (throw ArgumentError(
                 'IAM authorization is not supported for this endpoint',
-              ),
-          },
+              )),
           service: service,
           serviceConfiguration: serviceConfiguration,
         ),

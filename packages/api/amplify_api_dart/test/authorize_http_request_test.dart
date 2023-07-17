@@ -227,21 +227,3 @@ void main() {
     });
   });
 }
-
-extension on AWSApiEndpointConfig {
-  Uri get endpoint => switch (this) {
-        AWSApiEndpointConfigApiGateway$(
-          apiGateway: AWSApiGatewayEndpointConfig(:final endpoint)
-        ) =>
-          endpoint,
-        AWSApiEndpointConfigAppSync$(
-          appSync: AWSAppSyncEndpointConfig(:final endpoint)
-        ) =>
-          endpoint,
-        AWSApiEndpointConfigRest$(
-          rest: AWSRestEndpointConfig(:final endpoint)
-        ) =>
-          endpoint,
-        _ => throw ArgumentError('Invalid endpoint config: $this'),
-      };
-}

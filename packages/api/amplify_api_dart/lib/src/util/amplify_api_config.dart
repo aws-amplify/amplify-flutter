@@ -26,21 +26,7 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
   /// with [path] and [queryParameters] to return a full [Uri].
   Uri getUri({String? path, Map<String, dynamic>? queryParameters}) {
     path = path ?? '';
-    final parsed = switch (config) {
-      AWSApiEndpointConfigApiGateway$(
-        value: AWSApiGatewayEndpointConfig(:final endpoint)
-      ) =>
-        endpoint,
-      AWSApiEndpointConfigAppSync$(
-        value: AWSAppSyncEndpointConfig(:final endpoint)
-      ) =>
-        endpoint,
-      AWSApiEndpointConfigRest$(
-        value: AWSRestEndpointConfig(:final endpoint)
-      ) =>
-        endpoint,
-      _ => throw ArgumentError('Invalid API endpoint: $config'),
-    };
+    final endpoint = config.endpoint;
     // Remove leading slashes which are suggested in public documentation.
     // https://docs.amplify.aws/lib/restapi/getting-started/q/platform/flutter/#make-a-post-request
     if (path.startsWith(_slash)) {
@@ -48,9 +34,9 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
     }
     // Avoid URI-encoding slashes in path from caller.
     final pathSegmentsFromPath = path.split(_slash);
-    return parsed.replace(
+    return endpoint.replace(
       pathSegments: [
-        ...parsed.pathSegments,
+        ...endpoint.pathSegments,
         ...pathSegmentsFromPath,
       ],
       queryParameters: queryParameters,
@@ -87,79 +73,4 @@ extension AWSApiPluginConfigHelpers on AWSApiConfig {
     }
     return EndpointConfig(onlyConfig.key, onlyConfig.value);
   }
-}
-
-/// Helpers for working with [AWSApiEndpointConfig].
-@internal
-extension AWSApiEndpointConfigHelpers on AWSApiEndpointConfig {
-  /// The endpoint type of this.
-  EndpointType get endpointType => switch (this) {
-        AWSApiEndpointConfigAppSync$ _ => EndpointType.graphQL,
-        AWSApiEndpointConfigApiGateway$ _ ||
-        AWSApiEndpointConfigRest$ _ =>
-          EndpointType.rest,
-        _ => throw ArgumentError('Invalid API: $this'),
-      };
-
-  /// The default API authorization mode.
-  AWSApiAuthorizationMode get defaultAuthorizationMode => switch (this) {
-        AWSApiEndpointConfigRest$ _ => const AWSApiAuthorizationMode.none(),
-        AWSApiEndpointConfigApiGateway$(
-          apiGateway: AWSApiGatewayEndpointConfig(:final authMode)
-        ) ||
-        AWSApiEndpointConfigAppSync$(
-          appSync: AWSAppSyncEndpointConfig(:final authMode)
-        ) =>
-          authMode,
-        _ => throw ArgumentError('Invalid endpoint config: $this'),
-      };
-
-  /// The default API authorization type.
-  APIAuthorizationType get defaultAuthorizationType =>
-      defaultAuthorizationMode.authorizationType;
-
-  /// All the auth modes for the API.
-  Iterable<AWSApiAuthorizationMode> get allAuthModes sync* {
-    yield defaultAuthorizationMode;
-    if (appSync case AWSAppSyncEndpointConfig(:final additionalAuthModes?)) {
-      yield* additionalAuthModes;
-    }
-  }
-
-  /// The API key for the endpoint.
-  String? get apiKey {
-    for (final authMode in allAuthModes) {
-      if (authMode case AWSApiAuthorizationModeApiKey$(:final apiKey)) {
-        return apiKey;
-      }
-    }
-    return null;
-  }
-
-  /// The endpoint of the API.
-  Uri get endpoint => switch (this) {
-        AWSApiEndpointConfigAppSync$(
-          appSync: AWSAppSyncEndpointConfig(:final endpoint)
-        ) ||
-        AWSApiEndpointConfigApiGateway$(
-          apiGateway: AWSApiGatewayEndpointConfig(:final endpoint)
-        ) ||
-        AWSApiEndpointConfigRest$(
-          rest: AWSRestEndpointConfig(:final endpoint)
-        ) =>
-          endpoint,
-        _ => throw ArgumentError('Invalid endpoint config: $this'),
-      };
-}
-
-extension on AWSApiAuthorizationMode {
-  APIAuthorizationType get authorizationType => switch (this) {
-        AWSApiAuthorizationModeNone$ _ => APIAuthorizationType.none,
-        AWSApiAuthorizationModeApiKey$ _ => APIAuthorizationType.apiKey,
-        AWSApiAuthorizationModeIam$ _ => APIAuthorizationType.iam,
-        AWSApiAuthorizationModeUserPools$ _ => APIAuthorizationType.userPools,
-        AWSApiAuthorizationModeOidc$ _ => APIAuthorizationType.oidc,
-        AWSApiAuthorizationModeFunction$ _ => APIAuthorizationType.function,
-        _ => throw ArgumentError('Invalid authorization type: $this'),
-      };
 }

@@ -4,7 +4,6 @@
 import 'dart:async';
 
 import 'package:amplify_api_dart/src/decorators/authorize_http_request.dart';
-import 'package:amplify_api_dart/src/util/amplify_api_config.dart';
 import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';

@@ -19,7 +19,6 @@ abstract class AWSAuthIdentityPoolConfig
     required String region,
     bool? allowUnauthenticatedIdentities,
   }) {
-    allowUnauthenticatedIdentities ??= true;
     return _$AWSAuthIdentityPoolConfig._(
       poolId: poolId,
       region: region,
@@ -37,10 +36,7 @@ abstract class AWSAuthIdentityPoolConfig
       serializers = [AWSAuthIdentityPoolConfigSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSAuthIdentityPoolConfigBuilder b) {
-    b.allowUnauthenticatedIdentities = true;
-  }
-
+  static void _init(AWSAuthIdentityPoolConfigBuilder b) {}
   String get poolId;
   String get region;
   bool? get allowUnauthenticatedIdentities;

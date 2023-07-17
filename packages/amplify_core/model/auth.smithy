@@ -186,5 +186,6 @@ structure AWSAuthIdentityPoolConfig {
     @required
     region: AWSRegion
 
-    allowUnauthenticatedIdentities: Boolean = true
+    // TODO(dnys1): Is there value in allowing this?
+    allowUnauthenticatedIdentities: Boolean
 }
