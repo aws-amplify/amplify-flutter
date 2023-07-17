@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.import_table_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,11 +31,9 @@ abstract class ImportTableInput
     _i6.InputCompressionType? inputCompressionType,
     required _i7.TableCreationParameters tableCreationParameters,
   }) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      clientToken ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      clientToken ??= _i2.uuid(secure: true);
-    }
+    clientToken ??= const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
     return _$ImportTableInput._(
       clientToken: clientToken,
       s3BucketSource: s3BucketSource,
@@ -64,11 +62,9 @@ abstract class ImportTableInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ImportTableInputBuilder b) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.clientToken = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.clientToken = _i2.uuid(secure: true);
-    }
+    b.clientToken = const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
   }
 
   /// Providing a `ClientToken` makes the call to `ImportTableInput` idempotent, meaning that multiple identical calls have the same effect as one single call.

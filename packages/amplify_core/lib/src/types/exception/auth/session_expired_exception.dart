@@ -3,6 +3,7 @@
 
 part of '../amplify_exception.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.auth.session_expired_exception}
 /// Exception thrown when the current session is expired.
 /// {@endtemplate}

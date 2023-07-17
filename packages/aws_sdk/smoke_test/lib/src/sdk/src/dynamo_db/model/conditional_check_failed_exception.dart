@@ -1,12 +1,15 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.conditional_check_failed_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
+    as _i3;
 
 part 'conditional_check_failed_exception.g.dart';
 
@@ -19,8 +22,14 @@ abstract class ConditionalCheckFailedException
             ConditionalCheckFailedExceptionBuilder>,
         _i2.SmithyHttpException {
   /// A condition specified in the operation could not be evaluated.
-  factory ConditionalCheckFailedException({String? message}) {
-    return _$ConditionalCheckFailedException._(message: message);
+  factory ConditionalCheckFailedException({
+    String? message,
+    Map<String, _i3.AttributeValue>? item,
+  }) {
+    return _$ConditionalCheckFailedException._(
+      message: message,
+      item: item == null ? null : _i4.BuiltMap(item),
+    );
   }
 
   /// A condition specified in the operation could not be evaluated.
@@ -49,6 +58,9 @@ abstract class ConditionalCheckFailedException
   /// The conditional request failed.
   @override
   String? get message;
+
+  /// Item which caused the `ConditionalCheckFailedException`.
+  _i4.BuiltMap<String, _i3.AttributeValue>? get item;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.dynamodb',
@@ -65,7 +77,10 @@ abstract class ConditionalCheckFailedException
   @override
   Exception? get underlyingException => null;
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [
+        message,
+        item,
+      ];
   @override
   String toString() {
     final helper =
@@ -73,6 +88,10 @@ abstract class ConditionalCheckFailedException
           ..add(
             'message',
             message,
+          )
+          ..add(
+            'item',
+            item,
           );
     return helper.toString();
   }
@@ -116,6 +135,17 @@ class ConditionalCheckFailedExceptionAwsJson10Serializer
             value,
             specifiedType: const FullType(String),
           ) as String);
+        case 'Item':
+          result.item.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.AttributeValue),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i3.AttributeValue>));
       }
     }
 
@@ -129,13 +159,27 @@ class ConditionalCheckFailedExceptionAwsJson10Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[];
-    final ConditionalCheckFailedException(:message) = object;
+    final ConditionalCheckFailedException(:message, :item) = object;
     if (message != null) {
       result$
         ..add('message')
         ..add(serializers.serialize(
           message,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (item != null) {
+      result$
+        ..add('Item')
+        ..add(serializers.serialize(
+          item,
+          specifiedType: const FullType(
+            _i4.BuiltMap,
+            [
+              FullType(String),
+              FullType(_i3.AttributeValue),
+            ],
+          ),
         ));
     }
     return result$;

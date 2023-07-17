@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.export_table_to_point_in_time_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,11 +32,9 @@ abstract class ExportTableToPointInTimeInput
     String? s3SseKmsKeyId,
     _i4.ExportFormat? exportFormat,
   }) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      clientToken ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      clientToken ??= _i2.uuid(secure: true);
-    }
+    clientToken ??= const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
     return _$ExportTableToPointInTimeInput._(
       tableArn: tableArn,
       exportTime: exportTime,
@@ -68,11 +66,9 @@ abstract class ExportTableToPointInTimeInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExportTableToPointInTimeInputBuilder b) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.clientToken = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.clientToken = _i2.uuid(secure: true);
-    }
+    b.clientToken = const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
   }
 
   /// The Amazon Resource Name (ARN) associated with the table to export.

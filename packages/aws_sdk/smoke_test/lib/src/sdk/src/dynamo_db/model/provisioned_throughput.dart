@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.provisioned_throughput; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,8 +47,9 @@ abstract class ProvisionedThroughput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ProvisionedThroughputBuilder b) {
-    b.readCapacityUnits = _i2.Int64.ZERO;
-    b.writeCapacityUnits = _i2.Int64.ZERO;
+    b
+      ..readCapacityUnits = _i2.Int64.ZERO
+      ..writeCapacityUnits = _i2.Int64.ZERO;
   }
 
   /// The maximum number of strongly consistent reads consumed per second before DynamoDB returns a `ThrottlingException`. For more information, see [Specifying Read and Write Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html) in the _Amazon DynamoDB Developer Guide_.

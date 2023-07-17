@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_validation_protocol.model.foo_union; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,14 +10,14 @@ import 'package:smithy/smithy.dart' as _i1;
 sealed class FooUnion extends _i1.SmithyUnion<FooUnion> {
   const FooUnion._();
 
-  const factory FooUnion.string(String string) = FooUnionString;
+  const factory FooUnion.string(String string) = FooUnionString$;
 
-  const factory FooUnion.integer(int integer) = FooUnionInteger;
+  const factory FooUnion.integer(int integer) = FooUnionInteger$;
 
   const factory FooUnion.sdkUnknown(
     String name,
     Object value,
-  ) = FooUnionSdkUnknown;
+  ) = FooUnionSdkUnknown$;
 
   static const List<_i1.SmithySerializer<FooUnion>> serializers = [
     FooUnionRestJson1Serializer()
@@ -46,8 +46,8 @@ sealed class FooUnion extends _i1.SmithyUnion<FooUnion> {
   }
 }
 
-final class FooUnionString extends FooUnion {
-  const FooUnionString(this.string) : super._();
+final class FooUnionString$ extends FooUnion {
+  const FooUnionString$(this.string) : super._();
 
   @override
   final String string;
@@ -56,8 +56,8 @@ final class FooUnionString extends FooUnion {
   String get name => 'string';
 }
 
-final class FooUnionInteger extends FooUnion {
-  const FooUnionInteger(this.integer) : super._();
+final class FooUnionInteger$ extends FooUnion {
+  const FooUnionInteger$(this.integer) : super._();
 
   @override
   final int integer;
@@ -66,8 +66,8 @@ final class FooUnionInteger extends FooUnion {
   String get name => 'integer';
 }
 
-final class FooUnionSdkUnknown extends FooUnion {
-  const FooUnionSdkUnknown(
+final class FooUnionSdkUnknown$ extends FooUnion {
+  const FooUnionSdkUnknown$(
     this.name,
     this.value,
   ) : super._();
@@ -86,8 +86,8 @@ class FooUnionRestJson1Serializer
   @override
   Iterable<Type> get types => const [
         FooUnion,
-        FooUnionString,
-        FooUnionInteger,
+        FooUnionString$,
+        FooUnionInteger$,
       ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
@@ -105,12 +105,12 @@ class FooUnionRestJson1Serializer
     final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'string':
-        return FooUnionString((serializers.deserialize(
+        return FooUnionString$((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
       case 'integer':
-        return FooUnionInteger((serializers.deserialize(
+        return FooUnionInteger$((serializers.deserialize(
           value,
           specifiedType: const FullType(int),
         ) as int));
@@ -130,15 +130,15 @@ class FooUnionRestJson1Serializer
     return [
       object.name,
       switch (object) {
-        FooUnionString(:final value) => serializers.serialize(
+        FooUnionString$(:final value) => serializers.serialize(
             value,
             specifiedType: const FullType(String),
           ),
-        FooUnionInteger(:final value) => serializers.serialize(
+        FooUnionInteger$(:final value) => serializers.serialize(
             value,
             specifiedType: const FullType(int),
           ),
-        FooUnionSdkUnknown(:final value) => value,
+        FooUnionSdkUnknown$(:final value) => value,
       },
     ];
   }

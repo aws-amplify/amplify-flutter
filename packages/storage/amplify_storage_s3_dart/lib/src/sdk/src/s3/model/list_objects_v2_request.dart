@@ -1,16 +1,19 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.list_objects_v2_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/encoding_type.dart'
     as _i3;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/optional_object_attributes.dart'
+    as _i5;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_payer.dart'
     as _i4;
 import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
+import 'package:meta/meta.dart' as _i7;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'list_objects_v2_request.g.dart';
@@ -34,6 +37,7 @@ abstract class ListObjectsV2Request
     String? startAfter,
     _i4.RequestPayer? requestPayer,
     String? expectedBucketOwner,
+    List<_i5.OptionalObjectAttributes>? optionalObjectAttributes,
   }) {
     return _$ListObjectsV2Request._(
       bucket: bucket,
@@ -46,6 +50,9 @@ abstract class ListObjectsV2Request
       startAfter: startAfter,
       requestPayer: requestPayer,
       expectedBucketOwner: expectedBucketOwner,
+      optionalObjectAttributes: optionalObjectAttributes == null
+          ? null
+          : _i6.BuiltList(optionalObjectAttributes),
     );
   }
 
@@ -68,6 +75,12 @@ abstract class ListObjectsV2Request
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
           b.expectedBucketOwner =
               request.headers['x-amz-expected-bucket-owner']!;
+        }
+        if (request.headers['x-amz-optional-object-attributes'] != null) {
+          b.optionalObjectAttributes.addAll(_i1
+              .parseHeader(request.headers['x-amz-optional-object-attributes']!)
+              .map((el) =>
+                  _i5.OptionalObjectAttributes.values.byValue(el.trim())));
         }
         if (request.queryParameters['delimiter'] != null) {
           b.delimiter = request.queryParameters['delimiter']!;
@@ -106,25 +119,25 @@ abstract class ListObjectsV2Request
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   ///
-  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts?](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
-  /// A delimiter is a character you use to group keys.
+  /// A delimiter is a character that you use to group keys.
   String? get delimiter;
 
   /// Encoding type used by Amazon S3 to encode object keys in the response.
   _i3.EncodingType? get encodingType;
 
-  /// Sets the maximum number of keys returned in the response. By default the action returns up to 1,000 key names. The response might contain fewer keys but will never contain more.
+  /// Sets the maximum number of keys returned in the response. By default, the action returns up to 1,000 key names. The response might contain fewer keys but will never contain more.
   int? get maxKeys;
 
   /// Limits the response to keys that begin with the specified prefix.
   String? get prefix;
 
-  /// ContinuationToken indicates Amazon S3 that the list is being continued on this bucket with a token. ContinuationToken is obfuscated and is not a real key.
+  /// `ContinuationToken` indicates to Amazon S3 that the list is being continued on this bucket with a token. `ContinuationToken` is obfuscated and is not a real key.
   String? get continuationToken;
 
-  /// The owner field is not present in listV2 by default, if you want to return owner field with each key in the result then set the fetch owner field to true.
+  /// The owner field is not present in `ListObjectsV2` by default. If you want to return the owner field with each key in the result, then set the `FetchOwner` field to `true`.
   bool? get fetchOwner;
 
   /// StartAfter is where you want Amazon S3 to start listing from. Amazon S3 starts listing after this specified key. StartAfter can be any key in the bucket.
@@ -135,6 +148,9 @@ abstract class ListObjectsV2Request
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
+
+  /// Specifies the optional fields that you want returned in the response. Fields that you do not specify are not returned.
+  _i6.BuiltList<_i5.OptionalObjectAttributes>? get optionalObjectAttributes;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -161,6 +177,7 @@ abstract class ListObjectsV2Request
         startAfter,
         requestPayer,
         expectedBucketOwner,
+        optionalObjectAttributes,
       ];
   @override
   String toString() {
@@ -204,12 +221,16 @@ abstract class ListObjectsV2Request
       ..add(
         'expectedBucketOwner',
         expectedBucketOwner,
+      )
+      ..add(
+        'optionalObjectAttributes',
+        optionalObjectAttributes,
       );
     return helper.toString();
   }
 }
 
-@_i5.internal
+@_i7.internal
 abstract class ListObjectsV2RequestPayload
     with _i2.AWSEquatable<ListObjectsV2RequestPayload>
     implements

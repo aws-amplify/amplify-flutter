@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.update_account_password_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -64,11 +64,12 @@ abstract class UpdateAccountPasswordPolicyRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateAccountPasswordPolicyRequestBuilder b) {
-    b.requireSymbols = false;
-    b.requireNumbers = false;
-    b.requireUppercaseCharacters = false;
-    b.requireLowercaseCharacters = false;
-    b.allowUsersToChangePassword = false;
+    b
+      ..requireSymbols = false
+      ..requireNumbers = false
+      ..requireUppercaseCharacters = false
+      ..requireLowercaseCharacters = false
+      ..allowUsersToChangePassword = false;
   }
 
   /// The minimum number of characters allowed in an IAM user password.

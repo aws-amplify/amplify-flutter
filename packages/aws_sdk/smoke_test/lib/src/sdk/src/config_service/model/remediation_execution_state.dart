@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.remediation_execution_state; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,17 +8,12 @@ import 'package:smithy/smithy.dart' as _i1;
 class RemediationExecutionState
     extends _i1.SmithyEnum<RemediationExecutionState> {
   const RemediationExecutionState._(
-    int index,
-    String name,
-    String value,
-  ) : super(
-          index,
-          name,
-          value,
-        );
+    super.index,
+    super.name,
+    super.value,
+  );
 
-  const RemediationExecutionState._sdkUnknown(String value)
-      : super.sdkUnknown(value);
+  const RemediationExecutionState._sdkUnknown(super.value) : super.sdkUnknown();
 
   static const failed = RemediationExecutionState._(
     0,

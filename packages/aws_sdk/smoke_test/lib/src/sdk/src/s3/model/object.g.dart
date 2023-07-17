@@ -14,13 +14,15 @@ class _$S3Object extends S3Object {
   @override
   final String? eTag;
   @override
-  final _i6.BuiltList<_i2.ChecksumAlgorithm>? checksumAlgorithm;
+  final _i7.BuiltList<_i2.ChecksumAlgorithm>? checksumAlgorithm;
   @override
   final _i3.Int64? size;
   @override
   final _i4.ObjectStorageClass? storageClass;
   @override
   final _i5.Owner? owner;
+  @override
+  final _i6.RestoreStatus? restoreStatus;
 
   factory _$S3Object([void Function(S3ObjectBuilder)? updates]) =>
       (new S3ObjectBuilder()..update(updates))._build();
@@ -32,7 +34,8 @@ class _$S3Object extends S3Object {
       this.checksumAlgorithm,
       this.size,
       this.storageClass,
-      this.owner})
+      this.owner,
+      this.restoreStatus})
       : super._();
 
   @override
@@ -52,7 +55,8 @@ class _$S3Object extends S3Object {
         checksumAlgorithm == other.checksumAlgorithm &&
         size == other.size &&
         storageClass == other.storageClass &&
-        owner == other.owner;
+        owner == other.owner &&
+        restoreStatus == other.restoreStatus;
   }
 
   @override
@@ -65,6 +69,7 @@ class _$S3Object extends S3Object {
     _$hash = $jc(_$hash, size.hashCode);
     _$hash = $jc(_$hash, storageClass.hashCode);
     _$hash = $jc(_$hash, owner.hashCode);
+    _$hash = $jc(_$hash, restoreStatus.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -86,12 +91,12 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   String? get eTag => _$this._eTag;
   set eTag(String? eTag) => _$this._eTag = eTag;
 
-  _i6.ListBuilder<_i2.ChecksumAlgorithm>? _checksumAlgorithm;
-  _i6.ListBuilder<_i2.ChecksumAlgorithm> get checksumAlgorithm =>
+  _i7.ListBuilder<_i2.ChecksumAlgorithm>? _checksumAlgorithm;
+  _i7.ListBuilder<_i2.ChecksumAlgorithm> get checksumAlgorithm =>
       _$this._checksumAlgorithm ??=
-          new _i6.ListBuilder<_i2.ChecksumAlgorithm>();
+          new _i7.ListBuilder<_i2.ChecksumAlgorithm>();
   set checksumAlgorithm(
-          _i6.ListBuilder<_i2.ChecksumAlgorithm>? checksumAlgorithm) =>
+          _i7.ListBuilder<_i2.ChecksumAlgorithm>? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   _i3.Int64? _size;
@@ -107,6 +112,12 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   _i5.OwnerBuilder get owner => _$this._owner ??= new _i5.OwnerBuilder();
   set owner(_i5.OwnerBuilder? owner) => _$this._owner = owner;
 
+  _i6.RestoreStatusBuilder? _restoreStatus;
+  _i6.RestoreStatusBuilder get restoreStatus =>
+      _$this._restoreStatus ??= new _i6.RestoreStatusBuilder();
+  set restoreStatus(_i6.RestoreStatusBuilder? restoreStatus) =>
+      _$this._restoreStatus = restoreStatus;
+
   S3ObjectBuilder() {
     S3Object._init(this);
   }
@@ -121,6 +132,7 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
       _size = $v.size;
       _storageClass = $v.storageClass;
       _owner = $v.owner?.toBuilder();
+      _restoreStatus = $v.restoreStatus?.toBuilder();
       _$v = null;
     }
     return this;
@@ -151,7 +163,8 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
               checksumAlgorithm: _checksumAlgorithm?.build(),
               size: size,
               storageClass: storageClass,
-              owner: _owner?.build());
+              owner: _owner?.build(),
+              restoreStatus: _restoreStatus?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -160,6 +173,8 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
 
         _$failedField = 'owner';
         _owner?.build();
+        _$failedField = 'restoreStatus';
+        _restoreStatus?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'S3Object', _$failedField, e.toString());

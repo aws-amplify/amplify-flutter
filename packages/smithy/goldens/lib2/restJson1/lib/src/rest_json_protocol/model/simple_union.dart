@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_protocol.model.simple_union; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,14 +10,14 @@ import 'package:smithy/smithy.dart' as _i1;
 sealed class SimpleUnion extends _i1.SmithyUnion<SimpleUnion> {
   const SimpleUnion._();
 
-  const factory SimpleUnion.int$(int int$) = SimpleUnionInt;
+  const factory SimpleUnion.int$(int int$) = SimpleUnionInt$;
 
-  const factory SimpleUnion.string(String string) = SimpleUnionString;
+  const factory SimpleUnion.string(String string) = SimpleUnionString$;
 
   const factory SimpleUnion.sdkUnknown(
     String name,
     Object value,
-  ) = SimpleUnionSdkUnknown;
+  ) = SimpleUnionSdkUnknown$;
 
   static const List<_i1.SmithySerializer<SimpleUnion>> serializers = [
     SimpleUnionRestJson1Serializer()
@@ -46,8 +46,8 @@ sealed class SimpleUnion extends _i1.SmithyUnion<SimpleUnion> {
   }
 }
 
-final class SimpleUnionInt extends SimpleUnion {
-  const SimpleUnionInt(this.int$) : super._();
+final class SimpleUnionInt$ extends SimpleUnion {
+  const SimpleUnionInt$(this.int$) : super._();
 
   @override
   final int int$;
@@ -56,8 +56,8 @@ final class SimpleUnionInt extends SimpleUnion {
   String get name => 'int';
 }
 
-final class SimpleUnionString extends SimpleUnion {
-  const SimpleUnionString(this.string) : super._();
+final class SimpleUnionString$ extends SimpleUnion {
+  const SimpleUnionString$(this.string) : super._();
 
   @override
   final String string;
@@ -66,8 +66,8 @@ final class SimpleUnionString extends SimpleUnion {
   String get name => 'string';
 }
 
-final class SimpleUnionSdkUnknown extends SimpleUnion {
-  const SimpleUnionSdkUnknown(
+final class SimpleUnionSdkUnknown$ extends SimpleUnion {
+  const SimpleUnionSdkUnknown$(
     this.name,
     this.value,
   ) : super._();
@@ -86,8 +86,8 @@ class SimpleUnionRestJson1Serializer
   @override
   Iterable<Type> get types => const [
         SimpleUnion,
-        SimpleUnionInt,
-        SimpleUnionString,
+        SimpleUnionInt$,
+        SimpleUnionString$,
       ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
@@ -105,12 +105,12 @@ class SimpleUnionRestJson1Serializer
     final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'int':
-        return SimpleUnionInt((serializers.deserialize(
+        return SimpleUnionInt$((serializers.deserialize(
           value,
           specifiedType: const FullType(int),
         ) as int));
       case 'string':
-        return SimpleUnionString((serializers.deserialize(
+        return SimpleUnionString$((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
@@ -130,15 +130,15 @@ class SimpleUnionRestJson1Serializer
     return [
       object.name,
       switch (object) {
-        SimpleUnionInt(:final value) => serializers.serialize(
+        SimpleUnionInt$(:final value) => serializers.serialize(
             value,
             specifiedType: const FullType(int),
           ),
-        SimpleUnionString(:final value) => serializers.serialize(
+        SimpleUnionString$(:final value) => serializers.serialize(
             value,
             specifiedType: const FullType(String),
           ),
-        SimpleUnionSdkUnknown(:final value) => value,
+        SimpleUnionSdkUnknown$(:final value) => value,
       },
     ];
   }

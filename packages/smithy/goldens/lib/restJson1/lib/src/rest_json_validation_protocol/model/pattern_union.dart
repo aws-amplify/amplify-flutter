@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_validation_protocol.model.pattern_union; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,14 +10,14 @@ import 'package:smithy/smithy.dart' as _i1;
 sealed class PatternUnion extends _i1.SmithyUnion<PatternUnion> {
   const PatternUnion._();
 
-  const factory PatternUnion.first(String first) = PatternUnionFirst;
+  const factory PatternUnion.first(String first) = PatternUnionFirst$;
 
-  const factory PatternUnion.second(String second) = PatternUnionSecond;
+  const factory PatternUnion.second(String second) = PatternUnionSecond$;
 
   const factory PatternUnion.sdkUnknown(
     String name,
     Object value,
-  ) = PatternUnionSdkUnknown;
+  ) = PatternUnionSdkUnknown$;
 
   static const List<_i1.SmithySerializer<PatternUnion>> serializers = [
     PatternUnionRestJson1Serializer()
@@ -46,8 +46,8 @@ sealed class PatternUnion extends _i1.SmithyUnion<PatternUnion> {
   }
 }
 
-final class PatternUnionFirst extends PatternUnion {
-  const PatternUnionFirst(this.first) : super._();
+final class PatternUnionFirst$ extends PatternUnion {
+  const PatternUnionFirst$(this.first) : super._();
 
   @override
   final String first;
@@ -56,8 +56,8 @@ final class PatternUnionFirst extends PatternUnion {
   String get name => 'first';
 }
 
-final class PatternUnionSecond extends PatternUnion {
-  const PatternUnionSecond(this.second) : super._();
+final class PatternUnionSecond$ extends PatternUnion {
+  const PatternUnionSecond$(this.second) : super._();
 
   @override
   final String second;
@@ -66,8 +66,8 @@ final class PatternUnionSecond extends PatternUnion {
   String get name => 'second';
 }
 
-final class PatternUnionSdkUnknown extends PatternUnion {
-  const PatternUnionSdkUnknown(
+final class PatternUnionSdkUnknown$ extends PatternUnion {
+  const PatternUnionSdkUnknown$(
     this.name,
     this.value,
   ) : super._();
@@ -86,8 +86,8 @@ class PatternUnionRestJson1Serializer
   @override
   Iterable<Type> get types => const [
         PatternUnion,
-        PatternUnionFirst,
-        PatternUnionSecond,
+        PatternUnionFirst$,
+        PatternUnionSecond$,
       ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
@@ -105,12 +105,12 @@ class PatternUnionRestJson1Serializer
     final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'first':
-        return PatternUnionFirst((serializers.deserialize(
+        return PatternUnionFirst$((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
       case 'second':
-        return PatternUnionSecond((serializers.deserialize(
+        return PatternUnionSecond$((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
@@ -130,15 +130,15 @@ class PatternUnionRestJson1Serializer
     return [
       object.name,
       switch (object) {
-        PatternUnionFirst(:final value) => serializers.serialize(
+        PatternUnionFirst$(:final value) => serializers.serialize(
             value,
             specifiedType: const FullType(String),
           ),
-        PatternUnionSecond(:final value) => serializers.serialize(
+        PatternUnionSecond$(:final value) => serializers.serialize(
             value,
             specifiedType: const FullType(String),
           ),
-        PatternUnionSdkUnknown(:final value) => value,
+        PatternUnionSdkUnknown$(:final value) => value,
       },
     ];
   }

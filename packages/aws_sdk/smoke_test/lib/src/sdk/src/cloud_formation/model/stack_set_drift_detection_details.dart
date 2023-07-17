@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.stack_set_drift_detection_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -79,11 +79,12 @@ abstract class StackSetDriftDetectionDetails
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StackSetDriftDetectionDetailsBuilder b) {
-    b.totalStackInstancesCount = 0;
-    b.driftedStackInstancesCount = 0;
-    b.inSyncStackInstancesCount = 0;
-    b.inProgressStackInstancesCount = 0;
-    b.failedStackInstancesCount = 0;
+    b
+      ..totalStackInstancesCount = 0
+      ..driftedStackInstancesCount = 0
+      ..inSyncStackInstancesCount = 0
+      ..inProgressStackInstancesCount = 0
+      ..failedStackInstancesCount = 0;
   }
 
   /// Status of the stack set's actual configuration compared to its expected template and parameter configuration. A stack set is considered to have drifted if one or more of its stack instances have drifted from their expected template and parameter configuration.

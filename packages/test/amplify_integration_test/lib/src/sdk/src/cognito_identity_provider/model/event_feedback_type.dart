@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_integration_test.cognito_identity_provider.model.event_feedback_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,7 +42,7 @@ abstract class EventFeedbackType
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EventFeedbackTypeBuilder b) {}
 
-  /// The authentication event feedback value. When you provide a `FeedbackValue` value of `valid`, you tell Amazon Cognito that you trust a user session where Amazon Cognito has evaluated some level of risk. When you provide a `FeedbackValue` value of `invalid`, you tell Amazon Cognito that you don't trust a user session, or you don't believe that Amazon Cognito evaluated a high-enough risk level.
+  /// The event feedback value.
   _i2.FeedbackValueType get feedbackValue;
 
   /// The provider.

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.list_multipart_uploads_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -133,7 +133,7 @@ abstract class ListMultipartUploadsOutput
 
   /// Encoding type used by Amazon S3 to encode object keys in the response.
   ///
-  /// If you specify `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
+  /// If you specify the `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
   ///
   /// `Delimiter`, `KeyMarker`, `Prefix`, `NextKeyMarker`, `Key`.
   _i5.EncodingType? get encodingType;
@@ -262,7 +262,7 @@ abstract class ListMultipartUploadsOutputPayload
 
   /// Encoding type used by Amazon S3 to encode object keys in the response.
   ///
-  /// If you specify `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
+  /// If you specify the `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
   ///
   /// `Delimiter`, `KeyMarker`, `Prefix`, `NextKeyMarker`, `Key`.
   _i5.EncodingType? get encodingType;

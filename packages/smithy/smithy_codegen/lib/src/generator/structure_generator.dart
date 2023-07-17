@@ -160,7 +160,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
           isNullable: isNullable,
         );
         if (defaultValue != null) {
-          b.statements.add(defaultValue);
+          b.addExpression(defaultValue);
         }
       }
       b.addExpression(
@@ -364,15 +364,21 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
     required List<MemberShape> members,
     required Reference builderSymbol,
   }) {
-    final block = Block((b) {
-      for (final member in members) {
-        final defaultValue =
-            _defaultValueAssignment(member, builder: refer('b'));
-        if (defaultValue != null) {
-          b.statements.add(defaultValue);
-        }
+    final block = BlockBuilder();
+    Expression? currentExpresson;
+    for (final member in members) {
+      final defaultValue = _defaultValueAssignment(
+        member,
+        builder: currentExpresson ?? refer('b'),
+        cascade: members.length > 1,
+      );
+      if (defaultValue != null) {
+        currentExpresson = defaultValue;
       }
-    });
+    }
+    if (currentExpresson != null) {
+      block.addExpression(currentExpresson);
+    }
     return Method.returnsVoid(
       (m) => m
         ..annotations.add(
@@ -388,36 +394,35 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
               ..name = 'b',
           ),
         )
-        ..body = block,
+        ..body = block.build(),
     );
   }
 
-  Code? _defaultValueAssignment(
+  Expression? _defaultValueAssignment(
     MemberShape member, {
-    Reference? builder,
+    Expression? builder,
+    bool cascade = false,
   }) {
-    final useBuilder = builder != null;
     final propertyName = member.dartName(ShapeType.structure);
-    final assign = useBuilder
-        ? builder.property(propertyName).assign
-        : refer(propertyName).assignNullAware;
+    final assign = switch (builder) {
+      != null when !cascade => builder.property(propertyName).assign,
+      != null when cascade => builder.cascade(propertyName).assign,
+      _ => refer(propertyName).assignNullAware,
+    };
     // In tests, client implementations that automatically provide values for
     // members marked with the idempotencyToken trait MUST use a constant value
     // of `00000000-0000-4000-8000-000000000000`.
     //
     // https://awslabs.github.io/smithy/1.0/spec/http-protocol-compliance-tests.html#parameter-format
     if (member.isIdempotencyToken) {
-      return Block.of([
-        assign(literalString('00000000-0000-4000-8000-000000000000'))
-            .wrapWithBlockIf(
-          DartTypes.core.bool.constInstanceNamed('hasEnvironment', [
-            literalString('SMITHY_TEST'),
-          ]),
+      return assign(
+        DartTypes.core.bool.constInstanceNamed('hasEnvironment', [
+          literalString('SMITHY_TEST'),
+        ]).conditional(
+          literalString('00000000-0000-4000-8000-000000000000'),
+          DartTypes.awsCommon.uuid(),
         ),
-        const Code('else {'),
-        assign(DartTypes.awsCommon.uuid()).statement,
-        const Code('}'),
-      ]);
+      );
     }
     final targetShape = context.shapeFor(member.target);
     final defaultValue =
@@ -425,7 +430,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
     if (defaultValue == null) {
       return null;
     }
-    return assign(defaultValue).statement;
+    return assign(defaultValue);
   }
 
   /// Fields for this type.

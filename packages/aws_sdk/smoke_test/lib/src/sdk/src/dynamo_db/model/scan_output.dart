@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.scan_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -60,8 +60,9 @@ abstract class ScanOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ScanOutputBuilder b) {
-    b.count = 0;
-    b.scannedCount = 0;
+    b
+      ..count = 0
+      ..scannedCount = 0;
   }
 
   /// An array of item attributes that match the scan criteria. Each element in this array consists of an attribute name and the value for that attribute.

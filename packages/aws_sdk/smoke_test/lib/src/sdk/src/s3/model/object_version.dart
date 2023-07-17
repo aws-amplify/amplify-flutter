@@ -1,18 +1,19 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.object_version; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i7;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i3;
-import 'package:smithy/smithy.dart' as _i7;
+import 'package:smithy/smithy.dart' as _i8;
 import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/object_version_storage_class.dart'
     as _i4;
 import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/restore_status.dart' as _i6;
 
 part 'object_version.g.dart';
 
@@ -31,11 +32,12 @@ abstract class ObjectVersion
     bool? isLatest,
     DateTime? lastModified,
     _i5.Owner? owner,
+    _i6.RestoreStatus? restoreStatus,
   }) {
     return _$ObjectVersion._(
       eTag: eTag,
       checksumAlgorithm:
-          checksumAlgorithm == null ? null : _i6.BuiltList(checksumAlgorithm),
+          checksumAlgorithm == null ? null : _i7.BuiltList(checksumAlgorithm),
       size: size,
       storageClass: storageClass,
       key: key,
@@ -43,6 +45,7 @@ abstract class ObjectVersion
       isLatest: isLatest,
       lastModified: lastModified,
       owner: owner,
+      restoreStatus: restoreStatus,
     );
   }
 
@@ -52,7 +55,7 @@ abstract class ObjectVersion
 
   const ObjectVersion._();
 
-  static const List<_i7.SmithySerializer<ObjectVersion>> serializers = [
+  static const List<_i8.SmithySerializer<ObjectVersion>> serializers = [
     ObjectVersionRestXmlSerializer()
   ];
 
@@ -63,7 +66,7 @@ abstract class ObjectVersion
   String? get eTag;
 
   /// The algorithm that was used to create a checksum of the object.
-  _i6.BuiltList<_i2.ChecksumAlgorithm>? get checksumAlgorithm;
+  _i7.BuiltList<_i2.ChecksumAlgorithm>? get checksumAlgorithm;
 
   /// Size in bytes of the object.
   _i3.Int64? get size;
@@ -85,6 +88,9 @@ abstract class ObjectVersion
 
   /// Specifies the owner of the object.
   _i5.Owner? get owner;
+
+  /// Specifies the restoration status of an object. Objects in certain storage classes must be restored before they can be retrieved. For more information about these storage classes and how to work with archived objects, see [Working with archived objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/archived-objects.html) in the _Amazon S3 User Guide_.
+  _i6.RestoreStatus? get restoreStatus;
   @override
   List<Object?> get props => [
         eTag,
@@ -96,6 +102,7 @@ abstract class ObjectVersion
         isLatest,
         lastModified,
         owner,
+        restoreStatus,
       ];
   @override
   String toString() {
@@ -135,13 +142,17 @@ abstract class ObjectVersion
       ..add(
         'owner',
         owner,
+      )
+      ..add(
+        'restoreStatus',
+        restoreStatus,
       );
     return helper.toString();
   }
 }
 
 class ObjectVersionRestXmlSerializer
-    extends _i7.StructuredSmithySerializer<ObjectVersion> {
+    extends _i8.StructuredSmithySerializer<ObjectVersion> {
   const ObjectVersionRestXmlSerializer() : super('ObjectVersion');
 
   @override
@@ -150,8 +161,8 @@ class ObjectVersionRestXmlSerializer
         _$ObjectVersion,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i8.ShapeId> get supportedProtocols => const [
+        _i8.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -202,6 +213,11 @@ class ObjectVersionRestXmlSerializer
             value,
             specifiedType: const FullType(_i5.Owner),
           ) as _i5.Owner));
+        case 'RestoreStatus':
+          result.restoreStatus.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.RestoreStatus),
+          ) as _i6.RestoreStatus));
         case 'Size':
           result.size = (serializers.deserialize(
             value,
@@ -230,9 +246,9 @@ class ObjectVersionRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i7.XmlElementName(
+      const _i8.XmlElementName(
         'ObjectVersion',
-        _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i8.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ObjectVersion(
@@ -242,25 +258,26 @@ class ObjectVersionRestXmlSerializer
       :key,
       :lastModified,
       :owner,
+      :restoreStatus,
       :size,
       :storageClass,
       :versionId
     ) = object;
     if (checksumAlgorithm != null) {
       result$.addAll(
-          const _i7.XmlBuiltListSerializer(memberName: 'ChecksumAlgorithm')
+          const _i8.XmlBuiltListSerializer(memberName: 'ChecksumAlgorithm')
               .serialize(
         serializers,
         checksumAlgorithm,
         specifiedType: const FullType.nullable(
-          _i6.BuiltList,
+          _i7.BuiltList,
           [FullType(_i2.ChecksumAlgorithm)],
         ),
       ));
     }
     if (eTag != null) {
       result$
-        ..add(const _i7.XmlElementName('ETag'))
+        ..add(const _i8.XmlElementName('ETag'))
         ..add(serializers.serialize(
           eTag,
           specifiedType: const FullType(String),
@@ -268,7 +285,7 @@ class ObjectVersionRestXmlSerializer
     }
     if (isLatest != null) {
       result$
-        ..add(const _i7.XmlElementName('IsLatest'))
+        ..add(const _i8.XmlElementName('IsLatest'))
         ..add(serializers.serialize(
           isLatest,
           specifiedType: const FullType.nullable(bool),
@@ -276,7 +293,7 @@ class ObjectVersionRestXmlSerializer
     }
     if (key != null) {
       result$
-        ..add(const _i7.XmlElementName('Key'))
+        ..add(const _i8.XmlElementName('Key'))
         ..add(serializers.serialize(
           key,
           specifiedType: const FullType(String),
@@ -284,7 +301,7 @@ class ObjectVersionRestXmlSerializer
     }
     if (lastModified != null) {
       result$
-        ..add(const _i7.XmlElementName('LastModified'))
+        ..add(const _i8.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
           specifiedType: const FullType.nullable(DateTime),
@@ -292,15 +309,23 @@ class ObjectVersionRestXmlSerializer
     }
     if (owner != null) {
       result$
-        ..add(const _i7.XmlElementName('Owner'))
+        ..add(const _i8.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
           specifiedType: const FullType(_i5.Owner),
         ));
     }
+    if (restoreStatus != null) {
+      result$
+        ..add(const _i8.XmlElementName('RestoreStatus'))
+        ..add(serializers.serialize(
+          restoreStatus,
+          specifiedType: const FullType(_i6.RestoreStatus),
+        ));
+    }
     if (size != null) {
       result$
-        ..add(const _i7.XmlElementName('Size'))
+        ..add(const _i8.XmlElementName('Size'))
         ..add(serializers.serialize(
           size,
           specifiedType: const FullType.nullable(_i3.Int64),
@@ -308,7 +333,7 @@ class ObjectVersionRestXmlSerializer
     }
     if (storageClass != null) {
       result$
-        ..add(const _i7.XmlElementName('StorageClass'))
+        ..add(const _i8.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
           specifiedType: const FullType.nullable(_i4.ObjectVersionStorageClass),
@@ -316,7 +341,7 @@ class ObjectVersionRestXmlSerializer
     }
     if (versionId != null) {
       result$
-        ..add(const _i7.XmlElementName('VersionId'))
+        ..add(const _i8.XmlElementName('VersionId'))
         ..add(serializers.serialize(
           versionId,
           specifiedType: const FullType(String),
