@@ -302,14 +302,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       leading: IconButton(
                         icon: const Icon(Icons.download),
-                        onPressed: () {
-                          if (defaultTargetPlatform == TargetPlatform.iOS ||
-                              defaultTargetPlatform == TargetPlatform.android) {
-                            downloadFileMobile(item.key);
-                          } else {
-                            downloadFileWeb(item.key);
-                          }
-                        },
+                        onPressed: () => zIsWeb
+                            ? downloadFileWeb(item.key)
+                            : downloadFileMobile(item.key),
                       ),
                     ),
                 ],
