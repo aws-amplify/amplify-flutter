@@ -110,6 +110,8 @@ jobs:
 
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
+        with:
+          channel: master
 
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
