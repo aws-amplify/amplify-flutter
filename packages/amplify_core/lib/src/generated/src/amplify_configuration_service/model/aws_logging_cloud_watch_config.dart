@@ -52,9 +52,10 @@ abstract class AWSLoggingCloudWatchConfig
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AWSLoggingCloudWatchConfigBuilder b) {
-    b.enable = true;
-    b.localStoreMaxSize = 5;
-    b.flushInterval = 60;
+    b
+      ..enable = true
+      ..localStoreMaxSize = 5
+      ..flushInterval = 60;
   }
 
   String get logGroupName;
