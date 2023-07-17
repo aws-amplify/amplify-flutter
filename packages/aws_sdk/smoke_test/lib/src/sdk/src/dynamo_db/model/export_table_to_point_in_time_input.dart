@@ -32,11 +32,9 @@ abstract class ExportTableToPointInTimeInput
     String? s3SseKmsKeyId,
     _i4.ExportFormat? exportFormat,
   }) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      clientToken ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      clientToken ??= _i2.uuid(secure: true);
-    }
+    clientToken ??= const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
     return _$ExportTableToPointInTimeInput._(
       tableArn: tableArn,
       exportTime: exportTime,
@@ -68,11 +66,9 @@ abstract class ExportTableToPointInTimeInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExportTableToPointInTimeInputBuilder b) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.clientToken = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.clientToken = _i2.uuid(secure: true);
-    }
+    b.clientToken = const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
   }
 
   /// The Amazon Resource Name (ARN) associated with the table to export.

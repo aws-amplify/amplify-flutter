@@ -58,8 +58,9 @@ abstract class ListDiscoveredResourcesRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListDiscoveredResourcesRequestBuilder b) {
-    b.limit = 0;
-    b.includeDeletedResources = false;
+    b
+      ..limit = 0
+      ..includeDeletedResources = false;
   }
 
   /// The type of resources that you want Config to list in the response.

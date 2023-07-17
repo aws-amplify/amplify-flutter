@@ -50,8 +50,9 @@ abstract class RequestValidator
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RequestValidatorBuilder b) {
-    b.validateRequestBody = false;
-    b.validateRequestParameters = false;
+    b
+      ..validateRequestBody = false
+      ..validateRequestParameters = false;
   }
 
   /// The identifier of this RequestValidator.

@@ -34,11 +34,9 @@ abstract class DeleteStackInstancesInput
     _i5.CallAs? callAs,
   }) {
     retainStacks ??= false;
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      operationId ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      operationId ??= _i2.uuid(secure: true);
-    }
+    operationId ??= const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
     return _$DeleteStackInstancesInput._(
       stackSetName: stackSetName,
       accounts: accounts == null ? null : _i6.BuiltList(accounts),
@@ -69,12 +67,11 @@ abstract class DeleteStackInstancesInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteStackInstancesInputBuilder b) {
-    b.retainStacks = false;
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.operationId = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.operationId = _i2.uuid(secure: true);
-    }
+    b
+      ..retainStacks = false
+      ..operationId = const bool.hasEnvironment('SMITHY_TEST')
+          ? '00000000-0000-4000-8000-000000000000'
+          : _i2.uuid(secure: true);
   }
 
   /// The name or unique ID of the stack set that you want to delete stack instances for.

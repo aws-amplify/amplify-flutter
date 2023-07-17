@@ -35,11 +35,9 @@ abstract class UpdateStackInstancesInput
     String? operationId,
     _i6.CallAs? callAs,
   }) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      operationId ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      operationId ??= _i2.uuid(secure: true);
-    }
+    operationId ??= const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
     return _$UpdateStackInstancesInput._(
       stackSetName: stackSetName,
       accounts: accounts == null ? null : _i7.BuiltList(accounts),
@@ -71,11 +69,9 @@ abstract class UpdateStackInstancesInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateStackInstancesInputBuilder b) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.operationId = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.operationId = _i2.uuid(secure: true);
-    }
+    b.operationId = const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
   }
 
   /// The name or unique ID of the stack set associated with the stack instances.

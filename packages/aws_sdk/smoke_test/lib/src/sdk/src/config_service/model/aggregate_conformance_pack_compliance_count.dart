@@ -45,8 +45,9 @@ abstract class AggregateConformancePackComplianceCount
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AggregateConformancePackComplianceCountBuilder b) {
-    b.compliantConformancePackCount = 0;
-    b.nonCompliantConformancePackCount = 0;
+    b
+      ..compliantConformancePackCount = 0
+      ..nonCompliantConformancePackCount = 0;
   }
 
   /// Number of compliant conformance packs.
