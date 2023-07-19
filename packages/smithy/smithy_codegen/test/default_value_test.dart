@@ -45,7 +45,10 @@ void main() {
           })
           ..traits = TraitMap.fromTraits(const [InputTrait()]),
       );
-      final context = createTestContext([primitive, struct]);
+      final context = createTestContext(
+        [primitive, struct],
+        version: SmithyVersion.v1,
+      );
       testDefaultValue(struct, context);
     });
 

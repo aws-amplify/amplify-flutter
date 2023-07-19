@@ -301,22 +301,26 @@ extension ShapeUtils on Shape {
 
   /// The default value of this shape when not boxed.
   (Expression, bool isConst)? defaultValue(CodegenContext context) {
-    if (isBoxed) {
+    final defaultShape = switch (this) {
+      final MemberShape member when context.smithyVersion == SmithyVersion.v1 =>
+        context.shapeFor(member.target),
+      _ => this,
+    };
+    if (defaultShape.isBoxed) {
       return null;
     }
-    if (isS3Primitive(context)) {
+    if (defaultShape.isS3Primitive(context)) {
+      return null;
+    }
+    final defaultTrait = defaultShape.getTrait<DefaultTrait>();
+    final defaultValue = defaultTrait?.value;
+    if (defaultValue == null) {
       return null;
     }
     final targetShape = switch (this) {
       final MemberShape member => context.shapeFor(member.target),
       _ => this,
     };
-    final defaultTrait =
-        getTrait<DefaultTrait>() ?? targetShape.getTrait<DefaultTrait>();
-    final defaultValue = defaultTrait?.value;
-    if (defaultValue == null) {
-      return null;
-    }
     switch (targetShape) {
       case StringShape _:
         assert(

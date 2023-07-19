@@ -30,7 +30,10 @@ extension ShapeExt on Shape {
     if (hasDefaultValue) {
       return false;
     }
-    return !hasTrait<RequiredTrait>() || hasTrait<ClientOptionalTrait>();
+    if (hasTrait<ClientOptionalTrait>()) {
+      return true;
+    }
+    return isNotRequired;
   }
 
   /// Whether `this` is not boxed. This means the shape is required to be present
