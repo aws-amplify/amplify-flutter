@@ -1,6 +1,4 @@
 apis:
   logs:
   - com.amazonaws.cloudwatchlogs#PutLogEvents
-  - com.amazonaws.cloudwatchlogs#DescribeLogGroups
-  - com.amazonaws.cloudwatchlogs#DescribeLogStreams
   - com.amazonaws.cloudwatchlogs#CreateLogStream
