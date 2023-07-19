@@ -15,6 +15,7 @@ runs:
     - name: Setup Flutter
       shell: bash
       run: |
+        brew tap leoafarias/fvm
         brew install fvm
         git clone https://github.com/dnys1/flutter.git /tmp/flutter
         ( cd /tmp/flutter && git switch debugging )
