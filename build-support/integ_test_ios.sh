@@ -66,6 +66,7 @@ do
     if fvm flutter test \
         --no-pub \
         -d $deviceId \
+        -vv \
         $TARGET;
     then
         resultsList+=(0)
@@ -108,6 +109,7 @@ for ENTRY in $TEST_ENTRIES; do
               --no-pub \
               --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
               -d $deviceId \
+              -vv \
               $ENTRY;
         then
             resultsList+=(0)
