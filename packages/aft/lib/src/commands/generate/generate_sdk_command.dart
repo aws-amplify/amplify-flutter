@@ -166,7 +166,9 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
       await outputDir.create(recursive: true);
     }
 
-    final smithyModel = SmithyAstBuilder();
+    final smithyModel = SmithyAstBuilder()
+      ..version = SmithyVersion.v2
+      ..shapes = ShapeMap({});
 
     final modelsDir = await _modelsDirForRef(config.ref);
     final models = modelsDir.list().whereType<File>();
@@ -178,7 +180,6 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
       final astJson = await model.readAsString();
       final ast = parseAstJson(astJson);
 
-      smithyModel.shapes ??= ShapeMap({});
       smithyModel.shapes!.addAll(ast.shapes);
     }
 
