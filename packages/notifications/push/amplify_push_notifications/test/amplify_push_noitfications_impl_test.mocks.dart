@@ -57,6 +57,9 @@ class _FakeAWSLogger_2 extends _i1.SmartFake implements _i4.AWSLogger {
           parent,
           parentInvocation,
         );
+
+  @override
+  String get runtimeTypeName => '_FakeAWSLogger_2';
 }
 
 /// A class which mocks [PushNotificationsHostApi].

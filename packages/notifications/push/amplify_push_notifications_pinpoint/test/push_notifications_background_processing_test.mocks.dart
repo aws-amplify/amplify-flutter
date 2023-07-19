@@ -45,6 +45,9 @@ class _FakeAWSLogger_1 extends _i1.SmartFake implements _i3.AWSLogger {
           parent,
           parentInvocation,
         );
+
+  @override
+  String get runtimeTypeName => '_FakeAWSLogger_1';
 }
 
 class _FakeAuthCategory_2 extends _i1.SmartFake implements _i4.AuthCategory {
