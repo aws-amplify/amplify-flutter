@@ -78,9 +78,7 @@ class ComplianceSummaryBuilder
   set complianceSummaryTimestamp(DateTime? complianceSummaryTimestamp) =>
       _$this._complianceSummaryTimestamp = complianceSummaryTimestamp;
 
-  ComplianceSummaryBuilder() {
-    ComplianceSummary._init(this);
-  }
+  ComplianceSummaryBuilder();
 
   ComplianceSummaryBuilder get _$this {
     final $v = _$v;

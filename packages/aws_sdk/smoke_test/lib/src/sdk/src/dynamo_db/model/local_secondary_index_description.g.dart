@@ -103,9 +103,7 @@ class LocalSecondaryIndexDescriptionBuilder
   String? get indexArn => _$this._indexArn;
   set indexArn(String? indexArn) => _$this._indexArn = indexArn;
 
-  LocalSecondaryIndexDescriptionBuilder() {
-    LocalSecondaryIndexDescription._init(this);
-  }
+  LocalSecondaryIndexDescriptionBuilder();
 
   LocalSecondaryIndexDescriptionBuilder get _$this {
     final $v = _$v;

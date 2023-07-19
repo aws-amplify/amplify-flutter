@@ -42,9 +42,6 @@ abstract class ChangePasswordRequest
     ChangePasswordRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ChangePasswordRequestBuilder b) {}
-
   /// The IAM user's current password.
   String get oldPassword;
 

@@ -59,9 +59,7 @@ class ListChangeSetsOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListChangeSetsOutputBuilder() {
-    ListChangeSetsOutput._init(this);
-  }
+  ListChangeSetsOutputBuilder();
 
   ListChangeSetsOutputBuilder get _$this {
     final $v = _$v;

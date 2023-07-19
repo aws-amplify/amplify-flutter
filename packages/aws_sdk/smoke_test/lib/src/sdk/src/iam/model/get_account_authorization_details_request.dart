@@ -47,9 +47,6 @@ abstract class GetAccountAuthorizationDetailsRequest
   static const List<_i1.SmithySerializer<GetAccountAuthorizationDetailsRequest>>
       serializers = [GetAccountAuthorizationDetailsRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAccountAuthorizationDetailsRequestBuilder b) {}
-
   /// A list of entity types used to filter the results. Only the entities that match the types you specify are included in the output. Use the value `LocalManagedPolicy` to include customer managed policies.
   ///
   /// The format for this parameter is a comma-separated (if more than one) list of strings. Each string value in the list must be one of the valid values listed below.

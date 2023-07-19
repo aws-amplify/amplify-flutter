@@ -44,9 +44,6 @@ abstract class ListStreamsInput
     ListStreamsInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStreamsInputBuilder b) {}
-
   /// If this parameter is provided, then only the streams associated with this table name are returned.
   String? get tableName;
 

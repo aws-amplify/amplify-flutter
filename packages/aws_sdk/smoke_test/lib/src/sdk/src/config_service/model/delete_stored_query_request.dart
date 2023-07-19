@@ -36,9 +36,6 @@ abstract class DeleteStoredQueryRequest
   static const List<_i1.SmithySerializer<DeleteStoredQueryRequest>>
       serializers = [DeleteStoredQueryRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteStoredQueryRequestBuilder b) {}
-
   /// The name of the query that you want to delete.
   String get queryName;
   @override

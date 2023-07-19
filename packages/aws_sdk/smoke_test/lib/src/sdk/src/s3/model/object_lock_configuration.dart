@@ -38,9 +38,6 @@ abstract class ObjectLockConfiguration
   static const List<_i4.SmithySerializer<ObjectLockConfiguration>> serializers =
       [ObjectLockConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectLockConfigurationBuilder b) {}
-
   /// Indicates whether this bucket has an Object Lock configuration enabled. Enable `ObjectLockEnabled` when you apply `ObjectLockConfiguration` to a bucket.
   _i2.ObjectLockEnabled? get objectLockEnabled;
 

@@ -69,9 +69,7 @@ class ListRoleTagsRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListRoleTagsRequestBuilder() {
-    ListRoleTagsRequest._init(this);
-  }
+  ListRoleTagsRequestBuilder();
 
   ListRoleTagsRequestBuilder get _$this {
     final $v = _$v;

@@ -47,9 +47,6 @@ abstract class ScopedConfig
     ScopedConfigRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ScopedConfigBuilder b) {}
-
   /// Config settings that can be set as environment variables.
   _i2.EnvironmentConfig? get environment;
 

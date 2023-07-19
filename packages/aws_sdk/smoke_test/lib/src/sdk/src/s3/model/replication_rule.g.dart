@@ -139,9 +139,7 @@ class ReplicationRuleBuilder
           _i7.DeleteMarkerReplicationBuilder? deleteMarkerReplication) =>
       _$this._deleteMarkerReplication = deleteMarkerReplication;
 
-  ReplicationRuleBuilder() {
-    ReplicationRule._init(this);
-  }
+  ReplicationRuleBuilder();
 
   ReplicationRuleBuilder get _$this {
     final $v = _$v;

@@ -242,9 +242,7 @@ class DescribeChangeSetOutputBuilder
   set onStackFailure(_i9.OnStackFailure? onStackFailure) =>
       _$this._onStackFailure = onStackFailure;
 
-  DescribeChangeSetOutputBuilder() {
-    DescribeChangeSetOutput._init(this);
-  }
+  DescribeChangeSetOutputBuilder();
 
   DescribeChangeSetOutputBuilder get _$this {
     final $v = _$v;

@@ -73,9 +73,7 @@ class GetDeploymentRequestBuilder
       _$this._embed ??= new _i3.ListBuilder<String>();
   set embed(_i3.ListBuilder<String>? embed) => _$this._embed = embed;
 
-  GetDeploymentRequestBuilder() {
-    GetDeploymentRequest._init(this);
-  }
+  GetDeploymentRequestBuilder();
 
   GetDeploymentRequestBuilder get _$this {
     final $v = _$v;
@@ -162,9 +160,7 @@ class GetDeploymentRequestPayloadBuilder
             GetDeploymentRequestPayloadBuilder> {
   _$GetDeploymentRequestPayload? _$v;
 
-  GetDeploymentRequestPayloadBuilder() {
-    GetDeploymentRequestPayload._init(this);
-  }
+  GetDeploymentRequestPayloadBuilder();
 
   @override
   void replace(GetDeploymentRequestPayload other) {

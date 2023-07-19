@@ -44,9 +44,6 @@ abstract class ListRoleTagsRequest
     ListRoleTagsRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListRoleTagsRequestBuilder b) {}
-
   /// The name of the IAM role for which you want to see the list of tags.
   ///
   /// This parameter accepts (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

@@ -39,9 +39,6 @@ abstract class DescribeAccountLimitsInput
   static const List<_i1.SmithySerializer<DescribeAccountLimitsInput>>
       serializers = [DescribeAccountLimitsInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeAccountLimitsInputBuilder b) {}
-
   /// A string that identifies the next page of limits that you want to retrieve.
   String? get nextToken;
   @override

@@ -38,9 +38,7 @@ class DescribeLimitsInputBuilder
     implements Builder<DescribeLimitsInput, DescribeLimitsInputBuilder> {
   _$DescribeLimitsInput? _$v;
 
-  DescribeLimitsInputBuilder() {
-    DescribeLimitsInput._init(this);
-  }
+  DescribeLimitsInputBuilder();
 
   @override
   void replace(DescribeLimitsInput other) {

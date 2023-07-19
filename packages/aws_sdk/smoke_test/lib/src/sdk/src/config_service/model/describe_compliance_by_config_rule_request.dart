@@ -52,9 +52,6 @@ abstract class DescribeComplianceByConfigRuleRequest
     DescribeComplianceByConfigRuleRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeComplianceByConfigRuleRequestBuilder b) {}
-
   /// Specify one or more Config rule names to filter the results by rule.
   _i4.BuiltList<String>? get configRuleNames;
 

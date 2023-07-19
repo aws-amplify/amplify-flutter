@@ -62,9 +62,6 @@ abstract class PublicEndpoint
     PublicEndpointRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PublicEndpointBuilder b) {}
-
   /// The unique identifier for the recipient, such as a device token, email address, or mobile phone number.
   String? get address;
 

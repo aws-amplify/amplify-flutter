@@ -66,9 +66,7 @@ class TimeToLiveSpecificationBuilder
   set attributeName(String? attributeName) =>
       _$this._attributeName = attributeName;
 
-  TimeToLiveSpecificationBuilder() {
-    TimeToLiveSpecification._init(this);
-  }
+  TimeToLiveSpecificationBuilder();
 
   TimeToLiveSpecificationBuilder get _$this {
     final $v = _$v;

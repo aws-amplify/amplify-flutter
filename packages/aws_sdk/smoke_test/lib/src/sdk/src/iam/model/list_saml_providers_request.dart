@@ -37,8 +37,6 @@ abstract class ListSamlProvidersRequest
   static const List<_i1.SmithySerializer<ListSamlProvidersRequest>>
       serializers = [ListSamlProvidersRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListSamlProvidersRequestBuilder b) {}
   @override
   ListSamlProvidersRequest getPayload() => this;
   @override

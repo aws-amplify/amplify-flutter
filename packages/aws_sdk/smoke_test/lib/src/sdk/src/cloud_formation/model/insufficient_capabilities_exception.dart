@@ -42,8 +42,6 @@ abstract class InsufficientCapabilitiesException
   static const List<_i2.SmithySerializer<InsufficientCapabilitiesException>>
       serializers = [InsufficientCapabilitiesExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InsufficientCapabilitiesExceptionBuilder b) {}
   @override
   String? get message;
   @override

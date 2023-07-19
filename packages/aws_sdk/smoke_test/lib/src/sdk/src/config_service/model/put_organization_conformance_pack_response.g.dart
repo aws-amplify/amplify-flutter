@@ -59,9 +59,7 @@ class PutOrganizationConformancePackResponseBuilder
   set organizationConformancePackArn(String? organizationConformancePackArn) =>
       _$this._organizationConformancePackArn = organizationConformancePackArn;
 
-  PutOrganizationConformancePackResponseBuilder() {
-    PutOrganizationConformancePackResponse._init(this);
-  }
+  PutOrganizationConformancePackResponseBuilder();
 
   PutOrganizationConformancePackResponseBuilder get _$this {
     final $v = _$v;

@@ -54,9 +54,6 @@ abstract class IntelligentTieringConfiguration
   static const List<_i6.SmithySerializer<IntelligentTieringConfiguration>>
       serializers = [IntelligentTieringConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(IntelligentTieringConfigurationBuilder b) {}
-
   /// The ID used to identify the S3 Intelligent-Tiering configuration.
   String get id;
 

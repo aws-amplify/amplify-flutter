@@ -57,9 +57,6 @@ abstract class FlushStageAuthorizersCacheRequest
           _i1.SmithySerializer<FlushStageAuthorizersCacheRequestPayload>>
       serializers = [FlushStageAuthorizersCacheRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FlushStageAuthorizersCacheRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -117,8 +114,6 @@ abstract class FlushStageAuthorizersCacheRequestPayload
 
   const FlushStageAuthorizersCacheRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FlushStageAuthorizersCacheRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

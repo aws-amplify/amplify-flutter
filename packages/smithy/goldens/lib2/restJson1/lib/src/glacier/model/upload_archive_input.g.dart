@@ -16,7 +16,7 @@ class _$UploadArchiveInput extends UploadArchiveInput {
   @override
   final String? checksum;
   @override
-  final _i2.Stream<List<int>>? body;
+  final _i2.Stream<List<int>> body;
 
   factory _$UploadArchiveInput(
           [void Function(UploadArchiveInputBuilder)? updates]) =>
@@ -27,12 +27,13 @@ class _$UploadArchiveInput extends UploadArchiveInput {
       required this.accountId,
       this.archiveDescription,
       this.checksum,
-      this.body})
+      required this.body})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         vaultName, r'UploadArchiveInput', 'vaultName');
     BuiltValueNullFieldError.checkNotNull(
         accountId, r'UploadArchiveInput', 'accountId');
+    BuiltValueNullFieldError.checkNotNull(body, r'UploadArchiveInput', 'body');
   }
 
   @override
@@ -133,7 +134,8 @@ class UploadArchiveInputBuilder
                 accountId, r'UploadArchiveInput', 'accountId'),
             archiveDescription: archiveDescription,
             checksum: checksum,
-            body: body);
+            body: BuiltValueNullFieldError.checkNotNull(
+                body, r'UploadArchiveInput', 'body'));
     replace(_$result);
     return _$result;
   }

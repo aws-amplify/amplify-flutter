@@ -42,8 +42,6 @@ abstract class InvalidStateTransitionException
   static const List<_i2.SmithySerializer<InvalidStateTransitionException>>
       serializers = [InvalidStateTransitionExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidStateTransitionExceptionBuilder b) {}
   @override
   String? get message;
   @override

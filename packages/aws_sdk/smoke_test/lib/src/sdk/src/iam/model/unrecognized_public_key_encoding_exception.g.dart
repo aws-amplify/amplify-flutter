@@ -62,9 +62,7 @@ class UnrecognizedPublicKeyEncodingExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  UnrecognizedPublicKeyEncodingExceptionBuilder() {
-    UnrecognizedPublicKeyEncodingException._init(this);
-  }
+  UnrecognizedPublicKeyEncodingExceptionBuilder();
 
   UnrecognizedPublicKeyEncodingExceptionBuilder get _$this {
     final $v = _$v;

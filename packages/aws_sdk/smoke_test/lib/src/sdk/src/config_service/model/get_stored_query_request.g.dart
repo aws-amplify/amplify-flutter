@@ -51,9 +51,7 @@ class GetStoredQueryRequestBuilder
   String? get queryName => _$this._queryName;
   set queryName(String? queryName) => _$this._queryName = queryName;
 
-  GetStoredQueryRequestBuilder() {
-    GetStoredQueryRequest._init(this);
-  }
+  GetStoredQueryRequestBuilder();
 
   GetStoredQueryRequestBuilder get _$this {
     final $v = _$v;

@@ -31,9 +31,6 @@ abstract class JsonInput
     JsonInputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonInputBuilder b) {}
-
   /// The type of JSON. Valid values: Document, Lines.
   _i2.JsonType? get type;
   @override

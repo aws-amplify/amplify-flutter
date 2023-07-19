@@ -41,9 +41,6 @@ abstract class InternalErrorException
   static const List<_i2.SmithySerializer<InternalErrorException>> serializers =
       [InternalErrorExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InternalErrorExceptionBuilder b) {}
-
   /// The message returned when Amazon Cognito throws an internal error exception.
   @override
   String? get message;

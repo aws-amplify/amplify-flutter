@@ -39,9 +39,6 @@ abstract class PutEvaluationsResponse
   static const List<_i4.SmithySerializer<PutEvaluationsResponse>> serializers =
       [PutEvaluationsResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutEvaluationsResponseBuilder b) {}
-
   /// Requests that failed because of a client or server error.
   _i3.BuiltList<_i2.Evaluation>? get failedEvaluations;
   @override

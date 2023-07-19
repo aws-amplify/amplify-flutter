@@ -49,9 +49,7 @@ class GreetingWithErrorsOutputBuilder
   String? get greeting => _$this._greeting;
   set greeting(String? greeting) => _$this._greeting = greeting;
 
-  GreetingWithErrorsOutputBuilder() {
-    GreetingWithErrorsOutput._init(this);
-  }
+  GreetingWithErrorsOutputBuilder();
 
   GreetingWithErrorsOutputBuilder get _$this {
     final $v = _$v;

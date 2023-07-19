@@ -176,9 +176,7 @@ class ReplicaSettingsDescriptionBuilder
           _i7.TableClassSummaryBuilder? replicaTableClassSummary) =>
       _$this._replicaTableClassSummary = replicaTableClassSummary;
 
-  ReplicaSettingsDescriptionBuilder() {
-    ReplicaSettingsDescription._init(this);
-  }
+  ReplicaSettingsDescriptionBuilder();
 
   ReplicaSettingsDescriptionBuilder get _$this {
     final $v = _$v;

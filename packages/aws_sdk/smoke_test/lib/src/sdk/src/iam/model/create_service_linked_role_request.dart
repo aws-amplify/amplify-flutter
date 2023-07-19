@@ -45,9 +45,6 @@ abstract class CreateServiceLinkedRoleRequest
   static const List<_i1.SmithySerializer<CreateServiceLinkedRoleRequest>>
       serializers = [CreateServiceLinkedRoleRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateServiceLinkedRoleRequestBuilder b) {}
-
   /// The service principal for the Amazon Web Services service to which this role is attached. You use a string similar to a URL but without the http:// in front. For example: `elasticbeanstalk.amazonaws.com`.
   ///
   /// Service principals are unique and case-sensitive. To find the exact service principal for your service-linked role, see [Amazon Web Services services that work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) in the _IAM User Guide_. Look for the services that have **Yes** in the **Service-Linked Role** column. Choose the **Yes** link to view the service-linked role documentation for that service.

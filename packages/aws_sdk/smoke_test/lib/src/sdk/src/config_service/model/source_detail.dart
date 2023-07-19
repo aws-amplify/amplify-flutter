@@ -43,9 +43,6 @@ abstract class SourceDetail
     SourceDetailAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SourceDetailBuilder b) {}
-
   /// The source of the event, such as an Amazon Web Services service, that triggers Config to evaluate your Amazon Web Services resources.
   _i2.EventSource? get eventSource;
 

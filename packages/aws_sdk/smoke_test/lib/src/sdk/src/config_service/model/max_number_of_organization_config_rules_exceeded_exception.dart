@@ -48,10 +48,6 @@ abstract class MaxNumberOfOrganizationConfigRulesExceededException
     MaxNumberOfOrganizationConfigRulesExceededExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      MaxNumberOfOrganizationConfigRulesExceededExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

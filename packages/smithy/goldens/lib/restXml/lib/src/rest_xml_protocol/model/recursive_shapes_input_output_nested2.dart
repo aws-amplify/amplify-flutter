@@ -37,8 +37,6 @@ abstract class RecursiveShapesInputOutputNested2
   static const List<_i3.SmithySerializer<RecursiveShapesInputOutputNested2>>
       serializers = [RecursiveShapesInputOutputNested2RestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecursiveShapesInputOutputNested2Builder b) {}
   String? get bar;
   _i2.RecursiveShapesInputOutputNested1? get recursiveMember;
   @override

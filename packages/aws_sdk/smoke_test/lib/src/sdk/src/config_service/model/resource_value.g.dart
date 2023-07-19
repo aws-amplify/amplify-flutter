@@ -47,9 +47,7 @@ class ResourceValueBuilder
   _i2.ResourceValueType? get value => _$this._value;
   set value(_i2.ResourceValueType? value) => _$this._value = value;
 
-  ResourceValueBuilder() {
-    ResourceValue._init(this);
-  }
+  ResourceValueBuilder();
 
   ResourceValueBuilder get _$this {
     final $v = _$v;

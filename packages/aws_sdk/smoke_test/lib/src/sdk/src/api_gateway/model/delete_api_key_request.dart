@@ -46,9 +46,6 @@ abstract class DeleteApiKeyRequest
   static const List<_i1.SmithySerializer<DeleteApiKeyRequestPayload>>
       serializers = [DeleteApiKeyRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteApiKeyRequestBuilder b) {}
-
   /// The identifier of the ApiKey resource to be deleted.
   String get apiKey;
   @override
@@ -90,8 +87,6 @@ abstract class DeleteApiKeyRequestPayload
 
   const DeleteApiKeyRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteApiKeyRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

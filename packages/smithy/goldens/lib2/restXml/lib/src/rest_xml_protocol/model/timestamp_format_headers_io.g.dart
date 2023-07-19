@@ -113,9 +113,7 @@ class TimestampFormatHeadersIoBuilder
   set targetDateTime(DateTime? targetDateTime) =>
       _$this._targetDateTime = targetDateTime;
 
-  TimestampFormatHeadersIoBuilder() {
-    TimestampFormatHeadersIo._init(this);
-  }
+  TimestampFormatHeadersIoBuilder();
 
   TimestampFormatHeadersIoBuilder get _$this {
     final $v = _$v;
@@ -196,9 +194,7 @@ class TimestampFormatHeadersIoPayloadBuilder
             TimestampFormatHeadersIoPayloadBuilder> {
   _$TimestampFormatHeadersIoPayload? _$v;
 
-  TimestampFormatHeadersIoPayloadBuilder() {
-    TimestampFormatHeadersIoPayload._init(this);
-  }
+  TimestampFormatHeadersIoPayloadBuilder();
 
   @override
   void replace(TimestampFormatHeadersIoPayload other) {

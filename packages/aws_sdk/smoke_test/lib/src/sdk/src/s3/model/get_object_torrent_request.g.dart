@@ -86,9 +86,7 @@ class GetObjectTorrentRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetObjectTorrentRequestBuilder() {
-    GetObjectTorrentRequest._init(this);
-  }
+  GetObjectTorrentRequestBuilder();
 
   GetObjectTorrentRequestBuilder get _$this {
     final $v = _$v;
@@ -164,9 +162,7 @@ class GetObjectTorrentRequestPayloadBuilder
             GetObjectTorrentRequestPayloadBuilder> {
   _$GetObjectTorrentRequestPayload? _$v;
 
-  GetObjectTorrentRequestPayloadBuilder() {
-    GetObjectTorrentRequestPayload._init(this);
-  }
+  GetObjectTorrentRequestPayloadBuilder();
 
   @override
   void replace(GetObjectTorrentRequestPayload other) {

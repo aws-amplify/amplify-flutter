@@ -40,9 +40,6 @@ abstract class RestoreTableToPointInTimeOutput
   static const List<_i3.SmithySerializer<RestoreTableToPointInTimeOutput>>
       serializers = [RestoreTableToPointInTimeOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestoreTableToPointInTimeOutputBuilder b) {}
-
   /// Represents the properties of a table.
   _i2.TableDescription? get tableDescription;
   @override

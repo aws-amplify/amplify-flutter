@@ -41,8 +41,6 @@ abstract class IndexNotFoundException
   static const List<_i2.SmithySerializer<IndexNotFoundException>> serializers =
       [IndexNotFoundExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(IndexNotFoundExceptionBuilder b) {}
   @override
   String? get message;
   @override

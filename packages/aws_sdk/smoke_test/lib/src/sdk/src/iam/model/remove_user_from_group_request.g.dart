@@ -65,9 +65,7 @@ class RemoveUserFromGroupRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  RemoveUserFromGroupRequestBuilder() {
-    RemoveUserFromGroupRequest._init(this);
-  }
+  RemoveUserFromGroupRequestBuilder();
 
   RemoveUserFromGroupRequestBuilder get _$this {
     final $v = _$v;

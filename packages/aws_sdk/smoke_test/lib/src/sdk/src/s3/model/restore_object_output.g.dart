@@ -60,9 +60,7 @@ class RestoreObjectOutputBuilder
   set restoreOutputPath(String? restoreOutputPath) =>
       _$this._restoreOutputPath = restoreOutputPath;
 
-  RestoreObjectOutputBuilder() {
-    RestoreObjectOutput._init(this);
-  }
+  RestoreObjectOutputBuilder();
 
   RestoreObjectOutputBuilder get _$this {
     final $v = _$v;
@@ -131,9 +129,7 @@ class RestoreObjectOutputPayloadBuilder
         Builder<RestoreObjectOutputPayload, RestoreObjectOutputPayloadBuilder> {
   _$RestoreObjectOutputPayload? _$v;
 
-  RestoreObjectOutputPayloadBuilder() {
-    RestoreObjectOutputPayload._init(this);
-  }
+  RestoreObjectOutputPayloadBuilder();
 
   @override
   void replace(RestoreObjectOutputPayload other) {

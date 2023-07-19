@@ -69,9 +69,7 @@ class TagOpenIdConnectProviderRequestBuilder
       _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
   set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
 
-  TagOpenIdConnectProviderRequestBuilder() {
-    TagOpenIdConnectProviderRequest._init(this);
-  }
+  TagOpenIdConnectProviderRequestBuilder();
 
   TagOpenIdConnectProviderRequestBuilder get _$this {
     final $v = _$v;

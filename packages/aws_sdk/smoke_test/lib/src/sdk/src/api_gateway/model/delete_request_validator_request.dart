@@ -56,9 +56,6 @@ abstract class DeleteRequestValidatorRequest
   static const List<_i1.SmithySerializer<DeleteRequestValidatorRequestPayload>>
       serializers = [DeleteRequestValidatorRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteRequestValidatorRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -115,8 +112,6 @@ abstract class DeleteRequestValidatorRequestPayload
 
   const DeleteRequestValidatorRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteRequestValidatorRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

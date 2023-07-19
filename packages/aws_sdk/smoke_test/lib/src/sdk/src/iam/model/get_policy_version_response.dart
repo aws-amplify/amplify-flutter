@@ -38,9 +38,6 @@ abstract class GetPolicyVersionResponse
   static const List<_i3.SmithySerializer<GetPolicyVersionResponse>>
       serializers = [GetPolicyVersionResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetPolicyVersionResponseBuilder b) {}
-
   /// A structure containing details about the policy version.
   _i2.PolicyVersion? get policyVersion;
   @override

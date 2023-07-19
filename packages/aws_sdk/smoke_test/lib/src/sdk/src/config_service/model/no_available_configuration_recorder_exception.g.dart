@@ -69,9 +69,7 @@ class NoAvailableConfigurationRecorderExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoAvailableConfigurationRecorderExceptionBuilder() {
-    NoAvailableConfigurationRecorderException._init(this);
-  }
+  NoAvailableConfigurationRecorderExceptionBuilder();
 
   NoAvailableConfigurationRecorderExceptionBuilder get _$this {
     final $v = _$v;

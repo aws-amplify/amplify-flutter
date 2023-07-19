@@ -68,9 +68,7 @@ class DescribeGlobalTableSettingsOutputBuilder
           _i3.ListBuilder<_i2.ReplicaSettingsDescription>? replicaSettings) =>
       _$this._replicaSettings = replicaSettings;
 
-  DescribeGlobalTableSettingsOutputBuilder() {
-    DescribeGlobalTableSettingsOutput._init(this);
-  }
+  DescribeGlobalTableSettingsOutputBuilder();
 
   DescribeGlobalTableSettingsOutputBuilder get _$this {
     final $v = _$v;

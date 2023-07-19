@@ -39,9 +39,7 @@ class EventBridgeConfigurationBuilder
         Builder<EventBridgeConfiguration, EventBridgeConfigurationBuilder> {
   _$EventBridgeConfiguration? _$v;
 
-  EventBridgeConfigurationBuilder() {
-    EventBridgeConfiguration._init(this);
-  }
+  EventBridgeConfigurationBuilder();
 
   @override
   void replace(EventBridgeConfiguration other) {

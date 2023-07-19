@@ -47,9 +47,6 @@ abstract class GetItemOutput
     GetItemOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetItemOutputBuilder b) {}
-
   /// A map of attribute names to `AttributeValue` objects, as specified by `ProjectionExpression`.
   _i4.BuiltMap<String, _i2.AttributeValue>? get item;
 

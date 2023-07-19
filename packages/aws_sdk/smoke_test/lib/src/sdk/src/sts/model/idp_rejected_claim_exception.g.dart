@@ -55,9 +55,7 @@ class IdpRejectedClaimExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  IdpRejectedClaimExceptionBuilder() {
-    IdpRejectedClaimException._init(this);
-  }
+  IdpRejectedClaimExceptionBuilder();
 
   IdpRejectedClaimExceptionBuilder get _$this {
     final $v = _$v;

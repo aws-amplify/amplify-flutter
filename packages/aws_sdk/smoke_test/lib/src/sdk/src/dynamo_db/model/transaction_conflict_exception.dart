@@ -43,8 +43,6 @@ abstract class TransactionConflictException
   static const List<_i2.SmithySerializer<TransactionConflictException>>
       serializers = [TransactionConflictExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TransactionConflictExceptionBuilder b) {}
   @override
   String? get message;
   @override

@@ -48,9 +48,6 @@ abstract class GetSamlProviderResponse
   static const List<_i4.SmithySerializer<GetSamlProviderResponse>> serializers =
       [GetSamlProviderResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSamlProviderResponseBuilder b) {}
-
   /// The XML metadata document that includes information about an identity provider.
   String? get samlMetadataDocument;
 

@@ -42,9 +42,6 @@ abstract class PropertyDifference
     PropertyDifferenceAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PropertyDifferenceBuilder b) {}
-
   /// The fully-qualified path to the resource property.
   String get propertyPath;
 

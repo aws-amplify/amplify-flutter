@@ -58,9 +58,7 @@ class ListExportsOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListExportsOutputBuilder() {
-    ListExportsOutput._init(this);
-  }
+  ListExportsOutputBuilder();
 
   ListExportsOutputBuilder get _$this {
     final $v = _$v;

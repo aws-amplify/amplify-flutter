@@ -51,9 +51,6 @@ abstract class DeleteItemOutput
     DeleteItemOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteItemOutputBuilder b) {}
-
   /// A map of attribute names to `AttributeValue` objects, representing the item as it appeared before the `DeleteItem` operation. This map appears in the response only if `ReturnValues` was specified as `ALL_OLD` in the request.
   _i5.BuiltMap<String, _i2.AttributeValue>? get attributes;
 

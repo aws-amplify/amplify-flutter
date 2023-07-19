@@ -40,9 +40,6 @@ abstract class ServerSideEncryptionByDefault
   static const List<_i3.SmithySerializer<ServerSideEncryptionByDefault>>
       serializers = [ServerSideEncryptionByDefaultRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServerSideEncryptionByDefaultBuilder b) {}
-
   /// Server-side encryption algorithm to use for the default encryption.
   _i2.ServerSideEncryption get sseAlgorithm;
 

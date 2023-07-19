@@ -36,9 +36,6 @@ abstract class DeleteTableInput
     DeleteTableInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteTableInputBuilder b) {}
-
   /// The name of the table to delete.
   String get tableName;
   @override

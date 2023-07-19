@@ -55,9 +55,6 @@ abstract class DeleteUsagePlanKeyRequest
   static const List<_i1.SmithySerializer<DeleteUsagePlanKeyRequestPayload>>
       serializers = [DeleteUsagePlanKeyRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteUsagePlanKeyRequestBuilder b) {}
-
   /// The Id of the UsagePlan resource representing the usage plan containing the to-be-deleted UsagePlanKey resource representing a plan customer.
   String get usagePlanId;
 
@@ -114,8 +111,6 @@ abstract class DeleteUsagePlanKeyRequestPayload
 
   const DeleteUsagePlanKeyRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteUsagePlanKeyRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

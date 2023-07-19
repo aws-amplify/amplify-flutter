@@ -108,9 +108,7 @@ class AssumeRoleWithSamlRequestBuilder
   set durationSeconds(int? durationSeconds) =>
       _$this._durationSeconds = durationSeconds;
 
-  AssumeRoleWithSamlRequestBuilder() {
-    AssumeRoleWithSamlRequest._init(this);
-  }
+  AssumeRoleWithSamlRequestBuilder();
 
   AssumeRoleWithSamlRequestBuilder get _$this {
     final $v = _$v;

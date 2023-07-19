@@ -55,9 +55,7 @@ class MalformedTimestampPathEpochInputBuilder
   DateTime? get timestamp => _$this._timestamp;
   set timestamp(DateTime? timestamp) => _$this._timestamp = timestamp;
 
-  MalformedTimestampPathEpochInputBuilder() {
-    MalformedTimestampPathEpochInput._init(this);
-  }
+  MalformedTimestampPathEpochInputBuilder();
 
   MalformedTimestampPathEpochInputBuilder get _$this {
     final $v = _$v;
@@ -130,9 +128,7 @@ class MalformedTimestampPathEpochInputPayloadBuilder
             MalformedTimestampPathEpochInputPayloadBuilder> {
   _$MalformedTimestampPathEpochInputPayload? _$v;
 
-  MalformedTimestampPathEpochInputPayloadBuilder() {
-    MalformedTimestampPathEpochInputPayload._init(this);
-  }
+  MalformedTimestampPathEpochInputPayloadBuilder();
 
   @override
   void replace(MalformedTimestampPathEpochInputPayload other) {

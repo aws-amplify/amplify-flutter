@@ -56,9 +56,7 @@ class AccountGateResultBuilder
   String? get statusReason => _$this._statusReason;
   set statusReason(String? statusReason) => _$this._statusReason = statusReason;
 
-  AccountGateResultBuilder() {
-    AccountGateResult._init(this);
-  }
+  AccountGateResultBuilder();
 
   AccountGateResultBuilder get _$this {
     final $v = _$v;

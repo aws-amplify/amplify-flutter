@@ -26,8 +26,6 @@ abstract class ComplexNestedErrorData
   static const List<_i2.SmithySerializer<ComplexNestedErrorData>> serializers =
       [ComplexNestedErrorDataAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplexNestedErrorDataBuilder b) {}
   String? get foo;
   @override
   List<Object?> get props => [foo];

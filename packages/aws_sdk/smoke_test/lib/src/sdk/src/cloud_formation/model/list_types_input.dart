@@ -59,9 +59,6 @@ abstract class ListTypesInput
     ListTypesInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTypesInputBuilder b) {}
-
   /// The scope at which the extensions are visible and usable in CloudFormation operations.
   ///
   /// Valid values include:

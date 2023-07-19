@@ -75,9 +75,7 @@ class InAppMessageHeaderConfigBuilder
   String? get textColor => _$this._textColor;
   set textColor(String? textColor) => _$this._textColor = textColor;
 
-  InAppMessageHeaderConfigBuilder() {
-    InAppMessageHeaderConfig._init(this);
-  }
+  InAppMessageHeaderConfigBuilder();
 
   InAppMessageHeaderConfigBuilder get _$this {
     final $v = _$v;

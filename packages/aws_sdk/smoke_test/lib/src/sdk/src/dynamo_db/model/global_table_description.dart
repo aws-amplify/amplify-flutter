@@ -47,9 +47,6 @@ abstract class GlobalTableDescription
   static const List<_i5.SmithySerializer<GlobalTableDescription>> serializers =
       [GlobalTableDescriptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GlobalTableDescriptionBuilder b) {}
-
   /// The Regions where the global table has replicas.
   _i4.BuiltList<_i2.ReplicaDescription>? get replicationGroup;
 

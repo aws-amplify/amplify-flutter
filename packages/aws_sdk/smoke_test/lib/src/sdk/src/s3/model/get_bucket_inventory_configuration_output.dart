@@ -54,9 +54,6 @@ abstract class GetBucketInventoryConfigurationOutput
   static const List<_i2.SmithySerializer<_i3.InventoryConfiguration?>>
       serializers = [GetBucketInventoryConfigurationOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketInventoryConfigurationOutputBuilder b) {}
-
   /// Specifies the inventory configuration.
   _i3.InventoryConfiguration? get inventoryConfiguration;
   @override

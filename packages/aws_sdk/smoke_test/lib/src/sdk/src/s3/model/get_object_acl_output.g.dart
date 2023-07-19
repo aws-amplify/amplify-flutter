@@ -68,9 +68,7 @@ class GetObjectAclOutputBuilder
   set requestCharged(_i5.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  GetObjectAclOutputBuilder() {
-    GetObjectAclOutput._init(this);
-  }
+  GetObjectAclOutputBuilder();
 
   GetObjectAclOutputBuilder get _$this {
     final $v = _$v;
@@ -176,9 +174,7 @@ class GetObjectAclOutputPayloadBuilder
   _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
   set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
 
-  GetObjectAclOutputPayloadBuilder() {
-    GetObjectAclOutputPayload._init(this);
-  }
+  GetObjectAclOutputPayloadBuilder();
 
   GetObjectAclOutputPayloadBuilder get _$this {
     final $v = _$v;

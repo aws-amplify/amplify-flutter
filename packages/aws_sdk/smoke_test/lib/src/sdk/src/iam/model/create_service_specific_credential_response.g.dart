@@ -60,9 +60,7 @@ class CreateServiceSpecificCredentialResponseBuilder
           _i2.ServiceSpecificCredentialBuilder? serviceSpecificCredential) =>
       _$this._serviceSpecificCredential = serviceSpecificCredential;
 
-  CreateServiceSpecificCredentialResponseBuilder() {
-    CreateServiceSpecificCredentialResponse._init(this);
-  }
+  CreateServiceSpecificCredentialResponseBuilder();
 
   CreateServiceSpecificCredentialResponseBuilder get _$this {
     final $v = _$v;

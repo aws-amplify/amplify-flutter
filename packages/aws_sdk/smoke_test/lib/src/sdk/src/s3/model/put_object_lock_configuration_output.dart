@@ -47,9 +47,6 @@ abstract class PutObjectLockConfigurationOutput
           _i2.SmithySerializer<PutObjectLockConfigurationOutputPayload>>
       serializers = [PutObjectLockConfigurationOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectLockConfigurationOutputBuilder b) {}
-
   /// If present, indicates that the requester was successfully charged for the request.
   _i3.RequestCharged? get requestCharged;
   @override
@@ -83,8 +80,6 @@ abstract class PutObjectLockConfigurationOutputPayload
 
   const PutObjectLockConfigurationOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectLockConfigurationOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

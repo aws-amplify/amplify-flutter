@@ -50,9 +50,6 @@ abstract class DescribeRemediationExecutionStatusResponse
     DescribeRemediationExecutionStatusResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeRemediationExecutionStatusResponseBuilder b) {}
-
   /// Returns a list of remediation execution statuses objects.
   _i3.BuiltList<_i2.RemediationExecutionStatus>?
       get remediationExecutionStatuses;

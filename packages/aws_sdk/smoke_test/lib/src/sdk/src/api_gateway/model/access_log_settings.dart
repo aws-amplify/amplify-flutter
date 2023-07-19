@@ -35,9 +35,6 @@ abstract class AccessLogSettings
     AccessLogSettingsRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccessLogSettingsBuilder b) {}
-
   /// A single line format of the access logs of data, as specified by selected $context variables. The format must include at least `$context.requestId`.
   String? get format;
 

@@ -43,9 +43,6 @@ abstract class MfaDevice
     MfaDeviceAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MfaDeviceBuilder b) {}
-
   /// The user with whom the MFA device is associated.
   String get userName;
 

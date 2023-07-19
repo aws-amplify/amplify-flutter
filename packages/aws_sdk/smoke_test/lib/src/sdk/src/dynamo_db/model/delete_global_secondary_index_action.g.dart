@@ -55,9 +55,7 @@ class DeleteGlobalSecondaryIndexActionBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  DeleteGlobalSecondaryIndexActionBuilder() {
-    DeleteGlobalSecondaryIndexAction._init(this);
-  }
+  DeleteGlobalSecondaryIndexActionBuilder();
 
   DeleteGlobalSecondaryIndexActionBuilder get _$this {
     final $v = _$v;

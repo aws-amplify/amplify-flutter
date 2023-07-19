@@ -8,7 +8,7 @@ part of 'upload_part_request.dart';
 
 class _$UploadPartRequest extends UploadPartRequest {
   @override
-  final _i2.Stream<List<int>>? body;
+  final _i2.Stream<List<int>> body;
   @override
   final String bucket;
   @override
@@ -47,7 +47,7 @@ class _$UploadPartRequest extends UploadPartRequest {
       (new UploadPartRequestBuilder()..update(updates))._build();
 
   _$UploadPartRequest._(
-      {this.body,
+      {required this.body,
       required this.bucket,
       this.contentLength,
       this.contentMd5,
@@ -65,6 +65,7 @@ class _$UploadPartRequest extends UploadPartRequest {
       this.requestPayer,
       this.expectedBucketOwner})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(body, r'UploadPartRequest', 'body');
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'UploadPartRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(key, r'UploadPartRequest', 'key');
@@ -256,7 +257,8 @@ class UploadPartRequestBuilder
   _$UploadPartRequest _build() {
     final _$result = _$v ??
         new _$UploadPartRequest._(
-            body: body,
+            body: BuiltValueNullFieldError.checkNotNull(
+                body, r'UploadPartRequest', 'body'),
             bucket: BuiltValueNullFieldError.checkNotNull(
                 bucket, r'UploadPartRequest', 'bucket'),
             contentLength: contentLength,

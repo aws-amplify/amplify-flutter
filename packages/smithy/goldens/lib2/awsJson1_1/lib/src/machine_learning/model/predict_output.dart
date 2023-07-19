@@ -35,8 +35,6 @@ abstract class PredictOutput
     PredictOutputAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PredictOutputBuilder b) {}
   _i2.Prediction? get prediction;
   @override
   List<Object?> get props => [prediction];

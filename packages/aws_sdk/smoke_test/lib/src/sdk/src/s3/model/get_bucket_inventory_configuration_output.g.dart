@@ -60,9 +60,7 @@ class GetBucketInventoryConfigurationOutputBuilder
           _i3.InventoryConfigurationBuilder? inventoryConfiguration) =>
       _$this._inventoryConfiguration = inventoryConfiguration;
 
-  GetBucketInventoryConfigurationOutputBuilder() {
-    GetBucketInventoryConfigurationOutput._init(this);
-  }
+  GetBucketInventoryConfigurationOutputBuilder();
 
   GetBucketInventoryConfigurationOutputBuilder get _$this {
     final $v = _$v;

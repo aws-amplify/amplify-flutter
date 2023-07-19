@@ -55,9 +55,7 @@ class ExportSummaryBuilder
   set exportStatus(_i2.ExportStatus? exportStatus) =>
       _$this._exportStatus = exportStatus;
 
-  ExportSummaryBuilder() {
-    ExportSummary._init(this);
-  }
+  ExportSummaryBuilder();
 
   ExportSummaryBuilder get _$this {
     final $v = _$v;

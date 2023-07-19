@@ -85,9 +85,7 @@ class GranteeBuilder implements Builder<Grantee, GranteeBuilder> {
   _i2.S3Type? get type => _$this._type;
   set type(_i2.S3Type? type) => _$this._type = type;
 
-  GranteeBuilder() {
-    Grantee._init(this);
-  }
+  GranteeBuilder();
 
   GranteeBuilder get _$this {
     final $v = _$v;

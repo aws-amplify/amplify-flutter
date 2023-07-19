@@ -41,8 +41,6 @@ abstract class StaleRequestException
     StaleRequestExceptionAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StaleRequestExceptionBuilder b) {}
   @override
   String? get message;
   @override

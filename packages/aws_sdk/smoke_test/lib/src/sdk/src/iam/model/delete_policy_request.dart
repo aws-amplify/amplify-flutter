@@ -36,9 +36,6 @@ abstract class DeletePolicyRequest
     DeletePolicyRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeletePolicyRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the IAM policy you want to delete.
   ///
   /// For more information about ARNs, see [Amazon Resource Names (ARNs)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the _Amazon Web Services General Reference_.

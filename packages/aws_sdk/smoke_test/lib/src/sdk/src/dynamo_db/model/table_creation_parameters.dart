@@ -60,9 +60,6 @@ abstract class TableCreationParameters
   static const List<_i9.SmithySerializer<TableCreationParameters>> serializers =
       [TableCreationParametersAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TableCreationParametersBuilder b) {}
-
   /// The name of the table created as part of the import operation.
   String get tableName;
 

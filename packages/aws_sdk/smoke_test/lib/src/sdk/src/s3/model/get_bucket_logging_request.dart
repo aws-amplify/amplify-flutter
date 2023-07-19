@@ -53,9 +53,6 @@ abstract class GetBucketLoggingRequest
   static const List<_i1.SmithySerializer<GetBucketLoggingRequestPayload>>
       serializers = [GetBucketLoggingRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLoggingRequestBuilder b) {}
-
   /// The bucket name for which to get the logging information.
   String get bucket;
 
@@ -110,8 +107,6 @@ abstract class GetBucketLoggingRequestPayload
 
   const GetBucketLoggingRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLoggingRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

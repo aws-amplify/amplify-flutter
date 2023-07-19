@@ -19,9 +19,8 @@ abstract class RestoreSummary
     String? sourceBackupArn,
     String? sourceTableArn,
     required DateTime restoreDateTime,
-    bool? restoreInProgress,
+    required bool restoreInProgress,
   }) {
-    restoreInProgress ??= false;
     return _$RestoreSummary._(
       sourceBackupArn: sourceBackupArn,
       sourceTableArn: sourceTableArn,
@@ -39,11 +38,6 @@ abstract class RestoreSummary
   static const List<_i2.SmithySerializer<RestoreSummary>> serializers = [
     RestoreSummaryAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestoreSummaryBuilder b) {
-    b.restoreInProgress = false;
-  }
 
   /// The Amazon Resource Name (ARN) of the backup from which the table was restored.
   String? get sourceBackupArn;

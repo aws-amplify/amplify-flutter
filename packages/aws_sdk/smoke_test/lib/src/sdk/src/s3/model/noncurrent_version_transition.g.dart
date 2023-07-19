@@ -72,9 +72,7 @@ class NoncurrentVersionTransitionBuilder
   set newerNoncurrentVersions(int? newerNoncurrentVersions) =>
       _$this._newerNoncurrentVersions = newerNoncurrentVersions;
 
-  NoncurrentVersionTransitionBuilder() {
-    NoncurrentVersionTransition._init(this);
-  }
+  NoncurrentVersionTransitionBuilder();
 
   NoncurrentVersionTransitionBuilder get _$this {
     final $v = _$v;

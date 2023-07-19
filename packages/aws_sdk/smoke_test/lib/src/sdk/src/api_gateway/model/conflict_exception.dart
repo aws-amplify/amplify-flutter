@@ -40,8 +40,6 @@ abstract class ConflictException
     ConflictExceptionRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConflictExceptionBuilder b) {}
   @override
   String? get message;
   @override

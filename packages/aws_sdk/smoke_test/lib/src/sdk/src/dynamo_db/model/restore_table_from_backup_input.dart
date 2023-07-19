@@ -67,9 +67,6 @@ abstract class RestoreTableFromBackupInput
   static const List<_i1.SmithySerializer<RestoreTableFromBackupInput>>
       serializers = [RestoreTableFromBackupInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestoreTableFromBackupInputBuilder b) {}
-
   /// The name of the new table to which the backup must be restored.
   String get targetTableName;
 

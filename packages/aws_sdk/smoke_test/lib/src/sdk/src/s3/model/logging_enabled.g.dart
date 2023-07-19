@@ -74,9 +74,7 @@ class LoggingEnabledBuilder
   String? get targetPrefix => _$this._targetPrefix;
   set targetPrefix(String? targetPrefix) => _$this._targetPrefix = targetPrefix;
 
-  LoggingEnabledBuilder() {
-    LoggingEnabled._init(this);
-  }
+  LoggingEnabledBuilder();
 
   LoggingEnabledBuilder get _$this {
     final $v = _$v;

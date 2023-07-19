@@ -32,9 +32,6 @@ abstract class EvaluationModeConfiguration
   static const List<_i3.SmithySerializer<EvaluationModeConfiguration>>
       serializers = [EvaluationModeConfigurationAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EvaluationModeConfigurationBuilder b) {}
-
   /// The mode of an evaluation. The valid values are Detective or Proactive.
   _i2.EvaluationMode? get mode;
   @override

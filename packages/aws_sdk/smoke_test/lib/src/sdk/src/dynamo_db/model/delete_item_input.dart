@@ -80,9 +80,6 @@ abstract class DeleteItemInput
     DeleteItemInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteItemInputBuilder b) {}
-
   /// The name of the table from which to delete the item.
   String get tableName;
 

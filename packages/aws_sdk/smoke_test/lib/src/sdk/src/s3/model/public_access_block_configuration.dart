@@ -42,9 +42,6 @@ abstract class PublicAccessBlockConfiguration
   static const List<_i2.SmithySerializer<PublicAccessBlockConfiguration>>
       serializers = [PublicAccessBlockConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PublicAccessBlockConfigurationBuilder b) {}
-
   /// Specifies whether Amazon S3 should block public access control lists (ACLs) for this bucket and objects in this bucket. Setting this element to `TRUE` causes the following behavior:
   ///
   /// *   PUT Bucket ACL and PUT Object ACL calls fail if the specified ACL is public.

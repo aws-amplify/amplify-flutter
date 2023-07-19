@@ -48,9 +48,7 @@ class EventsResponseBuilder
   set results(_i3.MapBuilder<String, _i2.ItemResponse>? results) =>
       _$this._results = results;
 
-  EventsResponseBuilder() {
-    EventsResponse._init(this);
-  }
+  EventsResponseBuilder();
 
   EventsResponseBuilder get _$this {
     final $v = _$v;

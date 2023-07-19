@@ -51,9 +51,7 @@ class EncryptionConfigurationBuilder
   set replicaKmsKeyId(String? replicaKmsKeyId) =>
       _$this._replicaKmsKeyId = replicaKmsKeyId;
 
-  EncryptionConfigurationBuilder() {
-    EncryptionConfiguration._init(this);
-  }
+  EncryptionConfigurationBuilder();
 
   EncryptionConfigurationBuilder get _$this {
     final $v = _$v;

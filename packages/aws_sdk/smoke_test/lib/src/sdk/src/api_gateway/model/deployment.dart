@@ -58,9 +58,6 @@ abstract class Deployment
     DeploymentRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeploymentBuilder b) {}
-
   /// The identifier for the deployment resource.
   String? get id;
 

@@ -46,9 +46,6 @@ abstract class UpdateContinuousBackupsInput
   static const List<_i1.SmithySerializer<UpdateContinuousBackupsInput>>
       serializers = [UpdateContinuousBackupsInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateContinuousBackupsInputBuilder b) {}
-
   /// The name of the table.
   String get tableName;
 

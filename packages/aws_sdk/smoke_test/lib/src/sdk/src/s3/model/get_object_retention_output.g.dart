@@ -51,9 +51,7 @@ class GetObjectRetentionOutputBuilder
   set retention(_i3.ObjectLockRetentionBuilder? retention) =>
       _$this._retention = retention;
 
-  GetObjectRetentionOutputBuilder() {
-    GetObjectRetentionOutput._init(this);
-  }
+  GetObjectRetentionOutputBuilder();
 
   GetObjectRetentionOutputBuilder get _$this {
     final $v = _$v;

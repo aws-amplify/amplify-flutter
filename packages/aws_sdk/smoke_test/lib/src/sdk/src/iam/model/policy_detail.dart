@@ -41,9 +41,6 @@ abstract class PolicyDetail
     PolicyDetailAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyDetailBuilder b) {}
-
   /// The name of the policy.
   String? get policyName;
 

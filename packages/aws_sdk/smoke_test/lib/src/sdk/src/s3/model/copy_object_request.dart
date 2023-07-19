@@ -312,9 +312,6 @@ abstract class CopyObjectRequest
   static const List<_i1.SmithySerializer<CopyObjectRequestPayload>>
       serializers = [CopyObjectRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyObjectRequestBuilder b) {}
-
   /// The canned ACL to apply to the object.
   ///
   /// This action is not supported by Amazon S3 on Outposts.
@@ -707,8 +704,6 @@ abstract class CopyObjectRequestPayload
 
   const CopyObjectRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyObjectRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

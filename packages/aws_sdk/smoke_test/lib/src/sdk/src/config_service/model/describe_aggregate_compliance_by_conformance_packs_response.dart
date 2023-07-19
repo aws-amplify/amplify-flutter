@@ -54,10 +54,6 @@ abstract class DescribeAggregateComplianceByConformancePacksResponse
     DescribeAggregateComplianceByConformancePacksResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      DescribeAggregateComplianceByConformancePacksResponseBuilder b) {}
-
   /// Returns the `AggregateComplianceByConformancePack` object.
   _i3.BuiltList<_i2.AggregateComplianceByConformancePack>?
       get aggregateComplianceByConformancePacks;

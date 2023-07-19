@@ -67,9 +67,7 @@ class GetCallerIdentityResponseBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  GetCallerIdentityResponseBuilder() {
-    GetCallerIdentityResponse._init(this);
-  }
+  GetCallerIdentityResponseBuilder();
 
   GetCallerIdentityResponseBuilder get _$this {
     final $v = _$v;

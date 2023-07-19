@@ -54,9 +54,6 @@ abstract class BatchGetAggregateResourceConfigResponse
     BatchGetAggregateResourceConfigResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchGetAggregateResourceConfigResponseBuilder b) {}
-
   /// A list that contains the current configuration of one or more resources.
   _i4.BuiltList<_i2.BaseConfigurationItem>? get baseConfigurationItems;
 

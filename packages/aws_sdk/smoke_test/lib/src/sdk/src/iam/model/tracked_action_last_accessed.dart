@@ -46,9 +46,6 @@ abstract class TrackedActionLastAccessed
   static const List<_i2.SmithySerializer<TrackedActionLastAccessed>>
       serializers = [TrackedActionLastAccessedAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TrackedActionLastAccessedBuilder b) {}
-
   /// The name of the tracked action to which access was attempted. Tracked actions are actions that report activity to IAM.
   String? get actionName;
 

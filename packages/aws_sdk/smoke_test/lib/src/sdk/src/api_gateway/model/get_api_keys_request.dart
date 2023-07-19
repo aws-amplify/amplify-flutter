@@ -69,9 +69,6 @@ abstract class GetApiKeysRequest
   static const List<_i1.SmithySerializer<GetApiKeysRequestPayload>>
       serializers = [GetApiKeysRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetApiKeysRequestBuilder b) {}
-
   /// The current pagination position in the paged result set.
   String? get position;
 
@@ -135,8 +132,6 @@ abstract class GetApiKeysRequestPayload
 
   const GetApiKeysRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetApiKeysRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

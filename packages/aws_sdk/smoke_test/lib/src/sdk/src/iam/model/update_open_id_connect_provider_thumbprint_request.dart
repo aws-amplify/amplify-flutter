@@ -47,9 +47,6 @@ abstract class UpdateOpenIdConnectProviderThumbprintRequest
     UpdateOpenIdConnectProviderThumbprintRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateOpenIdConnectProviderThumbprintRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the IAM OIDC provider resource object for which you want to update the thumbprint. You can get a list of OIDC provider ARNs by using the ListOpenIDConnectProviders operation.
   ///
   /// For more information about ARNs, see [Amazon Resource Names (ARNs)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the _Amazon Web Services General Reference_.

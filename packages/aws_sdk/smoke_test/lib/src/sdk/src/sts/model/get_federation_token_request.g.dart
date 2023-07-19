@@ -95,9 +95,7 @@ class GetFederationTokenRequestBuilder
       _$this._tags ??= new _i5.ListBuilder<_i4.Tag>();
   set tags(_i5.ListBuilder<_i4.Tag>? tags) => _$this._tags = tags;
 
-  GetFederationTokenRequestBuilder() {
-    GetFederationTokenRequest._init(this);
-  }
+  GetFederationTokenRequestBuilder();
 
   GetFederationTokenRequestBuilder get _$this {
     final $v = _$v;

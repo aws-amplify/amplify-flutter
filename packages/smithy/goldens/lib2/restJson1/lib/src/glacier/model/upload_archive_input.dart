@@ -43,7 +43,7 @@ abstract class UploadArchiveInput
   const UploadArchiveInput._();
 
   factory UploadArchiveInput.fromRequest(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
@@ -63,8 +63,9 @@ abstract class UploadArchiveInput
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
-      [UploadArchiveInputRestJson1Serializer()];
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
+    UploadArchiveInputRestJson1Serializer()
+  ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadArchiveInputBuilder b) {
@@ -75,7 +76,7 @@ abstract class UploadArchiveInput
   String get accountId;
   String? get archiveDescription;
   String? get checksum;
-  _i2.Stream<List<int>>? get body;
+  _i2.Stream<List<int>> get body;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -91,7 +92,7 @@ abstract class UploadArchiveInput
   }
 
   @override
-  _i2.Stream<List<int>>? getPayload() => body;
+  _i2.Stream<List<int>> getPayload() => body;
   @override
   List<Object?> get props => [
         vaultName,

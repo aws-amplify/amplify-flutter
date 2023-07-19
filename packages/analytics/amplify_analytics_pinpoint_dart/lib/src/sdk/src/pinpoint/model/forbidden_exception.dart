@@ -47,9 +47,6 @@ abstract class ForbiddenException
     ForbiddenExceptionRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ForbiddenExceptionBuilder b) {}
-
   /// The message that's returned from the API.
   @override
   String? get message;

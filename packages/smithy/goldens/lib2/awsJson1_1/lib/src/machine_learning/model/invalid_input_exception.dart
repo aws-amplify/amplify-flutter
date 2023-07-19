@@ -44,8 +44,6 @@ abstract class InvalidInputException
     InvalidInputExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidInputExceptionBuilder b) {}
   @override
   String? get message;
   int? get code;

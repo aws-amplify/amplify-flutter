@@ -44,9 +44,6 @@ abstract class SelectParameters
     SelectParametersRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SelectParametersBuilder b) {}
-
   /// Describes the serialization format of the object.
   _i2.InputSerialization get inputSerialization;
 

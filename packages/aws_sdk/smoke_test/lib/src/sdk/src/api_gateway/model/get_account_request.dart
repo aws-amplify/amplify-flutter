@@ -38,8 +38,6 @@ abstract class GetAccountRequest
     GetAccountRequestRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAccountRequestBuilder b) {}
   @override
   GetAccountRequest getPayload() => this;
   @override

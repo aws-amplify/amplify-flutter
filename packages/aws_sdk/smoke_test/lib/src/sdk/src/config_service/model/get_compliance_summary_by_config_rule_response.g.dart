@@ -58,9 +58,7 @@ class GetComplianceSummaryByConfigRuleResponseBuilder
   set complianceSummary(_i2.ComplianceSummaryBuilder? complianceSummary) =>
       _$this._complianceSummary = complianceSummary;
 
-  GetComplianceSummaryByConfigRuleResponseBuilder() {
-    GetComplianceSummaryByConfigRuleResponse._init(this);
-  }
+  GetComplianceSummaryByConfigRuleResponseBuilder();
 
   GetComplianceSummaryByConfigRuleResponseBuilder get _$this {
     final $v = _$v;

@@ -62,9 +62,7 @@ class DeletionTaskFailureReasonTypeBuilder
   set roleUsageList(_i3.ListBuilder<_i2.RoleUsageType>? roleUsageList) =>
       _$this._roleUsageList = roleUsageList;
 
-  DeletionTaskFailureReasonTypeBuilder() {
-    DeletionTaskFailureReasonType._init(this);
-  }
+  DeletionTaskFailureReasonTypeBuilder();
 
   DeletionTaskFailureReasonTypeBuilder get _$this {
     final $v = _$v;

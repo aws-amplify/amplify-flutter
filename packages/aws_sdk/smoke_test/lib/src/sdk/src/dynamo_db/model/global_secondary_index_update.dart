@@ -62,9 +62,6 @@ abstract class GlobalSecondaryIndexUpdate
   static const List<_i5.SmithySerializer<GlobalSecondaryIndexUpdate>>
       serializers = [GlobalSecondaryIndexUpdateAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GlobalSecondaryIndexUpdateBuilder b) {}
-
   /// The name of an existing global secondary index, along with new provisioned throughput settings to be applied to that index.
   _i2.UpdateGlobalSecondaryIndexAction? get update_;
 

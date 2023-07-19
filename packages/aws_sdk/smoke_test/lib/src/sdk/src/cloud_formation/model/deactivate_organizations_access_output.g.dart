@@ -43,9 +43,7 @@ class DeactivateOrganizationsAccessOutputBuilder
             DeactivateOrganizationsAccessOutputBuilder> {
   _$DeactivateOrganizationsAccessOutput? _$v;
 
-  DeactivateOrganizationsAccessOutputBuilder() {
-    DeactivateOrganizationsAccessOutput._init(this);
-  }
+  DeactivateOrganizationsAccessOutputBuilder();
 
   @override
   void replace(DeactivateOrganizationsAccessOutput other) {

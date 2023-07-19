@@ -51,9 +51,7 @@ class AbortMultipartUploadOutputBuilder
   set requestCharged(_i3.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  AbortMultipartUploadOutputBuilder() {
-    AbortMultipartUploadOutput._init(this);
-  }
+  AbortMultipartUploadOutputBuilder();
 
   AbortMultipartUploadOutputBuilder get _$this {
     final $v = _$v;
@@ -122,9 +120,7 @@ class AbortMultipartUploadOutputPayloadBuilder
             AbortMultipartUploadOutputPayloadBuilder> {
   _$AbortMultipartUploadOutputPayload? _$v;
 
-  AbortMultipartUploadOutputPayloadBuilder() {
-    AbortMultipartUploadOutputPayload._init(this);
-  }
+  AbortMultipartUploadOutputPayloadBuilder();
 
   @override
   void replace(AbortMultipartUploadOutputPayload other) {

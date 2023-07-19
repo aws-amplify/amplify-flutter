@@ -42,9 +42,6 @@ abstract class RemediationException
     RemediationExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemediationExceptionBuilder b) {}
-
   /// The name of the Config rule.
   String get configRuleName;
 

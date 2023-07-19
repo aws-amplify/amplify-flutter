@@ -59,8 +59,6 @@ abstract class SimpleScalarXmlPropertiesOutput
   static const List<_i3.SmithySerializer<SimpleScalarXmlPropertiesOutput>>
       serializers = [SimpleScalarXmlPropertiesOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SimpleScalarXmlPropertiesOutputBuilder b) {}
   String? get stringValue;
   String? get emptyStringValue;
   bool? get trueBooleanValue;

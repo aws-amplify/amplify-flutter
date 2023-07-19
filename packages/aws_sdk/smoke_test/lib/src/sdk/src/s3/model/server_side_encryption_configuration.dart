@@ -36,9 +36,6 @@ abstract class ServerSideEncryptionConfiguration
   static const List<_i4.SmithySerializer<ServerSideEncryptionConfiguration>>
       serializers = [ServerSideEncryptionConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServerSideEncryptionConfigurationBuilder b) {}
-
   /// Container for information about a particular server-side encryption configuration rule.
   _i3.BuiltList<_i2.ServerSideEncryptionRule> get rules;
   @override

@@ -40,8 +40,6 @@ abstract class InvalidUserTypeException
   static const List<_i2.SmithySerializer<InvalidUserTypeException>>
       serializers = [InvalidUserTypeExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidUserTypeExceptionBuilder b) {}
   @override
   String? get message;
   @override

@@ -49,9 +49,7 @@ class AccelerateConfigurationBuilder
   _i2.BucketAccelerateStatus? get status => _$this._status;
   set status(_i2.BucketAccelerateStatus? status) => _$this._status = status;
 
-  AccelerateConfigurationBuilder() {
-    AccelerateConfiguration._init(this);
-  }
+  AccelerateConfigurationBuilder();
 
   AccelerateConfigurationBuilder get _$this {
     final $v = _$v;

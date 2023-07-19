@@ -109,9 +109,7 @@ class DescribeContributorInsightsOutputBuilder
   set failureException(_i3.FailureExceptionBuilder? failureException) =>
       _$this._failureException = failureException;
 
-  DescribeContributorInsightsOutputBuilder() {
-    DescribeContributorInsightsOutput._init(this);
-  }
+  DescribeContributorInsightsOutputBuilder();
 
   DescribeContributorInsightsOutputBuilder get _$this {
     final $v = _$v;

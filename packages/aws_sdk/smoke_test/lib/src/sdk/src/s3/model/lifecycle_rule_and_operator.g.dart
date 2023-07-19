@@ -82,9 +82,7 @@ class LifecycleRuleAndOperatorBuilder
   set objectSizeLessThan(_i3.Int64? objectSizeLessThan) =>
       _$this._objectSizeLessThan = objectSizeLessThan;
 
-  LifecycleRuleAndOperatorBuilder() {
-    LifecycleRuleAndOperator._init(this);
-  }
+  LifecycleRuleAndOperatorBuilder();
 
   LifecycleRuleAndOperatorBuilder get _$this {
     final $v = _$v;

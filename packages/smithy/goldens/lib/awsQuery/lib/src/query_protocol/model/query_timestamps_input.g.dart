@@ -68,9 +68,7 @@ class QueryTimestampsInputBuilder
   DateTime? get epochTarget => _$this._epochTarget;
   set epochTarget(DateTime? epochTarget) => _$this._epochTarget = epochTarget;
 
-  QueryTimestampsInputBuilder() {
-    QueryTimestampsInput._init(this);
-  }
+  QueryTimestampsInputBuilder();
 
   QueryTimestampsInputBuilder get _$this {
     final $v = _$v;

@@ -81,9 +81,7 @@ class ResourceBuilder implements Builder<Resource, ResourceBuilder> {
   set resourceMethods(_i3.MapBuilder<String, _i2.Method>? resourceMethods) =>
       _$this._resourceMethods = resourceMethods;
 
-  ResourceBuilder() {
-    Resource._init(this);
-  }
+  ResourceBuilder();
 
   ResourceBuilder get _$this {
     final $v = _$v;

@@ -123,8 +123,6 @@ abstract class KitchenSink
     KitchenSinkAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(KitchenSinkBuilder b) {}
   _i3.Uint8List? get blob;
   bool? get boolean;
   double? get double_;

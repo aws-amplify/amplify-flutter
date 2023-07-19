@@ -41,8 +41,6 @@ abstract class InvalidRestoreTimeException
   static const List<_i2.SmithySerializer<InvalidRestoreTimeException>>
       serializers = [InvalidRestoreTimeExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidRestoreTimeExceptionBuilder b) {}
   @override
   String? get message;
   @override

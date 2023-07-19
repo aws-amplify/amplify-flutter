@@ -51,9 +51,7 @@ class DescribeBackupInputBuilder
   String? get backupArn => _$this._backupArn;
   set backupArn(String? backupArn) => _$this._backupArn = backupArn;
 
-  DescribeBackupInputBuilder() {
-    DescribeBackupInput._init(this);
-  }
+  DescribeBackupInputBuilder();
 
   DescribeBackupInputBuilder get _$this {
     final $v = _$v;

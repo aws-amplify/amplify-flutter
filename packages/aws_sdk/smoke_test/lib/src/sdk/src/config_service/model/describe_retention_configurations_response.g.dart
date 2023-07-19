@@ -70,9 +70,7 @@ class DescribeRetentionConfigurationsResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeRetentionConfigurationsResponseBuilder() {
-    DescribeRetentionConfigurationsResponse._init(this);
-  }
+  DescribeRetentionConfigurationsResponseBuilder();
 
   DescribeRetentionConfigurationsResponseBuilder get _$this {
     final $v = _$v;

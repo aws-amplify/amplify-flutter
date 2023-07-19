@@ -47,9 +47,6 @@ abstract class MethodResponse
     MethodResponseRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MethodResponseBuilder b) {}
-
   /// The method response's status code.
   String? get statusCode;
 

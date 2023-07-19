@@ -47,9 +47,6 @@ abstract class DescribeStreamInput
     DescribeStreamInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStreamInputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) for the stream.
   String get streamArn;
 

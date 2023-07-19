@@ -99,9 +99,6 @@ abstract class CreateBucketRequest
   static const List<_i1.SmithySerializer<_i2.CreateBucketConfiguration?>>
       serializers = [CreateBucketRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBucketRequestBuilder b) {}
-
   /// The canned ACL to apply to the bucket.
   _i4.BucketCannedAcl? get acl;
 

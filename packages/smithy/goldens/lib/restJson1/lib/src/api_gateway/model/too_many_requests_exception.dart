@@ -49,8 +49,6 @@ abstract class TooManyRequestsException
   static const List<_i2.SmithySerializer<TooManyRequestsExceptionPayload>>
       serializers = [TooManyRequestsExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TooManyRequestsExceptionBuilder b) {}
   String? get retryAfterSeconds;
   @override
   String? get message;
@@ -107,8 +105,6 @@ abstract class TooManyRequestsExceptionPayload
 
   const TooManyRequestsExceptionPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TooManyRequestsExceptionPayloadBuilder b) {}
   String? get message;
   @override
   List<Object?> get props => [message];

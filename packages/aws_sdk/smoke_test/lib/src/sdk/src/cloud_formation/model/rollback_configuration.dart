@@ -46,9 +46,6 @@ abstract class RollbackConfiguration
     RollbackConfigurationAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RollbackConfigurationBuilder b) {}
-
   /// The triggers to monitor during stack creation or update actions.
   ///
   /// By default, CloudFormation saves the rollback triggers specified for a stack and applies them to any subsequent update operations for the stack, unless you specify otherwise. If you do specify rollback triggers for this parameter, those triggers replace any list of triggers previously specified for the stack. This means:

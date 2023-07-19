@@ -66,9 +66,7 @@ class GetGatewayResponseRequestBuilder
   set responseType(_i3.GatewayResponseType? responseType) =>
       _$this._responseType = responseType;
 
-  GetGatewayResponseRequestBuilder() {
-    GetGatewayResponseRequest._init(this);
-  }
+  GetGatewayResponseRequestBuilder();
 
   GetGatewayResponseRequestBuilder get _$this {
     final $v = _$v;
@@ -141,9 +139,7 @@ class GetGatewayResponseRequestPayloadBuilder
             GetGatewayResponseRequestPayloadBuilder> {
   _$GetGatewayResponseRequestPayload? _$v;
 
-  GetGatewayResponseRequestPayloadBuilder() {
-    GetGatewayResponseRequestPayload._init(this);
-  }
+  GetGatewayResponseRequestPayloadBuilder();
 
   @override
   void replace(GetGatewayResponseRequestPayload other) {

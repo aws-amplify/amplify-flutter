@@ -55,9 +55,6 @@ abstract class StackSetOperationPreferences
   static const List<_i4.SmithySerializer<StackSetOperationPreferences>>
       serializers = [StackSetOperationPreferencesAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackSetOperationPreferencesBuilder b) {}
-
   /// The concurrency type of deploying StackSets operations in Regions, could be in parallel or one Region at a time.
   _i2.RegionConcurrencyType? get regionConcurrencyType;
 

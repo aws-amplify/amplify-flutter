@@ -44,8 +44,6 @@ abstract class ObjectAlreadyInActiveTierError
   static const List<_i2.SmithySerializer<ObjectAlreadyInActiveTierError>>
       serializers = [ObjectAlreadyInActiveTierErrorRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectAlreadyInActiveTierErrorBuilder b) {}
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.s3',

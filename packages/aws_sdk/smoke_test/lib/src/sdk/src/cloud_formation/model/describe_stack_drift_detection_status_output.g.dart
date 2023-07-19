@@ -125,9 +125,7 @@ class DescribeStackDriftDetectionStatusOutputBuilder
   DateTime? get timestamp => _$this._timestamp;
   set timestamp(DateTime? timestamp) => _$this._timestamp = timestamp;
 
-  DescribeStackDriftDetectionStatusOutputBuilder() {
-    DescribeStackDriftDetectionStatusOutput._init(this);
-  }
+  DescribeStackDriftDetectionStatusOutputBuilder();
 
   DescribeStackDriftDetectionStatusOutputBuilder get _$this {
     final $v = _$v;

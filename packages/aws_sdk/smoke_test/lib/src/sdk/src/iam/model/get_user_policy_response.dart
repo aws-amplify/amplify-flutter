@@ -45,9 +45,6 @@ abstract class GetUserPolicyResponse
     GetUserPolicyResponseAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetUserPolicyResponseBuilder b) {}
-
   /// The user the policy is associated with.
   String get userName;
 

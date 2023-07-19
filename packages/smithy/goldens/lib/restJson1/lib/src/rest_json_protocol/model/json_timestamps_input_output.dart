@@ -59,8 +59,6 @@ abstract class JsonTimestampsInputOutput
   static const List<_i1.SmithySerializer<JsonTimestampsInputOutput>>
       serializers = [JsonTimestampsInputOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonTimestampsInputOutputBuilder b) {}
   DateTime? get normal;
   DateTime? get dateTime;
   DateTime? get dateTimeOnTarget;

@@ -50,9 +50,7 @@ class GetPolicyRequestBuilder
   String? get policyArn => _$this._policyArn;
   set policyArn(String? policyArn) => _$this._policyArn = policyArn;
 
-  GetPolicyRequestBuilder() {
-    GetPolicyRequest._init(this);
-  }
+  GetPolicyRequestBuilder();
 
   GetPolicyRequestBuilder get _$this {
     final $v = _$v;

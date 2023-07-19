@@ -41,9 +41,6 @@ abstract class UpdateRoleRequest
     UpdateRoleRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateRoleRequestBuilder b) {}
-
   /// The name of the role that you want to modify.
   String get roleName;
 

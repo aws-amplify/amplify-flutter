@@ -51,9 +51,7 @@ class DescribeExportOutputBuilder
   set exportDescription(_i2.ExportDescriptionBuilder? exportDescription) =>
       _$this._exportDescription = exportDescription;
 
-  DescribeExportOutputBuilder() {
-    DescribeExportOutput._init(this);
-  }
+  DescribeExportOutputBuilder();
 
   DescribeExportOutputBuilder get _$this {
     final $v = _$v;

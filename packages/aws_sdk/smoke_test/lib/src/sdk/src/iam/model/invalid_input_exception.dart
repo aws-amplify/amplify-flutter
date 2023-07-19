@@ -41,8 +41,6 @@ abstract class InvalidInputException
     InvalidInputExceptionAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidInputExceptionBuilder b) {}
   @override
   String? get message;
   @override

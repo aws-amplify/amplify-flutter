@@ -49,9 +49,7 @@ class ExecutionControlsBuilder
   set ssmControls(_i2.SsmControlsBuilder? ssmControls) =>
       _$this._ssmControls = ssmControls;
 
-  ExecutionControlsBuilder() {
-    ExecutionControls._init(this);
-  }
+  ExecutionControlsBuilder();
 
   ExecutionControlsBuilder get _$this {
     final $v = _$v;

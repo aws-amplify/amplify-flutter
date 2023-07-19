@@ -42,9 +42,6 @@ abstract class DetachGroupPolicyRequest
   static const List<_i1.SmithySerializer<DetachGroupPolicyRequest>>
       serializers = [DetachGroupPolicyRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DetachGroupPolicyRequestBuilder b) {}
-
   /// The name (friendly name, not ARN) of the IAM group to detach the policy from.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

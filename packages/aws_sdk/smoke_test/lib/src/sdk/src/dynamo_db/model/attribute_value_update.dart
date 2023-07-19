@@ -52,9 +52,6 @@ abstract class AttributeValueUpdate
     AttributeValueUpdateAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AttributeValueUpdateBuilder b) {}
-
   /// Represents the data for an attribute.
   ///
   /// Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.

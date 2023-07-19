@@ -40,9 +40,6 @@ abstract class OutputSerialization
     OutputSerializationRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OutputSerializationBuilder b) {}
-
   /// Describes the serialization of CSV-encoded Select results.
   _i2.CsvOutput? get csv;
 

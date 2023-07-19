@@ -37,9 +37,6 @@ abstract class DescribeContinuousBackupsInput
   static const List<_i1.SmithySerializer<DescribeContinuousBackupsInput>>
       serializers = [DescribeContinuousBackupsInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeContinuousBackupsInputBuilder b) {}
-
   /// Name of the table for which the customer wants to check the continuous backups and point in time recovery settings.
   String get tableName;
   @override

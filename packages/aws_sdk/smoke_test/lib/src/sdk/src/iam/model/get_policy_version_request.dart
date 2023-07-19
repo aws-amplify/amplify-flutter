@@ -41,9 +41,6 @@ abstract class GetPolicyVersionRequest
   static const List<_i1.SmithySerializer<GetPolicyVersionRequest>> serializers =
       [GetPolicyVersionRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetPolicyVersionRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the managed policy that you want information about.
   ///
   /// For more information about ARNs, see [Amazon Resource Names (ARNs)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the _Amazon Web Services General Reference_.

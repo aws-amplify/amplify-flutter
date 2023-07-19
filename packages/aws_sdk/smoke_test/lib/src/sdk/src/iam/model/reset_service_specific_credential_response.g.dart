@@ -60,9 +60,7 @@ class ResetServiceSpecificCredentialResponseBuilder
           _i2.ServiceSpecificCredentialBuilder? serviceSpecificCredential) =>
       _$this._serviceSpecificCredential = serviceSpecificCredential;
 
-  ResetServiceSpecificCredentialResponseBuilder() {
-    ResetServiceSpecificCredentialResponse._init(this);
-  }
+  ResetServiceSpecificCredentialResponseBuilder();
 
   ResetServiceSpecificCredentialResponseBuilder get _$this {
     final $v = _$v;

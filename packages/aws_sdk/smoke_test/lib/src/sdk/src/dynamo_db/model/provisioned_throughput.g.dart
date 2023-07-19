@@ -66,9 +66,7 @@ class ProvisionedThroughputBuilder
   set writeCapacityUnits(_i2.Int64? writeCapacityUnits) =>
       _$this._writeCapacityUnits = writeCapacityUnits;
 
-  ProvisionedThroughputBuilder() {
-    ProvisionedThroughput._init(this);
-  }
+  ProvisionedThroughputBuilder();
 
   ProvisionedThroughputBuilder get _$this {
     final $v = _$v;

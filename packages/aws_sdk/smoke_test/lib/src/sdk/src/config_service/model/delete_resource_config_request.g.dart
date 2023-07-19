@@ -66,9 +66,7 @@ class DeleteResourceConfigRequestBuilder
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  DeleteResourceConfigRequestBuilder() {
-    DeleteResourceConfigRequest._init(this);
-  }
+  DeleteResourceConfigRequestBuilder();
 
   DeleteResourceConfigRequestBuilder get _$this {
     final $v = _$v;

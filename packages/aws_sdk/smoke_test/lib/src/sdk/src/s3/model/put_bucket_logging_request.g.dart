@@ -98,9 +98,7 @@ class PutBucketLoggingRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketLoggingRequestBuilder() {
-    PutBucketLoggingRequest._init(this);
-  }
+  PutBucketLoggingRequestBuilder();
 
   PutBucketLoggingRequestBuilder get _$this {
     final $v = _$v;

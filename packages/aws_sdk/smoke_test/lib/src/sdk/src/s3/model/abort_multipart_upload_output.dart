@@ -43,9 +43,6 @@ abstract class AbortMultipartUploadOutput
   static const List<_i2.SmithySerializer<AbortMultipartUploadOutputPayload>>
       serializers = [AbortMultipartUploadOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AbortMultipartUploadOutputBuilder b) {}
-
   /// If present, indicates that the requester was successfully charged for the request.
   _i3.RequestCharged? get requestCharged;
   @override
@@ -78,8 +75,6 @@ abstract class AbortMultipartUploadOutputPayload
 
   const AbortMultipartUploadOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AbortMultipartUploadOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

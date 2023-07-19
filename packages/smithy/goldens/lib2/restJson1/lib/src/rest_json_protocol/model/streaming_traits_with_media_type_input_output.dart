@@ -38,7 +38,7 @@ abstract class StreamingTraitsWithMediaTypeInputOutput
   const StreamingTraitsWithMediaTypeInputOutput._();
 
   factory StreamingTraitsWithMediaTypeInputOutput.fromRequest(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
@@ -51,7 +51,7 @@ abstract class StreamingTraitsWithMediaTypeInputOutput
 
   /// Constructs a [StreamingTraitsWithMediaTypeInputOutput] from a [payload] and [response].
   factory StreamingTraitsWithMediaTypeInputOutput.fromResponse(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpResponse response,
   ) =>
       StreamingTraitsWithMediaTypeInputOutput.build((b) {
@@ -61,8 +61,9 @@ abstract class StreamingTraitsWithMediaTypeInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
-      [StreamingTraitsWithMediaTypeInputOutputRestJson1Serializer()];
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
+    StreamingTraitsWithMediaTypeInputOutputRestJson1Serializer()
+  ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StreamingTraitsWithMediaTypeInputOutputBuilder b) {
@@ -70,9 +71,9 @@ abstract class StreamingTraitsWithMediaTypeInputOutput
   }
 
   String? get foo;
-  _i2.Stream<List<int>>? get blob;
+  _i2.Stream<List<int>> get blob;
   @override
-  _i2.Stream<List<int>>? getPayload() => blob;
+  _i2.Stream<List<int>> getPayload() => blob;
   @override
   List<Object?> get props => [
         foo,

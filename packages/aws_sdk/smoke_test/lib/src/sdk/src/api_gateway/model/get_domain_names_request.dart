@@ -55,9 +55,6 @@ abstract class GetDomainNamesRequest
   static const List<_i1.SmithySerializer<GetDomainNamesRequestPayload>>
       serializers = [GetDomainNamesRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDomainNamesRequestBuilder b) {}
-
   /// The current pagination position in the paged result set.
   String? get position;
 
@@ -99,8 +96,6 @@ abstract class GetDomainNamesRequestPayload
 
   const GetDomainNamesRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDomainNamesRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

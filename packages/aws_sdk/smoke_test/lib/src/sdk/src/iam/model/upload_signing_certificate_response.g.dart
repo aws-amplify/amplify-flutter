@@ -58,9 +58,7 @@ class UploadSigningCertificateResponseBuilder
   set certificate(_i2.SigningCertificateBuilder? certificate) =>
       _$this._certificate = certificate;
 
-  UploadSigningCertificateResponseBuilder() {
-    UploadSigningCertificateResponse._init(this);
-  }
+  UploadSigningCertificateResponseBuilder();
 
   UploadSigningCertificateResponseBuilder get _$this {
     final $v = _$v;

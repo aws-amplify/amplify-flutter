@@ -40,9 +40,6 @@ abstract class ChallengeResponseType
     ChallengeResponseTypeAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ChallengeResponseTypeBuilder b) {}
-
   /// The challenge name.
   _i2.ChallengeName? get challengeName;
 

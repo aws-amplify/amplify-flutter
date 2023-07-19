@@ -45,9 +45,6 @@ abstract class GetRecordsOutput
     GetRecordsOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetRecordsOutputBuilder b) {}
-
   /// The stream records from the shard, which were retrieved using the shard iterator.
   _i3.BuiltList<_i2.Record>? get records;
 

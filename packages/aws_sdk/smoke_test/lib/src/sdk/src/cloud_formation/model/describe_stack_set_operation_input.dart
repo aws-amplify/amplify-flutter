@@ -47,9 +47,6 @@ abstract class DescribeStackSetOperationInput
   static const List<_i1.SmithySerializer<DescribeStackSetOperationInput>>
       serializers = [DescribeStackSetOperationInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackSetOperationInputBuilder b) {}
-
   /// The name or the unique stack ID of the stack set for the stack operation.
   String get stackSetName;
 

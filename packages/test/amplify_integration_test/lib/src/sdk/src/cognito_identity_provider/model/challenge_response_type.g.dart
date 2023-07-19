@@ -60,9 +60,7 @@ class ChallengeResponseTypeBuilder
   set challengeResponse(_i3.ChallengeResponse? challengeResponse) =>
       _$this._challengeResponse = challengeResponse;
 
-  ChallengeResponseTypeBuilder() {
-    ChallengeResponseType._init(this);
-  }
+  ChallengeResponseTypeBuilder();
 
   ChallengeResponseTypeBuilder get _$this {
     final $v = _$v;

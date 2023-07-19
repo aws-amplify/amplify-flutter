@@ -47,9 +47,6 @@ abstract class DescribeComplianceByResourceResponse
   static const List<_i4.SmithySerializer<DescribeComplianceByResourceResponse>>
       serializers = [DescribeComplianceByResourceResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeComplianceByResourceResponseBuilder b) {}
-
   /// Indicates whether the specified Amazon Web Services resource complies with all of the Config rules that evaluate it.
   _i3.BuiltList<_i2.ComplianceByResource>? get complianceByResources;
 

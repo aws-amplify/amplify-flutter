@@ -72,9 +72,7 @@ class MutualTlsAuthenticationBuilder
   set truststoreWarnings(_i2.ListBuilder<String>? truststoreWarnings) =>
       _$this._truststoreWarnings = truststoreWarnings;
 
-  MutualTlsAuthenticationBuilder() {
-    MutualTlsAuthentication._init(this);
-  }
+  MutualTlsAuthenticationBuilder();
 
   MutualTlsAuthenticationBuilder get _$this {
     final $v = _$v;

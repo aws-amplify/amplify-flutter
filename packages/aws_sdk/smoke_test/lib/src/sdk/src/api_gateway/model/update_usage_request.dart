@@ -63,9 +63,6 @@ abstract class UpdateUsageRequest
   static const List<_i1.SmithySerializer<UpdateUsageRequestPayload>>
       serializers = [UpdateUsageRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateUsageRequestBuilder b) {}
-
   /// The Id of the usage plan associated with the usage data.
   String get usagePlanId;
 
@@ -129,9 +126,6 @@ abstract class UpdateUsageRequestPayload
       _$UpdateUsageRequestPayload;
 
   const UpdateUsageRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateUsageRequestPayloadBuilder b) {}
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;

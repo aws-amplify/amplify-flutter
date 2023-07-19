@@ -29,9 +29,6 @@ abstract class InventoryFilter
     InventoryFilterRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InventoryFilterBuilder b) {}
-
   /// The prefix that an object must have to be included in the inventory results.
   String get prefix;
   @override

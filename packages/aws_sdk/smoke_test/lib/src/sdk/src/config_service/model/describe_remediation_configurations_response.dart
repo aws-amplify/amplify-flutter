@@ -46,9 +46,6 @@ abstract class DescribeRemediationConfigurationsResponse
     DescribeRemediationConfigurationsResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeRemediationConfigurationsResponseBuilder b) {}
-
   /// Returns a remediation configuration object.
   _i3.BuiltList<_i2.RemediationConfiguration>? get remediationConfigurations;
   @override

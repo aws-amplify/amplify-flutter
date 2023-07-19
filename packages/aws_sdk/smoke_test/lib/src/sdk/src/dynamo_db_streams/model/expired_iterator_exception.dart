@@ -41,9 +41,6 @@ abstract class ExpiredIteratorException
   static const List<_i2.SmithySerializer<ExpiredIteratorException>>
       serializers = [ExpiredIteratorExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExpiredIteratorExceptionBuilder b) {}
-
   /// The provided iterator exceeds the maximum age allowed.
   @override
   String? get message;

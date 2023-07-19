@@ -38,9 +38,7 @@ class DeregisterTypeOutputBuilder
     implements Builder<DeregisterTypeOutput, DeregisterTypeOutputBuilder> {
   _$DeregisterTypeOutput? _$v;
 
-  DeregisterTypeOutputBuilder() {
-    DeregisterTypeOutput._init(this);
-  }
+  DeregisterTypeOutputBuilder();
 
   @override
   void replace(DeregisterTypeOutput other) {

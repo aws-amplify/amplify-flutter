@@ -93,9 +93,7 @@ class DescribeStackResourceDriftsInputBuilder
   int? get maxResults => _$this._maxResults;
   set maxResults(int? maxResults) => _$this._maxResults = maxResults;
 
-  DescribeStackResourceDriftsInputBuilder() {
-    DescribeStackResourceDriftsInput._init(this);
-  }
+  DescribeStackResourceDriftsInputBuilder();
 
   DescribeStackResourceDriftsInputBuilder get _$this {
     final $v = _$v;

@@ -58,9 +58,7 @@ class DecodeAuthorizationMessageRequestBuilder
   set encodedMessage(String? encodedMessage) =>
       _$this._encodedMessage = encodedMessage;
 
-  DecodeAuthorizationMessageRequestBuilder() {
-    DecodeAuthorizationMessageRequest._init(this);
-  }
+  DecodeAuthorizationMessageRequestBuilder();
 
   DecodeAuthorizationMessageRequestBuilder get _$this {
     final $v = _$v;

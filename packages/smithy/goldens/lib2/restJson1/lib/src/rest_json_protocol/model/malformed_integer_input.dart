@@ -20,11 +20,10 @@ abstract class MalformedIntegerInput
         _i1.HasPayload<MalformedIntegerInputPayload> {
   factory MalformedIntegerInput({
     int? integerInBody,
-    int? integerInPath,
+    required int integerInPath,
     int? integerInQuery,
     int? integerInHeader,
   }) {
-    integerInPath ??= 0;
     return _$MalformedIntegerInput._(
       integerInBody: integerInBody,
       integerInPath: integerInPath,
@@ -60,11 +59,6 @@ abstract class MalformedIntegerInput
 
   static const List<_i1.SmithySerializer<MalformedIntegerInputPayload>>
       serializers = [MalformedIntegerInputRestJson1Serializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedIntegerInputBuilder b) {
-    b.integerInPath = 0;
-  }
 
   int? get integerInBody;
   int get integerInPath;
@@ -130,8 +124,6 @@ abstract class MalformedIntegerInputPayload
 
   const MalformedIntegerInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedIntegerInputPayloadBuilder b) {}
   int? get integerInBody;
   @override
   List<Object?> get props => [integerInBody];

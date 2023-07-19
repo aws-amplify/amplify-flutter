@@ -34,9 +34,6 @@ abstract class UpdateStackSetOutput
     UpdateStackSetOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateStackSetOutputBuilder b) {}
-
   /// The unique ID for this stack set operation.
   String? get operationId;
   @override

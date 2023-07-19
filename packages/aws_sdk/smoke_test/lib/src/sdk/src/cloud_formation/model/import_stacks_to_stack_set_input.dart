@@ -30,9 +30,6 @@ abstract class ImportStacksToStackSetInput
     String? operationId,
     _i4.CallAs? callAs,
   }) {
-    operationId ??= const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
     return _$ImportStacksToStackSetInput._(
       stackSetName: stackSetName,
       stackIds: stackIds == null ? null : _i5.BuiltList(stackIds),

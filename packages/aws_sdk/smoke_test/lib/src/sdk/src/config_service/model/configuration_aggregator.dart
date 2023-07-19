@@ -52,9 +52,6 @@ abstract class ConfigurationAggregator
   static const List<_i5.SmithySerializer<ConfigurationAggregator>> serializers =
       [ConfigurationAggregatorAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigurationAggregatorBuilder b) {}
-
   /// The name of the aggregator.
   String? get configurationAggregatorName;
 

@@ -63,9 +63,7 @@ class StructArgBuilder implements Builder<StructArg, StructArgBuilder> {
   set recursiveArg(StructArgBuilder? recursiveArg) =>
       _$this._recursiveArg = recursiveArg;
 
-  StructArgBuilder() {
-    StructArg._init(this);
-  }
+  StructArgBuilder();
 
   StructArgBuilder get _$this {
     final $v = _$v;

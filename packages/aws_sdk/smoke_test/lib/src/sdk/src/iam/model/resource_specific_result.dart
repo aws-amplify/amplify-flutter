@@ -60,9 +60,6 @@ abstract class ResourceSpecificResult
   static const List<_i6.SmithySerializer<ResourceSpecificResult>> serializers =
       [ResourceSpecificResultAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceSpecificResultBuilder b) {}
-
   /// The name of the simulated resource, in Amazon Resource Name (ARN) format.
   String get evalResourceName;
 

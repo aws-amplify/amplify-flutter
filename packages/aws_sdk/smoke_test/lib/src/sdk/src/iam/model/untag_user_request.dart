@@ -40,9 +40,6 @@ abstract class UntagUserRequest
     UntagUserRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UntagUserRequestBuilder b) {}
-
   /// The name of the IAM user from which you want to remove tags.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

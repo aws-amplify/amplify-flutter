@@ -47,9 +47,7 @@ class UnionInputOutputBuilder
   _i3.MyUnion? get contents => _$this._contents;
   set contents(_i3.MyUnion? contents) => _$this._contents = contents;
 
-  UnionInputOutputBuilder() {
-    UnionInputOutput._init(this);
-  }
+  UnionInputOutputBuilder();
 
   UnionInputOutputBuilder get _$this {
     final $v = _$v;

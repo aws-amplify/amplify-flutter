@@ -54,9 +54,7 @@ class StackNotFoundExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  StackNotFoundExceptionBuilder() {
-    StackNotFoundException._init(this);
-  }
+  StackNotFoundExceptionBuilder();
 
   StackNotFoundExceptionBuilder get _$this {
     final $v = _$v;

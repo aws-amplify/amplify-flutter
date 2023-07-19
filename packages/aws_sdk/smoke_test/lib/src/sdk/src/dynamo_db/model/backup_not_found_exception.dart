@@ -41,8 +41,6 @@ abstract class BackupNotFoundException
   static const List<_i2.SmithySerializer<BackupNotFoundException>> serializers =
       [BackupNotFoundExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BackupNotFoundExceptionBuilder b) {}
   @override
   String? get message;
   @override

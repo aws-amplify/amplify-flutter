@@ -48,9 +48,6 @@ abstract class CreateGlobalSecondaryIndexAction
   static const List<_i6.SmithySerializer<CreateGlobalSecondaryIndexAction>>
       serializers = [CreateGlobalSecondaryIndexActionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateGlobalSecondaryIndexActionBuilder b) {}
-
   /// The name of the global secondary index to be created.
   String get indexName;
 

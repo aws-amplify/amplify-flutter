@@ -97,9 +97,7 @@ class AutoScalingSettingsDescriptionBuilder
           _i4.ListBuilder<_i3.AutoScalingPolicyDescription>? scalingPolicies) =>
       _$this._scalingPolicies = scalingPolicies;
 
-  AutoScalingSettingsDescriptionBuilder() {
-    AutoScalingSettingsDescription._init(this);
-  }
+  AutoScalingSettingsDescriptionBuilder();
 
   AutoScalingSettingsDescriptionBuilder get _$this {
     final $v = _$v;

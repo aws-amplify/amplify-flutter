@@ -36,9 +36,6 @@ abstract class ScanRange
     ScanRangeRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ScanRangeBuilder b) {}
-
   /// Specifies the start of the byte range. This parameter is optional. Valid values: non-negative integers. The default value is 0. If only `start` is supplied, it means scan from that point to the end of the file. For example, `50` means scan from byte 50 until the end of the file.
   _i2.Int64? get start;
 

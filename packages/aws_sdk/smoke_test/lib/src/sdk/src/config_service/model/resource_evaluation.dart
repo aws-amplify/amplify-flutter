@@ -40,9 +40,6 @@ abstract class ResourceEvaluation
     ResourceEvaluationAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceEvaluationBuilder b) {}
-
   /// The ResourceEvaluationId of a evaluation.
   String? get resourceEvaluationId;
 

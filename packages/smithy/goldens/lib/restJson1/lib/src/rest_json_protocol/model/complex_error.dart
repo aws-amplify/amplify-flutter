@@ -59,8 +59,6 @@ abstract class ComplexError
     ComplexErrorRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplexErrorBuilder b) {}
   String? get header;
   String? get topLevel;
   _i3.ComplexNestedErrorData? get nested;
@@ -123,8 +121,6 @@ abstract class ComplexErrorPayload
 
   const ComplexErrorPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplexErrorPayloadBuilder b) {}
   _i3.ComplexNestedErrorData? get nested;
   String? get topLevel;
   @override

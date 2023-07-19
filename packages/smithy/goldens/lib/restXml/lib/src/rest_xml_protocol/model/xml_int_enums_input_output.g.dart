@@ -102,9 +102,7 @@ class XmlIntEnumsInputOutputBuilder
   set intEnumMap(_i3.MapBuilder<String, int>? intEnumMap) =>
       _$this._intEnumMap = intEnumMap;
 
-  XmlIntEnumsInputOutputBuilder() {
-    XmlIntEnumsInputOutput._init(this);
-  }
+  XmlIntEnumsInputOutputBuilder();
 
   XmlIntEnumsInputOutputBuilder get _$this {
     final $v = _$v;

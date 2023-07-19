@@ -200,9 +200,7 @@ class UpdateItemInputBuilder
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  UpdateItemInputBuilder() {
-    UpdateItemInput._init(this);
-  }
+  UpdateItemInputBuilder();
 
   UpdateItemInputBuilder get _$this {
     final $v = _$v;

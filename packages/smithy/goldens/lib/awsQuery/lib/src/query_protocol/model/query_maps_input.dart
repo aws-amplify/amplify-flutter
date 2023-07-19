@@ -60,8 +60,6 @@ abstract class QueryMapsInput
     QueryMapsInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryMapsInputBuilder b) {}
   _i5.BuiltMap<String, String>? get mapArg;
   _i5.BuiltMap<String, String>? get renamedMapArg;
   _i5.BuiltMap<String, _i3.GreetingStruct>? get complexMapArg;

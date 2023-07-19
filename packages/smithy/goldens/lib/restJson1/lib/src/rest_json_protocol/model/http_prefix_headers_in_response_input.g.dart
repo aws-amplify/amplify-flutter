@@ -41,9 +41,7 @@ class HttpPrefixHeadersInResponseInputBuilder
             HttpPrefixHeadersInResponseInputBuilder> {
   _$HttpPrefixHeadersInResponseInput? _$v;
 
-  HttpPrefixHeadersInResponseInputBuilder() {
-    HttpPrefixHeadersInResponseInput._init(this);
-  }
+  HttpPrefixHeadersInResponseInputBuilder();
 
   @override
   void replace(HttpPrefixHeadersInResponseInput other) {

@@ -80,9 +80,7 @@ class BatchGetAggregateResourceConfigRequestBuilder
               resourceIdentifiers) =>
       _$this._resourceIdentifiers = resourceIdentifiers;
 
-  BatchGetAggregateResourceConfigRequestBuilder() {
-    BatchGetAggregateResourceConfigRequest._init(this);
-  }
+  BatchGetAggregateResourceConfigRequestBuilder();
 
   BatchGetAggregateResourceConfigRequestBuilder get _$this {
     final $v = _$v;

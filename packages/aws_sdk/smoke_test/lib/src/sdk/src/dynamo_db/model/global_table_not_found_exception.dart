@@ -43,8 +43,6 @@ abstract class GlobalTableNotFoundException
   static const List<_i2.SmithySerializer<GlobalTableNotFoundException>>
       serializers = [GlobalTableNotFoundExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GlobalTableNotFoundExceptionBuilder b) {}
   @override
   String? get message;
   @override

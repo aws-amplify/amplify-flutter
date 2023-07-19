@@ -56,9 +56,6 @@ abstract class GetClientCertificatesRequest
   static const List<_i1.SmithySerializer<GetClientCertificatesRequestPayload>>
       serializers = [GetClientCertificatesRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetClientCertificatesRequestBuilder b) {}
-
   /// The current pagination position in the paged result set.
   String? get position;
 
@@ -101,8 +98,6 @@ abstract class GetClientCertificatesRequestPayload
 
   const GetClientCertificatesRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetClientCertificatesRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

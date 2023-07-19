@@ -43,9 +43,6 @@ abstract class ListUserPoliciesRequest
   static const List<_i1.SmithySerializer<ListUserPoliciesRequest>> serializers =
       [ListUserPoliciesRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListUserPoliciesRequestBuilder b) {}
-
   /// The name of the user to list policies for.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

@@ -46,9 +46,6 @@ abstract class InvalidConfigurationRecorderNameException
     InvalidConfigurationRecorderNameExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidConfigurationRecorderNameExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

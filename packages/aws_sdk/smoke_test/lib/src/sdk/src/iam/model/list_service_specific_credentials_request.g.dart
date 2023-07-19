@@ -64,9 +64,7 @@ class ListServiceSpecificCredentialsRequestBuilder
   String? get serviceName => _$this._serviceName;
   set serviceName(String? serviceName) => _$this._serviceName = serviceName;
 
-  ListServiceSpecificCredentialsRequestBuilder() {
-    ListServiceSpecificCredentialsRequest._init(this);
-  }
+  ListServiceSpecificCredentialsRequestBuilder();
 
   ListServiceSpecificCredentialsRequestBuilder get _$this {
     final $v = _$v;

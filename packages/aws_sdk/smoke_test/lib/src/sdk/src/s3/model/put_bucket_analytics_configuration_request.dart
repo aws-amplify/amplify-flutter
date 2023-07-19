@@ -65,9 +65,6 @@ abstract class PutBucketAnalyticsConfigurationRequest
   static const List<_i1.SmithySerializer<_i2.AnalyticsConfiguration>>
       serializers = [PutBucketAnalyticsConfigurationRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketAnalyticsConfigurationRequestBuilder b) {}
-
   /// The name of the bucket to which an analytics configuration is stored.
   String get bucket;
 

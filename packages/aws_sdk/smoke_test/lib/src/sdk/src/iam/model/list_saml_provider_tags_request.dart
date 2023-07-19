@@ -44,9 +44,6 @@ abstract class ListSamlProviderTagsRequest
   static const List<_i1.SmithySerializer<ListSamlProviderTagsRequest>>
       serializers = [ListSamlProviderTagsRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListSamlProviderTagsRequestBuilder b) {}
-
   /// The ARN of the Security Assertion Markup Language (SAML) identity provider whose tags you want to see.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

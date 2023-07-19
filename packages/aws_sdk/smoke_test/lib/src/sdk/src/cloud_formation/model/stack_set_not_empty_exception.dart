@@ -40,8 +40,6 @@ abstract class StackSetNotEmptyException
   static const List<_i2.SmithySerializer<StackSetNotEmptyException>>
       serializers = [StackSetNotEmptyExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackSetNotEmptyExceptionBuilder b) {}
   @override
   String? get message;
   @override

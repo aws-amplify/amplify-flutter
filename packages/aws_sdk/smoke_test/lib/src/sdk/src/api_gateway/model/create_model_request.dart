@@ -61,9 +61,6 @@ abstract class CreateModelRequest
   static const List<_i1.SmithySerializer<CreateModelRequestPayload>>
       serializers = [CreateModelRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateModelRequestBuilder b) {}
-
   /// The RestApi identifier under which the Model will be created.
   String get restApiId;
 
@@ -142,9 +139,6 @@ abstract class CreateModelRequestPayload
       _$CreateModelRequestPayload;
 
   const CreateModelRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateModelRequestPayloadBuilder b) {}
 
   /// The content-type for the model.
   String get contentType;

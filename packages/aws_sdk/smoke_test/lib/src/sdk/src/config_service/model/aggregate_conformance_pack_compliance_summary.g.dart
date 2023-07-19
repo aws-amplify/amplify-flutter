@@ -70,9 +70,7 @@ class AggregateConformancePackComplianceSummaryBuilder
   String? get groupName => _$this._groupName;
   set groupName(String? groupName) => _$this._groupName = groupName;
 
-  AggregateConformancePackComplianceSummaryBuilder() {
-    AggregateConformancePackComplianceSummary._init(this);
-  }
+  AggregateConformancePackComplianceSummaryBuilder();
 
   AggregateConformancePackComplianceSummaryBuilder get _$this {
     final $v = _$v;

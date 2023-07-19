@@ -96,9 +96,7 @@ class DescribeTypeInputBuilder
   set publicVersionNumber(String? publicVersionNumber) =>
       _$this._publicVersionNumber = publicVersionNumber;
 
-  DescribeTypeInputBuilder() {
-    DescribeTypeInput._init(this);
-  }
+  DescribeTypeInputBuilder();
 
   DescribeTypeInputBuilder get _$this {
     final $v = _$v;

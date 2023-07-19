@@ -51,9 +51,7 @@ class GetLoginProfileRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  GetLoginProfileRequestBuilder() {
-    GetLoginProfileRequest._init(this);
-  }
+  GetLoginProfileRequestBuilder();
 
   GetLoginProfileRequestBuilder get _$this {
     final $v = _$v;

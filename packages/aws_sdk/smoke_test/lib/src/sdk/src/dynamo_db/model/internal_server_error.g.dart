@@ -61,9 +61,7 @@ class InternalServerErrorBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InternalServerErrorBuilder() {
-    InternalServerError._init(this);
-  }
+  InternalServerErrorBuilder();
 
   InternalServerErrorBuilder get _$this {
     final $v = _$v;

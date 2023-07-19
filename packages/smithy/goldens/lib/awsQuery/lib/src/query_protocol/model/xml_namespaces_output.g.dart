@@ -49,9 +49,7 @@ class XmlNamespacesOutputBuilder
       _$this._nested ??= new _i2.XmlNamespaceNestedBuilder();
   set nested(_i2.XmlNamespaceNestedBuilder? nested) => _$this._nested = nested;
 
-  XmlNamespacesOutputBuilder() {
-    XmlNamespacesOutput._init(this);
-  }
+  XmlNamespacesOutputBuilder();
 
   XmlNamespacesOutputBuilder get _$this {
     final $v = _$v;

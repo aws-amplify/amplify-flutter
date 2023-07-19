@@ -46,9 +46,7 @@ class RenamedGreetingBuilder
   String? get salutation => _$this._salutation;
   set salutation(String? salutation) => _$this._salutation = salutation;
 
-  RenamedGreetingBuilder() {
-    RenamedGreeting._init(this);
-  }
+  RenamedGreetingBuilder();
 
   RenamedGreetingBuilder get _$this {
     final $v = _$v;

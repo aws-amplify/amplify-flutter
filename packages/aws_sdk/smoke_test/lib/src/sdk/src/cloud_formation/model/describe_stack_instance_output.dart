@@ -36,9 +36,6 @@ abstract class DescribeStackInstanceOutput
   static const List<_i3.SmithySerializer<DescribeStackInstanceOutput>>
       serializers = [DescribeStackInstanceOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackInstanceOutputBuilder b) {}
-
   /// The stack instance that matches the specified request parameters.
   _i2.StackInstance? get stackInstance;
   @override

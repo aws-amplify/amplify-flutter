@@ -50,9 +50,7 @@ class CreateStackInstancesOutputBuilder
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  CreateStackInstancesOutputBuilder() {
-    CreateStackInstancesOutput._init(this);
-  }
+  CreateStackInstancesOutputBuilder();
 
   CreateStackInstancesOutputBuilder get _$this {
     final $v = _$v;

@@ -51,10 +51,6 @@ abstract class DescribeConfigurationAggregatorSourcesStatusResponse
     DescribeConfigurationAggregatorSourcesStatusResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      DescribeConfigurationAggregatorSourcesStatusResponseBuilder b) {}
-
   /// Returns an AggregatedSourceStatus object.
   _i3.BuiltList<_i2.AggregatedSourceStatus>? get aggregatedSourceStatusList;
 

@@ -50,9 +50,6 @@ abstract class DescribeComplianceByConfigRuleResponse
     DescribeComplianceByConfigRuleResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeComplianceByConfigRuleResponseBuilder b) {}
-
   /// Indicates whether each of the specified Config rules is compliant.
   _i3.BuiltList<_i2.ComplianceByConfigRule>? get complianceByConfigRules;
 

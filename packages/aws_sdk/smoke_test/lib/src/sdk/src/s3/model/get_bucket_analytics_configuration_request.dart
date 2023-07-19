@@ -60,9 +60,6 @@ abstract class GetBucketAnalyticsConfigurationRequest
           _i1.SmithySerializer<GetBucketAnalyticsConfigurationRequestPayload>>
       serializers = [GetBucketAnalyticsConfigurationRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketAnalyticsConfigurationRequestBuilder b) {}
-
   /// The name of the bucket from which an analytics configuration is retrieved.
   String get bucket;
 
@@ -126,8 +123,6 @@ abstract class GetBucketAnalyticsConfigurationRequestPayload
 
   const GetBucketAnalyticsConfigurationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketAnalyticsConfigurationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

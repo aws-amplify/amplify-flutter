@@ -149,9 +149,7 @@ class StackInstanceSummaryBuilder
   set lastOperationId(String? lastOperationId) =>
       _$this._lastOperationId = lastOperationId;
 
-  StackInstanceSummaryBuilder() {
-    StackInstanceSummary._init(this);
-  }
+  StackInstanceSummaryBuilder();
 
   StackInstanceSummaryBuilder get _$this {
     final $v = _$v;

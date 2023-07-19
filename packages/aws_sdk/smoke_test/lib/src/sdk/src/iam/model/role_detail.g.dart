@@ -164,9 +164,7 @@ class RoleDetailBuilder implements Builder<RoleDetail, RoleDetailBuilder> {
   set roleLastUsed(_i7.RoleLastUsedBuilder? roleLastUsed) =>
       _$this._roleLastUsed = roleLastUsed;
 
-  RoleDetailBuilder() {
-    RoleDetail._init(this);
-  }
+  RoleDetailBuilder();
 
   RoleDetailBuilder get _$this {
     final $v = _$v;

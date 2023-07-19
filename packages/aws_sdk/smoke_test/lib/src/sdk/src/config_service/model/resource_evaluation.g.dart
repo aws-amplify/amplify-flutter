@@ -72,9 +72,7 @@ class ResourceEvaluationBuilder
   set evaluationStartTimestamp(DateTime? evaluationStartTimestamp) =>
       _$this._evaluationStartTimestamp = evaluationStartTimestamp;
 
-  ResourceEvaluationBuilder() {
-    ResourceEvaluation._init(this);
-  }
+  ResourceEvaluationBuilder();
 
   ResourceEvaluationBuilder get _$this {
     final $v = _$v;

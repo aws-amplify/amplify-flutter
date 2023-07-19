@@ -57,9 +57,7 @@ class OperationResultFilterBuilder
   String? get values => _$this._values;
   set values(String? values) => _$this._values = values;
 
-  OperationResultFilterBuilder() {
-    OperationResultFilter._init(this);
-  }
+  OperationResultFilterBuilder();
 
   OperationResultFilterBuilder get _$this {
     final $v = _$v;

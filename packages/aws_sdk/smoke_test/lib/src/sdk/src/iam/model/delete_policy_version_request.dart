@@ -42,9 +42,6 @@ abstract class DeletePolicyVersionRequest
   static const List<_i1.SmithySerializer<DeletePolicyVersionRequest>>
       serializers = [DeletePolicyVersionRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeletePolicyVersionRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the IAM policy from which you want to delete a version.
   ///
   /// For more information about ARNs, see [Amazon Resource Names (ARNs)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the _Amazon Web Services General Reference_.

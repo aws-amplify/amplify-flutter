@@ -52,9 +52,7 @@ class SseKmsEncryptedObjectsBuilder
   set status(_i2.SseKmsEncryptedObjectsStatus? status) =>
       _$this._status = status;
 
-  SseKmsEncryptedObjectsBuilder() {
-    SseKmsEncryptedObjects._init(this);
-  }
+  SseKmsEncryptedObjectsBuilder();
 
   SseKmsEncryptedObjectsBuilder get _$this {
     final $v = _$v;

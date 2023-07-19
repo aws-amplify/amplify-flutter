@@ -33,9 +33,6 @@ abstract class StorageClassAnalysis
     StorageClassAnalysisRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StorageClassAnalysisBuilder b) {}
-
   /// Specifies how data related to the storage class analysis for an Amazon S3 bucket should be exported.
   _i2.StorageClassAnalysisDataExport? get dataExport;
   @override

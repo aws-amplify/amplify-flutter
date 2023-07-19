@@ -669,6 +669,9 @@ class AWSService {
   /// AWS MediaTailor
   static const mediaTailor = AWSService('mediatailor');
 
+  /// AWS Health Imaging
+  static const medicalImaging = AWSService('medical-imaging');
+
   /// Amazon MemoryDB
   static const memoryDb = AWSService('memorydb');
 

@@ -145,9 +145,7 @@ class LifecycleRuleBuilder
               abortIncompleteMultipartUpload) =>
       _$this._abortIncompleteMultipartUpload = abortIncompleteMultipartUpload;
 
-  LifecycleRuleBuilder() {
-    LifecycleRule._init(this);
-  }
+  LifecycleRuleBuilder();
 
   LifecycleRuleBuilder get _$this {
     final $v = _$v;

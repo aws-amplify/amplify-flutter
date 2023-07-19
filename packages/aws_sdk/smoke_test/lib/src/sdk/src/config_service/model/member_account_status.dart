@@ -46,9 +46,6 @@ abstract class MemberAccountStatus
     MemberAccountStatusAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MemberAccountStatusBuilder b) {}
-
   /// The 12-digit account ID of a member account.
   String get accountId;
 

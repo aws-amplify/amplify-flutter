@@ -42,9 +42,6 @@ abstract class LocalSecondaryIndex
     LocalSecondaryIndexAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LocalSecondaryIndexBuilder b) {}
-
   /// The name of the local secondary index. The name must be unique among all other indexes on this table.
   String get indexName;
 

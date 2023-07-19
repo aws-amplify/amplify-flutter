@@ -62,9 +62,6 @@ abstract class ListBucketAnalyticsConfigurationsRequest
     ListBucketAnalyticsConfigurationsRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketAnalyticsConfigurationsRequestBuilder b) {}
-
   /// The name of the bucket from which analytics configurations are retrieved.
   String get bucket;
 
@@ -128,8 +125,6 @@ abstract class ListBucketAnalyticsConfigurationsRequestPayload
 
   const ListBucketAnalyticsConfigurationsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketAnalyticsConfigurationsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

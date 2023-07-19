@@ -36,9 +36,6 @@ abstract class GetCustomRulePolicyRequest
   static const List<_i1.SmithySerializer<GetCustomRulePolicyRequest>>
       serializers = [GetCustomRulePolicyRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetCustomRulePolicyRequestBuilder b) {}
-
   /// The name of your Config Custom Policy rule.
   String? get configRuleName;
   @override

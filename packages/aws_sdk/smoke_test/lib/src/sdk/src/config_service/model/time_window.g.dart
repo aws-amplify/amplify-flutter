@@ -53,9 +53,7 @@ class TimeWindowBuilder implements Builder<TimeWindow, TimeWindowBuilder> {
   DateTime? get endTime => _$this._endTime;
   set endTime(DateTime? endTime) => _$this._endTime = endTime;
 
-  TimeWindowBuilder() {
-    TimeWindow._init(this);
-  }
+  TimeWindowBuilder();
 
   TimeWindowBuilder get _$this {
     final $v = _$v;

@@ -61,9 +61,7 @@ class GetStageRequestBuilder
   String? get stageName => _$this._stageName;
   set stageName(String? stageName) => _$this._stageName = stageName;
 
-  GetStageRequestBuilder() {
-    GetStageRequest._init(this);
-  }
+  GetStageRequestBuilder();
 
   GetStageRequestBuilder get _$this {
     final $v = _$v;
@@ -133,9 +131,7 @@ class GetStageRequestPayloadBuilder
     implements Builder<GetStageRequestPayload, GetStageRequestPayloadBuilder> {
   _$GetStageRequestPayload? _$v;
 
-  GetStageRequestPayloadBuilder() {
-    GetStageRequestPayload._init(this);
-  }
+  GetStageRequestPayloadBuilder();
 
   @override
   void replace(GetStageRequestPayload other) {

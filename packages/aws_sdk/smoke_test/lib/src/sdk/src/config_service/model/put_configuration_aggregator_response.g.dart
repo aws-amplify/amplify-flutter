@@ -59,9 +59,7 @@ class PutConfigurationAggregatorResponseBuilder
           _i2.ConfigurationAggregatorBuilder? configurationAggregator) =>
       _$this._configurationAggregator = configurationAggregator;
 
-  PutConfigurationAggregatorResponseBuilder() {
-    PutConfigurationAggregatorResponse._init(this);
-  }
+  PutConfigurationAggregatorResponseBuilder();
 
   PutConfigurationAggregatorResponseBuilder get _$this {
     final $v = _$v;

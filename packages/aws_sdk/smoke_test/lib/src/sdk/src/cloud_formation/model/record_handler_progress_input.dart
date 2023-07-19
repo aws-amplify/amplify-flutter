@@ -56,9 +56,6 @@ abstract class RecordHandlerProgressInput
   static const List<_i1.SmithySerializer<RecordHandlerProgressInput>>
       serializers = [RecordHandlerProgressInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecordHandlerProgressInputBuilder b) {}
-
   /// Reserved for use by the [CloudFormation CLI](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html).
   String get bearerToken;
 

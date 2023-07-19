@@ -41,8 +41,6 @@ abstract class NoSuchEntityException
     NoSuchEntityExceptionAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchEntityExceptionBuilder b) {}
   @override
   String? get message;
   @override

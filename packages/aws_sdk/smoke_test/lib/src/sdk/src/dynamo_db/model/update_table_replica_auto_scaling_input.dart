@@ -59,9 +59,6 @@ abstract class UpdateTableReplicaAutoScalingInput
   static const List<_i1.SmithySerializer<UpdateTableReplicaAutoScalingInput>>
       serializers = [UpdateTableReplicaAutoScalingInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateTableReplicaAutoScalingInputBuilder b) {}
-
   /// Represents the auto scaling settings of the global secondary indexes of the replica to be updated.
   _i6.BuiltList<_i3.GlobalSecondaryIndexAutoScalingUpdate>?
       get globalSecondaryIndexUpdates;

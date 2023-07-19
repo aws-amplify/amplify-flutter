@@ -49,9 +49,7 @@ class PostUnionWithJsonNameInputBuilder
   _i3.UnionWithJsonName? get value => _$this._value;
   set value(_i3.UnionWithJsonName? value) => _$this._value = value;
 
-  PostUnionWithJsonNameInputBuilder() {
-    PostUnionWithJsonNameInput._init(this);
-  }
+  PostUnionWithJsonNameInputBuilder();
 
   PostUnionWithJsonNameInputBuilder get _$this {
     final $v = _$v;

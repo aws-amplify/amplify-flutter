@@ -42,8 +42,6 @@ abstract class MalformedPolicyDocumentException
   static const List<_i2.SmithySerializer<MalformedPolicyDocumentException>>
       serializers = [MalformedPolicyDocumentExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedPolicyDocumentExceptionBuilder b) {}
   @override
   String? get message;
   @override

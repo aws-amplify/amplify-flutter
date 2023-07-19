@@ -46,9 +46,6 @@ abstract class ListChangeSetsOutput
     ListChangeSetsOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListChangeSetsOutputBuilder b) {}
-
   /// A list of `ChangeSetSummary` structures that provides the ID and status of each change set for the specified stack.
   _i3.BuiltList<_i2.ChangeSetSummary>? get summaries;
 

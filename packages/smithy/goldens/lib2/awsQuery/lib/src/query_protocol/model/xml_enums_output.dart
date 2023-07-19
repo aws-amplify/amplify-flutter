@@ -49,8 +49,6 @@ abstract class XmlEnumsOutput
     XmlEnumsOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlEnumsOutputBuilder b) {}
   _i2.FooEnum? get fooEnum1;
   _i2.FooEnum? get fooEnum2;
   _i2.FooEnum? get fooEnum3;

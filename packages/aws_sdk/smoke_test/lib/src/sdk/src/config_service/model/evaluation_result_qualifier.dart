@@ -42,9 +42,6 @@ abstract class EvaluationResultQualifier
   static const List<_i3.SmithySerializer<EvaluationResultQualifier>>
       serializers = [EvaluationResultQualifierAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EvaluationResultQualifierBuilder b) {}
-
   /// The name of the Config rule that was used in the evaluation.
   String? get configRuleName;
 

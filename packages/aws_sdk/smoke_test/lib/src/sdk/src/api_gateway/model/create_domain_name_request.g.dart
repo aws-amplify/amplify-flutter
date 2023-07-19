@@ -184,9 +184,7 @@ class CreateDomainNameRequestBuilder
       _$this._ownershipVerificationCertificateArn =
           ownershipVerificationCertificateArn;
 
-  CreateDomainNameRequestBuilder() {
-    CreateDomainNameRequest._init(this);
-  }
+  CreateDomainNameRequestBuilder();
 
   CreateDomainNameRequestBuilder get _$this {
     final $v = _$v;

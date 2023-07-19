@@ -74,9 +74,7 @@ class AnalyticsConfigurationBuilder
           _i3.StorageClassAnalysisBuilder? storageClassAnalysis) =>
       _$this._storageClassAnalysis = storageClassAnalysis;
 
-  AnalyticsConfigurationBuilder() {
-    AnalyticsConfiguration._init(this);
-  }
+  AnalyticsConfigurationBuilder();
 
   AnalyticsConfigurationBuilder get _$this {
     final $v = _$v;

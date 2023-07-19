@@ -37,9 +37,6 @@ abstract class GetStackPolicyOutput
     GetStackPolicyOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetStackPolicyOutputBuilder b) {}
-
   /// Structure containing the stack policy body. (For more information, go to [Prevent Updates to Stack Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html) in the CloudFormation User Guide.)
   String? get stackPolicyBody;
   @override

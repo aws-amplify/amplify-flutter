@@ -40,9 +40,6 @@ abstract class CreateGroupRequest
     CreateGroupRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateGroupRequestBuilder b) {}
-
   /// The path to the group. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash (/).

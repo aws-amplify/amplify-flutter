@@ -41,8 +41,6 @@ abstract class DescribeLimitsInput
     DescribeLimitsInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeLimitsInputBuilder b) {}
   @override
   DescribeLimitsInput getPayload() => this;
   @override

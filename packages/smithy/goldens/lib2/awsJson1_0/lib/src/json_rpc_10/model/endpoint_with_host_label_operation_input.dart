@@ -37,8 +37,6 @@ abstract class EndpointWithHostLabelOperationInput
   static const List<_i1.SmithySerializer<EndpointWithHostLabelOperationInput>>
       serializers = [EndpointWithHostLabelOperationInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointWithHostLabelOperationInputBuilder b) {}
   String get label;
   @override
   String labelFor(String key) {

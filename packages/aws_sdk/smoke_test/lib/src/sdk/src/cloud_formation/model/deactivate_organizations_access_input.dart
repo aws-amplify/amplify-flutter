@@ -38,8 +38,6 @@ abstract class DeactivateOrganizationsAccessInput
   static const List<_i1.SmithySerializer<DeactivateOrganizationsAccessInput>>
       serializers = [DeactivateOrganizationsAccessInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeactivateOrganizationsAccessInputBuilder b) {}
   @override
   DeactivateOrganizationsAccessInput getPayload() => this;
   @override

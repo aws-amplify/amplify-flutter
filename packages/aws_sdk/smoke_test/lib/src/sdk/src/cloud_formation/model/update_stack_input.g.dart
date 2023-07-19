@@ -217,9 +217,7 @@ class UpdateStackInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  UpdateStackInputBuilder() {
-    UpdateStackInput._init(this);
-  }
+  UpdateStackInputBuilder();
 
   UpdateStackInputBuilder get _$this {
     final $v = _$v;

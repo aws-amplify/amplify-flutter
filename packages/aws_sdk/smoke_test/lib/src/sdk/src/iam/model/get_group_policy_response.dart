@@ -44,9 +44,6 @@ abstract class GetGroupPolicyResponse
   static const List<_i2.SmithySerializer<GetGroupPolicyResponse>> serializers =
       [GetGroupPolicyResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetGroupPolicyResponseBuilder b) {}
-
   /// The group the policy is associated with.
   String get groupName;
 

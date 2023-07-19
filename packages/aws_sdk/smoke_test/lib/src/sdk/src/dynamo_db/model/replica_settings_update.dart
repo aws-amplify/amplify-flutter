@@ -55,9 +55,6 @@ abstract class ReplicaSettingsUpdate
     ReplicaSettingsUpdateAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaSettingsUpdateBuilder b) {}
-
   /// The Region of the replica to be added.
   String get regionName;
 

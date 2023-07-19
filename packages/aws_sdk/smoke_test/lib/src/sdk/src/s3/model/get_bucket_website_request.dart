@@ -53,9 +53,6 @@ abstract class GetBucketWebsiteRequest
   static const List<_i1.SmithySerializer<GetBucketWebsiteRequestPayload>>
       serializers = [GetBucketWebsiteRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketWebsiteRequestBuilder b) {}
-
   /// The bucket name for which to get the website configuration.
   String get bucket;
 
@@ -110,8 +107,6 @@ abstract class GetBucketWebsiteRequestPayload
 
   const GetBucketWebsiteRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketWebsiteRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -48,9 +48,7 @@ class DeleteRequestBuilder
       _$this._key ??= new _i3.MapBuilder<String, _i2.AttributeValue>();
   set key(_i3.MapBuilder<String, _i2.AttributeValue>? key) => _$this._key = key;
 
-  DeleteRequestBuilder() {
-    DeleteRequest._init(this);
-  }
+  DeleteRequestBuilder();
 
   DeleteRequestBuilder get _$this {
     final $v = _$v;

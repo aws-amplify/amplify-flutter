@@ -40,9 +40,6 @@ abstract class ResourceCountFilters
     ResourceCountFiltersAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceCountFiltersBuilder b) {}
-
   /// The type of the Amazon Web Services resource.
   _i2.ResourceType? get resourceType;
 

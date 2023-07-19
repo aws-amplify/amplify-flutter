@@ -41,9 +41,6 @@ abstract class InvalidS3KeyPrefixException
   static const List<_i2.SmithySerializer<InvalidS3KeyPrefixException>>
       serializers = [InvalidS3KeyPrefixExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidS3KeyPrefixExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

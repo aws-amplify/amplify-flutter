@@ -67,9 +67,7 @@ class TransactGetItemsInputBuilder
           _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
-  TransactGetItemsInputBuilder() {
-    TransactGetItemsInput._init(this);
-  }
+  TransactGetItemsInputBuilder();
 
   TransactGetItemsInputBuilder get _$this {
     final $v = _$v;

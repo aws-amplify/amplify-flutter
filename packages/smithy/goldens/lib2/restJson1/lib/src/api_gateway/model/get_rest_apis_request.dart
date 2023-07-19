@@ -52,8 +52,6 @@ abstract class GetRestApisRequest
   static const List<_i1.SmithySerializer<GetRestApisRequestPayload>>
       serializers = [GetRestApisRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetRestApisRequestBuilder b) {}
   String? get position;
   int? get limit;
   @override
@@ -90,8 +88,6 @@ abstract class GetRestApisRequestPayload
 
   const GetRestApisRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetRestApisRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

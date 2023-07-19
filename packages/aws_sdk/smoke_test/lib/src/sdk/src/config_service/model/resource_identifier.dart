@@ -42,9 +42,6 @@ abstract class ResourceIdentifier
     ResourceIdentifierAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceIdentifierBuilder b) {}
-
   /// The type of resource.
   _i2.ResourceType? get resourceType;
 

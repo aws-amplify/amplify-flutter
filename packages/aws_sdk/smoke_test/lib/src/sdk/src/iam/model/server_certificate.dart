@@ -49,9 +49,6 @@ abstract class ServerCertificate
     ServerCertificateAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServerCertificateBuilder b) {}
-
   /// The meta information of the server certificate, such as its name, path, ID, and ARN.
   _i2.ServerCertificateMetadata get serverCertificateMetadata;
 

@@ -30,9 +30,6 @@ abstract class StatsEvent
     StatsEventRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StatsEventBuilder b) {}
-
   /// The Stats event details.
   _i2.Stats? get details;
   @override

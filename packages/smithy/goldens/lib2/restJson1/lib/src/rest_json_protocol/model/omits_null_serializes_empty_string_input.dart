@@ -54,8 +54,6 @@ abstract class OmitsNullSerializesEmptyStringInput
           _i1.SmithySerializer<OmitsNullSerializesEmptyStringInputPayload>>
       serializers = [OmitsNullSerializesEmptyStringInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OmitsNullSerializesEmptyStringInputBuilder b) {}
   String? get nullValue;
   String? get emptyString;
   @override
@@ -96,8 +94,6 @@ abstract class OmitsNullSerializesEmptyStringInputPayload
 
   const OmitsNullSerializesEmptyStringInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OmitsNullSerializesEmptyStringInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

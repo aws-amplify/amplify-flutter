@@ -131,9 +131,7 @@ class AssumeRoleWithSamlResponseBuilder
   set sourceIdentity(String? sourceIdentity) =>
       _$this._sourceIdentity = sourceIdentity;
 
-  AssumeRoleWithSamlResponseBuilder() {
-    AssumeRoleWithSamlResponse._init(this);
-  }
+  AssumeRoleWithSamlResponseBuilder();
 
   AssumeRoleWithSamlResponseBuilder get _$this {
     final $v = _$v;

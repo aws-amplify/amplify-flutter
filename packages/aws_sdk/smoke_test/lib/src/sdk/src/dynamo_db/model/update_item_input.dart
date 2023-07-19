@@ -87,9 +87,6 @@ abstract class UpdateItemInput
     UpdateItemInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateItemInputBuilder b) {}
-
   /// The name of the table containing the item to update.
   String get tableName;
 

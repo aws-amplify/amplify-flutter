@@ -42,8 +42,6 @@ abstract class StackInstanceNotFoundException
   static const List<_i2.SmithySerializer<StackInstanceNotFoundException>>
       serializers = [StackInstanceNotFoundExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackInstanceNotFoundExceptionBuilder b) {}
   @override
   String? get message;
   @override

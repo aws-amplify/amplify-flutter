@@ -42,9 +42,6 @@ abstract class ListTablesInput
     ListTablesInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTablesInputBuilder b) {}
-
   /// The first table name that this operation will evaluate. Use the value that was returned for `LastEvaluatedTableName` in a previous operation, so that you can obtain the next page of results.
   String? get exclusiveStartTableName;
 

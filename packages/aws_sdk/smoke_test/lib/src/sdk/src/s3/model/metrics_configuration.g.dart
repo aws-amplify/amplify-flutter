@@ -59,9 +59,7 @@ class MetricsConfigurationBuilder
   _i2.MetricsFilter? get filter => _$this._filter;
   set filter(_i2.MetricsFilter? filter) => _$this._filter = filter;
 
-  MetricsConfigurationBuilder() {
-    MetricsConfiguration._init(this);
-  }
+  MetricsConfigurationBuilder();
 
   MetricsConfigurationBuilder get _$this {
     final $v = _$v;

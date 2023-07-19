@@ -38,9 +38,7 @@ class DeleteChangeSetOutputBuilder
     implements Builder<DeleteChangeSetOutput, DeleteChangeSetOutputBuilder> {
   _$DeleteChangeSetOutput? _$v;
 
-  DeleteChangeSetOutputBuilder() {
-    DeleteChangeSetOutput._init(this);
-  }
+  DeleteChangeSetOutputBuilder();
 
   @override
   void replace(DeleteChangeSetOutput other) {

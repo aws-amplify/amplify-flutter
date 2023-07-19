@@ -55,9 +55,7 @@ class ModuleInfoBuilder implements Builder<ModuleInfo, ModuleInfoBuilder> {
   set logicalIdHierarchy(String? logicalIdHierarchy) =>
       _$this._logicalIdHierarchy = logicalIdHierarchy;
 
-  ModuleInfoBuilder() {
-    ModuleInfo._init(this);
-  }
+  ModuleInfoBuilder();
 
   ModuleInfoBuilder get _$this {
     final $v = _$v;

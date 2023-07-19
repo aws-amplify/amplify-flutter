@@ -63,9 +63,7 @@ class DeleteModelRequestBuilder
   String? get modelName => _$this._modelName;
   set modelName(String? modelName) => _$this._modelName = modelName;
 
-  DeleteModelRequestBuilder() {
-    DeleteModelRequest._init(this);
-  }
+  DeleteModelRequestBuilder();
 
   DeleteModelRequestBuilder get _$this {
     final $v = _$v;
@@ -136,9 +134,7 @@ class DeleteModelRequestPayloadBuilder
         Builder<DeleteModelRequestPayload, DeleteModelRequestPayloadBuilder> {
   _$DeleteModelRequestPayload? _$v;
 
-  DeleteModelRequestPayloadBuilder() {
-    DeleteModelRequestPayload._init(this);
-  }
+  DeleteModelRequestPayloadBuilder();
 
   @override
   void replace(DeleteModelRequestPayload other) {

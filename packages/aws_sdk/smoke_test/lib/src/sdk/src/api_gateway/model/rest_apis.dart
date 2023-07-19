@@ -43,9 +43,6 @@ abstract class RestApis
     RestApisRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestApisBuilder b) {}
-
   /// The current page of elements from this collection.
   _i3.BuiltList<_i2.RestApi>? get items;
 

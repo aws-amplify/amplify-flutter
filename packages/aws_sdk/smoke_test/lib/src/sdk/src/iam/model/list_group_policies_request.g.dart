@@ -71,9 +71,7 @@ class ListGroupPoliciesRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListGroupPoliciesRequestBuilder() {
-    ListGroupPoliciesRequest._init(this);
-  }
+  ListGroupPoliciesRequestBuilder();
 
   ListGroupPoliciesRequestBuilder get _$this {
     final $v = _$v;

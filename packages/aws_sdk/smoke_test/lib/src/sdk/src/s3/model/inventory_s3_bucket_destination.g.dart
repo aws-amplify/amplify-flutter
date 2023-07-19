@@ -96,9 +96,7 @@ class InventoryS3BucketDestinationBuilder
   set encryption(_i3.InventoryEncryptionBuilder? encryption) =>
       _$this._encryption = encryption;
 
-  InventoryS3BucketDestinationBuilder() {
-    InventoryS3BucketDestination._init(this);
-  }
+  InventoryS3BucketDestinationBuilder();
 
   InventoryS3BucketDestinationBuilder get _$this {
     final $v = _$v;

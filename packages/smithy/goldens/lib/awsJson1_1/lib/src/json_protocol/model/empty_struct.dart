@@ -26,8 +26,6 @@ abstract class EmptyStruct
     EmptyStructAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EmptyStructBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

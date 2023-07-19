@@ -50,9 +50,7 @@ class DeleteUserRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  DeleteUserRequestBuilder() {
-    DeleteUserRequest._init(this);
-  }
+  DeleteUserRequestBuilder();
 
   DeleteUserRequestBuilder get _$this {
     final $v = _$v;

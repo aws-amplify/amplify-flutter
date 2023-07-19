@@ -67,9 +67,7 @@ class DeleteGatewayResponseRequestBuilder
   set responseType(_i3.GatewayResponseType? responseType) =>
       _$this._responseType = responseType;
 
-  DeleteGatewayResponseRequestBuilder() {
-    DeleteGatewayResponseRequest._init(this);
-  }
+  DeleteGatewayResponseRequestBuilder();
 
   DeleteGatewayResponseRequestBuilder get _$this {
     final $v = _$v;
@@ -144,9 +142,7 @@ class DeleteGatewayResponseRequestPayloadBuilder
             DeleteGatewayResponseRequestPayloadBuilder> {
   _$DeleteGatewayResponseRequestPayload? _$v;
 
-  DeleteGatewayResponseRequestPayloadBuilder() {
-    DeleteGatewayResponseRequestPayload._init(this);
-  }
+  DeleteGatewayResponseRequestPayloadBuilder();
 
   @override
   void replace(DeleteGatewayResponseRequestPayload other) {

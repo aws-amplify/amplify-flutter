@@ -34,9 +34,6 @@ abstract class QueryInfo
     QueryInfoAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryInfoBuilder b) {}
-
   /// Returns a `FieldInfo` object.
   _i3.BuiltList<_i2.FieldInfo>? get selectFields;
   @override

@@ -95,9 +95,7 @@ class RemediationExecutionStatusBuilder
   set lastUpdatedTime(DateTime? lastUpdatedTime) =>
       _$this._lastUpdatedTime = lastUpdatedTime;
 
-  RemediationExecutionStatusBuilder() {
-    RemediationExecutionStatus._init(this);
-  }
+  RemediationExecutionStatusBuilder();
 
   RemediationExecutionStatusBuilder get _$this {
     final $v = _$v;

@@ -48,9 +48,7 @@ class CreateBucketOutputBuilder
   String? get location => _$this._location;
   set location(String? location) => _$this._location = location;
 
-  CreateBucketOutputBuilder() {
-    CreateBucketOutput._init(this);
-  }
+  CreateBucketOutputBuilder();
 
   CreateBucketOutputBuilder get _$this {
     final $v = _$v;
@@ -115,9 +113,7 @@ class CreateBucketOutputPayloadBuilder
         Builder<CreateBucketOutputPayload, CreateBucketOutputPayloadBuilder> {
   _$CreateBucketOutputPayload? _$v;
 
-  CreateBucketOutputPayloadBuilder() {
-    CreateBucketOutputPayload._init(this);
-  }
+  CreateBucketOutputPayloadBuilder();
 
   @override
   void replace(CreateBucketOutputPayload other) {

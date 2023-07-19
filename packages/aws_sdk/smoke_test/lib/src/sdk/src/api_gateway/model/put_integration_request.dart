@@ -121,9 +121,6 @@ abstract class PutIntegrationRequest
   static const List<_i1.SmithySerializer<PutIntegrationRequestPayload>>
       serializers = [PutIntegrationRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutIntegrationRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -325,9 +322,6 @@ abstract class PutIntegrationRequestPayload
       _$PutIntegrationRequestPayload;
 
   const PutIntegrationRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutIntegrationRequestPayloadBuilder b) {}
 
   /// A list of request parameters whose values API Gateway caches. To be valid values for `cacheKeyParameters`, these parameters must also be specified for Method `requestParameters`.
   _i7.BuiltList<String>? get cacheKeyParameters;

@@ -243,9 +243,6 @@ abstract class CreateMultipartUploadRequest
   static const List<_i1.SmithySerializer<CreateMultipartUploadRequestPayload>>
       serializers = [CreateMultipartUploadRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateMultipartUploadRequestBuilder b) {}
-
   /// The canned ACL to apply to the object.
   ///
   /// This action is not supported by Amazon S3 on Outposts.
@@ -542,8 +539,6 @@ abstract class CreateMultipartUploadRequestPayload
 
   const CreateMultipartUploadRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateMultipartUploadRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

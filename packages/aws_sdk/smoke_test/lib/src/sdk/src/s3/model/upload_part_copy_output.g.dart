@@ -123,9 +123,7 @@ class UploadPartCopyOutputBuilder
   set requestCharged(_i5.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  UploadPartCopyOutputBuilder() {
-    UploadPartCopyOutput._init(this);
-  }
+  UploadPartCopyOutputBuilder();
 
   UploadPartCopyOutputBuilder get _$this {
     final $v = _$v;

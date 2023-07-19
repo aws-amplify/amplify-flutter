@@ -47,9 +47,7 @@ class XmlMapsOutputBuilder
   set myMap(_i3.MapBuilder<String, _i2.GreetingStruct>? myMap) =>
       _$this._myMap = myMap;
 
-  XmlMapsOutputBuilder() {
-    XmlMapsOutput._init(this);
-  }
+  XmlMapsOutputBuilder();
 
   XmlMapsOutputBuilder get _$this {
     final $v = _$v;

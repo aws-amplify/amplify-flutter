@@ -60,9 +60,7 @@ class ListTagsForResourceResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListTagsForResourceResponseBuilder() {
-    ListTagsForResourceResponse._init(this);
-  }
+  ListTagsForResourceResponseBuilder();
 
   ListTagsForResourceResponseBuilder get _$this {
     final $v = _$v;

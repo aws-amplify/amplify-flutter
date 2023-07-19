@@ -80,9 +80,7 @@ class CreateDocumentationPartRequestBuilder
   String? get properties => _$this._properties;
   set properties(String? properties) => _$this._properties = properties;
 
-  CreateDocumentationPartRequestBuilder() {
-    CreateDocumentationPartRequest._init(this);
-  }
+  CreateDocumentationPartRequestBuilder();
 
   CreateDocumentationPartRequestBuilder get _$this {
     final $v = _$v;
@@ -201,9 +199,7 @@ class CreateDocumentationPartRequestPayloadBuilder
   String? get properties => _$this._properties;
   set properties(String? properties) => _$this._properties = properties;
 
-  CreateDocumentationPartRequestPayloadBuilder() {
-    CreateDocumentationPartRequestPayload._init(this);
-  }
+  CreateDocumentationPartRequestPayloadBuilder();
 
   CreateDocumentationPartRequestPayloadBuilder get _$this {
     final $v = _$v;

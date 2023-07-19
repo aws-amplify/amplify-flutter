@@ -37,9 +37,6 @@ abstract class InAppMessagesResponse
     InAppMessagesResponseRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InAppMessagesResponseBuilder b) {}
-
   /// List of targeted in-app message campaigns.
   _i3.BuiltList<_i2.InAppMessageCampaign>? get inAppMessageCampaigns;
   @override

@@ -54,9 +54,7 @@ class CfnRegistryExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  CfnRegistryExceptionBuilder() {
-    CfnRegistryException._init(this);
-  }
+  CfnRegistryExceptionBuilder();
 
   CfnRegistryExceptionBuilder get _$this {
     final $v = _$v;

@@ -31,8 +31,6 @@ abstract class Owner
     OwnerRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OwnerBuilder b) {}
   String? get displayName;
   String? get id;
   @override

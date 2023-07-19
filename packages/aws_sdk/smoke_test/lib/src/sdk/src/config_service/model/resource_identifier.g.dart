@@ -80,9 +80,7 @@ class ResourceIdentifierBuilder
   set resourceDeletionTime(DateTime? resourceDeletionTime) =>
       _$this._resourceDeletionTime = resourceDeletionTime;
 
-  ResourceIdentifierBuilder() {
-    ResourceIdentifier._init(this);
-  }
+  ResourceIdentifierBuilder();
 
   ResourceIdentifierBuilder get _$this {
     final $v = _$v;

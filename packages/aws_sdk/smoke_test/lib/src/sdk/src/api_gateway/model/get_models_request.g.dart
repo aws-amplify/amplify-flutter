@@ -68,9 +68,7 @@ class GetModelsRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetModelsRequestBuilder() {
-    GetModelsRequest._init(this);
-  }
+  GetModelsRequestBuilder();
 
   GetModelsRequestBuilder get _$this {
     final $v = _$v;
@@ -142,9 +140,7 @@ class GetModelsRequestPayloadBuilder
         Builder<GetModelsRequestPayload, GetModelsRequestPayloadBuilder> {
   _$GetModelsRequestPayload? _$v;
 
-  GetModelsRequestPayloadBuilder() {
-    GetModelsRequestPayload._init(this);
-  }
+  GetModelsRequestPayloadBuilder();
 
   @override
   void replace(GetModelsRequestPayload other) {

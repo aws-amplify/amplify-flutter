@@ -103,9 +103,7 @@ class PutPublicAccessBlockRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutPublicAccessBlockRequestBuilder() {
-    PutPublicAccessBlockRequest._init(this);
-  }
+  PutPublicAccessBlockRequestBuilder();
 
   PutPublicAccessBlockRequestBuilder get _$this {
     final $v = _$v;

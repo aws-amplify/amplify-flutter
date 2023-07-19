@@ -50,9 +50,6 @@ abstract class CreateVpcLinkRequest
     CreateVpcLinkRequestRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateVpcLinkRequestBuilder b) {}
-
   /// The name used to label and identify the VPC link.
   String get name;
 

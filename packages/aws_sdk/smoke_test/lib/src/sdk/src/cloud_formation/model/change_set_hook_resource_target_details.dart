@@ -42,9 +42,6 @@ abstract class ChangeSetHookResourceTargetDetails
   static const List<_i3.SmithySerializer<ChangeSetHookResourceTargetDetails>>
       serializers = [ChangeSetHookResourceTargetDetailsAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ChangeSetHookResourceTargetDetailsBuilder b) {}
-
   /// The resource's logical ID, which is defined in the stack's template.
   String? get logicalResourceId;
 

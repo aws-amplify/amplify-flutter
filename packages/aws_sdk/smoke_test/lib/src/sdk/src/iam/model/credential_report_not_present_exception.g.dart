@@ -61,9 +61,7 @@ class CredentialReportNotPresentExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  CredentialReportNotPresentExceptionBuilder() {
-    CredentialReportNotPresentException._init(this);
-  }
+  CredentialReportNotPresentExceptionBuilder();
 
   CredentialReportNotPresentExceptionBuilder get _$this {
     final $v = _$v;

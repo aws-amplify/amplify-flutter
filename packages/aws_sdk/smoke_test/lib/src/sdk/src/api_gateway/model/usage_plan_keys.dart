@@ -45,9 +45,6 @@ abstract class UsagePlanKeys
     UsagePlanKeysRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UsagePlanKeysBuilder b) {}
-
   /// The current page of elements from this collection.
   _i3.BuiltList<_i2.UsagePlanKey>? get items;
 

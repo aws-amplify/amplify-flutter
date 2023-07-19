@@ -54,9 +54,7 @@ class DeleteVirtualMfaDeviceRequestBuilder
   String? get serialNumber => _$this._serialNumber;
   set serialNumber(String? serialNumber) => _$this._serialNumber = serialNumber;
 
-  DeleteVirtualMfaDeviceRequestBuilder() {
-    DeleteVirtualMfaDeviceRequest._init(this);
-  }
+  DeleteVirtualMfaDeviceRequestBuilder();
 
   DeleteVirtualMfaDeviceRequestBuilder get _$this {
     final $v = _$v;

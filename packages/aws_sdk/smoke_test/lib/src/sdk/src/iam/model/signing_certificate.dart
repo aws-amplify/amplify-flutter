@@ -49,9 +49,6 @@ abstract class SigningCertificate
     SigningCertificateAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SigningCertificateBuilder b) {}
-
   /// The name of the user the signing certificate is associated with.
   String get userName;
 

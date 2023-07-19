@@ -42,9 +42,6 @@ abstract class DeleteRemediationExceptionsResponse
   static const List<_i4.SmithySerializer<DeleteRemediationExceptionsResponse>>
       serializers = [DeleteRemediationExceptionsResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteRemediationExceptionsResponseBuilder b) {}
-
   /// Returns a list of failed delete remediation exceptions batch objects. Each object in the batch consists of a list of failed items and failure messages.
   _i3.BuiltList<_i2.FailedDeleteRemediationExceptionsBatch>? get failedBatches;
   @override

@@ -50,9 +50,7 @@ class DeleteMarkerReplicationBuilder
   set status(_i2.DeleteMarkerReplicationStatus? status) =>
       _$this._status = status;
 
-  DeleteMarkerReplicationBuilder() {
-    DeleteMarkerReplication._init(this);
-  }
+  DeleteMarkerReplicationBuilder();
 
   DeleteMarkerReplicationBuilder get _$this {
     final $v = _$v;

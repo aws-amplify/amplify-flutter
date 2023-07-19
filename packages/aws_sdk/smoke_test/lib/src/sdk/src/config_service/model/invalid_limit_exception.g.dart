@@ -61,9 +61,7 @@ class InvalidLimitExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidLimitExceptionBuilder() {
-    InvalidLimitException._init(this);
-  }
+  InvalidLimitExceptionBuilder();
 
   InvalidLimitExceptionBuilder get _$this {
     final $v = _$v;

@@ -12,7 +12,7 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   @override
   final String requestToken;
   @override
-  final _i2.Stream<List<int>>? body;
+  final _i2.Stream<List<int>> body;
   @override
   final int? statusCode;
   @override
@@ -95,7 +95,7 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   _$WriteGetObjectResponseRequest._(
       {required this.requestRoute,
       required this.requestToken,
-      this.body,
+      required this.body,
       this.statusCode,
       this.errorCode,
       this.errorMessage,
@@ -138,6 +138,8 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
         requestRoute, r'WriteGetObjectResponseRequest', 'requestRoute');
     BuiltValueNullFieldError.checkNotNull(
         requestToken, r'WriteGetObjectResponseRequest', 'requestToken');
+    BuiltValueNullFieldError.checkNotNull(
+        body, r'WriteGetObjectResponseRequest', 'body');
   }
 
   @override
@@ -507,7 +509,8 @@ class WriteGetObjectResponseRequestBuilder
                   r'WriteGetObjectResponseRequest', 'requestRoute'),
               requestToken: BuiltValueNullFieldError.checkNotNull(requestToken,
                   r'WriteGetObjectResponseRequest', 'requestToken'),
-              body: body,
+              body: BuiltValueNullFieldError.checkNotNull(
+                  body, r'WriteGetObjectResponseRequest', 'body'),
               statusCode: statusCode,
               errorCode: errorCode,
               errorMessage: errorMessage,

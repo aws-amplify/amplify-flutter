@@ -39,9 +39,6 @@ abstract class Transition
     TransitionRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TransitionBuilder b) {}
-
   /// Indicates when objects are transitioned to the specified storage class. The date value must be in ISO 8601 format. The time is always midnight UTC.
   DateTime? get date;
 

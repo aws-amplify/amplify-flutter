@@ -211,9 +211,7 @@ class StackSetBuilder implements Builder<StackSet, StackSetBuilder> {
       _$this._regions ??= new _i10.ListBuilder<String>();
   set regions(_i10.ListBuilder<String>? regions) => _$this._regions = regions;
 
-  StackSetBuilder() {
-    StackSet._init(this);
-  }
+  StackSetBuilder();
 
   StackSetBuilder get _$this {
     final $v = _$v;

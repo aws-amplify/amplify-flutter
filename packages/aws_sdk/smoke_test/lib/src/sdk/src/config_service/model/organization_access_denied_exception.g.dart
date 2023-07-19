@@ -67,9 +67,7 @@ class OrganizationAccessDeniedExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  OrganizationAccessDeniedExceptionBuilder() {
-    OrganizationAccessDeniedException._init(this);
-  }
+  OrganizationAccessDeniedExceptionBuilder();
 
   OrganizationAccessDeniedExceptionBuilder get _$this {
     final $v = _$v;

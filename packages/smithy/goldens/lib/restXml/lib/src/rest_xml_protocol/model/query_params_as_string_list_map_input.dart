@@ -52,8 +52,6 @@ abstract class QueryParamsAsStringListMapInput
           _i1.SmithySerializer<QueryParamsAsStringListMapInputPayload>>
       serializers = [QueryParamsAsStringListMapInputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryParamsAsStringListMapInputBuilder b) {}
   String? get qux;
   _i3.BuiltListMultimap<String, String>? get foo;
   @override
@@ -94,8 +92,6 @@ abstract class QueryParamsAsStringListMapInputPayload
 
   const QueryParamsAsStringListMapInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryParamsAsStringListMapInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -73,9 +73,7 @@ class DescribeRemediationExecutionStatusResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeRemediationExecutionStatusResponseBuilder() {
-    DescribeRemediationExecutionStatusResponse._init(this);
-  }
+  DescribeRemediationExecutionStatusResponseBuilder();
 
   DescribeRemediationExecutionStatusResponseBuilder get _$this {
     final $v = _$v;

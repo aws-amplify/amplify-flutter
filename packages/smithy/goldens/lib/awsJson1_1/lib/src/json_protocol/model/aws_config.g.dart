@@ -55,9 +55,7 @@ class AwsConfigBuilder implements Builder<AwsConfig, AwsConfigBuilder> {
   set scopedConfig(_i2.ScopedConfigBuilder? scopedConfig) =>
       _$this._scopedConfig = scopedConfig;
 
-  AwsConfigBuilder() {
-    AwsConfig._init(this);
-  }
+  AwsConfigBuilder();
 
   AwsConfigBuilder get _$this {
     final $v = _$v;

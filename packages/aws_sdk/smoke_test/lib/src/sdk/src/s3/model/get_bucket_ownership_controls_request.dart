@@ -55,9 +55,6 @@ abstract class GetBucketOwnershipControlsRequest
           _i1.SmithySerializer<GetBucketOwnershipControlsRequestPayload>>
       serializers = [GetBucketOwnershipControlsRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketOwnershipControlsRequestBuilder b) {}
-
   /// The name of the Amazon S3 bucket whose `OwnershipControls` you want to retrieve.
   String get bucket;
 
@@ -113,8 +110,6 @@ abstract class GetBucketOwnershipControlsRequestPayload
 
   const GetBucketOwnershipControlsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketOwnershipControlsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -82,9 +82,7 @@ class DescribeTypeRegistrationOutputBuilder
   set typeVersionArn(String? typeVersionArn) =>
       _$this._typeVersionArn = typeVersionArn;
 
-  DescribeTypeRegistrationOutputBuilder() {
-    DescribeTypeRegistrationOutput._init(this);
-  }
+  DescribeTypeRegistrationOutputBuilder();
 
   DescribeTypeRegistrationOutputBuilder get _$this {
     final $v = _$v;

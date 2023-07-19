@@ -40,9 +40,6 @@ abstract class GetContextKeysForCustomPolicyRequest
   static const List<_i1.SmithySerializer<GetContextKeysForCustomPolicyRequest>>
       serializers = [GetContextKeysForCustomPolicyRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetContextKeysForCustomPolicyRequestBuilder b) {}
-
   /// A list of policies for which you want the list of context keys referenced in those policies. Each document is specified as a string containing the complete, valid JSON text of an IAM policy.
   ///
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this parameter is a string of characters consisting of the following:

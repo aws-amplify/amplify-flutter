@@ -137,9 +137,7 @@ class ObjectVersionBuilder
   set restoreStatus(_i6.RestoreStatusBuilder? restoreStatus) =>
       _$this._restoreStatus = restoreStatus;
 
-  ObjectVersionBuilder() {
-    ObjectVersion._init(this);
-  }
+  ObjectVersionBuilder();
 
   ObjectVersionBuilder get _$this {
     final $v = _$v;

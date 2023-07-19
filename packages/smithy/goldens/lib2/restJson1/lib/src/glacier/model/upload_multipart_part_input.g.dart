@@ -18,7 +18,7 @@ class _$UploadMultipartPartInput extends UploadMultipartPartInput {
   @override
   final String? range;
   @override
-  final _i2.Stream<List<int>>? body;
+  final _i2.Stream<List<int>> body;
 
   factory _$UploadMultipartPartInput(
           [void Function(UploadMultipartPartInputBuilder)? updates]) =>
@@ -30,7 +30,7 @@ class _$UploadMultipartPartInput extends UploadMultipartPartInput {
       required this.uploadId,
       this.checksum,
       this.range,
-      this.body})
+      required this.body})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         accountId, r'UploadMultipartPartInput', 'accountId');
@@ -38,6 +38,8 @@ class _$UploadMultipartPartInput extends UploadMultipartPartInput {
         vaultName, r'UploadMultipartPartInput', 'vaultName');
     BuiltValueNullFieldError.checkNotNull(
         uploadId, r'UploadMultipartPartInput', 'uploadId');
+    BuiltValueNullFieldError.checkNotNull(
+        body, r'UploadMultipartPartInput', 'body');
   }
 
   @override
@@ -147,7 +149,8 @@ class UploadMultipartPartInputBuilder
                 uploadId, r'UploadMultipartPartInput', 'uploadId'),
             checksum: checksum,
             range: range,
-            body: body);
+            body: BuiltValueNullFieldError.checkNotNull(
+                body, r'UploadMultipartPartInput', 'body'));
     replace(_$result);
     return _$result;
   }

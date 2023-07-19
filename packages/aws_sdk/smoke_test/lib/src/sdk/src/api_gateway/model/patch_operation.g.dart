@@ -71,9 +71,7 @@ class PatchOperationBuilder
   String? get from => _$this._from;
   set from(String? from) => _$this._from = from;
 
-  PatchOperationBuilder() {
-    PatchOperation._init(this);
-  }
+  PatchOperationBuilder();
 
   PatchOperationBuilder get _$this {
     final $v = _$v;

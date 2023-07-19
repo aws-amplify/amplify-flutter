@@ -44,9 +44,6 @@ abstract class ListMfaDeviceTagsRequest
   static const List<_i1.SmithySerializer<ListMfaDeviceTagsRequest>>
       serializers = [ListMfaDeviceTagsRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListMfaDeviceTagsRequestBuilder b) {}
-
   /// The unique identifier for the IAM virtual MFA device whose tags you want to see. For virtual MFA devices, the serial number is the same as the ARN.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

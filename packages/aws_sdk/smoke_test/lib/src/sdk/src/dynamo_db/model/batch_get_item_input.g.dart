@@ -68,9 +68,7 @@ class BatchGetItemInputBuilder
           _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
-  BatchGetItemInputBuilder() {
-    BatchGetItemInput._init(this);
-  }
+  BatchGetItemInputBuilder();
 
   BatchGetItemInputBuilder get _$this {
     final $v = _$v;

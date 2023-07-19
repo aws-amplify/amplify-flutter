@@ -35,9 +35,6 @@ abstract class MetadataEntry
     MetadataEntryRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MetadataEntryBuilder b) {}
-
   /// Name of the object.
   String? get name;
 

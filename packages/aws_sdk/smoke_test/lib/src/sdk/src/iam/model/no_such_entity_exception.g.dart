@@ -54,9 +54,7 @@ class NoSuchEntityExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchEntityExceptionBuilder() {
-    NoSuchEntityException._init(this);
-  }
+  NoSuchEntityExceptionBuilder();
 
   NoSuchEntityExceptionBuilder get _$this {
     final $v = _$v;

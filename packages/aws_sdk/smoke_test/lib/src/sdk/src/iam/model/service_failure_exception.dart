@@ -40,8 +40,6 @@ abstract class ServiceFailureException
   static const List<_i2.SmithySerializer<ServiceFailureException>> serializers =
       [ServiceFailureExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServiceFailureExceptionBuilder b) {}
   @override
   String? get message;
   @override

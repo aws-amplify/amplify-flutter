@@ -45,9 +45,6 @@ abstract class DescribeDeliveryChannelsResponse
   static const List<_i4.SmithySerializer<DescribeDeliveryChannelsResponse>>
       serializers = [DescribeDeliveryChannelsResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeDeliveryChannelsResponseBuilder b) {}
-
   /// A list that contains the descriptions of the specified delivery channel.
   _i3.BuiltList<_i2.DeliveryChannel>? get deliveryChannels;
   @override

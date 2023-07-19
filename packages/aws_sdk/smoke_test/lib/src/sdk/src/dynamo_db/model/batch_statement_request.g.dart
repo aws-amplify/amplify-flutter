@@ -92,9 +92,7 @@ class BatchStatementRequestBuilder
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  BatchStatementRequestBuilder() {
-    BatchStatementRequest._init(this);
-  }
+  BatchStatementRequestBuilder();
 
   BatchStatementRequestBuilder get _$this {
     final $v = _$v;

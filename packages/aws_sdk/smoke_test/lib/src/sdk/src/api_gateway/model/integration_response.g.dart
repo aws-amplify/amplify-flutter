@@ -93,9 +93,7 @@ class IntegrationResponseBuilder
   set contentHandling(_i2.ContentHandlingStrategy? contentHandling) =>
       _$this._contentHandling = contentHandling;
 
-  IntegrationResponseBuilder() {
-    IntegrationResponse._init(this);
-  }
+  IntegrationResponseBuilder();
 
   IntegrationResponseBuilder get _$this {
     final $v = _$v;

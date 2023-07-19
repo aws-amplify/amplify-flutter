@@ -62,9 +62,7 @@ class CreateBackupInputBuilder
   String? get backupName => _$this._backupName;
   set backupName(String? backupName) => _$this._backupName = backupName;
 
-  CreateBackupInputBuilder() {
-    CreateBackupInput._init(this);
-  }
+  CreateBackupInputBuilder();
 
   CreateBackupInputBuilder get _$this {
     final $v = _$v;

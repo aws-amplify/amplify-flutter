@@ -45,9 +45,6 @@ abstract class GetVpcLinkRequest
   static const List<_i1.SmithySerializer<GetVpcLinkRequestPayload>>
       serializers = [GetVpcLinkRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetVpcLinkRequestBuilder b) {}
-
   /// The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
   String get vpcLinkId;
   @override
@@ -89,8 +86,6 @@ abstract class GetVpcLinkRequestPayload
 
   const GetVpcLinkRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetVpcLinkRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

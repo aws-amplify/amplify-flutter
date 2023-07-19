@@ -38,9 +38,6 @@ abstract class AnalyticsAndOperator
     AnalyticsAndOperatorRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AnalyticsAndOperatorBuilder b) {}
-
   /// The prefix to use when evaluating an AND predicate: The prefix that an object must have to be included in the metrics results.
   String? get prefix;
 

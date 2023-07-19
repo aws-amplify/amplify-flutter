@@ -46,9 +46,6 @@ abstract class OrganizationAllFeaturesNotEnabledException
     OrganizationAllFeaturesNotEnabledExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationAllFeaturesNotEnabledExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

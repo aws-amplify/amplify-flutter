@@ -55,9 +55,7 @@ class ImportTableOutputBuilder
           _i2.ImportTableDescriptionBuilder? importTableDescription) =>
       _$this._importTableDescription = importTableDescription;
 
-  ImportTableOutputBuilder() {
-    ImportTableOutput._init(this);
-  }
+  ImportTableOutputBuilder();
 
   ImportTableOutputBuilder get _$this {
     final $v = _$v;

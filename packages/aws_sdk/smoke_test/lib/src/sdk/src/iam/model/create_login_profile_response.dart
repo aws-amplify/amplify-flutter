@@ -38,9 +38,6 @@ abstract class CreateLoginProfileResponse
   static const List<_i3.SmithySerializer<CreateLoginProfileResponse>>
       serializers = [CreateLoginProfileResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateLoginProfileResponseBuilder b) {}
-
   /// A structure containing the user name and password create date.
   _i2.LoginProfile get loginProfile;
   @override

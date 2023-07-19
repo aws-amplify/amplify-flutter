@@ -45,9 +45,6 @@ abstract class DomainNames
     DomainNamesRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DomainNamesBuilder b) {}
-
   /// The current page of elements from this collection.
   _i3.BuiltList<_i2.DomainName>? get items;
 

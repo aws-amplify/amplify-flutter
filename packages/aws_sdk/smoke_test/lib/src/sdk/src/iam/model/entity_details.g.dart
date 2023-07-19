@@ -61,9 +61,7 @@ class EntityDetailsBuilder
   set lastAuthenticated(DateTime? lastAuthenticated) =>
       _$this._lastAuthenticated = lastAuthenticated;
 
-  EntityDetailsBuilder() {
-    EntityDetails._init(this);
-  }
+  EntityDetailsBuilder();
 
   EntityDetailsBuilder get _$this {
     final $v = _$v;

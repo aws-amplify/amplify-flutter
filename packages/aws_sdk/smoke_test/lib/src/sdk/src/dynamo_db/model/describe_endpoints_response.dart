@@ -36,9 +36,6 @@ abstract class DescribeEndpointsResponse
   static const List<_i4.SmithySerializer<DescribeEndpointsResponse>>
       serializers = [DescribeEndpointsResponseAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeEndpointsResponseBuilder b) {}
-
   /// List of endpoints.
   _i3.BuiltList<_i2.Endpoint> get endpoints;
   @override

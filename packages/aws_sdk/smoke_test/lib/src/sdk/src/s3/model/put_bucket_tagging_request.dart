@@ -68,9 +68,6 @@ abstract class PutBucketTaggingRequest
     PutBucketTaggingRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketTaggingRequestBuilder b) {}
-
   /// The bucket name.
   String get bucket;
 

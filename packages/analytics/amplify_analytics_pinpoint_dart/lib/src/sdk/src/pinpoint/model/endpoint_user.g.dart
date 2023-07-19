@@ -56,9 +56,7 @@ class EndpointUserBuilder
   String? get userId => _$this._userId;
   set userId(String? userId) => _$this._userId = userId;
 
-  EndpointUserBuilder() {
-    EndpointUser._init(this);
-  }
+  EndpointUserBuilder();
 
   EndpointUserBuilder get _$this {
     final $v = _$v;

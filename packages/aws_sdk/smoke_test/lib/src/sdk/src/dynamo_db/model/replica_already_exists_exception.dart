@@ -43,8 +43,6 @@ abstract class ReplicaAlreadyExistsException
   static const List<_i2.SmithySerializer<ReplicaAlreadyExistsException>>
       serializers = [ReplicaAlreadyExistsExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaAlreadyExistsExceptionBuilder b) {}
   @override
   String? get message;
   @override

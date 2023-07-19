@@ -29,9 +29,6 @@ abstract class PolicyStatus
     PolicyStatusRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyStatusBuilder b) {}
-
   /// The policy status for this bucket. `TRUE` indicates that this bucket is public. `FALSE` indicates that the bucket is not public.
   bool? get isPublic;
   @override

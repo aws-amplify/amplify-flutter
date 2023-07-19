@@ -41,9 +41,6 @@ abstract class CreateBucketOutput
   static const List<_i2.SmithySerializer<CreateBucketOutputPayload>>
       serializers = [CreateBucketOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBucketOutputBuilder b) {}
-
   /// A forward slash followed by the name of the bucket.
   String? get location;
   @override
@@ -73,8 +70,6 @@ abstract class CreateBucketOutputPayload
 
   const CreateBucketOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBucketOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

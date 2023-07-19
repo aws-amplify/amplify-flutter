@@ -38,8 +38,6 @@ abstract class RecursiveStructuresInput
   static const List<_i1.SmithySerializer<RecursiveStructuresInput>>
       serializers = [RecursiveStructuresInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecursiveStructuresInputBuilder b) {}
   _i3.RecursiveUnionOne? get union;
   @override
   RecursiveStructuresInput getPayload() => this;

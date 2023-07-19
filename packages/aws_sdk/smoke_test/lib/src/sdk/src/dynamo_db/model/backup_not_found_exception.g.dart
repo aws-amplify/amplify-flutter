@@ -62,9 +62,7 @@ class BackupNotFoundExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  BackupNotFoundExceptionBuilder() {
-    BackupNotFoundException._init(this);
-  }
+  BackupNotFoundExceptionBuilder();
 
   BackupNotFoundExceptionBuilder get _$this {
     final $v = _$v;

@@ -63,9 +63,7 @@ class InvalidS3KeyPrefixExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidS3KeyPrefixExceptionBuilder() {
-    InvalidS3KeyPrefixException._init(this);
-  }
+  InvalidS3KeyPrefixExceptionBuilder();
 
   InvalidS3KeyPrefixExceptionBuilder get _$this {
     final $v = _$v;

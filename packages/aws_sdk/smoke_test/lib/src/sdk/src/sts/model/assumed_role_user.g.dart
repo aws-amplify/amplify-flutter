@@ -61,9 +61,7 @@ class AssumedRoleUserBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  AssumedRoleUserBuilder() {
-    AssumedRoleUser._init(this);
-  }
+  AssumedRoleUserBuilder();
 
   AssumedRoleUserBuilder get _$this {
     final $v = _$v;

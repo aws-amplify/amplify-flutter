@@ -96,9 +96,7 @@ class PutBucketTaggingRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketTaggingRequestBuilder() {
-    PutBucketTaggingRequest._init(this);
-  }
+  PutBucketTaggingRequestBuilder();
 
   PutBucketTaggingRequestBuilder get _$this {
     final $v = _$v;

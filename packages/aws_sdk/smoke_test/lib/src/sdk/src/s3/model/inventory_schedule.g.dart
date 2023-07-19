@@ -51,9 +51,7 @@ class InventoryScheduleBuilder
   set frequency(_i2.InventoryFrequency? frequency) =>
       _$this._frequency = frequency;
 
-  InventoryScheduleBuilder() {
-    InventorySchedule._init(this);
-  }
+  InventoryScheduleBuilder();
 
   InventoryScheduleBuilder get _$this {
     final $v = _$v;

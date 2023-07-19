@@ -97,8 +97,6 @@ abstract class ListObjectsV2Request
   static const List<_i1.SmithySerializer<ListObjectsV2RequestPayload>>
       serializers = [ListObjectsV2RequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2RequestBuilder b) {}
   String get bucket;
   String? get delimiter;
   _i3.EncodingType? get encodingType;
@@ -195,8 +193,6 @@ abstract class ListObjectsV2RequestPayload
 
   const ListObjectsV2RequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2RequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

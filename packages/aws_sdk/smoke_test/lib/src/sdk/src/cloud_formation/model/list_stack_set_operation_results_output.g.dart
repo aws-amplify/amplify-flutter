@@ -67,9 +67,7 @@ class ListStackSetOperationResultsOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListStackSetOperationResultsOutputBuilder() {
-    ListStackSetOperationResultsOutput._init(this);
-  }
+  ListStackSetOperationResultsOutputBuilder();
 
   ListStackSetOperationResultsOutputBuilder get _$this {
     final $v = _$v;

@@ -41,9 +41,6 @@ abstract class AttachUserPolicyRequest
   static const List<_i1.SmithySerializer<AttachUserPolicyRequest>> serializers =
       [AttachUserPolicyRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AttachUserPolicyRequestBuilder b) {}
-
   /// The name (friendly name, not ARN) of the IAM user to attach the policy to.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

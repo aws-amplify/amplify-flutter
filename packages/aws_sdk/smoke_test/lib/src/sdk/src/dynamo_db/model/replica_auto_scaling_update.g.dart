@@ -94,9 +94,7 @@ class ReplicaAutoScalingUpdateBuilder
       _$this._replicaProvisionedReadCapacityAutoScalingUpdate =
           replicaProvisionedReadCapacityAutoScalingUpdate;
 
-  ReplicaAutoScalingUpdateBuilder() {
-    ReplicaAutoScalingUpdate._init(this);
-  }
+  ReplicaAutoScalingUpdateBuilder();
 
   ReplicaAutoScalingUpdateBuilder get _$this {
     final $v = _$v;

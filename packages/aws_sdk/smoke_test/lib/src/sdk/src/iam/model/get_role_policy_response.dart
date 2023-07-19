@@ -45,9 +45,6 @@ abstract class GetRolePolicyResponse
     GetRolePolicyResponseAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetRolePolicyResponseBuilder b) {}
-
   /// The role the policy is associated with.
   String get roleName;
 

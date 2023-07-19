@@ -78,8 +78,6 @@ abstract class JsonMapsInputOutput
     JsonMapsInputOutputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonMapsInputOutputBuilder b) {}
   _i4.BuiltMap<String, _i3.GreetingStruct>? get denseStructMap;
   _i4.BuiltMap<String, _i3.GreetingStruct?>? get sparseStructMap;
   _i4.BuiltMap<String, int>? get denseNumberMap;

@@ -66,9 +66,7 @@ class DocumentationPartBuilder
   String? get properties => _$this._properties;
   set properties(String? properties) => _$this._properties = properties;
 
-  DocumentationPartBuilder() {
-    DocumentationPart._init(this);
-  }
+  DocumentationPartBuilder();
 
   DocumentationPartBuilder get _$this {
     final $v = _$v;

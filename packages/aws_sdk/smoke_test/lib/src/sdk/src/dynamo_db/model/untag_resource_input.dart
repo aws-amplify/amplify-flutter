@@ -41,9 +41,6 @@ abstract class UntagResourceInput
     UntagResourceInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UntagResourceInputBuilder b) {}
-
   /// The DynamoDB resource that the tags will be removed from. This value is an Amazon Resource Name (ARN).
   String get resourceArn;
 

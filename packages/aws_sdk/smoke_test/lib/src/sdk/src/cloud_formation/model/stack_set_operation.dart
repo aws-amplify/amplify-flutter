@@ -71,9 +71,6 @@ abstract class StackSetOperation
     StackSetOperationAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackSetOperationBuilder b) {}
-
   /// The unique ID of a stack set operation.
   String? get operationId;
 

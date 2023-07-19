@@ -51,9 +51,7 @@ class GetAccountSummaryResponseBuilder
   set summaryMap(_i3.MapBuilder<_i2.SummaryKeyType, int>? summaryMap) =>
       _$this._summaryMap = summaryMap;
 
-  GetAccountSummaryResponseBuilder() {
-    GetAccountSummaryResponse._init(this);
-  }
+  GetAccountSummaryResponseBuilder();
 
   GetAccountSummaryResponseBuilder get _$this {
     final $v = _$v;

@@ -74,9 +74,7 @@ class InAppMessageBodyConfigBuilder
   String? get textColor => _$this._textColor;
   set textColor(String? textColor) => _$this._textColor = textColor;
 
-  InAppMessageBodyConfigBuilder() {
-    InAppMessageBodyConfig._init(this);
-  }
+  InAppMessageBodyConfigBuilder();
 
   InAppMessageBodyConfigBuilder get _$this {
     final $v = _$v;

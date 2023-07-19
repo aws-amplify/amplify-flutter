@@ -47,9 +47,6 @@ abstract class DescribeAccountLimitsOutput
   static const List<_i4.SmithySerializer<DescribeAccountLimitsOutput>>
       serializers = [DescribeAccountLimitsOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeAccountLimitsOutputBuilder b) {}
-
   /// An account limit structure that contain a list of CloudFormation account limits and their values.
   _i3.BuiltList<_i2.AccountLimit>? get accountLimits;
 

@@ -56,9 +56,7 @@ class GetBucketLifecycleConfigurationOutputBuilder
       _$this._rules ??= new _i3.ListBuilder<_i2.LifecycleRule>();
   set rules(_i3.ListBuilder<_i2.LifecycleRule>? rules) => _$this._rules = rules;
 
-  GetBucketLifecycleConfigurationOutputBuilder() {
-    GetBucketLifecycleConfigurationOutput._init(this);
-  }
+  GetBucketLifecycleConfigurationOutputBuilder();
 
   GetBucketLifecycleConfigurationOutputBuilder get _$this {
     final $v = _$v;

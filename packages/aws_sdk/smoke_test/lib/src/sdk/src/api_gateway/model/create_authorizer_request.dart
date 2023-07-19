@@ -81,9 +81,6 @@ abstract class CreateAuthorizerRequest
   static const List<_i1.SmithySerializer<CreateAuthorizerRequestPayload>>
       serializers = [CreateAuthorizerRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateAuthorizerRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -212,9 +209,6 @@ abstract class CreateAuthorizerRequestPayload
       _$CreateAuthorizerRequestPayload;
 
   const CreateAuthorizerRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateAuthorizerRequestPayloadBuilder b) {}
 
   /// Optional customer-defined field, used in OpenAPI imports and exports without functional impact.
   String? get authType;

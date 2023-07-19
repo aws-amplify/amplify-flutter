@@ -105,9 +105,7 @@ class SourceTableFeatureDetailsBuilder
   set sseDescription(_i6.SseDescriptionBuilder? sseDescription) =>
       _$this._sseDescription = sseDescription;
 
-  SourceTableFeatureDetailsBuilder() {
-    SourceTableFeatureDetails._init(this);
-  }
+  SourceTableFeatureDetailsBuilder();
 
   SourceTableFeatureDetailsBuilder get _$this {
     final $v = _$v;

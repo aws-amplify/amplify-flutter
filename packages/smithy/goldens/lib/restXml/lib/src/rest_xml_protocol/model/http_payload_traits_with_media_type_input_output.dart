@@ -64,8 +64,6 @@ abstract class HttpPayloadTraitsWithMediaTypeInputOutput
     HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpPayloadTraitsWithMediaTypeInputOutputBuilder b) {}
   String? get foo;
   _i2.Uint8List? get blob;
   @override

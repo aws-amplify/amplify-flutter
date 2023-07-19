@@ -42,8 +42,6 @@ abstract class InvalidChangeSetStatusException
   static const List<_i2.SmithySerializer<InvalidChangeSetStatusException>>
       serializers = [InvalidChangeSetStatusExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidChangeSetStatusExceptionBuilder b) {}
   @override
   String? get message;
   @override

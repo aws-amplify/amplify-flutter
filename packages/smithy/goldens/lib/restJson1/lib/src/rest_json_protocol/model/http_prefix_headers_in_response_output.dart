@@ -46,8 +46,6 @@ abstract class HttpPrefixHeadersInResponseOutput
           _i2.SmithySerializer<HttpPrefixHeadersInResponseOutputPayload>>
       serializers = [HttpPrefixHeadersInResponseOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpPrefixHeadersInResponseOutputBuilder b) {}
   _i3.BuiltMap<String, String>? get prefixHeaders;
   @override
   HttpPrefixHeadersInResponseOutputPayload getPayload() =>
@@ -80,8 +78,6 @@ abstract class HttpPrefixHeadersInResponseOutputPayload
 
   const HttpPrefixHeadersInResponseOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpPrefixHeadersInResponseOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

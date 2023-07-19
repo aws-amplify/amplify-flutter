@@ -79,9 +79,6 @@ abstract class InsufficientPermissionsException
   static const List<_i2.SmithySerializer<InsufficientPermissionsException>>
       serializers = [InsufficientPermissionsExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InsufficientPermissionsExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

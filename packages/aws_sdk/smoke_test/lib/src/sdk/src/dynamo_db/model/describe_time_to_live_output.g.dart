@@ -53,9 +53,7 @@ class DescribeTimeToLiveOutputBuilder
           _i2.TimeToLiveDescriptionBuilder? timeToLiveDescription) =>
       _$this._timeToLiveDescription = timeToLiveDescription;
 
-  DescribeTimeToLiveOutputBuilder() {
-    DescribeTimeToLiveOutput._init(this);
-  }
+  DescribeTimeToLiveOutputBuilder();
 
   DescribeTimeToLiveOutputBuilder get _$this {
     final $v = _$v;

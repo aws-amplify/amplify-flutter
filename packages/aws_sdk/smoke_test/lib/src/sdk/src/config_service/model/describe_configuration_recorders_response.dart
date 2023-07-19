@@ -49,9 +49,6 @@ abstract class DescribeConfigurationRecordersResponse
     DescribeConfigurationRecordersResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConfigurationRecordersResponseBuilder b) {}
-
   /// A list that contains the descriptions of the specified configuration recorders.
   _i3.BuiltList<_i2.ConfigurationRecorder>? get configurationRecorders;
   @override

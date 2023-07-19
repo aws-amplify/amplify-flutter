@@ -44,9 +44,6 @@ abstract class Resources
     ResourcesRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourcesBuilder b) {}
-
   /// The current page of elements from this collection.
   _i3.BuiltList<_i2.Resource>? get items;
 

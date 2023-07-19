@@ -42,9 +42,6 @@ abstract class DeleteConfigurationRecorderRequest
   static const List<_i1.SmithySerializer<DeleteConfigurationRecorderRequest>>
       serializers = [DeleteConfigurationRecorderRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteConfigurationRecorderRequestBuilder b) {}
-
   /// The name of the configuration recorder to be deleted. You can retrieve the name of your configuration recorder by using the `DescribeConfigurationRecorders` action.
   String get configurationRecorderName;
   @override

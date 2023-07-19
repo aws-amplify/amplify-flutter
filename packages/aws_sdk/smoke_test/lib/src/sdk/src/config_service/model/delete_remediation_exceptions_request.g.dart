@@ -74,9 +74,7 @@ class DeleteRemediationExceptionsRequestBuilder
           _i4.ListBuilder<_i3.RemediationExceptionResourceKey>? resourceKeys) =>
       _$this._resourceKeys = resourceKeys;
 
-  DeleteRemediationExceptionsRequestBuilder() {
-    DeleteRemediationExceptionsRequest._init(this);
-  }
+  DeleteRemediationExceptionsRequestBuilder();
 
   DeleteRemediationExceptionsRequestBuilder get _$this {
     final $v = _$v;

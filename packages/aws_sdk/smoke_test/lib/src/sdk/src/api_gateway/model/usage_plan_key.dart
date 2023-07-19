@@ -46,9 +46,6 @@ abstract class UsagePlanKey
     UsagePlanKeyRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UsagePlanKeyBuilder b) {}
-
   /// The Id of a usage plan key.
   String? get id;
 

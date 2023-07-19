@@ -65,9 +65,7 @@ class GetPublicAccessBlockRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetPublicAccessBlockRequestBuilder() {
-    GetPublicAccessBlockRequest._init(this);
-  }
+  GetPublicAccessBlockRequestBuilder();
 
   GetPublicAccessBlockRequestBuilder get _$this {
     final $v = _$v;
@@ -141,9 +139,7 @@ class GetPublicAccessBlockRequestPayloadBuilder
             GetPublicAccessBlockRequestPayloadBuilder> {
   _$GetPublicAccessBlockRequestPayload? _$v;
 
-  GetPublicAccessBlockRequestPayloadBuilder() {
-    GetPublicAccessBlockRequestPayload._init(this);
-  }
+  GetPublicAccessBlockRequestPayloadBuilder();
 
   @override
   void replace(GetPublicAccessBlockRequestPayload other) {

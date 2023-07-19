@@ -43,9 +43,6 @@ abstract class GetPublicAccessBlockOutput
   static const List<_i2.SmithySerializer<_i3.PublicAccessBlockConfiguration?>>
       serializers = [GetPublicAccessBlockOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetPublicAccessBlockOutputBuilder b) {}
-
   /// The `PublicAccessBlock` configuration currently in effect for this Amazon S3 bucket.
   _i3.PublicAccessBlockConfiguration? get publicAccessBlockConfiguration;
   @override

@@ -54,9 +54,6 @@ abstract class GetBucketPolicyStatusRequest
   static const List<_i1.SmithySerializer<GetBucketPolicyStatusRequestPayload>>
       serializers = [GetBucketPolicyStatusRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketPolicyStatusRequestBuilder b) {}
-
   /// The name of the Amazon S3 bucket whose policy status you want to retrieve.
   String get bucket;
 
@@ -111,8 +108,6 @@ abstract class GetBucketPolicyStatusRequestPayload
 
   const GetBucketPolicyStatusRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketPolicyStatusRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

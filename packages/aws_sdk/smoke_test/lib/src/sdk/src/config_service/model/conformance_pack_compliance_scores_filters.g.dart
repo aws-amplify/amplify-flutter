@@ -62,9 +62,7 @@ class ConformancePackComplianceScoresFiltersBuilder
   set conformancePackNames(_i2.ListBuilder<String>? conformancePackNames) =>
       _$this._conformancePackNames = conformancePackNames;
 
-  ConformancePackComplianceScoresFiltersBuilder() {
-    ConformancePackComplianceScoresFilters._init(this);
-  }
+  ConformancePackComplianceScoresFiltersBuilder();
 
   ConformancePackComplianceScoresFiltersBuilder get _$this {
     final $v = _$v;

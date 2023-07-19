@@ -59,9 +59,7 @@ class DocumentationVersionsBuilder
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  DocumentationVersionsBuilder() {
-    DocumentationVersions._init(this);
-  }
+  DocumentationVersionsBuilder();
 
   DocumentationVersionsBuilder get _$this {
     final $v = _$v;

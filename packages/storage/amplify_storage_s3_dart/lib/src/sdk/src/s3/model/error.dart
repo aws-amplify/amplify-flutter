@@ -38,9 +38,6 @@ abstract class Error
     ErrorRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ErrorBuilder b) {}
-
   /// The error key.
   String? get key;
 

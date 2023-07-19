@@ -49,9 +49,7 @@ class GetRoleRequestBuilder
   String? get roleName => _$this._roleName;
   set roleName(String? roleName) => _$this._roleName = roleName;
 
-  GetRoleRequestBuilder() {
-    GetRoleRequest._init(this);
-  }
+  GetRoleRequestBuilder();
 
   GetRoleRequestBuilder get _$this {
     final $v = _$v;

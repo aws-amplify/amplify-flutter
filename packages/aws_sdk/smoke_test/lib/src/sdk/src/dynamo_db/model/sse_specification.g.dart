@@ -66,9 +66,7 @@ class SseSpecificationBuilder
   set kmsMasterKeyId(String? kmsMasterKeyId) =>
       _$this._kmsMasterKeyId = kmsMasterKeyId;
 
-  SseSpecificationBuilder() {
-    SseSpecification._init(this);
-  }
+  SseSpecificationBuilder();
 
   SseSpecificationBuilder get _$this {
     final $v = _$v;

@@ -45,8 +45,6 @@ abstract class EntityTemporarilyUnmodifiableException
     EntityTemporarilyUnmodifiableExceptionAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EntityTemporarilyUnmodifiableExceptionBuilder b) {}
   @override
   String? get message;
   @override

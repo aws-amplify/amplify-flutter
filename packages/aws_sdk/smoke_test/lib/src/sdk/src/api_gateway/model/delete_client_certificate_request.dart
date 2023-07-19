@@ -49,9 +49,6 @@ abstract class DeleteClientCertificateRequest
   static const List<_i1.SmithySerializer<DeleteClientCertificateRequestPayload>>
       serializers = [DeleteClientCertificateRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteClientCertificateRequestBuilder b) {}
-
   /// The identifier of the ClientCertificate resource to be deleted.
   String get clientCertificateId;
   @override
@@ -96,8 +93,6 @@ abstract class DeleteClientCertificateRequestPayload
 
   const DeleteClientCertificateRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteClientCertificateRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

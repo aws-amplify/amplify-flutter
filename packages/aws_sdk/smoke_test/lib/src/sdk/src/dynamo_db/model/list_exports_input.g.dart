@@ -65,9 +65,7 @@ class ListExportsInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListExportsInputBuilder() {
-    ListExportsInput._init(this);
-  }
+  ListExportsInputBuilder();
 
   ListExportsInputBuilder get _$this {
     final $v = _$v;

@@ -50,9 +50,7 @@ class CreateTableOutputBuilder
   set tableDescription(_i2.TableDescriptionBuilder? tableDescription) =>
       _$this._tableDescription = tableDescription;
 
-  CreateTableOutputBuilder() {
-    CreateTableOutput._init(this);
-  }
+  CreateTableOutputBuilder();
 
   CreateTableOutputBuilder get _$this {
     final $v = _$v;

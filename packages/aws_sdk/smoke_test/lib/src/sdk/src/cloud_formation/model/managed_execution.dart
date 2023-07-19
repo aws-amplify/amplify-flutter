@@ -29,9 +29,6 @@ abstract class ManagedExecution
     ManagedExecutionAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ManagedExecutionBuilder b) {}
-
   /// When `true`, StackSets performs non-conflicting operations concurrently and queues conflicting operations. After conflicting operations finish, StackSets starts queued operations in request order.
   ///
   /// If there are already running or queued operations, StackSets queues all incoming operations even if they are non-conflicting.

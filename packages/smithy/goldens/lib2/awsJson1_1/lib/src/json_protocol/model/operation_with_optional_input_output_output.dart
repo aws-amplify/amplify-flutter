@@ -39,8 +39,6 @@ abstract class OperationWithOptionalInputOutputOutput
     OperationWithOptionalInputOutputOutputAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OperationWithOptionalInputOutputOutputBuilder b) {}
   String? get value;
   @override
   List<Object?> get props => [value];

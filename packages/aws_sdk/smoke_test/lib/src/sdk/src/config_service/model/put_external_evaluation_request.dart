@@ -45,9 +45,6 @@ abstract class PutExternalEvaluationRequest
   static const List<_i1.SmithySerializer<PutExternalEvaluationRequest>>
       serializers = [PutExternalEvaluationRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutExternalEvaluationRequestBuilder b) {}
-
   /// The name of the Config rule.
   String get configRuleName;
 

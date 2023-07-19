@@ -50,9 +50,7 @@ class DeleteStackInstancesOutputBuilder
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  DeleteStackInstancesOutputBuilder() {
-    DeleteStackInstancesOutput._init(this);
-  }
+  DeleteStackInstancesOutputBuilder();
 
   DeleteStackInstancesOutputBuilder get _$this {
     final $v = _$v;

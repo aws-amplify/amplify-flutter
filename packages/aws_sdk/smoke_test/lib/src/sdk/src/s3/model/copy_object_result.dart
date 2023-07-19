@@ -43,9 +43,6 @@ abstract class CopyObjectResult
     CopyObjectResultRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyObjectResultBuilder b) {}
-
   /// Returns the ETag of the new object. The ETag reflects only changes to the contents of an object, not its metadata.
   String? get eTag;
 

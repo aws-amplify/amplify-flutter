@@ -40,8 +40,6 @@ abstract class DeleteRemediationConfigurationResponse
     DeleteRemediationConfigurationResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteRemediationConfigurationResponseBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

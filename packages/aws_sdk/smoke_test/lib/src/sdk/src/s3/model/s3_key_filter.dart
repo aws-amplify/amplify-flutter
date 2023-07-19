@@ -32,9 +32,6 @@ abstract class S3KeyFilter
     S3KeyFilterRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(S3KeyFilterBuilder b) {}
-
   /// A list of containers for the key-value pair that defines the criteria for the filter rule.
   _i3.BuiltList<_i2.FilterRule>? get filterRules;
   @override

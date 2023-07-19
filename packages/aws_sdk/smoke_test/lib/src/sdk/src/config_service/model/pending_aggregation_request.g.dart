@@ -62,9 +62,7 @@ class PendingAggregationRequestBuilder
   set requesterAwsRegion(String? requesterAwsRegion) =>
       _$this._requesterAwsRegion = requesterAwsRegion;
 
-  PendingAggregationRequestBuilder() {
-    PendingAggregationRequest._init(this);
-  }
+  PendingAggregationRequestBuilder();
 
   PendingAggregationRequestBuilder get _$this {
     final $v = _$v;

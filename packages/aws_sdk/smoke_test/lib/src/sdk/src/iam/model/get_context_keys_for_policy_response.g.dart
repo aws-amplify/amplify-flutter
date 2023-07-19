@@ -54,9 +54,7 @@ class GetContextKeysForPolicyResponseBuilder
   set contextKeyNames(_i2.ListBuilder<String>? contextKeyNames) =>
       _$this._contextKeyNames = contextKeyNames;
 
-  GetContextKeysForPolicyResponseBuilder() {
-    GetContextKeysForPolicyResponse._init(this);
-  }
+  GetContextKeysForPolicyResponseBuilder();
 
   GetContextKeysForPolicyResponseBuilder get _$this {
     final $v = _$v;

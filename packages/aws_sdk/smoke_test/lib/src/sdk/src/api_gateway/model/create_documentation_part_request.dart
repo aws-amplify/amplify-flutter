@@ -58,9 +58,6 @@ abstract class CreateDocumentationPartRequest
   static const List<_i1.SmithySerializer<CreateDocumentationPartRequestPayload>>
       serializers = [CreateDocumentationPartRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateDocumentationPartRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -124,9 +121,6 @@ abstract class CreateDocumentationPartRequestPayload
           updates]) = _$CreateDocumentationPartRequestPayload;
 
   const CreateDocumentationPartRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateDocumentationPartRequestPayloadBuilder b) {}
 
   /// The location of the targeted API entity of the to-be-created documentation part.
   _i3.DocumentationPartLocation get location;

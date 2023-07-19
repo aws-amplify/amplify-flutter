@@ -378,8 +378,6 @@ abstract class TransactionCanceledException
   static const List<_i2.SmithySerializer<TransactionCanceledException>>
       serializers = [TransactionCanceledExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TransactionCanceledExceptionBuilder b) {}
   @override
   String? get message;
 

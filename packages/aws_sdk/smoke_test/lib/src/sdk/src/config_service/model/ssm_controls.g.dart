@@ -61,9 +61,7 @@ class SsmControlsBuilder implements Builder<SsmControls, SsmControlsBuilder> {
   set errorPercentage(int? errorPercentage) =>
       _$this._errorPercentage = errorPercentage;
 
-  SsmControlsBuilder() {
-    SsmControls._init(this);
-  }
+  SsmControlsBuilder();
 
   SsmControlsBuilder get _$this {
     final $v = _$v;

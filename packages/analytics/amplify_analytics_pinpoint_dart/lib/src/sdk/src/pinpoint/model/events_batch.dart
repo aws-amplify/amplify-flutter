@@ -40,9 +40,6 @@ abstract class EventsBatch
     EventsBatchRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventsBatchBuilder b) {}
-
   /// A set of properties and attributes that are associated with the endpoint.
   _i2.PublicEndpoint get endpoint;
 

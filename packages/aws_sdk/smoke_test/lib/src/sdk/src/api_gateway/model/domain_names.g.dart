@@ -54,9 +54,7 @@ class DomainNamesBuilder implements Builder<DomainNames, DomainNamesBuilder> {
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  DomainNamesBuilder() {
-    DomainNames._init(this);
-  }
+  DomainNamesBuilder();
 
   DomainNamesBuilder get _$this {
     final $v = _$v;

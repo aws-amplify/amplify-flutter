@@ -261,6 +261,7 @@ export 'package:smoke_test/src/sdk/src/cloud_formation/model/stop_stack_set_oper
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/tag.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/template_parameter.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/template_stage.dart';
+export 'package:smoke_test/src/sdk/src/cloud_formation/model/template_summary_config.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/test_type_input.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/test_type_output.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/third_party_type.dart';
@@ -285,3 +286,4 @@ export 'package:smoke_test/src/sdk/src/cloud_formation/model/validate_template_i
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/validate_template_output.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/version_bump.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/visibility.dart';
+export 'package:smoke_test/src/sdk/src/cloud_formation/model/warnings.dart';

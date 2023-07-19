@@ -53,9 +53,7 @@ class DescribeStackInstanceOutputBuilder
   set stackInstance(_i2.StackInstanceBuilder? stackInstance) =>
       _$this._stackInstance = stackInstance;
 
-  DescribeStackInstanceOutputBuilder() {
-    DescribeStackInstanceOutput._init(this);
-  }
+  DescribeStackInstanceOutputBuilder();
 
   DescribeStackInstanceOutputBuilder get _$this {
     final $v = _$v;

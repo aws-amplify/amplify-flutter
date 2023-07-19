@@ -38,9 +38,6 @@ abstract class DeleteConformancePackRequest
   static const List<_i1.SmithySerializer<DeleteConformancePackRequest>>
       serializers = [DeleteConformancePackRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteConformancePackRequestBuilder b) {}
-
   /// Name of the conformance pack you want to delete.
   String get conformancePackName;
   @override

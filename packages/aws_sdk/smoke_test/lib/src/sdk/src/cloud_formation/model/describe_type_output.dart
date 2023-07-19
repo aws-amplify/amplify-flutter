@@ -107,9 +107,6 @@ abstract class DescribeTypeOutput
     DescribeTypeOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeTypeOutputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the extension.
   String? get arn;
 

@@ -46,9 +46,6 @@ abstract class GetUsagePlanRequest
   static const List<_i1.SmithySerializer<GetUsagePlanRequestPayload>>
       serializers = [GetUsagePlanRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetUsagePlanRequestBuilder b) {}
-
   /// The identifier of the UsagePlan resource to be retrieved.
   String get usagePlanId;
   @override
@@ -90,8 +87,6 @@ abstract class GetUsagePlanRequestPayload
 
   const GetUsagePlanRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetUsagePlanRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

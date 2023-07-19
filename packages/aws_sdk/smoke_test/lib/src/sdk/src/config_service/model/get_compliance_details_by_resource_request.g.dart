@@ -96,9 +96,7 @@ class GetComplianceDetailsByResourceRequestBuilder
   set resourceEvaluationId(String? resourceEvaluationId) =>
       _$this._resourceEvaluationId = resourceEvaluationId;
 
-  GetComplianceDetailsByResourceRequestBuilder() {
-    GetComplianceDetailsByResourceRequest._init(this);
-  }
+  GetComplianceDetailsByResourceRequestBuilder();
 
   GetComplianceDetailsByResourceRequestBuilder get _$this {
     final $v = _$v;

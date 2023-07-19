@@ -57,9 +57,7 @@ class GetSdkTypesRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetSdkTypesRequestBuilder() {
-    GetSdkTypesRequest._init(this);
-  }
+  GetSdkTypesRequestBuilder();
 
   GetSdkTypesRequestBuilder get _$this {
     final $v = _$v;
@@ -126,9 +124,7 @@ class GetSdkTypesRequestPayloadBuilder
         Builder<GetSdkTypesRequestPayload, GetSdkTypesRequestPayloadBuilder> {
   _$GetSdkTypesRequestPayload? _$v;
 
-  GetSdkTypesRequestPayloadBuilder() {
-    GetSdkTypesRequestPayload._init(this);
-  }
+  GetSdkTypesRequestPayloadBuilder();
 
   @override
   void replace(GetSdkTypesRequestPayload other) {

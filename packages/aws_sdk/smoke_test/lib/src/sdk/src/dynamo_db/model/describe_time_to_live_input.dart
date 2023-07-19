@@ -35,9 +35,6 @@ abstract class DescribeTimeToLiveInput
   static const List<_i1.SmithySerializer<DescribeTimeToLiveInput>> serializers =
       [DescribeTimeToLiveInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeTimeToLiveInputBuilder b) {}
-
   /// The name of the table to be described.
   String get tableName;
   @override

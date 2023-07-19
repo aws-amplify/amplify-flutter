@@ -72,9 +72,6 @@ abstract class EvaluationResult
     EvaluationResultAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EvaluationResultBuilder b) {}
-
   /// The name of the API operation tested on the indicated resource.
   String get evalActionName;
 

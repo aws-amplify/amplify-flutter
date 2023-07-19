@@ -66,9 +66,7 @@ class HttpChecksumNotRequiredWithMemberInputBuilder
   _i2.Uint8List? get content => _$this._content;
   set content(_i2.Uint8List? content) => _$this._content = content;
 
-  HttpChecksumNotRequiredWithMemberInputBuilder() {
-    HttpChecksumNotRequiredWithMemberInput._init(this);
-  }
+  HttpChecksumNotRequiredWithMemberInputBuilder();
 
   HttpChecksumNotRequiredWithMemberInputBuilder get _$this {
     final $v = _$v;

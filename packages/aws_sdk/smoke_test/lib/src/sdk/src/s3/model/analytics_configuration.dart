@@ -40,9 +40,6 @@ abstract class AnalyticsConfiguration
   static const List<_i4.SmithySerializer<AnalyticsConfiguration>> serializers =
       [AnalyticsConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AnalyticsConfigurationBuilder b) {}
-
   /// The ID that identifies the analytics configuration.
   String get id;
 

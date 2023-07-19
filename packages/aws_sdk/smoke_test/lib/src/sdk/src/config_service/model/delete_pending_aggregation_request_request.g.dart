@@ -72,9 +72,7 @@ class DeletePendingAggregationRequestRequestBuilder
   set requesterAwsRegion(String? requesterAwsRegion) =>
       _$this._requesterAwsRegion = requesterAwsRegion;
 
-  DeletePendingAggregationRequestRequestBuilder() {
-    DeletePendingAggregationRequestRequest._init(this);
-  }
+  DeletePendingAggregationRequestRequestBuilder();
 
   DeletePendingAggregationRequestRequestBuilder get _$this {
     final $v = _$v;

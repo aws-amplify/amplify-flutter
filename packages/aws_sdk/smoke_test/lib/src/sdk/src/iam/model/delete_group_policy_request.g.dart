@@ -65,9 +65,7 @@ class DeleteGroupPolicyRequestBuilder
   String? get policyName => _$this._policyName;
   set policyName(String? policyName) => _$this._policyName = policyName;
 
-  DeleteGroupPolicyRequestBuilder() {
-    DeleteGroupPolicyRequest._init(this);
-  }
+  DeleteGroupPolicyRequestBuilder();
 
   DeleteGroupPolicyRequestBuilder get _$this {
     final $v = _$v;

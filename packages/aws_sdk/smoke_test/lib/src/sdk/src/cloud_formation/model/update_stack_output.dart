@@ -36,9 +36,6 @@ abstract class UpdateStackOutput
     UpdateStackOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateStackOutputBuilder b) {}
-
   /// Unique identifier of the stack.
   String? get stackId;
   @override

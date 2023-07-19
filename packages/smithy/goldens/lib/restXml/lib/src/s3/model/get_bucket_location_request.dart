@@ -43,8 +43,6 @@ abstract class GetBucketLocationRequest
   static const List<_i1.SmithySerializer<GetBucketLocationRequestPayload>>
       serializers = [GetBucketLocationRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLocationRequestBuilder b) {}
   String get bucket;
   @override
   String labelFor(String key) {
@@ -88,8 +86,6 @@ abstract class GetBucketLocationRequestPayload
 
   const GetBucketLocationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLocationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

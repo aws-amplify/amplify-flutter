@@ -108,9 +108,7 @@ class MemberAccountStatusBuilder
   set lastUpdateTime(DateTime? lastUpdateTime) =>
       _$this._lastUpdateTime = lastUpdateTime;
 
-  MemberAccountStatusBuilder() {
-    MemberAccountStatus._init(this);
-  }
+  MemberAccountStatusBuilder();
 
   MemberAccountStatusBuilder get _$this {
     final $v = _$v;

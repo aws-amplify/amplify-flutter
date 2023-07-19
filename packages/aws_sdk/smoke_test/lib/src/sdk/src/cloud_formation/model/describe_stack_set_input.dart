@@ -44,9 +44,6 @@ abstract class DescribeStackSetInput
     DescribeStackSetInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackSetInputBuilder b) {}
-
   /// The name or unique ID of the stack set whose description you want.
   String get stackSetName;
 

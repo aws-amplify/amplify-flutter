@@ -54,9 +54,6 @@ abstract class AccessKey
     AccessKeyAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccessKeyBuilder b) {}
-
   /// The name of the IAM user that the access key is associated with.
   String get userName;
 

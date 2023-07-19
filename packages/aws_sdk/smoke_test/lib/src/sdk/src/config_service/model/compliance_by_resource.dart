@@ -40,9 +40,6 @@ abstract class ComplianceByResource
     ComplianceByResourceAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplianceByResourceBuilder b) {}
-
   /// The type of the Amazon Web Services resource that was evaluated.
   String? get resourceType;
 

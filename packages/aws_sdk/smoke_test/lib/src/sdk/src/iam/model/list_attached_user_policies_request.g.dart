@@ -81,9 +81,7 @@ class ListAttachedUserPoliciesRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListAttachedUserPoliciesRequestBuilder() {
-    ListAttachedUserPoliciesRequest._init(this);
-  }
+  ListAttachedUserPoliciesRequestBuilder();
 
   ListAttachedUserPoliciesRequestBuilder get _$this {
     final $v = _$v;

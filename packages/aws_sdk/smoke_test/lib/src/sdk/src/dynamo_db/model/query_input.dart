@@ -87,9 +87,6 @@ abstract class QueryInput
     QueryInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryInputBuilder b) {}
-
   /// The name of the table containing the requested items.
   String get tableName;
 

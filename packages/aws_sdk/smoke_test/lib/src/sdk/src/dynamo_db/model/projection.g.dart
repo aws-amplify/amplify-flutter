@@ -56,9 +56,7 @@ class ProjectionBuilder implements Builder<Projection, ProjectionBuilder> {
   set nonKeyAttributes(_i3.ListBuilder<String>? nonKeyAttributes) =>
       _$this._nonKeyAttributes = nonKeyAttributes;
 
-  ProjectionBuilder() {
-    Projection._init(this);
-  }
+  ProjectionBuilder();
 
   ProjectionBuilder get _$this {
     final $v = _$v;

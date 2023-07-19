@@ -87,9 +87,7 @@ class AnalyticsS3BucketDestinationBuilder
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  AnalyticsS3BucketDestinationBuilder() {
-    AnalyticsS3BucketDestination._init(this);
-  }
+  AnalyticsS3BucketDestinationBuilder();
 
   AnalyticsS3BucketDestinationBuilder get _$this {
     final $v = _$v;

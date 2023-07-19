@@ -63,9 +63,7 @@ class DetectStackDriftInputBuilder
   set logicalResourceIds(_i3.ListBuilder<String>? logicalResourceIds) =>
       _$this._logicalResourceIds = logicalResourceIds;
 
-  DetectStackDriftInputBuilder() {
-    DetectStackDriftInput._init(this);
-  }
+  DetectStackDriftInputBuilder();
 
   DetectStackDriftInputBuilder get _$this {
     final $v = _$v;

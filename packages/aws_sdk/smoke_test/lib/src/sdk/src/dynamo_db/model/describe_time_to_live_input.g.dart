@@ -52,9 +52,7 @@ class DescribeTimeToLiveInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  DescribeTimeToLiveInputBuilder() {
-    DescribeTimeToLiveInput._init(this);
-  }
+  DescribeTimeToLiveInputBuilder();
 
   DescribeTimeToLiveInputBuilder get _$this {
     final $v = _$v;

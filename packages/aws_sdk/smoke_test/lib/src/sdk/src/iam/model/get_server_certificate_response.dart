@@ -43,9 +43,6 @@ abstract class GetServerCertificateResponse
   static const List<_i3.SmithySerializer<GetServerCertificateResponse>>
       serializers = [GetServerCertificateResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetServerCertificateResponseBuilder b) {}
-
   /// A structure containing details about the server certificate.
   _i2.ServerCertificate get serverCertificate;
   @override

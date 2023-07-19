@@ -82,9 +82,7 @@ class MalformedFloatInputBuilder
   set floatInHeader(double? floatInHeader) =>
       _$this._floatInHeader = floatInHeader;
 
-  MalformedFloatInputBuilder() {
-    MalformedFloatInput._init(this);
-  }
+  MalformedFloatInputBuilder();
 
   MalformedFloatInputBuilder get _$this {
     final $v = _$v;
@@ -169,9 +167,7 @@ class MalformedFloatInputPayloadBuilder
   double? get floatInBody => _$this._floatInBody;
   set floatInBody(double? floatInBody) => _$this._floatInBody = floatInBody;
 
-  MalformedFloatInputPayloadBuilder() {
-    MalformedFloatInputPayload._init(this);
-  }
+  MalformedFloatInputPayloadBuilder();
 
   MalformedFloatInputPayloadBuilder get _$this {
     final $v = _$v;

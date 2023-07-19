@@ -83,9 +83,7 @@ class TopicConfigurationBuilder
   set filter(_i3.NotificationConfigurationFilterBuilder? filter) =>
       _$this._filter = filter;
 
-  TopicConfigurationBuilder() {
-    TopicConfiguration._init(this);
-  }
+  TopicConfigurationBuilder();
 
   TopicConfigurationBuilder get _$this {
     final $v = _$v;

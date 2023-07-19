@@ -40,9 +40,6 @@ abstract class ConformancePackComplianceScore
   static const List<_i2.SmithySerializer<ConformancePackComplianceScore>>
       serializers = [ConformancePackComplianceScoreAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConformancePackComplianceScoreBuilder b) {}
-
   /// Compliance score for the conformance pack. Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
   String? get score;
 

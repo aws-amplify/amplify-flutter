@@ -123,9 +123,7 @@ class AuthEventTypeBuilder
   set eventFeedback(_i7.EventFeedbackTypeBuilder? eventFeedback) =>
       _$this._eventFeedback = eventFeedback;
 
-  AuthEventTypeBuilder() {
-    AuthEventType._init(this);
-  }
+  AuthEventTypeBuilder();
 
   AuthEventTypeBuilder get _$this {
     final $v = _$v;

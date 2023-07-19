@@ -40,8 +40,6 @@ abstract class ContinueUpdateRollbackOutput
   static const List<_i2.SmithySerializer<ContinueUpdateRollbackOutput>>
       serializers = [ContinueUpdateRollbackOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ContinueUpdateRollbackOutputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

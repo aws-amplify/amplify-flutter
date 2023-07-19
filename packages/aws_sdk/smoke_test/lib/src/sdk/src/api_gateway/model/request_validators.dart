@@ -45,9 +45,6 @@ abstract class RequestValidators
     RequestValidatorsRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RequestValidatorsBuilder b) {}
-
   /// The current page of elements from this collection.
   _i3.BuiltList<_i2.RequestValidator>? get items;
 

@@ -75,9 +75,7 @@ class AutoScalingPolicyUpdateBuilder
       _$this._targetTrackingScalingPolicyConfiguration =
           targetTrackingScalingPolicyConfiguration;
 
-  AutoScalingPolicyUpdateBuilder() {
-    AutoScalingPolicyUpdate._init(this);
-  }
+  AutoScalingPolicyUpdateBuilder();
 
   AutoScalingPolicyUpdateBuilder get _$this {
     final $v = _$v;

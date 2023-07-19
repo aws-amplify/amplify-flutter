@@ -42,9 +42,6 @@ abstract class ResourceTargetDefinition
   static const List<_i4.SmithySerializer<ResourceTargetDefinition>>
       serializers = [ResourceTargetDefinitionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceTargetDefinitionBuilder b) {}
-
   /// Indicates which resource attribute is triggering this update, such as a change in the resource attribute's `Metadata`, `Properties`, or `Tags`.
   _i2.ResourceAttribute? get attribute;
 

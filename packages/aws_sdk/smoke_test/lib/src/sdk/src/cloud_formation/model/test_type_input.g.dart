@@ -85,9 +85,7 @@ class TestTypeInputBuilder
   set logDeliveryBucket(String? logDeliveryBucket) =>
       _$this._logDeliveryBucket = logDeliveryBucket;
 
-  TestTypeInputBuilder() {
-    TestTypeInput._init(this);
-  }
+  TestTypeInputBuilder();
 
   TestTypeInputBuilder get _$this {
     final $v = _$v;

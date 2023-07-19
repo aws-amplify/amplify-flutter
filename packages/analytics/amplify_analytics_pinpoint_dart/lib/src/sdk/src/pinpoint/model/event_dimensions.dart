@@ -44,9 +44,6 @@ abstract class EventDimensions
     EventDimensionsRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventDimensionsBuilder b) {}
-
   /// One or more custom attributes that your application reports to Amazon Pinpoint. You can use these attributes as selection criteria when you create an event filter.
   _i5.BuiltMap<String, _i2.AttributeDimension>? get attributes;
 

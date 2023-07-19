@@ -41,9 +41,6 @@ abstract class ListRolesRequest
     ListRolesRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListRolesRequestBuilder b) {}
-
   /// The path prefix for filtering the results. For example, the prefix `/application\_abc/component\_xyz/` gets all roles whose path starts with `/application\_abc/component\_xyz/`.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash (/), listing all roles. This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (`\\u0021`) through the DEL character (`\\u007F`), including most punctuation characters, digits, and upper and lowercased letters.

@@ -55,9 +55,7 @@ class PutDeliveryChannelRequestBuilder
   set deliveryChannel(_i3.DeliveryChannelBuilder? deliveryChannel) =>
       _$this._deliveryChannel = deliveryChannel;
 
-  PutDeliveryChannelRequestBuilder() {
-    PutDeliveryChannelRequest._init(this);
-  }
+  PutDeliveryChannelRequestBuilder();
 
   PutDeliveryChannelRequestBuilder get _$this {
     final $v = _$v;

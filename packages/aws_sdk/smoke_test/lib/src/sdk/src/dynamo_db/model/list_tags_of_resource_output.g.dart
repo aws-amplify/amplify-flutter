@@ -59,9 +59,7 @@ class ListTagsOfResourceOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListTagsOfResourceOutputBuilder() {
-    ListTagsOfResourceOutput._init(this);
-  }
+  ListTagsOfResourceOutputBuilder();
 
   ListTagsOfResourceOutputBuilder get _$this {
     final $v = _$v;

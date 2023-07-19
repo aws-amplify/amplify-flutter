@@ -138,9 +138,7 @@ class ConformancePackStatusDetailBuilder
   set lastUpdateCompletedTime(DateTime? lastUpdateCompletedTime) =>
       _$this._lastUpdateCompletedTime = lastUpdateCompletedTime;
 
-  ConformancePackStatusDetailBuilder() {
-    ConformancePackStatusDetail._init(this);
-  }
+  ConformancePackStatusDetailBuilder();
 
   ConformancePackStatusDetailBuilder get _$this {
     final $v = _$v;

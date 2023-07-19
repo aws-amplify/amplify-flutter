@@ -43,9 +43,6 @@ abstract class UpdateRoleDescriptionRequest
   static const List<_i1.SmithySerializer<UpdateRoleDescriptionRequest>>
       serializers = [UpdateRoleDescriptionRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateRoleDescriptionRequestBuilder b) {}
-
   /// The name of the role that you want to modify.
   String get roleName;
 

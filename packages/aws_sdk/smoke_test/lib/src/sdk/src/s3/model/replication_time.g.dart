@@ -59,9 +59,7 @@ class ReplicationTimeBuilder
       _$this._time ??= new _i3.ReplicationTimeValueBuilder();
   set time(_i3.ReplicationTimeValueBuilder? time) => _$this._time = time;
 
-  ReplicationTimeBuilder() {
-    ReplicationTime._init(this);
-  }
+  ReplicationTimeBuilder();
 
   ReplicationTimeBuilder get _$this {
     final $v = _$v;

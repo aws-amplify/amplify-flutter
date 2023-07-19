@@ -38,9 +38,6 @@ abstract class CreateUserResponse
     CreateUserResponseAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateUserResponseBuilder b) {}
-
   /// A structure with details about the new IAM user.
   _i2.User? get user;
   @override

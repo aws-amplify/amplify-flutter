@@ -46,8 +46,6 @@ abstract class XmlNestedUnionStruct
     XmlNestedUnionStructRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlNestedUnionStructBuilder b) {}
   String? get stringValue;
   bool? get booleanValue;
   int? get byteValue;

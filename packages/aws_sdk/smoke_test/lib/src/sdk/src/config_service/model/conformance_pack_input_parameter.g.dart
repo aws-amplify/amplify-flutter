@@ -68,9 +68,7 @@ class ConformancePackInputParameterBuilder
   set parameterValue(String? parameterValue) =>
       _$this._parameterValue = parameterValue;
 
-  ConformancePackInputParameterBuilder() {
-    ConformancePackInputParameter._init(this);
-  }
+  ConformancePackInputParameterBuilder();
 
   ConformancePackInputParameterBuilder get _$this {
     final $v = _$v;

@@ -57,9 +57,7 @@ class DeleteServiceLinkedRoleResponseBuilder
   set deletionTaskId(String? deletionTaskId) =>
       _$this._deletionTaskId = deletionTaskId;
 
-  DeleteServiceLinkedRoleResponseBuilder() {
-    DeleteServiceLinkedRoleResponse._init(this);
-  }
+  DeleteServiceLinkedRoleResponseBuilder();
 
   DeleteServiceLinkedRoleResponseBuilder get _$this {
     final $v = _$v;

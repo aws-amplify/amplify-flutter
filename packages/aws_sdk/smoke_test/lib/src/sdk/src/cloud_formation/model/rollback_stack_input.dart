@@ -42,9 +42,6 @@ abstract class RollbackStackInput
     RollbackStackInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RollbackStackInputBuilder b) {}
-
   /// The name that's associated with the stack.
   String get stackName;
 

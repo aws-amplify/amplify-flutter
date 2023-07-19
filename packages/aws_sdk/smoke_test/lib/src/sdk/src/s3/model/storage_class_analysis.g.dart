@@ -50,9 +50,7 @@ class StorageClassAnalysisBuilder
   set dataExport(_i2.StorageClassAnalysisDataExportBuilder? dataExport) =>
       _$this._dataExport = dataExport;
 
-  StorageClassAnalysisBuilder() {
-    StorageClassAnalysis._init(this);
-  }
+  StorageClassAnalysisBuilder();
 
   StorageClassAnalysisBuilder get _$this {
     final $v = _$v;

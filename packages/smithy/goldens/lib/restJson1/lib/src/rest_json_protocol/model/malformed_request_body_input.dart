@@ -42,8 +42,6 @@ abstract class MalformedRequestBodyInput
   static const List<_i1.SmithySerializer<MalformedRequestBodyInput>>
       serializers = [MalformedRequestBodyInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedRequestBodyInputBuilder b) {}
   int? get int_;
   double? get float;
   @override

@@ -64,9 +64,7 @@ class FailedRemediationExceptionBatchBuilder
   set failedItems(_i3.ListBuilder<_i2.RemediationException>? failedItems) =>
       _$this._failedItems = failedItems;
 
-  FailedRemediationExceptionBatchBuilder() {
-    FailedRemediationExceptionBatch._init(this);
-  }
+  FailedRemediationExceptionBatchBuilder();
 
   FailedRemediationExceptionBatchBuilder get _$this {
     final $v = _$v;

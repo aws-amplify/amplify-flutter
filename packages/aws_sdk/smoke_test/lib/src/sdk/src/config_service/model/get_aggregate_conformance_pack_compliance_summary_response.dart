@@ -55,10 +55,6 @@ abstract class GetAggregateConformancePackComplianceSummaryResponse
     GetAggregateConformancePackComplianceSummaryResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      GetAggregateConformancePackComplianceSummaryResponseBuilder b) {}
-
   /// Returns a list of `AggregateConformancePackComplianceSummary` object.
   _i3.BuiltList<_i2.AggregateConformancePackComplianceSummary>?
       get aggregateConformancePackComplianceSummaries;

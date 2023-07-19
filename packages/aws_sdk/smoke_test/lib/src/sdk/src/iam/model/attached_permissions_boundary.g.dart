@@ -65,9 +65,7 @@ class AttachedPermissionsBoundaryBuilder
   set permissionsBoundaryArn(String? permissionsBoundaryArn) =>
       _$this._permissionsBoundaryArn = permissionsBoundaryArn;
 
-  AttachedPermissionsBoundaryBuilder() {
-    AttachedPermissionsBoundary._init(this);
-  }
+  AttachedPermissionsBoundaryBuilder();
 
   AttachedPermissionsBoundaryBuilder get _$this {
     final $v = _$v;

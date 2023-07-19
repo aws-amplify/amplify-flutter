@@ -40,9 +40,6 @@ abstract class StackDriftInformationSummary
   static const List<_i3.SmithySerializer<StackDriftInformationSummary>>
       serializers = [StackDriftInformationSummaryAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackDriftInformationSummaryBuilder b) {}
-
   /// Status of the stack's actual configuration compared to its expected template configuration.
   ///
   /// *   `DRIFTED`: The stack differs from its expected template configuration. A stack is considered to have drifted if one or more of its resources have drifted.

@@ -41,9 +41,6 @@ abstract class InvalidSnsTopicArnException
   static const List<_i2.SmithySerializer<InvalidSnsTopicArnException>>
       serializers = [InvalidSnsTopicArnExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidSnsTopicArnExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

@@ -51,9 +51,7 @@ class PutObjectLegalHoldOutputBuilder
   set requestCharged(_i3.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  PutObjectLegalHoldOutputBuilder() {
-    PutObjectLegalHoldOutput._init(this);
-  }
+  PutObjectLegalHoldOutputBuilder();
 
   PutObjectLegalHoldOutputBuilder get _$this {
     final $v = _$v;
@@ -121,9 +119,7 @@ class PutObjectLegalHoldOutputPayloadBuilder
             PutObjectLegalHoldOutputPayloadBuilder> {
   _$PutObjectLegalHoldOutputPayload? _$v;
 
-  PutObjectLegalHoldOutputPayloadBuilder() {
-    PutObjectLegalHoldOutputPayload._init(this);
-  }
+  PutObjectLegalHoldOutputPayloadBuilder();
 
   @override
   void replace(PutObjectLegalHoldOutputPayload other) {

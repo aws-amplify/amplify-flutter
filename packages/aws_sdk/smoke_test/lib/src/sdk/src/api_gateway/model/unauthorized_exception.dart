@@ -41,8 +41,6 @@ abstract class UnauthorizedException
     UnauthorizedExceptionRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UnauthorizedExceptionBuilder b) {}
   @override
   String? get message;
   @override

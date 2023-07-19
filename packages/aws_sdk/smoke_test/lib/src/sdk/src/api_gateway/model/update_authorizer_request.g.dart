@@ -77,9 +77,7 @@ class UpdateAuthorizerRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateAuthorizerRequestBuilder() {
-    UpdateAuthorizerRequest._init(this);
-  }
+  UpdateAuthorizerRequestBuilder();
 
   UpdateAuthorizerRequestBuilder get _$this {
     final $v = _$v;
@@ -179,9 +177,7 @@ class UpdateAuthorizerRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateAuthorizerRequestPayloadBuilder() {
-    UpdateAuthorizerRequestPayload._init(this);
-  }
+  UpdateAuthorizerRequestPayloadBuilder();
 
   UpdateAuthorizerRequestPayloadBuilder get _$this {
     final $v = _$v;

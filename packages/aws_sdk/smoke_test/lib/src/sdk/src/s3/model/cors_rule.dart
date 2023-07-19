@@ -45,9 +45,6 @@ abstract class CorsRule
     CorsRuleRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CorsRuleBuilder b) {}
-
   /// Unique identifier for the rule. The value cannot be longer than 255 characters.
   String? get id;
 

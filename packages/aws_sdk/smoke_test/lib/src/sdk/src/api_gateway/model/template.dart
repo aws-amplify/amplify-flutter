@@ -35,9 +35,6 @@ abstract class Template
     TemplateRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TemplateBuilder b) {}
-
   /// The Apache Velocity Template Language (VTL) template content used for the template resource.
   String? get value;
   @override

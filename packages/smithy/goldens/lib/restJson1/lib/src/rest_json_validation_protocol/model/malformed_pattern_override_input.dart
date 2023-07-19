@@ -50,8 +50,6 @@ abstract class MalformedPatternOverrideInput
   static const List<_i1.SmithySerializer<MalformedPatternOverrideInput>>
       serializers = [MalformedPatternOverrideInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedPatternOverrideInputBuilder b) {}
   String? get string;
   _i4.BuiltList<String>? get list;
   _i4.BuiltMap<String, String>? get map;

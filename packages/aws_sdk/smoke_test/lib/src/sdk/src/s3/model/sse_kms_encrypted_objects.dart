@@ -32,9 +32,6 @@ abstract class SseKmsEncryptedObjects
   static const List<_i3.SmithySerializer<SseKmsEncryptedObjects>> serializers =
       [SseKmsEncryptedObjectsRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SseKmsEncryptedObjectsBuilder b) {}
-
   /// Specifies whether Amazon S3 replicates objects created with server-side encryption using an Amazon Web Services KMS key stored in Amazon Web Services Key Management Service.
   _i2.SseKmsEncryptedObjectsStatus get status;
   @override

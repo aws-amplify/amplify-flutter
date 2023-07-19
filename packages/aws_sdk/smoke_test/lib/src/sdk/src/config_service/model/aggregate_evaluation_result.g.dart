@@ -113,9 +113,7 @@ class AggregateEvaluationResultBuilder
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  AggregateEvaluationResultBuilder() {
-    AggregateEvaluationResult._init(this);
-  }
+  AggregateEvaluationResultBuilder();
 
   AggregateEvaluationResultBuilder get _$this {
     final $v = _$v;

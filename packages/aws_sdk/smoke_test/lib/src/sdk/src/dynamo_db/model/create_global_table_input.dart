@@ -43,9 +43,6 @@ abstract class CreateGlobalTableInput
   static const List<_i1.SmithySerializer<CreateGlobalTableInput>> serializers =
       [CreateGlobalTableInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateGlobalTableInputBuilder b) {}
-
   /// The global table name.
   String get globalTableName;
 

@@ -148,8 +148,6 @@ abstract class TimestampFormatHeadersIo
   static const List<_i1.SmithySerializer<TimestampFormatHeadersIoPayload>>
       serializers = [TimestampFormatHeadersIoRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TimestampFormatHeadersIoBuilder b) {}
   DateTime? get memberEpochSeconds;
   DateTime? get memberHttpDate;
   DateTime? get memberDateTime;
@@ -219,8 +217,6 @@ abstract class TimestampFormatHeadersIoPayload
 
   const TimestampFormatHeadersIoPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TimestampFormatHeadersIoPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

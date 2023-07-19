@@ -4,30 +4,34 @@
 library custom_v2.custom.custom_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
+import 'package:custom_v2/src/custom/model/default_values_input.dart' as _i4;
+import 'package:custom_v2/src/custom/model/default_values_output.dart' as _i3;
 import 'package:custom_v2/src/custom/model/http_checksum_not_required_with_member_input.dart'
-    as _i3;
-import 'package:custom_v2/src/custom/model/http_checksum_really_not_required_input.dart'
-    as _i5;
-import 'package:custom_v2/src/custom/model/http_checksum_really_required_input.dart'
-    as _i7;
-import 'package:custom_v2/src/custom/model/http_checksum_required_input.dart'
-    as _i9;
-import 'package:custom_v2/src/custom/model/http_checksum_required_with_member_input.dart'
-    as _i11;
-import 'package:custom_v2/src/custom/model/nested_collections_input.dart'
-    as _i13;
-import 'package:custom_v2/src/custom/operation/http_checksum_not_required_with_member_operation.dart'
-    as _i4;
-import 'package:custom_v2/src/custom/operation/http_checksum_really_not_required_operation.dart'
     as _i6;
-import 'package:custom_v2/src/custom/operation/http_checksum_really_required_operation.dart'
+import 'package:custom_v2/src/custom/model/http_checksum_really_not_required_input.dart'
     as _i8;
-import 'package:custom_v2/src/custom/operation/http_checksum_required_operation.dart'
+import 'package:custom_v2/src/custom/model/http_checksum_really_required_input.dart'
     as _i10;
-import 'package:custom_v2/src/custom/operation/http_checksum_required_with_member_operation.dart'
+import 'package:custom_v2/src/custom/model/http_checksum_required_input.dart'
     as _i12;
-import 'package:custom_v2/src/custom/operation/nested_collections_operation.dart'
+import 'package:custom_v2/src/custom/model/http_checksum_required_with_member_input.dart'
     as _i14;
+import 'package:custom_v2/src/custom/model/nested_collections_input.dart'
+    as _i16;
+import 'package:custom_v2/src/custom/operation/default_values_operation.dart'
+    as _i5;
+import 'package:custom_v2/src/custom/operation/http_checksum_not_required_with_member_operation.dart'
+    as _i7;
+import 'package:custom_v2/src/custom/operation/http_checksum_really_not_required_operation.dart'
+    as _i9;
+import 'package:custom_v2/src/custom/operation/http_checksum_really_required_operation.dart'
+    as _i11;
+import 'package:custom_v2/src/custom/operation/http_checksum_required_operation.dart'
+    as _i13;
+import 'package:custom_v2/src/custom/operation/http_checksum_required_with_member_operation.dart'
+    as _i15;
+import 'package:custom_v2/src/custom/operation/nested_collections_operation.dart'
+    as _i17;
 import 'package:smithy/smithy.dart' as _i2;
 
 class CustomClient {
@@ -53,11 +57,26 @@ class CustomClient {
 
   final List<_i2.HttpResponseInterceptor> _responseInterceptors;
 
-  _i2.SmithyOperation<void> httpChecksumNotRequiredWithMember(
-    _i3.HttpChecksumNotRequiredWithMemberInput input, {
+  _i2.SmithyOperation<_i3.DefaultValuesOutput> defaultValues(
+    _i4.DefaultValuesInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i4.HttpChecksumNotRequiredWithMemberOperation(
+    return _i5.DefaultValuesOperation(
+      region: _region,
+      baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
+  }
+
+  _i2.SmithyOperation<void> httpChecksumNotRequiredWithMember(
+    _i6.HttpChecksumNotRequiredWithMemberInput input, {
+    _i1.AWSHttpClient? client,
+  }) {
+    return _i7.HttpChecksumNotRequiredWithMemberOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -70,10 +89,10 @@ class CustomClient {
 
   /// Tests the behavior of @httpChecksum combined with @httpChecksumRequired as described \[here\](https://awslabs.github.io/smithy/2.0/aws/aws-core.html#behavior-with-httpchecksumrequired).
   _i2.SmithyOperation<void> httpChecksumReallyNotRequired(
-    _i5.HttpChecksumReallyNotRequiredInput input, {
+    _i8.HttpChecksumReallyNotRequiredInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i6.HttpChecksumReallyNotRequiredOperation(
+    return _i9.HttpChecksumReallyNotRequiredOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -86,10 +105,10 @@ class CustomClient {
 
   /// Tests the behavior of @httpChecksum combined with @httpChecksumRequired as described \[here\](https://awslabs.github.io/smithy/2.0/aws/aws-core.html#behavior-with-httpchecksumrequired).
   _i2.SmithyOperation<void> httpChecksumReallyRequired(
-    _i7.HttpChecksumReallyRequiredInput input, {
+    _i10.HttpChecksumReallyRequiredInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i8.HttpChecksumReallyRequiredOperation(
+    return _i11.HttpChecksumReallyRequiredOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -101,10 +120,10 @@ class CustomClient {
   }
 
   _i2.SmithyOperation<void> httpChecksumRequired(
-    _i9.HttpChecksumRequiredInput input, {
+    _i12.HttpChecksumRequiredInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i10.HttpChecksumRequiredOperation(
+    return _i13.HttpChecksumRequiredOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -116,10 +135,10 @@ class CustomClient {
   }
 
   _i2.SmithyOperation<void> httpChecksumRequiredWithMember(
-    _i11.HttpChecksumRequiredWithMemberInput input, {
+    _i14.HttpChecksumRequiredWithMemberInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i12.HttpChecksumRequiredWithMemberOperation(
+    return _i15.HttpChecksumRequiredWithMemberOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -131,10 +150,10 @@ class CustomClient {
   }
 
   _i2.SmithyOperation<void> nestedCollections(
-    _i13.NestedCollectionsInput input, {
+    _i16.NestedCollectionsInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i14.NestedCollectionsOperation(
+    return _i17.NestedCollectionsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,

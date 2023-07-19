@@ -55,9 +55,7 @@ class PolicyEvaluationExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  PolicyEvaluationExceptionBuilder() {
-    PolicyEvaluationException._init(this);
-  }
+  PolicyEvaluationExceptionBuilder();
 
   PolicyEvaluationExceptionBuilder get _$this {
     final $v = _$v;

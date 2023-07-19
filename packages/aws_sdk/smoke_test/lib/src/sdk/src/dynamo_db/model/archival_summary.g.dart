@@ -68,9 +68,7 @@ class ArchivalSummaryBuilder
   set archivalBackupArn(String? archivalBackupArn) =>
       _$this._archivalBackupArn = archivalBackupArn;
 
-  ArchivalSummaryBuilder() {
-    ArchivalSummary._init(this);
-  }
+  ArchivalSummaryBuilder();
 
   ArchivalSummaryBuilder get _$this {
     final $v = _$v;

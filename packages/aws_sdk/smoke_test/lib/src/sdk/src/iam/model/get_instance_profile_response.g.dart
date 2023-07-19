@@ -55,9 +55,7 @@ class GetInstanceProfileResponseBuilder
   set instanceProfile(_i2.InstanceProfileBuilder? instanceProfile) =>
       _$this._instanceProfile = instanceProfile;
 
-  GetInstanceProfileResponseBuilder() {
-    GetInstanceProfileResponse._init(this);
-  }
+  GetInstanceProfileResponseBuilder();
 
   GetInstanceProfileResponseBuilder get _$this {
     final $v = _$v;

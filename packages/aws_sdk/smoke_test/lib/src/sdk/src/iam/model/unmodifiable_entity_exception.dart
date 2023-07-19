@@ -40,8 +40,6 @@ abstract class UnmodifiableEntityException
   static const List<_i2.SmithySerializer<UnmodifiableEntityException>>
       serializers = [UnmodifiableEntityExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UnmodifiableEntityExceptionBuilder b) {}
   @override
   String? get message;
   @override

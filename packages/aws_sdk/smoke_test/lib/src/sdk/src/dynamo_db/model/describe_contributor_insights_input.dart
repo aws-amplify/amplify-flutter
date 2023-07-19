@@ -43,9 +43,6 @@ abstract class DescribeContributorInsightsInput
   static const List<_i1.SmithySerializer<DescribeContributorInsightsInput>>
       serializers = [DescribeContributorInsightsInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeContributorInsightsInputBuilder b) {}
-
   /// The name of the table to describe.
   String get tableName;
 

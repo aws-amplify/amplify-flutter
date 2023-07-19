@@ -71,9 +71,7 @@ class RollbackStackInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  RollbackStackInputBuilder() {
-    RollbackStackInput._init(this);
-  }
+  RollbackStackInputBuilder();
 
   RollbackStackInputBuilder get _$this {
     final $v = _$v;

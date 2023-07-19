@@ -60,9 +60,7 @@ class DescribeConfigurationRecordersResponseBuilder
           _i3.ListBuilder<_i2.ConfigurationRecorder>? configurationRecorders) =>
       _$this._configurationRecorders = configurationRecorders;
 
-  DescribeConfigurationRecordersResponseBuilder() {
-    DescribeConfigurationRecordersResponse._init(this);
-  }
+  DescribeConfigurationRecordersResponseBuilder();
 
   DescribeConfigurationRecordersResponseBuilder get _$this {
     final $v = _$v;

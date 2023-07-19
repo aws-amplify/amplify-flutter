@@ -42,8 +42,6 @@ abstract class MalformedAcceptWithPayloadOutput
     MalformedAcceptWithPayloadOutputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedAcceptWithPayloadOutputBuilder b) {}
   _i3.Uint8List? get payload;
   @override
   _i3.Uint8List? getPayload() => payload;

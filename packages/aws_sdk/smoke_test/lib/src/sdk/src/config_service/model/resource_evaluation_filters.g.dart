@@ -73,9 +73,7 @@ class ResourceEvaluationFiltersBuilder
   set evaluationContextIdentifier(String? evaluationContextIdentifier) =>
       _$this._evaluationContextIdentifier = evaluationContextIdentifier;
 
-  ResourceEvaluationFiltersBuilder() {
-    ResourceEvaluationFilters._init(this);
-  }
+  ResourceEvaluationFiltersBuilder();
 
   ResourceEvaluationFiltersBuilder get _$this {
     final $v = _$v;

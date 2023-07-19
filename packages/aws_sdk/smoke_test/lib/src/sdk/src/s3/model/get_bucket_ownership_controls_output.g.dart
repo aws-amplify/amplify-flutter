@@ -54,9 +54,7 @@ class GetBucketOwnershipControlsOutputBuilder
   set ownershipControls(_i3.OwnershipControlsBuilder? ownershipControls) =>
       _$this._ownershipControls = ownershipControls;
 
-  GetBucketOwnershipControlsOutputBuilder() {
-    GetBucketOwnershipControlsOutput._init(this);
-  }
+  GetBucketOwnershipControlsOutputBuilder();
 
   GetBucketOwnershipControlsOutputBuilder get _$this {
     final $v = _$v;

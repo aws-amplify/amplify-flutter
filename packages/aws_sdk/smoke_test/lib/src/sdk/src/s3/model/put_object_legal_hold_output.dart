@@ -43,9 +43,6 @@ abstract class PutObjectLegalHoldOutput
   static const List<_i2.SmithySerializer<PutObjectLegalHoldOutputPayload>>
       serializers = [PutObjectLegalHoldOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectLegalHoldOutputBuilder b) {}
-
   /// If present, indicates that the requester was successfully charged for the request.
   _i3.RequestCharged? get requestCharged;
   @override
@@ -78,8 +75,6 @@ abstract class PutObjectLegalHoldOutputPayload
 
   const PutObjectLegalHoldOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectLegalHoldOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

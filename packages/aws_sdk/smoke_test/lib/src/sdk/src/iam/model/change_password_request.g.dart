@@ -64,9 +64,7 @@ class ChangePasswordRequestBuilder
   String? get newPassword => _$this._newPassword;
   set newPassword(String? newPassword) => _$this._newPassword = newPassword;
 
-  ChangePasswordRequestBuilder() {
-    ChangePasswordRequest._init(this);
-  }
+  ChangePasswordRequestBuilder();
 
   ChangePasswordRequestBuilder get _$this {
     final $v = _$v;

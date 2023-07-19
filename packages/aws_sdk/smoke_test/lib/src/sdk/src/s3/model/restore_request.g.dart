@@ -110,9 +110,7 @@ class RestoreRequestBuilder
   set outputLocation(_i6.OutputLocationBuilder? outputLocation) =>
       _$this._outputLocation = outputLocation;
 
-  RestoreRequestBuilder() {
-    RestoreRequest._init(this);
-  }
+  RestoreRequestBuilder();
 
   RestoreRequestBuilder get _$this {
     final $v = _$v;

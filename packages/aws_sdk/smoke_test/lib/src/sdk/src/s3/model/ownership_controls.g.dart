@@ -51,9 +51,7 @@ class OwnershipControlsBuilder
   set rules(_i3.ListBuilder<_i2.OwnershipControlsRule>? rules) =>
       _$this._rules = rules;
 
-  OwnershipControlsBuilder() {
-    OwnershipControls._init(this);
-  }
+  OwnershipControlsBuilder();
 
   OwnershipControlsBuilder get _$this {
     final $v = _$v;

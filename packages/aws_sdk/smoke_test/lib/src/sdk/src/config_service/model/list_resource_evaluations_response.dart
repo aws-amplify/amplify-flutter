@@ -47,9 +47,6 @@ abstract class ListResourceEvaluationsResponse
   static const List<_i4.SmithySerializer<ListResourceEvaluationsResponse>>
       serializers = [ListResourceEvaluationsResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListResourceEvaluationsResponseBuilder b) {}
-
   /// Returns a `ResourceEvaluations` object.
   _i3.BuiltList<_i2.ResourceEvaluation>? get resourceEvaluations;
 

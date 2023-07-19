@@ -42,9 +42,6 @@ abstract class PutRemediationConfigurationsResponse
   static const List<_i4.SmithySerializer<PutRemediationConfigurationsResponse>>
       serializers = [PutRemediationConfigurationsResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutRemediationConfigurationsResponseBuilder b) {}
-
   /// Returns a list of failed remediation batch objects.
   _i3.BuiltList<_i2.FailedRemediationBatch>? get failedBatches;
   @override

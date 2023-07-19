@@ -71,9 +71,7 @@ class PutItemOutputBuilder
           _i4.ItemCollectionMetricsBuilder? itemCollectionMetrics) =>
       _$this._itemCollectionMetrics = itemCollectionMetrics;
 
-  PutItemOutputBuilder() {
-    PutItemOutput._init(this);
-  }
+  PutItemOutputBuilder();
 
   PutItemOutputBuilder get _$this {
     final $v = _$v;

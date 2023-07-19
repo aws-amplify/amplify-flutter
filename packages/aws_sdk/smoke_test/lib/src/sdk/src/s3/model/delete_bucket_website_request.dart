@@ -53,9 +53,6 @@ abstract class DeleteBucketWebsiteRequest
   static const List<_i1.SmithySerializer<DeleteBucketWebsiteRequestPayload>>
       serializers = [DeleteBucketWebsiteRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketWebsiteRequestBuilder b) {}
-
   /// The bucket name for which you want to remove the website configuration.
   String get bucket;
 
@@ -110,8 +107,6 @@ abstract class DeleteBucketWebsiteRequestPayload
 
   const DeleteBucketWebsiteRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketWebsiteRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

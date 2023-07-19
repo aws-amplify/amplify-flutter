@@ -59,9 +59,6 @@ abstract class UpdateClientCertificateRequest
   static const List<_i1.SmithySerializer<UpdateClientCertificateRequestPayload>>
       serializers = [UpdateClientCertificateRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateClientCertificateRequestBuilder b) {}
-
   /// The identifier of the ClientCertificate resource to be updated.
   String get clientCertificateId;
 
@@ -118,9 +115,6 @@ abstract class UpdateClientCertificateRequestPayload
           updates]) = _$UpdateClientCertificateRequestPayload;
 
   const UpdateClientCertificateRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateClientCertificateRequestPayloadBuilder b) {}
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;

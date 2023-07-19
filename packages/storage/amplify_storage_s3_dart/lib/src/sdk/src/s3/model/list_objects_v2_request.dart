@@ -112,9 +112,6 @@ abstract class ListObjectsV2Request
   static const List<_i1.SmithySerializer<ListObjectsV2RequestPayload>>
       serializers = [ListObjectsV2RequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2RequestBuilder b) {}
-
   /// Bucket name to list.
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
@@ -242,8 +239,6 @@ abstract class ListObjectsV2RequestPayload
 
   const ListObjectsV2RequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2RequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

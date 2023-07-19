@@ -45,9 +45,6 @@ abstract class GetBucketReplicationOutput
   static const List<_i2.SmithySerializer<_i3.ReplicationConfiguration?>>
       serializers = [GetBucketReplicationOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketReplicationOutputBuilder b) {}
-
   /// A container for replication rules. You can add up to 1,000 rules. The maximum size of a replication configuration is 2 MB.
   _i3.ReplicationConfiguration? get replicationConfiguration;
   @override

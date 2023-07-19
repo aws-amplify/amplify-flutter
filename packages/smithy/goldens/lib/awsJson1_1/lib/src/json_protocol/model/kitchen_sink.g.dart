@@ -309,9 +309,7 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
   set unixTimestamp(DateTime? unixTimestamp) =>
       _$this._unixTimestamp = unixTimestamp;
 
-  KitchenSinkBuilder() {
-    KitchenSink._init(this);
-  }
+  KitchenSinkBuilder();
 
   KitchenSinkBuilder get _$this {
     final $v = _$v;

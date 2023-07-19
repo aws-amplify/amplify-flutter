@@ -45,8 +45,6 @@ abstract class BodyWithXmlNameInputOutput
   static const List<_i1.SmithySerializer<BodyWithXmlNameInputOutput>>
       serializers = [BodyWithXmlNameInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BodyWithXmlNameInputOutputBuilder b) {}
   _i3.PayloadWithXmlName? get nested;
   @override
   BodyWithXmlNameInputOutput getPayload() => this;

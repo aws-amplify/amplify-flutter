@@ -161,9 +161,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyBuilder
           _i4.ListBuilder<String>? debugLogDeliveryAccounts) =>
       _$this._debugLogDeliveryAccounts = debugLogDeliveryAccounts;
 
-  OrganizationCustomPolicyRuleMetadataNoPolicyBuilder() {
-    OrganizationCustomPolicyRuleMetadataNoPolicy._init(this);
-  }
+  OrganizationCustomPolicyRuleMetadataNoPolicyBuilder();
 
   OrganizationCustomPolicyRuleMetadataNoPolicyBuilder get _$this {
     final $v = _$v;

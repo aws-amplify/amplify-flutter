@@ -64,9 +64,7 @@ class DefaultRetentionBuilder
   int? get years => _$this._years;
   set years(int? years) => _$this._years = years;
 
-  DefaultRetentionBuilder() {
-    DefaultRetention._init(this);
-  }
+  DefaultRetentionBuilder();
 
   DefaultRetentionBuilder get _$this {
     final $v = _$v;

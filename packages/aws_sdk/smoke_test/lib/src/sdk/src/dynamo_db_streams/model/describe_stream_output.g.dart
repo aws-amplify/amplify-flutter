@@ -51,9 +51,7 @@ class DescribeStreamOutputBuilder
   set streamDescription(_i2.StreamDescriptionBuilder? streamDescription) =>
       _$this._streamDescription = streamDescription;
 
-  DescribeStreamOutputBuilder() {
-    DescribeStreamOutput._init(this);
-  }
+  DescribeStreamOutputBuilder();
 
   DescribeStreamOutputBuilder get _$this {
     final $v = _$v;

@@ -78,9 +78,7 @@ class DescribeAggregateComplianceByConfigRulesResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeAggregateComplianceByConfigRulesResponseBuilder() {
-    DescribeAggregateComplianceByConfigRulesResponse._init(this);
-  }
+  DescribeAggregateComplianceByConfigRulesResponseBuilder();
 
   DescribeAggregateComplianceByConfigRulesResponseBuilder get _$this {
     final $v = _$v;

@@ -40,9 +40,6 @@ abstract class AggregationAuthorization
   static const List<_i2.SmithySerializer<AggregationAuthorization>>
       serializers = [AggregationAuthorizationAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregationAuthorizationBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the aggregation object.
   String? get aggregationAuthorizationArn;
 

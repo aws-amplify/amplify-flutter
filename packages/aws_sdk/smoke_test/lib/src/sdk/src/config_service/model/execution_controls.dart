@@ -31,9 +31,6 @@ abstract class ExecutionControls
     ExecutionControlsAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExecutionControlsBuilder b) {}
-
   /// A SsmControls object.
   _i2.SsmControls? get ssmControls;
   @override

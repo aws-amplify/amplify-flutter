@@ -79,9 +79,7 @@ class UpdateRequestValidatorRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateRequestValidatorRequestBuilder() {
-    UpdateRequestValidatorRequest._init(this);
-  }
+  UpdateRequestValidatorRequestBuilder();
 
   UpdateRequestValidatorRequestBuilder get _$this {
     final $v = _$v;
@@ -186,9 +184,7 @@ class UpdateRequestValidatorRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateRequestValidatorRequestPayloadBuilder() {
-    UpdateRequestValidatorRequestPayload._init(this);
-  }
+  UpdateRequestValidatorRequestPayloadBuilder();
 
   UpdateRequestValidatorRequestPayloadBuilder get _$this {
     final $v = _$v;

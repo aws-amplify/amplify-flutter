@@ -44,9 +44,6 @@ abstract class TagServerCertificateRequest
   static const List<_i1.SmithySerializer<TagServerCertificateRequest>>
       serializers = [TagServerCertificateRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagServerCertificateRequestBuilder b) {}
-
   /// The name of the IAM server certificate to which you want to add tags.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

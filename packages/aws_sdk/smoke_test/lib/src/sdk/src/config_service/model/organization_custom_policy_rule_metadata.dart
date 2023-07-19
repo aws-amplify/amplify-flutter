@@ -68,9 +68,6 @@ abstract class OrganizationCustomPolicyRuleMetadata
   static const List<_i5.SmithySerializer<OrganizationCustomPolicyRuleMetadata>>
       serializers = [OrganizationCustomPolicyRuleMetadataAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationCustomPolicyRuleMetadataBuilder b) {}
-
   /// The description that you provide for your organization Config Custom Policy rule.
   String? get description;
 

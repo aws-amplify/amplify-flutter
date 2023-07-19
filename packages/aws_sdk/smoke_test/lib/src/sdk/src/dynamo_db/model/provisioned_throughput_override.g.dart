@@ -52,9 +52,7 @@ class ProvisionedThroughputOverrideBuilder
   set readCapacityUnits(_i2.Int64? readCapacityUnits) =>
       _$this._readCapacityUnits = readCapacityUnits;
 
-  ProvisionedThroughputOverrideBuilder() {
-    ProvisionedThroughputOverride._init(this);
-  }
+  ProvisionedThroughputOverrideBuilder();
 
   ProvisionedThroughputOverrideBuilder get _$this {
     final $v = _$v;

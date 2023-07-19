@@ -38,9 +38,6 @@ abstract class TimeToLiveDescription
     TimeToLiveDescriptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TimeToLiveDescriptionBuilder b) {}
-
   /// The TTL status for the table.
   _i2.TimeToLiveStatus? get timeToLiveStatus;
 

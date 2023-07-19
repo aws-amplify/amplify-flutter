@@ -34,9 +34,6 @@ abstract class CreateBucketConfiguration
   static const List<_i3.SmithySerializer<CreateBucketConfiguration>>
       serializers = [CreateBucketConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBucketConfigurationBuilder b) {}
-
   /// Specifies the Region where the bucket will be created. If you don't specify a Region, the bucket is created in the US East (N. Virginia) Region (us-east-1).
   _i2.BucketLocationConstraint? get locationConstraint;
   @override

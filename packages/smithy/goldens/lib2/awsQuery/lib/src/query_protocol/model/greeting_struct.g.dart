@@ -46,9 +46,7 @@ class GreetingStructBuilder
   String? get hi => _$this._hi;
   set hi(String? hi) => _$this._hi = hi;
 
-  GreetingStructBuilder() {
-    GreetingStruct._init(this);
-  }
+  GreetingStructBuilder();
 
   GreetingStructBuilder get _$this {
     final $v = _$v;

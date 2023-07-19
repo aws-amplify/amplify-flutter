@@ -54,9 +54,7 @@ class AuthorizersBuilder implements Builder<Authorizers, AuthorizersBuilder> {
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  AuthorizersBuilder() {
-    Authorizers._init(this);
-  }
+  AuthorizersBuilder();
 
   AuthorizersBuilder get _$this {
     final $v = _$v;

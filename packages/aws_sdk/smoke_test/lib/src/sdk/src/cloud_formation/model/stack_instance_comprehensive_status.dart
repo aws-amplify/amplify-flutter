@@ -35,9 +35,6 @@ abstract class StackInstanceComprehensiveStatus
   static const List<_i3.SmithySerializer<StackInstanceComprehensiveStatus>>
       serializers = [StackInstanceComprehensiveStatusAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackInstanceComprehensiveStatusBuilder b) {}
-
   /// *   `CANCELLED`: The operation in the specified account and Region has been canceled. This is either because a user has stopped the stack set operation, or because the failure tolerance of the stack set operation has been exceeded.
   ///
   /// *   `FAILED`: The operation in the specified account and Region failed. If the stack set operation fails in enough accounts within a Region, the failure tolerance for the stack set operation as a whole might be exceeded.

@@ -43,9 +43,6 @@ abstract class Models
     ModelsRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ModelsBuilder b) {}
-
   /// The current page of elements from this collection.
   _i3.BuiltList<_i2.Model>? get items;
 

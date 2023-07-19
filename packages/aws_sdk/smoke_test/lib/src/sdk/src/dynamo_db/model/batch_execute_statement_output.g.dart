@@ -65,9 +65,7 @@ class BatchExecuteStatementOutputBuilder
           _i4.ListBuilder<_i3.ConsumedCapacity>? consumedCapacity) =>
       _$this._consumedCapacity = consumedCapacity;
 
-  BatchExecuteStatementOutputBuilder() {
-    BatchExecuteStatementOutput._init(this);
-  }
+  BatchExecuteStatementOutputBuilder();
 
   BatchExecuteStatementOutputBuilder get _$this {
     final $v = _$v;

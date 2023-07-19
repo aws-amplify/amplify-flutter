@@ -69,8 +69,6 @@ abstract class MalformedRangeOverrideInput
   static const List<_i1.SmithySerializer<MalformedRangeOverrideInput>>
       serializers = [MalformedRangeOverrideInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedRangeOverrideInputBuilder b) {}
   int? get byte;
   int? get minByte;
   int? get maxByte;

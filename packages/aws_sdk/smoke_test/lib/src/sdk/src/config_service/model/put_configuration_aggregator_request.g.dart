@@ -98,9 +98,7 @@ class PutConfigurationAggregatorRequestBuilder
       _$this._tags ??= new _i6.ListBuilder<_i5.Tag>();
   set tags(_i6.ListBuilder<_i5.Tag>? tags) => _$this._tags = tags;
 
-  PutConfigurationAggregatorRequestBuilder() {
-    PutConfigurationAggregatorRequest._init(this);
-  }
+  PutConfigurationAggregatorRequestBuilder();
 
   PutConfigurationAggregatorRequestBuilder get _$this {
     final $v = _$v;

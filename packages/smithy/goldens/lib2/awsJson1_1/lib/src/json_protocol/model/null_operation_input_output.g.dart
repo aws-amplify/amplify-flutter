@@ -72,9 +72,7 @@ class NullOperationInputOutputBuilder
   set sparseStringMap(_i3.MapBuilder<String, String?>? sparseStringMap) =>
       _$this._sparseStringMap = sparseStringMap;
 
-  NullOperationInputOutputBuilder() {
-    NullOperationInputOutput._init(this);
-  }
+  NullOperationInputOutputBuilder();
 
   NullOperationInputOutputBuilder get _$this {
     final $v = _$v;

@@ -56,9 +56,6 @@ abstract class DeleteBasePathMappingRequest
   static const List<_i1.SmithySerializer<DeleteBasePathMappingRequestPayload>>
       serializers = [DeleteBasePathMappingRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBasePathMappingRequestBuilder b) {}
-
   /// The domain name of the BasePathMapping resource to delete.
   String get domainName;
 
@@ -117,8 +114,6 @@ abstract class DeleteBasePathMappingRequestPayload
 
   const DeleteBasePathMappingRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBasePathMappingRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

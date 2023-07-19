@@ -62,9 +62,7 @@ class ListOpenIdConnectProvidersResponseBuilder
               openIdConnectProviderList) =>
       _$this._openIdConnectProviderList = openIdConnectProviderList;
 
-  ListOpenIdConnectProvidersResponseBuilder() {
-    ListOpenIdConnectProvidersResponse._init(this);
-  }
+  ListOpenIdConnectProvidersResponseBuilder();
 
   ListOpenIdConnectProvidersResponseBuilder get _$this {
     final $v = _$v;

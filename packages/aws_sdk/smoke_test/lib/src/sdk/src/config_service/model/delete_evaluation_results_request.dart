@@ -37,9 +37,6 @@ abstract class DeleteEvaluationResultsRequest
   static const List<_i1.SmithySerializer<DeleteEvaluationResultsRequest>>
       serializers = [DeleteEvaluationResultsRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteEvaluationResultsRequestBuilder b) {}
-
   /// The name of the Config rule for which you want to delete the evaluation results.
   String get configRuleName;
   @override

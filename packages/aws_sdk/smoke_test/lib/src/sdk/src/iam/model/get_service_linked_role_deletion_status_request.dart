@@ -42,9 +42,6 @@ abstract class GetServiceLinkedRoleDeletionStatusRequest
     GetServiceLinkedRoleDeletionStatusRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetServiceLinkedRoleDeletionStatusRequestBuilder b) {}
-
   /// The deletion task identifier. This identifier is returned by the DeleteServiceLinkedRole operation in the format `task/aws-service-role///`.
   String get deletionTaskId;
   @override

@@ -71,9 +71,7 @@ class ComplexErrorBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ComplexErrorBuilder() {
-    ComplexError._init(this);
-  }
+  ComplexErrorBuilder();
 
   ComplexErrorBuilder get _$this {
     final $v = _$v;
@@ -179,9 +177,7 @@ class ComplexErrorPayloadBuilder
   String? get topLevel => _$this._topLevel;
   set topLevel(String? topLevel) => _$this._topLevel = topLevel;
 
-  ComplexErrorPayloadBuilder() {
-    ComplexErrorPayload._init(this);
-  }
+  ComplexErrorPayloadBuilder();
 
   ComplexErrorPayloadBuilder get _$this {
     final $v = _$v;

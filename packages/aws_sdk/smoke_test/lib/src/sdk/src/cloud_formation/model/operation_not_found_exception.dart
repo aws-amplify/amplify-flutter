@@ -40,8 +40,6 @@ abstract class OperationNotFoundException
   static const List<_i2.SmithySerializer<OperationNotFoundException>>
       serializers = [OperationNotFoundExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OperationNotFoundExceptionBuilder b) {}
   @override
   String? get message;
   @override

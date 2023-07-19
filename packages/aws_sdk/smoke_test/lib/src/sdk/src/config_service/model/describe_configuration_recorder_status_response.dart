@@ -49,9 +49,6 @@ abstract class DescribeConfigurationRecorderStatusResponse
     DescribeConfigurationRecorderStatusResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConfigurationRecorderStatusResponseBuilder b) {}
-
   /// A list that contains status of the specified recorders.
   _i3.BuiltList<_i2.ConfigurationRecorderStatus>?
       get configurationRecordersStatus;

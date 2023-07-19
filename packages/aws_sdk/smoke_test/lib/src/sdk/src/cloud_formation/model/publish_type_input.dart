@@ -45,9 +45,6 @@ abstract class PublishTypeInput
     PublishTypeInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PublishTypeInputBuilder b) {}
-
   /// The type of the extension.
   ///
   /// Conditional: You must specify `Arn`, or `TypeName` and `Type`.

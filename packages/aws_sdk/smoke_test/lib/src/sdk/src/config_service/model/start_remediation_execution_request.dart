@@ -46,9 +46,6 @@ abstract class StartRemediationExecutionRequest
   static const List<_i1.SmithySerializer<StartRemediationExecutionRequest>>
       serializers = [StartRemediationExecutionRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StartRemediationExecutionRequestBuilder b) {}
-
   /// The list of names of Config rules that you want to run remediation execution for.
   String get configRuleName;
 

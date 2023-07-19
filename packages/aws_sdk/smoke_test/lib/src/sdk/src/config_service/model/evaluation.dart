@@ -43,9 +43,6 @@ abstract class Evaluation
     EvaluationAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EvaluationBuilder b) {}
-
   /// The type of Amazon Web Services resource that was evaluated.
   String get complianceResourceType;
 

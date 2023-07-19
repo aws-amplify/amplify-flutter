@@ -50,9 +50,7 @@ class OpenIdConnectProviderListEntryBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  OpenIdConnectProviderListEntryBuilder() {
-    OpenIdConnectProviderListEntry._init(this);
-  }
+  OpenIdConnectProviderListEntryBuilder();
 
   OpenIdConnectProviderListEntryBuilder get _$this {
     final $v = _$v;

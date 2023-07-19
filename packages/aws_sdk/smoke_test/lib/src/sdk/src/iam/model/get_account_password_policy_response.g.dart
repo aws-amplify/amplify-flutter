@@ -58,9 +58,7 @@ class GetAccountPasswordPolicyResponseBuilder
   set passwordPolicy(_i2.PasswordPolicyBuilder? passwordPolicy) =>
       _$this._passwordPolicy = passwordPolicy;
 
-  GetAccountPasswordPolicyResponseBuilder() {
-    GetAccountPasswordPolicyResponse._init(this);
-  }
+  GetAccountPasswordPolicyResponseBuilder();
 
   GetAccountPasswordPolicyResponseBuilder get _$this {
     final $v = _$v;

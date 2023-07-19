@@ -53,9 +53,7 @@ class DocumentTypeAsPayloadInputOutputBuilder
   set documentValue(_i2.JsonObject? documentValue) =>
       _$this._documentValue = documentValue;
 
-  DocumentTypeAsPayloadInputOutputBuilder() {
-    DocumentTypeAsPayloadInputOutput._init(this);
-  }
+  DocumentTypeAsPayloadInputOutputBuilder();
 
   DocumentTypeAsPayloadInputOutputBuilder get _$this {
     final $v = _$v;

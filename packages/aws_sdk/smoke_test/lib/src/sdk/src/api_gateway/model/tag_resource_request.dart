@@ -53,9 +53,6 @@ abstract class TagResourceRequest
   static const List<_i1.SmithySerializer<TagResourceRequestPayload>>
       serializers = [TagResourceRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagResourceRequestBuilder b) {}
-
   /// The ARN of a resource that can be tagged.
   String get resourceArn;
 
@@ -107,9 +104,6 @@ abstract class TagResourceRequestPayload
       _$TagResourceRequestPayload;
 
   const TagResourceRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagResourceRequestPayloadBuilder b) {}
 
   /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
   _i3.BuiltMap<String, String> get tags;

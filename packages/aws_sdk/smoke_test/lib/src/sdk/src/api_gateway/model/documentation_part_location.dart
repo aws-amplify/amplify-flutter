@@ -44,9 +44,6 @@ abstract class DocumentationPartLocation
   static const List<_i3.SmithySerializer<DocumentationPartLocation>>
       serializers = [DocumentationPartLocationRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DocumentationPartLocationBuilder b) {}
-
   /// The type of API entity to which the documentation content applies. Valid values are `API`, `AUTHORIZER`, `MODEL`, `RESOURCE`, `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. Content inheritance does not apply to any entity of the `API`, `AUTHORIZER`, `METHOD`, `MODEL`, `REQUEST_BODY`, or `RESOURCE` type.
   _i2.DocumentationPartType get type;
 

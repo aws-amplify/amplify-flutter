@@ -45,9 +45,6 @@ abstract class DescribeStackResourceDriftsOutput
   static const List<_i4.SmithySerializer<DescribeStackResourceDriftsOutput>>
       serializers = [DescribeStackResourceDriftsOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackResourceDriftsOutputBuilder b) {}
-
   /// Drift information for the resources that have been checked for drift in the specified stack. This includes actual and expected configuration values for resources where CloudFormation detects drift.
   ///
   /// For a given stack, there will be one `StackResourceDrift` for each stack resource that has been checked for drift. Resources that haven't yet been checked for drift aren't included. Resources that do not currently support drift detection aren't checked, and so not included. For a list of resources that support drift detection, see [Resources that Support Drift Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).

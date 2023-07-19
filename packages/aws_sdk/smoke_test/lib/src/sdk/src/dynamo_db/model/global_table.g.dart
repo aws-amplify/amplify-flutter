@@ -56,9 +56,7 @@ class GlobalTableBuilder implements Builder<GlobalTable, GlobalTableBuilder> {
   set replicationGroup(_i3.ListBuilder<_i2.Replica>? replicationGroup) =>
       _$this._replicationGroup = replicationGroup;
 
-  GlobalTableBuilder() {
-    GlobalTable._init(this);
-  }
+  GlobalTableBuilder();
 
   GlobalTableBuilder get _$this {
     final $v = _$v;

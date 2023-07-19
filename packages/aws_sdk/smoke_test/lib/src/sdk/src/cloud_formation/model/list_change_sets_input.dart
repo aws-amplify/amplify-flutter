@@ -45,9 +45,6 @@ abstract class ListChangeSetsInput
     ListChangeSetsInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListChangeSetsInputBuilder b) {}
-
   /// The name or the Amazon Resource Name (ARN) of the stack for which you want to list change sets.
   String get stackName;
 

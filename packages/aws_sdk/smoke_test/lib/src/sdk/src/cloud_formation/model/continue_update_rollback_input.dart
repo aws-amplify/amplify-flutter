@@ -51,9 +51,6 @@ abstract class ContinueUpdateRollbackInput
   static const List<_i1.SmithySerializer<ContinueUpdateRollbackInput>>
       serializers = [ContinueUpdateRollbackInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ContinueUpdateRollbackInputBuilder b) {}
-
   /// The name or the unique ID of the stack that you want to continue rolling back.
   ///
   /// Don't specify the name of a nested stack (a stack that was created by using the `AWS::CloudFormation::Stack` resource). Instead, use this operation on the parent stack (the stack that contains the `AWS::CloudFormation::Stack` resource).

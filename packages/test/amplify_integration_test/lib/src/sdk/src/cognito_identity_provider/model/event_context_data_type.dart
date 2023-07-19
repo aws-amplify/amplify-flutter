@@ -42,9 +42,6 @@ abstract class EventContextDataType
     EventContextDataTypeAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventContextDataTypeBuilder b) {}
-
   /// The source IP address of your user's device.
   String? get ipAddress;
 

@@ -40,9 +40,6 @@ abstract class Change
     ChangeAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ChangeBuilder b) {}
-
   /// The type of entity that CloudFormation changes. Currently, the only entity type is `Resource`.
   _i2.ChangeType? get type;
 

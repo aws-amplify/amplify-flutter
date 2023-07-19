@@ -21,9 +21,6 @@ abstract class QueryIdempotencyTokenAutoFillInput
         _i1.EmptyPayload,
         _i1.HasPayload<QueryIdempotencyTokenAutoFillInputPayload> {
   factory QueryIdempotencyTokenAutoFillInput({String? token}) {
-    token ??= const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
     return _$QueryIdempotencyTokenAutoFillInput._(token: token);
   }
 
@@ -87,8 +84,6 @@ abstract class QueryIdempotencyTokenAutoFillInputPayload
 
   const QueryIdempotencyTokenAutoFillInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryIdempotencyTokenAutoFillInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

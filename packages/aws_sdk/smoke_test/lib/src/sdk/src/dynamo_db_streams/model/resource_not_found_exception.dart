@@ -41,9 +41,6 @@ abstract class ResourceNotFoundException
   static const List<_i2.SmithySerializer<ResourceNotFoundException>>
       serializers = [ResourceNotFoundExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceNotFoundExceptionBuilder b) {}
-
   /// The resource which is being requested does not exist.
   @override
   String? get message;

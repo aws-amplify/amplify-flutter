@@ -62,9 +62,6 @@ abstract class ListBucketInventoryConfigurationsRequest
     ListBucketInventoryConfigurationsRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketInventoryConfigurationsRequestBuilder b) {}
-
   /// The name of the bucket containing the inventory configurations to retrieve.
   String get bucket;
 
@@ -128,8 +125,6 @@ abstract class ListBucketInventoryConfigurationsRequestPayload
 
   const ListBucketInventoryConfigurationsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketInventoryConfigurationsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

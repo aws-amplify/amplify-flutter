@@ -36,8 +36,6 @@ abstract class DeregisterTypeOutput
     DeregisterTypeOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeregisterTypeOutputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

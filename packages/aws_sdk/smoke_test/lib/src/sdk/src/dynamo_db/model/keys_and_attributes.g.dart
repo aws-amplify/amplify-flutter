@@ -98,9 +98,7 @@ class KeysAndAttributesBuilder
           _i3.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
-  KeysAndAttributesBuilder() {
-    KeysAndAttributes._init(this);
-  }
+  KeysAndAttributesBuilder();
 
   KeysAndAttributesBuilder get _$this {
     final $v = _$v;

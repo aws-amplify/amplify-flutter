@@ -45,9 +45,6 @@ abstract class GetCallerIdentityResponse
   static const List<_i2.SmithySerializer<GetCallerIdentityResponse>>
       serializers = [GetCallerIdentityResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetCallerIdentityResponseBuilder b) {}
-
   /// The unique identifier of the calling entity. The exact value depends on the type of entity that is making the call. The values returned are those listed in the **aws:userid** column in the [Principal table](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable) found on the **Policy Variables** reference page in the _IAM User Guide_.
   String? get userId;
 

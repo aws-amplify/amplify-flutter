@@ -73,9 +73,7 @@ class ListSamlProviderTagsRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListSamlProviderTagsRequestBuilder() {
-    ListSamlProviderTagsRequest._init(this);
-  }
+  ListSamlProviderTagsRequestBuilder();
 
   ListSamlProviderTagsRequestBuilder get _$this {
     final $v = _$v;

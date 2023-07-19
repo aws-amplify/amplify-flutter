@@ -216,9 +216,7 @@ class DomainNameBuilder implements Builder<DomainName, DomainNameBuilder> {
       _$this._ownershipVerificationCertificateArn =
           ownershipVerificationCertificateArn;
 
-  DomainNameBuilder() {
-    DomainName._init(this);
-  }
+  DomainNameBuilder();
 
   DomainNameBuilder get _$this {
     final $v = _$v;

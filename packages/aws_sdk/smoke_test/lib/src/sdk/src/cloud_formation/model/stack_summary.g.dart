@@ -155,9 +155,7 @@ class StackSummaryBuilder
           _i3.StackDriftInformationSummaryBuilder? driftInformation) =>
       _$this._driftInformation = driftInformation;
 
-  StackSummaryBuilder() {
-    StackSummary._init(this);
-  }
+  StackSummaryBuilder();
 
   StackSummaryBuilder get _$this {
     final $v = _$v;

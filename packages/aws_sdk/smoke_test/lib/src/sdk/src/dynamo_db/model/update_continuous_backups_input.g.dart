@@ -75,9 +75,7 @@ class UpdateContinuousBackupsInputBuilder
       _$this._pointInTimeRecoverySpecification =
           pointInTimeRecoverySpecification;
 
-  UpdateContinuousBackupsInputBuilder() {
-    UpdateContinuousBackupsInput._init(this);
-  }
+  UpdateContinuousBackupsInputBuilder();
 
   UpdateContinuousBackupsInputBuilder get _$this {
     final $v = _$v;

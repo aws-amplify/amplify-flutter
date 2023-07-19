@@ -47,9 +47,6 @@ abstract class PutAggregationAuthorizationRequest
   static const List<_i1.SmithySerializer<PutAggregationAuthorizationRequest>>
       serializers = [PutAggregationAuthorizationRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutAggregationAuthorizationRequestBuilder b) {}
-
   /// The 12-digit account ID of the account authorized to aggregate data.
   String get authorizedAccountId;
 

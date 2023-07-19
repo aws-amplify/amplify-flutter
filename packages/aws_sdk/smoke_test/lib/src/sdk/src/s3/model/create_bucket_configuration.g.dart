@@ -52,9 +52,7 @@ class CreateBucketConfigurationBuilder
   set locationConstraint(_i2.BucketLocationConstraint? locationConstraint) =>
       _$this._locationConstraint = locationConstraint;
 
-  CreateBucketConfigurationBuilder() {
-    CreateBucketConfiguration._init(this);
-  }
+  CreateBucketConfigurationBuilder();
 
   CreateBucketConfigurationBuilder get _$this {
     final $v = _$v;

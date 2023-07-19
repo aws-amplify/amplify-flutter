@@ -109,9 +109,7 @@ class PutBucketReplicationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketReplicationRequestBuilder() {
-    PutBucketReplicationRequest._init(this);
-  }
+  PutBucketReplicationRequestBuilder();
 
   PutBucketReplicationRequestBuilder get _$this {
     final $v = _$v;

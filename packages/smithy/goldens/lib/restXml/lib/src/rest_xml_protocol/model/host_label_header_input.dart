@@ -43,8 +43,6 @@ abstract class HostLabelHeaderInput
   static const List<_i1.SmithySerializer<HostLabelHeaderInputPayload>>
       serializers = [HostLabelHeaderInputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HostLabelHeaderInputBuilder b) {}
   String get accountId;
   @override
   String labelFor(String key) {
@@ -85,8 +83,6 @@ abstract class HostLabelHeaderInputPayload
 
   const HostLabelHeaderInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HostLabelHeaderInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

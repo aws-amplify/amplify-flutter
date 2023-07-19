@@ -33,8 +33,6 @@ abstract class StructureListMember
     StructureListMemberAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StructureListMemberBuilder b) {}
   String? get a;
   String? get b;
   @override

@@ -54,9 +54,6 @@ abstract class ListBucketInventoryConfigurationsOutput
     ListBucketInventoryConfigurationsOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketInventoryConfigurationsOutputBuilder b) {}
-
   /// If sent in the request, the marker that is used as a starting point for this inventory configuration list response.
   String? get continuationToken;
 

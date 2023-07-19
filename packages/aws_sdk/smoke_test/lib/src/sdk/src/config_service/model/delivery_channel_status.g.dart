@@ -90,9 +90,7 @@ class DeliveryChannelStatusBuilder
           _i3.ConfigStreamDeliveryInfoBuilder? configStreamDeliveryInfo) =>
       _$this._configStreamDeliveryInfo = configStreamDeliveryInfo;
 
-  DeliveryChannelStatusBuilder() {
-    DeliveryChannelStatus._init(this);
-  }
+  DeliveryChannelStatusBuilder();
 
   DeliveryChannelStatusBuilder get _$this {
     final $v = _$v;

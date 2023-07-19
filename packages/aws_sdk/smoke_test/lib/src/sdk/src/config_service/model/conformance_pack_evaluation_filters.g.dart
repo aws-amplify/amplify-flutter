@@ -87,9 +87,7 @@ class ConformancePackEvaluationFiltersBuilder
   set resourceIds(_i3.ListBuilder<String>? resourceIds) =>
       _$this._resourceIds = resourceIds;
 
-  ConformancePackEvaluationFiltersBuilder() {
-    ConformancePackEvaluationFilters._init(this);
-  }
+  ConformancePackEvaluationFiltersBuilder();
 
   ConformancePackEvaluationFiltersBuilder get _$this {
     final $v = _$v;

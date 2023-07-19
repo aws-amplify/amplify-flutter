@@ -69,8 +69,6 @@ abstract class NestedXmlMapsInputOutput
   static const List<_i1.SmithySerializer<NestedXmlMapsInputOutput>>
       serializers = [NestedXmlMapsInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NestedXmlMapsInputOutputBuilder b) {}
   _i4.BuiltMap<String, _i4.BuiltMap<String, _i3.FooEnum>>? get nestedMap;
   _i4.BuiltMap<String, _i4.BuiltMap<String, _i3.FooEnum>>? get flatNestedMap;
   @override

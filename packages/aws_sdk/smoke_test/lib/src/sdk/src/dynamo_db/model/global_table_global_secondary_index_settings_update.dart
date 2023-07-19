@@ -48,9 +48,6 @@ abstract class GlobalTableGlobalSecondaryIndexSettingsUpdate
     GlobalTableGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder b) {}
-
   /// The name of the global secondary index. The name must be unique among all other indexes on this table.
   String get indexName;
 

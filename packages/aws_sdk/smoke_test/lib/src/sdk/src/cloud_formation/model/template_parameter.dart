@@ -39,9 +39,6 @@ abstract class TemplateParameter
     TemplateParameterAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TemplateParameterBuilder b) {}
-
   /// The name associated with the parameter.
   String? get parameterKey;
 

@@ -31,9 +31,6 @@ abstract class BucketLoggingStatus
     BucketLoggingStatusRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BucketLoggingStatusBuilder b) {}
-
   /// Describes where logs are stored and the prefix that Amazon S3 assigns to all log object keys for a bucket. For more information, see [PUT Bucket logging](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTlogging.html) in the _Amazon S3 API Reference_.
   _i2.LoggingEnabled? get loggingEnabled;
   @override

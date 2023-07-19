@@ -48,8 +48,6 @@ abstract class FileConfigSettings
     FileConfigSettingsAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FileConfigSettingsBuilder b) {}
   String? get awsAccessKeyId;
   String? get awsSecretAccessKey;
   String? get awsSessionToken;

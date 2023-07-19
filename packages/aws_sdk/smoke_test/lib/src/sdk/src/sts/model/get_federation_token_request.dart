@@ -52,9 +52,6 @@ abstract class GetFederationTokenRequest
   static const List<_i1.SmithySerializer<GetFederationTokenRequest>>
       serializers = [GetFederationTokenRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetFederationTokenRequestBuilder b) {}
-
   /// The name of the federated user. The name is used as an identifier for the temporary security credentials (such as `Bob`). For example, you can reference the federated user name in a resource-based policy, such as in an Amazon S3 bucket policy.
   ///
   /// The regex used to validate this parameter is a string of characters consisting of upper- and lower-case alphanumeric characters with no spaces. You can also include underscores or any of the following characters: =,.@-

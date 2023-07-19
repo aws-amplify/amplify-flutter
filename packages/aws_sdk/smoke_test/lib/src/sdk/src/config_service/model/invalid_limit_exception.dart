@@ -42,9 +42,6 @@ abstract class InvalidLimitException
     InvalidLimitExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidLimitExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

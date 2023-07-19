@@ -40,9 +40,6 @@ abstract class StoredQueryMetadata
     StoredQueryMetadataAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StoredQueryMetadataBuilder b) {}
-
   /// The ID of the query.
   String get queryId;
 

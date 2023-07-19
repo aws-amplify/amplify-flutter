@@ -59,9 +59,7 @@ class StartConfigurationRecorderRequestBuilder
   set configurationRecorderName(String? configurationRecorderName) =>
       _$this._configurationRecorderName = configurationRecorderName;
 
-  StartConfigurationRecorderRequestBuilder() {
-    StartConfigurationRecorderRequest._init(this);
-  }
+  StartConfigurationRecorderRequestBuilder();
 
   StartConfigurationRecorderRequestBuilder get _$this {
     final $v = _$v;

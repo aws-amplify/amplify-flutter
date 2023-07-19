@@ -100,9 +100,7 @@ class XmlEnumsOutputBuilder
   set fooEnumMap(_i3.MapBuilder<String, _i2.FooEnum>? fooEnumMap) =>
       _$this._fooEnumMap = fooEnumMap;
 
-  XmlEnumsOutputBuilder() {
-    XmlEnumsOutput._init(this);
-  }
+  XmlEnumsOutputBuilder();
 
   XmlEnumsOutputBuilder get _$this {
     final $v = _$v;

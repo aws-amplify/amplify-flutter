@@ -43,9 +43,6 @@ abstract class ListBackupsOutput
     ListBackupsOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBackupsOutputBuilder b) {}
-
   /// List of `BackupSummary` objects.
   _i3.BuiltList<_i2.BackupSummary>? get backupSummaries;
 

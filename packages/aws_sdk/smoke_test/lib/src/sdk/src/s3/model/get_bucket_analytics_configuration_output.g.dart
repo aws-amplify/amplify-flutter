@@ -60,9 +60,7 @@ class GetBucketAnalyticsConfigurationOutputBuilder
           _i3.AnalyticsConfigurationBuilder? analyticsConfiguration) =>
       _$this._analyticsConfiguration = analyticsConfiguration;
 
-  GetBucketAnalyticsConfigurationOutputBuilder() {
-    GetBucketAnalyticsConfigurationOutput._init(this);
-  }
+  GetBucketAnalyticsConfigurationOutputBuilder();
 
   GetBucketAnalyticsConfigurationOutputBuilder get _$this {
     final $v = _$v;

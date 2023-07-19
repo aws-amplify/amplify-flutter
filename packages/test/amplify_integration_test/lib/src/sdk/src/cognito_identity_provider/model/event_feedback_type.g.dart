@@ -73,9 +73,7 @@ class EventFeedbackTypeBuilder
   set feedbackDate(DateTime? feedbackDate) =>
       _$this._feedbackDate = feedbackDate;
 
-  EventFeedbackTypeBuilder() {
-    EventFeedbackType._init(this);
-  }
+  EventFeedbackTypeBuilder();
 
   EventFeedbackTypeBuilder get _$this {
     final $v = _$v;

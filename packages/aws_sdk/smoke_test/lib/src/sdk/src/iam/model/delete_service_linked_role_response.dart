@@ -36,9 +36,6 @@ abstract class DeleteServiceLinkedRoleResponse
   static const List<_i2.SmithySerializer<DeleteServiceLinkedRoleResponse>>
       serializers = [DeleteServiceLinkedRoleResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteServiceLinkedRoleResponseBuilder b) {}
-
   /// The deletion task identifier that you can use to check the status of the deletion. This identifier is returned in the format `task/aws-service-role///`.
   String get deletionTaskId;
   @override

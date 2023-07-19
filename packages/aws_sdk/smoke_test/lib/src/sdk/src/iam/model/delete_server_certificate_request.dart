@@ -39,9 +39,6 @@ abstract class DeleteServerCertificateRequest
   static const List<_i1.SmithySerializer<DeleteServerCertificateRequest>>
       serializers = [DeleteServerCertificateRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteServerCertificateRequestBuilder b) {}
-
   /// The name of the server certificate you want to delete.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

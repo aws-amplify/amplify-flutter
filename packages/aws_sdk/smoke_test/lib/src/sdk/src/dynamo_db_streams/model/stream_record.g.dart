@@ -112,9 +112,7 @@ class StreamRecordBuilder
   set streamViewType(_i4.StreamViewType? streamViewType) =>
       _$this._streamViewType = streamViewType;
 
-  StreamRecordBuilder() {
-    StreamRecord._init(this);
-  }
+  StreamRecordBuilder();
 
   StreamRecordBuilder get _$this {
     final $v = _$v;

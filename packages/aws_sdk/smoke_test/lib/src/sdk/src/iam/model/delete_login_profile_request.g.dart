@@ -52,9 +52,7 @@ class DeleteLoginProfileRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  DeleteLoginProfileRequestBuilder() {
-    DeleteLoginProfileRequest._init(this);
-  }
+  DeleteLoginProfileRequestBuilder();
 
   DeleteLoginProfileRequestBuilder get _$this {
     final $v = _$v;

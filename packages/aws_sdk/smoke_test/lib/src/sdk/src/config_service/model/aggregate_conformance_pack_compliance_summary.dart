@@ -43,9 +43,6 @@ abstract class AggregateConformancePackComplianceSummary
     AggregateConformancePackComplianceSummaryAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateConformancePackComplianceSummaryBuilder b) {}
-
   /// Returns an `AggregateConformancePackComplianceCount` object.
   _i2.AggregateConformancePackComplianceCount? get complianceSummary;
 

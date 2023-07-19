@@ -36,9 +36,6 @@ abstract class Export
     ExportAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExportBuilder b) {}
-
   /// The stack that contains the exported output name and value.
   String? get exportingStackId;
 

@@ -46,9 +46,6 @@ abstract class GetBucketMetricsConfigurationOutput
   static const List<_i2.SmithySerializer<_i3.MetricsConfiguration?>>
       serializers = [GetBucketMetricsConfigurationOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketMetricsConfigurationOutputBuilder b) {}
-
   /// Specifies the metrics configuration.
   _i3.MetricsConfiguration? get metricsConfiguration;
   @override

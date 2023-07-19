@@ -138,9 +138,7 @@ class SimpleScalarXmlPropertiesOutputBuilder
   double? get doubleValue => _$this._doubleValue;
   set doubleValue(double? doubleValue) => _$this._doubleValue = doubleValue;
 
-  SimpleScalarXmlPropertiesOutputBuilder() {
-    SimpleScalarXmlPropertiesOutput._init(this);
-  }
+  SimpleScalarXmlPropertiesOutputBuilder();
 
   SimpleScalarXmlPropertiesOutputBuilder get _$this {
     final $v = _$v;

@@ -44,9 +44,6 @@ abstract class BatchDescribeTypeConfigurationsInput
   static const List<_i1.SmithySerializer<BatchDescribeTypeConfigurationsInput>>
       serializers = [BatchDescribeTypeConfigurationsInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchDescribeTypeConfigurationsInputBuilder b) {}
-
   /// The list of identifiers for the desired extension configurations.
   _i4.BuiltList<_i3.TypeConfigurationIdentifier>
       get typeConfigurationIdentifiers;

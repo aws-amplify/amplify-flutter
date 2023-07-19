@@ -49,9 +49,6 @@ abstract class UploadServerCertificateResponse
   static const List<_i5.SmithySerializer<UploadServerCertificateResponse>>
       serializers = [UploadServerCertificateResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadServerCertificateResponseBuilder b) {}
-
   /// The meta information of the uploaded server certificate without its certificate body, certificate chain, and private key.
   _i2.ServerCertificateMetadata? get serverCertificateMetadata;
 

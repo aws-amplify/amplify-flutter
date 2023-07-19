@@ -70,9 +70,7 @@ class MaxNumberOfDeliveryChannelsExceededExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  MaxNumberOfDeliveryChannelsExceededExceptionBuilder() {
-    MaxNumberOfDeliveryChannelsExceededException._init(this);
-  }
+  MaxNumberOfDeliveryChannelsExceededExceptionBuilder();
 
   MaxNumberOfDeliveryChannelsExceededExceptionBuilder get _$this {
     final $v = _$v;

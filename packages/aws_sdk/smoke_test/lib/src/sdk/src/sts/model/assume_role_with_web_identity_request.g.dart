@@ -120,9 +120,7 @@ class AssumeRoleWithWebIdentityRequestBuilder
   set durationSeconds(int? durationSeconds) =>
       _$this._durationSeconds = durationSeconds;
 
-  AssumeRoleWithWebIdentityRequestBuilder() {
-    AssumeRoleWithWebIdentityRequest._init(this);
-  }
+  AssumeRoleWithWebIdentityRequestBuilder();
 
   AssumeRoleWithWebIdentityRequestBuilder get _$this {
     final $v = _$v;

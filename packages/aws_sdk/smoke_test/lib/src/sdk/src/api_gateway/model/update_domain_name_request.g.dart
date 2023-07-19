@@ -64,9 +64,7 @@ class UpdateDomainNameRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateDomainNameRequestBuilder() {
-    UpdateDomainNameRequest._init(this);
-  }
+  UpdateDomainNameRequestBuilder();
 
   UpdateDomainNameRequestBuilder get _$this {
     final $v = _$v;
@@ -163,9 +161,7 @@ class UpdateDomainNameRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateDomainNameRequestPayloadBuilder() {
-    UpdateDomainNameRequestPayload._init(this);
-  }
+  UpdateDomainNameRequestPayloadBuilder();
 
   UpdateDomainNameRequestPayloadBuilder get _$this {
     final $v = _$v;

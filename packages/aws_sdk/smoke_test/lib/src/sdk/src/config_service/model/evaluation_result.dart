@@ -47,9 +47,6 @@ abstract class EvaluationResult
     EvaluationResultAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EvaluationResultBuilder b) {}
-
   /// Uniquely identifies the evaluation result.
   _i2.EvaluationResultIdentifier? get evaluationResultIdentifier;
 

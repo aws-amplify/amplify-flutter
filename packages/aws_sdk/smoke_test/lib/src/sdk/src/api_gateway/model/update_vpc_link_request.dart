@@ -58,9 +58,6 @@ abstract class UpdateVpcLinkRequest
   static const List<_i1.SmithySerializer<UpdateVpcLinkRequestPayload>>
       serializers = [UpdateVpcLinkRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateVpcLinkRequestBuilder b) {}
-
   /// The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
   String get vpcLinkId;
 
@@ -114,9 +111,6 @@ abstract class UpdateVpcLinkRequestPayload
       _$UpdateVpcLinkRequestPayload;
 
   const UpdateVpcLinkRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateVpcLinkRequestPayloadBuilder b) {}
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;

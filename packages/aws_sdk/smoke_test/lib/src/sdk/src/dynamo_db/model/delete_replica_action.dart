@@ -30,9 +30,6 @@ abstract class DeleteReplicaAction
     DeleteReplicaActionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteReplicaActionBuilder b) {}
-
   /// The Region of the replica to be removed.
   String get regionName;
   @override

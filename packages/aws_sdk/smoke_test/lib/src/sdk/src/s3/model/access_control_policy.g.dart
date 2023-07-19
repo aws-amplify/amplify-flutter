@@ -58,9 +58,7 @@ class AccessControlPolicyBuilder
   _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
   set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
 
-  AccessControlPolicyBuilder() {
-    AccessControlPolicy._init(this);
-  }
+  AccessControlPolicyBuilder();
 
   AccessControlPolicyBuilder get _$this {
     final $v = _$v;

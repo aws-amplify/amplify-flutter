@@ -47,9 +47,6 @@ abstract class BadRequestException
     BadRequestExceptionRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BadRequestExceptionBuilder b) {}
-
   /// The message that's returned from the API.
   @override
   String? get message;

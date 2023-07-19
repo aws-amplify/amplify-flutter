@@ -60,8 +60,6 @@ abstract class JsonEnumsInputOutput
     JsonEnumsInputOutputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonEnumsInputOutputBuilder b) {}
   _i3.FooEnum? get fooEnum1;
   _i3.FooEnum? get fooEnum2;
   _i3.FooEnum? get fooEnum3;

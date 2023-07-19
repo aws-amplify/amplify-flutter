@@ -50,9 +50,7 @@ class EvaluationContextBuilder
   set evaluationContextIdentifier(String? evaluationContextIdentifier) =>
       _$this._evaluationContextIdentifier = evaluationContextIdentifier;
 
-  EvaluationContextBuilder() {
-    EvaluationContext._init(this);
-  }
+  EvaluationContextBuilder();
 
   EvaluationContextBuilder get _$this {
     final $v = _$v;

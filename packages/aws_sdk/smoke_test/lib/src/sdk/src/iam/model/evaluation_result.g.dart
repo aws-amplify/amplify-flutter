@@ -161,9 +161,7 @@ class EvaluationResultBuilder
               resourceSpecificResults) =>
       _$this._resourceSpecificResults = resourceSpecificResults;
 
-  EvaluationResultBuilder() {
-    EvaluationResult._init(this);
-  }
+  EvaluationResultBuilder();
 
   EvaluationResultBuilder get _$this {
     final $v = _$v;

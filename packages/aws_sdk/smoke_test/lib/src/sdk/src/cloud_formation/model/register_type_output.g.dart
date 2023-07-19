@@ -50,9 +50,7 @@ class RegisterTypeOutputBuilder
   set registrationToken(String? registrationToken) =>
       _$this._registrationToken = registrationToken;
 
-  RegisterTypeOutputBuilder() {
-    RegisterTypeOutput._init(this);
-  }
+  RegisterTypeOutputBuilder();
 
   RegisterTypeOutputBuilder get _$this {
     final $v = _$v;

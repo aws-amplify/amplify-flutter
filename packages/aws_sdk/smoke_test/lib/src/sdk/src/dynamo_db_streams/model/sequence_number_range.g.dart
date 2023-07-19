@@ -61,9 +61,7 @@ class SequenceNumberRangeBuilder
   set endingSequenceNumber(String? endingSequenceNumber) =>
       _$this._endingSequenceNumber = endingSequenceNumber;
 
-  SequenceNumberRangeBuilder() {
-    SequenceNumberRange._init(this);
-  }
+  SequenceNumberRangeBuilder();
 
   SequenceNumberRangeBuilder get _$this {
     final $v = _$v;

@@ -52,9 +52,6 @@ abstract class InAppMessageCampaign
     InAppMessageCampaignRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InAppMessageCampaignBuilder b) {}
-
   /// Campaign id of the corresponding campaign.
   String? get campaignId;
 

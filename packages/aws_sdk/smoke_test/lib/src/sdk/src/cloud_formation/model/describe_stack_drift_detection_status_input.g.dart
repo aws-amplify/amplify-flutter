@@ -61,9 +61,7 @@ class DescribeStackDriftDetectionStatusInputBuilder
   set stackDriftDetectionId(String? stackDriftDetectionId) =>
       _$this._stackDriftDetectionId = stackDriftDetectionId;
 
-  DescribeStackDriftDetectionStatusInputBuilder() {
-    DescribeStackDriftDetectionStatusInput._init(this);
-  }
+  DescribeStackDriftDetectionStatusInputBuilder();
 
   DescribeStackDriftDetectionStatusInputBuilder get _$this {
     final $v = _$v;

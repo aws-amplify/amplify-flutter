@@ -58,9 +58,6 @@ abstract class UpdateApiKeyRequest
   static const List<_i1.SmithySerializer<UpdateApiKeyRequestPayload>>
       serializers = [UpdateApiKeyRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateApiKeyRequestBuilder b) {}
-
   /// The identifier of the ApiKey resource to be updated.
   String get apiKey;
 
@@ -114,9 +111,6 @@ abstract class UpdateApiKeyRequestPayload
       _$UpdateApiKeyRequestPayload;
 
   const UpdateApiKeyRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateApiKeyRequestPayloadBuilder b) {}
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;

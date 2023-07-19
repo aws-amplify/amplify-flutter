@@ -32,9 +32,6 @@ abstract class OwnershipControlsRule
     OwnershipControlsRuleRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OwnershipControlsRuleBuilder b) {}
-
   /// The container element for object ownership for a bucket's ownership controls.
   ///
   /// BucketOwnerPreferred - Objects uploaded to the bucket change ownership to the bucket owner if the objects are uploaded with the `bucket-owner-full-control` canned ACL.

@@ -30,9 +30,6 @@ abstract class EvaluationContext
     EvaluationContextAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EvaluationContextBuilder b) {}
-
   /// A unique EvaluationContextIdentifier ID for an EvaluationContext.
   String? get evaluationContextIdentifier;
   @override

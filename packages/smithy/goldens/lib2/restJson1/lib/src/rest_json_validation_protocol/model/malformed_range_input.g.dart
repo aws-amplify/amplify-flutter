@@ -177,9 +177,7 @@ class MalformedRangeInputBuilder
   double? get maxFloat => _$this._maxFloat;
   set maxFloat(double? maxFloat) => _$this._maxFloat = maxFloat;
 
-  MalformedRangeInputBuilder() {
-    MalformedRangeInput._init(this);
-  }
+  MalformedRangeInputBuilder();
 
   MalformedRangeInputBuilder get _$this {
     final $v = _$v;

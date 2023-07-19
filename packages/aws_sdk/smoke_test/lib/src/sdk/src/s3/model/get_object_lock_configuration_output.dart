@@ -48,9 +48,6 @@ abstract class GetObjectLockConfigurationOutput
   static const List<_i2.SmithySerializer<_i3.ObjectLockConfiguration?>>
       serializers = [GetObjectLockConfigurationOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectLockConfigurationOutputBuilder b) {}
-
   /// The specified bucket's Object Lock configuration.
   _i3.ObjectLockConfiguration? get objectLockConfiguration;
   @override

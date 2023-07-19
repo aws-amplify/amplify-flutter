@@ -46,9 +46,6 @@ abstract class NoAvailableConfigurationRecorderException
     NoAvailableConfigurationRecorderExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoAvailableConfigurationRecorderExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

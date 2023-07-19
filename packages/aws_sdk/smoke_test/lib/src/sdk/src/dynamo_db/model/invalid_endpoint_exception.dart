@@ -37,8 +37,6 @@ abstract class InvalidEndpointException
   static const List<_i2.SmithySerializer<InvalidEndpointException>>
       serializers = [InvalidEndpointExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidEndpointExceptionBuilder b) {}
   @override
   String? get message;
   @override

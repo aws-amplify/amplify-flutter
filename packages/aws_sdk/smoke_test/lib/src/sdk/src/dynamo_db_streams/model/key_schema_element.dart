@@ -49,9 +49,6 @@ abstract class KeySchemaElement
     KeySchemaElementAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(KeySchemaElementBuilder b) {}
-
   /// The name of a key attribute.
   String get attributeName;
 

@@ -50,10 +50,6 @@ abstract class DescribeAggregateComplianceByConfigRulesResponse
     DescribeAggregateComplianceByConfigRulesResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      DescribeAggregateComplianceByConfigRulesResponseBuilder b) {}
-
   /// Returns a list of AggregateComplianceByConfigRule object.
   _i3.BuiltList<_i2.AggregateComplianceByConfigRule>?
       get aggregateComplianceByConfigRules;

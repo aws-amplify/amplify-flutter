@@ -65,9 +65,7 @@ class ChangeBuilder implements Builder<Change, ChangeBuilder> {
   set resourceChange(_i3.ResourceChangeBuilder? resourceChange) =>
       _$this._resourceChange = resourceChange;
 
-  ChangeBuilder() {
-    Change._init(this);
-  }
+  ChangeBuilder();
 
   ChangeBuilder get _$this {
     final $v = _$v;

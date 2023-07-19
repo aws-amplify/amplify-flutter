@@ -51,9 +51,6 @@ abstract class BatchGetResourceConfigResponse
   static const List<_i5.SmithySerializer<BatchGetResourceConfigResponse>>
       serializers = [BatchGetResourceConfigResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchGetResourceConfigResponseBuilder b) {}
-
   /// A list that contains the current configuration of one or more resources.
   _i4.BuiltList<_i2.BaseConfigurationItem>? get baseConfigurationItems;
 

@@ -42,9 +42,6 @@ abstract class InAppMessage
     InAppMessageRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InAppMessageBuilder b) {}
-
   /// In-app message content.
   _i4.BuiltList<_i2.InAppMessageContent>? get content;
 

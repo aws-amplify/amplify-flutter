@@ -67,9 +67,6 @@ abstract class DeleteIntegrationResponseRequest
           _i1.SmithySerializer<DeleteIntegrationResponseRequestPayload>>
       serializers = [DeleteIntegrationResponseRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteIntegrationResponseRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -147,8 +144,6 @@ abstract class DeleteIntegrationResponseRequestPayload
 
   const DeleteIntegrationResponseRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteIntegrationResponseRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

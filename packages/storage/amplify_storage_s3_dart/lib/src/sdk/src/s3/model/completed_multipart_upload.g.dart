@@ -50,9 +50,7 @@ class CompletedMultipartUploadBuilder
       _$this._parts ??= new _i3.ListBuilder<_i2.CompletedPart>();
   set parts(_i3.ListBuilder<_i2.CompletedPart>? parts) => _$this._parts = parts;
 
-  CompletedMultipartUploadBuilder() {
-    CompletedMultipartUpload._init(this);
-  }
+  CompletedMultipartUploadBuilder();
 
   CompletedMultipartUploadBuilder get _$this {
     final $v = _$v;

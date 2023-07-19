@@ -39,9 +39,6 @@ abstract class EventFeedbackType
     EventFeedbackTypeAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventFeedbackTypeBuilder b) {}
-
   /// The event feedback value.
   _i2.FeedbackValueType get feedbackValue;
 

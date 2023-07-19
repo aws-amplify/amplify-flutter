@@ -48,9 +48,7 @@ class HttpResponseCodeOutputBuilder
   int? get status => _$this._status;
   set status(int? status) => _$this._status = status;
 
-  HttpResponseCodeOutputBuilder() {
-    HttpResponseCodeOutput._init(this);
-  }
+  HttpResponseCodeOutputBuilder();
 
   HttpResponseCodeOutputBuilder get _$this {
     final $v = _$v;
@@ -116,9 +114,7 @@ class HttpResponseCodeOutputPayloadBuilder
             HttpResponseCodeOutputPayloadBuilder> {
   _$HttpResponseCodeOutputPayload? _$v;
 
-  HttpResponseCodeOutputPayloadBuilder() {
-    HttpResponseCodeOutputPayload._init(this);
-  }
+  HttpResponseCodeOutputPayloadBuilder();
 
   @override
   void replace(HttpResponseCodeOutputPayload other) {

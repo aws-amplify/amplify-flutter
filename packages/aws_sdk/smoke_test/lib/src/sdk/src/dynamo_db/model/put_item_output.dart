@@ -51,9 +51,6 @@ abstract class PutItemOutput
     PutItemOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutItemOutputBuilder b) {}
-
   /// The attribute values as they appeared before the `PutItem` operation, but only if `ReturnValues` is specified as `ALL_OLD` in the request. Each element consists of an attribute name and an attribute value.
   _i5.BuiltMap<String, _i2.AttributeValue>? get attributes;
 

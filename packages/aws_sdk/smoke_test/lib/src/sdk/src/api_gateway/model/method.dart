@@ -68,9 +68,6 @@ abstract class Method
     MethodRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MethodBuilder b) {}
-
   /// The method's HTTP verb.
   String? get httpMethod;
 

@@ -37,9 +37,6 @@ abstract class DeleteServiceLinkedRoleRequest
   static const List<_i1.SmithySerializer<DeleteServiceLinkedRoleRequest>>
       serializers = [DeleteServiceLinkedRoleRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteServiceLinkedRoleRequestBuilder b) {}
-
   /// The name of the service-linked role to be deleted.
   String get roleName;
   @override

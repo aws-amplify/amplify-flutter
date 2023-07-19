@@ -155,9 +155,7 @@ class ChangeSetSummaryBuilder
   set rootChangeSetId(String? rootChangeSetId) =>
       _$this._rootChangeSetId = rootChangeSetId;
 
-  ChangeSetSummaryBuilder() {
-    ChangeSetSummary._init(this);
-  }
+  ChangeSetSummaryBuilder();
 
   ChangeSetSummaryBuilder get _$this {
     final $v = _$v;

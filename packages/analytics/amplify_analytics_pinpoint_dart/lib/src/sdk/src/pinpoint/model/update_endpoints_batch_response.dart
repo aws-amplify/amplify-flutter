@@ -42,9 +42,6 @@ abstract class UpdateEndpointsBatchResponse
     UpdateEndpointsBatchResponseRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateEndpointsBatchResponseBuilder b) {}
-
   /// Provides information about an API request or response.
   _i3.MessageBody get messageBody;
   @override

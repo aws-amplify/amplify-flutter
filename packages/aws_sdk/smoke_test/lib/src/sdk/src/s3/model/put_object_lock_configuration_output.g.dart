@@ -53,9 +53,7 @@ class PutObjectLockConfigurationOutputBuilder
   set requestCharged(_i3.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  PutObjectLockConfigurationOutputBuilder() {
-    PutObjectLockConfigurationOutput._init(this);
-  }
+  PutObjectLockConfigurationOutputBuilder();
 
   PutObjectLockConfigurationOutputBuilder get _$this {
     final $v = _$v;
@@ -127,9 +125,7 @@ class PutObjectLockConfigurationOutputPayloadBuilder
             PutObjectLockConfigurationOutputPayloadBuilder> {
   _$PutObjectLockConfigurationOutputPayload? _$v;
 
-  PutObjectLockConfigurationOutputPayloadBuilder() {
-    PutObjectLockConfigurationOutputPayload._init(this);
-  }
+  PutObjectLockConfigurationOutputPayloadBuilder();
 
   @override
   void replace(PutObjectLockConfigurationOutputPayload other) {

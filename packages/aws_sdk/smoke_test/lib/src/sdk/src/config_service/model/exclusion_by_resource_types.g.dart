@@ -52,9 +52,7 @@ class ExclusionByResourceTypesBuilder
   set resourceTypes(_i3.ListBuilder<_i2.ResourceType>? resourceTypes) =>
       _$this._resourceTypes = resourceTypes;
 
-  ExclusionByResourceTypesBuilder() {
-    ExclusionByResourceTypes._init(this);
-  }
+  ExclusionByResourceTypesBuilder();
 
   ExclusionByResourceTypesBuilder get _$this {
     final $v = _$v;

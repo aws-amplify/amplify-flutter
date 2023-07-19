@@ -82,9 +82,7 @@ class ExpectedAttributeValueBuilder
           _i4.ListBuilder<_i2.AttributeValue>? attributeValueList) =>
       _$this._attributeValueList = attributeValueList;
 
-  ExpectedAttributeValueBuilder() {
-    ExpectedAttributeValue._init(this);
-  }
+  ExpectedAttributeValueBuilder();
 
   ExpectedAttributeValueBuilder get _$this {
     final $v = _$v;

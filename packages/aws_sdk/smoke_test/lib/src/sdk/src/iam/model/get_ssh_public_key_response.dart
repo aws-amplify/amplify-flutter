@@ -37,9 +37,6 @@ abstract class GetSshPublicKeyResponse
   static const List<_i3.SmithySerializer<GetSshPublicKeyResponse>> serializers =
       [GetSshPublicKeyResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSshPublicKeyResponseBuilder b) {}
-
   /// A structure containing details about the SSH public key.
   _i2.SshPublicKey? get sshPublicKey;
   @override

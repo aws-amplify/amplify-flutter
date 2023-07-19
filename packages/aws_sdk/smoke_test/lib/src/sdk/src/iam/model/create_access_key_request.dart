@@ -35,9 +35,6 @@ abstract class CreateAccessKeyRequest
   static const List<_i1.SmithySerializer<CreateAccessKeyRequest>> serializers =
       [CreateAccessKeyRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateAccessKeyRequestBuilder b) {}
-
   /// The name of the IAM user that the new key will belong to.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

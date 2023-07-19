@@ -60,9 +60,7 @@ class GetContextKeysForCustomPolicyRequestBuilder
   set policyInputList(_i3.ListBuilder<String>? policyInputList) =>
       _$this._policyInputList = policyInputList;
 
-  GetContextKeysForCustomPolicyRequestBuilder() {
-    GetContextKeysForCustomPolicyRequest._init(this);
-  }
+  GetContextKeysForCustomPolicyRequestBuilder();
 
   GetContextKeysForCustomPolicyRequestBuilder get _$this {
     final $v = _$v;

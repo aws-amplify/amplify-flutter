@@ -57,8 +57,6 @@ abstract class JsonIntEnumsInputOutput
   static const List<_i1.SmithySerializer<JsonIntEnumsInputOutput>> serializers =
       [JsonIntEnumsInputOutputAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonIntEnumsInputOutputBuilder b) {}
   int? get intEnum1;
   int? get intEnum2;
   int? get intEnum3;

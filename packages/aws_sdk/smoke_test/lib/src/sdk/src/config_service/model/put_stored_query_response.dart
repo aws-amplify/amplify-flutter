@@ -33,9 +33,6 @@ abstract class PutStoredQueryResponse
   static const List<_i2.SmithySerializer<PutStoredQueryResponse>> serializers =
       [PutStoredQueryResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutStoredQueryResponseBuilder b) {}
-
   /// Amazon Resource Name (ARN) of the query. For example, arn:partition:service:region:account-id:resource-type/resource-name/resource-id.
   String? get queryArn;
   @override

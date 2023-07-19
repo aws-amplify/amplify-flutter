@@ -84,9 +84,7 @@ class ExecuteChangeSetInputBuilder
   set disableRollback(bool? disableRollback) =>
       _$this._disableRollback = disableRollback;
 
-  ExecuteChangeSetInputBuilder() {
-    ExecuteChangeSetInput._init(this);
-  }
+  ExecuteChangeSetInputBuilder();
 
   ExecuteChangeSetInputBuilder get _$this {
     final $v = _$v;

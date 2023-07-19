@@ -55,9 +55,7 @@ class CreateLoginProfileResponseBuilder
   set loginProfile(_i2.LoginProfileBuilder? loginProfile) =>
       _$this._loginProfile = loginProfile;
 
-  CreateLoginProfileResponseBuilder() {
-    CreateLoginProfileResponse._init(this);
-  }
+  CreateLoginProfileResponseBuilder();
 
   CreateLoginProfileResponseBuilder get _$this {
     final $v = _$v;

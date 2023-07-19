@@ -69,9 +69,7 @@ class S3BucketSourceBuilder
   String? get s3KeyPrefix => _$this._s3KeyPrefix;
   set s3KeyPrefix(String? s3KeyPrefix) => _$this._s3KeyPrefix = s3KeyPrefix;
 
-  S3BucketSourceBuilder() {
-    S3BucketSource._init(this);
-  }
+  S3BucketSourceBuilder();
 
   S3BucketSourceBuilder get _$this {
     final $v = _$v;

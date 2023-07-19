@@ -75,9 +75,7 @@ class RemoveClientIdFromOpenIdConnectProviderRequestBuilder
   String? get clientId => _$this._clientId;
   set clientId(String? clientId) => _$this._clientId = clientId;
 
-  RemoveClientIdFromOpenIdConnectProviderRequestBuilder() {
-    RemoveClientIdFromOpenIdConnectProviderRequest._init(this);
-  }
+  RemoveClientIdFromOpenIdConnectProviderRequestBuilder();
 
   RemoveClientIdFromOpenIdConnectProviderRequestBuilder get _$this {
     final $v = _$v;

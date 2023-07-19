@@ -41,9 +41,6 @@ abstract class FailedRemediationExceptionBatch
   static const List<_i4.SmithySerializer<FailedRemediationExceptionBatch>>
       serializers = [FailedRemediationExceptionBatchAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FailedRemediationExceptionBatchBuilder b) {}
-
   /// Returns a failure message. For example, the auto-remediation has failed.
   String? get failureMessage;
 

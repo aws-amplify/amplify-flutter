@@ -29,9 +29,6 @@ abstract class FieldInfo
     FieldInfoAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FieldInfoBuilder b) {}
-
   /// Name of the field.
   String? get name;
   @override

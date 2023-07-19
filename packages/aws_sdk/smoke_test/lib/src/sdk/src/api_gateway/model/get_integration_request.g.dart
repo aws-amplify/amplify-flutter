@@ -76,9 +76,7 @@ class GetIntegrationRequestBuilder
   String? get httpMethod => _$this._httpMethod;
   set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
 
-  GetIntegrationRequestBuilder() {
-    GetIntegrationRequest._init(this);
-  }
+  GetIntegrationRequestBuilder();
 
   GetIntegrationRequestBuilder get _$this {
     final $v = _$v;
@@ -153,9 +151,7 @@ class GetIntegrationRequestPayloadBuilder
             GetIntegrationRequestPayloadBuilder> {
   _$GetIntegrationRequestPayload? _$v;
 
-  GetIntegrationRequestPayloadBuilder() {
-    GetIntegrationRequestPayload._init(this);
-  }
+  GetIntegrationRequestPayloadBuilder();
 
   @override
   void replace(GetIntegrationRequestPayload other) {

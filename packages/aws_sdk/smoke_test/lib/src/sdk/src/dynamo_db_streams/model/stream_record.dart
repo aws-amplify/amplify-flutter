@@ -51,9 +51,6 @@ abstract class StreamRecord
     StreamRecordAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StreamRecordBuilder b) {}
-
   /// The approximate date and time when the stream record was created, in [UNIX epoch time](http://www.epochconverter.com/) format and rounded down to the closest second.
   DateTime? get approximateCreationDateTime;
 

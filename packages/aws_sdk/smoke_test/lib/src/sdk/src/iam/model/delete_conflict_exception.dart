@@ -40,8 +40,6 @@ abstract class DeleteConflictException
   static const List<_i2.SmithySerializer<DeleteConflictException>> serializers =
       [DeleteConflictExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteConflictExceptionBuilder b) {}
   @override
   String? get message;
   @override

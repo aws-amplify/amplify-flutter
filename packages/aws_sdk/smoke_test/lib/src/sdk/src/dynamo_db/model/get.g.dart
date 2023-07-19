@@ -82,9 +82,7 @@ class GetBuilder implements Builder<Get, GetBuilder> {
           _i3.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
-  GetBuilder() {
-    Get._init(this);
-  }
+  GetBuilder();
 
   GetBuilder get _$this {
     final $v = _$v;

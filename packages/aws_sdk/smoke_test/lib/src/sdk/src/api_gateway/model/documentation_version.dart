@@ -45,9 +45,6 @@ abstract class DocumentationVersion
     DocumentationVersionRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DocumentationVersionBuilder b) {}
-
   /// The version identifier of the API documentation snapshot.
   String? get version;
 

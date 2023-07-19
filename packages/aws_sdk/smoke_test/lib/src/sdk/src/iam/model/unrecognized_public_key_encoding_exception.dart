@@ -45,8 +45,6 @@ abstract class UnrecognizedPublicKeyEncodingException
     UnrecognizedPublicKeyEncodingExceptionAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UnrecognizedPublicKeyEncodingExceptionBuilder b) {}
   @override
   String? get message;
   @override

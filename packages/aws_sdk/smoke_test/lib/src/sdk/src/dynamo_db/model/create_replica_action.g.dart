@@ -51,9 +51,7 @@ class CreateReplicaActionBuilder
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  CreateReplicaActionBuilder() {
-    CreateReplicaAction._init(this);
-  }
+  CreateReplicaActionBuilder();
 
   CreateReplicaActionBuilder get _$this {
     final $v = _$v;

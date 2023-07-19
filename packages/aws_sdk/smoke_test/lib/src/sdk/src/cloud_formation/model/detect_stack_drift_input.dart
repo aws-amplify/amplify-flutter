@@ -44,9 +44,6 @@ abstract class DetectStackDriftInput
     DetectStackDriftInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DetectStackDriftInputBuilder b) {}
-
   /// The name of the stack for which you want to detect drift.
   String get stackName;
 

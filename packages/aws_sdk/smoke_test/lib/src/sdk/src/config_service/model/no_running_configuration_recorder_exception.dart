@@ -46,9 +46,6 @@ abstract class NoRunningConfigurationRecorderException
     NoRunningConfigurationRecorderExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoRunningConfigurationRecorderExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

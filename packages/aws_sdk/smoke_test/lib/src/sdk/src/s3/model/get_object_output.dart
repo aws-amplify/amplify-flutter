@@ -113,7 +113,7 @@ abstract class GetObjectOutput
 
   /// Constructs a [GetObjectOutput] from a [payload] and [response].
   factory GetObjectOutput.fromResponse(
-    _i3.Stream<List<int>>? payload,
+    _i3.Stream<List<int>> payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetObjectOutput.build((b) {
@@ -259,8 +259,9 @@ abstract class GetObjectOutput
                 )));
       });
 
-  static const List<_i2.SmithySerializer<_i3.Stream<List<int>>?>> serializers =
-      [GetObjectOutputRestXmlSerializer()];
+  static const List<_i2.SmithySerializer<_i3.Stream<List<int>>>> serializers = [
+    GetObjectOutputRestXmlSerializer()
+  ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectOutputBuilder b) {
@@ -268,7 +269,7 @@ abstract class GetObjectOutput
   }
 
   /// Object data.
-  _i3.Stream<List<int>>? get body;
+  _i3.Stream<List<int>> get body;
 
   /// Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header does not appear in the response.
   bool? get deleteMarker;
@@ -375,7 +376,7 @@ abstract class GetObjectOutput
   /// Indicates whether this object has an active legal hold. This field is only returned if you have permission to view an object's legal hold status.
   _i10.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus;
   @override
-  _i3.Stream<List<int>>? getPayload() => body;
+  _i3.Stream<List<int>> getPayload() => body;
   @override
   List<Object?> get props => [
         body,

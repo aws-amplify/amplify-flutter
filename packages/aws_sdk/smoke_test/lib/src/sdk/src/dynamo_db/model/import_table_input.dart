@@ -31,9 +31,6 @@ abstract class ImportTableInput
     _i6.InputCompressionType? inputCompressionType,
     required _i7.TableCreationParameters tableCreationParameters,
   }) {
-    clientToken ??= const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
     return _$ImportTableInput._(
       clientToken: clientToken,
       s3BucketSource: s3BucketSource,

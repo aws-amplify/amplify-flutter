@@ -57,9 +57,7 @@ class CreateChangeSetOutputBuilder
   String? get stackId => _$this._stackId;
   set stackId(String? stackId) => _$this._stackId = stackId;
 
-  CreateChangeSetOutputBuilder() {
-    CreateChangeSetOutput._init(this);
-  }
+  CreateChangeSetOutputBuilder();
 
   CreateChangeSetOutputBuilder get _$this {
     final $v = _$v;

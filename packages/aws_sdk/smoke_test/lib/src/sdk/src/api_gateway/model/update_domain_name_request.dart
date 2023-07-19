@@ -58,9 +58,6 @@ abstract class UpdateDomainNameRequest
   static const List<_i1.SmithySerializer<UpdateDomainNameRequestPayload>>
       serializers = [UpdateDomainNameRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateDomainNameRequestBuilder b) {}
-
   /// The name of the DomainName resource to be changed.
   String get domainName;
 
@@ -117,9 +114,6 @@ abstract class UpdateDomainNameRequestPayload
       _$UpdateDomainNameRequestPayload;
 
   const UpdateDomainNameRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateDomainNameRequestPayloadBuilder b) {}
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;

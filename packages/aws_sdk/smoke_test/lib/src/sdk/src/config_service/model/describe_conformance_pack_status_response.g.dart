@@ -73,9 +73,7 @@ class DescribeConformancePackStatusResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeConformancePackStatusResponseBuilder() {
-    DescribeConformancePackStatusResponse._init(this);
-  }
+  DescribeConformancePackStatusResponseBuilder();
 
   DescribeConformancePackStatusResponseBuilder get _$this {
     final $v = _$v;

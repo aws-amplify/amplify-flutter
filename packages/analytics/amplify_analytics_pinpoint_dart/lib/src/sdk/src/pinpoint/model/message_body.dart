@@ -35,9 +35,6 @@ abstract class MessageBody
     MessageBodyRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MessageBodyBuilder b) {}
-
   /// The message that's returned from the API.
   String? get message;
 

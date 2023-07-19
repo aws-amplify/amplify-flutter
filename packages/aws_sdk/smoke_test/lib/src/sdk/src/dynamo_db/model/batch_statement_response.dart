@@ -42,9 +42,6 @@ abstract class BatchStatementResponse
   static const List<_i5.SmithySerializer<BatchStatementResponse>> serializers =
       [BatchStatementResponseAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchStatementResponseBuilder b) {}
-
   /// The error associated with a failed PartiQL batch statement.
   _i2.BatchStatementError? get error;
 

@@ -56,9 +56,6 @@ abstract class ReplicationRuleAndOperator
   static const List<_i4.SmithySerializer<ReplicationRuleAndOperator>>
       serializers = [ReplicationRuleAndOperatorRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicationRuleAndOperatorBuilder b) {}
-
   /// An object key name prefix that identifies the subset of objects to which the rule applies.
   String? get prefix;
 

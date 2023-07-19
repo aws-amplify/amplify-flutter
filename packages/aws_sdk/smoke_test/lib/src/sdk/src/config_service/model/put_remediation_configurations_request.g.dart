@@ -64,9 +64,7 @@ class PutRemediationConfigurationsRequestBuilder
               remediationConfigurations) =>
       _$this._remediationConfigurations = remediationConfigurations;
 
-  PutRemediationConfigurationsRequestBuilder() {
-    PutRemediationConfigurationsRequest._init(this);
-  }
+  PutRemediationConfigurationsRequestBuilder();
 
   PutRemediationConfigurationsRequestBuilder get _$this {
     final $v = _$v;

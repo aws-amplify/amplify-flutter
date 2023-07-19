@@ -41,9 +41,7 @@ class ActivateOrganizationsAccessInputBuilder
             ActivateOrganizationsAccessInputBuilder> {
   _$ActivateOrganizationsAccessInput? _$v;
 
-  ActivateOrganizationsAccessInputBuilder() {
-    ActivateOrganizationsAccessInput._init(this);
-  }
+  ActivateOrganizationsAccessInputBuilder();
 
   @override
   void replace(ActivateOrganizationsAccessInput other) {

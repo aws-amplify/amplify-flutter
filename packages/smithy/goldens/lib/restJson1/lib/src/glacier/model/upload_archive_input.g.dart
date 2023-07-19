@@ -93,9 +93,7 @@ class UploadArchiveInputBuilder
   _i2.Stream<List<int>>? get body => _$this._body;
   set body(_i2.Stream<List<int>>? body) => _$this._body = body;
 
-  UploadArchiveInputBuilder() {
-    UploadArchiveInput._init(this);
-  }
+  UploadArchiveInputBuilder();
 
   UploadArchiveInputBuilder get _$this {
     final $v = _$v;

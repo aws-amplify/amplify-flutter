@@ -62,9 +62,6 @@ abstract class AssumeRoleRequest
     AssumeRoleRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AssumeRoleRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the role to assume.
   String get roleArn;
 

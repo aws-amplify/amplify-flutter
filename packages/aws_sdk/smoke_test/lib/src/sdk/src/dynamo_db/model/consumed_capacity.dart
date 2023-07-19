@@ -51,9 +51,6 @@ abstract class ConsumedCapacity
     ConsumedCapacityAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConsumedCapacityBuilder b) {}
-
   /// The name of the table that was affected by the operation.
   String? get tableName;
 

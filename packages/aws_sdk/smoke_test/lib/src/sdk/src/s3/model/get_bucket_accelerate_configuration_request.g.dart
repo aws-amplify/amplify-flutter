@@ -78,9 +78,7 @@ class GetBucketAccelerateConfigurationRequestBuilder
   set requestPayer(_i3.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
-  GetBucketAccelerateConfigurationRequestBuilder() {
-    GetBucketAccelerateConfigurationRequest._init(this);
-  }
+  GetBucketAccelerateConfigurationRequestBuilder();
 
   GetBucketAccelerateConfigurationRequestBuilder get _$this {
     final $v = _$v;
@@ -160,9 +158,7 @@ class GetBucketAccelerateConfigurationRequestPayloadBuilder
             GetBucketAccelerateConfigurationRequestPayloadBuilder> {
   _$GetBucketAccelerateConfigurationRequestPayload? _$v;
 
-  GetBucketAccelerateConfigurationRequestPayloadBuilder() {
-    GetBucketAccelerateConfigurationRequestPayload._init(this);
-  }
+  GetBucketAccelerateConfigurationRequestPayloadBuilder();
 
   @override
   void replace(GetBucketAccelerateConfigurationRequestPayload other) {

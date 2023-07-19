@@ -59,10 +59,6 @@ abstract class DeleteBucketIntelligentTieringConfigurationRequest
     DeleteBucketIntelligentTieringConfigurationRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      DeleteBucketIntelligentTieringConfigurationRequestBuilder b) {}
-
   /// The name of the Amazon S3 bucket whose configuration you want to modify or retrieve.
   String get bucket;
 
@@ -120,9 +116,6 @@ abstract class DeleteBucketIntelligentTieringConfigurationRequestPayload
 
   const DeleteBucketIntelligentTieringConfigurationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      DeleteBucketIntelligentTieringConfigurationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

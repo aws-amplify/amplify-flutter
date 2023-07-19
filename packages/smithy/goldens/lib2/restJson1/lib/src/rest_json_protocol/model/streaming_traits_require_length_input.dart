@@ -38,7 +38,7 @@ abstract class StreamingTraitsRequireLengthInput
   const StreamingTraitsRequireLengthInput._();
 
   factory StreamingTraitsRequireLengthInput.fromRequest(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
@@ -49,8 +49,9 @@ abstract class StreamingTraitsRequireLengthInput
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
-      [StreamingTraitsRequireLengthInputRestJson1Serializer()];
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
+    StreamingTraitsRequireLengthInputRestJson1Serializer()
+  ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StreamingTraitsRequireLengthInputBuilder b) {
@@ -58,9 +59,9 @@ abstract class StreamingTraitsRequireLengthInput
   }
 
   String? get foo;
-  _i2.Stream<List<int>>? get blob;
+  _i2.Stream<List<int>> get blob;
   @override
-  _i2.Stream<List<int>>? getPayload() => blob;
+  _i2.Stream<List<int>> getPayload() => blob;
   @override
   List<Object?> get props => [
         foo,

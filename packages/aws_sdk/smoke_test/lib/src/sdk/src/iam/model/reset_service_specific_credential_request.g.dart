@@ -72,9 +72,7 @@ class ResetServiceSpecificCredentialRequestBuilder
   set serviceSpecificCredentialId(String? serviceSpecificCredentialId) =>
       _$this._serviceSpecificCredentialId = serviceSpecificCredentialId;
 
-  ResetServiceSpecificCredentialRequestBuilder() {
-    ResetServiceSpecificCredentialRequest._init(this);
-  }
+  ResetServiceSpecificCredentialRequestBuilder();
 
   ResetServiceSpecificCredentialRequestBuilder get _$this {
     final $v = _$v;

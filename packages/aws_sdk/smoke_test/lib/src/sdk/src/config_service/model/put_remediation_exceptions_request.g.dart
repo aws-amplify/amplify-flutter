@@ -92,9 +92,7 @@ class PutRemediationExceptionsRequestBuilder
   set expirationTime(DateTime? expirationTime) =>
       _$this._expirationTime = expirationTime;
 
-  PutRemediationExceptionsRequestBuilder() {
-    PutRemediationExceptionsRequest._init(this);
-  }
+  PutRemediationExceptionsRequestBuilder();
 
   PutRemediationExceptionsRequestBuilder get _$this {
     final $v = _$v;

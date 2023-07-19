@@ -59,9 +59,7 @@ class UserPoolAddOnNotEnabledExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  UserPoolAddOnNotEnabledExceptionBuilder() {
-    UserPoolAddOnNotEnabledException._init(this);
-  }
+  UserPoolAddOnNotEnabledExceptionBuilder();
 
   UserPoolAddOnNotEnabledExceptionBuilder get _$this {
     final $v = _$v;

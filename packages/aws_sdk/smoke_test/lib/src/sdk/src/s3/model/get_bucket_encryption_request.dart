@@ -53,9 +53,6 @@ abstract class GetBucketEncryptionRequest
   static const List<_i1.SmithySerializer<GetBucketEncryptionRequestPayload>>
       serializers = [GetBucketEncryptionRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketEncryptionRequestBuilder b) {}
-
   /// The name of the bucket from which the server-side encryption configuration is retrieved.
   String get bucket;
 
@@ -110,8 +107,6 @@ abstract class GetBucketEncryptionRequestPayload
 
   const GetBucketEncryptionRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketEncryptionRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -41,9 +41,6 @@ abstract class ModuleInfo
     ModuleInfoAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ModuleInfoBuilder b) {}
-
   /// A concatenated list of the module type or types containing the resource. Module types are listed starting with the inner-most nested module, and separated by `/`.
   ///
   /// In the following example, the resource was created from a module of type `AWS::First::Example::MODULE`, that's nested inside a parent module of type `AWS::Second::Example::MODULE`.

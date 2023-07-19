@@ -43,9 +43,6 @@ abstract class SetDefaultPolicyVersionRequest
   static const List<_i1.SmithySerializer<SetDefaultPolicyVersionRequest>>
       serializers = [SetDefaultPolicyVersionRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SetDefaultPolicyVersionRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the IAM policy whose default version you want to set.
   ///
   /// For more information about ARNs, see [Amazon Resource Names (ARNs)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the _Amazon Web Services General Reference_.

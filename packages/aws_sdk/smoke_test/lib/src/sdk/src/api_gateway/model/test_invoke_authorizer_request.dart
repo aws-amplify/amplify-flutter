@@ -85,9 +85,6 @@ abstract class TestInvokeAuthorizerRequest
   static const List<_i1.SmithySerializer<TestInvokeAuthorizerRequestPayload>>
       serializers = [TestInvokeAuthorizerRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestInvokeAuthorizerRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -205,9 +202,6 @@ abstract class TestInvokeAuthorizerRequestPayload
       _$TestInvokeAuthorizerRequestPayload;
 
   const TestInvokeAuthorizerRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestInvokeAuthorizerRequestPayloadBuilder b) {}
 
   /// A key-value map of additional context variables.
   _i3.BuiltMap<String, String>? get additionalContext;

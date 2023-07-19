@@ -49,9 +49,7 @@ class DescribeTableOutputBuilder
       _$this._table ??= new _i2.TableDescriptionBuilder();
   set table(_i2.TableDescriptionBuilder? table) => _$this._table = table;
 
-  DescribeTableOutputBuilder() {
-    DescribeTableOutput._init(this);
-  }
+  DescribeTableOutputBuilder();
 
   DescribeTableOutputBuilder get _$this {
     final $v = _$v;

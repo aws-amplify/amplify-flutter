@@ -42,9 +42,6 @@ abstract class DeleteGroupPolicyRequest
   static const List<_i1.SmithySerializer<DeleteGroupPolicyRequest>>
       serializers = [DeleteGroupPolicyRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteGroupPolicyRequestBuilder b) {}
-
   /// The name (friendly name, not ARN) identifying the group that the policy is embedded in.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

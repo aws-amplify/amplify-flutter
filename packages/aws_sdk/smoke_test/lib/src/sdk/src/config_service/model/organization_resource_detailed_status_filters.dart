@@ -43,9 +43,6 @@ abstract class OrganizationResourceDetailedStatusFilters
     OrganizationResourceDetailedStatusFiltersAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationResourceDetailedStatusFiltersBuilder b) {}
-
   /// The 12-digit account ID of the member account within an organization.
   String? get accountId;
 

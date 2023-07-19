@@ -55,9 +55,7 @@ class KeyPairMismatchExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  KeyPairMismatchExceptionBuilder() {
-    KeyPairMismatchException._init(this);
-  }
+  KeyPairMismatchExceptionBuilder();
 
   KeyPairMismatchExceptionBuilder get _$this {
     final $v = _$v;

@@ -106,9 +106,7 @@ class ListTypesInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListTypesInputBuilder() {
-    ListTypesInput._init(this);
-  }
+  ListTypesInputBuilder();
 
   ListTypesInputBuilder get _$this {
     final $v = _$v;

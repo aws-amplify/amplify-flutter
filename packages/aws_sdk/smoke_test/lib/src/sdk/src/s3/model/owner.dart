@@ -34,9 +34,6 @@ abstract class Owner
     OwnerRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OwnerBuilder b) {}
-
   /// Container for the display name of the owner. This value is only supported in the following Amazon Web Services Regions:
   ///
   /// *   US East (N. Virginia)

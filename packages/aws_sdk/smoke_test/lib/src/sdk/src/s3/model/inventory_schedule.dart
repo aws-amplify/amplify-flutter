@@ -31,9 +31,6 @@ abstract class InventorySchedule
     InventoryScheduleRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InventoryScheduleBuilder b) {}
-
   /// Specifies how frequently inventory results are produced.
   _i2.InventoryFrequency get frequency;
   @override

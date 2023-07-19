@@ -68,9 +68,7 @@ class GetSessionTokenRequestBuilder
   String? get tokenCode => _$this._tokenCode;
   set tokenCode(String? tokenCode) => _$this._tokenCode = tokenCode;
 
-  GetSessionTokenRequestBuilder() {
-    GetSessionTokenRequest._init(this);
-  }
+  GetSessionTokenRequestBuilder();
 
   GetSessionTokenRequestBuilder get _$this {
     final $v = _$v;

@@ -52,9 +52,7 @@ class AccountLimitBuilder
   int? get value => _$this._value;
   set value(int? value) => _$this._value = value;
 
-  AccountLimitBuilder() {
-    AccountLimit._init(this);
-  }
+  AccountLimitBuilder();
 
   AccountLimitBuilder get _$this {
     final $v = _$v;

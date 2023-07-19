@@ -61,9 +61,7 @@ class HeadBucketRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  HeadBucketRequestBuilder() {
-    HeadBucketRequest._init(this);
-  }
+  HeadBucketRequestBuilder();
 
   HeadBucketRequestBuilder get _$this {
     final $v = _$v;
@@ -133,9 +131,7 @@ class HeadBucketRequestPayloadBuilder
         Builder<HeadBucketRequestPayload, HeadBucketRequestPayloadBuilder> {
   _$HeadBucketRequestPayload? _$v;
 
-  HeadBucketRequestPayloadBuilder() {
-    HeadBucketRequestPayload._init(this);
-  }
+  HeadBucketRequestPayloadBuilder();
 
   @override
   void replace(HeadBucketRequestPayload other) {

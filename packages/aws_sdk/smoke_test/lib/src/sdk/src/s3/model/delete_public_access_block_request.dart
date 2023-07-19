@@ -54,9 +54,6 @@ abstract class DeletePublicAccessBlockRequest
   static const List<_i1.SmithySerializer<DeletePublicAccessBlockRequestPayload>>
       serializers = [DeletePublicAccessBlockRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeletePublicAccessBlockRequestBuilder b) {}
-
   /// The Amazon S3 bucket whose `PublicAccessBlock` configuration you want to delete.
   String get bucket;
 
@@ -111,8 +108,6 @@ abstract class DeletePublicAccessBlockRequestPayload
 
   const DeletePublicAccessBlockRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeletePublicAccessBlockRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

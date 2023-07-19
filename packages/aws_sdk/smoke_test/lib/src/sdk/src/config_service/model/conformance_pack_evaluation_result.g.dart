@@ -107,9 +107,7 @@ class ConformancePackEvaluationResultBuilder
   String? get annotation => _$this._annotation;
   set annotation(String? annotation) => _$this._annotation = annotation;
 
-  ConformancePackEvaluationResultBuilder() {
-    ConformancePackEvaluationResult._init(this);
-  }
+  ConformancePackEvaluationResultBuilder();
 
   ConformancePackEvaluationResultBuilder get _$this {
     final $v = _$v;

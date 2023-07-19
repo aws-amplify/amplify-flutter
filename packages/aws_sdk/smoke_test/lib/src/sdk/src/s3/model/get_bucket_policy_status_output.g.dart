@@ -53,9 +53,7 @@ class GetBucketPolicyStatusOutputBuilder
   set policyStatus(_i3.PolicyStatusBuilder? policyStatus) =>
       _$this._policyStatus = policyStatus;
 
-  GetBucketPolicyStatusOutputBuilder() {
-    GetBucketPolicyStatusOutput._init(this);
-  }
+  GetBucketPolicyStatusOutputBuilder();
 
   GetBucketPolicyStatusOutputBuilder get _$this {
     final $v = _$v;

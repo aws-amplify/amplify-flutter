@@ -46,8 +46,6 @@ abstract class ResourceConcurrentModificationException
     ResourceConcurrentModificationExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceConcurrentModificationExceptionBuilder b) {}
   @override
   String? get message;
   @override

@@ -40,9 +40,6 @@ abstract class InvalidParameterException
   static const List<_i2.SmithySerializer<InvalidParameterException>>
       serializers = [InvalidParameterExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidParameterExceptionBuilder b) {}
-
   /// The message returned when the Amazon Cognito service throws an invalid parameter exception.
   @override
   String? get message;

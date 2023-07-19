@@ -54,8 +54,6 @@ abstract class NullOperationInputOutput
   static const List<_i1.SmithySerializer<NullOperationInputOutput>>
       serializers = [NullOperationInputOutputAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NullOperationInputOutputBuilder b) {}
   String? get string;
   _i3.BuiltList<String?>? get sparseStringList;
   _i3.BuiltMap<String, String?>? get sparseStringMap;

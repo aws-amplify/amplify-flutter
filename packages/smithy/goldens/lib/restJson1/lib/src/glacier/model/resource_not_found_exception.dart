@@ -45,8 +45,6 @@ abstract class ResourceNotFoundException
   static const List<_i2.SmithySerializer<ResourceNotFoundException>>
       serializers = [ResourceNotFoundExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceNotFoundExceptionBuilder b) {}
   String? get type;
   String? get code;
   @override

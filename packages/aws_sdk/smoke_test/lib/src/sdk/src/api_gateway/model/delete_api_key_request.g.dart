@@ -51,9 +51,7 @@ class DeleteApiKeyRequestBuilder
   String? get apiKey => _$this._apiKey;
   set apiKey(String? apiKey) => _$this._apiKey = apiKey;
 
-  DeleteApiKeyRequestBuilder() {
-    DeleteApiKeyRequest._init(this);
-  }
+  DeleteApiKeyRequestBuilder();
 
   DeleteApiKeyRequestBuilder get _$this {
     final $v = _$v;
@@ -121,9 +119,7 @@ class DeleteApiKeyRequestPayloadBuilder
         Builder<DeleteApiKeyRequestPayload, DeleteApiKeyRequestPayloadBuilder> {
   _$DeleteApiKeyRequestPayload? _$v;
 
-  DeleteApiKeyRequestPayloadBuilder() {
-    DeleteApiKeyRequestPayload._init(this);
-  }
+  DeleteApiKeyRequestPayloadBuilder();
 
   @override
   void replace(DeleteApiKeyRequestPayload other) {

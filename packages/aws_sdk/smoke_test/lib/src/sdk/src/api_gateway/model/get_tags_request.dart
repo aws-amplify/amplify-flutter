@@ -58,9 +58,6 @@ abstract class GetTagsRequest
     GetTagsRequestRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetTagsRequestBuilder b) {}
-
   /// The ARN of a resource that can be tagged.
   String get resourceArn;
 
@@ -120,8 +117,6 @@ abstract class GetTagsRequestPayload
 
   const GetTagsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetTagsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

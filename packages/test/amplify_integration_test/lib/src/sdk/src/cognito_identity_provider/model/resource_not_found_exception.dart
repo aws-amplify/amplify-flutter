@@ -40,9 +40,6 @@ abstract class ResourceNotFoundException
   static const List<_i2.SmithySerializer<ResourceNotFoundException>>
       serializers = [ResourceNotFoundExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceNotFoundExceptionBuilder b) {}
-
   /// The message returned when the Amazon Cognito service returns a resource not found exception.
   @override
   String? get message;

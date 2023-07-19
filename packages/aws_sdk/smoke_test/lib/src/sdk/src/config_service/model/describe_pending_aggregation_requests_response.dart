@@ -50,9 +50,6 @@ abstract class DescribePendingAggregationRequestsResponse
     DescribePendingAggregationRequestsResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribePendingAggregationRequestsResponseBuilder b) {}
-
   /// Returns a PendingAggregationRequests object.
   _i3.BuiltList<_i2.PendingAggregationRequest>? get pendingAggregationRequests;
 

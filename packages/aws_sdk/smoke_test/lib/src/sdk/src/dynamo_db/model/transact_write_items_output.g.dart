@@ -70,9 +70,7 @@ class TransactWriteItemsOutputBuilder
               itemCollectionMetrics) =>
       _$this._itemCollectionMetrics = itemCollectionMetrics;
 
-  TransactWriteItemsOutputBuilder() {
-    TransactWriteItemsOutput._init(this);
-  }
+  TransactWriteItemsOutputBuilder();
 
   TransactWriteItemsOutputBuilder get _$this {
     final $v = _$v;

@@ -41,8 +41,6 @@ abstract class ExportNotFoundException
   static const List<_i2.SmithySerializer<ExportNotFoundException>> serializers =
       [ExportNotFoundExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExportNotFoundExceptionBuilder b) {}
   @override
   String? get message;
   @override

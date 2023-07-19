@@ -46,9 +46,6 @@ abstract class LastDeliveryChannelDeleteFailedException
     LastDeliveryChannelDeleteFailedExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LastDeliveryChannelDeleteFailedExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

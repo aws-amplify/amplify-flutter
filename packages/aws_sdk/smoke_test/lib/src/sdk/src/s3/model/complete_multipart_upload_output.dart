@@ -106,9 +106,6 @@ abstract class CompleteMultipartUploadOutput
   static const List<_i2.SmithySerializer<CompleteMultipartUploadOutputPayload>>
       serializers = [CompleteMultipartUploadOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CompleteMultipartUploadOutputBuilder b) {}
-
   /// The URI that identifies the newly created object.
   String? get location;
 
@@ -258,9 +255,6 @@ abstract class CompleteMultipartUploadOutputPayload
           updates]) = _$CompleteMultipartUploadOutputPayload;
 
   const CompleteMultipartUploadOutputPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CompleteMultipartUploadOutputPayloadBuilder b) {}
 
   /// The name of the bucket that contains the newly created object. Does not return the access point ARN or access point alias if used.
   ///

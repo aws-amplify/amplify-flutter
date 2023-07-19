@@ -64,9 +64,7 @@ class StackDriftInformationBuilder
   set lastCheckTimestamp(DateTime? lastCheckTimestamp) =>
       _$this._lastCheckTimestamp = lastCheckTimestamp;
 
-  StackDriftInformationBuilder() {
-    StackDriftInformation._init(this);
-  }
+  StackDriftInformationBuilder();
 
   StackDriftInformationBuilder get _$this {
     final $v = _$v;
