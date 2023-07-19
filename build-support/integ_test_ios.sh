@@ -38,6 +38,8 @@ while [ $# -gt 0 ]; do
     shift
 done
 
+fvm use /tmp/flutter
+
 deviceId=${deviceId:-$DEFAULT_DEVICE_ID}
 enableCloudSync=${enableCloudSync:-$DEFAULT_ENABLE_CLOUD_SYNC}
 retries=${retries:-$DEFAULT_RETRIES}
@@ -53,7 +55,7 @@ if [ ! -e $TARGET ]; then
 fi
 
 if [ -n ${CI:-} ]; then
-    flutter pub upgrade
+    fvm flutter pub upgrade
 fi
 
 testsList+=("$TARGET")
@@ -61,7 +63,7 @@ testsList+=("$TARGET")
 n=0
 until [ "$n" -gt $retries ]
 do
-    if flutter test \
+    if fvm flutter test \
         --no-pub \
         -d $deviceId \
         $TARGET;
@@ -102,7 +104,7 @@ for ENTRY in $TEST_ENTRIES; do
     n=0
     until [ "$n" -gt $retries ]
     do
-        if flutter test \
+        if fvm flutter test \
               --no-pub \
               --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
               -d $deviceId \
