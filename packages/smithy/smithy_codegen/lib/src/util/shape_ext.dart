@@ -111,6 +111,37 @@ extension DartName on String {
 extension MemberShapeUtils on MemberShape {
   /// The name of this shape in a Dart struct.
   String dartName(ShapeType type) => memberName.camelCase.nameEscaped(type);
+
+  /// Whether `this` requires transformation in the factory constructor.
+  bool get requiresTransformation {
+    final symbol = context.symbolFor(target);
+    return symbol.requiresBuiltValueTransformation || symbol != friendlySymbol;
+  }
+
+  /// Transforms `built_collection` symbols to their `dart:core` counterpart,
+  /// e.g. BuiltList -> List, BuiltSet -> Set, etc for use in factory
+  /// constructors so that users do not need to concern themselves with built
+  /// types when constructing instances.
+  Reference get friendlySymbol {
+    final ref = context.symbolFor(target);
+    final overriddenCommonSymbol = context.overridesFor(this)?.friendlySymbol;
+    return overriddenCommonSymbol ?? ref.coreFriendlySymbol;
+  }
+
+  /// Recursively converts `dart:core` types like lists, maps, and sets into the
+  /// built value types expected by constructors.
+  Expression transformFromFriendly({required String name, bool? isNullable}) {
+    final typeRef = context.symbolFor(target).typeRef;
+    isNullable ??= typeRef.isNullable!;
+    if (context.symbolOverrideFor(this)
+        case ShapeOverrides(:final transformFromFriendly)) {
+      return transformFromFriendly(refer(name), isNullable: isNullable);
+    }
+    return typeRef.transformToBuiltValue(
+      name: name,
+      isNullable: isNullable,
+    );
+  }
 }
 
 extension ShapeUtils on Shape {
@@ -161,12 +192,20 @@ extension ShapeUtils on Shape {
       // Shapes which are part of a structure are always considered boxed
       // unless they are marked with the `@required` trait.
       case ShapeType.structure:
-        final targetShape = this is MemberShape
-            ? context.shapeFor((this as MemberShape).target)
-            : this;
-        final isBoxed = targetShape.isBoxed;
-        return isS3Primitive(context) ||
-            isNotRequired && (targetShape.hasDefaultValue ? isBoxed : true);
+        final targetShape = switch (context.smithyVersion) {
+          SmithyVersion.v1 => switch (this) {
+              final MemberShape member => context.shapeFor(member.target),
+              _ => this,
+            },
+          _ => () {
+              assert(
+                this is MemberShape,
+                'Null checks for structs should only happen on the member shape',
+              );
+              return this;
+            }(),
+        };
+        return isS3Primitive(context) || targetShape.isBoxed;
 
       // All but one value in a union is non-null. We represent all values
       // with nullable getters, though.
@@ -261,75 +300,94 @@ extension ShapeUtils on Shape {
   }
 
   /// The default value of this shape when not boxed.
-  Expression? defaultValue(CodegenContext context) {
+  (Expression, bool isConst)? defaultValue(CodegenContext context) {
     if (isBoxed) {
       return null;
     }
     if (isS3Primitive(context)) {
       return null;
     }
-    final targetShape = this is MemberShape
-        ? context.shapeFor((this as MemberShape).target)
-        : this;
+    final targetShape = switch (this) {
+      final MemberShape member => context.shapeFor(member.target),
+      _ => this,
+    };
     final defaultTrait =
         getTrait<DefaultTrait>() ?? targetShape.getTrait<DefaultTrait>();
     final defaultValue = defaultTrait?.value;
+    if (defaultValue == null) {
+      return null;
+    }
     switch (targetShape) {
       case StringShape _:
         assert(
-          defaultValue is String?,
-          'String shapes should only accept string values',
+          defaultValue is String,
+          'String shapes should only accept string default values',
         );
-        if (defaultValue is String) {
-          return literalString(defaultValue, raw: true);
-        }
-        return null;
+        return (literalString(defaultValue as String, raw: true), true);
       case final StringEnumShape targetShape:
         assert(
-          defaultValue is String?,
-          'Enum values should be strings in the Smithy IDL',
+          defaultValue is String,
+          'String enum shapes should only accept string default values',
         );
-        if (defaultValue is String) {
-          final enumValue = targetShape.enumValues.singleWhere(
-            (val) => val.expectTrait<EnumValueTrait>().value == defaultValue,
-            orElse: () => throw StateError(
-              'No ${targetShape.shapeId.shape} enum value found for $defaultValue',
-            ),
-          );
-          return context
+        final enumValue = targetShape.enumValues.singleWhere(
+          (val) => val.expectTrait<EnumValueTrait>().value == defaultValue,
+          orElse: () => throw StateError(
+            'No ${targetShape.shapeId.shape} enum value found for $defaultValue',
+          ),
+        );
+        return (
+          context
               .symbolFor(targetShape.shapeId)
-              .property(enumValue.enumVariantName);
-        }
-        return null;
+              .property(enumValue.enumVariantName),
+          true,
+        );
       case ByteShape _ || PrimitiveByteShape _:
       case ShortShape _ || PrimitiveShortShape _:
       case IntegerShape _ || PrimitiveIntegerShape _:
       case FloatShape _ || PrimitiveFloatShape _:
       case DoubleShape _ || PrimitiveDoubleShape _:
-        return literalNum(defaultValue as num? ?? 0);
+        assert(
+          defaultValue is num,
+          'Number shapes should only accept numeric default values',
+        );
+        return (literalNum(defaultValue as num), true);
       case LongShape _ || PrimitiveLongShape _:
-        return defaultValue == null || defaultValue == 0
-            ? DartTypes.fixNum.int64.property('ZERO')
-            : DartTypes.fixNum.int64.newInstance([
-                literalNum(defaultValue as int),
-              ]);
+        return defaultValue == 0
+            ? (DartTypes.fixNum.int64.property('ZERO'), true)
+            : (
+                DartTypes.fixNum.int64.newInstance([
+                  literalNum(defaultValue as int),
+                ]),
+                false,
+              );
       case BooleanShape _ || PrimitiveBooleanShape _:
-        return literalBool(defaultValue as bool? ?? false);
+        return (literalBool(defaultValue as bool), true);
       case BlobShape _:
-        if (defaultValue is! String) {
-          return null;
-        }
-        final encoded = utf8.encode(defaultValue);
+        assert(
+          defaultValue is String,
+          'Blob shapes should only accept string default values',
+        );
+        final encoded = utf8.encode(defaultValue as String);
         final encodedExp = literalConstList(encoded);
         if (!targetShape.isStreaming) {
-          return encodedExp;
+          return (encodedExp, true);
         }
         if (encoded.isEmpty) {
-          return DartTypes.async.stream().constInstanceNamed('empty', []);
+          return (
+            DartTypes.async.stream().constInstanceNamed('empty', []),
+            true,
+          );
         }
-        return DartTypes.async.stream().newInstanceNamed('value', [
-          encodedExp,
-        ]);
+        return (
+          DartTypes.async.stream().newInstanceNamed('value', [
+            encodedExp,
+          ]),
+          false,
+        );
+      case ListShape _:
+        return (literalConstList([]), true);
+      case MapShape _:
+        return (literalConstMap({}), true);
       default:
         return null;
     }
@@ -399,7 +457,7 @@ extension ShapeUtils on Shape {
 
   /// Whether the type generates a built_value builder.
   bool get hasNestedBuilder {
-    if (context.symbolOverrides.containsKey(shapeId)) {
+    if (context.shapeOverrides.containsKey(shapeId)) {
       // We can't assume these types are built_value types.
       return false;
     }

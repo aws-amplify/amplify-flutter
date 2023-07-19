@@ -19,7 +19,7 @@ void main() {
             builderSymbol: generator.payloadBuilderSymbol,
           );
           final emitter = buildEmitter(Allocator.none);
-          final output = method.accept(emitter).toString();
+          final output = method?.accept(emitter).toString();
           expect(output, contains('b.defaultValue = 0'));
         }
       });
