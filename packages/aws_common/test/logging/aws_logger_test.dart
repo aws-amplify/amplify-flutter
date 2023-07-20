@@ -19,6 +19,8 @@ class MockLoggerPlugin extends AWSLoggerPlugin {
   }
 }
 
+class MockLoggerPlugin2 extends MockLoggerPlugin {}
+
 void main() {
   final logRecords = {
     LogLevel.verbose: LogEntry(
@@ -97,7 +99,7 @@ void main() {
 
     test('Multiple LoggerPlugins register and unregister properly', () async {
       final loggerPlugin1 = MockLoggerPlugin();
-      final loggerPlugin2 = MockLoggerPlugin();
+      final loggerPlugin2 = MockLoggerPlugin2();
       final logger = AWSLogger()
         ..registerPlugin(loggerPlugin1)
         ..registerPlugin(loggerPlugin2)
@@ -219,6 +221,77 @@ void main() {
 
       expect(loggerPlugin.timesCalled, 5);
       expect(globalLoggerPlugin.timesCalled, 0);
+    });
+
+    test('getPlugin returns registered plugin in the logger hierarchy', () {
+      final plugin = MockLoggerPlugin();
+      final logger = AWSLogger()..registerPlugin(plugin);
+      expect(logger.getPlugin<MockLoggerPlugin>(), plugin);
+
+      final childLogger = logger.createChild('child');
+      expect(childLogger.getPlugin<MockLoggerPlugin>(), plugin);
+
+      logger.unregisterPlugin(plugin);
+      expect(logger.getPlugin<MockLoggerPlugin>(), isNull);
+      expect(childLogger.getPlugin<MockLoggerPlugin>(), isNull);
+
+      childLogger.registerPlugin(plugin);
+      expect(logger.getPlugin<MockLoggerPlugin>(), isNull);
+      expect(childLogger.getPlugin<MockLoggerPlugin>(), plugin);
+    });
+
+    test(
+        'registerPlugin handles registering one plugin per type'
+        ' in the logger hierarchy', () {
+      final plugin = MockLoggerPlugin();
+      final childLogger = AWSLogger()
+          .createChild('child')
+          .createChild('grandChild')
+          .createChild('grandGrandChild');
+      expect(() => childLogger.registerPlugin(plugin), returnsNormally);
+      expect(() => childLogger.registerPlugin(plugin), throwsStateError);
+      expect(() => AWSLogger().registerPlugin(plugin), throwsStateError);
+
+      final newPlugin = MockLoggerPlugin();
+      expect(() => AWSLogger().registerPlugin(newPlugin), throwsStateError);
+      expect(() => childLogger.registerPlugin(newPlugin), throwsStateError);
+
+      expect(() => childLogger.unregisterPlugin(plugin), returnsNormally);
+      expect(childLogger.getPlugin<MockLoggerPlugin>(), isNull);
+
+      expect(() => AWSLogger().registerPlugin(newPlugin), returnsNormally);
+      expect(() => childLogger.registerPlugin(newPlugin), throwsStateError);
+      expect(AWSLogger().getPlugin<MockLoggerPlugin>(), newPlugin);
+      expect(childLogger.getPlugin<MockLoggerPlugin>(), newPlugin);
+    });
+
+    group('registerPlugin allows registering plugins of same superclass', () {
+      test('can register to the root logger', () {
+        final logger = AWSLogger();
+        final plugin1 = MockLoggerPlugin();
+        final plugin2 = MockLoggerPlugin2();
+
+        expect(() => logger.registerPlugin(plugin2), returnsNormally);
+        expect(() => logger.registerPlugin(plugin1), returnsNormally);
+
+        expect(logger.getPlugin<MockLoggerPlugin>(), plugin1);
+        expect(logger.getPlugin<MockLoggerPlugin2>(), plugin2);
+      });
+
+      test('can register to the root logger and its child', () {
+        final logger = AWSLogger();
+        final plugin1 = MockLoggerPlugin();
+        final plugin2 = MockLoggerPlugin2();
+        final childLogger = logger.createChild('child');
+
+        expect(() => childLogger.registerPlugin(plugin2), returnsNormally);
+        expect(() => logger.registerPlugin(plugin1), returnsNormally);
+
+        expect(logger.getPlugin<MockLoggerPlugin>(), plugin1);
+        expect(logger.getPlugin<MockLoggerPlugin2>(), isNull);
+        expect(childLogger.getPlugin<MockLoggerPlugin>(), plugin1);
+        expect(childLogger.getPlugin<MockLoggerPlugin2>(), plugin2);
+      });
     });
   });
 }
