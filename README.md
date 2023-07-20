@@ -8,8 +8,11 @@ AWS Amplify provides a declarative and easy-to-use interface across different ca
 
 We are iterating and looking for feedback and collaboration, so please [**let us know your feedback**](https://github.com/aws-amplify/amplify-flutter/issues/5) on our direction and roadmap.
 
-- [Getting Started Guide](https://docs.amplify.aws/start/getting-started/setup/q/integration/flutter)
-- [Upgrade from v0](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/)
+[Getting Started Guide](https://docs.amplify.aws/start/getting-started/setup/q/integration/flutter)
+
+⚠️ **Amplify Flutter v0 is now in Maintenance Mode until July 19th, 2024. This means that we will continue to include updates to ensure compatibility with backend services and security. No new features will be introduced in v0.**
+
+Please use the latest version (v1) of Amplify Flutter. If you are currently using v0, follow [these instructions](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) to upgrade to v1.
 
 ## Supported Amplify Libraries
 
