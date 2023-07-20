@@ -84,7 +84,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-inline:5.2.0'
     testImplementation 'androidx.test:core:1.5.0'
     testImplementation 'com.google.code.gson:gson:2.8.9'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2'
 
     // Tests must be updated if bumped
     //noinspection GradleDependency
