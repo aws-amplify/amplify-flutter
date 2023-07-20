@@ -14,9 +14,11 @@ dependencies:
   amplify_flutter: any
   amplify_secure_storage: any
   amplify_storage_s3: any
+  file_picker: any
   flutter:
     sdk: flutter
   go_router: ^6.5.7
+  path_provider: any
 
 dev_dependencies:
   amplify_integration_test: any
