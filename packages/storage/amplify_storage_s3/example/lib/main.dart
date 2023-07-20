@@ -16,35 +16,24 @@ final AmplifyLogger _logger = AmplifyLogger('MyStorageApp');
 
 void main() {
   AmplifyLogger().logLevel = LogLevel.debug;
-  runApp(const MyApp());
+  runApp(
+    const MyApp(
+      title: 'Amplify Storage Example',
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key, required this.title});
 
   final String title;
 
+  // This widget is the root of your application.
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyAppState extends State<MyApp> {
   static final _router = GoRouter(
     routes: [
       GoRoute(
